@@ -1,0 +1,96 @@
+# include this makefile via include minilib/makefile
+
+
+UNAME := $(shell uname)
+
+$(info Architecture: ${UNAME} )
+
+ifeq ($(UNAME), Darwin)
+
+$(info Target: OSX)
+
+COMMONCFLAGS=-fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+
+ifdef MLIB
+		LDFLAGS=-static
+		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
+		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin
+else
+		LDFLAGS=
+		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
+		CFLAGS=$(COMMONCFLAGS) -DOSX
+endif
+
+else
+		#assuming Linux
+
+$(info Target: LINUX)
+	LDFLAGS=-T ld.script -nodefaultlibs --no-define-common --warn-section-align --gc-sections -static -n -s
+	#LDFLAGS=-T minilib/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
+	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -fno-builtin
+
+endif
+
+
+
+#lin
+#CFLAGS =-Os -Wall -nostdlib -nostdinc -fdata-sections -ffunction-sections -fno-builtin -static
+#CFLAGS=-Os -Wall -nodefaultlibs -fdata-sections -ffunction-sections -static -fno-builtin -fomit-frame-pointer
+
+
+#CFLAGS=-Wall -g -nodefaultlibs
+# -fomit-frame-pointer führt zu bugs.(?)
+#CFLAGS=-Os -Wall -nodefaultlibs -fdata-sections -ffunction-sections
+#CFLAGS=-Wall -nodefaultlibs
+
+#lin
+#LDFLAGS=-T minilib/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
+#LDFLAGS=-T ld.script3 -nodefaultlibs --warn-section-align --gc-sections -static -N -s
+#LDFLAGS=-T ld.script -nodefaultlibs --no-define-common --warn-section-align --gc-sections -static -n -s
+
+# --no-define-common schmeisst mbuf raus !??
+#  alle Optionen vergrößern den Speicherplatz aufs doppelte??
+#LDFLAGS=-g -nodefaultlibs
+
+
+
+LD=ld
+ifndef GCC
+GCC=gcc-8
+endif
+
+$(PROG): build/$(PROG).o build/minilib.o build/start.o
+	$(LD) $(LDFLAGS) -o $(PROG) build/$(PROG).o build/minilib.o build/start.o
+
+
+build/$(PROG).o: $(PROG).c
+	$(GCC) $(CFLAGS) -c -o build/$(PROG).o $(PROG).c
+
+
+
+
+build/minilib.o: minilib.c minilib.h build/start.o
+	cd minilib/asm && $(MAKE) 
+	$(GCC) $(CFLAGS) -c -o build/minilib.o minilib.c 
+
+
+	#todo: build start for linux
+build/start.o: minilib/asm/start-osx.S
+	$(GCC) $(CFLAGS) -c -o build/start.o minilib/asm/start-osx.S
+
+
+
+rebuild:
+	make clean
+	make
+
+clean:
+	rm build/*.o
+	cd minilib/asm && $(MAKE) clean
+
+
+
+
+
+
+

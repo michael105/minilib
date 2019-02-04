@@ -1,0 +1,11 @@
+SECTIONS {                                                                                                                                                    
+		/DISCARD/ : { 
+			*(.comment) 
+			*(.eh_frame)
+			*(.plt)
+			*(.got.plt)
+			*(.rel.plt)
+		}
+}
+INSERT AFTER .text
+

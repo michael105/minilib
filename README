@@ -1,0 +1,90 @@
+This is the miniature c linux systemcalls library.
+(C) Michael Scondo (micha105@gmail.com), 2012-2014, GPLv3.
+
+
+********************
+About
+********************
+
+Minilib evolved out of some assembler experiments,
+where I saw how tiny executables can be if not linked with glibc.
+With some more fiddling I got a C "Hello World!" program with 151 bytes,
+compiled and linked with the standard gcc makechain.
+This is more than 3,000 times less than a hello world program 
+linked statically with glibc,
+which shows up with 504kB on my system. (5.4kB linked dynamic)
+
+Just for fun, but this minilib also beats klibc, dietlib and musl 
+in the matter of hello world's size..
+musl: 7.6k
+klibc: 367
+dietlibc: 672
+
+
+
+Being in syscalls, linker scripts and gcc optimization hell,
+I realized that after I got over the fundamental problems adding 
+more standard c routines would be cheap.
+So I started to port some more little c tools to minilib,
+adding more functionality to minilib as well.
+
+Since I hate todays usual overhead in modern libraries,
+resulting in the unbelievable size of hundreds of Megabytes 
+for simple applications as well as minutes for just starting them up,
+I also tried to optimize functions like printf where sensible.
+
+You are able to customize the compilation of the library
+and define just only the functions you need.
+
+
+This whole project exaggerated out of fun.
+
+I decided to publish this anyway,
+since I hope this could be of some use and there's too much on 
+my harddisk lying around and dying.
+
+
+
+
+********************
+Development
+********************
+
+
+At the moment minilib is far of being complete,
+but especially adding more syscalls is easy.
+
+Look into include/lseek.h for examples.
+
+
+
+
+
+
+
+
+********************
+Usage
+********************
+
+
+include minilib.h in all sourcefiles, needing definitions from minilib.
+define in minilib.h all features needed.
+
+include minilib_implementation.c into a sourcefile
+(example given in minilib.c, you can also build and link to minilib.c)
+
+
+letztes makefile: in test-embutils.
+(probleme mit den flags...)
+
+
+include dateien: nach c standard.
+(können dann mit gcc -I... überschrieben werden,
+ohne Dateien zu verändern.)
+
+"Nutzer" Datei(en) einbinden lassen durch minilib.c (?)
+
+
+
+TODO: errno.h : set errno..
