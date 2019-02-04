@@ -8,6 +8,12 @@ Warning
 This library is more or less alpha.
 If you have no special interest in using it,
 better head for something like musl, dietlibc, klib, ...
+Just got this running on OSX (10.11, x64),
+enabling static linking for small tools.
+Ported it from linux 32bit, 
+so for the moment it's not sure
+it will compile at linux without a little bit of work.
+
 
 Happy hacking
 
