@@ -1,6 +1,5 @@
 TODO
 
 OSX
-Doesn't compile with xcode's gcc
-(compiles with hombrew's gcc)
+check optimization flags
 
