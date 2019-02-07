@@ -1,5 +1,8 @@
 # include this makefile via include minilib/makefile
 
+ifndef BUILDDIR
+		BUILDDIR=build
+endif
 
 UNAME := $(shell uname)
 
@@ -9,7 +12,7 @@ ifeq ($(UNAME), Darwin)
 
 $(info Target: OSX)
 
-COMMONCFLAGS=-Os -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+COMMONCFLAGS= -Os -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
 
 ifndef NOMLIB
 		LDFLAGS=-static
@@ -53,62 +56,78 @@ endif
 #LDFLAGS=-g -nodefaultlibs
 
 
-
+ifndef LD
 LD=ld
+endif
+
 ifndef GCC
 GCC=gcc-8
 endif
 
+
+$(info config:)
+$(info gcc call: $(GCC) $(CFLAGS))
+$(info ld call: $(LD) $(LDFLAGS))
+
+
+
 ifdef MAKEPROG
 
-$(MAKEPROG): build/$(MAKEPROG).o build/minilib.o build/start.o
-	$(LD) $(LDFLAGS) -o $(MAKEPROG) build/$(MAKEPROG).o build/minilib.o build/start.o
+$(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
+	$(LD) $(LDFLAGS) -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
 
 
-build/$(MAKEPROG).o: $(MAKEPROG).c
-	$(GCC) $(CFLAGS) -c -o build/$(MAKEPROG).o $(MAKEPROG).c
+$(BUILDDIR)/$(MAKEPROG).o: $(MAKEPROG).c
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/$(MAKEPROG).o $(MAKEPROG).c
 
 endif
 
-$(info Makeobj: MAKEOBJ)
+$(info Makeobj: $(MAKEOBJ))
 
 ifdef MAKEOBJ
-build/$(MAKEOBJ).o: $(MAKEOBJ).c
-	$(GCC) $(CFLAGS) -c -o build/$(MAKEOBJ).o $(MAKEOBJ).c
+$(BUILDDIR)/$(MAKEOBJ).o: $(MAKEOBJ).c
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/$(MAKEOBJ).o $(MAKEOBJ).c
 else
 
-$(PROG): build/$(PROG).o build/minilib.o build/start.o
+
+ifdef SINGLERUN
+$(PROG): $(PROG).c minilib.h
+	$(GCC) $(CFLAGS) -o $(PROG) $(PROG).c minilib.c minilib/asm/start-osx.S
+else
+
+$(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
 	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
 	$(info Makesj: $(OFILES))
-	$(info ddd $(addprefix build/,$(addsuffix .o,$(OFILES))))
-	$(LD) $(LDFLAGS) -o $(PROG) build/$(PROG).o build/minilib.o build/start.o $(addprefix build/,$(addsuffix .o,$(OFILES)))
-#	strip $(PROG)
+	$(info ddd $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES))))
+	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
+	strip $(PROG)
+
+endif
+
+$(BUILDDIR)/$(PROG).o: $(PROG).c
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/$(PROG).o $(PROG).c
 
 
-build/$(PROG).o: $(PROG).c
-	$(GCC) $(CFLAGS) -c -o build/$(PROG).o $(PROG).c
 
 
-
-
-build/minilib.o: minilib.c minilib.h build/start.o
+$(BUILDDIR)/minilib.o: minilib.c minilib.h $(BUILDDIR)/start.o
 	cd minilib/asm && $(MAKE) 
-	$(GCC) $(CFLAGS) -c -o build/minilib.o minilib.c 
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o minilib.c 
 
 
-	#todo: build start for linux
-build/start.o: minilib/asm/start-osx.S
-	$(GCC) $(CFLAGS) -c -o build/start.o minilib/asm/start-osx.S
+	#todo: $(BUILDDIR) start for linux
+$(BUILDDIR)/start.o: minilib/asm/start-osx.S
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o minilib/asm/start-osx.S
 
 
 
 
-rebuild:
+re$(BUILDDIR):
 	make clean
 	make
 
 clean:
-	rm build/*.o
+	#rm $(BUILDDIR)/*.o
 	cd minilib/asm && $(MAKE) clean
 
 
