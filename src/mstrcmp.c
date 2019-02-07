@@ -30,5 +30,18 @@ int mstrncmp(char*c1,char*c2,int len){
 		return(_mstrcmp(c1,c2,len) );
 }
 
+int memcmp(char*c1,char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
 
 #endif

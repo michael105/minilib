@@ -9,9 +9,9 @@ ifeq ($(UNAME), Darwin)
 
 $(info Target: OSX)
 
-COMMONCFLAGS=-fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+COMMONCFLAGS=-Os -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
 
-ifdef MLIB
+ifndef NOMLIB
 		LDFLAGS=-static
 		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
 		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin
@@ -59,8 +59,30 @@ ifndef GCC
 GCC=gcc-8
 endif
 
+ifdef MAKEPROG
+
+$(MAKEPROG): build/$(MAKEPROG).o build/minilib.o build/start.o
+	$(LD) $(LDFLAGS) -o $(MAKEPROG) build/$(MAKEPROG).o build/minilib.o build/start.o
+
+
+build/$(MAKEPROG).o: $(MAKEPROG).c
+	$(GCC) $(CFLAGS) -c -o build/$(MAKEPROG).o $(MAKEPROG).c
+
+endif
+
+$(info Makeobj: MAKEOBJ)
+
+ifdef MAKEOBJ
+build/$(MAKEOBJ).o: $(MAKEOBJ).c
+	$(GCC) $(CFLAGS) -c -o build/$(MAKEOBJ).o $(MAKEOBJ).c
+else
+
 $(PROG): build/$(PROG).o build/minilib.o build/start.o
-	$(LD) $(LDFLAGS) -o $(PROG) build/$(PROG).o build/minilib.o build/start.o
+	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
+	$(info Makesj: $(OFILES))
+	$(info ddd $(addprefix build/,$(addsuffix .o,$(OFILES))))
+	$(LD) $(LDFLAGS) -o $(PROG) build/$(PROG).o build/minilib.o build/start.o $(addprefix build/,$(addsuffix .o,$(OFILES)))
+#	strip $(PROG)
 
 
 build/$(PROG).o: $(PROG).c
@@ -80,6 +102,7 @@ build/start.o: minilib/asm/start-osx.S
 
 
 
+
 rebuild:
 	make clean
 	make
@@ -89,7 +112,7 @@ clean:
 	cd minilib/asm && $(MAKE) clean
 
 
-
+endif
 
 
 
