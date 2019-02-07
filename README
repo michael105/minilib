@@ -32,6 +32,10 @@ This is more than 3,000 times less than a hello world program
 linked statically with glibc,
 which shows up with 504kB on my system. (5.4kB linked dynamic)
 
+(On OSX there are some limits, 
+files with less than 4k aren't executed, 
+so that's hello world's size there..)
+
 Just for fun, but this minilib also beats klibc, dietlib and musl 
 in the matter of hello world's size..
 musl: 7.6k
