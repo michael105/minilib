@@ -75,6 +75,7 @@ ifdef MAKEPROG
 
 $(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
 	$(LD) $(LDFLAGS) -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
+	strip $(MAKEPROG)
 
 
 $(BUILDDIR)/$(MAKEPROG).o: $(MAKEPROG).c
@@ -93,6 +94,7 @@ else
 ifdef SINGLERUN
 $(PROG): $(PROG).c minilib.h
 	$(GCC) $(CFLAGS) -o $(PROG) $(PROG).c minilib.c minilib/asm/start-osx.S
+	strip $(PROG)
 else
 
 $(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
@@ -122,12 +124,13 @@ $(BUILDDIR)/start.o: minilib/asm/start-osx.S
 
 
 
-re$(BUILDDIR):
+rebuild:
 	make clean
 	make
 
 clean:
-	#rm $(BUILDDIR)/*.o
+	rm build/*.o
+	rm $(PROG)
 	cd minilib/asm && $(MAKE) clean
 
 

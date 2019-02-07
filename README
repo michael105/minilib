@@ -1,10 +1,11 @@
 This is the miniature c linux systemcalls library.
-(C) Michael Myer (misc.myer@zoho.com), 2012-2019, GPLv3.
+Michael (Misc) Myer (misc.myer@zoho.com), 2012-2019, GPLv3.
 
 
 ********************
 Warning
 ********************
+
 This library is more or less alpha.
 If you have no special interest in using it,
 better head for something like musl, dietlibc, klib, ...
@@ -88,9 +89,16 @@ Usage
 include minilib.h in all sourcefiles, needing definitions from minilib.
 define in minilib.h all features needed.
 
-include minilib_implementation.c into a sourcefile
-(example given in minilib.c, you can also build and link to minilib.c)
+include minilib_implementation.c into a sourcefile or add minilib.c to the sources
 
+copy makefile.template to your sourcedir, rename to makefile
+
+done..
+
+
+*******************
+Notes
+*******************
 
 letztes makefile: in test-embutils.
 (probleme mit den flags...)
@@ -105,3 +113,16 @@ ohne Dateien zu verändern.)
 
 
 TODO: errno.h : set errno..
+
+
+*******************
+*******************
+Michael (Misc) Myer, 2012-2019
+misc.myer@zoho.com
+(my "programming enthusiastic persona".. 
+There are reasons, I have to separate my "images".
+If you'd really like to know why, contact me..)
+
+*******************
+*******************
+
