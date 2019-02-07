@@ -47,9 +47,7 @@ getminilib: minilib/minilib.h
 
 minilib/minilib.h:
 	$(info get minilib)
-	curl https://codeload.github.com/michael105/minilib/zip/master > minilib.zip
-	unzip minilib.zip
-	mv minilib-master minilib
+	git clone https://github.com/michael105/minilib.git minilib || (( (curl https://codeload.github.com/michael105/minilib/zip/master > minilib.zip) || (wget https://codeload.github.com/michael105/minilib/zip/master)) && unzip minilib.zip && mv minilib-master minilib)
 	make rebuild
 
 install: $(PROG)
