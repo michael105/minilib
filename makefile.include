@@ -12,7 +12,15 @@ ifeq ($(UNAME), Darwin)
 
 $(info Target: OSX)
 
-COMMONCFLAGS= -Os -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+
+ifeq ($(DISABLEOs), 1)
+$(info no -Os)
+COMMONCFLAGS= -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+else
+$(info with -Os)
+COMMONCFLAGS= -Os -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+#COMMONCFLAGS= -Os -freroll-loops -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+endif
 
 ifndef NOMLIB
 		LDFLAGS=-static
@@ -30,7 +38,7 @@ else
 $(info Target: LINUX)
 	LDFLAGS=-T ld.script -nodefaultlibs --no-define-common --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T minilib/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
-	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -fno-builtin
+	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -fno-builtin -DMLIB
 
 endif
 
@@ -129,8 +137,8 @@ rebuild:
 	make
 
 clean:
-	rm build/*.o
-	rm $(PROG)
+	rm build/*.o || echo No build dir
+	rm $(PROG) || echo
 	cd minilib/asm && $(MAKE) clean
 
 

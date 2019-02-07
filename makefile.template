@@ -8,11 +8,20 @@
 
 PROG=hello
 
-#where to build object files
+# where to build object files
 #BUILDDIR=.
 
 # Don't create obj files, include evrything in one gcc run.
 SINGLERUN=1 
+
+#(Disables the -Os flag
+#DISABLEOs=1
+
+# GCC
+#GCC=gcc
+
+# LD
+#LD=ld
 
 
 ifdef with-minilib
