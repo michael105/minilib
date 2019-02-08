@@ -6,7 +6,7 @@ Michael (Misc) Myer (misc.myer@zoho.com), 2012-2019, GPLv3.
 Warning
 ********************
 
-This library is more or less alpha.
+This library is more or less beta now.
 If you have no special interest in using it,
 better head for something like musl, dietlibc, klib, ...
 
