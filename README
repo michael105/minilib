@@ -55,8 +55,9 @@ so that's hello world's size there..)
 Just for fun, but this minilib also beats klibc, dietlib and musl 
 in the matter of hello world's size..
 musl: 7.6k
-klibc: 367
 dietlibc: 672
+klibc: 367
+minilib: 151
 
 
 
