@@ -16,11 +16,20 @@ https://github.com/attractivechaos/klib
 It's not very well known, 
 but looks good and is active.
 
-Just got this running on OSX (10.11, x64),
+Just got minilib running on OSX (10.11, x64),
 enabling static linking for small tools.
 Ported it from linux 32bit, 
 so for the moment it's not sure
 it will compile at linux without a little bit of work.
+
+Anyways, being able to link small tools statically 
+on osx is a great thing. 
+This doesn't work with the native libs,
+and there are reasons, you might want to link statically.
+
+Hacking the OS, or executing security critical code,
+for example. If the kernel has been hacked, well...
+But statically linking prevents from lib injection.
 
 
 Happy hacking
