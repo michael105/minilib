@@ -1,7 +1,22 @@
 TODO
 
-OSX
+OSX x64
  test different optimization flags. 
    -Os doesnt produce runnable code.
  check syscall ABI. (param 4 - %ecx or %r10 ??? )
+ 
+ OSX x32 
+   Might be useful to port. Not sure.
+   
+ LINUX x32
+   'Backport' ... 
+   
+ LINUX x64
+   Port. Although I'm not sure, whether that's useful
+   
+ ANDROID
+   I myself need the port.
+   
+ AVR, PIC, ..
+ 
 
