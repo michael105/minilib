@@ -26,17 +26,21 @@ void* malloc(POINTER size){
 		}
 		syscall1(brk,SCALL(brk),size+ret);
 #else 
-#todo: doesnt ork at all
-		//syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-		size = 4096;
-  register long int r8 asm ("r8") = -1 ; 
+//#todo: doesnt ork at all
+//		syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+		//size = 4096;
+	  register long int r8 asm ("r8") = -1 ; 
 		register long int r9 asm ("r9") = 0; 
-		register long int r10 asm ("r10") = 0; 
+		register volatile long int r10 asm ("r10") = 0x1002; 
 			asm volatile (
-							"xor %%r9, %%r9;"
-							"mov $-1, %%r8;"
-							"mov $0x1002, %%r10;"
-							"syscall" : "=a" (ret) : "a" ( ( 197  | 0x2000000 ) ) , "D" (0), "S" (size), "d" (0x01|0x02), "c" (0x1002), "r" (r8), "r" (r9) : "memory" );
+							//"xor %%r9, %%r9;"
+							//"mov $-1, %%r8;"
+							//"mov $0x1002, %%r10;"
+							"syscall" 
+							   : "=a" (ret) 
+								 : "a" ( ( 197  | 0x2000000 ) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
+							   : "ecx", "memory" );
+						
  /*
 		asm volatile(
 						"mov %p6, %%r9\n\t"
