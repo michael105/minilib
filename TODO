@@ -1,5 +1,7 @@
 TODO
 
 OSX
-check optimization flags
+ test different optimization flags. 
+   -Os doesnt produce runnable code.
+ check syscall ABI. (param 4 - %ecx or %r10 ??? )
 
