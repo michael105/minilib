@@ -1,7 +1,15 @@
 # include this makefile via include minilib/makefile
 
+
+$(info -----)
+$(info config:)
+
 ifndef BUILDDIR
 		BUILDDIR=build
+endif
+
+ifndef MLIBDIR
+		MLIBDIR=minilib/
 endif
 
 UNAME := $(shell uname)
@@ -16,7 +24,7 @@ ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
 
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR) 
 
 ifndef NOMLIB
 		LDFLAGS=-static
@@ -69,9 +77,10 @@ GCC=gcc-8
 endif
 
 
-$(info config:)
-$(info gcc call: $(GCC) $(CFLAGS))
-$(info ld call: $(LD) $(LDFLAGS))
+$(info gcc: $(GCC) $(CFLAGS))
+$(info ld: $(LD) $(LDFLAGS))
+$(info minilib: $(MLIBDIR))
+$(info ---)
 
 
 
@@ -96,8 +105,8 @@ else
 
 
 ifdef SINGLERUN
-$(PROG): $(PROG).c minilib.h
-	$(GCC) $(CFLAGS) -o $(PROG) $(PROG).c minilib.c minilib/asm/start-osx.S
+$(PROG): $(PROG).c
+	$(GCC) $(CFLAGS) -o $(PROG) $(PROG).c $(MLIBDIR)minilib.c $(MLIBDIR)asm/start-osx.S
 	strip $(PROG)
 else
 
@@ -116,14 +125,14 @@ $(BUILDDIR)/$(PROG).o: $(PROG).c
 
 
 
-$(BUILDDIR)/minilib.o: minilib.c minilib.h $(BUILDDIR)/start.o
-	cd minilib/asm && $(MAKE) 
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o minilib.c 
+$(BUILDDIR)/minilib.o: $(MLIBDIR)minilib.c minilib.h $(BUILDDIR)/start.o
+	cd $(MLIBDIR)asm && $(MAKE) 
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o $(MLIBDIR)minilib.c 
 
 
 	#todo: $(BUILDDIR) start for linux
-$(BUILDDIR)/start.o: minilib/asm/start-osx.S
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o minilib/asm/start-osx.S
+$(BUILDDIR)/start.o: $(MLIBDIR)asm/start-osx.S
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o $(MLIBDIR)asm/start-osx.S
 
 
 
@@ -135,7 +144,7 @@ rebuild:
 clean:
 	rm build/*.o || echo No build dir
 	rm $(PROG) || echo
-	cd minilib/asm && $(MAKE) clean
+	cd $(MLIBDIR)asm && $(MAKE) clean
 
 
 endif
