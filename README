@@ -33,7 +33,7 @@ But statically linking prevents from lib injection.
 BUT PLEASE BE AWARE, minilib itself is neither checked nor written
 for security. Although there are some tests, e.g. for buffer overflows,
 I cannot guarantee any defined functionality.
-But I worked thoroughly, and I'm using the libs myself for several years.
+But I worked thoroughly, and I'm using this lib myself for several years.
 
 
 Happy hacking
