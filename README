@@ -58,6 +58,8 @@ so that's hello world's size there..)
 
 Just for fun, but this minilib also beats klibc, dietlib and musl 
 in the matter of hello world's size..
+
+(Linux 32bit:)
 musl: 7.6k
 dietlibc: 672
 klibc: 367
@@ -66,7 +68,7 @@ minilib: 151
 
 
 Being in syscalls, linker scripts and gcc optimization hell,
-I realized that after I got over the fundamental problems adding 
+I realized, that after I got over the fundamental problems adding 
 more standard c routines would be cheap.
 So I started to port some more little c tools to minilib,
 adding more functionality to minilib as well.
