@@ -1,8 +1,16 @@
 TODO
 
+Useful:
+
+testing framework
+  check each function and document the result.
+
+
+Platforms:
+
 OSX x64
  test different optimization flags. 
-   -Os doesnt produce runnable code.
+   Flag -Os doesnt produce runnable code.
  check syscall ABI. (param 4 - %ecx or %r10 ??? )
  
  OSX x32 
