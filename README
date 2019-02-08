@@ -30,8 +30,10 @@ and there are reasons, you might want to link statically.
 Hacking the OS, or executing security critical code,
 for example. If the kernel has been hacked, well...
 But statically linking prevents from lib injection.
-BUT be aware, minilib itself is neither checked nor written
-for security. 
+BUT PLEASE BE AWARE, minilib itself is neither checked nor written
+for security. Although there are some tests, e.g. for buffer overflows,
+I cannot guarantee any defined functionality.
+But I worked thoroughly, and I'm using the libs myself for several years.
 
 
 Happy hacking
