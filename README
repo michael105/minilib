@@ -112,7 +112,8 @@ define in minilib.h all features needed.
 
 include minilib_implementation.c into a sourcefile or add minilib.c to the sources
 
-copy makefile.template to your sourcedir, rename to makefile
+copy makefile.template to your sourcedir, rename to makefile.
+Edit makefile, set PROG to your prog's name.
 
 done..
 
