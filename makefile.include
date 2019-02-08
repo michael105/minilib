@@ -1,9 +1,5 @@
 # include this makefile via include minilib/makefile
 
-
-$(info -----)
-$(info config:)
-
 ifndef BUILDDIR
 		BUILDDIR=build
 endif
@@ -14,7 +10,6 @@ endif
 
 UNAME := $(shell uname)
 
-$(info Architecture: ${UNAME} )
 
 ifeq ($(UNAME), Darwin)
 
@@ -76,12 +71,17 @@ ifndef GCC
 GCC=gcc-8
 endif
 
+ifdef VERBOSE
+$(info -----)
+$(info config:)
+
+$(info Architecture: ${UNAME} )
 
 $(info gcc: $(GCC) $(CFLAGS))
 $(info ld: $(LD) $(LDFLAGS))
 $(info minilib: $(MLIBDIR))
 $(info ---)
-
+endif
 
 
 ifdef MAKEPROG
