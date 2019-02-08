@@ -5,8 +5,9 @@
 # copy this makefile into the source dir
 # done.
 
-
+ifndef PROG
 PROG=hello
+endif
 
 # where to build object files
 #BUILDDIR=.
@@ -14,8 +15,8 @@ PROG=hello
 # Don't create obj files, include evrything in one gcc run.
 SINGLERUN=1 
 
-#(Disables the -Os flag
-#DISABLEOs=1
+#Set the optimization flag (default: -O1)
+#OPTFLAG=-Os
 
 # GCC
 #GCC=gcc

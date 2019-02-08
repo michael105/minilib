@@ -12,15 +12,11 @@ ifeq ($(UNAME), Darwin)
 
 $(info Target: OSX)
 
-
-ifeq ($(DISABLEOs), 1)
-$(info no -Os)
-COMMONCFLAGS= -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
-else
-$(info with -Os)
-COMMONCFLAGS= -Os -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
-#COMMONCFLAGS= -Os -freroll-loops -Wno-unused-variable -Wno-unused-but-set-variable -Wall
+ifndef OPTFLAG
+		OPTFLAG=-O1
 endif
+
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wall
 
 ifndef NOMLIB
 		LDFLAGS=-static
