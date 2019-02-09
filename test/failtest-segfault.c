@@ -11,8 +11,10 @@
 
 int main(){
 		char *c=0;
-		c = 'X';
-		return((int)c);
+		c[42] = 23;
+		// That should not happen. 
+		// You're in trouble
+		return((int)c[666]);
 }
 
 
