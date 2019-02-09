@@ -1,7 +1,7 @@
 # makefile for the tests
 #
 
-PROG=hello failsave malloc
+PROG=hello malloc failtest-segfault
 
 # where to build object files
 #BUILDDIR=.
