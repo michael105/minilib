@@ -10,16 +10,27 @@ endif
 
 UNAME := $(shell uname)
 
-
 ifeq ($(UNAME), Darwin)
-
-$(info Target: OSX)
 
 ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
 
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR) 
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR)
+
+
+#ifndef GREEN
+#colors..
+GREEN="\033[32m"
+RED="\033[31m"
+YELLOW="\033[01;33m"
+BLUE="\033[01;33m"
+WHITE="\033[01;37m"
+
+YELLOW := $(shell echo $(YELLOW))
+WHITE := $(shell echo $(WHITE))
+#endif
+
 
 ifndef NOMLIB
 		LDFLAGS=-static
@@ -40,7 +51,6 @@ $(info Target: LINUX)
 	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -fno-builtin -DMLIB
 
 endif
-
 
 
 #lin
@@ -73,9 +83,9 @@ endif
 
 ifdef VERBOSE
 $(info -----)
-$(info config:)
+$(info $(YELLOW)config: $(WHITE))
 
-$(info Architecture: ${UNAME} )
+$(info Architecture ${UNAME} )
 
 $(info gcc: $(GCC) $(CFLAGS))
 $(info ld: $(LD) $(LDFLAGS))
@@ -96,7 +106,6 @@ $(BUILDDIR)/$(MAKEPROG).o: $(MAKEPROG).c
 
 endif
 
-$(info Makeobj: $(MAKEOBJ))
 
 ifdef MAKEOBJ
 $(BUILDDIR)/$(MAKEOBJ).o: $(MAKEOBJ).c
