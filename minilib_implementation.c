@@ -1,28 +1,15 @@
 
+#ifndef minilib_header_h
+#include "include/minilib_header.h"
+#endif
+
+
 #ifdef X64
 #define POINTER long int
 #else
 #define POINTER int
 #endif
 
-
-#ifdef mini_errno
-int errno;
-#endif
-//int sysret=0;
-
-#ifndef OSX
-
-#ifdef mini_vsyscalls
-int __mini_vsys = 0;
-#include "src/start_c.c"
-#endif
-
-#ifdef mini_start
-#include "asm/start.c"
-#endif
-
-#endif
 
 
 #ifdef mini_buf
@@ -50,17 +37,47 @@ int __mini_vsys = 0;
 #endif
 
 
-#ifdef mini_mprints
-#include "src/mprints.c"
+
+
+#ifdef mini_puts
+#define mini_print
 #endif
 
 #ifdef mini_print
 #include "src/mprint.c"
+
+#define mini_errno
 #endif
 
 
 #ifdef mini_mfprintf
 #include "src/mfprintf.c"
+#define mini_errno
+#endif
+
+
+
+#ifdef mini_errno
+int errno;
+#endif
+//int sysret=0;
+
+#ifndef OSX
+
+#ifdef mini_vsyscalls
+int __mini_vsys = 0;
+#include "src/start_c.c"
+#endif
+
+#ifdef mini_start
+#include "asm/start.c"
+#endif
+
+#endif
+
+
+#ifdef mini_mprints
+#include "src/mprints.c"
 #endif
 
 #ifdef mini_msprintf

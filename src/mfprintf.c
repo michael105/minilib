@@ -16,6 +16,7 @@
 #include "mprints.c"
 #include "../include/stdarg.h"
 //#include <stdarg.h>
+#include "mbuf.c"
 
 /// mfprintf
 /// conversions implemented:

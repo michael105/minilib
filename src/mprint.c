@@ -18,4 +18,10 @@ int printl(const char *msg){
 		return(ret);
 }
 
+#ifdef mini_puts
+//int puts( const char *c ){
+//		return(printl(c));
+//}
+#endif
+
 #endif

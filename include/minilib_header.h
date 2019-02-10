@@ -61,6 +61,10 @@ struct udiv_t { unsigned int quot, rem; };
 //inline div_t div( int numer, int denom ){
 //		asm ("div" : 
 
+#ifdef mini_mfprintf
+#define mini_mprintf
+#endif
+
 #ifdef mini_mprintf
 //extern int mprintf(const char *fmt, ...);
 //#include "mprintf.h"
@@ -79,6 +83,10 @@ struct udiv_t { unsigned int quot, rem; };
 
 #ifdef mini_mfprintf
 //#include "mfprintf.h"
+#define mini_itohex
+#define mini_itodec  // also conversion %d in printf
+#define mini_ditodec  // also conversion %d in printf
+
 extern int mfprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
@@ -88,6 +96,7 @@ extern int mfprintf(int fd, const char*fmt, ...);
 
 #ifdef mini_msprintf
 extern int msprintf(char *buf, const char *fmt, ...);
+
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
@@ -98,6 +107,10 @@ extern int msprintf(char *buf, const char *fmt, ...);
 #include "mprints.h"
 #endif
 
+#ifdef mini_puts
+#define puts(a1) printl(a1)
+#define mini_print
+#endif
 #ifdef mini_print
 //#include "mprint.h"
 extern int print(const char *msg);
@@ -234,6 +247,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 
 #ifdef mini_malloc
 extern void* malloc(POINTER size);
+#endif
 #ifdef OSX
 #ifndef PROTO_READ
 #define	PROT_NONE	0x00	/* [MC2] no permissions */
@@ -262,7 +276,6 @@ extern void* malloc(POINTER size);
 
 
 
-#endif
 #endif
 #endif
 

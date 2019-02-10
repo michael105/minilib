@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # TODO: #ifdef inclusion
-exit 0;
+#exit 0;
 
 my $i = $ARGV[0];
 $i =~ /(.*)\.asm$/;

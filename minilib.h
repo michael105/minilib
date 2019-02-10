@@ -16,6 +16,7 @@
 //#define mini_close
 //#define mini_read
 //#define mini_lseek // defines also ftruncate, fsync
+#define mini_puts
 
 //#define mini_mprints
 //#define mini_mprintf
