@@ -5,6 +5,14 @@
 # copy this makefile into the source dir
 # done.
 
+# Or: download the file minilibcombined.c
+# have a look in minilib.h, which defines you need
+# define your switches, and include 
+# minilibcombined.c into one of your sourcefiles.
+# 
+
+
+
 ifndef PROG
 PROG=hello
 endif
