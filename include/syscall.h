@@ -52,28 +52,13 @@ extern int errno;
 #define syscall2(ret,call,a1,a2) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2) __callend
 #define syscall3(ret,call,a1,a2,a3) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3) __callend
 #warning seems register ecx has been replaced with r10, but cannot say for sure. Tests needed.
-#warning Yes. Todo: change macros accordingly. Also better copy flags. or not? ALso a question of an unneccessary instruction. 
+//#warning Yes. Todo: change macros accordingly. Also better copy flags. or not? ALso a question of an unneccessary instruction. 
 
-#define syscall4(ret,call,a1,a2,a3,a4) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "c" (a4) __callend
-#define syscall5(ret,call,a1,a2,a3,a4,a5) register long int r8 asm ("r8") = a5 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "c" (a4), "r" (r8) __callend
-#define syscall6(ret,call,a1,a2,a3,a4,a5,a6) register long int r8 asm ("r8") = a5 ; register long int r9 asm ("r9") = a6; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "c" (a4), "r" (r8), "r" (r9) __callend
+#define syscall4(ret,call,a1,a2,a3,a4) register long int r10 asm ("r10") = a4 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (a4) __callend
+//#define syscall4(ret,call,a1,a2,a3,a4) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "c" (a4) __callend
+#define syscall5(ret,call,a1,a2,a3,a4,a5) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (a4), "r" (r8) __callend
+#define syscall6(ret,call,a1,a2,a3,a4,a5,a6) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; register long int r9 asm ("r9") = a6; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (a4), "r" (r8), "r" (r9) __callend
 
-
-#if 0
-//TODO: replace r (reg8) with a "Local reg var" ..
-// https://stackoverflow.com/questions/17159551/gcc-inline-assembly-register-constraints-on-intel-x86-64
-// register int64_t r10 asm("r10") = _4;   
-//     __asm__ volatile                        
-//         (                                       
-//                 "syscall\n\t"                       
-//                         : "=a"( ret )                       
-//                                 : "a"( number ),                    
-//                                           "D"( _1 ),                        
-//                                                     "S"( _2 ),                        
-//                                                               "d"( _3 ),                        
-//                                                                         "r"( r10 )                        
-//                                                                                 : "memory", "rcx", "r11"   
-#endif
 
 // save value in (temporary) var sysret.
 // return -1 if an error occured, set errno.
@@ -81,8 +66,8 @@ extern int errno;
 #define syscall1_ret(call) syscall0_ret(call) , "D" (a1) 
 #define syscall2_ret(call) syscall1_ret(call) , "S" (a2) 
 #define syscall3_ret(call) syscall2_ret(call) , "d" (a3) 
-#define syscall4_ret(call) syscall3_ret(call) , "c" (a4)
-#define syscall5_ret(call) register long int r8 asm("r8")= a5 ; syscall4_ret(call) , "r" (r8) 
+#define syscall4_ret(call) register long int r10 asm("r10")= a4; syscall3_ret(call) , "r" (a4)
+#define syscall5_ret(call) register long int r10 asm("r10")= a4; register long int r8 asm("r8")= a5 ; syscall4_ret(call) , "r" (r8) 
 
 #else
 

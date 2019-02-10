@@ -9,14 +9,18 @@ ifndef PROG
 PROG=hello
 endif
 
-# where to build object files
-#BUILDDIR=.
+# where to build object files (defaults to ./ )
+BUILDDIR=.
+
+# Where minilib is installed, or should be installed to
+MLIBDIR=./minilib
 
 # Don't create obj files, include evrything in one gcc run.
-SINGLERUN=1 
+SINGLERUN=1
+
 
 #Set the optimization flag (default: -O1)
-#OPTFLAG=-Os
+#OPTFLAG=-O1
 
 # GCC
 #GCC=gcc
@@ -25,23 +29,34 @@ SINGLERUN=1
 #LD=ld
 
 
+
+# configsettings ending here
+
+
+#( This is a recursive makefile and will call itself with this param)
 ifdef with-minilib
 include minilib/makefile.include 
 endif
 
-#Compile with minilib or
+#Compile with minilib or without
+# Will compile with minilib, if present and found in MLIBDIR
 default: 
-	$(if $(wildcard minilib/makefile.include), make with-minilib=1, make native )
+	$(if $(wildcard $(MLIBDIR)/makefile.include), make with-minilib=1, make native )
 
 
-# make native 
+# build without minilib
 # compile with dynamic loading, os native libs
 native: $(PROG).c
 	$(info call "make getminilib" to fetch and extract the "minilib" and compile $(PROG) static (recommended) )
 	gcc -o calc calc.c
 
 
+# we haven't been callen recursive
 ifndef with-minilib
+
+ifndef BUILDDIR
+		BUILDDIR=.
+endif
 
 rebuild:
 	make clean
@@ -49,15 +64,15 @@ rebuild:
 
 clean:
 	$(shell rm $(PROG))
-	$(shell cd build && rm *.o)
+	$(shell cd $(BUILDDIR) && rm *.o)
 
 endif
 
-getminilib: minilib/minilib.h
+getminilib: $(MLIBDIR)/minilib.h
 
-minilib/minilib.h:
+$(MLIBDIR)/minilib.h:
 	$(info get minilib)
-	git clone https://github.com/michael105/minilib.git minilib || (( (curl https://codeload.github.com/michael105/minilib/zip/master > minilib.zip) || (wget https://codeload.github.com/michael105/minilib/zip/master)) && unzip minilib.zip && mv minilib-master minilib)
+	git clone https://github.com/michael105/minilib.git $(MLIBDIR) || (( (curl https://codeload.github.com/michael105/minilib/zip/master > minilib.zip) || (wget https://codeload.github.com/michael105/minilib/zip/master)) && unzip minilib.zip && mv minilib-master $(MLIBDIR))
 	make rebuild
 
 install: $(PROG)

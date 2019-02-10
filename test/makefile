@@ -31,14 +31,14 @@ WHITE="\033[01;37m"
 endif
 
 
-ifdef test
-		PROG=$(test)
+ifdef BUILDPROG
+		PROG=$(BUILDPROG)
 		include ../makefile.include
 else
 
 
 all:
-	@$(foreach P,$(PROG),$(MAKE) test=$(P) && ) true
+	@$(foreach P,$(PROG),$(MAKE) BUILDPROG=$(P) && ) true
 
 inittest: all
 	@$(foreach P,$(PROG), ./$(P) > results/$(P)-expect.stdout ; ) true
@@ -51,7 +51,7 @@ test: all
 
 
 clean:
-	$(foreach P,$(PROG),$(MAKE) clean test=$(P) && ) true
+	$(foreach P,$(PROG),$(MAKE) clean BUILDPROG=$(P) && ) true
 	rm -f results/*-test.stdout
 
 rebuild: clean all
