@@ -10,13 +10,13 @@ PROG=hello
 endif
 
 # where to build object files (defaults to ./ )
-BUILDDIR=.
+BUILDDIR=./
 
 # Where minilib is installed, or should be installed to
-MLIBDIR=./minilib
+MLIBDIR=minilib
 
-# Don't create obj files, include evrything in one gcc run.
-SINGLERUN=1
+# Don't create obj files, include evrything in one gcc run.(yourself)
+#SINGLERUN=1
 
 
 #Set the optimization flag (default: -O1)
@@ -35,7 +35,7 @@ SINGLERUN=1
 
 #( This is a recursive makefile and will call itself with this param)
 ifdef with-minilib
-include minilib/makefile.include 
+include $(MLIBDIR)/makefile.include 
 endif
 
 #Compile with minilib or without
@@ -48,7 +48,7 @@ default:
 # compile with dynamic loading, os native libs
 native: $(PROG).c
 	$(info call "make getminilib" to fetch and extract the "minilib" and compile $(PROG) static (recommended) )
-	gcc -o calc calc.c
+	gcc -o $(PROG) $(PROG).c
 
 
 # we haven't been callen recursive
