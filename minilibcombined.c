@@ -1,15 +1,15 @@
-//f: minilib_implementation.c
+// f: minilib_implementation.c
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
 
 #ifndef minilib_header_h
-//XXXXXXXXXXXXXXXXXX*************** file: include/minilib_header.h 
+// XXXXXXXXXXXXXXXXXX*************** file: include/minilib_header.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: include  Name minilib_header.h
-//O: include/minilib_header.h
+// Path: include  Name minilib_header.h
+// O: include/minilib_header.h
 #ifndef minilib_header_h
 #define minilib_header_h
 
@@ -51,15 +51,15 @@
 
 
 
-//XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../macros  Name vararg.h
-//O: include/vararg.h
-//O: src/vararg.h
-//O: asm/vararg.h
-//O: macros/vararg.h
+// Path: ../macros  Name vararg.h
+// O: include/vararg.h
+// O: src/vararg.h
+// O: asm/vararg.h
+// O: macros/vararg.h
 #ifndef vararg_h
 #define vararg_h
 
@@ -70,18 +70,18 @@
 #endif
 
 
-//XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
+// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/timeval.h
+// O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
-//XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
+// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/time_t.h
+// O: include/time_t.h
 #ifndef type_t_h
 #define type_t_h
 typedef long time_t;
@@ -93,24 +93,24 @@ struct timezone {
 		int     tz_dsttime;     /*	type of	dst correction */
 };
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../src/syscall_stubs.c 
+// XXXXXXXXXXXXXXXXXX*************** file: ../src/syscall_stubs.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../src  Name syscall_stubs.c
-//O: include/syscall_stubs.c
-//O: src/syscall_stubs.c
+// Path: ../src  Name syscall_stubs.c
+// O: include/syscall_stubs.c
+// O: src/syscall_stubs.c
 // These are just wrapped syscalls.
 // errno is set, anyway.
 #ifndef SYSCALL_STUBS
 #define SYSCALL_STUBS
 
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name syscall.h
-//O: include/syscall.h
+// Path: ../include  Name syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -131,11 +131,11 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -729,12 +729,12 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #endif
 
 #ifdef mini_syscall
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -755,12 +755,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -1334,20 +1334,20 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 
 
 #ifdef mini_read
-//XXXXXXXXXXXXXXXXXX*************** file: read.h 
+// XXXXXXXXXXXXXXXXXX*************** file: read.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/read.h
+// O: include/read.h
 #ifndef minilib_read_h
 #define minilib_read_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -1368,12 +1368,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -1943,33 +1943,33 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #endif
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../macros  Name overrun.h
-//O: include/overrun.h
-//O: src/overrun.h
-//O: asm/overrun.h
-//O: macros/overrun.h
+// Path: ../macros  Name overrun.h
+// O: include/overrun.h
+// O: src/overrun.h
+// O: asm/overrun.h
+// O: macros/overrun.h
 // Check, if referencing pos would overrun the buffer.
 #ifndef overrun_h
 #define overrun_h
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name exit.h
-//O: include/exit.h
+// Path: ../include  Name exit.h
+// O: include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -1990,12 +1990,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -2575,12 +2575,12 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name mprints.h
-//O: include/mprints.h
+// Path: ../include  Name mprints.h
+// O: include/mprints.h
 #ifndef mprints_h
 #define mprints_h
 extern int _mprints(char*msg,...);
@@ -2658,12 +2658,12 @@ extern int msprintf(char *buf, const char *fmt, ...);
 
 
 #ifdef mini_mprints
-//XXXXXXXXXXXXXXXXXX*************** file: mprints.h 
+// XXXXXXXXXXXXXXXXXX*************** file: mprints.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: mprints.h
-//O: include/mprints.h
+// YYYYYYYYYYYYYY   Already included: mprints.h
+// O: include/mprints.h
 #ifndef mprints_h
 #define mprints_h
 extern int _mprints(char*msg,...);
@@ -2692,21 +2692,21 @@ extern int printl(const char *msg);
 #endif
 
 #ifdef mini_exit
-//XXXXXXXXXXXXXXXXXX*************** file: exit.h 
+// XXXXXXXXXXXXXXXXXX*************** file: exit.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: exit.h
-//O: include/exit.h
+// YYYYYYYYYYYYYY   Already included: exit.h
+// O: include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -2727,12 +2727,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -3315,20 +3315,20 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #endif
 
 #ifdef mini_write
-//XXXXXXXXXXXXXXXXXX*************** file: write.h 
+// XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/write.h
+// O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -3349,12 +3349,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -3953,11 +3953,11 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #endif
 
 #ifdef mini_isprint
-//XXXXXXXXXXXXXXXXXX*************** file: isprint.h 
+// XXXXXXXXXXXXXXXXXX*************** file: isprint.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/isprint.h
+// O: include/isprint.h
 #ifndef mini_isprint_h
 #define mini_isprint_h
 #define misprint(A) isprint(A)
@@ -3983,20 +3983,20 @@ extern int isspace(int c);
 
 
 #ifdef mini_open
-//XXXXXXXXXXXXXXXXXX*************** file: open.h 
+// XXXXXXXXXXXXXXXXXX*************** file: open.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/open.h
+// O: include/open.h
 #ifndef minilib_open_h
 #define minilib_open_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -4017,12 +4017,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -4592,11 +4592,11 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #endif
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
+// XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/filemodes.h
+// O: include/filemodes.h
 #ifndef mini_filemodes_h
 #define mini_filemodes_h
 
@@ -4685,20 +4685,20 @@ static inline int __attribute__((always_inline)) creat( const char *s, int mode 
 #endif
 
 #ifdef mini_lseek
-//XXXXXXXXXXXXXXXXXX*************** file: lseek.h 
+// XXXXXXXXXXXXXXXXXX*************** file: lseek.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/lseek.h
+// O: include/lseek.h
 #ifndef mini_lseek_h
 #define mini_lseek_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -4719,12 +4719,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -5316,20 +5316,20 @@ DEF_syscall(fsync,1,int a1 )
 #endif
 
 #ifdef mini_close
-//XXXXXXXXXXXXXXXXXX*************** file: close.h 
+// XXXXXXXXXXXXXXXXXX*************** file: close.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/close.h
+// O: include/close.h
 #ifndef minilib_close_h
 #define minilib_close_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -5350,12 +5350,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -5938,12 +5938,12 @@ static inline int __attribute__((always_inline)) close( int fd ){
 
 
 #ifdef mini_filemodes
-//XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
+// XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: filemodes.h
-//O: include/filemodes.h
+// YYYYYYYYYYYYYY   Already included: filemodes.h
+// O: include/filemodes.h
 #ifndef mini_filemodes_h
 #define mini_filemodes_h
 
@@ -6011,11 +6011,11 @@ static inline int __attribute__((always_inline)) close( int fd ){
 #endif
 
 #ifdef mini_errno
-//XXXXXXXXXXXXXXXXXX*************** file: errno.h 
+// XXXXXXXXXXXXXXXXXX*************** file: errno.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/errno.h
+// O: include/errno.h
 #ifndef mini_errno_h
 #define mini_errno_h
 #define EPERM            1
@@ -6175,27 +6175,27 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #endif
 
 #ifdef mini_select
-//XXXXXXXXXXXXXXXXXX*************** file: select.h 
+// XXXXXXXXXXXXXXXXXX*************** file: select.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/select.h
+// O: include/select.h
 #ifndef select_h
 #define select_h
-//XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
+// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: timeval.h
-//O: include/timeval.h
+// YYYYYYYYYYYYYY   Already included: timeval.h
+// O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
-//XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
+// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: time_t.h
-//O: include/time_t.h
+// YYYYYYYYYYYYYY   Already included: time_t.h
+// O: include/time_t.h
 #ifndef type_t_h
 #define type_t_h
 typedef long time_t;
@@ -6207,12 +6207,12 @@ struct timezone {
 		int     tz_dsttime;     /*	type of	dst correction */
 };
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -6233,12 +6233,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -6849,11 +6849,11 @@ extern	int select (int fd, volatile fd_set* readfd, volatile fd_set *writefd, vo
 #endif
 
 #ifdef mini_epoll
-//XXXXXXXXXXXXXXXXXX*************** file: epoll.h 
+// XXXXXXXXXXXXXXXXXX*************** file: epoll.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/epoll.h
+// O: include/epoll.h
 #ifndef epoll_h
 #define epoll_h
 
@@ -7073,13 +7073,13 @@ static inline int XOR(int i1, int i2 ){
 
 
 #ifdef mini_buf
-//XXXXXXXXXXXXXXXXXX*************** file: src/mbuf.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/mbuf.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name mbuf.c
-//O: include/mbuf.c
-//O: src/mbuf.c
+// Path: src  Name mbuf.c
+// O: include/mbuf.c
+// O: src/mbuf.c
 #ifndef MINI_MBUF
 #define MINI_MBUF
 static char mbuf[mini_buf];
@@ -7087,13 +7087,13 @@ static char mbuf[mini_buf];
 #endif
 
 #ifdef mini_itohex
-//XXXXXXXXXXXXXXXXXX*************** file: src/itohex.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/itohex.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name itohex.c
-//O: include/itohex.c
-//O: src/itohex.c
+// Path: src  Name itohex.c
+// O: include/itohex.c
+// O: src/itohex.c
 
 int itohex(int i,char* buf,int padding){
 
@@ -7135,13 +7135,13 @@ int itohex(int i,char* buf,int padding){
 #endif
 
 #ifdef mini_itodec
-//XXXXXXXXXXXXXXXXXX*************** file: src/itodec.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/itodec.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name itodec.c
-//O: include/itodec.c
-//O: src/itodec.c
+// Path: src  Name itodec.c
+// O: include/itodec.c
+// O: src/itodec.c
 // convert int to string.
 // prec: precision, e.g. 4=> 0087 
 int uitodec(unsigned int i, char *buf, int prec, char limiter ){
@@ -7259,13 +7259,13 @@ int itodec(int i, char *buf, int prec, char limiter ){
 #endif
 
 #ifdef mini_dtodec
-//XXXXXXXXXXXXXXXXXX*************** file: src/dtodec.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/dtodec.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name dtodec.c
-//O: include/dtodec.c
-//O: src/dtodec.c
+// Path: src  Name dtodec.c
+// O: include/dtodec.c
+// O: src/dtodec.c
 //convert double to string
 //return number of bytes written to buf.
 //doesn't convert numbers > 2^31 (!!!)
@@ -7297,13 +7297,13 @@ int dtodec(double d, char* buf, int precision){
 #endif
 
 #ifdef mini_atoi
-//XXXXXXXXXXXXXXXXXX*************** file: src/atoi.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/atoi.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name atoi.c
-//O: include/atoi.c
-//O: src/atoi.c
+// Path: src  Name atoi.c
+// O: include/atoi.c
+// O: src/atoi.c
 #ifndef atoi_c
 #define atoi_c
 
@@ -7346,13 +7346,13 @@ int atoi(char *c){
 #endif
 
 #ifdef mini_itobin
-//XXXXXXXXXXXXXXXXXX*************** file: src/itobin.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/itobin.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name itobin.c
-//O: include/itobin.c
-//O: src/itobin.c
+// Path: src  Name itobin.c
+// O: include/itobin.c
+// O: src/itobin.c
 
 int _itobin(int i, char*buf, int prec, int groups ){
 		prec -= 32;
@@ -7398,30 +7398,30 @@ int _itobin(int i, char*buf, int prec, int groups ){
 #endif
 
 #ifdef mini_print
-//XXXXXXXXXXXXXXXXXX*************** file: src/mprint.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/mprint.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name mprint.c
-//O: include/mprint.c
-//O: src/mprint.c
+// Path: src  Name mprint.c
+// O: include/mprint.c
+// O: src/mprint.c
 #ifndef mprint_c
 #define mprint_c
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name write.h
-//O: include/write.h
+// Path: ../include  Name write.h
+// O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -7442,12 +7442,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -8073,13 +8073,13 @@ int printl(const char *msg){
 
 
 #ifdef mini_mfprintf
-//XXXXXXXXXXXXXXXXXX*************** file: src/mfprintf.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/mfprintf.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name mfprintf.c
-//O: include/mfprintf.c
-//O: src/mfprintf.c
+// Path: src  Name mfprintf.c
+// O: include/mfprintf.c
+// O: src/mfprintf.c
 #ifndef mfprintf_c
 #define mfprintf_c
 
@@ -8092,33 +8092,33 @@ int printl(const char *msg){
 #define mini_prints
 #endif
 
-//XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../macros  Name overrun.h
-//O: include/overrun.h
-//O: src/overrun.h
-//O: asm/overrun.h
-//O: macros/overrun.h
+// Path: ../macros  Name overrun.h
+// O: include/overrun.h
+// O: src/overrun.h
+// O: asm/overrun.h
+// O: macros/overrun.h
 // Check, if referencing pos would overrun the buffer.
 #ifndef overrun_h
 #define overrun_h
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name exit.h
-//O: include/exit.h
+// Path: ../include  Name exit.h
+// O: include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -8139,12 +8139,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -8724,12 +8724,12 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name mprints.h
-//O: include/mprints.h
+// Path: ../include  Name mprints.h
+// O: include/mprints.h
 #ifndef mprints_h
 #define mprints_h
 extern int _mprints(char*msg,...);
@@ -8743,21 +8743,21 @@ extern int _mprints(char*msg,...);
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name write.h
-//O: include/write.h
+// Path: ../include  Name write.h
+// O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -8778,12 +8778,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -9380,29 +9380,29 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 
 #endif
 //#include "../include/exit.h" // Needed for testing for mbuffer overrun
-//XXXXXXXXXXXXXXXXXX*************** file: mprints.c 
+// XXXXXXXXXXXXXXXXXX*************** file: mprints.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//O: include/mprints.c
-//O: src/mprints.c
+// O: include/mprints.c
+// O: src/mprints.c
 #ifndef mprints_c
 #define mprints_c
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name write.h
-//O: include/write.h
+// Path: ../include  Name write.h
+// O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -9423,12 +9423,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -10024,12 +10024,12 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name mprints.h
-//O: include/mprints.h
+// Path: ../include  Name mprints.h
+// O: include/mprints.h
 #ifndef mprints_h
 #define mprints_h
 extern int _mprints(char*msg,...);
@@ -10039,12 +10039,12 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name stdarg.h
-//O: include/stdarg.h
+// Path: ../include  Name stdarg.h
+// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -10183,12 +10183,12 @@ int _mprints(char *msg,...){
 #endif
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name stdarg.h
-//O: include/stdarg.h
+// Path: ../include  Name stdarg.h
+// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -10271,13 +10271,13 @@ typedef va_list __gnuc_va_list;
 #endif
 
 //#include <stdarg.h>
-//XXXXXXXXXXXXXXXXXX*************** file: mbuf.c 
+// XXXXXXXXXXXXXXXXXX*************** file: mbuf.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: mbuf.c
-//O: include/mbuf.c
-//O: src/mbuf.c
+// YYYYYYYYYYYYYY   Already included: mbuf.c
+// O: include/mbuf.c
+// O: src/mbuf.c
 #ifndef MINI_MBUF
 #define MINI_MBUF
 static char mbuf[mini_buf];
@@ -10459,13 +10459,13 @@ int errno;
 
 #ifdef mini_vsyscalls
 int __mini_vsys = 0;
-//XXXXXXXXXXXXXXXXXX*************** file: src/start_c.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/start_c.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name start_c.c
-//O: include/start_c.c
-//O: src/start_c.c
+// Path: src  Name start_c.c
+// O: include/start_c.c
+// O: src/start_c.c
 #ifndef startc_c
 #define startc_c
 
@@ -10497,14 +10497,14 @@ void __start_c(char **envp){
 #endif
 
 #ifdef mini_start
-//XXXXXXXXXXXXXXXXXX*************** file: asm/start.c 
+// XXXXXXXXXXXXXXXXXX*************** file: asm/start.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: asm  Name start.c
-//O: include/start.c
-//O: src/start.c
-//O: asm/start.c
+// Path: asm  Name start.c
+// O: include/start.c
+// O: src/start.c
+// O: asm/start.c
 void _start(){
 __asm__ volatile (
 		"pop %eax #; the ret address, if compiled as a c file\n\t"
@@ -10531,30 +10531,30 @@ __asm__ volatile (
 
 
 #ifdef mini_mprints
-//XXXXXXXXXXXXXXXXXX*************** file: src/mprints.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/mprints.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name mprints.c
-//O: include/mprints.c
-//O: src/mprints.c
+// Path: src  Name mprints.c
+// O: include/mprints.c
+// O: src/mprints.c
 #ifndef mprints_c
 #define mprints_c
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name write.h
-//O: include/write.h
+// Path: ../include  Name write.h
+// O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -10575,12 +10575,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -11176,12 +11176,12 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name mprints.h
-//O: include/mprints.h
+// Path: ../include  Name mprints.h
+// O: include/mprints.h
 #ifndef mprints_h
 #define mprints_h
 extern int _mprints(char*msg,...);
@@ -11191,12 +11191,12 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name stdarg.h
-//O: include/stdarg.h
+// Path: ../include  Name stdarg.h
+// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -11338,13 +11338,13 @@ int _mprints(char *msg,...){
 #endif
 
 #ifdef mini_msprintf
-//XXXXXXXXXXXXXXXXXX*************** file: src/msprintf.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/msprintf.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name msprintf.c
-//O: include/msprintf.c
-//O: src/msprintf.c
+// Path: src  Name msprintf.c
+// O: include/msprintf.c
+// O: src/msprintf.c
 #ifndef msprintf_c
 #define msprintf_c
 
@@ -11357,33 +11357,33 @@ int _mprints(char *msg,...){
 #define mini_prints
 #endif
 
-//XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../macros  Name overrun.h
-//O: include/overrun.h
-//O: src/overrun.h
-//O: asm/overrun.h
-//O: macros/overrun.h
+// Path: ../macros  Name overrun.h
+// O: include/overrun.h
+// O: src/overrun.h
+// O: asm/overrun.h
+// O: macros/overrun.h
 // Check, if referencing pos would overrun the buffer.
 #ifndef overrun_h
 #define overrun_h
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name exit.h
-//O: include/exit.h
+// Path: ../include  Name exit.h
+// O: include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -11404,12 +11404,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -11989,12 +11989,12 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name mprints.h
-//O: include/mprints.h
+// Path: ../include  Name mprints.h
+// O: include/mprints.h
 #ifndef mprints_h
 #define mprints_h
 extern int _mprints(char*msg,...);
@@ -12008,21 +12008,21 @@ extern int _mprints(char*msg,...);
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name write.h
-//O: include/write.h
+// Path: ../include  Name write.h
+// O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -12043,12 +12043,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -12644,21 +12644,21 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name exit.h
-//O: include/exit.h
+// Path: ../include  Name exit.h
+// O: include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: syscall.h
-//O: include/syscall.h
+// YYYYYYYYYYYYYY   Already included: syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -12679,12 +12679,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -13264,12 +13264,12 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 
 
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name stdarg.h
-//O: include/stdarg.h
+// Path: ../include  Name stdarg.h
+// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -13495,13 +13495,13 @@ int msprintf(char *buf, const char* fmt, ... ){
 #endif
 
 #ifdef mini_isspace
-//XXXXXXXXXXXXXXXXXX*************** file: src/isspace.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/isspace.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name isspace.c
-//O: include/isspace.c
-//O: src/isspace.c
+// Path: src  Name isspace.c
+// O: include/isspace.c
+// O: src/isspace.c
 #ifndef isspace_c
 #define isspace_c
 
@@ -13526,22 +13526,22 @@ int isspace(int c){
 #endif
 
 #ifdef mini_ioctl
-//XXXXXXXXXXXXXXXXXX*************** file: src/ioctl.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/ioctl.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name ioctl.c
-//O: include/ioctl.c
-//O: src/ioctl.c
+// Path: src  Name ioctl.c
+// O: include/ioctl.c
+// O: src/ioctl.c
 #ifndef mini_ioctl_h
 #define mini_ioctl_h
 
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name syscall.h
-//O: include/syscall.h
+// Path: ../include  Name syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -13562,12 +13562,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -14142,12 +14142,12 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #else
 #include <sys/ioctl.h> //changed from linux/ioctl.h
 #endif
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name stdarg.h
-//O: include/stdarg.h
+// Path: ../include  Name stdarg.h
+// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -14247,13 +14247,13 @@ int ioctl( int fd, unsigned long int request, ... ){
 #endif
 
 #ifdef mini_tcgetattr
-//XXXXXXXXXXXXXXXXXX*************** file: src/tcgetattr.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/tcgetattr.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name tcgetattr.c
-//O: include/tcgetattr.c
-//O: src/tcgetattr.c
+// Path: src  Name tcgetattr.c
+// O: include/tcgetattr.c
+// O: src/tcgetattr.c
 #ifndef tcgetattr_h
 #define tcgetattr_h
 
@@ -14282,13 +14282,13 @@ int tcgetattr(int fd, struct termios *io)
 #endif
 
 #ifdef mini_tcsetattr
-//XXXXXXXXXXXXXXXXXX*************** file: src/tcsetattr.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/tcsetattr.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name tcsetattr.c
-//O: include/tcsetattr.c
-//O: src/tcsetattr.c
+// Path: src  Name tcsetattr.c
+// O: include/tcsetattr.c
+// O: src/tcsetattr.c
 #ifndef tcsetattr_h
 #define tcsetattr_h
 
@@ -14316,13 +14316,13 @@ int tcsetattr(int fd, int opt, const struct termios *io)
 
 
 #ifdef mini_mstrcmp
-//XXXXXXXXXXXXXXXXXX*************** file: src/mstrcmp.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/mstrcmp.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name mstrcmp.c
-//O: include/mstrcmp.c
-//O: src/mstrcmp.c
+// Path: src  Name mstrcmp.c
+// O: include/mstrcmp.c
+// O: src/mstrcmp.c
 #ifndef strcmp_c
 #define strcmp_c
 
@@ -14373,13 +14373,13 @@ int memcmp(char*c1,char*c2,int len){
 #endif
 
 #ifdef mini_mstrlen
-//XXXXXXXXXXXXXXXXXX*************** file: src/mstrlen.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/mstrlen.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name mstrlen.c
-//O: include/mstrlen.c
-//O: src/mstrlen.c
+// Path: src  Name mstrlen.c
+// O: include/mstrlen.c
+// O: src/mstrlen.c
 #ifndef strlen_c
 #define strlen_c
 int mstrlen(const char*str){
@@ -14395,13 +14395,13 @@ int mstrlen(const char*str){
 #endif
 
 #ifdef mini_memset
-//XXXXXXXXXXXXXXXXXX*************** file: src/memset.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/memset.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name memset.c
-//O: include/memset.c
-//O: src/memset.c
+// Path: src  Name memset.c
+// O: include/memset.c
+// O: src/memset.c
 void *memset( void *s, int c, int n){
 		int a;
 		char *sp = s;
@@ -14412,13 +14412,13 @@ void *memset( void *s, int c, int n){
 #endif
 
 #ifdef mini_memcpy
-//XXXXXXXXXXXXXXXXXX*************** file: src/memcpy.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/memcpy.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name memcpy.c
-//O: include/memcpy.c
-//O: src/memcpy.c
+// Path: src  Name memcpy.c
+// O: include/memcpy.c
+// O: src/memcpy.c
 void *memcpy( void *d, const void *s, int n ){
 		char *dp=d;
 		const char *sp = s;
@@ -14433,13 +14433,13 @@ void *memcpy( void *d, const void *s, int n ){
 
 
 #ifdef mini_memfrob
-//XXXXXXXXXXXXXXXXXX*************** file: src/memfrob.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/memfrob.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name memfrob.c
-//O: include/memfrob.c
-//O: src/memfrob.c
+// Path: src  Name memfrob.c
+// O: include/memfrob.c
+// O: src/memfrob.c
 void* memfrob(void* s, unsigned int len){
 		unsigned int a;
 		char *c = s;
@@ -14451,13 +14451,13 @@ void* memfrob(void* s, unsigned int len){
 #endif
 
 #ifdef mini_select
-//XXXXXXXXXXXXXXXXXX*************** file: src/select.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/select.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name select.c
-//O: include/select.c
-//O: src/select.c
+// Path: src  Name select.c
+// O: include/select.c
+// O: src/select.c
 
 int select (int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
 		//return(syscall5(__NR_select,(long)fd,(long)readfd,(long)writefd,(long)exceptfd, (long)wait));
@@ -14472,20 +14472,20 @@ int select (int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile 
 #endif
 
 #ifdef mini_malloc
-//XXXXXXXXXXXXXXXXXX*************** file: src/malloc.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/malloc.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name malloc.c
-//O: include/malloc.c
-//O: src/malloc.c
+// Path: src  Name malloc.c
+// O: include/malloc.c
+// O: src/malloc.c
 // just malloc. no free yet.
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name syscall.h
-//O: include/syscall.h
+// Path: ../include  Name syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -14506,12 +14506,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -15142,13 +15142,13 @@ void* malloc(POINTER size){
 #endif
 
 #ifdef mini_powers
-//XXXXXXXXXXXXXXXXXX*************** file: src/powers.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/powers.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name powers.c
-//O: include/powers.c
-//O: src/powers.c
+// Path: src  Name powers.c
+// O: include/powers.c
+// O: src/powers.c
 // calc powers.
 // stolen (modified slightly) from Eric Jablow.
 // http://c2.com/cgi/wiki?IntegerPowerAlgorithm / http://c2.com/cgi/wiki?EricJablow
@@ -15214,24 +15214,24 @@ int ipoweri(int x, int n){
 #endif
 
 
-//XXXXXXXXXXXXXXXXXX*************** file: src/syscall_stubs.c 
+// XXXXXXXXXXXXXXXXXX*************** file: src/syscall_stubs.c 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: src  Name syscall_stubs.c
-//O: include/syscall_stubs.c
-//O: src/syscall_stubs.c
+// Path: src  Name syscall_stubs.c
+// O: include/syscall_stubs.c
+// O: src/syscall_stubs.c
 // These are just wrapped syscalls.
 // errno is set, anyway.
 #ifndef SYSCALL_STUBS
 #define SYSCALL_STUBS
 
-//XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/syscall.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//Path: ../include  Name syscall.h
-//O: include/syscall.h
+// Path: ../include  Name syscall.h
+// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -15252,12 +15252,12 @@ extern int errno;
 #else
 #define NCONST 0
 #define SCALL(call) __NR_##call
-//XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-//Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/minilib
 
-//YYYYYYYYYYYYYY   Already included: i386syscalls.h
-//O: include/i386syscalls.h
+// YYYYYYYYYYYYYY   Already included: i386syscalls.h
+// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 

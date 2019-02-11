@@ -24,7 +24,7 @@ sub slurpfile{
 		}
 		my $fn = $f;
 		$f =~/(.*)\/(.*)/;
-		my $p = $1; my $fn = $2;
+		my $p = $1; $fn = $2;
 		if ( $fn){
 				$p = $1; $fn = $2;
 				debug "Path: $p  Name $fn";
