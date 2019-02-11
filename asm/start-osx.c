@@ -1,5 +1,5 @@
-void _start(){
-__asm__ volatile (
+#ifdef mini_start
+__asm__ (
 		".globl start\n\t"
 		"start:	pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"
@@ -21,4 +21,5 @@ __asm__ volatile (
 		"movl $0x2000001, %eax\n\t"
 		"syscall\n\t"
 	);
-};
+#endif
+

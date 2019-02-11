@@ -1,3 +1,6 @@
+#ifndef minilibcombined_c
+#define minilibcombined_c
+
 // f: minilib_implementation.c
 
 // Current path: /Users/micha/prog/minilib/minilib
@@ -10506,25 +10509,26 @@ void __start_c(char **envp){
 // O: src/start.c
 // O: asm/start.c
 void _start(){
-__asm__ volatile (
-		"pop %eax #; the ret address, if compiled as a c file\n\t"
-		"leal  12(%esp,%eax,4),%ebx #; %ebx = envp = (4*eax)+%esp+8\n\t"
-#ifdef mini_vsyscalls
+#ifdef mini_start
+__asm__ (
+		"pop %eax\n\t"
+		"leal  12(%esp,%eax,4),%ebx\n\t"
 		"push %ebx\n\t"
 		"call __start_c\n\t"
 		"pop %ebx\n\t"
-#endif
-		"pop %eax #; argc\n\t"
-		"mov %esp,%ecx #; argv\n\t"
-		"push %ebx #; envp\n\t"
-		"push %ecx #; argv\n\t"
-		"push %eax #; argc\n\t"
+		"pop %eax\n\t"
+		"mov %esp,%ecx\n\t"
+		"push %ebx\n\t"
+		"push %ecx\n\t"
+		"push %eax\n\t"
 		"call main\n\t"
 		"mov %eax, %ebx\n\t"
 		"mov $1, %eax\n\t"
 		"int $0x80\n\t"
 	);
 };
+#endif
+
 #endif
 
 #else
@@ -10538,8 +10542,8 @@ __asm__ volatile (
 // O: include/start-osx.c
 // O: src/start-osx.c
 // O: asm/start-osx.c
-void _start(){
-__asm__ volatile (
+#ifdef mini_start
+__asm__ (
 		".globl start\n\t"
 		"start:	pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"
@@ -10561,7 +10565,8 @@ __asm__ volatile (
 		"movl $0x2000001, %eax\n\t"
 		"syscall\n\t"
 	);
-};
+#endif
+
 #endif
 
 
@@ -15888,3 +15893,4 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 
 #endif
 
+#endif

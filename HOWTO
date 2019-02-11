@@ -1,0 +1,79 @@
+# Howto .. in short
+
+
+If you'd like to try this minilib,
+there are two ways:
+
+1. (The faster one)
+
+  download minilibcombined.c
+
+  download hello-combined.c
+  ( source attached below, with explanations..)
+
+  compile:
+
+  gcc -o hello-combined hello-combined.c -static -nostdlib
+
+
+
+2. Or clone the git.. 
+
+(I recommend. If something's broken, 
+ it might be nearly impossible to find 
+ within the huge combined files)
+
+
+git clone https://github.com/michael105/minilib.git minilib
+
+copy minilib/makefile.template ./makefile
+
+  (edit makefile. set "PROG" to your program's name)
+
+copy minilib/minilib.h ./
+  
+	(edit minilib.h uncomment functions, you need)
+
+
+copy minilib/minilib.c ./
+
+  ( That's the source file of minilib,
+	  which will include the other sources,
+		in order to build minilib.o to be linked with your program.
+		Only functions, you define to be build in minilib.h
+		will be included)
+
+add the line below to you source(s)
+#include "minilib.h"
+
+make
+
+
+
+
+=======================================
+file:    hello-combined.c
+=======================================
+
+  // build start, the entry point for the OS
+#define mini_start start 
+
+  // define and build the function "write"
+#define mini_write
+
+ // build on OSX ( atm I can't check whether 32bit linux works )
+#define OSX
+
+ // build with 64bit( )
+#define X64
+
+ // include definitions as well as the sources.
+ // Only functions, you define before, will be built.
+#include "minilibcombined.c"
+
+int main(){
+		write(stdout, "Hello world!\n", 13);
+		return(0);
+}
+
+

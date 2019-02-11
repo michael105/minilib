@@ -12,8 +12,11 @@ print "Convert $i to $o\n";
 open I,"<$i";
 open O,">$o";
 my @a;
+my $e = "";
 
-push @a, "__asm__ volatile (\n";
+push @a,
+"#ifdef mini_start\n",
+"__asm__ (\n";
 my %symbols;
 
 while ( my $l = <I> ){
@@ -21,8 +24,9 @@ while ( my $l = <I> ){
 	$l =~ s/^\s*//;
 	$l =~ s/\s*\#.*$//;
 	next if ( !($l =~ /\S\S/ ) );
-	if ( $l =~ /.global (\S*)/ ){
+	if ( $l =~ /.global (\S*)/ ){ # atm, for osx it's .globl -> and we may not define _start within c. so this is ommitted.
 		unshift @a, "void $1(){\n";
+		$e = "};\n";
 		$symbols{$1} = 1;
 	} else{
 		if ( !(($l =~ /(\S*):/ ) && exists($symbols{$1}) ) ){
@@ -34,7 +38,9 @@ while ( my $l = <I> ){
 		}
 	}
 }
-push @a, "\t);\n};";
+push @a, "\t);\n",
+$e,
+"#endif\n";
 
 
 print O @a,"\n";
