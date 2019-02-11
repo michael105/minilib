@@ -1,3 +1,4 @@
+void _start(){
 __asm__ volatile (
 		".globl start\n\t"
 		"start:	pushq	$0\n\t"

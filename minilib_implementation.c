@@ -73,6 +73,13 @@ int __mini_vsys = 0;
 #include "asm/start.c"
 #endif
 
+#else
+
+#ifdef mini_start
+#include "asm/start-osx.c"
+#endif
+
+
 #endif
 
 
