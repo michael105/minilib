@@ -18,7 +18,7 @@ PROG=hello
 endif
 
 # where to build object files (defaults to ./ )
-BUILDDIR=./
+BUILDDIR=build
 
 # Where minilib is installed, or should be installed to
 MLIBDIR=minilib

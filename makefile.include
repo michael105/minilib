@@ -96,7 +96,7 @@ endif
 
 ifdef MAKEPROG
 
-$(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
+$(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o
 	$(LD) $(LDFLAGS) -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
 	strip $(MAKEPROG)
 
@@ -126,11 +126,11 @@ $(PROG): $(PROG).c
 
 else
 
-$(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
+$(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o
 	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
 	$(info Makesj: $(OFILES))
 	$(info ddd $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES))))
-	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
+	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
 	strip $(PROG)
 
 endif
@@ -141,14 +141,14 @@ $(BUILDDIR)/$(PROG).o: $(PROG).c
 
 
 
-$(BUILDDIR)/minilib.o: $(MLIBDIR)/minilib.c minilib.h $(BUILDDIR)/start.o
+$(BUILDDIR)/minilib.o: $(MLIBDIR)/minilib.c minilib.h
 	cd $(MLIBDIR)/asm && $(MAKE) 
 	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o $(MLIBDIR)/minilib.c 
 
 
 	#todo: $(BUILDDIR) start for linux
-$(BUILDDIR)/start.o: $(MLIBDIR)/asm/start-osx.S
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o $(MLIBDIR)/asm/start-osx.S
+#$(BUILDDIR)/start.o: $(MLIBDIR)/asm/start-osx.S
+#	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o $(MLIBDIR)/asm/start-osx.S
 
 
 
