@@ -1,7 +1,7 @@
 #ifndef mini_lseek_h
 #define mini_lseek_h
 
-#include "syscall.h"
+//#include "syscall.h"
 
 #define SEEK_SET        0       /* seek relative to beginning of file */
 #define SEEK_CUR        1       /* seek relative to current file position */

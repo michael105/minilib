@@ -3,7 +3,7 @@
 #ifndef SYSCALL_STUBS
 #define SYSCALL_STUBS
 
-#include "../include/syscall.h"
+//#include "../include/syscall.h"
 
 static int sysret;
 extern int errno;

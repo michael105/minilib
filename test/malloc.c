@@ -5,7 +5,6 @@
 #define mini_overwrite
 
 #include "include/minilib_header.h"
-#include "../minilib.c"
 
 int main(){
 

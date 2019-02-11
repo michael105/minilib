@@ -1,7 +1,7 @@
 #ifndef mini_ioctl_h
 #define mini_ioctl_h
 
-#include "../include/syscall.h"
+//#include "../include/syscall.h"
 #ifdef LINUX
 #include <linux/ioctl.h> //changed from linux/ioctl.h
 #else

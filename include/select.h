@@ -1,7 +1,7 @@
 #ifndef select_h
 #define select_h
 #include "timeval.h"
-#include "syscall.h"
+//#include "syscall.h"
 
 
 // from musl

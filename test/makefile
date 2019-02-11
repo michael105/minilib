@@ -1,7 +1,7 @@
 # makefile for the tests
 #
 
-PROG=hello hello-combined malloc failtest-segfault
+PROG=hello malloc failtest-segfault
 
 # where to build object files
 #BUILDDIR=.
@@ -23,11 +23,13 @@ GCC=gcc
 
 ifndef GREEN
 #colors..
-GREEN="\033[32m"
-RED="\033[31m"
+GREEN="\033[00;32m"
+RED="\033[00;31m"
 YELLOW="\033[01;33m"
 BLUE="\033[01;33m"
+LBLUE="\033[00;36m"
 WHITE="\033[01;37m"
+GREY="\033[02;37m"
 endif
 
 
@@ -37,17 +39,33 @@ ifdef BUILDPROG
 else
 
 
-all:
+all: hello-combined
 	@$(foreach P,$(PROG),$(MAKE) BUILDPROG=$(P) && ) true
+
+hello-combined: hello-combined.c
+	SINGLERUN=1
+	NOINCLUDE=1
+	make BUILDPROG=hello-combined
+
 
 inittest: all
 	@$(foreach P,$(PROG), ./$(P) > results/$(P)-expect.stdout ; ) true
 	
 
 test: all
-	@$(foreach P,$(PROG), ./$(P) > results/$(P)-test.stdout || echo Fail > results/$(P)-test.stdout; ) true
 	@rm -f failed.txt passed.txt
-	@$(foreach P,$(PROG), diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt)   ; ) true
+	@$(foreach P,$(PROG), \
+			echo $(LBLUE)Test:$(WHITE) $(P) $(GREY) && \
+			(( sh -c 'set -o pipefail; ./$(P) | \
+			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
+			echo $(GREEN)Exec:$(WHITE) Ok && \
+				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt) \
+			  ) || \
+			( echo $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
+
+
+# @$(foreach P,$(PROG), diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt)   ; ) true
+
 
 
 clean:

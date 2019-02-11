@@ -1,7 +1,7 @@
 #ifndef minilib_open_h
 #define minilib_open_h
 
-#include "syscall.h"
+//#include "syscall.h"
 #include "filemodes.h"
 
 //#undef open

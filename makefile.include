@@ -120,8 +120,9 @@ ifeq "$(strip $(SINGLERUN))" "1"
 $(info Singlerun)
 
 $(PROG): $(PROG).c
-	$(GCC) $(CFLAGS) -o $(PROG) $(PROG).c ../minilibcombined.c
-	#$(GCC) $(CFLAGS) -o $(PROG) $(PROG).c $(MLIBDIR)/minilib.c $(MLIBDIR)/asm/start-osx.S
+	$(if $(strip $(NOINCLUDE)), $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c, ((cat $(PROG).c && gunzip -c $(MLIBDIR)/minilibcombined.c.gz) | $(GCC) $(CFLAGS) -o $(PROG) -x c - ))
+	# cat $(PROG).c $(MLIBDIR)/minilibcombined.c | $(GCC) $(CFLAGS) -o $(PROG) -x c -
+	# $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c $(MLIBDIR)/minilib.c $(MLIBDIR)/asm/start-osx.S
 	strip $(PROG)
 
 else

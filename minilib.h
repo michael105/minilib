@@ -5,7 +5,7 @@
 /// Len of buf used by read, mprintf, ..
 //#define mini_buf 1024
 
-#define mini_start start
+#define mini_start
 //#define mini_vsyscalls // vsyscalls.(+ ~92 bytes). 
 //#define mini_errno
 // ~twice faster than standard syscalls here.

@@ -41,12 +41,13 @@
 
 #include "../macros/vararg.h"
 
+//#ifdef mini_syscall
+#include "syscall.h"
+//#endif
+
+
 #include "timeval.h"
 #include "../src/syscall_stubs.c"
-
-#ifdef mini_syscall
-#include "syscall.h"
-#endif
 
 
 #ifdef mini_read

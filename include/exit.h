@@ -1,7 +1,7 @@
 #ifndef minilib_exit_h
 #define minilib_exit_h
 
-#include "syscall.h"
+//#include "syscall.h"
 //#undef write
 //#undef exit
 static inline void __attribute__((always_inline)) exit( int ret ){

@@ -1,5 +1,5 @@
 // just malloc. no free yet.
-#include "../include/syscall.h"
+//#include "../include/syscall.h"
 
 //bad bad and doesnt ork
 #ifndef SYS_brk

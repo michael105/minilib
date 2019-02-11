@@ -1,7 +1,7 @@
 #ifndef minilib_write_h
 #define minilib_write_h
 
-#include "syscall.h"
+//#include "syscall.h"
 //#undef write
 /*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
