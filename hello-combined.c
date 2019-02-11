@@ -25,7 +25,7 @@
 
 // include definitions as well as the sources.
 // Only functions, you define before, will be built.
-#include "../minilibcombined.c"
+#include "minilibcombined.c"
 
 int main(){
 		write(stdout, "Hello world!\n", 13);
