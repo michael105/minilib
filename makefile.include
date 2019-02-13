@@ -142,9 +142,9 @@ $(BUILDDIR)/$(PROG).o: $(PROG).c
 
 
 
-$(BUILDDIR)/minilib.o: $(MLIBDIR)/minilib.c minilib.h
+$(BUILDDIR)/minilib.o: minilib.c minilib.h
 	cd $(MLIBDIR)/asm && $(MAKE) 
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o $(MLIBDIR)/minilib.c 
+	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o minilib.c 
 
 
 	#todo: $(BUILDDIR) start for linux

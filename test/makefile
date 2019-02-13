@@ -1,7 +1,7 @@
 # makefile for the tests
 #
 
-PROG=hello malloc failtest-segfault
+PROG=hello malloc
 
 # where to build object files
 #BUILDDIR=.
@@ -38,9 +38,10 @@ ifdef BUILDPROG
 		include ../makefile.include
 else
 
+$PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
 all: hello-combined
-	@$(foreach P,$(PROG),$(MAKE) BUILDPROG=$(P) && ) true
+	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 
 hello-combined: hello-combined.c
 	SINGLERUN=1
@@ -49,12 +50,13 @@ hello-combined: hello-combined.c
 
 
 inittest: all
-	@$(foreach P,$(PROG), ./$(P) > results/$(P)-expect.stdout ; ) true
+	@$(foreach P,$(PROG) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
 	
 
 test: all
 	@rm -f failed.txt passed.txt
-	@$(foreach P,$(PROG), \
+	echo Test segfaulting && (./failtest-segfault && echo $(RED)Fail: No segfault$(WHITE) ) || echo $(GREEN)Pass:$(WHITE) got segfault
+	@$(foreach P,$(PROG) hello-combined, \
 			echo $(LBLUE)Test:$(WHITE) $(P) $(GREY) && \
 			(( sh -c 'set -o pipefail; ./$(P) | \
 			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
@@ -69,7 +71,10 @@ test: all
 
 
 clean:
-	$(foreach P,$(PROG),$(MAKE) clean BUILDPROG=$(P) && ) true
+	#$(foreach P,$(PROGLIST4),$(MAKE) clean BUILDPROG=$(P) && ) true
+	#$(foreach P,$(PROGLIST4), rm $(P) && ) true
+	rm $(PROG) failtest-segfault hello-combined || true
+	echo $(PROG) failtest-segfault hello-combined || true
 	rm -f results/*-test.stdout
 
 rebuild: clean all
