@@ -1,6 +1,6 @@
 // f: include/minilib_header.h
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // Path: include  Name minilib_header.h
 // O: include/minilib_header.h
@@ -47,7 +47,7 @@
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // Path: ../macros  Name vararg.h
 // O: include/vararg.h
@@ -67,7 +67,7 @@
 //#ifdef mini_syscall
 // XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/syscall.h
 #ifndef minilib_syscall_h
@@ -92,7 +92,7 @@ extern int errno;
 #define SCALL(call) __NR_##call
 // XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
@@ -480,10 +480,10 @@ extern int errno;
 //#warning seems register ecx has been replaced with r10, but cannot say for sure. Tests needed.
 //#warning Yes. Todo: change macros accordingly. Also better copy flags. or not? ALso a question of an unneccessary instruction. 
 
-#define syscall4(ret,call,a1,a2,a3,a4) register long int r10 asm ("r10") = a4 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (a4) __callend
+#define syscall4(ret,call,a1,a2,a3,a4) register long int r10 asm ("r10") = a4 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (r10) __callend
 //#define syscall4(ret,call,a1,a2,a3,a4) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "c" (a4) __callend
-#define syscall5(ret,call,a1,a2,a3,a4,a5) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (a4), "r" (r8) __callend
-#define syscall6(ret,call,a1,a2,a3,a4,a5,a6) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; register long int r9 asm ("r9") = a6; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (a4), "r" (r8), "r" (r9) __callend
+#define syscall5(ret,call,a1,a2,a3,a4,a5) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (r10), "r" (r8) __callend
+#define syscall6(ret,call,a1,a2,a3,a4,a5,a6) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; register long int r9 asm ("r9") = a6; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (r10), "r" (r8), "r" (r9) __callend
 
 
 // save value in (temporary) var sysret.
@@ -492,7 +492,7 @@ extern int errno;
 #define syscall1_ret(call) syscall0_ret(call) , "D" (a1) 
 #define syscall2_ret(call) syscall1_ret(call) , "S" (a2) 
 #define syscall3_ret(call) syscall2_ret(call) , "d" (a3) 
-#define syscall4_ret(call) register long int r10 asm("r10")= a4; syscall3_ret(call) , "r" (a4)
+#define syscall4_ret(call) register long int r10 asm("r10")= a4; syscall3_ret(call) , "r" (r10)
 #define syscall5_ret(call) register long int r10 asm("r10")= a4; register long int r8 asm("r8")= a5 ; syscall4_ret(call) , "r" (r8) 
 
 #else
@@ -669,14 +669,14 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/time_t.h
 #ifndef type_t_h
@@ -692,7 +692,7 @@ struct timezone {
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../src/syscall_stubs.c 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // Path: ../src  Name syscall_stubs.c
 // O: include/syscall_stubs.c
@@ -730,7 +730,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #ifdef mini_read
 // XXXXXXXXXXXXXXXXXX*************** file: read.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/read.h
 #ifndef minilib_read_h
@@ -739,7 +739,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // Path: ../macros  Name overrun.h
 // O: include/overrun.h
@@ -751,7 +751,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #define overrun_h
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // Path: ../include  Name exit.h
 // O: include/exit.h
@@ -771,7 +771,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // Path: ../include  Name mprints.h
 // O: include/mprints.h
@@ -854,7 +854,7 @@ extern int msprintf(char *buf, const char *fmt, ...);
 #ifdef mini_mprints
 // XXXXXXXXXXXXXXXXXX*************** file: mprints.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: mprints.h
 // O: include/mprints.h
@@ -888,7 +888,7 @@ extern int printl(const char *msg);
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: exit.h
 // O: include/exit.h
@@ -911,7 +911,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #ifdef mini_write
 // XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/write.h
 #ifndef minilib_write_h
@@ -949,7 +949,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #ifdef mini_isprint
 // XXXXXXXXXXXXXXXXXX*************** file: isprint.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/isprint.h
 #ifndef mini_isprint_h
@@ -979,7 +979,7 @@ extern int isspace(int c);
 #ifdef mini_open
 // XXXXXXXXXXXXXXXXXX*************** file: open.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/open.h
 #ifndef minilib_open_h
@@ -988,7 +988,7 @@ extern int isspace(int c);
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/filemodes.h
 #ifndef mini_filemodes_h
@@ -1081,7 +1081,7 @@ static inline int __attribute__((always_inline)) creat( const char *s, int mode 
 #ifdef mini_lseek
 // XXXXXXXXXXXXXXXXXX*************** file: lseek.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/lseek.h
 #ifndef mini_lseek_h
@@ -1112,7 +1112,7 @@ DEF_syscall(fsync,1,int a1 )
 #ifdef mini_close
 // XXXXXXXXXXXXXXXXXX*************** file: close.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/close.h
 #ifndef minilib_close_h
@@ -1134,7 +1134,7 @@ static inline int __attribute__((always_inline)) close( int fd ){
 #ifdef mini_filemodes
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: filemodes.h
 // O: include/filemodes.h
@@ -1207,7 +1207,7 @@ static inline int __attribute__((always_inline)) close( int fd ){
 #ifdef mini_errno
 // XXXXXXXXXXXXXXXXXX*************** file: errno.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/errno.h
 #ifndef mini_errno_h
@@ -1371,14 +1371,14 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #ifdef mini_select
 // XXXXXXXXXXXXXXXXXX*************** file: select.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/select.h
 #ifndef select_h
 #define select_h
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: timeval.h
 // O: include/timeval.h
@@ -1386,7 +1386,7 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: time_t.h
 // O: include/time_t.h
@@ -1445,7 +1445,7 @@ extern	int select (int fd, volatile fd_set* readfd, volatile fd_set *writefd, vo
 #ifdef mini_epoll
 // XXXXXXXXXXXXXXXXXX*************** file: epoll.h 
 
-// Current path: /Users/micha/prog/minilib/minilib
+// Current path: /Users/micha/prog/minilib/test-readkey/minilib
 
 // O: include/epoll.h
 #ifndef epoll_h
