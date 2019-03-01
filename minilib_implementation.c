@@ -70,8 +70,13 @@ int __mini_vsys = 0;
 #endif
 
 #ifdef mini_start
+#ifdef X64
+#include "asm/start-linux-x64.c"
+#else
 #include "asm/start.c"
 #endif
+#endif
+
 
 #else
 

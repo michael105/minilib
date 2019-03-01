@@ -10,7 +10,7 @@ PROG=hello malloc
 MLIBDIR=../
 
 # Don't create obj files, include evrything in one gcc run.
-SINGLERUN=1 
+#SINGLERUN=1 
 
 #Set the optimization flag (default: -O1)
 #OPTFLAG=-Os
@@ -44,9 +44,7 @@ all: hello-combined
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 
 hello-combined: hello-combined.c
-	SINGLERUN=1
-	NOINCLUDE=1
-	make BUILDPROG=hello-combined
+	make BUILDPROG=hello-combined SINGLERUN=1 NOINCLUDE=1
 
 
 inittest: all
@@ -55,15 +53,15 @@ inittest: all
 
 test: all
 	@rm -f failed.txt passed.txt
-	echo Test segfaulting && (./failtest-segfault && echo $(RED)Fail: No segfault$(WHITE) ) || echo $(GREEN)Pass:$(WHITE) got segfault
+	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
 	@$(foreach P,$(PROG) hello-combined, \
-			echo $(LBLUE)Test:$(WHITE) $(P) $(GREY) && \
+			echo -e $(LBLUE)Test:$(WHITE) $(P) $(GREY) && \
 			(( sh -c 'set -o pipefail; ./$(P) | \
 			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
-			echo $(GREEN)Exec:$(WHITE) Ok && \
-				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt) \
+			echo -e $(GREEN)Exec:$(WHITE) Ok && \
+				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \
-			( echo $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
+			( echo -e $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
 
 
 # @$(foreach P,$(PROG), diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt)   ; ) true

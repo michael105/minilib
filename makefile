@@ -11,7 +11,7 @@ test:
 
 combined: 
 	cd asm && make
-	echo "#ifndef minilibcombined_c\n#define minilibcombined_c\n" > minilibcombined.c && \
+	echo -e "#ifndef minilibcombined_c\n#define minilibcombined_c\n" > minilibcombined.c && \
 			tools/combinesources.pl minilib_implementation.c >> minilibcombined.c && \
 			echo "#endif" >> minilibcombined.c 
 	#cat asm/start.c asm/start-osx.c >> minilibcombined.c && 

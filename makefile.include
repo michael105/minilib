@@ -10,13 +10,14 @@ endif
 
 UNAME := $(shell uname)
 
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR)
+
+
 ifeq ($(UNAME), Darwin)
 
 ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
-
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR)
 
 
 #ifndef GREEN
@@ -46,9 +47,16 @@ else
 		#assuming Linux
 
 $(info Target: LINUX)
-	LDFLAGS=-T ld.script -nodefaultlibs --no-define-common --warn-section-align --gc-sections -static -n -s
-	#LDFLAGS=-T minilib/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
-	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -fno-builtin -DMLIB
+	#LDFLAGS=-nodefaultlibs --warn-section-align --gc-sections -static -n -s
+	#LDFLAGS=-T scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
+	LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
+	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -fno-builtin -DMLIB -DLINUX 
+
+ifeq ($(shell uname -m),x86_64)
+$(info X64)
+	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin -DMLIB -DLINUX -DX64
+endif
+
 
 endif
 
@@ -78,7 +86,7 @@ LD=ld
 endif
 
 ifndef GCC
-GCC=gcc-8
+GCC=gcc
 endif
 
 ifdef VERBOSE

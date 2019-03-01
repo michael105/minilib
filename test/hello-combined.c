@@ -1,8 +1,8 @@
 #define mini_start start
 #define mini_write
 
-#define OSX
-#define X64
+//#define OSX
+//#define X64
 
 #include "../minilibcombined.c"
 
