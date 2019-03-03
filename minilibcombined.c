@@ -3,13 +3,13 @@
 
 // f: minilib_implementation.c
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 
 #ifndef minilib_header_h
 // XXXXXXXXXXXXXXXXXX*************** file: include/minilib_header.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: include  Name minilib_header.h
 // O: include/minilib_header.h
@@ -56,7 +56,7 @@
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../macros  Name vararg.h
 // O: include/vararg.h
@@ -76,7 +76,7 @@
 //#ifdef mini_syscall
 // XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/syscall.h
 #ifndef minilib_syscall_h
@@ -101,7 +101,7 @@ extern int errno;
 #define SCALL(call) __NR_##call
 // XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
@@ -678,14 +678,14 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/time_t.h
 #ifndef type_t_h
@@ -701,7 +701,7 @@ struct timezone {
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../src/syscall_stubs.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../src  Name syscall_stubs.c
 // O: include/syscall_stubs.c
@@ -739,7 +739,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #ifdef mini_read
 // XXXXXXXXXXXXXXXXXX*************** file: read.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/read.h
 #ifndef minilib_read_h
@@ -748,7 +748,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../macros  Name overrun.h
 // O: include/overrun.h
@@ -760,7 +760,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #define overrun_h
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name exit.h
 // O: include/exit.h
@@ -780,7 +780,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name mprints.h
 // O: include/mprints.h
@@ -863,7 +863,7 @@ extern int msprintf(char *buf, const char *fmt, ...);
 #ifdef mini_mprints
 // XXXXXXXXXXXXXXXXXX*************** file: mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: mprints.h
 // O: include/mprints.h
@@ -897,7 +897,7 @@ extern int printl(const char *msg);
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: exit.h
 // O: include/exit.h
@@ -920,7 +920,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #ifdef mini_write
 // XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/write.h
 #ifndef minilib_write_h
@@ -958,7 +958,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #ifdef mini_isprint
 // XXXXXXXXXXXXXXXXXX*************** file: isprint.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/isprint.h
 #ifndef mini_isprint_h
@@ -988,7 +988,7 @@ extern int isspace(int c);
 #ifdef mini_open
 // XXXXXXXXXXXXXXXXXX*************** file: open.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/open.h
 #ifndef minilib_open_h
@@ -997,7 +997,7 @@ extern int isspace(int c);
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/filemodes.h
 #ifndef mini_filemodes_h
@@ -1090,7 +1090,7 @@ static inline int __attribute__((always_inline)) creat( const char *s, int mode 
 #ifdef mini_lseek
 // XXXXXXXXXXXXXXXXXX*************** file: lseek.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/lseek.h
 #ifndef mini_lseek_h
@@ -1121,7 +1121,7 @@ DEF_syscall(fsync,1,int a1 )
 #ifdef mini_close
 // XXXXXXXXXXXXXXXXXX*************** file: close.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/close.h
 #ifndef minilib_close_h
@@ -1143,7 +1143,7 @@ static inline int __attribute__((always_inline)) close( int fd ){
 #ifdef mini_filemodes
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: filemodes.h
 // O: include/filemodes.h
@@ -1216,7 +1216,7 @@ static inline int __attribute__((always_inline)) close( int fd ){
 #ifdef mini_errno
 // XXXXXXXXXXXXXXXXXX*************** file: errno.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/errno.h
 #ifndef mini_errno_h
@@ -1380,14 +1380,14 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #ifdef mini_select
 // XXXXXXXXXXXXXXXXXX*************** file: select.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/select.h
 #ifndef select_h
 #define select_h
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: timeval.h
 // O: include/timeval.h
@@ -1395,7 +1395,7 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: time_t.h
 // O: include/time_t.h
@@ -1454,7 +1454,7 @@ extern	int select (int fd, volatile fd_set* readfd, volatile fd_set *writefd, vo
 #ifdef mini_epoll
 // XXXXXXXXXXXXXXXXXX*************** file: epoll.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/epoll.h
 #ifndef epoll_h
@@ -1678,7 +1678,7 @@ static inline int XOR(int i1, int i2 ){
 #ifdef mini_buf
 // XXXXXXXXXXXXXXXXXX*************** file: src/mbuf.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name mbuf.c
 // O: include/mbuf.c
@@ -1692,7 +1692,7 @@ static char mbuf[mini_buf];
 #ifdef mini_itohex
 // XXXXXXXXXXXXXXXXXX*************** file: src/itohex.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name itohex.c
 // O: include/itohex.c
@@ -1740,7 +1740,7 @@ int itohex(int i,char* buf,int padding){
 #ifdef mini_itodec
 // XXXXXXXXXXXXXXXXXX*************** file: src/itodec.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name itodec.c
 // O: include/itodec.c
@@ -1864,7 +1864,7 @@ int itodec(int i, char *buf, int prec, char limiter ){
 #ifdef mini_dtodec
 // XXXXXXXXXXXXXXXXXX*************** file: src/dtodec.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name dtodec.c
 // O: include/dtodec.c
@@ -1902,7 +1902,7 @@ int dtodec(double d, char* buf, int precision){
 #ifdef mini_atoi
 // XXXXXXXXXXXXXXXXXX*************** file: src/atoi.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name atoi.c
 // O: include/atoi.c
@@ -1951,7 +1951,7 @@ int atoi(char *c){
 #ifdef mini_itobin
 // XXXXXXXXXXXXXXXXXX*************** file: src/itobin.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name itobin.c
 // O: include/itobin.c
@@ -2003,7 +2003,7 @@ int _itobin(int i, char*buf, int prec, int groups ){
 #ifdef mini_print
 // XXXXXXXXXXXXXXXXXX*************** file: src/mprint.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name mprint.c
 // O: include/mprint.c
@@ -2012,7 +2012,7 @@ int _itobin(int i, char*buf, int prec, int groups ){
 #define mprint_c
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name write.h
 // O: include/write.h
@@ -2078,7 +2078,7 @@ int printl(const char *msg){
 #ifdef mini_mfprintf
 // XXXXXXXXXXXXXXXXXX*************** file: src/mfprintf.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name mfprintf.c
 // O: include/mfprintf.c
@@ -2097,7 +2097,7 @@ int printl(const char *msg){
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../macros  Name overrun.h
 // O: include/overrun.h
@@ -2109,7 +2109,7 @@ int printl(const char *msg){
 #define overrun_h
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name exit.h
 // O: include/exit.h
@@ -2129,7 +2129,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name mprints.h
 // O: include/mprints.h
@@ -2148,7 +2148,7 @@ extern int _mprints(char*msg,...);
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name write.h
 // O: include/write.h
@@ -2185,7 +2185,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 //#include "../include/exit.h" // Needed for testing for mbuffer overrun
 // XXXXXXXXXXXXXXXXXX*************** file: mprints.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // O: include/mprints.c
 // O: src/mprints.c
@@ -2193,7 +2193,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #define mprints_c
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name write.h
 // O: include/write.h
@@ -2229,7 +2229,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name mprints.h
 // O: include/mprints.h
@@ -2244,7 +2244,7 @@ extern int _mprints(char*msg,...);
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name stdarg.h
 // O: include/stdarg.h
@@ -2388,7 +2388,7 @@ int _mprints(char *msg,...){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name stdarg.h
 // O: include/stdarg.h
@@ -2476,7 +2476,7 @@ typedef va_list __gnuc_va_list;
 //#include <stdarg.h>
 // XXXXXXXXXXXXXXXXXX*************** file: mbuf.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // YYYYYYYYYYYYYY   Already included: mbuf.c
 // O: include/mbuf.c
@@ -2664,7 +2664,7 @@ int errno;
 int __mini_vsys = 0;
 // XXXXXXXXXXXXXXXXXX*************** file: src/start_c.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name start_c.c
 // O: include/start_c.c
@@ -2703,7 +2703,7 @@ void __start_c(char **envp){
 #ifdef X64
 // XXXXXXXXXXXXXXXXXX*************** file: asm/start-linux-x64.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: asm  Name start-linux-x64.c
 // O: include/start-linux-x64.c
@@ -2712,16 +2712,12 @@ void __start_c(char **envp){
 void _start(){
 #ifdef mini_start
 __asm__ (
-		"pop %rax\n\t"
-		"leal  12(%esp,%eax,4),%ebx\n\t"
-		"pop %rax\n\t"
-		"movq %rsp,%rcx\n\t"
-		"push %rbx\n\t"
-		"push %rcx\n\t"
-		"push %rax\n\t"
+		"popq %rdi\n\t"
+		"movq %rsp,%rsi\n\t"
+		"leaq  8(%rsi,%rdi,8),%rdx\n\t"
 		"call main\n\t"
-		"movl %eax, %ebx\n\t"
-		"movl $1, %eax\n\t"
+		"movq %rax, %rbx\n\t"
+		"movq $1, %rax\n\t"
 		"int $0x80\n\t"
 	);
 };
@@ -2730,7 +2726,7 @@ __asm__ (
 #else
 // XXXXXXXXXXXXXXXXXX*************** file: asm/start.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: asm  Name start.c
 // O: include/start.c
@@ -2766,7 +2762,7 @@ __asm__ (
 #ifdef mini_start
 // XXXXXXXXXXXXXXXXXX*************** file: asm/start-osx.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: asm  Name start-osx.c
 // O: include/start-osx.c
@@ -2806,7 +2802,7 @@ __asm__ (
 #ifdef mini_mprints
 // XXXXXXXXXXXXXXXXXX*************** file: src/mprints.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name mprints.c
 // O: include/mprints.c
@@ -2815,7 +2811,7 @@ __asm__ (
 #define mprints_c
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name write.h
 // O: include/write.h
@@ -2851,7 +2847,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name mprints.h
 // O: include/mprints.h
@@ -2866,7 +2862,7 @@ extern int _mprints(char*msg,...);
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name stdarg.h
 // O: include/stdarg.h
@@ -3013,7 +3009,7 @@ int _mprints(char *msg,...){
 #ifdef mini_msprintf
 // XXXXXXXXXXXXXXXXXX*************** file: src/msprintf.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name msprintf.c
 // O: include/msprintf.c
@@ -3032,7 +3028,7 @@ int _mprints(char *msg,...){
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../macros  Name overrun.h
 // O: include/overrun.h
@@ -3044,7 +3040,7 @@ int _mprints(char *msg,...){
 #define overrun_h
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name exit.h
 // O: include/exit.h
@@ -3064,7 +3060,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name mprints.h
 // O: include/mprints.h
@@ -3083,7 +3079,7 @@ extern int _mprints(char*msg,...);
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name write.h
 // O: include/write.h
@@ -3119,7 +3115,7 @@ DEF_syscall(write,3,int a1,const char *a2, int a3 )
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name exit.h
 // O: include/exit.h
@@ -3139,7 +3135,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name stdarg.h
 // O: include/stdarg.h
@@ -3370,7 +3366,7 @@ int msprintf(char *buf, const char* fmt, ... ){
 #ifdef mini_isspace
 // XXXXXXXXXXXXXXXXXX*************** file: src/isspace.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name isspace.c
 // O: include/isspace.c
@@ -3401,7 +3397,7 @@ int isspace(int c){
 #ifdef mini_ioctl
 // XXXXXXXXXXXXXXXXXX*************** file: src/ioctl.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name ioctl.c
 // O: include/ioctl.c
@@ -3417,7 +3413,7 @@ int isspace(int c){
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: ../include  Name stdarg.h
 // O: include/stdarg.h
@@ -3522,7 +3518,7 @@ int ioctl( int fd, unsigned long int request, ... ){
 #ifdef mini_tcgetattr
 // XXXXXXXXXXXXXXXXXX*************** file: src/tcgetattr.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name tcgetattr.c
 // O: include/tcgetattr.c
@@ -3532,8 +3528,11 @@ int ioctl( int fd, unsigned long int request, ... ){
 
 #include <sys/termios.h>
 //#include "ioctl.h"
+#ifdef OSX
 #include <sys/ttycom.h>
-
+#else
+#include <asm-generic/ioctls.h>
+#endif
 
 #ifndef TCGETS
 //#warning TCGETS not defined. Applying ugly hack.
@@ -3557,7 +3556,7 @@ int tcgetattr(int fd, struct termios *io)
 #ifdef mini_tcsetattr
 // XXXXXXXXXXXXXXXXXX*************** file: src/tcsetattr.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name tcsetattr.c
 // O: include/tcsetattr.c
@@ -3567,8 +3566,13 @@ int tcgetattr(int fd, struct termios *io)
 
 //#include <termios.h>
 //#include "ioctl.h"
-
+#ifdef OSX
 #include <sys/ttycom.h>
+#else
+#include <asm-generic/ioctls.h>
+#endif
+
+
 
 #ifndef TCSETS
 //#warning TCSETS not defined. Applying ugly hack.
@@ -3591,7 +3595,7 @@ int tcsetattr(int fd, int opt, const struct termios *io)
 #ifdef mini_mstrcmp
 // XXXXXXXXXXXXXXXXXX*************** file: src/mstrcmp.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name mstrcmp.c
 // O: include/mstrcmp.c
@@ -3648,7 +3652,7 @@ int memcmp(char*c1,char*c2,int len){
 #ifdef mini_mstrlen
 // XXXXXXXXXXXXXXXXXX*************** file: src/mstrlen.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name mstrlen.c
 // O: include/mstrlen.c
@@ -3670,7 +3674,7 @@ int mstrlen(const char*str){
 #ifdef mini_memset
 // XXXXXXXXXXXXXXXXXX*************** file: src/memset.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name memset.c
 // O: include/memset.c
@@ -3687,7 +3691,7 @@ void *memset( void *s, int c, int n){
 #ifdef mini_memcpy
 // XXXXXXXXXXXXXXXXXX*************** file: src/memcpy.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name memcpy.c
 // O: include/memcpy.c
@@ -3708,7 +3712,7 @@ void *memcpy( void *d, const void *s, int n ){
 #ifdef mini_memfrob
 // XXXXXXXXXXXXXXXXXX*************** file: src/memfrob.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name memfrob.c
 // O: include/memfrob.c
@@ -3726,7 +3730,7 @@ void* memfrob(void* s, unsigned int len){
 #ifdef mini_select
 // XXXXXXXXXXXXXXXXXX*************** file: src/select.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name select.c
 // O: include/select.c
@@ -3747,7 +3751,7 @@ int select (int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile 
 #ifdef mini_malloc
 // XXXXXXXXXXXXXXXXXX*************** file: src/malloc.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name malloc.c
 // O: include/malloc.c
@@ -3817,7 +3821,7 @@ void* malloc(POINTER size){
 #ifdef mini_powers
 // XXXXXXXXXXXXXXXXXX*************** file: src/powers.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name powers.c
 // O: include/powers.c
@@ -3889,7 +3893,7 @@ int ipoweri(int x, int n){
 
 // XXXXXXXXXXXXXXXXXX*************** file: src/syscall_stubs.c 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/readkey/minilib
 
 // Path: src  Name syscall_stubs.c
 // O: include/syscall_stubs.c

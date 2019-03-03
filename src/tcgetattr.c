@@ -3,8 +3,11 @@
 
 #include <sys/termios.h>
 //#include "ioctl.h"
+#ifdef OSX
 #include <sys/ttycom.h>
-
+#else
+#include <asm-generic/ioctls.h>
+#endif
 
 #ifndef TCGETS
 //#warning TCGETS not defined. Applying ugly hack.

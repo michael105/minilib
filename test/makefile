@@ -1,7 +1,7 @@
 # makefile for the tests
 #
 
-PROG=hello malloc
+PROG=hello malloc args
 
 # where to build object files
 #BUILDDIR=.
@@ -40,12 +40,17 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined
+all: hello-combined hello-include hello-smallest
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 
 hello-combined: hello-combined.c
 	make BUILDPROG=hello-combined SINGLERUN=1 NOINCLUDE=1
 
+hello-include: hello-include.c
+	make BUILDPROG=hello-include SINGLERUN=1 NOINCLUDE=1
+
+hello-smallest: hello-smallest.c
+	make BUILDPROG=hello-smallest SINGLERUN=1 NOINCLUDE=1 ONLYTEXT=1
 
 inittest: all
 	@$(foreach P,$(PROG) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
@@ -71,7 +76,7 @@ test: all
 clean:
 	#$(foreach P,$(PROGLIST4),$(MAKE) clean BUILDPROG=$(P) && ) true
 	#$(foreach P,$(PROGLIST4), rm $(P) && ) true
-	rm $(PROG) failtest-segfault hello-combined || true
+	rm $(PROG) failtest-segfault hello-combined hello-smallest hello-include || true
 	echo $(PROG) failtest-segfault hello-combined || true
 	rm -f results/*-test.stdout
 

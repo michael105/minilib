@@ -1,7 +1,8 @@
 .global _start
 _start:
-	pop %rax #; the ret address, if compiled as a c file
-  leal  12(%esp,%eax,4),%ebx #; %ebx = envp = (4*eax)+%esp+8
+	#pop %rax #; the ret address, if compiled as a c file
+  #leaq  8(%rsp,%rax,4),%rdx #; %ebx = envp = (4*eax)+%esp+8
+	# TODO : env doesn't seem to be correct
 
 #ifdef mini_vsyscall
 #	push %rbx
@@ -9,15 +10,13 @@ _start:
 #	pop %rbx
 #endif
 
-	pop %rax #; argc
-	movq %rsp,%rcx #; argv
-
-	push %rbx #; envp
-	push %rcx #; argv
-	push %rax #; argc
+	popq %rdi #; argc
+	movq %rsp,%rsi #; argv
+	#pushq %rdi #; argc
+  leaq  8(%rsi,%rdi,8),%rdx #; %ebx = envp = (4*eax)+%esp+8
 
 
 	call main
-	movl %eax, %ebx
-	movl $1, %eax
+	movq %rax, %rbx
+	movq $1, %rax
 	int $0x80
