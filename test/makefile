@@ -1,7 +1,7 @@
 # makefile for the tests
 #
 
-PROG=hello malloc args
+PROG=hello malloc args select
 
 # where to build object files
 #BUILDDIR=.

@@ -5,7 +5,7 @@
 
 
 #ifdef X64
-#define POINTER long int
+#define POINTER unsigned long int
 #else
 #define POINTER int
 #endif

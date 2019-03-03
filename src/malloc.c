@@ -25,6 +25,7 @@ void* malloc(POINTER size){
 				ret=brk;
 		}
 		syscall1(brk,SCALL(brk),size+ret);
+		return((void*)ret);
 #else 
 //#todo: doesnt ork at all
 //		syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);

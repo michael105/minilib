@@ -12,13 +12,22 @@ extern int errno;
 #endif
 
 #ifdef OSX
+
 #define NCONST 0x2000000
 #define SCALL(call) SYS_##call
 #include <sys/syscall.h>
+
 #else
+
 #define NCONST 0
 #define SCALL(call) __NR_##call
+
+#ifdef X64
+#include "x86_x64syscalls.h"
+#else
 #include "i386syscalls.h"
+#endif
+
 #endif
 
 
@@ -35,19 +44,24 @@ extern int errno;
 //
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
+//#define __callend : "rcx" )
 #define __callend : "memory" )
 
-#ifdef OSX
+// Seems linux x86_64 has same convention as osx darwin
+#ifdef X64
+//(also osx)
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret)  : "a" ( (call | NCONST ) )
 #else
 #ifdef mini_vsyscalls
 #define __SYSCALL_ASM(ret,call) asm volatile ("call *__mini_vsys" : "=a" (ret)  : "a" (call)
 #else
+//linux32bit
 #define __SYSCALL_ASM(ret,call) asm volatile ("int $0x80" : "=a" (ret)  : "a" (call)
 #endif
 #endif
 
-#ifdef OSX
+#ifdef X64 
+	// also osx
 #define syscall1(ret,call,a1) __SYSCALL_ASM(ret,call) , "D" (a1) __callend
 #define syscall2(ret,call,a1,a2) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2) __callend
 #define syscall3(ret,call,a1,a2,a3) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3) __callend
@@ -71,6 +85,11 @@ extern int errno;
 
 #else
 
+//linux
+
+#ifndef X64
+//linux 32bit
+
 #define syscall1(ret,call,a1) __SYSCALL_ASM(ret,call) , "b" (a1) __callend
 #define syscall2(ret,call,a1,a2) __SYSCALL_ASM(ret,call) , "b" (a1), "c" (a2) __callend
 #define syscall3(ret,call,a1,a2,a3) __SYSCALL_ASM(ret,call) , "b" (a1), "c" (a2), "d" (a3) __callend
@@ -86,6 +105,26 @@ extern int errno;
 #define syscall3_ret(call) syscall2_ret(call) , "d" (a3) 
 #define syscall4_ret(call) syscall3_ret(call) , "S" (a4)
 #define syscall5_ret(call) syscall4_ret(call) , "D" (a5) 
+
+#else
+// linux 86_X64
+#define syscall1(ret,call,a1) __SYSCALL_ASM(ret,call) , "b" (a1) __callend
+#define syscall2(ret,call,a1,a2) __SYSCALL_ASM(ret,call) , "b" (a1), "c" (a2) __callend
+#define syscall3(ret,call,a1,a2,a3) __SYSCALL_ASM(ret,call) , "b" (a1), "c" (a2), "d" (a3) __callend
+#define syscall4(ret,call,a1,a2,a3,a4) __SYSCALL_ASM(ret,call) , "b" (a1), "c" (a2), "d" (a3), "S" (a4) __callend
+#define syscall5(ret,call,a1,a2,a3,a4,a5) __SYSCALL_ASM(ret,call) , "b" (a1), "c" (a2), "d" (a3), "S" (a4), "D" (a5) __callend
+
+
+// save value in (temporary) var sysret.
+// return -1 if an error occured, set errno.
+#define syscall0_ret(call) __SYSCALL_ASM(sysret,call) 
+#define syscall1_ret(call) syscall0_ret(call) , "b" (a1) 
+#define syscall2_ret(call) syscall1_ret(call) , "c" (a2) 
+#define syscall3_ret(call) syscall2_ret(call) , "d" (a3) 
+#define syscall4_ret(call) syscall3_ret(call) , "S" (a4)
+#define syscall5_ret(call) syscall4_ret(call) , "D" (a5) 
+
+#endif
 
 #endif
 

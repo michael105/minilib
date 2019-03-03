@@ -8,6 +8,10 @@ ifndef MLIBDIR
 		MLIBDIR=minilib/
 endif
 
+ifndef OPTFLAG
+		OPTFLAG=-O1
+endif
+
 UNAME := $(shell uname)
 
 COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR)
@@ -46,10 +50,10 @@ endif
 else
 		#assuming Linux
 
-DEFX=-DLINUX
+DEFX=-DLINUX -DMLIB
 ifeq ($(shell uname -m),x86_64)
 #$(info X64)
-	DEFX=-DLINUX -DX64
+	DEFX=-DLINUX -DX64 -DMLIB
 #CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin -DMLIB -DLINUX -DX64
 endif
 
@@ -61,10 +65,13 @@ ifeq "$(strip $(ONLYTEXT))" "1"
 endif
 
 #$(info Target: LINUX)
+	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
 	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT)
+
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
-	CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT)
+	#CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -fno-builtin $(DEFX) -nostdlib
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT)
 
 
 endif
