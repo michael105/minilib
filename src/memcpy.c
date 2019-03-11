@@ -1,3 +1,6 @@
+#ifndef memcpy_c
+#define memcpy_c
+
 void *memcpy( void *d, const void *s, int n ){
 		char *dp=d;
 		const char *sp = s;
@@ -7,4 +10,5 @@ void *memcpy( void *d, const void *s, int n ){
 		return(d);
 }
 
+#endif
 

@@ -13,7 +13,7 @@
 		return(ret);
 }*/
 // +64 bytes.
-DEF_syscall(write,3,int a1,const char *a2, int a3 )
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 
 /*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){

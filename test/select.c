@@ -4,7 +4,7 @@
 #define mini_overwrite
 #define mini_buf 1024
 
-#include "minilib.c"
+#include "minilib.h"
 
 int main(){
 		printf("Ok\n\n");

@@ -42,6 +42,7 @@
 
 //#define  mini_memset
 //#define  mini_memcpy
+//#define mini_strncpy
 
 //#define mini_isprint
 //#define mini_isprint

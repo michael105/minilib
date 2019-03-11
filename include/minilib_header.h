@@ -10,11 +10,11 @@
 #endif
 
 #ifndef uint32_t
-#define uint32_t unsigned int
+#define uint32_t uint
 #endif
 
 #ifndef uint8_t
-#define uint8_t unsigned char
+#define uint8_t uchar
 #endif
 
 #ifndef size_t
@@ -168,9 +168,9 @@ extern int isspace(int c);
 #include "filemodes.h"
 #endif
 
-#ifdef mini_errno
+//#ifdef mini_errno / No reason to not define errno Macros by default
 #include "errno.h"
-#endif
+//#endif
 
 
 
@@ -200,23 +200,36 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #endif
 
 #ifdef mini_mstrcmp
-extern int mstrcmp(char*,char*);
-extern int mstrncmp(char*,char*,int);
-extern int memcmp(char*,char*,int);
+extern int strcmp(char*,char*);
+extern int strncmp(char*,char*,int);
+extern int memcmp(const char*,const char*,int);
+#endif
+
+#ifdef mini_strcat
+extern char *strcat(char *dest, const char *src )
+#define mini_mstrlen
 #endif
 
 #ifdef mini_mstrlen
-extern int mstrlen(const char*);
+extern int strlen(const char*);
 #endif
 
 #ifdef mini_memset
 extern void *memset( void *s, int c, int n);
 #endif
 
-#ifdef mini_memcpy
-extern void *memcpy( void *d, const void *s, int n);
+#ifdef mini_strncpy
+#ifndef strncpy
+#define strncpy(a,b,c) memcpy(a,b,c)
+#define mini_memcpy
+#endif
 #endif
 
+#ifdef mini_memcpy
+#ifndef memcpy
+extern void *memcpy( void *d, const void *s, int n);
+#endif
+#endif
 
 
 #ifdef mini_itohex
@@ -304,9 +317,9 @@ static inline int XOR(int i1, int i2 ){
 #define fprintf(...) mfprintf(__VA_ARGS__)
 #define sprintf(...) msprintf(__VA_ARGS__)
 #define fileno(F) F
-#define strcmp(A,B) mstrcmp(A,B)
-#define strncmp(A,B,LEN) mstrncmp(A,B,LEN)
-#define strlen(A) mstrlen(A)
+//#define strcmp(A,B) mstrcmp(A,B)
+//#define strncmp(A,B,LEN) mstrncmp(A,B,LEN)
+//#define strlen(A) mstrlen(A)
 #endif
 
 

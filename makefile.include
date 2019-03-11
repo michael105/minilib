@@ -14,7 +14,7 @@ endif
 
 UNAME := $(shell uname)
 
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I $(MLIBDIR)
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat
 
 
 ifeq ($(UNAME), Darwin)
@@ -40,7 +40,7 @@ WHITE := $(shell echo $(WHITE))
 ifndef NOMLIB
 		LDFLAGS=-static
 		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
-		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin
+		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin -I$(MLIBDIR)/compat
 else
 		LDFLAGS=
 		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
@@ -50,11 +50,12 @@ endif
 else
 		#assuming Linux
 
-DEFX=-DLINUX -DMLIB
 ifeq ($(shell uname -m),x86_64)
 #$(info X64)
-	DEFX=-DLINUX -DX64 -DMLIB
+	DEFX=-DLINUX -DX64 -DMLIB -I$(MLIBDIR)/headers/linux_x64 -I$(MLIBDIR)/headers/common
 #CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin -DMLIB -DLINUX -DX64
+else
+  DEFX=-DLINUX -DMLIB
 endif
 
 
@@ -70,8 +71,13 @@ endif
 
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
-	#CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -fno-builtin $(DEFX) -nostdlib
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT)
+
+ifeq "$(strip $(GCC))" "tcc"
+	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
+else
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT)
+endif
+
 
 
 endif

@@ -13,7 +13,7 @@ MLIBDIR=../
 #SINGLERUN=1 
 
 #Set the optimization flag (default: -O1)
-#OPTFLAG=-Os
+OPTFLAG=-Os
 
 # GCC
 GCC=gcc

@@ -23,7 +23,7 @@ extern int errno;
 #define SCALL(call) __NR_##call
 
 #ifdef X64
-#include "x86_x64syscalls.h"
+#include <sys/syscall.h>
 #else
 #include "i386syscalls.h"
 #endif

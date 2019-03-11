@@ -112,6 +112,14 @@ int __mini_vsys = 0;
 #include "src/tcsetattr.c"
 #endif
 
+#ifdef mini_strcat
+#include "src/strcat.c"
+#endif
+
+
+#ifdef mini_memcmp
+#include "src/mstrcmp.c"
+#endif
 
 
 #ifdef mini_mstrcmp

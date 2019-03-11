@@ -1,30 +1,66 @@
-TODO
+===== TODO =====
 
-Useful:
 
+Sort the buildsystem out.
+Two or three unified ways.
+	
+	include "minilib.c"
+	  or
+	include "minilib.h"
+	  or
+	(?)
+
+
+syscallstubs as header.
+
+
+
+------ Useful:
+
+
+compat headers -> just change the CFLAGS / LDFLAGS to use minilib
+
+
+
+contrib
+	compile some useful tools together
+
+
+include tcc (?)
+
+busybox(?)
+
+
+------ Platforms:
+
+
+
+
+OSX x32 
+   Might be useful to port. Not sure.
+   
+LINUX x32
+   'Backport' ... 
+   
+ANDROID
+   I myself need the port.
+   
+AVR, PIC, ..
+ 
+
+
+===== Done =====
+
+ LINUX x64
+   Port. Although I'm not sure, whether that's useful
+	 Done. Some bugs seem to be left
+ 
 testing framework
   check each function and document the result.
 
-
-Platforms:
 
 OSX x64
  test different optimization flags. 
    Flag -Os doesnt produce runnable code.
  check syscall ABI. (param 4 - %ecx or %r10 ??? )
  
- OSX x32 
-   Might be useful to port. Not sure.
-   
- LINUX x32
-   'Backport' ... 
-   
- LINUX x64
-   Port. Although I'm not sure, whether that's useful
-   
- ANDROID
-   I myself need the port.
-   
- AVR, PIC, ..
- 
-
