@@ -20,6 +20,9 @@ endif
 # where to build object files (defaults to ./ )
 BUILDDIR=build
 
+# where should the binares go?
+#BINDIR=./static_x64
+
 # Where minilib is installed, or should be installed to
 MLIBDIR=minilib
 
@@ -53,6 +56,10 @@ ELFTRUNC=1
 
 # configsettings ending here
 
+ifdef BUILDPROG
+		PROG=$(BUILDPROG)
+		include $(MLIBDIR)/makefile.include
+else
 
 #( This is a recursive makefile and will call itself with this param)
 ifdef with-minilib
@@ -98,4 +105,8 @@ $(MLIBDIR)/minilib.h:
 
 install: $(PROG)
 	cp $(PROG) /usr/local/bin
+
+
+endif
+
 
