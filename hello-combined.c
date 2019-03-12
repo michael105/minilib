@@ -17,7 +17,9 @@
 // Configuration
 
  // build on OSX ( atm I can't check whether 32bit linux works )
-#define OSX
+//#define OSX
+
+#define LINUX
 
  // build with 64bit( )
 #define X64

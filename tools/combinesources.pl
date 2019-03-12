@@ -15,6 +15,7 @@ sub debug{
 # so, next try..
 sub slurpfile{
 		my $f = shift;
+		my $orif = $f;
 		my $pwd = `pwd`;
 		debug( "Current path: $pwd");
 
@@ -34,10 +35,14 @@ sub slurpfile{
 		}
 		my $mpwd = `pwd`;
 
+		$f = $orif;
+	
+
 		$included{$f} = 1;
 		my $F;
-		 my @path =("include/", "src/", "asm/", "macros/");
+		 my @path =("include/", "src/", "asm/", "macros/", "headers/common/", "headers/linux_x64/");
 		 my $pa = "";
+		 debug("f: $f");
 		 while ( (!open $F, "<", "$pa"."$f" ) ){
 			 $pa = shift @path;
 			 if ( !$pa ){ die;}

@@ -55,8 +55,8 @@ typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u
 typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
 #define __DEFINED_pthread_barrier_t
 
-typedef unsigned _Addr size_t;
-#define __DEFINED_size_t
+//typedef unsigned _Addr size_t;
+//#define __DEFINED_size_t
 
 typedef unsigned _Addr uintptr_t;
 #define __DEFINED_uintptr_t

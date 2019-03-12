@@ -20,5 +20,8 @@ combined:
 	gzip -c minilibcombined.h > minilibcombined.h.gz
 
 
+hello-combinedb: hello-combined.c
+	make PROG=hello-combined
+
 #note
 #cat hello-combined.c | gcc -o hh -static -nostdlib ../asm/start-osx.S -x c -
