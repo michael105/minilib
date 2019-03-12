@@ -6,7 +6,10 @@ Michael (Misc) Myer (misc.myer@zoho.com), 2012-2019, MIT-License
 Warning
 ********************
 
-This library is more or less beta now.
+This library is far from beeing complete.
+I'm integrating the suckless linux tools now,
+sort of a soothing puzzle.
+
 If you have no special interest in using it,
 better head for something like musl, dietlibc, klib, ...
 
