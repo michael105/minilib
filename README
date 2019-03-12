@@ -15,6 +15,7 @@ Apache License V.2.0
 ------------------------------------------------------------
 
 
+
 ====================
  Summary
 ====================
@@ -22,13 +23,13 @@ Apache License V.2.0
 Minilib isn't complete at all. (2019/03)
 
 Minilib aims to be an incomplete libc replacement,
-as simple and small as possible,
+as simple and small as possible, KISS!!!,
 but supplying the most important tools.
 Syscall wrappers and things like printf.
 
 One reason to use syscall wrappers is type safety.
 (The kernel doesn't know about type safety,
- he simply grabs the arguments he's fed..) 
+ he simply grabs the arguments he's fed, so, ..) 
 
 Minilib shall be portable. 
 For now there is Linux x86_64, x86_32,
@@ -129,7 +130,7 @@ This whole project exaggerated out of fun.
 
 I decided to publish this anyway,
 since I hope this could be of some use and there's too much on 
-my harddisk lying around and dying.
+my harddisk lying and dying.
 
 
 
