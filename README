@@ -21,22 +21,22 @@ Apache License V.2.0
 
 Minilib isn't complete at all. (2019/03)
 
- Minilib aims to be an incomplete libc replacement,
+Minilib aims to be an incomplete libc replacement,
 as simple and small as possible,
 but supplying the most important tools.
 Syscall wrappers and things like printf.
 
- One reason to use syscall wrappers is type safety.
+One reason to use syscall wrappers is type safety.
 (The kernel doesn't know about type safety,
  he simply grabs the arguments he's fed..) 
 
- Minilib shall be portable. 
+Minilib shall be portable. 
 For now there is Linux x86_64, x86_32,
 and OSX Darwin.
 
 Android is targeted. 
 
- Minilib is tiny.
+Minilib should stay tiny.
 Ideally minilib is going to supply glibc compatible
 headers. (sort of)
 
@@ -47,26 +47,26 @@ headers. (sort of)
  Warning
 ====================
 
- This library is far from beeing complete.
+This library is far from beeing complete.
 I'm integrating the suckless linux tools now,
 sort of a soothing puzzle.
 
- If you have no special interest in using it,
+If you have no special interest in using it,
 better head for something like musl, dietlibc, klib, ...
 
- I'd especially like to hint you at: 
+I'd especially like to hint you at: 
 https://github.com/attractivechaos/klib
 
- It's not very well known, 
+It's not very well known, 
 but looks good and is active.
 
- Just got minilib running on OSX (10.11, x64),
+Just got minilib running on OSX (10.11, x64),
 enabling static linking for small tools.
 Ported it from linux 32bit, 
 so for the moment it's not sure
 it will compile at linux without a little bit of work.
 
- Anyways, being able to link small tools statically 
+Anyways, being able to link small tools statically 
 on osx is a great thing. 
 This doesn't work with the native libs,
 and there are reasons, you might want to link statically.
