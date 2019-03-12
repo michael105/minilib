@@ -131,9 +131,16 @@ but especially adding more syscalls is easy.
 
 Look into include/lseek.h for examples.
 
+Addendum: ATM, I'm about to restructure this library.
 
+Please, open an issue at github for bugfixes.
+(github.com/michael105/minilib)
 
+But please don't do further work,
+otherwise we'll get some more chaos.
 
+I should have sorted the basic structure out in a few days. 
+(Today is 2019/12/03)
 
 
 
