@@ -8,3 +8,7 @@ push to another remote branch
 	git push origin HEAD:devel
 
 
+set remote branch:
+git branch --set-upstream-to=origin/master
+git branch --set-upstream-to=origin/devel
+
