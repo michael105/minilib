@@ -1,6 +1,6 @@
 void _start(){
 #ifdef mini_start
-__asm__ (
+__asm__ volatile (
 		"pop %eax\n\t"
 		"leal  12(%esp,%eax,4),%ebx\n\t"
 		"push %ebx\n\t"

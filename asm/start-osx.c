@@ -1,5 +1,5 @@
 #ifdef mini_start
-__asm__ (
+__asm__ volatile (
 		".globl start\n\t"
 		"start:	pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"

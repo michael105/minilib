@@ -35,6 +35,7 @@
 
 
 #define vfprintf(...) fprintf(__VA_ARGS__)
+#define fprintf(...) mfprintf(__VA_ARGS__)
 #define perror(...) fprintf(stderr,__VA_ARGS__)
 
 

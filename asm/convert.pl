@@ -16,7 +16,7 @@ my $e = "";
 
 push @a,
 "#ifdef mini_start\n",
-"__asm__ (\n";
+"__asm__ volatile (\n";
 my %symbols;
 
 while ( my $l = <I> ){

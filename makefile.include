@@ -66,7 +66,7 @@ endif
 
 #$(info Target: LINUX)
 	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
-	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT)
+	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles
 
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
