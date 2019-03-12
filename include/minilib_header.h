@@ -202,7 +202,7 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #ifdef mini_mstrcmp
 extern int strcmp(char*,char*);
 extern int strncmp(char*,char*,int);
-extern int memcmp(const char*,const char*,int);
+extern int memcmp(const void*,const void*,int);
 #endif
 
 #ifdef mini_strcat

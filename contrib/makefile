@@ -1,17 +1,5 @@
-# A template makefile 
-# Set Prog to the program's name
-# unpack minilib to the "source dir/minilib"
-# or set a link
-# copy this makefile into the source dir
-# done.
-
-# Or: download the file minilibcombined.c
-# have a look in minilib.h, which defines you need
-# define your switches, and include 
-# minilibcombined.c into one of your sourcefiles.
-# 
-
-
+# more or less an example for a makefile utilizing minilib.
+# "makefile.template" is for copying and configuration
 
 ifndef PROG
 PROG=elftrunc
@@ -32,13 +20,15 @@ NOINCLUDE=1
 #Set the optimization flag (default: -O1)
 OPTFLAG=-O1
 
-
 # GCC
 #GCC=gcc
 
 # LD
 #LD=ld
 
+
+# Truncate elf binaries
+ELFTRUNC=1
 
 
 # configsettings ending here

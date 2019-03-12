@@ -19,14 +19,10 @@
 
 #define mini_overwrite
 
-#include <sys/types.h>
-#include <string.h>
+#include "sys/types.h"
+#include "compat/string.h"
 #include "elf.h"
 #include "../minilib.c"
-
-//#define off_t __off_t
-
-
 
 
 void die (int v,const char *s);

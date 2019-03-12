@@ -32,7 +32,10 @@ MLIBDIR=minilib
 # include only the Text section in the resulting elf output
 #ONLYTEXT=1
 
-#Set the optimization flag (default: -O1)
+# Set the optimization flag (default: -O1)
+# Be careful with that, -Os as well as -O2 seem to be problematic
+# Maybe more functions need to be volatile ?
+#
 #OPTFLAG=-O1
 
 # GCC
@@ -42,6 +45,11 @@ MLIBDIR=minilib
 #LD=ld
 
 
+# Truncate elf binaries
+ELFTRUNC=1
+
+# Report verbose 
+#VERBOSE=1
 
 # configsettings ending here
 

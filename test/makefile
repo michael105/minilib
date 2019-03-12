@@ -21,6 +21,9 @@ GCC=gcc
 # LD
 #LD=ld
 
+ELFTRUNC=1
+
+
 ifndef GREEN
 #colors..
 GREEN="\033[00;32m"
