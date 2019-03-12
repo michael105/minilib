@@ -156,5 +156,5 @@ int __mini_vsys = 0;
 #endif
 
 
-#include "src/syscall_stubs.c"
+#include "include/syscall_stubs.h"
 

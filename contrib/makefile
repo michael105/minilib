@@ -23,11 +23,15 @@ endif
 # Where minilib is installed, or should be installed to
 MLIBDIR=../
 
-# Don't create obj files, include evrything in one gcc run.(yourself)
-#SINGLERUN=1
+# Don't create obj files, include everything in one gcc run.
+SINGLERUN=1
+
+# Include everything yourself
+NOINCLUDE=1
 
 #Set the optimization flag (default: -O1)
-#OPTFLAG=-O1
+OPTFLAG=-O1
+
 
 # GCC
 #GCC=gcc

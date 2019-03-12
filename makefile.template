@@ -26,6 +26,12 @@ MLIBDIR=minilib
 # Don't create obj files, include evrything in one gcc run.(yourself)
 #SINGLERUN=1
 
+# Include everything yourself
+#NOINCLUDE=1
+
+# include only the Text section in the resulting elf output
+#ONLYTEXT=1
+
 #Set the optimization flag (default: -O1)
 #OPTFLAG=-O1
 

@@ -47,7 +47,7 @@
 
 
 #include "timeval.h"
-#include "../src/syscall_stubs.c"
+#include "syscall_stubs.h"
 
 
 #ifdef mini_read

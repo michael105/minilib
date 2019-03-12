@@ -1,0 +1,10 @@
+### assorted notes
+
+
+
+git:
+
+push to another remote branch
+	git push origin HEAD:devel
+
+

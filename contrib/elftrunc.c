@@ -1,3 +1,12 @@
+/* 
+ Copied this from fefe's dietlibc.
+ It's contributed there by Olaf.(?)
+
+ Modified it to work with minilib.
+*/
+
+
+
 #define mini_start
 #define mini_lseek
 #define mini_strncpy
@@ -16,6 +25,9 @@
 #include "../minilib.c"
 
 //#define off_t __off_t
+
+
+
 
 void die (int v,const char *s);
 void die (int v,const char *s)
