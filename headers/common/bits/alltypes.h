@@ -7,6 +7,9 @@
 #define _Int64 long
 #define _Reg long
 
+#ifndef size_t
+#define size_t long
+#endif
 
 typedef __builtin_va_list va_list;
 #define __DEFINED_va_list

@@ -108,6 +108,21 @@ extern int msprintf(char *buf, const char *fmt, ...);
 #include "mprints.h"
 #endif
 
+#ifdef mini_putchar
+#define mini_fputc
+#define putchar(c) fputc(c,stdout)
+#endif
+
+#ifdef mini_fputc
+#include "fputc.h"
+#endif
+
+#ifdef mini_fputs
+#include "fputs.h"
+#endif
+
+
+
 #ifdef mini_puts
 #define puts(a1) printl(a1)
 #define mini_print
@@ -200,8 +215,8 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #endif
 
 #ifdef mini_mstrcmp
-extern int strcmp(char*,char*);
-extern int strncmp(char*,char*,int);
+extern int strcmp(const char*,const char*);
+extern int strncmp(const char*,const char*,int);
 extern int memcmp(const void*,const void*,int);
 #endif
 

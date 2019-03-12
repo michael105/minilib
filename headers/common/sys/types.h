@@ -3,6 +3,16 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifndef POINTER
+#ifdef X64
+#define POINTER unsigned long int
+#else
+#define POINTER int
+#endif
+#endif
+
+
 #include <bits/alltypes.h>
 
 typedef unsigned char u_int8_t;

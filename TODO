@@ -11,9 +11,6 @@ Two or three unified ways.
 	(?)
 
 
-syscallstubs as header.
-
-
 
 ------ Useful:
 
@@ -51,13 +48,18 @@ AVR, PIC, ..
 
 ===== Done =====
 
+
+syscallstubs as header.
+
+testing framework
+  check each function and document the result.
+
+
+
  LINUX x64
    Port. Although I'm not sure, whether that's useful
 	 Done. Some bugs seem to be left
  
-testing framework
-  check each function and document the result.
-
 
 OSX x64
  test different optimization flags. 
