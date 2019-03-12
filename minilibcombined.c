@@ -1416,6 +1416,16 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifndef POINTER
+#ifdef X64
+#define POINTER unsigned long int
+#else
+#define POINTER int
+#endif
+#endif
+
+
 #include <bits/alltypes.h>
 
 typedef unsigned char u_int8_t;
@@ -1961,6 +1971,146 @@ extern int _mprints(char*msg,...);
 #endif
 #endif
 
+#ifdef mini_putchar
+#define mini_fputc
+#define putchar(c) fputc(c,stdout)
+#endif
+
+#ifdef mini_fputc
+// XXXXXXXXXXXXXXXXXX*************** file: fputc.h 
+
+// Current path: /home/micha/prog/minilib
+
+// f: fputc.h
+// O: include/fputc.h
+#ifndef fputc_c
+#define fputc_c
+
+// XXXXXXXXXXXXXXXXXX*************** file: write.h 
+
+// Current path: /home/micha/prog/minilib
+
+// f: write.h
+// O: include/write.h
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+
+
+int fputc(int c, int fd){
+		write(fd, &c, 1);
+		return(c);
+}
+
+
+
+#endif
+#endif
+
+#ifdef mini_fputs
+// XXXXXXXXXXXXXXXXXX*************** file: fputs.h 
+
+// Current path: /home/micha/prog/minilib
+
+// f: fputs.h
+// O: include/fputs.h
+#ifndef fputs_c
+#define fputs_c
+
+// XXXXXXXXXXXXXXXXXX*************** file: write.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: write.h
+// f: write.h
+// O: include/write.h
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+// XXXXXXXXXXXXXXXXXX*************** file: src/mstrlen.c 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: src  Name mstrlen.c
+// f: src/mstrlen.c
+#ifndef strlen_c
+#define strlen_c
+int strlen(const char*str){
+		int a = 0;
+		while ( str[a] != 0 ){
+				a++;
+		}
+		return (a);
+}
+
+
+#endif
+
+int fputs(const char *c, int fd){
+		return(write(fd, c, strlen(c)));
+}
+
+
+
+#endif
+#endif
+
+
+
 #ifdef mini_puts
 #define puts(a1) printl(a1)
 #define mini_print
@@ -2005,6 +2155,7 @@ static inline void __attribute__((always_inline)) exit( int ret ){
 
 // Current path: /home/micha/prog/minilib
 
+// YYYYYYYYYYYYYY   Already included: write.h
 // f: write.h
 // O: include/write.h
 #ifndef minilib_write_h
@@ -2746,8 +2897,8 @@ static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout)
 #endif
 
 #ifdef mini_mstrcmp
-extern int strcmp(char*,char*);
-extern int strncmp(char*,char*,int);
+extern int strcmp(const char*,const char*);
+extern int strncmp(const char*,const char*,int);
 extern int memcmp(const void*,const void*,int);
 #endif
 
@@ -2890,6 +3041,10 @@ static inline int XOR(int i1, int i2 ){
 // f: src/mbuf.c
 #ifndef MINI_MBUF
 #define MINI_MBUF
+#ifndef mini_buf
+#define mini_buf 1024
+#endif
+
 static char mbuf[mini_buf];
 #endif
 #endif
@@ -3696,6 +3851,10 @@ typedef va_list __gnuc_va_list;
 // O: src/mbuf.c
 #ifndef MINI_MBUF
 #define MINI_MBUF
+#ifndef mini_buf
+#define mini_buf 1024
+#endif
+
 static char mbuf[mini_buf];
 #endif
 
@@ -4847,7 +5006,7 @@ char *strcat(char *dest, const char *src )
 
 //TODO: not implemented correct. need to return also -1.
 
-int _strcmp(char*c1,char*c2,int len){
+int _strcmp(const char*c1,const char*c2,int len){
 		int a = 0;
 		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
 				//write(1,&c1[a],1);
@@ -4863,12 +5022,12 @@ int _strcmp(char*c1,char*c2,int len){
 
 
 
-int strcmp(char*c1,char*c2){
+int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
 }
 
 
-int strncmp(char*c1,char*c2,int len){
+int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )
 				return(-1);
 		return(_strcmp(c1,c2,len) );
@@ -4907,7 +5066,7 @@ int memcmp(const void* c1,const void* c2,int len){
 
 //TODO: not implemented correct. need to return also -1.
 
-int _strcmp(char*c1,char*c2,int len){
+int _strcmp(const char*c1,const char*c2,int len){
 		int a = 0;
 		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
 				//write(1,&c1[a],1);
@@ -4923,12 +5082,12 @@ int _strcmp(char*c1,char*c2,int len){
 
 
 
-int strcmp(char*c1,char*c2){
+int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
 }
 
 
-int strncmp(char*c1,char*c2,int len){
+int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )
 				return(-1);
 		return(_strcmp(c1,c2,len) );
@@ -4958,6 +5117,7 @@ int memcmp(const void* c1,const void* c2,int len){
 
 // Current path: /home/micha/prog/minilib
 
+// YYYYYYYYYYYYYY   Already included: src/mstrlen.c
 // Path: src  Name mstrlen.c
 // f: src/mstrlen.c
 #ifndef strlen_c
@@ -5873,6 +6033,16 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifndef POINTER
+#ifdef X64
+#define POINTER unsigned long int
+#else
+#define POINTER int
+#endif
+#endif
+
+
 #include <bits/alltypes.h>
 
 typedef unsigned char u_int8_t;
