@@ -14,6 +14,7 @@ ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
 
+
 UNAME := $(shell uname)
 
 COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat
@@ -55,6 +56,10 @@ ifeq ($(shell uname -m),x86_64)
 #CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin -DMLIB -DLINUX -DX64
 else
   DEFX=-DLINUX -DMLIB
+endif
+
+ifeq "$(strip $(INCLUDECOMPATSRC))" "1"
+		DEFX := $(DEFX) -DINCLUDECOMPATSRC
 endif
 
 
@@ -154,8 +159,6 @@ else
 
 
 ifeq "$(strip $(SINGLERUN))" "1"
-
- #ifeq "$(SINGLERUN)" "1"
 
 $(info Singlerun)
 

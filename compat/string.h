@@ -17,10 +17,13 @@
 
 #include "sys/types.h"
 
+
+#ifdef INCLUDECOMPATSRC
 #include "src/mstrcmp.c"
 #include "src/mstrlen.c"
 #include "src/memcpy.c"
 #include "src/strcat.c"
+#endif
 
 #endif
 

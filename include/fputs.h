@@ -2,9 +2,9 @@
 #define fputs_c
 
 #include "write.h"
-#include "src/mstrlen.c"
+int strlen(const char*str);
 
-int fputs(const char *c, int fd){
+static int fputs(const char *c, int fd){
 		return(write(fd, c, strlen(c)));
 }
 

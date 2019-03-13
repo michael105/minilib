@@ -114,6 +114,7 @@ extern int msprintf(char *buf, const char *fmt, ...);
 #endif
 
 #ifdef mini_fputc
+#define mini_mstrlen
 #include "fputc.h"
 #endif
 
