@@ -1,8 +1,5 @@
-#ifndef	_SYS_TYPES_H
-#define	_SYS_TYPES_H
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef	SYS_TYPES_H
+#define	SYS_TYPES_H
 
 #ifndef POINTER
 #ifdef X64
@@ -33,7 +30,4 @@ typedef unsigned long long u_quad_t;
 #define ino64_t ino_t
 #define off64_t off_t
 
-#ifdef __cplusplus
-}
-#endif
 #endif

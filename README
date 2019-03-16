@@ -176,6 +176,18 @@ done..
 
 
 ====================
+ Further Readings
+====================
+
+-> https://elinux.org/System_Size  -  Embedded Linux and size
+
+-> http://muppetlabs.com/~breadbox/software/tiny/teensy.html  -  About creating tiny binaries
+
+-> https://olimex.wordpress.com/2012/04/04/unix-on-pic32-meet-retrobsd-for-duinomite/ 
+   -  running bsd with 128K RAM (!)
+
+
+====================
  Notes
 ====================
 

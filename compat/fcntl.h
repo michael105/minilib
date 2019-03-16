@@ -8,6 +8,7 @@
 #include "include/open.h"
 #include "include/read.h"
 #include "include/close.h"
+#include "include/write.h"
 
 
 

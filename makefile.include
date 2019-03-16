@@ -63,10 +63,10 @@ ifeq "$(strip $(INCLUDECOMPATSRC))" "1"
 endif
 
 
-LSCRIPT=-T$(MLIBDIR)/scripts/ld.script
+LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script
 
 ifeq "$(strip $(ONLYTEXT))" "1"
-		LSCRIPT=-T$(MLIBDIR)/scripts/ld.script.onlytext
+		LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script.onlytext
 endif
 
 #$(info Target: LINUX)
@@ -175,8 +175,8 @@ else
 $(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o
 	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
 	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
-	strip $(PROG)
-	$(if $(strip $(ELFTRUNC)),elftrunc $(PROG) $(PROG))
+	#strip $(PROG)
+	#$(if $(strip $(ELFTRUNC)),elftrunc $(PROG) $(PROG))
 	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))
 
 endif
