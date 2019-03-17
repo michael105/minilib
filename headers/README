@@ -1,3 +1,11 @@
 platform specific headers
 and defines go here
 
+If not otherwise noted, 
+most headers in common are modified headers
+of musl.
+
+musl is licensed under the terms of the Standard MIT-License,
+see the file musl-LICENSE.
+
+
