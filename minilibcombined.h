@@ -117,7 +117,356 @@ extern int errno;
 
 #define NCONST 0x2000000
 #define SCALL(call) SYS_##call
-#include <sys/syscall.h>
+// XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: sys  Name syscall.h
+// f: sys/syscall.h
+// O: include/sys/syscall.h
+// O: src/sys/syscall.h
+// O: asm/sys/syscall.h
+// O: macros/sys/syscall.h
+// O: headers/common/sys/syscall.h
+// O: headers/linux_x64/sys/syscall.h
+#ifndef _ASM_X86_UNISTD_64_H
+#define _ASM_X86_UNISTD_64_H 1
+
+#define __NR_read 0
+#define __NR_write 1
+#define __NR_open 2
+#define __NR_close 3
+#define __NR_stat 4
+#define __NR_fstat 5
+#define __NR_lstat 6
+#define __NR_poll 7
+#define __NR_lseek 8
+#define __NR_mmap 9
+#define __NR_mprotect 10
+#define __NR_munmap 11
+#define __NR_brk 12
+#define __NR_rt_sigaction 13
+#define __NR_rt_sigprocmask 14
+#define __NR_rt_sigreturn 15
+#define __NR_ioctl 16
+#define __NR_pread64 17
+#define __NR_pwrite64 18
+#define __NR_readv 19
+#define __NR_writev 20
+#define __NR_access 21
+#define __NR_pipe 22
+#define __NR_select 23
+#define __NR_sched_yield 24
+#define __NR_mremap 25
+#define __NR_msync 26
+#define __NR_mincore 27
+#define __NR_madvise 28
+#define __NR_shmget 29
+#define __NR_shmat 30
+#define __NR_shmctl 31
+#define __NR_dup 32
+#define __NR_dup2 33
+#define __NR_pause 34
+#define __NR_nanosleep 35
+#define __NR_getitimer 36
+#define __NR_alarm 37
+#define __NR_setitimer 38
+#define __NR_getpid 39
+#define __NR_sendfile 40
+#define __NR_socket 41
+#define __NR_connect 42
+#define __NR_accept 43
+#define __NR_sendto 44
+#define __NR_recvfrom 45
+#define __NR_sendmsg 46
+#define __NR_recvmsg 47
+#define __NR_shutdown 48
+#define __NR_bind 49
+#define __NR_listen 50
+#define __NR_getsockname 51
+#define __NR_getpeername 52
+#define __NR_socketpair 53
+#define __NR_setsockopt 54
+#define __NR_getsockopt 55
+#define __NR_clone 56
+#define __NR_fork 57
+#define __NR_vfork 58
+#define __NR_execve 59
+#define __NR_exit 60
+#define __NR_wait4 61
+#define __NR_kill 62
+#define __NR_uname 63
+#define __NR_semget 64
+#define __NR_semop 65
+#define __NR_semctl 66
+#define __NR_shmdt 67
+#define __NR_msgget 68
+#define __NR_msgsnd 69
+#define __NR_msgrcv 70
+#define __NR_msgctl 71
+#define __NR_fcntl 72
+#define __NR_flock 73
+#define __NR_fsync 74
+#define __NR_fdatasync 75
+#define __NR_truncate 76
+#define __NR_ftruncate 77
+#define __NR_getdents 78
+#define __NR_getcwd 79
+#define __NR_chdir 80
+#define __NR_fchdir 81
+#define __NR_rename 82
+#define __NR_mkdir 83
+#define __NR_rmdir 84
+#define __NR_creat 85
+#define __NR_link 86
+#define __NR_unlink 87
+#define __NR_symlink 88
+#define __NR_readlink 89
+#define __NR_chmod 90
+#define __NR_fchmod 91
+#define __NR_chown 92
+#define __NR_fchown 93
+#define __NR_lchown 94
+#define __NR_umask 95
+#define __NR_gettimeofday 96
+#define __NR_getrlimit 97
+#define __NR_getrusage 98
+#define __NR_sysinfo 99
+#define __NR_times 100
+#define __NR_ptrace 101
+#define __NR_getuid 102
+#define __NR_syslog 103
+#define __NR_getgid 104
+#define __NR_setuid 105
+#define __NR_setgid 106
+#define __NR_geteuid 107
+#define __NR_getegid 108
+#define __NR_setpgid 109
+#define __NR_getppid 110
+#define __NR_getpgrp 111
+#define __NR_setsid 112
+#define __NR_setreuid 113
+#define __NR_setregid 114
+#define __NR_getgroups 115
+#define __NR_setgroups 116
+#define __NR_setresuid 117
+#define __NR_getresuid 118
+#define __NR_setresgid 119
+#define __NR_getresgid 120
+#define __NR_getpgid 121
+#define __NR_setfsuid 122
+#define __NR_setfsgid 123
+#define __NR_getsid 124
+#define __NR_capget 125
+#define __NR_capset 126
+#define __NR_rt_sigpending 127
+#define __NR_rt_sigtimedwait 128
+#define __NR_rt_sigqueueinfo 129
+#define __NR_rt_sigsuspend 130
+#define __NR_sigaltstack 131
+#define __NR_utime 132
+#define __NR_mknod 133
+#define __NR_uselib 134
+#define __NR_personality 135
+#define __NR_ustat 136
+#define __NR_statfs 137
+#define __NR_fstatfs 138
+#define __NR_sysfs 139
+#define __NR_getpriority 140
+#define __NR_setpriority 141
+#define __NR_sched_setparam 142
+#define __NR_sched_getparam 143
+#define __NR_sched_setscheduler 144
+#define __NR_sched_getscheduler 145
+#define __NR_sched_get_priority_max 146
+#define __NR_sched_get_priority_min 147
+#define __NR_sched_rr_get_interval 148
+#define __NR_mlock 149
+#define __NR_munlock 150
+#define __NR_mlockall 151
+#define __NR_munlockall 152
+#define __NR_vhangup 153
+#define __NR_modify_ldt 154
+#define __NR_pivot_root 155
+#define __NR__sysctl 156
+#define __NR_prctl 157
+#define __NR_arch_prctl 158
+#define __NR_adjtimex 159
+#define __NR_setrlimit 160
+#define __NR_chroot 161
+#define __NR_sync 162
+#define __NR_acct 163
+#define __NR_settimeofday 164
+#define __NR_mount 165
+#define __NR_umount2 166
+#define __NR_swapon 167
+#define __NR_swapoff 168
+#define __NR_reboot 169
+#define __NR_sethostname 170
+#define __NR_setdomainname 171
+#define __NR_iopl 172
+#define __NR_ioperm 173
+#define __NR_create_module 174
+#define __NR_init_module 175
+#define __NR_delete_module 176
+#define __NR_get_kernel_syms 177
+#define __NR_query_module 178
+#define __NR_quotactl 179
+#define __NR_nfsservctl 180
+#define __NR_getpmsg 181
+#define __NR_putpmsg 182
+#define __NR_afs_syscall 183
+#define __NR_tuxcall 184
+#define __NR_security 185
+#define __NR_gettid 186
+#define __NR_readahead 187
+#define __NR_setxattr 188
+#define __NR_lsetxattr 189
+#define __NR_fsetxattr 190
+#define __NR_getxattr 191
+#define __NR_lgetxattr 192
+#define __NR_fgetxattr 193
+#define __NR_listxattr 194
+#define __NR_llistxattr 195
+#define __NR_flistxattr 196
+#define __NR_removexattr 197
+#define __NR_lremovexattr 198
+#define __NR_fremovexattr 199
+#define __NR_tkill 200
+#define __NR_time 201
+#define __NR_futex 202
+#define __NR_sched_setaffinity 203
+#define __NR_sched_getaffinity 204
+#define __NR_set_thread_area 205
+#define __NR_io_setup 206
+#define __NR_io_destroy 207
+#define __NR_io_getevents 208
+#define __NR_io_submit 209
+#define __NR_io_cancel 210
+#define __NR_get_thread_area 211
+#define __NR_lookup_dcookie 212
+#define __NR_epoll_create 213
+#define __NR_epoll_ctl_old 214
+#define __NR_epoll_wait_old 215
+#define __NR_remap_file_pages 216
+#define __NR_getdents64 217
+#define __NR_set_tid_address 218
+#define __NR_restart_syscall 219
+#define __NR_semtimedop 220
+#define __NR_fadvise64 221
+#define __NR_timer_create 222
+#define __NR_timer_settime 223
+#define __NR_timer_gettime 224
+#define __NR_timer_getoverrun 225
+#define __NR_timer_delete 226
+#define __NR_clock_settime 227
+#define __NR_clock_gettime 228
+#define __NR_clock_getres 229
+#define __NR_clock_nanosleep 230
+#define __NR_exit_group 231
+#define __NR_epoll_wait 232
+#define __NR_epoll_ctl 233
+#define __NR_tgkill 234
+#define __NR_utimes 235
+#define __NR_vserver 236
+#define __NR_mbind 237
+#define __NR_set_mempolicy 238
+#define __NR_get_mempolicy 239
+#define __NR_mq_open 240
+#define __NR_mq_unlink 241
+#define __NR_mq_timedsend 242
+#define __NR_mq_timedreceive 243
+#define __NR_mq_notify 244
+#define __NR_mq_getsetattr 245
+#define __NR_kexec_load 246
+#define __NR_waitid 247
+#define __NR_add_key 248
+#define __NR_request_key 249
+#define __NR_keyctl 250
+#define __NR_ioprio_set 251
+#define __NR_ioprio_get 252
+#define __NR_inotify_init 253
+#define __NR_inotify_add_watch 254
+#define __NR_inotify_rm_watch 255
+#define __NR_migrate_pages 256
+#define __NR_openat 257
+#define __NR_mkdirat 258
+#define __NR_mknodat 259
+#define __NR_fchownat 260
+#define __NR_futimesat 261
+#define __NR_newfstatat 262
+#define __NR_unlinkat 263
+#define __NR_renameat 264
+#define __NR_linkat 265
+#define __NR_symlinkat 266
+#define __NR_readlinkat 267
+#define __NR_fchmodat 268
+#define __NR_faccessat 269
+#define __NR_pselect6 270
+#define __NR_ppoll 271
+#define __NR_unshare 272
+#define __NR_set_robust_list 273
+#define __NR_get_robust_list 274
+#define __NR_splice 275
+#define __NR_tee 276
+#define __NR_sync_file_range 277
+#define __NR_vmsplice 278
+#define __NR_move_pages 279
+#define __NR_utimensat 280
+#define __NR_epoll_pwait 281
+#define __NR_signalfd 282
+#define __NR_timerfd_create 283
+#define __NR_eventfd 284
+#define __NR_fallocate 285
+#define __NR_timerfd_settime 286
+#define __NR_timerfd_gettime 287
+#define __NR_accept4 288
+#define __NR_signalfd4 289
+#define __NR_eventfd2 290
+#define __NR_epoll_create1 291
+#define __NR_dup3 292
+#define __NR_pipe2 293
+#define __NR_inotify_init1 294
+#define __NR_preadv 295
+#define __NR_pwritev 296
+#define __NR_rt_tgsigqueueinfo 297
+#define __NR_perf_event_open 298
+#define __NR_recvmmsg 299
+#define __NR_fanotify_init 300
+#define __NR_fanotify_mark 301
+#define __NR_prlimit64 302
+#define __NR_name_to_handle_at 303
+#define __NR_open_by_handle_at 304
+#define __NR_clock_adjtime 305
+#define __NR_syncfs 306
+#define __NR_sendmmsg 307
+#define __NR_setns 308
+#define __NR_getcpu 309
+#define __NR_process_vm_readv 310
+#define __NR_process_vm_writev 311
+#define __NR_kcmp 312
+#define __NR_finit_module 313
+#define __NR_sched_setattr 314
+#define __NR_sched_getattr 315
+#define __NR_renameat2 316
+#define __NR_seccomp 317
+#define __NR_getrandom 318
+#define __NR_memfd_create 319
+#define __NR_kexec_file_load 320
+#define __NR_bpf 321
+#define __NR_execveat 322
+#define __NR_userfaultfd 323
+#define __NR_membarrier 324
+#define __NR_mlock2 325
+#define __NR_copy_file_range 326
+#define __NR_preadv2 327
+#define __NR_pwritev2 328
+#define __NR_pkey_mprotect 329
+#define __NR_pkey_alloc 330
+#define __NR_pkey_free 331
+#define __NR_statx 332
+
+#endif /* _ASM_X86_UNISTD_64_H */
 
 #else
 
@@ -125,7 +474,357 @@ extern int errno;
 #define SCALL(call) __NR_##call
 
 #ifdef X64
-#include <sys/syscall.h>
+// XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: sys/syscall.h
+// Path: sys  Name syscall.h
+// f: sys/syscall.h
+// O: include/sys/syscall.h
+// O: src/sys/syscall.h
+// O: asm/sys/syscall.h
+// O: macros/sys/syscall.h
+// O: headers/common/sys/syscall.h
+// O: headers/linux_x64/sys/syscall.h
+#ifndef _ASM_X86_UNISTD_64_H
+#define _ASM_X86_UNISTD_64_H 1
+
+#define __NR_read 0
+#define __NR_write 1
+#define __NR_open 2
+#define __NR_close 3
+#define __NR_stat 4
+#define __NR_fstat 5
+#define __NR_lstat 6
+#define __NR_poll 7
+#define __NR_lseek 8
+#define __NR_mmap 9
+#define __NR_mprotect 10
+#define __NR_munmap 11
+#define __NR_brk 12
+#define __NR_rt_sigaction 13
+#define __NR_rt_sigprocmask 14
+#define __NR_rt_sigreturn 15
+#define __NR_ioctl 16
+#define __NR_pread64 17
+#define __NR_pwrite64 18
+#define __NR_readv 19
+#define __NR_writev 20
+#define __NR_access 21
+#define __NR_pipe 22
+#define __NR_select 23
+#define __NR_sched_yield 24
+#define __NR_mremap 25
+#define __NR_msync 26
+#define __NR_mincore 27
+#define __NR_madvise 28
+#define __NR_shmget 29
+#define __NR_shmat 30
+#define __NR_shmctl 31
+#define __NR_dup 32
+#define __NR_dup2 33
+#define __NR_pause 34
+#define __NR_nanosleep 35
+#define __NR_getitimer 36
+#define __NR_alarm 37
+#define __NR_setitimer 38
+#define __NR_getpid 39
+#define __NR_sendfile 40
+#define __NR_socket 41
+#define __NR_connect 42
+#define __NR_accept 43
+#define __NR_sendto 44
+#define __NR_recvfrom 45
+#define __NR_sendmsg 46
+#define __NR_recvmsg 47
+#define __NR_shutdown 48
+#define __NR_bind 49
+#define __NR_listen 50
+#define __NR_getsockname 51
+#define __NR_getpeername 52
+#define __NR_socketpair 53
+#define __NR_setsockopt 54
+#define __NR_getsockopt 55
+#define __NR_clone 56
+#define __NR_fork 57
+#define __NR_vfork 58
+#define __NR_execve 59
+#define __NR_exit 60
+#define __NR_wait4 61
+#define __NR_kill 62
+#define __NR_uname 63
+#define __NR_semget 64
+#define __NR_semop 65
+#define __NR_semctl 66
+#define __NR_shmdt 67
+#define __NR_msgget 68
+#define __NR_msgsnd 69
+#define __NR_msgrcv 70
+#define __NR_msgctl 71
+#define __NR_fcntl 72
+#define __NR_flock 73
+#define __NR_fsync 74
+#define __NR_fdatasync 75
+#define __NR_truncate 76
+#define __NR_ftruncate 77
+#define __NR_getdents 78
+#define __NR_getcwd 79
+#define __NR_chdir 80
+#define __NR_fchdir 81
+#define __NR_rename 82
+#define __NR_mkdir 83
+#define __NR_rmdir 84
+#define __NR_creat 85
+#define __NR_link 86
+#define __NR_unlink 87
+#define __NR_symlink 88
+#define __NR_readlink 89
+#define __NR_chmod 90
+#define __NR_fchmod 91
+#define __NR_chown 92
+#define __NR_fchown 93
+#define __NR_lchown 94
+#define __NR_umask 95
+#define __NR_gettimeofday 96
+#define __NR_getrlimit 97
+#define __NR_getrusage 98
+#define __NR_sysinfo 99
+#define __NR_times 100
+#define __NR_ptrace 101
+#define __NR_getuid 102
+#define __NR_syslog 103
+#define __NR_getgid 104
+#define __NR_setuid 105
+#define __NR_setgid 106
+#define __NR_geteuid 107
+#define __NR_getegid 108
+#define __NR_setpgid 109
+#define __NR_getppid 110
+#define __NR_getpgrp 111
+#define __NR_setsid 112
+#define __NR_setreuid 113
+#define __NR_setregid 114
+#define __NR_getgroups 115
+#define __NR_setgroups 116
+#define __NR_setresuid 117
+#define __NR_getresuid 118
+#define __NR_setresgid 119
+#define __NR_getresgid 120
+#define __NR_getpgid 121
+#define __NR_setfsuid 122
+#define __NR_setfsgid 123
+#define __NR_getsid 124
+#define __NR_capget 125
+#define __NR_capset 126
+#define __NR_rt_sigpending 127
+#define __NR_rt_sigtimedwait 128
+#define __NR_rt_sigqueueinfo 129
+#define __NR_rt_sigsuspend 130
+#define __NR_sigaltstack 131
+#define __NR_utime 132
+#define __NR_mknod 133
+#define __NR_uselib 134
+#define __NR_personality 135
+#define __NR_ustat 136
+#define __NR_statfs 137
+#define __NR_fstatfs 138
+#define __NR_sysfs 139
+#define __NR_getpriority 140
+#define __NR_setpriority 141
+#define __NR_sched_setparam 142
+#define __NR_sched_getparam 143
+#define __NR_sched_setscheduler 144
+#define __NR_sched_getscheduler 145
+#define __NR_sched_get_priority_max 146
+#define __NR_sched_get_priority_min 147
+#define __NR_sched_rr_get_interval 148
+#define __NR_mlock 149
+#define __NR_munlock 150
+#define __NR_mlockall 151
+#define __NR_munlockall 152
+#define __NR_vhangup 153
+#define __NR_modify_ldt 154
+#define __NR_pivot_root 155
+#define __NR__sysctl 156
+#define __NR_prctl 157
+#define __NR_arch_prctl 158
+#define __NR_adjtimex 159
+#define __NR_setrlimit 160
+#define __NR_chroot 161
+#define __NR_sync 162
+#define __NR_acct 163
+#define __NR_settimeofday 164
+#define __NR_mount 165
+#define __NR_umount2 166
+#define __NR_swapon 167
+#define __NR_swapoff 168
+#define __NR_reboot 169
+#define __NR_sethostname 170
+#define __NR_setdomainname 171
+#define __NR_iopl 172
+#define __NR_ioperm 173
+#define __NR_create_module 174
+#define __NR_init_module 175
+#define __NR_delete_module 176
+#define __NR_get_kernel_syms 177
+#define __NR_query_module 178
+#define __NR_quotactl 179
+#define __NR_nfsservctl 180
+#define __NR_getpmsg 181
+#define __NR_putpmsg 182
+#define __NR_afs_syscall 183
+#define __NR_tuxcall 184
+#define __NR_security 185
+#define __NR_gettid 186
+#define __NR_readahead 187
+#define __NR_setxattr 188
+#define __NR_lsetxattr 189
+#define __NR_fsetxattr 190
+#define __NR_getxattr 191
+#define __NR_lgetxattr 192
+#define __NR_fgetxattr 193
+#define __NR_listxattr 194
+#define __NR_llistxattr 195
+#define __NR_flistxattr 196
+#define __NR_removexattr 197
+#define __NR_lremovexattr 198
+#define __NR_fremovexattr 199
+#define __NR_tkill 200
+#define __NR_time 201
+#define __NR_futex 202
+#define __NR_sched_setaffinity 203
+#define __NR_sched_getaffinity 204
+#define __NR_set_thread_area 205
+#define __NR_io_setup 206
+#define __NR_io_destroy 207
+#define __NR_io_getevents 208
+#define __NR_io_submit 209
+#define __NR_io_cancel 210
+#define __NR_get_thread_area 211
+#define __NR_lookup_dcookie 212
+#define __NR_epoll_create 213
+#define __NR_epoll_ctl_old 214
+#define __NR_epoll_wait_old 215
+#define __NR_remap_file_pages 216
+#define __NR_getdents64 217
+#define __NR_set_tid_address 218
+#define __NR_restart_syscall 219
+#define __NR_semtimedop 220
+#define __NR_fadvise64 221
+#define __NR_timer_create 222
+#define __NR_timer_settime 223
+#define __NR_timer_gettime 224
+#define __NR_timer_getoverrun 225
+#define __NR_timer_delete 226
+#define __NR_clock_settime 227
+#define __NR_clock_gettime 228
+#define __NR_clock_getres 229
+#define __NR_clock_nanosleep 230
+#define __NR_exit_group 231
+#define __NR_epoll_wait 232
+#define __NR_epoll_ctl 233
+#define __NR_tgkill 234
+#define __NR_utimes 235
+#define __NR_vserver 236
+#define __NR_mbind 237
+#define __NR_set_mempolicy 238
+#define __NR_get_mempolicy 239
+#define __NR_mq_open 240
+#define __NR_mq_unlink 241
+#define __NR_mq_timedsend 242
+#define __NR_mq_timedreceive 243
+#define __NR_mq_notify 244
+#define __NR_mq_getsetattr 245
+#define __NR_kexec_load 246
+#define __NR_waitid 247
+#define __NR_add_key 248
+#define __NR_request_key 249
+#define __NR_keyctl 250
+#define __NR_ioprio_set 251
+#define __NR_ioprio_get 252
+#define __NR_inotify_init 253
+#define __NR_inotify_add_watch 254
+#define __NR_inotify_rm_watch 255
+#define __NR_migrate_pages 256
+#define __NR_openat 257
+#define __NR_mkdirat 258
+#define __NR_mknodat 259
+#define __NR_fchownat 260
+#define __NR_futimesat 261
+#define __NR_newfstatat 262
+#define __NR_unlinkat 263
+#define __NR_renameat 264
+#define __NR_linkat 265
+#define __NR_symlinkat 266
+#define __NR_readlinkat 267
+#define __NR_fchmodat 268
+#define __NR_faccessat 269
+#define __NR_pselect6 270
+#define __NR_ppoll 271
+#define __NR_unshare 272
+#define __NR_set_robust_list 273
+#define __NR_get_robust_list 274
+#define __NR_splice 275
+#define __NR_tee 276
+#define __NR_sync_file_range 277
+#define __NR_vmsplice 278
+#define __NR_move_pages 279
+#define __NR_utimensat 280
+#define __NR_epoll_pwait 281
+#define __NR_signalfd 282
+#define __NR_timerfd_create 283
+#define __NR_eventfd 284
+#define __NR_fallocate 285
+#define __NR_timerfd_settime 286
+#define __NR_timerfd_gettime 287
+#define __NR_accept4 288
+#define __NR_signalfd4 289
+#define __NR_eventfd2 290
+#define __NR_epoll_create1 291
+#define __NR_dup3 292
+#define __NR_pipe2 293
+#define __NR_inotify_init1 294
+#define __NR_preadv 295
+#define __NR_pwritev 296
+#define __NR_rt_tgsigqueueinfo 297
+#define __NR_perf_event_open 298
+#define __NR_recvmmsg 299
+#define __NR_fanotify_init 300
+#define __NR_fanotify_mark 301
+#define __NR_prlimit64 302
+#define __NR_name_to_handle_at 303
+#define __NR_open_by_handle_at 304
+#define __NR_clock_adjtime 305
+#define __NR_syncfs 306
+#define __NR_sendmmsg 307
+#define __NR_setns 308
+#define __NR_getcpu 309
+#define __NR_process_vm_readv 310
+#define __NR_process_vm_writev 311
+#define __NR_kcmp 312
+#define __NR_finit_module 313
+#define __NR_sched_setattr 314
+#define __NR_sched_getattr 315
+#define __NR_renameat2 316
+#define __NR_seccomp 317
+#define __NR_getrandom 318
+#define __NR_memfd_create 319
+#define __NR_kexec_file_load 320
+#define __NR_bpf 321
+#define __NR_execveat 322
+#define __NR_userfaultfd 323
+#define __NR_membarrier 324
+#define __NR_mlock2 325
+#define __NR_copy_file_range 326
+#define __NR_preadv2 327
+#define __NR_pwritev2 328
+#define __NR_pkey_mprotect 329
+#define __NR_pkey_alloc 330
+#define __NR_pkey_free 331
+#define __NR_statx 332
+
+#endif /* _ASM_X86_UNISTD_64_H */
 #else
 // XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
@@ -803,7 +1502,357 @@ extern int errno;
 
 #define NCONST 0x2000000
 #define SCALL(call) SYS_##call
-#include <sys/syscall.h>
+// XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: sys/syscall.h
+// Path: sys  Name syscall.h
+// f: sys/syscall.h
+// O: include/sys/syscall.h
+// O: src/sys/syscall.h
+// O: asm/sys/syscall.h
+// O: macros/sys/syscall.h
+// O: headers/common/sys/syscall.h
+// O: headers/linux_x64/sys/syscall.h
+#ifndef _ASM_X86_UNISTD_64_H
+#define _ASM_X86_UNISTD_64_H 1
+
+#define __NR_read 0
+#define __NR_write 1
+#define __NR_open 2
+#define __NR_close 3
+#define __NR_stat 4
+#define __NR_fstat 5
+#define __NR_lstat 6
+#define __NR_poll 7
+#define __NR_lseek 8
+#define __NR_mmap 9
+#define __NR_mprotect 10
+#define __NR_munmap 11
+#define __NR_brk 12
+#define __NR_rt_sigaction 13
+#define __NR_rt_sigprocmask 14
+#define __NR_rt_sigreturn 15
+#define __NR_ioctl 16
+#define __NR_pread64 17
+#define __NR_pwrite64 18
+#define __NR_readv 19
+#define __NR_writev 20
+#define __NR_access 21
+#define __NR_pipe 22
+#define __NR_select 23
+#define __NR_sched_yield 24
+#define __NR_mremap 25
+#define __NR_msync 26
+#define __NR_mincore 27
+#define __NR_madvise 28
+#define __NR_shmget 29
+#define __NR_shmat 30
+#define __NR_shmctl 31
+#define __NR_dup 32
+#define __NR_dup2 33
+#define __NR_pause 34
+#define __NR_nanosleep 35
+#define __NR_getitimer 36
+#define __NR_alarm 37
+#define __NR_setitimer 38
+#define __NR_getpid 39
+#define __NR_sendfile 40
+#define __NR_socket 41
+#define __NR_connect 42
+#define __NR_accept 43
+#define __NR_sendto 44
+#define __NR_recvfrom 45
+#define __NR_sendmsg 46
+#define __NR_recvmsg 47
+#define __NR_shutdown 48
+#define __NR_bind 49
+#define __NR_listen 50
+#define __NR_getsockname 51
+#define __NR_getpeername 52
+#define __NR_socketpair 53
+#define __NR_setsockopt 54
+#define __NR_getsockopt 55
+#define __NR_clone 56
+#define __NR_fork 57
+#define __NR_vfork 58
+#define __NR_execve 59
+#define __NR_exit 60
+#define __NR_wait4 61
+#define __NR_kill 62
+#define __NR_uname 63
+#define __NR_semget 64
+#define __NR_semop 65
+#define __NR_semctl 66
+#define __NR_shmdt 67
+#define __NR_msgget 68
+#define __NR_msgsnd 69
+#define __NR_msgrcv 70
+#define __NR_msgctl 71
+#define __NR_fcntl 72
+#define __NR_flock 73
+#define __NR_fsync 74
+#define __NR_fdatasync 75
+#define __NR_truncate 76
+#define __NR_ftruncate 77
+#define __NR_getdents 78
+#define __NR_getcwd 79
+#define __NR_chdir 80
+#define __NR_fchdir 81
+#define __NR_rename 82
+#define __NR_mkdir 83
+#define __NR_rmdir 84
+#define __NR_creat 85
+#define __NR_link 86
+#define __NR_unlink 87
+#define __NR_symlink 88
+#define __NR_readlink 89
+#define __NR_chmod 90
+#define __NR_fchmod 91
+#define __NR_chown 92
+#define __NR_fchown 93
+#define __NR_lchown 94
+#define __NR_umask 95
+#define __NR_gettimeofday 96
+#define __NR_getrlimit 97
+#define __NR_getrusage 98
+#define __NR_sysinfo 99
+#define __NR_times 100
+#define __NR_ptrace 101
+#define __NR_getuid 102
+#define __NR_syslog 103
+#define __NR_getgid 104
+#define __NR_setuid 105
+#define __NR_setgid 106
+#define __NR_geteuid 107
+#define __NR_getegid 108
+#define __NR_setpgid 109
+#define __NR_getppid 110
+#define __NR_getpgrp 111
+#define __NR_setsid 112
+#define __NR_setreuid 113
+#define __NR_setregid 114
+#define __NR_getgroups 115
+#define __NR_setgroups 116
+#define __NR_setresuid 117
+#define __NR_getresuid 118
+#define __NR_setresgid 119
+#define __NR_getresgid 120
+#define __NR_getpgid 121
+#define __NR_setfsuid 122
+#define __NR_setfsgid 123
+#define __NR_getsid 124
+#define __NR_capget 125
+#define __NR_capset 126
+#define __NR_rt_sigpending 127
+#define __NR_rt_sigtimedwait 128
+#define __NR_rt_sigqueueinfo 129
+#define __NR_rt_sigsuspend 130
+#define __NR_sigaltstack 131
+#define __NR_utime 132
+#define __NR_mknod 133
+#define __NR_uselib 134
+#define __NR_personality 135
+#define __NR_ustat 136
+#define __NR_statfs 137
+#define __NR_fstatfs 138
+#define __NR_sysfs 139
+#define __NR_getpriority 140
+#define __NR_setpriority 141
+#define __NR_sched_setparam 142
+#define __NR_sched_getparam 143
+#define __NR_sched_setscheduler 144
+#define __NR_sched_getscheduler 145
+#define __NR_sched_get_priority_max 146
+#define __NR_sched_get_priority_min 147
+#define __NR_sched_rr_get_interval 148
+#define __NR_mlock 149
+#define __NR_munlock 150
+#define __NR_mlockall 151
+#define __NR_munlockall 152
+#define __NR_vhangup 153
+#define __NR_modify_ldt 154
+#define __NR_pivot_root 155
+#define __NR__sysctl 156
+#define __NR_prctl 157
+#define __NR_arch_prctl 158
+#define __NR_adjtimex 159
+#define __NR_setrlimit 160
+#define __NR_chroot 161
+#define __NR_sync 162
+#define __NR_acct 163
+#define __NR_settimeofday 164
+#define __NR_mount 165
+#define __NR_umount2 166
+#define __NR_swapon 167
+#define __NR_swapoff 168
+#define __NR_reboot 169
+#define __NR_sethostname 170
+#define __NR_setdomainname 171
+#define __NR_iopl 172
+#define __NR_ioperm 173
+#define __NR_create_module 174
+#define __NR_init_module 175
+#define __NR_delete_module 176
+#define __NR_get_kernel_syms 177
+#define __NR_query_module 178
+#define __NR_quotactl 179
+#define __NR_nfsservctl 180
+#define __NR_getpmsg 181
+#define __NR_putpmsg 182
+#define __NR_afs_syscall 183
+#define __NR_tuxcall 184
+#define __NR_security 185
+#define __NR_gettid 186
+#define __NR_readahead 187
+#define __NR_setxattr 188
+#define __NR_lsetxattr 189
+#define __NR_fsetxattr 190
+#define __NR_getxattr 191
+#define __NR_lgetxattr 192
+#define __NR_fgetxattr 193
+#define __NR_listxattr 194
+#define __NR_llistxattr 195
+#define __NR_flistxattr 196
+#define __NR_removexattr 197
+#define __NR_lremovexattr 198
+#define __NR_fremovexattr 199
+#define __NR_tkill 200
+#define __NR_time 201
+#define __NR_futex 202
+#define __NR_sched_setaffinity 203
+#define __NR_sched_getaffinity 204
+#define __NR_set_thread_area 205
+#define __NR_io_setup 206
+#define __NR_io_destroy 207
+#define __NR_io_getevents 208
+#define __NR_io_submit 209
+#define __NR_io_cancel 210
+#define __NR_get_thread_area 211
+#define __NR_lookup_dcookie 212
+#define __NR_epoll_create 213
+#define __NR_epoll_ctl_old 214
+#define __NR_epoll_wait_old 215
+#define __NR_remap_file_pages 216
+#define __NR_getdents64 217
+#define __NR_set_tid_address 218
+#define __NR_restart_syscall 219
+#define __NR_semtimedop 220
+#define __NR_fadvise64 221
+#define __NR_timer_create 222
+#define __NR_timer_settime 223
+#define __NR_timer_gettime 224
+#define __NR_timer_getoverrun 225
+#define __NR_timer_delete 226
+#define __NR_clock_settime 227
+#define __NR_clock_gettime 228
+#define __NR_clock_getres 229
+#define __NR_clock_nanosleep 230
+#define __NR_exit_group 231
+#define __NR_epoll_wait 232
+#define __NR_epoll_ctl 233
+#define __NR_tgkill 234
+#define __NR_utimes 235
+#define __NR_vserver 236
+#define __NR_mbind 237
+#define __NR_set_mempolicy 238
+#define __NR_get_mempolicy 239
+#define __NR_mq_open 240
+#define __NR_mq_unlink 241
+#define __NR_mq_timedsend 242
+#define __NR_mq_timedreceive 243
+#define __NR_mq_notify 244
+#define __NR_mq_getsetattr 245
+#define __NR_kexec_load 246
+#define __NR_waitid 247
+#define __NR_add_key 248
+#define __NR_request_key 249
+#define __NR_keyctl 250
+#define __NR_ioprio_set 251
+#define __NR_ioprio_get 252
+#define __NR_inotify_init 253
+#define __NR_inotify_add_watch 254
+#define __NR_inotify_rm_watch 255
+#define __NR_migrate_pages 256
+#define __NR_openat 257
+#define __NR_mkdirat 258
+#define __NR_mknodat 259
+#define __NR_fchownat 260
+#define __NR_futimesat 261
+#define __NR_newfstatat 262
+#define __NR_unlinkat 263
+#define __NR_renameat 264
+#define __NR_linkat 265
+#define __NR_symlinkat 266
+#define __NR_readlinkat 267
+#define __NR_fchmodat 268
+#define __NR_faccessat 269
+#define __NR_pselect6 270
+#define __NR_ppoll 271
+#define __NR_unshare 272
+#define __NR_set_robust_list 273
+#define __NR_get_robust_list 274
+#define __NR_splice 275
+#define __NR_tee 276
+#define __NR_sync_file_range 277
+#define __NR_vmsplice 278
+#define __NR_move_pages 279
+#define __NR_utimensat 280
+#define __NR_epoll_pwait 281
+#define __NR_signalfd 282
+#define __NR_timerfd_create 283
+#define __NR_eventfd 284
+#define __NR_fallocate 285
+#define __NR_timerfd_settime 286
+#define __NR_timerfd_gettime 287
+#define __NR_accept4 288
+#define __NR_signalfd4 289
+#define __NR_eventfd2 290
+#define __NR_epoll_create1 291
+#define __NR_dup3 292
+#define __NR_pipe2 293
+#define __NR_inotify_init1 294
+#define __NR_preadv 295
+#define __NR_pwritev 296
+#define __NR_rt_tgsigqueueinfo 297
+#define __NR_perf_event_open 298
+#define __NR_recvmmsg 299
+#define __NR_fanotify_init 300
+#define __NR_fanotify_mark 301
+#define __NR_prlimit64 302
+#define __NR_name_to_handle_at 303
+#define __NR_open_by_handle_at 304
+#define __NR_clock_adjtime 305
+#define __NR_syncfs 306
+#define __NR_sendmmsg 307
+#define __NR_setns 308
+#define __NR_getcpu 309
+#define __NR_process_vm_readv 310
+#define __NR_process_vm_writev 311
+#define __NR_kcmp 312
+#define __NR_finit_module 313
+#define __NR_sched_setattr 314
+#define __NR_sched_getattr 315
+#define __NR_renameat2 316
+#define __NR_seccomp 317
+#define __NR_getrandom 318
+#define __NR_memfd_create 319
+#define __NR_kexec_file_load 320
+#define __NR_bpf 321
+#define __NR_execveat 322
+#define __NR_userfaultfd 323
+#define __NR_membarrier 324
+#define __NR_mlock2 325
+#define __NR_copy_file_range 326
+#define __NR_preadv2 327
+#define __NR_pwritev2 328
+#define __NR_pkey_mprotect 329
+#define __NR_pkey_alloc 330
+#define __NR_pkey_free 331
+#define __NR_statx 332
+
+#endif /* _ASM_X86_UNISTD_64_H */
 
 #else
 
@@ -811,7 +1860,357 @@ extern int errno;
 #define SCALL(call) __NR_##call
 
 #ifdef X64
-#include <sys/syscall.h>
+// XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: sys/syscall.h
+// Path: sys  Name syscall.h
+// f: sys/syscall.h
+// O: include/sys/syscall.h
+// O: src/sys/syscall.h
+// O: asm/sys/syscall.h
+// O: macros/sys/syscall.h
+// O: headers/common/sys/syscall.h
+// O: headers/linux_x64/sys/syscall.h
+#ifndef _ASM_X86_UNISTD_64_H
+#define _ASM_X86_UNISTD_64_H 1
+
+#define __NR_read 0
+#define __NR_write 1
+#define __NR_open 2
+#define __NR_close 3
+#define __NR_stat 4
+#define __NR_fstat 5
+#define __NR_lstat 6
+#define __NR_poll 7
+#define __NR_lseek 8
+#define __NR_mmap 9
+#define __NR_mprotect 10
+#define __NR_munmap 11
+#define __NR_brk 12
+#define __NR_rt_sigaction 13
+#define __NR_rt_sigprocmask 14
+#define __NR_rt_sigreturn 15
+#define __NR_ioctl 16
+#define __NR_pread64 17
+#define __NR_pwrite64 18
+#define __NR_readv 19
+#define __NR_writev 20
+#define __NR_access 21
+#define __NR_pipe 22
+#define __NR_select 23
+#define __NR_sched_yield 24
+#define __NR_mremap 25
+#define __NR_msync 26
+#define __NR_mincore 27
+#define __NR_madvise 28
+#define __NR_shmget 29
+#define __NR_shmat 30
+#define __NR_shmctl 31
+#define __NR_dup 32
+#define __NR_dup2 33
+#define __NR_pause 34
+#define __NR_nanosleep 35
+#define __NR_getitimer 36
+#define __NR_alarm 37
+#define __NR_setitimer 38
+#define __NR_getpid 39
+#define __NR_sendfile 40
+#define __NR_socket 41
+#define __NR_connect 42
+#define __NR_accept 43
+#define __NR_sendto 44
+#define __NR_recvfrom 45
+#define __NR_sendmsg 46
+#define __NR_recvmsg 47
+#define __NR_shutdown 48
+#define __NR_bind 49
+#define __NR_listen 50
+#define __NR_getsockname 51
+#define __NR_getpeername 52
+#define __NR_socketpair 53
+#define __NR_setsockopt 54
+#define __NR_getsockopt 55
+#define __NR_clone 56
+#define __NR_fork 57
+#define __NR_vfork 58
+#define __NR_execve 59
+#define __NR_exit 60
+#define __NR_wait4 61
+#define __NR_kill 62
+#define __NR_uname 63
+#define __NR_semget 64
+#define __NR_semop 65
+#define __NR_semctl 66
+#define __NR_shmdt 67
+#define __NR_msgget 68
+#define __NR_msgsnd 69
+#define __NR_msgrcv 70
+#define __NR_msgctl 71
+#define __NR_fcntl 72
+#define __NR_flock 73
+#define __NR_fsync 74
+#define __NR_fdatasync 75
+#define __NR_truncate 76
+#define __NR_ftruncate 77
+#define __NR_getdents 78
+#define __NR_getcwd 79
+#define __NR_chdir 80
+#define __NR_fchdir 81
+#define __NR_rename 82
+#define __NR_mkdir 83
+#define __NR_rmdir 84
+#define __NR_creat 85
+#define __NR_link 86
+#define __NR_unlink 87
+#define __NR_symlink 88
+#define __NR_readlink 89
+#define __NR_chmod 90
+#define __NR_fchmod 91
+#define __NR_chown 92
+#define __NR_fchown 93
+#define __NR_lchown 94
+#define __NR_umask 95
+#define __NR_gettimeofday 96
+#define __NR_getrlimit 97
+#define __NR_getrusage 98
+#define __NR_sysinfo 99
+#define __NR_times 100
+#define __NR_ptrace 101
+#define __NR_getuid 102
+#define __NR_syslog 103
+#define __NR_getgid 104
+#define __NR_setuid 105
+#define __NR_setgid 106
+#define __NR_geteuid 107
+#define __NR_getegid 108
+#define __NR_setpgid 109
+#define __NR_getppid 110
+#define __NR_getpgrp 111
+#define __NR_setsid 112
+#define __NR_setreuid 113
+#define __NR_setregid 114
+#define __NR_getgroups 115
+#define __NR_setgroups 116
+#define __NR_setresuid 117
+#define __NR_getresuid 118
+#define __NR_setresgid 119
+#define __NR_getresgid 120
+#define __NR_getpgid 121
+#define __NR_setfsuid 122
+#define __NR_setfsgid 123
+#define __NR_getsid 124
+#define __NR_capget 125
+#define __NR_capset 126
+#define __NR_rt_sigpending 127
+#define __NR_rt_sigtimedwait 128
+#define __NR_rt_sigqueueinfo 129
+#define __NR_rt_sigsuspend 130
+#define __NR_sigaltstack 131
+#define __NR_utime 132
+#define __NR_mknod 133
+#define __NR_uselib 134
+#define __NR_personality 135
+#define __NR_ustat 136
+#define __NR_statfs 137
+#define __NR_fstatfs 138
+#define __NR_sysfs 139
+#define __NR_getpriority 140
+#define __NR_setpriority 141
+#define __NR_sched_setparam 142
+#define __NR_sched_getparam 143
+#define __NR_sched_setscheduler 144
+#define __NR_sched_getscheduler 145
+#define __NR_sched_get_priority_max 146
+#define __NR_sched_get_priority_min 147
+#define __NR_sched_rr_get_interval 148
+#define __NR_mlock 149
+#define __NR_munlock 150
+#define __NR_mlockall 151
+#define __NR_munlockall 152
+#define __NR_vhangup 153
+#define __NR_modify_ldt 154
+#define __NR_pivot_root 155
+#define __NR__sysctl 156
+#define __NR_prctl 157
+#define __NR_arch_prctl 158
+#define __NR_adjtimex 159
+#define __NR_setrlimit 160
+#define __NR_chroot 161
+#define __NR_sync 162
+#define __NR_acct 163
+#define __NR_settimeofday 164
+#define __NR_mount 165
+#define __NR_umount2 166
+#define __NR_swapon 167
+#define __NR_swapoff 168
+#define __NR_reboot 169
+#define __NR_sethostname 170
+#define __NR_setdomainname 171
+#define __NR_iopl 172
+#define __NR_ioperm 173
+#define __NR_create_module 174
+#define __NR_init_module 175
+#define __NR_delete_module 176
+#define __NR_get_kernel_syms 177
+#define __NR_query_module 178
+#define __NR_quotactl 179
+#define __NR_nfsservctl 180
+#define __NR_getpmsg 181
+#define __NR_putpmsg 182
+#define __NR_afs_syscall 183
+#define __NR_tuxcall 184
+#define __NR_security 185
+#define __NR_gettid 186
+#define __NR_readahead 187
+#define __NR_setxattr 188
+#define __NR_lsetxattr 189
+#define __NR_fsetxattr 190
+#define __NR_getxattr 191
+#define __NR_lgetxattr 192
+#define __NR_fgetxattr 193
+#define __NR_listxattr 194
+#define __NR_llistxattr 195
+#define __NR_flistxattr 196
+#define __NR_removexattr 197
+#define __NR_lremovexattr 198
+#define __NR_fremovexattr 199
+#define __NR_tkill 200
+#define __NR_time 201
+#define __NR_futex 202
+#define __NR_sched_setaffinity 203
+#define __NR_sched_getaffinity 204
+#define __NR_set_thread_area 205
+#define __NR_io_setup 206
+#define __NR_io_destroy 207
+#define __NR_io_getevents 208
+#define __NR_io_submit 209
+#define __NR_io_cancel 210
+#define __NR_get_thread_area 211
+#define __NR_lookup_dcookie 212
+#define __NR_epoll_create 213
+#define __NR_epoll_ctl_old 214
+#define __NR_epoll_wait_old 215
+#define __NR_remap_file_pages 216
+#define __NR_getdents64 217
+#define __NR_set_tid_address 218
+#define __NR_restart_syscall 219
+#define __NR_semtimedop 220
+#define __NR_fadvise64 221
+#define __NR_timer_create 222
+#define __NR_timer_settime 223
+#define __NR_timer_gettime 224
+#define __NR_timer_getoverrun 225
+#define __NR_timer_delete 226
+#define __NR_clock_settime 227
+#define __NR_clock_gettime 228
+#define __NR_clock_getres 229
+#define __NR_clock_nanosleep 230
+#define __NR_exit_group 231
+#define __NR_epoll_wait 232
+#define __NR_epoll_ctl 233
+#define __NR_tgkill 234
+#define __NR_utimes 235
+#define __NR_vserver 236
+#define __NR_mbind 237
+#define __NR_set_mempolicy 238
+#define __NR_get_mempolicy 239
+#define __NR_mq_open 240
+#define __NR_mq_unlink 241
+#define __NR_mq_timedsend 242
+#define __NR_mq_timedreceive 243
+#define __NR_mq_notify 244
+#define __NR_mq_getsetattr 245
+#define __NR_kexec_load 246
+#define __NR_waitid 247
+#define __NR_add_key 248
+#define __NR_request_key 249
+#define __NR_keyctl 250
+#define __NR_ioprio_set 251
+#define __NR_ioprio_get 252
+#define __NR_inotify_init 253
+#define __NR_inotify_add_watch 254
+#define __NR_inotify_rm_watch 255
+#define __NR_migrate_pages 256
+#define __NR_openat 257
+#define __NR_mkdirat 258
+#define __NR_mknodat 259
+#define __NR_fchownat 260
+#define __NR_futimesat 261
+#define __NR_newfstatat 262
+#define __NR_unlinkat 263
+#define __NR_renameat 264
+#define __NR_linkat 265
+#define __NR_symlinkat 266
+#define __NR_readlinkat 267
+#define __NR_fchmodat 268
+#define __NR_faccessat 269
+#define __NR_pselect6 270
+#define __NR_ppoll 271
+#define __NR_unshare 272
+#define __NR_set_robust_list 273
+#define __NR_get_robust_list 274
+#define __NR_splice 275
+#define __NR_tee 276
+#define __NR_sync_file_range 277
+#define __NR_vmsplice 278
+#define __NR_move_pages 279
+#define __NR_utimensat 280
+#define __NR_epoll_pwait 281
+#define __NR_signalfd 282
+#define __NR_timerfd_create 283
+#define __NR_eventfd 284
+#define __NR_fallocate 285
+#define __NR_timerfd_settime 286
+#define __NR_timerfd_gettime 287
+#define __NR_accept4 288
+#define __NR_signalfd4 289
+#define __NR_eventfd2 290
+#define __NR_epoll_create1 291
+#define __NR_dup3 292
+#define __NR_pipe2 293
+#define __NR_inotify_init1 294
+#define __NR_preadv 295
+#define __NR_pwritev 296
+#define __NR_rt_tgsigqueueinfo 297
+#define __NR_perf_event_open 298
+#define __NR_recvmmsg 299
+#define __NR_fanotify_init 300
+#define __NR_fanotify_mark 301
+#define __NR_prlimit64 302
+#define __NR_name_to_handle_at 303
+#define __NR_open_by_handle_at 304
+#define __NR_clock_adjtime 305
+#define __NR_syncfs 306
+#define __NR_sendmmsg 307
+#define __NR_setns 308
+#define __NR_getcpu 309
+#define __NR_process_vm_readv 310
+#define __NR_process_vm_writev 311
+#define __NR_kcmp 312
+#define __NR_finit_module 313
+#define __NR_sched_setattr 314
+#define __NR_sched_getattr 315
+#define __NR_renameat2 316
+#define __NR_seccomp 317
+#define __NR_getrandom 318
+#define __NR_memfd_create 319
+#define __NR_kexec_file_load 320
+#define __NR_bpf 321
+#define __NR_execveat 322
+#define __NR_userfaultfd 323
+#define __NR_membarrier 324
+#define __NR_mlock2 325
+#define __NR_copy_file_range 326
+#define __NR_preadv2 327
+#define __NR_pwritev2 328
+#define __NR_pkey_mprotect 329
+#define __NR_pkey_alloc 330
+#define __NR_pkey_free 331
+#define __NR_statx 332
+
+#endif /* _ASM_X86_UNISTD_64_H */
 #else
 // XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
@@ -1444,7 +2843,163 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #endif
 
 
-#include <bits/alltypes.h>
+// XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: bits  Name alltypes.h
+// f: bits/alltypes.h
+// O: include/bits/alltypes.h
+// O: src/bits/alltypes.h
+// O: asm/bits/alltypes.h
+// O: macros/bits/alltypes.h
+// O: headers/common/bits/alltypes.h
+#ifndef alltypes_h
+#define alltypes_h
+
+
+
+#define _Addr long
+#define _Int64 long
+#define _Reg long
+
+#ifndef size_t
+#define size_t long
+#endif
+
+typedef __builtin_va_list va_list;
+
+typedef __builtin_va_list __isoc_va_list;
+
+typedef int wchar_t;
+
+typedef long double double_t;
+
+typedef float float_t;
+
+typedef struct { long long __ll; long double __ld; } max_align_t;
+
+typedef long time_t;
+
+typedef long suseconds_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } pthread_mutex_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } mtx_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } pthread_cond_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } cnd_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u; } pthread_rwlock_t;
+
+typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
+
+//typedef unsigned _Addr size_t;
+//#define __DEFINED_size_t
+
+typedef unsigned _Addr uintptr_t;
+
+typedef _Addr ptrdiff_t;
+
+typedef _Addr ssize_t;
+
+typedef _Addr intptr_t;
+
+typedef _Addr regoff_t;
+
+typedef _Reg register_t;
+
+typedef signed char     int8_t;
+
+typedef signed short    int16_t;
+
+typedef signed int      int32_t;
+
+typedef signed _Int64   int64_t;
+
+typedef signed _Int64   intmax_t;
+
+typedef unsigned char   uint8_t;
+
+typedef unsigned short  uint16_t;
+
+typedef unsigned int    uint32_t;
+
+typedef unsigned _Int64 uint64_t;
+
+typedef unsigned _Int64 u_int64_t;
+
+typedef unsigned _Int64 uintmax_t;
+
+typedef unsigned mode_t;
+
+typedef unsigned _Reg nlink_t;
+
+typedef _Int64 off_t;
+
+typedef unsigned _Int64 ino_t;
+
+typedef unsigned _Int64 dev_t;
+
+typedef long blksize_t;
+
+typedef _Int64 blkcnt_t;
+
+typedef unsigned _Int64 fsblkcnt_t;
+
+typedef unsigned _Int64 fsfilcnt_t;
+
+typedef unsigned wint_t;
+
+typedef unsigned long wctype_t;
+
+typedef void * timer_t;
+
+typedef int clockid_t;
+
+typedef long clock_t;
+
+#ifndef timeval
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#endif
+
+struct timespec { time_t tv_sec; long tv_nsec; };
+
+typedef int pid_t;
+
+typedef unsigned id_t;
+
+typedef unsigned uid_t;
+
+typedef unsigned gid_t;
+
+typedef int key_t;
+
+typedef unsigned useconds_t;
+
+typedef struct _IO_FILE FILE;
+
+typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
+
+typedef struct __locale_struct * locale_t;
+
+typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
+
+struct iovec { void *iov_base; size_t iov_len; };
+
+typedef unsigned socklen_t;
+
+typedef unsigned short sa_family_t;
+
+#undef _Addr
+#undef _Int64
+#undef _Reg
+
+#endif
+
 
 typedef unsigned char u_int8_t;
 typedef unsigned short u_int16_t;
@@ -1456,7 +3011,373 @@ typedef unsigned u_int, uint;
 typedef unsigned long u_long, ulong;
 typedef long long quad_t;
 typedef unsigned long long u_quad_t;
-#include <endian.h>
+// XXXXXXXXXXXXXXXXXX*************** file: endian.h 
+
+// Current path: /home/micha/prog/minilib
+
+// f: endian.h
+// O: include/endian.h
+// O: src/endian.h
+// O: asm/endian.h
+// O: macros/endian.h
+// O: headers/common/endian.h
+#ifndef _ENDIAN_H
+#define _ENDIAN_H
+
+
+#define __LITTLE_ENDIAN 1234
+#define __BIG_ENDIAN 4321
+#define __PDP_ENDIAN 3412
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+
+#define BIG_ENDIAN __BIG_ENDIAN
+#define LITTLE_ENDIAN __LITTLE_ENDIAN
+#define PDP_ENDIAN __PDP_ENDIAN
+#define BYTE_ORDER __BYTE_ORDER
+
+// XXXXXXXXXXXXXXXXXX*************** file: stdint.h 
+
+// Current path: /home/micha/prog/minilib
+
+// f: stdint.h
+// O: include/stdint.h
+// O: src/stdint.h
+// O: asm/stdint.h
+// O: macros/stdint.h
+// O: headers/common/stdint.h
+#ifndef _STDINT_H
+#define _STDINT_H
+
+#define __NEED_int8_t
+#define __NEED_int16_t
+#define __NEED_int32_t
+#define __NEED_int64_t
+
+#define __NEED_uint8_t
+#define __NEED_uint16_t
+#define __NEED_uint32_t
+#define __NEED_uint64_t
+
+#define __NEED_intptr_t
+#define __NEED_uintptr_t
+
+#define __NEED_intmax_t
+#define __NEED_uintmax_t
+
+// XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: bits/alltypes.h
+// Path: bits  Name alltypes.h
+// f: bits/alltypes.h
+// O: include/bits/alltypes.h
+// O: src/bits/alltypes.h
+// O: asm/bits/alltypes.h
+// O: macros/bits/alltypes.h
+// O: headers/common/bits/alltypes.h
+#ifndef alltypes_h
+#define alltypes_h
+
+
+
+#define _Addr long
+#define _Int64 long
+#define _Reg long
+
+#ifndef size_t
+#define size_t long
+#endif
+
+typedef __builtin_va_list va_list;
+
+typedef __builtin_va_list __isoc_va_list;
+
+typedef int wchar_t;
+
+typedef long double double_t;
+
+typedef float float_t;
+
+typedef struct { long long __ll; long double __ld; } max_align_t;
+
+typedef long time_t;
+
+typedef long suseconds_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } pthread_mutex_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } mtx_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } pthread_cond_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } cnd_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u; } pthread_rwlock_t;
+
+typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
+
+//typedef unsigned _Addr size_t;
+//#define __DEFINED_size_t
+
+typedef unsigned _Addr uintptr_t;
+
+typedef _Addr ptrdiff_t;
+
+typedef _Addr ssize_t;
+
+typedef _Addr intptr_t;
+
+typedef _Addr regoff_t;
+
+typedef _Reg register_t;
+
+typedef signed char     int8_t;
+
+typedef signed short    int16_t;
+
+typedef signed int      int32_t;
+
+typedef signed _Int64   int64_t;
+
+typedef signed _Int64   intmax_t;
+
+typedef unsigned char   uint8_t;
+
+typedef unsigned short  uint16_t;
+
+typedef unsigned int    uint32_t;
+
+typedef unsigned _Int64 uint64_t;
+
+typedef unsigned _Int64 u_int64_t;
+
+typedef unsigned _Int64 uintmax_t;
+
+typedef unsigned mode_t;
+
+typedef unsigned _Reg nlink_t;
+
+typedef _Int64 off_t;
+
+typedef unsigned _Int64 ino_t;
+
+typedef unsigned _Int64 dev_t;
+
+typedef long blksize_t;
+
+typedef _Int64 blkcnt_t;
+
+typedef unsigned _Int64 fsblkcnt_t;
+
+typedef unsigned _Int64 fsfilcnt_t;
+
+typedef unsigned wint_t;
+
+typedef unsigned long wctype_t;
+
+typedef void * timer_t;
+
+typedef int clockid_t;
+
+typedef long clock_t;
+
+#ifndef timeval
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#endif
+
+struct timespec { time_t tv_sec; long tv_nsec; };
+
+typedef int pid_t;
+
+typedef unsigned id_t;
+
+typedef unsigned uid_t;
+
+typedef unsigned gid_t;
+
+typedef int key_t;
+
+typedef unsigned useconds_t;
+
+typedef struct _IO_FILE FILE;
+
+typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
+
+typedef struct __locale_struct * locale_t;
+
+typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
+
+struct iovec { void *iov_base; size_t iov_len; };
+
+typedef unsigned socklen_t;
+
+typedef unsigned short sa_family_t;
+
+#undef _Addr
+#undef _Int64
+#undef _Reg
+
+#endif
+
+
+typedef int8_t int_fast8_t;
+typedef int64_t int_fast64_t;
+
+typedef int8_t  int_least8_t;
+typedef int16_t int_least16_t;
+typedef int32_t int_least32_t;
+typedef int64_t int_least64_t;
+
+typedef uint8_t uint_fast8_t;
+typedef uint64_t uint_fast64_t;
+
+typedef uint8_t  uint_least8_t;
+typedef uint16_t uint_least16_t;
+typedef uint32_t uint_least32_t;
+typedef uint64_t uint_least64_t;
+
+#define INT8_MIN   (-1-0x7f)
+#define INT16_MIN  (-1-0x7fff)
+#define INT32_MIN  (-1-0x7fffffff)
+#define INT64_MIN  (-1-0x7fffffffffffffff)
+
+#define INT8_MAX   (0x7f)
+#define INT16_MAX  (0x7fff)
+#define INT32_MAX  (0x7fffffff)
+#define INT64_MAX  (0x7fffffffffffffff)
+
+#define UINT8_MAX  (0xff)
+#define UINT16_MAX (0xffff)
+#define UINT32_MAX (0xffffffffu)
+#define UINT64_MAX (0xffffffffffffffffu)
+
+#define INT_FAST8_MIN   INT8_MIN
+#define INT_FAST64_MIN  INT64_MIN
+
+#define INT_LEAST8_MIN   INT8_MIN
+#define INT_LEAST16_MIN  INT16_MIN
+#define INT_LEAST32_MIN  INT32_MIN
+#define INT_LEAST64_MIN  INT64_MIN
+
+#define INT_FAST8_MAX   INT8_MAX
+#define INT_FAST64_MAX  INT64_MAX
+
+#define INT_LEAST8_MAX   INT8_MAX
+#define INT_LEAST16_MAX  INT16_MAX
+#define INT_LEAST32_MAX  INT32_MAX
+#define INT_LEAST64_MAX  INT64_MAX
+
+#define UINT_FAST8_MAX  UINT8_MAX
+#define UINT_FAST64_MAX UINT64_MAX
+
+#define UINT_LEAST8_MAX  UINT8_MAX
+#define UINT_LEAST16_MAX UINT16_MAX
+#define UINT_LEAST32_MAX UINT32_MAX
+#define UINT_LEAST64_MAX UINT64_MAX
+
+#define INTMAX_MIN  INT64_MIN
+#define INTMAX_MAX  INT64_MAX
+#define UINTMAX_MAX UINT64_MAX
+
+#define WINT_MIN 0U
+#define WINT_MAX UINT32_MAX
+
+#if L'\0'-1 > 0
+#define WCHAR_MAX (0xffffffffu+L'\0')
+#define WCHAR_MIN (0+L'\0')
+#else
+#define WCHAR_MAX (0x7fffffff+L'\0')
+#define WCHAR_MIN (-1-0x7fffffff+L'\0')
+#endif
+
+#define SIG_ATOMIC_MIN  INT32_MIN
+#define SIG_ATOMIC_MAX  INT32_MAX
+
+//#include <bits/stdint.h>
+
+#define INT8_C(c)  c
+#define INT16_C(c) c
+#define INT32_C(c) c
+
+#define UINT8_C(c)  c
+#define UINT16_C(c) c
+#define UINT32_C(c) c ## U
+
+#if UINTPTR_MAX == UINT64_MAX
+#define INT64_C(c) c ## L
+#define UINT64_C(c) c ## UL
+#define INTMAX_C(c)  c ## L
+#define UINTMAX_C(c) c ## UL
+#else
+#define INT64_C(c) c ## LL
+#define UINT64_C(c) c ## ULL
+#define INTMAX_C(c)  c ## LL
+#define UINTMAX_C(c) c ## ULL
+#endif
+
+#endif
+
+static __inline uint16_t __bswap16(uint16_t __x)
+{
+	return __x<<8 | __x>>8;
+}
+
+static __inline uint32_t __bswap32(uint32_t __x)
+{
+	return __x>>24 | __x>>8&0xff00 | __x<<8&0xff0000 | __x<<24;
+}
+
+static __inline uint64_t __bswap64(uint64_t __x)
+{
+	return __bswap32(__x)+0ULL<<32 | __bswap32(__x>>32);
+}
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#define htobe16(x) __bswap16(x)
+#define be16toh(x) __bswap16(x)
+#define betoh16(x) __bswap16(x)
+#define htobe32(x) __bswap32(x)
+#define be32toh(x) __bswap32(x)
+#define betoh32(x) __bswap32(x)
+#define htobe64(x) __bswap64(x)
+#define be64toh(x) __bswap64(x)
+#define betoh64(x) __bswap64(x)
+#define htole16(x) (uint16_t)(x)
+#define le16toh(x) (uint16_t)(x)
+#define letoh16(x) (uint16_t)(x)
+#define htole32(x) (uint32_t)(x)
+#define le32toh(x) (uint32_t)(x)
+#define letoh32(x) (uint32_t)(x)
+#define htole64(x) (uint64_t)(x)
+#define le64toh(x) (uint64_t)(x)
+#define letoh64(x) (uint64_t)(x)
+#else
+#define htobe16(x) (uint16_t)(x)
+#define be16toh(x) (uint16_t)(x)
+#define betoh16(x) (uint16_t)(x)
+#define htobe32(x) (uint32_t)(x)
+#define be32toh(x) (uint32_t)(x)
+#define betoh32(x) (uint32_t)(x)
+#define htobe64(x) (uint64_t)(x)
+#define be64toh(x) (uint64_t)(x)
+#define betoh64(x) (uint64_t)(x)
+#define htole16(x) __bswap16(x)
+#define le16toh(x) __bswap16(x)
+#define letoh16(x) __bswap16(x)
+#define htole32(x) __bswap32(x)
+#define le32toh(x) __bswap32(x)
+#define letoh32(x) __bswap32(x)
+#define htole64(x) __bswap64(x)
+#define le64toh(x) __bswap64(x)
+#define letoh64(x) __bswap64(x)
+#endif
+
+#endif
+
+#endif
 
 #define blkcnt64_t blkcnt_t
 #define fsblkcnt64_t fsblkcnt_t
@@ -1469,6 +3390,7 @@ typedef unsigned long long u_quad_t;
 
 // Current path: /home/micha/prog/minilib
 
+// YYYYYYYYYYYYYY   Already included: sys/syscall.h
 // Path: sys  Name syscall.h
 // f: sys/syscall.h
 // O: include/sys/syscall.h
@@ -2702,13 +4624,183 @@ int ioctl( int fd, unsigned long int request, ... );
 
 #ifdef mini_tcgetattr
 //#include "tcgetattr.h"
-#include <sys/termios.h>
+// XXXXXXXXXXXXXXXXXX*************** file: sys/termios.h 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: sys  Name termios.h
+// f: sys/termios.h
+// O: include/sys/termios.h
+// O: src/sys/termios.h
+// O: asm/sys/termios.h
+// O: macros/sys/termios.h
+// O: headers/common/sys/termios.h
+// XXXXXXXXXXXXXXXXXX*************** file: asm-generic/termios.h 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: asm-generic  Name termios.h
+// f: asm-generic/termios.h
+// O: include/asm-generic/termios.h
+// O: src/asm-generic/termios.h
+// O: asm/asm-generic/termios.h
+// O: macros/asm-generic/termios.h
+// O: headers/common/asm-generic/termios.h
+#ifndef TERMIOS_H
+#define TERMIOS_H
+
+// XXXXXXXXXXXXXXXXXX*************** file: asm/termbits.h 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: asm  Name termbits.h
+// f: asm/termbits.h
+// O: include/asm/termbits.h
+// O: src/asm/termbits.h
+// O: asm/asm/termbits.h
+// O: macros/asm/termbits.h
+// O: headers/common/asm/termbits.h
+// O: headers/linux_x64/asm/termbits.h
+// XXXXXXXXXXXXXXXXXX*************** file: asm/ioctls.h 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: asm  Name ioctls.h
+// f: asm/ioctls.h
+// O: include/asm/ioctls.h
+// O: src/asm/ioctls.h
+// O: asm/asm/ioctls.h
+// O: macros/asm/ioctls.h
+// O: headers/common/asm/ioctls.h
+// O: headers/linux_x64/asm/ioctls.h
+
+struct winsize {
+	unsigned short ws_row;
+	unsigned short ws_col;
+	unsigned short ws_xpixel;
+	unsigned short ws_ypixel;
+};
+
+struct termio {
+	unsigned short c_iflag;
+	unsigned short c_oflag;
+	unsigned short c_cflag;
+	unsigned short c_lflag;
+	unsigned char c_line;	 
+	unsigned char c_cc[8] 
+};
+
+#define TIOCM_LE	0x001
+#define TIOCM_DTR	0x002
+#define TIOCM_RTS	0x004
+#define TIOCM_ST	0x008
+#define TIOCM_SR	0x010
+#define TIOCM_CTS	0x020
+#define TIOCM_CAR	0x040
+#define TIOCM_RNG	0x080
+#define TIOCM_DSR	0x100
+#define TIOCM_CD	TIOCM_CAR
+#define TIOCM_RI	TIOCM_RNG
+#define TIOCM_OUT1	0x2000
+#define TIOCM_OUT2	0x4000
+#define TIOCM_LOOP	0x8000
+
+
+
+#endif 
 extern int tcgetattr(int fd, struct termios *io);
 #endif
 
 #ifdef mini_tcsetattr
 //#include "tcsetattr.h"
-#include <sys/termios.h>
+// XXXXXXXXXXXXXXXXXX*************** file: sys/termios.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: sys/termios.h
+// Path: sys  Name termios.h
+// f: sys/termios.h
+// O: include/sys/termios.h
+// O: src/sys/termios.h
+// O: asm/sys/termios.h
+// O: macros/sys/termios.h
+// O: headers/common/sys/termios.h
+// XXXXXXXXXXXXXXXXXX*************** file: asm-generic/termios.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: asm-generic/termios.h
+// Path: asm-generic  Name termios.h
+// f: asm-generic/termios.h
+// O: include/asm-generic/termios.h
+// O: src/asm-generic/termios.h
+// O: asm/asm-generic/termios.h
+// O: macros/asm-generic/termios.h
+// O: headers/common/asm-generic/termios.h
+#ifndef TERMIOS_H
+#define TERMIOS_H
+
+// XXXXXXXXXXXXXXXXXX*************** file: asm/termbits.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: asm/termbits.h
+// Path: asm  Name termbits.h
+// f: asm/termbits.h
+// O: include/asm/termbits.h
+// O: src/asm/termbits.h
+// O: asm/asm/termbits.h
+// O: macros/asm/termbits.h
+// O: headers/common/asm/termbits.h
+// O: headers/linux_x64/asm/termbits.h
+// XXXXXXXXXXXXXXXXXX*************** file: asm/ioctls.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: asm/ioctls.h
+// Path: asm  Name ioctls.h
+// f: asm/ioctls.h
+// O: include/asm/ioctls.h
+// O: src/asm/ioctls.h
+// O: asm/asm/ioctls.h
+// O: macros/asm/ioctls.h
+// O: headers/common/asm/ioctls.h
+// O: headers/linux_x64/asm/ioctls.h
+
+struct winsize {
+	unsigned short ws_row;
+	unsigned short ws_col;
+	unsigned short ws_xpixel;
+	unsigned short ws_ypixel;
+};
+
+struct termio {
+	unsigned short c_iflag;
+	unsigned short c_oflag;
+	unsigned short c_cflag;
+	unsigned short c_lflag;
+	unsigned char c_line;	 
+	unsigned char c_cc[8] 
+};
+
+#define TIOCM_LE	0x001
+#define TIOCM_DTR	0x002
+#define TIOCM_RTS	0x004
+#define TIOCM_ST	0x008
+#define TIOCM_SR	0x010
+#define TIOCM_CTS	0x020
+#define TIOCM_CAR	0x040
+#define TIOCM_RNG	0x080
+#define TIOCM_DSR	0x100
+#define TIOCM_CD	TIOCM_CAR
+#define TIOCM_RI	TIOCM_RNG
+#define TIOCM_OUT1	0x2000
+#define TIOCM_OUT2	0x4000
+#define TIOCM_LOOP	0x8000
+
+
+
+#endif 
 extern int tcsetattr(int fd, int opt, const struct termios *io);
 #endif
 

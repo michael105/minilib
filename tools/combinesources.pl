@@ -45,14 +45,14 @@ sub slurpfile{
 		 debug("f: $f");
 		 while ( (!open $F, "<", "$pa"."$f" ) ){
 			 $pa = shift @path;
-			 if ( !$pa ){ die;}
+			 if ( !$pa ){ print STDERR "Couldn't find $f\n"; return }
 	 		debug("O: $pa"."$f");
 		}
 		#debug ("XXXXXXXXXXXXXXXXX Couldn't open: $f\n") ;
 
 		while (my $l = <$F>){
 				#my $l =$_;
-				if ( $l =~ /^#include.*\"(.*)\"/ ){
+				if ( ( $l =~ /^#include.*\"(.*)\"/ ) || ($l =~ /^#include.*\<(.*)>/ )){
 				my $m = $1;
 				if ( $m ){
 						debug "XXXXXXXXXXXXXXXXXX*************** file: $m \n";

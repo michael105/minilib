@@ -4,7 +4,7 @@
 If you'd like to try this minilib,
 there are two ways:
 
-1. (The faster one) / broken. Guess I should remove
+1. (The faster one)
 
   download minilibcombined.c
 
@@ -13,7 +13,7 @@ there are two ways:
 
   compile:
 
-  gcc -o hello-combined hello-combined.c -static -nostdlib
+	gcc -o hello-combined hello-combined.c -static -nostdlib -nodefaultlibs -nostartfiles -Wl,-n,-s,--gc-sections,-nostdlib,-Tldscripts/ld.script.onlytext 
 
 
 

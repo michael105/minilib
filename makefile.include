@@ -18,7 +18,7 @@ endif
 
 UNAME := $(shell uname)
 
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat -Os
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unknown-warning-option -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat
 
 
 ifeq ($(UNAME), Darwin)
@@ -91,7 +91,7 @@ LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script.onlytext
 endif
 #$(info Target: LINUX)
 	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
-	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2 -omagic
+	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
@@ -99,7 +99,7 @@ endif
 ifeq "$(strip $(GCC))" "tcc"
 	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
 else
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT),-omagic
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT)
 endif
 
 

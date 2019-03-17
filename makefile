@@ -1,5 +1,9 @@
+ifndef PROG
 PROG=hello
+endif
+
 ONLYTEXT=1
+NOINCLUDE=1
 
 include makefile.template
 
@@ -23,7 +27,7 @@ combined:
 
 
 hello-combinedb: hello-combined.c
-	make PROG=hello-combined
+	make SINGLERUN=1 PROG=hello-combined
 
 #note
 #cat hello-combined.c | gcc -o hh -static -nostdlib ../asm/start-osx.S -x c -

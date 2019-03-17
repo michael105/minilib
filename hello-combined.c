@@ -30,7 +30,7 @@
 #include "minilibcombined.c"
 
 int main(){
-		write(stdout, "Hello world!\n", 13);
+		write(0, "Hello world!\n", 13);
 		return(0);
 }
 
