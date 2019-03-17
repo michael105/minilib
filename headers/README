@@ -1,11 +1,36 @@
 platform specific headers
 and defines go here
 
+
+
+
+
 If not otherwise noted, 
-most headers in common are modified headers
-of musl.
+most headers in this directory are modified headers
+from musl.
+
 
 musl is licensed under the terms of the Standard MIT-License,
 see the file musl-LICENSE.
+
+
+The copied headers are from the include dir of musl:
+
+In addition, permission is hereby granted for all public header files
+(include/* and arch/*/bits/*) and crt files intended to be linked into
+applications (crt/*, ldso/dlstart.c, and arch/*/crt_arch.h) to omit
+the copyright notice and permission notice otherwise required by the
+license, and to use these files without any requirement of
+attribution. These files include substantial contributions from:
+
+Bobby Bingham
+John Spencer
+Nicholas J. Kain
+Rich Felker
+Richard Pennington
+Stefan Kristiansson
+Szabolcs Nagy
+
+all of whom have explicitly granted such permission.
 
 
