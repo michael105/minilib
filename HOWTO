@@ -56,7 +56,7 @@ file:    hello-combined.c
 =======================================
 
   // build start, the entry point for the OS
-#define mini_start start 
+#define mini_start
 
   // define and build the function "write"
 #define mini_write
@@ -64,7 +64,7 @@ file:    hello-combined.c
  // build on OSX ( atm I can't check whether 32bit linux works )
 #define OSX
 
- // build with 64bit( )
+ // build with 64bit
 #define X64
 
  // include definitions as well as the sources.
