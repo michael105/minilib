@@ -14,8 +14,10 @@ musl is licensed under the terms of the Standard MIT-License,
 see the file musl-LICENSE.
 
 
-The copied headers are from the include dir of musl:
+The copied headers are from the include dir of musl,
+this section of musl's licensing terms applies:
 
+-----
 In addition, permission is hereby granted for all public header files
 (include/* and arch/*/bits/*) and crt files intended to be linked into
 applications (crt/*, ldso/dlstart.c, and arch/*/crt_arch.h) to omit
@@ -32,5 +34,5 @@ Stefan Kristiansson
 Szabolcs Nagy
 
 all of whom have explicitly granted such permission.
-
+-----
 
