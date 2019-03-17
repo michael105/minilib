@@ -7,8 +7,8 @@
 
 #define mini_start
 //#define mini_vsyscalls // vsyscalls.(+ ~92 bytes). 
+// ~twice faster than standard syscalls at my system,linux 32bit
 //#define mini_errno
-// ~twice faster than standard syscalls here.
 
 
 #define mini_write

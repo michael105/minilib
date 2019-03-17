@@ -1,5 +1,5 @@
 
-
+ONLYTEXT=1
 
 include makefile.template
 
