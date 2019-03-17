@@ -101,6 +101,13 @@ int mfprintf(int fd, const char* fmt, ... ){
 #endif
 												end=1;
 												break;
+										case 'l':
+#ifdef mini_ltodec
+												MINI_TEST_OVERRUN(b+27);
+												b = b + ltodec(va_arg(args,long),&mbuf[b],padding,sep);
+#endif
+												end=1;
+												break;
 
 										case 39:
 												sep = '.';

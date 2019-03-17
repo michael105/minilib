@@ -1,3 +1,34 @@
+#if 0
+ifdef UNDEF
+
+Apache License V.2.0 
+
+Copyright (c) 2012-2019 Michael (Misc) Myer, 
+misc.myer@zoho.com / www.github.com/michael105
+
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+endif
+#endif
 #ifndef minilibcombined_c
 #define minilibcombined_c
 
@@ -2918,6 +2949,13 @@ extern int dtodec(double d,char* buf, int prec);
 #endif
 #endif
 
+#ifdef mini_ltodec
+extern int ltodec(long d,char* buf, int prec);
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#endif
+
 
 #ifdef mini_itodec
 extern int itodec(int i,char* buf,int padding, char dec);
@@ -3233,6 +3271,37 @@ int dtodec(double d, char* buf, int precision){
 		return(p+p2+2-9+precision);
 }
 #endif
+
+#ifdef mini_ltodec
+// XXXXXXXXXXXXXXXXXX*************** file: src/ltodec.c 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: src  Name ltodec.c
+// f: src/ltodec.c
+
+int ultodec(unsigned long i, char *buf, int prec, char limiter ){
+		int p = 0;
+		if ( i>2^16 ){
+				p=itodec((unsigned int)i-2^16, buf, prec, limiter);
+				strcpy(&buf[p], "*2^16+"); // rude hack. Correct, but..
+#todo: write ltodec
+				p+=7;
+		}
+		return(uitodec((uint)i, &buf[p], prec, limiter));
+}
+
+int ltodec(long i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(ultodec((unsigned long)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(ultodec((unsigned long)i,buf,prec,limiter) );
+}
+
+#endif
+
 
 #ifdef mini_atoi
 // XXXXXXXXXXXXXXXXXX*************** file: src/atoi.c 
@@ -3915,6 +3984,13 @@ int mfprintf(int fd, const char* fmt, ... ){
 												if ( padding==0 )
 														padding = 9;
 												b = b + dtodec(va_arg(args,double),&mbuf[b],padding);
+#endif
+												end=1;
+												break;
+										case 'l':
+#ifdef mini_ltodec
+												MINI_TEST_OVERRUN(b+27);
+												b = b + ltodec(va_arg(args,long),&mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;

@@ -259,6 +259,13 @@ extern int dtodec(double d,char* buf, int prec);
 #endif
 #endif
 
+#ifdef mini_ltodec
+extern int ltodec(long d,char* buf, int prec);
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#endif
+
 
 #ifdef mini_itodec
 extern int itodec(int i,char* buf,int padding, char dec);

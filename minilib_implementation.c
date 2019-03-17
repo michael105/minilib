@@ -28,6 +28,11 @@
 #include "src/dtodec.c"
 #endif
 
+#ifdef mini_ltodec
+#include "src/ltodec.c"
+#endif
+
+
 #ifdef mini_atoi
 #include "src/atoi.c"
 #endif
