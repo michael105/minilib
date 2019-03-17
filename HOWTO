@@ -4,7 +4,7 @@
 If you'd like to try this minilib,
 there are two ways:
 
-1. (The faster one)
+1. (The faster one) / broken. Guess I should remove
 
   download minilibcombined.c
 
