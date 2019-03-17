@@ -481,7 +481,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory" )
+#define __callend : "memory","rcx", "r10", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -573,7 +573,7 @@ extern int errno;
 
 #ifdef mini_errno
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -583,7 +583,7 @@ extern int errno;
 		}
 #else
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
@@ -615,7 +615,7 @@ extern int errno;
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
 #define DEF_syscallret( name, ret, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
 						errno = -sysret;\
@@ -1168,7 +1168,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory" )
+#define __callend : "memory","rcx", "r10", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -1260,7 +1260,7 @@ extern int errno;
 
 #ifdef mini_errno
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -1270,7 +1270,7 @@ extern int errno;
 		}
 #else
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
@@ -1302,7 +1302,7 @@ extern int errno;
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
 #define DEF_syscallret( name, ret, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
 						errno = -sysret;\
@@ -1411,11 +1411,8 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 // O: asm/sys/types.h
 // O: macros/sys/types.h
 // O: headers/common/sys/types.h
-#ifndef	_SYS_TYPES_H
-#define	_SYS_TYPES_H
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef	SYS_TYPES_H
+#define	SYS_TYPES_H
 
 #ifndef POINTER
 #ifdef X64
@@ -1446,9 +1443,6 @@ typedef unsigned long long u_quad_t;
 #define ino64_t ino_t
 #define off64_t off_t
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 
@@ -1862,7 +1856,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void __attribute__((always_inline)) exit( int ret ){
+static inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -1891,7 +1885,7 @@ extern int _mprints(char*msg,...);
 		exit(1);}
 #endif
 
-static inline int __attribute__((always_inline)) read( int fd, void* buf, int len ){
+static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 		//MINI_TEST_OVERRUN(len);
 		int ret;
@@ -1977,6 +1971,7 @@ extern int _mprints(char*msg,...);
 #endif
 
 #ifdef mini_fputc
+#define mini_mstrlen
 // XXXXXXXXXXXXXXXXXX*************** file: fputc.h 
 
 // Current path: /home/micha/prog/minilib
@@ -2024,7 +2019,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 #endif
 
 
-int fputc(int c, int fd){
+static int fputc(int c, int fd){
 		write(fd, &c, 1);
 		return(c);
 }
@@ -2081,26 +2076,9 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 
 #endif
-// XXXXXXXXXXXXXXXXXX*************** file: src/mstrlen.c 
+int strlen(const char*str);
 
-// Current path: /home/micha/prog/minilib
-
-// Path: src  Name mstrlen.c
-// f: src/mstrlen.c
-#ifndef strlen_c
-#define strlen_c
-int strlen(const char*str){
-		int a = 0;
-		while ( str[a] != 0 ){
-				a++;
-		}
-		return (a);
-}
-
-
-#endif
-
-int fputs(const char *c, int fd){
+static int fputs(const char *c, int fd){
 		return(write(fd, c, strlen(c)));
 }
 
@@ -2140,7 +2118,7 @@ extern int printl(const char *msg);
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void __attribute__((always_inline)) exit( int ret ){
+static inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -2303,13 +2281,12 @@ extern int isspace(int c);
 #endif
 
 
-// XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
+// XXXXXXXXXXXXXXXXXX*************** file: stdarg.h 
 
 // Current path: /home/micha/prog/minilib
 
-// Path: ../include  Name stdarg.h
-// f: ../include/stdarg.h
-// O: include/../include/stdarg.h
+// f: stdarg.h
+// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -2392,8 +2369,8 @@ typedef va_list __gnuc_va_list;
 #endif
 
 
-//#undef open
-static inline int open( const char *s, int flags, ... ){
+/// open
+static inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -2404,8 +2381,9 @@ static inline int open( const char *s, int flags, ... ){
 		return(ret);
 }
 
-
-static inline int __attribute__((always_inline)) creat( const char *s, int mode ){
+/// creat
+//d open
+static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
@@ -3474,7 +3452,7 @@ int printl(const char *msg){
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void __attribute__((always_inline)) exit( int ret ){
+static inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -3610,7 +3588,6 @@ extern int _mprints(char*msg,...);
 
 // Current path: /home/micha/prog/minilib
 
-// YYYYYYYYYYYYYY   Already included: ../include/stdarg.h
 // Path: ../include  Name stdarg.h
 // f: ../include/stdarg.h
 // O: include/../include/stdarg.h
@@ -4080,7 +4057,7 @@ void __start_c(char **envp){
 // f: asm/start-linux-x64.c
 void _start(){
 #ifdef mini_start
-__asm__ (
+__asm__ volatile (
 		"popq %rdi\n\t"
 		"movq %rsp,%rsi\n\t"
 		"leaq  8(%rsi,%rdi,8),%rdx\n\t"
@@ -4101,7 +4078,7 @@ __asm__ (
 // f: asm/start.c
 void _start(){
 #ifdef mini_start
-__asm__ (
+__asm__ volatile (
 		"pop %eax\n\t"
 		"leal  12(%esp,%eax,4),%ebx\n\t"
 		"push %ebx\n\t"
@@ -4134,7 +4111,7 @@ __asm__ (
 // Path: asm  Name start-osx.c
 // f: asm/start-osx.c
 #ifdef mini_start
-__asm__ (
+__asm__ volatile (
 		".globl start\n\t"
 		"start:	pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"
@@ -4420,7 +4397,7 @@ int _mprints(char *msg,...){
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void __attribute__((always_inline)) exit( int ret ){
+static inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -4501,7 +4478,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void __attribute__((always_inline)) exit( int ret ){
+static inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -5117,7 +5094,6 @@ int memcmp(const void* c1,const void* c2,int len){
 
 // Current path: /home/micha/prog/minilib
 
-// YYYYYYYYYYYYYY   Already included: src/mstrlen.c
 // Path: src  Name mstrlen.c
 // f: src/mstrlen.c
 #ifndef strlen_c
@@ -5784,7 +5760,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory" )
+#define __callend : "memory","rcx", "r10", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -5876,7 +5852,7 @@ extern int errno;
 
 #ifdef mini_errno
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -5886,7 +5862,7 @@ extern int errno;
 		}
 #else
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
@@ -5918,7 +5894,7 @@ extern int errno;
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
 #define DEF_syscallret( name, ret, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
 						errno = -sysret;\
@@ -6028,11 +6004,8 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 // O: asm/sys/types.h
 // O: macros/sys/types.h
 // O: headers/common/sys/types.h
-#ifndef	_SYS_TYPES_H
-#define	_SYS_TYPES_H
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef	SYS_TYPES_H
+#define	SYS_TYPES_H
 
 #ifndef POINTER
 #ifdef X64
@@ -6063,9 +6036,6 @@ typedef unsigned long long u_quad_t;
 #define ino64_t ino_t
 #define off64_t off_t
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 

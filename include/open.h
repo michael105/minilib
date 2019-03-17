@@ -4,10 +4,10 @@
 //#include "syscall.h"
 #include "filemodes.h"
 
-#include "../include/stdarg.h"
+#include "stdarg.h"
 
-//#undef open
-static inline int open( const char *s, int flags, ... ){
+/// open
+static inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -18,8 +18,9 @@ static inline int open( const char *s, int flags, ... ){
 		return(ret);
 }
 
-
-static inline int __attribute__((always_inline)) creat( const char *s, int mode ){
+/// creat
+//d open
+static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 

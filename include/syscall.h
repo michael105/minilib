@@ -45,7 +45,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory" )
+#define __callend : "memory","rcx", "r10", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -137,7 +137,7 @@ extern int errno;
 
 #ifdef mini_errno
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -147,7 +147,7 @@ extern int errno;
 		}
 #else
 #define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
@@ -179,7 +179,7 @@ extern int errno;
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
 #define DEF_syscallret( name, ret, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
 						errno = -sysret;\

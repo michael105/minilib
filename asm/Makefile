@@ -15,14 +15,14 @@ rebuild:
 	make
 
 start.c: start.S
-	perl ./convert.pl start.S start.c
+	perl ../tools/convertasm.pl start.S start.c
 	echo Ok.
 	
 start-osx.c: start-osx.S
-	perl ./convert.pl start-osx.S start-osx.c
+	perl ../tools/convertasm.pl start-osx.S start-osx.c
 	echo Ok.
 
 start-linux-x64.c: start-linux-x64.S
-	perl ./convert.pl start-linux-x64.S start-linux-x64.c
+	perl ../tools/convertasm.pl start-linux-x64.S start-linux-x64.c
 	echo Ok.
 	
