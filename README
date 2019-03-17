@@ -187,6 +187,25 @@ done..
 -> https://olimex.wordpress.com/2012/04/04/unix-on-pic32-meet-retrobsd-for-duinomite/ 
    -  running bsd with 128K RAM (!)
 
+-> https://www.mkompf.com/cplus/cliblist.html  -  Ansi standard c
+
+-> https://www.etalabs.net/compare_libcs.html  -  comparison of c/POSIC standard library implementations
+
+
+====================
+ See Also
+====================
+
+(google also..)
+
+----- tiny c lib implementations
+
+klibc
+bionic
+musl
+uLibc
+dietlibc
+
 
 ====================
  Notes
