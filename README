@@ -44,6 +44,16 @@ headers. (sort of)
 
 
 
+====================
+ Build dependencies
+====================
+
+make
+gcc or tcc
+ld (or tcc)
+perl (when rebuilding minilib)
+
+
 
 ====================
  Warning
