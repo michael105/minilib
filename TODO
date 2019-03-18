@@ -20,10 +20,17 @@ malloc
 
 		share malloc_buf with mbuf.
 
+also malloc, amongst others:
+	include other implementations in contrib.
+
 
 printf: 
 	fmt %l
 
+
+extras: 
+	folder with some extras. 
+	like linked lists.
 
 
 AGAIN BLOAtinG.
