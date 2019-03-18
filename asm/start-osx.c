@@ -18,6 +18,8 @@ __asm__ volatile (
 		"add	$8,%rcx\n\t"
 		"call _main\n\t"
 		"movq %rax, %rdi\n\t"
+		".globl _exit\n\t"
+		"_exit:\n\t"
 		"movl $0x2000001, %eax\n\t"
 		"syscall\n\t"
 	);

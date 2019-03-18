@@ -11,8 +11,11 @@ _start:
 	movq %rsp,%rsi #; argv
 	#pushq %rdi #;
   leaq  8(%rsi,%rdi,8),%rdx #; %ebx = envp = (4*eax)+%esp+8
-
 	call main
-	movq %rax, %rbx
-	movq $1, %rax
-	int $0x80
+
+	movq %rax, %rdi
+.global _exit
+_exit:
+	movq $60, %rax
+	syscall
+

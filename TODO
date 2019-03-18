@@ -21,6 +21,10 @@ malloc
 		share malloc_buf with mbuf.
 
 
+printf: 
+	fmt %l
+
+
 
 AGAIN BLOAtinG.
 This drives me nuts.
