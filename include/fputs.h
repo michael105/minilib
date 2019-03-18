@@ -1,7 +1,7 @@
-#ifndef fputs_c
-#define fputs_c
+#ifndef fputs_h
+#define fputs_h
 
-include "write.h"
+#include "write.h"
 
 //+ansi stdio.h
 //+inc
