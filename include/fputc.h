@@ -3,8 +3,10 @@
 
 #include "write.h"
 
-
-static int fputc(int c, int fd){
+//+ansi stdio.h
+//+inc
+//+def
+inline int volatile fputc(int c, int fd){
 		write(fd, &c, 1);
 		return(c);
 }

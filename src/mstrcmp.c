@@ -1,6 +1,8 @@
 #ifndef strcmp_c
 #define strcmp_c
 
+//+ansi string.h
+
 //TODO: not implemented correct. need to return also -1.
 
 int _strcmp(const char*c1,const char*c2,int len){
@@ -18,18 +20,19 @@ int _strcmp(const char*c1,const char*c2,int len){
 
 
 
-
+//+def
 int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
 }
 
-
+//+def
 int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )
 				return(-1);
 		return(_strcmp(c1,c2,len) );
 }
 
+//+def
 int memcmp(const void* c1,const void* c2,int len){
 		const char* cc1 = c1;
 		const char* cc2 = c2;

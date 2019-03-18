@@ -62,19 +62,15 @@ struct udiv_t { unsigned int quot, rem; };
 //inline div_t div( int numer, int denom ){
 //		asm ("div" : 
 
-#ifdef mini_mfprintf
-#define mini_mprintf
-#endif
-
-#ifdef mini_mprintf
+#ifdef mini_printf
 //extern int mprintf(const char *fmt, ...);
 //#include "mprintf.h"
-#define mprintf(...) mfprintf(stdout,__VA_ARGS__)
+#define printf(...) fprintf(stdout,__VA_ARGS__)
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
-#ifndef mini_mfprintf
-#define mini_mfprintf
+#ifndef mini_fprintf
+#define mini_fprintf
 #endif
 #endif
 
@@ -82,21 +78,21 @@ struct udiv_t { unsigned int quot, rem; };
 #define perror(...) mfprintf(stderr,__VA_ARGS__)
 #endif
 
-#ifdef mini_mfprintf
+#ifdef mini_fprintf
 //#include "mfprintf.h"
 #define mini_itohex
 #define mini_itodec  // also conversion %d in printf
 #define mini_ditodec  // also conversion %d in printf
 
-extern int mfprintf(int fd, const char*fmt, ...);
+extern int fprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
 #endif
 
 
-#ifdef mini_msprintf
-extern int msprintf(char *buf, const char *fmt, ...);
+#ifdef mini_sprintf
+extern int sprintf(char *buf, const char *fmt, ...);
 
 #ifndef mini_buf
 #define mini_buf 1024
@@ -334,12 +330,12 @@ static inline int XOR(int i1, int i2 ){
 }
 
 
+#define fileno(F) F
 
 #ifdef mini_overwrite
-#define printf(...) mprintf(__VA_ARGS__)
-#define fprintf(...) mfprintf(__VA_ARGS__)
-#define sprintf(...) msprintf(__VA_ARGS__)
-#define fileno(F) F
+//#define printf(...) mprintf(__VA_ARGS__)
+//#define fprintf(...) mfprintf(__VA_ARGS__)
+//#define sprintf(...) msprintf(__VA_ARGS__)
 //#define strcmp(A,B) mstrcmp(A,B)
 //#define strncmp(A,B,LEN) mstrncmp(A,B,LEN)
 //#define strlen(A) mstrlen(A)

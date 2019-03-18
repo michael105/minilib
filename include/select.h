@@ -3,6 +3,8 @@
 #include "timeval.h"
 //#include "syscall.h"
 
+//+ansi unistd.h
+//+inc
 
 // from musl
 #define FD_SETSIZE 1024
@@ -22,8 +24,8 @@
 
 // end of musl 
 
-
-static inline	int __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
+//+def
+inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
 		int ret;
 		syscall5(ret, SCALL(select),&fd,readfd,(POINTER)writefd,(POINTER)exceptfd,(POINTER) wait);
 		return(ret);

@@ -1,6 +1,8 @@
 #ifndef strcat_c
 #define strcat_c
 
+//+ansi string.h
+//+def
 char *strcat(char *dest, const char *src )
 {
 		size_t dest_len = strlen(dest);

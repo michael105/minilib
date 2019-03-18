@@ -1,6 +1,8 @@
 #ifndef isspace_c
 #define isspace_c
 
+//+ansi ctype.h
+//+def
 int isspace(int c){
 		switch (c){
 				case ' ':

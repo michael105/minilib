@@ -25,17 +25,12 @@
 #include "include/fputc.h"
 #include "include/fputs.h"
 
+
 #define putchar(c) fputc(c,stdout)
 #define vfprintf(...) fprintf(__VA_ARGS__)
 #define fprintf(...) mfprintf(__VA_ARGS__)
 #define perror(...) fprintf(stderr,__VA_ARGS__)
 
-#ifdef INCLUDECOMPATSRC
-#include "src/mfprintf.c"
-#include "src/mprints.c"
-#include "src/mprint.c"
-#include "src/msprintf.c"
-#endif
-
+#include "include/gen/stdio.h"
 
 #endif

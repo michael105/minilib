@@ -16,8 +16,9 @@
 #include "../include/stdarg.h"
 
 
-
-int msprintf(char *buf, const char* fmt, ... ){
+//+ansi stdio.h
+//+def
+int sprintf(char *buf, const char* fmt, ... ){
 		va_list args;
 		va_start(args,fmt);
 		int a = 0;

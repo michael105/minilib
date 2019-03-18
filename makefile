@@ -7,11 +7,13 @@ NOINCLUDE=1
 
 include makefile.template
 
-.PHONY: test combined
+.PHONY: test combined header
 
 test: 
 	cd test && make test
 
+header:
+	tools/genheaders.pl ./include/gen src/*.c
 
 combined: 
 	cd asm && make

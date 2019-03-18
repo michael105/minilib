@@ -1,3 +1,5 @@
+//+ansi string.h
+//+def
 void* memfrob(void* s, unsigned int len){
 		unsigned int a;
 		char *c = s;

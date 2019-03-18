@@ -1,6 +1,9 @@
 #ifndef minilib_write_h
 #define minilib_write_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 //#undef write
 /*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){

@@ -4,5 +4,6 @@
 #define mini_buf 1024
 #endif
 
-static char mbuf[mini_buf];
+//+def
+char mbuf[mini_buf];
 #endif

@@ -1,4 +1,5 @@
-
+//+ansi stdio.h
+//+def
 int itohex(int i,char* buf,int padding){
 
 		padding = padding - 8;

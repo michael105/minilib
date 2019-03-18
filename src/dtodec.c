@@ -3,6 +3,9 @@
 //doesn't convert numbers > 2^31 (!!!)
 //doesn't round(!)
 //max. prec after the dot: 8 digits. (!!)
+
+//+ansi stdio.h
+//+def
 int dtodec(double d, char* buf, int precision){
 		int i = (int) d;
 		unsigned int i2;

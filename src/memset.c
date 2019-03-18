@@ -1,3 +1,5 @@
+//+ansi string.h
+//+def
 void *memset( void *s, int c, int n){
 		int a;
 		char *sp = s;

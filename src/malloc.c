@@ -1,3 +1,4 @@
+//+ansi stdlib.h
 // just malloc. no free yet.
 //#include "../include/syscall.h"
 
@@ -16,6 +17,7 @@
 	
 static int brk=0;
 
+//+def
 void* malloc(POINTER size){
 		POINTER ret;
 #ifdef BRK	

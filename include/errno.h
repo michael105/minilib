@@ -133,5 +133,5 @@
 #define EOWNERDEAD      130
 #define ENOTRECOVERABLE 131
 #define ERFKILL         132
-//extern int errno;
+extern int errno;
 #endif

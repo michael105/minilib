@@ -10,7 +10,8 @@
 #include "../include/stdarg.h"
 //#include "/usr/diet/include/stdarg.h"
 
-
+//+posix
+//+def
 int ioctl( int fd, unsigned long int request, ... ){
 		va_list args;
 		va_start(args,request);

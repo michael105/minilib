@@ -1,6 +1,9 @@
 #ifndef mini_lseek_h
 #define mini_lseek_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 
 #define SEEK_SET        0       /* seek relative to beginning of file */

@@ -1,5 +1,8 @@
+//+ansi stdio.h
+//
 // convert int to string.
 // prec: precision, e.g. 4=> 0087 
+//+def
 int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 		int p = 0;
 		int a;
@@ -102,7 +105,7 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 }
 
 	
-
+//+def
 int itodec(int i, char *buf, int prec, char limiter ){
 	if ( i < 0 ){
 			buf[0]='-';

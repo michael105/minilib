@@ -1,4 +1,5 @@
-
+//+ansi stdio.h
+//+def
 int _itobin(int i, char*buf, int prec, int groups ){
 		prec -= 32;
 		int a,p=0;

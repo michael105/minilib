@@ -1,9 +1,11 @@
 #ifndef atoi_c
 #define atoi_c
 
+//+ansi stdlib.h
+//+def
 int atoi(char *c){
 		int t,a=0;
-		int ret=0;
+	 	int ret=0;
 		int dez = 1;
 
 		while( c[a] != 0 ){ 
