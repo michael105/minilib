@@ -1485,7 +1485,33 @@ struct timezone {
 
 */
 
+// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: timeval.h
+// f: timeval.h
+// O: include/timeval.h
+#ifndef timeval_h
+#define timeval_h
+// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: time_t.h
+// f: time_t.h
+// O: include/time_t.h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
 // XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
 // Current path: /home/micha/prog/minilib
@@ -3757,8 +3783,10 @@ DEF_syscall(getpid,0 )
 
 DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 
+
 //rename a1=oldpath a2=newpath
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
 
 
 #ifndef OSX
@@ -3783,6 +3811,9 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #ifndef minilib_read_h
 #define minilib_read_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
@@ -3803,11 +3834,15 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 // O: include/../include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+//+def
+inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -3836,7 +3871,9 @@ extern int _mprints(char*msg,...);
 		exit(1);}
 #endif
 
-static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
+
+//+def
+inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 		//MINI_TEST_OVERRUN(len);
 		int ret;
@@ -3856,19 +3893,15 @@ struct udiv_t { unsigned int quot, rem; };
 //inline div_t div( int numer, int denom ){
 //		asm ("div" : 
 
-#ifdef mini_mfprintf
-#define mini_mprintf
-#endif
-
-#ifdef mini_mprintf
+#ifdef mini_printf
 //extern int mprintf(const char *fmt, ...);
 //#include "mprintf.h"
-#define mprintf(...) mfprintf(stdout,__VA_ARGS__)
+#define printf(...) fprintf(stdout,__VA_ARGS__)
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
-#ifndef mini_mfprintf
-#define mini_mfprintf
+#ifndef mini_fprintf
+#define mini_fprintf
 #endif
 #endif
 
@@ -3876,21 +3909,21 @@ struct udiv_t { unsigned int quot, rem; };
 #define perror(...) mfprintf(stderr,__VA_ARGS__)
 #endif
 
-#ifdef mini_mfprintf
+#ifdef mini_fprintf
 //#include "mfprintf.h"
 #define mini_itohex
 #define mini_itodec  // also conversion %d in printf
 #define mini_ditodec  // also conversion %d in printf
 
-extern int mfprintf(int fd, const char*fmt, ...);
+extern int fprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
 #endif
 
 
-#ifdef mini_msprintf
-extern int msprintf(char *buf, const char *fmt, ...);
+#ifdef mini_sprintf
+extern int sprintf(char *buf, const char *fmt, ...);
 
 #ifndef mini_buf
 #define mini_buf 1024
@@ -3941,6 +3974,9 @@ extern int _mprints(char*msg,...);
 #ifndef minilib_write_h
 #define minilib_write_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 //#undef write
 /*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
@@ -3969,8 +4005,10 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 #endif
 
-
-static int fputc(int c, int fd){
+//+ansi stdio.h
+//+inc
+//+def
+inline int volatile fputc(int c, int fd){
 		write(fd, &c, 1);
 		return(c);
 }
@@ -3987,8 +4025,8 @@ static int fputc(int c, int fd){
 
 // f: fputs.h
 // O: include/fputs.h
-#ifndef fputs_c
-#define fputs_c
+#ifndef fputs_h
+#define fputs_h
 
 // XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
@@ -3999,6 +4037,9 @@ static int fputc(int c, int fd){
 // O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
+
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
@@ -4027,9 +4068,14 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 
 #endif
+
+//+ansi stdio.h
+//+inc
+
 int strlen(const char*str);
 
-static int fputs(const char *c, int fd){
+//+def
+inline int volatile fputs(const char *c, int fd){
 		return(write(fd, c, strlen(c)));
 }
 
@@ -4065,11 +4111,15 @@ extern int printl(const char *msg);
 // O: include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+//+def
+inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -4089,6 +4139,9 @@ static inline void volatile __attribute__((always_inline)) exit( int ret ){
 // O: include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
+
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
@@ -4130,8 +4183,10 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 #define mini_isprint_h
 #define misprint(A) isprint(A)
 
-
-static inline int __attribute__((always_inline)) isprint(const char c){
+//+ansi ctype.h
+//+inc
+//+def
+inline int __attribute__((always_inline)) isprint(const char c){
 		if ( (c>31) && ( c<127 ))
 				return(1);
 		return(0);
@@ -4159,6 +4214,8 @@ extern int isspace(int c);
 // O: include/open.h
 #ifndef minilib_open_h
 #define minilib_open_h
+//+ansi fcntl.h
+//+inc
 
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
@@ -4321,7 +4378,8 @@ typedef va_list __gnuc_va_list;
 
 
 /// open
-static inline int volatile open( const char *s, int flags, ... ){
+//+def
+inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -4334,7 +4392,8 @@ static inline int volatile open( const char *s, int flags, ... ){
 
 /// creat
 //d open
-static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+//+def
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
@@ -4357,6 +4416,9 @@ static inline int volatile __attribute__((always_inline)) creat( const char *s, 
 // O: include/lseek.h
 #ifndef mini_lseek_h
 #define mini_lseek_h
+
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 
@@ -4390,8 +4452,10 @@ DEF_syscall(fsync,1,int a1 )
 #ifndef minilib_close_h
 #define minilib_close_h
 
-//#include "syscall.h"
-static inline int __attribute__((always_inline)) close( int fd ){
+//+ansi unistd.h
+//+inc
+//+def
+inline int volatile __attribute__((always_inline)) close( int fd ){
 		int ret;
 		syscall1(ret,SCALL(close),(int)fd);
 		return(ret);
@@ -4619,7 +4683,7 @@ static inline int __attribute__((always_inline)) close( int fd ){
 #define EOWNERDEAD      130
 #define ENOTRECOVERABLE 131
 #define ERFKILL         132
-//extern int errno;
+extern int errno;
 #endif
 //#endif
 
@@ -4850,6 +4914,8 @@ struct timezone {
 #endif
 //#include "syscall.h"
 
+//+ansi unistd.h
+//+inc
 
 // from musl
 #define FD_SETSIZE 1024
@@ -4869,8 +4935,8 @@ struct timezone {
 
 // end of musl 
 
-
-static inline	int __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
+//+def
+inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
 		int ret;
 		syscall5(ret, SCALL(select),&fd,readfd,(POINTER)writefd,(POINTER)exceptfd,(POINTER) wait);
 		return(ret);
@@ -5114,12 +5180,12 @@ static inline int XOR(int i1, int i2 ){
 }
 
 
+#define fileno(F) F
 
 #ifdef mini_overwrite
-#define printf(...) mprintf(__VA_ARGS__)
-#define fprintf(...) mfprintf(__VA_ARGS__)
-#define sprintf(...) msprintf(__VA_ARGS__)
-#define fileno(F) F
+//#define printf(...) mprintf(__VA_ARGS__)
+//#define fprintf(...) mfprintf(__VA_ARGS__)
+//#define sprintf(...) msprintf(__VA_ARGS__)
 //#define strcmp(A,B) mstrcmp(A,B)
 //#define strncmp(A,B,LEN) mstrncmp(A,B,LEN)
 //#define strlen(A) mstrlen(A)
@@ -5151,7 +5217,8 @@ static inline int XOR(int i1, int i2 ){
 #define mini_buf 1024
 #endif
 
-static char mbuf[mini_buf];
+//+def
+char mbuf[mini_buf];
 #endif
 #endif
 
@@ -5162,7 +5229,8 @@ static char mbuf[mini_buf];
 
 // Path: src  Name itohex.c
 // f: src/itohex.c
-
+//+ansi stdio.h
+//+def
 int itohex(int i,char* buf,int padding){
 
 		padding = padding - 8;
@@ -5209,8 +5277,11 @@ int itohex(int i,char* buf,int padding){
 
 // Path: src  Name itodec.c
 // f: src/itodec.c
+//+ansi stdio.h
+//
 // convert int to string.
 // prec: precision, e.g. 4=> 0087 
+//+def
 int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 		int p = 0;
 		int a;
@@ -5313,7 +5384,7 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 }
 
 	
-
+//+def
 int itodec(int i, char *buf, int prec, char limiter ){
 	if ( i < 0 ){
 			buf[0]='-';
@@ -5337,6 +5408,9 @@ int itodec(int i, char *buf, int prec, char limiter ){
 //doesn't convert numbers > 2^31 (!!!)
 //doesn't round(!)
 //max. prec after the dot: 8 digits. (!!)
+
+//+ansi stdio.h
+//+def
 int dtodec(double d, char* buf, int precision){
 		int i = (int) d;
 		unsigned int i2;
@@ -5403,9 +5477,11 @@ int ltodec(long i, char *buf, int prec, char limiter ){
 #ifndef atoi_c
 #define atoi_c
 
+//+ansi stdlib.h
+//+def
 int atoi(char *c){
 		int t,a=0;
-		int ret=0;
+	 	int ret=0;
 		int dez = 1;
 
 		while( c[a] != 0 ){ 
@@ -5448,7 +5524,8 @@ int atoi(char *c){
 
 // Path: src  Name itobin.c
 // f: src/itobin.c
-
+//+ansi stdio.h
+//+def
 int _itobin(int i, char*buf, int prec, int groups ){
 		prec -= 32;
 		int a,p=0;
@@ -5511,6 +5588,9 @@ int _itobin(int i, char*buf, int prec, int groups ){
 #ifndef minilib_write_h
 #define minilib_write_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 //#undef write
 /*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
@@ -5539,6 +5619,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 #endif
 
+//+def
 int print(const char *msg){
 		int a=0;
 		while (msg[a] != 0 ){
@@ -5547,7 +5628,7 @@ int print(const char *msg){
 		return( write(1,msg,a) );
 }
 
-
+//+def
 int printl(const char *msg){
 		int ret = print(msg);
 		write(1,"\n",1);
@@ -5607,11 +5688,15 @@ int printl(const char *msg){
 // O: include/../include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+//+def
+inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -5650,6 +5735,9 @@ extern int _mprints(char*msg,...);
 // O: include/../include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
+
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
@@ -5698,6 +5786,9 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 // O: include/../include/write.h
 #ifndef minilib_write_h
 #define minilib_write_h
+
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
@@ -5991,7 +6082,8 @@ typedef va_list __gnuc_va_list;
 #define mini_buf 1024
 #endif
 
-static char mbuf[mini_buf];
+//+def
+char mbuf[mini_buf];
 #endif
 
 /// mfprintf
@@ -6005,7 +6097,9 @@ static char mbuf[mini_buf];
 /// %x/X : hex output
 /// %(
 /// 
-int mfprintf(int fd, const char* fmt, ... ){
+//+ansi stdio.h
+//+def
+int fprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
 		va_copy(ca,args);
@@ -6327,6 +6421,9 @@ __asm__ volatile (
 #ifndef minilib_write_h
 #define minilib_write_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 //#undef write
 /*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
@@ -6559,11 +6656,15 @@ int _mprints(char *msg,...){
 // O: include/../include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+//+def
+inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -6603,6 +6704,9 @@ extern int _mprints(char*msg,...);
 #ifndef minilib_write_h
 #define minilib_write_h
 
+//+ansi unistd.h
+//+inc
+
 //#include "syscall.h"
 //#undef write
 /*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
@@ -6640,11 +6744,15 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 // O: include/../include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
+//+ansi unistd.h
+//+inc
 
 //#include "syscall.h"
 //#undef write
 //#undef exit
-static inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+//+def
+inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
@@ -6743,8 +6851,9 @@ typedef va_list __gnuc_va_list;
 
 
 
-
-int msprintf(char *buf, const char* fmt, ... ){
+//+ansi stdio.h
+//+def
+int sprintf(char *buf, const char* fmt, ... ){
 		va_list args;
 		va_start(args,fmt);
 		int a = 0;
@@ -6894,6 +7003,8 @@ int msprintf(char *buf, const char* fmt, ... ){
 #ifndef isspace_c
 #define isspace_c
 
+//+ansi ctype.h
+//+def
 int isspace(int c){
 		switch (c){
 				case ' ':
@@ -7043,7 +7154,8 @@ typedef va_list __gnuc_va_list;
 
 //#include "/usr/diet/include/stdarg.h"
 
-
+//+posix
+//+def
 int ioctl( int fd, unsigned long int request, ... ){
 		va_list args;
 		va_start(args,request);
@@ -7274,8 +7386,9 @@ int tcsetattr(int fd, int opt, const struct termios *io)
 #ifndef strcat_c
 #define strcat_c
 
-char *strcat(char *dest, const char *src )
-{
+//+ansi string.h
+//+def
+char *strcat(char *dest, const char *src ){
 		size_t dest_len = strlen(dest);
 		size_t i;
 
@@ -7302,6 +7415,8 @@ char *strcat(char *dest, const char *src )
 #ifndef strcmp_c
 #define strcmp_c
 
+//+ansi string.h
+
 //TODO: not implemented correct. need to return also -1.
 
 int _strcmp(const char*c1,const char*c2,int len){
@@ -7319,18 +7434,19 @@ int _strcmp(const char*c1,const char*c2,int len){
 
 
 
-
+//+def
 int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
 }
 
-
+//+def
 int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )
 				return(-1);
 		return(_strcmp(c1,c2,len) );
 }
 
+//+def
 int memcmp(const void* c1,const void* c2,int len){
 		const char* cc1 = c1;
 		const char* cc2 = c2;
@@ -7362,6 +7478,8 @@ int memcmp(const void* c1,const void* c2,int len){
 #ifndef strcmp_c
 #define strcmp_c
 
+//+ansi string.h
+
 //TODO: not implemented correct. need to return also -1.
 
 int _strcmp(const char*c1,const char*c2,int len){
@@ -7379,18 +7497,19 @@ int _strcmp(const char*c1,const char*c2,int len){
 
 
 
-
+//+def
 int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
 }
 
-
+//+def
 int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )
 				return(-1);
 		return(_strcmp(c1,c2,len) );
 }
 
+//+def
 int memcmp(const void* c1,const void* c2,int len){
 		const char* cc1 = c1;
 		const char* cc2 = c2;
@@ -7419,6 +7538,10 @@ int memcmp(const void* c1,const void* c2,int len){
 // f: src/mstrlen.c
 #ifndef strlen_c
 #define strlen_c
+
+//+ansi string.h
+
+//+def
 int strlen(const char*str){
 		int a = 0;
 		while ( str[a] != 0 ){
@@ -7438,6 +7561,8 @@ int strlen(const char*str){
 
 // Path: src  Name memset.c
 // f: src/memset.c
+//+ansi string.h
+//+def
 void *memset( void *s, int c, int n){
 		int a;
 		char *sp = s;
@@ -7457,6 +7582,8 @@ void *memset( void *s, int c, int n){
 #ifndef memcpy_c
 #define memcpy_c
 
+//+ansi string.h
+//+def
 void *memcpy( void *d, const void *s, int n ){
 		char *dp=d;
 		const char *sp = s;
@@ -7478,6 +7605,8 @@ void *memcpy( void *d, const void *s, int n ){
 
 // Path: src  Name memfrob.c
 // f: src/memfrob.c
+//+ansi string.h
+//+def
 void* memfrob(void* s, unsigned int len){
 		unsigned int a;
 		char *c = s;
@@ -7519,6 +7648,7 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 
 // Path: src  Name malloc.c
 // f: src/malloc.c
+//+ansi stdlib.h
 // just malloc. no free yet.
 //#include "../include/syscall.h"
 
@@ -7537,6 +7667,7 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 	
 static int brk=0;
 
+//+def
 void* malloc(POINTER size){
 		POINTER ret;
 #ifdef BRK	
@@ -7670,7 +7801,33 @@ int ipoweri(int x, int n){
 
 */
 
+// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: timeval.h
+// f: timeval.h
+// O: include/timeval.h
+#ifndef timeval_h
+#define timeval_h
+// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
+
+// Current path: /home/micha/prog/minilib
+
+// YYYYYYYYYYYYYY   Already included: time_t.h
+// f: time_t.h
+// O: include/time_t.h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
 // XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
 // Current path: /home/micha/prog/minilib
@@ -9946,8 +10103,10 @@ DEF_syscall(getpid,0 )
 
 DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 
+
 //rename a1=oldpath a2=newpath
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
 
 
 #ifndef OSX
