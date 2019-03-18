@@ -45,7 +45,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r10", "r11" )
+#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64

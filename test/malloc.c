@@ -1,19 +1,24 @@
 #define mini_malloc
 #define mini_start start
 #define mini_write
-#define mini_mprintf
+#define mini_printf
+#define mini_mfprintf
+#define mini_puts
 #define mini_overwrite
 
 #include "include/minilib_header.h"
 
 int main(){
 
+		puts("Ok.");
 		char *c = malloc(64);
+		puts("malloc1");
 		
 		int a;
 		for ( a=0; a<=32; a++ )
 				c[a] = a+50;
 
+		puts("malloc2");
 		printf ( c );
 		printf ( "\n" );
 

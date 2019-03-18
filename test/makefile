@@ -21,7 +21,7 @@ GCC=gcc
 # LD
 #LD=ld
 
-ELFTRUNC=1
+#ELFTRUNC=1
 
 
 ifndef GREEN
@@ -82,6 +82,7 @@ clean:
 	rm $(PROG) failtest-segfault hello-combined hello-smallest hello-include || true
 	echo $(PROG) failtest-segfault hello-combined || true
 	rm -f results/*-test.stdout
+	rm -f build/*
 
 rebuild: clean all
 

@@ -58,6 +58,7 @@
 #ifdef mini_mfprintf
 #include "src/mfprintf.c"
 #define mini_errno
+#define mfprintf(...) fprintf(__VA_ARGS__)
 #endif
 
 

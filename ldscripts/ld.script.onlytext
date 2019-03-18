@@ -30,9 +30,9 @@ SECTIONS
 /*		 }
 		.bss            :
 		{ 
-misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
-saves 15 bytes. ( needs -N for linking )
 */
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
 
 
 						*(.dynbss)

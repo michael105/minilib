@@ -94,7 +94,10 @@ ifeq "$(strip $(INCLUDECOMPATSRC))" "1"
 endif
 
 
-LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script
+
+#LSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script
+LSCRIPT=
+
 
 
 ifeq "$(strip $(ONLYTEXT))" "1"
@@ -117,7 +120,7 @@ endif
 
 ifdef OTEXT
 $(info ONLYTEXT)
-LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script.onlytext
+LSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script.onlytext
 endif
 #$(info Target: LINUX)
 	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
@@ -129,7 +132,7 @@ endif
 ifeq "$(strip $(GCC))" "tcc"
 	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
 else
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib,$(LSCRIPT)
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LSCRIPT)
 endif
 
 

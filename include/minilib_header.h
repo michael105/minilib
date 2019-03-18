@@ -75,7 +75,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 
 #ifdef mini_perror
-#define perror(...) mfprintf(stderr,__VA_ARGS__)
+#define perror(...) fprintf(stderr,__VA_ARGS__)
 #endif
 
 #ifdef mini_fprintf
@@ -84,7 +84,7 @@ struct udiv_t { unsigned int quot, rem; };
 #define mini_itodec  // also conversion %d in printf
 #define mini_ditodec  // also conversion %d in printf
 
-extern int fprintf(int fd, const char*fmt, ...);
+extern int mfprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
@@ -279,7 +279,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 #endif
 
 #ifdef mini_malloc
-extern void* malloc(POINTER size);
+extern void* malloc(int size);
 #endif
 #ifdef OSX
 #ifndef PROTO_READ
@@ -331,6 +331,9 @@ static inline int XOR(int i1, int i2 ){
 
 
 #define fileno(F) F
+
+
+#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #ifdef mini_overwrite
 //#define printf(...) mprintf(__VA_ARGS__)
