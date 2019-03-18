@@ -1199,7 +1199,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r10", "r11" )
+#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -2612,7 +2612,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r10", "r11" )
+#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -3835,13 +3835,22 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
@@ -3864,6 +3873,7 @@ extern int _mprints(char*msg,...);
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
+
 
 
 //+def
@@ -3900,7 +3910,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 
 #ifdef mini_perror
-#define perror(...) mfprintf(stderr,__VA_ARGS__)
+#define perror(...) fprintf(stderr,__VA_ARGS__)
 #endif
 
 #ifdef mini_fprintf
@@ -3909,7 +3919,7 @@ struct udiv_t { unsigned int quot, rem; };
 #define mini_itodec  // also conversion %d in printf
 #define mini_ditodec  // also conversion %d in printf
 
-extern int fprintf(int fd, const char*fmt, ...);
+extern int mfprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
@@ -4112,13 +4122,22 @@ extern int printl(const char *msg);
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 #endif
@@ -4209,6 +4228,7 @@ extern int isspace(int c);
 #ifndef minilib_open_h
 #define minilib_open_h
 //+ansi fcntl.h
+//+inc 
 
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
@@ -4371,8 +4391,8 @@ typedef va_list __gnuc_va_list;
 
 
 /// open compiles only defined static. (???)
-//+def
-static inline int volatile open( const char *s, int flags, ... ){
+//
+inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -4385,8 +4405,8 @@ static inline int volatile open( const char *s, int flags, ... ){
 
 /// creat
 //d open
-//+def
-static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+//
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
@@ -5122,7 +5142,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 #endif
 
 #ifdef mini_malloc
-extern void* malloc(POINTER size);
+extern void* malloc(int size);
 #endif
 #ifdef OSX
 #ifndef PROTO_READ
@@ -5174,6 +5194,9 @@ static inline int XOR(int i1, int i2 ){
 
 
 #define fileno(F) F
+
+
+#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #ifdef mini_overwrite
 //#define printf(...) mprintf(__VA_ARGS__)

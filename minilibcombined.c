@@ -1209,7 +1209,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r10", "r11" )
+#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -2622,7 +2622,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r10", "r11" )
+#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -3845,13 +3845,22 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
@@ -3874,6 +3883,7 @@ extern int _mprints(char*msg,...);
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
+
 
 
 //+def
@@ -3910,7 +3920,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 
 #ifdef mini_perror
-#define perror(...) mfprintf(stderr,__VA_ARGS__)
+#define perror(...) fprintf(stderr,__VA_ARGS__)
 #endif
 
 #ifdef mini_fprintf
@@ -3919,7 +3929,7 @@ struct udiv_t { unsigned int quot, rem; };
 #define mini_itodec  // also conversion %d in printf
 #define mini_ditodec  // also conversion %d in printf
 
-extern int fprintf(int fd, const char*fmt, ...);
+extern int mfprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
@@ -4122,13 +4132,22 @@ extern int printl(const char *msg);
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 #endif
@@ -4219,6 +4238,7 @@ extern int isspace(int c);
 #ifndef minilib_open_h
 #define minilib_open_h
 //+ansi fcntl.h
+//+inc 
 
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
@@ -4381,8 +4401,8 @@ typedef va_list __gnuc_va_list;
 
 
 /// open compiles only defined static. (???)
-//+def
-static inline int volatile open( const char *s, int flags, ... ){
+//
+inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -4395,8 +4415,8 @@ static inline int volatile open( const char *s, int flags, ... ){
 
 /// creat
 //d open
-//+def
-static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+//
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
@@ -5132,7 +5152,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 #endif
 
 #ifdef mini_malloc
-extern void* malloc(POINTER size);
+extern void* malloc(int size);
 #endif
 #ifdef OSX
 #ifndef PROTO_READ
@@ -5184,6 +5204,9 @@ static inline int XOR(int i1, int i2 ){
 
 
 #define fileno(F) F
+
+
+#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #ifdef mini_overwrite
 //#define printf(...) mprintf(__VA_ARGS__)
@@ -5698,13 +5721,22 @@ int printl(const char *msg){
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
@@ -5728,6 +5760,7 @@ extern int _mprints(char*msg,...);
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
+
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
 // Current path: /home/micha/prog/minilib
@@ -6102,7 +6135,7 @@ char mbuf[mini_buf];
 /// 
 //+ansi stdio.h
 //+def
-int fprintf(int fd, const char* fmt, ... ){
+int mfprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
 		va_copy(ca,args);
@@ -6258,9 +6291,11 @@ int fprintf(int fd, const char* fmt, ... ){
 #endif
 }
 
+#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #endif
 #define mini_errno
+#define mfprintf(...) fprintf(__VA_ARGS__)
 #endif
 
 
@@ -6330,18 +6365,22 @@ void __start_c(char **envp){
 // O: include/start-linux-x64.c
 // O: src/start-linux-x64.c
 // O: asm/start-linux-x64.c
-void _start(){
+//void _start(){
 #ifdef mini_start
-__asm__ volatile (
-		"popq %rdi\n\t"
-		"movq %rsp,%rsi\n\t"
-		"leaq  8(%rsi,%rdi,8),%rdx\n\t"
-		"call main\n\t"
-		"movq %rax, %rbx\n\t"
-		"movq $1, %rax\n\t"
-		"int $0x80\n\t"
+__asm__ ("\
+.global _start\n\
+_start:\n\
+	popq %rdi\n\
+	movq %rsp,%rsi\n\
+	leaq  8(%rsi,%rdi,8),%rdx\n\
+	call main\n\
+	movq %rax, %rdi\n\
+.global _exit\n\
+_exit:\n\
+	movq $60, %rax\n\
+	syscall"
 	);
-};
+//};
 #endif
 
 #else
@@ -6353,25 +6392,29 @@ __asm__ volatile (
 // O: include/start-linux-x32.c
 // O: src/start-linux-x32.c
 // O: asm/start-linux-x32.c
-void _start(){
+//void _start(){
 #ifdef mini_start
-__asm__ volatile (
-		"pop %eax\n\t"
-		"leal  12(%esp,%eax,4),%ebx\n\t"
-		"push %ebx\n\t"
-		"call __start_c\n\t"
-		"pop %ebx\n\t"
-		"pop %eax\n\t"
-		"mov %esp,%ecx\n\t"
-		"push %ebx\n\t"
-		"push %ecx\n\t"
-		"push %eax\n\t"
-		"call main\n\t"
-		"mov %eax, %ebx\n\t"
-		"mov $1, %eax\n\t"
-		"int $0x80\n\t"
+__asm__ volatile ("\
+.global _start\n\
+_start:\n\
+	pop %eax\n\
+	leal  12(%esp,%eax,4),%ebx\n\
+	push %ebx\n\
+	call __start_c\n\
+	pop %ebx\n\
+	pop %eax\n\
+	mov %esp,%ecx\n\
+	push %ebx\n\
+	push %ecx\n\
+	push %eax\n\
+	call main\n\
+	mov %eax, %ebx\n\
+.global _exit\n\
+_exit:
+	mov $1, %eax\n\
+	int $0x80"
 	);
-};
+//};
 #endif
 
 #endif
@@ -6409,6 +6452,8 @@ __asm__ volatile (
 		"add	$8,%rcx\n\t"
 		"call _main\n\t"
 		"movq %rax, %rdi\n\t"
+		".globl _exit\n\t"
+		"_exit:\n\t"
 		"movl $0x2000001, %eax\n\t"
 		"syscall\n\t"
 	);
@@ -6686,13 +6731,22 @@ int _mprints(char *msg,...){
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
@@ -6716,6 +6770,7 @@ extern int _mprints(char*msg,...);
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
+
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/write.h 
 
 // Current path: /home/micha/prog/minilib
@@ -6774,13 +6829,22 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 //#undef write
 //#undef exit
 
-//+def
-inline void volatile __attribute__((always_inline)) exit( int ret ){
+
+
+#ifdef X64
+#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#else
+#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 	int r;
 		syscall1(r,SCALL(exit),ret);
-}
-
+} */
+//#endif
 
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/stdarg.h 
@@ -7702,25 +7766,72 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 #define BRK
 #endif
 #endif
-	
-static int brk=0;
+
+
+POINTER* ml_brk=0;
+extern POINTER _bssend;
 
 //+def
-void* malloc(POINTER size){
-		POINTER ret;
-#ifdef BRK	
-		if ( brk == 0 ){
-				syscall1(ret,SCALL(brk),0);
+void* volatile malloc(int size){
+#ifdef undef
+#warning BRK def
+		int ret=1;
+		mfprintf(stderr,"MALLOC: _bssend: %d\n",_bssend);
+		if ( ml_brk == 0 ){
+				ml_brk = _bssend;
+				syscall1(ret,SCALL(brk),&ml_brk+size);
+				if ( ret!=0 ){
+						mfprintf(stderr,"MALLOC: 0\n");
+						return(0);
+				}
+				ml_brk+=size;
+				return((void*)_bssend);
 		} else {
-				ret=brk;
+				syscall1(ret,SCALL(brk),size+ml_brk);
+				if ( ret!=0 ){
+						mfprintf(stderr,"MALLOC: 0\n");
+						return(0);
+				}
+				int old_brk= ml_brk;
+				ml_brk += size;
+				return((void*)old_brk);
 		}
-		syscall1(brk,SCALL(brk),size+ret);
-		return((void*)ret);
 #else 
-//#todo: doesnt ork at all
-//		syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+#warning malloc SYSCALL
+/*		void* ret;
+		syscall6(ret, SCALL(mmap), 0, size, (0x01|0x02), 0x1002, -1, 0);
+		//syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, 0x1002, -1, 0);
+		return((void*)ret);*/
+#endif
+
+		void* ret;
+		size=4096;
+	  register volatile long int r8 asm ("r8") = -1 ; 
+		register volatile long int r9 asm ("r9") = 0; 
+		register volatile long int r10 asm ("r10") = 0x1002; 
+			asm volatile (
+							//"xor %%r9, %%r9;"
+							//"mov $-1, %%r8;"
+							//"mov $0x1002, %%r10;"
+							"syscall" 
+							   : "=a" (ret) 
+								 : "a" (SCALL(mmap) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
+							   : "rcx", "memory" );
+			return( (void*)ret );
+
+}
+
+//+def
+void volatile free(void* p){
+
+}
+
+
+
+
+//malloc old
 		//size = 4096;
-	  register long int r8 asm ("r8") = -1 ; 
+/*	  register long int r8 asm ("r8") = -1 ; 
 		register long int r9 asm ("r9") = 0; 
 		register volatile long int r10 asm ("r10") = 0x1002; 
 			asm volatile (
@@ -7731,7 +7842,7 @@ void* malloc(POINTER size){
 							   : "=a" (ret) 
 								 : "a" ( ( 197  | 0x2000000 ) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
 							   : "ecx", "memory" );
-						
+	*/					
  /*
 		asm volatile(
 						"mov %p6, %%r9\n\t"
@@ -7744,10 +7855,6 @@ void* malloc(POINTER size){
 						"syscall\n\t"
 						:"=a"(ret)
 						:[p1]"m"(0),[p2]"m"(1024),[p3]"m"(0x01),[p4]"m"(0x0002),[p5]"m"(-1),[p6]"m"(0));*/
-		return((void*)ret);
-#endif
-}
-
 
 #endif
 
@@ -8976,7 +9083,7 @@ extern int errno;
 
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r10", "r11" )
+#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
