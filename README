@@ -42,6 +42,7 @@ For now there is Linux x86_64, x86_32,
 and OSX Darwin.
 
 Android is targeted. 
+BSD is targeted. 
 
 Minilib should stay tiny.
 Ideally minilib is going to supply glibc compatible
