@@ -7,6 +7,12 @@ This drives me nuts.
 hello and hello-combined suddenly > 185B.
 WTF
 used to be around 150B.
+  Seriously, it's a problem - 
+	I simply don't know what's happening just now.
+	So I cant be sure, e.g., every single function
+	suddenly has an overhead of 30B.
+	Which wouldn't be that great.
+
 
 
 Sort the buildsystem out.
