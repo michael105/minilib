@@ -3,11 +3,12 @@
 ====================================================
 
 
-------------------------------------------------------------
+--------------------------------------------------------------------------
 Copyright (c) 2012-2019 Michael (Misc) Myer, 
 misc.myer@zoho.com / www.github.com/michael105
 
-Licensed under the terms of the Apache License v2.0 
+Licensed under the terms of the Apache License v2.0 (the "License") 
+you may not use this library except in compliance with the License.
 
 Some sourcefiles in headers / contrib have other licensing terms.
  Look at the sources. 
@@ -17,7 +18,7 @@ See bottom for the Apache License.
  but need to keep the copyright notes as well as the file 
  NOTICE. 
  Static linking is permitted.
-------------------------------------------------------------
+--------------------------------------------------------------------------
 
 
 
