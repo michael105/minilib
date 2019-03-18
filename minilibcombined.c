@@ -1300,7 +1300,7 @@ extern int errno;
 // arguments must be named a1,a2,...
 
 #ifdef mini_errno
-#define DEF_syscall( name, argcount, ... ) static inline \
+#define DEF_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
@@ -1310,7 +1310,7 @@ extern int errno;
 				return(sysret);\
 		}
 #else
-#define DEF_syscall( name, argcount, ... ) static inline \
+#define DEF_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
@@ -1342,7 +1342,7 @@ extern int errno;
 
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
-#define DEF_syscallret( name, ret, argcount, ... ) static inline \
+#define DEF_syscallret( name, ret, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
@@ -2713,7 +2713,7 @@ extern int errno;
 // arguments must be named a1,a2,...
 
 #ifdef mini_errno
-#define DEF_syscall( name, argcount, ... ) static inline \
+#define DEF_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
@@ -2723,7 +2723,7 @@ extern int errno;
 				return(sysret);\
 		}
 #else
-#define DEF_syscall( name, argcount, ... ) static inline \
+#define DEF_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
@@ -2755,7 +2755,7 @@ extern int errno;
 
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
-#define DEF_syscallret( name, ret, argcount, ... ) static inline \
+#define DEF_syscallret( name, ret, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
@@ -3772,7 +3772,7 @@ static __inline uint64_t __bswap64(uint64_t __x)
 
 #endif /* _ASM_X86_UNISTD_64_H */
 
-static int sysret;
+extern int sysret;
 extern int errno;
 
 
@@ -3788,6 +3788,10 @@ DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
 
+DEF_syscall(fstat,2,int a1,char* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
 
 #ifndef OSX
 DEF_syscallret(time,*a1,1,unsigned int *a1 )
@@ -4215,7 +4219,6 @@ extern int isspace(int c);
 #ifndef minilib_open_h
 #define minilib_open_h
 //+ansi fcntl.h
-//+inc
 
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
@@ -4377,9 +4380,9 @@ typedef va_list __gnuc_va_list;
 #endif
 
 
-/// open
+/// open compiles only defined static. (???)
 //+def
-inline int volatile open( const char *s, int flags, ... ){
+static inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -4393,7 +4396,7 @@ inline int volatile open( const char *s, int flags, ... ){
 /// creat
 //d open
 //+def
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
@@ -4427,7 +4430,7 @@ inline int volatile __attribute__((always_inline)) creat( const char *s, int mod
 #define SEEK_END        2       /* seek relative to end of file */
 #define SEEK_MAX        SEEK_END
 
-static int sysret;
+extern int sysret;
 extern int errno;
 
 DEF_syscallret(lseek,a1,3,unsigned int a1, int a2, int a3 )
@@ -6267,16 +6270,26 @@ int errno;
 #endif
 //int sysret=0;
 
+// XXXXXXXXXXXXXXXXXX*************** file: asm/start.c 
+
+// Current path: /home/micha/prog/minilib
+
+// Path: asm  Name start.c
+// f: asm/start.c
+#ifndef start_c
+#define start_c
+
 #ifndef OSX
 
 #ifdef mini_vsyscalls
 int __mini_vsys = 0;
-// XXXXXXXXXXXXXXXXXX*************** file: src/start_c.c 
+// XXXXXXXXXXXXXXXXXX*************** file: ../src/start_c.c 
 
 // Current path: /home/micha/prog/minilib
 
-// Path: src  Name start_c.c
-// f: src/start_c.c
+// Path: ../src  Name start_c.c
+// f: ../src/start_c.c
+// O: include/../src/start_c.c
 #ifndef startc_c
 #define startc_c
 
@@ -6309,12 +6322,14 @@ void __start_c(char **envp){
 
 #ifdef mini_start
 #ifdef X64
-// XXXXXXXXXXXXXXXXXX*************** file: asm/start-linux-x64.c 
+// XXXXXXXXXXXXXXXXXX*************** file: start-linux-x64.c 
 
 // Current path: /home/micha/prog/minilib
 
-// Path: asm  Name start-linux-x64.c
-// f: asm/start-linux-x64.c
+// f: start-linux-x64.c
+// O: include/start-linux-x64.c
+// O: src/start-linux-x64.c
+// O: asm/start-linux-x64.c
 void _start(){
 #ifdef mini_start
 __asm__ volatile (
@@ -6330,12 +6345,14 @@ __asm__ volatile (
 #endif
 
 #else
-// XXXXXXXXXXXXXXXXXX*************** file: asm/start.c 
+// XXXXXXXXXXXXXXXXXX*************** file: start-linux-x32.c 
 
 // Current path: /home/micha/prog/minilib
 
-// Path: asm  Name start.c
-// f: asm/start.c
+// f: start-linux-x32.c
+// O: include/start-linux-x32.c
+// O: src/start-linux-x32.c
+// O: asm/start-linux-x32.c
 void _start(){
 #ifdef mini_start
 __asm__ volatile (
@@ -6364,12 +6381,14 @@ __asm__ volatile (
 #else
 
 #ifdef mini_start
-// XXXXXXXXXXXXXXXXXX*************** file: asm/start-osx.c 
+// XXXXXXXXXXXXXXXXXX*************** file: start-osx.c 
 
 // Current path: /home/micha/prog/minilib
 
-// Path: asm  Name start-osx.c
-// f: asm/start-osx.c
+// f: start-osx.c
+// O: include/start-osx.c
+// O: src/start-osx.c
+// O: asm/start-osx.c
 #ifdef mini_start
 __asm__ volatile (
 		".globl start\n\t"
@@ -6400,6 +6419,10 @@ __asm__ volatile (
 
 #endif
 
+
+
+
+#endif
 
 #ifdef mini_mprints
 // XXXXXXXXXXXXXXXXXX*************** file: src/mprints.c 
@@ -7591,6 +7614,21 @@ void *memcpy( void *d, const void *s, int n ){
 		for ( a=0; a<n; a++ )
 				dp[a] = sp[a];
 		return(d);
+}
+
+
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
 }
 
 #endif
@@ -9029,7 +9067,7 @@ extern int errno;
 // arguments must be named a1,a2,...
 
 #ifdef mini_errno
-#define DEF_syscall( name, argcount, ... ) static inline \
+#define DEF_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
@@ -9039,7 +9077,7 @@ extern int errno;
 				return(sysret);\
 		}
 #else
-#define DEF_syscall( name, argcount, ... ) static inline \
+#define DEF_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
@@ -9071,7 +9109,7 @@ extern int errno;
 
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
-#define DEF_syscallret( name, ret, argcount, ... ) static inline \
+#define DEF_syscallret( name, ret, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
@@ -10092,7 +10130,7 @@ static __inline uint64_t __bswap64(uint64_t __x)
 
 #endif /* _ASM_X86_UNISTD_64_H */
 
-static int sysret;
+extern int sysret;
 extern int errno;
 
 
@@ -10108,6 +10146,10 @@ DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
 
+DEF_syscall(fstat,2,int a1,char* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
 
 #ifndef OSX
 DEF_syscallret(time,*a1,1,unsigned int *a1 )
