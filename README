@@ -1,24 +1,27 @@
-====================================================
- This is the miniature c linux systemcalls library.
-====================================================
+==============================================
+ This is the miniature c systemcalls library.
+==============================================
 
 
---------------------------------------------------------------------------
+------------------------------------------------------------------
 Copyright (c) 2012-2019 Michael (Misc) Myer, 
 misc.myer@zoho.com / www.github.com/michael105
 
-Licensed under the terms of the Apache License v2.0 (the "License") 
-you may not use this library except in compliance with the License.
+Licensed under the terms of 
+the Apache License v2.0 (the "License");
+you may not use this library except 
+in compliance with the License.
 
-Some sourcefiles in headers / contrib have other licensing terms.
- Look at the sources. 
+Some sourcefiles in the folders headers / contrib
+have other licensing terms.
+Look at the sources. 
 
 See bottom for the Apache License. 
  Essentially you can do what you want,
  but need to keep the copyright notes as well as the file 
  NOTICE. 
  Static linking is permitted.
---------------------------------------------------------------------------
+------------------------------------------------------------------
 
 
 
