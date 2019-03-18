@@ -3,6 +3,7 @@
  It's contributed there by Olaf.(?)
 
  Modified it to work with minilib.
+ GPL v2
 */
 
 
