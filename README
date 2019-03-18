@@ -165,6 +165,7 @@ At the moment minilib is far of being complete,
 but especially adding more syscalls is easy.
 
 Look into include/lseek.h for examples.
+As well as include/syscall_stubs.h.
 
 Addendum: ATM, I'm about to restructure this library.
 
