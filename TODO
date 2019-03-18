@@ -1,8 +1,17 @@
 ===== TODO =====
 
 
-malloc
+Most possibly good: 
+	config file "minilib.conf"
+	-> mbuf, malloc_buf, ..
+	include in every source file.
+	Also serves as a good hint.
 
+
+malloc
+  simple implementation:
+		define malloc_buf.
+		get mem from malloc_buf
 
 AGAIN BLOAtinG.
 This drives me nuts.
