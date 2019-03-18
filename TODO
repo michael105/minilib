@@ -6,12 +6,21 @@ Most possibly good:
 	-> mbuf, malloc_buf, ..
 	include in every source file.
 	Also serves as a good hint.
+	debug a line, if the default config is used.
+	 (especially concerning malloc_buf)
 
 
 malloc
   simple implementation:
 		define malloc_buf.
 		get mem from malloc_buf
+
+	  print warning if malloc_buf is used,
+		but not "configured"!
+
+		share malloc_buf with mbuf.
+
+
 
 AGAIN BLOAtinG.
 This drives me nuts.
