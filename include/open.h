@@ -1,16 +1,15 @@
 #ifndef minilib_open_h
 #define minilib_open_h
 //+ansi fcntl.h
-//+inc
 
 //#include "syscall.h"
 #include "filemodes.h"
 
 #include "stdarg.h"
 
-/// open
+/// open compiles only defined static. (???)
 //+def
-inline int volatile open( const char *s, int flags, ... ){
+static inline int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -24,7 +23,7 @@ inline int volatile open( const char *s, int flags, ... ){
 /// creat
 //d open
 //+def
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+static inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 

@@ -5,10 +5,7 @@
 
 #include "include/syscall.h"
 
-#include "include/open.h"
-#include "include/read.h"
-#include "include/close.h"
-#include "include/write.h"
+#include "include/gen/fcntl.h"
 
 //done:
 // rename

@@ -79,6 +79,7 @@ struct stat {
 #define UTIME_NOW  0x3fffffff
 #define UTIME_OMIT 0x3ffffffe
 
+/*
 int stat(const char *__restrict, struct stat *__restrict);
 int fstat(int, struct stat *);
 int lstat(const char *__restrict, struct stat *__restrict);
@@ -99,9 +100,9 @@ int mknodat(int, const char *, mode_t, dev_t);
 
 int futimens(int, const struct timespec [2]);
 int utimensat(int, const char *, const struct timespec [2], int);
-
+*/
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-int lchmod(const char *, mode_t);
+//int lchmod(const char *, mode_t);
 #define S_IREAD S_IRUSR
 #define S_IWRITE S_IWUSR
 #define S_IEXEC S_IXUSR

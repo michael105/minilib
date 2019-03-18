@@ -74,6 +74,7 @@ foreach my $key ( keys(%{$fhhash->{fh}}) ){
 				print "source key: $s\n";
 				print {$fhhash->{fh}->{$key}} "#include \"$s\"\n";
 		}
+		print {$fhhash->{fh}->{$key}} "// Need start.c included. Doesn't matter by which file.\n#include \"asm/start.c\"\n";
 		print {$fhhash->{fh}->{$key}} "#endif\n\n";
 
 		print {$fhhash->{fh}->{$key}} "#endif\n";

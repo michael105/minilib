@@ -11,7 +11,7 @@
 #define SEEK_END        2       /* seek relative to end of file */
 #define SEEK_MAX        SEEK_END
 
-static int sysret;
+extern int sysret;
 extern int errno;
 
 DEF_syscallret(lseek,a1,3,unsigned int a1, int a2, int a3 )

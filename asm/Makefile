@@ -5,7 +5,7 @@
 #
 
 
-convert: start.c start-osx.c start-linux-x64.c
+convert: start-linux-x32.c start-osx.c start-linux-x64.c
 
 clean:
 #	rm *.c
@@ -14,8 +14,8 @@ rebuild:
 	make clean
 	make
 
-start.c: start.S
-	perl ../tools/convertasm.pl start.S start.c
+start-linux-x32.c: start-linux-x32.S
+	perl ../tools/convertasm.pl start-linux-x32.S start-linux-x32.c
 	echo Ok.
 	
 start-osx.c: start-osx.S

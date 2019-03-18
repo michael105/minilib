@@ -67,31 +67,7 @@ int errno;
 #endif
 //int sysret=0;
 
-#ifndef OSX
-
-#ifdef mini_vsyscalls
-int __mini_vsys = 0;
-#include "src/start_c.c"
-#endif
-
-#ifdef mini_start
-#ifdef X64
-#include "asm/start-linux-x64.c"
-#else
 #include "asm/start.c"
-#endif
-#endif
-
-
-#else
-
-#ifdef mini_start
-#include "asm/start-osx.c"
-#endif
-
-
-#endif
-
 
 #ifdef mini_mprints
 #include "src/mprints.c"
