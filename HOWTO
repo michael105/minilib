@@ -4,7 +4,8 @@
 If you'd like to try this minilib,
 there are two ways:
 
-1. (The faster one)
+1. (The faster one) - but sometimes won't work, 
+		as long as I'm restructuring the whole lib
 
   download minilibcombined.c
 
