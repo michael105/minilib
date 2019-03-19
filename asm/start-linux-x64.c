@@ -10,7 +10,7 @@ __asm__("\
 .global _exit\n\
 _exit:\n\
 	movq $60, %rax\n\
-	syscall"
+	syscall\n"
 	);
 };
 #endif

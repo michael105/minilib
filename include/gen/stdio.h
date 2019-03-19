@@ -28,7 +28,7 @@ int sprintf(char *buf, const char* fmt, ... );
 // file: include/fputc.h
 #include "include/fputc.h"
 // file: include/fputc.h
-inline int volatile fputc(int c, int fd);
+static inline int volatile fputc(int c, int fd);
 
 // file: include/fputs.h
 #include "include/fputs.h"
@@ -42,13 +42,13 @@ extern int mbufsize;
 
 #ifdef mini_INCLUDESRC
 #include "src/itobin.c"
-#include "src/mfprintf.c"
-#include "src/msprintf.c"
-#include "src/itohex.c"
-#include "include/fputc.h"
 #include "src/itodec.c"
+#include "src/msprintf.c"
 #include "include/fputs.h"
 #include "src/dtodec.c"
+#include "src/mfprintf.c"
+#include "include/fputc.h"
+#include "src/itohex.c"
 // Need mbuf.c included. Doesn't matter by which file.
 #include "src/mbuf.c"
 // Need start.c included. Doesn't matter by which file.

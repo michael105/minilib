@@ -31,8 +31,8 @@ extern int mbufsize;
 
 
 #ifdef mini_INCLUDESRC
-#include "include/select.h"
 #include "include/read.h"
+#include "include/select.h"
 #include "include/close.h"
 // Need mbuf.c included. Doesn't matter by which file.
 #include "src/mbuf.c"

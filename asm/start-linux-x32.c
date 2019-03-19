@@ -1,8 +1,8 @@
-//void _start(){
 #ifdef mini_start
-__asm__ volatile ("\
-.global _start\n\
-_start:\n\
+void _start(){
+__asm__("\
+#.global _start\n\
+#_start:\n\
 	pop %eax\n\
 	leal  12(%esp,%eax,4),%ebx\n\
 	push %ebx\n\
@@ -16,10 +16,10 @@ _start:\n\
 	call main\n\
 	mov %eax, %ebx\n\
 .global _exit\n\
-_exit:
+_exit:\n\
 	mov $1, %eax\n\
-	int $0x80"
+	int $0x80\n"
 	);
-//};
+};
 #endif
 

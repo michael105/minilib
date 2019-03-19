@@ -1,6 +1,31 @@
+write
+Ok.
+malloc1
+malloc2
 23456789:;<=>?@ABCDEFGHIJKLMNOPQR
 Ok
+malloc3
 &'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
 23456789:;<=>?@ABCDEFGHIJKLMNOPQR
 &'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
 '()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+ml.mbufsize: 824
+ml.mbufsize: 804
+a1: 42
+a2[0]: 13
+a2[1]: 23
+a2[2]: 8
+a2[3]: 42
+i[-1]: 23
+i[0]: 8
+i[1]: 42
+i[2]: 132
+ml.mbufsize: 804
+mbuf: 12
+mbuf: 13
+Bottom a2
+mbuf: 13
+i[-1]: 0
+i[0]: 12
+i[1]: 13
+i[2]: 23

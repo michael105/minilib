@@ -5269,7 +5269,7 @@ static inline int XOR(int i1, int i2 ){
 typedef struct {
 		int mbufsize;
 		union {
-				int ibuf[mini_buf<<2];
+				int ibuf[mini_buf>>2];
 				char mbuf[mini_buf];
 		};
 } minilib_globals;

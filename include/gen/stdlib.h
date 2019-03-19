@@ -14,9 +14,6 @@ void* malloc(int size);
 void free(void *p);
 
 // file: src/malloc.c
-void free(void *p);
-
-// file: src/malloc.c
 void* volatile malloc(int size);
 
 // file: src/malloc.c
@@ -28,8 +25,8 @@ extern int mbufsize;
 
 
 #ifdef mini_INCLUDESRC
-#include "src/atoi.c"
 #include "src/malloc.c"
+#include "src/atoi.c"
 // Need mbuf.c included. Doesn't matter by which file.
 #include "src/mbuf.c"
 // Need start.c included. Doesn't matter by which file.

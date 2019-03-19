@@ -5279,7 +5279,7 @@ static inline int XOR(int i1, int i2 ){
 typedef struct {
 		int mbufsize;
 		union {
-				int ibuf[mini_buf<<2];
+				int ibuf[mini_buf>>2];
 				char mbuf[mini_buf];
 		};
 } minilib_globals;
@@ -5911,7 +5911,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 typedef struct {
 		int mbufsize;
 		union {
-				int ibuf[mini_buf<<2];
+				int ibuf[mini_buf>>2];
 				char mbuf[mini_buf];
 		};
 } minilib_globals;
@@ -6479,7 +6479,7 @@ void _start(){
 // f: src/startup.c
 // This is "callen" just before main.
 // 
-// dbg("Startup -xx"); // nor arguments allowed here. 
+// dbg("Startup -xx"); // no arguments allowed here. 
 // otherwise argv[] gets confused
 // Or we would have to add some further bloating bytes
 minilib_global_init();
@@ -6492,7 +6492,7 @@ __asm__("\
 .global _exit\n\
 _exit:\n\
 	movq $60, %rax\n\
-	syscall"
+	syscall\n"
 	);
 };
 #endif
@@ -6506,11 +6506,11 @@ _exit:\n\
 // O: include/start-linux-x32.c
 // O: src/start-linux-x32.c
 // O: asm/start-linux-x32.c
-//void _start(){
 #ifdef mini_start
-__asm__ volatile ("\
-.global _start\n\
-_start:\n\
+void _start(){
+__asm__("\
+#.global _start\n\
+#_start:\n\
 	pop %eax\n\
 	leal  12(%esp,%eax,4),%ebx\n\
 	push %ebx\n\
@@ -6524,11 +6524,11 @@ _start:\n\
 	call main\n\
 	mov %eax, %ebx\n\
 .global _exit\n\
-_exit:
+_exit:\n\
 	mov $1, %eax\n\
-	int $0x80"
+	int $0x80\n"
 	);
-//};
+};
 #endif
 
 #endif
@@ -7896,7 +7896,7 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 typedef struct {
 		int mbufsize;
 		union {
-				int ibuf[mini_buf<<2];
+				int ibuf[mini_buf>>2];
 				char mbuf[mini_buf];
 		};
 } minilib_globals;
