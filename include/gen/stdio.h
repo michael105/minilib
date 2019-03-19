@@ -38,14 +38,14 @@ inline int volatile fputs(const char *c, int fd);
 
 
 #ifdef mini_INCLUDESRC
-#include "include/fputs.h"
-#include "src/msprintf.c"
-#include "src/itobin.c"
-#include "src/mfprintf.c"
-#include "src/itodec.c"
 #include "include/fputc.h"
-#include "src/itohex.c"
 #include "src/dtodec.c"
+#include "include/fputs.h"
+#include "src/itohex.c"
+#include "src/msprintf.c"
+#include "src/itodec.c"
+#include "src/mfprintf.c"
+#include "src/itobin.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif
