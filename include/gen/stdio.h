@@ -20,7 +20,7 @@ int itodec(int i, char *buf, int prec, char limiter );
 int itohex(int i,char* buf,int padding);
 
 // file: src/mfprintf.c
-int mfprintf(int fd, const char* fmt, ... );
+int fprintf(int fd, const char* fmt, ... );
 
 // file: src/msprintf.c
 int sprintf(char *buf, const char* fmt, ... );
@@ -37,15 +37,20 @@ inline int volatile fputs(const char *c, int fd);
 
 
 
+extern int mbufsize;
+
+
 #ifdef mini_INCLUDESRC
-#include "include/fputc.h"
-#include "src/dtodec.c"
-#include "include/fputs.h"
-#include "src/itohex.c"
-#include "src/msprintf.c"
-#include "src/itodec.c"
-#include "src/mfprintf.c"
 #include "src/itobin.c"
+#include "src/mfprintf.c"
+#include "src/msprintf.c"
+#include "src/itohex.c"
+#include "include/fputc.h"
+#include "src/itodec.c"
+#include "include/fputs.h"
+#include "src/dtodec.c"
+// Need mbuf.c included. Doesn't matter by which file.
+#include "src/mbuf.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

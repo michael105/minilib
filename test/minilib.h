@@ -25,6 +25,7 @@
 #define mini_fprintf
 #define mini_mfprintf
 #define mini_puts
+#define mini_fputc
 //#define mini_itohex
 //#define mini_itodec  // also conversion %d in printf
 //#define mini_dtodec  // also conversion %d in printf

@@ -88,7 +88,8 @@ SOFTWARE.
 
 
 #define mini_INCLUDESRC
-#define mini_buf 1024
+#define mini_buf 4096
+#define mini_malloc
 #define mini_start
 
 #include <sys/types.h>

@@ -1,8 +1,7 @@
-//void _start(){
 #ifdef mini_start
-__asm__ ("\
-.global _start\n\
-_start:\n\
+void _start(){
+#include "src/startup.c"
+__asm__("\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
 	leaq  8(%rsi,%rdi,8),%rdx\n\
@@ -13,6 +12,6 @@ _exit:\n\
 	movq $60, %rax\n\
 	syscall"
 	);
-//};
+};
 #endif
 

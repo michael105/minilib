@@ -1,11 +1,5 @@
 //+ansi stdlib.h
-// just malloc. no free yet.
 //#include "../include/syscall.h"
-
-//bad bad and doesnt ork
-#ifndef SYS_brk
-//#define SYS_brk 69
-#endif
 
 #ifdef __NR_brk
 #define BRK
@@ -15,6 +9,72 @@
 #endif
 #endif
 
+#include "include/utils.h"
+
+#include "mbuf.c"
+
+// Here we go.. with the .. well. 
+// Fastes and smallest malloc/free combi ever. 
+// Not the smartest.
+// Since it isn't exactly a memory allocation,
+// instead it (mis)uses the minilib buf.
+// muahaha. 1024 Bytes should be enough for everyone.
+//  Ok. If you really do need more memory - 
+//  rethink your design, increase mini_mbuf,
+//  or use a proper malloc implementation.
+//
+// Here we misuse mbuf from top to bottom as stack.
+// 128 Bytes are left at the bottom as reserve.
+// Possibly we'd like to print out a complainment
+// about no memory, before we exit..
+//
+//+def
+void* malloc(int size){
+		if ( mbufsize == 0 ){
+				mbufsize = mini_buf;
+		}
+		size += 4;
+		if( mbufsize<size ){
+				warn( "Out of memory." );
+				return((void*)0);
+		}
+
+		mbufsize -= size;
+		mbuf[mbufsize] = size;
+		return( &mbuf[mbufsize+4] );
+}
+
+//+def
+void free(void *p){
+}
+
+#define MBUF_FREE 0x80000000
+#define MBUF_PREVISFREE 0x40000000
+
+#if 0
+//+def
+void free(void *p){
+		char *c = p;
+		c-=4;
+		
+		if ( &mbuf[mbufsize] == (char*)c[0] ){ // at the bottom of the stack
+				mbufsize += mbuf[mbufsize];
+				if ( mbufsize == mini_buf )
+						return;
+				if ( (int)mbuf[mbufsize] & MBUF_FREE )
+						mbufsize += ( (int)mbuf[mbufsize] & 0x3FFFFFFF );
+				return;
+				/*do {
+						mbufsize += mbuf[mbufsize] +4;
+				} while ( (mbufsize < mini_buf ) && ( mbuf[mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+		} else { 
+				if ( (int)c[0] & MBUF_PREVISFREE ){ // prev area already free'd
+						c = &mbuf[ (int)c[-4] 
+
+		}
+}
+
+//#if 0
 
 POINTER* ml_brk=0;
 extern POINTER _bssend;
@@ -103,4 +163,4 @@ void volatile free(void* p){
 						"syscall\n\t"
 						:"=a"(ret)
 						:[p1]"m"(0),[p2]"m"(1024),[p3]"m"(0x01),[p4]"m"(0x0002),[p5]"m"(-1),[p6]"m"(0));*/
-
+#endif

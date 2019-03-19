@@ -31,7 +31,7 @@
 /// 
 //+ansi stdio.h
 //+def
-int mfprintf(int fd, const char* fmt, ... ){
+int fprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
 		va_copy(ca,args);
@@ -187,6 +187,6 @@ int mfprintf(int fd, const char* fmt, ... ){
 #endif
 }
 
-#define fprintf(...) mfprintf(__VA_ARGS__)
+//#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #endif

@@ -16,7 +16,11 @@
 #define stderr 2
 #endif
 
+#ifndef mini_buf
+#define mini_buf 4096
+#endif
 
+extern int mbufsize;
 
 #define BUFSIZ 1024
 
@@ -24,7 +28,6 @@
 
 #include "include/fputc.h"
 #include "include/fputs.h"
-
 
 #define putchar(c) fputc(c,stdout)
 #define vfprintf(...) fprintf(__VA_ARGS__)

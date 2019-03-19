@@ -5,9 +5,12 @@ endif
 ONLYTEXT=1
 NOINCLUDE=1
 
+
 include makefile.template
 
 .PHONY: test combined header tools
+
+
 
 test: 
 	cd test && make test
@@ -31,7 +34,7 @@ combined:
 	gzip -c minilibcombined.h > minilibcombined.h.gz
 
 
-hello-combinedb: hello-combined.c
+hello-combinedb: hello-combined.c tools
 	make SINGLERUN=1 PROG=hello-combined
 
 #note

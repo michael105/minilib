@@ -42,13 +42,18 @@ char *strcat(char *dest, const char *src );
 
 
 
+extern int mbufsize;
+
+
 #ifdef mini_INCLUDESRC
-#include "src/memfrob.c"
-#include "src/strcat.c"
-#include "src/mstrlen.c"
-#include "src/memcpy.c"
 #include "src/mstrcmp.c"
 #include "src/memset.c"
+#include "src/memfrob.c"
+#include "src/memcpy.c"
+#include "src/mstrlen.c"
+#include "src/strcat.c"
+// Need mbuf.c included. Doesn't matter by which file.
+#include "src/mbuf.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

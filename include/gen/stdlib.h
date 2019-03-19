@@ -8,6 +8,15 @@
 int atoi(char *c);
 
 // file: src/malloc.c
+void* malloc(int size);
+
+// file: src/malloc.c
+void free(void *p);
+
+// file: src/malloc.c
+void free(void *p);
+
+// file: src/malloc.c
 void* volatile malloc(int size);
 
 // file: src/malloc.c
@@ -15,9 +24,14 @@ void volatile free(void* p);
 
 
 
+extern int mbufsize;
+
+
 #ifdef mini_INCLUDESRC
-#include "src/malloc.c"
 #include "src/atoi.c"
+#include "src/malloc.c"
+// Need mbuf.c included. Doesn't matter by which file.
+#include "src/mbuf.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

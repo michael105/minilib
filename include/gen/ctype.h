@@ -14,9 +14,14 @@ inline int __attribute__((always_inline)) isprint(const char c);
 
 
 
+extern int mbufsize;
+
+
 #ifdef mini_INCLUDESRC
 #include "src/isspace.c"
 #include "include/isprint.h"
+// Need mbuf.c included. Doesn't matter by which file.
+#include "src/mbuf.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

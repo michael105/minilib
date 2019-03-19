@@ -58,6 +58,8 @@ hello-smallest: hello-smallest.c
 inittest: all
 	@$(foreach P,$(PROG) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
 	
+malloc: malloc.c
+	make BUILDPROG=malloc
 
 test: all
 	@rm -f failed.txt passed.txt
