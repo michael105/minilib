@@ -44,37 +44,56 @@ void* malloc(int size){
 		return( &mbuf[mbufsize+4] );
 }
 
-//+def
+#if 1
+///+def
 void free(void *p){
 }
 
+#else
 #define MBUF_FREE 0x80000000
 #define MBUF_PREVISFREE 0x40000000
+#define MBUF_V 0x3FFFFFFF
 
-#if 0
+
 //+def
 void free(void *p){
 		char *c = p;
 		c-=4;
 		
-		if ( &mbuf[mbufsize] == (char*)c[0] ){ // at the bottom of the stack
+		if ( &mbuf[mbufsize] == (char*)c ){ // at the bottom of the stack
 				mbufsize += mbuf[mbufsize];
 				if ( mbufsize == mini_buf )
 						return;
 				if ( (int)mbuf[mbufsize] & MBUF_FREE )
-						mbufsize += ( (int)mbuf[mbufsize] & 0x3FFFFFFF );
+						mbufsize += ( (int)mbuf[mbufsize] & MBUF_V );
 				return;
 				/*do {
 						mbufsize += mbuf[mbufsize] +4;
 				} while ( (mbufsize < mini_buf ) && ( mbuf[mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { 
 				if ( (int)c[0] & MBUF_PREVISFREE ){ // prev area already free'd
-						c = &mbuf[ (int)c[-4] 
+						if ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_FREE ){ // next area also free
+								(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
+								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
+								else { // next not free
+										(int)c[ -(int)c[-4] ] += ( (int)c[0] & MBUF_V ); // add this area to prev area.
+										(int)c[(int)c[0] & MBUF_V ] = (int)c[(int)c[0]&MBUF_V] | MBUF_PREVISFREE // mark next area 
+												(int)c[(int)c[0]-4] = (int)c[ -(int)c[-4] ]-4; //write len of combined free areas there 
+								}
+						} else { //prev not free
+								if ( (int)c[ (int)c[0] & MBUF_V ] & MBUF_FREE ){ // next free
+										//mbuf[ (int)c[0]
+								}
+						}
 
+				}
 		}
 }
 
-//#if 0
+#endif
+
+
+#if 0
 
 POINTER* ml_brk=0;
 extern POINTER _bssend;

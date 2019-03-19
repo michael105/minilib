@@ -74,14 +74,25 @@ int main(){
 		printf( "i[2]: %d\n", i[2] );
 
 		printf("mbufsize: %d\n", mbufsize );
-		printf("mbuf: %d\n", (int)mbuf[mbufsize] );
+		printf("mbuf: %d\n", mbuf[mbufsize] ); // size of last region in bytes
 		printf("mbuf: %d\n", (int)mbuf[mbufsize+4] );
+
 
 		if ( (char*)&a2[-1] == &mbuf[mbufsize] )
 				printf("Bottom a2\n"); // Ok. works
 
 		if ( (char*)&a1[-1] == &mbuf[mbufsize] )
 				printf("Bottom a1\n");
+
+		//mbuf[mbufsize+4] = 1976; //no: overflow with conversion.
+//		mbuf[mbufsize+4](int&) = 1976; //no: overflow with conversion.
+		printf("mbuf: %d\n", (int)mbuf[mbufsize+4] );
+
+		i-=3;
+		printf( "i[-1]: %d\n", i[-1] );
+		printf( "i[0]: %d\n", i[0] ); // ok. now points to len of last element.
+		printf( "i[1]: %d\n", i[1] );
+		printf( "i[2]: %d\n", i[2] );
 
 
 
