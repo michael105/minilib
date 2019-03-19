@@ -5,17 +5,12 @@
 #define ansi_fcntl_h
 
 // file: include/open.h
-//#include "include/open.h"
-// file: include/open.h
-inline int volatile open( const char *s, int flags, ... );
-
-// file: include/open.h
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
-
+#include "include/open.h"
 
 
 #ifdef mini_INCLUDESRC
-#include "include/open.h"
+// Need start.c included. Doesn't matter by which file.
+#include "asm/start.c"
 #endif
 
 #endif

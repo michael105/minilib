@@ -7,9 +7,15 @@
 // file: src/isspace.c
 int isspace(int c);
 
+// file: include/isprint.h
+#include "include/isprint.h"
+// file: include/isprint.h
+inline int __attribute__((always_inline)) isprint(const char c);
+
 
 
 #ifdef mini_INCLUDESRC
+#include "include/isprint.h"
 #include "src/isspace.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"

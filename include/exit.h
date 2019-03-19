@@ -10,9 +10,9 @@
 
 
 #ifdef X64
-#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#define exit(ret) asm("jmp _exit"::"D"(ret))
 #else
-#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#define exit(ret) asm("jmp _exit"::"b"(ret))
 #endif
 
 

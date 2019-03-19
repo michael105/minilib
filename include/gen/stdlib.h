@@ -8,13 +8,16 @@
 int atoi(char *c);
 
 // file: src/malloc.c
-void* malloc(POINTER size);
+void* volatile malloc(int size);
+
+// file: src/malloc.c
+void volatile free(void* p);
 
 
 
 #ifdef mini_INCLUDESRC
-#include "src/atoi.c"
 #include "src/malloc.c"
+#include "src/atoi.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

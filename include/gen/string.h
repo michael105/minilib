@@ -45,10 +45,10 @@ char *strcat(char *dest, const char *src );
 #ifdef mini_INCLUDESRC
 #include "src/mstrlen.c"
 #include "src/mstrcmp.c"
+#include "src/memcpy.c"
+#include "src/strcat.c"
 #include "src/memset.c"
 #include "src/memfrob.c"
-#include "src/strcat.c"
-#include "src/memcpy.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

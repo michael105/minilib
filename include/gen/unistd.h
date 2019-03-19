@@ -11,9 +11,6 @@ inline int volatile __attribute__((always_inline)) close( int fd );
 
 // file: include/exit.h
 #include "include/exit.h"
-// file: include/exit.h
-inline void volatile __attribute__((always_inline)) exit( int ret );
-
 // file: include/lseek.h
 #include "include/lseek.h"
 // file: include/read.h
@@ -31,10 +28,11 @@ inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_se
 
 
 #ifdef mini_INCLUDESRC
-#include "include/exit.h"
-#include "include/select.h"
-#include "include/read.h"
 #include "include/close.h"
+#include "include/read.h"
+#include "include/select.h"
+// Need start.c included. Doesn't matter by which file.
+#include "asm/start.c"
 #endif
 
 #endif

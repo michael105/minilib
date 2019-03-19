@@ -13,7 +13,7 @@ test:
 	cd test && make test
 
 header:
-	tools/genheaders.pl ./include/gen src/*.c
+	tools/genheaders.pl ./include/gen src/*.c include/*.h
 
 tools:
 	cd tools && make
