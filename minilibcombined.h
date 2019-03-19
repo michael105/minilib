@@ -36,7 +36,48 @@ endif
 #ifndef minilib_header_h
 #define minilib_header_h
 
+// XXXXXXXXXXXXXXXXXX*************** file: utils.h 
 
+// Current path: /home/micha/prog/g2it-minilib
+
+// f: utils.h
+// O: include/utils.h
+
+/// Debugging macros
+#ifdef DEBUG
+#define mini_fputc
+#define mini_fprintf
+static inline int fputc(int c, int fd);
+
+
+#define dbgwarnf(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
+#define dbgwarn(s) {write(stderr,s,sizeof(s));fputc('\n',stderr);}
+#define dbgwarnfif(a,...) {if ( a ){dbgwarnf(__VA_ARGS__)};}
+#define dbgwarnif(a,s) {if ( a ){dbgwarn(s)};}
+#define dbgerr(s) {dbgwarn(s);exit(1);}
+#define dbgerrf(...) {dbgwarnf(__VA_ARGS__);exit(1);}
+#define dbgerrif(a,s) {if(a){dbgwarn(s);exit(1);};}
+#define dbgerrfif(a,...) {if(a){dbgwarnf(__VA_ARGS__);exit(1);};}
+
+#define dbg(s) dbgwarn(s)
+#define dbgf(...) dbgwarnf(__VA_ARGS__)
+
+#else
+
+#define dbg(s) {}
+#define dbgf(...) {}
+
+
+#define dbgwarnf(...) {}
+#define dbgwarn(s) {} 
+#define dbgwarnfif(a,...) {} 
+#define dbgwarnif(a,s) {} 
+#define dbgerr(s) {}
+#define dbgerrf(...) {}
+#define dbgerrif(a,s) {}
+#define dbgerrfif(a,...) {}
+
+#endif
 
 #ifdef X64
 #define POINTER unsigned long int
@@ -70,7 +111,6 @@ endif
 #ifndef stderr
 #define stderr 2
 #endif
-
 
 
 
@@ -3869,7 +3909,7 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-#define MINI_TEST_OVERRUN(pos) if (pos > mbufsize){\
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
@@ -4012,7 +4052,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 //+ansi stdio.h
 //+inc
 //+def
-inline int volatile fputc(int c, int fd){
+static inline int volatile fputc(int c, int fd){
 		write(fd, &c, 1);
 		return(c);
 }
@@ -4102,10 +4142,10 @@ extern int printl(const char *msg);
 
 
 
-#ifdef mini_buf
-extern char mbuf[mini_buf];
-extern int mbufsize;
-#endif
+//#ifdef mini_buf
+//extern char mbuf[mini_buf];
+//extern int mbufsize;
+//#endif
 
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
@@ -5208,5 +5248,36 @@ static inline int XOR(int i1, int i2 ){
 //#define strlen(A) mstrlen(A)
 #endif
 
+// XXXXXXXXXXXXXXXXXX*************** file: minilib_global.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// f: minilib_global.h
+// O: include/minilib_global.h
+#ifndef minilib_global_h
+#define minilib_global_h
+
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
+
+#ifndef mini_buf
+#warning defining mini_buf
+#define mini_buf 4096
+#endif
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf<<2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+
+
+
+#endif
 
 #endif

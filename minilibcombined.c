@@ -46,7 +46,48 @@ endif
 #ifndef minilib_header_h
 #define minilib_header_h
 
+// XXXXXXXXXXXXXXXXXX*************** file: utils.h 
 
+// Current path: /home/micha/prog/g2it-minilib
+
+// f: utils.h
+// O: include/utils.h
+
+/// Debugging macros
+#ifdef DEBUG
+#define mini_fputc
+#define mini_fprintf
+static inline int fputc(int c, int fd);
+
+
+#define dbgwarnf(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
+#define dbgwarn(s) {write(stderr,s,sizeof(s));fputc('\n',stderr);}
+#define dbgwarnfif(a,...) {if ( a ){dbgwarnf(__VA_ARGS__)};}
+#define dbgwarnif(a,s) {if ( a ){dbgwarn(s)};}
+#define dbgerr(s) {dbgwarn(s);exit(1);}
+#define dbgerrf(...) {dbgwarnf(__VA_ARGS__);exit(1);}
+#define dbgerrif(a,s) {if(a){dbgwarn(s);exit(1);};}
+#define dbgerrfif(a,...) {if(a){dbgwarnf(__VA_ARGS__);exit(1);};}
+
+#define dbg(s) dbgwarn(s)
+#define dbgf(...) dbgwarnf(__VA_ARGS__)
+
+#else
+
+#define dbg(s) {}
+#define dbgf(...) {}
+
+
+#define dbgwarnf(...) {}
+#define dbgwarn(s) {} 
+#define dbgwarnfif(a,...) {} 
+#define dbgwarnif(a,s) {} 
+#define dbgerr(s) {}
+#define dbgerrf(...) {}
+#define dbgerrif(a,s) {}
+#define dbgerrfif(a,...) {}
+
+#endif
 
 #ifdef X64
 #define POINTER unsigned long int
@@ -80,7 +121,6 @@ endif
 #ifndef stderr
 #define stderr 2
 #endif
-
 
 
 
@@ -3879,7 +3919,7 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-#define MINI_TEST_OVERRUN(pos) if (pos > mbufsize){\
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
@@ -4022,7 +4062,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 //+ansi stdio.h
 //+inc
 //+def
-inline int volatile fputc(int c, int fd){
+static inline int volatile fputc(int c, int fd){
 		write(fd, &c, 1);
 		return(c);
 }
@@ -4112,10 +4152,10 @@ extern int printl(const char *msg);
 
 
 
-#ifdef mini_buf
-extern char mbuf[mini_buf];
-extern int mbufsize;
-#endif
+//#ifdef mini_buf
+//extern char mbuf[mini_buf];
+//extern int mbufsize;
+//#endif
 
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
@@ -5218,6 +5258,37 @@ static inline int XOR(int i1, int i2 ){
 //#define strlen(A) mstrlen(A)
 #endif
 
+// XXXXXXXXXXXXXXXXXX*************** file: minilib_global.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// f: minilib_global.h
+// O: include/minilib_global.h
+#ifndef minilib_global_h
+#define minilib_global_h
+
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
+
+#ifndef mini_buf
+#warning defining mini_buf
+#define mini_buf 4096
+#endif
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf<<2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+
+
+
+#endif
 
 #endif
 #endif
@@ -5232,24 +5303,37 @@ static inline int XOR(int i1, int i2 ){
 
 
 #ifdef mini_buf
-// XXXXXXXXXXXXXXXXXX*************** file: src/mbuf.c 
+//#include "src/mbuf.c"
+#endif
+
+// XXXXXXXXXXXXXXXXXX*************** file: src/minilib_global.c 
 
 // Current path: /home/micha/prog/g2it-minilib
 
-// Path: src  Name mbuf.c
-// f: src/mbuf.c
-#ifndef MINI_MBUF
-#define MINI_MBUF
+// Path: src  Name minilib_global.c
+// f: src/minilib_global.c
+#ifndef minilib_globals_c
+#define minilib_globals_c
+
+// 
 #ifndef mini_buf
+#warning defining minibuf
 #define mini_buf 1024
 #endif
 
-int mbufsize=0;
 
-//+def
-char mbuf[mini_buf];
+minilib_globals ml;
+
+void minilib_global_init(){ // this is callen by startup.c
+#ifdef mini_buf
+	ml.mbufsize = mini_buf;
+//ibuf = (int*)mbuf;
 #endif
+}
+
 #endif
+// Obvoiusly, this will ad some extra bytes.
+// But I don't seem another sensible way.
 
 #ifdef mini_itohex
 // XXXXXXXXXXXXXXXXXX*************** file: src/itohex.c 
@@ -5759,7 +5843,7 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-#define MINI_TEST_OVERRUN(pos) if (pos > mbufsize){\
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
@@ -5805,7 +5889,39 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 
 #endif
-//#include "../include/exit.h" // Needed for testing for mbuffer overrun
+// XXXXXXXXXXXXXXXXXX*************** file: ../include/minilib_global.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// Path: ../include  Name minilib_global.h
+// f: ../include/minilib_global.h
+// O: include/../include/minilib_global.h
+#ifndef minilib_global_h
+#define minilib_global_h
+
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
+
+#ifndef mini_buf
+#warning defining mini_buf
+#define mini_buf 4096
+#endif
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf<<2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+
+
+
+#endif
+//#include "../include/exit.h" // Needed for testing for ml.mbuffer overrun
 // XXXXXXXXXXXXXXXXXX*************** file: mprints.c 
 
 // Current path: /home/micha/prog/g2it-minilib
@@ -6108,24 +6224,7 @@ typedef va_list __gnuc_va_list;
 #endif
 
 //#include <stdarg.h>
-// XXXXXXXXXXXXXXXXXX*************** file: mbuf.c 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: mbuf.c
-// O: include/mbuf.c
-// O: src/mbuf.c
-#ifndef MINI_MBUF
-#define MINI_MBUF
-#ifndef mini_buf
-#define mini_buf 1024
-#endif
-
-int mbufsize=0;
-
-//+def
-char mbuf[mini_buf];
-#endif
+//#include "ml.mbuf.c"
 
 /// mfprintf
 /// conversions implemented:
@@ -6144,10 +6243,10 @@ int fprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
 		va_copy(ca,args);
-		int len = msprintf(mbuf,fmt,&ca);
+		int len = msprintf(ml.mbuf,fmt,&ca);
 		va_end(args);
 		va_end(ca);
-		return(write(fd,mbuf,len));
+		return(write(fd,ml.mbuf,len));
 }*/ //no ork.
 
 		va_list args;
@@ -6182,7 +6281,7 @@ int fprintf(int fd, const char* fmt, ... ){
 								}
 								switch (fmt[a]){
 										case '%': 	
-												mbuf[b] = '%';
+												ml.mbuf[b] = '%';
 												end=1;
 												b++;
 												MINI_TEST_OVERRUN(b);
@@ -6191,14 +6290,14 @@ int fprintf(int fd, const char* fmt, ... ){
 										case 'u':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + uitodec(va_arg(args,unsigned int),&mbuf[b],padding,sep);
+												b = b + uitodec(va_arg(args,unsigned int),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;
 										case 'd':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + itodec(va_arg(args,int),&mbuf[b],padding,sep);
+												b = b + itodec(va_arg(args,int),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;
@@ -6208,14 +6307,14 @@ int fprintf(int fd, const char* fmt, ... ){
 												MINI_TEST_OVERRUN(b+27);
 												if ( padding==0 )
 														padding = 9;
-												b = b + dtodec(va_arg(args,double),&mbuf[b],padding);
+												b = b + dtodec(va_arg(args,double),&ml.mbuf[b],padding);
 #endif
 												end=1;
 												break;
 										case 'l':
 #ifdef mini_ltodec
 												MINI_TEST_OVERRUN(b+27);
-												b = b + ltodec(va_arg(args,long),&mbuf[b],padding,sep);
+												b = b + ltodec(va_arg(args,long),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;
@@ -6227,7 +6326,7 @@ int fprintf(int fd, const char* fmt, ... ){
 										case 'X':
 #ifdef mini_itohex
 												MINI_TEST_OVERRUN(b+8);
-												b = b + itohex(va_arg(args,int),&mbuf[b],padding);
+												b = b + itohex(va_arg(args,int),&ml.mbuf[b],padding);
 #endif
 												end=1;
 												break;
@@ -6235,7 +6334,7 @@ int fprintf(int fd, const char* fmt, ... ){
 #ifdef mini_itobin
 
 												MINI_TEST_OVERRUN(b+32);
-												b += itobin(va_arg(args,int),&mbuf[b],padding,groups);
+												b += itobin(va_arg(args,int),&ml.mbuf[b],padding,groups);
 #endif
 												end=1;
 												break;
@@ -6259,7 +6358,7 @@ int fprintf(int fd, const char* fmt, ... ){
 												s = va_arg(args,char*);
 												c=0;
 												while(s[c] != 0){
-														mbuf[b] = s[c];
+														ml.mbuf[b] = s[c];
 														c++;
 														b++;
 														MINI_TEST_OVERRUN(b);
@@ -6267,7 +6366,7 @@ int fprintf(int fd, const char* fmt, ... ){
 												end=1;
 												break;
 										case 'c':
-												mbuf[b] = va_arg(args,int);
+												ml.mbuf[b] = va_arg(args,int);
 												b++;
 												end=1;
 												MINI_TEST_OVERRUN(b);
@@ -6283,15 +6382,15 @@ int fprintf(int fd, const char* fmt, ... ){
 						} while ((end==0) && (fmt[a+1] != 0 ));
 
 				} else {
-						mbuf[b] = fmt[a];
+						ml.mbuf[b] = fmt[a];
 						b++;
 						MINI_TEST_OVERRUN(b);
 				}
 				a++;
 		}
-		mbuf[b] = 0;
+		ml.mbuf[b] = 0;
 		va_end(args);
-		return(write(fd,mbuf,b));
+		return(write(fd,ml.mbuf,b));
 		//return(b);
 #endif
 }
@@ -6380,9 +6479,10 @@ void _start(){
 // f: src/startup.c
 // This is "callen" just before main.
 // 
-#ifdef mini_buf
-mbufsize = mini_buf;
-#endif
+// dbg("Startup -xx"); // nor arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+minilib_global_init();
 __asm__("\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
@@ -6780,7 +6880,7 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-#define MINI_TEST_OVERRUN(pos) if (pos > mbufsize){\
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
@@ -7775,6 +7875,37 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 #endif
 #endif
 
+// XXXXXXXXXXXXXXXXXX*************** file: include/minilib_global.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// Path: include  Name minilib_global.h
+// f: include/minilib_global.h
+#ifndef minilib_global_h
+#define minilib_global_h
+
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
+
+#ifndef mini_buf
+#warning defining mini_buf
+#define mini_buf 4096
+#endif
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf<<2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+
+
+
+#endif
 // XXXXXXXXXXXXXXXXXX*************** file: include/utils.h 
 
 // Current path: /home/micha/prog/g2it-minilib
@@ -7782,40 +7913,43 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 // Path: include  Name utils.h
 // f: include/utils.h
 
-
-
-#define warn(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
-#define warnif(a,...) {if ( a ){fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);};}
-#define err(...) {warn(__VA_ARGS__);exit(1);}
-#define errif(a,...) {if(a){warn(__VA_ARGS__);exit(1);};}
-
+/// Debugging macros
 #ifdef DEBUG
-#define dbg(...) warn(__VA_ARGS__)
+#define mini_fputc
+#define mini_fprintf
+static inline int fputc(int c, int fd);
+
+
+#define dbgwarnf(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
+#define dbgwarn(s) {write(stderr,s,sizeof(s));fputc('\n',stderr);}
+#define dbgwarnfif(a,...) {if ( a ){dbgwarnf(__VA_ARGS__)};}
+#define dbgwarnif(a,s) {if ( a ){dbgwarn(s)};}
+#define dbgerr(s) {dbgwarn(s);exit(1);}
+#define dbgerrf(...) {dbgwarnf(__VA_ARGS__);exit(1);}
+#define dbgerrif(a,s) {if(a){dbgwarn(s);exit(1);};}
+#define dbgerrfif(a,...) {if(a){dbgwarnf(__VA_ARGS__);exit(1);};}
+
+#define dbg(s) dbgwarn(s)
+#define dbgf(...) dbgwarnf(__VA_ARGS__)
+
 #else
-#define dbg(...) {} 
+
+#define dbg(s) {}
+#define dbgf(...) {}
+
+
+#define dbgwarnf(...) {}
+#define dbgwarn(s) {} 
+#define dbgwarnfif(a,...) {} 
+#define dbgwarnif(a,s) {} 
+#define dbgerr(s) {}
+#define dbgerrf(...) {}
+#define dbgerrif(a,s) {}
+#define dbgerrfif(a,...) {}
+
 #endif
 
-
-
-// XXXXXXXXXXXXXXXXXX*************** file: mbuf.c 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: mbuf.c
-// f: mbuf.c
-// O: include/mbuf.c
-// O: src/mbuf.c
-#ifndef MINI_MBUF
-#define MINI_MBUF
-#ifndef mini_buf
-#define mini_buf 1024
-#endif
-
-int mbufsize=0;
-
-//+def
-char mbuf[mini_buf];
-#endif
+//#include "mbuf.c"
 
 // Here we go.. with the .. well. 
 // Fastes and smallest malloc/free combi ever. 
@@ -7828,57 +7962,76 @@ char mbuf[mini_buf];
 //  or use a proper malloc implementation.
 //
 // Here we misuse mbuf from top to bottom as stack.
-// 128 Bytes are left at the bottom as reserve.
-// Possibly we'd like to print out a complainment
-// about no memory, before we exit..
+// 64 Bytes are left at the bottom as reserve.
+// Possibly we'd like to complain
+// about the lack of memory, before we exit..
 //
 //+def
 void* malloc(int size){
-		if ( mbufsize == 0 ){
-				mbufsize = mini_buf;
+		if ( ml.mbufsize == 0 ){
+				ml.mbufsize = mini_buf;
 		}
 		size += 4;
-		if( mbufsize<size ){
-				warn( "Out of memory." );
+		if( ml.mbufsize-size<64 ){
+				dbgwarn( "Out of memory." );
 				return((void*)0);
 		}
 
-		mbufsize -= size;
-		mbuf[mbufsize] = size;
-		return( &mbuf[mbufsize+4] );
+		ml.mbufsize -= size;
+		ml.mbuf[ml.mbufsize] = size;
+		return( &ml.mbuf[ml.mbufsize+4] );
 }
 
-//+def
+#if 1
+///+def
 void free(void *p){
 }
 
+#else
 #define MBUF_FREE 0x80000000
 #define MBUF_PREVISFREE 0x40000000
+#define MBUF_V 0x3FFFFFFF
 
-#if 0
+
 //+def
 void free(void *p){
 		char *c = p;
 		c-=4;
 		
-		if ( &mbuf[mbufsize] == (char*)c[0] ){ // at the bottom of the stack
-				mbufsize += mbuf[mbufsize];
-				if ( mbufsize == mini_buf )
+		if ( &mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
+				ml.mbufsize += mbuf[ml.mbufsize];
+				if ( ml.mbufsize == mini_buf )
 						return;
-				if ( (int)mbuf[mbufsize] & MBUF_FREE )
-						mbufsize += ( (int)mbuf[mbufsize] & 0x3FFFFFFF );
+				if ( (int)mbuf[ml.mbufsize] & MBUF_FREE )
+						ml.mbufsize += ( (int)mbuf[ml.mbufsize] & MBUF_V );
 				return;
 				/*do {
-						mbufsize += mbuf[mbufsize] +4;
-				} while ( (mbufsize < mini_buf ) && ( mbuf[mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+						ml.mbufsize += mbuf[ml.mbufsize] +4;
+				} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { 
 				if ( (int)c[0] & MBUF_PREVISFREE ){ // prev area already free'd
-						c = &mbuf[ (int)c[-4] 
+						if ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_FREE ){ // next area also free
+								(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
+								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
+								else { // next not free
+										(int)c[ -(int)c[-4] ] += ( (int)c[0] & MBUF_V ); // add this area to prev area.
+										(int)c[(int)c[0] & MBUF_V ] = (int)c[(int)c[0]&MBUF_V] | MBUF_PREVISFREE // mark next area 
+												(int)c[(int)c[0]-4] = (int)c[ -(int)c[-4] ]-4; //write len of combined free areas there 
+								}
+						} else { //prev not free
+								if ( (int)c[ (int)c[0] & MBUF_V ] & MBUF_FREE ){ // next free
+										//mbuf[ (int)c[0]
+								}
+						}
 
+				}
 		}
 }
 
-//#if 0
+#endif
+
+
+#if 0
 
 POINTER* ml_brk=0;
 extern POINTER _bssend;
