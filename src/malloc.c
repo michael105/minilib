@@ -34,7 +34,7 @@ void* malloc(int size){
 				mbufsize = mini_buf;
 		}
 		size += 4;
-		if( mbufsize-size<=64 ){
+		if( mbufsize-size<64 ){
 				warn( "Out of memory." );
 				return((void*)0);
 		}
