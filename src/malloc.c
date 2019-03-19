@@ -24,9 +24,9 @@
 //  or use a proper malloc implementation.
 //
 // Here we misuse mbuf from top to bottom as stack.
-// 128 Bytes are left at the bottom as reserve.
-// Possibly we'd like to print out a complainment
-// about no memory, before we exit..
+// 64 Bytes are left at the bottom as reserve.
+// Possibly we'd like to complain
+// about the lack of memory, before we exit..
 //
 //+def
 void* malloc(int size){
@@ -34,7 +34,7 @@ void* malloc(int size){
 				mbufsize = mini_buf;
 		}
 		size += 4;
-		if( mbufsize<size ){
+		if( mbufsize-size<=64 ){
 				warn( "Out of memory." );
 				return((void*)0);
 		}
