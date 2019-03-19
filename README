@@ -38,6 +38,9 @@ Minilib isn't complete at all. (2019/03)
 	 (Important to me, since I'm using this lib for 
 	 nearly 7 years myself..)
 
+ATM, most possibly meither the OSX nor the linux 32bit port will compile.
+I'm just about to finish some things at Linux amd64.
+Then I'll be able to check for osx and Linux x32.
 
 Minilib aims to be an incomplete libc replacement,
 as simple and small as possible, KISS!!!,
