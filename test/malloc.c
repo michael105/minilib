@@ -52,12 +52,12 @@ int main(){
 		printf ( c );
 		printf ("\n");
 
-		printf("mbufsize: %d\n", mbufsize );
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
 
 		int *a1 = malloc(4);
 		int *a2 = malloc(8);
 
-		printf("mbufsize: %d\n", mbufsize );
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
 
 		a1[0] = 42;
 		a2[0] = 13;
@@ -73,20 +73,20 @@ int main(){
 		printf( "i[1]: %d\n", i[1] );
 		printf( "i[2]: %d\n", i[2] );
 
-		printf("mbufsize: %d\n", mbufsize );
-		printf("mbuf: %d\n", mbuf[mbufsize] ); // size of last region in bytes
-		printf("mbuf: %d\n", (int)mbuf[mbufsize+4] );
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mbuf: %d\n", ml.mbuf[ml.mbufsize] ); // size of last region in bytes
+		printf("mbuf: %d\n", (int)ml.mbuf[ml.mbufsize+4] );
 
 
-		if ( (char*)&a2[-1] == &mbuf[mbufsize] )
+		if ( (char*)&a2[-1] == &ml.mbuf[ml.mbufsize] )
 				printf("Bottom a2\n"); // Ok. works
 
-		if ( (char*)&a1[-1] == &mbuf[mbufsize] )
+		if ( (char*)&a1[-1] == &ml.mbuf[ml.mbufsize] )
 				printf("Bottom a1\n");
 
-		//mbuf[mbufsize+4] = 1976; //no: overflow with conversion.
-//		mbuf[mbufsize+4](int&) = 1976; //no: overflow with conversion.
-		printf("mbuf: %d\n", (int)mbuf[mbufsize+4] );
+		//mbuf[ml.mbufsize+4] = 1976; //no: overflow with conversion.
+//		mbuf[ml.mbufsize+4](int&) = 1976; //no: overflow with conversion.
+		printf("mbuf: %d\n", (int)ml.mbuf[ml.mbufsize+4] );
 
 		i-=3;
 		printf( "i[-1]: %d\n", i[-1] );

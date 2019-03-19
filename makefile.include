@@ -57,6 +57,12 @@ ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
 
+STRIPEXEC = echo
+
+ifeq "$(strip $(STRIP))" "1"
+		STRIPEXEC=strip
+endif
+
 
 #colors..
 GREEN="\033[00;32m"
@@ -119,6 +125,15 @@ endif
 endif
 
 
+ifdef DEBUG
+		OPTFLAG=-g
+		DEFX := $(DEFX) -DDEBUG
+		undefine OTEXT
+		COMMONCFLAGS := $(COMMONCFLAGS) -g
+  	STRIPEXEC=echo Debugging config
+endif
+
+
 
 ifdef OTEXT
 $(info ONLYTEXT)
@@ -127,15 +142,22 @@ LDSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script.onlytext
 endif
 #$(info Target: LINUX)
 	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
+ifdef DEBUG
+	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n $(LSCRIPT) -nostartfiles -O 2
+else
 	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
-
+endif
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
 
 ifeq "$(strip $(GCC))" "tcc"
 	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
 else
+ifdef DEBUG
+ 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPT)
+else	
 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPT)
+endif
 endif
 
 
@@ -177,6 +199,13 @@ GCC=gcc
 endif
 
 
+ifdef DEBUG
+		undefine ELFTRUNC
+		LD:= $(LD) -g
+endif
+
+
+
 
 ifdef VERBOSE
 
@@ -197,8 +226,8 @@ ifdef MAKEPROG
 
 $(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o
 	$(LD) $(LDFLAGS) -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
-	strip $(MAKEPROG)
-	$(if $(strip $(ELFTRUNC)),$(MLIBDIR)/tools/sstrip $(MAKEPROG))
+	$(STRIPEXEC) $(MAKEPROG)
+	#$(if $(strip $(ELFTRUNC)),$(MLIBDIR)/tools/sstrip $(MAKEPROG))
 	$(if $(strip $(BINDIR)),cp $(MAKEPROG) $(BINDIR)/$(MAKEPROG))
 
 
@@ -225,8 +254,8 @@ $(PROG): $(PROG).c
 	$(if $(strip $(NOINCLUDE)), $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c, ((cat $(PROG).c && gunzip -c $(MLIBDIR)/minilibcombined.c.gz) | $(GCC) $(CFLAGS) -o $(PROG) -x c - ))
 # cat $(PROG).c $(MLIBDIR)/minilibcombined.c | $(GCC) $(CFLAGS) -o $(PROG) -x c -
 # $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c $(MLIBDIR)/minilib.c $(MLIBDIR)/asm/start-osx.S
-	strip $(PROG)
-	$(if $(strip $(ELFTRUNC)),$(MLIBDIR)/tools/sstrip $(PROG))
+	$(STRIPEXEC) $(MAKEPROG)
+	#$(if $(strip $(ELFTRUNC)),$(MLIBDIR)/tools/sstrip $(PROG))
 	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))
 
 else
@@ -237,8 +266,7 @@ else
 $(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o
 	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
 	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
-	$(if $(strip $(ELFTRUNC)),$(MLIBDIR)/tools/sstrip $(PROG))
-	#strip $(PROG)
+	$(STRIPEXEC) $(MAKEPROG)
 	#$(if $(strip $(ELFTRUNC)),elftrunc $(PROG) $(PROG))
 	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))
 
@@ -255,7 +283,6 @@ $(BUILDDIR)/minilib.o: minilib.c minilib.h
 	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o minilib.c 
 
 
-	#todo: $(BUILDDIR) start for linux
 #$(BUILDDIR)/start.o: $(MLIBDIR)/asm/start-osx.S
 #	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o $(MLIBDIR)/asm/start-osx.S
 

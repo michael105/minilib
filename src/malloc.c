@@ -9,9 +9,10 @@
 #endif
 #endif
 
+#include "include/minilib_global.h"
 #include "include/utils.h"
 
-#include "mbuf.c"
+//#include "mbuf.c"
 
 // Here we go.. with the .. well. 
 // Fastes and smallest malloc/free combi ever. 
@@ -30,18 +31,18 @@
 //
 //+def
 void* malloc(int size){
-		if ( mbufsize == 0 ){
-				mbufsize = mini_buf;
+		if ( ml.mbufsize == 0 ){
+				ml.mbufsize = mini_buf;
 		}
 		size += 4;
-		if( mbufsize-size<64 ){
-				warn( "Out of memory." );
+		if( ml.mbufsize-size<64 ){
+				dbgwarn( "Out of memory." );
 				return((void*)0);
 		}
 
-		mbufsize -= size;
-		mbuf[mbufsize] = size;
-		return( &mbuf[mbufsize+4] );
+		ml.mbufsize -= size;
+		ml.mbuf[ml.mbufsize] = size;
+		return( &ml.mbuf[ml.mbufsize+4] );
 }
 
 #if 1
@@ -60,16 +61,16 @@ void free(void *p){
 		char *c = p;
 		c-=4;
 		
-		if ( &mbuf[mbufsize] == (char*)c ){ // at the bottom of the stack
-				mbufsize += mbuf[mbufsize];
-				if ( mbufsize == mini_buf )
+		if ( &mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
+				ml.mbufsize += mbuf[ml.mbufsize];
+				if ( ml.mbufsize == mini_buf )
 						return;
-				if ( (int)mbuf[mbufsize] & MBUF_FREE )
-						mbufsize += ( (int)mbuf[mbufsize] & MBUF_V );
+				if ( (int)mbuf[ml.mbufsize] & MBUF_FREE )
+						ml.mbufsize += ( (int)mbuf[ml.mbufsize] & MBUF_V );
 				return;
 				/*do {
-						mbufsize += mbuf[mbufsize] +4;
-				} while ( (mbufsize < mini_buf ) && ( mbuf[mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+						ml.mbufsize += mbuf[ml.mbufsize] +4;
+				} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { 
 				if ( (int)c[0] & MBUF_PREVISFREE ){ // prev area already free'd
 						if ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_FREE ){ // next area also free

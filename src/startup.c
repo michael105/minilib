@@ -1,6 +1,6 @@
 // This is "callen" just before main.
 // 
-#ifdef mini_buf
-mbufsize = mini_buf;
-//ibuf = (int*)mbuf;
-#endif
+// dbg("Startup -xx"); // nor arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+minilib_global_init();

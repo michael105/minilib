@@ -3,7 +3,7 @@
 #define overrun_h
 #include "../include/exit.h"
 #include "../include/mprints.h"
-#define MINI_TEST_OVERRUN(pos) if (pos > mbufsize){\
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif

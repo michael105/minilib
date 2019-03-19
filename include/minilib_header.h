@@ -1,7 +1,7 @@
 #ifndef minilib_header_h
 #define minilib_header_h
 
-
+#include "utils.h"
 
 #ifdef X64
 #define POINTER unsigned long int
@@ -35,7 +35,6 @@
 #ifndef stderr
 #define stderr 2
 #endif
-
 
 
 
@@ -132,10 +131,10 @@ extern int printl(const char *msg);
 
 
 
-#ifdef mini_buf
-extern char mbuf[mini_buf];
-extern int mbufsize;
-#endif
+//#ifdef mini_buf
+//extern char mbuf[mini_buf];
+//extern int mbufsize;
+//#endif
 
 #ifdef mini_exit
 #include "exit.h"
@@ -345,5 +344,6 @@ static inline int XOR(int i1, int i2 ){
 //#define strlen(A) mstrlen(A)
 #endif
 
+#include "minilib_global.h"
 
 #endif

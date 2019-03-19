@@ -13,8 +13,12 @@
 
 
 #ifdef mini_buf
-#include "src/mbuf.c"
+//#include "src/mbuf.c"
 #endif
+
+#include "src/minilib_global.c"
+// Obvoiusly, this will ad some extra bytes.
+// But I don't seem another sensible way.
 
 #ifdef mini_itohex
 #include "src/itohex.c"

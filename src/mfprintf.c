@@ -12,11 +12,12 @@
 
 #include "../macros/overrun.h"
 #include "../include/write.h"
-//#include "../include/exit.h" // Needed for testing for mbuffer overrun
+#include "../include/minilib_global.h"
+//#include "../include/exit.h" // Needed for testing for ml.mbuffer overrun
 #include "mprints.c"
 #include "../include/stdarg.h"
 //#include <stdarg.h>
-#include "mbuf.c"
+//#include "ml.mbuf.c"
 
 /// mfprintf
 /// conversions implemented:
@@ -35,10 +36,10 @@ int fprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
 		va_copy(ca,args);
-		int len = msprintf(mbuf,fmt,&ca);
+		int len = msprintf(ml.mbuf,fmt,&ca);
 		va_end(args);
 		va_end(ca);
-		return(write(fd,mbuf,len));
+		return(write(fd,ml.mbuf,len));
 }*/ //no ork.
 
 		va_list args;
@@ -73,7 +74,7 @@ int fprintf(int fd, const char* fmt, ... ){
 								}
 								switch (fmt[a]){
 										case '%': 	
-												mbuf[b] = '%';
+												ml.mbuf[b] = '%';
 												end=1;
 												b++;
 												MINI_TEST_OVERRUN(b);
@@ -82,14 +83,14 @@ int fprintf(int fd, const char* fmt, ... ){
 										case 'u':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + uitodec(va_arg(args,unsigned int),&mbuf[b],padding,sep);
+												b = b + uitodec(va_arg(args,unsigned int),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;
 										case 'd':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + itodec(va_arg(args,int),&mbuf[b],padding,sep);
+												b = b + itodec(va_arg(args,int),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;
@@ -99,14 +100,14 @@ int fprintf(int fd, const char* fmt, ... ){
 												MINI_TEST_OVERRUN(b+27);
 												if ( padding==0 )
 														padding = 9;
-												b = b + dtodec(va_arg(args,double),&mbuf[b],padding);
+												b = b + dtodec(va_arg(args,double),&ml.mbuf[b],padding);
 #endif
 												end=1;
 												break;
 										case 'l':
 #ifdef mini_ltodec
 												MINI_TEST_OVERRUN(b+27);
-												b = b + ltodec(va_arg(args,long),&mbuf[b],padding,sep);
+												b = b + ltodec(va_arg(args,long),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;
@@ -118,7 +119,7 @@ int fprintf(int fd, const char* fmt, ... ){
 										case 'X':
 #ifdef mini_itohex
 												MINI_TEST_OVERRUN(b+8);
-												b = b + itohex(va_arg(args,int),&mbuf[b],padding);
+												b = b + itohex(va_arg(args,int),&ml.mbuf[b],padding);
 #endif
 												end=1;
 												break;
@@ -126,7 +127,7 @@ int fprintf(int fd, const char* fmt, ... ){
 #ifdef mini_itobin
 
 												MINI_TEST_OVERRUN(b+32);
-												b += itobin(va_arg(args,int),&mbuf[b],padding,groups);
+												b += itobin(va_arg(args,int),&ml.mbuf[b],padding,groups);
 #endif
 												end=1;
 												break;
@@ -150,7 +151,7 @@ int fprintf(int fd, const char* fmt, ... ){
 												s = va_arg(args,char*);
 												c=0;
 												while(s[c] != 0){
-														mbuf[b] = s[c];
+														ml.mbuf[b] = s[c];
 														c++;
 														b++;
 														MINI_TEST_OVERRUN(b);
@@ -158,7 +159,7 @@ int fprintf(int fd, const char* fmt, ... ){
 												end=1;
 												break;
 										case 'c':
-												mbuf[b] = va_arg(args,int);
+												ml.mbuf[b] = va_arg(args,int);
 												b++;
 												end=1;
 												MINI_TEST_OVERRUN(b);
@@ -174,15 +175,15 @@ int fprintf(int fd, const char* fmt, ... ){
 						} while ((end==0) && (fmt[a+1] != 0 ));
 
 				} else {
-						mbuf[b] = fmt[a];
+						ml.mbuf[b] = fmt[a];
 						b++;
 						MINI_TEST_OVERRUN(b);
 				}
 				a++;
 		}
-		mbuf[b] = 0;
+		ml.mbuf[b] = 0;
 		va_end(args);
-		return(write(fd,mbuf,b));
+		return(write(fd,ml.mbuf,b));
 		//return(b);
 #endif
 }
