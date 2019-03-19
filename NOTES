@@ -19,6 +19,10 @@ git checkout -b devel
 git push --set-upstream origin devel
 
 
+push to remote master from local devel branch
+git push origin devel:master [-f]
+
+
 (from: https://rogerdudler.github.io/git-guide/ )
 
 CREATE a new branch named "feature_x" and switch to it using
