@@ -54,6 +54,14 @@ git diff <source_branch> <target_branch>
 
 tagging
 
+git tag v1.4
+  or
+git tag -a v1.4 -m "my version 1.4"
+
+  push tag:
+git push origin v1.4
+
+
 You can create a new tag named 1.0.0 by executing
 git tag 1.0.0 1b2e1d63ff
 the 1b2e1d63ff stands for the first 10 characters of the commit id you want to reference with your tag. 
