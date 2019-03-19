@@ -29,7 +29,7 @@ endif
 #endif
 // f: include/minilib_header.h
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: include  Name minilib_header.h
 // f: include/minilib_header.h
@@ -76,7 +76,7 @@ endif
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: ../macros  Name vararg.h
 // f: ../macros/vararg.h
@@ -94,7 +94,7 @@ endif
 //#ifdef mini_syscall
 // XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: syscall.h
 // O: include/syscall.h
@@ -117,7 +117,7 @@ extern int errno;
 #define SCALL(call) SYS_##call
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: sys  Name syscall.h
 // f: sys/syscall.h
@@ -474,7 +474,7 @@ extern int errno;
 #ifdef X64
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: sys/syscall.h
 // Path: sys  Name syscall.h
@@ -826,7 +826,7 @@ extern int errno;
 #else
 // XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: i386syscalls.h
 // O: include/i386syscalls.h
@@ -1436,7 +1436,7 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: timeval.h
 // O: include/timeval.h
@@ -1444,7 +1444,7 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: time_t.h
 // O: include/time_t.h
@@ -1461,7 +1461,7 @@ struct timezone {
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: syscall_stubs.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: syscall_stubs.h
 // O: include/syscall_stubs.h
@@ -1477,7 +1477,7 @@ struct timezone {
 
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: timeval.h
 // f: timeval.h
@@ -1486,7 +1486,7 @@ struct timezone {
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: time_t.h
 // f: time_t.h
@@ -1504,7 +1504,7 @@ struct timezone {
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: syscall.h
 // f: syscall.h
@@ -1528,7 +1528,7 @@ extern int errno;
 #define SCALL(call) SYS_##call
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: sys/syscall.h
 // Path: sys  Name syscall.h
@@ -1886,7 +1886,7 @@ extern int errno;
 #ifdef X64
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: sys/syscall.h
 // Path: sys  Name syscall.h
@@ -2238,7 +2238,7 @@ extern int errno;
 #else
 // XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: i386syscalls.h
 // f: i386syscalls.h
@@ -2846,7 +2846,7 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: sys/types.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: sys  Name types.h
 // f: sys/types.h
@@ -2869,7 +2869,7 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 
 // XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: bits  Name alltypes.h
 // f: bits/alltypes.h
@@ -3037,7 +3037,7 @@ typedef long long quad_t;
 typedef unsigned long long u_quad_t;
 // XXXXXXXXXXXXXXXXXX*************** file: endian.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: endian.h
 // O: include/endian.h
@@ -3061,7 +3061,7 @@ typedef unsigned long long u_quad_t;
 
 // XXXXXXXXXXXXXXXXXX*************** file: stdint.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: stdint.h
 // O: include/stdint.h
@@ -3090,7 +3090,7 @@ typedef unsigned long long u_quad_t;
 
 // XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: bits/alltypes.h
 // Path: bits  Name alltypes.h
@@ -3412,7 +3412,7 @@ static __inline uint64_t __bswap64(uint64_t __x)
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: sys/syscall.h
 // Path: sys  Name syscall.h
@@ -3798,7 +3798,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #ifdef mini_read
 // XXXXXXXXXXXXXXXXXX*************** file: read.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: read.h
 // O: include/read.h
@@ -3811,7 +3811,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: ../macros  Name overrun.h
 // f: ../macros/overrun.h
@@ -3821,7 +3821,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #define overrun_h
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: ../include  Name exit.h
 // f: ../include/exit.h
@@ -3838,9 +3838,9 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 
 
 #ifdef X64
-#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#define exit(ret) asm("jmp _exit"::"D"(ret))
 #else
-#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#define exit(ret) asm("jmp _exit"::"b"(ret))
 #endif
 
 
@@ -3855,7 +3855,7 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 #endif
 // XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: ../include  Name mprints.h
 // f: ../include/mprints.h
@@ -3869,7 +3869,7 @@ extern int _mprints(char*msg,...);
 //TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
 //#define print(...) _mprints(__VA_ARGS__)
 #endif
-#define MINI_TEST_OVERRUN(pos) if (pos > mini_buf){\
+#define MINI_TEST_OVERRUN(pos) if (pos > mbufsize){\
 		mprintsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
@@ -3919,7 +3919,7 @@ struct udiv_t { unsigned int quot, rem; };
 #define mini_itodec  // also conversion %d in printf
 #define mini_ditodec  // also conversion %d in printf
 
-extern int mfprintf(int fd, const char*fmt, ...);
+extern int fprintf(int fd, const char*fmt, ...);
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
@@ -3938,7 +3938,7 @@ extern int sprintf(char *buf, const char *fmt, ...);
 #ifdef mini_mprints
 // XXXXXXXXXXXXXXXXXX*************** file: mprints.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: mprints.h
 // O: include/mprints.h
@@ -3962,7 +3962,7 @@ extern int _mprints(char*msg,...);
 #define mini_mstrlen
 // XXXXXXXXXXXXXXXXXX*************** file: fputc.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: fputc.h
 // O: include/fputc.h
@@ -3971,7 +3971,7 @@ extern int _mprints(char*msg,...);
 
 // XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: write.h
 // O: include/write.h
@@ -4025,7 +4025,7 @@ inline int volatile fputc(int c, int fd){
 #ifdef mini_fputs
 // XXXXXXXXXXXXXXXXXX*************** file: fputs.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: fputs.h
 // O: include/fputs.h
@@ -4034,7 +4034,7 @@ inline int volatile fputc(int c, int fd){
 
 // XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: write.h
 // f: write.h
@@ -4103,13 +4103,14 @@ extern int printl(const char *msg);
 
 
 #ifdef mini_buf
-//extern char mbuf[mini_buf];
+extern char mbuf[mini_buf];
+extern int mbufsize;
 #endif
 
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: exit.h
 // O: include/exit.h
@@ -4125,9 +4126,9 @@ extern int printl(const char *msg);
 
 
 #ifdef X64
-#define exit(ret) asm volatile ( "jmp _exit" : : "D"(ret) )
+#define exit(ret) asm("jmp _exit"::"D"(ret))
 #else
-#define exit(ret) asm volatile ( "jmp _exit" : : "b"(ret) )
+#define exit(ret) asm("jmp _exit"::"b"(ret))
 #endif
 
 
@@ -4145,7 +4146,7 @@ extern int printl(const char *msg);
 #ifdef mini_write
 // XXXXXXXXXXXXXXXXXX*************** file: write.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: write.h
 // f: write.h
@@ -4188,7 +4189,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 #ifdef mini_isprint
 // XXXXXXXXXXXXXXXXXX*************** file: isprint.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: isprint.h
 // O: include/isprint.h
@@ -4221,7 +4222,7 @@ extern int isspace(int c);
 #ifdef mini_open
 // XXXXXXXXXXXXXXXXXX*************** file: open.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: open.h
 // O: include/open.h
@@ -4233,7 +4234,7 @@ extern int isspace(int c);
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: filemodes.h
 // O: include/filemodes.h
@@ -4304,7 +4305,7 @@ extern int isspace(int c);
 
 // XXXXXXXXXXXXXXXXXX*************** file: stdarg.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: stdarg.h
 // O: include/stdarg.h
@@ -4391,8 +4392,8 @@ typedef va_list __gnuc_va_list;
 
 
 /// open compiles only defined static. (???)
-//
-inline int volatile open( const char *s, int flags, ... ){
+//+def
+int volatile open( const char *s, int flags, ... ){
 		int ret;
 		va_list args;
 		va_start(args,flags);
@@ -4405,7 +4406,7 @@ inline int volatile open( const char *s, int flags, ... ){
 
 /// creat
 //d open
-//
+//+def
 inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
@@ -4423,7 +4424,7 @@ inline int volatile __attribute__((always_inline)) creat( const char *s, int mod
 #ifdef mini_lseek
 // XXXXXXXXXXXXXXXXXX*************** file: lseek.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: lseek.h
 // O: include/lseek.h
@@ -4458,7 +4459,7 @@ DEF_syscall(fsync,1,int a1 )
 #ifdef mini_close
 // XXXXXXXXXXXXXXXXXX*************** file: close.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: close.h
 // O: include/close.h
@@ -4483,7 +4484,7 @@ inline int volatile __attribute__((always_inline)) close( int fd ){
 #ifdef mini_filemodes
 // XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: filemodes.h
 // f: filemodes.h
@@ -4557,7 +4558,7 @@ inline int volatile __attribute__((always_inline)) close( int fd ){
 //#ifdef mini_errno / No reason to not define errno Macros by default
 // XXXXXXXXXXXXXXXXXX*************** file: errno.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: errno.h
 // O: include/errno.h
@@ -4711,7 +4712,7 @@ int ioctl( int fd, unsigned long int request, ... );
 //#include "tcgetattr.h"
 // XXXXXXXXXXXXXXXXXX*************** file: sys/termios.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: sys  Name termios.h
 // f: sys/termios.h
@@ -4722,7 +4723,7 @@ int ioctl( int fd, unsigned long int request, ... );
 // O: headers/common/sys/termios.h
 // XXXXXXXXXXXXXXXXXX*************** file: asm-generic/termios.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: asm-generic  Name termios.h
 // f: asm-generic/termios.h
@@ -4736,7 +4737,7 @@ int ioctl( int fd, unsigned long int request, ... );
 
 // XXXXXXXXXXXXXXXXXX*************** file: asm/termbits.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: asm  Name termbits.h
 // f: asm/termbits.h
@@ -4748,7 +4749,7 @@ int ioctl( int fd, unsigned long int request, ... );
 // O: headers/linux_x64/asm/termbits.h
 // XXXXXXXXXXXXXXXXXX*************** file: asm/ioctls.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // Path: asm  Name ioctls.h
 // f: asm/ioctls.h
@@ -4800,7 +4801,7 @@ extern int tcgetattr(int fd, struct termios *io);
 //#include "tcsetattr.h"
 // XXXXXXXXXXXXXXXXXX*************** file: sys/termios.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: sys/termios.h
 // Path: sys  Name termios.h
@@ -4812,7 +4813,7 @@ extern int tcgetattr(int fd, struct termios *io);
 // O: headers/common/sys/termios.h
 // XXXXXXXXXXXXXXXXXX*************** file: asm-generic/termios.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: asm-generic/termios.h
 // Path: asm-generic  Name termios.h
@@ -4827,7 +4828,7 @@ extern int tcgetattr(int fd, struct termios *io);
 
 // XXXXXXXXXXXXXXXXXX*************** file: asm/termbits.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: asm/termbits.h
 // Path: asm  Name termbits.h
@@ -4840,7 +4841,7 @@ extern int tcgetattr(int fd, struct termios *io);
 // O: headers/linux_x64/asm/termbits.h
 // XXXXXXXXXXXXXXXXXX*************** file: asm/ioctls.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: asm/ioctls.h
 // Path: asm  Name ioctls.h
@@ -4892,7 +4893,7 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #ifdef mini_select
 // XXXXXXXXXXXXXXXXXX*************** file: select.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: select.h
 // O: include/select.h
@@ -4900,7 +4901,7 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #define select_h
 // XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: timeval.h
 // f: timeval.h
@@ -4909,7 +4910,7 @@ extern int tcsetattr(int fd, int opt, const struct termios *io);
 #define timeval_h
 // XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // YYYYYYYYYYYYYY   Already included: time_t.h
 // f: time_t.h
@@ -4975,7 +4976,7 @@ inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_se
 #ifdef mini_epoll
 // XXXXXXXXXXXXXXXXXX*************** file: epoll.h 
 
-// Current path: /home/micha/prog/minilib
+// Current path: /home/micha/prog/g2it-minilib
 
 // f: epoll.h
 // O: include/epoll.h
@@ -5196,7 +5197,7 @@ static inline int XOR(int i1, int i2 ){
 #define fileno(F) F
 
 
-#define fprintf(...) mfprintf(__VA_ARGS__)
+//#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #ifdef mini_overwrite
 //#define printf(...) mprintf(__VA_ARGS__)
