@@ -12,3 +12,11 @@ set remote branch:
 git branch --set-upstream-to=origin/master
 git branch --set-upstream-to=origin/devel
 
+
+create local branch devel:
+
+git checkout -b devel
+
+git push --set-upstream origin devel
+
+
