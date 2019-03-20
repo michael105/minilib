@@ -14,6 +14,17 @@
 
 //#include "mbuf.c"
 
+#define MBUF_FREE 0x80000000
+#define MBUF_FREEMASK 0x8FFFFFFF
+#define MBUF_OCC 0x40000000
+// simple checksum whether a area is free or occupied.
+// If neither nor, most possibly there's a problem.
+#define MBUF_CHK 0xC0000000   
+
+#define MBUF_PREVISFREE 0x20000000
+#define MBUF_V 0x1FFFFFFF
+
+
 // Here we go.. with the .. well. 
 // Fastes and smallest malloc/free combi ever. 
 // Not the smartest.
@@ -37,6 +48,7 @@ void* malloc(int size){
 				return((void*)0);
 		}
 
+		ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
 		ml.mbufsize -= (size<<2);
 		ml.ibuf[(ml.mbufsize>>2)] = size;
 		return( &ml.mbuf[ml.mbufsize+4] );
@@ -48,17 +60,6 @@ void free(void *p){
 }
 
 #else
-#define MBUF_FREE 0x80000000
-#define MBUF_FREEMASK 0x8FFFFFFF
-#define MBUF_OCC 0x40000000
-// simple checksum whether a area is free or occupied.
-// If neither nor, most possibly there's a problem.
-#define MBUF_CHK 0xC0000000   
-
-
-#define MBUF_PREVISFREE 0x20000000
-#define MBUF_V 0x1FFFFFFF
-
 
 //+def
 void free(void *p){
@@ -68,7 +69,7 @@ void free(void *p){
 		c-=4;
 		
 		if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
-				ml.mbufsize += i[0]<<2;
+				ml.mbufsize += (i[0] & MBUF_V) <<2;
 				if ( ml.mbufsize == mini_buf )
 						return;
 				if ( ml.ibuf[ml.mbufsize>>2] & MBUF_FREE )
@@ -78,21 +79,24 @@ void free(void *p){
 						ml.mbufsize += mbuf[ml.mbufsize] +4;
 						} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { // Not at the bottom
-				if ( !( i[0] & MBUF_PREVISFREE )){ // prev area not free
-						if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
-								i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
-								// MBUF_FREE is already set. But for safety set it again. via mask 
-								// adding MBUF_FREE twice wouldn't be that great
-								i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
-								return;
-						} // prev area not free, next area not free
+				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
+						i[ - i[-1] ] = ( ( i[ - i[-1] ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+						i = i - ( i[-1] +1 );
+				}
+				// prev not free
+				if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
+						i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
+						// MBUF_FREE is already set. But for safety set it again. via mask 
+						// adding MBUF_FREE twice wouldn't be that great
 						i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
-						i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
-						i[0] = i[0] | MBUF_FREE;
 						return;
+				} // prev area not free, next area not free
+				i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+				i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
+				i[0] = i[0] | MBUF_FREE;
+				return;
 
-				} // prev area is free
-				i[ - i[-1] ] = ( ( i[ - i[-1] ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+		} 
 
 							 /*	(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
 								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
@@ -108,7 +112,7 @@ void free(void *p){
 						}
 
 				}*/
-		}
+		
 }
 
 #endif
