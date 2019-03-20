@@ -21,14 +21,14 @@ void volatile free(void* p);
 
 
 
-extern int mbufsize;
+#include "include/minilib_global.h"
 
 
 #ifdef mini_INCLUDESRC
 #include "src/malloc.c"
 #include "src/atoi.c"
-// Need mbuf.c included. Doesn't matter by which file.
-#include "src/mbuf.c"
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

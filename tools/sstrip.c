@@ -89,6 +89,7 @@ SOFTWARE.
 
 #define mini_INCLUDESRC
 #define mini_buf 4096
+#define mini_puts
 #define mini_malloc
 #define mini_start
 
@@ -471,7 +472,7 @@ int main (int argc, char const *const *argv)
     tmpname = malloc(strlen(oldname)+8);
     strcpy( tmpname, oldname );
 		strcpy(	&tmpname[strlen(oldname)],".sstrip");
-		dbg("tmpname: %s",tmpname);
+		fprintf(stdout, "stripping: %s\n",oldname);
 
     {
       struct stat st ;

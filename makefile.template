@@ -47,6 +47,12 @@ MLIBDIR=minilib
 # LD
 #LD=ld
 
+# build and keep debug information. 
+# also enables all macros like dbg, dbgwarn, and so on
+#DEBUG=1
+
+# strip binary
+STRIP=1
 
 # Truncate elf binaries
 ELFTRUNC=1

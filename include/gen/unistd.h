@@ -27,15 +27,15 @@ inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_se
 #include "include/write.h"
 
 
-extern int mbufsize;
+#include "include/minilib_global.h"
 
 
 #ifdef mini_INCLUDESRC
-#include "include/read.h"
 #include "include/select.h"
+#include "include/read.h"
 #include "include/close.h"
-// Need mbuf.c included. Doesn't matter by which file.
-#include "src/mbuf.c"
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif

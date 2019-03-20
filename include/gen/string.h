@@ -42,18 +42,18 @@ char *strcat(char *dest, const char *src );
 
 
 
-extern int mbufsize;
+#include "include/minilib_global.h"
 
 
 #ifdef mini_INCLUDESRC
+#include "src/memfrob.c"
+#include "src/memset.c"
+#include "src/memcpy.c"
 #include "src/strcat.c"
 #include "src/mstrlen.c"
-#include "src/memcpy.c"
 #include "src/mstrcmp.c"
-#include "src/memset.c"
-#include "src/memfrob.c"
-// Need mbuf.c included. Doesn't matter by which file.
-#include "src/mbuf.c"
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.
 #include "asm/start.c"
 #endif
