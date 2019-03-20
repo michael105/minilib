@@ -29,7 +29,7 @@ DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
 
-DEF_syscall(fstat,2,int a1,char* a2)		
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
 DEF_syscall(dup,1,int a1)		
 DEF_syscall(dup2,2,int a1, int a2)		
 DEF_syscall(dup3,3,int a1, int a2, int a3)		

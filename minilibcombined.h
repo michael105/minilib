@@ -79,6 +79,33 @@ static inline int fputc(int c, int fd);
 
 #endif
 
+
+// ansicolors
+#define AC_BLACK "\033[0;30m"
+#define AC_RED "\033[0;31m"
+#define AC_GREEN "\033[32;0m"
+#define AC_BROWN "\033[0;33m"
+#define AC_BLUE "\033[0;34m"
+#define AC_MAGENTA "\033[0;35m"
+#define AC_MARINE "\033[0;36m"
+#define AC_LGREY "\033[0;37m"
+#define AC_WHITE "\033[0;38m"
+
+#define AC_GREY "\033[1;30m" 
+#define AC_LRED "\033[1;31m" 
+#define AC_LGREEN "\033[1;32m" 
+#define AC_YELLOW "\033[1;33m"
+#define AC_LBLUE "\033[1;34m"
+#define AC_LMAGENTA "\033[1;35m"
+#define AC_LMARINE "\033[1;36m"
+#define AC_LWHITE "\033[1;37m"
+
+
+
+
+
+
+
 #ifdef X64
 #define POINTER unsigned long int
 #else
@@ -3818,7 +3845,7 @@ DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
 
-DEF_syscall(fstat,2,int a1,char* a2)		
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
 DEF_syscall(dup,1,int a1)		
 DEF_syscall(dup2,2,int a1, int a2)		
 DEF_syscall(dup3,3,int a1, int a2, int a3)		
@@ -5184,6 +5211,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 
 #ifdef mini_malloc
 extern void* malloc(int size);
+extern void free(void *p);
 #endif
 #ifdef OSX
 #ifndef PROTO_READ

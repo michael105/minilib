@@ -89,6 +89,33 @@ static inline int fputc(int c, int fd);
 
 #endif
 
+
+// ansicolors
+#define AC_BLACK "\033[0;30m"
+#define AC_RED "\033[0;31m"
+#define AC_GREEN "\033[32;0m"
+#define AC_BROWN "\033[0;33m"
+#define AC_BLUE "\033[0;34m"
+#define AC_MAGENTA "\033[0;35m"
+#define AC_MARINE "\033[0;36m"
+#define AC_LGREY "\033[0;37m"
+#define AC_WHITE "\033[0;38m"
+
+#define AC_GREY "\033[1;30m" 
+#define AC_LRED "\033[1;31m" 
+#define AC_LGREEN "\033[1;32m" 
+#define AC_YELLOW "\033[1;33m"
+#define AC_LBLUE "\033[1;34m"
+#define AC_LMAGENTA "\033[1;35m"
+#define AC_LMARINE "\033[1;36m"
+#define AC_LWHITE "\033[1;37m"
+
+
+
+
+
+
+
 #ifdef X64
 #define POINTER unsigned long int
 #else
@@ -3828,7 +3855,7 @@ DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
 
-DEF_syscall(fstat,2,int a1,char* a2)		
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
 DEF_syscall(dup,1,int a1)		
 DEF_syscall(dup2,2,int a1, int a2)		
 DEF_syscall(dup3,3,int a1, int a2, int a3)		
@@ -5194,6 +5221,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 
 #ifdef mini_malloc
 extern void* malloc(int size);
+extern void free(void *p);
 #endif
 #ifdef OSX
 #ifndef PROTO_READ
@@ -7949,7 +7977,45 @@ static inline int fputc(int c, int fd);
 
 #endif
 
+
+// ansicolors
+#define AC_BLACK "\033[0;30m"
+#define AC_RED "\033[0;31m"
+#define AC_GREEN "\033[32;0m"
+#define AC_BROWN "\033[0;33m"
+#define AC_BLUE "\033[0;34m"
+#define AC_MAGENTA "\033[0;35m"
+#define AC_MARINE "\033[0;36m"
+#define AC_LGREY "\033[0;37m"
+#define AC_WHITE "\033[0;38m"
+
+#define AC_GREY "\033[1;30m" 
+#define AC_LRED "\033[1;31m" 
+#define AC_LGREEN "\033[1;32m" 
+#define AC_YELLOW "\033[1;33m"
+#define AC_LBLUE "\033[1;34m"
+#define AC_LMAGENTA "\033[1;35m"
+#define AC_LMARINE "\033[1;36m"
+#define AC_LWHITE "\033[1;37m"
+
+
+
+
+
+
+
 //#include "mbuf.c"
+
+#define MBUF_FREE 0x80000000
+#define MBUF_FREEMASK 0x8FFFFFFF
+#define MBUF_OCC 0x40000000
+// simple checksum whether a area is free or occupied.
+// If neither nor, most possibly there's a problem.
+#define MBUF_CHK 0xC0000000   
+
+#define MBUF_PREVISFREE 0x20000000
+#define MBUF_V 0x1FFFFFFF
+
 
 // Here we go.. with the .. well. 
 // Fastes and smallest malloc/free combi ever. 
@@ -7968,50 +8034,63 @@ static inline int fputc(int c, int fd);
 //
 //+def
 void* malloc(int size){
-		if ( ml.mbufsize == 0 ){
-				ml.mbufsize = mini_buf;
-		}
-		size += 4;
-		if( ml.mbufsize-size<64 ){
+		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"
+		if( ml.mbufsize-(size<<2)<64 ){
 				dbgwarn( "Out of memory." );
 				return((void*)0);
 		}
 
-		ml.mbufsize -= size;
-		ml.mbuf[ml.mbufsize] = size;
+		ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+		ml.mbufsize -= (size<<2);
+		ml.ibuf[(ml.mbufsize>>2)] = size;
 		return( &ml.mbuf[ml.mbufsize+4] );
 }
 
-#if 1
+#if 0
 ///+def
 void free(void *p){
 }
 
 #else
-#define MBUF_FREE 0x80000000
-#define MBUF_PREVISFREE 0x40000000
-#define MBUF_V 0x3FFFFFFF
-
 
 //+def
 void free(void *p){
 		char *c = p;
+		int *i = p;
+		i--;
 		c-=4;
 		
-		if ( &mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
-				ml.mbufsize += mbuf[ml.mbufsize];
+		if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
+				ml.mbufsize += (i[0] & MBUF_V) <<2;
 				if ( ml.mbufsize == mini_buf )
 						return;
-				if ( (int)mbuf[ml.mbufsize] & MBUF_FREE )
-						ml.mbufsize += ( (int)mbuf[ml.mbufsize] & MBUF_V );
+				if ( ml.ibuf[ml.mbufsize>>2] & MBUF_FREE )
+						ml.mbufsize += ( ( ml.ibuf[ml.mbufsize>>2] & MBUF_V ) << 2 );
 				return;
 				/*do {
 						ml.mbufsize += mbuf[ml.mbufsize] +4;
-				} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
-		} else { 
-				if ( (int)c[0] & MBUF_PREVISFREE ){ // prev area already free'd
-						if ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_FREE ){ // next area also free
-								(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
+						} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+		} else { // Not at the bottom
+				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
+						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+						i = i - ( i[-1] + 1 );
+				}
+				// prev not free
+				if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
+						i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
+						// MBUF_FREE is already set. But for safety set it again. via mask 
+						// adding MBUF_FREE twice wouldn't be that great
+						i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+						return;
+				} // prev area not free, next area not free
+				i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+				i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
+				i[0] = i[0] | MBUF_FREE;
+				return;
+
+		} 
+
+							 /*	(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
 								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
 								else { // next not free
 										(int)c[ -(int)c[-4] ] += ( (int)c[0] & MBUF_V ); // add this area to prev area.
@@ -8024,8 +8103,8 @@ void free(void *p){
 								}
 						}
 
-				}
-		}
+				}*/
+		
 }
 
 #endif
@@ -10518,7 +10597,7 @@ DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
 
-DEF_syscall(fstat,2,int a1,char* a2)		
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
 DEF_syscall(dup,1,int a1)		
 DEF_syscall(dup2,2,int a1, int a2)		
 DEF_syscall(dup3,3,int a1, int a2, int a3)		
