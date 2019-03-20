@@ -80,8 +80,8 @@ void free(void *p){
 				if ( !( i[0] & MBUF_PREVISFREE )){ // prev area not free
 						if ( !(i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area not free
 								i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
-								i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] & MBUF_PREVISFREE ); 
-								i[0] = i[0] & MBUF_FREE;
+								i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
+								i[0] = i[0] | MBUF_FREE;
 								return;
 						}
 				}

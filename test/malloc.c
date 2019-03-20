@@ -124,6 +124,16 @@ int main(){
 		printf( "i2[2]: (len of a4) %d\n", i2[2] );
 		printf( "i2[3]: %d\n", i2[3] );
 		printf( "i2[4]: %d\n", i2[4] );
+		printf( "i2[5]: (len of next area) 0x%x\n", i2[5] );
+
+		free(a4);
+		printf("a4 free'd\n");
+		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
+		printf( "i2[1]: %d\n", i2[1] );
+		printf( "i2[2]: (len of a4) 0x%x\n", i2[2] );
+		printf( "i2[3]: %d\n", i2[3] );
+		printf( "i2[4]: %d\n", i2[4] );
+		printf( "i2[5]: (len of next area) 0x%x\n", i2[5] );
 
 
 
