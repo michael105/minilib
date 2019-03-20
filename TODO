@@ -1,6 +1,10 @@
 ===== TODO =====
 
 
+Cleanup the build "system"
+  makefiles are getting .. confusing
+
+
 Most possibly good: 
 	config file "minilib.conf"
 	-> mbuf, malloc_buf, ..
