@@ -80,8 +80,8 @@ void free(void *p){
 						} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { // Not at the bottom
 				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
-						i[ - i[-1] ] = ( ( i[ - i[-1] ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
-						i = i - ( i[-1] +1 );
+						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+						i = i - ( i[-1] + 1 );
 				}
 				// prev not free
 				if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
