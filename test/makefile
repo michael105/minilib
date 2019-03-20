@@ -27,10 +27,15 @@ GCC=gcc
 ifndef GREEN
 #colors..
 GREEN="\033[00;32m"
+LGREEN="\033[01;32m"
 RED="\033[00;31m"
+LRED="\033[01;31m"
 YELLOW="\033[01;33m"
-BLUE="\033[01;33m"
-LBLUE="\033[00;36m"
+BROWN="\033[00;33m"
+BLUE="\033[00;34m"
+LBLUE="\033[01;36m"
+#BLUE="\033[01;33m"
+#LBLUE="\033[00;36m"
 WHITE="\033[01;37m"
 GREY="\033[02;37m"
 endif
@@ -65,15 +70,15 @@ test: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
 	@$(foreach P,$(PROG) hello-combined, \
-			echo -e $(LBLUE)Test:$(WHITE) $(P) $(GREY) && \
+			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'set -o pipefail; ./$(P) | \
 			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \
 			( echo -e $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
-	@(echo -e $(GREEN)PASSED:$(LBLUE) && cat passed.txt )
-	@if [ -e failed.txt ]; then ( echo -e $(RED)FAILED:$(LRED) && cat failed.txt && echo -e $(WHITE) && false ); fi
+	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && cat passed.txt )
+	@if [ -e failed.txt ]; then ( echo -e  $(RED)   FAILED: && cat failed.txt && echo -e $(WHITE) && false ); fi
 
 
 # @$(foreach P,$(PROG), diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt)   ; ) true
