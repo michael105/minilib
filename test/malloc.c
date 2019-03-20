@@ -69,7 +69,7 @@ int main(){
 		int *i = a1;
 		i--;
 		printf( "i[-1]: %d\n", i[-1] );
-		printf( "i[0]: %d\n", i[0] );
+		printf( "i[0]: (len of a1) %d\n", i[0] );  
 		printf( "i[1]: %d\n", i[1] );
 		printf( "i[2]: %d\n", i[2] );
 
@@ -85,13 +85,14 @@ int main(){
 				printf("Bottom a1\n");
 
 		//mbuf[ml.mbufsize+4] = 1976; //no: overflow with conversion.
-//		mbuf[ml.mbufsize+4](int&) = 1976; //no: overflow with conversion.
-		printf("mbuf: %d\n", (int)ml.mbuf[ml.mbufsize+4] );
+		//ml.mbuf[ml.mbufsize+4](int&) = 1976; //no: somehow casting doesn't work out. changed mbuf to ml.mbuf..
+	 	ml.ibuf[(ml.mbufsize>>2)+1] = 1976; 
+	 	//printf("mbuf: %d\n", (int)ml.mbuf[ml.mbufsize+5] ); // strange. The union{ ml.mbuf; ml.ibuf} is really better
 
 		i-=3;
 		printf( "i[-1]: %d\n", i[-1] );
-		printf( "i[0]: %d\n", i[0] ); // ok. now points to len of last element.
-		printf( "i[1]: %d\n", i[1] );
+		printf( "i[0]: %d\n", i[0] ); // ok len of a2
+		printf( "i[1]: %d\n", i[1] ); // 1976
 		printf( "i[2]: %d\n", i[2] );
 
 
