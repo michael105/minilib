@@ -16,6 +16,7 @@
 extern int sysret;
 extern int errno;
 
+struct stat;
 
 
 DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)

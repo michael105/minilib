@@ -21,8 +21,11 @@ GCC=gcc
 # LD
 #LD=ld
 
+STRIP=1
+
 #ELFTRUNC=1
 
+ONLYTEXT = hello-smallest hello hello-include 
 
 ifndef GREEN
 #colors..

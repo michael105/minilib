@@ -3842,6 +3842,7 @@ static __inline uint64_t __bswap64(uint64_t __x)
 extern int sysret;
 extern int errno;
 
+struct stat;
 
 
 DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
@@ -5299,10 +5300,12 @@ static inline int XOR(int i1, int i2 ){
 // Will most likely "bloat" minilib.
 // But other options do not seem sensible.
 
-#ifndef mini_buf
-#warning defining mini_buf
-#define mini_buf 4096
-#endif
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
 
 typedef struct {
 		int mbufsize;
@@ -5313,7 +5316,11 @@ typedef struct {
 } minilib_globals;
 
 extern minilib_globals ml;
+#else
 
+#warning no mini_buf
+
+#endif
 
 
 #endif
@@ -5344,20 +5351,24 @@ extern minilib_globals ml;
 #define minilib_globals_c
 
 // 
-#ifndef mini_buf
-#warning defining minibuf
-#define mini_buf 1024
-#endif
-
-
+//#ifndef mini_buf
+//#warning defining minibuf
+//#define mini_buf 1024
+//#endif
+//
+#ifdef mini_buf
 minilib_globals ml;
 
 void minilib_global_init(){ // this is callen by startup.c
-#ifdef mini_buf
 	ml.mbufsize = mini_buf;
 //ibuf = (int*)mbuf;
-#endif
 }
+
+#else
+
+void minilib_global_init(){} // this is callen by startup.c
+
+#endif
 
 #endif
 // Obvoiusly, this will ad some extra bytes.
@@ -5931,10 +5942,12 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 // Will most likely "bloat" minilib.
 // But other options do not seem sensible.
 
-#ifndef mini_buf
-#warning defining mini_buf
-#define mini_buf 4096
-#endif
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
 
 typedef struct {
 		int mbufsize;
@@ -5945,7 +5958,11 @@ typedef struct {
 } minilib_globals;
 
 extern minilib_globals ml;
+#else
 
+#warning no mini_buf
+
+#endif
 
 
 #endif
@@ -7916,10 +7933,12 @@ volatile inline int select(int fd, volatile fd_set* readfd, volatile fd_set *wri
 // Will most likely "bloat" minilib.
 // But other options do not seem sensible.
 
-#ifndef mini_buf
-#warning defining mini_buf
-#define mini_buf 4096
-#endif
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
 
 typedef struct {
 		int mbufsize;
@@ -7930,7 +7949,11 @@ typedef struct {
 } minilib_globals;
 
 extern minilib_globals ml;
+#else
 
+#warning no mini_buf
+
+#endif
 
 
 #endif
@@ -10584,6 +10607,7 @@ static __inline uint64_t __bswap64(uint64_t __x)
 extern int sysret;
 extern int errno;
 
+struct stat;
 
 
 DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)

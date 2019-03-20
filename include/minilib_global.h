@@ -5,10 +5,12 @@
 // Will most likely "bloat" minilib.
 // But other options do not seem sensible.
 
-#ifndef mini_buf
-#warning defining mini_buf
-#define mini_buf 4096
-#endif
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
 
 typedef struct {
 		int mbufsize;
@@ -19,7 +21,11 @@ typedef struct {
 } minilib_globals;
 
 extern minilib_globals ml;
+#else
 
+#warning no mini_buf
+
+#endif
 
 
 #endif

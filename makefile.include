@@ -101,10 +101,10 @@ endif
 
 
 
-#LDSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script
-#LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script
-LDSCRIPT=
-LSCRIPT=
+LDSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script
+LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script
+#LDSCRIPT=
+#LSCRIPT=
 
 
 

@@ -46,9 +46,9 @@ char *strcat(char *dest, const char *src );
 
 
 #ifdef mini_INCLUDESRC
-#include "src/mstrcmp.c"
-#include "src/memset.c"
 #include "src/memcpy.c"
+#include "src/memset.c"
+#include "src/mstrcmp.c"
 #include "src/mstrlen.c"
 #include "src/strcat.c"
 #include "src/memfrob.c"

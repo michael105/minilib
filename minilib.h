@@ -3,7 +3,7 @@
 // uncomment unwanted functions.
 
 /// Len of buf used by read, mprintf, ..
-//#define mini_buf 1024
+//#define mini_buf 4096
 
 #define mini_start
 //#define mini_vsyscalls // vsyscalls.(+ ~92 bytes). 

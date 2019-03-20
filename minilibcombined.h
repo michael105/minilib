@@ -3832,6 +3832,7 @@ static __inline uint64_t __bswap64(uint64_t __x)
 extern int sysret;
 extern int errno;
 
+struct stat;
 
 
 DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
@@ -5289,10 +5290,12 @@ static inline int XOR(int i1, int i2 ){
 // Will most likely "bloat" minilib.
 // But other options do not seem sensible.
 
-#ifndef mini_buf
-#warning defining mini_buf
-#define mini_buf 4096
-#endif
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
 
 typedef struct {
 		int mbufsize;
@@ -5303,7 +5306,11 @@ typedef struct {
 } minilib_globals;
 
 extern minilib_globals ml;
+#else
 
+#warning no mini_buf
+
+#endif
 
 
 #endif
