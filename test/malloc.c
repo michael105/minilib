@@ -147,6 +147,38 @@ int main(){
 		printf( "i2[4]: %d\n", i2[4] );
 		printf( "i2[5]: (len of next area) 0x%x\n", i2[5] );
 
+		printf("=============\n");
+		a4 = malloc(4);
+		a3 = malloc(8);
+		i2 = a3;
+		i2--;
+		a4[0] = 77;
+		a3[0] = 3314;
+		a3[1] = 1234;
+
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
+		printf( "i2[1]: %d\n", i2[1] );
+		printf( "i2[2]: %d\n", i2[2] );
+		printf( "i2[3]: (len of a4) 0x%x\n", i2[3] );
+		printf( "i2[4]: %d\n", i2[4] );
+		printf( "i2[5]: (len of next area) 0x%x\n", i2[5] );
+
+		a2 = malloc(4);
+		a1 = malloc(8);
+		a1[0] = 0;
+		a1[1] = 10;
+		a2[0] = 22;
+
+		i2 = a1;
+		i2--;
+		a4[0] = 78;
+		a3[0] = 3315;
+		a3[1] = 1235;
+
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		for ( int b = 0; b<=10; b++ )
+	 			printf( "i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] );  
 
 
 		return(0);
