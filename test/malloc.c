@@ -95,7 +95,35 @@ int main(){
 		printf( "i[1]: %d\n", i[1] ); // 1976
 		printf( "i[2]: %d\n", i[2] );
 
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		free(a2);
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		free(a1);
+		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		char *c9 = malloc(9);
+		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		free(c9);
+		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		free(c9);
+		printf("ml.mbufsize: %d\n", ml.mbufsize );	
 
+		int *a4 = malloc(8);
+		int *a3 = malloc(4);
+
+		printf("ml.mbufsize: %d\n", ml.mbufsize );
+
+		a3[0] = 47;
+		a4[0] = 1333;
+		a4[1] = 23100;
+
+		int *i2 = a3;
+		i2--;
+		//printf( "i[-1]: %d\n", i[-1] );
+		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
+		printf( "i2[1]: %d\n", i2[1] );
+		printf( "i2[2]: (len of a4) %d\n", i2[2] );
+		printf( "i2[3]: %d\n", i2[3] );
+		printf( "i2[4]: %d\n", i2[4] );
 
 
 

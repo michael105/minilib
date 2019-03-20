@@ -280,6 +280,7 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 
 #ifdef mini_malloc
 extern void* malloc(int size);
+extern void free(void *p);
 #endif
 #ifdef OSX
 #ifndef PROTO_READ
