@@ -91,7 +91,8 @@ void free(void *p){
 						i[0] = i[0] | MBUF_FREE;
 						return;
 
-				}
+				} // prev area is free
+				i[ - i[-1] ] = ( ( i[ - i[-1] ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
 
 							 /*	(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
 								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas

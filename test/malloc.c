@@ -177,8 +177,44 @@ int main(){
 		a3[1] = 1235;
 
 		printf("ml.mbufsize: %d\n", ml.mbufsize );
-		for ( int b = 0; b<=10; b++ )
-	 			printf( "i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] );  
+
+		for ( int b = 0; b<=10; b++ ){
+				if ( &ml.mbuf[ml.mbufsize] == (char*)&i2[b] ){
+						printf("-> bufsize ( %d ) ", ml.mbufsize );
+	 					printf( "i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] ); 
+				} else
+	 					printf( "                   i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] ); 
+		}
+
+
+
+		free(a3);
+		free(a2);
+		printf("===== free'd a3,a2\n");
+		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+
+		for ( int b = 0; b<=10; b++ ){
+				if ( &ml.mbuf[ml.mbufsize] == (char*)&i2[b] ){
+						printf("-> bufsize ( %d ) ", ml.mbufsize );
+	 					printf( "i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] ); 
+				} else
+	 					printf( "                   i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] ); 
+		}
+
+
+
+		free(a1);
+		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
+		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+
+		for ( int b = 0; b<=10; b++ ){
+				if ( &ml.mbuf[ml.mbufsize] == (char*)&i2[b] ){
+						printf(AC_YELLOW "-> bufsize ( %d ) " AC_WHITE , ml.mbufsize );
+	 					printf( "i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] ); 
+				} else
+	 					printf( "                   i2[%d]: 0x%x = %d\n", b, i2[b], i2[b] ); 
+		}
+
 
 
 		return(0);
