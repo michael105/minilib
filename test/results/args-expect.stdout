@@ -1,13 +1,5 @@
 argc: 1
 argv: ./args
 argv[argc-1]: ./args
-env: SHELL=/bin/zsh
-env: LSCOLORS=eaEafaDaca
-env: COLORTERM=truecolor
-env: XDG_CONFIG_DIRS=/etc/xdg
-env: LESS=-R
-env: XDG_MENU_PREFIX=lxde-
-env: MAKE_TERMOUT=/dev/pts/7
-env: _LXSESSION_PID=511
-env: XDG_DATA_HOME=/home/micha//.local/share
-env: XDG_CONFIG_HOME=/home/micha//.config
+env: TTM2=asdf
+env: TTM1=Hallo

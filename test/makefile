@@ -1,7 +1,8 @@
 # makefile for the tests
 #
 
-PROG=hello malloc args select
+PROG=malloc select
+#PROG=hello malloc select
 
 # where to build object files
 #BUILDDIR=.
@@ -51,8 +52,13 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined hello-include hello-smallest
+all: hello-combined hello-include hello-smallest args
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
+
+
+args: args.c
+	make BUILDPROG=args SINGLERUN=1 NOINCLUDE=1
+
 
 hello-combined: hello-combined.c
 	make BUILDPROG=hello-combined SINGLERUN=1 NOINCLUDE=1
@@ -74,7 +80,8 @@ test: all
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
 	@$(foreach P,$(PROG) hello-combined, \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
-			(( sh -c 'set -o pipefail; ./$(P) | \
+			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
+			set -o pipefail; ./$(P) | \
 			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \

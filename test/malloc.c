@@ -182,14 +182,14 @@ int main(){
 		void dump( int *p ){
 				for ( int b = 0; b<=10; b++ ){
 						if ( &ml.mbuf[ml.mbufsize] == (char*)&p[b] ){
-								printf( AC_YELLOW " -> bufsize ( %d ) " AC_WHITE , ml.mbufsize );
+								fprintf( stdout, "\033[0;33m -> bufsize ( %d ) " AC_WHITE , ml.mbufsize ); // ?????
 								//printf( "p[%d]: 0x%x = %d\n", b, p[b], p[b] ); 
 						} else
 								printf( "                   " );
 						if ( p[b] & 0xF0000000 )
-								printf( AC_LGREEN "p[%d]: 0x%x" AC_WHITE " = %d\n", b, p[b], p[b] ); 
+								printf( AC_LGREEN "p[%d]: 0x%x" AC_WHITE " = %d \n", b, p[b], p[b] ); 
 						else
-								printf( "p[%d]: 0x%x = %d\n", b, p[b], p[b] ); 
+								printf( "p[%d]: 0x%x = %d \n", b, p[b], p[b] ); 
 				}
 		}
 
