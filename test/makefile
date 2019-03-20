@@ -77,7 +77,7 @@ test: all
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \
 			( echo -e $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
-	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && cat passed.txt )
+	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && cat passed.txt && echo -e $(WHITE) )
 	@if [ -e failed.txt ]; then ( echo -e  $(RED)   FAILED: && cat failed.txt && echo -e $(WHITE) && false ); fi
 
 
