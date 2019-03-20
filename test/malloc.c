@@ -274,7 +274,7 @@ int main(){
 
 // =========================
 		
-		printf(AC_YELLOW "==================\n" AC_WHITE);
+		printf(AC_LPURPLE "==================\n" AC_WHITE);
 		a4 = malloc(3);
 		a3 = malloc(8);
 		i2 = a3;
