@@ -313,8 +313,8 @@ int main(){
 
 		dump(i2);
 		
-		free(a3);
-		printf(AC_LMARINE "===== free'd a3\n"AC_WHITE);
+		free(a1);
+		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
 		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
 
 		dump(i2);
