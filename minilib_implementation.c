@@ -59,7 +59,7 @@
 #endif
 
 
-#ifdef mini_mfprintf
+#ifdef mini_fprintf
 #include "src/mfprintf.c"
 #define mini_errno
 #define mfprintf(...) fprintf(__VA_ARGS__)
@@ -74,11 +74,11 @@ int errno;
 
 #include "asm/start.c"
 
-#ifdef mini_mprints
+#ifdef mini_prints
 #include "src/mprints.c"
 #endif
 
-#ifdef mini_msprintf
+#ifdef mini_sprintf
 #include "src/msprintf.c"
 #endif
 
@@ -108,11 +108,11 @@ int errno;
 #endif
 
 
-#ifdef mini_mstrcmp
+#ifdef mini_strcmp
 #include "src/mstrcmp.c"
 #endif
 
-#ifdef mini_mstrlen
+#ifdef mini_strlen
 #include "src/mstrlen.c"
 #endif
 

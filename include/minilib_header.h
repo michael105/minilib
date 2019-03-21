@@ -53,8 +53,9 @@
 #ifdef mini_mstrncmp
 #define mini_strncmp
 #endif
-
-
+#ifdef mini_mstrlen
+#define mini_strlen
+#endif
 
 #include "../macros/vararg.h"
 
