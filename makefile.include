@@ -76,7 +76,7 @@ GREY="\033[02;37m"
 ifndef NOMLIB
 		LDFLAGS=-static
 		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
-		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin -I$(MLIBDIR)/compat
+		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin -I$(MLIBDIR)/compat -I$(MLIBDIR)/headers/common-links
 else
 		LDFLAGS=
 		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
@@ -89,7 +89,7 @@ LINUX=1
 
 ifeq ($(shell uname -m),x86_64)
 #$(info X64)
-	DEFX=-DLINUX -DX64 -DMLIB -I$(MLIBDIR)/headers/linux_x64 -I$(MLIBDIR)/headers/common
+	DEFX=-DLINUX -DX64 -DMLIB -I$(MLIBDIR)/headers/linux_x64 -I$(MLIBDIR)/headers/common -I$(MLIBDIR)/headers/common-links
 #CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin -DMLIB -DLINUX -DX64
 else
   DEFX=-DLINUX -DMLIB

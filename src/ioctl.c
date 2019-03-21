@@ -2,11 +2,7 @@
 #define mini_ioctl_h
 
 //#include "../include/syscall.h"
-#ifdef LINUX
-#include <linux/ioctl.h> //changed from linux/ioctl.h
-#else
-#include <sys/ioctl.h> //changed from linux/ioctl.h
-#endif
+#include "sys/ioctl.h" //changed from linux/ioctl.h
 #include "../include/stdarg.h"
 //#include "/usr/diet/include/stdarg.h"
 

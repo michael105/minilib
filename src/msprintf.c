@@ -59,7 +59,7 @@ int sprintf(char *buf, const char* fmt, ... ){
 										case 'u':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + uitodec(va_arg(args,unsigned int),&mbuf[b],padding,sep);
+												b = b + uitodec(va_arg(args,unsigned int),&ml.mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;

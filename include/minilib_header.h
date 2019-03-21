@@ -37,6 +37,24 @@
 #endif
 
 
+// a few backward compatibility defines
+#ifdef mini_mprintf
+#define mini_printf
+#endif
+#ifdef mini_mfprintf
+#define mini_fprintf
+#endif
+#ifdef mini_msprintf
+#define mini_sprintf
+#endif
+#ifdef mini_mstrcmp
+#define mini_strcmp 
+#endif
+#ifdef mini_mstrncmp
+#define mini_strncmp
+#endif
+
+
 
 #include "../macros/vararg.h"
 
