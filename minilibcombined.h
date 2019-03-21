@@ -140,6 +140,24 @@ static inline int fputc(int c, int fd);
 #endif
 
 
+// a few backward compatibility defines
+#ifdef mini_mprintf
+#define mini_printf
+#endif
+#ifdef mini_mfprintf
+#define mini_fprintf
+#endif
+#ifdef mini_msprintf
+#define mini_sprintf
+#endif
+#ifdef mini_mstrcmp
+#define mini_strcmp 
+#endif
+#ifdef mini_mstrncmp
+#define mini_strncmp
+#endif
+
+
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
@@ -2945,6 +2963,7 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 // O: asm/bits/alltypes.h
 // O: macros/bits/alltypes.h
 // O: headers/common/bits/alltypes.h
+// source: musl
 #ifndef alltypes_h
 #define alltypes_h
 
@@ -3167,6 +3186,7 @@ typedef unsigned long long u_quad_t;
 // O: asm/bits/alltypes.h
 // O: macros/bits/alltypes.h
 // O: headers/common/bits/alltypes.h
+// source: musl
 #ifndef alltypes_h
 #define alltypes_h
 
@@ -4789,79 +4809,400 @@ int ioctl( int fd, unsigned long int request, ... );
 // O: asm/sys/termios.h
 // O: macros/sys/termios.h
 // O: headers/common/sys/termios.h
-// XXXXXXXXXXXXXXXXXX*************** file: asm-generic/termios.h 
+#ifndef	_TERMIOS_H
+#define	_TERMIOS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// XXXXXXXXXXXXXXXXXX*************** file: features.h 
 
 // Current path: /home/micha/prog/g2it-minilib
 
-// Path: asm-generic  Name termios.h
-// f: asm-generic/termios.h
-// O: include/asm-generic/termios.h
-// O: src/asm-generic/termios.h
-// O: asm/asm-generic/termios.h
-// O: macros/asm-generic/termios.h
-// O: headers/common/asm-generic/termios.h
-#ifndef TERMIOS_H
-#define TERMIOS_H
+// f: features.h
+// O: include/features.h
+// O: src/features.h
+// O: asm/features.h
+// O: macros/features.h
+// O: headers/common/features.h
+// just a placeholder
 
-// XXXXXXXXXXXXXXXXXX*************** file: asm/termbits.h 
+#define __NEED_pid_t
 
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: asm  Name termbits.h
-// f: asm/termbits.h
-// O: include/asm/termbits.h
-// O: src/asm/termbits.h
-// O: asm/asm/termbits.h
-// O: macros/asm/termbits.h
-// O: headers/common/asm/termbits.h
-// O: headers/linux_x64/asm/termbits.h
-// XXXXXXXXXXXXXXXXXX*************** file: asm/ioctls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
 
 // Current path: /home/micha/prog/g2it-minilib
 
-// Path: asm  Name ioctls.h
-// f: asm/ioctls.h
-// O: include/asm/ioctls.h
-// O: src/asm/ioctls.h
-// O: asm/asm/ioctls.h
-// O: macros/asm/ioctls.h
-// O: headers/common/asm/ioctls.h
-// O: headers/linux_x64/asm/ioctls.h
+// YYYYYYYYYYYYYY   Already included: bits/alltypes.h
+// Path: bits  Name alltypes.h
+// f: bits/alltypes.h
+// O: include/bits/alltypes.h
+// O: src/bits/alltypes.h
+// O: asm/bits/alltypes.h
+// O: macros/bits/alltypes.h
+// O: headers/common/bits/alltypes.h
+// source: musl
+#ifndef alltypes_h
+#define alltypes_h
 
-struct winsize {
-	unsigned short ws_row;
-	unsigned short ws_col;
-	unsigned short ws_xpixel;
-	unsigned short ws_ypixel;
+
+
+#define _Addr long
+#define _Int64 long
+#define _Reg long
+
+#ifndef size_t
+#define size_t long
+#endif
+
+typedef __builtin_va_list va_list;
+
+typedef __builtin_va_list __isoc_va_list;
+
+typedef int wchar_t;
+
+typedef long double double_t;
+
+typedef float float_t;
+
+typedef struct { long long __ll; long double __ld; } max_align_t;
+
+typedef long time_t;
+
+typedef long suseconds_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } pthread_mutex_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } mtx_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } pthread_cond_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } cnd_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u; } pthread_rwlock_t;
+
+typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
+
+//typedef unsigned _Addr size_t;
+//#define __DEFINED_size_t
+
+typedef unsigned _Addr uintptr_t;
+
+typedef _Addr ptrdiff_t;
+
+typedef _Addr ssize_t;
+
+typedef _Addr intptr_t;
+
+typedef _Addr regoff_t;
+
+typedef _Reg register_t;
+
+typedef signed char     int8_t;
+
+typedef signed short    int16_t;
+
+typedef signed int      int32_t;
+
+typedef signed _Int64   int64_t;
+
+typedef signed _Int64   intmax_t;
+
+typedef unsigned char   uint8_t;
+
+typedef unsigned short  uint16_t;
+
+typedef unsigned int    uint32_t;
+
+typedef unsigned _Int64 uint64_t;
+
+typedef unsigned _Int64 u_int64_t;
+
+typedef unsigned _Int64 uintmax_t;
+
+typedef unsigned mode_t;
+
+typedef unsigned _Reg nlink_t;
+
+typedef _Int64 off_t;
+
+typedef unsigned _Int64 ino_t;
+
+typedef unsigned _Int64 dev_t;
+
+typedef long blksize_t;
+
+typedef _Int64 blkcnt_t;
+
+typedef unsigned _Int64 fsblkcnt_t;
+
+typedef unsigned _Int64 fsfilcnt_t;
+
+typedef unsigned wint_t;
+
+typedef unsigned long wctype_t;
+
+typedef void * timer_t;
+
+typedef int clockid_t;
+
+typedef long clock_t;
+
+#ifndef timeval
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#endif
+
+struct timespec { time_t tv_sec; long tv_nsec; };
+
+typedef int pid_t;
+
+typedef unsigned id_t;
+
+typedef unsigned uid_t;
+
+typedef unsigned gid_t;
+
+typedef int key_t;
+
+typedef unsigned useconds_t;
+
+typedef struct _IO_FILE FILE;
+
+typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
+
+typedef struct __locale_struct * locale_t;
+
+typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
+
+struct iovec { void *iov_base; size_t iov_len; };
+
+typedef unsigned socklen_t;
+
+typedef unsigned short sa_family_t;
+
+#undef _Addr
+#undef _Int64
+#undef _Reg
+
+#endif
+
+
+typedef unsigned char cc_t;
+typedef unsigned int speed_t;
+typedef unsigned int tcflag_t;
+
+#define NCCS 32
+
+// XXXXXXXXXXXXXXXXXX*************** file: bits/termios.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// Path: bits  Name termios.h
+// f: bits/termios.h
+// O: include/bits/termios.h
+// O: src/bits/termios.h
+// O: asm/bits/termios.h
+// O: macros/bits/termios.h
+// O: headers/common/bits/termios.h
+// source: musl
+#ifndef termios_xxxxx
+#define termios_xxxxx
+struct termios {
+	tcflag_t c_iflag;
+	tcflag_t c_oflag;
+	tcflag_t c_cflag;
+	tcflag_t c_lflag;
+	cc_t c_line;
+	cc_t c_cc[NCCS];
+	speed_t __c_ispeed;
+	speed_t __c_ospeed;
 };
 
-struct termio {
-	unsigned short c_iflag;
-	unsigned short c_oflag;
-	unsigned short c_cflag;
-	unsigned short c_lflag;
-	unsigned char c_line;	 
-	unsigned char c_cc[8] 
-};
+#define VINTR     0
+#define VQUIT     1
+#define VERASE    2
+#define VKILL     3
+#define VEOF      4
+#define VTIME     5
+#define VMIN      6
+#define VSWTC     7
+#define VSTART    8
+#define VSTOP     9
+#define VSUSP    10
+#define VEOL     11
+#define VREPRINT 12
+#define VDISCARD 13
+#define VWERASE  14
+#define VLNEXT   15
+#define VEOL2    16
 
-#define TIOCM_LE	0x001
-#define TIOCM_DTR	0x002
-#define TIOCM_RTS	0x004
-#define TIOCM_ST	0x008
-#define TIOCM_SR	0x010
-#define TIOCM_CTS	0x020
-#define TIOCM_CAR	0x040
-#define TIOCM_RNG	0x080
-#define TIOCM_DSR	0x100
-#define TIOCM_CD	TIOCM_CAR
-#define TIOCM_RI	TIOCM_RNG
-#define TIOCM_OUT1	0x2000
-#define TIOCM_OUT2	0x4000
-#define TIOCM_LOOP	0x8000
+#define IGNBRK  0000001
+#define BRKINT  0000002
+#define IGNPAR  0000004
+#define PARMRK  0000010
+#define INPCK   0000020
+#define ISTRIP  0000040
+#define INLCR   0000100
+#define IGNCR   0000200
+#define ICRNL   0000400
+#define IUCLC   0001000
+#define IXON    0002000
+#define IXANY   0004000
+#define IXOFF   0010000
+#define IMAXBEL 0020000
+#define IUTF8   0040000
 
+#define OPOST  0000001
+#define OLCUC  0000002
+#define ONLCR  0000004
+#define OCRNL  0000010
+#define ONOCR  0000020
+#define ONLRET 0000040
+#define OFILL  0000100
+#define OFDEL  0000200
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE)
+#define NLDLY  0000400
+#define NL0    0000000
+#define NL1    0000400
+#define CRDLY  0003000
+#define CR0    0000000
+#define CR1    0001000
+#define CR2    0002000
+#define CR3    0003000
+#define TABDLY 0014000
+#define TAB0   0000000
+#define TAB1   0004000
+#define TAB2   0010000
+#define TAB3   0014000
+#define BSDLY  0020000
+#define BS0    0000000
+#define BS1    0020000
+#define FFDLY  0100000
+#define FF0    0000000
+#define FF1    0100000
+#endif
 
+#define VTDLY  0040000
+#define VT0    0000000
+#define VT1    0040000
 
-#endif 
+#define B0       0000000
+#define B50      0000001
+#define B75      0000002
+#define B110     0000003
+#define B134     0000004
+#define B150     0000005
+#define B200     0000006
+#define B300     0000007
+#define B600     0000010
+#define B1200    0000011
+#define B1800    0000012
+#define B2400    0000013
+#define B4800    0000014
+#define B9600    0000015
+#define B19200   0000016
+#define B38400   0000017
+
+#define B57600   0010001
+#define B115200  0010002
+#define B230400  0010003
+#define B460800  0010004
+#define B500000  0010005
+#define B576000  0010006
+#define B921600  0010007
+#define B1000000 0010010
+#define B1152000 0010011
+#define B1500000 0010012
+#define B2000000 0010013
+#define B2500000 0010014
+#define B3000000 0010015
+#define B3500000 0010016
+#define B4000000 0010017
+
+#define CSIZE  0000060
+#define CS5    0000000
+#define CS6    0000020
+#define CS7    0000040
+#define CS8    0000060
+#define CSTOPB 0000100
+#define CREAD  0000200
+#define PARENB 0000400
+#define PARODD 0001000
+#define HUPCL  0002000
+#define CLOCAL 0004000
+
+#define ISIG   0000001
+#define ICANON 0000002
+#define ECHO   0000010
+#define ECHOE  0000020
+#define ECHOK  0000040
+#define ECHONL 0000100
+#define NOFLSH 0000200
+#define TOSTOP 0000400
+#define IEXTEN 0100000
+
+#define TCOOFF 0
+#define TCOON  1
+#define TCIOFF 2
+#define TCION  3
+
+#define TCIFLUSH  0
+#define TCOFLUSH  1
+#define TCIOFLUSH 2
+
+#define TCSANOW   0
+#define TCSADRAIN 1
+#define TCSAFLUSH 2
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#define EXTA    0000016
+#define EXTB    0000017
+#define CBAUD   0010017
+#define CBAUDEX 0010000
+#define CIBAUD  002003600000
+#define CMSPAR  010000000000
+#define CRTSCTS 020000000000
+
+#define XCASE   0000004
+#define ECHOCTL 0001000
+#define ECHOPRT 0002000
+#define ECHOKE  0004000
+#define FLUSHO  0010000
+#define PENDIN  0040000
+#define EXTPROC 0200000
+
+#define XTABS  0014000
+#endif
+#endif
+
+speed_t cfgetospeed (const struct termios *);
+speed_t cfgetispeed (const struct termios *);
+int cfsetospeed (struct termios *, speed_t);
+int cfsetispeed (struct termios *, speed_t);
+
+int tcgetattr (int, struct termios *);
+int tcsetattr (int, int, const struct termios *);
+
+int tcsendbreak (int, int);
+int tcdrain (int);
+int tcflush (int, int);
+int tcflow (int, int);
+
+pid_t tcgetsid (int);
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+void cfmakeraw(struct termios *);
+int cfsetspeed(struct termios *, speed_t);
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
 extern int tcgetattr(int fd, struct termios *io);
 #endif
 
@@ -4879,82 +5220,402 @@ extern int tcgetattr(int fd, struct termios *io);
 // O: asm/sys/termios.h
 // O: macros/sys/termios.h
 // O: headers/common/sys/termios.h
-// XXXXXXXXXXXXXXXXXX*************** file: asm-generic/termios.h 
+#ifndef	_TERMIOS_H
+#define	_TERMIOS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// XXXXXXXXXXXXXXXXXX*************** file: features.h 
 
 // Current path: /home/micha/prog/g2it-minilib
 
-// YYYYYYYYYYYYYY   Already included: asm-generic/termios.h
-// Path: asm-generic  Name termios.h
-// f: asm-generic/termios.h
-// O: include/asm-generic/termios.h
-// O: src/asm-generic/termios.h
-// O: asm/asm-generic/termios.h
-// O: macros/asm-generic/termios.h
-// O: headers/common/asm-generic/termios.h
-#ifndef TERMIOS_H
-#define TERMIOS_H
+// YYYYYYYYYYYYYY   Already included: features.h
+// f: features.h
+// O: include/features.h
+// O: src/features.h
+// O: asm/features.h
+// O: macros/features.h
+// O: headers/common/features.h
+// just a placeholder
 
-// XXXXXXXXXXXXXXXXXX*************** file: asm/termbits.h 
+#define __NEED_pid_t
 
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: asm/termbits.h
-// Path: asm  Name termbits.h
-// f: asm/termbits.h
-// O: include/asm/termbits.h
-// O: src/asm/termbits.h
-// O: asm/asm/termbits.h
-// O: macros/asm/termbits.h
-// O: headers/common/asm/termbits.h
-// O: headers/linux_x64/asm/termbits.h
-// XXXXXXXXXXXXXXXXXX*************** file: asm/ioctls.h 
+// XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
 
 // Current path: /home/micha/prog/g2it-minilib
 
-// YYYYYYYYYYYYYY   Already included: asm/ioctls.h
-// Path: asm  Name ioctls.h
-// f: asm/ioctls.h
-// O: include/asm/ioctls.h
-// O: src/asm/ioctls.h
-// O: asm/asm/ioctls.h
-// O: macros/asm/ioctls.h
-// O: headers/common/asm/ioctls.h
-// O: headers/linux_x64/asm/ioctls.h
+// YYYYYYYYYYYYYY   Already included: bits/alltypes.h
+// Path: bits  Name alltypes.h
+// f: bits/alltypes.h
+// O: include/bits/alltypes.h
+// O: src/bits/alltypes.h
+// O: asm/bits/alltypes.h
+// O: macros/bits/alltypes.h
+// O: headers/common/bits/alltypes.h
+// source: musl
+#ifndef alltypes_h
+#define alltypes_h
 
-struct winsize {
-	unsigned short ws_row;
-	unsigned short ws_col;
-	unsigned short ws_xpixel;
-	unsigned short ws_ypixel;
+
+
+#define _Addr long
+#define _Int64 long
+#define _Reg long
+
+#ifndef size_t
+#define size_t long
+#endif
+
+typedef __builtin_va_list va_list;
+
+typedef __builtin_va_list __isoc_va_list;
+
+typedef int wchar_t;
+
+typedef long double double_t;
+
+typedef float float_t;
+
+typedef struct { long long __ll; long double __ld; } max_align_t;
+
+typedef long time_t;
+
+typedef long suseconds_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } pthread_mutex_t;
+
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } mtx_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } pthread_cond_t;
+
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } cnd_t;
+
+typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u; } pthread_rwlock_t;
+
+typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
+
+//typedef unsigned _Addr size_t;
+//#define __DEFINED_size_t
+
+typedef unsigned _Addr uintptr_t;
+
+typedef _Addr ptrdiff_t;
+
+typedef _Addr ssize_t;
+
+typedef _Addr intptr_t;
+
+typedef _Addr regoff_t;
+
+typedef _Reg register_t;
+
+typedef signed char     int8_t;
+
+typedef signed short    int16_t;
+
+typedef signed int      int32_t;
+
+typedef signed _Int64   int64_t;
+
+typedef signed _Int64   intmax_t;
+
+typedef unsigned char   uint8_t;
+
+typedef unsigned short  uint16_t;
+
+typedef unsigned int    uint32_t;
+
+typedef unsigned _Int64 uint64_t;
+
+typedef unsigned _Int64 u_int64_t;
+
+typedef unsigned _Int64 uintmax_t;
+
+typedef unsigned mode_t;
+
+typedef unsigned _Reg nlink_t;
+
+typedef _Int64 off_t;
+
+typedef unsigned _Int64 ino_t;
+
+typedef unsigned _Int64 dev_t;
+
+typedef long blksize_t;
+
+typedef _Int64 blkcnt_t;
+
+typedef unsigned _Int64 fsblkcnt_t;
+
+typedef unsigned _Int64 fsfilcnt_t;
+
+typedef unsigned wint_t;
+
+typedef unsigned long wctype_t;
+
+typedef void * timer_t;
+
+typedef int clockid_t;
+
+typedef long clock_t;
+
+#ifndef timeval
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#endif
+
+struct timespec { time_t tv_sec; long tv_nsec; };
+
+typedef int pid_t;
+
+typedef unsigned id_t;
+
+typedef unsigned uid_t;
+
+typedef unsigned gid_t;
+
+typedef int key_t;
+
+typedef unsigned useconds_t;
+
+typedef struct _IO_FILE FILE;
+
+typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
+
+typedef struct __locale_struct * locale_t;
+
+typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
+
+struct iovec { void *iov_base; size_t iov_len; };
+
+typedef unsigned socklen_t;
+
+typedef unsigned short sa_family_t;
+
+#undef _Addr
+#undef _Int64
+#undef _Reg
+
+#endif
+
+
+typedef unsigned char cc_t;
+typedef unsigned int speed_t;
+typedef unsigned int tcflag_t;
+
+#define NCCS 32
+
+// XXXXXXXXXXXXXXXXXX*************** file: bits/termios.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// YYYYYYYYYYYYYY   Already included: bits/termios.h
+// Path: bits  Name termios.h
+// f: bits/termios.h
+// O: include/bits/termios.h
+// O: src/bits/termios.h
+// O: asm/bits/termios.h
+// O: macros/bits/termios.h
+// O: headers/common/bits/termios.h
+// source: musl
+#ifndef termios_xxxxx
+#define termios_xxxxx
+struct termios {
+	tcflag_t c_iflag;
+	tcflag_t c_oflag;
+	tcflag_t c_cflag;
+	tcflag_t c_lflag;
+	cc_t c_line;
+	cc_t c_cc[NCCS];
+	speed_t __c_ispeed;
+	speed_t __c_ospeed;
 };
 
-struct termio {
-	unsigned short c_iflag;
-	unsigned short c_oflag;
-	unsigned short c_cflag;
-	unsigned short c_lflag;
-	unsigned char c_line;	 
-	unsigned char c_cc[8] 
-};
+#define VINTR     0
+#define VQUIT     1
+#define VERASE    2
+#define VKILL     3
+#define VEOF      4
+#define VTIME     5
+#define VMIN      6
+#define VSWTC     7
+#define VSTART    8
+#define VSTOP     9
+#define VSUSP    10
+#define VEOL     11
+#define VREPRINT 12
+#define VDISCARD 13
+#define VWERASE  14
+#define VLNEXT   15
+#define VEOL2    16
 
-#define TIOCM_LE	0x001
-#define TIOCM_DTR	0x002
-#define TIOCM_RTS	0x004
-#define TIOCM_ST	0x008
-#define TIOCM_SR	0x010
-#define TIOCM_CTS	0x020
-#define TIOCM_CAR	0x040
-#define TIOCM_RNG	0x080
-#define TIOCM_DSR	0x100
-#define TIOCM_CD	TIOCM_CAR
-#define TIOCM_RI	TIOCM_RNG
-#define TIOCM_OUT1	0x2000
-#define TIOCM_OUT2	0x4000
-#define TIOCM_LOOP	0x8000
+#define IGNBRK  0000001
+#define BRKINT  0000002
+#define IGNPAR  0000004
+#define PARMRK  0000010
+#define INPCK   0000020
+#define ISTRIP  0000040
+#define INLCR   0000100
+#define IGNCR   0000200
+#define ICRNL   0000400
+#define IUCLC   0001000
+#define IXON    0002000
+#define IXANY   0004000
+#define IXOFF   0010000
+#define IMAXBEL 0020000
+#define IUTF8   0040000
 
+#define OPOST  0000001
+#define OLCUC  0000002
+#define ONLCR  0000004
+#define OCRNL  0000010
+#define ONOCR  0000020
+#define ONLRET 0000040
+#define OFILL  0000100
+#define OFDEL  0000200
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE)
+#define NLDLY  0000400
+#define NL0    0000000
+#define NL1    0000400
+#define CRDLY  0003000
+#define CR0    0000000
+#define CR1    0001000
+#define CR2    0002000
+#define CR3    0003000
+#define TABDLY 0014000
+#define TAB0   0000000
+#define TAB1   0004000
+#define TAB2   0010000
+#define TAB3   0014000
+#define BSDLY  0020000
+#define BS0    0000000
+#define BS1    0020000
+#define FFDLY  0100000
+#define FF0    0000000
+#define FF1    0100000
+#endif
 
+#define VTDLY  0040000
+#define VT0    0000000
+#define VT1    0040000
 
-#endif 
+#define B0       0000000
+#define B50      0000001
+#define B75      0000002
+#define B110     0000003
+#define B134     0000004
+#define B150     0000005
+#define B200     0000006
+#define B300     0000007
+#define B600     0000010
+#define B1200    0000011
+#define B1800    0000012
+#define B2400    0000013
+#define B4800    0000014
+#define B9600    0000015
+#define B19200   0000016
+#define B38400   0000017
+
+#define B57600   0010001
+#define B115200  0010002
+#define B230400  0010003
+#define B460800  0010004
+#define B500000  0010005
+#define B576000  0010006
+#define B921600  0010007
+#define B1000000 0010010
+#define B1152000 0010011
+#define B1500000 0010012
+#define B2000000 0010013
+#define B2500000 0010014
+#define B3000000 0010015
+#define B3500000 0010016
+#define B4000000 0010017
+
+#define CSIZE  0000060
+#define CS5    0000000
+#define CS6    0000020
+#define CS7    0000040
+#define CS8    0000060
+#define CSTOPB 0000100
+#define CREAD  0000200
+#define PARENB 0000400
+#define PARODD 0001000
+#define HUPCL  0002000
+#define CLOCAL 0004000
+
+#define ISIG   0000001
+#define ICANON 0000002
+#define ECHO   0000010
+#define ECHOE  0000020
+#define ECHOK  0000040
+#define ECHONL 0000100
+#define NOFLSH 0000200
+#define TOSTOP 0000400
+#define IEXTEN 0100000
+
+#define TCOOFF 0
+#define TCOON  1
+#define TCIOFF 2
+#define TCION  3
+
+#define TCIFLUSH  0
+#define TCOFLUSH  1
+#define TCIOFLUSH 2
+
+#define TCSANOW   0
+#define TCSADRAIN 1
+#define TCSAFLUSH 2
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#define EXTA    0000016
+#define EXTB    0000017
+#define CBAUD   0010017
+#define CBAUDEX 0010000
+#define CIBAUD  002003600000
+#define CMSPAR  010000000000
+#define CRTSCTS 020000000000
+
+#define XCASE   0000004
+#define ECHOCTL 0001000
+#define ECHOPRT 0002000
+#define ECHOKE  0004000
+#define FLUSHO  0010000
+#define PENDIN  0040000
+#define EXTPROC 0200000
+
+#define XTABS  0014000
+#endif
+#endif
+
+speed_t cfgetospeed (const struct termios *);
+speed_t cfgetispeed (const struct termios *);
+int cfsetospeed (struct termios *, speed_t);
+int cfsetispeed (struct termios *, speed_t);
+
+int tcgetattr (int, struct termios *);
+int tcsetattr (int, int, const struct termios *);
+
+int tcsendbreak (int, int);
+int tcdrain (int);
+int tcflush (int, int);
+int tcflow (int, int);
+
+pid_t tcgetsid (int);
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+void cfmakeraw(struct termios *);
+int cfsetspeed(struct termios *, speed_t);
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
 extern int tcsetattr(int fd, int opt, const struct termios *io);
 #endif
 
