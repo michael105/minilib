@@ -1,3 +1,4 @@
+// source: musl
 #ifndef alltypes_h
 #define alltypes_h
 
