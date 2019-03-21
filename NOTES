@@ -3,6 +3,13 @@
 
 git:
 
+
+checkout erlier version:
+git checkout ID
+
+
+
+
 push to another remote branch
 	git push origin HEAD:devel
 

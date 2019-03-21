@@ -6,7 +6,7 @@
 #ifdef OSX
 #include <sys/ttycom.h>
 #else
-#include <asm-generic/ioctls.h>
+#include <sys/ioctl.h>
 #endif
 
 

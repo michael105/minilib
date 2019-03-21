@@ -1,4 +1,6 @@
 // source: musl
+#ifndef termios_xxxxx
+#define termios_xxxxx
 struct termios {
 	tcflag_t c_iflag;
 	tcflag_t c_oflag;
@@ -164,4 +166,5 @@ struct termios {
 #define EXTPROC 0200000
 
 #define XTABS  0014000
+#endif
 #endif

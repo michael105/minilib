@@ -1,65 +1,11 @@
-
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)*/
-
-PHDRS {
-	text PT_LOAD FILEHDR PHDRS ;
-	/*bss PT_LOAD;*/
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text.exit .text.exit.*)
-						*(.text.startup .text.startup.*)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-
-		 }
-		.bss            :
-		{ 
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(.bss)
-						*(.shstrtab)
-						*(COMMON)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-							 FIXME: Why do we need it? When there is no .bss section, we don't
-							 pad the .data section.  */
-						. = ALIGN(. != 0 ? 32 / 8 : 1);
-						_bssend = . ;
-						_brk = .;
-		} :text
-
+SECTIONS {                                                                                                                                                    
 		/DISCARD/ : { 
-			*(.note.GNU-stack) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
+			*(.comment) 
 			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			*(.note*)
-			}
+			*(.plt)
+			*(.got.plt)
+			*(.rel.plt)
+		}
 }
-
+INSERT AFTER .text
 
