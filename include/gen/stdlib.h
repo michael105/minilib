@@ -25,8 +25,8 @@ void volatile free(void* p);
 
 
 #ifdef mini_INCLUDESRC
-#include "src/atoi.c"
 #include "src/malloc.c"
+#include "src/atoi.c"
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.

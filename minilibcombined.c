@@ -166,8 +166,9 @@ static inline int fputc(int c, int fd);
 #ifdef mini_mstrncmp
 #define mini_strncmp
 #endif
-
-
+#ifdef mini_mstrlen
+#define mini_strlen
+#endif
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
@@ -6461,7 +6462,7 @@ int printl(const char *msg){
 #endif
 
 
-#ifdef mini_mfprintf
+#ifdef mini_fprintf
 // XXXXXXXXXXXXXXXXXX*************** file: src/mfprintf.c 
 
 // Current path: /home/micha/prog/g2it-minilib
@@ -7289,7 +7290,7 @@ __asm__ volatile (
 
 #endif
 
-#ifdef mini_mprints
+#ifdef mini_prints
 // XXXXXXXXXXXXXXXXXX*************** file: src/mprints.c 
 
 // Current path: /home/micha/prog/g2it-minilib
@@ -7504,7 +7505,7 @@ int _mprints(char *msg,...){
 #endif
 #endif
 
-#ifdef mini_msprintf
+#ifdef mini_sprintf
 // XXXXXXXXXXXXXXXXXX*************** file: src/msprintf.c 
 
 // Current path: /home/micha/prog/g2it-minilib
@@ -8680,7 +8681,7 @@ int memcmp(const void* c1,const void* c2,int len){
 #endif
 
 
-#ifdef mini_mstrcmp
+#ifdef mini_strcmp
 // XXXXXXXXXXXXXXXXXX*************** file: src/mstrcmp.c 
 
 // Current path: /home/micha/prog/g2it-minilib
@@ -8742,7 +8743,7 @@ int memcmp(const void* c1,const void* c2,int len){
 #endif
 #endif
 
-#ifdef mini_mstrlen
+#ifdef mini_strlen
 // XXXXXXXXXXXXXXXXXX*************** file: src/mstrlen.c 
 
 // Current path: /home/micha/prog/g2it-minilib

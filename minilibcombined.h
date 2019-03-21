@@ -156,8 +156,9 @@ static inline int fputc(int c, int fd);
 #ifdef mini_mstrncmp
 #define mini_strncmp
 #endif
-
-
+#ifdef mini_mstrlen
+#define mini_strlen
+#endif
 
 // XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
 
