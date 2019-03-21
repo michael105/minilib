@@ -1,8 +1,8 @@
 # makefile for the tests
 #
 
-PROG=malloc select
-#PROG=hello malloc select
+#PROG=malloc select
+PROG=hello malloc select
 
 # where to build object files
 #BUILDDIR=.
@@ -26,7 +26,7 @@ STRIP=1
 
 #ELFTRUNC=1
 
-ONLYTEXT = hello-smallest hello hello-include 
+ONLYTEXT = hello-smallest hello-include 
 
 ifndef GREEN
 #colors..
