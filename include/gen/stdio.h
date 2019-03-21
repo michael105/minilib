@@ -42,13 +42,13 @@ inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 #include "include/fputc.h"
+#include "src/itohex.c"
+#include "src/itobin.c"
 #include "src/msprintf.c"
 #include "src/mfprintf.c"
+#include "src/itodec.c"
 #include "src/dtodec.c"
 #include "include/fputs.h"
-#include "src/itodec.c"
-#include "src/itobin.c"
-#include "src/itohex.c"
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.
