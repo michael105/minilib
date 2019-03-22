@@ -9,7 +9,7 @@
 int strlen(const char*str);
 
 //+def
-inline int volatile fputs(const char *c, int fd){
+static inline int volatile fputs(const char *c, int fd){
 		return(write(fd, c, strlen(c)));
 }
 

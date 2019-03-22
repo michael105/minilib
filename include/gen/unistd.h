@@ -7,7 +7,7 @@
 // file: include/close.h
 #include "include/close.h"
 // file: include/close.h
-inline int volatile __attribute__((always_inline)) close( int fd );
+static inline int volatile __attribute__((always_inline)) close( int fd );
 
 // file: include/exit.h
 #include "include/exit.h"
@@ -31,9 +31,9 @@ inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_se
 
 
 #ifdef mini_INCLUDESRC
+#include "include/read.h"
 #include "include/select.h"
 #include "include/close.h"
-#include "include/read.h"
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.

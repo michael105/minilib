@@ -179,6 +179,14 @@ extern int isspace(int c);
 #endif
 #endif
 
+#ifdef mini_fopen
+#ifndef mini_open
+//FILE* fopen( const char* s, 
+#define mini_open
+#endif
+#endif
+
+
 
 #ifdef mini_open
 //#include "open.h"
@@ -304,6 +312,12 @@ extern int atoi(char *c);
 extern int _itobin(int i,char* buf, int padding, int groups);
 #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 #endif
+
+
+#ifdef mini_stdarg
+#include "stdarg.h"
+#endif
+
 
 #ifdef mini_malloc
 extern void* malloc(int size);

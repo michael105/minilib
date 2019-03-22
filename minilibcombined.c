@@ -1,29 +1,31 @@
 #if 0
 ifdef UNDEF
 
-Copyright (c) 2012-2019 Michael (Misc) Myer, 
-misc.myer@zoho.com / www.github.com/michael105
+Copyright (c) 2012-2019, Michael (Misc) Myer 
+(misc.myer@zoho.com, www.github.com/michael105)
+All rights reserved.
 
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and/or other materials provided with the distribution.
+ * Neither the name of the minilib nor the
+   names of its contributors may be used to endorse or promote products
+   derived from this software without specific prior written permission.
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 endif
 #endif
@@ -4178,7 +4180,7 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 int strlen(const char*str);
 
 //+def
-inline int volatile fputs(const char *c, int fd){
+static inline int volatile fputs(const char *c, int fd){
 		return(write(fd, c, strlen(c)));
 }
 
@@ -4316,202 +4318,26 @@ extern int isspace(int c);
 
 
 
+#ifdef mini_creat
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_fopen
+#ifndef mini_open
+//FILE* fopen( const char* s, 
+#define mini_open
+#endif
+#endif
+
 
 
 #ifdef mini_open
-// XXXXXXXXXXXXXXXXXX*************** file: open.h 
+//#include "open.h"
 
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: open.h
-// O: include/open.h
-#ifndef minilib_open_h
-#define minilib_open_h
-//+ansi fcntl.h
-//+inc 
-
-//#include "syscall.h"
-// XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: filemodes.h
-// O: include/filemodes.h
-#ifndef mini_filemodes_h
-#define mini_filemodes_h
-
-#ifdef OSX
-
-/* open-only flags */
-#define	O_RDONLY	0x0000		/* open for reading only */
-#define	O_WRONLY	0x0001		/* open for writing only */
-#define	O_RDWR		0x0002		/* open for reading and writing */
-#define	O_ACCMODE	0x0003		/* mask for above modes */
-
-#define	FREAD		0x0001
-#define	FWRITE		0x0002
-#define	O_NONBLOCK	0x0004		/* no delay */
-#define	O_APPEND	0x0008		/* set append mode */
-
-#define	O_SHLOCK	0x0010		/* open with shared file lock */
-#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
-#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
-#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
-#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
-#define	O_CREAT		0x0200		/* create if nonexistant */
-#define	O_TRUNC		0x0400		/* truncate to zero length */
-#define	O_EXCL		0x0800		/* error if already exists */
-
-#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
-
-#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
-#define O_DIRECTORY	0x100000
-#define O_SYMLINK	0x200000	/* allow open of a symlink */
-#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
-#define O_DP_GETRAWENCRYPTED	0x0001
-#define O_DP_GETRAWUNENCRYPTED	0x0002
-
-
-
-#else
-
-
-#define O_ACCMODE	00000003
-#define O_RDONLY	00000000
-#define O_WRONLY	00000001
-#define O_RDWR		00000002
-#define O_CREAT		00000100	/* not fcntl */
-#define O_EXCL		00000200	/* not fcntl */
-#define O_NOCTTY	00000400	/* not fcntl */
-#define O_TRUNC		00001000	/* not fcntl */
-#define O_APPEND	00002000
-#define O_NONBLOCK	00004000
-#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
-#define FASYNC		00020000	/* fcntl, for BSD compatibility */
-#define O_DIRECT	00040000	/* direct disk access hint */
-#define O_LARGEFILE	00100000
-#define O_DIRECTORY	00200000	/* must be a directory */
-#define O_NOFOLLOW	00400000	/* don't follow links */
-#define O_NOATIME	01000000
-#define O_CLOEXEC	02000000	/* set close_on_exec */
-
-#endif
-
-
-
-#endif
-
-
-// XXXXXXXXXXXXXXXXXX*************** file: stdarg.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: stdarg.h
-// O: include/stdarg.h
-#ifndef stdarg_h
-#define stdarg_h
-// copied from musl
-// copy more - the builtin list..
-
-#if 1
-#if __GNUC__ >= 3
-//#warning here 1
-typedef __builtin_va_list va_list;
-#define va_start(v,l)   __builtin_va_start(v,l)
-#define va_end(v)       __builtin_va_end(v)
-#define va_arg(v,l)     __builtin_va_arg(v,l)
-#define va_copy(d,s)    __builtin_va_copy(d,s)
-#else
-//#warning here 2
-
-#ifdef __GNUC__
-//#warning here 3
-//TODO: this gets scrambled if in the same compiler unit as the caller.
-typedef __builtin_va_list va_list;
-#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-
-#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
-#define va_end(ap) ((void)0)
-#define va_copy(dest, src) ((dest) = (src))
-
-#define va_arg(ap, type) \
-	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
-	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
-
-
-#else
-
-//#warning here 4
-// copied from tcc
-#ifdef __x86_64__
-//#warning here 5
-#ifndef _WIN64
-//#warning here 6
-
-typedef void *va_list;
-
-va_list __va_start(void *fp);
-void *__va_arg(va_list ap, int arg_type, int size);
-va_list __va_copy(va_list src);
-void __va_end(va_list ap);
-
-#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
-#define va_arg(ap, type)                                                \
-		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
-#define va_copy(dest, src) ((dest) = __va_copy(src))
-#define va_end(ap) __va_end(ap)
-
-#else /* _WIN64 */
-typedef char *va_list;
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
-#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-#else /* __i386__ */
-typedef char *va_list;
-/* only correct for i386 */
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
-#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-/* fix a buggy dependency on GCC in libio.h */
-typedef va_list __gnuc_va_list;
-#define _VA_LIST_DEFINED
-
-#endif
-#endif
-
-#endif
-
-#endif
-
-
-/// open compiles only defined static. (???)
-//+def
-int volatile open( const char *s, int flags, ... ){
-		int ret;
-		va_list args;
-		va_start(args,flags);
-		int mode = va_arg(args,int);
-		va_end(args);
-
-		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
-		return(ret);
-}
-
-/// creat
-//d open
-//+def
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
-		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
-}
-
-
-#endif
+int volatile open( const char *s, int flags, ... );
+int volatile creat( const char *s, int mode );
 #ifndef mini_filemodes
 #define mini_filemodes
 #endif
@@ -4568,7 +4394,7 @@ DEF_syscall(fsync,1,int a1 )
 //+ansi unistd.h
 //+inc
 //+def
-inline int volatile __attribute__((always_inline)) close( int fd ){
+static inline int volatile __attribute__((always_inline)) close( int fd ){
 		int ret;
 		syscall1(ret,SCALL(close),(int)fd);
 		return(ret);
@@ -4585,7 +4411,6 @@ inline int volatile __attribute__((always_inline)) close( int fd ){
 
 // Current path: /home/micha/prog/g2it-minilib
 
-// YYYYYYYYYYYYYY   Already included: filemodes.h
 // f: filemodes.h
 // O: include/filemodes.h
 #ifndef mini_filemodes_h
@@ -5882,6 +5707,98 @@ extern int _itobin(int i,char* buf, int padding, int groups);
 #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 #endif
 
+
+#ifdef mini_stdarg
+// XXXXXXXXXXXXXXXXXX*************** file: stdarg.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// f: stdarg.h
+// O: include/stdarg.h
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+
 #ifdef mini_malloc
 extern void* malloc(int size);
 extern void free(void *p);
@@ -6375,9 +6292,6 @@ int _itobin(int i, char*buf, int prec, int groups ){
 
 		
 #endif
-
-
-
 
 #ifdef mini_puts
 #define mini_print
@@ -9023,6 +8937,34 @@ static inline int fputc(int c, int fd);
 // Possibly we'd like to complain
 // about the lack of memory, before we exit..
 //
+// ATM, the 'free' is really lazy. 
+// It free's memory, but a real 'free' is only commited,
+// when all memory below a freed area is also freed.
+// Since the target of minilib atm are tiny tools, 
+// this might be ok.
+// ;) but, as I told before - 
+// probably you should look out for a proper malloc implementation.
+//
+// I'm not sure yet, 
+// whether a better implementation of free would be useful at all.
+// Overall, I'd really prefer keeping minilib tiny.
+//
+// Reusing also sparse freed memory areas leads 
+// to a whole bunch of complications.
+// cache misses, searching complexity,
+// storage overhead,
+// just to name a few.
+//
+// I'm not sure whether it's worth it.
+//
+// And the existing malloc implementations 
+// out there are countless.
+//
+// ;) It's sometimes smarter to stay special,
+// although in this case this means the opposite.
+//   ? I'm not sure what this sentence means XD
+//misc
+//
 //+def
 void* malloc(int size){
 		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"
@@ -9263,6 +9205,210 @@ int ipoweri(int x, int n){
 
 
 #endif
+
+#ifdef mini_open
+// XXXXXXXXXXXXXXXXXX*************** file: src/open.c 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// Path: src  Name open.c
+// f: src/open.c
+#ifndef open_c
+#define open_c
+
+
+//#include "syscall.h"
+// XXXXXXXXXXXXXXXXXX*************** file: include/filemodes.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// Path: include  Name filemodes.h
+// f: include/filemodes.h
+#ifndef mini_filemodes_h
+#define mini_filemodes_h
+
+#ifdef OSX
+
+/* open-only flags */
+#define	O_RDONLY	0x0000		/* open for reading only */
+#define	O_WRONLY	0x0001		/* open for writing only */
+#define	O_RDWR		0x0002		/* open for reading and writing */
+#define	O_ACCMODE	0x0003		/* mask for above modes */
+
+#define	FREAD		0x0001
+#define	FWRITE		0x0002
+#define	O_NONBLOCK	0x0004		/* no delay */
+#define	O_APPEND	0x0008		/* set append mode */
+
+#define	O_SHLOCK	0x0010		/* open with shared file lock */
+#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
+#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
+#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
+#define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_TRUNC		0x0400		/* truncate to zero length */
+#define	O_EXCL		0x0800		/* error if already exists */
+
+#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
+
+#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
+#define O_DIRECTORY	0x100000
+#define O_SYMLINK	0x200000	/* allow open of a symlink */
+#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
+#define O_DP_GETRAWENCRYPTED	0x0001
+#define O_DP_GETRAWUNENCRYPTED	0x0002
+
+
+
+#else
+
+
+#define O_ACCMODE	00000003
+#define O_RDONLY	00000000
+#define O_WRONLY	00000001
+#define O_RDWR		00000002
+#define O_CREAT		00000100	/* not fcntl */
+#define O_EXCL		00000200	/* not fcntl */
+#define O_NOCTTY	00000400	/* not fcntl */
+#define O_TRUNC		00001000	/* not fcntl */
+#define O_APPEND	00002000
+#define O_NONBLOCK	00004000
+#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
+#define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_DIRECT	00040000	/* direct disk access hint */
+#define O_LARGEFILE	00100000
+#define O_DIRECTORY	00200000	/* must be a directory */
+#define O_NOFOLLOW	00400000	/* don't follow links */
+#define O_NOATIME	01000000
+#define O_CLOEXEC	02000000	/* set close_on_exec */
+
+#endif
+
+
+
+#endif
+
+
+// XXXXXXXXXXXXXXXXXX*************** file: stdarg.h 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// YYYYYYYYYYYYYY   Already included: stdarg.h
+// f: stdarg.h
+// O: include/stdarg.h
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+
+/// open compiles only defined static. (???)
+//+def
+int volatile open( const char *s, int flags, ... ){
+		int ret;
+		va_list args;
+		va_start(args,flags);
+		int mode = va_arg(args,int);
+		va_end(args);
+
+		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
+		return(ret);
+}
+
+/// creat
+//d open
+//+def
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
+}
+
+
+
+FILE* volatile fopen( const char *s, const char *mode ){
+		int m = 0;
+
+
+
+
+#endif
+#endif
+
 
 
 // XXXXXXXXXXXXXXXXXX*************** file: include/syscall_stubs.h 

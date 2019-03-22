@@ -48,7 +48,7 @@
 // ;) but, as I told before - 
 // probably you should look out for a proper malloc implementation.
 //
-// And I'm not sure yet, 
+// I'm not sure yet, 
 // whether a better implementation of free would be useful at all.
 // Overall, I'd really prefer keeping minilib tiny.
 //
@@ -65,6 +65,8 @@
 //
 // ;) It's sometimes smarter to stay special,
 // although in this case this means the opposite.
+//   ? I'm not sure what this sentence means XD
+//misc
 //
 //+def
 void* malloc(int size){
