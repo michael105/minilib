@@ -1,0 +1,14 @@
+The files in here are contributed for convenience.
+
+tools/elftrunc.c (fefe, dietlibc) I did use to strip the binaries,
+before I adopted and rewrote another implementation.
+
+doc contains some development related documentation
+I compiled together from different sources.
+It's supplied for convenience, I don't claim any copyrights.
+
+sbase is a fork of the suckless linux tools.
+I'm checking different concepts of howto replace the 
+standard libc best with these tools.
+
+
