@@ -3,6 +3,8 @@
 //+ansi fcntl.h
 //+inc 
 
+
+#if 0
 //#include "syscall.h"
 #include "filemodes.h"
 
@@ -27,6 +29,6 @@ int volatile open( const char *s, int flags, ... ){
 inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
 		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
-
+#endif
 
 #endif

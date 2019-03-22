@@ -9,6 +9,28 @@ git checkout ID
 
 
 
+  clone including submodules
+git clone --recurse-submodules git://github.com/foo/bar.git
+
+update submodules 
+ git submodule update --init --recursive
+
+git submodule add git://git.mysociety.org/commonlib commonlib
+
+ Good looking mini script. Possibly I'll need it
+from 		https://cemerick.com/2009/09/28/working-with-git-submodules-recursively/
+------
+#!/bin/sh
+ 
+case "$1" in
+        "init") CMD="submodule update --init" ;;
+        *) CMD="$*" ;;
+esac
+ 
+git $CMD
+git submodule foreach "$0" $CMD
+------
+
 
 push to another remote branch
 	git push origin HEAD:devel

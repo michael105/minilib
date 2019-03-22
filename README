@@ -16,7 +16,7 @@ Some sourcefiles in the folders headers / contrib
 have other licensing terms.
 Look at the sources. 
 
-See bottom for the Apache License. 
+ See bottom for the Apache License. 
  Essentially you can do what you want,
  but need to keep the copyright notes as well as the file 
  NOTICE. 
@@ -31,14 +31,14 @@ See bottom for the Apache License.
 
 Minilib isn't complete at all. (2019/03)
 ..2019/03/19: Ok. about half of ansi c is done.
-   some important functions missing (free, e.g)
-   but close. Restructuring nearly done.
-	 Overall - quite close to a first real release.
-	 Yet I could also maintain backward compatibility.
-	 (Important to me, since I'm using this lib for 
-	 nearly 7 years myself..)
+ some important functions missing (free, e.g)
+ but close. Restructuring nearly done.
+ Overall - quite close to a first real release.
+ Yet I could also maintain backward compatibility.
+ (Important to me, since I'm using this lib for 
+ nearly 7 years myself..)
 
-ATM, most possibly meither the OSX nor the linux 32bit port will compile.
+ATM, most possibly neither the OSX nor the linux 32bit port will compile.
 I'm just about to finish some things at Linux amd64.
 Then I'll be able to check for osx and Linux x32.
 

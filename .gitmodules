@@ -1,0 +1,3 @@
+[submodule "contrib/sbase"]
+	path = contrib/sbase
+	url = https://github.com/michael105/sbase.git

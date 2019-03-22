@@ -45,9 +45,6 @@
 #include "src/itobin.c"
 #endif
 
-
-
-
 #ifdef mini_puts
 #define mini_print
 #endif
@@ -140,6 +137,11 @@ int errno;
 #ifdef mini_powers
 #include "src/powers.c"
 #endif
+
+#ifdef mini_open
+#include "src/open.c"
+#endif
+
 
 
 #include "include/syscall_stubs.h"

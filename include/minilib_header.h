@@ -173,10 +173,18 @@ extern int isspace(int c);
 
 
 
+#ifdef mini_creat
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
 
 
 #ifdef mini_open
-#include "open.h"
+//#include "open.h"
+
+int volatile open( const char *s, int flags, ... );
+int volatile creat( const char *s, int mode );
 #ifndef mini_filemodes
 #define mini_filemodes
 #endif
