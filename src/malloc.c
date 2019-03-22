@@ -40,6 +40,19 @@
 // Possibly we'd like to complain
 // about the lack of memory, before we exit..
 //
+// ATM, the 'free' is really lazy. 
+// It free's memory, but a real 'free' is only commited,
+// when all memory below a freed area is also freed.
+// Since the target of minilib atm are tiny tools, 
+// this might be ok.
+// ;) but, as I told before - 
+// probably you should look out for a proper malloc implementation.
+//
+// And I'm not sure yet, 
+// whether a better implementation of free would be useful at all.
+// Overall, I'd really prefer keeping minilib tiny.
+//
+//
 //+def
 void* malloc(int size){
 		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"

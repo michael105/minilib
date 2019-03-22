@@ -5,6 +5,11 @@ Cleanup the build "system"
   makefiles are getting .. confusing
 
 
+
+parser for docu.
+ sort of 
+
+
 Most possibly good: 
 	config file "minilib.conf"
 	-> mbuf, malloc_buf, ..
