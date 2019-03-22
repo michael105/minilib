@@ -1,0 +1,44 @@
+https://stackoverflow.com/questions/43209964/linux-memory-disk-behavior-during-elf-execution
+
+
+Linux memory/disk behavior during ELF execution
+Ask Question
+0
+
+I have a series of executables running on a cluster that read in some small config files at execution start, and then do a lot of processing for several hours, and then write out some data and exit. Our sysadmin is trying to tell me that our fileserver is really slow because his analysis is showing that the cluster nodes are spending all their time using NFS disk I/O reading in ELF executables for execution, long after they've been spawned (note: our executables are only a few MB in size). This doesn't sound right to me, as I was under the impression that the dynamic linker loaded the entire executable into memory at runtime and then operated out of memory. I know that the kernel leaves an open file descriptor to the executable while it's running, but I didn't think it was continually reading from it.
+
+My question is, is my understanding of how executables are loaded flawed? I find it hard to believe that the kernel is constantly doing file reads on the executable to fetch instructions, as this would be terribly slow (even with caching) because branch predictions are hardly reliable, so you'd be spending forever reading the executable from disk if your binary performed frequent jumps.
+
+
+
+
+
+1 Answer
+active
+oldest
+votes
+1
+
+I was under the impression that the dynamic linker loaded the entire executable into memory at runtime and then operated out of memory.
+
+Your impression is incorrect.
+
+First, a minor inaccuracy: while the dynamic linker is responsible for loading shared libraries, the main executable itself is loaded by the kernel before dynamic loader is started.
+
+Second, most current systems use demand paging. The files are mmaped, but the code isn't actually loaded into memory until that code is accessed (i.e. tries to execute). If you never execute some parts of the program, these parts are never loaded into memory at all.
+
+I find it hard to believe that the kernel is constantly doing file reads on the executable to fetch instructions
+
+It doesn't constantly do that. It typically loads the code into memory and the code stays there.
+
+It is possible for the code to be discarded from memory (which would require reloading it again if it executes again) on a system that doesn't have enough memory (this is called thrashing).
+
+because branch predictions are hardly reliable,
+
+				Branch prediction
+
+				has approximately nothing to do with your problem, and
+				is exceedingly good on modern CPUs.
+
+
+
