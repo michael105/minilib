@@ -52,6 +52,19 @@
 // whether a better implementation of free would be useful at all.
 // Overall, I'd really prefer keeping minilib tiny.
 //
+// Reusing also sparse freed memory areas leads 
+// to a whole bunch of complications.
+// cache misses, searching complexity,
+// storage overhead,
+// just to name a few.
+//
+// I'm not sure whether it's worth it.
+//
+// And the existing malloc implementations 
+// out there are countless.
+//
+// ;) It's sometimes smarter to stay special,
+// although in this case this means the opposite.
 //
 //+def
 void* malloc(int size){
