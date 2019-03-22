@@ -8,8 +8,8 @@
 Copyright (c) 2012-2019 Michael (Misc) Myer, 
 misc.myer@zoho.com / www.github.com/michael105
 
-Licensed under a 3clause BSD License with the modification,
-that the file NOTICE should be included in distributions.
+Licensed under the 3 clause BSD License with the addition,
+that the file NOTICE shall be included in distributions.
 Static linking is permitted.
 
 See bottom for the BSD License. 
@@ -261,18 +261,11 @@ TODO: errno.h : set errno..
 
 
 ============================================================
-============================================================
+------------------------------------------------------------
 Michael (Misc) Myer, 2012-2019
 misc.myer@zoho.com www.github.com/michael105
 (my "programming enthusiastic persona"..)
 ------------------------------------------------------------
-Since I already did have some strange troubles, 
-I state explicitely and repeatedly that 
-Michael (Misc) Myer is a pseudonym.
-I don't know any restrictions or legal constrictions 
-naming myself this way,
-and you are able to contact me with the given adresses.
-============================================================
 ============================================================
 
 

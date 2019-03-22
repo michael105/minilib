@@ -8,7 +8,6 @@ I compiled together from different sources.
 It's supplied for convenience, I don't claim any copyrights.
 
 sbase is a fork of the suckless linux tools.
-I'm checking different concepts of howto replace the 
-standard libc best with these tools.
-
+I'm checking different concepts with these tools, 
+of howto replace the standard libc best.
 
