@@ -22,7 +22,7 @@ SECTIONS
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start .text._start.*)
 						*(.text.main .text.main.*)
-						*(.text.exit .text.exit.*)
+						*(.text.cexit)
 						*(.text._exit .text._exit.*)
 						*(.text.__exit .text.__exit.*)
 						*(.text.startup .text.startup.*)

@@ -3,7 +3,9 @@
 my $fhhash;
 my $ansidir = shift;
 
-
+# gets called for each ansi header referenced
+# if the file isn't open yet,
+# creates and returns a new filehandle
 sub ansifh{
 		my $ansi = shift;
 		if ( ! exists($fhhash->{fh}->{$ansi}) ){
@@ -26,7 +28,7 @@ sub ansifh{
 		return( $fhhash->{fh}->{$ansi} );
 }
 
-
+# iterate over commandline args
 while ( my $f = shift ){
 		open (F, "<", $f) or die;
 
@@ -67,6 +69,8 @@ while ( my $f = shift ){
 }
 
 
+# write the #include "source.c" directives
+# iterate over each ansi include filehandler
 foreach my $key ( keys(%{$fhhash->{fh}}) ){
 		print "key: $key\n";
 		print {$fhhash->{fh}->{$key}} "\n\n#include \"include/minilib_global.h\"\n";

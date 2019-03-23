@@ -124,7 +124,7 @@ git log --pretty=oneline
 git log --graph --oneline --decorate --all
 
 
-useful hints
+hints
 
 built-in git GUI
 gitk

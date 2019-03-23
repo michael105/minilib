@@ -2,6 +2,8 @@
 void _start(){
 #include "src/startup.c"
 __asm__("\
+#.global _start\n\
+#_start:\n\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
 	leaq  8(%rsi,%rdi,8),%rdx\n\
