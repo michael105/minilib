@@ -4,7 +4,7 @@
 //#include <termios.h>
 //#include "ioctl.h"
 #ifdef OSX
-#include <sys/ttycom.h>
+//#include <sys/ttycom.h>
 #else
 #include <sys/ioctl.h>
 #endif

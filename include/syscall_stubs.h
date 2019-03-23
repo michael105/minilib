@@ -9,9 +9,9 @@
 */
 
 #include "timeval.h"
-#include "syscall.h"
-#include "sys/types.h"
-#include "sys/syscall.h"
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
 
 extern int sysret;
 extern int errno;

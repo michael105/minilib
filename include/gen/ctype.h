@@ -10,7 +10,7 @@ int isspace(int c);
 // file: include/isprint.h
 #include "include/isprint.h"
 // file: include/isprint.h
-inline int __attribute__((always_inline)) isprint(const char c);
+static inline int __attribute__((always_inline)) isprint(const char c);
 
 
 

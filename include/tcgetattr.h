@@ -1,7 +1,7 @@
 #ifndef tcgetattr_h
 #define tcgetattr_h
 
-#include <sys/termios.h>
+//#include <sys/termios.h>
 //#include "ioctl.h"
 #include <sys/ttycom.h>
 

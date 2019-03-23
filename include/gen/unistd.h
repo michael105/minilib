@@ -16,12 +16,12 @@ static inline int volatile __attribute__((always_inline)) close( int fd );
 // file: include/read.h
 #include "include/read.h"
 // file: include/read.h
-inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len );
+static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len );
 
 // file: include/select.h
 #include "include/select.h"
 // file: include/select.h
-inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
 // file: include/write.h
 #include "include/write.h"
@@ -31,9 +31,9 @@ inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_se
 
 
 #ifdef mini_INCLUDESRC
+#include "include/close.h"
 #include "include/read.h"
 #include "include/select.h"
-#include "include/close.h"
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.
