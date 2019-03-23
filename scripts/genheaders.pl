@@ -10,6 +10,18 @@ my $funchash;
 my $depends;
 
 
+BEGIN{
+		use File::Basename;
+		($name,$path,$suffix) = fileparse ($0);
+		print "path: $path";
+		push @INC, "$path";
+}
+
+
+
+require "cref.pm";
+
+
 # ansicolors
 #define AC_BLACK "\033[0;30m"
 #define AC_RED "\033[0;31m"
@@ -116,6 +128,7 @@ while ( my $file = shift ){
 								$tag = 0;
 						} while (defined($l) && ($l=~ /^\/\/\+(\S*)/) );
 						if ( $func ){
+								if ( exist($functiondict->{$func}) ){
 								$funchash->{$func} = $f;
 								if ( exists($f->{dep} )){
 										$depends->{$func} = $f->{dep};
