@@ -1,0 +1,251 @@
+
+_IOFBF stdio.h
+_IOLBF stdio.h
+_IONBF stdio.h
+
+abort() stdlib.h
+abs() stdlib.h
+acos() math.h
+asctime() time.h
+asin() math.h
+assert() assert.h
+atan() math.h
+atan2() math.h
+atexit() stdlib.h
+atof() stdlib.h
+atoi() stdlib.h
+atol() stdlib.h
+auto Identifiers
+
+break Statements
+bsearch() stdlib.h
+BUFSIZ stdio.h
+
+calloc() stdlib.h
+ceil() math.h
+char Identifiers
+clearerr() stdio.h
+clock() time.h
+clock_t time.h
+CLOCKS_PER_SEC time.h
+const Identifiers
+continue Statements
+cos() math.h
+cosh() math.h
+ctime() time.h
+
+difftime() time.h
+div() stdlib.h
+div_t stdlib.h
+do Statements
+double Identifiers
+
+EDOM errno.h
+enum Identifiers
+EOF stdio.h
+ERANGE errno.h
+errno errno.h
+exit() stdlib.h
+EXIT_FAILURE stdlib.h
+EXIT_SUCCESS stdlib.h
+exp() math.h
+extern Identifiers
+
+fabs() math.h
+fclose() stdio.h
+feof() stdio.h
+ferror() stdio.h
+fflush() stdio.h
+fgetc() stdio.h
+fgetpos() stdio.h
+fgets() stdio.h
+FILE stdio.h
+FILENAME_MAX stdio.h
+float Identifiers
+floor() math.h
+fmod() math.h
+fopen() stdio.h
+FOPEN_MAX stdio.h
+for Statements
+fpos_t stdio.h
+fprintf() stdio.h
+fputc() stdio.h
+fputs() stdio.h
+fread() stdio.h
+free() stdlib.h
+freopen() stdio.h
+frexp() math.h
+fscanf() stdio.h
+fseek() stdio.h
+fsetpos() stdio.h
+ftell() stdio.h
+fwrite() stdio.h
+
+getc() stdio.h
+getchar() stdio.h
+getenv() stdlib.h
+gets() stdio.h
+gmtime() time.h
+goto Statements
+
+HUGE_VAL math.h
+
+if Statements
+isalnum() ctype.h
+isalpha() ctype.h
+iscntrl() ctype.h
+isdigit() ctype.h
+isgraph() ctype.h
+islower() ctype.h
+isprint() ctype.h
+ispunct() ctype.h
+isspace() ctype.h
+isupper() ctype.h
+isxdigit() ctype.h
+
+jmp_buf setjmp.h
+
+L_tmpnam stdio.h
+labs() stdlib.h
+LC_ALL locale.h
+LC_COLLATE locale.h
+LC_CTYPE locale.h
+LC_MONETARY locale.h
+LC_NUMERIC locale.h
+LC_TIME locale.h
+ldexp() math.h
+ldiv() stdlib.h
+ldiv_t stdlib.h
+linkage Identifiers
+localeconv() locale.h
+localtime() time.h
+log() math.h
+log10() math.h
+long Identifiers
+longjmp() setjmp.h
+
+malloc() stdlib.h
+MB_CUR_MAX stdlib.h
+mblen() stdlib.h
+mbstowcs() stdlib.h
+mbtowc() stdlib.h
+memchr() string.h
+memcmp() string.h
+memcpy() string.h
+memmove() string.h
+memset() string.h
+mktime() time.h
+modf() math.h
+
+NDEBUG assert.h
+NULL time.h string.h stdlib.h stdio.h stddef.h locale.h
+
+offsetof() stddef.h
+
+perror() stdio.h
+pow() math.h
+printf() stdio.h
+ptrdiff_t stddef.h
+putc() stdio.h
+putchar() stdio.h
+puts() stdio.h
+
+qsort() stdlib.h
+
+raise() signal.h
+rand() stdlib.h
+RAND_MAX stdlib.h
+realloc() stdlib.h
+register Identifiers
+remove() stdio.h
+rename() stdio.h
+return Statements
+rewind() stdio.h
+
+scanf() stdio.h
+scope Identifiers
+SEEK_CUR stdio.h
+SEEK_END stdio.h
+SEEK_SET stdio.h
+setbuf() stdio.h
+setjmp() setjmp.h
+setlocale() locale.h
+setvbuf() stdio.h
+short Identifiers
+sig_atomic_t signal.h
+SIG_DFL signal.h
+SIG_ERR signal.h
+SIG_IGN signal.h
+SIGABRT signal.h
+SIGFPE signal.h
+SIGILL signal.h
+SIGINT signal.h
+signed Identifiers
+SIGSEGV signal.h
+SIGTERM signal.h
+signal() signal.h
+sin() math.h
+sinh() math.h
+size_t time.h string.h stdlib.h stdio.h stddef.h
+sizeof Identifiers
+sprintf() stdio.h
+sqrt() math.h
+srand() stdlib.h
+sscanf() stdio.h
+static Identifiers
+stderr stdio.h
+stdin stdio.h
+stdout stdio.h
+strcat() string.h
+strncat() string.h
+strchr() string.h
+strcmp() string.h
+strncmp() string.h
+strcoll() string.h
+strcpy() string.h
+strncpy() string.h
+strcspn() string.h
+strerror() string.h
+strftime() time.h
+strlen() string.h
+strpbrk() string.h
+strrchr() string.h
+strspn() string.h
+strstr() string.h
+strtod() stdlib.h
+strtok() string.h
+strtol() stdlib.h
+strtoul() stdlib.h
+struct Indentifiers
+strxfrm() string.h
+switch Statements
+system() stdlib.h
+
+tan() math.h
+tanh() math.h
+time() time.h
+tm time.h
+TMP_MAX stdio.h
+tmpfile() stdio.h
+tmpnam() stdio.h
+tolower() ctype.h
+toupper() ctype.h
+typedef Identifiers
+
+ungetc() stdio.h
+unions Identifiers
+
+va_arg() stdarg.h
+va_end() stdarg.h
+va_list stdarg.h
+va_start() stdarg.h
+vfprintf() stdio.h
+void Identifiers
+vprintf() stdio.h
+vsprintf() stdio.h
+
+wcstombs() stdlib.h
+wctomb() stdlib.h
+wchar_t stdlib.h stddef.h
+while Statements
+
