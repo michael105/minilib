@@ -5103,6 +5103,8 @@ void _start(){
 ml.mbufsize = mini_buf;
 #endif
 __asm__("\
+#.global _start\n\
+#_start:\n\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
 	leaq  8(%rsi,%rdi,8),%rdx\n\
@@ -7077,7 +7079,7 @@ int ipoweri(int x, int n){
 // f: src/open.c
 #ifndef open_c
 #define open_c
-
+//+ansi fcntl.h
 
 //#include "syscall.h"
 // XXXXXXXXXXXXXXXXXX*************** file: include/filemodes.h 

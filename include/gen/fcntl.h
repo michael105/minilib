@@ -4,12 +4,16 @@
 #ifndef ansi_fcntl_h
 #define ansi_fcntl_h
 
-// file: include/open.h
-#include "include/open.h"
-// file: include/open.h
+// Content of fcntl.h.in
+// 
+#include "include/stdarg.h"
+// end of fcntl.h.in
+
+
+// file: src/open.c
 int volatile open( const char *s, int flags, ... );
 
-// file: include/open.h
+// file: src/open.c
 inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
 
 
@@ -18,7 +22,7 @@ inline int volatile __attribute__((always_inline)) creat( const char *s, int mod
 
 
 #ifdef mini_INCLUDESRC
-#include "include/open.h"
+#include "src/open.c"
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.

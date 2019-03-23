@@ -1,6 +1,6 @@
 #ifndef open_c
 #define open_c
-
+//+ansi fcntl.h
 
 //#include "syscall.h"
 #include "include/filemodes.h"

@@ -2,7 +2,7 @@
 
 
 ifndef PROG
-PROG=sstrip
+PROG=shrinkelf
 endif
 
 # where to build object files (defaults to ./ )
@@ -23,7 +23,7 @@ NOINCLUDE=1
 # include only the Text section in the resulting elf output
 ONLYTEXT= true 
 
-ELFTRUNC=1
+SHRINKELF=1
 
 # Set the optimization flag (default: -O1)
 # Be careful with that, -Os as well as -O2 seem to be problematic
@@ -45,22 +45,22 @@ endif
 
 
 
-default: sstrip.c
+default: shrinkelf.c
 	$(if $(wildcard $(MLIBDIR)/makefile.include), make with-minilib=1, make native)
 	
 native:
-	gcc -o sstrip sstrip.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs
+	gcc -o shrinkelf shrinkelf.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs
 
 
 truem: true.c
 	make with-minilib=1 PROG=true
 
-sstrip32: sstrip32.c
-	#gcc -o sstrip superstrip.c
-	gcc -o sstrip32 superstrip.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs
+shrinkelf32: shrinkelf32.c
+	#gcc -o shrinkelf superstrip.c
+	gcc -o shrinkelf32 superstrip.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs
 
-sstrip64: sstrip64.c
-	gcc -o sstrip64 sstrip64.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs
+shrinkelf64: shrinkelf64.c
+	gcc -o shrinkelf64 shrinkelf64.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs
 
 cleanm:
 	rm superstrip

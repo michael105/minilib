@@ -28,7 +28,7 @@ OPTFLAG=-O1
 
 
 # Truncate elf binaries
-ELFTRUNC=1
+SHRINKELF=1
 
 
 # configsettings ending here
