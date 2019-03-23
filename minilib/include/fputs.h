@@ -8,6 +8,7 @@
 
 int strlen(const char*str);
 
+//+depends strlen
 //+def
 static inline int volatile fputs(const char *c, int fd){
 		return(write(fd, c, strlen(c)));

@@ -11,8 +11,11 @@
 #define TCSETS TIOCSETA
 #endif
 
-inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io)
-{
+//+needs sys/ttycom.h termios.h
+//+ansi unistd.h
+//+depends ioctl
+//+def
+inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
 	return(ioctl(fd, TCSETS +opt, io));
 	//return(ioctl(fd, 0x5402+opt, io));
 }

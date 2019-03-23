@@ -11,10 +11,11 @@
 #define TCGETS TIOCGETA
 #endif
 
-
-
-static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io)
-{
+//+ansi unistd.h
+//+needs sys/ttycom.h
+//+depends ioctl
+//+def
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
 	//return(ioctl(fd, 0x5401, io));
 	return(ioctl(fd, TCGETS, io));
 
