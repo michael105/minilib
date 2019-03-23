@@ -7,7 +7,7 @@
 //int mbufsize=mini_buf; // crash.
 //int mbufsize=0;
 
-//+def
+///+def
 //int ibuf[mini_buf>>2];
 //char *mbuf = (char*)ibuf;
 

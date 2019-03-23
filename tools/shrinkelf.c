@@ -193,7 +193,7 @@ static void read_hdrs ()
 
   if (memcmp(ehdr.e_ident, ELFMAG,SELFMAG))
     err("%s is not an ELF file", oldname) ;
-  if (ehdr.e_ident[EI_CLASS] != ELFCLASS64){
+  if (ehdr.e_ident[EI_CLASS] != ELFCLASS64){ // misc still need to add elf32 support again.
     err("%s: ELF class %d not supported", oldname, ehdr.e_ident[EI_CLASS]);
   }
   {

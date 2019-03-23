@@ -4,7 +4,7 @@ my $fhhash;
 # Where to put the generated ansi/posix headers
 my $ansidir = shift;
 # Header file for storing defines
-my $mlh = shift;
+#my $mlh = shift;
 
 my $funchash;
 my $depends;
@@ -81,9 +81,13 @@ while ( my $file = shift ){
 										$f->{ansi} = $c or die;
 								} elsif ( $tag eq 'def' ){
 										$f->{def} = <F>;
-										print "def: $f->{def} l: $l";
-										$f->{def} =~ /.* (\S*)\(.+?\)\{.*$/;
-										$func = $1;
+										print "def: $f->{def} $file: $l";
+										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
+												$func = $2;
+										} else {
+												$f->{def} =~ /.* \**(\S*)\(.+?\)\{.*$/;
+												$func = $1;
+										}
 										print "func: $LR $func $N\n";
 										$f->{def} =~ s/\{.*$/;/;
 										print "def: $Y $f->{def} $N l: $l";
@@ -94,6 +98,8 @@ while ( my $file = shift ){
 								} elsif ( $tag eq 'depends' ){
 										$f->{dep} = $c;
 										print "$LG depends: $f->{dep} $N\n";
+								} elsif ( $tag eq 'after' ){
+										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
 								} elsif( $tag eq 'inc' ){
 										print {ansifh($ansi)} "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
@@ -161,7 +167,8 @@ sub printdepend{
 # or define the needed functions.
 sub headerinclude{
 		my $i = shift;
-		print "\n#ifdef mini_$i\n";
+		print "\n// $funchash->{$i}->{file}\n";
+		print "#ifdef mini_$i\n";
 		if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
 				if ( exists($funchash->{$i}->{needs}) ){
 						foreach my $c ( split( " ", $funchash->{$i}->{needs} ) ){

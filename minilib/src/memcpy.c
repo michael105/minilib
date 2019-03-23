@@ -22,6 +22,7 @@ char *strcpy(char *dest, const char *src){
 		return(dest);
 }
 
+//+depends memcpy
 //+def
 char *strncpy(char *dest, const char *src, int n){
 		return( memcpy( dest, src, n ) );

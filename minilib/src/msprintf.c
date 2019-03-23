@@ -17,6 +17,8 @@
 
 
 //+ansi stdio.h
+//+depends write
+//+needs exit.h stdarg.h overrun.h
 //+def
 int sprintf(char *buf, const char* fmt, ... ){
 		va_list args;

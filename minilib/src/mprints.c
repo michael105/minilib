@@ -40,6 +40,9 @@ int _mprints(char *msg,...){
 }
 
 #else
+
+//+needs write.h mprints.h stdarg.h
+//+depends write
 int _mprints(char *msg,...){
 		va_list args;
 		va_start(args,msg);

@@ -105,6 +105,7 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 }
 
 	
+//+depends uitodec
 //+def
 int itodec(int i, char *buf, int prec, char limiter ){
 	if ( i < 0 ){

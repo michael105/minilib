@@ -16,6 +16,8 @@
 		return(ret);
 }*/
 // +64 bytes.
+
+//+def
 DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 

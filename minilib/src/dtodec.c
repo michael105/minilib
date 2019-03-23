@@ -5,6 +5,7 @@
 //max. prec after the dot: 8 digits. (!!)
 
 //+ansi stdio.h
+//+depends uitodec
 //+def
 int dtodec(double d, char* buf, int precision){
 		int i = (int) d;

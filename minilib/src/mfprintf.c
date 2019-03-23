@@ -14,7 +14,7 @@
 #include "../include/write.h"
 #include "../include/minilib_global.h"
 //#include "../include/exit.h" // Needed for testing for ml.mbuffer overrun
-#include "mprints.c"
+//#include "mprints.c"
 #include "../include/stdarg.h"
 //#include <stdarg.h>
 //#include "ml.mbuf.c"
@@ -31,6 +31,8 @@
 /// %(
 /// 
 //+ansi stdio.h
+//+depends write
+//+after itobin atoi itodec dtodec ltodec itohex
 //+def
 int fprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;

@@ -1,6 +1,10 @@
 ===== TODO =====
 
 
+
+printf and sprintf should be the same!! ?
+
+
 Cleanup the build "system"
   makefiles are getting .. confusing
 
