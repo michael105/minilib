@@ -1285,12 +1285,13 @@ extern int errno;
 // so static inline even results often in smaller codesize than not inlining.
 //
 
-// memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
+
+// memory clobber is needed, gcc optimizes syscalls very likely away without
+#define __callend : "memory","rcx", "r11" )
 //(also osx)
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret)  : "a" ( (call | NCONST ) )
 #else
@@ -1298,6 +1299,8 @@ extern int errno;
 #define __SYSCALL_ASM(ret,call) asm volatile ("call *__mini_vsys" : "=a" (ret)  : "a" (call)
 #else
 //linux32bit
+// memory clobber is needed, gcc optimizes syscalls very likely away without
+#define __callend : "memory" )
 #define __SYSCALL_ASM(ret,call) asm volatile ("int $0x80" : "=a" (ret)  : "a" (call)
 #endif
 #endif
@@ -2237,7 +2240,6 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#undef exit
 
 
-
 #ifdef X64
 #define exit(ret) asm("jmp _exit"::"D"(ret))
 #else
@@ -2508,6 +2510,8 @@ extern int printl(const char *msg);
 //extern int mbufsize;
 //#endif
 
+void _exit();
+
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
 
@@ -2523,7 +2527,6 @@ extern int printl(const char *msg);
 //#include "syscall.h"
 //#undef write
 //#undef exit
-
 
 
 #ifdef X64

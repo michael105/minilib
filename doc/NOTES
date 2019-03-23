@@ -1,6 +1,22 @@
 ### assorted notes
 
 
+
+It's sort of hard to disassemble the compiled binaries.
+common tools dont work, cause of missing section headers /
+They dont disassemble the whole files.
+
+What worked:
+
+dump out the file as hex
+hexdump hello-combined | perl -pe 's/^\S*//'
+
+use the live view at 
+https://onlinedisassembler.com/odaweb/xEtAyUIX/0
+
+
+
+
 git:
 
 

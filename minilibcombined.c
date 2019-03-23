@@ -1295,12 +1295,13 @@ extern int errno;
 // so static inline even results often in smaller codesize than not inlining.
 //
 
-// memory clobber is needed, gcc optimizes syscalls very likely away without
 //#define __callend : "rcx" )
-#define __callend : "memory","rcx", "r11" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
+
+// memory clobber is needed, gcc optimizes syscalls very likely away without
+#define __callend : "memory","rcx", "r11" )
 //(also osx)
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret)  : "a" ( (call | NCONST ) )
 #else
@@ -1308,6 +1309,8 @@ extern int errno;
 #define __SYSCALL_ASM(ret,call) asm volatile ("call *__mini_vsys" : "=a" (ret)  : "a" (call)
 #else
 //linux32bit
+// memory clobber is needed, gcc optimizes syscalls very likely away without
+#define __callend : "memory" )
 #define __SYSCALL_ASM(ret,call) asm volatile ("int $0x80" : "=a" (ret)  : "a" (call)
 #endif
 #endif
@@ -2247,7 +2250,6 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#undef exit
 
 
-
 #ifdef X64
 #define exit(ret) asm("jmp _exit"::"D"(ret))
 #else
@@ -2518,6 +2520,8 @@ extern int printl(const char *msg);
 //extern int mbufsize;
 //#endif
 
+void _exit();
+
 #ifdef mini_exit
 // XXXXXXXXXXXXXXXXXX*************** file: exit.h 
 
@@ -2533,7 +2537,6 @@ extern int printl(const char *msg);
 //#include "syscall.h"
 //#undef write
 //#undef exit
-
 
 
 #ifdef X64
@@ -3932,14 +3935,14 @@ extern minilib_globals ml;
 #ifdef mini_buf
 minilib_globals ml;
 //
-void minilib_global_init(){ // this is callen by startup.c
-	ml.mbufsize = mini_buf;
+//void minilib_global_init(){ // this is callen by startup.c
+//	ml.mbufsize = mini_buf;
   //ibuf = (int*)mbuf;
-}
+//}
 //
 #else
 //
-void minilib_global_init(){} // this is callen by startup.c
+//void minilib_global_init(){} // this is callen by startup.c
 //
 #endif
 
@@ -4416,7 +4419,6 @@ int printl(const char *msg){
 //#include "syscall.h"
 //#undef write
 //#undef exit
-
 
 
 #ifdef X64
@@ -5097,7 +5099,9 @@ void _start(){
 // dbg("Startup -xx"); // no arguments allowed here. 
 // otherwise argv[] gets confused
 // Or we would have to add some further bloating bytes
-minilib_global_init();
+#ifdef mini_buf
+ml.mbufsize = mini_buf;
+#endif
 __asm__("\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
@@ -5122,17 +5126,33 @@ _exit:\n\
 // O: src/start-linux-x32.c
 // O: asm/start-linux-x32.c
 #ifdef mini_start
+//#include "src/start_c.c"
 void _start(){
+// XXXXXXXXXXXXXXXXXX*************** file: src/startup.c 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// YYYYYYYYYYYYYY   Already included: src/startup.c
+// Path: src  Name startup.c
+// f: src/startup.c
+// This is "callen" just before main.
+// 
+// dbg("Startup -xx"); // no arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+#ifdef mini_buf
+ml.mbufsize = mini_buf;
+#endif
 __asm__("\
 #.global _start\n\
 #_start:\n\
 	pop %eax\n\
-	leal  12(%esp,%eax,4),%ebx\n\
-	push %ebx\n\
-	call __start_c\n\
-	pop %ebx\n\
-	pop %eax\n\
-	mov %esp,%ecx\n\
+	leal  12(%esp,%eax,4),%ebx\n"
+//#	push %ebx\n\
+#	call __start_c\n\
+//	pop %ebx\n
+  "pop %eax\n\
+  mov %esp,%ecx\n\
 	push %ebx\n\
 	push %ecx\n\
 	push %eax\n\
@@ -5162,9 +5182,28 @@ _exit:\n\
 // O: src/start-osx.c
 // O: asm/start-osx.c
 #ifdef mini_start
+// Not tested yet
+//
+void start(){
+// XXXXXXXXXXXXXXXXXX*************** file: src/startup.c 
+
+// Current path: /home/micha/prog/g2it-minilib
+
+// YYYYYYYYYYYYYY   Already included: src/startup.c
+// Path: src  Name startup.c
+// f: src/startup.c
+// This is "callen" just before main.
+// 
+// dbg("Startup -xx"); // no arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+#ifdef mini_buf
+ml.mbufsize = mini_buf;
+#endif
 __asm__ volatile (
-		".globl start\n\t"
-		"start:	pushq	$0\n\t"
+//		".globl start\n\t"
+//		"start:	
+		"pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"
 		"andq    $-16,%rsp\n\t"
 		"movq	8(%rbp),%rdi\n\t"
@@ -5186,6 +5225,7 @@ __asm__ volatile (
 		"movl $0x2000001, %eax\n\t"
 		"syscall\n\t"
 	);
+} 
 #endif
 
 #endif
@@ -5461,7 +5501,6 @@ int _mprints(char *msg,...){
 //#undef exit
 
 
-
 #ifdef X64
 #define exit(ret) asm("jmp _exit"::"D"(ret))
 #else
@@ -5557,7 +5596,6 @@ DEF_syscall(write,3,int a1,const void *a2, int a3 )
 //#include "syscall.h"
 //#undef write
 //#undef exit
-
 
 
 #ifdef X64
@@ -7224,8 +7262,8 @@ inline int volatile __attribute__((always_inline)) creat( const char *s, int mod
 
 
 
-FILE* volatile fopen( const char *s, const char *mode ){
-		int m = 0;
+//FILE* volatile fopen( const char *s, const char *mode ){
+//		int m = 0;
 
 
 

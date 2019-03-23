@@ -1,7 +1,12 @@
 #ifdef mini_start
+// Not tested yet
+//
+void start(){
+#include "src/startup.c"
 __asm__ volatile (
-		".globl start\n\t"
-		"start:	pushq	$0\n\t"
+//		".globl start\n\t"
+//		"start:	
+		"pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"
 		"andq    $-16,%rsp\n\t"
 		"movq	8(%rbp),%rdi\n\t"
@@ -23,5 +28,6 @@ __asm__ volatile (
 		"movl $0x2000001, %eax\n\t"
 		"syscall\n\t"
 	);
+} 
 #endif
 

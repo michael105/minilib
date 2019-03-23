@@ -20,7 +20,11 @@ SECTIONS
 		.text           :
 		{
 				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text.main .text.main.*)
 						*(.text.exit .text.exit.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
 						*(.text.startup .text.startup.*)
 						*(.text.hot .text.hot.*)
 						*(.text .stub .text.* .gnu.linkonce.t.*)

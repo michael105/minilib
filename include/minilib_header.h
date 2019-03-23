@@ -156,6 +156,8 @@ extern int printl(const char *msg);
 //extern int mbufsize;
 //#endif
 
+void _exit();
+
 #ifdef mini_exit
 #include "exit.h"
 #endif

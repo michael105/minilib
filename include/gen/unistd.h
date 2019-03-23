@@ -31,9 +31,9 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
 
 
 #ifdef mini_INCLUDESRC
-#include "include/close.h"
-#include "include/read.h"
 #include "include/select.h"
+#include "include/read.h"
+#include "include/close.h"
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
 // Need start.c included. Doesn't matter by which file.

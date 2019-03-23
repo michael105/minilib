@@ -24,7 +24,7 @@ GCC=gcc
 
 STRIP=1
 
-#ELFTRUNC=1
+ELFTRUNC=1
 
 ONLYTEXT = hello-smallest hello-include 
 
