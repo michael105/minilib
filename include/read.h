@@ -9,7 +9,7 @@
 
 
 //+def
-inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
+static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
 		//setup_syscall3(SYS_write,fd,(int)s,len);
 		//MINI_TEST_OVERRUN(len);
 		int ret;
