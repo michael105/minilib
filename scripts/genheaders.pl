@@ -13,22 +13,30 @@ my $depends;
 # ansicolors
 #define AC_BLACK "\033[0;30m"
 #define AC_RED "\033[0;31m"
-#define AC_GREEN "\033[32;0m"
+$G= "\033[32;0m"; # Green
 #define AC_BROWN "\033[0;33m"
 #define AC_BLUE "\033[0;34m"
-#define AC_MAGENTA "\033[0;35m"
+$C = "\033[0;35m"; # Cyan
 #define AC_MARINE "\033[0;36m"
 #define AC_LGREY "\033[0;37m"
-$N= "\033[0;38m";
+$N= "\033[0;38m"; # White
 
 #define AC_GREY "\033[1;30m" 
-$LR = "\033[1;31m"; 
-$LG =  "\033[1;32m";
-$Y =  "\033[1;33m";
+$LR = "\033[1;31m"; # Light red
+$LG =  "\033[1;32m"; # Light green
+$Y =  "\033[1;33m"; # Yellow
 #define AC_LBLUE "\033[1;34m"
 #define AC_LMAGENTA "\033[1;35m"
 #define AC_LMARINE "\033[1;36m"
 #define AC_LWHITE "\033[1;37m"
+
+
+sub dbg{
+		while ( my $s = shift ){
+				print $s;
+		}
+		print "\n";
+}
 
 
 # gets called for each ansi header referenced
@@ -196,7 +204,27 @@ foreach my $i ( keys(%{$includefirst}) ){
 foreach my $i ( keys(%{$funchash}) ){
 		headerinclude( $i );
 }
+
+
+# end header file here..
+dbg("$C"."==================$N");
+
+
 # braucht noch, fuer source: after ( z.B. printf nach uitodec )
+
+sub sourceinclude{
+				my $i = shift;
+				print "\n// $funchash->{$i}->{file}\n";
+				print "#ifdef mini_$i\n";
+				print "#include \"$funchash->{$i}->{file}\"\n";
+				print "#endif\n";
+}
+
+foreach my $f ( keys(%{$funchash}) ){
+		if ( $funchash->{$f}->{file} =~ /\S\.c$/ ){
+				sourceinclude( $f );
+		}
+}
 
 
 
