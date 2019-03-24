@@ -113,6 +113,9 @@ while ( my $file = shift ){
 				my $tag = 0;
 				my $func = 0;
 				$f->{file} = $file;
+				if ( $l =~ /^DEF_syscall(ret)*.(.*?),/ ){
+						$func = $2;
+				}
 
 				if ($l=~ /^\/\/\+/){
 						do {
@@ -154,31 +157,31 @@ while ( my $file = shift ){
 								$l = <F>;
 								$tag = 0;
 						} while (defined($l) && ($l=~ /^\/\/\+(\S*)/) );
-						if ( $func ){
-								if ( exists( $functiondict->{$func} ) && ( length($functiondict->{$func})>3) ){ # standard function.
-										$f->{header} = $functiondict->{$func}->{header};
-										#$header} = $functiondict->{$func}->{header};
-										$functiondict->{$func}->{implementation} = $file;
-								} else { 
-										#$mlfunchash->{$func}= $f; # no standard function
-										print "Header::: XXXX $f->{header}\n";
-										if ( !$header ){
-												$f->{header} = "miniextras.h";
-										} else {
-												$f->{header} = $header;
-										}
+				}
+				if ( $func ){
+						if ( exists( $functiondict->{$func} ) && ( length($functiondict->{$func})>3) ){ # standard function.
+								$f->{header} = $functiondict->{$func}->{header};
+								#$header} = $functiondict->{$func}->{header};
+								$functiondict->{$func}->{implementation} = $file;
+						} else { 
+								#$mlfunchash->{$func}= $f; # no standard function
+								print "Header::: XXXX $f->{header}\n";
+								if ( !$header ){
+										$f->{header} = "miniextras.h";
+								} else {
+										$f->{header} = $header;
 								}
-								$headerhash->{$f->{header}}->{$func}=1;
-								$funchash->{$func} = $f;
-								if ( exists($f->{dep} )){
-										$depends->{$func} = $f->{dep};
-								}
+						}
+						$headerhash->{$f->{header}}->{$func}=1;
+						$funchash->{$func} = $f;
+						if ( exists($f->{dep} )){
+								$depends->{$func} = $f->{dep};
+						}
 
-								if ( $f->{header} && $f->{def} ){
-										print "header: $f->{header}\n def: $f->{def}\n";
-										print ${headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
-										$fhhash->{sources}->{$f->{header}}->{$file} = 1;
-								}
+						if ( $f->{header} && $f->{def} ){
+								print "header: $f->{header}\n def: $f->{def}\n";
+								print ${headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
+								$fhhash->{sources}->{$f->{header}}->{$file} = 1;
 						}
 				}
 

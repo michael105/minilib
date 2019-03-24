@@ -27,9 +27,9 @@ int sprintf(char *buf, const char* fmt, ... );
 #ifdef mini_INCLUDESRC
 
 #include "include/fputs.h"
-#include "src/msprintf.c"
 #include "src/mfprintf.c"
 #include "include/fputc.h"
+#include "src/msprintf.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

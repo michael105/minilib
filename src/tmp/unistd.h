@@ -47,13 +47,13 @@ int volatile open( const char *s, int flags, ... );
 
 #ifdef mini_INCLUDESRC
 
+#include "src/open.c"
 #include "include/tcsetattr.h"
+#include "include/select.h"
+#include "include/tcgetattr.h"
 #include "include/read.h"
 #include "include/write.h"
 #include "include/close.h"
-#include "include/select.h"
-#include "src/open.c"
-#include "include/tcgetattr.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

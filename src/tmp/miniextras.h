@@ -39,11 +39,11 @@ int printl(const char *msg);
 #ifdef mini_INCLUDESRC
 
 #include "src/dtodec.c"
-#include "src/itohex.c"
-#include "src/memfrob.c"
-#include "src/mprint.c"
-#include "src/itobin.c"
 #include "src/itodec.c"
+#include "src/memfrob.c"
+#include "src/itobin.c"
+#include "src/itohex.c"
+#include "src/mprint.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

@@ -8,9 +8,39 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define included_minilib_h
 
 
+#ifdef mini_itodec
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
 #ifdef mini_tcsetattr
 #ifndef mini_ioctl
 #define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_strncpy
+#ifndef mini_memcpy
+#define mini_memcpy
+#endif
+#endif
+
+#ifdef mini_tcgetattr
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_fputs
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_dtodec
+#ifndef mini_uitodec
+#define mini_uitodec
 #endif
 #endif
 
@@ -26,173 +56,24 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #endif
 #endif
 
-#ifdef mini_itodec
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_fputs
-#ifndef mini_strlen
-#define mini_strlen
-#endif
+// src/memcpy.c
+#ifdef mini_memcpy
+void *memcpy( void *d, const void *s, int n );
 #endif
 
-#ifdef mini_strncpy
-#ifndef mini_memcpy
-#define mini_memcpy
-#endif
-#endif
-
-#ifdef mini_dtodec
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
+// include/write.h
+#ifdef mini_write
+#include "include/write.h"
 #endif
 
-#ifdef mini_tcgetattr
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
+// src/ioctl.c
+#ifdef mini_ioctl
+int ioctl( int fd, unsigned long int request, ... );
 #endif
 
 // src/mstrlen.c
 #ifdef mini_strlen
 int strlen(const char*str);
-#endif
-
-// src/itodec.c
-#ifdef mini_uitodec
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-#endif
-
-// include/write.h
-#ifdef mini_write
-#include "include/write.h"
-#endif
-
-// src/ioctl.c
-#ifdef mini_ioctl
-int ioctl( int fd, unsigned long int request, ... );
-#endif
-
-// src/memcpy.c
-#ifdef mini_memcpy
-void *memcpy( void *d, const void *s, int n );
-#endif
-
-// src/strcat.c
-#ifdef mini_strcat
-char *strcat(char *dest, const char *src );
-#endif
-
-// include/tcgetattr.h
-#ifdef mini_tcgetattr
-#include "sys/ttycom.h"
-#include "include/tcgetattr.h"
-#endif
-
-// src/mprint.c
-#ifdef mini_print
-int print(const char *msg);
-#endif
-
-// src/memcpy.c
-#ifdef mini_strncpy
-char *strncpy(char *dest, const char *src, int n);
-#endif
-
-// include/close.h
-#ifdef mini_close
-#include "include/close.h"
-#endif
-
-// src/open.c
-#ifdef mini_creat
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
-#endif
-
-// src/ioctl.c
-#ifdef mini_ioctl
-int ioctl( int fd, unsigned long int request, ... );
-#endif
-
-// src/mstrcmp.c
-#ifdef mini_strncmp
-int strncmp(const char*c1,const char*c2,int len);
-#endif
-
-// src/memcpy.c
-#ifdef mini_memcpy
-void *memcpy( void *d, const void *s, int n );
-#endif
-
-// src/malloc.c
-#ifdef mini_free
-void volatile free(void* p);
-#endif
-
-// src/memcpy.c
-#ifdef mini_strcpy
-char *strcpy(char *dest, const char *src);
-#endif
-
-// src/isspace.c
-#ifdef mini_isspace
-int isspace(int c);
-#endif
-
-// include/write.h
-#ifdef mini_write
-#include "include/write.h"
-#endif
-
-// src/itohex.c
-#ifdef mini_itohex
-int itohex(int i,char* buf,int padding);
-#endif
-
-// include/read.h
-#ifdef mini_read
-#include "syscall.h"
-#include "include/read.h"
-#endif
-
-// include/tcsetattr.h
-#ifdef mini_tcsetattr
-#include "sys/ttycom.h"
-#include "termios.h"
-#include "include/tcsetattr.h"
-#endif
-
-// include/isprint.h
-#ifdef mini_isprint
-#include "include/isprint.h"
-#endif
-
-// src/atoi.c
-#ifdef mini_atoi
-int atoi(char *c);
-#endif
-
-// include/fputs.h
-#ifdef mini_fputs
-#include "include/fputs.h"
-#endif
-
-// src/itobin.c
-#ifdef mini__itobin
-int _itobin(int i, char*buf, int prec, int groups );
-#endif
-
-// src/msprintf.c
-#ifdef mini_sprintf
-int sprintf(char *buf, const char* fmt, ... );
-#endif
-
-// src/memset.c
-#ifdef mini_memset
-void *memset( void *s, int c, int n);
 #endif
 
 // src/itodec.c
@@ -205,9 +86,39 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter );
 int dtodec(double d, char* buf, int precision);
 #endif
 
+// include/write.h
+#ifdef mini_write
+#include "include/write.h"
+#endif
+
 // src/mstrcmp.c
 #ifdef mini_strcmp
 int strcmp(const char*c1,const char*c2);
+#endif
+
+// include/lseek.h
+#ifdef mini_lseek
+#include "include/lseek.h"
+#endif
+
+// src/mstrcmp.c
+#ifdef mini_strncmp
+int strncmp(const char*c1,const char*c2,int len);
+#endif
+
+// src/mprint.c
+#ifdef mini_print
+int print(const char *msg);
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_gettimeofday
+#include "include/syscall_stubs.h"
+#endif
+
+// src/msprintf.c
+#ifdef mini_sprintf
+int sprintf(char *buf, const char* fmt, ... );
 #endif
 
 // src/itodec.c
@@ -215,9 +126,34 @@ int strcmp(const char*c1,const char*c2);
 int itodec(int i, char *buf, int prec, char limiter );
 #endif
 
-// src/mstrcmp.c
-#ifdef mini_memcmp
-int memcmp(const void* c1,const void* c2,int len);
+// src/isspace.c
+#ifdef mini_isspace
+int isspace(int c);
+#endif
+
+// src/itodec.c
+#ifdef mini_uitodec
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_getpid
+#include "include/syscall_stubs.h"
+#endif
+
+// src/itobin.c
+#ifdef mini__itobin
+int _itobin(int i, char*buf, int prec, int groups );
+#endif
+
+// include/fputs.h
+#ifdef mini_fputs
+#include "include/fputs.h"
+#endif
+
+// src/memcpy.c
+#ifdef mini_strcpy
+char *strcpy(char *dest, const char *src);
 #endif
 
 // src/open.c
@@ -225,9 +161,60 @@ int memcmp(const void* c1,const void* c2,int len);
 int volatile open( const char *s, int flags, ... );
 #endif
 
-// include/select.h
-#ifdef mini_select
-#include "include/select.h"
+// include/syscall_stubs.h
+#ifdef mini_dup2
+#include "include/syscall_stubs.h"
+#endif
+
+// include/lseek.h
+#ifdef mini_fsync
+#include "include/lseek.h"
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_time
+#include "include/syscall_stubs.h"
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_fstat
+#include "include/syscall_stubs.h"
+#endif
+
+// include/read.h
+#ifdef mini_read
+#include "syscall.h"
+#include "include/read.h"
+#endif
+
+// src/malloc.c
+#ifdef mini_free
+void volatile free(void* p);
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_rename
+#include "include/syscall_stubs.h"
+#endif
+
+// src/open.c
+#ifdef mini_creat
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+#endif
+
+// src/memset.c
+#ifdef mini_memset
+void *memset( void *s, int c, int n);
+#endif
+
+// src/strcat.c
+#ifdef mini_strcat
+char *strcat(char *dest, const char *src );
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_dup
+#include "include/syscall_stubs.h"
 #endif
 
 // src/mstrlen.c
@@ -235,9 +222,72 @@ int volatile open( const char *s, int flags, ... );
 int strlen(const char*str);
 #endif
 
+// src/memfrob.c
+#ifdef mini_memfrob
+void* memfrob(void* s, unsigned int len);
+#endif
+
+// src/itohex.c
+#ifdef mini_itohex
+int itohex(int i,char* buf,int padding);
+#endif
+
+// src/memcpy.c
+#ifdef mini_memcpy
+void *memcpy( void *d, const void *s, int n );
+#endif
+
+// include/lseek.h
+#ifdef mini_ftruncate
+#include "include/lseek.h"
+#endif
+
+// include/select.h
+#ifdef mini_select
+#include "include/select.h"
+#endif
+
+// include/tcsetattr.h
+#ifdef mini_tcsetattr
+#include "sys/ttycom.h"
+#include "termios.h"
+#include "include/tcsetattr.h"
+#endif
+
+// include/tcgetattr.h
+#ifdef mini_tcgetattr
+#include "sys/ttycom.h"
+#include "include/tcgetattr.h"
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_mprotect
+#include "include/syscall_stubs.h"
+#endif
+
 // src/mfprintf.c
 #ifdef mini_fprintf
 int fprintf(int fd, const char* fmt, ... );
+#endif
+
+// src/atoi.c
+#ifdef mini_atoi
+int atoi(char *c);
+#endif
+
+// src/ioctl.c
+#ifdef mini_ioctl
+int ioctl( int fd, unsigned long int request, ... );
+#endif
+
+// include/close.h
+#ifdef mini_close
+#include "include/close.h"
+#endif
+
+// include/fputc.h
+#ifdef mini_fputc
+#include "include/fputc.h"
 #endif
 
 // src/mprint.c
@@ -245,9 +295,19 @@ int fprintf(int fd, const char* fmt, ... );
 int printl(const char *msg);
 #endif
 
-// src/memfrob.c
-#ifdef mini_memfrob
-void* memfrob(void* s, unsigned int len);
+// src/memcpy.c
+#ifdef mini_strncpy
+char *strncpy(char *dest, const char *src, int n);
+#endif
+
+// src/mstrcmp.c
+#ifdef mini_memcmp
+int memcmp(const void* c1,const void* c2,int len);
+#endif
+
+// include/isprint.h
+#ifdef mini_isprint
+#include "include/isprint.h"
 #endif
 
 // src/malloc.c
@@ -255,9 +315,14 @@ void* memfrob(void* s, unsigned int len);
 void* volatile malloc(int size);
 #endif
 
-// include/fputc.h
-#ifdef mini_fputc
-#include "include/fputc.h"
+// include/syscall_stubs.h
+#ifdef mini_dup3
+#include "include/syscall_stubs.h"
+#endif
+
+// include/syscall_stubs.h
+#ifdef mini_unlink
+#include "include/syscall_stubs.h"
 #endif
 
 
