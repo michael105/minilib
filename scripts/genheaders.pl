@@ -5,7 +5,7 @@ my $fhhash;
 my $mlibdir = shift;
 # minilib headerfile
 #my $minilibheader = shift;
-my $headerdir="$mlibdir/src/tmp";
+my $headerdir="$mlibdir/compat";
 my $minilibheader = "$mlibdir/minilib.h";
 my $miniconf = "$mlibdir/miniconf.h";
 
@@ -310,7 +310,7 @@ print $mc "\n#endif\n";
 
 close( $mc );
 
-my $conf = headerfh( "miniconf.h", $mlibdir );
+my $conf = headerfh( "minilib.conf", $mlibdir );
 
 foreach my $header ( keys(%{$headerhash}) ){
 		print  $conf "\n\n//     $header    \n";

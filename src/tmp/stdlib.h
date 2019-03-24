@@ -7,19 +7,19 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_stdlib_h
 #define included_stdlib_h
 
-// file: src/atoi.c
+// file: minilib/src/src/atoi.c
 int atoi(char *c);
 
-// file: src/malloc.c
+// file: minilib/src/src/malloc.c
 void* malloc(int size);
 
-// file: src/malloc.c
+// file: minilib/src/src/malloc.c
 void free(void *p);
 
-// file: src/malloc.c
+// file: minilib/src/src/malloc.c
 void* volatile malloc(int size);
 
-// file: src/malloc.c
+// file: minilib/src/src/malloc.c
 void volatile free(void* p);
 
 
@@ -29,8 +29,8 @@ void volatile free(void* p);
 
 #ifdef mini_INCLUDESRC
 
-#include "src/atoi.c"
-#include "src/malloc.c"
+#include "minilib/src/src/atoi.c"
+#include "minilib/src/src/malloc.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

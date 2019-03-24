@@ -7,10 +7,10 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_ctype_h
 #define included_ctype_h
 
-// file: include/isprint.h
+// file: minilib/src/include/isprint.h
 static inline int __attribute__((always_inline)) isprint(const char c);
 
-// file: src/isspace.c
+// file: minilib/src/src/isspace.c
 int isspace(int c);
 
 
@@ -20,8 +20,8 @@ int isspace(int c);
 
 #ifdef mini_INCLUDESRC
 
-#include "include/isprint.h"
-#include "src/isspace.c"
+#include "minilib/src/src/isspace.c"
+#include "minilib/src/include/isprint.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

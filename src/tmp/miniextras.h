@@ -7,28 +7,28 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_miniextras_h
 #define included_miniextras_h
 
-// file: src/dtodec.c
+// file: minilib/src/src/dtodec.c
 int dtodec(double d, char* buf, int precision);
 
-// file: src/itobin.c
+// file: minilib/src/src/itobin.c
 int _itobin(int i, char*buf, int prec, int groups );
 
-// file: src/itodec.c
+// file: minilib/src/src/itodec.c
 int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
-// file: src/itodec.c
+// file: minilib/src/src/itodec.c
 int itodec(int i, char *buf, int prec, char limiter );
 
-// file: src/itohex.c
+// file: minilib/src/src/itohex.c
 int itohex(int i,char* buf,int padding);
 
-// file: src/memfrob.c
+// file: minilib/src/src/memfrob.c
 void* memfrob(void* s, unsigned int len);
 
-// file: src/mprint.c
+// file: minilib/src/src/mprint.c
 int print(const char *msg);
 
-// file: src/mprint.c
+// file: minilib/src/src/mprint.c
 int printl(const char *msg);
 
 
@@ -38,12 +38,12 @@ int printl(const char *msg);
 
 #ifdef mini_INCLUDESRC
 
-#include "src/dtodec.c"
-#include "src/itodec.c"
-#include "src/memfrob.c"
-#include "src/itobin.c"
-#include "src/itohex.c"
-#include "src/mprint.c"
+#include "minilib/src/src/itobin.c"
+#include "minilib/src/src/mprint.c"
+#include "minilib/src/src/dtodec.c"
+#include "minilib/src/src/itodec.c"
+#include "minilib/src/src/itohex.c"
+#include "minilib/src/src/memfrob.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

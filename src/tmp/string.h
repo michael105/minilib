@@ -7,31 +7,31 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_string_h
 #define included_string_h
 
-// file: src/memcpy.c
+// file: minilib/src/src/memcpy.c
 void *memcpy( void *d, const void *s, int n );
 
-// file: src/memcpy.c
+// file: minilib/src/src/memcpy.c
 char *strcpy(char *dest, const char *src);
 
-// file: src/memcpy.c
+// file: minilib/src/src/memcpy.c
 char *strncpy(char *dest, const char *src, int n);
 
-// file: src/memset.c
+// file: minilib/src/src/memset.c
 void *memset( void *s, int c, int n);
 
-// file: src/mstrcmp.c
+// file: minilib/src/src/mstrcmp.c
 int strcmp(const char*c1,const char*c2);
 
-// file: src/mstrcmp.c
+// file: minilib/src/src/mstrcmp.c
 int strncmp(const char*c1,const char*c2,int len);
 
-// file: src/mstrcmp.c
+// file: minilib/src/src/mstrcmp.c
 int memcmp(const void* c1,const void* c2,int len);
 
-// file: src/mstrlen.c
+// file: minilib/src/src/mstrlen.c
 int strlen(const char*str);
 
-// file: src/strcat.c
+// file: minilib/src/src/strcat.c
 char *strcat(char *dest, const char *src );
 
 
@@ -41,11 +41,11 @@ char *strcat(char *dest, const char *src );
 
 #ifdef mini_INCLUDESRC
 
-#include "src/strcat.c"
-#include "src/mstrcmp.c"
-#include "src/memset.c"
-#include "src/memcpy.c"
-#include "src/mstrlen.c"
+#include "minilib/src/src/memcpy.c"
+#include "minilib/src/src/strcat.c"
+#include "minilib/src/src/memset.c"
+#include "minilib/src/src/mstrcmp.c"
+#include "minilib/src/src/mstrlen.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

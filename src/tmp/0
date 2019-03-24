@@ -7,14 +7,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_0
 #define included_0
 
-// file: include/fputc.h
-#include "include/fputc.h"
-// file: include/fputs.h
-#include "include/fputs.h"
-// file: include/isprint.h
-#include "include/isprint.h"
-// file: src/errno.c
-#include "src/errno.c"
+// file: minilib/src/include/fputc.h
+#include "minilib/src/include/fputc.h"
+// file: minilib/src/include/fputs.h
+#include "minilib/src/include/fputs.h"
+// file: minilib/src/include/isprint.h
+#include "minilib/src/include/isprint.h"
+// file: minilib/src/src/errno.c
+#include "minilib/src/src/errno.c"
 
 
 #include "include/minilib_global.h"
