@@ -1,0 +1,4 @@
+// Content of fcntl.h.in
+// 
+#include "include/stdarg.h"
+// end of fcntl.h.in
