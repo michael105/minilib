@@ -1,39 +1,42 @@
-#ifndef stdio_h
-#define stdio_h
+/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+misc.myer@zoho.com / www.github.com/michael105
+Licensed under the terms of a BSD 3-clause License.
+Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
-#ifndef NULL
-#define NULL 0
+#ifndef included_stdio_h
+#define included_stdio_h
+
+// file: minilib/src/src/mfprintf.c
+int fprintf(int fd, const char* fmt, ... );
+
+// file: minilib/src/src/msprintf.c
+int sprintf(char *buf, const char* fmt, ... );
+
+// file: minilib/src/include/fputc.h
+static inline int volatile fputc(int c, int fd);
+
+// file: minilib/src/include/fputs.h
+static inline int volatile fputs(const char *c, int fd);
+
+
+
+#include "include/minilib_global.h"
+
+
+#ifdef mini_INCLUDESRC
+
+#include "minilib/src/src/msprintf.c"
+#include "minilib/src/include/fputc.h"
+#include "minilib/src/src/mfprintf.c"
+#include "minilib/src/include/fputs.h"
+
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
+
+// Need start.c included. Doesn't matter by which file.
+#include "asm/start.c"
+
 #endif
-
-#ifndef stdin
-#define stdin 0
-#endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
-#ifndef mini_buf
-#define mini_buf 4096
-#endif
-
-extern int mbufsize;
-
-#define BUFSIZ 1024
-
-#include "include/syscall.h"
-
-#include "include/fputc.h"
-#include "include/fputs.h"
-
-#define putchar(c) fputc(c,stdout)
-#define vfprintf(...) fprintf(__VA_ARGS__)
-#define fprintf(...) mfprintf(__VA_ARGS__)
-#define perror(...) fprintf(stderr,__VA_ARGS__)
-
-#include "include/gen/stdio.h"
 
 #endif

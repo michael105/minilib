@@ -1,23 +1,58 @@
-#ifndef string_h
-#define string_h
+/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+misc.myer@zoho.com / www.github.com/michael105
+Licensed under the terms of a BSD 3-clause License.
+Please see the files LICENSE and NOTICE for the exact conditions. */
 
-#ifndef NULL
-#define NULL 0
+
+#ifndef included_string_h
+#define included_string_h
+
+// file: minilib/src/src/memcpy.c
+void *memcpy( void *d, const void *s, int n );
+
+// file: minilib/src/src/memcpy.c
+char *strcpy(char *dest, const char *src);
+
+// file: minilib/src/src/memcpy.c
+char *strncpy(char *dest, const char *src, int n);
+
+// file: minilib/src/src/memset.c
+void *memset( void *s, int c, int n);
+
+// file: minilib/src/src/mstrcmp.c
+int strcmp(const char*c1,const char*c2);
+
+// file: minilib/src/src/mstrcmp.c
+int strncmp(const char*c1,const char*c2,int len);
+
+// file: minilib/src/src/mstrcmp.c
+int memcmp(const void* c1,const void* c2,int len);
+
+// file: minilib/src/src/mstrlen.c
+int strlen(const char*str);
+
+// file: minilib/src/src/strcat.c
+char *strcat(char *dest, const char *src );
+
+
+
+#include "include/minilib_global.h"
+
+
+#ifdef mini_INCLUDESRC
+
+#include "minilib/src/src/memcpy.c"
+#include "minilib/src/src/memset.c"
+#include "minilib/src/src/mstrlen.c"
+#include "minilib/src/src/mstrcmp.c"
+#include "minilib/src/src/strcat.c"
+
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
+
+// Need start.c included. Doesn't matter by which file.
+#include "asm/start.c"
+
 #endif
 
-#ifndef stdin
-#define stdin 0
 #endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
-#include "sys/types.h"
-
-#include "include/gen/string.h"
-
-#endif
-

@@ -1,8 +1,8 @@
-# A template makefile 
+# A template Makefile 
 # Set Prog to the program's name
 # unpack minilib to the "source dir/minilib"
 # or set a link
-# copy this makefile into the source dir
+# copy this Makefile into the source dir
 # done.
 
 # Or: download the file minilibcombined.c
@@ -64,18 +64,18 @@ SHRINKELF=1
 
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
-		include $(MLIBDIR)/makefile.include
+		include $(MLIBDIR)/Makefile.include
 else
 
-#( This is a recursive makefile and will call itself with this param)
+#( This is a recursive Makefile and will call itself with this param)
 ifdef with-minilib
-include $(MLIBDIR)/makefile.include 
+include $(MLIBDIR)/Makefile.include 
 endif
 
 #Compile with minilib or without
 # Will compile with minilib, if present and found in MLIBDIR
 default: 
-	$(if $(wildcard $(MLIBDIR)/makefile.include), make with-minilib=1, make native )
+	$(if $(wildcard $(MLIBDIR)/Makefile.include), make with-minilib=1, make native )
 
 
 # build without minilib

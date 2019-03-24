@@ -1,17 +1,30 @@
-#ifndef fnctl_h
-#define fnctl_h
-
-#include "sys/types.h"
-
-#include "include/syscall.h"
-#include "include/filemodes.h"
-
-#include "include/gen/fcntl.h"
-
-//done:
-// rename
-//
+/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+misc.myer@zoho.com / www.github.com/michael105
+Licensed under the terms of a BSD 3-clause License.
+Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
+#ifndef included_fcntl_h
+#define included_fcntl_h
+
+// file: minilib/src/src/open.c
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+
+
+
+#include "include/minilib_global.h"
+
+
+#ifdef mini_INCLUDESRC
+
+#include "minilib/src/src/open.c"
+
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
+
+// Need start.c included. Doesn't matter by which file.
+#include "asm/start.c"
+
+#endif
 
 #endif

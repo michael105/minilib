@@ -37,16 +37,16 @@ SHRINKELF=1
 # LD
 #LD=ld
 
-#( This is a recursive makefile and will call itself with this param)
+#( This is a recursive Makefile and will call itself with this param)
 ifdef with-minilib
-include $(MLIBDIR)/makefile.include 
+include $(MLIBDIR)/Makefile.include 
 endif
 
 
 
 
 default: shrinkelf.c
-	$(if $(wildcard $(MLIBDIR)/makefile.include), make with-minilib=1, make native)
+	$(if $(wildcard $(MLIBDIR)/Makefile.include), make with-minilib=1, make native)
 	
 native:
 	gcc -o shrinkelf shrinkelf.c -I /usr/include/skalibs/ -l skarnet -L /usr/lib64/skalibs

@@ -22,6 +22,15 @@ my $globalintemplate = << "TMPL_IN";
 
 TMPL_IN
 
+# Only for debuggging
+use Data::Dumper::Simple;
+
+sub dgb{
+		my $r = shift;
+		#print Dumper($${$r});
+}
+
+
 
 BEGIN{
 		use File::Basename;
@@ -165,7 +174,7 @@ while ( my $file = shift ){
 								$functiondict->{$func}->{implementation} = $file;
 						} else { 
 								#$mlfunchash->{$func}= $f; # no standard function
-								print "Header::: XXXX $f->{header}\n";
+								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
 										$f->{header} = "miniextras.h";
 								} else {
@@ -208,10 +217,9 @@ foreach my $key ( keys(%{$fhhash->{fh}}) ){
 
 
 # write 
-use Data::Dumper::Simple;
 
-print Dumper( $funchash );
-print Dumper( $depends );
+dbg( $funchash );
+dbg( $depends );
 
 my $includefirst;
 
@@ -302,9 +310,9 @@ foreach my $f ( keys(%{$funchash}) ){
 		}
 }
 
-print Dumper( $fhhash );
-print Dumper( $funchash );
-print Dumper( $headerhash );
+dbg( $fhhash );
+dbg( $funchash );
+dbg( $headerhash );
 
 print $mc "\n#endif\n";
 
