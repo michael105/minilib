@@ -7,19 +7,28 @@ there are two ways:
 1. (The faster one) - but sometimes won't work, 
 		as long as I'm restructuring the whole lib
 
-  download minilibcombined.c
+  download minilibcombined.h
+    wget https://raw.githubusercontent.com/michael105/minilib/master/minilibcombined.h
+
 
   download hello-combined.c
-  ( source attached below, with explanations..)
+  (source attached below, with explanations..)
+    wget https://raw.githubusercontent.com/michael105/minilib/master/hello-combined.h
 
   compile:
 
-	gcc -o hello-combined hello-combined.c -static -nostdlib -nodefaultlibs -nostartfiles -Wl,-n,-s,--gc-sections,-nostdlib,-Tldscripts/ld.script.onlytext 
+	gcc -o hello-combined hello-combined.c -static -nostdlib -nodefaultlibs -nostartfiles -Wl,-n,-s,--gc-sections,-nostdlib
 
-	(Optionally, linux 64bit only for now) 
 
-	  cd tools; make; cd ..
-		./tools/shrinkelf hello-combined
+... which results in an 1k executable.
+
+	so you might also download the linker script from the oder ldscripts and compile with it, and with the Option -Os:
+	gcc -o hello-combined hello-combined.c -static -nostdlib -nodefaultlibs -nostartfiles -Wl,-n,-s,--gc-sections,-nostdlib-T./ld.script.onlytext -Os
+
+  We're down to 400 Bytes..
+	The tool "elfshrink" out of the folder minilib/tools brings this further down, now 185 Bytes here.
+
+
 
 2. Or clone the git.. 
 
@@ -30,28 +39,28 @@ there are two ways:
 
 git clone https://github.com/michael105/minilib.git minilib
 
-copy minilib/makefile.template ./makefile
+copy minilib/Makefile.template ./Makefile
 
-  (edit makefile. set "PROG" to your program's name)
+  (edit Makefile. set "PROG" to your program's name)
 
 copy minilib/minilib.conf ./
   
-	(edit minilib.conf and uncomment functions, you need)
+  (edit minilib.conf and uncomment functions, you need.
+   Only functions, you define to be build in minilib.conf
+   will be included)
 
-
-copy minilib/minilib.c ./
-
-  ( That's the source file of minilib,
-	  which will include the other sources,
-		in order to build minilib.o to be linked with your program.
-		Only functions, you define to be build in minilib.conf
-		will be included)
 
 add the lines below to you source(s)
 #include "minilib.conf"
+#define INCLUDESRC
 #include "minilib/minilib.h"
 
 make
+
+	(Optionally, linux 64bit only for now) 
+
+	  cd tools; make; cd ..
+		./tools/shrinkelf hello-combined
 
 
 
@@ -76,7 +85,7 @@ file:    hello-combined.c
 #define INCLUDESRC
 
  // Only functions, you define before, will be built.
-#include "minilibcombined.c"
+#include "minilibcombined.h"
 
 int main(){
 		write(stdout, "Hello world!\n", 13);
