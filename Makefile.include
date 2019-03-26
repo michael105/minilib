@@ -288,7 +288,7 @@ $(BUILDDIR)/$(PROG).o: $(PROG).c
 
 
 
-$(BUILDDIR)/minilib.o: minilib.c minilib.h
+$(BUILDDIR)/minilib.o: minilib.c 
 	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o minilib.c 
 
 

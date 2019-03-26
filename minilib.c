@@ -10,7 +10,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 /* header.in */
 
 #include "minilib.conf"
-#include "minilib.h"
+#include "minilib/minilib.h"
 #include "minilib/asm/start.c"
 #include "minilib/src/minilib_global.c"
 

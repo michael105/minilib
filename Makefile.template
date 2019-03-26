@@ -18,7 +18,7 @@ PROG=hello
 endif
 
 # where to build object files (defaults to ./ )
-BUILDDIR=build
+BUILDDIR=.
 
 # where should the binares go?
 #BINDIR=./static_x64
