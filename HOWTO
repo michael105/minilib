@@ -22,7 +22,8 @@ there are two ways:
 
 ... which results in an 1k executable.
 
-	so you might also download the linker script from the oder ldscripts and compile with it, and with the Option -Os:
+	so you might also download the linker script "ld.script.onlytext" from the folder ldscripts and compile with it
+	  also the Option -Os strips a few bytes:
 	gcc -o hello-combined hello-combined.c -static -nostdlib -nodefaultlibs -nostartfiles -Wl,-n,-s,--gc-sections,-nostdlib-T./ld.script.onlytext -Os
 
   We're down to 400 Bytes..
@@ -34,7 +35,7 @@ there are two ways:
 
 (I recommend. If something's broken, 
  it might be nearly impossible to find 
- within the huge combined files)
+ within the huge combined file)
 
 
 git clone https://github.com/michael105/minilib.git minilib
