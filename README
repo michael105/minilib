@@ -270,66 +270,11 @@ misc.myer@zoho.com www.github.com/michael105
 ============================================================
 
 
-   _                                                              
-  | |    /                                 o                     
-  | |_|_   ,     ,   __   _  _  _    _ _|_     _  _  _    _   ,  
-_ |/  |   / \_  / \_/  \_/ |/ |/ |  |/  |  |  / |/ |/ |  |/  / \_
-\_/\/ |_/  \/    \/ \__/   |  |  |_/|__/|_/|_/  |  |  |_/|__/ \/ 
-    
 
-                                                                        
- ,   _  _  _    __,   ,_  _|_  _   ,_     
-/ \_/ |/ |/ |  /  |  /  |  |  |/  /  |    
- \/   |  |  |_/\_/|_/   |_/|_/|__/   |_/  
-                                          
-    
+"It's sometimes smarter to stay special,
+ although in this case this means the opposite"
 
- _|_  __     , _|_  __,        
-  |  /  \_  / \_|  /  |  |   | 
-  |_/\__/    \/ |_/\_/|_/ \_/|/
-                            /| 
-                            \| 
-                          _
-                o        | |  
- ,    _   _  _      __,  | |  
-/ \_|/ \_|/ /   |  /  |  |/   
- \/ |__/ |_/\__/|_/\_/|_/|__/o
-   /|                         /
-   \|                           
-
-
-
-         _      _                       _                         _            
-        | |    | |                     | |      o                | |    o      
-   __,  | |_|_ | |     __          __, | |          _  _     _|_ | |        ,  
-  /  |  |/  |  |/ \   /  \_|   |  /  | |/ \     |  / |/ |     |  |/ \   |  / \_
-  \_/|_/|__/|_/|   |_/\__/  \_/|_/\_/|/|   |_/  |_/  |  |_/   |_/|   |_/|_/ \/ 
-                                    /|                                         
-                                    \|    
-
-                               _                                               
-                              | |    o                                         
-      __   __,   ,   _    _|_ | |        ,     _  _  _    _   __,   _  _    ,  
-     /    /  |  / \_|/     |  |/ \   |  / \_  / |/ |/ |  |/  /  |  / |/ |  / \_
-     \___/\_/|_/ \/ |__/   |_/|   |_/|_/ \/     |  |  |_/|__/\_/|_/  |  |_/ \/ 
-                                                                               
-                                                                               
-                                _                                              
-                               | |                                  o          
-                           _|_ | |     _     __    _    _   __   ,    _|_  _   
-                            |  |/ \   |/    /  \_|/ \_|/ \_/  \_/ \_|  |  |/   
-                            |_/|   |_/|__/  \__/ |__/ |__/ \__/  \/ |_/|_/|__/o
-                                                /|   /|                        
-                                                \|   \|                        
-
-
-
-(It's sometimes smarter to stay special,
- although in this case this means the opposite)
-
-<I know, I should get more serious.>
-
- But stumbled upon this comment of myself today,
+ Stumbled upon this comment of myself today,
  regarding my (strange) malloc implementation.
  Which fit's quite well to the minilib in whole.
  Being smart with utf-anything, don't know which 
