@@ -1,0 +1,35 @@
+/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+misc.myer@zoho.com / www.github.com/michael105
+Licensed under the terms of a BSD 3-clause License.
+Please see the files LICENSE and NOTICE for the exact conditions. */
+
+
+#ifndef included_0
+#define included_0
+
+/* header.in */
+// file: minilib/src/errno.c
+#include "minilib/src/errno.c"
+// file: minilib/include/fputc.h
+#include "minilib/include/fputc.h"
+// file: minilib/include/fputs.h
+#include "minilib/include/fputs.h"
+// file: minilib/include/isprint.h
+#include "minilib/include/isprint.h"
+
+
+#include "include/minilib_global.h"
+
+
+#ifdef mini_INCLUDESRC
+
+
+// Need global included. Doesn't matter by which file.
+#include "src/minilib_global.c"
+
+// Need start.c included. Doesn't matter by which file.
+#include "asm/start.c"
+
+#endif
+
+#endif

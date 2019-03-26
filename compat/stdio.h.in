@@ -1,0 +1,38 @@
+#include "include/stdarg.h"
+#include "include/syscall.h"
+#include "include/syscall_stubs.h"
+
+#ifdef X64
+#define POINTER unsigned long int
+#else
+#define POINTER int
+#endif
+
+#ifndef uint32_t
+#define uint32_t uint
+#endif
+
+#ifndef uint8_t
+#define uint8_t uchar
+#endif
+
+#ifndef size_t
+#define size_t long
+#endif
+
+
+#ifndef NULL
+#define NULL 0
+#endif
+
+#ifndef stdin
+#define stdin 0
+#endif
+#ifndef stdout
+#define stdout 1
+#endif
+#ifndef stderr
+#define stderr 2
+#endif
+
+

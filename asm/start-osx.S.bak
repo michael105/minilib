@@ -1,0 +1,11 @@
+.globl start
+start:
+	popq	%rdi			/* %rdi = argc */
+	movq	%rsp,%rsi		/* %rsi = argv */
+	pushq	%rdi
+	leaq	8(%rsi,%rdi,8),%rdx	/* %rdx = envp = (8*rdi)+%rsi+8 */
+
+ 	call _main
+	movq %rax, %rdi
+	movl $0x2000001, %eax           # exit 0
+	syscall
