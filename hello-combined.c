@@ -24,10 +24,11 @@
  // build with 64bit( )
 #define X64
 
+#define INCLUDESRC
 
 // include definitions as well as the sources.
 // Only functions, you define before, will be built.
-#include "minilibcombined.c"
+#include "minilibcombined.h"
 
 int main(){
 		write(0, "Hello world!\n", 13);
