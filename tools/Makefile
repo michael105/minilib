@@ -23,7 +23,7 @@ NOINCLUDE=1
 # include only the Text section in the resulting elf output
 ONLYTEXT= true 
 
-SHRINKELF=1
+#SHRINKELF=1
 
 # Set the optimization flag (default: -O1)
 # Be careful with that, -Os as well as -O2 seem to be problematic

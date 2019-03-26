@@ -90,6 +90,7 @@ SOFTWARE.
 #define mini_INCLUDESRC
 #define mini_buf 4096
 #define mini_puts
+#define mini_prints
 #define mini_malloc
 #define mini_start
 #define mini_open

@@ -2,7 +2,9 @@
 #define mini_write
 #define mini_exit
 
-#include "minilib_implementation.c"
+#define INCLUDESRC
+
+#include "minilib/minilib.h"
 //void _exit(int i);
 
 int main(){

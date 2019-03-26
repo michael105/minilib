@@ -4,7 +4,8 @@
 //#define OSX
 //#define X64
 
-#include "../minilibcombined.c"
+#define INCLUDESRC
+#include "minilib/minilibcombined.h"
 
 #if 0
 testhello:

@@ -1,5 +1,5 @@
 #define mini_malloc
-#define mini_mbuf 1024
+#define mini_buf 1024
 #define mini_start start
 #define mini_write
 #define mini_printf
@@ -8,7 +8,9 @@
 #define mini_fputc
 #define mini_overwrite
 
-#include "include/minilib_header.h"
+//#define INCLUDESRC
+
+#include "minilib/minilib.h"
 
 int main(){
 		write(stdout,"write\n",6);

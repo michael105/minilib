@@ -5,19 +5,26 @@
 
 
 sub debug{
-		print "// ", shift, "\n";
+		print STDERR "// ", shift, "\n";
 }
 
-#%included;
+$included;
+
+my $recursion = 0;
+	
+
+
+
 
 # Ok. there's the problem, that some includes HAVE to be included several times.
 # But, allwing recursive inclusion, might lead to a circle.
 # so, next try..
 sub slurpfile{
 		my $f = shift;
+		$recursion++;
 		my $orif = $f;
 		my $pwd = `pwd`;
-		debug( "Current path: $pwd");
+		debug( "Current path: $pwd,  recursion: $recursion");
 
 		if ( defined( $included{$f} ) ){
 				debug ("YYYYYYYYYYYYYY   Already included: $f");
@@ -36,7 +43,15 @@ sub slurpfile{
 		my $mpwd = `pwd`;
 
 		$f = $orif;
-	
+
+		if ( $recursion > 3 ){
+				if ( grep { /$f/ } qw /minilib.c minilib.h syscall_stubs.h syscall.h/ ){
+						debug "Recurse: $recursion, file: $f, Returning.";
+						return;
+				}
+		}
+
+
 
 		$included{$f} = 1;
 		my $F;
@@ -55,7 +70,7 @@ sub slurpfile{
 				if ( ( $l =~ /^#include.*\"(.*)\"/ ) || ($l =~ /^#include.*\<(.*)>/ )){
 				my $m = $1;
 				if ( $m ){
-						debug "XXXXXXXXXXXXXXXXXX*************** file: $m \n";
+						debug "YYYYYXXXXXXXXXXXX*************** file: $m \n";
 						slurpfile( $m );
 						#chdir ( $mpwd );
 						#debug ("chdir ( $mpwd )");
@@ -65,35 +80,39 @@ sub slurpfile{
 				}
 		}
 		close($f);
+		$recursion --;
 }
 
-
-# this also will not resolve every problem.
-sub slurpfile_rec{
-		my $f = shift;
-		my $included = shift;
-		my $thislevel;
-		if ( defined( $included{$f} ) ){
-				debug ("Already include: $f");
-				return;
-		}
-		$included{$f} = 1;
-		open my $F, "<", $f or debug ("XXXXXXXXXXXXXXXXX Couldn't open: $f\n") ;
-
-		while (my $l = <$F>){
-				#my $l =$_;
-				if ( $l =~ /^#include.*\"(.*)\"/ ){
-				my $m = $1;
-				if ( $m ){
-						debug "XXXXXXXXXXXXXXXXXX file: $m \n";
-						slurpfile( $m );
-				}; } 
-				else {
-						print $l;
-				}
-		}
-}
-
+#
+## this also will not resolve every problem.
+#sub slurpfile_rec{
+#		my $f = shift;
+#		my $included = shift;
+#		if ( $f =~ /minilib.h/ ){
+#				return;
+#		}
+#		my $thislevel;
+#		if ( defined( $included{$f} ) ){
+#				debug ("Already include: $f");
+#				return;
+#		}
+#		$included{$f} = 1;
+#		open my $F, "<", $f or debug ("XXXXXXXXXXXXXXXXX Couldn't open: $f\n") ;
+#
+#		while (my $l = <$F>){
+#				#my $l =$_;
+#				if ( $l =~ /^#include.*\"(.*)\"/ ){
+#				my $m = $1;
+#				if ( $m ){
+#						debug "XXXXXXXXXXXXXXXXXX file: $m \n";
+#						slurpfile( $m );
+#				}; } 
+#				else {
+#						print $l;
+#				}
+#		}
+#}
+#
 
 
 

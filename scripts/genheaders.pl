@@ -189,7 +189,7 @@ while ( my $file = shift ){
 
 						if ( $f->{header} && $f->{def} ){
 								print "header: $f->{header}\n def: $f->{def}\n";
-								print ${headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
+								print {headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
 								$fhhash->{sources}->{$f->{header}}->{$file} = 1;
 						}
 				}
@@ -323,7 +323,7 @@ my $conf = headerfh( "minilib.conf", $mlibdir );
 foreach my $header ( keys(%{$headerhash}) ){
 		print  $conf "\n\n//     $header    \n";
 		foreach my $f ( keys( %{$headerhash->{$header}}) ){ 
-				printf $conf "//#$f\n";
+				printf $conf "//#define mini_$f\n";
 		}
 }
 

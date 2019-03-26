@@ -5,6 +5,8 @@
 /// Len of buf used by read, mprintf, ..
 //#define mini_buf 4096
 
+#error abandoned
+
 #define mini_start
 //#define mini_vsyscalls // vsyscalls.(+ ~92 bytes). 
 //#define mini_errno

@@ -7,16 +7,55 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_stdio_h
 #define included_stdio_h
 
-// file: minilib/src/src/mfprintf.c
+/* header.in */
+#include "include/stdarg.h"
+#include "include/syscall.h"
+#include "include/syscall_stubs.h"
+
+#ifdef X64
+#define POINTER unsigned long int
+#else
+#define POINTER int
+#endif
+
+#ifndef uint32_t
+#define uint32_t uint
+#endif
+
+#ifndef uint8_t
+#define uint8_t uchar
+#endif
+
+#ifndef size_t
+#define size_t long
+#endif
+
+
+#ifndef NULL
+#define NULL 0
+#endif
+
+#ifndef stdin
+#define stdin 0
+#endif
+#ifndef stdout
+#define stdout 1
+#endif
+#ifndef stderr
+#define stderr 2
+#endif
+
+
+// file: minilib/src/mfprintf.c
 int fprintf(int fd, const char* fmt, ... );
 
-// file: minilib/src/src/msprintf.c
+// file: minilib/src/msprintf.c
 int sprintf(char *buf, const char* fmt, ... );
 
-// file: minilib/src/include/fputc.h
+// file: minilib/include/fputc.h
 static inline int volatile fputc(int c, int fd);
 
-// file: minilib/src/include/fputs.h
+// file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
 
 
@@ -26,10 +65,10 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/src/msprintf.c"
-#include "minilib/src/include/fputc.h"
-#include "minilib/src/src/mfprintf.c"
-#include "minilib/src/include/fputs.h"
+#include "minilib/include/fputs.h"
+#include "minilib/src/msprintf.c"
+#include "minilib/src/mfprintf.c"
+#include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

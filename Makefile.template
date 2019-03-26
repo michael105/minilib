@@ -55,7 +55,7 @@ MLIBDIR=minilib
 STRIP=1
 
 # Truncate elf binaries
-SHRINKELF=1
+#SHRINKELF=1
 
 # Report verbose 
 #VERBOSE=1

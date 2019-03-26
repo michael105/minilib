@@ -7,7 +7,13 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_fcntl_h
 #define included_fcntl_h
 
-// file: minilib/src/src/open.c
+/* header.in */
+#include "include/stdarg.h"
+#include "include/syscall.h"
+#include "include/syscall_stubs.h"
+
+
+// file: minilib/src/open.c
 inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
 
 
@@ -17,7 +23,7 @@ inline int volatile __attribute__((always_inline)) creat( const char *s, int mod
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/src/open.c"
+#include "minilib/src/open.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

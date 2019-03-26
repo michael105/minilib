@@ -1,10 +1,10 @@
 #define mini_start
 #define mini_select
-#define mini_mprintf
-#define mini_overwrite
+#define mini_printf
+#define mini_errno
 #define mini_buf 1024
 
-#include "minilib.h"
+#include "minilib/minilib.h"
 
 int main(){
 		printf("Ok\n\n");

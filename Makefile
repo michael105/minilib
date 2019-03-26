@@ -19,19 +19,19 @@ retest:
 	cd test && make retest
 
 header:
-	scripts/genheaders.pl ./ minilib/src/src/*.c minilib/src/include/*.h
+	scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h
 
 tools:
 	cd tools && make
 
 combined: 
-	cp templates/LICENSE.tmpl minilibcombined.c
-	echo -e "#ifndef minilibcombined_c\n#define minilibcombined_c\n" >> minilibcombined.c && \
-			tools/combinesources.pl minilib_implementation.c >> minilibcombined.c && \
-			echo "#endif" >> minilibcombined.c 
-	cp LICENSE.tmpl minilibcombined.h
-	tools/combinesources.pl include/minilib_header.h >> minilibcombined.h
-	gzip -c minilibcombined.c > minilibcombined.c.gz
+	cp templates/LICENSE.tmpl minilibcombined.h
+	echo -e "#ifndef minilibcombined_h\n#define minilibcombined_h\n" >> minilibcombined.h && \
+			scripts/combinesources.pl minilib.c >> minilibcombined.h && \
+			echo "#endif" >> minilibcombined.h
+#	cp templates/LICENSE.tmpl minilibcombined.h
+#	scripts/combinesources.pl include/minilib_header.h >> minilibcombined.h
+#	gzip -c minilibcombined.c > minilibcombined.c.gz
 	gzip -c minilibcombined.h > minilibcombined.h.gz
 
 

@@ -29,21 +29,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 endif
 #endif
-// f: include/minilib_header.h
+#ifndef minilibcombined_h
+#define minilibcombined_h
 
-// Current path: /home/micha/prog/g2it-minilib
+/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+misc.myer@zoho.com / www.github.com/michael105
+Licensed under the terms of a BSD 3-clause License.
+Please see the files LICENSE and NOTICE for the exact conditions. */
 
-// Path: include  Name minilib_header.h
-// f: include/minilib_header.h
-#ifndef minilib_header_h
-#define minilib_header_h
 
-// XXXXXXXXXXXXXXXXXX*************** file: utils.h 
+#ifndef included_minilib_c
+#define included_minilib_c
 
-// Current path: /home/micha/prog/g2it-minilib
+/* header.in */
 
-// f: utils.h
-// O: include/utils.h
+//#include "minilib.conf"
+/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+misc.myer@zoho.com / www.github.com/michael105
+Licensed under the terms of a BSD 3-clause License.
+Please see the files LICENSE and NOTICE for the exact conditions. */
+
+
+#ifndef included_minilib_h
+#define included_minilib_h
+
+/* header.in */
+
+//#include "minilib.conf"
+
 
 /// Debugging macros
 #ifdef DEBUG
@@ -142,33 +155,7 @@ static inline int fputc(int c, int fd);
 #endif
 
 
-// a few backward compatibility defines
-#ifdef mini_mprintf
-#define mini_printf
-#endif
-#ifdef mini_mfprintf
-#define mini_fprintf
-#endif
-#ifdef mini_msprintf
-#define mini_sprintf
-#endif
-#ifdef mini_mstrcmp
-#define mini_strcmp 
-#endif
-#ifdef mini_mstrncmp
-#define mini_strncmp
-#endif
-#ifdef mini_mstrlen
-#define mini_strlen
-#endif
 
-// XXXXXXXXXXXXXXXXXX*************** file: ../macros/vararg.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: ../macros  Name vararg.h
-// f: ../macros/vararg.h
-// O: include/../macros/vararg.h
 #ifndef vararg_h
 #define vararg_h
 
@@ -180,12 +167,6 @@ static inline int fputc(int c, int fd);
 
 
 //#ifdef mini_syscall
-// XXXXXXXXXXXXXXXXXX*************** file: syscall.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: syscall.h
-// O: include/syscall.h
 #ifndef minilib_syscall_h
 #define minilib_syscall_h
 
@@ -203,18 +184,6 @@ extern int errno;
 
 #define NCONST 0x2000000
 #define SCALL(call) SYS_##call
-// XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: sys  Name syscall.h
-// f: sys/syscall.h
-// O: include/sys/syscall.h
-// O: src/sys/syscall.h
-// O: asm/sys/syscall.h
-// O: macros/sys/syscall.h
-// O: headers/common/sys/syscall.h
-// O: headers/linux_x64/sys/syscall.h
 #ifndef _ASM_X86_UNISTD_64_H
 #define _ASM_X86_UNISTD_64_H 1
 
@@ -560,19 +529,6 @@ extern int errno;
 #define SCALL(call) __NR_##call
 
 #ifdef X64
-// XXXXXXXXXXXXXXXXXX*************** file: sys/syscall.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: sys/syscall.h
-// Path: sys  Name syscall.h
-// f: sys/syscall.h
-// O: include/sys/syscall.h
-// O: src/sys/syscall.h
-// O: asm/sys/syscall.h
-// O: macros/sys/syscall.h
-// O: headers/common/sys/syscall.h
-// O: headers/linux_x64/sys/syscall.h
 #ifndef _ASM_X86_UNISTD_64_H
 #define _ASM_X86_UNISTD_64_H 1
 
@@ -912,12 +868,6 @@ extern int errno;
 
 #endif /* _ASM_X86_UNISTD_64_H */
 #else
-// XXXXXXXXXXXXXXXXXX*************** file: i386syscalls.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: i386syscalls.h
-// O: include/i386syscalls.h
 #ifndef _ASM_X86_UNISTD_32_H
 #define _ASM_X86_UNISTD_32_H
 
@@ -1524,21 +1474,8 @@ static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_
 #endif
 //#endif
 
-
-// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: timeval.h
-// O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
-// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: time_t.h
-// O: include/time_t.h
 #ifndef type_t_h
 #define type_t_h
 typedef long time_t;
@@ -1550,17 +1487,6 @@ struct timezone {
 		int     tz_dsttime;     /*	type of	dst correction */
 };
 #endif
-// XXXXXXXXXXXXXXXXXX*************** file: sys/types.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: sys  Name types.h
-// f: sys/types.h
-// O: include/sys/types.h
-// O: src/sys/types.h
-// O: asm/sys/types.h
-// O: macros/sys/types.h
-// O: headers/common/sys/types.h
 #ifndef	SYS_TYPES_H
 #define	SYS_TYPES_H
 
@@ -1573,17 +1499,6 @@ struct timezone {
 #endif
 
 
-// XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: bits  Name alltypes.h
-// f: bits/alltypes.h
-// O: include/bits/alltypes.h
-// O: src/bits/alltypes.h
-// O: asm/bits/alltypes.h
-// O: macros/bits/alltypes.h
-// O: headers/common/bits/alltypes.h
 // source: musl
 #ifndef alltypes_h
 #define alltypes_h
@@ -1596,6 +1511,10 @@ struct timezone {
 
 #ifndef size_t
 #define size_t long
+#endif
+
+#ifndef uchar
+typedef unsigned char uchar;
 #endif
 
 typedef __builtin_va_list va_list;
@@ -1742,16 +1661,6 @@ typedef unsigned u_int, uint;
 typedef unsigned long u_long, ulong;
 typedef long long quad_t;
 typedef unsigned long long u_quad_t;
-// XXXXXXXXXXXXXXXXXX*************** file: endian.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: endian.h
-// O: include/endian.h
-// O: src/endian.h
-// O: asm/endian.h
-// O: macros/endian.h
-// O: headers/common/endian.h
 #ifndef _ENDIAN_H
 #define _ENDIAN_H
 
@@ -1766,16 +1675,6 @@ typedef unsigned long long u_quad_t;
 #define PDP_ENDIAN __PDP_ENDIAN
 #define BYTE_ORDER __BYTE_ORDER
 
-// XXXXXXXXXXXXXXXXXX*************** file: stdint.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: stdint.h
-// O: include/stdint.h
-// O: src/stdint.h
-// O: asm/stdint.h
-// O: macros/stdint.h
-// O: headers/common/stdint.h
 #ifndef _STDINT_H
 #define _STDINT_H
 
@@ -1795,18 +1694,6 @@ typedef unsigned long long u_quad_t;
 #define __NEED_intmax_t
 #define __NEED_uintmax_t
 
-// XXXXXXXXXXXXXXXXXX*************** file: bits/alltypes.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: bits/alltypes.h
-// Path: bits  Name alltypes.h
-// f: bits/alltypes.h
-// O: include/bits/alltypes.h
-// O: src/bits/alltypes.h
-// O: asm/bits/alltypes.h
-// O: macros/bits/alltypes.h
-// O: headers/common/bits/alltypes.h
 // source: musl
 #ifndef alltypes_h
 #define alltypes_h
@@ -1819,6 +1706,10 @@ typedef unsigned long long u_quad_t;
 
 #ifndef size_t
 #define size_t long
+#endif
+
+#ifndef uchar
+typedef unsigned char uchar;
 #endif
 
 typedef __builtin_va_list va_list;
@@ -2118,12 +2009,6 @@ static __inline uint64_t __bswap64(uint64_t __x)
 #define off64_t off_t
 
 #endif
-// XXXXXXXXXXXXXXXXXX*************** file: syscall_stubs.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: syscall_stubs.h
-// O: include/syscall_stubs.h
 #ifndef SYSCALL_STUBS
 #define SYSCALL_STUBS
 /*
@@ -2134,22 +2019,10 @@ static __inline uint64_t __bswap64(uint64_t __x)
 
 */
 
-// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
+//+header declarations.h
 
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: timeval.h
-// f: timeval.h
-// O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
-// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: time_t.h
-// f: time_t.h
-// O: include/time_t.h
 #ifndef type_t_h
 #define type_t_h
 typedef long time_t;
@@ -2178,6 +2051,7 @@ DEF_syscall(getpid,0 )
 DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
 
 
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
 //rename a1=oldpath a2=newpath
 DEF_syscall(rename,2, const char* a1, const char* a2 )		
 DEF_syscall(unlink,1, const char* a1)		
@@ -2197,42 +2071,9 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 
 
 #endif
-
-
-#ifdef mini_read
-// XXXXXXXXXXXXXXXXXX*************** file: read.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: read.h
-// O: include/read.h
-#ifndef minilib_read_h
-#define minilib_read_h
-
-//+ansi unistd.h
-//+inc
-
-//#include "syscall.h"
-// XXXXXXXXXXXXXXXXXX*************** file: ../macros/overrun.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: ../macros  Name overrun.h
-// f: ../macros/overrun.h
-// O: include/../macros/overrun.h
-// Check, if referencing pos would overrun the buffer.
-#ifndef overrun_h
-#define overrun_h
-// XXXXXXXXXXXXXXXXXX*************** file: ../include/exit.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: ../include  Name exit.h
-// f: ../include/exit.h
-// O: include/../include/exit.h
 #ifndef minilib_exit_h
 #define minilib_exit_h
-//+ansi unistd.h
+//+header unistd.h
 //+inc
 
 //#include "syscall.h"
@@ -2256,53 +2097,42 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 //#endif
 
 #endif
-// XXXXXXXXXXXXXXXXXX*************** file: ../include/mprints.h 
+#ifndef minilib_global_h
+#define minilib_global_h
 
-// Current path: /home/micha/prog/g2it-minilib
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
 
-// Path: ../include  Name mprints.h
-// f: ../include/mprints.h
-// O: include/../include/mprints.h
-#ifndef mprints_h
-#define mprints_h
-extern int _mprints(char*msg,...);
-#define mprints(...) _mprints(__VA_ARGS__,0)
-#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
-#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
-//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
-//#define print(...) _mprints(__VA_ARGS__)
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf>>2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+#else
+
+#warning no mini_buf
+
 #endif
-#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
-		mprintsl("Buffer Overrun. Aborting.");\
-		exit(1);}
-#endif
-
-
-
-//+def
-static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
-		//setup_syscall3(SYS_write,fd,(int)s,len);
-		//MINI_TEST_OVERRUN(len);
-		int ret;
-		syscall3(ret,SCALL(read),fd,(POINTER)buf,len);
-		return(ret);
-}
 
 
 #endif
-#endif
 
 
-#ifdef mini_udiv
-//struct div_t { int quot, rem; };
 struct udiv_t { unsigned int quot, rem; };
-#endif
-//inline div_t div( int numer, int denom ){
-//		asm ("div" : 
 
 #ifdef mini_printf
-//extern int mprintf(const char *fmt, ...);
-//#include "mprintf.h"
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 #ifndef mini_buf
 #define mini_buf 1024
@@ -2316,182 +2146,6 @@ struct udiv_t { unsigned int quot, rem; };
 #define perror(...) fprintf(stderr,__VA_ARGS__)
 #endif
 
-#ifdef mini_fprintf
-//#include "mfprintf.h"
-#define mini_itohex
-#define mini_itodec  // also conversion %d in printf
-#define mini_ditodec  // also conversion %d in printf
-
-extern int fprintf(int fd, const char*fmt, ...);
-#ifndef mini_buf
-#define mini_buf 1024
-#endif
-#endif
-
-
-#ifdef mini_sprintf
-extern int sprintf(char *buf, const char *fmt, ...);
-
-#ifndef mini_buf
-#define mini_buf 1024
-#endif
-#endif
-
-
-#ifdef mini_mprints
-// XXXXXXXXXXXXXXXXXX*************** file: mprints.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: mprints.h
-// O: include/mprints.h
-#ifndef mprints_h
-#define mprints_h
-extern int _mprints(char*msg,...);
-#define mprints(...) _mprints(__VA_ARGS__,0)
-#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
-#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
-//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
-//#define print(...) _mprints(__VA_ARGS__)
-#endif
-#endif
-
-#ifdef mini_putchar
-#define mini_fputc
-#define putchar(c) fputc(c,stdout)
-#endif
-
-#ifdef mini_fputc
-#define mini_mstrlen
-// XXXXXXXXXXXXXXXXXX*************** file: fputc.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: fputc.h
-// O: include/fputc.h
-#ifndef fputc_c
-#define fputc_c
-
-// XXXXXXXXXXXXXXXXXX*************** file: write.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: write.h
-// O: include/write.h
-#ifndef minilib_write_h
-#define minilib_write_h
-
-//+ansi unistd.h
-//+inc
-
-//#include "syscall.h"
-//#undef write
-/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
-		//setup_syscall3(SYS_write,fd,(int)s,len);
-		int ret;
-		syscall3(ret,__NR_write,fd,(int)s,len);
-//  asm volatile ("call *__mini_vsys"
-//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
-
-		return(ret);
-}*/
-// +64 bytes.
-DEF_syscall(write,3,int a1,const void *a2, int a3 )
-
-
-/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
-		register int a asm("a") = 4;
-		register int b asm("b") = fd;
-		register int c asm("c") = (int)s;
-		register int d asm("d") = len;
-		__asm__ volatile( "call *__mini_vsys");
-
-		return(0);
-}*/
-
-
-#endif
-
-//+ansi stdio.h
-//+inc
-//+def
-static inline int volatile fputc(int c, int fd){
-		write(fd, &c, 1);
-		return(c);
-}
-
-
-
-#endif
-#endif
-
-#ifdef mini_fputs
-// XXXXXXXXXXXXXXXXXX*************** file: fputs.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: fputs.h
-// O: include/fputs.h
-#ifndef fputs_h
-#define fputs_h
-
-// XXXXXXXXXXXXXXXXXX*************** file: write.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: write.h
-// f: write.h
-// O: include/write.h
-#ifndef minilib_write_h
-#define minilib_write_h
-
-//+ansi unistd.h
-//+inc
-
-//#include "syscall.h"
-//#undef write
-/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
-		//setup_syscall3(SYS_write,fd,(int)s,len);
-		int ret;
-		syscall3(ret,__NR_write,fd,(int)s,len);
-//  asm volatile ("call *__mini_vsys"
-//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
-
-		return(ret);
-}*/
-// +64 bytes.
-DEF_syscall(write,3,int a1,const void *a2, int a3 )
-
-
-/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
-		register int a asm("a") = 4;
-		register int b asm("b") = fd;
-		register int c asm("c") = (int)s;
-		register int d asm("d") = len;
-		__asm__ volatile( "call *__mini_vsys");
-
-		return(0);
-}*/
-
-
-#endif
-
-//+ansi stdio.h
-//+inc
-
-int strlen(const char*str);
-
-//+def
-static inline int volatile fputs(const char *c, int fd){
-		return(write(fd, c, strlen(c)));
-}
-
-
-
-#endif
-#endif
-
-
 
 #ifdef mini_puts
 #define puts(a1) printl(a1)
@@ -2503,292 +2157,7 @@ extern int print(const char *msg);
 extern int printl(const char *msg);
 #endif
 
-
-
-//#ifdef mini_buf
-//extern char mbuf[mini_buf];
-//extern int mbufsize;
-//#endif
-
-void _exit();
-
-#ifdef mini_exit
-// XXXXXXXXXXXXXXXXXX*************** file: exit.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: exit.h
-// O: include/exit.h
-#ifndef minilib_exit_h
-#define minilib_exit_h
-//+ansi unistd.h
-//+inc
-
-//#include "syscall.h"
-//#undef write
-//#undef exit
-
-
-#ifdef X64
-#define exit(ret) asm("jmp _exit"::"D"(ret))
-#else
-#define exit(ret) asm("jmp _exit"::"b"(ret))
-#endif
-
-
-//#else
-/* inline void volatile __attribute__((always_inline)) exit( int ret ){
-		//setup_syscall3(SYS_write,fd,(int)s,len);
-	int r;
-		syscall1(r,SCALL(exit),ret);
-} */
-//#endif
-
-#endif
-#endif
-
-#ifdef mini_write
-// XXXXXXXXXXXXXXXXXX*************** file: write.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: write.h
-// f: write.h
-// O: include/write.h
-#ifndef minilib_write_h
-#define minilib_write_h
-
-//+ansi unistd.h
-//+inc
-
-//#include "syscall.h"
-//#undef write
-/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
-		//setup_syscall3(SYS_write,fd,(int)s,len);
-		int ret;
-		syscall3(ret,__NR_write,fd,(int)s,len);
-//  asm volatile ("call *__mini_vsys"
-//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
-
-		return(ret);
-}*/
-// +64 bytes.
-DEF_syscall(write,3,int a1,const void *a2, int a3 )
-
-
-/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
-		register int a asm("a") = 4;
-		register int b asm("b") = fd;
-		register int c asm("c") = (int)s;
-		register int d asm("d") = len;
-		__asm__ volatile( "call *__mini_vsys");
-
-		return(0);
-}*/
-
-
-#endif
-#endif
-
-#ifdef mini_isprint
-// XXXXXXXXXXXXXXXXXX*************** file: isprint.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: isprint.h
-// O: include/isprint.h
-#ifndef mini_isprint_h
-#define mini_isprint_h
-#define misprint(A) isprint(A)
-
-//+ansi ctype.h
-//+inc
-//+def
-static inline int __attribute__((always_inline)) isprint(const char c){
-		if ( (c>31) && ( c<127 ))
-				return(1);
-		return(0);
-}
-
-
-#endif
-
-#endif
-
-#ifdef mini_isspace
-extern int isspace(int c);
-#endif
-
-
-
-#ifdef mini_creat
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_fopen
-#ifndef mini_open
-//FILE* fopen( const char* s, 
-#define mini_open
-#endif
-#endif
-
-
-
-#ifdef mini_open
-//#include "open.h"
-
-int volatile open( const char *s, int flags, ... );
-int volatile creat( const char *s, int mode );
-#ifndef mini_filemodes
-#define mini_filemodes
-#endif
-#ifndef mini_errno
-#define mini_errno
-#endif
-#endif
-
-#ifdef mini_lseek
-// XXXXXXXXXXXXXXXXXX*************** file: lseek.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: lseek.h
-// O: include/lseek.h
-#ifndef mini_lseek_h
-#define mini_lseek_h
-
-//+ansi unistd.h
-//+inc
-
-//#include "syscall.h"
-
-#define SEEK_SET        0       /* seek relative to beginning of file */
-#define SEEK_CUR        1       /* seek relative to current file position */
-#define SEEK_END        2       /* seek relative to end of file */
-#define SEEK_MAX        SEEK_END
-
-extern int sysret;
-extern int errno;
-
-DEF_syscallret(lseek,a1,3,unsigned int a1, int a2, int a3 )
-
-DEF_syscall(ftruncate,2,unsigned int a1, unsigned int a2 )
-DEF_syscall(fsync,1,int a1 )
-
-
-
-
-#endif
-
-#endif
-
-#ifdef mini_close
-// XXXXXXXXXXXXXXXXXX*************** file: close.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: close.h
-// O: include/close.h
-#ifndef minilib_close_h
-#define minilib_close_h
-
-//+ansi unistd.h
-//+inc
-//+def
-static inline int volatile __attribute__((always_inline)) close( int fd ){
-		int ret;
-		syscall1(ret,SCALL(close),(int)fd);
-		return(ret);
-}
-
-
-#endif
-#endif
-
-
-
-#ifdef mini_filemodes
-// XXXXXXXXXXXXXXXXXX*************** file: filemodes.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: filemodes.h
-// O: include/filemodes.h
-#ifndef mini_filemodes_h
-#define mini_filemodes_h
-
-#ifdef OSX
-
-/* open-only flags */
-#define	O_RDONLY	0x0000		/* open for reading only */
-#define	O_WRONLY	0x0001		/* open for writing only */
-#define	O_RDWR		0x0002		/* open for reading and writing */
-#define	O_ACCMODE	0x0003		/* mask for above modes */
-
-#define	FREAD		0x0001
-#define	FWRITE		0x0002
-#define	O_NONBLOCK	0x0004		/* no delay */
-#define	O_APPEND	0x0008		/* set append mode */
-
-#define	O_SHLOCK	0x0010		/* open with shared file lock */
-#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
-#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
-#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
-#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
-#define	O_CREAT		0x0200		/* create if nonexistant */
-#define	O_TRUNC		0x0400		/* truncate to zero length */
-#define	O_EXCL		0x0800		/* error if already exists */
-
-#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
-
-#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
-#define O_DIRECTORY	0x100000
-#define O_SYMLINK	0x200000	/* allow open of a symlink */
-#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
-#define O_DP_GETRAWENCRYPTED	0x0001
-#define O_DP_GETRAWUNENCRYPTED	0x0002
-
-
-
-#else
-
-
-#define O_ACCMODE	00000003
-#define O_RDONLY	00000000
-#define O_WRONLY	00000001
-#define O_RDWR		00000002
-#define O_CREAT		00000100	/* not fcntl */
-#define O_EXCL		00000200	/* not fcntl */
-#define O_NOCTTY	00000400	/* not fcntl */
-#define O_TRUNC		00001000	/* not fcntl */
-#define O_APPEND	00002000
-#define O_NONBLOCK	00004000
-#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
-#define FASYNC		00020000	/* fcntl, for BSD compatibility */
-#define O_DIRECT	00040000	/* direct disk access hint */
-#define O_LARGEFILE	00100000
-#define O_DIRECTORY	00200000	/* must be a directory */
-#define O_NOFOLLOW	00400000	/* don't follow links */
-#define O_NOATIME	01000000
-#define O_CLOEXEC	02000000	/* set close_on_exec */
-
-#endif
-
-
-
-#endif
-
-#endif
-
 //#ifdef mini_errno / No reason to not define errno Macros by default
-// XXXXXXXXXXXXXXXXXX*************** file: errno.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: errno.h
-// O: include/errno.h
 #ifndef mini_errno_h
 #define mini_errno_h
 #define EPERM            1
@@ -2930,543 +2299,1106 @@ extern int errno;
 
 
 
-#ifdef mini_ioctl
-//#include "ioctl.h"
-int ioctl( int fd, unsigned long int request, ... );
-#endif
-
 #ifdef mini_tcgetattr
-//#include "tcgetattr.h"
-// XXXXXXXXXXXXXXXXXX*************** file: sys/termios.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: sys  Name termios.h
-// f: sys/termios.h
-// O: include/sys/termios.h
-// O: src/sys/termios.h
-// O: asm/sys/termios.h
-// O: macros/sys/termios.h
-// O: headers/common/sys/termios.h
-#ifndef	_TERMIOS_H
-#define	_TERMIOS_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// XXXXXXXXXXXXXXXXXX*************** file: features.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: features.h
-// O: include/features.h
-// O: src/features.h
-// O: asm/features.h
-// O: macros/features.h
-// O: headers/common/features.h
-// just a placeholder
-
-#define __NEED_pid_t
-
-//#include <bits/alltypes.h>
-
-typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-
-#define NCCS 32
-
-// XXXXXXXXXXXXXXXXXX*************** file: bits/termios.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// Path: bits  Name termios.h
-// f: bits/termios.h
-// O: include/bits/termios.h
-// O: src/bits/termios.h
-// O: asm/bits/termios.h
-// O: macros/bits/termios.h
-// O: headers/common/bits/termios.h
-// source: musl
-#ifndef termios_xxxxx
-#define termios_xxxxx
-struct termios {
-	tcflag_t c_iflag;
-	tcflag_t c_oflag;
-	tcflag_t c_cflag;
-	tcflag_t c_lflag;
-	cc_t c_line;
-	cc_t c_cc[NCCS];
-	speed_t __c_ispeed;
-	speed_t __c_ospeed;
-};
-
-#define VINTR     0
-#define VQUIT     1
-#define VERASE    2
-#define VKILL     3
-#define VEOF      4
-#define VTIME     5
-#define VMIN      6
-#define VSWTC     7
-#define VSTART    8
-#define VSTOP     9
-#define VSUSP    10
-#define VEOL     11
-#define VREPRINT 12
-#define VDISCARD 13
-#define VWERASE  14
-#define VLNEXT   15
-#define VEOL2    16
-
-#define IGNBRK  0000001
-#define BRKINT  0000002
-#define IGNPAR  0000004
-#define PARMRK  0000010
-#define INPCK   0000020
-#define ISTRIP  0000040
-#define INLCR   0000100
-#define IGNCR   0000200
-#define ICRNL   0000400
-#define IUCLC   0001000
-#define IXON    0002000
-#define IXANY   0004000
-#define IXOFF   0010000
-#define IMAXBEL 0020000
-#define IUTF8   0040000
-
-#define OPOST  0000001
-#define OLCUC  0000002
-#define ONLCR  0000004
-#define OCRNL  0000010
-#define ONOCR  0000020
-#define ONLRET 0000040
-#define OFILL  0000100
-#define OFDEL  0000200
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE)
-#define NLDLY  0000400
-#define NL0    0000000
-#define NL1    0000400
-#define CRDLY  0003000
-#define CR0    0000000
-#define CR1    0001000
-#define CR2    0002000
-#define CR3    0003000
-#define TABDLY 0014000
-#define TAB0   0000000
-#define TAB1   0004000
-#define TAB2   0010000
-#define TAB3   0014000
-#define BSDLY  0020000
-#define BS0    0000000
-#define BS1    0020000
-#define FFDLY  0100000
-#define FF0    0000000
-#define FF1    0100000
-#endif
-
-#define VTDLY  0040000
-#define VT0    0000000
-#define VT1    0040000
-
-#define B0       0000000
-#define B50      0000001
-#define B75      0000002
-#define B110     0000003
-#define B134     0000004
-#define B150     0000005
-#define B200     0000006
-#define B300     0000007
-#define B600     0000010
-#define B1200    0000011
-#define B1800    0000012
-#define B2400    0000013
-#define B4800    0000014
-#define B9600    0000015
-#define B19200   0000016
-#define B38400   0000017
-
-#define B57600   0010001
-#define B115200  0010002
-#define B230400  0010003
-#define B460800  0010004
-#define B500000  0010005
-#define B576000  0010006
-#define B921600  0010007
-#define B1000000 0010010
-#define B1152000 0010011
-#define B1500000 0010012
-#define B2000000 0010013
-#define B2500000 0010014
-#define B3000000 0010015
-#define B3500000 0010016
-#define B4000000 0010017
-
-#define CSIZE  0000060
-#define CS5    0000000
-#define CS6    0000020
-#define CS7    0000040
-#define CS8    0000060
-#define CSTOPB 0000100
-#define CREAD  0000200
-#define PARENB 0000400
-#define PARODD 0001000
-#define HUPCL  0002000
-#define CLOCAL 0004000
-
-#define ISIG   0000001
-#define ICANON 0000002
-#define ECHO   0000010
-#define ECHOE  0000020
-#define ECHOK  0000040
-#define ECHONL 0000100
-#define NOFLSH 0000200
-#define TOSTOP 0000400
-#define IEXTEN 0100000
-
-#define TCOOFF 0
-#define TCOON  1
-#define TCIOFF 2
-#define TCION  3
-
-#define TCIFLUSH  0
-#define TCOFLUSH  1
-#define TCIOFLUSH 2
-
-#define TCSANOW   0
-#define TCSADRAIN 1
-#define TCSAFLUSH 2
-
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-#define EXTA    0000016
-#define EXTB    0000017
-#define CBAUD   0010017
-#define CBAUDEX 0010000
-#define CIBAUD  002003600000
-#define CMSPAR  010000000000
-#define CRTSCTS 020000000000
-
-#define XCASE   0000004
-#define ECHOCTL 0001000
-#define ECHOPRT 0002000
-#define ECHOKE  0004000
-#define FLUSHO  0010000
-#define PENDIN  0040000
-#define EXTPROC 0200000
-
-#define XTABS  0014000
+#ifndef mini_ioctl
+#define mini_ioctl
 #endif
 #endif
 
-speed_t cfgetospeed (const struct termios *);
-speed_t cfgetispeed (const struct termios *);
-int cfsetospeed (struct termios *, speed_t);
-int cfsetispeed (struct termios *, speed_t);
-
-int tcgetattr (int, struct termios *);
-int tcsetattr (int, int, const struct termios *);
-
-int tcsendbreak (int, int);
-int tcdrain (int);
-int tcflush (int, int);
-int tcflow (int, int);
-
-pid_t tcgetsid (int);
-
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-void cfmakeraw(struct termios *);
-int cfsetspeed(struct termios *, speed_t);
+#ifdef mini_dtodec
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
 #endif
 
-#ifdef __cplusplus
-}
+#ifdef mini_fprintf
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_prints
+#define mini_prints
+#endif
 #endif
 
+#ifdef mini_itodec
+#ifndef mini_uitodec
+#define mini_uitodec
 #endif
-extern int tcgetattr(int fd, struct termios *io);
+#endif
+
+#ifdef mini_sprintf
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_strncpy
+#ifndef mini_memcpy
+#define mini_memcpy
+#endif
+#endif
+
+#ifdef mini_fputs
+#ifndef mini_strlen
+#define mini_strlen
+#endif
 #endif
 
 #ifdef mini_tcsetattr
-//#include "tcsetattr.h"
-// XXXXXXXXXXXXXXXXXX*************** file: sys/termios.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: sys/termios.h
-// Path: sys  Name termios.h
-// f: sys/termios.h
-// O: include/sys/termios.h
-// O: src/sys/termios.h
-// O: asm/sys/termios.h
-// O: macros/sys/termios.h
-// O: headers/common/sys/termios.h
-#ifndef	_TERMIOS_H
-#define	_TERMIOS_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// XXXXXXXXXXXXXXXXXX*************** file: features.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: features.h
-// f: features.h
-// O: include/features.h
-// O: src/features.h
-// O: asm/features.h
-// O: macros/features.h
-// O: headers/common/features.h
-// just a placeholder
-
-#define __NEED_pid_t
-
-//#include <bits/alltypes.h>
-
-typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-
-#define NCCS 32
-
-// XXXXXXXXXXXXXXXXXX*************** file: bits/termios.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// YYYYYYYYYYYYYY   Already included: bits/termios.h
-// Path: bits  Name termios.h
-// f: bits/termios.h
-// O: include/bits/termios.h
-// O: src/bits/termios.h
-// O: asm/bits/termios.h
-// O: macros/bits/termios.h
-// O: headers/common/bits/termios.h
-// source: musl
-#ifndef termios_xxxxx
-#define termios_xxxxx
-struct termios {
-	tcflag_t c_iflag;
-	tcflag_t c_oflag;
-	tcflag_t c_cflag;
-	tcflag_t c_lflag;
-	cc_t c_line;
-	cc_t c_cc[NCCS];
-	speed_t __c_ispeed;
-	speed_t __c_ospeed;
-};
-
-#define VINTR     0
-#define VQUIT     1
-#define VERASE    2
-#define VKILL     3
-#define VEOF      4
-#define VTIME     5
-#define VMIN      6
-#define VSWTC     7
-#define VSTART    8
-#define VSTOP     9
-#define VSUSP    10
-#define VEOL     11
-#define VREPRINT 12
-#define VDISCARD 13
-#define VWERASE  14
-#define VLNEXT   15
-#define VEOL2    16
-
-#define IGNBRK  0000001
-#define BRKINT  0000002
-#define IGNPAR  0000004
-#define PARMRK  0000010
-#define INPCK   0000020
-#define ISTRIP  0000040
-#define INLCR   0000100
-#define IGNCR   0000200
-#define ICRNL   0000400
-#define IUCLC   0001000
-#define IXON    0002000
-#define IXANY   0004000
-#define IXOFF   0010000
-#define IMAXBEL 0020000
-#define IUTF8   0040000
-
-#define OPOST  0000001
-#define OLCUC  0000002
-#define ONLCR  0000004
-#define OCRNL  0000010
-#define ONOCR  0000020
-#define ONLRET 0000040
-#define OFILL  0000100
-#define OFDEL  0000200
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE)
-#define NLDLY  0000400
-#define NL0    0000000
-#define NL1    0000400
-#define CRDLY  0003000
-#define CR0    0000000
-#define CR1    0001000
-#define CR2    0002000
-#define CR3    0003000
-#define TABDLY 0014000
-#define TAB0   0000000
-#define TAB1   0004000
-#define TAB2   0010000
-#define TAB3   0014000
-#define BSDLY  0020000
-#define BS0    0000000
-#define BS1    0020000
-#define FFDLY  0100000
-#define FF0    0000000
-#define FF1    0100000
-#endif
-
-#define VTDLY  0040000
-#define VT0    0000000
-#define VT1    0040000
-
-#define B0       0000000
-#define B50      0000001
-#define B75      0000002
-#define B110     0000003
-#define B134     0000004
-#define B150     0000005
-#define B200     0000006
-#define B300     0000007
-#define B600     0000010
-#define B1200    0000011
-#define B1800    0000012
-#define B2400    0000013
-#define B4800    0000014
-#define B9600    0000015
-#define B19200   0000016
-#define B38400   0000017
-
-#define B57600   0010001
-#define B115200  0010002
-#define B230400  0010003
-#define B460800  0010004
-#define B500000  0010005
-#define B576000  0010006
-#define B921600  0010007
-#define B1000000 0010010
-#define B1152000 0010011
-#define B1500000 0010012
-#define B2000000 0010013
-#define B2500000 0010014
-#define B3000000 0010015
-#define B3500000 0010016
-#define B4000000 0010017
-
-#define CSIZE  0000060
-#define CS5    0000000
-#define CS6    0000020
-#define CS7    0000040
-#define CS8    0000060
-#define CSTOPB 0000100
-#define CREAD  0000200
-#define PARENB 0000400
-#define PARODD 0001000
-#define HUPCL  0002000
-#define CLOCAL 0004000
-
-#define ISIG   0000001
-#define ICANON 0000002
-#define ECHO   0000010
-#define ECHOE  0000020
-#define ECHOK  0000040
-#define ECHONL 0000100
-#define NOFLSH 0000200
-#define TOSTOP 0000400
-#define IEXTEN 0100000
-
-#define TCOOFF 0
-#define TCOON  1
-#define TCIOFF 2
-#define TCION  3
-
-#define TCIFLUSH  0
-#define TCOFLUSH  1
-#define TCIOFLUSH 2
-
-#define TCSANOW   0
-#define TCSADRAIN 1
-#define TCSAFLUSH 2
-
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-#define EXTA    0000016
-#define EXTB    0000017
-#define CBAUD   0010017
-#define CBAUDEX 0010000
-#define CIBAUD  002003600000
-#define CMSPAR  010000000000
-#define CRTSCTS 020000000000
-
-#define XCASE   0000004
-#define ECHOCTL 0001000
-#define ECHOPRT 0002000
-#define ECHOKE  0004000
-#define FLUSHO  0010000
-#define PENDIN  0040000
-#define EXTPROC 0200000
-
-#define XTABS  0014000
+#ifndef mini_ioctl
+#define mini_ioctl
 #endif
 #endif
 
-speed_t cfgetospeed (const struct termios *);
-speed_t cfgetispeed (const struct termios *);
-int cfsetospeed (struct termios *, speed_t);
-int cfsetispeed (struct termios *, speed_t);
-
-int tcgetattr (int, struct termios *);
-int tcsetattr (int, int, const struct termios *);
-
-int tcsendbreak (int, int);
-int tcdrain (int);
-int tcflush (int, int);
-int tcflow (int, int);
-
-pid_t tcgetsid (int);
-
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-void cfmakeraw(struct termios *);
-int cfsetspeed(struct termios *, speed_t);
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+int ioctl( int fd, unsigned long int request, ... );
 #endif
 
-#ifdef __cplusplus
-}
+// 
+#ifdef mini_prints
 #endif
 
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+void *memcpy( void *d, const void *s, int n );
 #endif
-extern int tcsetattr(int fd, int opt, const struct termios *io);
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
 #endif
 
-#ifdef mini_select
-// XXXXXXXXXXXXXXXXXX*************** file: select.h 
+// minilib/include/syscall_stubs.h
+#ifdef mini_write
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
 
-// Current path: /home/micha/prog/g2it-minilib
+ The arguments need to be named a1,a2,..
 
-// f: select.h
-// O: include/select.h
-#ifndef select_h
-#define select_h
-// XXXXXXXXXXXXXXXXXX*************** file: timeval.h 
+*/
 
-// Current path: /home/micha/prog/g2it-minilib
+//+header declarations.h
 
-// YYYYYYYYYYYYYY   Already included: timeval.h
-// f: timeval.h
-// O: include/timeval.h
 #ifndef timeval_h
 #define timeval_h
-// XXXXXXXXXXXXXXXXXX*************** file: time_t.h 
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
 
-// Current path: /home/micha/prog/g2it-minilib
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
 
-// YYYYYYYYYYYYYY   Already included: time_t.h
-// f: time_t.h
-// O: include/time_t.h
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/src/mstrlen.c
+#ifdef mini_strlen
+int strlen(const char*str);
+#endif
+
+// minilib/src/open.c
+#ifdef mini_creat
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_time
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup2
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_ftruncate
+#ifndef mini_lseek_h
+#define mini_lseek_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+
+#define SEEK_SET        0       /* seek relative to beginning of file */
+#define SEEK_CUR        1       /* seek relative to current file position */
+#define SEEK_END        2       /* seek relative to end of file */
+#define SEEK_MAX        SEEK_END
+
+extern int sysret;
+extern int errno;
+
+DEF_syscallret(lseek,a1,3,unsigned int a1, int a2, int a3 )
+
+DEF_syscall(ftruncate,2,unsigned int a1, unsigned int a2 )
+DEF_syscall(fsync,1,int a1 )
+
+
+
+
+#endif
+
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_fputc
+#ifndef fputc_c
+#define fputc_c
+
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+
+//+ansi stdio.h
+//+inc
+//+def
+static inline int volatile fputc(int c, int fd){
+		write(fd, &c, 1);
+		return(c);
+}
+
+
+
+#endif
+#endif
+
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+int ioctl( int fd, unsigned long int request, ... );
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini__itobin
+int _itobin(int i, char*buf, int prec, int groups );
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/include/fputs.h
+#ifdef mini_fputs
+#ifndef fputs_h
+#define fputs_h
+
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+
+//+ansi stdio.h
+//+inc
+
+int strlen(const char*str);
+
+//+depends strlen
+//+def
+static inline int volatile fputs(const char *c, int fd){
+		return(write(fd, c, strlen(c)));
+}
+
+
+
+#endif
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_lseek
+#ifndef mini_lseek_h
+#define mini_lseek_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+
+#define SEEK_SET        0       /* seek relative to beginning of file */
+#define SEEK_CUR        1       /* seek relative to current file position */
+#define SEEK_END        2       /* seek relative to end of file */
+#define SEEK_MAX        SEEK_END
+
+extern int sysret;
+extern int errno;
+
+DEF_syscallret(lseek,a1,3,unsigned int a1, int a2, int a3 )
+
+DEF_syscall(ftruncate,2,unsigned int a1, unsigned int a2 )
+DEF_syscall(fsync,1,int a1 )
+
+
+
+
+#endif
+
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+int itohex(int i,char* buf,int padding);
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+char *strcat(char *dest, const char *src );
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_gettimeofday
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+void *memset( void *s, int c, int n);
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+int atoi(char *c);
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+void *memcpy( void *d, const void *s, int n );
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+int volatile open( const char *s, int flags, ... );
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_itodec
+int itodec(int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+char *strcpy(char *dest, const char *src);
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+int dtodec(double d, char* buf, int precision);
+#endif
+
+// minilib/include/isprint.h
+#ifdef mini_isprint
+#ifndef mini_isprint_h
+#define mini_isprint_h
+#define misprint(A) isprint(A)
+
+//+ansi ctype.h
+//+inc
+//+def
+static inline int __attribute__((always_inline)) isprint(const char c){
+		if ( (c>31) && ( c<127 ))
+				return(1);
+		return(0);
+}
+
+
+#endif
+
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mprotect
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fstat
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup3
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+char *strncpy(char *dest, const char *src, int n);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_unlink
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/include/tcgetattr.h
+#ifdef mini_tcgetattr
+#ifndef tcgetattr_h
+#define tcgetattr_h
+
+//#include <sys/termios.h>
+//#include "ioctl.h"
+//#include <sys/ttycom.h>
+
+
+#ifndef TCGETS
+#warning TCGETS not defined. Applying ugly hack.
+#define TCGETS TIOCGETA
+#endif
+
+//+header unistd.h
+//+needs sys/ttycom.h
+//+depends ioctl
+//+def
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
+	//return(ioctl(fd, 0x5401, io));
+	return(ioctl(fd, TCGETS, io));
+
+}
+
+
+
+#endif
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getpid
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_malloc
+void* volatile malloc(int size);
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_fsync
+#ifndef mini_lseek_h
+#define mini_lseek_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+
+#define SEEK_SET        0       /* seek relative to beginning of file */
+#define SEEK_CUR        1       /* seek relative to current file position */
+#define SEEK_END        2       /* seek relative to end of file */
+#define SEEK_MAX        SEEK_END
+
+extern int sysret;
+extern int errno;
+
+DEF_syscallret(lseek,a1,3,unsigned int a1, int a2, int a3 )
+
+DEF_syscall(ftruncate,2,unsigned int a1, unsigned int a2 )
+DEF_syscall(fsync,1,int a1 )
+
+
+
+
+#endif
+
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_write
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/include/tcsetattr.h
+#ifdef mini_tcsetattr
+#ifndef tcsetattr_h
+#define tcsetattr_h
+
+//#include <termios.h>
+
+//#include <sys/ttycom.h>
+
+#ifndef TCSETS
+#warning TCSETS not defined. Applying ugly hack.
+#define TCSETS TIOCSETA
+#endif
+
+//+needs sys/ttycom.h termios.h
+//+header unistd.h
+//+depends ioctl
+//+def
+static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
+	return(ioctl(fd, TCSETS +opt, io));
+	//return(ioctl(fd, 0x5402+opt, io));
+}
+
+
+
+#endif
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_free
+void volatile free(void* p);
+#endif
+
+// minilib/include/select.h
+#ifdef mini_select
+#ifndef select_h
+#define select_h
+#ifndef timeval_h
+#define timeval_h
 #ifndef type_t_h
 #define type_t_h
 typedef long time_t;
@@ -3480,7 +3412,7 @@ struct timezone {
 #endif
 //#include "syscall.h"
 
-//+ansi unistd.h
+//+header unistd.h
 //+inc
 
 // from musl
@@ -3525,183 +3457,552 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
 
 #endif
 
-#ifdef mini_epoll
-// XXXXXXXXXXXXXXXXXX*************** file: epoll.h 
+// minilib/src/mstrcmp.c
+#ifdef mini_strncmp
+int strncmp(const char*c1,const char*c2,int len);
+#endif
 
-// Current path: /home/micha/prog/g2it-minilib
+// minilib/src/mstrlen.c
+#ifdef mini_strlen
+int strlen(const char*str);
+#endif
 
-// f: epoll.h
-// O: include/epoll.h
-#ifndef epoll_h
-#define epoll_h
+// minilib/include/write.h
+#ifdef mini_def
+#ifndef minilib_write_h
+#define minilib_write_h
 
-// TODO: doesn't ork
+//+header unistd.h
+//+inc
 
-typedef struct { unsigned long __bits[128/sizeof(long)]; } sigset_t;
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
 
-#define EPOLL_CLOEXEC 02000000
-#define EPOLL_NONBLOCK 04000
+		return(ret);
+}*/
+// +64 bytes.
 
-enum EPOLL_EVENTS { __EPOLL_DUMMY };
-#define EPOLLIN 0x001
-#define EPOLLPRI 0x002
-#define EPOLLOUT 0x004
-#define EPOLLRDNORM 0x040
-#define EPOLLRDBAND 0x080
-#define EPOLLWRNORM 0x100
-#define EPOLLWRBAND 0x200
-#define EPOLLMSG 0x400
-#define EPOLLERR 0x008
-#define EPOLLHUP 0x010
-#define EPOLLRDHUP 0x2000
-#define EPOLLONESHOT (1U<<30)
-#define EPOLLET (1U<<31)
-
-#define EPOLL_CTL_ADD 1
-#define EPOLL_CTL_DEL 2
-#define EPOLL_CTL_MOD 3
-
-typedef union epoll_data {
-		  void *ptr;
-			  int fd;
-				int u32;
-				long u64;
-} epoll_data_t;
-
-struct epoll_event {
-		  int events;
-			  epoll_data_t data;
-} __attribute__ ((__packed__));
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
 
 
-static inline int epoll_create(int size)
-{
-		  return syscall1(SCALL(epoll_create), size);
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+#endif
+
+// 
+#ifdef mini_prints
+#endif
+
+// minilib/include/read.h
+#ifdef mini_read
+#ifndef minilib_read_h
+#define minilib_read_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+// Check, if referencing pos would overrun the buffer.
+#ifndef overrun_h
+#define overrun_h
+#ifndef mini_prints
+#define mini_prints
+#endif
+#ifndef minilib_exit_h
+#define minilib_exit_h
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+//#undef exit
+
+
+#ifdef X64
+#define exit(ret) asm("jmp _exit"::"D"(ret))
+#else
+#define exit(ret) asm("jmp _exit"::"b"(ret))
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+	int r;
+		syscall1(r,SCALL(exit),ret);
+} */
+//#endif
+
+#endif
+#ifndef mprints_h
+#define mprints_h
+extern int _mprints(char*msg,...);
+#define mprints(...) _mprints(__VA_ARGS__,0)
+#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
+#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
+//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
+//#define print(...) _mprints(__VA_ARGS__)
+#endif
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
+		mprintsl("Buffer Overrun. Aborting.");\
+		exit(1);}
+#endif
+
+
+//+needs syscall.h
+//+def
+static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		//MINI_TEST_OVERRUN(len);
+		int ret;
+		syscall3(ret,SCALL(read),fd,(POINTER)buf,len);
+		return(ret);
 }
 
-static inline int epoll_ctl(int fd, int op, int fd2, struct epoll_event *ev)
-{
-		  return syscall4(SCALL(epoll_ctl), fd, op, fd2, (int)ev);
+
+#endif
+#endif
+
+// minilib/src/msprintf.c
+#ifdef mini_sprintf
+int sprintf(char *buf, const char* fmt, ... );
+#endif
+
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
+void* memfrob(void* s, unsigned int len);
+#endif
+
+// minilib/include/close.h
+#ifdef mini_close
+#ifndef minilib_close_h
+#define minilib_close_h
+
+//+header unistd.h
+//+inc
+//+def
+static inline int volatile __attribute__((always_inline)) close( int fd ){
+		int ret;
+		syscall1(ret,SCALL(close),(int)fd);
+		return(ret);
 }
 
-static inline int epoll_wait(int fd, struct epoll_event *ev, int cnt, int to)
-{
-		  return syscall4(SCALL(epoll_wait), fd, (int)ev, cnt, to);
-}
 
+#endif
+#endif
 
+// minilib/src/mstrcmp.c
+#ifdef mini_memcmp
+int memcmp(const void* c1,const void* c2,int len);
+#endif
 
-#define POLLIN     0x001
-#define POLLPRI    0x002
-#define POLLOUT    0x004
-#define POLLERR    0x008
-#define POLLHUP    0x010
-#define POLLNVAL   0x020
-#define POLLRDNORM 0x040
-#define POLLRDBAND 0x080
-#define POLLWRNORM 0x100
-#define POLLWRBAND 0x200
-#define POLLMSG    0x400
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
 
-typedef unsigned int nfds_t;
+ The arguments need to be named a1,a2,..
 
-struct pollfd
-{
-		        int fd;
-		        short events;
-		        short revents;
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
 };
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
 
 
-static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout)
-{
-		  return syscall3(SCALL(epoll_wait), (int)fds, (int)cnt, timeout);
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_strcmp
+int strcmp(const char*c1,const char*c2);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rename
+#ifndef SYSCALL_STUBS
+#define SYSCALL_STUBS
+/*
+ These are just wrapped syscalls.
+ errno is set, anyway.
+
+ The arguments need to be named a1,a2,..
+
+*/
+
+//+header declarations.h
+
+#ifndef timeval_h
+#define timeval_h
+#ifndef type_t_h
+#define type_t_h
+typedef long time_t;
+#endif
+//struct timeval { time_t tv_sec; long tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+//#include "syscall.h"
+//#include "sys/types.h"
+//#include "sys/syscall.h"
+
+extern int sysret;
+extern int errno;
+
+struct stat;
+
+
+DEF_syscall(gettimeofday,2, struct timeval *a1, struct timezone *a2)
+
+DEF_syscall(getpid,0 )
+
+DEF_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3 )
+
+
+DEF_syscall(write,3,int a1,const void *a2, int a3 )
+//rename a1=oldpath a2=newpath
+DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(unlink,1, const char* a1)		
+
+DEF_syscall(fstat,2,int a1,struct stat* a2)		
+DEF_syscall(dup,1,int a1)		
+DEF_syscall(dup2,2,int a1, int a2)		
+DEF_syscall(dup3,3,int a1, int a2, int a3)		
+
+#ifndef OSX
+DEF_syscallret(time,*a1,1,unsigned int *a1 )
+#else
+
+#endif
+
+
+
+
+#endif
+#endif
+
+// minilib/src/mfprintf.c
+#ifdef mini_fprintf
+int fprintf(int fd, const char* fmt, ... );
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_print
+int print(const char *msg);
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_printl
+int printl(const char *msg);
+#endif
+
+// minilib/src/isspace.c
+#ifdef mini_isspace
+int isspace(int c);
+#endif
+
+
+#ifdef INCLUDESRC
+#endif
+
+#endif
+#ifndef start_c
+#define start_c
+
+#ifndef OSX
+
+#ifdef mini_vsyscalls
+int __mini_vsys = 0;
+#ifndef startc_c
+#define startc_c
+
+typedef struct _elf_aux_v {
+		unsigned int type;
+		unsigned int value;
+} elf_aux_v;
+
+
+
+void __start_c(char **envp){
+
+		//for ( ; *envp == 0; envp++  );
+		while ( *envp++ != 0 );
+		elf_aux_v *p = (elf_aux_v*)envp;
+
+		while ( p ){
+				if ( p->type == 32 ){
+						__mini_vsys = p->value;
+						return;
+				}
+				p++;
+		}
 }
 
 
+#endif
 
+#endif
+
+#ifdef mini_start
+#ifdef X64
+#ifdef mini_start
+void _start(){
+// This is "callen" just before main.
+// 
+// dbg("Startup -xx"); // no arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+#ifdef mini_buf
+ml.mbufsize = mini_buf;
+#endif
+__asm__("\
+#.global _start\n\
+#_start:\n\
+	popq %rdi\n\
+	movq %rsp,%rsi\n\
+	leaq  8(%rsi,%rdi,8),%rdx\n\
+	call main\n\
+	movq %rax, %rdi\n\
+.global _exit\n\
+_exit:\n\
+	movq $60, %rax\n\
+	syscall\n"
+	);
+};
+#endif
+
+#else
+#ifdef mini_start
+//#include "src/start_c.c"
+void _start(){
+// This is "callen" just before main.
+// 
+// dbg("Startup -xx"); // no arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+#ifdef mini_buf
+ml.mbufsize = mini_buf;
+#endif
+__asm__("\
+#.global _start\n\
+#_start:\n\
+	pop %eax\n\
+	leal  12(%esp,%eax,4),%ebx\n"
+//	push %ebx\n
+//	call __start_c\n
+//	pop %ebx\n
+  "pop %eax\n\
+  mov %esp,%ecx\n\
+	push %ebx\n\
+	push %ecx\n\
+	push %eax\n\
+	call main\n\
+	mov %eax, %ebx\n\
+.global _exit\n\
+_exit:\n\
+	mov $1, %eax\n\
+	int $0x80\n"
+	);
+};
+#endif
+
+#endif
+#endif
+
+
+#else
+
+#ifdef mini_start
+#ifdef mini_start
+// Not tested yet
+//
+void start(){
+// This is "callen" just before main.
+// 
+// dbg("Startup -xx"); // no arguments allowed here. 
+// otherwise argv[] gets confused
+// Or we would have to add some further bloating bytes
+#ifdef mini_buf
+ml.mbufsize = mini_buf;
+#endif
+__asm__ volatile (
+//		".globl start\n\t"
+//		"start:	
+		"pushq	$0\n\t"
+		"movq	%rsp,%rbp\n\t"
+		"andq    $-16,%rsp\n\t"
+		"movq	8(%rbp),%rdi\n\t"
+		"leaq	16(%rbp),%rsi\n\t"
+		"movl	%edi,%edx\n\t"
+		"addl	$1,%edx\n\t"
+		"sall	$3,%edx\n\t"
+		"addq	%rsi,%rdx\n\t"
+		"movq	%rdx,%rcx\n\t"
+		"jmp	Lapple2\n\t"
+		"Lapple:	add	$8,%rcx\n\t"
+		"Lapple2:cmpq	$0,(%rcx)\n\t"
+		"jne	Lapple		    \n\t"
+		"add	$8,%rcx\n\t"
+		"call _main\n\t"
+		"movq %rax, %rdi\n\t"
+		".globl _exit\n\t"
+		"_exit:\n\t"
+		"movl $0x2000001, %eax\n\t"
+		"syscall\n\t"
+	);
+} 
+#endif
+
+#endif
+
+
+#endif
 
 
 
 
 #endif
+#ifndef minilib_globals_c
+#define minilib_globals_c
+
+// 
+//#ifndef mini_buf
+//#warning defining minibuf
+//#define mini_buf 1024
+//#endif
+//
+#ifdef mini_buf
+minilib_globals ml;
+//
+//void minilib_global_init(){ // this is callen by startup.c
+//	ml.mbufsize = mini_buf;
+  //ibuf = (int*)mbuf;
+//}
+//
+#else
+//
+//void minilib_global_init(){} // this is callen by startup.c
+//
 #endif
 
-#ifdef mini_mstrcmp
-extern int strcmp(const char*,const char*);
-extern int strncmp(const char*,const char*,int);
-extern int memcmp(const void*,const void*,int);
 #endif
 
-#ifdef mini_strcat
-extern char *strcat(char *dest, const char *src )
-#define mini_mstrlen
+#ifdef mini_prints
+#ifndef mprints_c
+#define mprints_c
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
 #endif
-
-#ifdef mini_mstrlen
-extern int strlen(const char*);
+#ifndef mprints_h
+#define mprints_h
+extern int _mprints(char*msg,...);
+#define mprints(...) _mprints(__VA_ARGS__,0)
+#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
+#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
+//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
+//#define print(...) _mprints(__VA_ARGS__)
 #endif
-
-#ifdef mini_memset
-extern void *memset( void *s, int c, int n);
-#endif
-
-#ifdef mini_strncpy
-#ifndef strncpy
-#define strncpy(a,b,c) memcpy(a,b,c)
-#define mini_memcpy
-#endif
-#endif
-
-#ifdef mini_memcpy
-#ifndef memcpy
-extern void *memcpy( void *d, const void *s, int n);
-#endif
-#endif
-
-
-#ifdef mini_itohex
-extern int itohex(int i,char* buf,int padding);
-#endif
-
-#ifdef mini_dtodec
-extern int dtodec(double d,char* buf, int prec);
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#endif
-
-#ifdef mini_ltodec
-extern int ltodec(long d,char* buf, int prec);
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#endif
-
-
-#ifdef mini_itodec
-extern int itodec(int i,char* buf,int padding, char dec);
-#endif
-
-
-#ifdef mini_atoi
-extern int atoi(char *c);
-#endif
-
-#ifdef mini_itobin
-// int number, char *buf, int padding = 0, int groups = 32 (no grouping)
-extern int _itobin(int i,char* buf, int padding, int groups);
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-#endif
-
-
-#ifdef mini_stdarg
-// XXXXXXXXXXXXXXXXXX*************** file: stdarg.h 
-
-// Current path: /home/micha/prog/g2it-minilib
-
-// f: stdarg.h
-// O: include/stdarg.h
 #ifndef stdarg_h
 #define stdarg_h
 // copied from musl
@@ -3783,82 +4084,1124 @@ typedef va_list __gnuc_va_list;
 
 #endif
 
+
+#ifndef mini_mprints
+#define mini_mprints
+#endif
+
+//TODO: Handle errors of write (ret == -1)
+
+#if 0
+int _mprints(char *msg,...){
+		int a;
+		int ret = 0;
+
+		do {
+				a = 0;
+				while (msg[a] != 0 ){
+						a++;
+				}
+				ret += write(1,msg,a);
+				//msg = 0;//va_arg(args,char*);
+				//msg+=4;
+				printf("\nmsg: %u\n",msg);
+				printf("msg: %u\n",&msg);
+				unsigned int i;
+				i = &msg;
+				printf("i: %u\n",i);
+				i+=4;
+				printf("i: %u\n",i);
+				*msg = i;
+				printf("\nmsg: %u\n",msg);
+				printf("msg: %u\n",&msg);
+
+				msg=0;
+		} while ( msg != 0 );
+		return(ret);
+}
+
+#else
+
+//+needs write.h mprints.h stdarg.h
+//+depends write
+int _mprints(char *msg,...){
+		va_list args;
+		va_start(args,msg);
+		int a;
+		int ret = 0;
+
+		do {
+				a = 0;
+				while (msg[a] != 0 ){
+						a++;
+				}
+				ret += write(1,msg,a);
+				msg = va_arg(args,char*);
+		} while ( msg != 0 );
+		va_end(args);
+		return(ret);
+}
+#endif
+
+#endif
+#endif
+
+#ifdef mini_errno
+int errno;
 #endif
 
 
-#ifdef mini_malloc
-extern void* malloc(int size);
-extern void free(void *p);
-#endif
+
+// minilib/src/open.c
+#ifdef mini_creat
+#ifndef open_c
+#define open_c
+//+header fcntl.h
+
+//#include "syscall.h"
+#ifndef mini_filemodes_h
+#define mini_filemodes_h
+
 #ifdef OSX
-#ifndef PROTO_READ
-#define	PROT_NONE	0x00	/* [MC2] no permissions */
-#define	PROT_READ	0x01	/* [MC2] pages can be read */
-#define	PROT_WRITE	0x02	/* [MC2] pages can be written */
-#define	PROT_EXEC	0x04	/* [MC2] pages can be executed */
 
-#define	MAP_SHARED	0x0001		/* [MF|SHM] share changes */
-#define	MAP_PRIVATE	0x0002		/* [MF|SHM] changes are private */
+/* open-only flags */
+#define	O_RDONLY	0x0000		/* open for reading only */
+#define	O_WRONLY	0x0001		/* open for writing only */
+#define	O_RDWR		0x0002		/* open for reading and writing */
+#define	O_ACCMODE	0x0003		/* mask for above modes */
 
-#define	MAP_FIXED	 0x0010	/* [MF|SHM] interpret addr exactly */
-#define	MAP_RENAME	 0x0020	/* Sun: rename private pages to file */
-#define	MAP_NORESERVE	 0x0040	/* Sun: don't reserve needed swap area */
-#define	MAP_RESERVED0080 0x0080	/* previously unimplemented MAP_INHERIT */
-#define	MAP_NOEXTEND	 0x0100	/* for MAP_FILE, don't change file size */
-#define	MAP_HASSEMAPHORE 0x0200	/* region may contain semaphores */
-#define MAP_NOCACHE	 0x0400 /* don't cache pages for this mapping */
-#define MAP_JIT		 0x0800 /* Allocate a region that will be used for JIT purposes */
+#define	FREAD		0x0001
+#define	FWRITE		0x0002
+#define	O_NONBLOCK	0x0004		/* no delay */
+#define	O_APPEND	0x0008		/* set append mode */
 
-/*
- * Mapping type
- */
-#define	MAP_FILE	0x0000	/* map from file (default) */
-#define	MAP_ANON	0x1000	/* allocated from memory, swap space */
-#define	MAP_ANONYMOUS	MAP_ANON
+#define	O_SHLOCK	0x0010		/* open with shared file lock */
+#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
+#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
+#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
+#define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_TRUNC		0x0400		/* truncate to zero length */
+#define	O_EXCL		0x0800		/* error if already exists */
+
+#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
+
+#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
+#define O_DIRECTORY	0x100000
+#define O_SYMLINK	0x200000	/* allow open of a symlink */
+#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
+#define O_DP_GETRAWENCRYPTED	0x0001
+#define O_DP_GETRAWUNENCRYPTED	0x0002
+
+
+
+#else
+
+
+#define O_ACCMODE	00000003
+#define O_RDONLY	00000000
+#define O_WRONLY	00000001
+#define O_RDWR		00000002
+#define O_CREAT		00000100	/* not fcntl */
+#define O_EXCL		00000200	/* not fcntl */
+#define O_NOCTTY	00000400	/* not fcntl */
+#define O_TRUNC		00001000	/* not fcntl */
+#define O_APPEND	00002000
+#define O_NONBLOCK	00004000
+#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
+#define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_DIRECT	00040000	/* direct disk access hint */
+#define O_LARGEFILE	00100000
+#define O_DIRECTORY	00200000	/* must be a directory */
+#define O_NOFOLLOW	00400000	/* don't follow links */
+#define O_NOATIME	01000000
+#define O_CLOEXEC	02000000	/* set close_on_exec */
+
+#endif
 
 
 
 #endif
+
+
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
 #endif
 
-#ifdef mini_powers
-//extern float fpowerui(float,unsigned int);
-extern int ipoweriui(int,unsigned int);
-extern int ipoweri(int,int); 
-//extern int ipoweriui2(int,unsigned int);
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
 #endif
 
-#ifdef mini_memfrob
-extern void* memfrob(void*,unsigned int);
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
 #endif
 
 
-static inline int XOR(int i1, int i2 ){
-		asm volatile ( "xor %2,%0" : "=m" (i1) : "m" (i1), "r" (i2) );
-		return(i1);
+/// open compiles only defined static. (???)
+//+def
+int volatile open( const char *s, int flags, ... ){
+		int ret;
+		va_list args;
+		va_start(args,flags);
+		int mode = va_arg(args,int);
+		va_end(args);
+
+		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
+		return(ret);
+}
+
+/// creat
+//d open
+//+def
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
 
-#define fileno(F) F
+
+//FILE* volatile fopen( const char *s, const char *mode ){
+//		int m = 0;
 
 
-//#define fprintf(...) mfprintf(__VA_ARGS__)
 
-#ifdef mini_overwrite
-//#define printf(...) mprintf(__VA_ARGS__)
-//#define fprintf(...) mfprintf(__VA_ARGS__)
-//#define sprintf(...) msprintf(__VA_ARGS__)
-//#define strcmp(A,B) mstrcmp(A,B)
-//#define strncmp(A,B,LEN) mstrncmp(A,B,LEN)
-//#define strlen(A) mstrlen(A)
+
+#endif
 #endif
 
-// XXXXXXXXXXXXXXXXXX*************** file: minilib_global.h 
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+#ifndef mini_ioctl_h
+#define mini_ioctl_h
 
-// Current path: /home/micha/prog/g2it-minilib
+//#include "../include/syscall.h"
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
 
-// f: minilib_global.h
-// O: include/minilib_global.h
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+//#include "/usr/diet/include/stdarg.h"
+
+//+header ioctl.h
+//+def
+int ioctl( int fd, unsigned long int request, ... ){
+		va_list args;
+		va_start(args,request);
+
+		int ret;
+		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
+		va_end(args);
+		return(ret);
+}
+
+
+#endif
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini__itobin
+//+ansi stdio.h
+//+def
+int _itobin(int i, char*buf, int prec, int groups ){
+		prec -= 32;
+		int a,p=0;
+		int g = 0;
+		for ( a=0; a<32; a++ ){
+				if (i&0x80000000 ){
+						prec = 0;
+						buf[p] = '1';
+						p++;
+				} else {
+						if ( prec == 0 ){
+								buf[p] = '0';
+								p++;
+						} else
+								prec++;
+				}
+				i <<= 1;
+				g++;
+				if ( (prec==0) && (g>=groups) ){
+						g=0;
+						buf[p] = ' ';
+						p++;
+				}
+		}
+		if ( p == 0 ){
+				buf[0] = '0';
+				p++;
+		}
+		buf[p] = 0;
+		return(p);
+}
+
+
+		
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+#ifndef mini_itodec_c
+#define mini_itodec_c
+//+ansi stdio.h
+//
+// convert int to string.
+// prec: precision, e.g. 4=> 0087 
+//+def
+int uitodec(unsigned int i, char *buf, int prec, char limiter ){
+		int p = 0;
+		int a;
+		int t1,t2,t3,dec;
+		//unsigned int ut1,ut2,ut3;
+		char n;
+		prec = prec - 10; // Maximale Stellenanzahl 
+
+
+		if ( i==0 ){
+				buf[0] = '0';
+				//p++;
+				//return(
+		}
+
+	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
+	
+	if ( i >= 1000000000){
+			//mprints("hier.\n");
+			p=1;
+			prec=0;
+			if ( i>=2000000000 ){
+					i-=2000000000;
+				if ( i>=1000000000 ){
+						if ( i>=2000000000 ){
+								buf[0] = '4';
+								i-=2000000000;
+						} else {
+								buf[0] = '3';
+								i-=1000000000;
+						}
+					} else {
+						buf[0] = '2';
+						//i-=2000000000;
+					}
+			}	else {
+					buf[0] = '1'; 
+					i-=1000000000;
+			}
+	} else {
+			if ( prec == 0 ){
+					buf[0] = '0';
+					p++;
+			} else
+					prec++;
+	}
+
+	
+
+					
+			
+
+	for (a=0;a<12;a++){
+			if ( div[a] == 0 ){
+					if ( (limiter != 0 ) && (prec==0) ){
+							buf[p] = limiter;
+							p++;
+					}
+			} else {
+			n = '0';
+
+			if ( (t1=(i - div[a])) >= 0 ){
+					prec = 0;
+					n = '1';
+					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
+							if ( (t3=t2-dec) >= 0 ){
+									n = '9';
+									i = t3;
+									goto write;
+							} else {
+									n = '5';
+									t1 = t2;
+							}
+					} 
+					if ( (t2=(t1-(div[a]<<1) ) ) >=0 ){
+							t1=t2;
+							n += 2;
+					}
+					if ( (t2=(t1-(div[a]) ) ) >=0 ){
+							t1=t2;
+							n += 1;
+					}
+					i = t1;
+			}
+
+			if ( prec == 0 ){
+			write:
+					buf[p] = n;
+					p++;
+			} else
+					prec++;
+
+			}
+	}
+	if ( p==0 )
+			p=1;
+	buf[p] = 0;
+
+	return(p);
+}
+
+	
+//+depends uitodec
+//+def
+int itodec(int i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(uitodec((unsigned int)i,buf,prec,limiter) );
+}
+
+
+#endif
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+//+ansi stdio.h
+//+def
+int itohex(int i,char* buf,int padding){
+
+		padding = padding - 8;
+		if ( padding < -7 )
+				padding = -7;
+
+		union { int n; char c[4]; } conv[2];
+		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
+		conv[1].n = ( i & 0x0f0f0f0f );
+		int p = 0;
+		int a,b;
+
+		for ( a=3; a>=0; a-- ){
+				for ( b=0; b <=1; b++ ){
+						if ( padding != 0 ){
+								if ( conv[b].c[a] != 0 ){
+										padding = 0;
+								}
+						}
+						if ( padding == 0 ){
+								char c = conv[b].c[a];
+								if ( c < 0xa )
+										c = c + 48;
+								else
+										c = c + 87; // 55 for big abc ..
+								buf[p] = c;
+								p++;
+						} else
+								padding++;
+				}
+		}
+		buf[p] = 0 ;
+		return(p);
+}
+
+
+
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+#ifndef strcat_c
+#define strcat_c
+
+//+ansi string.h
+//+def
+char *strcat(char *dest, const char *src ){
+		size_t dest_len = strlen(dest);
+		size_t i;
+
+		for (i = 0 ; src[i] != '\0' ; i++)
+				dest[dest_len + i] = src[i];
+		dest[dest_len + i] = '\0';
+
+		return dest;
+}
+
+
+#endif
+
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+//+ansi string.h
+//+def
+void *memset( void *s, int c, int n){
+		int a;
+		char *sp = s;
+		for ( a=0; a<n; a++)
+				sp[a] = (char)c;
+		return(s);
+}
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+#ifndef atoi_c
+#define atoi_c
+
+//+ansi stdlib.h
+//+def
+int atoi(char *c){
+		int t,a=0;
+	 	int ret=0;
+		int dez = 1;
+
+		while( c[a] != 0 ){ 
+				a++; 
+		}
+		while ( a>0 ){
+				a--;
+				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
+						t = c[a] - 48;
+						if ( t & 1 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 2 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 4 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 8 )
+								ret += dez;
+				} else {
+						dez <<= 3;
+				}
+				dez += (dez >> 2);
+		}
+		if ( c[0] == '-' )
+				ret = -ret;
+		return(ret);
+}
+
+
+#endif
+		
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+#ifndef memcpy_c
+#define memcpy_c
+
+//+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
+}
+
+
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
+#endif
+
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+#ifndef open_c
+#define open_c
+//+header fcntl.h
+
+//#include "syscall.h"
+#ifndef mini_filemodes_h
+#define mini_filemodes_h
+
+#ifdef OSX
+
+/* open-only flags */
+#define	O_RDONLY	0x0000		/* open for reading only */
+#define	O_WRONLY	0x0001		/* open for writing only */
+#define	O_RDWR		0x0002		/* open for reading and writing */
+#define	O_ACCMODE	0x0003		/* mask for above modes */
+
+#define	FREAD		0x0001
+#define	FWRITE		0x0002
+#define	O_NONBLOCK	0x0004		/* no delay */
+#define	O_APPEND	0x0008		/* set append mode */
+
+#define	O_SHLOCK	0x0010		/* open with shared file lock */
+#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
+#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
+#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
+#define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_TRUNC		0x0400		/* truncate to zero length */
+#define	O_EXCL		0x0800		/* error if already exists */
+
+#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
+
+#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
+#define O_DIRECTORY	0x100000
+#define O_SYMLINK	0x200000	/* allow open of a symlink */
+#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
+#define O_DP_GETRAWENCRYPTED	0x0001
+#define O_DP_GETRAWUNENCRYPTED	0x0002
+
+
+
+#else
+
+
+#define O_ACCMODE	00000003
+#define O_RDONLY	00000000
+#define O_WRONLY	00000001
+#define O_RDWR		00000002
+#define O_CREAT		00000100	/* not fcntl */
+#define O_EXCL		00000200	/* not fcntl */
+#define O_NOCTTY	00000400	/* not fcntl */
+#define O_TRUNC		00001000	/* not fcntl */
+#define O_APPEND	00002000
+#define O_NONBLOCK	00004000
+#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
+#define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_DIRECT	00040000	/* direct disk access hint */
+#define O_LARGEFILE	00100000
+#define O_DIRECTORY	00200000	/* must be a directory */
+#define O_NOFOLLOW	00400000	/* don't follow links */
+#define O_NOATIME	01000000
+#define O_CLOEXEC	02000000	/* set close_on_exec */
+
+#endif
+
+
+
+#endif
+
+
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+
+/// open compiles only defined static. (???)
+//+def
+int volatile open( const char *s, int flags, ... ){
+		int ret;
+		va_list args;
+		va_start(args,flags);
+		int mode = va_arg(args,int);
+		va_end(args);
+
+		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
+		return(ret);
+}
+
+/// creat
+//d open
+//+def
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
+}
+
+
+
+//FILE* volatile fopen( const char *s, const char *mode ){
+//		int m = 0;
+
+
+
+
+#endif
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_itodec
+#ifndef mini_itodec_c
+#define mini_itodec_c
+//+ansi stdio.h
+//
+// convert int to string.
+// prec: precision, e.g. 4=> 0087 
+//+def
+int uitodec(unsigned int i, char *buf, int prec, char limiter ){
+		int p = 0;
+		int a;
+		int t1,t2,t3,dec;
+		//unsigned int ut1,ut2,ut3;
+		char n;
+		prec = prec - 10; // Maximale Stellenanzahl 
+
+
+		if ( i==0 ){
+				buf[0] = '0';
+				//p++;
+				//return(
+		}
+
+	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
+	
+	if ( i >= 1000000000){
+			//mprints("hier.\n");
+			p=1;
+			prec=0;
+			if ( i>=2000000000 ){
+					i-=2000000000;
+				if ( i>=1000000000 ){
+						if ( i>=2000000000 ){
+								buf[0] = '4';
+								i-=2000000000;
+						} else {
+								buf[0] = '3';
+								i-=1000000000;
+						}
+					} else {
+						buf[0] = '2';
+						//i-=2000000000;
+					}
+			}	else {
+					buf[0] = '1'; 
+					i-=1000000000;
+			}
+	} else {
+			if ( prec == 0 ){
+					buf[0] = '0';
+					p++;
+			} else
+					prec++;
+	}
+
+	
+
+					
+			
+
+	for (a=0;a<12;a++){
+			if ( div[a] == 0 ){
+					if ( (limiter != 0 ) && (prec==0) ){
+							buf[p] = limiter;
+							p++;
+					}
+			} else {
+			n = '0';
+
+			if ( (t1=(i - div[a])) >= 0 ){
+					prec = 0;
+					n = '1';
+					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
+							if ( (t3=t2-dec) >= 0 ){
+									n = '9';
+									i = t3;
+									goto write;
+							} else {
+									n = '5';
+									t1 = t2;
+							}
+					} 
+					if ( (t2=(t1-(div[a]<<1) ) ) >=0 ){
+							t1=t2;
+							n += 2;
+					}
+					if ( (t2=(t1-(div[a]) ) ) >=0 ){
+							t1=t2;
+							n += 1;
+					}
+					i = t1;
+			}
+
+			if ( prec == 0 ){
+			write:
+					buf[p] = n;
+					p++;
+			} else
+					prec++;
+
+			}
+	}
+	if ( p==0 )
+			p=1;
+	buf[p] = 0;
+
+	return(p);
+}
+
+	
+//+depends uitodec
+//+def
+int itodec(int i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(uitodec((unsigned int)i,buf,prec,limiter) );
+}
+
+
+#endif
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+#ifndef memcpy_c
+#define memcpy_c
+
+//+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
+}
+
+
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
+#endif
+
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+//convert double to string
+//return number of bytes written to buf.
+//doesn't convert numbers > 2^31 (!!!)
+//doesn't round(!)
+//max. prec after the dot: 8 digits. (!!)
+
+//+ansi stdio.h
+//+depends uitodec
+//+def
+int dtodec(double d, char* buf, int precision){
+		int i = (int) d;
+		unsigned int i2;
+		if ( d >= 0 )
+			 i2 = (unsigned int)((d-i)*1000000000+0.1);
+		else 
+			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
+
+
+		int p;
+		if ( (d<=-1) || (d>0) )
+				p = itodec(i,buf,0,0);
+		else {
+				buf[0] = '-';
+				buf[1] = '0';
+				p = 1;
+		}
+
+	
+		buf[p+1]='.';
+		int p2 = uitodec(i2,&buf[p+2],9,0);
+		return(p+p2+2-9+precision);
+}
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+#ifndef memcpy_c
+#define memcpy_c
+
+//+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
+}
+
+
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
+#endif
+
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_malloc
+#ifndef mini_malloc_c
+#define mini_malloc_c
+//+header stdlib.h
+//#include "../include/syscall.h"
+
+#ifdef __NR_brk
+#define BRK
+#else
+#ifdef SYS_brk
+#define BRK
+#endif
+#endif
+
 #ifndef minilib_global_h
 #define minilib_global_h
 
@@ -3891,4 +5234,1921 @@ extern minilib_globals ml;
 
 #endif
 
+/// Debugging macros
+#ifdef DEBUG
+#define mini_fputc
+#define mini_fprintf
+static inline int fputc(int c, int fd);
+
+
+#define dbgwarnf(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
+#define dbgwarn(s) {write(stderr,s,sizeof(s));fputc('\n',stderr);}
+#define dbgwarnfif(a,...) {if ( a ){dbgwarnf(__VA_ARGS__)};}
+#define dbgwarnif(a,s) {if ( a ){dbgwarn(s)};}
+#define dbgerr(s) {dbgwarn(s);exit(1);}
+#define dbgerrf(...) {dbgwarnf(__VA_ARGS__);exit(1);}
+#define dbgerrif(a,s) {if(a){dbgwarn(s);exit(1);};}
+#define dbgerrfif(a,...) {if(a){dbgwarnf(__VA_ARGS__);exit(1);};}
+
+#define dbg(s) dbgwarn(s)
+#define dbgf(...) dbgwarnf(__VA_ARGS__)
+
+#else
+
+#define dbg(s) {}
+#define dbgf(...) {}
+
+
+#define dbgwarnf(...) {}
+#define dbgwarn(s) {} 
+#define dbgwarnfif(a,...) {} 
+#define dbgwarnif(a,s) {} 
+#define dbgerr(s) {}
+#define dbgerrf(...) {}
+#define dbgerrif(a,s) {}
+#define dbgerrfif(a,...) {}
+
+#endif
+
+
+// ansicolors
+#define AC_BLACK "\033[0;30m"
+#define AC_RED "\033[0;31m"
+#define AC_GREEN "\033[32;0m"
+#define AC_BROWN "\033[0;33m"
+#define AC_BLUE "\033[0;34m"
+#define AC_MAGENTA "\033[0;35m"
+#define AC_MARINE "\033[0;36m"
+#define AC_LGREY "\033[0;37m"
+#define AC_WHITE "\033[0;38m"
+
+#define AC_GREY "\033[1;30m" 
+#define AC_LRED "\033[1;31m" 
+#define AC_LGREEN "\033[1;32m" 
+#define AC_YELLOW "\033[1;33m"
+#define AC_LBLUE "\033[1;34m"
+#define AC_LMAGENTA "\033[1;35m"
+#define AC_LMARINE "\033[1;36m"
+#define AC_LWHITE "\033[1;37m"
+
+
+
+
+
+
+
+//#include "mbuf.c"
+
+#define MBUF_FREE 0x80000000
+#define MBUF_FREEMASK 0x8FFFFFFF
+#define MBUF_OCC 0x40000000
+// simple checksum whether a area is free or occupied.
+// If neither nor, most possibly there's a problem.
+#define MBUF_CHK 0xC0000000   
+
+#define MBUF_PREVISFREE 0x20000000
+#define MBUF_V 0x1FFFFFFF
+
+
+// Here we go.. with the .. well. 
+// Fastes and smallest malloc/free combi ever. 
+// Not the smartest.
+// Since it isn't exactly a memory allocation,
+// instead it (mis)uses the minilib buf.
+// muahaha. 1024 Bytes should be enough for everyone.
+//  Ok. If you really do need more memory - 
+//  rethink your design, increase mini_mbuf,
+//  or use a proper malloc implementation.
+//
+// Here we misuse mbuf from top to bottom as stack.
+// 64 Bytes are left at the bottom as reserve.
+// Possibly we'd like to complain
+// about the lack of memory, before we exit..
+//
+// ATM, the 'free' is really lazy. 
+// It free's memory, but a real 'free' is only commited,
+// when all memory below a freed area is also freed.
+// Since the target of minilib atm are tiny tools, 
+// this might be ok.
+// ;) but, as I told before - 
+// probably you should look out for a proper malloc implementation.
+//
+// I'm not sure yet, 
+// whether a better implementation of free would be useful at all.
+// Overall, I'd really prefer keeping minilib tiny.
+//
+// Reusing also sparse freed memory areas leads 
+// to a whole bunch of complications.
+// cache misses, searching complexity,
+// storage overhead,
+// just to name a few.
+//
+// I'm not sure whether it's worth it.
+//
+// And the existing malloc implementations 
+// out there are countless.
+//
+// ;) It's sometimes smarter to stay special,
+// although in this case this means the opposite.
+//   ? I'm not sure what this sentence means XD
+//misc
+//
+//+def
+void* malloc(int size){
+		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"
+		if( ml.mbufsize-(size<<2)<64 ){
+				dbgwarn( "Out of memory." );
+				return((void*)0);
+		}
+
+		ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+		ml.mbufsize -= (size<<2);
+		ml.ibuf[(ml.mbufsize>>2)] = size;
+		return( &ml.mbuf[ml.mbufsize+4] );
+}
+
+#if 0
+///+def
+void free(void *p){
+}
+
+#else
+
+//+def
+void free(void *p){
+		char *c = p;
+		int *i = p;
+		i--;
+		c-=4;
+		
+		if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
+				ml.mbufsize += (i[0] & MBUF_V) <<2;
+				if ( ml.mbufsize == mini_buf )
+						return;
+				if ( ml.ibuf[ml.mbufsize>>2] & MBUF_FREE )
+						ml.mbufsize += ( ( ml.ibuf[ml.mbufsize>>2] & MBUF_V ) << 2 );
+				return;
+				/*do {
+						ml.mbufsize += mbuf[ml.mbufsize] +4;
+						} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+		} else { // Not at the bottom
+				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
+						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+						i = i - ( i[-1] + 1 );
+				}
+				// prev not free
+				if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
+						i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
+						// MBUF_FREE is already set. But for safety set it again. via mask 
+						// adding MBUF_FREE twice wouldn't be that great
+						i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+						return;
+				} // prev area not free, next area not free
+				i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+				i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
+				i[0] = i[0] | MBUF_FREE;
+				return;
+
+		} 
+
+							 /*	(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
+								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
+								else { // next not free
+										(int)c[ -(int)c[-4] ] += ( (int)c[0] & MBUF_V ); // add this area to prev area.
+										(int)c[(int)c[0] & MBUF_V ] = (int)c[(int)c[0]&MBUF_V] | MBUF_PREVISFREE // mark next area 
+												(int)c[(int)c[0]-4] = (int)c[ -(int)c[-4] ]-4; //write len of combined free areas there 
+								}
+						} else { //prev not free
+								if ( (int)c[ (int)c[0] & MBUF_V ] & MBUF_FREE ){ // next free
+										//mbuf[ (int)c[0]
+								}
+						}
+
+				}*/
+		
+}
+
+#endif
+
+
+#if 0
+
+POINTER* ml_brk=0;
+extern POINTER _bssend;
+
+//+def
+void* volatile malloc(int size){
+#ifdef undef
+#warning BRK def
+		int ret=1;
+		mfprintf(stderr,"MALLOC: _bssend: %d\n",_bssend);
+		if ( ml_brk == 0 ){
+				ml_brk = _bssend;
+				syscall1(ret,SCALL(brk),&ml_brk+size);
+				if ( ret!=0 ){
+						mfprintf(stderr,"MALLOC: 0\n");
+						return(0);
+				}
+				ml_brk+=size;
+				return((void*)_bssend);
+		} else {
+				syscall1(ret,SCALL(brk),size+ml_brk);
+				if ( ret!=0 ){
+						mfprintf(stderr,"MALLOC: 0\n");
+						return(0);
+				}
+				int old_brk= ml_brk;
+				ml_brk += size;
+				return((void*)old_brk);
+		}
+#else 
+#warning malloc SYSCALL
+/*		void* ret;
+		syscall6(ret, SCALL(mmap), 0, size, (0x01|0x02), 0x1002, -1, 0);
+		//syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, 0x1002, -1, 0);
+		return((void*)ret);*/
+#endif
+
+		void* ret;
+		size=4096;
+	  register volatile long int r8 asm ("r8") = -1 ; 
+		register volatile long int r9 asm ("r9") = 0; 
+		register volatile long int r10 asm ("r10") = 0x1002; 
+			asm volatile (
+							//"xor %%r9, %%r9;"
+							//"mov $-1, %%r8;"
+							//"mov $0x1002, %%r10;"
+							"syscall" 
+							   : "=a" (ret) 
+								 : "a" (SCALL(mmap) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
+							   : "rcx", "memory" );
+			return( (void*)ret );
+
+}
+
+//+def
+void volatile free(void* p){
+
+}
+
+
+
+
+//malloc old
+		//size = 4096;
+/*	  register long int r8 asm ("r8") = -1 ; 
+		register long int r9 asm ("r9") = 0; 
+		register volatile long int r10 asm ("r10") = 0x1002; 
+			asm volatile (
+							//"xor %%r9, %%r9;"
+							//"mov $-1, %%r8;"
+							//"mov $0x1002, %%r10;"
+							"syscall" 
+							   : "=a" (ret) 
+								 : "a" ( ( 197  | 0x2000000 ) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
+							   : "ecx", "memory" );
+	*/					
+ /*
+		asm volatile(
+						"mov %p6, %%r9\n\t"
+						"mov %p5, %%r8\n\t"
+						"mov %p4, %%r10\n\t"
+						"mov %p3, %%rdx\n\t"
+						"mov %p2, %%rsi\n\t"
+						"mov %p1, %%rdi\n\t"
+						"mov $0x20000000, %%rax\n\t"
+						"syscall\n\t"
+						:"=a"(ret)
+						:[p1]"m"(0),[p2]"m"(1024),[p3]"m"(0x01),[p4]"m"(0x0002),[p5]"m"(-1),[p6]"m"(0));*/
+#endif
+
+
+
+#endif
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_free
+#ifndef mini_malloc_c
+#define mini_malloc_c
+//+header stdlib.h
+//#include "../include/syscall.h"
+
+#ifdef __NR_brk
+#define BRK
+#else
+#ifdef SYS_brk
+#define BRK
+#endif
+#endif
+
+#ifndef minilib_global_h
+#define minilib_global_h
+
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
+
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf>>2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+#else
+
+#warning no mini_buf
+
+#endif
+
+
+#endif
+
+/// Debugging macros
+#ifdef DEBUG
+#define mini_fputc
+#define mini_fprintf
+static inline int fputc(int c, int fd);
+
+
+#define dbgwarnf(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
+#define dbgwarn(s) {write(stderr,s,sizeof(s));fputc('\n',stderr);}
+#define dbgwarnfif(a,...) {if ( a ){dbgwarnf(__VA_ARGS__)};}
+#define dbgwarnif(a,s) {if ( a ){dbgwarn(s)};}
+#define dbgerr(s) {dbgwarn(s);exit(1);}
+#define dbgerrf(...) {dbgwarnf(__VA_ARGS__);exit(1);}
+#define dbgerrif(a,s) {if(a){dbgwarn(s);exit(1);};}
+#define dbgerrfif(a,...) {if(a){dbgwarnf(__VA_ARGS__);exit(1);};}
+
+#define dbg(s) dbgwarn(s)
+#define dbgf(...) dbgwarnf(__VA_ARGS__)
+
+#else
+
+#define dbg(s) {}
+#define dbgf(...) {}
+
+
+#define dbgwarnf(...) {}
+#define dbgwarn(s) {} 
+#define dbgwarnfif(a,...) {} 
+#define dbgwarnif(a,s) {} 
+#define dbgerr(s) {}
+#define dbgerrf(...) {}
+#define dbgerrif(a,s) {}
+#define dbgerrfif(a,...) {}
+
+#endif
+
+
+// ansicolors
+#define AC_BLACK "\033[0;30m"
+#define AC_RED "\033[0;31m"
+#define AC_GREEN "\033[32;0m"
+#define AC_BROWN "\033[0;33m"
+#define AC_BLUE "\033[0;34m"
+#define AC_MAGENTA "\033[0;35m"
+#define AC_MARINE "\033[0;36m"
+#define AC_LGREY "\033[0;37m"
+#define AC_WHITE "\033[0;38m"
+
+#define AC_GREY "\033[1;30m" 
+#define AC_LRED "\033[1;31m" 
+#define AC_LGREEN "\033[1;32m" 
+#define AC_YELLOW "\033[1;33m"
+#define AC_LBLUE "\033[1;34m"
+#define AC_LMAGENTA "\033[1;35m"
+#define AC_LMARINE "\033[1;36m"
+#define AC_LWHITE "\033[1;37m"
+
+
+
+
+
+
+
+//#include "mbuf.c"
+
+#define MBUF_FREE 0x80000000
+#define MBUF_FREEMASK 0x8FFFFFFF
+#define MBUF_OCC 0x40000000
+// simple checksum whether a area is free or occupied.
+// If neither nor, most possibly there's a problem.
+#define MBUF_CHK 0xC0000000   
+
+#define MBUF_PREVISFREE 0x20000000
+#define MBUF_V 0x1FFFFFFF
+
+
+// Here we go.. with the .. well. 
+// Fastes and smallest malloc/free combi ever. 
+// Not the smartest.
+// Since it isn't exactly a memory allocation,
+// instead it (mis)uses the minilib buf.
+// muahaha. 1024 Bytes should be enough for everyone.
+//  Ok. If you really do need more memory - 
+//  rethink your design, increase mini_mbuf,
+//  or use a proper malloc implementation.
+//
+// Here we misuse mbuf from top to bottom as stack.
+// 64 Bytes are left at the bottom as reserve.
+// Possibly we'd like to complain
+// about the lack of memory, before we exit..
+//
+// ATM, the 'free' is really lazy. 
+// It free's memory, but a real 'free' is only commited,
+// when all memory below a freed area is also freed.
+// Since the target of minilib atm are tiny tools, 
+// this might be ok.
+// ;) but, as I told before - 
+// probably you should look out for a proper malloc implementation.
+//
+// I'm not sure yet, 
+// whether a better implementation of free would be useful at all.
+// Overall, I'd really prefer keeping minilib tiny.
+//
+// Reusing also sparse freed memory areas leads 
+// to a whole bunch of complications.
+// cache misses, searching complexity,
+// storage overhead,
+// just to name a few.
+//
+// I'm not sure whether it's worth it.
+//
+// And the existing malloc implementations 
+// out there are countless.
+//
+// ;) It's sometimes smarter to stay special,
+// although in this case this means the opposite.
+//   ? I'm not sure what this sentence means XD
+//misc
+//
+//+def
+void* malloc(int size){
+		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"
+		if( ml.mbufsize-(size<<2)<64 ){
+				dbgwarn( "Out of memory." );
+				return((void*)0);
+		}
+
+		ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+		ml.mbufsize -= (size<<2);
+		ml.ibuf[(ml.mbufsize>>2)] = size;
+		return( &ml.mbuf[ml.mbufsize+4] );
+}
+
+#if 0
+///+def
+void free(void *p){
+}
+
+#else
+
+//+def
+void free(void *p){
+		char *c = p;
+		int *i = p;
+		i--;
+		c-=4;
+		
+		if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
+				ml.mbufsize += (i[0] & MBUF_V) <<2;
+				if ( ml.mbufsize == mini_buf )
+						return;
+				if ( ml.ibuf[ml.mbufsize>>2] & MBUF_FREE )
+						ml.mbufsize += ( ( ml.ibuf[ml.mbufsize>>2] & MBUF_V ) << 2 );
+				return;
+				/*do {
+						ml.mbufsize += mbuf[ml.mbufsize] +4;
+						} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+		} else { // Not at the bottom
+				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
+						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+						i = i - ( i[-1] + 1 );
+				}
+				// prev not free
+				if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
+						i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
+						// MBUF_FREE is already set. But for safety set it again. via mask 
+						// adding MBUF_FREE twice wouldn't be that great
+						i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+						return;
+				} // prev area not free, next area not free
+				i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+				i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
+				i[0] = i[0] | MBUF_FREE;
+				return;
+
+		} 
+
+							 /*	(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
+								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
+								else { // next not free
+										(int)c[ -(int)c[-4] ] += ( (int)c[0] & MBUF_V ); // add this area to prev area.
+										(int)c[(int)c[0] & MBUF_V ] = (int)c[(int)c[0]&MBUF_V] | MBUF_PREVISFREE // mark next area 
+												(int)c[(int)c[0]-4] = (int)c[ -(int)c[-4] ]-4; //write len of combined free areas there 
+								}
+						} else { //prev not free
+								if ( (int)c[ (int)c[0] & MBUF_V ] & MBUF_FREE ){ // next free
+										//mbuf[ (int)c[0]
+								}
+						}
+
+				}*/
+		
+}
+
+#endif
+
+
+#if 0
+
+POINTER* ml_brk=0;
+extern POINTER _bssend;
+
+//+def
+void* volatile malloc(int size){
+#ifdef undef
+#warning BRK def
+		int ret=1;
+		mfprintf(stderr,"MALLOC: _bssend: %d\n",_bssend);
+		if ( ml_brk == 0 ){
+				ml_brk = _bssend;
+				syscall1(ret,SCALL(brk),&ml_brk+size);
+				if ( ret!=0 ){
+						mfprintf(stderr,"MALLOC: 0\n");
+						return(0);
+				}
+				ml_brk+=size;
+				return((void*)_bssend);
+		} else {
+				syscall1(ret,SCALL(brk),size+ml_brk);
+				if ( ret!=0 ){
+						mfprintf(stderr,"MALLOC: 0\n");
+						return(0);
+				}
+				int old_brk= ml_brk;
+				ml_brk += size;
+				return((void*)old_brk);
+		}
+#else 
+#warning malloc SYSCALL
+/*		void* ret;
+		syscall6(ret, SCALL(mmap), 0, size, (0x01|0x02), 0x1002, -1, 0);
+		//syscall6(ret, SCALL(mmap), 0, size, PROT_READ|PROT_WRITE, 0x1002, -1, 0);
+		return((void*)ret);*/
+#endif
+
+		void* ret;
+		size=4096;
+	  register volatile long int r8 asm ("r8") = -1 ; 
+		register volatile long int r9 asm ("r9") = 0; 
+		register volatile long int r10 asm ("r10") = 0x1002; 
+			asm volatile (
+							//"xor %%r9, %%r9;"
+							//"mov $-1, %%r8;"
+							//"mov $0x1002, %%r10;"
+							"syscall" 
+							   : "=a" (ret) 
+								 : "a" (SCALL(mmap) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
+							   : "rcx", "memory" );
+			return( (void*)ret );
+
+}
+
+//+def
+void volatile free(void* p){
+
+}
+
+
+
+
+//malloc old
+		//size = 4096;
+/*	  register long int r8 asm ("r8") = -1 ; 
+		register long int r9 asm ("r9") = 0; 
+		register volatile long int r10 asm ("r10") = 0x1002; 
+			asm volatile (
+							//"xor %%r9, %%r9;"
+							//"mov $-1, %%r8;"
+							//"mov $0x1002, %%r10;"
+							"syscall" 
+							   : "=a" (ret) 
+								 : "a" ( ( 197  | 0x2000000 ) ) , "D" (0), "S" (size), "d" (0x01|0x02), "r" (r10), "r" (r8), "r" (r9) 
+							   : "ecx", "memory" );
+	*/					
+ /*
+		asm volatile(
+						"mov %p6, %%r9\n\t"
+						"mov %p5, %%r8\n\t"
+						"mov %p4, %%r10\n\t"
+						"mov %p3, %%rdx\n\t"
+						"mov %p2, %%rsi\n\t"
+						"mov %p1, %%rdi\n\t"
+						"mov $0x20000000, %%rax\n\t"
+						"syscall\n\t"
+						:"=a"(ret)
+						:[p1]"m"(0),[p2]"m"(1024),[p3]"m"(0x01),[p4]"m"(0x0002),[p5]"m"(-1),[p6]"m"(0));*/
+#endif
+
+
+
+#endif
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_strncmp
+#ifndef strcmp_c
+#define strcmp_c
+
+//+ansi string.h
+
+//TODO: not implemented correct. need to return also -1.
+
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+
+
+//+def
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
+}
+
+//+def
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
+
+#endif
+#endif
+
+// minilib/src/mstrlen.c
+#ifdef mini_strlen
+#ifndef strlen_c
+#define strlen_c
+
+//+ansi string.h
+
+//+def
+int strlen(const char*str){
+		int a = 0;
+		while ( str[a] != 0 ){
+				a++;
+		}
+		return (a);
+}
+
+
+#endif
+#endif
+
+// minilib/src/msprintf.c
+#ifdef mini_sprintf
+#ifndef msprintf_c
+#define msprintf_c
+
+#ifndef mini_write
+#define mini_write
+#endif
+
+
+#ifndef mini_prints
+#define mini_prints
+#endif
+
+// Check, if referencing pos would overrun the buffer.
+#ifndef overrun_h
+#define overrun_h
+#ifndef mini_prints
+#define mini_prints
+#endif
+#ifndef minilib_exit_h
+#define minilib_exit_h
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+//#undef exit
+
+
+#ifdef X64
+#define exit(ret) asm("jmp _exit"::"D"(ret))
+#else
+#define exit(ret) asm("jmp _exit"::"b"(ret))
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+	int r;
+		syscall1(r,SCALL(exit),ret);
+} */
+//#endif
+
+#endif
+#ifndef mprints_h
+#define mprints_h
+extern int _mprints(char*msg,...);
+#define mprints(...) _mprints(__VA_ARGS__,0)
+#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
+#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
+//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
+//#define print(...) _mprints(__VA_ARGS__)
+#endif
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
+		mprintsl("Buffer Overrun. Aborting.");\
+		exit(1);}
+#endif
+
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+#ifndef minilib_exit_h
+#define minilib_exit_h
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+//#undef exit
+
+
+#ifdef X64
+#define exit(ret) asm("jmp _exit"::"D"(ret))
+#else
+#define exit(ret) asm("jmp _exit"::"b"(ret))
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+	int r;
+		syscall1(r,SCALL(exit),ret);
+} */
+//#endif
+
+#endif
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+
+
+//+ansi stdio.h
+//+depends write
+//+needs exit.h stdarg.h overrun.h
+//+def
+int sprintf(char *buf, const char* fmt, ... ){
+		va_list args;
+		va_start(args,fmt);
+		int a = 0;
+		int b = 0;
+		int end, padding, c,groups;
+		char sep;
+		char tmp[16];
+		char *s;
+
+		while ( fmt[a] != 0){
+				if ( fmt[a] == '%' ){
+						end=0;
+						padding = 0;
+						sep = 0;
+						groups=0;
+						do {
+								a++;
+								if ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
+										c = 0;
+										do { 
+												tmp[c] = fmt[a]; 
+												a++;
+												c++;
+										} while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) );
+										tmp[c] = 0;
+#ifdef mini_atoi
+										padding = atoi(tmp);
+#endif
+								}
+
+								switch (fmt[a]){
+										case '%': 	
+												buf[b] = '%';
+												end=1;
+												b++;
+												MINI_TEST_OVERRUN(b);
+												break;
+										case 'u':
+#ifdef mini_itodec
+												MINI_TEST_OVERRUN(b+13);
+												b = b + uitodec(va_arg(args,unsigned int),&ml.mbuf[b],padding,sep);
+#endif
+												end=1;
+												break;
+										case 'd':
+#ifdef mini_itodec
+												MINI_TEST_OVERRUN(b+13);
+												b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
+#endif
+												end=1;
+												break;
+										case 'f':
+#ifdef mini_dtodec
+												MINI_TEST_OVERRUN(b+27);
+												if ( padding==0 )
+														padding = 9;
+												b = b + dtodec(va_arg(args,double),&buf[b],padding);
+#endif
+												end=1;
+												break;
+
+										case 39:
+												sep = '.';
+												break;
+										case 'x':
+										case 'X':
+#ifdef mini_itohex
+												MINI_TEST_OVERRUN(b+8);
+												b = b + itohex(va_arg(args,int),&buf[b],padding);
+#endif
+												end=1;
+												break;
+										case 'b':
+#ifdef mini_itobin
+
+												MINI_TEST_OVERRUN(b+32);
+												b += itobin(va_arg(args,int),&buf[b],padding,groups);
+#endif
+												end=1;
+												break;
+										case '(':
+												a++;
+												if ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
+														c = 0;
+														do { 
+																tmp[c] = fmt[a]; 
+																a++;
+																c++;
+														} while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) );
+														a--;
+														tmp[c] = 0;
+#ifdef mini_atoi
+														groups = atoi(tmp);
+#endif
+												}
+												break;
+										case 's':
+												s = va_arg(args,char*);
+												c=0;
+												while(s[c] != 0){
+														buf[b] = s[c];
+														c++;
+														b++;
+														MINI_TEST_OVERRUN(b);
+												}
+												end=1;
+												break;
+										case 'c':
+												buf[b] = va_arg(args,int);
+												b++;
+												end=1;
+												MINI_TEST_OVERRUN(b);
+												break;
+												
+
+
+
+
+
+								}
+
+						} while ((end==0) && (fmt[a+1] != 0 ));
+
+				} else {
+						buf[b] = fmt[a];
+						b++;
+						MINI_TEST_OVERRUN(b);
+				}
+				a++;
+		}
+		buf[b] = 0;
+		va_end(args);
+		//return(write(1,buf,b));
+		return(b);
+}
+
+#endif
+#endif
+
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
+//+ansi string.h
+//+def
+void* memfrob(void* s, unsigned int len){
+		unsigned int a;
+		char *c = s;
+		for ( a=0; a<len;a++)
+				c[a] = 	c[a] ^ 42;
+		return ( s );
+}
+		
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_memcmp
+#ifndef strcmp_c
+#define strcmp_c
+
+//+ansi string.h
+
+//TODO: not implemented correct. need to return also -1.
+
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+
+
+//+def
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
+}
+
+//+def
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
+
+#endif
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_strcmp
+#ifndef strcmp_c
+#define strcmp_c
+
+//+ansi string.h
+
+//TODO: not implemented correct. need to return also -1.
+
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+
+
+//+def
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
+}
+
+//+def
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
+
+#endif
+#endif
+
+// minilib/src/mfprintf.c
+#ifdef mini_fprintf
+#ifndef mfprintf_c
+#define mfprintf_c
+
+#ifndef mini_write
+#define mini_write
+#endif
+
+
+#ifndef mini_prints
+#define mini_prints
+#endif
+
+// Check, if referencing pos would overrun the buffer.
+#ifndef overrun_h
+#define overrun_h
+#ifndef mini_prints
+#define mini_prints
+#endif
+#ifndef minilib_exit_h
+#define minilib_exit_h
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+//#undef exit
+
+
+#ifdef X64
+#define exit(ret) asm("jmp _exit"::"D"(ret))
+#else
+#define exit(ret) asm("jmp _exit"::"b"(ret))
+#endif
+
+
+//#else
+/* inline void volatile __attribute__((always_inline)) exit( int ret ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+	int r;
+		syscall1(r,SCALL(exit),ret);
+} */
+//#endif
+
+#endif
+#ifndef mprints_h
+#define mprints_h
+extern int _mprints(char*msg,...);
+#define mprints(...) _mprints(__VA_ARGS__,0)
+#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
+#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
+//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
+//#define print(...) _mprints(__VA_ARGS__)
+#endif
+#define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
+		mprintsl("Buffer Overrun. Aborting.");\
+		exit(1);}
+#endif
+
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+#ifndef minilib_global_h
+#define minilib_global_h
+
+// Don't like this pattern.
+// Will most likely "bloat" minilib.
+// But other options do not seem sensible.
+
+//#ifndef mini_buf
+//#warning defining mini_buf
+//#define mini_buf 1024
+//#endif
+
+#ifdef mini_buf
+
+typedef struct {
+		int mbufsize;
+		union {
+				int ibuf[mini_buf>>2];
+				char mbuf[mini_buf];
+		};
+} minilib_globals;
+
+extern minilib_globals ml;
+#else
+
+#warning no mini_buf
+
+#endif
+
+
+#endif
+//#include "../include/exit.h" // Needed for testing for ml.mbuffer overrun
+#ifndef mprints_c
+#define mprints_c
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+#ifndef mprints_h
+#define mprints_h
+extern int _mprints(char*msg,...);
+#define mprints(...) _mprints(__VA_ARGS__,0)
+#define mprintl(...) _mprints(__VA_ARGS__,"\n",0)
+#define mprintsl(...) _mprints(__VA_ARGS__,"\n",0)
+//TODO: Macro: define print(str) write(stdout,str,sizeof(str)-1)
+//#define print(...) _mprints(__VA_ARGS__)
+#endif
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+
+#ifndef mini_mprints
+#define mini_mprints
+#endif
+
+//TODO: Handle errors of write (ret == -1)
+
+#if 0
+int _mprints(char *msg,...){
+		int a;
+		int ret = 0;
+
+		do {
+				a = 0;
+				while (msg[a] != 0 ){
+						a++;
+				}
+				ret += write(1,msg,a);
+				//msg = 0;//va_arg(args,char*);
+				//msg+=4;
+				printf("\nmsg: %u\n",msg);
+				printf("msg: %u\n",&msg);
+				unsigned int i;
+				i = &msg;
+				printf("i: %u\n",i);
+				i+=4;
+				printf("i: %u\n",i);
+				*msg = i;
+				printf("\nmsg: %u\n",msg);
+				printf("msg: %u\n",&msg);
+
+				msg=0;
+		} while ( msg != 0 );
+		return(ret);
+}
+
+#else
+
+//+needs write.h mprints.h stdarg.h
+//+depends write
+int _mprints(char *msg,...){
+		va_list args;
+		va_start(args,msg);
+		int a;
+		int ret = 0;
+
+		do {
+				a = 0;
+				while (msg[a] != 0 ){
+						a++;
+				}
+				ret += write(1,msg,a);
+				msg = va_arg(args,char*);
+		} while ( msg != 0 );
+		va_end(args);
+		return(ret);
+}
+#endif
+
+#endif
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+//#include <stdarg.h>
+//#include "ml.mbuf.c"
+
+/// mfprintf
+/// conversions implemented:
+/// %d  
+/// %u
+/// %f (max precision 8 digits, highest possible number: 2^31
+/// %s
+/// %c
+/// %b : binary output
+/// %x/X : hex output
+/// %(
+/// 
+//+ansi stdio.h
+//+depends write prints
+//+after itobin atoi itodec dtodec ltodec itohex
+//+def
+int fprintf(int fd, const char* fmt, ... ){
+/*		va_list args, ca;
+		va_start(args,fmt);
+		va_copy(ca,args);
+		int len = msprintf(ml.mbuf,fmt,&ca);
+		va_end(args);
+		va_end(ca);
+		return(write(fd,ml.mbuf,len));
+}*/ //no ork.
+
+		va_list args;
+		va_start(args,fmt);
+		int a = 0;
+		int b = 0;
+		int end, padding, c,groups=0;
+		char sep;
+		char tmp[16];
+		char *s;
+
+#if 1
+		while ( fmt[a] != 0){
+				if ( fmt[a] == '%' ){
+						end=0;
+						padding = 0;
+						sep = 0;
+						groups=0;
+						do {
+								a++;
+								if ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
+										c = 0;
+										do { 
+												tmp[c] = fmt[a]; 
+												a++;
+												c++;
+										} while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) );
+										tmp[c] = 0;
+#ifdef mini_atoi
+										padding = atoi(tmp);
+#endif
+								}
+								switch (fmt[a]){
+										case '%': 	
+												ml.mbuf[b] = '%';
+												end=1;
+												b++;
+												MINI_TEST_OVERRUN(b);
+												break;
+#if 1
+										case 'u':
+#ifdef mini_itodec
+												MINI_TEST_OVERRUN(b+13);
+												b = b + uitodec(va_arg(args,unsigned int),&ml.mbuf[b],padding,sep);
+#endif
+												end=1;
+												break;
+										case 'd':
+#ifdef mini_itodec
+												MINI_TEST_OVERRUN(b+13);
+												b = b + itodec(va_arg(args,int),&ml.mbuf[b],padding,sep);
+#endif
+												end=1;
+												break;
+#endif
+										case 'f':
+#ifdef mini_dtodec
+												MINI_TEST_OVERRUN(b+27);
+												if ( padding==0 )
+														padding = 9;
+												b = b + dtodec(va_arg(args,double),&ml.mbuf[b],padding);
+#endif
+												end=1;
+												break;
+										case 'l':
+#ifdef mini_ltodec
+												MINI_TEST_OVERRUN(b+27);
+												b = b + ltodec(va_arg(args,long),&ml.mbuf[b],padding,sep);
+#endif
+												end=1;
+												break;
+
+										case 39:
+												sep = '.';
+												break;
+										case 'x':
+										case 'X':
+#ifdef mini_itohex
+												MINI_TEST_OVERRUN(b+8);
+												b = b + itohex(va_arg(args,int),&ml.mbuf[b],padding);
+#endif
+												end=1;
+												break;
+										case 'b':
+#ifdef mini_itobin
+
+												MINI_TEST_OVERRUN(b+32);
+												b += itobin(va_arg(args,int),&ml.mbuf[b],padding,groups);
+#endif
+												end=1;
+												break;
+										case '(':
+												a++;
+												if ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
+														c = 0;
+														do { 
+																tmp[c] = fmt[a]; 
+																a++;
+																c++;
+														} while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) );
+														a--;
+														tmp[c] = 0;
+#ifdef mini_atoi
+														groups = atoi(tmp);
+#endif
+												}
+												break;
+										case 's':
+												s = va_arg(args,char*);
+												c=0;
+												while(s[c] != 0){
+														ml.mbuf[b] = s[c];
+														c++;
+														b++;
+														MINI_TEST_OVERRUN(b);
+												}
+												end=1;
+												break;
+										case 'c':
+												ml.mbuf[b] = va_arg(args,int);
+												b++;
+												end=1;
+												MINI_TEST_OVERRUN(b);
+												break;
+												
+
+
+
+
+
+								}
+
+						} while ((end==0) && (fmt[a+1] != 0 ));
+
+				} else {
+						ml.mbuf[b] = fmt[a];
+						b++;
+						MINI_TEST_OVERRUN(b);
+				}
+				a++;
+		}
+		ml.mbuf[b] = 0;
+		va_end(args);
+		return(write(fd,ml.mbuf,b));
+		//return(b);
+#endif
+}
+
+//#define fprintf(...) mfprintf(__VA_ARGS__)
+
+#endif
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_print
+#ifndef mprint_c
+#define mprint_c
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+
+//+def
+int print(const char *msg){
+		int a=0;
+		while (msg[a] != 0 ){
+				a++;
+		}
+		return( write(1,msg,a) );
+}
+
+//+def
+int printl(const char *msg){
+		int ret = print(msg);
+		write(1,"\n",1);
+		ret++;
+		return(ret);
+}
+
+#ifdef mini_puts
+//int puts( const char *c ){
+//		return(printl(c));
+//}
+#endif
+
+#endif
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_printl
+#ifndef mprint_c
+#define mprint_c
+#ifndef minilib_write_h
+#define minilib_write_h
+
+//+header unistd.h
+//+inc
+
+//#include "syscall.h"
+//#undef write
+/*static inline int __attribute__((always_inline)) write( int fd, const char *s, int len ){
+		//setup_syscall3(SYS_write,fd,(int)s,len);
+		int ret;
+		syscall3(ret,__NR_write,fd,(int)s,len);
+//  asm volatile ("call *__mini_vsys"
+//					: "=a" (ret): "a" (4) , "b" (fd), "c" ((int)s), "d" (len) : "memory" ); //WORKS! FINALLY
+
+		return(ret);
+}*/
+// +64 bytes.
+
+//+def
+//DEF_syscall(write,3,int a1,const void *a2, int a3 )
+
+
+/*volatile static inline int __attribute__((always_inline)) write( register int fd, const char *s, int len ){
+		register int a asm("a") = 4;
+		register int b asm("b") = fd;
+		register int c asm("c") = (int)s;
+		register int d asm("d") = len;
+		__asm__ volatile( "call *__mini_vsys");
+
+		return(0);
+}*/
+
+
+#endif
+
+//+def
+int print(const char *msg){
+		int a=0;
+		while (msg[a] != 0 ){
+				a++;
+		}
+		return( write(1,msg,a) );
+}
+
+//+def
+int printl(const char *msg){
+		int ret = print(msg);
+		write(1,"\n",1);
+		ret++;
+		return(ret);
+}
+
+#ifdef mini_puts
+//int puts( const char *c ){
+//		return(printl(c));
+//}
+#endif
+
+#endif
+#endif
+
+// minilib/src/isspace.c
+#ifdef mini_isspace
+#ifndef isspace_c
+#define isspace_c
+
+//+ansi ctype.h
+//+def
+int isspace(int c){
+		switch (c){
+				case ' ':
+				case '\f':
+				case '\n':
+				case '\r':
+				case '\t':
+				case '\v':
+						return(1);
+		}
+		return(0);
+}
+
+
+
+
+#endif
+
+#endif
+
+#endif
 #endif
