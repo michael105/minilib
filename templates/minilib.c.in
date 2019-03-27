@@ -1,0 +1,15 @@
+
+#include "minilib.conf"
+#include "minilib.h"
+#include "minilib/asm/start.c"
+#include "minilib/src/minilib_global.c"
+
+#ifdef mini_prints
+#include "minilib/src/mprints.c"
+#endif
+
+#ifdef mini_errno
+int errno;
+#endif
+
+

@@ -1,0 +1,85 @@
+
+//#include "minilib.conf"
+
+#include "minilib/include//utils.h"
+
+#ifdef X64
+#define POINTER unsigned long int
+#else
+#define POINTER int
+#endif
+
+#ifndef uint32_t
+#define uint32_t uint
+#endif
+
+#ifndef uint8_t
+#define uint8_t uchar
+#endif
+
+#ifndef size_t
+#define size_t long
+#endif
+
+
+#ifndef NULL
+#define NULL 0
+#endif
+
+#ifndef stdin
+#define stdin 0
+#endif
+#ifndef stdout
+#define stdout 1
+#endif
+#ifndef stderr
+#define stderr 2
+#endif
+
+
+
+#include "minilib/macros/vararg.h"
+
+//#ifdef mini_syscall
+#include "minilib/include/syscall.h"
+//#endif
+
+#include "minilib/include/timeval.h"
+#include "minilib/headers/common/sys/types.h"
+#include "minilib/include/syscall_stubs.h"
+#include "minilib/include/exit.h"
+#include "minilib/include/minilib_global.h"
+
+
+struct udiv_t { unsigned int quot, rem; };
+
+#ifdef mini_printf
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+#ifndef mini_buf
+#define mini_buf 1024
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_perror
+#define perror(...) fprintf(stderr,__VA_ARGS__)
+#endif
+
+
+#ifdef mini_puts
+#define puts(a1) printl(a1)
+#define mini_print
+#endif
+#ifdef mini_print
+//#include "mprint.h"
+extern int print(const char *msg);
+extern int printl(const char *msg);
+#endif
+
+//#ifdef mini_errno / No reason to not define errno Macros by default
+#include "errno.h"
+//#endif
+
+
