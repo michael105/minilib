@@ -1,5 +1,5 @@
 // Include this file in order to configure minilib's build options,
-// befor you include "minilib.h" or minilibcombined.h
+// befor you include "minilib.h" or minilibcompiled.h
 // define the names of the functions you'd like to use here,
 // comment unwanted functions out.
 

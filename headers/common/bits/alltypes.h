@@ -16,9 +16,9 @@
 typedef unsigned char uchar;
 #endif
 
-typedef __builtin_va_list va_list;
+//typedef __builtin_va_list va_list;
 
-typedef __builtin_va_list __isoc_va_list;
+//typedef __builtin_va_list __isoc_va_list;
 
 typedef int wchar_t;
 

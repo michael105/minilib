@@ -23,7 +23,7 @@ typedef struct {
 extern minilib_globals ml;
 #else
 
-#warning no mini_buf
+//#warning no mini_buf
 
 #endif
 

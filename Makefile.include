@@ -262,8 +262,8 @@ $(info Singlerun)
 
 
 $(PROG): $(PROG).c
-	$(if $(strip $(NOINCLUDE)), $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c, ((cat $(PROG).c && gunzip -c $(MLIBDIR)/minilibcombined.c.gz) | $(GCC) $(CFLAGS) -o $(PROG) -x c - ))
-# cat $(PROG).c $(MLIBDIR)/minilibcombined.c | $(GCC) $(CFLAGS) -o $(PROG) -x c -
+	$(if $(strip $(NOINCLUDE)), $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c, ((cat $(PROG).c && gunzip -c $(MLIBDIR)/minilibcompiled.c.gz) | $(GCC) $(CFLAGS) -o $(PROG) -x c - ))
+# cat $(PROG).c $(MLIBDIR)/minilibcompiled.c | $(GCC) $(CFLAGS) -o $(PROG) -x c -
 	$(STRIPEXEC) $(PROG)
 	#$(if $(strip $(SHRINKELF)),$(MLIBDIR)/tools/sstrip $(PROG))
 	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))

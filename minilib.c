@@ -10,7 +10,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 /* header.in */
 
 #include "minilib.conf"
-#include "minilib/minilib.h"
+#include "minilib.h"
 #include "minilib/asm/start.c"
 #include "minilib/src/minilib_global.c"
 
@@ -20,63 +20,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 #ifdef mini_errno
 int errno;
+int sysret;
 #endif
 
 
 
-// minilib/src/open.c
-#ifdef mini_creat
-#include "minilib/src/open.c"
-#endif
-
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-#include "minilib/src/ioctl.c"
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini__itobin
-#include "minilib/src/itobin.c"
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-#include "minilib/src/itodec.c"
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itohex
-#include "minilib/src/itohex.c"
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-#include "minilib/src/strcat.c"
-#endif
-
-// minilib/src/memset.c
-#ifdef mini_memset
-#include "minilib/src/memset.c"
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-#include "minilib/src/atoi.c"
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_memcpy
-#include "minilib/src/memcpy.c"
-#endif
-
-// minilib/src/open.c
-#ifdef mini_open
-#include "minilib/src/open.c"
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_itodec
-#include "minilib/src/itodec.c"
+// minilib/src/malloc.c
+#ifdef mini_free
+#include "minilib/src/malloc.c"
 #endif
 
 // minilib/src/memcpy.c
@@ -84,39 +35,9 @@ int errno;
 #include "minilib/src/memcpy.c"
 #endif
 
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-#include "minilib/src/dtodec.c"
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strncpy
-#include "minilib/src/memcpy.c"
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_malloc
-#include "minilib/src/malloc.c"
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_free
-#include "minilib/src/malloc.c"
-#endif
-
-// minilib/src/mstrcmp.c
-#ifdef mini_strncmp
-#include "minilib/src/mstrcmp.c"
-#endif
-
-// minilib/src/mstrlen.c
-#ifdef mini_strlen
-#include "minilib/src/mstrlen.c"
-#endif
-
-// minilib/src/msprintf.c
-#ifdef mini_sprintf
-#include "minilib/src/msprintf.c"
+// minilib/src/isspace.c
+#ifdef mini_isspace
+#include "minilib/src/isspace.c"
 #endif
 
 // minilib/src/memfrob.c
@@ -124,9 +45,34 @@ int errno;
 #include "minilib/src/memfrob.c"
 #endif
 
+// minilib/src/msprintf.c
+#ifdef mini_sprintf
+#include "minilib/src/msprintf.c"
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+#include "minilib/src/memset.c"
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+#include "minilib/src/memcpy.c"
+#endif
+
 // minilib/src/mstrcmp.c
-#ifdef mini_memcmp
+#ifdef mini_strncmp
 #include "minilib/src/mstrcmp.c"
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+#include "minilib/src/open.c"
+#endif
+
+// minilib/src/mfprintf.c
+#ifdef mini_fprintf
+#include "minilib/src/mfprintf.c"
 #endif
 
 // minilib/src/mstrcmp.c
@@ -134,9 +80,14 @@ int errno;
 #include "minilib/src/mstrcmp.c"
 #endif
 
-// minilib/src/mfprintf.c
-#ifdef mini_fprintf
-#include "minilib/src/mfprintf.c"
+// minilib/src/itohex.c
+#ifdef mini_itohex
+#include "minilib/src/itohex.c"
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_malloc
+#include "minilib/src/malloc.c"
 #endif
 
 // minilib/src/mprint.c
@@ -149,9 +100,59 @@ int errno;
 #include "minilib/src/mprint.c"
 #endif
 
-// minilib/src/isspace.c
-#ifdef mini_isspace
-#include "minilib/src/isspace.c"
+// minilib/src/open.c
+#ifdef mini_creat
+#include "minilib/src/open.c"
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+#include "minilib/src/dtodec.c"
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+#include "minilib/src/strcat.c"
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+#include "minilib/src/memcpy.c"
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini__itobin
+#include "minilib/src/itobin.c"
+#endif
+
+// minilib/src/mstrlen.c
+#ifdef mini_strlen
+#include "minilib/src/mstrlen.c"
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+#include "minilib/src/itodec.c"
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+#include "minilib/src/atoi.c"
+#endif
+
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+#include "minilib/src/ioctl.c"
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_memcmp
+#include "minilib/src/mstrcmp.c"
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_itodec
+#include "minilib/src/itodec.c"
 #endif
 
 #endif

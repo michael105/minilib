@@ -10,6 +10,7 @@
 
 #ifdef mini_errno
 int errno;
+int sysret;
 #endif
 
 

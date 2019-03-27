@@ -7,8 +7,8 @@ there are two ways:
 1. (The faster one) - but sometimes won't work, 
 		as long as I'm restructuring the whole lib
 
-  download minilibcombined.h
-    wget https://raw.githubusercontent.com/michael105/minilib/master/minilibcombined.h
+  download minilibcompiled.h
+    wget https://raw.githubusercontent.com/michael105/minilib/master/minilibcompiled.h
 
 
   download hello-combined.c
@@ -86,7 +86,7 @@ file:    hello-combined.c
 #define INCLUDESRC
 
  // Only functions, you define before, will be built.
-#include "minilibcombined.h"
+#include "minilibcompiled.h"
 
 int main(){
 		write(stdout, "Hello world!\n", 13);

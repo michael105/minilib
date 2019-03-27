@@ -5,10 +5,10 @@
 # copy this Makefile into the source dir
 # done.
 
-# Or: download the file minilibcombined.c
+# Or: download the file minilibcompiled.c
 # have a look in minilib.h, which defines you need
 # define your switches, and include 
-# minilibcombined.c into one of your sourcefiles.
+# minilibcompiled.c into one of your sourcefiles.
 # 
 
 
@@ -39,7 +39,7 @@ NOINCLUDE=1
 #OPTFLAG=-O1
 
 # GCC
-#GCC=gcc
+#GCC=tcc
 
 # LD
 #LD=ld

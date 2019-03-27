@@ -25,14 +25,14 @@ tools:
 	cd tools && make
 
 combined: 
-	cp templates/LICENSE.tmpl minilibcombined.h
-	echo -e "#ifndef minilibcombined_h\n#define minilibcombined_h\n" >> minilibcombined.h && \
-			scripts/combinesources.pl minilib.c >> minilibcombined.h && \
-			echo "#endif" >> minilibcombined.h
-#	cp templates/LICENSE.tmpl minilibcombined.h
-#	scripts/combinesources.pl include/minilib_header.h >> minilibcombined.h
-#	gzip -c minilibcombined.c > minilibcombined.c.gz
-	gzip -c minilibcombined.h > minilibcombined.h.gz
+	cp templates/LICENSE.tmpl minilibcompiled.h
+	echo -e "#ifndef minilibcompiled_h\n#define minilibcompiled_h\n" >> minilibcompiled.h && \
+			scripts/combinesources.pl minilib.c >> minilibcompiled.h && \
+			echo "#endif" >> minilibcompiled.h
+#	cp templates/LICENSE.tmpl minilibcompiled.h
+#	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h
+#	gzip -c minilibcompiled.c > minilibcompiled.c.gz
+	gzip -c minilibcompiled.h > minilibcompiled.h.gz
 
 
 hello-combinedb: hello-combined.c tools

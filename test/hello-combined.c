@@ -5,7 +5,7 @@
 //#define X64
 
 #define INCLUDESRC
-#include "minilib/minilibcombined.h"
+#include "minilib/minilibcompiled.h"
 
 #if 0
 testhello:

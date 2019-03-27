@@ -42,10 +42,10 @@ char *strcat(char *dest, const char *src );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/strcat.c"
 #include "minilib/src/mstrlen.c"
-#include "minilib/src/mstrcmp.c"
 #include "minilib/src/memset.c"
+#include "minilib/src/mstrcmp.c"
+#include "minilib/src/strcat.c"
 #include "minilib/src/memcpy.c"
 
 // Need global included. Doesn't matter by which file.
