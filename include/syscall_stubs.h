@@ -44,6 +44,10 @@ DEF_syscallret(time,*a1,1,unsigned int *a1 )
 
 #endif
 
+	// problem: ifdef / ifndef now doesnt work anymore for the definitions. 
+	// Hopefully, thats not going to be a problem.
+	// Will see it when trying to compile at osx again
+	//
 /* --- generated-macros-start: syscalldefs --- */
 /* minilib/include/syscall_stubs.h, line: 26 */
 REAL_DEF_syscall(getpid,0 )
