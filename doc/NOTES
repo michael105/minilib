@@ -2,6 +2,11 @@
 
 
 
+compile switches in config.h : 
+	unterordnen: yes | optimize | threadsafe | 
+			(more dependencies to come :( )
+
+
 It's sort of hard to disassemble the compiled binaries.
 common tools dont work, cause of missing section headers /
 They dont disassemble the whole files.

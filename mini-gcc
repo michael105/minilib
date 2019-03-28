@@ -11,7 +11,18 @@ M(){
 
 
 usage(){
+		echo
 		echo Usage and description needs to be placed here..
+		echo
+		echo mini-gcc is a wrapper, to call gcc with the right compile options.
+		echo mini-gcc also creates the file "minilib.conf.h" out of minilib.conf,
+		echo when invoked with --config minilib.conf
+		echo 
+		echo when the config option is given \(must be the first argument for now, when supplied\)
+		echo mini-gcc also includes the config into every file, compiled.
+		echo  Have to leave the docu for now, important things need to be done.
+		echo  "(2019/03/28) misc "
+		echo
 		exit
 }
 
