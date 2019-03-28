@@ -28,6 +28,17 @@ Look at the sources.
 
 Minilib isn't complete at all. (2019/03)
 
+
+2019/03/28
+  Restructuring done,
+	config system written.
+
+	The documentation about the build process isn't on state.
+	The examples might be self explaining,
+	but I have to rewrite the docs.
+
+
+
 ..2019/03/19: 
   Ok. about half of ansi c is done.
   some important functions missing (free, e.g)
