@@ -4,6 +4,12 @@
 If you'd like to try this minilib,
 there are two ways:
 
+!!! Not up to date !!!
+
+1. Might work. When download from the devel Branch
+
+
+
 1. (The faster one) - but sometimes won't work, 
 		as long as I'm restructuring the whole lib
 
@@ -40,6 +46,12 @@ there are two ways:
 
 git clone https://github.com/michael105/minilib.git minilib
 
+at the moment please checkout the devel branch.
+ (Have nearly completed some restructuring,
+	But testing is needed.
+	The changes are in the branch devel)
+
+
 copy minilib/Makefile.template ./Makefile
 
   (edit Makefile. set "PROG" to your program's name)
@@ -51,8 +63,16 @@ copy minilib/minilib.conf ./
    will be included)
 
 
+
+-- create/update minilib.conf.h with mini-gcc --config minilib.conf
+	
+TODO: Update docu
+
+
+
 add the lines below to you source(s)
-#include "minilib.conf"
+
+#include "minilib.conf.h"
 #define INCLUDESRC
 #include "minilib/minilib.h"
 
