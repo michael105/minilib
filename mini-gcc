@@ -1,0 +1,66 @@
+#!/bin/bash
+
+
+M(){
+		echo M: $1
+		export var=$1
+}
+
+
+
+usage(){
+		echo Usage and description needs to be placed here..
+		exit
+}
+
+
+exec_gcc(){
+		echo $REAL_CC $CFLAGS $@
+		$REAL_CC $CFLAGS $@
+}
+
+
+
+checkconfig (){
+		echo Parse config
+	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
+		source scripts/genconfig.sh
+		echo $1
+		source $1 > $1.h  #sed "s/command/function/"
+		echo ARCH: $MINI_ARCH
+		echo OS: $MINI_OS
+		#echo GCC-Options: $REAL_CC $CFLAGS
+		CFLAGS="--include $1.h $CFLAGS"
+}
+
+
+ARGS=$@
+
+if [ "$1" = "" ]
+then
+		usage
+fi
+
+
+if [ "$1" != "" ]; 
+then
+		case $1 in
+				--config )   shift
+						config=$1
+						checkconfig $config 
+						shift
+						;;
+				-h | --help )           usage
+						exit
+						;;
+		esac
+fi
+
+echo args: $@
+
+exec_gcc $@
+
+
+exit
+
+
