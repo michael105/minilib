@@ -1,6 +1,6 @@
 
 // The configuration of the functions to be built
-#include "minilib.conf"
+#include "minilib.conf.h"
 
 // Switch to compile also the sources
 #define INCLUDESRC

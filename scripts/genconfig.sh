@@ -1,5 +1,5 @@
 #
-# Script generated from "make header" / genheaders.pl
+# Script, updated from "make header" / genheaders.pl
 # The functions are callen from minilib.conf 
 # (or another config file)
 # The output of this script generates minilib.conf.h
@@ -31,6 +31,10 @@ OS(){
 mini_buf(){
 		echo "#define mini_buf $1"
 }
+
+
+# Everything below will be silently overwritten,
+# when make header ist invoked
 
 # --- define_functions-start: generate --- #
 mini_memset(){ 

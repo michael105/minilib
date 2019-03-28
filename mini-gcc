@@ -1,5 +1,7 @@
 #!/bin/bash
 
+REAL_CC=gcc
+REAL_LD=ld
 
 M(){
 		echo M: $1
@@ -24,7 +26,6 @@ exec_gcc(){
 checkconfig (){
 		echo Parse config
 	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
-		source scripts/genconfig.sh
 		echo $1
 		source $1 > $1.h  #sed "s/command/function/"
 		echo ARCH: $MINI_ARCH
@@ -41,6 +42,7 @@ then
 		usage
 fi
 
+source scripts/genconfig.sh
 
 if [ "$1" != "" ]; 
 then

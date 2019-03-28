@@ -1,4 +1,4 @@
-/* sstrip - strip an ELF executable of as much as possible
+/* shrinkelf - strip an ELF executable of as much as possible
  *
  * Modified to work with 64bit.
  * Rewrite.
@@ -115,9 +115,9 @@ SOFTWARE.
 #define err(...) {warn(__VA_ARGS__);exit(1);}
 
 #ifdef DBG
-#define dbg(...) warn(__VA_ARGS__)
+#define debg(...) warn(__VA_ARGS__)
 #else
-#define dbg(...) {} 
+#define debg(...) {} 
 #endif
 
 //#include "utils.c" // replace skalibs.
@@ -144,8 +144,8 @@ int fd_move (int to, int from)
 
 #define BUFSIZE 8192
 
-char const *PROG = "sstrip" ;
-#define USAGE "sstrip file"
+char const *PROG = "shrinkelf" ;
+#define USAGE "shrinkelf file"
 
 #ifdef HASLITTLE_ENDIAN
 #define ENDIAN 0
@@ -450,7 +450,7 @@ static void process_file ()
 
 int main (int argc, char const *const *argv)
 {
-  if (argc < 2) err("usage: %s\n",USAGE);
+  if (argc < 2) err("Usage: %s\n",USAGE);
   oldname = argv[1] ;
 
   {
@@ -473,7 +473,7 @@ int main (int argc, char const *const *argv)
   {
     tmpname = malloc(strlen(oldname)+8);
     strcpy( tmpname, oldname );
-		strcpy(	&tmpname[strlen(oldname)],".sstrip");
+		strcpy(	&tmpname[strlen(oldname)],".shrinkelf");
 		fprintf(stdout, "stripping: %s\n",oldname);
 
     {
