@@ -24,10 +24,13 @@
  // build with 64bit( )
 #define X64
 
+#define MLIB
+
+#define INCLUDESRC
 
 // include definitions as well as the sources.
 // Only functions, you define before, will be built.
-#include "minilib_implementation.c"
+#include "minilib.h"
 
 int main(){
 		write(0, "Hello world!\n", 13);

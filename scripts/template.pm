@@ -20,7 +20,7 @@ sub template{
 						my $m = $1;
 						if ( exists($handler->{$m}) ){
 								if ( ! (&{$handler->{$m}}( TMP ) )){
-										print "handler ret != 0\n";
+										die "handler ret != 0\n";
 										return(0);
 								}
 						} else {
@@ -28,7 +28,7 @@ sub template{
 								return(0);
 						}
 						while ( ($l = <FH2>) && !( $l =~ /$tmplpraefix-end: (\S*)/ )){};
-						$l =~ /$tmplpraefix-end: (\S*)/;
+						$l =~ /$tmplpraefix-end:\s*(\S*)/;
 						my $e=$1;
 						print "e: $e      m: $m\n"; 
 						if ( $m ne $e ){

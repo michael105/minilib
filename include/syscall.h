@@ -139,7 +139,7 @@ extern int errno;
 // arguments must be named a1,a2,...
 
 #ifdef mini_errno
-#define REAL_DEF_syscall( name, argcount, ... ) inline \
+#define REAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
@@ -149,7 +149,7 @@ extern int errno;
 				return(sysret);\
 		}
 #else
-#define REAL_DEF_syscall( name, argcount, ... ) inline \
+#define REAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
@@ -181,7 +181,7 @@ extern int errno;
 
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
-#define REAL_DEF_syscallret( name, ret, argcount, ... ) inline \
+#define REAL_define_syscallret( name, ret, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\

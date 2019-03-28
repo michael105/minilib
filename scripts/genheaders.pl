@@ -46,11 +46,11 @@ BEGIN{
 
 
 require "cref.pm";
-
+require "template.pm";
 
 # ansicolors
 #define AC_BLACK "\033[0;30m"
-#define AC_RED "\033[0;31m"
+$AC_R="\033[0;31m";
 $G= "\033[32;0m"; # Green
 #define AC_BROWN "\033[0;33m"
 #define AC_BLUE "\033[0;34m"
@@ -334,25 +334,43 @@ print $mc "\n#endif\n";
 
 close( $mc );
 
-my $conf = headerfh( "minilib.conf", $mlibdir );
-
-foreach my $header ( keys(%{$headerhash}) ){
-		print  $conf "\n\n//     $header    \n";
-		foreach my $f ( keys( %{$headerhash->{$header}}) ){ 
-				printf $conf "//#define mini_$f\n";
+#= headerfh( "minilib.conf", $mlibdir );
+sub confighandler{
+		my $fh = shift;
+		foreach my $header ( keys(%{$headerhash}) ){
+				print  $fh "\n# === $header\n\n";
+				foreach my $f ( keys( %{$headerhash->{$header}}) ){ 
+						printf $fh "# mini_$f\n";
+				}
+				print $fh "\n";
 		}
+		return(1);
 }
 
-print $conf "\n\n#endif\n\n";
-close($conf);
+dbg "$AC_R XXXXXX $N\n";
 
+template( "minilib.conf", "minilib_config", { Buildswitches=>\&confighandler } );
+
+#print $conf "\n\n#endif\n\n";
+#close($conf);
+
+sub configscripthandler{
+		my $fh = shift;
+		foreach my $func ( keys(%{$funchash}) ){
+						printf $fh "mini_$func(){ 
+  echo \"#define mini_$func $1\" 
+}\n";
+				}
+		return(1);
+}
+
+template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscripthandler } );
 
 
 dbg ( Dumper( $syscalldefs ) );
 
 dbg( "stubs: $syscallstubs\n" );
 
-require "template.pm";
 
 sub syscalldefine{
 		my $fh = shift;
@@ -373,6 +391,7 @@ sub syscalldefine{
 
 				print $fh "/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */\n";
 				dbg "/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */";
+				$def =~ s/^DEF/define/;
 				print $fh "REAL_$def\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg  "REAL_$def\n";
