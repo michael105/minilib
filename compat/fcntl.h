@@ -19,6 +19,12 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #include "minilib/headers/common/sys/types.h"
 
 
+
+#ifndef mini_buf
+#define mini_buf 1024
+#endif
+
+
 #include "include/stdarg.h"
 #include "include/syscall.h"
 #include "include/syscall_stubs.h"

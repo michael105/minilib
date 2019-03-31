@@ -24,10 +24,10 @@ COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffu
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 
 # ld options 
-CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib,-nostartfiles,-nodefaultlibs"
+CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib"
 
 # (default) linker script 
-LDSCRIPT="-T $MLIBDIR/ldscripts/minilib.ld.script"
+LDSCRIPT="-T $MLIBDIR/ldscripts/ld.script"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
@@ -61,13 +61,14 @@ usage(){
 
 
 exec_gcc(){
-		if [ verbose = 1 ]; then
-			echo $REAL_CC $CFLAGS $@
+		if [ $verbose = 1 ]; then
+			echo $REAL_CC $CFLAGS $LDSCRIPT $@
 		else
 			echo $REAL_CC $@
 		fi
 		echo XXXXXXXX
-		$REAL_CC $CFLAGS $@
+		$REAL_CC $CFLAGS $LDSCRIPT $@
+		return $?
 }
 
 
@@ -114,7 +115,7 @@ done
 
 exec_gcc $@
 ret=$?
-if [ ret != 0 ]; then
+if [ $ret != 0 ]; then
 		echo Error.
 		echo Failed command:
 		echo $REAL_CC $CFLAGS $@

@@ -37,6 +37,16 @@
 #define stderr 2
 #endif
 
+#define STDOUT_FILENO stdout
+#define STDIN_FILENO stdin
+
+
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
+
+//needed for puts
+#include "src/mstrlen.c"
+
+#include "include/minilib_global.h"
+

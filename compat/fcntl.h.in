@@ -1,3 +1,9 @@
+
+#ifndef mini_buf
+#define mini_buf 1024
+#endif
+
+
 #include "include/stdarg.h"
 #include "include/syscall.h"
 #include "include/syscall_stubs.h"

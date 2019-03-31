@@ -58,9 +58,19 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define stderr 2
 #endif
 
+#define STDOUT_FILENO stdout
+#define STDIN_FILENO stdin
+
+
 #ifndef mini_buf
 #define mini_buf 1024
 #endif
+
+//needed for puts
+#include "src/mstrlen.c"
+
+#include "include/minilib_global.h"
+
 // file: minilib/src/fopen.c
 
 
@@ -96,12 +106,12 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mprint.c"
-#include "minilib/include/fputs.h"
 #include "minilib/src/mfprintf.c"
-#include "minilib/include/fputc.h"
 #include "minilib/src/msprintf.c"
 #include "minilib/src/fopen.c"
+#include "minilib/include/fputs.h"
+#include "minilib/src/mprint.c"
+#include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
