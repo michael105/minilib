@@ -2,7 +2,9 @@
 #
 
 #PROG=malloc select
-PROG=hello malloc select fopen
+PROG=hello malloc select
+
+PROGCUSTOM=fopen 
 
 # where to build object files
 #BUILDDIR=.
@@ -83,7 +85,7 @@ retest: test rebuild
 test: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
-	@$(foreach P,$(PROG) hello-combined, \
+	@$(foreach P,$(PROG) hello-combined $(PROGCUSTOM), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
 			set -o pipefail; ./$(P) | \
