@@ -94,6 +94,8 @@ TMPL_IN
 # Only for debuggging
 use Data::Dumper::Simple;
 
+
+# globally enable/disable debug
 $debug = 1;
 
 sub dbg{
@@ -137,9 +139,9 @@ $N= "\033[0;38m"; # White
 
 #define AC_GREY "\033[1;30m" 
 $LR = "\033[1;31m"; # Light red
-$LG =  "\033[1;32m"; # Light green
-$Y =  "\033[1;33m"; # Yellow
-#define AC_LBLUE "\033[1;34m"
+$LG = "\033[1;32m"; # Light green
+$Y = "\033[1;33m"; # Yellow
+$LB = "\033[1;34m"; # Light blue
 #define AC_LMAGENTA "\033[1;35m"
 #define AC_LMARINE "\033[1;36m"
 #define AC_LWHITE "\033[1;37m"
@@ -494,12 +496,13 @@ sub syscalldefine{
 template( $syscallstubs, "generated-macros", { syscalldefs=>\&syscalldefine } );
 
 
+dbg( "$LB ====  genheaders done ==== $N" );
 
 exit(0);
 
 
 #Licensing terms of this script.
-my $LICENSE = << 'ENDLICENSE';
+$LICENSE = << 'ENDLICENSE';
 
 Copyright (c) 2012-2019, Michael (Misc) Myer 
 (misc.myer@zoho.com, www.github.com/michael105)

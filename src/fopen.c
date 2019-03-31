@@ -21,7 +21,7 @@ FILE *fopen(const char* filename, const char* mode){
 				default: return(0); // hopefully a fd cannot be 0.? By reading the manual, 
 								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
 								 // Anyways, if someone's trying to open stdin vie fopen and is wondering, what's going on..
-								 // Here's the answer.
+								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
 		}
 
 		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
