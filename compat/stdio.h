@@ -57,6 +57,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define mini_getenv
 
 #include "minilib/include/timeval.h"
+#include "minilib/include/filemodes.h"
 
 
 #include "include/stdarg.h"
@@ -78,7 +79,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
 // file: minilib/src/fopen.c
-
+FILE *fopen(const char* filename, const char* mode);
 
 // file: minilib/src/mfprintf.c
 int fprintf(int fd, const char* fmt, ... );
@@ -112,11 +113,11 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mprint.c"
 #include "minilib/include/fputs.h"
-#include "minilib/src/msprintf.c"
 #include "minilib/src/mfprintf.c"
 #include "minilib/include/fputc.h"
+#include "minilib/src/mprint.c"
+#include "minilib/src/msprintf.c"
 #include "minilib/src/fopen.c"
 
 // Need global included. Doesn't matter by which file.

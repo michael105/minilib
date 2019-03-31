@@ -57,6 +57,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define mini_getenv
 
 #include "minilib/include/timeval.h"
+#include "minilib/include/filemodes.h"
 
 
 #include "include/stdarg.h"

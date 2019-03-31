@@ -57,6 +57,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define mini_getenv
 
 #include "minilib/include/timeval.h"
+#include "minilib/include/filemodes.h"
 
 
 #include "include/stdarg.h"
@@ -99,9 +100,9 @@ void volatile free(void* p);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/getenv.c"
 #include "minilib/src/atoi.c"
 #include "minilib/src/malloc.c"
+#include "minilib/src/getenv.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

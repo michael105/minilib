@@ -1,6 +1,8 @@
 #ifndef mini_fopen_c
 #define mini_fopen_c
 
+#if 1
+
 //+header stdio.h
 //+depends open
 
@@ -8,8 +10,6 @@
 // 
 // 
 //+def
-
-#if 0
 FILE *fopen(const char* filename, const char* mode){
 		int imode;
 
@@ -42,7 +42,7 @@ FILE *fopen(const char* filename, const char* mode){
 				}
 		}
 		int ret = open( filename, imode, 0x666 );
-		return ( (FILE*) ret ); // nasty. but should work with every arch > 32bit
+		return ( (FILE*) ret ); // nasty. but should work or not
 }
 
 #endif

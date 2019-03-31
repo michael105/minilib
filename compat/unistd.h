@@ -57,6 +57,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define mini_getenv
 
 #include "minilib/include/timeval.h"
+#include "minilib/include/filemodes.h"
 
 
 #include "include/stdarg.h"
@@ -116,13 +117,13 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/include/read.h"
 #include "minilib/include/tcgetattr.h"
-#include "minilib/src/open.c"
+#include "minilib/include/tcsetattr.h"
 #include "minilib/include/write.h"
+#include "minilib/src/open.c"
 #include "minilib/include/close.h"
 #include "minilib/include/select.h"
-#include "minilib/include/tcsetattr.h"
-#include "minilib/include/read.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
