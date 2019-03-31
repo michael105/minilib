@@ -4,6 +4,19 @@
 extern "C" {
 #endif
 
+
+#include "bits/alltypes.h"
+
+
+#ifndef timevaldefined
+#define timevaldefined
+typedef long time_t;
+typedef long suseconds_t;
+typedef unsigned useconds_t;
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#endif
+
+
 //#include <features.h>
 /* copied from kernel definition, but with padding replaced
  * by the corresponding correctly-sized userspace types. */
@@ -28,7 +41,6 @@ struct stat {
 	long __unused[3];
 };
 
-#include "bits/alltypes.h"
 
 
 #define st_atime st_atim.tv_sec

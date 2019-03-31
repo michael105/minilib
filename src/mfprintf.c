@@ -192,4 +192,9 @@ int fprintf(int fd, const char* fmt, ... ){
 
 //#define fprintf(...) mfprintf(__VA_ARGS__)
 
+//TODO impelementation
+
+//+macro vfprintf(...) fprintf(__VA_ARGS__)
+//+macro printf(...) fprintf(stdout,__VA_ARGS__)
+
 #endif

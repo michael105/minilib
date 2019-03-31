@@ -2,6 +2,8 @@
 #include "include/syscall.h"
 #include "include/syscall_stubs.h"
 
+#include "include/exit.h"
+
 #ifdef X64
 #define POINTER unsigned long int
 #else
@@ -35,4 +37,6 @@
 #define stderr 2
 #endif
 
-
+#ifndef mini_buf
+#define mini_buf 1024
+#endif

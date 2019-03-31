@@ -3,9 +3,11 @@
 REAL_CC=gcc
 REAL_LD=ld
 
+verbose=1
+
 # grep mini-gcc's path 
-MINILIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
-echo minilibdir: $MINILIBDIR
+MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
+echo minilibdir: $MLIBDIR
 
 
 
@@ -16,7 +18,7 @@ echo minilibdir: $MINILIBDIR
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall \
 		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin \
-		-I$MLIBDIR""compat -I$MLIBDIR""headers/common-links -I$MLIBDIR""headers/common -I$MLIBDIR -I./"
+		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR -I./"
 
 # needs os detection. but not important for now. 
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
@@ -25,13 +27,13 @@ CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib,-nostartfiles,-nodefaultlibs"
 
 # (default) linker script 
-LDSCRIPT="-T $MINILIBDIR/ldscripts/minilib.ld.script"
+LDSCRIPT="-T $MLIBDIR/ldscripts/minilib.ld.script"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
 
 echo Parse genconfig
-source $MINILIBDIR/scripts/genconfig.sh
+source $MLIBDIR/scripts/genconfig.sh
 
 
 
@@ -64,6 +66,7 @@ exec_gcc(){
 		else
 			echo $REAL_CC $@
 		fi
+		echo XXXXXXXX
 		$REAL_CC $CFLAGS $@
 }
 

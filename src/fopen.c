@@ -8,10 +8,12 @@
 // 
 // 
 //+def
+
+#if 0
 FILE *fopen(const char* filename, const char* mode){
 		int imode;
 
-		switch mode[0]{
+		switch (mode[0]){
 				case 'r': imode = O_RDONLY;
 									break;
 				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
@@ -28,7 +30,7 @@ FILE *fopen(const char* filename, const char* mode){
  				if ( mode[a] == '+' ){ 
 						imode = imode | O_RDWR;
 				} else {
-						switch mode[0]{
+						switch (mode[0]){
 								case 'r': 
 										break;
 								case 'w': if ( mode[a] == 'x' )
@@ -43,7 +45,7 @@ FILE *fopen(const char* filename, const char* mode){
 		return ( (FILE*) ret ); // nasty. but should work with every arch > 32bit
 }
 
-
+#endif
 
 
 

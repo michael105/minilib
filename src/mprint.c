@@ -2,6 +2,7 @@
 #define mprint_c
 #include "../include/write.h"
 
+//+depends write
 //+def
 int print(const char *msg){
 		int a=0;
@@ -11,6 +12,7 @@ int print(const char *msg){
 		return( write(1,msg,a) );
 }
 
+//+depends write
 //+def
 int printl(const char *msg){
 		int ret = print(msg);
@@ -18,6 +20,11 @@ int printl(const char *msg){
 		ret++;
 		return(ret);
 }
+
+//+header stdio.h
+//+depends printl
+//+macro puts(c) printl(c)
+
 
 #ifdef mini_puts
 //int puts( const char *c ){

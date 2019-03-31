@@ -3,6 +3,15 @@
 #define alltypes_h
 
 
+#ifndef timevaldefined
+#define timevaldefined
+typedef long time_t;
+typedef long suseconds_t;
+typedef unsigned useconds_t;
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#endif
+
+
 
 #define _Addr long
 #define _Int64 long

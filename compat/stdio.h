@@ -9,6 +9,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 /* header.in */
 
+#define mini_start
+#define mini_exit
+
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
@@ -19,6 +22,8 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #include "include/stdarg.h"
 #include "include/syscall.h"
 #include "include/syscall_stubs.h"
+
+#include "include/exit.h"
 
 #ifdef X64
 #define POINTER unsigned long int
@@ -53,12 +58,20 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define stderr 2
 #endif
 
-
+#ifndef mini_buf
+#define mini_buf 1024
+#endif
 // file: minilib/src/fopen.c
-FILE *fopen(const char* filename, const char* mode);
+
 
 // file: minilib/src/mfprintf.c
 int fprintf(int fd, const char* fmt, ... );
+
+// file: minilib/src/mfprintf.c
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+
+// file: minilib/src/mprint.c
+#define puts(c) printl(c)
 
 // file: minilib/src/msprintf.c
 int sprintf(char *buf, const char* fmt, ... );
@@ -83,10 +96,11 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/mprint.c"
+#include "minilib/include/fputs.h"
+#include "minilib/src/mfprintf.c"
 #include "minilib/include/fputc.h"
 #include "minilib/src/msprintf.c"
-#include "minilib/src/mfprintf.c"
-#include "minilib/include/fputs.h"
 #include "minilib/src/fopen.c"
 
 // Need global included. Doesn't matter by which file.

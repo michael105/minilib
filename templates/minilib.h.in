@@ -32,15 +32,15 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 
 
-#ifdef mini_puts
-#define puts(a1) printl(a1)
-#define mini_print
-#endif
-#ifdef mini_print
-//#include "mprint.h"
-extern int print(const char *msg);
-extern int printl(const char *msg);
-#endif
+//#ifdef mini_puts
+//#define puts(a1) printl(a1)
+//#define mini_print
+//#endif
+//#ifdef mini_print
+////#include "mprint.h"
+//extern int print(const char *msg);
+//extern int printl(const char *msg);
+//#endif
 
 //#ifdef mini_errno / No reason to not define errno Macros by default
 #include "errno.h"

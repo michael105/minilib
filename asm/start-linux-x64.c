@@ -6,8 +6,12 @@ __asm__("\
 #_start:\n\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
-	leaq  8(%rsi,%rdi,8),%rdx\n\
-	call main\n\
+	leaq  8(%rsi,%rdi,8),%rdx\n"
+#ifdef mini_getenv
+	"movq %rdx, mini_env\n"
+#endif
+
+	"call main\n\
 	movq %rax, %rdi\n\
 .global _exit\n\
 _exit:\n\

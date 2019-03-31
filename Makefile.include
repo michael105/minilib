@@ -162,7 +162,7 @@ else
 ifdef DEBUG
  	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPT)
 else	
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPT) -fno-plt
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPT)
 endif
 endif
 

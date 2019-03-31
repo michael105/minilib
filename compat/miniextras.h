@@ -9,6 +9,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 /* header.in */
 
+#define mini_start
+#define mini_exit
+
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
@@ -47,12 +50,12 @@ int printl(const char *msg);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itobin.c"
 #include "minilib/src/dtodec.c"
-#include "minilib/src/itodec.c"
 #include "minilib/src/mprint.c"
-#include "minilib/src/memfrob.c"
 #include "minilib/src/itohex.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/itobin.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

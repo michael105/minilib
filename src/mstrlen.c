@@ -1,7 +1,7 @@
 #ifndef strlen_c
 #define strlen_c
 
-//+ansi string.h
+//+header string.h
 
 //+def
 int strlen(const char*str){

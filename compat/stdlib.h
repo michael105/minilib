@@ -9,6 +9,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 /* header.in */
 
+#define mini_start
+#define mini_exit
+
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
@@ -18,6 +21,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 // file: minilib/src/atoi.c
 int atoi(char *c);
+
+// file: minilib/src/getenv.c
+char *getenv(const char* name);
 
 // file: minilib/src/malloc.c
 void* malloc(int size);
@@ -38,8 +44,9 @@ void volatile free(void* p);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/atoi.c"
 #include "minilib/src/malloc.c"
+#include "minilib/src/atoi.c"
+#include "minilib/src/getenv.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

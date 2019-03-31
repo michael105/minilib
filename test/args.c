@@ -1,6 +1,7 @@
 #define mini_buf 4096
 #define mini_strcmp
 #define mini_printf
+#define mini_getenv
 #include "minilib.c"
 
 
@@ -14,6 +15,10 @@ int main(int argc, char **argv, char **env ){
 				if ( (env[a][0] == 'T') && (env[a][1] == 'T') && (env[a][2] == 'M') ){
 						printf("env: %s\n", env[a]);
 				}
+		}
+		char *c = getenv( "TERM");
+		if ( c ){
+				printf("mini_env: %s\n", c );
 		}
 		return(0);
 }

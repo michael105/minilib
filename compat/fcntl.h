@@ -9,6 +9,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 /* header.in */
 
+#define mini_start
+#define mini_exit
+
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
