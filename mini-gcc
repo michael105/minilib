@@ -111,6 +111,11 @@ do
 						shift
 						opt=1
 						;;
+				--only-text )
+						LDSCRIPT=$MLIBDIR/ldscripts/ld.script.onlytext
+						shift
+						opt=1
+						;;
 			 	-h | --help )   
 						usage
 						exit
