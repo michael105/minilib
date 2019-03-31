@@ -18,7 +18,7 @@ echo minilibdir: $MLIBDIR
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall \
 		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin \
-		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR -I./"
+		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR -I./ -Os"
 
 # needs os detection. but not important for now. 
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"

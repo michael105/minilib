@@ -149,11 +149,13 @@ $LB = "\033[1;34m"; # Light blue
 
 # Looks for templates and copies them into dest fh (arg1)
 # args: filehandler (destination)
+# 	path of the header
 # namelist of templates
 sub copytemplates{
 		my $fh = shift;
+		my $path = shift;
 		my @fn = @_;
-		foreach my $p ( "$headerdir/templates", "$mlibdir/templates", "$mlibdir", "$headerdir"  ){ 
+		foreach my $p ( "$path", "$path/templates" ){ 
 				foreach my $f ( @fn ){
 						if ( -e "$p/$f" ){
 								open(FSOURCE,"<", "$p/$f" ) or die;
@@ -178,11 +180,11 @@ sub headerfh{
 		dbg ("Header: $header\n");
 		if ( ! exists($fhhash->{fh}->{$header}) ){
 				open( $fhhash->{fh}->{$header}, ">", "$path/$header" ) or die;
-				copytemplates( $fhhash->{fh}->{$header}, "header.tmpl.top", "$header.top" );			
+				copytemplates( $fhhash->{fh}->{$header}, "$mlibdir", "header.tmpl.top", "$header.top" );			
 				my $h = $header;
 				$h =~ s/\./_/g;
 				print {$fhhash->{fh}->{$header}} "#ifndef included_$h\n#define included_$h\n\n";
-				copytemplates( $fhhash->{fh}->{$header}, "$header.in", "header.in" );			
+				copytemplates( $fhhash->{fh}->{$header}, $path, "header.in", "$header.in" );			
 		}
 		return( $fhhash->{fh}->{$header} );
 }
