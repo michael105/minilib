@@ -7,7 +7,8 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_fcntl_h
 #define included_fcntl_h
 
-
+// need this for my stupid syntax vi plugin thing
+#define dumbsyntaxchecker 
 
 #define mini_start
 #define mini_exit

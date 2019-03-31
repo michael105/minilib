@@ -76,7 +76,14 @@ exec_gcc(){
 checkconfig (){
 	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
 		echo $1
-		source $1 > $1.h  #sed "s/command/function/"
+		ERR=$((source $1 > $1.h) 2>&1)
+		#sed "s/command/function/"
+		echo var: $VAR
+		if [ -n "$ERR" ]; 
+		then
+				echo -e "Error: \n $ERR"
+				exit 1;
+		fi
 		echo ARCH: $MINI_ARCH
 		echo OS: $MINI_OS
 		#echo GCC-Options: $REAL_CC $CFLAGS

@@ -7,7 +7,8 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_miniextras_h
 #define included_miniextras_h
 
-
+// need this for my stupid syntax vi plugin thing
+#define dumbsyntaxchecker 
 
 #define mini_start
 #define mini_exit
@@ -105,12 +106,12 @@ int printl(const char *msg);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/dtodec.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/itobin.c"
 #include "minilib/src/mprint.c"
 #include "minilib/src/itohex.c"
-#include "minilib/src/dtodec.c"
 #include "minilib/src/itodec.c"
+#include "minilib/src/itobin.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

@@ -2,7 +2,7 @@
 #
 
 #PROG=malloc select
-PROG=hello malloc select
+PROG=hello malloc select fopen
 
 # where to build object files
 #BUILDDIR=.
@@ -52,9 +52,11 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined hello-include hello-smallest args
+all: hello-combined hello-include hello-smallest args fopen
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 
+fopen: fopen.c
+	minilib/mini-gcc --config fopen.c -o fopen fopen.c
 
 args: args.c
 	make BUILDPROG=args SINGLERUN=1 NOINCLUDE=1

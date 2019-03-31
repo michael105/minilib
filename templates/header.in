@@ -1,5 +1,15 @@
 /* header.in */
 
+#define dumbsyntaxchecker
+
+
+#ifndef mini_INCLUDESRC
+#ifdef INCLUDESRC
+#define mini_INCLUDESRC
+#endif
+#endif
+
+
 #define mini_start
 #define mini_exit
 

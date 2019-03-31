@@ -1,14 +1,26 @@
 #ifndef mini_fopen_c
 #define mini_fopen_c
 
-#if 1
+#include "include/filemodes.h"
+
+#include "syntaxchecker.h"
+
+
+#ifdef X64
+union { FILE*F; int i,fd; } fl; // 
+#else
+//union { FILE*F; int fd; } fl; // 
+#endif
+//(untested for x32) better commenting this out for now.
+//Might be better to find later
+//also: endiannes.
+
+
+
 
 //+header stdio.h
 //+depends open
-
-//+doc fopen
-// 
-// 
+//+needs lseek.h
 //+def
 FILE *fopen(const char* filename, const char* mode){
 		int imode;
@@ -18,11 +30,11 @@ FILE *fopen(const char* filename, const char* mode){
 									break;
 				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
 									break;
-				case 'a': imode = O_APPEND;
+				case 'a': imode = O_APPEND; // somehow only "a+" works. Not sure, why.
 									break;
 				default: return(0); // hopefully a fd cannot be 0.? By reading the manual, 
 								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
-								 // Anyways, if someone's trying to open stdin vie fopen and is wondering, what's going on..
+								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
 								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
 		}
 
@@ -41,11 +53,24 @@ FILE *fopen(const char* filename, const char* mode){
 						}
 				}
 		}
-		int ret = open( filename, imode, 0x666 );
-		return ( (FILE*) ret ); // nasty. but should work or not
+		fl.fd =(int) open( filename, imode, 0666 );
+		return ( fl.F ); // 
 }
 
-#endif
+//+def
+int fileno( FILE *f ){
+		fl.F=f;
+		return( fl.fd );
+}
+
+
+//+depends close fileno
+//+def
+int fclose( FILE* f ){
+		return( close(fileno(f)) );
+}
+
+
 
 
 

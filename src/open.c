@@ -7,7 +7,7 @@ typedef int FILE;
 //#include "syscall.h"
 #include "include/filemodes.h"
 
-#include "stdarg.h"
+#include "include/stdarg.h"
 
 //+def
 int volatile open( const char *s, int flags, ... ){
