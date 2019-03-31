@@ -5,14 +5,6 @@
 # The output of this script generates minilib.conf.h
 # 
 
-export REAL_CC=gcc
-
-CFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -nodefaultlibs -static -nostdlib -DMLIB -DX64 -fno-builtin -I$MLIBDIR""compat -I$MLIBDIR""headers/common-links -I$MLIBDIR""headers/common -I$MLIBDIR -I./"
-
-export CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib "
-
-#LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
-
 mini_start(){
 		echo "#define mini_start $1"
 }

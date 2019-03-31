@@ -8,11 +8,24 @@ or minilib-bl.h .?
 or minilib-comp.h .?
 
 
-compile switches in config.h : 
-	unterordnen: yes | optimize | threadsafe | 
-			(more dependencies to come :( )
+Ok. further thinking - 
+	Finally it's seems to be going to be a header only library.
+	Posibly it's a matter, of how large the whole lib will be.
+	I compile time is neglectible, as now, (fractions of a second)
+	most possibly it's best to call the bundled header simply minilib.h
 
-	Auch parameter koennen gecheckt werden:
+	But that's hard to decide for now.
+	It's also a question of how this lib is better to get used to.
+
+
+Make it possible to embedd the configured header into a "target",
+ while still staying platform independent. (-> needs sort of parsing of the ifdef switches)
+ .. ok . possibly not soo smart. The compile-switches are still needed, so..
+
+compile switches in config.h : 
+	parameters, e.g.: yes | optimize | threadsafe | 
+
+	param checking:
 	#ifdef .. #ifdef p1 else ifdef p2 else error
 
 

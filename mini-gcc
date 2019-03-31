@@ -3,9 +3,37 @@
 REAL_CC=gcc
 REAL_LD=ld
 
-# grep mini-gcc's path
+# grep mini-gcc's path 
 MINILIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
-echo mlibdir: $MINILIBDIR
+echo minilibdir: $MINILIBDIR
+
+
+
+
+
+# gcc options
+
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
+		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall \
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin \
+		-I$MLIBDIR""compat -I$MLIBDIR""headers/common-links -I$MLIBDIR""headers/common -I$MLIBDIR -I./"
+
+# needs os detection. but not important for now. 
+CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
+
+# ld options 
+CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib,-nostartfiles,-nodefaultlibs"
+
+# (default) linker script 
+LDSCRIPT="-T $MINILIBDIR/ldscripts/minilib.ld.script"
+
+#LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
+
+
+echo Parse genconfig
+source $MINILIBDIR/scripts/genconfig.sh
+
+
 
 
 usage(){
@@ -14,10 +42,15 @@ usage(){
 		echo mini-gcc also creates the file "minilib.conf.h" out of minilib.conf,
 		echo when invoked with --config "minilib.conf"
 		echo 
-		echo when the --config option is given \(must be the first argument for now, when supplied\)
-		echo mini-gcc also includes the config into every file compiled.
+		echo when the --config "file" option is given \(must be the first argument for now, when supplied\)
+		echo mini-gcc also includes the config "file" into every file compiled.
 		echo 
 		echo "mini-gcc passes all options it's invoked with on to gcc."
+		echo When you need to change the invocation of gcc,
+		echo please edit mini-gcc for now. 
+		echo It\'s a shell script, 
+		echo the invocation of gcc is defined via a global var within
+		echo the first lines.
 		echo 
 		echo  "(2019/03/28) misc - BSD 3clause"
 		echo
@@ -26,15 +59,17 @@ usage(){
 
 
 exec_gcc(){
-		echo $REAL_CC $CFLAGS $@
+		if [ verbose = 1 ]; then
+			echo $REAL_CC $CFLAGS $@
+		else
+			echo $REAL_CC $@
+		fi
 		$REAL_CC $CFLAGS $@
 }
 
 
 
 checkconfig (){
-		echo Parse config
-		source scripts/genconfig.sh
 	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
 		echo $1
 		source $1 > $1.h  #sed "s/command/function/"
@@ -53,28 +88,35 @@ then
 fi
 
 
-
-if [ "$1" != "" ]; 
-then
+opt=1
+while [ "$1" != "" ] && [ $opt = 1 ]
+do
+		opt=0
 		case $1 in
 				--config )   
 						shift
 						config=$1
 						checkconfig $config 
 						shift
+						opt=1
 						;;
 			 	-h | --help )   
 						usage
 						exit
 						;;
 		esac
-fi
+done
 
-echo args: $@
+#echo args: $@
 
 exec_gcc $@
+ret=$?
+if [ ret != 0 ]; then
+		echo Error.
+		echo Failed command:
+		echo $REAL_CC $CFLAGS $@
+fi
 
-
-exit
+exit $ret
 
 
