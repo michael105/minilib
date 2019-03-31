@@ -28,9 +28,9 @@ typedef float float_t;
 
 typedef struct { long long __ll; long double __ld; } max_align_t;
 
-typedef long time_t;
+//typedef long time_t;
 
-typedef long suseconds_t;
+//typedef long suseconds_t;
 
 typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
 
@@ -111,9 +111,7 @@ typedef int clockid_t;
 
 typedef long clock_t;
 
-#ifndef timeval
-struct timeval { time_t tv_sec; suseconds_t tv_usec; };
-#endif
+//struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 
 struct timespec { time_t tv_sec; long tv_nsec; };
 
@@ -127,9 +125,9 @@ typedef unsigned gid_t;
 
 typedef int key_t;
 
-typedef unsigned useconds_t;
+//typedef unsigned useconds_t;
 
-typedef struct _IO_FILE FILE;
+//typedef struct _IO_FILE FILE;
 
 typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
 

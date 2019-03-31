@@ -3,25 +3,23 @@
 REAL_CC=gcc
 REAL_LD=ld
 
-M(){
-		echo M: $1
-		export var=$1
-}
-
+# grep mini-gcc's path
+MINILIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
+echo mlibdir: $MINILIBDIR
 
 
 usage(){
 		echo
-		echo Usage and description needs to be placed here..
-		echo
 		echo mini-gcc is a wrapper, to call gcc with the right compile options.
 		echo mini-gcc also creates the file "minilib.conf.h" out of minilib.conf,
-		echo when invoked with --config minilib.conf
+		echo when invoked with --config "minilib.conf"
 		echo 
-		echo when the config option is given \(must be the first argument for now, when supplied\)
-		echo mini-gcc also includes the config into every file, compiled.
-		echo  Have to leave the docu for now, important things need to be done.
-		echo  "(2019/03/28) misc "
+		echo when the --config option is given \(must be the first argument for now, when supplied\)
+		echo mini-gcc also includes the config into every file compiled.
+		echo 
+		echo "mini-gcc passes all options it's invoked with on to gcc."
+		echo 
+		echo  "(2019/03/28) misc - BSD 3clause"
 		echo
 		exit
 }
@@ -36,6 +34,7 @@ exec_gcc(){
 
 checkconfig (){
 		echo Parse config
+		source scripts/genconfig.sh
 	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
 		echo $1
 		source $1 > $1.h  #sed "s/command/function/"
@@ -53,17 +52,19 @@ then
 		usage
 fi
 
-source scripts/genconfig.sh
+
 
 if [ "$1" != "" ]; 
 then
 		case $1 in
-				--config )   shift
+				--config )   
+						shift
 						config=$1
 						checkconfig $config 
 						shift
 						;;
-				-h | --help )           usage
+			 	-h | --help )   
+						usage
 						exit
 						;;
 		esac

@@ -2,12 +2,13 @@
 #define open_c
 //+header fcntl.h
 
+typedef int FILE;
+
 //#include "syscall.h"
 #include "include/filemodes.h"
 
 #include "stdarg.h"
 
-/// open compiles only defined static. (???)
 //+def
 int volatile open( const char *s, int flags, ... ){
 		int ret;

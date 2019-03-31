@@ -8,6 +8,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define included_stdlib_h
 
 /* header.in */
+
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/syscall.h"
+#include "minilib/include/syscall_stubs.h"
+#include "minilib/include/timeval.h"
+#include "minilib/headers/common/sys/types.h"
+
+
 // file: minilib/src/atoi.c
 int atoi(char *c);
 

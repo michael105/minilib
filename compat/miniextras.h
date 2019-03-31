@@ -8,6 +8,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define included_miniextras_h
 
 /* header.in */
+
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/syscall.h"
+#include "minilib/include/syscall_stubs.h"
+#include "minilib/include/timeval.h"
+#include "minilib/headers/common/sys/types.h"
+
+
 // file: minilib/src/dtodec.c
 int dtodec(double d, char* buf, int precision);
 
@@ -39,11 +47,11 @@ int printl(const char *msg);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mprint.c"
-#include "minilib/src/dtodec.c"
 #include "minilib/src/itohex.c"
-#include "minilib/src/itobin.c"
 #include "minilib/src/memfrob.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/mprint.c"
 #include "minilib/src/itodec.c"
 
 // Need global included. Doesn't matter by which file.

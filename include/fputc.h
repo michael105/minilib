@@ -11,6 +11,7 @@ static inline int volatile fputc(int c, int fd){
 		return(c);
 }
 
-
+//+depends fputc
+//+macro  putchar(c) fputc(c,stdout)
 
 #endif

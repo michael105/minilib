@@ -54,7 +54,7 @@ endif
 
 UNAME := $(shell uname)
 
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat -I$(MLIBDIR)/headers/common
+COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat -I$(MLIBDIR)/headers/common -I$(MLIBDIR)/include
 
 
 ifeq ($(UNAME), Darwin)

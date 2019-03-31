@@ -8,6 +8,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define included_fcntl_h
 
 /* header.in */
+
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/syscall.h"
+#include "minilib/include/syscall_stubs.h"
+#include "minilib/include/timeval.h"
+#include "minilib/headers/common/sys/types.h"
+
+
 #include "include/stdarg.h"
 #include "include/syscall.h"
 #include "include/syscall_stubs.h"

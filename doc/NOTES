@@ -2,9 +2,18 @@
 
 
 
+
+it should be minilib-bundle, not compiled.
+or minilib-bl.h .?
+or minilib-comp.h .?
+
+
 compile switches in config.h : 
 	unterordnen: yes | optimize | threadsafe | 
 			(more dependencies to come :( )
+
+	Auch parameter koennen gecheckt werden:
+	#ifdef .. #ifdef p1 else ifdef p2 else error
 
 
 It's sort of hard to disassemble the compiled binaries.

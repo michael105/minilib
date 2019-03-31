@@ -1,7 +1,60 @@
 #!/bin/perl -w
 #
+#
+# somethere I've to start to docu this thing.
+# althoug Most possibly I'm going to pull the code out of here
+# and do it more generic - it works out quite useful,
+# and is good enough for a project on its own,
+# I guess.
+#
+# This script gets callen with the target dir (mlibdir) as first param,
+# then the files it should scan. (*.h / *.c; invoked by "make header" in the case of minilib
+#
+# It scans for "tags":
+# each tag consists (for the moment, this could also get more generic)
+# of this pattern: "//+tag"
+#	
+#	Out of the tags are created: 
+#		minilib.conf; genconf.sh; minilib.h; compat/*.h
+#	
+#	(replace / with minilib's maindir )
+#	files in /; /templates; /compat; /compat/templates; are parsed into the resulting header files.
+#	Always: header.tmpl.top, "the headers name".top, header.in; "header's name".in; and -.out 
+#		..  TODO its sort of ungeneric and not stringent. so here I gave the direction,
+#		but won't document exactly; since it's a subject to change.
+#
+#---
+#
+# "tag" can be one of:
+#
+# - def: the next line keep a definition
+#
+# - macro: either in the same line, or in the next line is a macro defined.
+# 	the macros are collected and go into the corresponding header files.
+# 	Either into the headers, defined by the posic-c /ansi-c standard, or 
+# 	into the header file, supplied via the tag header
+#
+# - header "name": the definitions and macros defined in this header file go into 
+#  								the header file "name". "header" can be defined several times within 
+#  								one file, each time the definitions below are put into name, until the 
+#  								next "header" tag is read
+#
+#	- depends "name1" "name2" .. :	the following definitions are selected automatically, when the following def or macro 
+#						is selected via the #define in the configfile. TODO example.
+#
+#	- needs "name1" "name2" .. : the headerfiles "name1", .. are included before the current header file.
+#
+#	- doc: TODO needs implementing
+# - test: TODO (testing framework) -> most possibly best to define just a few calls to the implemented functions;
+# 																		and just compare the output to stdout/stderr. (Framework already implemented in /test)
+# 																		little hard to catch e.g. filecreation. But possible. ALso possibly
+# 																		just put some inline perl scripts into a "test" tag.
+#
+
+
+
 my $fhhash;
-# Where to put the generated ansi/posix headers
+# Where to put the generated ansi/posix headers and look for templates
 my $mlibdir = shift;
 # minilib headerfile
 #my $minilibheader = shift;
@@ -29,9 +82,21 @@ TMPL_IN
 # Only for debuggging
 use Data::Dumper::Simple;
 
+$debug = 1;
+
 sub dgb{
-		my $r = shift;
-		#print Dumper($${$r});
+	 	return if (!$debug);
+		while ( my $s = shift ){
+				print $s;
+		}
+		print "\n";
+
+}
+
+
+sub dbgdump{
+	 	return if (!$debug);
+		print Dumper($r);
 }
 
 
@@ -39,7 +104,7 @@ sub dgb{
 BEGIN{
 		use File::Basename;
 		($name,$path,$suffix) = fileparse ($0);
-		print "path: $path";
+		dbg "path: $path";
 		push @INC, "$path";
 }
 
@@ -50,7 +115,7 @@ require "template.pm";
 
 # ansicolors
 #define AC_BLACK "\033[0;30m"
-$AC_R="\033[0;31m";
+$R=$AC_R="\033[0;31m";
 $G= "\033[32;0m"; # Green
 #define AC_BROWN "\033[0;33m"
 #define AC_BLUE "\033[0;34m"
@@ -69,19 +134,13 @@ $Y =  "\033[1;33m"; # Yellow
 #define AC_LWHITE "\033[1;37m"
 
 
-sub dbg{
-		while ( my $s = shift ){
-				print $s;
-		}
-		print "\n";
-}
-
-
-# Looks for templates and copies them
+# Looks for templates and copies them into dest fh (arg1)
+# args: filehandler (destination)
+# namelist of templates
 sub copytemplates{
 		my $fh = shift;
 		my @fn = @_;
-		foreach my $p ( "$headerdir", "$headerdir/templates", "$mlibdir/templates", "$mlibdir" ){ 
+		foreach my $p ( "$headerdir/templates", "$mlibdir/templates", "$mlibdir", "$headerdir"  ){ 
 				foreach my $f ( @fn ){
 						if ( -e "$p/$f" ){
 								open(FSOURCE,"<", "$p/$f" ) or die;
@@ -103,14 +162,14 @@ sub copytemplates{
 sub headerfh{
 		my $header = shift;
 		my $path = shift;
-		print ("Header: $header\n");
+		dbg ("Header: $header\n");
 		if ( ! exists($fhhash->{fh}->{$header}) ){
 				open( $fhhash->{fh}->{$header}, ">", "$path/$header" ) or die;
 				copytemplates( $fhhash->{fh}->{$header}, "header.tmpl.top", "$header.top" );			
 				my $h = $header;
 				$h =~ s/\./_/g;
 				print {$fhhash->{fh}->{$header}} "#ifndef included_$h\n#define included_$h\n\n";
-				copytemplates( $fhhash->{fh}->{$header}, "header.in", "$header.in" );			
+				copytemplates( $fhhash->{fh}->{$header}, "$header.in", "header.in" );			
 		}
 		return( $fhhash->{fh}->{$header} );
 }
@@ -138,41 +197,59 @@ while ( my $file = shift ){
 
 				if ($l=~ /^\/\/\+/){
 						do {
-								print ( "$M l: $l $N\n" );
+								dbg ( "$M l: $l $N\n" );
 								$l=~ /^\/\/\+(\S*)\s?(.*)?$/;
 								$tag = $1;
 								my $c = $2 || 0;
-								print "tag: $tag c: $c\n";
+								dbg "tag: $tag c: $c\n";
 
-								if ( $tag eq 'header' ){
-										print "l: $l";
+								if ( $tag eq 'header' ){   # tag parsing. should change this.
+										dbg "l: $l";
 										#$l =~ /^\/\/\+header (\S*)/;
 										$header = $c or die;
 								} elsif ( $tag eq 'def' ){
 										$f->{def} = <F>;
 										$line++;
-										print "def: $f->{def} $file: $l";
+										dbg "def: $f->{def} $file: $l";
 										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
 												$func = $2;
 										} else {
 												$f->{def} =~ /.* \**(\S*)\(.+?\)\{.*$/;
 												$func = $1;
 										}
-										print "func: $LR $func $N\n";
+										dbg "func: $LR $func $N\n";
 										$f->{def} =~ s/\{.*$/;/;
-										print "def: $Y $f->{def} $N l: $l";
+										dbg "def: $Y $f->{def} $N l: $l";
 								} elsif ( $tag eq 'needs' ){
 										#$l =~ /^\/\/\+needs\s?(\S*)/;
 										$f->{needs} = $c;
-										print "$LG needs: $f->{needs} $N\n";
+										dbg "$LG needs: $f->{needs} $N\n";
 								} elsif ( $tag eq 'depends' ){
 										$f->{dep} = $c;
-										print "$LG depends: $f->{dep} $N\n";
+										dbg "$LG depends: $f->{dep} $N\n";
 								} elsif ( $tag eq 'after' ){
 										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
 								} elsif( $tag eq 'inc' ){
 										print {headerfh($header,$headerdir)} "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
+								} elsif( $tag eq 'macro' ){
+										if ( $l =~ /^\/\/\+macro\s*(\S+)/ ){
+												$l =~ s/^\/\/\+macro\s*//;
+												$f->{def} = "#define $l";
+												$l =~ /(\S*?)\(/;
+												$func = $1;
+												dbg("$LR macro: $f->{def}  -  func: $func $N");
+										} else {
+												$f->{def} = <F>;
+												$line++;
+												dbg("def+ $f->{def}");
+												$f->{def} =~ s/^\/\///;
+												dbg("def+ $f->{def}");
+
+												$f->{def} =~ /#define\s*(\S*?)\(/;
+												$func = $1;
+												dbg("$LR macro: $f->{def}   -   func: $func $N");
+										}
 								}
 								$l = <F>;
 										$line++;
@@ -204,7 +281,7 @@ while ( my $file = shift ){
 						}
 
 						if ( $f->{header} && $f->{def} ){
-								print "header: $f->{header}\n def: $f->{def}\n";
+								dbg "header: $f->{header}\n def: $f->{def}\n";
 								print {headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
 								$fhhash->{sources}->{$f->{header}}->{$file} = 1;
 						}
@@ -216,11 +293,11 @@ while ( my $file = shift ){
 # write the #include "source.c" directives
 # iterate over each header include filehandler
 foreach my $key ( keys(%{$fhhash->{fh}}) ){
-		print "key: $key\n";
+		dbg "key: $key\n";
 		print {$fhhash->{fh}->{$key}} "\n\n#include \"include/minilib_global.h\"\n";
 		print {$fhhash->{fh}->{$key}} "\n\n#ifdef mini_INCLUDESRC\n\n";
 		foreach my $s ( keys(%{$fhhash->{sources}->{$key}}) ){
-				print "source key: $s\n";
+				dbg "source key: $s\n";
 				print {$fhhash->{fh}->{$key}} "#include \"$s\"\n";
 		}
 		print {$fhhash->{fh}->{$key}} "\n// Need global included. Doesn't matter by which file.\n#include \"src/minilib_global.c\"\n";
@@ -306,6 +383,9 @@ close($ml);
 
 # end header file here..
 dbg("$C"."==================$N");
+
+$debug=0;
+
 
 # write minilib.c
 my $mc = headerfh( "minilib.c", $mlibdir );

@@ -8,6 +8,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define included_stdio_h
 
 /* header.in */
+
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/syscall.h"
+#include "minilib/include/syscall_stubs.h"
+#include "minilib/include/timeval.h"
+#include "minilib/headers/common/sys/types.h"
+
+
 #include "include/stdarg.h"
 #include "include/syscall.h"
 #include "include/syscall_stubs.h"
@@ -46,6 +54,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #endif
 
 
+// file: minilib/src/fopen.c
+FILE *fopen(const char* filename, const char* mode);
+
 // file: minilib/src/mfprintf.c
 int fprintf(int fd, const char* fmt, ... );
 
@@ -54,6 +65,9 @@ int sprintf(char *buf, const char* fmt, ... );
 
 // file: minilib/include/fputc.h
 static inline int volatile fputc(int c, int fd);
+
+// file: minilib/include/fputc.h
+#define putchar(c) fputc(c,stdout)
 
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
@@ -65,9 +79,10 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/mfprintf.c"
+#include "minilib/src/fopen.c"
 #include "minilib/src/msprintf.c"
 #include "minilib/include/fputs.h"
-#include "minilib/src/mfprintf.c"
 #include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.

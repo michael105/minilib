@@ -8,6 +8,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define included_string_h
 
 /* header.in */
+
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/syscall.h"
+#include "minilib/include/syscall_stubs.h"
+#include "minilib/include/timeval.h"
+#include "minilib/headers/common/sys/types.h"
+
+
 // file: minilib/src/memcpy.c
 void *memcpy( void *d, const void *s, int n );
 
@@ -42,11 +50,11 @@ char *strcat(char *dest, const char *src );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mstrcmp.c"
-#include "minilib/src/strcat.c"
-#include "minilib/src/memcpy.c"
-#include "minilib/src/memset.c"
 #include "minilib/src/mstrlen.c"
+#include "minilib/src/strcat.c"
+#include "minilib/src/memset.c"
+#include "minilib/src/memcpy.c"
+#include "minilib/src/mstrcmp.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
