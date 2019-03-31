@@ -1,29 +1,31 @@
 #!/bin/perl -w
+# BSD 3-clause (c) 2019 Michael misc Myer misc.myer@zoho.com;
+# www.github.com/michael105; BSD-Licensing terms attached
 #
 #
 # somethere I've to start to docu this thing.
-# althoug Most possibly I'm going to pull the code out of here
-# and do it more generic - it works out quite useful,
+# althoug most possibly I'm going to pull the code out of here, which is not specific to the minilib,
+# and do it more generic - this script works out quite useful,
 # and is good enough for a project on its own,
 # I guess.
 #
 # This script gets callen with the target dir (mlibdir) as first param,
-# then the files it should scan. (*.h / *.c; invoked by "make header" in the case of minilib
+# then the files it should scan. (*.h / *.c; invoked by "make header" in the case of minilib)
 #
-# Its purpose i to generate: 
+# Its purpose is to generate: 
 #		minilib.conf; genconf.sh; minilib.h; compat/*.h
 #
 # in minilib.conf the possible switches are defined, with whom the compilation
 #   of the functions can be enabled/disabled.
 # minilib.h bundles all other headers, as well as the sources when invoked with a defined "INCLUDESRC",
-#  and is to be included in every source file, using the minilib.
+#  and is to be included in every source file, using the minilib. (Only once with "INCLUDESRC")
 # genconf.sh gets callen by mini-gcc; it generates minilib.conf.h out of minilib.conf 
-#  (or whatever else name is supplied)
-#  compat/*.h contains the ansi-c/posix-c compatible (sort of compatible) headers.
+#  (or whatever else name is supplied via --config )
+#  compat/*.h contains the ansi-c/posix-c (sort of "subsetcompatible") headers.
 #
 # This script scans for "tags":
 # each tag consists (for the moment, this should also get more generic)
-# of this pattern: "//+tag"
+# of this pattern: (linestart)"//+tag"
 #	
 #	
 #	(replace / with minilib's maindir )
