@@ -3,7 +3,7 @@
 
 #include "write.h"
 
-//+ansi stdio.h
+//+header stdio.h
 //+inc
 
 int strlen(const char*str);

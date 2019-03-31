@@ -64,11 +64,15 @@ int fprintf(int fd, const char* fmt, ... );
 int sprintf(char *buf, const char* fmt, ... );
 
 // file: minilib/include/fputc.h
+#include "minilib/include/fputc.h"
+// file: minilib/include/fputc.h
 static inline int volatile fputc(int c, int fd);
 
 // file: minilib/include/fputc.h
 #define putchar(c) fputc(c,stdout)
 
+// file: minilib/include/fputs.h
+#include "minilib/include/fputs.h"
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
 
@@ -79,11 +83,11 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mfprintf.c"
-#include "minilib/src/fopen.c"
-#include "minilib/src/msprintf.c"
-#include "minilib/include/fputs.h"
 #include "minilib/include/fputc.h"
+#include "minilib/src/msprintf.c"
+#include "minilib/src/mfprintf.c"
+#include "minilib/include/fputs.h"
+#include "minilib/src/fopen.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

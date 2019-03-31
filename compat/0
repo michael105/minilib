@@ -18,12 +18,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 // file: minilib/src/errno.c
 #include "minilib/src/errno.c"
-// file: minilib/include/fputc.h
-#include "minilib/include/fputc.h"
-// file: minilib/include/fputs.h
-#include "minilib/include/fputs.h"
-// file: minilib/include/isprint.h
-#include "minilib/include/isprint.h"
 
 
 #include "include/minilib_global.h"

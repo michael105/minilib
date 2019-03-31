@@ -2,7 +2,7 @@
 #define mini_isprint_h
 #define misprint(A) isprint(A)
 
-//+ansi ctype.h
+//+header ctype.h
 //+inc
 //+def
 static inline int __attribute__((always_inline)) isprint(const char c){

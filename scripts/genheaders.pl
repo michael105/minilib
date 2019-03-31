@@ -1,5 +1,5 @@
 #!/bin/perl -w
-# BSD 3-clause (c) 2019 Michael misc Myer misc.myer@zoho.com;
+# (modified) BSD 3-clause (c) 2019 Michael misc Myer misc.myer@zoho.com;
 # www.github.com/michael105; BSD-Licensing terms attached
 #
 #
@@ -41,7 +41,8 @@
 # - def: the next line keeps a definition (function definition)
 #
 # - macro: either in the same line, or in the next line is a macro defined.
-# 	the macros are collected and go into the corresponding header files.
+# 	the macros are collected and go into the corresponding header files;
+# 	as well as the definitions (+def)
 # 	Either into the headers, defined by the posic-c /ansi-c standard, or 
 # 	into the header file, supplied via the tag header
 #
@@ -95,7 +96,7 @@ use Data::Dumper::Simple;
 
 $debug = 1;
 
-sub dgb{
+sub dbg{
 	 	return if (!$debug);
 		while ( my $s = shift ){
 				print $s;
@@ -115,7 +116,6 @@ sub dbgdump{
 BEGIN{
 		use File::Basename;
 		($name,$path,$suffix) = fileparse ($0);
-		dbg "path: $path";
 		push @INC, "$path";
 }
 
@@ -212,32 +212,32 @@ while ( my $file = shift ){
 								$l=~ /^\/\/\+(\S*)\s?(.*)?$/;
 								$tag = $1;
 								my $c = $2 || 0;
-								dbg "tag: $tag c: $c\n";
+								dbg("tag: $tag c: $c\n");
 
 								if ( $tag eq 'header' ){   # tag parsing. should change this.
-										dbg "l: $l";
+										dbg("l: $l");
 										#$l =~ /^\/\/\+header (\S*)/;
 										$header = $c or die;
 								} elsif ( $tag eq 'def' ){
 										$f->{def} = <F>;
 										$line++;
-										dbg "def: $f->{def} $file: $l";
+										dbg("def: $f->{def} $file: $l");
 										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
 												$func = $2;
 										} else {
 												$f->{def} =~ /.* \**(\S*)\(.+?\)\{.*$/;
 												$func = $1;
 										}
-										dbg "func: $LR $func $N\n";
+										dbg("func: $LR $func $N\n");
 										$f->{def} =~ s/\{.*$/;/;
-										dbg "def: $Y $f->{def} $N l: $l";
+										dbg( "def: $Y $f->{def} $N l: $l");
 								} elsif ( $tag eq 'needs' ){
 										#$l =~ /^\/\/\+needs\s?(\S*)/;
 										$f->{needs} = $c;
-										dbg "$LG needs: $f->{needs} $N\n";
+										dbg("$LG needs: $f->{needs} $N\n");
 								} elsif ( $tag eq 'depends' ){
 										$f->{dep} = $c;
-										dbg "$LG depends: $f->{dep} $N\n";
+										dbg("$LG depends: $f->{dep} $N\n");
 								} elsif ( $tag eq 'after' ){
 										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
 								} elsif( $tag eq 'inc' ){
@@ -292,7 +292,7 @@ while ( my $file = shift ){
 						}
 
 						if ( $f->{header} && $f->{def} ){
-								dbg "header: $f->{header}\n def: $f->{def}\n";
+								dbg("header: $f->{header}\n def: $f->{def}\n");
 								print {headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
 								$fhhash->{sources}->{$f->{header}}->{$file} = 1;
 						}
@@ -304,11 +304,11 @@ while ( my $file = shift ){
 # write the #include "source.c" directives
 # iterate over each header include filehandler
 foreach my $key ( keys(%{$fhhash->{fh}}) ){
-		dbg "key: $key\n";
+		dbg("key: $key\n");
 		print {$fhhash->{fh}->{$key}} "\n\n#include \"include/minilib_global.h\"\n";
 		print {$fhhash->{fh}->{$key}} "\n\n#ifdef mini_INCLUDESRC\n\n";
 		foreach my $s ( keys(%{$fhhash->{sources}->{$key}}) ){
-				dbg "source key: $s\n";
+				dbg("source key: $s\n");
 				print {$fhhash->{fh}->{$key}} "#include \"$s\"\n";
 		}
 		print {$fhhash->{fh}->{$key}} "\n// Need global included. Doesn't matter by which file.\n#include \"src/minilib_global.c\"\n";
@@ -438,7 +438,7 @@ sub confighandler{
 		return(1);
 }
 
-dbg "$AC_R XXXXXX $N\n";
+dbg("$AC_R XXXXXX $N\n");
 
 template( "minilib.conf", "minilib_config", { Buildswitches=>\&confighandler } );
 
@@ -481,11 +481,11 @@ sub syscalldefine{
 
 
 				print $fh "/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */\n";
-				dbg "/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */";
+				dbg ("/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */");
 				$def =~ s/^DEF/define/;
 				print $fh "REAL_$def\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
-				dbg  "REAL_$def\n";
+				dbg ("REAL_$def\n");
 		}
 		return(1);
 }

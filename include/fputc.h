@@ -3,7 +3,7 @@
 
 #include "write.h"
 
-//+ansi stdio.h
+//+header stdio.h
 //+inc
 //+def
 static inline int volatile fputc(int c, int fd){
