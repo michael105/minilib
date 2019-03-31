@@ -10,12 +10,21 @@
 # This script gets callen with the target dir (mlibdir) as first param,
 # then the files it should scan. (*.h / *.c; invoked by "make header" in the case of minilib
 #
-# It scans for "tags":
-# each tag consists (for the moment, this could also get more generic)
+# Its purpose i to generate: 
+#		minilib.conf; genconf.sh; minilib.h; compat/*.h
+#
+# in minilib.conf the possible switches are defined, with whom the compilation
+#   of the functions can be enabled/disabled.
+# minilib.h bundles all other headers, as well as the sources when invoked with a defined "INCLUDESRC",
+#  and is to be included in every source file, using the minilib.
+# genconf.sh gets callen by mini-gcc; it generates minilib.conf.h out of minilib.conf 
+#  (or whatever else name is supplied)
+#  compat/*.h contains the ansi-c/posix-c compatible (sort of compatible) headers.
+#
+# This script scans for "tags":
+# each tag consists (for the moment, this should also get more generic)
 # of this pattern: "//+tag"
 #	
-#	Out of the tags are created: 
-#		minilib.conf; genconf.sh; minilib.h; compat/*.h
 #	
 #	(replace / with minilib's maindir )
 #	files in /; /templates; /compat; /compat/templates; are parsed into the resulting header files.
@@ -27,7 +36,7 @@
 #
 # "tag" can be one of:
 #
-# - def: the next line keep a definition
+# - def: the next line keeps a definition (function definition)
 #
 # - macro: either in the same line, or in the next line is a macro defined.
 # 	the macros are collected and go into the corresponding header files.
