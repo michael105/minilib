@@ -11,7 +11,7 @@
 #define TCSETS TIOCSETA
 #endif
 
-//+needs sys/ttycom.h termios.h
+//+needs termios.h ioctl.h
 //+header unistd.h
 //+depends ioctl
 //+def

@@ -399,7 +399,7 @@ close($ml);
 # end header file here..
 dbg("$C"."==================$N");
 
-$debug=0;
+$debug=1;
 
 
 # write minilib.c
@@ -421,8 +421,9 @@ foreach my $f ( keys(%{$funchash}) ){
 		}
 }
 
+
 dbg( $fhhash );
-dbg( $funchash );
+dbgdump( $funchash );
 dbg( $headerhash );
 
 print $mc "\n#endif\n";
@@ -445,6 +446,23 @@ sub confighandler{
 dbg("$AC_R XXXXXX $N\n");
 
 template( "minilib.conf", "minilib_config", { Buildswitches=>\&confighandler } );
+
+
+sub configallhandler{
+		my $fh = shift;
+		foreach my $header ( keys(%{$headerhash}) ){
+				print  $fh "\n# === $header\n";
+				foreach my $f ( keys( %{$headerhash->{$header}}) ){ 
+						printf $fh "mini_$f\n";
+				}
+				print $fh "\n";
+		}
+		return(1);
+}
+
+
+
+template( "minilib.conf.all", "minilib_config", { Allswitches=>\&configallhandler } );
 
 #print $conf "\n\n#endif\n\n";
 #close($conf);

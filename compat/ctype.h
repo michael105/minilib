@@ -7,9 +7,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_ctype_h
 #define included_ctype_h
 
-// need this for my stupid syntax vi plugin thing
-#define dumbsyntaxchecker 
-
 #define mini_start
 #define mini_exit
 
@@ -90,8 +87,8 @@ static inline int __attribute__((always_inline)) isprint(const char c);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/isspace.c"
 #include "minilib/include/isprint.h"
+#include "minilib/src/isspace.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

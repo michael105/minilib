@@ -1,7 +1,5 @@
 /* header.in */
 
-#define dumbsyntaxchecker
-
 
 #ifndef mini_INCLUDESRC
 #ifdef INCLUDESRC

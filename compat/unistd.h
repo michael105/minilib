@@ -7,9 +7,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #ifndef included_unistd_h
 #define included_unistd_h
 
-// need this for my stupid syntax vi plugin thing
-#define dumbsyntaxchecker 
-
 #define mini_start
 #define mini_exit
 
@@ -118,12 +115,12 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/tcgetattr.h"
-#include "minilib/include/tcsetattr.h"
-#include "minilib/include/read.h"
-#include "minilib/include/close.h"
 #include "minilib/src/open.c"
+#include "minilib/include/close.h"
+#include "minilib/include/tcsetattr.h"
+#include "minilib/include/tcgetattr.h"
 #include "minilib/include/select.h"
+#include "minilib/include/read.h"
 #include "minilib/include/write.h"
 
 // Need global included. Doesn't matter by which file.

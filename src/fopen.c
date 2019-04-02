@@ -3,8 +3,6 @@
 
 #include "include/filemodes.h"
 
-#include "syntaxchecker.h"
-
 
 #ifdef X64
 union { FILE*F; int i,fd; } fl; // 

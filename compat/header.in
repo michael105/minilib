@@ -1,6 +1,3 @@
-// need this for my stupid syntax vi plugin thing
-#define dumbsyntaxchecker 
-
 #define mini_start
 #define mini_exit
 

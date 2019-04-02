@@ -26,7 +26,23 @@ Look at the sources.
  Summary
 ====================
 
-Minilib isn't complete at all. (2019/03)
+
+2019/04/02
+	Overall, minilib gets into a more stable state.
+	The build framework as well as the config framework
+	look good to me. And it's generic enough to don't get into trouble,
+	when there something has to be changed.
+
+	Many of the typically used functions of Ansi C / Posix C are done.
+	
+	Atm, I'm working on getting more tools of the 'suckless linux base' 
+	and the 'minutils' compiled with minilib.
+	Besides, I'm fiddling around with some security and performance related 
+	fundamental matters. Stack and elf section related; 
+	but these questions are optimizations and no fixes.
+	(Or, to be more exact, these questions are about 
+	 fixes of existing security holes.)
+	
 
 
 2019/03/28
@@ -82,6 +98,7 @@ headers. (sort of)
 make
 gcc or tcc
 ld (or tcc)
+sed (might be already on every unix related system)
 perl (when rebuilding minilib)
 
 
@@ -90,11 +107,11 @@ perl (when rebuilding minilib)
  Warning
 ====================
 
-This library is far from beeing complete.
+This library is not complete.
 I'm integrating the suckless linux tools now,
 sort of a soothing puzzle.
 
-If you have no special interest in using it,
+If you have no special interest in using minilib,
 better head for something like musl, dietlibc, klib, ...
 
 I'd especially like to hint you at: 
@@ -182,24 +199,22 @@ my harddisk lying and dying.
 ====================
 
 
-At the moment minilib is far of being complete,
-but especially adding more syscalls is easy.
+Especially adding more syscalls is easy.
 
 Look into include/lseek.h for examples.
 As well as include/syscall_stubs.h.
+(That's the file, where all wrappers are defined)
 
-Addendum: ATM, I'm about to restructure this library.
+Addendum: Having written a build framework, 
+ 	which already rewrites the system call defines;
+	I still have to document this.
 
-Please, open an issue at github for bugfixes.
+Please, open an issue at github for bugs or bugfixes.
 (github.com/michael105/minilib)
 
-But please don't do further work,
-otherwise we'll get some more chaos.
-
-I should have sorted the basic structure out in a few days. 
-(Today is 2019/12/03)
-(Today is 2019/18/03)
-
+Also, the standards are quite a mess.
+I'm trying to figure out something sensible,
+to work with Ansi-C / Posix-C in a compatible way.
 
 
 
@@ -208,15 +223,30 @@ I should have sorted the basic structure out in a few days.
 ====================
 
 
-include minilib.h in all sourcefiles, needing definitions from minilib.
-define in minilib.h all features needed.
+Include minilib.h in all sourcefiles, needing definitions from minilib.
 
-include minilib_implementation.c into a sourcefile or add minilib.c to the sources
+Either define functions you need yourself, before you include minilib.h.
+Example: #define mini_write
+(Or) use the config framework, implemented within the script mini-gcc.
+(Also documented there for now)
+The config framework has the big advantage of raising syntax errors for e.g. mistypes,
+so instead of having to look for the mistype, it's shown up even before the compile.
 
-copy makefile.template to your sourcedir, rename to makefile.
-Edit makefile, set PROG to your prog's name.
+In one of your sourcefiles you also have to define "#define mini_INCLUDESRC",
+before the "include "minilib.h" directive.
+
+Either use the supplied makefile.template by copying it;
+or export CC via 'export "CC=[path to minilib]/mini-gcc [--config configfile.conf]"'
+(There are a lot of compile options needed in order to prevent gcc from including 
+the standard libraries, but you can also read the options out of mini-gcc,
+if you'd like to. I just guess, having the config options all in a central place
+is better, e.g. in the matters of platform portability.)
 
 done..
+..
+Cross your fingers .. Get some strange errors .. shout out, loudly .. 
+.. and open an issue here at github, please
+
 
 
 ====================

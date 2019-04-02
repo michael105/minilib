@@ -7,7 +7,15 @@ verbose=1
 
 # grep mini-gcc's path 
 MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
-echo minilibdir: $MLIBDIR
+
+
+echo_verbose(){
+		>&2 echo $@
+}
+
+
+
+echo_verbose minilibdir: $MLIBDIR
 
 
 
@@ -17,8 +25,8 @@ echo minilibdir: $MLIBDIR
 
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall \
-		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin \
-		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR -I./ -Os"
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
+		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ -Os"
 
 # needs os detection. but not important for now. 
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
@@ -27,12 +35,12 @@ CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib"
 
 # (default) linker script 
-LDSCRIPT="-T $MLIBDIR/ldscripts/ld.script"
+LDSCRIPT=",-T$MLIBDIR/ldscripts/ld.script"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
 
-echo Parse genconfig
+echo_verbose Parse genconfig
 source $MLIBDIR/scripts/genconfig.sh
 
 
@@ -54,7 +62,8 @@ usage(){
 		echo the invocation of gcc is defined via a global var within
 		echo the first lines.
 		echo 
-		echo  "(2019/03/28) misc - BSD 3clause"
+		echo  "(2019/03/28) Michael misc Myer - BSD 3-clause" 
+		echo  "( see the file LICENSE for details )"
 		echo
 		exit
 }
@@ -62,12 +71,11 @@ usage(){
 
 exec_gcc(){
 		if [ $verbose = 1 ]; then
-			echo $REAL_CC $CFLAGS $LDSCRIPT $@
+			echo_verbose $REAL_CC $CFLAGS$LDSCRIPT $@
 		else
 			echo $REAL_CC $@
 		fi
-		echo XXXXXXXX
-		$REAL_CC $CFLAGS $LDSCRIPT $@
+		$REAL_CC $CFLAGS$LDSCRIPT $@
 		return $?
 }
 
@@ -75,17 +83,17 @@ exec_gcc(){
 
 checkconfig (){
 	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
-		echo $1
+		echo_verbose $1
 		ERR=$((source $1 > $1.h) 2>&1)
 		#sed "s/command/function/"
-		echo var: $VAR
+		echo_verbose var: $VAR
 		if [ -n "$ERR" ]; 
 		then
 				echo -e "Error: \n $ERR"
 				exit 1;
 		fi
-		echo ARCH: $MINI_ARCH
-		echo OS: $MINI_OS
+		echo_verbose ARCH: $MINI_ARCH
+		echo_verbose OS: $MINI_OS
 		#echo GCC-Options: $REAL_CC $CFLAGS
 		CFLAGS="--include $1.h $CFLAGS"
 }
@@ -112,10 +120,17 @@ do
 						opt=1
 						;;
 				--only-text )
-						LDSCRIPT=$MLIBDIR/ldscripts/ld.script.onlytext
+						LDSCRIPT=,-T$MLIBDIR/ldscripts/ld.script.onlytext
 						shift
 						opt=1
 						;;
+				--ld-script )
+						shift
+						LDSCRIPT=$1
+						shift
+						opt=1
+						;;
+
 			 	-h | --help )   
 						usage
 						exit

@@ -1,6 +1,9 @@
 ### assorted notes
 
 
+vim syntaxcheck options.
+:let g:syntastic_c_compiler_options = '-ansi -include ../syntaxhcheck.h'
+
 
 
 it should be minilib-bundle, not compiled.

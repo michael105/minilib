@@ -1,10 +1,7 @@
 #ifndef globaldefs_h
 #define globaldefs_h
 
-// my syntax checker annoys me. had to predefine some things for him.
-// with the define below they are gone
-#define dumbsyntaxchecker 
-
+// definitions
 
 #ifdef X64
 #define POINTER unsigned long int

@@ -12,7 +12,7 @@
 #endif
 
 //+header unistd.h
-//+needs sys/ttycom.h
+///+needs sys/ttycom.h
 //+depends ioctl
 //+def
 static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
