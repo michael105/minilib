@@ -28,6 +28,10 @@ mini_INCLUDESRC(){
 		echo "#define INCLUDESRC"
 }
 
+INCLUDESRC(){
+		echo "#define INCLUDESRC"
+}
+
 # Everything below will be silently overwritten,
 # when make header ist invoked
 

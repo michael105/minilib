@@ -28,6 +28,7 @@ header:
 			echo "#endif" )\
 			> syntaxcheck.h )
 
+mini-gcc: ldscripts/ld.script* scripts/genconfig.sh
 
 tools:
 	cd tools && make

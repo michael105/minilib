@@ -5,7 +5,7 @@ REAL_LD=ld
 
 verbose=1
 
-# grep mini-gcc's path 
+# grep mini-gcc path 
 MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
 
 
@@ -39,12 +39,10 @@ LDSCRIPT=",-T$MLIBDIR/ldscripts/ld.script"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
+PARSE=1
 
-echo_verbose Parse genconfig
-source $MLIBDIR/scripts/genconfig.sh
-
-
-
+while (1); do
+if ( $PARSE == 1 ); then 
 
 usage(){
 		echo
@@ -150,4 +148,29 @@ fi
 
 exit $ret
 
+# Parse first the config switches. (if parse..)
+else
+
+# prefer the genconfig script, if present.
+if [ -e $MLIBDIR/scripts/genconfig.sh ]; then
+		echo_verbose Parsing genconfig.sh
+		source $MLIBDIR/scripts/genconfig.sh
+else
+		echo "Parsing builtin config"	
+
+# --- tmpl-start: config ---
+# Config goes here
+# --- tmpl-end: config ---
+
+fi
+
+# if parse ..
+fi
+
+# --- tmpl-start: ldscript ---
+# --- tmpl-end: ldscript ---
+
+
+# the "main loop". Continue at top after parsing the config switches
+done
 

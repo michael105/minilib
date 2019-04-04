@@ -7,6 +7,7 @@ sub template{
 		my $fn = shift;
 		my $tmplpraefix = shift;
 		my $handler = shift;
+	 	my $insert = shift | 0; # insert before already inserted text 
 
 
 		open FH2 , "<", "$fn" or die;#return(0);
@@ -27,7 +28,11 @@ sub template{
 								print "no handler for $m\nin file $fn, line: $ln\n";
 								return(0);
 						}
-						while ( ($l = <FH2>) && !( $l =~ /$tmplpraefix-end: (\S*)/ )){};
+						while ( ($l = <FH2>) && !( $l =~ /$tmplpraefix-end: (\S*)/ )){
+								if ( $insert ){
+										print TMP $l;
+								}
+						};
 						$l =~ /$tmplpraefix-end:\s*(\S*)/;
 						my $e=$1;
 						print "e: $e      m: $m\n"; 
