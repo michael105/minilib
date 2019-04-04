@@ -28,7 +28,13 @@ header:
 			echo "#endif" )\
 			> syntaxcheck.h )
 
-mini-gcc: ldscripts/ld.script* scripts/genconfig.sh
+mini-gcc: scripts/genconfig.sh ldscript
+	@echo dbg. var: $^ 
+
+
+ldscript: ldscripts/ld.script*
+	@echo dbg, ldscripts. var: $^ 
+
 
 tools:
 	cd tools && make

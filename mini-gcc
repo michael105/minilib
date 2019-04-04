@@ -41,8 +41,8 @@ LDSCRIPT=",-T$MLIBDIR/ldscripts/ld.script"
 
 PARSE=1
 
-while (1); do
-if ( $PARSE == 1 ); then 
+while [ 1 ]; do
+if [ $PARSE == 0 ]; then 
 
 usage(){
 		echo
@@ -54,14 +54,15 @@ usage(){
 		echo mini-gcc also includes the config "file" into every file compiled.
 		echo 
 		echo "mini-gcc passes all options it's invoked with on to gcc."
-		echo When you need to change the invocation of gcc,
+		echo When you need to change the invocation of gcc itself,
 		echo please edit mini-gcc for now. 
 		echo It\'s a shell script, 
-		echo the invocation of gcc is defined via a global var within
-		echo the first lines.
+		echo the invocation of gcc is defined via the variable REAL_CC
+		echo at the top.
 		echo 
-		echo  "(2019/03/28) Michael misc Myer - BSD 3-clause" 
-		echo  "( see the file LICENSE for details )"
+		echo  "(c) 2019 Michael misc Myer - BSD 3-clause" 
+		echo  "( mini-gcc --license"
+		echo  "  shows the license terms.)"
 		echo
 		exit
 }
@@ -133,6 +134,12 @@ do
 						usage
 						exit
 						;;
+				--license )
+						echo "$LICENSE"
+						echo
+						exit
+						;;
+
 		esac
 done
 
@@ -159,16 +166,45 @@ else
 		echo "Parsing builtin config"	
 
 # --- tmpl-start: config ---
-# Config goes here
+# genconfig.sh goes here
 # --- tmpl-end: config ---
 
 fi
 
 # if parse ..
+PARSE=0
 fi
 
 # --- tmpl-start: ldscript ---
 # --- tmpl-end: ldscript ---
+
+LICENSE='
+Copyright (c) 2012-2019, Michael (Misc) Myer 
+(misc.myer@zoho.com, www.github.com/michael105)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and/or other materials provided with the distribution.
+ * Neither the name of the minilib nor the
+   names of its contributors may be used to endorse or promote products
+   derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.'
+
 
 
 # the "main loop". Continue at top after parsing the config switches
