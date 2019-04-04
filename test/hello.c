@@ -1,8 +1,8 @@
-#define mini_start 
+//#define mini_start 
 #define mini_buf 256 
 #define mini_write
 
-#include "include/minilib_header.h"
+#include "minilib/minilib.h"
 
 #if 0
 testhello:

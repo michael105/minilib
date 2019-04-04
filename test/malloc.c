@@ -1,12 +1,11 @@
 #define mini_malloc
 #define mini_buf 1024
-#define mini_start start
+//#define mini_start start
 #define mini_write
 #define mini_printf
 #define mini_fprintf
 #define mini_puts
 #define mini_fputc
-#define mini_overwrite
 
 //#define INCLUDESRC
 

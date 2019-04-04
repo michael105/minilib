@@ -1,7 +1,7 @@
-#define mini_start start
+//#define mini_start start
 #define mini_write
 
-#include "include/minilib_header.h"
+#include "minilib/minilib.h"
 
 
 // Check, whether the testing routines work.

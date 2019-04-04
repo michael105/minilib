@@ -1,8 +1,9 @@
 # makefile for the tests
 #
 
-#PROG=malloc select
-PROG=hello malloc select
+#PROG=select
+PROG=hello
+#PROG=hello malloc select
 
 PROGCUSTOM=fopen 
 
