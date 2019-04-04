@@ -151,7 +151,7 @@ But I worked thoroughly, and I'm using this lib myself for several years.
 ====================
 
 Minilib evolved out of some assembler experiments,
-where I saw how tiny executables can be if not linked with glibc.
+where I saw how tiny executables can be, if not linked with glibc.
 With some more fiddling I got a C "Hello World!" program with 151 bytes,
 compiled and linked with the standard gcc makechain.
 This is more than 3,000 times less than a hello world program 
@@ -171,6 +171,11 @@ dietlibc: 672
 klibc: 367
 minilib: 151
 
+
+(On Linux 64bit I didn't check the other libraries,
+ but the bigger registers cost a few bytes:
+ hello world counts here 185 Bytes.)
+..
 
 
 Being in syscalls, linker scripts and gcc optimization hell,
