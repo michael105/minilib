@@ -48,25 +48,42 @@ while [ 1 ]; do
 if [ $PARSE == 0 ]; then 
 
 usage(){
-		echo
-		echo mini-gcc is a wrapper to call gcc with the right compile options.
-		echo mini-gcc also creates the files "minilib.conf.h" out of minilib.conf,
-		echo when invoked with --config "minilib.conf"
-		echo and creates minilib.ld.script, the linker script for ld.
 		echo 
-		echo when the --config "file" option is given \(must be the first argument for now, when supplied\)
-		echo mini-gcc also includes the config "file" into every file compiled.
-		echo 
-		echo "mini-gcc passes all options it's invoked with on to gcc."
-		echo When you need to change the invocation of gcc itself,
-		echo please edit mini-gcc for now. 
-		echo It\'s a shell script, 
-		echo the invocation of gcc is defined via the variable REAL_CC
-		echo at the top.
-		echo 
-		echo  "(c) 2019 Michael misc Myer - BSD 3-clause" 
-		echo  "('mini-gcc --license' shows the terms)"
-		echo
+		echo "Usage: mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c
+
+mini-gcc compiles binaries and links them statical with minilib.
+It's a wrapper to call gcc with the right compile options.
+
+mini-gcc passes all options it's invoked with on to gcc,
+besides the options described below, which must be passed 
+before options and parameters for gcc.
+
+-h, --help:	shows this help
+--license:	shows the license (BSD 3-clause)
+
+--config 'file': 
+        when the --config 'file' option is given
+        mini-gcc also parses the config in 'file',
+        writes the configuration into 'file'.h and includes
+        this into every compiled file. 
+        The configfile syntax is described within the file
+        'minilib.conf', which is also a minimal configuration file
+        for the hello world examples.
+
+--ldscript-file 'file':
+        Uses the supplied 'file' as linker script for ld.
+
+--ldscript 'name': 
+        Either includes the according ld.script.'name' file 
+        from the directory ldscripts, if existent, or extracts the according
+        script and writes it into minilib.ldscript.
+        This script is passed to ld with the option -T
+
+
+(c) 2019 Michael misc Myer - BSD 3-clause
+ ('mini-gcc --license' shows the terms)
+
+"
 		exit
 }
 
@@ -128,6 +145,7 @@ do
 						else
 								LDSCRIPT=",-Tminilib.ldscript"
 								var="ld_script_$1"
+								echo_verbose "Writing ld.script"
 								echo "${!var}" > minilib.ldscript
 						fi
 						shift
