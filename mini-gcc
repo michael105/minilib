@@ -172,6 +172,11 @@ do
 		esac
 done
 
+if [ "$1" == "" ]; then
+		# Assume, everythibng is alright and there havent been parameters forgotten
+		exit 0;
+fi
+
 #echo args: $@
 
 exec_gcc $@
