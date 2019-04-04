@@ -117,12 +117,12 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/include/fputs.h"
 #include "minilib/src/mfprintf.c"
 #include "minilib/src/fopen.c"
-#include "minilib/src/mprint.c"
-#include "minilib/include/fputs.h"
 #include "minilib/src/msprintf.c"
 #include "minilib/include/fputc.h"
+#include "minilib/src/mprint.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

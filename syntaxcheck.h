@@ -347,72 +347,67 @@
 #define MLIB 1
 #define LINUX 1
 #define X64 1
-#define _STDC_PREDEF_H 1
-#define __STDC_IEC_559__ 1
-#define __STDC_IEC_559_COMPLEX__ 1
-#define __STDC_ISO_10646__ 201706L
 #define mini_buf 4096
-#define mini_lseek generate
-#define mini_dup generate
-#define mini_ftruncate generate
-#define mini_read generate
-#define mini_tcgetattr generate
-#define mini_def generate
-#define mini_open generate
-#define mini_rename generate
-#define mini_write generate
-#define mini_unlink generate
-#define mini_dup2 generate
-#define mini_select generate
-#define mini_getpid generate
-#define mini_fsync generate
-#define mini_tcsetattr generate
-#define mini_close generate
-#define mini_itodec generate
-#define mini_dtodec generate
-#define mini_itohex generate
-#define mini_uitodec generate
-#define mini__itobin generate
-#define mini_memfrob generate
-#define mini_printl generate
-#define mini_print generate
-#define mini_memset generate
-#define mini_strcmp generate
-#define mini_strcpy generate
-#define mini_memcmp generate
-#define mini_memcpy generate
-#define mini_strncmp generate
-#define mini_strlen generate
-#define mini_strcat generate
-#define mini_strerror generate
-#define mini_strncpy generate
-#define mini_time generate
-#define mini_isspace generate
-#define mini_isprint generate
-#define mini_ioctl generate
-#define mini_creat generate
 #define mini_printf generate
-#define mini_fileno generate
-#define mini_putchar generate
-#define mini_fputs generate
-#define mini_fopen generate
 #define mini_fprintf generate
+#define mini_putchar generate
 #define mini_sprintf generate
 #define mini_puts generate
-#define mini_fclose generate
+#define mini_fopen generate
 #define mini_fputc generate
-#define mini_getenv generate
-#define mini_atoi generate
-#define mini_free generate
-#define mini_malloc generate
-#define mini_stat generate
+#define mini_fclose generate
+#define mini_fputs generate
+#define mini_fileno generate
+#define mini_strlen generate
+#define mini_strcat generate
+#define mini_memcmp generate
+#define mini_strcmp generate
+#define mini_strncpy generate
+#define mini_strncmp generate
+#define mini_memcpy generate
+#define mini_strcpy generate
+#define mini_strerror generate
+#define mini_memset generate
+#define mini_time generate
+#define mini_memfrob generate
+#define mini__itobin generate
+#define mini_print generate
+#define mini_itodec generate
+#define mini_uitodec generate
+#define mini_dtodec generate
+#define mini_itohex generate
+#define mini_printl generate
+#define mini_creat generate
 #define mini_dup3 generate
+#define mini_stat generate
+#define mini_mprotect generate
 #define mini_fstat generate
 #define mini_getcwd generate
-#define mini_mprotect generate
 #define mini_gettimeofday generate
+#define mini_dup generate
+#define mini_write generate
+#define mini_tcgetattr generate
+#define mini_close generate
+#define mini_getpid generate
+#define mini_fsync generate
+#define mini_read generate
+#define mini_def generate
+#define mini_ftruncate generate
+#define mini_lseek generate
+#define mini_unlink generate
+#define mini_dup2 generate
+#define mini_open generate
+#define mini_tcsetattr generate
+#define mini_select generate
+#define mini_rename generate
+#define mini_ioctl generate
+#define mini_free generate
+#define mini_atoi generate
+#define mini_getenv generate
+#define mini_malloc generate
+#define mini_isspace generate
+#define mini_isprint generate
 #define included_minilib_h 
-#define dumbsyntaxchecker 
 #define mini_start 
 #define mini_exit 
 #define globaldefs_h 
@@ -435,9 +430,6 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 #define minilib_syscall_h 
 #define NCONST 0
 #define SCALL(call) __NR_ ##call
-#define _SYSCALL_H 1
-#define _ASM_X86_UNISTD_H 
-#define __X32_SYSCALL_BIT 0x40000000
 #define _ASM_X86_UNISTD_64_H 1
 #define __NR_read 0
 #define __NR_write 1
@@ -772,340 +764,6 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 #define __NR_pkey_alloc 330
 #define __NR_pkey_free 331
 #define __NR_statx 332
-#define __GLIBC_LINUX_VERSION_CODE 266496
-#define SYS__sysctl __NR__sysctl
-#define SYS_accept __NR_accept
-#define SYS_accept4 __NR_accept4
-#define SYS_access __NR_access
-#define SYS_acct __NR_acct
-#define SYS_add_key __NR_add_key
-#define SYS_adjtimex __NR_adjtimex
-#define SYS_afs_syscall __NR_afs_syscall
-#define SYS_alarm __NR_alarm
-#define SYS_arch_prctl __NR_arch_prctl
-#define SYS_bind __NR_bind
-#define SYS_bpf __NR_bpf
-#define SYS_brk __NR_brk
-#define SYS_capget __NR_capget
-#define SYS_capset __NR_capset
-#define SYS_chdir __NR_chdir
-#define SYS_chmod __NR_chmod
-#define SYS_chown __NR_chown
-#define SYS_chroot __NR_chroot
-#define SYS_clock_adjtime __NR_clock_adjtime
-#define SYS_clock_getres __NR_clock_getres
-#define SYS_clock_gettime __NR_clock_gettime
-#define SYS_clock_nanosleep __NR_clock_nanosleep
-#define SYS_clock_settime __NR_clock_settime
-#define SYS_clone __NR_clone
-#define SYS_close __NR_close
-#define SYS_connect __NR_connect
-#define SYS_copy_file_range __NR_copy_file_range
-#define SYS_creat __NR_creat
-#define SYS_create_module __NR_create_module
-#define SYS_delete_module __NR_delete_module
-#define SYS_dup __NR_dup
-#define SYS_dup2 __NR_dup2
-#define SYS_dup3 __NR_dup3
-#define SYS_epoll_create __NR_epoll_create
-#define SYS_epoll_create1 __NR_epoll_create1
-#define SYS_epoll_ctl __NR_epoll_ctl
-#define SYS_epoll_ctl_old __NR_epoll_ctl_old
-#define SYS_epoll_pwait __NR_epoll_pwait
-#define SYS_epoll_wait __NR_epoll_wait
-#define SYS_epoll_wait_old __NR_epoll_wait_old
-#define SYS_eventfd __NR_eventfd
-#define SYS_eventfd2 __NR_eventfd2
-#define SYS_execve __NR_execve
-#define SYS_execveat __NR_execveat
-#define SYS_exit __NR_exit
-#define SYS_exit_group __NR_exit_group
-#define SYS_faccessat __NR_faccessat
-#define SYS_fadvise64 __NR_fadvise64
-#define SYS_fallocate __NR_fallocate
-#define SYS_fanotify_init __NR_fanotify_init
-#define SYS_fanotify_mark __NR_fanotify_mark
-#define SYS_fchdir __NR_fchdir
-#define SYS_fchmod __NR_fchmod
-#define SYS_fchmodat __NR_fchmodat
-#define SYS_fchown __NR_fchown
-#define SYS_fchownat __NR_fchownat
-#define SYS_fcntl __NR_fcntl
-#define SYS_fdatasync __NR_fdatasync
-#define SYS_fgetxattr __NR_fgetxattr
-#define SYS_finit_module __NR_finit_module
-#define SYS_flistxattr __NR_flistxattr
-#define SYS_flock __NR_flock
-#define SYS_fork __NR_fork
-#define SYS_fremovexattr __NR_fremovexattr
-#define SYS_fsetxattr __NR_fsetxattr
-#define SYS_fstat __NR_fstat
-#define SYS_fstatfs __NR_fstatfs
-#define SYS_fsync __NR_fsync
-#define SYS_ftruncate __NR_ftruncate
-#define SYS_futex __NR_futex
-#define SYS_futimesat __NR_futimesat
-#define SYS_get_kernel_syms __NR_get_kernel_syms
-#define SYS_get_mempolicy __NR_get_mempolicy
-#define SYS_get_robust_list __NR_get_robust_list
-#define SYS_get_thread_area __NR_get_thread_area
-#define SYS_getcpu __NR_getcpu
-#define SYS_getcwd __NR_getcwd
-#define SYS_getdents __NR_getdents
-#define SYS_getdents64 __NR_getdents64
-#define SYS_getegid __NR_getegid
-#define SYS_geteuid __NR_geteuid
-#define SYS_getgid __NR_getgid
-#define SYS_getgroups __NR_getgroups
-#define SYS_getitimer __NR_getitimer
-#define SYS_getpeername __NR_getpeername
-#define SYS_getpgid __NR_getpgid
-#define SYS_getpgrp __NR_getpgrp
-#define SYS_getpid __NR_getpid
-#define SYS_getpmsg __NR_getpmsg
-#define SYS_getppid __NR_getppid
-#define SYS_getpriority __NR_getpriority
-#define SYS_getrandom __NR_getrandom
-#define SYS_getresgid __NR_getresgid
-#define SYS_getresuid __NR_getresuid
-#define SYS_getrlimit __NR_getrlimit
-#define SYS_getrusage __NR_getrusage
-#define SYS_getsid __NR_getsid
-#define SYS_getsockname __NR_getsockname
-#define SYS_getsockopt __NR_getsockopt
-#define SYS_gettid __NR_gettid
-#define SYS_gettimeofday __NR_gettimeofday
-#define SYS_getuid __NR_getuid
-#define SYS_getxattr __NR_getxattr
-#define SYS_init_module __NR_init_module
-#define SYS_inotify_add_watch __NR_inotify_add_watch
-#define SYS_inotify_init __NR_inotify_init
-#define SYS_inotify_init1 __NR_inotify_init1
-#define SYS_inotify_rm_watch __NR_inotify_rm_watch
-#define SYS_io_cancel __NR_io_cancel
-#define SYS_io_destroy __NR_io_destroy
-#define SYS_io_getevents __NR_io_getevents
-#define SYS_io_setup __NR_io_setup
-#define SYS_io_submit __NR_io_submit
-#define SYS_ioctl __NR_ioctl
-#define SYS_ioperm __NR_ioperm
-#define SYS_iopl __NR_iopl
-#define SYS_ioprio_get __NR_ioprio_get
-#define SYS_ioprio_set __NR_ioprio_set
-#define SYS_kcmp __NR_kcmp
-#define SYS_kexec_file_load __NR_kexec_file_load
-#define SYS_kexec_load __NR_kexec_load
-#define SYS_keyctl __NR_keyctl
-#define SYS_kill __NR_kill
-#define SYS_lchown __NR_lchown
-#define SYS_lgetxattr __NR_lgetxattr
-#define SYS_link __NR_link
-#define SYS_linkat __NR_linkat
-#define SYS_listen __NR_listen
-#define SYS_listxattr __NR_listxattr
-#define SYS_llistxattr __NR_llistxattr
-#define SYS_lookup_dcookie __NR_lookup_dcookie
-#define SYS_lremovexattr __NR_lremovexattr
-#define SYS_lseek __NR_lseek
-#define SYS_lsetxattr __NR_lsetxattr
-#define SYS_lstat __NR_lstat
-#define SYS_madvise __NR_madvise
-#define SYS_mbind __NR_mbind
-#define SYS_membarrier __NR_membarrier
-#define SYS_memfd_create __NR_memfd_create
-#define SYS_migrate_pages __NR_migrate_pages
-#define SYS_mincore __NR_mincore
-#define SYS_mkdir __NR_mkdir
-#define SYS_mkdirat __NR_mkdirat
-#define SYS_mknod __NR_mknod
-#define SYS_mknodat __NR_mknodat
-#define SYS_mlock __NR_mlock
-#define SYS_mlock2 __NR_mlock2
-#define SYS_mlockall __NR_mlockall
-#define SYS_mmap __NR_mmap
-#define SYS_modify_ldt __NR_modify_ldt
-#define SYS_mount __NR_mount
-#define SYS_move_pages __NR_move_pages
-#define SYS_mprotect __NR_mprotect
-#define SYS_mq_getsetattr __NR_mq_getsetattr
-#define SYS_mq_notify __NR_mq_notify
-#define SYS_mq_open __NR_mq_open
-#define SYS_mq_timedreceive __NR_mq_timedreceive
-#define SYS_mq_timedsend __NR_mq_timedsend
-#define SYS_mq_unlink __NR_mq_unlink
-#define SYS_mremap __NR_mremap
-#define SYS_msgctl __NR_msgctl
-#define SYS_msgget __NR_msgget
-#define SYS_msgrcv __NR_msgrcv
-#define SYS_msgsnd __NR_msgsnd
-#define SYS_msync __NR_msync
-#define SYS_munlock __NR_munlock
-#define SYS_munlockall __NR_munlockall
-#define SYS_munmap __NR_munmap
-#define SYS_name_to_handle_at __NR_name_to_handle_at
-#define SYS_nanosleep __NR_nanosleep
-#define SYS_newfstatat __NR_newfstatat
-#define SYS_nfsservctl __NR_nfsservctl
-#define SYS_open __NR_open
-#define SYS_open_by_handle_at __NR_open_by_handle_at
-#define SYS_openat __NR_openat
-#define SYS_pause __NR_pause
-#define SYS_perf_event_open __NR_perf_event_open
-#define SYS_personality __NR_personality
-#define SYS_pipe __NR_pipe
-#define SYS_pipe2 __NR_pipe2
-#define SYS_pivot_root __NR_pivot_root
-#define SYS_pkey_alloc __NR_pkey_alloc
-#define SYS_pkey_free __NR_pkey_free
-#define SYS_pkey_mprotect __NR_pkey_mprotect
-#define SYS_poll __NR_poll
-#define SYS_ppoll __NR_ppoll
-#define SYS_prctl __NR_prctl
-#define SYS_pread64 __NR_pread64
-#define SYS_preadv __NR_preadv
-#define SYS_preadv2 __NR_preadv2
-#define SYS_prlimit64 __NR_prlimit64
-#define SYS_process_vm_readv __NR_process_vm_readv
-#define SYS_process_vm_writev __NR_process_vm_writev
-#define SYS_pselect6 __NR_pselect6
-#define SYS_ptrace __NR_ptrace
-#define SYS_putpmsg __NR_putpmsg
-#define SYS_pwrite64 __NR_pwrite64
-#define SYS_pwritev __NR_pwritev
-#define SYS_pwritev2 __NR_pwritev2
-#define SYS_query_module __NR_query_module
-#define SYS_quotactl __NR_quotactl
-#define SYS_read __NR_read
-#define SYS_readahead __NR_readahead
-#define SYS_readlink __NR_readlink
-#define SYS_readlinkat __NR_readlinkat
-#define SYS_readv __NR_readv
-#define SYS_reboot __NR_reboot
-#define SYS_recvfrom __NR_recvfrom
-#define SYS_recvmmsg __NR_recvmmsg
-#define SYS_recvmsg __NR_recvmsg
-#define SYS_remap_file_pages __NR_remap_file_pages
-#define SYS_removexattr __NR_removexattr
-#define SYS_rename __NR_rename
-#define SYS_renameat __NR_renameat
-#define SYS_renameat2 __NR_renameat2
-#define SYS_request_key __NR_request_key
-#define SYS_restart_syscall __NR_restart_syscall
-#define SYS_rmdir __NR_rmdir
-#define SYS_rt_sigaction __NR_rt_sigaction
-#define SYS_rt_sigpending __NR_rt_sigpending
-#define SYS_rt_sigprocmask __NR_rt_sigprocmask
-#define SYS_rt_sigqueueinfo __NR_rt_sigqueueinfo
-#define SYS_rt_sigreturn __NR_rt_sigreturn
-#define SYS_rt_sigsuspend __NR_rt_sigsuspend
-#define SYS_rt_sigtimedwait __NR_rt_sigtimedwait
-#define SYS_rt_tgsigqueueinfo __NR_rt_tgsigqueueinfo
-#define SYS_sched_get_priority_max __NR_sched_get_priority_max
-#define SYS_sched_get_priority_min __NR_sched_get_priority_min
-#define SYS_sched_getaffinity __NR_sched_getaffinity
-#define SYS_sched_getattr __NR_sched_getattr
-#define SYS_sched_getparam __NR_sched_getparam
-#define SYS_sched_getscheduler __NR_sched_getscheduler
-#define SYS_sched_rr_get_interval __NR_sched_rr_get_interval
-#define SYS_sched_setaffinity __NR_sched_setaffinity
-#define SYS_sched_setattr __NR_sched_setattr
-#define SYS_sched_setparam __NR_sched_setparam
-#define SYS_sched_setscheduler __NR_sched_setscheduler
-#define SYS_sched_yield __NR_sched_yield
-#define SYS_seccomp __NR_seccomp
-#define SYS_security __NR_security
-#define SYS_select __NR_select
-#define SYS_semctl __NR_semctl
-#define SYS_semget __NR_semget
-#define SYS_semop __NR_semop
-#define SYS_semtimedop __NR_semtimedop
-#define SYS_sendfile __NR_sendfile
-#define SYS_sendmmsg __NR_sendmmsg
-#define SYS_sendmsg __NR_sendmsg
-#define SYS_sendto __NR_sendto
-#define SYS_set_mempolicy __NR_set_mempolicy
-#define SYS_set_robust_list __NR_set_robust_list
-#define SYS_set_thread_area __NR_set_thread_area
-#define SYS_set_tid_address __NR_set_tid_address
-#define SYS_setdomainname __NR_setdomainname
-#define SYS_setfsgid __NR_setfsgid
-#define SYS_setfsuid __NR_setfsuid
-#define SYS_setgid __NR_setgid
-#define SYS_setgroups __NR_setgroups
-#define SYS_sethostname __NR_sethostname
-#define SYS_setitimer __NR_setitimer
-#define SYS_setns __NR_setns
-#define SYS_setpgid __NR_setpgid
-#define SYS_setpriority __NR_setpriority
-#define SYS_setregid __NR_setregid
-#define SYS_setresgid __NR_setresgid
-#define SYS_setresuid __NR_setresuid
-#define SYS_setreuid __NR_setreuid
-#define SYS_setrlimit __NR_setrlimit
-#define SYS_setsid __NR_setsid
-#define SYS_setsockopt __NR_setsockopt
-#define SYS_settimeofday __NR_settimeofday
-#define SYS_setuid __NR_setuid
-#define SYS_setxattr __NR_setxattr
-#define SYS_shmat __NR_shmat
-#define SYS_shmctl __NR_shmctl
-#define SYS_shmdt __NR_shmdt
-#define SYS_shmget __NR_shmget
-#define SYS_shutdown __NR_shutdown
-#define SYS_sigaltstack __NR_sigaltstack
-#define SYS_signalfd __NR_signalfd
-#define SYS_signalfd4 __NR_signalfd4
-#define SYS_socket __NR_socket
-#define SYS_socketpair __NR_socketpair
-#define SYS_splice __NR_splice
-#define SYS_stat __NR_stat
-#define SYS_statfs __NR_statfs
-#define SYS_statx __NR_statx
-#define SYS_swapoff __NR_swapoff
-#define SYS_swapon __NR_swapon
-#define SYS_symlink __NR_symlink
-#define SYS_symlinkat __NR_symlinkat
-#define SYS_sync __NR_sync
-#define SYS_sync_file_range __NR_sync_file_range
-#define SYS_syncfs __NR_syncfs
-#define SYS_sysfs __NR_sysfs
-#define SYS_sysinfo __NR_sysinfo
-#define SYS_syslog __NR_syslog
-#define SYS_tee __NR_tee
-#define SYS_tgkill __NR_tgkill
-#define SYS_time __NR_time
-#define SYS_timer_create __NR_timer_create
-#define SYS_timer_delete __NR_timer_delete
-#define SYS_timer_getoverrun __NR_timer_getoverrun
-#define SYS_timer_gettime __NR_timer_gettime
-#define SYS_timer_settime __NR_timer_settime
-#define SYS_timerfd_create __NR_timerfd_create
-#define SYS_timerfd_gettime __NR_timerfd_gettime
-#define SYS_timerfd_settime __NR_timerfd_settime
-#define SYS_times __NR_times
-#define SYS_tkill __NR_tkill
-#define SYS_truncate __NR_truncate
-#define SYS_tuxcall __NR_tuxcall
-#define SYS_umask __NR_umask
-#define SYS_umount2 __NR_umount2
-#define SYS_uname __NR_uname
-#define SYS_unlink __NR_unlink
-#define SYS_unlinkat __NR_unlinkat
-#define SYS_unshare __NR_unshare
-#define SYS_uselib __NR_uselib
-#define SYS_userfaultfd __NR_userfaultfd
-#define SYS_ustat __NR_ustat
-#define SYS_utime __NR_utime
-#define SYS_utimensat __NR_utimensat
-#define SYS_utimes __NR_utimes
-#define SYS_vfork __NR_vfork
-#define SYS_vhangup __NR_vhangup
-#define SYS_vmsplice __NR_vmsplice
-#define SYS_vserver __NR_vserver
-#define SYS_wait4 __NR_wait4
-#define SYS_waitid __NR_waitid
-#define SYS_write __NR_write
-#define SYS_writev __NR_writev
 #define __callend : "memory","rcx", "r11" )
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret) : "a" ( (call | NCONST ) )
 #define syscall1(ret,call,a1) __SYSCALL_ASM(ret,call) , "D" (a1) __callend
@@ -1136,54 +794,22 @@ struct timezone {
 extern int sysret;
 extern int errno;
 struct stat;
-inline int volatile __attribute__((always_inline)) fstat( int a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-5 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) dup2( int a1, int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-33 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) stat( const char* a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-4 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) unlink( const char* a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-87 
-| 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) rename( const char* a1, const char* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-82 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) write( int a1, const void *a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-1 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) fsync( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-74 
-| 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) getpid( ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-39 
-| 0 ) | 0 ) ) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) dup3( int a1, int a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-292 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) time( unsigned int *a1 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (
-201 
-| 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
-inline int volatile __attribute__((always_inline)) getcwd( char *a1, long a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-79 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) lseek( unsigned int a1, int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (
-8 
-| 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(a1); }
-inline int volatile __attribute__((always_inline)) dup( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-32 
-| 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) gettimeofday( struct timeval *a1, struct timezone *a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-96 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (
-10 
-| 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
-inline int volatile __attribute__((always_inline)) ftruncate( unsigned int a1, unsigned int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 
-77 
-| 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) ftruncate( unsigned int a1, unsigned int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 77 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) fsync( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 74 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) dup3( int a1, int a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 292 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) getpid( ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 39 | 0 ) | 0 ) ) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) unlink( const char* a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 87 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) fstat( int a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 5 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) lseek( unsigned int a1, int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (8 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(a1); }
+inline int volatile __attribute__((always_inline)) dup( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 32 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) getcwd( char *a1, long a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 79 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) write( int a1, const void *a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 1 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) rename( const char* a1, const char* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 82 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) time( unsigned int *a1 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (201 | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
+inline int volatile __attribute__((always_inline)) stat( const char* a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 4 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (10 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
+inline int volatile __attribute__((always_inline)) dup2( int a1, int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 33 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) gettimeofday( struct timeval *a1, struct timezone *a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 96 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
 #define SYS_TYPES_H 
 #define alltypes_h 
 #define _Addr long
@@ -1449,47 +1075,44 @@ struct udiv_t { unsigned int quot, rem; };
 #define ERFKILL 132
 extern int errno;
 #define mini_prints 
+int ioctl( int fd, unsigned long int request, ... );
+int volatile open( const char *s, int flags, ... );
+int strlen(const char*str);
+int fileno( FILE *f );
+void *memcpy( void *d, const void *s, int n );
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
 #define fputc_c 
 #define minilib_write_h 
 static inline int volatile fputc(int c, int fd){
   write(fd, &c, 1);
   return(c);
 }
-int ioctl( int fd, unsigned long int request, ... );
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-int strlen(const char*str);
-int volatile open( const char *s, int flags, ... );
-void *memcpy( void *d, const void *s, int n );
-int fileno( FILE *f );
 int printl(const char *msg);
 #define minilib_close_h 
 static inline int volatile __attribute__((always_inline)) close( int fd ){
   int ret;
-  asm volatile ("syscall" : "=a" (ret) : "a" ( (
- 3 
- | 0 ) ) , "D" ((int)fd) : "memory","rcx", "r11" );
+  asm volatile ("syscall" : "=a" (ret) : "a" ( (3 | 0 ) ) , "D" ((int)fd) : "memory","rcx", "r11" );
   return(ret);
 }
-int fclose( FILE* f );
-int atoi(char *c);
-void *memcpy( void *d, const void *s, int n );
 int strcmp(const char*c1,const char*c2);
-#define tcgetattr_h 
-#define TCGETS TIOCGETA
-static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
- return(ioctl(fd, TIOCGETA, io));
-}
-int isspace(int c);
-void *memset( void *s, int c, int n);
-char *strcat(char *dest, const char *src );
-int fprintf(int fd, const char* fmt, ... );
-int strncmp(const char*c1,const char*c2,int len);
-int fileno( FILE *f );
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-void volatile free(void* p);
-int _itobin(int i, char*buf, int prec, int groups );
-void* volatile malloc(int size);
 int itohex(int i,char* buf,int padding);
+FILE *fopen(const char* filename, const char* mode);
+int ioctl( int fd, unsigned long int request, ... );
+char *strncpy(char *dest, const char *src, int n);
+void* memfrob(void* s, unsigned int len);
+#define puts(c) printl(c)
+int volatile open( const char *s, int flags, ... );
+int sprintf(char *buf, const char* fmt, ... );
+char *strcat(char *dest, const char *src );
+#define fputs_h 
+int strlen(const char*str);
+static inline int volatile fputs(const char *c, int fd){
+  return(write(fd, c, strlen(c)));
+}
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+int _itobin(int i, char*buf, int prec, int groups );
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+char* strerror( int errnum );
 #define minilib_read_h 
 #define overrun_h 
 #define mprints_h 
@@ -1500,15 +1123,21 @@ extern int _mprints(char*msg,...);
 #define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){ mprintsl("Buffer Overrun. Aborting."); exit(1);}
 static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len ){
   int ret;
-  asm volatile ("syscall" : "=a" (ret) : "a" ( (
- 0 
- | 0 ) ) , "D" (fd), "S" ((unsigned long int)buf), "d" (len) : "memory","rcx", "r11" );
+  asm volatile ("syscall" : "=a" (ret) : "a" ( (0 | 0 ) ) , "D" (fd), "S" ((unsigned long int)buf), "d" (len) : "memory","rcx", "r11" );
   return(ret);
 }
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+int atoi(char *c);
+void *memset( void *s, int c, int n);
+char *strcpy(char *dest, const char *src);
+int fprintf(int fd, const char* fmt, ... );
+#define mini_lseek_h 
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+#define SEEK_MAX SEEK_END
+extern int sysret;
+extern int errno;
 char *getenv(const char* name);
-int itodec(int i, char *buf, int prec, char limiter );
-char* strerror( int errnum );
 #define select_h 
 #define FD_SETSIZE 1024
   typedef unsigned long fd_mask;
@@ -1522,26 +1151,30 @@ char* strerror( int errnum );
 #define FD_ISSET(d,s) !!((s)->fds_bits[(d)/(8*sizeof(long))] & (1UL<<((d)%(8*sizeof(long)))))
 static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
   int ret;
-  register long int r10 asm ("r10") = (unsigned long int)exceptfd ; register long int r8 asm ("r8") = (unsigned long int) wait ; asm volatile ("syscall" : "=a" (ret) : "a" ( (
- 23 
- | 0 ) ) , "D" (&fd), "S" (readfd), "d" ((unsigned long int)writefd), "r" (r10), "r" (r8) : "memory","rcx", "r11" );
+  register long int r10 asm ("r10") = (unsigned long int)exceptfd ; register long int r8 asm ("r8") = (unsigned long int) wait ; asm volatile ("syscall" : "=a" (ret) : "a" ( (23 | 0 ) ) , "D" (&fd), "S" (readfd), "d" ((unsigned long int)writefd), "r" (r10), "r" (r8) : "memory","rcx", "r11" );
   return(ret);
 }
+int memcmp(const void* c1,const void* c2,int len);
+int itodec(int i, char *buf, int prec, char limiter );
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+int fileno( FILE *f );
+int fclose( FILE* f );
+int strncmp(const char*c1,const char*c2,int len);
+#define tcgetattr_h 
+#define TCGETS TIOCGETA
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
+ return(ioctl(fd, TIOCGETA, io));
+}
+void volatile free(void* p);
+void *memcpy( void *d, const void *s, int n );
 int printl(const char *msg);
-char *strncpy(char *dest, const char *src, int n);
-int strlen(const char*str);
-#define mini_lseek_h 
-#define SEEK_SET 0
-#define SEEK_CUR 1
-#define SEEK_END 2
-#define SEEK_MAX SEEK_END
-extern int sysret;
-extern int errno;
-#define puts(c) printl(c)
-int sprintf(char *buf, const char* fmt, ... );
-FILE *fopen(const char* filename, const char* mode);
-#define _TERMIOS_H 1
-__BEGIN_DECLS
+#define mini_isprint_h 
+#define misprint(A) isprint(A)
+static inline int __attribute__((always_inline)) isprint(const char c){
+  if ( (c>31) && ( c<127 ))
+    return(1);
+  return(0);
+}
 #define termios_xxxxx 
 struct termios {
  tcflag_t c_iflag;
@@ -1657,18 +1290,6 @@ struct termios {
 #define TCSANOW 0
 #define TCSADRAIN 1
 #define TCSAFLUSH 2
-extern speed_t cfgetospeed (const struct termios *__termios_p) __THROW;
-extern speed_t cfgetispeed (const struct termios *__termios_p) __THROW;
-extern int cfsetospeed (struct termios *__termios_p, speed_t __speed) __THROW;
-extern int cfsetispeed (struct termios *__termios_p, speed_t __speed) __THROW;
-extern int tcgetattr (int __fd, struct termios *__termios_p) __THROW;
-extern int tcsetattr (int __fd, int __optional_actions,
-        const struct termios *__termios_p) __THROW;
-extern int tcsendbreak (int __fd, int __duration) __THROW;
-extern int tcdrain (int __fd);
-extern int tcflush (int __fd, int __queue_selector) __THROW;
-extern int tcflow (int __fd, int __action) __THROW;
-__END_DECLS
 #define included_ioctl_h 
 #define mini_start 
 #define mini_exit 
@@ -1707,24 +1328,9 @@ int ioctl( int fd, unsigned long int request, ... );
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
  return(ioctl(fd, TIOCSETA +opt, io));
 }
-int memcmp(const void* c1,const void* c2,int len);
-char *strcpy(char *dest, const char *src);
-#define mini_isprint_h 
-#define misprint(A) isprint(A)
-static inline int __attribute__((always_inline)) isprint(const char c){
-  if ( (c>31) && ( c<127 ))
-    return(1);
-  return(0);
-}
 int print(const char *msg);
-int dtodec(double d, char* buf, int precision);
-int ioctl( int fd, unsigned long int request, ... );
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-int volatile open( const char *s, int flags, ... );
-#define fputs_h 
+int isspace(int c);
+void* volatile malloc(int size);
 int strlen(const char*str);
-static inline int volatile fputs(const char *c, int fd){
-  return(write(fd, c, strlen(c)));
-}
-void* memfrob(void* s, unsigned int len);
+int dtodec(double d, char* buf, int precision);
 #endif
