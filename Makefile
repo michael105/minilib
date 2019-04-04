@@ -30,6 +30,7 @@ header:
 
 mini-gcc: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 
+	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh
 
 
 ldscript: ldscripts/ld.script*
