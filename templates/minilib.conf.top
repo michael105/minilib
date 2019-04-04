@@ -1,9 +1,0 @@
-// Include this file in order to configure minilib's build options,
-// befor you include "minilib.h" or minilibcompiled.h
-// define the names of the functions you'd like to use here,
-// comment unwanted functions out.
-
-// This file is generated out of templates within minilib/templates
-// by "make header".
-// If you'd like to add permanent changes, either rename this file
-// or modify the according templates.

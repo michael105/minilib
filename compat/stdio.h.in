@@ -1,4 +1,0 @@
-//needed for puts
-#include "src/mstrlen.c"
-
-
