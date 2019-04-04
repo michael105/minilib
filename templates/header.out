@@ -1,0 +1,3 @@
+#ifdef mini_INCLUDESRC
+#include "minilib.c"
+#endif
