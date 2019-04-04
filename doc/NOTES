@@ -1,6 +1,63 @@
 ### assorted notes
 
 
+
+security at all:
+	non executable stack
+	non writable text
+	text segment only executable segment.
+(also: comparison to, e.g, the xserver..)
+
+	
+
+
+
+(possibility: self check)
+  ->(optional) binary only code for the selfcheck
+
+
+ENV should be copied into another section than stack at program start,
+when enabling security
+malloc and free should check memory integrity on invocation.
+
+the stack could also add some randomized bytes,
+possibly even misleading bytes. 
+(there could be misleading links injected, e.g)
+
+
+C definitions from: 
+http://flint.cs.yale.edu/cs422/
+ -> "Executable and Linkable Format (ELF)" 
+http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf
+ (p.53)
+
+
+
+
+obfuscate the jmp from the (returned) stack guarded function:
+jmp WITHIN another instruction.
+
+
+--only-text could get selected automatic: bss/data sections aren't needed, when no globals are defined..
+ so: insert a bss section var into genconfig.sh 
+
+
+headers (compat-headers): also possible to just define e.g. _STDIO_H
+and configure minilib instead. 
+
+
+) This example uses %=. %= in an assembler template is replaced with a number that is "unique to each insn in the entire compilation. This is useful for making local labels that are referred to more than once in a given insn." Note that to use %=, you (apparently) must have at least one input (although you probably don't have to actually use it).
+
+int a = 3;
+asm (
+    "test %0\n\t"
+    "jnz to_here%=\n\t"
+    "jz to_there%=\n\t"
+    "to_here%=:\n\t"
+    "to_there%=:"
+    ::"r" (a));
+
+
 vim syntaxcheck options.
 :let g:syntastic_c_compiler_options = '-ansi -include ../syntaxhcheck.h'
 
