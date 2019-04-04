@@ -15,6 +15,10 @@ security at all:
 (possibility: self check)
   ->(optional) binary only code for the selfcheck
 
+all pointers within another section
+ sectionstarts randomized
+ (stack randomized)
+
 
 ENV should be copied into another section than stack at program start,
 when enabling security
