@@ -34,7 +34,13 @@ mini-gcc: scripts/genconfig.sh ldscript
 
 ldscript: ldscripts/ld.script*
 	@echo dbg, ldscripts. var: $^ 
+	echo "# Parsing" | scripts/template.pl mini-gcc content-ldscript
+	sh scripts/ldscripts.sh $^ 
 
+
+			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert mini-gcc content-ldscript; echo J ) )  
+	
+	#| scripts/template.pl -insert mini-gcc content-ldscript )  )   
 
 tools:
 	cd tools && make

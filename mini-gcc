@@ -22,13 +22,14 @@ echo_verbose minilibdir: $MLIBDIR
 
 
 # gcc options
+# only linux x64 for now.
 
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall \
 		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
 		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ -Os"
 
-# needs os detection. but not important for now. 
+# needs os detection. but not important for now
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 
 # ld options 
@@ -46,9 +47,10 @@ if [ $PARSE == 0 ]; then
 
 usage(){
 		echo
-		echo mini-gcc is a wrapper, to call gcc with the right compile options.
-		echo mini-gcc also creates the file "minilib.conf.h" out of minilib.conf,
+		echo mini-gcc is a wrapper to call gcc with the right compile options.
+		echo mini-gcc also creates the files "minilib.conf.h" out of minilib.conf,
 		echo when invoked with --config "minilib.conf"
+		echo and creates minilib.ld.script, the linker script for ld.
 		echo 
 		echo when the --config "file" option is given \(must be the first argument for now, when supplied\)
 		echo mini-gcc also includes the config "file" into every file compiled.
@@ -61,15 +63,16 @@ usage(){
 		echo at the top.
 		echo 
 		echo  "(c) 2019 Michael misc Myer - BSD 3-clause" 
-		echo  "( mini-gcc --license"
-		echo  "  shows the license terms.)"
+		echo  "( 'mini-gcc --license' shows the license)"
 		echo
+		echo dbg
+		echo "$ld_script_onlytext"
 		exit
 }
 
 
 exec_gcc(){
-		if [ $verbose = 1 ]; then
+		if [ $verbose == 1 ]; then
 			echo_verbose $REAL_CC $CFLAGS$LDSCRIPT $@
 		else
 			echo $REAL_CC $@
@@ -165,18 +168,237 @@ if [ -e $MLIBDIR/scripts/genconfig.sh ]; then
 else
 		echo "Parsing builtin config"	
 
-# --- tmpl-start: config ---
+# --- tmpl-config-start: TMPL ---
 # genconfig.sh goes here
-# --- tmpl-end: config ---
+# --- tmpl-config-end: TMPL ---
 
 fi
 
 # if parse ..
 PARSE=0
 fi
+# .. note: read -r -d '' << ENDVAR 
+# ...
+# --- content-ldscript-start: TMPL ---
+ld_script='
+SECTIONS {                                                                                                                                                    
+		/DISCARD/ : { 
+			*(.comment) 
+			*(.eh_frame)
+			*(.plt)
+			*(.got.plt)
+			*(.rel.plt)
+		}
+}
+INSERT AFTER .text
 
-# --- tmpl-start: ldscript ---
-# --- tmpl-end: ldscript ---
+'
+ld_script_onlytext='
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text.startup .text.startup.*)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(.note*)
+			*(*)
+			}
+}
+
+
+'
+ld_script_bloating='
+
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text.exit .text.exit.*)
+						*(.text.startup .text.startup.*)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+		 }
+		.bss            :
+		{ 
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(.bss)
+						*(.shstrtab)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  */
+						. = ALIGN(. != 0 ? 32 / 8 : 1);
+						_bssend = . ;
+						_brk = .;
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(.note*)
+			}
+}
+
+
+'
+ld_script_text_and_bss='
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text.exit .text.exit.*)
+						*(.text.startup .text.startup.*)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+		 }
+		.bss            :
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(.note*)
+			}
+}
+
+
+'
+# Parsing
+# --- content-ldscript-end: TMPL ---
+
 
 LICENSE='
 Copyright (c) 2012-2019, Michael (Misc) Myer 
