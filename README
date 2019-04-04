@@ -33,7 +33,8 @@ Look at the sources.
 	look good to me. And it's generic enough to don't get into trouble,
 	when there something has to be changed.
 
-	Many of the typically used functions of Ansi C / Posix C are done.
+	Ansi C (C89) / is about 75% done. Some functions (fopen/fclose) 
+	 only trivially tested.
 	
 	Atm, I'm working on getting more tools of the 'suckless linux base' 
 	and the 'minutils' compiled with minilib.

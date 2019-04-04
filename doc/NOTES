@@ -1,6 +1,6 @@
 ### assorted notes
 
-
+git push origin HEAD:devel
 
 security at all:
 	non executable stack
