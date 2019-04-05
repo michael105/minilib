@@ -4,7 +4,7 @@
 
 ____
 Scratched this from the ansi-c89 draft. +
-Storing it here as reference.
+Storing it here for reference.
 ____
 
 

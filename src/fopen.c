@@ -4,16 +4,6 @@
 #include "include/filemodes.h"
 
 
-#ifdef X64
-union { FILE*F; int i,fd; } fl; // 
-#else
-//union { FILE*F; int fd; } fl; // 
-#endif
-//(untested for x32) better commenting this out for now.
-//Might be better to find later
-//also: endiannes.
-
-
 
 
 //+header stdio.h
@@ -55,20 +45,11 @@ FILE *fopen(const char* filename, const char* mode){
 		return ( fl.F ); // 
 }
 
-//+def
-int fileno( FILE *f ){
-		fl.F=f;
-		return( fl.fd );
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
+		
+
+
 }
-
-
-//+depends close fileno
-//+def
-int fclose( FILE* f ){
-		return( close(fileno(f)) );
-}
-
-
 
 
 

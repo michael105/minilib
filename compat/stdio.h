@@ -79,15 +79,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 // file: minilib/src/fopen.c
 FILE *fopen(const char* filename, const char* mode);
 
-// file: minilib/src/fopen.c
-int fileno( FILE *f );
-
-// file: minilib/src/fopen.c
-int fclose( FILE* f );
-
-// file: minilib/src/mfprintf.c
-int fprintf(int fd, const char* fmt, ... );
-
 // file: minilib/src/mfprintf.c
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -110,6 +101,20 @@ static inline int volatile fputc(int c, int fd);
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
 
+// file: minilib/include/stdio.h
+#include "minilib/include/stdio.h"
+// file: minilib/include/stdio.h
+typedef int FILE;
+
+// file: minilib/include/stdio.h
+static inline int fileno( FILE *f );
+
+// file: minilib/include/stdio.h
+int fclose( FILE* f );
+
+// file: minilib/include/stdio.h
+#define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
+
 
 
 #include "include/minilib_global.h"
@@ -117,12 +122,13 @@ static inline int volatile fputs(const char *c, int fd);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/fputs.h"
-#include "minilib/src/fopen.c"
+#include "minilib/include/stdio.h"
 #include "minilib/src/mfprintf.c"
-#include "minilib/include/fputc.h"
-#include "minilib/src/mprint.c"
+#include "minilib/src/fopen.c"
 #include "minilib/src/msprintf.c"
+#include "minilib/include/fputc.h"
+#include "minilib/include/fputs.h"
+#include "minilib/src/mprint.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

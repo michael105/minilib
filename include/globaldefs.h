@@ -26,18 +26,6 @@
 #ifndef NULL
 #define NULL 0
 #endif
-
-#ifndef stdin
-#define stdin 0
-#endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
-typedef int FILE;
 #ifndef timevaldefined
 #define timevaldefined
 typedef long time_t;

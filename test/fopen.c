@@ -33,15 +33,22 @@ int main( int argc, char *argv[] ){
 		fclose(f);
 
 		f = fopen( "tl.test", "r" );
+	
+		FILE* f2 = fopen( "t2.test", "w" );
+
 		char buf[128];
 
 		int i = read( fileno(f), buf, 40 );
+		write( fileno(f2), buf, i );
+		write( fileno(f2), "\nSososo\n\nXXX", 12 );
 		printf("i: %d\n", i );
 		buf[i-1]=0;
 		puts("Got:");
 		print(buf);
 		puts("+   Ok.");
-
+	
+		fclose(f);
+		fclose(f2);
 
 		return(0);
 }

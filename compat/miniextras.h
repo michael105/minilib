@@ -90,6 +90,9 @@ int itohex(int i,char* buf,int padding);
 // file: minilib/src/memfrob.c
 void* memfrob(void* s, unsigned int len);
 
+// file: minilib/src/mfprintf.c
+int dprintf(int fd, const char* fmt, ... );
+
 // file: minilib/src/mprint.c
 int print(const char *msg);
 
@@ -103,12 +106,13 @@ int printl(const char *msg);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/memfrob.c"
+#include "minilib/src/mfprintf.c"
 #include "minilib/src/dtodec.c"
-#include "minilib/src/mprint.c"
-#include "minilib/src/itohex.c"
 #include "minilib/src/itobin.c"
 #include "minilib/src/itodec.c"
-#include "minilib/src/memfrob.c"
+#include "minilib/src/mprint.c"
+#include "minilib/src/itohex.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

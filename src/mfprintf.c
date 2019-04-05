@@ -32,9 +32,10 @@
 /// 
 //+ansi stdio.h
 //+depends write prints
+//#needs stdio.h
 //+after itobin atoi itodec dtodec ltodec itohex
 //+def
-int fprintf(int fd, const char* fmt, ... ){
+int dprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
 		va_copy(ca,args);

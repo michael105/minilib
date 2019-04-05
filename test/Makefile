@@ -54,11 +54,17 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined hello-include hello-smallest args fopen
+all: hello-combined hello-include hello-smallest args fopen fprintf
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 
 fopen: fopen.c
 	minilib/mini-gcc --config fopen.c -o fopen fopen.c
+
+
+fprintf: fprintf.c
+	minilib/mini-gcc --config fprintf.c -o fprintf fprintf.c
+
+
 
 args: args.c
 	make BUILDPROG=args SINGLERUN=1 NOINCLUDE=1

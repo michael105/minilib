@@ -2,7 +2,6 @@
 #define open_c
 //+header fcntl.h
 
-typedef int FILE;
 
 //#include "syscall.h"
 #include "include/filemodes.h"
