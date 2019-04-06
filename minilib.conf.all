@@ -6,47 +6,85 @@ mini_buf 4096
 
 # --- minilib_config-start: Allswitches --- 
 
-# === declarations.h
-mini_getcwd
-mini_stat
-mini_fstat
-mini_dup3
-mini_mprotect
-mini_gettimeofday
+# === string.h
+mini_strcat
+mini_memcmp
+mini_strcpy
+mini_memset
+mini_strlen
+mini_strcmp
+mini_strncpy
+mini_strerror
+mini_strncmp
+mini_memcpy
 
 
-# === unistd.h
-mini_def
-mini_read
-mini_tcsetattr
-mini_lseek
-mini_unlink
-mini_fsync
-mini_rename
-mini_open
-mini_tcgetattr
-mini_dup2
-mini_getpid
-mini_dup
-mini_write
-mini_close
-mini_ftruncate
-mini_select
+# === stdio.h
+mini_fputs
+mini_fwrite
+mini_fclose
+mini_fopen
+mini_fprintf
+mini_printf
+mini_putchar
+mini_sprintf
+mini_itohex
+mini_fread
+mini_puts
+mini__itohex
+mini_fputc
+mini_itoHEX
+mini_fileno
+
+
+# === time.h
+mini_time
 
 
 # === miniextras.h
-mini_itohex
+mini_print
 mini_dtodec
-mini_vsnprintf
-mini_uitodec
 mini_def
 mini_itodec
-mini__itobin
+mini_uitodec
 mini_printl
-mini_print
-mini_snprintf
-mini_memfrob
+mini__itobin
 mini_dprintf
+mini_vsnprintf
+mini_memfrob
+mini_snprintf
+
+
+# === unistd.h
+mini_unlink
+mini_dup
+mini_lseek
+mini_close
+mini_open
+mini_dup2
+mini_read
+mini_getpid
+mini_fsync
+mini_select
+mini_tcgetattr
+mini_ftruncate
+mini_def
+mini_write
+mini_rename
+mini_tcsetattr
+
+
+# === ioctl.h
+mini_ioctl
+
+
+# === declarations.h
+mini_gettimeofday
+mini_stat
+mini_dup3
+mini_getcwd
+mini_fstat
+mini_mprotect
 
 
 # === ctype.h
@@ -54,47 +92,14 @@ mini_isprint
 mini_isspace
 
 
-# === ioctl.h
-mini_ioctl
+# === fcntl.h
+mini_creat
 
 
 # === stdlib.h
 mini_atoi
 mini_getenv
-mini_free
 mini_malloc
-
-
-# === fcntl.h
-mini_creat
-
-
-# === string.h
-mini_strcpy
-mini_memcpy
-mini_strerror
-mini_strcat
-mini_strncpy
-mini_strlen
-mini_memcmp
-mini_strcmp
-mini_strncmp
-mini_memset
-
-
-# === time.h
-mini_time
-
-
-# === stdio.h
-mini_fopen
-mini_puts
-mini_fprintf
-mini_fputc
-mini_putchar
-mini_fclose
-mini_fileno
-mini_printf
-mini_fputs
+mini_free
 
 # --- minilib_config-end: Allswitches --- 

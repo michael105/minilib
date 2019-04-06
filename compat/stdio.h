@@ -79,6 +79,15 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 // file: minilib/src/fopen.c
 FILE *fopen(const char* filename, const char* mode);
 
+// file: minilib/src/itohex.c
+int _itohex(int i,char* buf,int padding, int capitals);
+
+// file: minilib/src/itohex.c
+int itohex(int i,char* buf,int padding);
+
+// file: minilib/src/itohex.c
+int itoHEX(int i,char* buf,int padding);
+
 // file: minilib/src/mfprintf.c
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -115,6 +124,35 @@ static inline int __attribute__((always_inline)) fclose( FILE* f );
 // file: minilib/include/mini_stdio.h
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
+// file: minilib/include/mini_stdio.h
+#define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
+
+// file: 
+static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
+		const void *p = ptr;
+		int a;
+		for ( a = 0; a<nmemb; a++ ){
+				if ( write( fileno(f), p, size ) != size ){
+						return(a);
+				}
+				p = p + size;
+		}
+		return(a);
+}
+
+// file: 
+static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
+		void *p = ptr;
+		int a;
+		for ( a = 0; a<nmemb; a++ ){
+				if ( read( fileno(f), p, size ) != size ){
+						return(a);
+				}
+				p = p + size;
+		}
+		return(a);
+}
+
 
 
 #include "include/minilib_global.h"
@@ -123,12 +161,13 @@ static inline int __attribute__((always_inline)) fclose( FILE* f );
 #ifdef mini_INCLUDESRC
 
 #include "minilib/src/mprint.c"
-#include "minilib/src/mfprintf.c"
-#include "minilib/include/fputc.h"
-#include "minilib/include/mini_stdio.h"
-#include "minilib/src/fopen.c"
-#include "minilib/include/fputs.h"
 #include "minilib/src/msprintf.c"
+#include "minilib/include/fputc.h"
+#include "minilib/src/itohex.c"
+#include "minilib/include/mini_stdio.h"
+#include "minilib/src/mfprintf.c"
+#include "minilib/include/fputs.h"
+#include "minilib/src/fopen.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

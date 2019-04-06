@@ -9,6 +9,7 @@
 //+inc
 
 static int close(int);
+static int read(int fd, void *buf, int len);
 
 //+def
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
@@ -37,5 +38,47 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 //+depends dprintf fileno
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
+
+
+//+depends snprintf
+//+macro 
+#define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
+
+// I'm really uncertain about the size arg here,
+
+
+//+depends write
+//+inline
+static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
+		const void *p = ptr;
+		int a;
+		for ( a = 0; a<nmemb; a++ ){
+				if ( write( fileno(f), p, size ) != size ){
+						return(a);
+				}
+				p = p + size;
+		}
+		return(a);
+}
+
+
+//+depends read
+//+inline
+static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
+		void *p = ptr;
+		int a;
+		for ( a = 0; a<nmemb; a++ ){
+				if ( read( fileno(f), p, size ) != size ){
+						return(a);
+				}
+				p = p + size;
+		}
+		return(a);
+}
+
+
+
+
+
 
 #endif

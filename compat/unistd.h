@@ -118,10 +118,10 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 #ifdef mini_INCLUDESRC
 
 #include "minilib/include/write.h"
-#include "minilib/include/close.h"
 #include "minilib/include/tcgetattr.h"
-#include "minilib/src/open.c"
+#include "minilib/include/close.h"
 #include "minilib/include/tcsetattr.h"
+#include "minilib/src/open.c"
 #include "minilib/include/select.h"
 #include "minilib/include/read.h"
 

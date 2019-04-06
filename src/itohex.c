@@ -1,6 +1,13 @@
-//+ansi stdio.h
+#ifndef itohex_c
+#define itohex_c
+//+header stdio.h
 //+def
-int itohex(int i,char* buf,int padding){
+int _itohex(int i,char* buf,int padding, int capitals){
+
+		if ( capitals>0 )
+				capitals = 55;
+		else
+				capitals = 87;
 
 		padding = padding - 8;
 		if ( padding < -7 )
@@ -24,7 +31,7 @@ int itohex(int i,char* buf,int padding){
 								if ( c < 0xa )
 										c = c + 48;
 								else
-										c = c + 87; // 55 for big abc ..
+										c = c + capitals; // 55 for big abc ..
 								buf[p] = c;
 								p++;
 						} else
@@ -35,5 +42,22 @@ int itohex(int i,char* buf,int padding){
 		return(p);
 }
 
+//+header stdio.h
+//+depends _itohex
+//+def
+int itohex(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,0));
+}
 
+//+header stdio.h
+//+depends _itohex
+//+def
+int itoHEX(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,1));
+}
+
+
+
+
+#endif
 

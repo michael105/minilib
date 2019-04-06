@@ -23,6 +23,7 @@
 //+ansi stdio.h
 //+depends write
 //+needs exit.h stdarg.h overrun.h
+//+after itohex itoHEX
 //+def
 int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 
@@ -101,13 +102,20 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												sep = '.';
 												break;
 										case 'x':
-										case 'X':
 #ifdef mini_itohex
 												MINI_TEST_OVERRUN(b+8);
 												b = b + itohex(va_arg(args,int),&buf[b],padding);
 #endif
 												end=1;
 												break;
+										case 'X':
+#ifdef mini_itohex
+												MINI_TEST_OVERRUN(b+8);
+												b = b + itoHEX(va_arg(args,int),&buf[b],padding);
+#endif
+												end=1;
+												break;
+
 										case 'b':
 #ifdef mini_itobin
 

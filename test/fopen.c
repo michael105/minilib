@@ -5,8 +5,10 @@ mini_fopen
 mini_fclose
 mini_fprintf
 mini_printf
+mini_sprintf
 mini_print
 mini_itodec
+mini_itohex
 mini_fileno
 mini_puts
 mini_read
@@ -23,12 +25,12 @@ return
 int main( int argc, char *argv[] ){
 
 		FILE *f = fopen( "tl.test", "w" );
-		fprintf( fileno(f), "Hallo 23\n" );
+		fprintf( f, "Hallo 23\n" );
 
 		fclose(f);
 
 		f = fopen( "tl.test", "a+" );
-		fprintf( fileno(f), "  xxx Hallo 42\n" );
+		fprintf( f, "  xxx Hallo 42\n" );
 
 		fclose(f);
 
@@ -50,6 +52,35 @@ int main( int argc, char *argv[] ){
 		fclose(f);
 		fclose(f2);
 
+		f = fopen( "fopen.c", "r" );
+		char bbuf[4096];
+		int r = read( fileno(f), bbuf, 2014 );
+		puts( bbuf );
+
+		printf("got: %d\n", r);
+
+		//f2 = fopen( "t3.test", "w" );
+		r = fwrite( &bbuf[32], 2, 5, stdout );
+		printf("got: %d\n", r);
+
+		//fclose(f);
+		
+		f2 = fopen("t3.test", "w" );
+		for ( i=0x10; i<=0xFF; i++ ){
+				sprintf(&bbuf[(i-0x10)*3], "%X\n", i );
+		}
+		puts("XXXXXXXXXXXXXXX");
+		fwrite( bbuf, 6,10, f2 );
+		fclose(f2);
+
+		f2 = fopen("t3.test", "r" );
+		char bufc[256];
+		bufc[64] = 0;
+		for ( i=0; i<=8; i++ ){
+				fread( &bufc[i*6], 3, 2, f2 );
+		}
+		puts ( bufc );
+	
 		return(0);
 }
 

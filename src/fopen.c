@@ -18,7 +18,7 @@ FILE *fopen(const char* filename, const char* mode){
 									break;
 				case 'a': imode = O_APPEND; // somehow only "a+" works. Not sure, why.
 									break;
-				default: return(0); // hopefully a fd cannot be 0.? By reading the manual, 
+				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
 								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
 								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
 								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
@@ -43,13 +43,5 @@ FILE *fopen(const char* filename, const char* mode){
 		fl.fd =(int) open( filename, imode, 0666 );
 		return ( fl.F ); // 
 }
-
-size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
-		
-
-
-}
-
-
 
 #endif
