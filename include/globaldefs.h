@@ -6,7 +6,7 @@
 #ifdef X64
 #define POINTER unsigned long int
 #else
-#define POINTER int
+#define POINTER unsigned int
 #endif
 
 #ifndef uint32_t
@@ -35,5 +35,31 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 #endif
 
 #define BUFSIZ 1024
+
+
+//+def
+typedef int FILE;
+
+#ifdef X64
+typedef union { FILE *F; int i, fd;} mfl_union;
+#else
+//typedef union { FILE *F; int fd;} mfl_union;
+#error checkme
+#endif
+//(untested for x32) better commenting this out for now.
+//Might be better to find later
+//also: endiannes.
+
+
+#ifndef stdin
+#define stdin (FILE*)0
+#endif
+#ifndef stdout
+#define stdout (FILE*)1
+#endif
+#ifndef stderr
+#define stderr (FILE*)2
+#endif
+
 
 #endif

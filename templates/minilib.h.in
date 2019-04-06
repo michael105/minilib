@@ -1,13 +1,11 @@
 
-//#include "minilib.conf"
 
 #include "minilib/include//utils.h"
 
 #include "minilib/macros/vararg.h"
 
-//#ifdef mini_syscall
 //#include "minilib/include/syscall.h"
-//#endif
+#include "minilib/include/stdarg.h"
 
 //#include "minilib/headers/common/sys/types.h"
 //#include "minilib/include/syscall_stubs.h"
@@ -17,18 +15,11 @@
 
 struct udiv_t { unsigned int quot, rem; };
 
-#ifdef mini_printf
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-#ifndef mini_buf
-#define mini_buf 1024
-#endif
+#ifdef mini_perror
+#define perror(...) fprintf(stderr,__VA_ARGS__)
 #ifndef mini_fprintf
 #define mini_fprintf
 #endif
-#endif
-
-#ifdef mini_perror
-#define perror(...) fprintf(stderr,__VA_ARGS__)
 #endif
 
 

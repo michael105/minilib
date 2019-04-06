@@ -86,7 +86,7 @@ FILE *fopen(const char* filename, const char* mode);
 #define puts(c) printl(c)
 
 // file: minilib/src/msprintf.c
-int sprintf(char *buf, const char* fmt, ... );
+#define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf
 
 // file: minilib/include/fputc.h
 #include "minilib/include/fputc.h"
@@ -101,19 +101,19 @@ static inline int volatile fputc(int c, int fd);
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
 
-// file: minilib/include/stdio.h
-#include "minilib/include/stdio.h"
-// file: minilib/include/stdio.h
-typedef int FILE;
+// file: minilib/include/mini_stdio.h
+#include "minilib/include/mini_stdio.h"
+// file: minilib/include/mini_stdio.h
+static inline int __attribute__((always_inline)) fileno( FILE *f );
 
-// file: minilib/include/stdio.h
-static inline int fileno( FILE *f );
+// file: minilib/include/mini_stdio.h
+static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-// file: minilib/include/stdio.h
-int fclose( FILE* f );
-
-// file: minilib/include/stdio.h
+// file: minilib/include/mini_stdio.h
 #define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
+
+// file: minilib/include/mini_stdio.h
+#define printf(...) fprintf(stdout,__VA_ARGS__)
 
 
 
@@ -122,11 +122,11 @@ int fclose( FILE* f );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/stdio.h"
+#include "minilib/include/fputc.h"
 #include "minilib/src/mfprintf.c"
 #include "minilib/src/fopen.c"
 #include "minilib/src/msprintf.c"
-#include "minilib/include/fputc.h"
+#include "minilib/include/mini_stdio.h"
 #include "minilib/include/fputs.h"
 #include "minilib/src/mprint.c"
 

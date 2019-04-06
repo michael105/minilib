@@ -2,9 +2,9 @@
 #
 
 #PROG=malloc select
-PROG=hello malloc select
+PROG=hello select
 
-PROGCUSTOM=fopen 
+PROGCUSTOM=fopen malloc
 
 # where to build object files
 #BUILDDIR=.
@@ -54,15 +54,21 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined hello-include hello-smallest args fopen fprintf
+all: hello-combined hello-include hello-smallest args fopen fprintf malloc build/minilib.o
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 
 fopen: fopen.c
 	minilib/mini-gcc --config fopen.c -o fopen fopen.c
 
+build/minilib.o: minilib.conf
+	minilib/mini-gcc --config minilib.conf -c -o build/minilib.o minilib.c 
 
 fprintf: fprintf.c
 	minilib/mini-gcc --config fprintf.c -o fprintf fprintf.c
+
+
+malloc: malloc.c
+	minilib/mini-gcc --config malloc.mconf -o malloc malloc.c
 
 
 
@@ -80,11 +86,8 @@ hello-smallest: hello-smallest.c
 	make BUILDPROG=hello-smallest SINGLERUN=1 NOINCLUDE=1 ONLYTEXT=1
 
 inittest: all
-	@$(foreach P,$(PROG) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
+	@$(foreach P,$(PROG) $(PROGCUSTOM) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
 	
-malloc: malloc.c
-	make BUILDPROG=malloc
-
 retest: test rebuild
 	make test
 

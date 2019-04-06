@@ -96,10 +96,11 @@ use Data::Dumper::Simple;
 
 
 # globally enable/disable debug
-$debug = 1;
-
+$debug = 0;
+$debugovw =0;
 sub dbg{
-	 	return if (!$debug);
+
+	 	return if (!($debug || $debugovw));
 		while ( my $s = shift ){
 				print $s;
 		}
@@ -109,7 +110,8 @@ sub dbg{
 
 
 sub dbgdump{
-	 	return if (!$debug);
+		my $r = shift;
+	 	return if (!($debug || $debugovw));
 		print Dumper($r);
 }
 
@@ -399,7 +401,7 @@ close($ml);
 # end header file here..
 dbg("$C"."==================$N");
 
-$debug=1;
+$debug=0;
 
 
 # write minilib.c

@@ -18,23 +18,7 @@
 #include "../include/stdarg.h"
 //#include <stdarg.h>
 //#include "ml.mbuf.c"
-
-/// mfprintf
-/// conversions implemented:
-/// %d  
-/// %u
-/// %f (max precision 8 digits, highest possible number: 2^31
-/// %s
-/// %c
-/// %b : binary output
-/// %x/X : hex output
-/// %(
-/// 
-//+ansi stdio.h
-//+depends write prints
-//#needs stdio.h
-//+after itobin atoi itodec dtodec ltodec itohex
-//+def
+#if 0
 int dprintf(int fd, const char* fmt, ... ){
 /*		va_list args, ca;
 		va_start(args,fmt);
@@ -197,5 +181,8 @@ int dprintf(int fd, const char* fmt, ... ){
 
 //+macro vfprintf(...) fprintf(__VA_ARGS__)
 //+macro printf(...) fprintf(stdout,__VA_ARGS__)
+
+
+#endif
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "include/filemodes.h"
 
-
+#include "include/close.h"
 
 
 //+header stdio.h
@@ -41,6 +41,7 @@ FILE *fopen(const char* filename, const char* mode){
 						}
 				}
 		}
+		mfl_union fl;
 		fl.fd =(int) open( filename, imode, 0666 );
 		return ( fl.F ); // 
 }

@@ -1,19 +1,11 @@
-#define mini_malloc
-#define mini_buf 1024
-#define mini_start start
-#define mini_write
-#define mini_printf
-#define mini_fprintf
-#define mini_puts
-#define mini_fputc
-#define mini_overwrite
-
-//#define INCLUDESRC
 
 #include "minilib/minilib.h"
 
 int main(){
-		write(stdout,"write\n",6);
+		write(fileno(stdout),"write\n",6);
+		printf("mbufsize: %d\n",ml.mbufsize);
+		printf("test: 12345 %d\n",12345);
+		dprintf(1,"test: 12345 %d\n",12345);
 
 		puts("Ok.");
 		char *c = malloc(64);

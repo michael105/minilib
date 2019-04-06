@@ -22,6 +22,7 @@
 
 //#define mini_mprints
 #define mini_printf
+#define mini_dprintf
 //#define mini_perror
 //#define mini_msprintf
 #define mini_fprintf
