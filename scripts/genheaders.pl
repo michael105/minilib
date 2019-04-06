@@ -97,7 +97,7 @@ use Data::Dumper::Simple;
 
 # globally enable/disable debug
 $debug = 0;
-$debugovw =0;
+$debugovw =1;
 sub dbg{
 
 	 	return if (!($debug || $debugovw));
@@ -214,7 +214,7 @@ while ( my $file = shift ){
 
 				if ($l=~ /^\/\/\+/){
 						do {
-								dbg ( "$M l: $l $N\n" );
+								print ( "$M l: $l $N\n" );
 								$l=~ /^\/\/\+(\S*)\s?(.*)?$/;
 								$tag = $1;
 								my $c = $2 || 0;
@@ -224,7 +224,19 @@ while ( my $file = shift ){
 										dbg("l: $l");
 										#$l =~ /^\/\/\+header (\S*)/;
 										$header = $c or die;
-								} elsif ( $tag eq 'def' ){
+								} elsif ( $tag eq 'inline' ) {
+										$l = <F>;
+										$l =~ /.* \**(\S*)\(.+?\)\{.*$/;
+										$func = $1;
+										$f->{def} = $l;
+										do {
+												$l = <F>;
+												$f->{def} .= $l;
+										} while ( !($l =~ /^}/ ) );
+										dbg( "dbg: $f->{def}" );
+										$f->{file} = '';
+										
+								}elsif ( $tag eq 'def' ){
 										$f->{def} = <F>;
 										$line++;
 										dbg("def: $f->{def} $file: $l");
@@ -248,6 +260,7 @@ while ( my $file = shift ){
 										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
 								} elsif( $tag eq 'inc' ){
 										print {headerfh($header,$headerdir)} "// file: $file\n#include \"$file\"\n";
+										dbg "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
 								} elsif( $tag eq 'macro' ){
 										if ( $l =~ /^\/\/\+macro\s*(\S+)/ ){
@@ -328,8 +341,8 @@ foreach my $key ( keys(%{$fhhash->{fh}}) ){
 
 # write 
 
-dbg( $funchash );
-dbg( $depends );
+dbgdump( $funchash );
+dbgdump( $depends );
 
 my $includefirst;
 
@@ -383,7 +396,9 @@ foreach my $i ( keys(%{$includefirst}) ){
 }
 
 foreach my $i ( keys(%{$funchash}) ){
-		headerinclude( $ml, $i );
+		if ( !exists( $includefirst->{$i} ) ){
+				headerinclude( $ml, $i );
+		}
 }
 
 print $ml <<TMPL_END;
@@ -454,8 +469,10 @@ sub configallhandler{
 		my $fh = shift;
 		foreach my $header ( keys(%{$headerhash}) ){
 				print  $fh "\n# === $header\n";
+				dbg "\n# === $header\n";
 				foreach my $f ( keys( %{$headerhash->{$header}}) ){ 
 						printf $fh "mini_$f\n";
+						dbg  "mini_$f\n";
 				}
 				print $fh "\n";
 		}

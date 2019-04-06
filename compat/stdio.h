@@ -122,13 +122,13 @@ static inline int __attribute__((always_inline)) fclose( FILE* f );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/fputc.h"
-#include "minilib/src/mfprintf.c"
-#include "minilib/src/fopen.c"
-#include "minilib/src/msprintf.c"
-#include "minilib/include/mini_stdio.h"
-#include "minilib/include/fputs.h"
 #include "minilib/src/mprint.c"
+#include "minilib/src/mfprintf.c"
+#include "minilib/include/fputc.h"
+#include "minilib/include/mini_stdio.h"
+#include "minilib/src/fopen.c"
+#include "minilib/include/fputs.h"
+#include "minilib/src/msprintf.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

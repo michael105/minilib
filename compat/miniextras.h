@@ -102,6 +102,9 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 // file: minilib/src/msprintf.c
 int dprintf( int fd, const char *fmt, ... );
 
+// file: minilib/src/msprintf.c
+int snprintf( char *buf, size_t size, const char *fmt, ... );
+
 // file: minilib/include/globaldefs.h
 typedef int FILE;
 
@@ -112,14 +115,14 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/itodec.c"
 #include "minilib/src/mprint.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/msprintf.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/itohex.c"
+#include "minilib/src/itodec.c"
 #include "minilib/src/dtodec.c"
+#include "minilib/src/itobin.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/itohex.c"
+#include "minilib/src/msprintf.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

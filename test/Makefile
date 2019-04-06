@@ -4,7 +4,7 @@
 #PROG=malloc select
 PROG=hello select
 
-PROGCUSTOM=fopen malloc
+PROGCUSTOM=fopen malloc fprintf
 
 # where to build object files
 #BUILDDIR=.

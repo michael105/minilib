@@ -7,8 +7,10 @@ sub template{
 		my $fn = shift;
 		my $tmplpraefix = shift;
 		my $handler = shift;
-	 	my $insert = shift | 0; # insert before already inserted text 
+	 	my $insert;
+		$insert = shift or 0; # insert before already inserted text 
 
+		print "fn: $fn\n";
 
 		open FH2 , "<", "$fn" or die;#return(0);
 

@@ -98,9 +98,9 @@ void volatile free(void* p);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/atoi.c"
-#include "minilib/src/getenv.c"
 #include "minilib/src/malloc.c"
+#include "minilib/src/getenv.c"
+#include "minilib/src/atoi.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

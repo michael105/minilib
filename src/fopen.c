@@ -3,8 +3,6 @@
 
 #include "include/filemodes.h"
 
-#include "include/close.h"
-
 
 //+header stdio.h
 //+depends open

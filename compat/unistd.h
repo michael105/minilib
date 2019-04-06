@@ -78,10 +78,12 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 // file: minilib/src/open.c
 int volatile open( const char *s, int flags, ... );
 
-// file: minilib/include/close.h
-#include "minilib/include/close.h"
-// file: minilib/include/close.h
-static inline int volatile __attribute__((always_inline)) close( int fd );
+// file: 
+static inline int volatile __attribute__((always_inline)) close( int fd ){
+		int ret;
+		syscall1(ret,SCALL(close),(int)fd);
+		return(ret);
+}
 
 // file: minilib/include/exit.h
 #include "minilib/include/exit.h"
@@ -115,13 +117,13 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/select.h"
-#include "minilib/include/tcsetattr.h"
-#include "minilib/include/read.h"
 #include "minilib/include/write.h"
 #include "minilib/include/close.h"
 #include "minilib/include/tcgetattr.h"
 #include "minilib/src/open.c"
+#include "minilib/include/tcsetattr.h"
+#include "minilib/include/select.h"
+#include "minilib/include/read.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
