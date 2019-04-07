@@ -39,20 +39,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define NULL 0
 #endif
 
-#ifndef stdin
-#define stdin 0
-#endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
-#define STDOUT_FILENO stdout
-#define STDIN_FILENO stdin
-
-#define mini_getenv
 
 #include "minilib/include/timeval.h"
 #include "minilib/include/filemodes.h"
@@ -64,9 +50,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 #include "include/exit.h"
 
+#include "minilib/include/globaldefs.h"
 #include "include/minilib_global.h"
 
-#include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
@@ -110,13 +96,21 @@ static inline int volatile fputc(int c, int fd);
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
 
-// file: minilib/include/mini_stdio.h
-#include "minilib/include/mini_stdio.h"
-// file: minilib/include/mini_stdio.h
-static inline int __attribute__((always_inline)) fileno( FILE *f );
+// file: 
+static inline int __attribute__((always_inline)) fileno( FILE *f ){
+		return( *f & FD_MASK );
+}
 
-// file: minilib/include/mini_stdio.h
-static inline int __attribute__((always_inline)) fclose( FILE* f );
+// file: 
+static inline int __attribute__((always_inline)) fclose( FILE* f ){
+		int fd = *f;
+		*f = -1;
+		// empty garbage; go back to first closed stream
+		if ( f[1] == ml.stream[ml.pstream] )
+				for ( ml.pstream--; ml.stream[ml.pstream-1] == -1; ml.pstream-- ); 
+
+		return( close(fd) );
+}
 
 // file: minilib/include/mini_stdio.h
 #define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
@@ -188,8 +182,12 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 		return(a);
 }
 
-// file: minilib/include/mini_stdio.h
-static inline int feof(FILE *f);
+// file: 
+static inline int feof(FILE *f){
+		if ( *f & 0xc0000000 )
+				return(1);
+		return(0);
+}
 
 
 
@@ -198,13 +196,13 @@ static inline int feof(FILE *f);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/fopen.c"
 #include "minilib/include/mini_stdio.h"
-#include "minilib/src/mfprintf.c"
 #include "minilib/src/itohex.c"
-#include "minilib/src/mprint.c"
+#include "minilib/src/fopen.c"
 #include "minilib/include/fputs.h"
 #include "minilib/include/fputc.h"
+#include "minilib/src/mfprintf.c"
+#include "minilib/src/mprint.c"
 #include "minilib/src/msprintf.c"
 
 // Need global included. Doesn't matter by which file.

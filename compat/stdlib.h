@@ -39,20 +39,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define NULL 0
 #endif
 
-#ifndef stdin
-#define stdin 0
-#endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
-#define STDOUT_FILENO stdout
-#define STDIN_FILENO stdin
-
-#define mini_getenv
 
 #include "minilib/include/timeval.h"
 #include "minilib/include/filemodes.h"
@@ -64,9 +50,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 #include "include/exit.h"
 
+#include "minilib/include/globaldefs.h"
 #include "include/minilib_global.h"
 
-#include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
@@ -104,9 +90,9 @@ unsigned int rand();
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/rand.c"
 #include "minilib/src/malloc.c"
 #include "minilib/src/atoi.c"
+#include "minilib/src/rand.c"
 #include "minilib/src/getenv.c"
 
 // Need global included. Doesn't matter by which file.

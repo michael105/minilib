@@ -39,20 +39,6 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #define NULL 0
 #endif
 
-#ifndef stdin
-#define stdin 0
-#endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
-#define STDOUT_FILENO stdout
-#define STDIN_FILENO stdin
-
-#define mini_getenv
 
 #include "minilib/include/timeval.h"
 #include "minilib/include/filemodes.h"
@@ -64,9 +50,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 #include "include/exit.h"
 
+#include "minilib/include/globaldefs.h"
 #include "include/minilib_global.h"
 
-#include "minilib/include/globaldefs.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
@@ -112,13 +98,13 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/msprintf.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/mprint.c"
 #include "minilib/src/itodec.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/msprintf.c"
+#include "minilib/src/mprint.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

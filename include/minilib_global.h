@@ -18,7 +18,7 @@ typedef struct {
 		int srand;	
 		int pstream;
 		int mbufsize;
-		int stream[FOPEN_MAX];
+		int stream[mini_FOPEN_MAX];
 		union {
 				int ibuf[mini_buf>>2];
 				char mbuf[mini_buf];

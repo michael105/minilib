@@ -12,7 +12,7 @@ $included;
 
 my $recursion = 0;
 	
-
+#my $includeonce = { syscall_stubs.h=>1 }
 
 
 
@@ -44,8 +44,8 @@ sub slurpfile{
 
 		$f = $orif;
 
-		if ( $recursion > 3 ){
-				if ( grep { /$f/ } qw /minilib.c minilib.h syscall_stubs.h syscall.h/ ){
+		if ( $recursion > 2 ){
+				if ( grep { /$f/ } qw /minilib.c minilib.h syscall_stubs.h syscall.h timeval.h msprintf.c mfprintf.c/ ){
 						debug "Recurse: $recursion, file: $f, Returning.";
 						return;
 				}

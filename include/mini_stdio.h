@@ -13,13 +13,12 @@
 
 
 //+header stdio.h
-//+depends close
-//+inc
+
 
 static int close(int);
 static int read(int fd, void *buf, int len);
 
-//+def
+//+inline
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
 		return( *f & FD_MASK );
 }
@@ -29,7 +28,7 @@ static inline int __attribute__((always_inline)) fileno( FILE *f ){
 
 
 //+depends close
-//+def
+//+inline
 static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		int fd = *f;
 		*f = -1;
@@ -139,7 +138,7 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 //#define fread(ptr,size,nmemb,f) ((_fread(ptr,size,nmemb,f)==nmemb) ? nmemb : ((int)(f=((int)f|FEOF_FLAG))&0x3fffffff))
 	
 
-//+def
+//+inline
 static inline int feof(FILE *f){
 		if ( *f & 0xc0000000 )
 				return(1);
