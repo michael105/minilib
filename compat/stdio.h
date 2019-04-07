@@ -198,13 +198,13 @@ static inline int feof(FILE *f);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mfprintf.c"
-#include "minilib/src/itohex.c"
-#include "minilib/src/msprintf.c"
-#include "minilib/src/fopen.c"
-#include "minilib/include/mini_stdio.h"
 #include "minilib/include/fputc.h"
 #include "minilib/include/fputs.h"
+#include "minilib/src/fopen.c"
+#include "minilib/src/itohex.c"
+#include "minilib/src/mfprintf.c"
+#include "minilib/src/msprintf.c"
+#include "minilib/include/mini_stdio.h"
 #include "minilib/src/mprint.c"
 
 // Need global included. Doesn't matter by which file.

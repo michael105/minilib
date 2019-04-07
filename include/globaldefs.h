@@ -57,7 +57,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 //Might be better to find later
 //also: endiannes.
 
-
+#ifdef mini_buf
 #ifndef stdin
 #define stdin &ml.stream[0]
 #endif
@@ -67,6 +67,17 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #ifndef stderr
 #define stderr &ml.stream[2]
 #endif
-
+#else 
+// no minibuf -> no stream descriptors.
+#ifndef stdin
+#define stdin 0
+#endif
+#ifndef stdout
+#define stdout 1
+#endif
+#ifndef stderr
+#define stderr 2
+#endif
+#endif
 
 #endif

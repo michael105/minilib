@@ -1,8 +1,7 @@
 #define mini_start 
-#define mini_buf 256 
 #define mini_write
 
-#include "include/minilib_header.h"
+#include "minilib/minilib.h"
 
 #if 0
 testhello:
@@ -14,7 +13,7 @@ ifdef undef
 #endif
 
 int main(){
-		write(stdout, "Hello world!\n", 13);
+		write(1, "Hello world!\n", 13);
 		return(0);
 }
 
