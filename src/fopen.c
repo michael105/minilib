@@ -39,9 +39,21 @@ FILE *fopen(const char* filename, const char* mode){
 						}
 				}
 		}
-		mfl_union fl;
-		fl.fd =(int) open( filename, imode, 0666 );
-		return ( fl.F ); // 
+		puts("XXX");
+		int a;
+		if ( ml.stream[ml.pstream]>=FOPEN_MAX){
+			for ( a=3; ml.stream[a]>=0; a++ )
+					if ( a >= FOPEN_MAX )
+							return(0);
+		} else {
+				a = ml.pstream;
+				ml.pstream++;
+		}
+
+		printf("a: %d\n",a);
+		FILE *f = &ml.stream[a];
+		ml.stream[a] =  open( filename, imode, 0666 );
+		return ( f ); // 
 }
 
 #endif

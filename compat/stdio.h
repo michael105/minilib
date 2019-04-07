@@ -130,12 +130,10 @@ static inline int __attribute__((always_inline)) fclose( FILE* f );
 // file: 
 static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
 		const void *p = ptr;
-		mfl_union fl;
-		fl.F = f;
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
-				if ( write( fl.fd, p, size ) != size ){
-						fl.fd = fl.fd | ERR_FLAG;
+				if ( write( fileno(f), p, size ) != size ){
+						*f = *f | ERR_FLAG;
 						return(a);
 				}
 				p = p + size;
@@ -144,14 +142,45 @@ static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f)
 }
 
 // file: 
+static inline long ftell(FILE *f){
+	 	return(lseek( fileno(f), 0, SEEK_CUR ));
+}
+
+// file: 
+static inline void fgetpos(FILE *f, long *pos ){
+	 	*pos = ftell(f);
+}
+
+// file: 
+static inline int fsetpos(FILE *f, int pos ){
+	 	int r = lseek( fileno(f), pos, SEEK_SET );
+		if ( r==pos ){ //
+				*f = *f & FD_MASK; // unset feof
+				return(r);
+		}
+		return(r); // todo set errno 
+}
+
+// file: 
+static inline int fseek(FILE *f, long offset, int whence ){
+	 	int r = lseek( fileno(f), offset, whence );
+		if ( r>0 )
+				*f = *f & FD_MASK; // clear feof
+		return(r);
+}
+
+// file: 
+static inline void rewind( FILE *f ){
+		fseek(f, 0, SEEK_SET);
+}
+
+// file: 
 static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 		void *p = ptr;
-		mfl_union fl;
-		fl.F = f;
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
-				if ( read( fl.fd, p, size ) != size ){
-						fl.fd = fl.fd | FEOF_FLAG;
+				if ( read( fileno(f), p, size ) != size ){
+						*f = *f | FEOF_FLAG ; // set feof. Could also have been another error.
 						return(a);
 				}
 				p = p + size;
@@ -169,14 +198,14 @@ static inline int feof(FILE *f);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/mfprintf.c"
+#include "minilib/src/itohex.c"
+#include "minilib/src/msprintf.c"
 #include "minilib/src/fopen.c"
 #include "minilib/include/mini_stdio.h"
 #include "minilib/include/fputc.h"
-#include "minilib/src/mfprintf.c"
-#include "minilib/src/mprint.c"
-#include "minilib/src/msprintf.c"
-#include "minilib/src/itohex.c"
 #include "minilib/include/fputs.h"
+#include "minilib/src/mprint.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

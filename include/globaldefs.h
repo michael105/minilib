@@ -23,6 +23,8 @@
 
 #define PATH_MAX 4096
 
+#define FOPEN_MAX 16
+
 #ifndef NULL
 #define NULL 0
 #endif
@@ -42,7 +44,8 @@ typedef int FILE;
 
 #define FEOF_FLAG 0x80000000
 #define ERR_FLAG 0x40000000
-#define FLAG_MASK 0xFFFFFFF
+#define FLAG_MASK 0xc0000000
+#define FD_MASK 0x3fffffff
 
 #ifdef X64
 typedef union { FILE *F; int i, fd;} mfl_union;
@@ -56,13 +59,13 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 
 
 #ifndef stdin
-#define stdin (FILE*)0
+#define stdin &ml.stream[0]
 #endif
 #ifndef stdout
-#define stdout (FILE*)1
+#define stdout &ml.stream[1]
 #endif
 #ifndef stderr
-#define stderr (FILE*)2
+#define stderr &ml.stream[2]
 #endif
 
 

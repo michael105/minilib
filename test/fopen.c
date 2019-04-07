@@ -25,21 +25,31 @@ return
 
 
 int main( int argc, char *argv[] ){
+		puts("ok.");
 
 		FILE *f = fopen( "tl.test", "w" );
-		fprintf( f, "Hallo 23\n" );
 
+		puts("ok open");
+		fprintf( f, "Hallo 23\n" );
+		printf( "ml.pstream: %d\n", ml.pstream );
+
+		puts("ok written");
 		fclose(f);
 
+		printf( "ml.pstream: %d\n", ml.pstream );
 		f = fopen( "tl.test", "a+" );
 		fprintf( f, "  xxx Hallo 42\n" );
 
+		printf( "ml.pstream: %d\n", ml.pstream );
 		fclose(f);
 
+		printf( "ml.pstream: %d\n", ml.pstream );
 		f = fopen( "tl.test", "r" );
 	
+		printf( "ml.pstream: %d\n", ml.pstream );
 		FILE* f2 = fopen( "t2.test", "w" );
 
+		printf( "ml.pstream: %d\n", ml.pstream );
 		char buf[128];
 
 		int i = read( fileno(f), buf, 40 );
@@ -52,8 +62,11 @@ int main( int argc, char *argv[] ){
 		puts("+   Ok.");
 	
 		fclose(f);
+
+		printf( "ml.pstream: %d\n", ml.pstream );
 		fclose(f2);
 
+		printf( "ml.pstream: %d\n", ml.pstream );
 		f = fopen( "fopen.c", "r" );
 		char bbuf[4096];
 		int r = read( fileno(f), bbuf, 2014 );
@@ -78,7 +91,7 @@ int main( int argc, char *argv[] ){
 		f2 = fopen("t3.test", "r" );
 		char bufc[256];
 		bufc[64] = 0;
-		for ( i=0; i<=8; i++ ){
+		for ( i=0; i<=4; i++ ){
 				fread( &bufc[i*6], 3, 2, f2 );
 		}
 		puts ( bufc );
@@ -91,12 +104,41 @@ int main( int argc, char *argv[] ){
 
 		i = 1;
 		bufc[13] = 0;
-		while ( !feof(f2) ){
-			fread(bufc, 3,4,f2 );
-			printf("i:  %d, buf: %s",i, bufc);
-			i++;
+		for ( i=0; (!feof(f2)) && ( i<4); i++ ){
+			int r = fread(bufc, 3,4,f2 );
+			printf("i:  %d, r: %d, buf: %s",i, r, bufc);
 		}
 	
+		i = fsetpos( f2, 7 );
+		printf("\nsetpos: %d\n",i);
+
+		for ( i=0; (!feof(f2)) && ( i<4); i++ ){
+			int r = fread(bufc, 3,4,f2 );
+			printf("i:  %d, r: %d, buf: %s",i, r, bufc);
+		}
+		printf("\nftell: %d\n",ftell(f2));
+	
+			i = fsetpos( f2, 13 );
+		printf("\nsetpos: %d\n",i);
+		printf("\nftell: %d\n",ftell(f2));
+
+		for ( i=0; (!feof(f2)) && ( i<4); i++ ){
+			int r = fread(bufc, 3,4,f2 );
+			printf("i:  %d, r: %d, buf: %s",i, r, bufc);
+		}
+		
+		printf("\nftell: %d\n",ftell(f2));
+			i = fsetpos( f2, 88 );
+		printf("\nsetpos: %d\n",i);
+		printf("\nftell: %d\n",ftell(f2));
+
+		for ( i=0; (!feof(f2)) && ( i<4); i++ ){
+			int r = fread(bufc, 3,4,f2 );
+			printf("i:  %d, r: %d, buf: %s",i, r, bufc);
+		}
+		printf("\nftell: %d\n",ftell(f2));
+		
+
 		return(0);
 }
 

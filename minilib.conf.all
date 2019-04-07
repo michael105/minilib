@@ -10,62 +10,56 @@ mini_buf 4096
 mini_time
 
 
+# === string.h
+mini_strncpy
+mini_strcpy
+mini_memset
+mini_memcpy
+mini_strcmp
+mini_strcat
+mini_memcmp
+mini_strerror
+mini_strncmp
+mini_strlen
+
+
 # === declarations.h
-mini_fstat
-mini_gettimeofday
 mini_mprotect
+mini_gettimeofday
+mini_fstat
+mini_stat
 mini_dup3
 mini_getcwd
-mini_stat
+
+
+# === stdlib.h
+mini_malloc
+mini_getenv
+mini_free
+mini_atoi
+
+
+# === ctype.h
+mini_isprint
+mini_isspace
+
+
+# === miniextras.h
+mini_printl
+mini_uitodec
+mini_snprintf
+mini__itobin
+mini_itodec
+mini_print
+mini_def
+mini_vsnprintf
+mini_dprintf
+mini_dtodec
+mini_memfrob
 
 
 # === fcntl.h
 mini_creat
-
-
-# === miniextras.h
-mini_uitodec
-mini__itobin
-mini_print
-mini_itodec
-mini_dtodec
-mini_vsnprintf
-mini_memfrob
-mini_def
-mini_dprintf
-mini_printl
-mini_snprintf
-
-
-# === unistd.h
-mini_tcgetattr
-mini_tcsetattr
-mini_rename
-mini_getpid
-mini_read
-mini_open
-mini_unlink
-mini_write
-mini_ftruncate
-mini_select
-mini_lseek
-mini_def
-mini_close
-mini_dup2
-mini_fsync
-mini_dup
-
-
-# === stdlib.h
-mini_atoi
-mini_free
-mini_malloc
-mini_getenv
-
-
-# === ctype.h
-mini_isspace
-mini_isprint
 
 
 # === ioctl.h
@@ -73,34 +67,45 @@ mini_ioctl
 
 
 # === stdio.h
-mini_fread
-mini_printf
-mini_fputc
-mini_itoHEX
-mini_fputs
-mini_fclose
-mini_fileno
-mini__itohex
-mini_itohex
-mini_putchar
-mini_fwrite
-mini_puts
 mini_feof
-mini_sprintf
-mini_fopen
+mini_itoHEX
+mini_fsetpos
+mini_putchar
+mini_printf
+mini_puts
+mini_fwrite
 mini_fprintf
+mini_ftell
+mini_fileno
+mini_itohex
+mini__itohex
+mini_fopen
+mini_fseek
+mini_fread
+mini_sprintf
+mini_fgetpos
+mini_rewind
+mini_fclose
+mini_fputs
+mini_fputc
 
 
-# === string.h
-mini_strncmp
-mini_memcpy
-mini_strcpy
-mini_strerror
-mini_strlen
-mini_strcmp
-mini_memcmp
-mini_memset
-mini_strcat
-mini_strncpy
+# === unistd.h
+mini_write
+mini_read
+mini_lseek
+mini_def
+mini_unlink
+mini_fsync
+mini_select
+mini_getpid
+mini_rename
+mini_tcgetattr
+mini_ftruncate
+mini_dup2
+mini_open
+mini_dup
+mini_tcsetattr
+mini_close
 
 # --- minilib_config-end: Allswitches --- 
