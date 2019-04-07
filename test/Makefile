@@ -59,7 +59,7 @@ $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
 all: hello-combined hello-include hello-smallest args fopen fprintf malloc build/minilib.o
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
-	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) 
+	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c && ) true
 
 fopen: fopen.c
 	minilib/mini-gcc --config fopen.c -o fopen fopen.c
@@ -90,7 +90,7 @@ hello-smallest: hello-smallest.c
 	make BUILDPROG=hello-smallest SINGLERUN=1 NOINCLUDE=1 ONLYTEXT=1
 
 inittest: all
-	@$(foreach P,$(PROG) $(PROGCUSTOM) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
+	@$(foreach P,$(PROG) $(PROGCUSTOM) $(MINIGCC) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
 	
 retest: test rebuild
 	make test
@@ -98,7 +98,7 @@ retest: test rebuild
 test: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
-	@$(foreach P,$(PROG) hello-combined $(PROGCUSTOM), \
+	@$(foreach P,$(PROG) hello-combined $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
 			set -o pipefail; ./$(P) | \
