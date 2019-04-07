@@ -6,108 +6,108 @@ mini_buf 4096
 
 # --- minilib_config-start: Allswitches --- 
 
-# === string.h
-mini_memset
-mini_memcpy
-mini_strncpy
-mini_strerror
-mini_strcpy
-mini_strlen
-mini_strcmp
-mini_strcat
-mini_strncmp
-mini_memcmp
-
-
 # === miniextras.h
-mini_dtodec
+mini_vsnprintf
+mini_itodec
 mini_printl
+mini_dtodec
+mini_snprintf
+mini_memfrob
 mini__itobin
 mini_def
-mini_memfrob
+mini_dprintf
 mini_print
 mini_uitodec
-mini_vsnprintf
-mini_dprintf
-mini_itodec
-mini_snprintf
-
-
-# === stdio.h
-mini_sprintf
-mini_fprintf
-mini_fwrite
-mini_feof
-mini_itohex
-mini_fgetpos
-mini_fopen
-mini_printf
-mini_fputs
-mini_fsetpos
-mini_fseek
-mini_rewind
-mini_puts
-mini__itohex
-mini_fclose
-mini_fputc
-mini_putchar
-mini_fread
-mini_ftell
-mini_itoHEX
-mini_fileno
-
-
-# === fcntl.h
-mini_creat
-
-
-# === stdlib.h
-mini_srand
-mini_getenv
-mini_malloc
-mini_rand
-mini_atoi
-mini_free
-
-
-# === declarations.h
-mini_getcwd
-mini_fstat
-mini_dup3
-mini_mprotect
-mini_stat
-mini_gettimeofday
 
 
 # === ioctl.h
 mini_ioctl
 
 
+# === declarations.h
+mini_getcwd
+mini_stat
+mini_gettimeofday
+mini_dup3
+mini_mprotect
+mini_fstat
+
+
+# === fcntl.h
+mini_creat
+
+
+# === time.h
+mini_time
+
+
 # === unistd.h
-mini_lseek
+mini_select
+mini_getpid
+mini_rename
+mini_dup
 mini_fsync
-mini_write
+mini_unlink
+mini_tcsetattr
+mini_dup2
+mini_lseek
+mini_open
+mini_def
 mini_read
 mini_tcgetattr
-mini_rename
-mini_close
-mini_def
-mini_open
-mini_getpid
-mini_select
-mini_unlink
-mini_dup
-mini_dup2
-mini_tcsetattr
 mini_ftruncate
+mini_close
+mini_write
+
+
+# === stdio.h
+mini_itohex
+mini_fread
+mini_putchar
+mini_fwrite
+mini_feof
+mini_fputs
+mini_fprintf
+mini_fgetpos
+mini_fopen
+mini_rewind
+mini__itohex
+mini_sprintf
+mini_puts
+mini_ftell
+mini_itoHEX
+mini_fseek
+mini_fsetpos
+mini_fputc
+mini_printf
+mini_fclose
+mini_fileno
+
+
+# === stdlib.h
+mini_getenv
+mini_rand
+mini_atoi
+mini_srand
+mini_free
+mini_malloc
+
+
+# === string.h
+mini_strcat
+mini_memcpy
+mini_strncpy
+mini_strcmp
+mini_strerror
+mini_strlen
+mini_memcmp
+mini_strncmp
+mini_memset
+mini_strcpy
 
 
 # === ctype.h
 mini_isprint
 mini_isspace
-
-
-# === time.h
-mini_time
 
 # --- minilib_config-end: Allswitches --- 
