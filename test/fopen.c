@@ -2,6 +2,7 @@
 
 mini_start
 mini_fopen
+mini_feof
 mini_fclose
 mini_fprintf
 mini_printf
@@ -9,6 +10,7 @@ mini_sprintf
 mini_print
 mini_itodec
 mini_itohex
+mini_itoHEX
 mini_fileno
 mini_puts
 mini_read
@@ -80,6 +82,20 @@ int main( int argc, char *argv[] ){
 				fread( &bufc[i*6], 3, 2, f2 );
 		}
 		puts ( bufc );
+
+		// check feof..
+		if ( feof( f2 ) )
+				puts("feof f2");
+		else
+				puts("not feof f2");
+
+		i = 1;
+		bufc[13] = 0;
+		while ( !feof(f2) ){
+			fread(bufc, 3,4,f2 );
+			printf("i:  %d, buf: %s",i, bufc);
+			i++;
+		}
 	
 		return(0);
 }

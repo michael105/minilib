@@ -15,7 +15,7 @@ static int read(int fd, void *buf, int len);
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
 		mfl_union fl;
 		fl.F=f;
-		return( fl.fd );
+		return( fl.fd & FLAG_MASK );
 }
 
 ////+macro
@@ -51,9 +51,12 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 //+inline
 static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
 		const void *p = ptr;
+		mfl_union fl;
+		fl.F = f;
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
-				if ( write( fileno(f), p, size ) != size ){
+				if ( write( fl.fd, p, size ) != size ){
+						fl.fd = fl.fd | ERR_FLAG;
 						return(a);
 				}
 				p = p + size;
@@ -66,9 +69,13 @@ static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f)
 //+inline
 static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 		void *p = ptr;
+		mfl_union fl;
+		fl.F = f;
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
-				if ( read( fileno(f), p, size ) != size ){
+				if ( read( fl.fd, p, size ) != size ){
+						f = (int)f | FEOF_FLAG;
+						write(stderr,"EOF\n", 4);
 						return(a);
 				}
 				p = p + size;
@@ -77,7 +84,14 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 }
 
 
-
+//+def
+static inline int feof(FILE *f){
+		mfl_union fl;
+		fl.F = f;
+		if ( fl.fd & (!FLAG_MASK) )
+				return(1);
+		return(0);
+}
 
 
 

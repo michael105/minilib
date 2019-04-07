@@ -40,6 +40,10 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 //+def
 typedef int FILE;
 
+#define FEOF_FLAG 0x80000000
+#define ERR_FLAG 0x40000000
+#define FLAG_MASK 0xFFFFFFF
+
 #ifdef X64
 typedef union { FILE *F; int i, fd;} mfl_union;
 #else

@@ -130,9 +130,12 @@ static inline int __attribute__((always_inline)) fclose( FILE* f );
 // file: 
 static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
 		const void *p = ptr;
+		mfl_union fl;
+		fl.F = f;
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
-				if ( write( fileno(f), p, size ) != size ){
+				if ( write( fl.fd, p, size ) != size ){
+						fl.fd = fl.fd | ERR_FLAG;
 						return(a);
 				}
 				p = p + size;
@@ -143,15 +146,21 @@ static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f)
 // file: 
 static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 		void *p = ptr;
+		mfl_union fl;
+		fl.F = f;
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
-				if ( read( fileno(f), p, size ) != size ){
+				if ( read( fl.fd, p, size ) != size ){
+						fl.fd = fl.fd | FEOF_FLAG;
 						return(a);
 				}
 				p = p + size;
 		}
 		return(a);
 }
+
+// file: minilib/include/mini_stdio.h
+static inline int feof(FILE *f);
 
 
 
@@ -160,14 +169,14 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/fopen.c"
+#include "minilib/include/mini_stdio.h"
+#include "minilib/include/fputc.h"
+#include "minilib/src/mfprintf.c"
 #include "minilib/src/mprint.c"
 #include "minilib/src/msprintf.c"
-#include "minilib/include/fputc.h"
 #include "minilib/src/itohex.c"
-#include "minilib/include/mini_stdio.h"
-#include "minilib/src/mfprintf.c"
 #include "minilib/include/fputs.h"
-#include "minilib/src/fopen.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
