@@ -112,12 +112,12 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itobin.c"
-#include "minilib/src/itodec.c"
-#include "minilib/src/dtodec.c"
 #include "minilib/include/globaldefs.h"
-#include "minilib/src/msprintf.c"
+#include "minilib/src/dtodec.c"
 #include "minilib/src/mprint.c"
+#include "minilib/src/msprintf.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/itobin.c"
 #include "minilib/src/memfrob.c"
 
 // Need global included. Doesn't matter by which file.

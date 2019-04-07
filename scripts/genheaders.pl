@@ -226,11 +226,13 @@ while ( my $file = shift ){
 										$header = $c or die;
 								} elsif ( $tag eq 'inline' ) {
 										$l = <F>;
+										$line++;
 										$l =~ /.* \**(\S*)\(.+?\)\{.*$/;
 										$func = $1;
 										$f->{def} = $l;
 										do {
 												$l = <F>;
+												$line++;
 												$f->{def} .= $l;
 										} while ( !($l =~ /^}/ ) );
 										dbg( "dbg: $f->{def}" );
@@ -243,7 +245,8 @@ while ( my $file = shift ){
 										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
 												$func = $2;
 										} else {
-												$f->{def} =~ /.* \**(\S*)\(.+?\)\{.*$/;
+												dbg("f-def: $f->{def}");
+												$f->{def} =~ /.* \**(\S*)\(.*?\)\{.*$/;
 												$func = $1;
 										}
 										dbg("func: $LR $func $N\n");

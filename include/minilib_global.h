@@ -14,9 +14,11 @@
 
 
 typedef struct {
+		int align;
+		int srand;	
+		int pstream;
 		int mbufsize;
 		int stream[FOPEN_MAX];
-		int pstream;
 		union {
 				int ibuf[mini_buf>>2];
 				char mbuf[mini_buf];

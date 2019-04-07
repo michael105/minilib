@@ -6,6 +6,9 @@ PROG=hello select
 
 PROGCUSTOM=fopen malloc fprintf
 
+
+MINIGCC=rand
+
 # where to build object files
 #BUILDDIR=.
 
@@ -56,6 +59,7 @@ $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
 all: hello-combined hello-include hello-smallest args fopen fprintf malloc build/minilib.o
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
+	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) 
 
 fopen: fopen.c
 	minilib/mini-gcc --config fopen.c -o fopen fopen.c

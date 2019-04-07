@@ -91,6 +91,12 @@ void* volatile malloc(int size);
 // file: minilib/src/malloc.c
 void volatile free(void* p);
 
+// file: minilib/src/rand.c
+void srand( unsigned int i );
+
+// file: minilib/src/rand.c
+unsigned int rand();
+
 
 
 #include "include/minilib_global.h"
@@ -98,6 +104,7 @@ void volatile free(void* p);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/rand.c"
 #include "minilib/src/malloc.c"
 #include "minilib/src/atoi.c"
 #include "minilib/src/getenv.c"
