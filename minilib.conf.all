@@ -7,106 +7,106 @@ mini_buf 4096
 # --- minilib_config-start: Allswitches --- 
 
 # === stdio.h
-mini_feof
-mini_puts
-mini_rewind
-mini_fseek
-mini_fwrite
-mini__itohex
-mini_fputs
-mini_itohex
-mini_fgetpos
-mini_sprintf
-mini_fprintf
-mini_fopen
-mini_fclose
-mini_fputc
-mini_putchar
-mini_printf
-mini_ftell
-mini_fread
-mini_fileno
-mini_fsetpos
 mini_itoHEX
+mini_rewind
+mini_putchar
+mini_fprintf
+mini_sprintf
+mini_itohex
+mini_printf
+mini_fsetpos
+mini_fputs
+mini_fclose
+mini__itohex
+mini_fread
+mini_fwrite
+mini_fseek
+mini_fopen
+mini_ftell
+mini_feof
+mini_fputc
+mini_puts
+mini_fileno
+mini_fgetpos
 
 
-# === fcntl.h
-mini_creat
-
-
-# === declarations.h
-mini_stat
-mini_getcwd
-mini_gettimeofday
-mini_fstat
-mini_mprotect
-mini_dup3
+# === unistd.h
+mini_read
+mini_select
+mini_tcsetattr
+mini_getpid
+mini_open
+mini_dup2
+mini_close
+mini_tcgetattr
+mini_lseek
+mini_ftruncate
+mini_unlink
+mini_write
+mini_fsync
+mini_dup
+mini_rename
 
 
 # === miniextras.h
-mini_print
-mini_dprintf
-mini_itodec
-mini_uitodec
-mini_snprintf
 mini__itobin
-mini_printl
+mini_snprintf
+mini_itodec
 mini_memfrob
-mini_vsnprintf
+mini_uitodec
+mini_dprintf
+mini_print
 mini_dtodec
 mini_def
+mini_printl
+mini_vsnprintf
 
 
 # === stdlib.h
+mini_atoi
+mini_getenv
+mini_srand
+mini_rand
 mini_free
 mini_malloc
-mini_atoi
-mini_rand
-mini_srand
-mini_getenv
-
-
-# === time.h
-mini_time
 
 
 # === ioctl.h
 mini_ioctl
 
 
+# === ctype.h
+mini_isprint
+mini_isspace
+
+
+# === fcntl.h
+mini_creat
+
+
 # === string.h
-mini_strcpy
-mini_strncmp
-mini_strcat
-mini_strcmp
 mini_strncpy
 mini_memset
-mini_strerror
-mini_strlen
-mini_memcpy
+mini_strcmp
 mini_memcmp
+mini_strlen
+mini_strncmp
+mini_memcpy
+mini_strerror
+mini_strcpy
+mini_strcat
 
 
-# === ctype.h
-mini_isspace
-mini_isprint
+# === time.h
+mini_time
 
 
-# === unistd.h
-mini_open
-mini_fsync
-mini_ftruncate
-mini_dup2
-mini_rename
-mini_tcgetattr
-mini_select
-mini_tcsetattr
-mini_read
-mini_getpid
-mini_dup
-mini_close
-mini_unlink
-mini_write
-mini_lseek
+# === declarations.h
+mini_mprotect
+mini_getcwd
+mini_stat
+mini_fstat
+mini_gettimeofday
+mini_dup3
 
 # --- minilib_config-end: Allswitches --- 

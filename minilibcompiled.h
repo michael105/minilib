@@ -1788,11 +1788,8 @@ DEF_syscall(time,1,unsigned int *a1 )
 	// Will see it when trying to compile at osx again
 	//
 /* --- generated-macros-start: syscalldefs --- */
-/* minilib/include/lseek.h, line: 18 */
-REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 42 */
-REAL_define_syscall(dup2,2,int a1,  int a2) 		
+/* minilib/include/lseek.h, line: 21 */
+REAL_define_syscall(fsync,1,int a1) 
 
 /* minilib/include/syscall_stubs.h, line: 33 */
 REAL_define_syscall(write,3,int a1, const void *a2,  int a3) 
@@ -1800,11 +1797,11 @@ REAL_define_syscall(write,3,int a1, const void *a2,  int a3)
 /* minilib/include/syscall_stubs.h, line: 37 */
 REAL_define_syscall(unlink,1, const char* a1) 		
 
-/* minilib/include/syscall_stubs.h, line: 49 */
-REAL_define_syscall(time,1,unsigned int *a1) 
+/* minilib/include/lseek.h, line: 20 */
+REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
 
-/* minilib/include/syscall_stubs.h, line: 26 */
-REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
+/* minilib/include/lseek.h, line: 18 */
+REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
 
 /* minilib/include/syscall_stubs.h, line: 43 */
 REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
@@ -1812,29 +1809,32 @@ REAL_define_syscall(dup3,3,int a1,  int a2,  int a3)
 /* minilib/include/syscall_stubs.h, line: 41 */
 REAL_define_syscall(dup,1,int a1) 		
 
-/* minilib/include/lseek.h, line: 20 */
-REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
+/* minilib/include/syscall_stubs.h, line: 36 */
+REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
 
 /* minilib/include/syscall_stubs.h, line: 30 */
 REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
 
+/* minilib/include/syscall_stubs.h, line: 45 */
+REAL_define_syscall(getcwd,2,char *a1, long a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 26 */
+REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
+
 /* minilib/include/syscall_stubs.h, line: 40 */
 REAL_define_syscall(stat,2,const char* a1, struct stat* a2) 		
-
-/* minilib/include/syscall_stubs.h, line: 28 */
-REAL_define_syscall(getpid,0 )
-
-/* minilib/include/syscall_stubs.h, line: 36 */
-REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
 
 /* minilib/include/syscall_stubs.h, line: 39 */
 REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
 
-/* minilib/include/lseek.h, line: 21 */
-REAL_define_syscall(fsync,1,int a1) 
+/* minilib/include/syscall_stubs.h, line: 49 */
+REAL_define_syscall(time,1,unsigned int *a1) 
 
-/* minilib/include/syscall_stubs.h, line: 45 */
-REAL_define_syscall(getcwd,2,char *a1, long a2) 		
+/* minilib/include/syscall_stubs.h, line: 42 */
+REAL_define_syscall(dup2,2,int a1,  int a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 28 */
+REAL_define_syscall(getpid,0 )
 
 /* --- generated-macros-end: syscalldefs --- */
 
@@ -2761,209 +2761,74 @@ int sysret;
 
 
 
-// minilib/src/fopen.c
-#ifdef mini_fopen
-#ifndef mini_fopen_c
-#define mini_fopen_c
-
-#ifndef mini_filemodes_h
-#define mini_filemodes_h
-
-#ifdef OSX
-
-/* open-only flags */
-#define	O_RDONLY	0x0000		/* open for reading only */
-#define	O_WRONLY	0x0001		/* open for writing only */
-#define	O_RDWR		0x0002		/* open for reading and writing */
-#define	O_ACCMODE	0x0003		/* mask for above modes */
-
-#define	FREAD		0x0001
-#define	FWRITE		0x0002
-#define	O_NONBLOCK	0x0004		/* no delay */
-#define	O_APPEND	0x0008		/* set append mode */
-
-#define	O_SHLOCK	0x0010		/* open with shared file lock */
-#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
-#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
-#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
-#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
-#define	O_CREAT		0x0200		/* create if nonexistant */
-#define	O_TRUNC		0x0400		/* truncate to zero length */
-#define	O_EXCL		0x0800		/* error if already exists */
-
-#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
-
-#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
-#define O_DIRECTORY	0x100000
-#define O_SYMLINK	0x200000	/* allow open of a symlink */
-#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
-#define O_DP_GETRAWENCRYPTED	0x0001
-#define O_DP_GETRAWUNENCRYPTED	0x0002
-
-
-
-#else
-
-
-#define O_ACCMODE	00000003
-#define O_RDONLY	00000000
-#define O_WRONLY	00000001
-#define O_RDWR		00000002
-#define O_CREAT		00000100	/* not fcntl */
-#define O_EXCL		00000200	/* not fcntl */
-#define O_NOCTTY	00000400	/* not fcntl */
-#define O_TRUNC		00001000	/* not fcntl */
-#define O_APPEND	00002000
-#define O_NONBLOCK	00004000
-#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
-#define FASYNC		00020000	/* fcntl, for BSD compatibility */
-#define O_DIRECT	00040000	/* direct disk access hint */
-#define O_LARGEFILE	00100000
-#define O_DIRECTORY	00200000	/* must be a directory */
-#define O_NOFOLLOW	00400000	/* don't follow links */
-#define O_NOATIME	01000000
-#define O_CLOEXEC	02000000	/* set close_on_exec */
-
-#endif
-
-
-
-#endif
-
-
-
-//+header stdio.h
-//+depends open
-//+needs lseek.h
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
+//+ansi string.h
 //+def
-FILE *fopen(const char* filename, const char* mode){
-		int imode;
-
-		switch (mode[0]){
-				case 'r': imode = O_RDONLY;
-									break;
-				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
-									break;
-				case 'a': imode = O_APPEND; // somehow only "a+" works. Not sure, why.
-									break;
-				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
-								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
-								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
-								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
-		}
-
-		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
- 				if ( mode[a] == '+' ){ 
-						imode = imode | O_RDWR;
-				} else {
-						switch (mode[0]){
-								case 'r': 
-										break;
-								case 'w': if ( mode[a] == 'x' )
-															imode = imode & ( ~(O_CREAT | O_TRUNC) );
-													break;
-								case 'a': 
-													break;
-						}
-				}
-		}
-		//puts("XXX");
-		int a;
-		if ( ml.stream[ml.pstream]>=FOPEN_MAX){
-			for ( a=3; ml.stream[a]>=0; a++ )
-					if ( a >= FOPEN_MAX )
-							return(0);
-		} else {
-				a = ml.pstream;
-				ml.pstream++;
-		}
-
-		//printf("a: %d\n",a);
-		FILE *f = &ml.stream[a];
-		ml.stream[a] =  open( filename, imode, 0666 );
-		return ( f ); // 
+void* memfrob(void* s, unsigned int len){
+		unsigned int a;
+		char *c = s;
+		for ( a=0; a<len;a++)
+				c[a] = 	c[a] ^ 42;
+		return ( s );
 }
-
+		
 #endif
-#endif
 
-// minilib/src/mprint.c
-#ifdef mini_printl
-#ifndef mprint_c
-#define mprint_c
-//#include "../include/write.h"
+// minilib/src/mstrcmp.c
+#ifdef mini_strcmp
+#ifndef strcmp_c
+#define strcmp_c
 
-//+depends write
-//+def
-int print(const char *msg){
-		int a=0;
-		while (msg[a] != 0 ){
+//+ansi string.h
+
+//TODO: not implemented correct. need to return also -1.
+
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
 				a++;
 		}
-		return( write(1,msg,a) );
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
 }
 
-//+depends write
+
+
 //+def
-int printl(const char *msg){
-		int ret = print(msg);
-		write(1,"\n",1);
-		ret++;
-		return(ret);
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
 }
 
-//+header stdio.h
-//+depends printl
-//+macro puts(c) printl(c)
-
-
-#ifdef mini_puts
-//int puts( const char *c ){
-//		return(printl(c));
-//}
-#endif
-
-#endif
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini__itobin
-//+ansi stdio.h
 //+def
-int _itobin(int i, char*buf, int prec, int groups ){
-		prec -= 32;
-		int a,p=0;
-		int g = 0;
-		for ( a=0; a<32; a++ ){
-				if (i&0x80000000 ){
-						prec = 0;
-						buf[p] = '1';
-						p++;
-				} else {
-						if ( prec == 0 ){
-								buf[p] = '0';
-								p++;
-						} else
-								prec++;
-				}
-				i <<= 1;
-				g++;
-				if ( (prec==0) && (g>=groups) ){
-						g=0;
-						buf[p] = ' ';
-						p++;
-				}
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
 		}
-		if ( p == 0 ){
-				buf[0] = '0';
-				p++;
-		}
-		buf[p] = 0;
-		return(p);
+	 return(0);
 }
 
 
-		
+#endif
 #endif
 
 // minilib/src/msprintf.c
@@ -3497,333 +3362,8 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 #endif
 #endif
 
-// minilib/src/itohex.c
-#ifdef mini_itoHEX
-#ifndef itohex_c
-#define itohex_c
-//+header stdio.h
-//+def
-int _itohex(int i,char* buf,int padding, int capitals){
-
-		if ( capitals>0 )
-				capitals = 55;
-		else
-				capitals = 87;
-
-		padding = padding - 8;
-		if ( padding < -7 )
-				padding = -7;
-
-		union { int n; char c[4]; } conv[2];
-		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
-		conv[1].n = ( i & 0x0f0f0f0f );
-		int p = 0;
-		int a,b;
-
-		for ( a=3; a>=0; a-- ){
-				for ( b=0; b <=1; b++ ){
-						if ( padding != 0 ){
-								if ( conv[b].c[a] != 0 ){
-										padding = 0;
-								}
-						}
-						if ( padding == 0 ){
-								char c = conv[b].c[a];
-								if ( c < 0xa )
-										c = c + 48;
-								else
-										c = c + capitals; // 55 for big abc ..
-								buf[p] = c;
-								p++;
-						} else
-								padding++;
-				}
-		}
-		buf[p] = 0 ;
-		return(p);
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itohex(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,0));
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itoHEX(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,1));
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itohex
-#ifndef itohex_c
-#define itohex_c
-//+header stdio.h
-//+def
-int _itohex(int i,char* buf,int padding, int capitals){
-
-		if ( capitals>0 )
-				capitals = 55;
-		else
-				capitals = 87;
-
-		padding = padding - 8;
-		if ( padding < -7 )
-				padding = -7;
-
-		union { int n; char c[4]; } conv[2];
-		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
-		conv[1].n = ( i & 0x0f0f0f0f );
-		int p = 0;
-		int a,b;
-
-		for ( a=3; a>=0; a-- ){
-				for ( b=0; b <=1; b++ ){
-						if ( padding != 0 ){
-								if ( conv[b].c[a] != 0 ){
-										padding = 0;
-								}
-						}
-						if ( padding == 0 ){
-								char c = conv[b].c[a];
-								if ( c < 0xa )
-										c = c + 48;
-								else
-										c = c + capitals; // 55 for big abc ..
-								buf[p] = c;
-								p++;
-						} else
-								padding++;
-				}
-		}
-		buf[p] = 0 ;
-		return(p);
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itohex(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,0));
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itoHEX(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,1));
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-#ifndef mini_itodec_c
-#define mini_itodec_c
-//+ansi stdio.h
-//
-// convert int to string.
-// prec: precision, e.g. 4=> 0087 
-//+def
-int uitodec(unsigned int i, char *buf, int prec, char limiter ){
-		int p = 0;
-		int a;
-		int t1,t2,t3,dec;
-		//unsigned int ut1,ut2,ut3;
-		char n;
-		prec = prec - 10; // Maximale Stellenanzahl 
-
-
-		if ( i==0 ){
-				buf[0] = '0';
-				//p++;
-				//return(
-		}
-
-	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
-	
-	if ( i >= 1000000000){
-			//mprints("hier.\n");
-			p=1;
-			prec=0;
-			if ( i>=2000000000 ){
-					i-=2000000000;
-				if ( i>=1000000000 ){
-						if ( i>=2000000000 ){
-								buf[0] = '4';
-								i-=2000000000;
-						} else {
-								buf[0] = '3';
-								i-=1000000000;
-						}
-					} else {
-						buf[0] = '2';
-						//i-=2000000000;
-					}
-			}	else {
-					buf[0] = '1'; 
-					i-=1000000000;
-			}
-	} else {
-			if ( prec == 0 ){
-					buf[0] = '0';
-					p++;
-			} else
-					prec++;
-	}
-
-	
-
-					
-			
-
-	for (a=0;a<12;a++){
-			if ( div[a] == 0 ){
-					if ( (limiter != 0 ) && (prec==0) ){
-							buf[p] = limiter;
-							p++;
-					}
-			} else {
-			n = '0';
-
-			if ( (t1=(i - div[a])) >= 0 ){
-					prec = 0;
-					n = '1';
-					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
-							if ( (t3=t2-dec) >= 0 ){
-									n = '9';
-									i = t3;
-									goto write;
-							} else {
-									n = '5';
-									t1 = t2;
-							}
-					} 
-					if ( (t2=(t1-(div[a]<<1) ) ) >=0 ){
-							t1=t2;
-							n += 2;
-					}
-					if ( (t2=(t1-(div[a]) ) ) >=0 ){
-							t1=t2;
-							n += 1;
-					}
-					i = t1;
-			}
-
-			if ( prec == 0 ){
-			write:
-					buf[p] = n;
-					p++;
-			} else
-					prec++;
-
-			}
-	}
-	if ( p==0 )
-			p=1;
-	buf[p] = 0;
-
-	return(p);
-}
-
-	
-//+depends uitodec
-//+def
-int itodec(int i, char *buf, int prec, char limiter ){
-	if ( i < 0 ){
-			buf[0]='-';
-			i = -i;
-			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
-	}
-	return(uitodec((unsigned int)i,buf,prec,limiter) );
-}
-
-
-#endif
-#endif
-
-// minilib/src/mstrlen.c
-#ifdef mini_strlen
-#ifndef strlen_c
-#define strlen_c
-
-//+header string.h
-
-//+def
-int strlen(const char*str){
-		int a = 0;
-		while ( str[a] != 0 ){
-				a++;
-		}
-		return (a);
-}
-
-
-#endif
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-#ifndef atoi_c
-#define atoi_c
-
-//+ansi stdlib.h
-//+def
-int atoi(char *c){
-		int t,a=0;
-	 	int ret=0;
-		int dez = 1;
-
-		while( c[a] != 0 ){ 
-				a++; 
-		}
-		while ( a>0 ){
-				a--;
-				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
-						t = c[a] - 48;
-						if ( t & 1 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 2 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 4 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 8 )
-								ret += dez;
-				} else {
-						dez <<= 3;
-				}
-				dez += (dez >> 2);
-		}
-		if ( c[0] == '-' )
-				ret = -ret;
-		return(ret);
-}
-
-
-#endif
-		
-#endif
-
 // minilib/src/open.c
-#ifdef mini_open
+#ifdef mini_creat
 #ifndef open_c
 #define open_c
 //+header fcntl.h
@@ -4007,43 +3547,128 @@ inline int volatile __attribute__((always_inline)) creat( const char *s, int mod
 #endif
 #endif
 
-// minilib/src/rand.c
-#ifdef mini_srand
-#ifndef rand_c
-#define rand_c
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+#ifndef memcpy_c
+#define memcpy_c
 
-
-//+header stdlib.h
+//+ansi string.h
 //+def
-void srand( unsigned int i ){
-		ml.srand = i;
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
 }
-	
 
 
-//+header stdlib.h
 //+def
-unsigned int rand(){
-		// xorshift, algorithm af marsaglia.
-		// second round added, it doesn't give more randomness,
-		// but isn't so expensive on the other hand.
-		if ( ml.srand==0 ){
-				ml.srand=1;
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
+#endif
+
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+#ifndef itohex_c
+#define itohex_c
+//+header stdio.h
+//+def
+int _itohex(int i,char* buf,int padding, int capitals){
+
+		if ( capitals>0 )
+				capitals = 55;
+		else
+				capitals = 87;
+
+		padding = padding - 8;
+		if ( padding < -7 )
+				padding = -7;
+
+		union { int n; char c[4]; } conv[2];
+		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
+		conv[1].n = ( i & 0x0f0f0f0f );
+		int p = 0;
+		int a,b;
+
+		for ( a=3; a>=0; a-- ){
+				for ( b=0; b <=1; b++ ){
+						if ( padding != 0 ){
+								if ( conv[b].c[a] != 0 ){
+										padding = 0;
+								}
+						}
+						if ( padding == 0 ){
+								char c = conv[b].c[a];
+								if ( c < 0xa )
+										c = c + 48;
+								else
+										c = c + capitals; // 55 for big abc ..
+								buf[p] = c;
+								p++;
+						} else
+								padding++;
+				}
 		}
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		unsigned int t = ml.srand;
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		return(t-1);
+		buf[p] = 0 ;
+		return(p);
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itohex(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,0));
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itoHEX(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,1));
 }
 
 
 
 
+#endif
 
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_strerror
+#ifndef strerror_r
+#define strerror_r
+
+
+char *errstr = "err: 00";
+
+//+header string.h
+//+def
+char* strerror( int errnum ){
+		errstr[5] = '0';
+		while ( errnum>9 ){
+				errnum-=10;
+				errstr[5]++;
+		}
+		errstr[6] = 48+errnum; // 0+errnum..
+		return( errstr );
+}
 
 
 
@@ -4097,44 +3722,139 @@ unsigned int rand(){
 
 #endif
 
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-#ifndef memcpy_c
-#define memcpy_c
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+//convert double to string
+//return number of bytes written to buf.
+//doesn't convert numbers > 2^31 (!!!)
+//doesn't round(!)
+//max. prec after the dot: 8 digits. (!!)
 
-//+ansi string.h
+//+ansi stdio.h
+//+depends uitodec
 //+def
-void *memcpy( void *d, const void *s, int n ){
-		char *dp=d;
-		const char *sp = s;
-		int a;
-		for ( a=0; a<n; a++ )
-				dp[a] = sp[a];
-		return(d);
+int dtodec(double d, char* buf, int precision){
+		int i = (int) d;
+		unsigned int i2;
+		if ( d >= 0 )
+			 i2 = (unsigned int)((d-i)*1000000000+0.1);
+		else 
+			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
+
+
+		int p;
+		if ( (d<=-1) || (d>0) )
+				p = itodec(i,buf,0,0);
+		else {
+				buf[0] = '-';
+				buf[1] = '0';
+				p = 1;
+		}
+
+	
+		buf[p+1]='.';
+		int p2 = uitodec(i2,&buf[p+2],9,0);
+		return(p+p2+2-9+precision);
+}
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini__itohex
+#ifndef itohex_c
+#define itohex_c
+//+header stdio.h
+//+def
+int _itohex(int i,char* buf,int padding, int capitals){
+
+		if ( capitals>0 )
+				capitals = 55;
+		else
+				capitals = 87;
+
+		padding = padding - 8;
+		if ( padding < -7 )
+				padding = -7;
+
+		union { int n; char c[4]; } conv[2];
+		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
+		conv[1].n = ( i & 0x0f0f0f0f );
+		int p = 0;
+		int a,b;
+
+		for ( a=3; a>=0; a-- ){
+				for ( b=0; b <=1; b++ ){
+						if ( padding != 0 ){
+								if ( conv[b].c[a] != 0 ){
+										padding = 0;
+								}
+						}
+						if ( padding == 0 ){
+								char c = conv[b].c[a];
+								if ( c < 0xa )
+										c = c + 48;
+								else
+										c = c + capitals; // 55 for big abc ..
+								buf[p] = c;
+								p++;
+						} else
+								padding++;
+				}
+		}
+		buf[p] = 0 ;
+		return(p);
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itohex(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,0));
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itoHEX(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,1));
 }
 
 
-//+def
-char *strcpy(char *dest, const char *src){
-		int a;
-		for ( a=0; src[a] != 0; a++)
-				dest[a] = src[a];
-		dest[a] = 0;
-		return(dest);
-}
 
-//+depends memcpy
-//+def
-char *strncpy(char *dest, const char *src, int n){
-		return( memcpy( dest, src, n ) );
-}
 
 #endif
 
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_getenv
+#ifndef getenv_c
+#define getenv_c
+
+#ifndef dumbsyntaxchecker
+char **mini_env;
+#endif
+
+
+//+header stdlib.h
+//+def
+char *getenv(const char* name){
+		int b;
+		for ( int a=0; mini_env[a]; a++ ){
+				for ( b = 0; mini_env[a][b] == name[b]; b++ ){}
+				if ( mini_env[a][b] == '=' ){
+						return( &mini_env[a][b+1] );
+				}
+		}
+		return(0);
+}
+
+
+
+#endif
 #endif
 
 // minilib/src/malloc.c
-#ifdef mini_malloc
+#ifdef mini_free
 #ifndef mini_malloc_c
 #define mini_malloc_c
 //+header stdlib.h
@@ -4483,74 +4203,8 @@ void volatile free(void* p){
 #endif
 #endif
 
-// minilib/src/strerror.c
-#ifdef mini_strerror
-#ifndef strerror_r
-#define strerror_r
-
-
-char *errstr = "err: 00";
-
-//+header string.h
-//+def
-char* strerror( int errnum ){
-		errstr[5] = '0';
-		while ( errnum>9 ){
-				errnum-=10;
-				errstr[5]++;
-		}
-		errstr[6] = 48+errnum; // 0+errnum..
-		return( errstr );
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/mprint.c
-#ifdef mini_puts
-#ifndef mprint_c
-#define mprint_c
-//#include "../include/write.h"
-
-//+depends write
-//+def
-int print(const char *msg){
-		int a=0;
-		while (msg[a] != 0 ){
-				a++;
-		}
-		return( write(1,msg,a) );
-}
-
-//+depends write
-//+def
-int printl(const char *msg){
-		int ret = print(msg);
-		write(1,"\n",1);
-		ret++;
-		return(ret);
-}
-
-//+header stdio.h
-//+depends printl
-//+macro puts(c) printl(c)
-
-
-#ifdef mini_puts
-//int puts( const char *c ){
-//		return(printl(c));
-//}
-#endif
-
-#endif
-#endif
-
 // minilib/src/mstrcmp.c
-#ifdef mini_strcmp
+#ifdef mini_memcmp
 #ifndef strcmp_c
 #define strcmp_c
 
@@ -4605,8 +4259,218 @@ int memcmp(const void* c1,const void* c2,int len){
 #endif
 #endif
 
+// minilib/src/mprint.c
+#ifdef mini_puts
+#ifndef mprint_c
+#define mprint_c
+//#include "../include/write.h"
+
+//+depends write
+//+def
+int print(const char *msg){
+		int a=0;
+		while (msg[a] != 0 ){
+				a++;
+		}
+		return( write(1,msg,a) );
+}
+
+//+depends write
+//+def
+int printl(const char *msg){
+		int ret = print(msg);
+		write(1,"\n",1);
+		ret++;
+		return(ret);
+}
+
+//+header stdio.h
+//+depends printl
+//+macro puts(c) printl(c)
+
+
+#ifdef mini_puts
+//int puts( const char *c ){
+//		return(printl(c));
+//}
+#endif
+
+#endif
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fopen
+#ifndef mini_fopen_c
+#define mini_fopen_c
+
+#ifndef mini_filemodes_h
+#define mini_filemodes_h
+
+#ifdef OSX
+
+/* open-only flags */
+#define	O_RDONLY	0x0000		/* open for reading only */
+#define	O_WRONLY	0x0001		/* open for writing only */
+#define	O_RDWR		0x0002		/* open for reading and writing */
+#define	O_ACCMODE	0x0003		/* mask for above modes */
+
+#define	FREAD		0x0001
+#define	FWRITE		0x0002
+#define	O_NONBLOCK	0x0004		/* no delay */
+#define	O_APPEND	0x0008		/* set append mode */
+
+#define	O_SHLOCK	0x0010		/* open with shared file lock */
+#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
+#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
+#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
+#define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_TRUNC		0x0400		/* truncate to zero length */
+#define	O_EXCL		0x0800		/* error if already exists */
+
+#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
+
+#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
+#define O_DIRECTORY	0x100000
+#define O_SYMLINK	0x200000	/* allow open of a symlink */
+#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
+#define O_DP_GETRAWENCRYPTED	0x0001
+#define O_DP_GETRAWUNENCRYPTED	0x0002
+
+
+
+#else
+
+
+#define O_ACCMODE	00000003
+#define O_RDONLY	00000000
+#define O_WRONLY	00000001
+#define O_RDWR		00000002
+#define O_CREAT		00000100	/* not fcntl */
+#define O_EXCL		00000200	/* not fcntl */
+#define O_NOCTTY	00000400	/* not fcntl */
+#define O_TRUNC		00001000	/* not fcntl */
+#define O_APPEND	00002000
+#define O_NONBLOCK	00004000
+#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
+#define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_DIRECT	00040000	/* direct disk access hint */
+#define O_LARGEFILE	00100000
+#define O_DIRECTORY	00200000	/* must be a directory */
+#define O_NOFOLLOW	00400000	/* don't follow links */
+#define O_NOATIME	01000000
+#define O_CLOEXEC	02000000	/* set close_on_exec */
+
+#endif
+
+
+
+#endif
+
+
+
+//+header stdio.h
+//+depends open
+//+needs lseek.h
+//+def
+FILE *fopen(const char* filename, const char* mode){
+		int imode;
+
+		switch (mode[0]){
+				case 'r': imode = O_RDONLY;
+									break;
+				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
+									break;
+				case 'a': imode = O_APPEND; // somehow only "a+" works. Not sure, why.
+									break;
+				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
+								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
+								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
+								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
+		}
+
+		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
+ 				if ( mode[a] == '+' ){ 
+						imode = imode | O_RDWR;
+				} else {
+						switch (mode[0]){
+								case 'r': 
+										break;
+								case 'w': if ( mode[a] == 'x' )
+															imode = imode & ( ~(O_CREAT | O_TRUNC) );
+													break;
+								case 'a': 
+													break;
+						}
+				}
+		}
+		//puts("XXX");
+		int a;
+		if ( ml.stream[ml.pstream]>=FOPEN_MAX){
+			for ( a=3; ml.stream[a]>=0; a++ )
+					if ( a >= FOPEN_MAX )
+							return(0);
+		} else {
+				a = ml.pstream;
+				ml.pstream++;
+		}
+
+		//printf("a: %d\n",a);
+		FILE *f = &ml.stream[a];
+		ml.stream[a] =  open( filename, imode, 0666 );
+		return ( f ); // 
+}
+
+#endif
+#endif
+
+// minilib/src/rand.c
+#ifdef mini_srand
+#ifndef rand_c
+#define rand_c
+
+
+//+header stdlib.h
+//+def
+void srand( unsigned int i ){
+		ml.srand = i;
+}
+	
+
+
+//+header stdlib.h
+//+def
+unsigned int rand(){
+		// xorshift, algorithm af marsaglia.
+		// second round added, it doesn't give more randomness,
+		// but isn't so expensive on the other hand.
+		if ( ml.srand==0 ){
+				ml.srand=1;
+		}
+		ml.srand ^= ml.srand << 13;
+ 		ml.srand ^= ml.srand >> 17;
+ 		ml.srand ^= ml.srand << 5;
+		unsigned int t = ml.srand;
+		ml.srand ^= ml.srand << 13;
+ 		ml.srand ^= ml.srand >> 17;
+ 		ml.srand ^= ml.srand << 5;
+		return(t-1);
+}
+
+
+
+
+
+
+
+
+
+#endif
+
+#endif
+
 // minilib/src/open.c
-#ifdef mini_creat
+#ifdef mini_open
 #ifndef open_c
 #define open_c
 //+header fcntl.h
@@ -4916,83 +4780,109 @@ int itodec(int i, char *buf, int prec, char limiter ){
 #endif
 #endif
 
-// minilib/src/isspace.c
-#ifdef mini_isspace
-#ifndef isspace_c
-#define isspace_c
-
-//+ansi ctype.h
+// minilib/src/itobin.c
+#ifdef mini__itobin
+//+ansi stdio.h
 //+def
-int isspace(int c){
-		switch (c){
-				case ' ':
-				case '\f':
-				case '\n':
-				case '\r':
-				case '\t':
-				case '\v':
-						return(1);
+int _itobin(int i, char*buf, int prec, int groups ){
+		prec -= 32;
+		int a,p=0;
+		int g = 0;
+		for ( a=0; a<32; a++ ){
+				if (i&0x80000000 ){
+						prec = 0;
+						buf[p] = '1';
+						p++;
+				} else {
+						if ( prec == 0 ){
+								buf[p] = '0';
+								p++;
+						} else
+								prec++;
+				}
+				i <<= 1;
+				g++;
+				if ( (prec==0) && (g>=groups) ){
+						g=0;
+						buf[p] = ' ';
+						p++;
+				}
 		}
-		return(0);
+		if ( p == 0 ){
+				buf[0] = '0';
+				p++;
+		}
+		buf[p] = 0;
+		return(p);
 }
 
 
-
-
+		
 #endif
 
-#endif
-
-// minilib/src/mstrcmp.c
-#ifdef mini_memcmp
-#ifndef strcmp_c
-#define strcmp_c
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+#ifndef memcpy_c
+#define memcpy_c
 
 //+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
+}
 
-//TODO: not implemented correct. need to return also -1.
 
-int _strcmp(const char*c1,const char*c2,int len){
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
+#endif
+
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+//+ansi string.h
+//+def
+void *memset( void *s, int c, int n){
+		int a;
+		char *sp = s;
+		for ( a=0; a<n; a++)
+				sp[a] = (char)c;
+		return(s);
+}
+#endif
+
+// minilib/src/mstrlen.c
+#ifdef mini_strlen
+#ifndef strlen_c
+#define strlen_c
+
+//+header string.h
+
+//+def
+int strlen(const char*str){
 		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				//write(1,&c1[a],1);
-				if ( c1[a] != c2[a] )
-						return(1);
+		while ( str[a] != 0 ){
 				a++;
 		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
-}
-
-
-
-//+def
-int strcmp(const char*c1,const char*c2){
-		return( _strcmp(c1,c2,-1) );
-}
-
-//+def
-int strncmp(const char*c1,const char*c2,int len){
-		if ( len <=0 )
-				return(-1);
-		return(_strcmp(c1,c2,len) );
-}
-
-//+def
-int memcmp(const void* c1,const void* c2,int len){
-		const char* cc1 = c1;
-		const char* cc2 = c2;
-		if ( len <=0 )
-				return(-1);
-		int a = 0;
-		while ( a != len ){
-				//write(1,&c1[a],1);
-				if ( cc1[a] != cc2[a] )
-						return(1);
-				a++;
-		}
-	 return(0);
+		return (a);
 }
 
 
@@ -5530,6 +5420,186 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 #endif
 #endif
 
+// minilib/src/mprint.c
+#ifdef mini_printl
+#ifndef mprint_c
+#define mprint_c
+//#include "../include/write.h"
+
+//+depends write
+//+def
+int print(const char *msg){
+		int a=0;
+		while (msg[a] != 0 ){
+				a++;
+		}
+		return( write(1,msg,a) );
+}
+
+//+depends write
+//+def
+int printl(const char *msg){
+		int ret = print(msg);
+		write(1,"\n",1);
+		ret++;
+		return(ret);
+}
+
+//+header stdio.h
+//+depends printl
+//+macro puts(c) printl(c)
+
+
+#ifdef mini_puts
+//int puts( const char *c ){
+//		return(printl(c));
+//}
+#endif
+
+#endif
+#endif
+
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+#ifndef mini_ioctl_h
+#define mini_ioctl_h
+
+//#include "../include/syscall.h"
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+//#include "/usr/diet/include/stdarg.h"
+
+//+header ioctl.h
+//+def
+int ioctl( int fd, unsigned long int request, ... ){
+		va_list args;
+		va_start(args,request);
+
+		int ret;
+		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
+		va_end(args);
+		return(ret);
+}
+
+
+#endif
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+#ifndef memcpy_c
+#define memcpy_c
+
+//+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
+}
+
+
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
+#endif
+
+#endif
+
 // minilib/src/msprintf.c
 #ifdef mini_dprintf
 #ifndef msprintf_c
@@ -6061,21 +6131,103 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 #endif
 #endif
 
-// minilib/src/memset.c
-#ifdef mini_memset
+// minilib/src/strcat.c
+#ifdef mini_strcat
+#ifndef strcat_c
+#define strcat_c
+
 //+ansi string.h
 //+def
-void *memset( void *s, int c, int n){
-		int a;
-		char *sp = s;
-		for ( a=0; a<n; a++)
-				sp[a] = (char)c;
-		return(s);
+char *strcat(char *dest, const char *src ){
+		size_t dest_len = strlen(dest);
+		size_t i;
+
+		for (i = 0 ; src[i] != '\0' ; i++)
+				dest[dest_len + i] = src[i];
+		dest[dest_len + i] = '\0';
+
+		return dest;
 }
+
+
+#endif
+
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+#ifndef atoi_c
+#define atoi_c
+
+//+ansi stdlib.h
+//+def
+int atoi(char *c){
+		int t,a=0;
+	 	int ret=0;
+		int dez = 1;
+
+		while( c[a] != 0 ){ 
+				a++; 
+		}
+		while ( a>0 ){
+				a--;
+				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
+						t = c[a] - 48;
+						if ( t & 1 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 2 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 4 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 8 )
+								ret += dez;
+				} else {
+						dez <<= 3;
+				}
+				dez += (dez >> 2);
+		}
+		if ( c[0] == '-' )
+				ret = -ret;
+		return(ret);
+}
+
+
+#endif
+		
+#endif
+
+// minilib/src/isspace.c
+#ifdef mini_isspace
+#ifndef isspace_c
+#define isspace_c
+
+//+ansi ctype.h
+//+def
+int isspace(int c){
+		switch (c){
+				case ' ':
+				case '\f':
+				case '\n':
+				case '\r':
+				case '\t':
+				case '\v':
+						return(1);
+		}
+		return(0);
+}
+
+
+
+
+#endif
+
 #endif
 
 // minilib/src/malloc.c
-#ifdef mini_free
+#ifdef mini_malloc
 #ifndef mini_malloc_c
 #define mini_malloc_c
 //+header stdlib.h
@@ -6424,8 +6576,229 @@ void volatile free(void* p){
 #endif
 #endif
 
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+#ifndef mini_itodec_c
+#define mini_itodec_c
+//+ansi stdio.h
+//
+// convert int to string.
+// prec: precision, e.g. 4=> 0087 
+//+def
+int uitodec(unsigned int i, char *buf, int prec, char limiter ){
+		int p = 0;
+		int a;
+		int t1,t2,t3,dec;
+		//unsigned int ut1,ut2,ut3;
+		char n;
+		prec = prec - 10; // Maximale Stellenanzahl 
+
+
+		if ( i==0 ){
+				buf[0] = '0';
+				//p++;
+				//return(
+		}
+
+	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
+	
+	if ( i >= 1000000000){
+			//mprints("hier.\n");
+			p=1;
+			prec=0;
+			if ( i>=2000000000 ){
+					i-=2000000000;
+				if ( i>=1000000000 ){
+						if ( i>=2000000000 ){
+								buf[0] = '4';
+								i-=2000000000;
+						} else {
+								buf[0] = '3';
+								i-=1000000000;
+						}
+					} else {
+						buf[0] = '2';
+						//i-=2000000000;
+					}
+			}	else {
+					buf[0] = '1'; 
+					i-=1000000000;
+			}
+	} else {
+			if ( prec == 0 ){
+					buf[0] = '0';
+					p++;
+			} else
+					prec++;
+	}
+
+	
+
+					
+			
+
+	for (a=0;a<12;a++){
+			if ( div[a] == 0 ){
+					if ( (limiter != 0 ) && (prec==0) ){
+							buf[p] = limiter;
+							p++;
+					}
+			} else {
+			n = '0';
+
+			if ( (t1=(i - div[a])) >= 0 ){
+					prec = 0;
+					n = '1';
+					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
+							if ( (t3=t2-dec) >= 0 ){
+									n = '9';
+									i = t3;
+									goto write;
+							} else {
+									n = '5';
+									t1 = t2;
+							}
+					} 
+					if ( (t2=(t1-(div[a]<<1) ) ) >=0 ){
+							t1=t2;
+							n += 2;
+					}
+					if ( (t2=(t1-(div[a]) ) ) >=0 ){
+							t1=t2;
+							n += 1;
+					}
+					i = t1;
+			}
+
+			if ( prec == 0 ){
+			write:
+					buf[p] = n;
+					p++;
+			} else
+					prec++;
+
+			}
+	}
+	if ( p==0 )
+			p=1;
+	buf[p] = 0;
+
+	return(p);
+}
+
+	
+//+depends uitodec
+//+def
+int itodec(int i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(uitodec((unsigned int)i,buf,prec,limiter) );
+}
+
+
+#endif
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_print
+#ifndef mprint_c
+#define mprint_c
+//#include "../include/write.h"
+
+//+depends write
+//+def
+int print(const char *msg){
+		int a=0;
+		while (msg[a] != 0 ){
+				a++;
+		}
+		return( write(1,msg,a) );
+}
+
+//+depends write
+//+def
+int printl(const char *msg){
+		int ret = print(msg);
+		write(1,"\n",1);
+		ret++;
+		return(ret);
+}
+
+//+header stdio.h
+//+depends printl
+//+macro puts(c) printl(c)
+
+
+#ifdef mini_puts
+//int puts( const char *c ){
+//		return(printl(c));
+//}
+#endif
+
+#endif
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_strncmp
+#ifndef strcmp_c
+#define strcmp_c
+
+//+ansi string.h
+
+//TODO: not implemented correct. need to return also -1.
+
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+
+
+//+def
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
+}
+
+//+def
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
+
+#endif
+#endif
+
 // minilib/src/itohex.c
-#ifdef mini__itohex
+#ifdef mini_itoHEX
 #ifndef itohex_c
 #define itohex_c
 //+header stdio.h
@@ -6489,379 +6862,6 @@ int itoHEX(int i,char* buf,int padding){
 
 #endif
 
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_memcpy
-#ifndef memcpy_c
-#define memcpy_c
-
-//+ansi string.h
-//+def
-void *memcpy( void *d, const void *s, int n ){
-		char *dp=d;
-		const char *sp = s;
-		int a;
-		for ( a=0; a<n; a++ )
-				dp[a] = sp[a];
-		return(d);
-}
-
-
-//+def
-char *strcpy(char *dest, const char *src){
-		int a;
-		for ( a=0; src[a] != 0; a++)
-				dest[a] = src[a];
-		dest[a] = 0;
-		return(dest);
-}
-
-//+depends memcpy
-//+def
-char *strncpy(char *dest, const char *src, int n){
-		return( memcpy( dest, src, n ) );
-}
-
-#endif
-
-#endif
-
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-#ifndef mini_ioctl_h
-#define mini_ioctl_h
-
-//#include "../include/syscall.h"
-#ifndef stdarg_h
-#define stdarg_h
-// copied from musl
-// copy more - the builtin list..
-
-#if 1
-#if __GNUC__ >= 3
-//#warning here 1
-typedef __builtin_va_list va_list;
-#define va_start(v,l)   __builtin_va_start(v,l)
-#define va_end(v)       __builtin_va_end(v)
-#define va_arg(v,l)     __builtin_va_arg(v,l)
-#define va_copy(d,s)    __builtin_va_copy(d,s)
-#else
-//#warning here 2
-
-#ifdef __GNUC__
-//#warning here 3
-//TODO: this gets scrambled if in the same compiler unit as the caller.
-typedef __builtin_va_list va_list;
-#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-
-#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
-#define va_end(ap) ((void)0)
-#define va_copy(dest, src) ((dest) = (src))
-
-#define va_arg(ap, type) \
-	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
-	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
-
-
-#else
-
-//#warning here 4
-// copied from tcc
-#ifdef __x86_64__
-//#warning here 5
-#ifndef _WIN64
-//#warning here 6
-
-typedef void *va_list;
-
-va_list __va_start(void *fp);
-void *__va_arg(va_list ap, int arg_type, int size);
-va_list __va_copy(va_list src);
-void __va_end(va_list ap);
-
-#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
-#define va_arg(ap, type)                                                \
-		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
-#define va_copy(dest, src) ((dest) = __va_copy(src))
-#define va_end(ap) __va_end(ap)
-
-#else /* _WIN64 */
-typedef char *va_list;
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
-#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-#else /* __i386__ */
-typedef char *va_list;
-/* only correct for i386 */
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
-#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-/* fix a buggy dependency on GCC in libio.h */
-typedef va_list __gnuc_va_list;
-#define _VA_LIST_DEFINED
-
-#endif
-#endif
-
-#endif
-
-#endif
-
-//#include "/usr/diet/include/stdarg.h"
-
-//+header ioctl.h
-//+def
-int ioctl( int fd, unsigned long int request, ... ){
-		va_list args;
-		va_start(args,request);
-
-		int ret;
-		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
-		va_end(args);
-		return(ret);
-}
-
-
-#endif
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_getenv
-#ifndef getenv_c
-#define getenv_c
-
-#ifndef dumbsyntaxchecker
-char **mini_env;
-#endif
-
-
-//+header stdlib.h
-//+def
-char *getenv(const char* name){
-		int b;
-		for ( int a=0; mini_env[a]; a++ ){
-				for ( b = 0; mini_env[a][b] == name[b]; b++ ){}
-				if ( mini_env[a][b] == '=' ){
-						return( &mini_env[a][b+1] );
-				}
-		}
-		return(0);
-}
-
-
-
-#endif
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strncpy
-#ifndef memcpy_c
-#define memcpy_c
-
-//+ansi string.h
-//+def
-void *memcpy( void *d, const void *s, int n ){
-		char *dp=d;
-		const char *sp = s;
-		int a;
-		for ( a=0; a<n; a++ )
-				dp[a] = sp[a];
-		return(d);
-}
-
-
-//+def
-char *strcpy(char *dest, const char *src){
-		int a;
-		for ( a=0; src[a] != 0; a++)
-				dest[a] = src[a];
-		dest[a] = 0;
-		return(dest);
-}
-
-//+depends memcpy
-//+def
-char *strncpy(char *dest, const char *src, int n){
-		return( memcpy( dest, src, n ) );
-}
-
-#endif
-
-#endif
-
-// minilib/src/mprint.c
-#ifdef mini_print
-#ifndef mprint_c
-#define mprint_c
-//#include "../include/write.h"
-
-//+depends write
-//+def
-int print(const char *msg){
-		int a=0;
-		while (msg[a] != 0 ){
-				a++;
-		}
-		return( write(1,msg,a) );
-}
-
-//+depends write
-//+def
-int printl(const char *msg){
-		int ret = print(msg);
-		write(1,"\n",1);
-		ret++;
-		return(ret);
-}
-
-//+header stdio.h
-//+depends printl
-//+macro puts(c) printl(c)
-
-
-#ifdef mini_puts
-//int puts( const char *c ){
-//		return(printl(c));
-//}
-#endif
-
-#endif
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-#ifndef strcat_c
-#define strcat_c
-
-//+ansi string.h
-//+def
-char *strcat(char *dest, const char *src ){
-		size_t dest_len = strlen(dest);
-		size_t i;
-
-		for (i = 0 ; src[i] != '\0' ; i++)
-				dest[dest_len + i] = src[i];
-		dest[dest_len + i] = '\0';
-
-		return dest;
-}
-
-
-#endif
-
-#endif
-
-// minilib/src/memfrob.c
-#ifdef mini_memfrob
-//+ansi string.h
-//+def
-void* memfrob(void* s, unsigned int len){
-		unsigned int a;
-		char *c = s;
-		for ( a=0; a<len;a++)
-				c[a] = 	c[a] ^ 42;
-		return ( s );
-}
-		
-#endif
-
-// minilib/src/mstrcmp.c
-#ifdef mini_strncmp
-#ifndef strcmp_c
-#define strcmp_c
-
-//+ansi string.h
-
-//TODO: not implemented correct. need to return also -1.
-
-int _strcmp(const char*c1,const char*c2,int len){
-		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				//write(1,&c1[a],1);
-				if ( c1[a] != c2[a] )
-						return(1);
-				a++;
-		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
-}
-
-
-
-//+def
-int strcmp(const char*c1,const char*c2){
-		return( _strcmp(c1,c2,-1) );
-}
-
-//+def
-int strncmp(const char*c1,const char*c2,int len){
-		if ( len <=0 )
-				return(-1);
-		return(_strcmp(c1,c2,len) );
-}
-
-//+def
-int memcmp(const void* c1,const void* c2,int len){
-		const char* cc1 = c1;
-		const char* cc2 = c2;
-		if ( len <=0 )
-				return(-1);
-		int a = 0;
-		while ( a != len ){
-				//write(1,&c1[a],1);
-				if ( cc1[a] != cc2[a] )
-						return(1);
-				a++;
-		}
-	 return(0);
-}
-
-
-#endif
-#endif
-
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-//convert double to string
-//return number of bytes written to buf.
-//doesn't convert numbers > 2^31 (!!!)
-//doesn't round(!)
-//max. prec after the dot: 8 digits. (!!)
-
-//+ansi stdio.h
-//+depends uitodec
-//+def
-int dtodec(double d, char* buf, int precision){
-		int i = (int) d;
-		unsigned int i2;
-		if ( d >= 0 )
-			 i2 = (unsigned int)((d-i)*1000000000+0.1);
-		else 
-			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
-
-
-		int p;
-		if ( (d<=-1) || (d>0) )
-				p = itodec(i,buf,0,0);
-		else {
-				buf[0] = '-';
-				buf[1] = '0';
-				p = 1;
-		}
-
-	
-		buf[p+1]='.';
-		int p2 = uitodec(i2,&buf[p+2],9,0);
-		return(p+p2+2-9+precision);
-}
 #endif
 
 #endif

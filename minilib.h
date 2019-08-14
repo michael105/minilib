@@ -24,7 +24,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #endif
 
 
-#ifdef mini_HEADERGUARDS
+#ifdef HEADERGUARDS
 #include "minilib/include/headerguards.h"
 #endif
 
@@ -79,45 +79,27 @@ struct udiv_t { unsigned int quot, rem; };
 
 
 
-#ifdef mini_fopen
+#ifdef mini_itodec
 //dep
-#ifndef mini_open
-#define mini_open
+#ifndef mini_uitodec
+#define mini_uitodec
 #endif
 #endif
 
-#ifdef mini_puts
+#ifdef mini_fclose
 //dep
-#ifndef mini_printl
-#define mini_printl
+#ifndef mini_close
+#define mini_close
 #endif
 #endif
 
-#ifdef mini_fputs
+#ifdef mini_snprintf
 //dep
-#ifndef mini_strlen
-#define mini_strlen
+#ifndef mini_write
+#define mini_write
 #endif
-#endif
-
-#ifdef mini_itohex
-//dep
-#ifndef mini__itohex
-#define mini__itohex
-#endif
-#endif
-
-#ifdef mini_fsetpos
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_fread
-//dep
-#ifndef mini_read
-#define mini_read
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
 #endif
 #endif
 
@@ -128,31 +110,28 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_ftell
+#ifdef mini_strncpy
 //dep
-#ifndef mini_lseek
-#define mini_lseek
+#ifndef mini_memcpy
+#define mini_memcpy
 #endif
 #endif
 
-#ifdef mini_printf
-//dep
-#ifndef mini_dprintf
-#define mini_dprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#endif
-
-#ifdef mini_itoHEX
+#ifdef mini_itohex
 //dep
 #ifndef mini__itohex
 #define mini__itohex
 #endif
 #endif
 
-#ifdef mini_print
+#ifdef mini_sprintf
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#endif
+
+#ifdef mini_vsnprintf
 //dep
 #ifndef mini_write
 #define mini_write
@@ -166,27 +145,83 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_dprintf
+#ifdef mini_printl
 //dep
 #ifndef mini_write
 #define mini_write
 #endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
+#endif
+
+#ifdef mini_rewind
+//dep
+#ifndef mini_fseek
+#define mini_fseek
 #endif
 #endif
 
-#ifdef mini_fclose
+#ifdef mini_fgetpos
 //dep
-#ifndef mini_close
-#define mini_close
+#ifndef mini_ftell
+#define mini_ftell
 #endif
 #endif
 
-#ifdef mini_sprintf
+#ifdef mini_puts
 //dep
-#ifndef mini_snprintf
-#define mini_snprintf
+#ifndef mini_printl
+#define mini_printl
+#endif
+#endif
+
+#ifdef mini_ftell
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_fopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_fputs
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_tcsetattr
+//dep
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_fsetpos
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_print
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_printf
+//dep
+#ifndef mini_dprintf
+#define mini_dprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
 #endif
 #endif
 
@@ -200,21 +235,14 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_dtodec
+#ifdef mini_itoHEX
 //dep
-#ifndef mini_uitodec
-#define mini_uitodec
+#ifndef mini__itohex
+#define mini__itohex
 #endif
 #endif
 
-#ifdef mini_rewind
-//dep
-#ifndef mini_fseek
-#define mini_fseek
-#endif
-#endif
-
-#ifdef mini_snprintf
+#ifdef mini_dprintf
 //dep
 #ifndef mini_write
 #define mini_write
@@ -224,24 +252,10 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_fgetpos
-//dep
-#ifndef mini_ftell
-#define mini_ftell
-#endif
-#endif
-
-#ifdef mini_itodec
+#ifdef mini_dtodec
 //dep
 #ifndef mini_uitodec
 #define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_fwrite
-//dep
-#ifndef mini_write
-#define mini_write
 #endif
 #endif
 
@@ -252,38 +266,29 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_strncpy
-//dep
-#ifndef mini_memcpy
-#define mini_memcpy
-#endif
-#endif
-
-#ifdef mini_tcsetattr
-//dep
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_vsnprintf
+#ifdef mini_fwrite
 //dep
 #ifndef mini_write
 #define mini_write
 #endif
 #endif
 
-#ifdef mini_printl
+#ifdef mini_fread
 //dep
-#ifndef mini_write
-#define mini_write
+#ifndef mini_read
+#define mini_read
 #endif
 #endif
 // Start incfirst
 
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
+// minilib/src/open.c
+#ifdef mini_open
+int volatile open( const char *s, int flags, ... );
+#endif
+
+// minilib/src/msprintf.c
+#ifdef mini_snprintf
+int snprintf( char *buf, size_t size, const char *fmt, ... );
 #endif
 
 // minilib/include/close.h
@@ -291,44 +296,14 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter );
 #include "minilib/include/close.h"
 #endif
 
-// minilib/include/fputc.h
-#ifdef mini_fputc
-#include "minilib/include/fputc.h"
-#endif
-
-// minilib/src/mprint.c
-#ifdef mini_printl
-int printl(const char *msg);
-#endif
-
-// minilib/src/msprintf.c
-#ifdef mini_dprintf
-int dprintf( int fd, const char *fmt, ... );
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_write
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_lseek
-#include "minilib/include/lseek.h"
-#endif
-
 // minilib/src/memcpy.c
 #ifdef mini_memcpy
 void *memcpy( void *d, const void *s, int n );
 #endif
 
-// minilib/include/mini_stdio.h
-#ifdef mini_ftell
-#include "minilib/include/mini_stdio.h"
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_fileno
-#include "minilib/include/mini_stdio.h"
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
 #endif
 
 // minilib/include/read.h
@@ -337,29 +312,19 @@ void *memcpy( void *d, const void *s, int n );
 #include "minilib/include/read.h"
 #endif
 
-// minilib/src/msprintf.c
-#ifdef mini_vsnprintf
-int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-#endif
-
-// minilib/src/msprintf.c
-#ifdef mini_snprintf
-int snprintf( char *buf, size_t size, const char *fmt, ... );
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_fseek
-#include "minilib/include/mini_stdio.h"
-#endif
-
 // minilib/src/mstrlen.c
 #ifdef mini_strlen
 int strlen(const char*str);
 #endif
 
-// minilib/src/itohex.c
-#ifdef mini__itohex
-int _itohex(int i,char* buf,int padding, int capitals);
+// minilib/src/msprintf.c
+#ifdef mini_vsnprintf
+int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_printl
+int printl(const char *msg);
 #endif
 
 // minilib/src/ioctl.c
@@ -367,31 +332,46 @@ int _itohex(int i,char* buf,int padding, int capitals);
 int ioctl( int fd, unsigned long int request, ... );
 #endif
 
-// minilib/src/open.c
-#ifdef mini_open
-int volatile open( const char *s, int flags, ... );
+// minilib/include/mini_stdio.h
+#ifdef mini_fileno
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/src/msprintf.c
+#ifdef mini_dprintf
+int dprintf( int fd, const char *fmt, ... );
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_fputc
+#include "minilib/include/fputc.h"
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_lseek
+#include "minilib/include/lseek.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_ftell
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_fseek
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_write
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini__itohex
+int _itohex(int i,char* buf,int padding, int capitals);
 #endif
 // End incfirst
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_fstat
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getcwd
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_unlink
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mprotect
-#include "minilib/include/syscall_stubs.h"
-#endif
 
 // minilib/src/memfrob.c
 #ifdef mini_memfrob
@@ -399,97 +379,22 @@ void* memfrob(void* s, unsigned int len);
 #endif
 
 // minilib/include/mini_stdio.h
-#ifdef mini_rewind
+#ifdef mini_fgetpos
 #include "minilib/include/mini_stdio.h"
-#endif
-
-// minilib/src/open.c
-#ifdef mini_creat
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_gettimeofday
+#ifdef mini_dup3
 #include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_dup2
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_itodec
-int itodec(int i, char *buf, int prec, char limiter );
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_sprintf
-#include "minilib/include/mini_stdio.h"
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_fprintf
-#include "minilib/include/mini_stdio.h"
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_fsync
-#include "minilib/include/lseek.h"
-#endif
-
-// minilib/include/globaldefs.h
-#ifdef mini_def
-#include "minilib/include/globaldefs.h"
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_malloc
-void* volatile malloc(int size);
 #endif
 
 // minilib/src/mstrcmp.c
-#ifdef mini_memcmp
-int memcmp(const void* c1,const void* c2,int len);
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_strerror
-char* strerror( int errnum );
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putchar
-#include "minilib/include/fputc.h"
-#endif
-
-// minilib/src/mprint.c
-#ifdef mini_print
-int print(const char *msg);
-#endif
-
-// minilib/src/memset.c
-#ifdef mini_memset
-void *memset( void *s, int c, int n);
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_rand
-unsigned int rand();
+#ifdef mini_strcmp
+int strcmp(const char*c1,const char*c2);
 #endif
 
 // minilib/include/mini_stdio.h
-#ifdef mini_printf
-#include "minilib/include/mini_stdio.h"
-#endif
-
-// minilib/include/tcgetattr.h
-#ifdef mini_tcgetattr
-#include "minilib/include/tcgetattr.h"
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_fsetpos
+#ifdef mini_fclose
 #include "minilib/include/mini_stdio.h"
 #endif
 
@@ -498,39 +403,14 @@ unsigned int rand();
 #include "minilib/include/isprint.h"
 #endif
 
-// minilib/src/itohex.c
-#ifdef mini_itohex
-int itohex(int i,char* buf,int padding);
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_fopen
-FILE *fopen(const char* filename, const char* mode);
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-char *strcat(char *dest, const char *src );
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_free
-void volatile free(void* p);
+// minilib/src/open.c
+#ifdef mini_creat
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_dup
+#ifdef mini_stat
 #include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_srand
-void srand( unsigned int i );
-#endif
-
-// minilib/include/select.h
-#ifdef mini_select
-#include "minilib/include/select.h"
 #endif
 
 // minilib/src/memcpy.c
@@ -538,14 +418,199 @@ void srand( unsigned int i );
 char *strncpy(char *dest, const char *src, int n);
 #endif
 
+// minilib/include/globaldefs.h
+#ifdef mini_def
+#include "minilib/include/globaldefs.h"
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+int itohex(int i,char* buf,int padding);
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_sprintf
+#include "minilib/include/mini_stdio.h"
+#endif
+
 // minilib/include/syscall_stubs.h
-#ifdef mini_dup3
+#ifdef mini_mprotect
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getcwd
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_strerror
+char* strerror( int errnum );
+#endif
+
+// minilib/src/rand.c
+#ifdef mini_rand
+unsigned int rand();
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_ftruncate
+#include "minilib/include/lseek.h"
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+int dtodec(double d, char* buf, int precision);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_unlink
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_getenv
+char *getenv(const char* name);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup2
 #include "minilib/include/syscall_stubs.h"
 #endif
 
 // minilib/include/syscall_stubs.h
 #ifdef mini_getpid
 #include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_fsetpos
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fstat
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_free
+void volatile free(void* p);
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_printf
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_memcmp
+int memcmp(const void* c1,const void* c2,int len);
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_fprintf
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/src/mprint.c
+#ifdef mini_puts
+#define puts(c) printl(c)
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_feof
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rename
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fopen
+FILE *fopen(const char* filename, const char* mode);
+#endif
+
+// minilib/src/rand.c
+#ifdef mini_srand
+void srand( unsigned int i );
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_time
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_itodec
+int itodec(int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini__itobin
+int _itobin(int i, char*buf, int prec, int groups );
+#endif
+
+// minilib/include/tcgetattr.h
+#ifdef mini_tcgetattr
+#include "minilib/include/tcgetattr.h"
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+void *memset( void *s, int c, int n);
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_putchar
+#include "minilib/include/fputc.h"
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_gettimeofday
+#include "minilib/include/syscall_stubs.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_rewind
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+char *strcpy(char *dest, const char *src);
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+char *strcat(char *dest, const char *src );
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+int atoi(char *c);
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_fsync
+#include "minilib/include/lseek.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_fwrite
+#include "minilib/include/mini_stdio.h"
+#endif
+
+// minilib/include/mini_stdio.h
+#ifdef mini_fread
+#include "minilib/include/mini_stdio.h"
 #endif
 
 // minilib/include/tcsetattr.h
@@ -555,19 +620,9 @@ char *strncpy(char *dest, const char *src, int n);
 #include "minilib/include/tcsetattr.h"
 #endif
 
-// minilib/src/itobin.c
-#ifdef mini__itobin
-int _itobin(int i, char*buf, int prec, int groups );
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_getenv
-char *getenv(const char* name);
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_feof
-#include "minilib/include/mini_stdio.h"
+// minilib/include/fputs.h
+#ifdef mini_fputs
+#include "minilib/include/fputs.h"
 #endif
 
 // minilib/src/isspace.c
@@ -575,29 +630,19 @@ char *getenv(const char* name);
 int isspace(int c);
 #endif
 
-// minilib/include/mini_stdio.h
-#ifdef mini_fwrite
-#include "minilib/include/mini_stdio.h"
+// minilib/src/malloc.c
+#ifdef mini_malloc
+void* volatile malloc(int size);
 #endif
 
-// minilib/include/mini_stdio.h
-#ifdef mini_fgetpos
-#include "minilib/include/mini_stdio.h"
+// minilib/include/select.h
+#ifdef mini_select
+#include "minilib/include/select.h"
 #endif
 
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-int dtodec(double d, char* buf, int precision);
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_fclose
-#include "minilib/include/mini_stdio.h"
-#endif
-
-// minilib/src/mstrcmp.c
-#ifdef mini_strcmp
-int strcmp(const char*c1,const char*c2);
+// minilib/src/mprint.c
+#ifdef mini_print
+int print(const char *msg);
 #endif
 
 // minilib/src/mstrcmp.c
@@ -605,54 +650,9 @@ int strcmp(const char*c1,const char*c2);
 int strncmp(const char*c1,const char*c2,int len);
 #endif
 
-// minilib/include/syscall_stubs.h
-#ifdef mini_time
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/mini_stdio.h
-#ifdef mini_fread
-#include "minilib/include/mini_stdio.h"
-#endif
-
 // minilib/src/itohex.c
 #ifdef mini_itoHEX
 int itoHEX(int i,char* buf,int padding);
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_ftruncate
-#include "minilib/include/lseek.h"
-#endif
-
-// minilib/src/mprint.c
-#ifdef mini_puts
-#define puts(c) printl(c)
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rename
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_stat
-#include "minilib/include/syscall_stubs.h"
-#endif
-
-// minilib/include/fputs.h
-#ifdef mini_fputs
-#include "minilib/include/fputs.h"
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-int atoi(char *c);
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-char *strcpy(char *dest, const char *src);
 #endif
 
 
