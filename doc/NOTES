@@ -1,5 +1,18 @@
 ### assorted notes
 
+
+pipe and prepend to gcc input:
+  gcc -E main2.c -include <( cat prep2.h )
+
+print matching part
+  gcc -E main2.c -include <( cat prep2.h ) | sed -n -e '/PP/p' | sed 's/ *P//;s/(.*//'
+gcc -E main2.c -include <( cat prep2.h ) | sed -n 's/^.*\(P.*\)(.*/\1/p'
+
+gcc -E main2.c -include <( cat prep2.h ) | sed -n 's/^.*\(P.*\)(.*/\1/p' | sort -u 
+
+
+
+
 git push origin HEAD:devel
 
 security at all:

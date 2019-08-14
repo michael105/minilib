@@ -16,11 +16,7 @@ echo_verbose(){
 }
 
 
-
 echo_verbose minilibdir: $MLIBDIR
-
-
-
 
 
 # gcc options
@@ -53,7 +49,8 @@ usage(){
 		echo "Usage: mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c
 
 mini-gcc compiles binaries and links them statically with minilib.
-It's a wrapper to call gcc with the right compile options.
+It's a wrapper to call gcc with the right compile options,
+generate the config of minilib and include minilib.h. 
 
 mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed 
@@ -79,7 +76,16 @@ before options and parameters for gcc.
         from the directory ldscripts, if existent, or extracts the according
         script and writes it into minilib.ldscript.
         This script is passed to ld with the option -T
+				name can be one of:
+					onlytext     ( drop all sections beside the text segment )
+					text_and_bss ( keep also the bss segment )
 
+--genconf 'file':
+				parses the sourcefile 'file' and writes a config into
+				file.conf, which enables compiling of all used minilib functions
+				within 'file'
+				After the config is written to file.conf, 
+				use the config file with --config 'file.conf' 
 
 (c) 2019 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)
@@ -173,7 +179,7 @@ do
 done
 
 if [ "$1" == "" ]; then
-		# Assume, everythibng is alright and there havent been parameters forgotten
+		# Assume, everything is alright and there havent been parameters forgotten
 		exit 0;
 fi
 

@@ -6,8 +6,7 @@
 # somethere I've to start to docu this thing.
 # although most possibly I'm going to pull the code out of here, which is not specific to the minilib,
 # and do it more generic - this script works out quite useful,
-# and is good enough for a project on its own,
-# I guess.
+# and is good enough for a project on its own.
 #
 # This script gets callen with the target dir (mlibdir) as first param,
 # then the files it should scan. (*.h / *.c; invoked by "make header" in the case of minilib)
@@ -394,13 +393,13 @@ foreach my $d ( keys (%{$depends}) ){
 		printdepend($ml, $d);
 }
 
-print $ml "//incfirst\n";
+print $ml "// Start incfirst\n";
 
 foreach my $i ( keys(%{$includefirst}) ){
 		headerinclude( $ml, $i );
 }
 
-print $ml "// E incfirst\n";
+print $ml "// End incfirst\n";
 
 foreach my $i ( keys(%{$funchash}) ){
 		if ( !exists( $includefirst->{$i} ) ){
@@ -504,6 +503,19 @@ sub configscripthandler{
 }
 
 template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscripthandler } );
+
+
+sub genconfighandler{
+		my $fh = shift;
+		foreach my $func ( keys(%{$funchash}) ){
+						printf $fh "#define $func(...) _M_MLIB_$func"."_M_()\n";
+				}
+		return(1);
+}
+
+template( "minilib.genconf.h", "define_macros", { generate=>\&genconfighandler } );
+
+
 
 
 dbg ( Dumper( $syscalldefs ) );

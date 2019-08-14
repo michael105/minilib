@@ -1,13 +1,13 @@
 // file: hello-include.c
 //   howto use minilib via including header only
 //   compile with: 
-//   gcc -o hello-include hello-include.c -static -nostdlib
+//   ./mini-gcc -o hello-include hello-include.c
 //
 
 
 // the functions, which should be build
 //
-  // build start, the entry point for the OS
+// build start, the entry point for the OS
 #define mini_start
 
   // define and build the function "write"
@@ -26,11 +26,12 @@
 
 #define MLIB
 
+// include definitions as well as the sources.
 #define INCLUDESRC
 
-// include definitions as well as the sources.
-// Only functions, you define before, will be built.
-#include "minilib.h"
+// Only functions, you defined before, will be built.
+//
+#include "minilibcompiled.h"
 
 int main(){
 		write(0, "Hello world!\n", 13);

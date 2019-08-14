@@ -7,18 +7,17 @@ If you'd like to try this minilib,
 there are two ways:
 
 
-1. Using the "released" (pre-released..) bundled files "minilib.h" and "mini-gcc"
+1. Using the "released" (pre-released..) bundled files "minilib.h" and "mini-gcc" 
+   from the branch "release"
 ===
 
-	Download minilib.h from the branch "release".
+	Download sources
 
-   wget https://raw.githubusercontent.com/michael105/minilib/release/minilib.h
+  wget https://raw.githubusercontent.com/michael105/minilib/release/minilib.h
+	wget https://raw.githubusercontent.com/michael105/minilib/release/hello-include.c
 
-
-  download hello-combined.c
-  (source attached below, with explanations..)
+  (source of hello-combined attached below, with explanations..)
     
-	wget https://raw.githubusercontent.com/michael105/minilib/release/hello-combined.h
 
 
 
@@ -142,17 +141,20 @@ file:    hello-combined.c
   // define and build the function "write"
 #define mini_write
 
- // build on OSX ( atm I can't check whether 32bit linux works )
-#define OSX
+ // build on LINUX ( atm I can't check whether 32bit linux works )
+#define LINUX
 
  // build with 64bit
 #define X64
+
+ // (build minilib) TODO: remove this
+#define MLIB
 
  // include definitions as well as the sources.
 #define INCLUDESRC
 
  // Only functions, you define before, will be built.
-#include "minilibcompiled.h"
+#include "minilib.h"
 
 int main(){
 		write(stdout, "Hello world!\n", 13);
