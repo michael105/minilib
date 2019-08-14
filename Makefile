@@ -31,6 +31,8 @@ header:
 mini-gcc: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 
 	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh
+	scripts/template.pl mini-gcc genconf-macros minilib.genconf.h
+	scripts/template.pl mini-gcc headerguards include/headerguards.h
 
 
 ldscript: ldscripts/ld.script*

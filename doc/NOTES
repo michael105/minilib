@@ -11,6 +11,8 @@ gcc -E main2.c -include <( cat prep2.h ) | sed -n 's/^.*\(P.*\)(.*/\1/p'
 gcc -E main2.c -include <( cat prep2.h ) | sed -n 's/^.*\(P.*\)(.*/\1/p' | sort -u 
 
 
+cat minilib.genconf.h | ( ./mini-gcc -E hello.c -include <( cat - ) )
+
 
 
 git push origin HEAD:devel
