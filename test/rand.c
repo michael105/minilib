@@ -6,6 +6,8 @@ mini_rand
 mini_srand
 mini_itodec
 mini_atoi
+mini_fread
+mini_fclose
 mini_INCLUDESRC
 return
 #endif

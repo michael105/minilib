@@ -64,12 +64,8 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 // file: minilib/src/open.c
 int volatile open( const char *s, int flags, ... );
 
-// file: 
-static inline int volatile __attribute__((always_inline)) close( int fd ){
-		int ret;
-		syscall1(ret,SCALL(close),(int)fd);
-		return(ret);
-}
+// file: minilib/include/close.h
+static inline int volatile __attribute__((always_inline)) close( int fd );
 
 // file: minilib/include/exit.h
 #include "minilib/include/exit.h"
@@ -91,11 +87,6 @@ static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termio
 // file: minilib/include/tcsetattr.h
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
 
-// file: minilib/include/write.h
-#include "minilib/include/write.h"
-// file: minilib/include/write.h
-//DEF_syscall(write,3,int a1,const void *a2, int a3 )
-
 
 
 #include "include/minilib_global.h"
@@ -103,13 +94,12 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/open.c"
-#include "minilib/include/close.h"
 #include "minilib/include/select.h"
-#include "minilib/include/write.h"
+#include "minilib/src/open.c"
 #include "minilib/include/tcsetattr.h"
 #include "minilib/include/tcgetattr.h"
 #include "minilib/include/read.h"
+#include "minilib/include/close.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

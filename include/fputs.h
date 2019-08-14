@@ -1,7 +1,8 @@
 #ifndef fputs_h
 #define fputs_h
 
-#include "write.h"
+//#include "write.h"
+
 
 //+header stdio.h
 //+inc

@@ -1,6 +1,6 @@
 #ifndef mprint_c
 #define mprint_c
-#include "../include/write.h"
+//#include "../include/write.h"
 
 //+depends write
 //+def

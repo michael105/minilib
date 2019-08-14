@@ -39,7 +39,7 @@ FILE *fopen(const char* filename, const char* mode){
 						}
 				}
 		}
-		puts("XXX");
+		//puts("XXX");
 		int a;
 		if ( ml.stream[ml.pstream]>=FOPEN_MAX){
 			for ( a=3; ml.stream[a]>=0; a++ )
@@ -50,7 +50,7 @@ FILE *fopen(const char* filename, const char* mode){
 				ml.pstream++;
 		}
 
-		printf("a: %d\n",a);
+		//printf("a: %d\n",a);
 		FILE *f = &ml.stream[a];
 		ml.stream[a] =  open( filename, imode, 0666 );
 		return ( f ); // 

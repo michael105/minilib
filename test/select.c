@@ -3,6 +3,7 @@
 #define mini_printf
 #define mini_errno
 #define mini_buf 1024
+#define INCLUDESRC
 
 #include "minilib/minilib.h"
 

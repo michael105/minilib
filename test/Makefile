@@ -2,9 +2,9 @@
 #
 
 #PROG=malloc select
-PROG=hello select
+PROG=hello
 
-PROGCUSTOM=fopen malloc fprintf
+PROGCUSTOM=fopen malloc fprintf select
 
 
 MINIGCC=rand
@@ -57,7 +57,7 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined hello-include hello-smallest args fopen fprintf malloc build/minilib.o
+all: hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c && ) true
 
@@ -73,6 +73,9 @@ fprintf: fprintf.c
 
 malloc: malloc.c
 	minilib/mini-gcc --config malloc.mconf -o malloc malloc.c
+
+select: select.c
+	minilib/mini-gcc -o select select.c
 
 
 

@@ -15,10 +15,10 @@
 //+header stdio.h
 
 
-static int close(int);
-static int read(int fd, void *buf, int len);
+//static int close(int);
+//static int read(int fd, void *buf, int len);
 
-//+inline
+///+inline
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
 		return( *f & FD_MASK );
 }

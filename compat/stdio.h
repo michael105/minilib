@@ -74,9 +74,6 @@ int itohex(int i,char* buf,int padding);
 // file: minilib/src/itohex.c
 int itoHEX(int i,char* buf,int padding);
 
-// file: minilib/src/mfprintf.c
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-
 // file: minilib/src/mprint.c
 #define puts(c) printl(c)
 
@@ -96,21 +93,8 @@ static inline int volatile fputc(int c, int fd);
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, int fd);
 
-// file: 
-static inline int __attribute__((always_inline)) fileno( FILE *f ){
-		return( *f & FD_MASK );
-}
-
-// file: 
-static inline int __attribute__((always_inline)) fclose( FILE* f ){
-		int fd = *f;
-		*f = -1;
-		// empty garbage; go back to first closed stream
-		if ( f[1] == ml.stream[ml.pstream] )
-				for ( ml.pstream--; ml.stream[ml.pstream-1] == -1; ml.pstream-- ); 
-
-		return( close(fd) );
-}
+// file: minilib/include/mini_stdio.h
+static inline int __attribute__((always_inline)) fclose( FILE* f );
 
 // file: minilib/include/mini_stdio.h
 #define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
@@ -121,73 +105,29 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 // file: minilib/include/mini_stdio.h
 #define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
 
-// file: 
-static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f){
-		const void *p = ptr;
-		int a;
-		for ( a = 0; a<nmemb; a++ ){
-				if ( write( fileno(f), p, size ) != size ){
-						*f = *f | ERR_FLAG;
-						return(a);
-				}
-				p = p + size;
-		}
-		return(a);
-}
+// file: minilib/include/mini_stdio.h
+static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-// file: 
-static inline long ftell(FILE *f){
-	 	return(lseek( fileno(f), 0, SEEK_CUR ));
-}
+// file: minilib/include/mini_stdio.h
+static inline long ftell(FILE *f);
 
-// file: 
-static inline void fgetpos(FILE *f, long *pos ){
-	 	*pos = ftell(f);
-}
+// file: minilib/include/mini_stdio.h
+static inline void fgetpos(FILE *f, long *pos );
 
-// file: 
-static inline int fsetpos(FILE *f, int pos ){
-	 	int r = lseek( fileno(f), pos, SEEK_SET );
-		if ( r==pos ){ //
-				*f = *f & FD_MASK; // unset feof
-				return(r);
-		}
-		return(r); // todo set errno 
-}
+// file: minilib/include/mini_stdio.h
+static inline int fsetpos(FILE *f, int pos );
 
-// file: 
-static inline int fseek(FILE *f, long offset, int whence ){
-	 	int r = lseek( fileno(f), offset, whence );
-		if ( r>0 )
-				*f = *f & FD_MASK; // clear feof
-		return(r);
-}
+// file: minilib/include/mini_stdio.h
+static inline int fseek(FILE *f, long offset, int whence );
 
-// file: 
-static inline void rewind( FILE *f ){
-		fseek(f, 0, SEEK_SET);
-}
+// file: minilib/include/mini_stdio.h
+static inline void rewind( FILE *f );
 
-// file: 
-static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
-		void *p = ptr;
-		int a;
-		for ( a = 0; a<nmemb; a++ ){
-				if ( read( fileno(f), p, size ) != size ){
-						*f = *f | FEOF_FLAG ; // set feof. Could also have been another error.
-						return(a);
-				}
-				p = p + size;
-		}
-		return(a);
-}
+// file: minilib/include/mini_stdio.h
+static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-// file: 
-static inline int feof(FILE *f){
-		if ( *f & 0xc0000000 )
-				return(1);
-		return(0);
-}
+// file: minilib/include/mini_stdio.h
+static inline int feof(FILE *f);
 
 
 
@@ -196,14 +136,13 @@ static inline int feof(FILE *f){
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/include/fputs.h"
+#include "minilib/src/msprintf.c"
 #include "minilib/include/mini_stdio.h"
+#include "minilib/src/mprint.c"
+#include "minilib/include/fputc.h"
 #include "minilib/src/itohex.c"
 #include "minilib/src/fopen.c"
-#include "minilib/include/fputs.h"
-#include "minilib/include/fputc.h"
-#include "minilib/src/mfprintf.c"
-#include "minilib/src/mprint.c"
-#include "minilib/src/msprintf.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

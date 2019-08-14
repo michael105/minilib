@@ -4,7 +4,7 @@
 #
 #
 # somethere I've to start to docu this thing.
-# althoug most possibly I'm going to pull the code out of here, which is not specific to the minilib,
+# although most possibly I'm going to pull the code out of here, which is not specific to the minilib,
 # and do it more generic - this script works out quite useful,
 # and is good enough for a project on its own,
 # I guess.
@@ -224,7 +224,7 @@ while ( my $file = shift ){
 										dbg("l: $l");
 										#$l =~ /^\/\/\+header (\S*)/;
 										$header = $c or die;
-								} elsif ( $tag eq 'inline' ) {
+								} elsif ( 0 && $tag eq 'inline' ) { # commented out. Need to parse the header file
 										$l = <F>;
 										$line++;
 										$l =~ /.* \**(\S*)\(.+?\)\{.*$/;
@@ -238,7 +238,7 @@ while ( my $file = shift ){
 										dbg( "dbg: $f->{def}" );
 										$f->{file} = '';
 										
-								}elsif ( $tag eq 'def' ){
+								}elsif ( $tag eq 'def' | $tag eq 'inline'){
 										$f->{def} = <F>;
 										$line++;
 										dbg("def: $f->{def} $file: $l");
@@ -354,7 +354,7 @@ sub printdepend{
 		my $fh = shift;
 		my $d = shift;
 
-		print $fh "\n#ifdef mini_$d\n";
+		print $fh "\n#ifdef mini_$d\n//dep\n";
 		foreach my $on ( split( " ", $depends->{$d} ) ){
 				print $fh "#ifndef mini_$on\n#define mini_$on\n#endif\n";
 				$includefirst->{$on} = 1;
@@ -394,9 +394,13 @@ foreach my $d ( keys (%{$depends}) ){
 		printdepend($ml, $d);
 }
 
+print $ml "//incfirst\n";
+
 foreach my $i ( keys(%{$includefirst}) ){
 		headerinclude( $ml, $i );
 }
+
+print $ml "// E incfirst\n";
 
 foreach my $i ( keys(%{$funchash}) ){
 		if ( !exists( $includefirst->{$i} ) ){

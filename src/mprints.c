@@ -1,6 +1,6 @@
 #ifndef mprints_c
 #define mprints_c
-#include "../include/write.h"
+//#include "../include/write.h"
 #include "../include/mprints.h"
 #include "../include/stdarg.h"
 

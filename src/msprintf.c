@@ -11,7 +11,7 @@
 #endif
 
 #include "../macros/overrun.h"
-#include "../include/write.h"
+//#include "../include/write.h"
 #include "../include/exit.h" // Needed for testing for buffer overrun
 #include "../include/stdarg.h"
 
