@@ -148,9 +148,10 @@ do
 				--genconf )
 						shift
 						outfile=$1
+						echo generating config in $outfile
 						shift
-						echo "$headerguards_h" "$genconfigmacros_h" 
-						echo "$genconfigmacros_h" | ($REAL_CC $CFLAGS -Dincluded_minilib_h -E $@ -include <( cat - ) )
+						echo "$headerguards_h" "$genconfigmacros_h" | ($REAL_CC $CFLAGS -Dincluded_minilib_h -E $@ -include <( cat - ) ) \
+								| sed -n 's/^.*_M_MLIB_\(.*\)_M_.*/mini_\1/p' | sort -u > $outfile
 						exit $?
 						;;
 				--ldscript )
@@ -807,6 +808,18 @@ headerguards_h='
 #define headerguards_h
 
 // prevent standard headers from being compiled
+
+#define included_ctype_h
+#define included_declarations_h
+#define included_fcntl_h
+#define included_ioctl_h
+#define included_miniextras_h
+#define included_stdio_h
+#define included_stdlib_h
+#define included_string_h
+#define included_time_h
+#define included_unistd_h
+
 
 #define _AIO_H
 #define _ALIASES_H

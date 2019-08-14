@@ -3,6 +3,18 @@
 
 // prevent standard headers from being compiled
 
+#define included_ctype_h
+#define included_declarations_h
+#define included_fcntl_h
+#define included_ioctl_h
+#define included_miniextras_h
+#define included_stdio_h
+#define included_stdlib_h
+#define included_string_h
+#define included_time_h
+#define included_unistd_h
+
+
 #define _AIO_H
 #define _ALIASES_H
 #define _ARGP_H
