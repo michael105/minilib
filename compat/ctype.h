@@ -73,8 +73,8 @@ static inline int __attribute__((always_inline)) isprint(const char c);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/isprint.h"
 #include "minilib/src/isspace.c"
+#include "minilib/include/isprint.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
