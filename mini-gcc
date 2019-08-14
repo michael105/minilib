@@ -149,8 +149,9 @@ do
 						shift
 						outfile=$1
 						shift
-						exec_gcc -E $@
-						exit
+						echo "$headerguards_h" "$genconfigmacros_h" 
+						echo "$genconfigmacros_h" | ($REAL_CC $CFLAGS -Dincluded_minilib_h -E $@ -include <( cat - ) )
+						exit $?
 						;;
 				--ldscript )
 						shift
