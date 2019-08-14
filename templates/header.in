@@ -8,6 +8,17 @@
 #endif
 
 
+#ifdef HEADERGUARDS
+#ifndef mini_HEADERGUARDS
+#define mini_HEADERGUARDS
+#endif
+#endif
+
+
+#ifdef HEADERGUARDS
+#include "minilib/include/headerguards.h"
+#endif
+
 //#define mini_start
 //#define mini_exit
 

@@ -6,89 +6,85 @@ mini_buf 4096
 
 # --- minilib_config-start: Allswitches --- 
 
-# === stdlib.h
-mini_atoi
-mini_free
-mini_srand
-mini_rand
-mini_getenv
-mini_malloc
-
-
-# === time.h
-mini_time
-
-
-# === declarations.h
-mini_mprotect
-mini_dup3
-mini_gettimeofday
-mini_getcwd
-mini_fstat
-mini_stat
-
-
-# === string.h
-mini_strlen
-mini_strcmp
-mini_strerror
-mini_strcpy
-mini_strcat
-mini_strncpy
-mini_memset
-mini_strncmp
-mini_memcpy
-mini_memcmp
+# === stdio.h
+mini_feof
+mini_puts
+mini_rewind
+mini_fseek
+mini_fwrite
+mini__itohex
+mini_fputs
+mini_itohex
+mini_fgetpos
+mini_sprintf
+mini_fprintf
+mini_fopen
+mini_fclose
+mini_fputc
+mini_putchar
+mini_printf
+mini_ftell
+mini_fread
+mini_fileno
+mini_fsetpos
+mini_itoHEX
 
 
 # === fcntl.h
 mini_creat
 
 
-# === stdio.h
-mini_feof
-mini_fprintf
-mini_ftell
-mini_rewind
-mini_fputs
-mini_fileno
-mini_fsetpos
-mini_putchar
-mini_fputc
-mini__itohex
-mini_itohex
-mini_fopen
-mini_printf
-mini_fclose
-mini_itoHEX
-mini_fgetpos
-mini_fseek
-mini_fwrite
-mini_puts
-mini_sprintf
-mini_fread
+# === declarations.h
+mini_stat
+mini_getcwd
+mini_gettimeofday
+mini_fstat
+mini_mprotect
+mini_dup3
+
+
+# === miniextras.h
+mini_print
+mini_dprintf
+mini_itodec
+mini_uitodec
+mini_snprintf
+mini__itobin
+mini_printl
+mini_memfrob
+mini_vsnprintf
+mini_dtodec
+mini_def
+
+
+# === stdlib.h
+mini_free
+mini_malloc
+mini_atoi
+mini_rand
+mini_srand
+mini_getenv
+
+
+# === time.h
+mini_time
 
 
 # === ioctl.h
 mini_ioctl
 
 
-# === unistd.h
-mini_tcsetattr
-mini_dup
-mini_read
-mini_write
-mini_open
-mini_close
-mini_lseek
-mini_fsync
-mini_unlink
-mini_getpid
-mini_ftruncate
-mini_tcgetattr
-mini_select
-mini_rename
-mini_dup2
+# === string.h
+mini_strcpy
+mini_strncmp
+mini_strcat
+mini_strcmp
+mini_strncpy
+mini_memset
+mini_strerror
+mini_strlen
+mini_memcpy
+mini_memcmp
 
 
 # === ctype.h
@@ -96,17 +92,21 @@ mini_isspace
 mini_isprint
 
 
-# === miniextras.h
-mini_def
-mini_dtodec
-mini_dprintf
-mini_printl
-mini__itobin
-mini_memfrob
-mini_vsnprintf
-mini_uitodec
-mini_print
-mini_itodec
-mini_snprintf
+# === unistd.h
+mini_open
+mini_fsync
+mini_ftruncate
+mini_dup2
+mini_rename
+mini_tcgetattr
+mini_select
+mini_tcsetattr
+mini_read
+mini_getpid
+mini_dup
+mini_close
+mini_unlink
+mini_write
+mini_lseek
 
 # --- minilib_config-end: Allswitches --- 
