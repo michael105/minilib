@@ -28,14 +28,17 @@ Please look at the sources.
 ====================
 
 Minilib aims to be an incomplete libc replacement,
-single header only, 
-as simple and small as possible, KISS,
+single header only, as simple and small as possible, KISS,
 but supplying ANSI-C, the most important tools of libc,
 and some addons (Which don't add bloat and are optional).
 
+"It's sometimes smarter to stay special,
+ albeit in this case this means the opposite"
+
+
 Although the header file is parsed and compiled for every
 source file, this takes only fractions of a second
-at my development system. (amd Turion 2Ghz...)
+at my development system. (amd Turion 2Ghz)
 
 >  ~/prog/minilib $  time ./mini-gcc --ldscript onlytext -o hello hello.c
  ./mini-gcc -o hello hello.c  0.06s user 0.05s system 92% cpu 0.116 total
@@ -320,38 +323,13 @@ minibase
  Notes
 ====================
 
-letztes makefile: in test-embutils.
-(probleme mit den flags...)
-
-
-include dateien: nach c standard.
-(können dann mit gcc -I... überschrieben werden,
-ohne Dateien zu verändern.)
-
-"Nutzer" Datei(en) einbinden lassen durch minilib.c (?)
-
-
-
-TODO: errno.h : set errno..
-
-
-
-
-============================================================
-------------------------------------------------------------
-Michael (Misc) Myer, 2012-2019
-misc.myer@zoho.com www.github.com/michael105
-(my "programming enthusiastic persona"..)
-------------------------------------------------------------
-============================================================
-
 
 
 "It's sometimes smarter to stay special,
  although in this case this means the opposite"
 
  Stumbled upon this comment of myself today,
- regarding my (strange) malloc implementation.
+ regarding my (strangely simplicistic) malloc implementation.
  Which fit's quite well to the minilib in whole.
  Being smart with utf-anything, don't know which 
  bordercase and so on - 
@@ -366,6 +344,16 @@ misc.myer@zoho.com www.github.com/michael105
  There's still some overhead. 
  But it's another dimension. 
 
+
+
+
+============================================================
+------------------------------------------------------------
+Michael (Misc) Myer, 2012-2019
+misc.myer@zoho.com www.github.com/michael105
+(my "programming enthusiastic persona"..)
+------------------------------------------------------------
+============================================================
 
 
 ============================================================
