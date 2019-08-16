@@ -95,6 +95,8 @@ before options and parameters for gcc.
 --force
 				Overwrite existing files without warning
 
+--dump var
+				dumps the content of 'var', if defined.
 
 (c) 2019 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)
@@ -166,6 +168,19 @@ while [ "$1" != "" ] && [ $opt = 1 ]
 do
 		opt=0
 		case $1 in
+				--dump-minilib )
+						sed '0,/^#MINILIBGZ#$/d' $0 | gunzip -c
+						exit 0
+						;;
+				--dump )
+						if [ "${!2}" == "" ] ; then
+								echo No such var: $2 >&2
+								exit 1
+						else
+								echo "${!2}"
+								exit 0
+						fi
+						;;
 				--config )   
 						shift
 						config=$1
@@ -178,7 +193,7 @@ do
 						opt_force=1
 						opt=1
 						;;
-				--autoconf )
+				--autoconf | -ac )
 						shift
 						opt_autoconf=1
 						opt=1
@@ -783,7 +798,11 @@ genconfigmacros_h='
 // Licensed under BSD License.
 // Please see the files LICENSE and NOTICE for the exact conditions. 
 
-
+// The macros below replace the standard system calls, 
+// when mini-gcc is invoked with the option --genconf
+// The preprocessed sourcefiles are then grepped for the (replaced)
+// macros. The according buildswitches are activated, 
+// and the config can be written.
 
 // Everything below will be silently overwritten,
 // when make header ist invoked
@@ -1139,6 +1158,7 @@ headerguards_h='
 // --- content-headerguards-end: TMPL ---
 '
 
+
 LICENSE='
 Copyright (c) 2012-2019, Michael (Misc) Myer 
 (misc.myer@zoho.com, www.github.com/michael105)
@@ -1171,3 +1191,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.'
 # the "main loop". Continue at top after parsing the config switches
 done
 
+
+# gzipped minilib.h data starts here
+#MINILIBGZ#
+ã      ÛHÃ……Á ÷ìƒ   

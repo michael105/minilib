@@ -64,6 +64,9 @@ which shows up with 504kB on my system. (5.4kB linked dynamic)
 files with less than 4k aren't executed, 
 so that's hello world's size there..)
 
+minilib also saves a lot of startup overhead,
+giving a more responsive system.
+
 Just for fun, but this minilib also beats klibc, dietlib and musl 
 in the matter of hello world's size..
 
