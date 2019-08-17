@@ -35,6 +35,14 @@ mini-gcc: scripts/genconfig.sh ldscript
 	scripts/template.pl mini-gcc headerguards include/headerguards.h
 
 
+compile-mini-gcc: mini-gcc unpack-mini-gcc
+	gzip -c minilibcompiled.h >> mini-gcc
+
+unpack-mini-gcc:
+	sed '/^#MINILIBGZ#$$/q' mini-gcc > mini-gcc.tmp
+	cp mini-gcc.tmp mini-gcc
+
+
 ldscript: ldscripts/ld.script*
 	@echo dbg, ldscripts. var: $^ 
 	echo "# Parsing" | scripts/template.pl mini-gcc content-ldscript

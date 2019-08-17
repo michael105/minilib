@@ -10,13 +10,12 @@ MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
 
 
 echo_verbose(){
-		if [ $verbose == 1 ]; then
+		if [ $verbose = 1 ]; then
 		>&2 echo $@
 		fi
 }
 
 
-echo_verbose minilibdir: $MLIBDIR
 
 
 # gcc options
@@ -36,15 +35,15 @@ CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 # ld options 
 CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib"
 
-# (default) linker script 
-LDSCRIPT=",-T$MLIBDIR/ldscripts/ld.script"
+# (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
+LDSCRIPT="ld_script"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
 PARSE=1
 
 while [ 1 ]; do
-if [ $PARSE == 0 ]; then 
+if [ $PARSE = 0 ]; then 
 
 usage(){
 		echo 
@@ -96,7 +95,10 @@ before options and parameters for gcc.
 				Overwrite existing files without warning
 
 --dump var
-				dumps the content of 'var', if defined.
+				dump the content of 'var', if defined.
+
+--dump-minilib
+				dump the contained headerfile minilib.h to stdout
 
 (c) 2019 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)
@@ -107,14 +109,26 @@ before options and parameters for gcc.
 
 
 exec_gcc(){
-		if [ $verbose == 1 ]; then
-			echo_verbose $REAL_CC $CFLAGS$LDSCRIPT $@
+		if [ "$LDSCRIPTFILE" != "" ]; then
+				if [ $verbose = 1 ]; then
+						echo_verbose $REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
+				else
+						echo $REAL_CC $@
+				fi
+
+				$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
 		else
-			echo $REAL_CC $@
+				if [ $verbose = 1 ]; then
+						echo_verbose "$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $@"
+				else
+						echo $REAL_CC $@
+				fi
+				# todo: this is bash specific. write a version with either named pipes or temporary files.
+				$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $@
 		fi
-		$REAL_CC $CFLAGS$LDSCRIPT $@
-		return $?
-}
+				#$REAL_CC $CFLAGS$LDSCRIPT $@
+				return $?
+		}
 
 
 
@@ -129,6 +143,8 @@ checkconfig (){
 				echo -e "Error: \n $ERR"
 				exit 1;
 		fi
+
+		echo_verbose minilibdir: $MLIBDIR
 		echo_verbose ARCH: $MINI_ARCH
 		echo_verbose OS: $MINI_OS
 		#echo GCC-Options: $REAL_CC $CFLAGS
@@ -219,12 +235,9 @@ do
 				--ldscript )
 						shift
 						if [ -e "$MLIBDIR/ldscripts/ld.script.$1" ]; then
-								LDSCRIPT=",-T$MLIBDIR/ldscripts/ld.script.onlytext"
+								LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$1"
 						else
-								LDSCRIPT=",-Tminilib.ldscript"
-								var="ld_script_$1"
-								echo_verbose "Writing ld.script"
-								echo "${!var}" > minilib.ldscript
+								LDSCRIPT="ld_script_$1"
 						fi
 						shift
 						opt=1
@@ -249,13 +262,13 @@ do
 		esac
 done
 
-if [ "$1" == "" ]; then
+if [ "$1" = "" ]; then
 		# Assume, everything is alright and there havent been parameters forgotten
 		exit 0;
 fi
 
 #echo args: $@
-if [ $opt_autoconf == 1 ]
+if [ $opt_autoconf = 1 ]
 then
 		exec_gcc $@
 else
@@ -284,10 +297,10 @@ PARSE=0
 
 # prefer the genconfig script, if present.
 if [ -e $MLIBDIR/scripts/genconfig.sh ]; then
-		echo_verbose Parsing genconfig.sh
+		#echo_verbose Parsing genconfig.sh
 		source $MLIBDIR/scripts/genconfig.sh
 else
-		echo "Parsing builtin config"	
+		#echo "Parsing builtin config"	
 
 # --- genconfig-start: TMPL ---
 #
@@ -798,11 +811,7 @@ genconfigmacros_h='
 // Licensed under BSD License.
 // Please see the files LICENSE and NOTICE for the exact conditions. 
 
-// The macros below replace the standard system calls, 
-// when mini-gcc is invoked with the option --genconf
-// The preprocessed sourcefiles are then grepped for the (replaced)
-// macros. The according buildswitches are activated, 
-// and the config can be written.
+
 
 // Everything below will be silently overwritten,
 // when make header ist invoked
@@ -1192,6 +1201,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.'
 done
 
 
+
+# dump mini-gcc without gzipped data: 
+# sed '/^#MINILIBGZ#$/q' mini-gcc
+
 # gzipped minilib.h data starts here
 #MINILIBGZ#
-ã      ÛHÃ……Á ÷ìƒ   

@@ -112,10 +112,10 @@ my harddisk lying and dying.
 ====================
 
 Needs:
-gcc or tcc
+gcc or tcc, bash, sed
 
 Optionally:
-sed, sort (might be already on every unix related system)
+gzip, sort (might be already on every unix related system)
 
 make, perl (when rebuilding minilib)
 
