@@ -260,7 +260,13 @@ while ( my $file = shift ){
 										dbg("$LG depends: $f->{dep} $N\n");
 								} elsif ( $tag eq 'after' ){
 										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
-								} elsif( $tag eq 'inc' ){
+								} elsif ( $tag eq 'doc' ){
+										if ( !exists $f->{doc} ){
+												$f->{doc} = $c;
+										} else {
+												$f->{doc} .= $c;
+										}
+								} elsif ( $tag eq 'inc' | $tag eq 'include'){
 										print {headerfh($header,$headerdir)} "// file: $file\n#include \"$file\"\n";
 										dbg "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
@@ -297,7 +303,7 @@ while ( my $file = shift ){
 								#$mlfunchash->{$func}= $f; # no standard function
 								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
-										$f->{header} = "miniaddons.h";
+										$f->{header} = "mini_addons.h";
 								} else {
 										$f->{header} = $header;
 								}
@@ -340,7 +346,29 @@ foreach my $key ( keys(%{$fhhash->{fh}}) ){
 		close( $fhhash->{fh}->{$key} );
 }
 
+# write doc
+open( FDOC, ">", "$mlibdir/doc/minilib.txt" ) or die;
+#*FDOC = *STDOUT;
 
+copytemplates( FDOC, $mlibdir, "minilib.txt.top" );
+
+foreach my $k ( sort(keys(%{$headerhash})) ){
+		print FDOC "\n\n==========\n$k\n==========\n\n";
+		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
+				printf FDOC "%-15s",$f;
+				$funchash->{$f}->{file}=~/minilib\/(.*)/;
+				print FDOC "($1: $funchash->{$f}->{line})\n";
+				print FDOC "               $funchash->{$f}->{def}";
+				if ( exists($funchash->{$f}->{doc} ) ){
+						print FDOC "               $funchash->{$f}->{doc}\n";
+				}
+				print FDOC "\n";
+		}
+}
+
+close FDOC;
+
+#exit 0;
 # write 
 
 dbgdump( $funchash );

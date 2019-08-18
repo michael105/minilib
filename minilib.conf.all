@@ -6,112 +6,107 @@ mini_buf 4096
 
 # --- minilib_config-start: Allswitches --- 
 
-# === mini_addons.h
-mini_print
-mini_printl
-
-
-# === time.h
-mini_time
-
-
-# === fcntl.h
-mini_creat
-
-
-# === ctype.h
-mini_isprint
-mini_isspace
-
-
 # === string.h
-mini_memcpy
 mini_strncmp
-mini_memset
-mini_memcmp
-mini_strcat
-mini_strcmp
 mini_strerror
+mini_strcpy
+mini_strcat
+mini_memcmp
+mini_memset
 mini_strlen
 mini_strncpy
-mini_strcpy
-
-
-# === miniaddons.h
-mini_dtodec
-mini__itobin
-mini_uitodec
-mini_def
-mini_snprintf
-mini_vsnprintf
-mini_memfrob
-mini_print
-mini_itodec
-mini_printl
-mini_dprintf
-
-
-# === declarations.h
-mini_gettimeofday
-mini_stat
-mini_getcwd
-mini_dup3
-mini_mprotect
-mini_fstat
+mini_memcpy
+mini_strcmp
 
 
 # === stdlib.h
-mini_malloc
 mini_atoi
-mini_getenv
-mini_free
-mini_rand
 mini_srand
+mini_malloc
+mini_getenv
+mini_rand
+mini_free
+
+
+# === stdio.h
+mini_fclose
+mini_fopen
+mini_fgetpos
+mini_printf
+mini_ftell
+mini_feof
+mini_puts
+mini_rewind
+mini_fseek
+mini_fprintf
+mini_itoHEX
+mini_fputc
+mini_fputs
+mini_fread
+mini_fileno
+mini_itohex
+mini_sprintf
+mini_putchar
+mini_fwrite
+mini__itohex
+mini_fsetpos
+
+
+# === mini_addons.h
+mini__itobin
+mini_snprintf
+mini_print
+mini_itodec
+mini_printl
+mini_def
+mini_dprintf
+mini_dtodec
+mini_uitodec
+mini_vsnprintf
+mini_memfrob
 
 
 # === ioctl.h
 mini_ioctl
 
 
+# === ctype.h
+mini_isspace
+mini_isprint
+
+
 # === unistd.h
-mini_dup
-mini_dup2
-mini_ftruncate
-mini_unlink
+mini_fsync
 mini_write
 mini_lseek
-mini_tcsetattr
 mini_read
-mini_select
-mini_fsync
-mini_close
-mini_getpid
-mini_open
 mini_rename
+mini_close
+mini_ftruncate
+mini_select
+mini_dup2
 mini_tcgetattr
+mini_unlink
+mini_tcsetattr
+mini_getpid
+mini_dup
+mini_open
 
 
-# === stdio.h
-mini_itoHEX
-mini_itohex
-mini_fwrite
-mini_fputc
-mini_fsetpos
-mini_feof
-mini_fgetpos
-mini_ftell
-mini_rewind
-mini_printf
-mini_fopen
-mini_fread
-mini_fputs
-mini_fileno
-mini_fseek
-mini_fclose
-mini_putchar
-mini_puts
-mini_fprintf
-mini__itohex
-mini_sprintf
+# === declarations.h
+mini_stat
+mini_fstat
+mini_mprotect
+mini_gettimeofday
+mini_dup3
+mini_getcwd
+
+
+# === fcntl.h
+mini_creat
+
+
+# === time.h
+mini_time
 
 # --- minilib_config-end: Allswitches --- 

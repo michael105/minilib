@@ -8,205 +8,266 @@ Implemented Functions, sorted by the standard headers
 ==========
 ctype.h
 ==========
-isprint
-    (minilib/include/isprint.h: 9)
-isspace
-    (minilib/src/isspace.c: 7)
+
+isprint        (include/isprint.h: 9)
+               static inline int __attribute__((always_inline)) isprint(const char c);
+
+isspace        (src/isspace.c: 7)
+               int isspace(int c);
+
 
 
 ==========
 declarations.h
 ==========
-dup3
-    (minilib/include/syscall_stubs.h: 43)
-fstat
-    (minilib/include/syscall_stubs.h: 39)
-getcwd
-    (minilib/include/syscall_stubs.h: 45)
-gettimeofday
-    (minilib/include/syscall_stubs.h: 26)
-mprotect
-    (minilib/include/syscall_stubs.h: 30)
-stat
-    (minilib/include/syscall_stubs.h: 40)
+
+dup3           (include/syscall_stubs.h: 43)
+               
+fstat          (include/syscall_stubs.h: 39)
+               
+getcwd         (include/syscall_stubs.h: 45)
+               
+gettimeofday   (include/syscall_stubs.h: 26)
+               
+mprotect       (include/syscall_stubs.h: 30)
+               
+stat           (include/syscall_stubs.h: 40)
+               
 
 
 ==========
 fcntl.h
 ==========
-creat
-    (minilib/src/open.c: 27)
+
+creat          (src/open.c: 27)
+               inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+
 
 
 ==========
 ioctl.h
 ==========
-ioctl
-    (minilib/src/ioctl.c: 12)
+
+ioctl          (src/ioctl.c: 12)
+               int ioctl( int fd, unsigned long int request, ... );
+
 
 
 ==========
 mini_addons.h
 ==========
-print
-    (minilib/include/prints.h: 16)
-printl
-    (minilib/include/prints.h: 20)
 
+_itobin        (src/itobin.c: 4)
+               int _itobin(int i, char*buf, int prec, int groups );
 
-==========
-miniaddons.h
-==========
-_itobin
-    (minilib/src/itobin.c: 4)
-def
-    (minilib/include/globaldefs.h: 54)
-dprintf
-    (minilib/src/sprintf.c: 195)
-dtodec
-    (minilib/src/dtodec.c: 11)
-itodec
-    (minilib/src/itodec.c: 113)
-memfrob
-    (minilib/src/memfrob.c: 4)
-print
-    (minilib/include/prints.h: 16)
-printl
-    (minilib/include/prints.h: 20)
-snprintf
-    (minilib/src/sprintf.c: 212)
-uitodec
-    (minilib/src/itodec.c: 9)
-vsnprintf
-    (minilib/src/sprintf.c: 29)
+def            (include/globaldefs.h: 54)
+               typedef int FILE;
+
+dprintf        (src/sprintf.c: 195)
+               int dprintf( int fd, const char *fmt, ... );
+
+dtodec         (src/dtodec.c: 11)
+               int dtodec(double d, char* buf, int precision);
+
+itodec         (src/itodec.c: 113)
+               int itodec(int i, char *buf, int prec, char limiter );
+
+memfrob        (src/memfrob.c: 4)
+               void* memfrob(void* s, unsigned int len);
+
+print          (include/prints.h: 16)
+               #define print(str) write(stdout,str,sizeof(str)-1)
+               write str to stdout
+
+printl         (include/prints.h: 20)
+               #define printl() write(stdout,"\n",1)
+               write a newline to stdout
+
+snprintf       (src/sprintf.c: 212)
+               int snprintf( char *buf, size_t size, const char *fmt, ... );
+
+uitodec        (src/itodec.c: 9)
+               int uitodec(unsigned int i, char *buf, int prec, char limiter );
+
+vsnprintf      (src/sprintf.c: 29)
+               int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+
 
 
 ==========
 stdio.h
 ==========
-_itohex
-    (minilib/src/itohex.c: 6)
-fclose
-    (minilib/include/mini_stdio.h: 33)
-feof
-    (minilib/include/mini_stdio.h: 150)
-fgetpos
-    (minilib/include/mini_stdio.h: 93)
-fileno
-    (minilib/include/mini_stdio.h: 23)
-fopen
-    (minilib/src/fopen.c: 12)
-fprintf
-    (minilib/src/sprintf.c: 237)
-fputc
-    (minilib/include/fputc.h: 10)
-fputs
-    (minilib/include/fputs.h: 15)
-fread
-    (minilib/include/mini_stdio.h: 128)
-fseek
-    (minilib/include/mini_stdio.h: 112)
-fsetpos
-    (minilib/include/mini_stdio.h: 99)
-ftell
-    (minilib/include/mini_stdio.h: 87)
-fwrite
-    (minilib/include/mini_stdio.h: 72)
-itoHEX
-    (minilib/src/itohex.c: 56)
-itohex
-    (minilib/src/itohex.c: 49)
-printf
-    (minilib/include/mini_stdio.h: 59)
-putchar
-    (minilib/include/fputc.h: 16)
-puts
-    (minilib/src/print.c: 27)
-rewind
-    (minilib/include/mini_stdio.h: 122)
-sprintf
-    (minilib/include/mini_stdio.h: 64)
+
+_itohex        (src/itohex.c: 6)
+               int _itohex(int i,char* buf,int padding, int capitals);
+
+fclose         (include/mini_stdio.h: 33)
+               static inline int __attribute__((always_inline)) fclose( FILE* f );
+
+feof           (include/mini_stdio.h: 150)
+               static inline int feof(FILE *f);
+
+fgetpos        (include/mini_stdio.h: 93)
+               static inline void fgetpos(FILE *f, long *pos );
+
+fileno         (include/mini_stdio.h: 23)
+               static inline int __attribute__((always_inline)) fileno( FILE *f );
+
+fopen          (src/fopen.c: 12)
+               FILE *fopen(const char* filename, const char* mode);
+
+fprintf        (src/sprintf.c: 237)
+               #define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+
+fputc          (include/fputc.h: 10)
+               static inline int volatile fputc(int c, int fd);
+
+fputs          (include/fputs.h: 15)
+               static inline int volatile fputs(const char *c, int fd);
+
+fread          (include/mini_stdio.h: 128)
+               static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
+
+fseek          (include/mini_stdio.h: 112)
+               static inline int fseek(FILE *f, long offset, int whence );
+
+fsetpos        (include/mini_stdio.h: 99)
+               static inline int fsetpos(FILE *f, int pos );
+
+ftell          (include/mini_stdio.h: 87)
+               static inline long ftell(FILE *f);
+
+fwrite         (include/mini_stdio.h: 72)
+               static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+
+itoHEX         (src/itohex.c: 56)
+               int itoHEX(int i,char* buf,int padding);
+
+itohex         (src/itohex.c: 49)
+               int itohex(int i,char* buf,int padding);
+
+printf         (include/mini_stdio.h: 59)
+               #define printf(...) fprintf(stdout,__VA_ARGS__)
+
+putchar        (include/fputc.h: 16)
+               #define putchar(c) fputc(c,stdout)
+
+puts           (src/print.c: 27)
+               #define puts(c) printl(c)
+
+rewind         (include/mini_stdio.h: 122)
+               static inline void rewind( FILE *f );
+
+sprintf        (include/mini_stdio.h: 64)
+               #define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
+
 
 
 ==========
 stdlib.h
 ==========
-atoi
-    (minilib/src/atoi.c: 7)
-free
-    (minilib/src/malloc.c: 208)
-getenv
-    (minilib/src/getenv.c: 12)
-malloc
-    (minilib/src/malloc.c: 158)
-rand
-    (minilib/src/rand.c: 16)
-srand
-    (minilib/src/rand.c: 8)
+
+atoi           (src/atoi.c: 7)
+               int atoi(char *c);
+
+free           (src/malloc.c: 208)
+               void volatile free(void* p);
+
+getenv         (src/getenv.c: 12)
+               char *getenv(const char* name);
+
+malloc         (src/malloc.c: 158)
+               void* volatile malloc(int size);
+
+rand           (src/rand.c: 16)
+               unsigned int rand();
+
+srand          (src/rand.c: 8)
+               void srand( unsigned int i );
+
 
 
 ==========
 string.h
 ==========
-memcmp
-    (minilib/src/mstrcmp.c: 37)
-memcpy
-    (minilib/src/memcpy.c: 7)
-memset
-    (minilib/src/memset.c: 4)
-strcat
-    (minilib/src/strcat.c: 7)
-strcmp
-    (minilib/src/mstrcmp.c: 25)
-strcpy
-    (minilib/src/memcpy.c: 18)
-strerror
-    (minilib/src/strerror.c: 10)
-strlen
-    (minilib/src/strlen.c: 8)
-strncmp
-    (minilib/src/mstrcmp.c: 30)
-strncpy
-    (minilib/src/memcpy.c: 28)
+
+memcmp         (src/mstrcmp.c: 37)
+               int memcmp(const void* c1,const void* c2,int len);
+
+memcpy         (src/memcpy.c: 7)
+               void *memcpy( void *d, const void *s, int n );
+
+memset         (src/memset.c: 4)
+               void *memset( void *s, int c, int n);
+
+strcat         (src/strcat.c: 7)
+               char *strcat(char *dest, const char *src );
+
+strcmp         (src/mstrcmp.c: 25)
+               int strcmp(const char*c1,const char*c2);
+
+strcpy         (src/memcpy.c: 18)
+               char *strcpy(char *dest, const char *src);
+
+strerror       (src/strerror.c: 10)
+               char* strerror( int errnum );
+
+strlen         (src/strlen.c: 8)
+               int strlen(const char*str);
+
+strncmp        (src/mstrcmp.c: 30)
+               int strncmp(const char*c1,const char*c2,int len);
+
+strncpy        (src/memcpy.c: 28)
+               char *strncpy(char *dest, const char *src, int n);
+
 
 
 ==========
 time.h
 ==========
-time
-    (minilib/include/syscall_stubs.h: 49)
+
+time           (include/syscall_stubs.h: 49)
+               
 
 
 ==========
 unistd.h
 ==========
-close
-    (minilib/include/close.h: 7)
-dup
-    (minilib/include/syscall_stubs.h: 41)
-dup2
-    (minilib/include/syscall_stubs.h: 42)
-fsync
-    (minilib/include/lseek.h: 21)
-ftruncate
-    (minilib/include/lseek.h: 20)
-getpid
-    (minilib/include/syscall_stubs.h: 28)
-lseek
-    (minilib/include/lseek.h: 18)
-open
-    (minilib/src/open.c: 13)
-read
-    (minilib/include/read.h: 13)
-rename
-    (minilib/include/syscall_stubs.h: 36)
-select
-    (minilib/include/select.h: 29)
-tcgetattr
-    (minilib/include/tcgetattr.h: 19)
-tcsetattr
-    (minilib/include/tcsetattr.h: 19)
-unlink
-    (minilib/include/syscall_stubs.h: 37)
-write
-    (minilib/include/syscall_stubs.h: 33)
+
+close          (include/close.h: 7)
+               static inline int volatile __attribute__((always_inline)) close( int fd );
+
+dup            (include/syscall_stubs.h: 41)
+               
+dup2           (include/syscall_stubs.h: 42)
+               
+fsync          (include/lseek.h: 21)
+               
+ftruncate      (include/lseek.h: 20)
+               
+getpid         (include/syscall_stubs.h: 28)
+               
+lseek          (include/lseek.h: 18)
+               
+open           (src/open.c: 13)
+               int volatile open( const char *s, int flags, ... );
+
+read           (include/read.h: 13)
+               static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len );
+
+rename         (include/syscall_stubs.h: 36)
+               
+select         (include/select.h: 29)
+               static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+
+tcgetattr      (include/tcgetattr.h: 19)
+               static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
+
+tcsetattr      (include/tcsetattr.h: 19)
+               static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
+
+unlink         (include/syscall_stubs.h: 37)
+               
+write          (include/syscall_stubs.h: 33)
+               
