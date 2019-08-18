@@ -17,7 +17,7 @@ ifdef undef
 #endif
 
 int main(){
-		write(stdout, "Hello world!\n", 13);
+		write(STDOUT_FILENO, "Hello world!\n", 13);
 		return(0);
 }
 

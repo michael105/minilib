@@ -119,7 +119,7 @@ fopen          (src/fopen.c: 12)
 fprintf        (src/sprintf.c: 237)
                #define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
-fputc          (include/fputc.h: 11)
+fputc          (include/fputc.h: 12)
                static inline int volatile fputc(int c, FILE* F);
 
 fputs          (include/fputs.h: 15)
@@ -149,7 +149,7 @@ itohex         (src/itohex.c: 49)
 printf         (include/mini_fstream.h: 84)
                #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-putchar        (include/fputc.h: 17)
+putchar        (include/fputc.h: 18)
                #define putchar(c) fputc(c,stdout)
 
 puts           (include/prints.h: 24)

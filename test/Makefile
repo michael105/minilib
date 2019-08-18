@@ -4,7 +4,7 @@
 #PROG=malloc select
 PROG=hello
 
-PROGCUSTOM=fopen malloc fprintf select
+PROGCUSTOM=fopen malloc fprintf select fputs
 
 
 MINIGCC=rand
@@ -31,7 +31,7 @@ STRIP=1
 
 #SHRINKELF=1
 
-ONLYTEXT = hello-smallest hello-include 
+ONLYTEXT = hello-smallest hello-include fputs
 
 ifndef GREEN
 #colors..
@@ -57,7 +57,7 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
+all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c && ) true
 
@@ -85,6 +85,10 @@ args: args.c
 
 hello-combined: hello-combined.c
 	make BUILDPROG=hello-combined SINGLERUN=1 NOINCLUDE=1
+
+fputs: fputs.c
+	make BUILDPROG=fputs SINGLERUN=1 NOINCLUDE=1
+
 
 hello-include: hello-include.c
 	make BUILDPROG=hello-include SINGLERUN=1 NOINCLUDE=1
