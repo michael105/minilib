@@ -4,8 +4,8 @@ Licensed under the terms of a BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
-#ifndef included_miniaddons_h
-#define included_miniaddons_h
+#ifndef included_mini_addons_h
+#define included_mini_addons_h
 
 #define mini_start
 #define mini_exit
@@ -58,38 +58,11 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #include "minilib/headers/common/sys/types.h"
 
 
-// file: minilib/src/dtodec.c
-int dtodec(double d, char* buf, int precision);
+// file: minilib/include/prints.h
+#define print(str) write(stdout,str,sizeof(str)-1)
 
-// file: minilib/src/itobin.c
-int _itobin(int i, char*buf, int prec, int groups );
-
-// file: minilib/src/itodec.c
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-
-// file: minilib/src/itodec.c
-int itodec(int i, char *buf, int prec, char limiter );
-
-// file: minilib/src/memfrob.c
-void* memfrob(void* s, unsigned int len);
-
-// file: minilib/src/print.c
-int print(const char *msg);
-
-// file: minilib/src/print.c
-int printl(const char *msg);
-
-// file: minilib/src/sprintf.c
-int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-
-// file: minilib/src/sprintf.c
-int dprintf( int fd, const char *fmt, ... );
-
-// file: minilib/src/sprintf.c
-int snprintf( char *buf, size_t size, const char *fmt, ... );
-
-// file: minilib/include/globaldefs.h
-typedef int FILE;
+// file: minilib/include/prints.h
+#define printl() write(stdout,"\n",1)
 
 
 
@@ -98,13 +71,7 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itodec.c"
-#include "minilib/src/print.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/sprintf.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/itobin.c"
+#include "minilib/include/prints.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

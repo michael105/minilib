@@ -136,13 +136,13 @@ static inline int feof(FILE *f);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/fputc.h"
-#include "minilib/include/fputs.h"
+#include "minilib/include/mini_stdio.h"
 #include "minilib/src/print.c"
 #include "minilib/src/itohex.c"
 #include "minilib/src/fopen.c"
 #include "minilib/src/sprintf.c"
-#include "minilib/include/mini_stdio.h"
+#include "minilib/include/fputs.h"
+#include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

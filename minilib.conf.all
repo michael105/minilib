@@ -6,107 +6,112 @@ mini_buf 4096
 
 # --- minilib_config-start: Allswitches --- 
 
-# === ctype.h
-mini_isprint
-mini_isspace
-
-
-# === stdio.h
-mini_fgetpos
-mini_putchar
-mini_fileno
-mini_fprintf
-mini_sprintf
-mini__itohex
-mini_fsetpos
-mini_feof
-mini_fwrite
-mini_fseek
-mini_puts
-mini_fclose
-mini_printf
-mini_fputs
-mini_ftell
-mini_rewind
-mini_fputc
-mini_fopen
-mini_itoHEX
-mini_itohex
-mini_fread
-
-
-# === stdlib.h
-mini_free
-mini_malloc
-mini_srand
-mini_getenv
-mini_atoi
-mini_rand
-
-
-# === miniaddons.h
-mini_vsnprintf
-mini_dtodec
-mini_itodec
-mini__itobin
-mini_dprintf
-mini_uitodec
-mini_def
-mini_memfrob
-mini_snprintf
-mini_printl
+# === mini_addons.h
 mini_print
+mini_printl
 
 
 # === time.h
 mini_time
 
 
+# === fcntl.h
+mini_creat
+
+
+# === ctype.h
+mini_isprint
+mini_isspace
+
+
+# === string.h
+mini_memcpy
+mini_strncmp
+mini_memset
+mini_memcmp
+mini_strcat
+mini_strcmp
+mini_strerror
+mini_strlen
+mini_strncpy
+mini_strcpy
+
+
+# === miniaddons.h
+mini_dtodec
+mini__itobin
+mini_uitodec
+mini_def
+mini_snprintf
+mini_vsnprintf
+mini_memfrob
+mini_print
+mini_itodec
+mini_printl
+mini_dprintf
+
+
 # === declarations.h
+mini_gettimeofday
 mini_stat
 mini_getcwd
 mini_dup3
 mini_mprotect
 mini_fstat
-mini_gettimeofday
+
+
+# === stdlib.h
+mini_malloc
+mini_atoi
+mini_getenv
+mini_free
+mini_rand
+mini_srand
 
 
 # === ioctl.h
 mini_ioctl
 
 
-# === string.h
-mini_memcmp
-mini_strncmp
-mini_strcpy
-mini_strlen
-mini_strcmp
-mini_strerror
-mini_strcat
-mini_memcpy
-mini_strncpy
-mini_memset
-
-
-# === fcntl.h
-mini_creat
-
-
 # === unistd.h
-mini_dup2
-mini_unlink
-mini_lseek
-mini_tcgetattr
-mini_close
-mini_write
-mini_ftruncate
-mini_rename
-mini_read
-mini_tcsetattr
-mini_select
-mini_open
-mini_getpid
 mini_dup
+mini_dup2
+mini_ftruncate
+mini_unlink
+mini_write
+mini_lseek
+mini_tcsetattr
+mini_read
+mini_select
 mini_fsync
+mini_close
+mini_getpid
+mini_open
+mini_rename
+mini_tcgetattr
+
+
+# === stdio.h
+mini_itoHEX
+mini_itohex
+mini_fwrite
+mini_fputc
+mini_fsetpos
+mini_feof
+mini_fgetpos
+mini_ftell
+mini_rewind
+mini_printf
+mini_fopen
+mini_fread
+mini_fputs
+mini_fileno
+mini_fseek
+mini_fclose
+mini_putchar
+mini_puts
+mini_fprintf
+mini__itohex
+mini_sprintf
 
 # --- minilib_config-end: Allswitches --- 
