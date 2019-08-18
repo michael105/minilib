@@ -74,11 +74,11 @@ int itohex(int i,char* buf,int padding);
 // file: minilib/src/itohex.c
 int itoHEX(int i,char* buf,int padding);
 
-// file: minilib/src/mprint.c
+// file: minilib/src/print.c
 #define puts(c) printl(c)
 
-// file: minilib/src/msprintf.c
-#define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf
+// file: minilib/src/sprintf.c
+#define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
 // file: minilib/include/fputc.h
 #include "minilib/include/fputc.h"
@@ -98,9 +98,6 @@ static inline int __attribute__((always_inline)) fileno( FILE *f );
 
 // file: minilib/include/mini_stdio.h
 static inline int __attribute__((always_inline)) fclose( FILE* f );
-
-// file: minilib/include/mini_stdio.h
-#define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
 
 // file: minilib/include/mini_stdio.h
 #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -140,12 +137,12 @@ static inline int feof(FILE *f);
 #ifdef mini_INCLUDESRC
 
 #include "minilib/include/fputc.h"
-#include "minilib/src/fopen.c"
-#include "minilib/include/mini_stdio.h"
-#include "minilib/src/msprintf.c"
 #include "minilib/include/fputs.h"
-#include "minilib/src/mprint.c"
+#include "minilib/src/print.c"
 #include "minilib/src/itohex.c"
+#include "minilib/src/fopen.c"
+#include "minilib/src/sprintf.c"
+#include "minilib/include/mini_stdio.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

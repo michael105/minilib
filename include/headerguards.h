@@ -7,7 +7,7 @@
 #define included_declarations_h
 #define included_fcntl_h
 #define included_ioctl_h
-#define included_miniextras_h
+#define included_miniaddons_h
 #define included_stdio_h
 #define included_stdlib_h
 #define included_string_h

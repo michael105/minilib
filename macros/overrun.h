@@ -5,9 +5,9 @@
 #define mini_prints
 #endif
 #include "../include/exit.h"
-#include "../include/mprints.h"
+#include "../include/prints.h"
 #define MINI_TEST_OVERRUN(pos) if (pos > ml.mbufsize){\
-		mprintsl("Buffer Overrun. Aborting.");\
+		printsl("Buffer Overrun. Aborting.");\
 		exit(1);}
 #endif
 

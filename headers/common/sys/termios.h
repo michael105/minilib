@@ -18,14 +18,15 @@ typedef unsigned int tcflag_t;
 #define NCCS 32
 
 #include <bits/termios.h>
+#include <termios.h>
 
 speed_t cfgetospeed (const struct termios *);
 speed_t cfgetispeed (const struct termios *);
 int cfsetospeed (struct termios *, speed_t);
 int cfsetispeed (struct termios *, speed_t);
 
-static int tcgetattr (int, struct termios *);
-static int tcsetattr (int, int, const struct termios *);
+static inline int tcgetattr (int, struct termios *);
+static inline int tcsetattr (int, int, const struct termios *);
 
 int tcsendbreak (int, int);
 int tcdrain (int);

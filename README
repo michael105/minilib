@@ -233,7 +233,7 @@ Then I'll be able to check for osx and Linux x32.
 Minilib aims to be an incomplete libc replacement,
 as simple and small as possible, KISS!!!,
 but supplying ANSI-C, the most important tools of libc,
-some extras (Which don't add bloat..).
+some addons (Which don't add bloat..).
 Some syscall wrappers.
 
 One reason to use syscall wrappers is type safety.

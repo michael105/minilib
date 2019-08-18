@@ -1,5 +1,5 @@
 
-/// Len of buf used by read, mprintf, and malloc(!)
+/// Len of buf used by read, printf, and malloc(!)
 
 //#define mini_buf 4096
 

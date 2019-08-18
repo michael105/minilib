@@ -38,7 +38,7 @@
 
 
 // a few backward compatibility defines
-#ifdef mini_mprintf
+#ifdef mini_printf
 #define mini_printf
 #endif
 #ifdef mini_mfprintf
@@ -82,8 +82,8 @@ struct udiv_t { unsigned int quot, rem; };
 //		asm ("div" : 
 
 #ifdef mini_printf
-//extern int mprintf(const char *fmt, ...);
-//#include "mprintf.h"
+//extern int printf(const char *fmt, ...);
+//#include "printf.h"
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 #ifndef mini_buf
 #define mini_buf 1024
@@ -119,8 +119,8 @@ extern int sprintf(char *buf, const char *fmt, ...);
 #endif
 
 
-#ifdef mini_mprints
-#include "mprints.h"
+#ifdef mini_prints
+#include "prints.h"
 #endif
 
 #ifdef mini_putchar
@@ -144,7 +144,7 @@ extern int sprintf(char *buf, const char *fmt, ...);
 #define mini_print
 #endif
 #ifdef mini_print
-//#include "mprint.h"
+//#include "print.h"
 extern int print(const char *msg);
 extern int printl(const char *msg);
 #endif
@@ -381,7 +381,7 @@ static inline int XOR(int i1, int i2 ){
 //#define fprintf(...) mfprintf(__VA_ARGS__)
 
 #ifdef mini_overwrite
-//#define printf(...) mprintf(__VA_ARGS__)
+//#define printf(...) printf(__VA_ARGS__)
 //#define fprintf(...) mfprintf(__VA_ARGS__)
 //#define sprintf(...) msprintf(__VA_ARGS__)
 //#define strcmp(A,B) mstrcmp(A,B)

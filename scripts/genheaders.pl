@@ -297,7 +297,7 @@ while ( my $file = shift ){
 								#$mlfunchash->{$func}= $f; # no standard function
 								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
-										$f->{header} = "miniextras.h";
+										$f->{header} = "miniaddons.h";
 								} else {
 										$f->{header} = $header;
 								}
@@ -508,7 +508,7 @@ template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscript
 sub genconfighandler{
 		my $fh = shift;
 		foreach my $func ( keys(%{$funchash}) ){
-						printf $fh "#define $func(...) _M_MLIB_$func"."_M_()\n";
+						printf $fh "#define $func(...) _M_MLIB_$func"."_M_(__VA_ARGS__)\n";
 				}
 		return(1);
 }

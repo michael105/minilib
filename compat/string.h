@@ -79,14 +79,14 @@ int strncmp(const char*c1,const char*c2,int len);
 // file: minilib/src/mstrcmp.c
 int memcmp(const void* c1,const void* c2,int len);
 
-// file: minilib/src/mstrlen.c
-int strlen(const char*str);
-
 // file: minilib/src/strcat.c
 char *strcat(char *dest, const char *src );
 
 // file: minilib/src/strerror.c
 char* strerror( int errnum );
+
+// file: minilib/src/strlen.c
+int strlen(const char*str);
 
 
 
@@ -95,12 +95,12 @@ char* strerror( int errnum );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/mstrcmp.c"
-#include "minilib/src/strcat.c"
-#include "minilib/src/strerror.c"
-#include "minilib/src/mstrlen.c"
 #include "minilib/src/memset.c"
 #include "minilib/src/memcpy.c"
+#include "minilib/src/strlen.c"
+#include "minilib/src/mstrcmp.c"
+#include "minilib/src/strerror.c"
+#include "minilib/src/strcat.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

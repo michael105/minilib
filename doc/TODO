@@ -41,8 +41,8 @@ printf:
 	fmt %l
 
 
-extras: 
-	folder with some extras. 
+addons: 
+	folder with some addons. 
 	like linked lists.
 
 

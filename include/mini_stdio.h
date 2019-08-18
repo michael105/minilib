@@ -39,20 +39,27 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		return( close(fd) );
 }
 
+#if 0
+#ifndef fprintf
+#ifndef mini_sprintf
+#define mini_sprintf
 
+///+depends dprintf fileno sprintf
+///+def
+//#define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
 
-//+depends dprintf fileno
-//+macro
-#define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
+#endif
+#endif 
 
+#endif
 
-//+depends dprintf fileno
+//+depends fprintf fileno
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
 
 //+depends snprintf
-//+macro 
+//+macro
 #define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
 
 // I'm really uncertain about the size arg here, amongst others

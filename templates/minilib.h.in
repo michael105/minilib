@@ -11,6 +11,7 @@
 //#include "minilib/include/syscall_stubs.h"
 #include "minilib/include/exit.h"
 #include "minilib/include/minilib_global.h"
+#include "minilib/include/filemodes.h"
 
 
 struct udiv_t { unsigned int quot, rem; };
@@ -28,7 +29,7 @@ struct udiv_t { unsigned int quot, rem; };
 //#define mini_print
 //#endif
 //#ifdef mini_print
-////#include "mprint.h"
+////#include "print.h"
 //extern int print(const char *msg);
 //extern int printl(const char *msg);
 //#endif
@@ -36,5 +37,6 @@ struct udiv_t { unsigned int quot, rem; };
 //#ifdef mini_errno / No reason to not define errno Macros by default
 #include "errno.h"
 //#endif
+//
 
 

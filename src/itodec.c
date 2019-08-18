@@ -23,7 +23,7 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
 	
 	if ( i >= 1000000000){
-			//mprints("hier.\n");
+			//prints("hier.\n");
 			p=1;
 			prec=0;
 			if ( i>=2000000000 ){

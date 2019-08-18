@@ -7,6 +7,7 @@ mini_srand
 mini_itodec
 mini_atoi
 mini_fread
+mini_puts
 mini_fclose
 mini_INCLUDESRC
 return
@@ -25,7 +26,7 @@ int main( int argc, char *argv[] ){
 		for ( i=0; i<6; i++ ){
 				printf("%u  ",rand());
 		}
-		printf("\n");
+		puts("");
 		}
 
 		int t;
@@ -35,7 +36,7 @@ int main( int argc, char *argv[] ){
 		for ( i=0; i<6; i++ ){
 				printf("%u  ",rand());
 		}
-		printf("\n");
+		puts("");
 		}
 
 
