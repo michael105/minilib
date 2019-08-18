@@ -76,11 +76,11 @@ memfrob        (src/memfrob.c: 4)
                void* memfrob(void* s, unsigned int len);
 
 print          (include/prints.h: 16)
-               #define print(str) write(stdout,str,sizeof(str)-1)
+               #define print(str) write(STDOUT_FILENO,str,sizeof(str)-1)
                write str to stdout
 
 printl         (include/prints.h: 20)
-               #define printl() write(stdout,"\n",1)
+               #define printl() write(STDOUT_FILENO,"\n",1)
                write a newline to stdout
 
 snprintf       (src/sprintf.c: 212)
@@ -101,16 +101,16 @@ stdio.h
 _itohex        (src/itohex.c: 6)
                int _itohex(int i,char* buf,int padding, int capitals);
 
-fclose         (include/mini_stdio.h: 33)
+fclose         (include/mini_fstream.h: 58)
                static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-feof           (include/mini_stdio.h: 150)
+feof           (include/mini_fstream.h: 175)
                static inline int feof(FILE *f);
 
-fgetpos        (include/mini_stdio.h: 93)
+fgetpos        (include/mini_fstream.h: 118)
                static inline void fgetpos(FILE *f, long *pos );
 
-fileno         (include/mini_stdio.h: 23)
+fileno         (include/mini_fstream.h: 48)
                static inline int __attribute__((always_inline)) fileno( FILE *f );
 
 fopen          (src/fopen.c: 12)
@@ -119,25 +119,25 @@ fopen          (src/fopen.c: 12)
 fprintf        (src/sprintf.c: 237)
                #define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
-fputc          (include/fputc.h: 10)
-               static inline int volatile fputc(int c, int fd);
+fputc          (include/fputc.h: 11)
+               static inline int volatile fputc(int c, FILE* F);
 
 fputs          (include/fputs.h: 15)
-               static inline int volatile fputs(const char *c, int fd);
+               static inline int volatile fputs(const char *c, FILE *F);
 
-fread          (include/mini_stdio.h: 128)
+fread          (include/mini_fstream.h: 153)
                static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-fseek          (include/mini_stdio.h: 112)
+fseek          (include/mini_fstream.h: 137)
                static inline int fseek(FILE *f, long offset, int whence );
 
-fsetpos        (include/mini_stdio.h: 99)
+fsetpos        (include/mini_fstream.h: 124)
                static inline int fsetpos(FILE *f, int pos );
 
-ftell          (include/mini_stdio.h: 87)
+ftell          (include/mini_fstream.h: 112)
                static inline long ftell(FILE *f);
 
-fwrite         (include/mini_stdio.h: 72)
+fwrite         (include/mini_fstream.h: 97)
                static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
 itoHEX         (src/itohex.c: 56)
@@ -146,19 +146,20 @@ itoHEX         (src/itohex.c: 56)
 itohex         (src/itohex.c: 49)
                int itohex(int i,char* buf,int padding);
 
-printf         (include/mini_stdio.h: 59)
+printf         (include/mini_fstream.h: 84)
                #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-putchar        (include/fputc.h: 16)
+putchar        (include/fputc.h: 17)
                #define putchar(c) fputc(c,stdout)
 
-puts           (src/print.c: 27)
-               #define puts(c) printl(c)
+puts           (include/prints.h: 24)
+               #define puts(msg) ( print(msg) + printl() )
+               write msg to stdout, append a newline
 
-rewind         (include/mini_stdio.h: 122)
+rewind         (include/mini_fstream.h: 147)
                static inline void rewind( FILE *f );
 
-sprintf        (include/mini_stdio.h: 64)
+sprintf        (include/mini_fstream.h: 89)
                #define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
 
 

@@ -59,7 +59,7 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
 //needed for puts
-#include "src/mstrlen.c"
+#include "src/strlen.c"
 
 
 // file: minilib/src/fopen.c
@@ -74,16 +74,13 @@ int itohex(int i,char* buf,int padding);
 // file: minilib/src/itohex.c
 int itoHEX(int i,char* buf,int padding);
 
-// file: minilib/src/print.c
-#define puts(c) printl(c)
-
 // file: minilib/src/sprintf.c
 #define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
 // file: minilib/include/fputc.h
 #include "minilib/include/fputc.h"
 // file: minilib/include/fputc.h
-static inline int volatile fputc(int c, int fd);
+static inline int volatile fputc(int c, FILE* F);
 
 // file: minilib/include/fputc.h
 #define putchar(c) fputc(c,stdout)
@@ -91,43 +88,51 @@ static inline int volatile fputc(int c, int fd);
 // file: minilib/include/fputs.h
 #include "minilib/include/fputs.h"
 // file: minilib/include/fputs.h
-static inline int volatile fputs(const char *c, int fd);
+static inline int volatile fputs(const char *c, FILE *F);
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
+#include "minilib/include/mini_fstream.h"
+// file: minilib/include/mini_fstream.h
+static inline int __attribute__((always_inline)) fileno( FILE *F );
+
+// file: minilib/include/mini_fstream.h
 static inline int __attribute__((always_inline)) fileno( FILE *f );
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 #define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline long ftell(FILE *f);
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline void fgetpos(FILE *f, long *pos );
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline int fsetpos(FILE *f, int pos );
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline int fseek(FILE *f, long offset, int whence );
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline void rewind( FILE *f );
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-// file: minilib/include/mini_stdio.h
+// file: minilib/include/mini_fstream.h
 static inline int feof(FILE *f);
+
+// file: minilib/include/prints.h
+#define puts(msg) ( print(msg) + printl() )
 
 
 
@@ -136,13 +141,13 @@ static inline int feof(FILE *f);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/print.c"
-#include "minilib/include/mini_stdio.h"
-#include "minilib/src/itohex.c"
-#include "minilib/include/fputs.h"
-#include "minilib/src/fopen.c"
-#include "minilib/src/sprintf.c"
 #include "minilib/include/fputc.h"
+#include "minilib/include/fputs.h"
+#include "minilib/include/mini_fstream.h"
+#include "minilib/src/fopen.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/itohex.c"
+#include "minilib/src/sprintf.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

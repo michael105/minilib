@@ -25,17 +25,17 @@
 #ifndef NULL
 #define NULL 0
 #endif
-
-#ifndef stdin
-#define stdin 0
-#endif
-#ifndef stdout
-#define stdout 1
-#endif
-#ifndef stderr
-#define stderr 2
-#endif
-
+// 
+// #ifndef stdin
+// #define stdin 0
+// #endif
+// #ifndef stdout
+// #define stdout 1
+// #endif
+// #ifndef stderr
+// #define stderr 2
+// #endif
+// 
 
 // a few backward compatibility defines
 #ifdef mini_printf
@@ -53,7 +53,7 @@
 #ifdef mini_mstrncmp
 #define mini_strncmp
 #endif
-#ifdef mini_mstrlen
+#ifdef mini_strlen
 #define mini_strlen
 #endif
 
@@ -129,7 +129,7 @@ extern int sprintf(char *buf, const char *fmt, ...);
 #endif
 
 #ifdef mini_fputc
-#define mini_mstrlen
+#define mini_strlen
 #include "fputc.h"
 #endif
 
@@ -162,9 +162,6 @@ void _exit();
 #include "exit.h"
 #endif
 
-#ifdef mini_write
-#include "write.h"
-#endif
 
 #ifdef mini_isprint
 #include "isprint.h"
@@ -257,10 +254,10 @@ extern int memcmp(const void*,const void*,int);
 
 #ifdef mini_strcat
 extern char *strcat(char *dest, const char *src )
-#define mini_mstrlen
+#define mini_strlen
 #endif
 
-#ifdef mini_mstrlen
+#ifdef mini_strlen
 extern int strlen(const char*);
 #endif
 
@@ -386,7 +383,7 @@ static inline int XOR(int i1, int i2 ){
 //#define sprintf(...) msprintf(__VA_ARGS__)
 //#define strcmp(A,B) mstrcmp(A,B)
 //#define strncmp(A,B,LEN) mstrncmp(A,B,LEN)
-//#define strlen(A) mstrlen(A)
+//#define strlen(A) strlen(A)
 #endif
 
 #include "minilib_global.h"

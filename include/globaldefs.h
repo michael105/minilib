@@ -80,13 +80,13 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #else 
 // no minibuf -> no stream descriptors.
 #ifndef stdin
-#define stdin 0
+#define stdin (int*)0
 #endif
 #ifndef stdout
-#define stdout 1
+#define stdout (int*)1
 #endif
 #ifndef stderr
-#define stderr 2
+#define stderr (int*)2
 #endif
 #endif
 

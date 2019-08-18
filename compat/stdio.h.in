@@ -1,4 +1,4 @@
 //needed for puts
-#include "src/mstrlen.c"
+#include "src/strlen.c"
 
 

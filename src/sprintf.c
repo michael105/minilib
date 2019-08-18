@@ -231,7 +231,7 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 /// 
 //+header stdio.h
 //+depends write prints dprintf sprintf fileno
-//+needs mini_stdio.h 
+//+needs mini_fstream.h 
 //+after itobin atoi itodec dtodec ltodec itohex
 //+macro fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 

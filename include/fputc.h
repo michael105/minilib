@@ -4,10 +4,11 @@
 //#include "write.h"
 
 //+header stdio.h
+//+depends fileno write
 //+inc
 //+def
-static inline int volatile fputc(int c, int fd){
-		write(fd, &c, 1);
+static inline int volatile fputc(int c, FILE* F){
+		write(fileno(F), &c, 1);
 		return(c);
 }
 

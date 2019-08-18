@@ -288,6 +288,7 @@ while ( my $file = shift ){
 												$func = $1;
 												dbg("$LR macro: $f->{def}   -   func: $func $N");
 										}
+										$f->{macro} = 1;
 								}
 								$l = <F>;
 										$line++;
@@ -404,7 +405,11 @@ sub headerinclude{
 								}
 						}
 				}
-				print $fh "#include \"$funchash->{$i}->{file}\"\n";
+				if ( exists( $funchash->{$i}->{macro} ) ){
+						print $fh $funchash->{$i}->{def}."";
+				} else {
+						print $fh "#include \"$funchash->{$i}->{file}\"\n";
+				}
 		} else {
 				print $fh $funchash->{$i}->{def}."";
 		}

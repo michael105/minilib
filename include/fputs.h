@@ -9,10 +9,10 @@
 
 int strlen(const char*str);
 
-//+depends strlen
+//+depends strlen fileno write
 //+def
-static inline int volatile fputs(const char *c, int fd){
-		return(write(fd, c, strlen(c)));
+static inline int volatile fputs(const char *c, FILE *F){
+		return(write(fileno(F), c, strlen(c)));
 }
 
 

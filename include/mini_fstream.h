@@ -1,5 +1,5 @@
-#ifndef mini_stdio_h
-#define mini_stdio_h
+#ifndef mini_fstream_h
+#define mini_fstream_h
 
 #include "stdarg.h"
 
@@ -11,9 +11,34 @@
 #endif
 
 
+#ifdef mini_buf
+#ifndef mini_fstream
+#define mini_fstream
+#endif
+#endif
+
 
 //+header stdio.h
+//+include
 
+
+#ifndef mini_fstream
+
+
+//+inline
+static inline int __attribute__((always_inline)) fileno( FILE *F ){
+		if ( F==stdin )
+				return ( 0 );
+		if ( F==stdout )
+				return(1);
+		if ( F==stderr )
+	  		return(2);
+		exit(7);
+		return(7);
+}
+
+
+#else
 
 static int close(int);
 static int read(int fd, void *buf, int len);
@@ -152,6 +177,8 @@ static inline int feof(FILE *f){
 		return(0);
 }
 
+// ifdef mini_fstream
+#endif 
 
 
 #endif

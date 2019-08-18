@@ -44,7 +44,7 @@
 
 //#define mini_memfrob
 //#define mini_mstrcmp 
-//#define mini_mstrlen
+//#define mini_strlen
 
 //#define  mini_memset
 //#define  mini_memcpy

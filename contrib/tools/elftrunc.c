@@ -16,7 +16,7 @@
 #define mini_read
 #define mini_open
 #define mini_close
-#define mini_mstrlen
+#define mini_strlen
 
 #define mini_overwrite
 

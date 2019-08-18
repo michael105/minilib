@@ -1,112 +1,128 @@
 # configfile, enabling all buildoptions.
+#
+# This file can be parsed and included by 
+# mini-gcc --config minilib.conf.all (sources.c)
+# define the names of the functions you'd like to use here,
+# comment unwanted functions out.
+#
 
-
+# Len of buf used by read, printf, and malloc(!)
+# 1024 seems a sensible value, it depends on your usage of malloc / printf
+# 4096 is a save default
 mini_buf 4096
 
+# Most probably you will need this
+# It's the main entry for the os.
+# Since we don't link to the standard libs,
+# we have to supply the entry point ourselves
+# start is defined in src/asm/start-os-arch.c
+
+mini_start
+mini_exit
 
 # --- minilib_config-start: Allswitches --- 
 
 # === string.h
-mini_strncmp
-mini_strerror
-mini_strcpy
-mini_strcat
-mini_memcmp
-mini_memset
-mini_strlen
-mini_strncpy
-mini_memcpy
 mini_strcmp
+mini_memset
+mini_strcpy
+mini_strlen
+mini_strcat
+mini_strerror
+mini_strncpy
+mini_strncmp
+mini_memcmp
+mini_memcpy
+
+
+# === time.h
+mini_time
 
 
 # === stdlib.h
-mini_atoi
-mini_srand
-mini_malloc
-mini_getenv
 mini_rand
 mini_free
-
-
-# === stdio.h
-mini_fclose
-mini_fopen
-mini_fgetpos
-mini_printf
-mini_ftell
-mini_feof
-mini_puts
-mini_rewind
-mini_fseek
-mini_fprintf
-mini_itoHEX
-mini_fputc
-mini_fputs
-mini_fread
-mini_fileno
-mini_itohex
-mini_sprintf
-mini_putchar
-mini_fwrite
-mini__itohex
-mini_fsetpos
-
-
-# === mini_addons.h
-mini__itobin
-mini_snprintf
-mini_print
-mini_itodec
-mini_printl
-mini_def
-mini_dprintf
-mini_dtodec
-mini_uitodec
-mini_vsnprintf
-mini_memfrob
+mini_getenv
+mini_srand
+mini_atoi
+mini_malloc
 
 
 # === ioctl.h
 mini_ioctl
 
 
-# === ctype.h
-mini_isspace
-mini_isprint
-
-
 # === unistd.h
-mini_fsync
-mini_write
-mini_lseek
-mini_read
 mini_rename
-mini_close
-mini_ftruncate
-mini_select
-mini_dup2
-mini_tcgetattr
-mini_unlink
-mini_tcsetattr
-mini_getpid
+mini_lseek
 mini_dup
+mini_fsync
+mini_unlink
+mini_read
+mini_tcsetattr
+mini_write
+mini_dup2
+mini_getpid
+mini_ftruncate
+mini_tcgetattr
 mini_open
+mini_close
+mini_select
 
 
 # === declarations.h
+mini_gettimeofday
 mini_stat
+mini_dup3
 mini_fstat
 mini_mprotect
-mini_gettimeofday
-mini_dup3
 mini_getcwd
+
+
+# === mini_addons.h
+mini_vsnprintf
+mini_memfrob
+mini_uitodec
+mini_dprintf
+mini_dtodec
+mini_itodec
+mini_def
+mini_print
+mini_printl
+mini_snprintf
+mini__itobin
+
+
+# === stdio.h
+mini_fread
+mini_fseek
+mini_fputs
+mini_fclose
+mini_fwrite
+mini_sprintf
+mini_fprintf
+mini_fopen
+mini_fileno
+mini_fsetpos
+mini_itohex
+mini_printf
+mini_feof
+mini__itohex
+mini_putchar
+mini_itoHEX
+mini_rewind
+mini_puts
+mini_fputc
+mini_fgetpos
+mini_ftell
 
 
 # === fcntl.h
 mini_creat
 
 
-# === time.h
-mini_time
+# === ctype.h
+mini_isspace
+mini_isprint
 
 # --- minilib_config-end: Allswitches --- 
