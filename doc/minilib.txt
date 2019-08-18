@@ -1,0 +1,212 @@
+minilib doc
+
+Implemented Functions, sorted by the standard headers
+
+
+
+
+==========
+ctype.h
+==========
+isprint
+    (minilib/include/isprint.h: 9)
+isspace
+    (minilib/src/isspace.c: 7)
+
+
+==========
+declarations.h
+==========
+dup3
+    (minilib/include/syscall_stubs.h: 43)
+fstat
+    (minilib/include/syscall_stubs.h: 39)
+getcwd
+    (minilib/include/syscall_stubs.h: 45)
+gettimeofday
+    (minilib/include/syscall_stubs.h: 26)
+mprotect
+    (minilib/include/syscall_stubs.h: 30)
+stat
+    (minilib/include/syscall_stubs.h: 40)
+
+
+==========
+fcntl.h
+==========
+creat
+    (minilib/src/open.c: 27)
+
+
+==========
+ioctl.h
+==========
+ioctl
+    (minilib/src/ioctl.c: 12)
+
+
+==========
+mini_addons.h
+==========
+print
+    (minilib/include/prints.h: 16)
+printl
+    (minilib/include/prints.h: 20)
+
+
+==========
+miniaddons.h
+==========
+_itobin
+    (minilib/src/itobin.c: 4)
+def
+    (minilib/include/globaldefs.h: 54)
+dprintf
+    (minilib/src/sprintf.c: 195)
+dtodec
+    (minilib/src/dtodec.c: 11)
+itodec
+    (minilib/src/itodec.c: 113)
+memfrob
+    (minilib/src/memfrob.c: 4)
+print
+    (minilib/include/prints.h: 16)
+printl
+    (minilib/include/prints.h: 20)
+snprintf
+    (minilib/src/sprintf.c: 212)
+uitodec
+    (minilib/src/itodec.c: 9)
+vsnprintf
+    (minilib/src/sprintf.c: 29)
+
+
+==========
+stdio.h
+==========
+_itohex
+    (minilib/src/itohex.c: 6)
+fclose
+    (minilib/include/mini_stdio.h: 33)
+feof
+    (minilib/include/mini_stdio.h: 150)
+fgetpos
+    (minilib/include/mini_stdio.h: 93)
+fileno
+    (minilib/include/mini_stdio.h: 23)
+fopen
+    (minilib/src/fopen.c: 12)
+fprintf
+    (minilib/src/sprintf.c: 237)
+fputc
+    (minilib/include/fputc.h: 10)
+fputs
+    (minilib/include/fputs.h: 15)
+fread
+    (minilib/include/mini_stdio.h: 128)
+fseek
+    (minilib/include/mini_stdio.h: 112)
+fsetpos
+    (minilib/include/mini_stdio.h: 99)
+ftell
+    (minilib/include/mini_stdio.h: 87)
+fwrite
+    (minilib/include/mini_stdio.h: 72)
+itoHEX
+    (minilib/src/itohex.c: 56)
+itohex
+    (minilib/src/itohex.c: 49)
+printf
+    (minilib/include/mini_stdio.h: 59)
+putchar
+    (minilib/include/fputc.h: 16)
+puts
+    (minilib/src/print.c: 27)
+rewind
+    (minilib/include/mini_stdio.h: 122)
+sprintf
+    (minilib/include/mini_stdio.h: 64)
+
+
+==========
+stdlib.h
+==========
+atoi
+    (minilib/src/atoi.c: 7)
+free
+    (minilib/src/malloc.c: 208)
+getenv
+    (minilib/src/getenv.c: 12)
+malloc
+    (minilib/src/malloc.c: 158)
+rand
+    (minilib/src/rand.c: 16)
+srand
+    (minilib/src/rand.c: 8)
+
+
+==========
+string.h
+==========
+memcmp
+    (minilib/src/mstrcmp.c: 37)
+memcpy
+    (minilib/src/memcpy.c: 7)
+memset
+    (minilib/src/memset.c: 4)
+strcat
+    (minilib/src/strcat.c: 7)
+strcmp
+    (minilib/src/mstrcmp.c: 25)
+strcpy
+    (minilib/src/memcpy.c: 18)
+strerror
+    (minilib/src/strerror.c: 10)
+strlen
+    (minilib/src/strlen.c: 8)
+strncmp
+    (minilib/src/mstrcmp.c: 30)
+strncpy
+    (minilib/src/memcpy.c: 28)
+
+
+==========
+time.h
+==========
+time
+    (minilib/include/syscall_stubs.h: 49)
+
+
+==========
+unistd.h
+==========
+close
+    (minilib/include/close.h: 7)
+dup
+    (minilib/include/syscall_stubs.h: 41)
+dup2
+    (minilib/include/syscall_stubs.h: 42)
+fsync
+    (minilib/include/lseek.h: 21)
+ftruncate
+    (minilib/include/lseek.h: 20)
+getpid
+    (minilib/include/syscall_stubs.h: 28)
+lseek
+    (minilib/include/lseek.h: 18)
+open
+    (minilib/src/open.c: 13)
+read
+    (minilib/include/read.h: 13)
+rename
+    (minilib/include/syscall_stubs.h: 36)
+select
+    (minilib/include/select.h: 29)
+tcgetattr
+    (minilib/include/tcgetattr.h: 19)
+tcsetattr
+    (minilib/include/tcsetattr.h: 19)
+unlink
+    (minilib/include/syscall_stubs.h: 37)
+write
+    (minilib/include/syscall_stubs.h: 33)
