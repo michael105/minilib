@@ -22,107 +22,107 @@ mini_exit
 
 # --- minilib_config-start: Allswitches --- 
 
-# === stdio.h
-mini_ftell
-mini_fputs
-mini_puts
-mini__itohex
-mini_feof
-mini_fsetpos
-mini_fwrite
-mini_rewind
-mini_fileno
-mini_fgetpos
-mini_fopen
-mini_fseek
-mini_fprintf
-mini_printf
-mini_sprintf
-mini_itoHEX
-mini_fputc
-mini_fread
-mini_fclose
-mini_putchar
-mini_itohex
-
-
 # === stdlib.h
-mini_free
-mini_srand
 mini_rand
-mini_getenv
-mini_atoi
 mini_malloc
-
-
-# === ctype.h
-mini_isspace
-mini_isprint
-
-
-# === unistd.h
-mini_write
-mini_lseek
-mini_unlink
-mini_dup2
-mini_getpid
-mini_open
-mini_close
-mini_ftruncate
-mini_select
-mini_rename
-mini_fsync
-mini_dup
-mini_tcsetattr
-mini_read
-mini_tcgetattr
+mini_getenv
+mini_srand
+mini_free
+mini_atoi
 
 
 # === fcntl.h
 mini_creat
 
 
+# === mini_addons.h
+mini_dprintf
+mini_itodec
+mini_dtodec
+mini_uitodec
+mini_def
+mini_print
+mini_snprintf
+mini__itobin
+mini_printl
+mini_memfrob
+mini_vsnprintf
+
+
+# === string.h
+mini_strcmp
+mini_memset
+mini_strncpy
+mini_strlen
+mini_strcpy
+mini_memcpy
+mini_strerror
+mini_strncmp
+mini_strcat
+mini_memcmp
+
+
 # === ioctl.h
 mini_ioctl
 
 
-# === mini_addons.h
-mini_printl
-mini_dprintf
-mini_print
-mini_memfrob
-mini_uitodec
-mini_itodec
-mini_dtodec
-mini_def
-mini_vsnprintf
-mini_snprintf
-mini__itobin
+# === time.h
+mini_time
+
+
+# === unistd.h
+mini_unlink
+mini_rename
+mini_select
+mini_open
+mini_read
+mini_tcsetattr
+mini_getpid
+mini_tcgetattr
+mini_dup
+mini_fsync
+mini_lseek
+mini_write
+mini_dup2
+mini_close
+mini_ftruncate
+
+
+# === stdio.h
+mini_itoHEX
+mini_itohex
+mini_fseek
+mini_fclose
+mini_fwrite
+mini_fputs
+mini_sprintf
+mini_fileno
+mini_fsetpos
+mini_ftell
+mini_rewind
+mini_fgetpos
+mini_fputc
+mini_feof
+mini_puts
+mini_putchar
+mini_printf
+mini__itohex
+mini_fopen
+mini_fprintf
+mini_fread
+
+
+# === ctype.h
+mini_isprint
+mini_isspace
 
 
 # === declarations.h
-mini_stat
-mini_fstat
 mini_getcwd
-mini_dup3
 mini_gettimeofday
+mini_fstat
+mini_stat
+mini_dup3
 mini_mprotect
-
-
-# === string.h
-mini_strerror
-mini_memcpy
-mini_strncpy
-mini_memcmp
-mini_strncmp
-mini_strcat
-mini_memset
-mini_strcmp
-mini_strcpy
-mini_strlen
-
-
-# === time.h
-mini_time
 
 # --- minilib_config-end: Allswitches --- 
