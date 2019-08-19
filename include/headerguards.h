@@ -75,8 +75,8 @@
 #define _CRYPT_H
 #define _DIRENT_H
 #define _DLFCN_H
-#define _ELF_H
-#define _ENDIAN_H
+//#define _ELF_H
+//#define _ENDIAN_H
 #define _ENVZ_H
 #define _ERROR_H
 #define _EXECINFO_H
@@ -161,7 +161,7 @@
 #define _SETJMP_H
 #define _SHADOW_H
 #define _SIGNAL_H
-#define _STDINT_H
+//#define _STDINT_H
 #define _STDIO_EXT_H
 #define _STDIO_H
 #define _STDLIB_H
@@ -202,7 +202,7 @@
 #define _SYS_SOCKET_H
 #define _SYS_STATFS_H
 #define _SYS_STATVFS_H
-#define _SYS_STAT_H
+//#define _SYS_STAT_H
 #define _SYS_SWAP_H
 #define _SYS_SYSINFO_H
 #define _SYS_SYSLOG_H

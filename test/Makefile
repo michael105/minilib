@@ -65,7 +65,7 @@ fopen: fopen.c
 	minilib/mini-gcc --config fopen.c -o fopen fopen.c
 
 build/minilib.o: minilib.conf
-	minilib/mini-gcc --config minilib.conf -c -o build/minilib.o minilib.c 
+	minilib/mini-gcc --config minilib.conf -c -o build/minilib.o minilib.c -DINCLUDESRC
 
 fprintf: fprintf.c
 	minilib/mini-gcc --config fprintf.c -o fprintf fprintf.c

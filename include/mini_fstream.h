@@ -22,6 +22,15 @@
 //+include
 
 
+//+doc This does nothing, since minilib doesn't provide buffered streams yet.
+//+doc in order to sync the stream, please use fsync
+//+inline
+static inline int __attribute__((always_inline)) fflush( FILE *F ){
+		return(0);
+}
+
+
+
 #ifndef mini_fstream
 
 
@@ -37,11 +46,11 @@ static inline int __attribute__((always_inline)) fileno( FILE *F ){
 		return(7);
 }
 
-
 #else
 
 static int close(int);
 static int read(int fd, void *buf, int len);
+int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 //+inline
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
@@ -83,11 +92,9 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
 
-//+depends snprintf
+//+depends fprintf
 //+macro
-#define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
-
-// I'm really uncertain about the size arg here, amongst others
+#define vfprintf(...) fprintf(__VA_ARGS__)
 
 
 
@@ -172,10 +179,23 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 
 //+inline
 static inline int feof(FILE *f){
-		if ( *f & 0xc0000000 )
+		if ( *f & FLAG_MASK )
 				return(1);
 		return(0);
 }
+
+//+inline
+static inline int ferror(FILE *f){
+		if ( *f & FLAG_MASK )
+				return(1);
+		return(0);
+}
+
+//+inline
+static inline void clearerror(FILE *f){
+		*f = *f & FD_MASK;
+}
+
 
 // ifdef mini_fstream
 #endif 

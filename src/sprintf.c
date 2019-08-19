@@ -20,6 +20,14 @@
 #define MINI_TEST_OVERRUN(pos) if ( pos>= size ){ overflow=1; goto msprintfout;}
 
 
+
+//+depends snprintf
+//+macro
+#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
+
+// I'm really uncertain about the size arg here, amongst others
+
+
 //+ansi stdio.h
 //+depends write
 //+needs exit.h stdarg.h overrun.h
@@ -233,7 +241,7 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 //+depends write prints dprintf sprintf fileno
 //+needs mini_fstream.h 
 //+after itobin atoi itodec dtodec ltodec itohex
-//+macro fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+//+macro fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
 
 

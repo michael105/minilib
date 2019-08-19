@@ -17,7 +17,7 @@
 struct udiv_t { unsigned int quot, rem; };
 
 #ifdef mini_perror
-#define perror(...) fprintf(stderr,__VA_ARGS__)
+//#define perror(str) fprintf(stderr,str)
 #ifndef mini_fprintf
 #define mini_fprintf
 #endif

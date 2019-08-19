@@ -6,7 +6,6 @@
 //+header stdio.h
 //+depends fileno write
 //+needs mini_fstream.h
-//+inc
 //+def
 static inline int volatile fputc(int c, FILE* F){
 		write(fileno(F), &c, 1);

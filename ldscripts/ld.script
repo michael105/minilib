@@ -5,6 +5,7 @@ SECTIONS {
 			*(.plt)
 			*(.got.plt)
 			*(.rel.plt)
+			*(.note*)
 		}
 }
 INSERT AFTER .text

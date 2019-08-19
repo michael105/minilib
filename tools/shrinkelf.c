@@ -87,13 +87,6 @@ SOFTWARE.
  * still lurking. */
 
 
-#define mini_INCLUDESRC
-#define mini_buf 4096
-#define mini_puts
-#define mini_prints
-#define mini_malloc
-#define mini_start
-#define mini_open
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -113,22 +106,13 @@ SOFTWARE.
 
 #define warn(...) {fprintf(stderr,__VA_ARGS__);fputc('\n',stderr);}
 #define err(...) {warn(__VA_ARGS__);exit(1);}
+#define verbose(...) fprintf(stdout,__VA_ARGS__)
 
 #ifdef DBG
 #define debg(...) warn(__VA_ARGS__)
 #else
 #define debg(...) {} 
 #endif
-
-//#include "utils.c" // replace skalibs.
-
-int allread(int fd, char *buf, int count){
-		return(read(fd, buf, count));
-}
-
-int allwrite(int fd, char *buf, int count){
-		return(write(fd, buf, count));
-}
 
 int fd_move (int to, int from)
 {
@@ -189,7 +173,7 @@ static int cleanup ()
 static void read_hdrs ()
      /* Read headers from ELF file. */
 {
-  if (allread(0, (char *)&ehdr, sizeof(ehdr)) < sizeof(ehdr))
+  if (read(0, (char *)&ehdr, sizeof(ehdr)) < sizeof(ehdr))
     err( "read ELF header in %s", oldname);
 
   if (memcmp(ehdr.e_ident, ELFMAG,SELFMAG))
@@ -212,22 +196,26 @@ static void read_hdrs ()
   if (ehdr.e_ident[EI_VERSION] != EV_CURRENT){
     err("%s: ELF file version %d %s", oldname, ehdr.e_ident, " not supported");
   }
+  //verbose("ELF file version: %u \n", ehdr.e_ident );
   if (ehdr.e_type != ET_EXEC)
     	err("not an executable" );
   if (ehdr.e_version != EV_CURRENT)
     	err("ELF version %d %s", ehdr.e_version, " not supported");
+	//verbose("ELF version: %d\n", ehdr.e_version );
   if (ehdr.e_phoff == 0)
     	err("no program header");
   if (ehdr.e_phentsize != sizeof(Elf64_Phdr))
     	err("unexpected program header entries size: %d", ehdr.e_phentsize);
   if (ehdr.e_phnum == 0)
     err("program header has no entries");
+  //verbose( "program headers: %d\n", ehdr.e_phnum);
+
   phdr = (Elf64_Phdr *)malloc(ehdr.e_phnum * sizeof(Elf64_Phdr)) ;
   if (!phdr)
     err("Couldn't malloc program header") ;
   if (lseek(0, ehdr.e_phoff, SEEK_SET) == -1)
     err("seek to program header undefined error" );
-  if (allread(0, (char *)phdr, ehdr.e_phnum * sizeof(Elf64_Phdr)) < ehdr.e_phnum * sizeof(Elf64_Phdr))
+  if (read(0, (char *)phdr, ehdr.e_phnum * sizeof(Elf64_Phdr)) < ehdr.e_phnum * sizeof(Elf64_Phdr))
     err("Undefined error reading program header");
   ph_offset = ehdr.e_phoff ;
   ph_filesz = ehdr.e_phentsize * ehdr.e_phnum ;
@@ -399,7 +387,7 @@ static void process_file ()
     {
       if (toread > BUFSIZE) thisread = BUFSIZE ;
       else thisread = toread ;
-      if (allread(0, buf, thisread) < thisread)
+      if (read(0, buf, thisread) < thisread)
       {
         cleanup() ;
         err("Unkown error while reading") ;
@@ -437,7 +425,7 @@ static void process_file ()
         if (len > thisread - posb) len = thisread - posb ;
         memcpy(buf + posb, ((char *)phdr) + posa, len) ;
       }
-      if (allwrite(1, buf, thisread) < thisread)
+      if (write(1, buf, thisread) < thisread)
       {
         cleanup() ;
         err("Unkown error writing to temp file");

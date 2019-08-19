@@ -1,0 +1,16 @@
+Akib Islam, works at Johnson Controls
+Answered Apr 22
+
+The data segment is divided into two segments - Initialized data segment and uninitialized data segment. Initialized data segment is the virtual address space of the program which contains the global and static variables which are initialized by the programmer. Initialized data segment is further divided into two segments - Initialized read only and Initialized read-write area.
+
+Example: Global string defined by char str[] = "Hello World" and global variable a=10 are stored in initialized read-write area. Global string char * ptr = "Hey" will be stored in initialized read-only area and character pointer will be stored in read-write area.
+
+Uninitialized data segment (bss segment) contains the variables which are initialized by the kernel to arithmetic 0 before the program starts executing.
+
+static int i; //Stored in bss segment
+
+static int i=10; //Stored in initialized data segment
+
+global int k; //Stored in bss segment
+
+global int k=100; //Stored in initialized data segment

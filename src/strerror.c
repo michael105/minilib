@@ -2,21 +2,29 @@
 #define strerror_r
 
 
-char *errstr = "err: 00";
+char *errstr = "error: 00";
 
 //+header string.h
 //+def
 char* strerror( int errnum ){
-		errstr[5] = '0';
+		errstr[7] = '0';
 		while ( errnum>9 ){
 				errnum-=10;
-				errstr[5]++;
+				errstr[7]++;
 		}
-		errstr[6] = 48+errnum; // 0+errnum..
+		errstr[8] = 48+errnum; // 0+errnum..
 		return( errstr );
 }
 
+//+header stdio.h
+//+depends fputs
+//+inline
+static inline void perror(char *msg){
+		if ( msg !=0 && msg[0] != '\0' )
+				fputs( msg, stderr );
 
+		fputs( strerror( errno ), stderr );
+}
 
 
 #endif

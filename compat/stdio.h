@@ -75,10 +75,14 @@ int itohex(int i,char* buf,int padding);
 int itoHEX(int i,char* buf,int padding);
 
 // file: minilib/src/sprintf.c
-#define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
-// file: minilib/include/fputc.h
-#include "minilib/include/fputc.h"
+// file: minilib/src/sprintf.c
+#define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+
+// file: minilib/src/strerror.c
+static inline void perror(char *msg);
+
 // file: minilib/include/fputc.h
 static inline int volatile fputc(int c, FILE* F);
 
@@ -86,12 +90,13 @@ static inline int volatile fputc(int c, FILE* F);
 #define putchar(c) fputc(c,stdout)
 
 // file: minilib/include/fputs.h
-#include "minilib/include/fputs.h"
-// file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, FILE *F);
 
 // file: minilib/include/mini_fstream.h
 #include "minilib/include/mini_fstream.h"
+// file: minilib/include/mini_fstream.h
+static inline int __attribute__((always_inline)) fflush( FILE *F );
+
 // file: minilib/include/mini_fstream.h
 static inline int __attribute__((always_inline)) fileno( FILE *F );
 
@@ -105,7 +110,7 @@ static inline int __attribute__((always_inline)) fclose( FILE* f );
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
 // file: minilib/include/mini_fstream.h
-#define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
+#define vfprintf(...) fprintf(__VA_ARGS__)
 
 // file: minilib/include/mini_fstream.h
 static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -131,6 +136,12 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 // file: minilib/include/mini_fstream.h
 static inline int feof(FILE *f);
 
+// file: minilib/include/mini_fstream.h
+static inline int ferror(FILE *f);
+
+// file: minilib/include/mini_fstream.h
+static inline void clearerror(FILE *f);
+
 // file: minilib/include/prints.h
 #define puts(msg) ( print(msg) + printl() )
 
@@ -141,12 +152,13 @@ static inline int feof(FILE *f);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/itohex.c"
 #include "minilib/include/prints.h"
 #include "minilib/include/fputc.h"
-#include "minilib/include/fputs.h"
-#include "minilib/src/itohex.c"
-#include "minilib/src/sprintf.c"
+#include "minilib/src/strerror.c"
 #include "minilib/include/mini_fstream.h"
+#include "minilib/include/fputs.h"
+#include "minilib/src/sprintf.c"
 #include "minilib/src/fopen.c"
 
 // Need global included. Doesn't matter by which file.

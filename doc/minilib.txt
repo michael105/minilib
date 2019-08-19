@@ -60,14 +60,21 @@ mini_addons.h
 _itobin        (src/itobin.c: 4)
                int _itobin(int i, char*buf, int prec, int groups );
 
+_mprints       (src/prints.c: 67)
+               #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+
 def            (include/globaldefs.h: 54)
                typedef int FILE;
 
-dprintf        (src/sprintf.c: 195)
+dprintf        (src/sprintf.c: 203)
                int dprintf( int fd, const char *fmt, ... );
 
 dtodec         (src/dtodec.c: 11)
                int dtodec(double d, char* buf, int precision);
+
+fprintfs       (src/prints.c: 78)
+               int fprintfs( FILE* F, char *fmt, ...);
+               prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 itodec         (src/itodec.c: 113)
                int itodec(int i, char *buf, int prec, char limiter );
@@ -75,21 +82,21 @@ itodec         (src/itodec.c: 113)
 memfrob        (src/memfrob.c: 4)
                void* memfrob(void* s, unsigned int len);
 
-print          (include/prints.h: 16)
+print          (include/prints.h: 17)
                #define print(str) write(STDOUT_FILENO,str,sizeof(str)-1)
                write str to stdout
 
-printl         (include/prints.h: 20)
+printl         (include/prints.h: 21)
                #define printl() write(STDOUT_FILENO,"\n",1)
                write a newline to stdout
 
-snprintf       (src/sprintf.c: 212)
+snprintf       (src/sprintf.c: 220)
                int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 uitodec        (src/itodec.c: 9)
                int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
-vsnprintf      (src/sprintf.c: 29)
+vsnprintf      (src/sprintf.c: 37)
                int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
 
@@ -101,43 +108,53 @@ stdio.h
 _itohex        (src/itohex.c: 6)
                int _itohex(int i,char* buf,int padding, int capitals);
 
-fclose         (include/mini_fstream.h: 58)
+clearerror     (include/mini_fstream.h: 196)
+               static inline void clearerror(FILE *f);
+
+fclose         (include/mini_fstream.h: 67)
                static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-feof           (include/mini_fstream.h: 175)
+feof           (include/mini_fstream.h: 182)
                static inline int feof(FILE *f);
 
-fgetpos        (include/mini_fstream.h: 118)
+ferror         (include/mini_fstream.h: 189)
+               static inline int ferror(FILE *f);
+
+fflush         (include/mini_fstream.h: 29)
+               static inline int __attribute__((always_inline)) fflush( FILE *F );
+               This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
+
+fgetpos        (include/mini_fstream.h: 125)
                static inline void fgetpos(FILE *f, long *pos );
 
-fileno         (include/mini_fstream.h: 48)
+fileno         (include/mini_fstream.h: 57)
                static inline int __attribute__((always_inline)) fileno( FILE *f );
 
 fopen          (src/fopen.c: 12)
                FILE *fopen(const char* filename, const char* mode);
 
-fprintf        (src/sprintf.c: 237)
-               #define fprintf(stream,...)	write(fileno(stdout),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+fprintf        (src/sprintf.c: 245)
+               #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
-fputc          (include/fputc.h: 12)
+fputc          (include/fputc.h: 11)
                static inline int volatile fputc(int c, FILE* F);
 
 fputs          (include/fputs.h: 15)
                static inline int volatile fputs(const char *c, FILE *F);
 
-fread          (include/mini_fstream.h: 153)
+fread          (include/mini_fstream.h: 160)
                static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-fseek          (include/mini_fstream.h: 137)
+fseek          (include/mini_fstream.h: 144)
                static inline int fseek(FILE *f, long offset, int whence );
 
-fsetpos        (include/mini_fstream.h: 124)
+fsetpos        (include/mini_fstream.h: 131)
                static inline int fsetpos(FILE *f, int pos );
 
-ftell          (include/mini_fstream.h: 112)
+ftell          (include/mini_fstream.h: 119)
                static inline long ftell(FILE *f);
 
-fwrite         (include/mini_fstream.h: 97)
+fwrite         (include/mini_fstream.h: 104)
                static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
 itoHEX         (src/itohex.c: 56)
@@ -146,21 +163,27 @@ itoHEX         (src/itohex.c: 56)
 itohex         (src/itohex.c: 49)
                int itohex(int i,char* buf,int padding);
 
-printf         (include/mini_fstream.h: 84)
+perror         (src/strerror.c: 23)
+               static inline void perror(char *msg);
+
+printf         (include/mini_fstream.h: 93)
                #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-putchar        (include/fputc.h: 18)
+putchar        (include/fputc.h: 17)
                #define putchar(c) fputc(c,stdout)
 
-puts           (include/prints.h: 24)
+puts           (include/prints.h: 25)
                #define puts(msg) ( print(msg) + printl() )
                write msg to stdout, append a newline
 
-rewind         (include/mini_fstream.h: 147)
+rewind         (include/mini_fstream.h: 154)
                static inline void rewind( FILE *f );
 
-sprintf        (include/mini_fstream.h: 89)
-               #define sprintf(str,fmt,...) snprintf( str, 4096, fmt, __VA_ARGS__)
+sprintf        (src/sprintf.c: 27)
+               #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
+
+vfprintf       (include/mini_fstream.h: 98)
+               #define vfprintf(...) fprintf(__VA_ARGS__)
 
 
 
