@@ -95,7 +95,13 @@ typedef int FILE;
 #define prints(...) _mprints(__VA_ARGS__,0)
 
 // file: minilib/include/prints.h
-#define print(str) write(STDOUT_FILENO,str,sizeof(str)-1)
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
+
+// file: minilib/include/prints.h
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+
+// file: minilib/include/prints.h
+#define fwrites(fd,str) write(fd,str,sizeof(str))
 
 // file: minilib/include/prints.h
 #define printl() write(STDOUT_FILENO,"\n",1)
@@ -109,13 +115,13 @@ typedef int FILE;
 
 #include "minilib/src/itobin.c"
 #include "minilib/src/fprintfs.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/itodec.c"
-#include "minilib/include/prints.h"
-#include "minilib/include/globaldefs.h"
 #include "minilib/src/sprintf.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/memfrob.c"
 #include "minilib/src/prints.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/include/globaldefs.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

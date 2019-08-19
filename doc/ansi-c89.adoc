@@ -16,16 +16,16 @@ ____
 
          EDOM
          ERANGE
-         errno
+     x    errno
 
 
 ==== COMMON DEFINITIONS <stddef.h>
 
-         NULL
+     x    NULL
          offsetof( type,  member-designator)
          ptrdiff_t
-         size_t
-         wchar_t
+     x    size_t
+     x    wchar_t
 
 
 ==== DIAGNOSTICS <assert.h>
@@ -149,12 +149,12 @@ ____
          FILE *tmpfile(void);
          char *tmpnam(char *s);
      x    int fclose(FILE *stream);
-         int fflush(FILE *stream);
+     x    int fflush(FILE *stream);
      x    FILE *fopen(const char *filename, const char *mode);
          FILE *freopen(const char *filename, const char *mode,
                   FILE *stream);
-         void setbuf(FILE *stream, char *buf);
-         int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+     x    void setbuf(FILE *stream, char *buf);
+     x    int setvbuf(FILE *stream, char *buf, int mode, size_t size);
      x    int fprintf(FILE *stream, const char *format, ...);
          int fscanf(FILE *stream, const char *format, ...);
      x    int printf(const char *format, ...);
@@ -184,10 +184,10 @@ ____
      x    int fsetpos(FILE *stream, const fpos_t *pos);
      x    long int ftell(FILE *stream);
      x    void rewind(FILE *stream);
-         void clearerr(FILE *stream);
+     x    void clearerr(FILE *stream);
      x    int feof(FILE *stream);
          int ferror(FILE *stream);
-         void perror(const char *s);
+     x    void perror(const char *s);
 
 
 ==== GENERAL UTILITIES <stdlib.h>
@@ -195,12 +195,12 @@ ____
          EXIT_FAILURE
          EXIT_SUCCESS
          MB_CUR_MAX
-         NULL
+     x    NULL
          RAND_MAX
-         div_t
-         ldiv_t
-         size_t
-         wchar_t
+     x    div_t
+     x    ldiv_t
+     x    size_t
+     x    wchar_t
          double atof(const char *nptr);
      x    int atoi(const char *nptr);
          long int atol(const char *nptr);
@@ -259,8 +259,8 @@ ____
          size_t strspn(const char *s1, const char *s2);
          char *strstr(const char *s1, const char *s2);
          char *strtok(char *s1, const char *s2);
-         void *memset(void *s, int c, size_t n);
-         char *strerror(int errnum);
+     x    void *memset(void *s, int c, size_t n);
+     x    char *strerror(int errnum);
      x    size_t strlen(const char *s);
 
 
@@ -269,8 +269,8 @@ ____
          CLK_TCK
          NULL
          clock_t
-         time_t
-         size_t
+      x   time_t
+      x   size_t
          struct tm
          clock_t clock(void);
          double difftime(time_t time1, time_t time0);

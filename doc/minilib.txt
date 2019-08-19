@@ -76,6 +76,9 @@ fprintfs       (src/fprintfs.c: 11)
                int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
+fwrites        (include/prints.h: 26)
+               #define fwrites(fd,str) write(fd,str,sizeof(str))
+
 itodec         (src/itodec.c: 113)
                int itodec(int i, char *buf, int prec, char limiter );
 
@@ -83,10 +86,10 @@ memfrob        (src/memfrob.c: 4)
                void* memfrob(void* s, unsigned int len);
 
 print          (include/prints.h: 19)
-               #define print(str) write(STDOUT_FILENO,str,sizeof(str)-1)
-               write str to stdout
+               #define print(str) write(STDOUT_FILENO,str,strlen(str))
+               write str to stdout. Needs strlen
 
-printl         (include/prints.h: 23)
+printl         (include/prints.h: 32)
                #define printl() write(STDOUT_FILENO,"\n",1)
                write a newline to stdout
 
@@ -102,6 +105,9 @@ uitodec        (src/itodec.c: 9)
 
 vsnprintf      (src/sprintf.c: 37)
                int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+
+writes         (include/prints.h: 23)
+               #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
 
 
@@ -176,12 +182,19 @@ printf         (include/mini_fstream.h: 93)
 putchar        (include/fputc.h: 17)
                #define putchar(c) fputc(c,stdout)
 
-puts           (include/prints.h: 27)
+puts           (include/prints.h: 37)
                #define puts(msg) ( print(msg) + printl() )
                write msg to stdout, append a newline
 
 rewind         (include/mini_fstream.h: 154)
                static inline void rewind( FILE *f );
+
+setbuf         (include/mini_fstream.h: 204)
+               void setbuf(FILE *stream, char *buf);
+
+setvbuf        (include/mini_fstream.h: 208)
+               int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+               dummy
 
 sprintf        (src/sprintf.c: 27)
                #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
