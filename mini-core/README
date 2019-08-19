@@ -1,0 +1,9 @@
+Ongoing work.
+
+I'm trying to get a usable unix system (without the kernel)
+within 64kB. All tools statically linked.
+
+Ok. Possibly it will be 128kB.
+
+We'll see. 
+
