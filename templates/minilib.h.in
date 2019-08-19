@@ -18,9 +18,9 @@ struct udiv_t { unsigned int quot, rem; };
 
 #ifdef mini_perror
 //#define perror(str) fprintf(stderr,str)
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
+//#ifndef mini_fprintf
+//#define mini_fprintf
+//#endif
 #endif
 
 

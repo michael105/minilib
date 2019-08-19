@@ -5,6 +5,8 @@ extern int dprints(int fd, char *msg,...);
 //+header mini_addons.h
 
 //+doc print the string(s) supplied as arg(s) to stdout
+//+depends _mprints
+//+macro
 #define prints(...) _mprints(__VA_ARGS__,0)
 //#define printl(...) _mprints(__VA_ARGS__,"\n",0)
 

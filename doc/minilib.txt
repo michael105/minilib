@@ -72,7 +72,7 @@ dprintf        (src/sprintf.c: 203)
 dtodec         (src/dtodec.c: 11)
                int dtodec(double d, char* buf, int precision);
 
-fprintfs       (src/prints.c: 78)
+fprintfs       (src/fprintfs.c: 11)
                int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
@@ -82,13 +82,17 @@ itodec         (src/itodec.c: 113)
 memfrob        (src/memfrob.c: 4)
                void* memfrob(void* s, unsigned int len);
 
-print          (include/prints.h: 17)
+print          (include/prints.h: 19)
                #define print(str) write(STDOUT_FILENO,str,sizeof(str)-1)
                write str to stdout
 
-printl         (include/prints.h: 21)
+printl         (include/prints.h: 23)
                #define printl() write(STDOUT_FILENO,"\n",1)
                write a newline to stdout
+
+prints         (include/prints.h: 11)
+               #define prints(...) _mprints(__VA_ARGS__,0)
+               print the string(s) supplied as arg(s) to stdout
 
 snprintf       (src/sprintf.c: 220)
                int snprintf( char *buf, size_t size, const char *fmt, ... );
@@ -172,7 +176,7 @@ printf         (include/mini_fstream.h: 93)
 putchar        (include/fputc.h: 17)
                #define putchar(c) fputc(c,stdout)
 
-puts           (include/prints.h: 25)
+puts           (include/prints.h: 27)
                #define puts(msg) ( print(msg) + printl() )
                write msg to stdout, append a newline
 

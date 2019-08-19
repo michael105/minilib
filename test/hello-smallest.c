@@ -8,7 +8,7 @@
 //void _exit(int i);
 
 int main(){
-		write(stdout, "Hello world!\n", 13);
+		write(STDOUT_FILENO, "Hello world!\n", 13);
 		exit(7);
 //		asm volatile ("jmp _exit" :: "D" (7)); // Ok. works. 12 bytes -O0 und stripped.
 //		_exit(7);

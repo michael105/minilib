@@ -61,6 +61,9 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 // file: minilib/src/dtodec.c
 int dtodec(double d, char* buf, int precision);
 
+// file: minilib/src/fprintfs.c
+int fprintfs( FILE* F, char *fmt, ...);
+
 // file: minilib/src/itobin.c
 int _itobin(int i, char*buf, int prec, int groups );
 
@@ -76,9 +79,6 @@ void* memfrob(void* s, unsigned int len);
 // file: minilib/src/prints.c
 #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
-// file: minilib/src/prints.c
-int fprintfs( FILE* F, char *fmt, ...);
-
 // file: minilib/src/sprintf.c
 int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -90,6 +90,9 @@ int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 // file: minilib/include/globaldefs.h
 typedef int FILE;
+
+// file: minilib/include/prints.h
+#define prints(...) _mprints(__VA_ARGS__,0)
 
 // file: minilib/include/prints.h
 #define print(str) write(STDOUT_FILENO,str,sizeof(str)-1)
@@ -105,13 +108,14 @@ typedef int FILE;
 #ifdef mini_INCLUDESRC
 
 #include "minilib/src/itobin.c"
-#include "minilib/src/itodec.c"
+#include "minilib/src/fprintfs.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/sprintf.c"
 #include "minilib/src/dtodec.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/prints.c"
+#include "minilib/src/itodec.c"
 #include "minilib/include/prints.h"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/sprintf.c"
+#include "minilib/src/prints.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

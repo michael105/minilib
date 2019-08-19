@@ -22,114 +22,115 @@ mini_exit
 
 # --- minilib_config-start: Allswitches --- 
 
-# === stdlib.h
-mini_malloc
-mini_free
-mini_atoi
-mini_rand
-mini_srand
-mini_getenv
-
-
-# === mini_addons.h
-mini_print
-mini__mprints
-mini_vsnprintf
-mini_uitodec
-mini_fprintfs
-mini_dtodec
-mini_snprintf
-mini_printl
-mini__itobin
-mini_dprintf
-mini_def
-mini_memfrob
-mini_itodec
-
-
-# === ctype.h
-mini_isprint
-mini_isspace
-
-
-# === time.h
-mini_time
-
-
 # === string.h
-mini_strlen
-mini_strerror
+mini_strncpy
+mini_strcat
+mini_memset
 mini_strcpy
 mini_memcpy
-mini_strcat
 mini_strncmp
-mini_strncpy
-mini_strcmp
 mini_memcmp
-mini_memset
-
-
-# === declarations.h
-mini_mprotect
-mini_getcwd
-mini_stat
-mini_gettimeofday
-mini_fstat
-mini_dup3
+mini_strlen
+mini_strcmp
+mini_strerror
 
 
 # === fcntl.h
 mini_creat
 
 
+# === time.h
+mini_time
+
+
 # === unistd.h
-mini_tcgetattr
-mini_dup
-mini_write
-mini_ftruncate
 mini_close
-mini_tcsetattr
-mini_fsync
-mini_select
-mini_rename
-mini_lseek
-mini_open
-mini_unlink
-mini_read
 mini_dup2
+mini_fsync
+mini_dup
+mini_lseek
+mini_tcsetattr
+mini_ftruncate
+mini_select
+mini_open
 mini_getpid
+mini_read
+mini_rename
+mini_tcgetattr
+mini_unlink
+mini_write
+
+
+# === declarations.h
+mini_getcwd
+mini_mprotect
+mini_dup3
+mini_stat
+mini_gettimeofday
+mini_fstat
+
+
+# === ctype.h
+mini_isspace
+mini_isprint
+
+
+# === stdio.h
+mini_sprintf
+mini_fgetpos
+mini__itohex
+mini_ftell
+mini_fclose
+mini_clearerror
+mini_fileno
+mini_vfprintf
+mini_perror
+mini_fputs
+mini_putchar
+mini_feof
+mini_itoHEX
+mini_fflush
+mini_fseek
+mini_puts
+mini_fread
+mini_rewind
+mini_itohex
+mini_printf
+mini_fputc
+mini_fsetpos
+mini_fwrite
+mini_ferror
+mini_fprintf
+mini_fopen
 
 
 # === ioctl.h
 mini_ioctl
 
 
-# === stdio.h
-mini_perror
-mini_itoHEX
-mini_puts
-mini_fflush
-mini_fopen
-mini_vfprintf
-mini_fclose
-mini_fprintf
-mini_fputc
-mini_fread
-mini_ferror
-mini_rewind
-mini_clearerror
-mini_itohex
-mini_printf
-mini_fputs
-mini_sprintf
-mini_fgetpos
-mini_feof
-mini_putchar
-mini_fsetpos
-mini_fileno
-mini__itohex
-mini_fseek
-mini_ftell
-mini_fwrite
+# === stdlib.h
+mini_getenv
+mini_srand
+mini_free
+mini_malloc
+mini_atoi
+mini_rand
+
+
+# === mini_addons.h
+mini_def
+mini_uitodec
+mini__mprints
+mini_fprintfs
+mini_snprintf
+mini_prints
+mini_itodec
+mini_memfrob
+mini_vsnprintf
+mini_dprintf
+mini_print
+mini__itobin
+mini_printl
+mini_dtodec
 
 # --- minilib_config-end: Allswitches --- 
