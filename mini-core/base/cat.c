@@ -1,3 +1,6 @@
+// Original work by ammongit (github.com/ammongit/minutils)
+// Modified by misc 2019
+
 #include <fcntl.h>
 #include <unistd.h>
 
