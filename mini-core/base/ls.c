@@ -72,8 +72,8 @@ int print_entry( struct dirent *ent, int args ){
 							p++;
 							if (p>2) p=0;
 					}
-					fprintf(stdout, "   %d %d   ", st.st_uid, st.st_gid);
-					fprintf(stdout, "%-5d    ", st.st_size);
+					fprintf(stdout, "   %d %d ", st.st_uid, st.st_gid);
+					fprintf(stdout, "%-9d    ", st.st_size);
 
 					printf("%s\n", ent->d_name);
 
