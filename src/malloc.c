@@ -74,7 +74,7 @@
 void* malloc(int size){
 		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"
 		if( ml.mbufsize-(size<<2)<64 ){
-				dbgwarn( "Out of memory." );
+				write( STDERR_FILENO, "Out of memory.\n",15 );
 				return((void*)0);
 		}
 

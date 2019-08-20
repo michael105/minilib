@@ -13,6 +13,8 @@
 #include "minilib/include/minilib_global.h"
 #include "minilib/include/filemodes.h"
 
+#include "minilib/headers/common/dirent.h"
+
 
 struct udiv_t { unsigned int quot, rem; };
 

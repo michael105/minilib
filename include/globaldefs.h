@@ -96,4 +96,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #define STDERR_FILENO 2
 #endif
 
+#include <sys/utsname.h>
+
+
 #endif

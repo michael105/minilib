@@ -73,7 +73,7 @@
 #define _COMPLEX_H
 #define _CPIO_H
 #define _CRYPT_H
-#define _DIRENT_H
+//#define _DIRENT_H
 #define _DLFCN_H
 //#define _ELF_H
 //#define _ENDIAN_H
@@ -215,7 +215,7 @@
 #define _SYS_UCONTEXT_H
 #define _SYS_UIO_H
 #define _SYS_USER_H
-#define _SYS_UTSNAME_H
+//#define _SYS_UTSNAME_H
 #define _SYS_VLIMIT_H
 #define _SYS_VM86_H
 #define _SYS_VTIMES_H

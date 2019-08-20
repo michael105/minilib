@@ -4,9 +4,10 @@ Compiled with -Os;
 
 Reaching 64kB for a usable base system is going to be interesting.
 
-Some sources in this directory are originally written by ammongit and modified by me.
-I also reused some fragments of minix.
+Some sources in this directory are originally written by ammongit (github.com/ammongit/minutils) 
+and modified by me.
 
+I also reused some fragments of minix.
 I kept all copyright notices within the sources.
 
 
@@ -16,11 +17,12 @@ cat             2019-08-19             1038
 echo            2019-08-19             363
 false           2019-08-19             153
 getenv          2019-08-19             782
+ls              2019-08-19             7048
 pwd             2019-08-19             277
 tee             2019-08-19             2335
 true            2019-08-19             150
 uname           2019-08-19             1346
 yes             2019-08-19             309
 ===============================================
-                           size: 7246 Bytes
+                          size: 14294 Bytes
 ```

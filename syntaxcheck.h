@@ -354,92 +354,98 @@
 #define mini_buf 4096
 #define mini_start 
 #define mini_exit 
+#define mini_creat generate
 #define mini_strcmp generate
-#define mini_memcmp generate
-#define mini_strcat generate
-#define mini_strlen generate
-#define mini_strerror generate
 #define mini_strcpy generate
+#define mini_strerror generate
 #define mini_strncmp generate
+#define mini_strcat generate
 #define mini_memcpy generate
+#define mini_memcmp generate
 #define mini_strncpy generate
 #define mini_memset generate
+#define mini_strlen generate
+#define mini_opendir generate
+#define mini_closedir generate
+#define mini_readdir generate
 #define mini_isprint generate
 #define mini_isspace generate
+#define mini_ioctl generate
+#define mini_atoi generate
+#define mini_free generate
+#define mini_getenv generate
+#define mini_malloc generate
+#define mini_rand generate
+#define mini_srand generate
+#define mini_write generate
 #define mini_read generate
+#define mini_open generate
 #define mini_tcsetattr generate
-#define mini_tcgetattr generate
-#define mini_select generate
+#define mini_dup2 generate
 #define mini_dup generate
 #define mini_unlink generate
-#define mini_rename generate
-#define mini_write generate
-#define mini_getpid generate
-#define mini_open generate
+#define mini_tcgetattr generate
 #define mini_fsync generate
 #define mini_lseek generate
 #define mini_close generate
-#define mini_dup2 generate
 #define mini_ftruncate generate
-#define mini_creat generate
-#define mini_ioctl generate
-#define mini_atoi generate
-#define mini_malloc generate
-#define mini_rand generate
-#define mini_free generate
-#define mini_getenv generate
-#define mini_srand generate
-#define mini_memfrob generate
-#define mini_fwrites generate
-#define mini_uitodec generate
-#define mini_dprintf generate
-#define mini_def generate
-#define mini_vsnprintf generate
-#define mini_writes generate
-#define mini_printl generate
-#define mini__mprints generate
-#define mini_print generate
-#define mini_prints generate
-#define mini_itodec generate
-#define mini_fprintfs generate
-#define mini_dtodec generate
-#define mini_snprintf generate
-#define mini__itobin generate
+#define mini_select generate
+#define mini_getpid generate
+#define mini_rename generate
+#define mini_time generate
 #define mini_dup3 generate
-#define mini_mprotect generate
+#define mini_getdents generate
+#define mini_getcwd generate
+#define mini_uname generate
+#define mini_stat generate
 #define mini_gettimeofday generate
 #define mini_fstat generate
-#define mini_stat generate
-#define mini_getcwd generate
-#define mini_setbuf generate
-#define mini_printf generate
-#define mini_setvbuf generate
-#define mini_fileno generate
-#define mini_fwrite generate
-#define mini_ferror generate
-#define mini_ftell generate
-#define mini_fputs generate
-#define mini_rewind generate
-#define mini_clearerror generate
-#define mini_fclose generate
-#define mini_fgetpos generate
-#define mini_fseek generate
-#define mini_fprintf generate
-#define mini_puts generate
-#define mini_perror generate
-#define mini_fflush generate
-#define mini_fsetpos generate
-#define mini_vfprintf generate
-#define mini_fread generate
-#define mini_itoHEX generate
-#define mini_sprintf generate
+#define mini_mprotect generate
+#define mini_dtodec generate
+#define mini_fwrites generate
+#define mini_snprintf generate
+#define mini__mprints generate
+#define mini_vsnprintf generate
+#define mini_writes generate
+#define mini_uitodec generate
+#define mini_printl generate
+#define mini_dprintf generate
+#define mini_basename generate
+#define mini_print generate
+#define mini_prints generate
+#define mini_def generate
+#define mini__itobin generate
+#define mini_memfrob generate
+#define mini_fprintfs generate
+#define mini_itodec generate
 #define mini_itohex generate
-#define mini__itohex generate
-#define mini_fputc generate
-#define mini_feof generate
-#define mini_putchar generate
+#define mini_vfprintf generate
+#define mini_ferror generate
+#define mini_setvbuf generate
+#define mini_clearerror generate
+#define mini_fgetpos generate
+#define mini_fclose generate
+#define mini_fileno generate
 #define mini_fopen generate
-#define mini_time generate
+#define mini_printf generate
+#define mini_fputc generate
+#define mini_fflush generate
+#define mini_ftell generate
+#define mini_putchar generate
+#define mini_perror generate
+#define mini_fseek generate
+#define mini_fsetpos generate
+#define mini_rewind generate
+#define mini_fputs generate
+#define mini_setbuf generate
+#define mini_sprintf generate
+#define mini_fwrite generate
+#define mini_itoHEX generate
+#define mini_fread generate
+#define mini_puts generate
+#define mini_fprintf generate
+#define mini__itohex generate
+#define mini_feof generate
 #define included_minilib_h 
 #define globaldefs_h 
 #define POINTER unsigned long int
@@ -472,6 +478,31 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #define STDIN_FILENO 0
 #define STDOUT_FILENO 1
 #define STDERR_FILENO 2
+#define _LINUX_UTSNAME_H 
+#define __OLD_UTS_LEN 8
+struct oldold_utsname {
+        char sysname[9];
+        char nodename[9];
+        char release[9];
+        char version[9];
+        char machine[9];
+};
+#define __NEW_UTS_LEN 64
+struct old_utsname {
+        char sysname[65];
+        char nodename[65];
+        char release[65];
+        char version[65];
+        char machine[65];
+};
+struct new_utsname {
+        char sysname[64 + 1];
+        char nodename[64 + 1];
+        char release[64 + 1];
+        char version[64 + 1];
+        char machine[64 + 1];
+        char domainname[64 + 1];
+};
 #define minilib_syscall_h 
 #define NCONST 0
 #define SCALL(call) __NR_ ##call
@@ -839,22 +870,24 @@ struct timezone {
 extern int sysret;
 extern int errno;
 struct stat;
-inline int volatile __attribute__((always_inline)) stat( const char* a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 4 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) dup2( int a1, int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 33 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) ftruncate( unsigned int a1, unsigned int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 77 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) lseek( unsigned int a1, int a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 8 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) time( unsigned int *a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 201 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) fsync( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 74 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) dup3( int a1, int a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 292 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
 inline int volatile __attribute__((always_inline)) getpid( ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 39 | 0 ) | 0 ) ) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) fstat( int a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 5 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) write( int a1, const void *a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 1 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
 inline int volatile __attribute__((always_inline)) gettimeofday( struct timeval *a1, struct timezone *a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 96 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (10 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
 inline int volatile __attribute__((always_inline)) rename( const char* a1, const char* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 82 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
-inline int volatile __attribute__((always_inline)) unlink( const char* a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 87 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) uname( struct old_utsname *a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 63 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) stat( const char* a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 4 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) lseek( unsigned int a1, int a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 8 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) dup3( int a1, int a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 292 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) fsync( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 74 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) getdents( unsigned int a1, struct dirent *a2, unsigned int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 78 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) ftruncate( unsigned int a1, unsigned int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 77 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (10 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
+inline int volatile __attribute__((always_inline)) fstat( int a1, struct stat* a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 5 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) dup2( int a1, int a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 33 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
 inline int volatile __attribute__((always_inline)) dup( int a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 32 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
 inline int volatile __attribute__((always_inline)) getcwd( char *a1, long a2 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 79 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) unlink( const char* a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 87 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) time( unsigned int *a1 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 201 | 0 ) | 0 ) ) , "D" (a1) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
+inline int volatile __attribute__((always_inline)) write( int a1, const void *a2, int a3 ){ int sysret; asm volatile ("syscall" : "=a" (sysret) : "a" ( (( 1 | 0 ) | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); return( (sysret<0) ? -1 : sysret ); }
 #define SYS_TYPES_H 
 #define alltypes_h 
 #define _Addr long
@@ -1009,6 +1042,30 @@ char **mini_env;
 #define O_NOFOLLOW 00400000
 #define O_NOATIME 01000000
 #define O_CLOEXEC 02000000
+#define _DIRENT_H 
+#define __NEED_ino_t 
+#define __NEED_off_t 
+struct __dirstream
+{
+ off_t tell;
+ int fd;
+ int buf_pos;
+ int buf_end;
+ volatile int lock[1];
+ char buf[2048];
+};
+typedef struct __dirstream DIR;
+#define _DIRENT_HAVE_D_RECLEN 
+#define _DIRENT_HAVE_D_OFF 
+#define _DIRENT_HAVE_D_TYPE 
+struct dirent {
+ ino_t d_ino;
+ off_t d_off;
+ unsigned short d_reclen;
+ unsigned char d_type;
+ char d_name[256];
+};
+#define d_fileno d_ino
 struct udiv_t { unsigned int quot, rem; };
 #define errno_h 
 #define mini_errno 
@@ -1148,6 +1205,9 @@ struct udiv_t { unsigned int quot, rem; };
 #define ERFKILL 132
 extern int errno;
 #define mini_dprints 
+#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
+#define printl() write(STDOUT_FILENO,"\n",1)
+int dprintf( int fd, const char *fmt, ... );
 #define mini_fstream_h 
 #define mini_fstream 
 static inline int __attribute__((always_inline)) fflush( FILE *F ){
@@ -1233,12 +1293,38 @@ void setbuf(FILE *stream, char *buf){
 int setvbuf(FILE *stream, char *buf, int mode, long size){
   return(0);
 }
+#define fputs_h 
+int strlen(const char*str);
+static inline int volatile fputs(const char *c, FILE *F){
+  return(write(fileno(F), c, strlen(c)));
+}
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
+#define prints(...) _mprints(__VA_ARGS__,0)
+#define minilib_close_h 
+static inline int volatile __attribute__((always_inline)) close( int fd ){
+  int ret;
+  asm volatile ("syscall" : "=a" (ret) : "a" ( (3 | 0 ) ) , "D" ((int)fd) : "memory","rcx", "r11" );
+  return(ret);
+}
+#define mini_lseek_h 
+extern int sysret;
+extern int errno;
+void* volatile malloc(int size);
+void *memcpy( void *d, const void *s, int n );
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+int snprintf( char *buf, long size, const char *fmt, ... );
+int volatile open( const char *s, int flags, ... );
+int _itohex(int i,char* buf,int padding, int capitals);
+int vsnprintf(char *buf, long size, const char* fmt, va_list args );
+int ioctl( int fd, unsigned long int request, ... );
+#define fprintf(stream,...) write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
 #define fputc_c 
 static inline int volatile fputc(int c, FILE* F){
   write(fileno(F), &c, 1);
   return(c);
 }
-int ioctl( int fd, unsigned long int request, ... );
+int strlen(const char*str);
 #define minilib_read_h 
 #define overrun_h 
 #define prints_h 
@@ -1251,59 +1337,29 @@ static inline int volatile __attribute__((always_inline)) read( int fd, void* bu
   asm volatile ("syscall" : "=a" (ret) : "a" ( (0 | 0 ) ) , "D" (fd), "S" ((unsigned long int)buf), "d" (len) : "memory","rcx", "r11" );
   return(ret);
 }
-int _itohex(int i,char* buf,int padding, int capitals);
-#define prints(...) _mprints(__VA_ARGS__,0)
-#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-#define printl() write(STDOUT_FILENO,"\n",1)
-int dprintf( int fd, const char *fmt, ... );
-int volatile open( const char *s, int flags, ... );
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-#define mini_lseek_h 
-extern int sysret;
-extern int errno;
-#define fprintf(stream,...) write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-int snprintf( char *buf, long size, const char *fmt, ... );
-#define print(str) write(STDOUT_FILENO,str,strlen(str))
-void *memcpy( void *d, const void *s, int n );
-#define fputs_h 
-int strlen(const char*str);
-static inline int volatile fputs(const char *c, FILE *F){
-  return(write(fileno(F), c, strlen(c)));
-}
-int vsnprintf(char *buf, long size, const char* fmt, va_list args );
-int strlen(const char*str);
-#define minilib_close_h 
-static inline int volatile __attribute__((always_inline)) close( int fd ){
-  int ret;
-  asm volatile ("syscall" : "=a" (ret) : "a" ( (3 | 0 ) ) , "D" ((int)fd) : "memory","rcx", "r11" );
-  return(ret);
-}
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-char *strcat(char *dest, const char *src );
-int dtodec(double d, char* buf, int precision);
+unsigned int rand();
 int _itobin(int i, char*buf, int prec, int groups );
-char* strerror( int errnum );
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-void* memfrob(void* s, unsigned int len);
-void* volatile malloc(int size);
-int atoi(char *c);
-int strncmp(const char*c1,const char*c2,int len);
-char *strcpy(char *dest, const char *src);
-#define puts(msg) ( print(msg) + printl() )
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
-int isspace(int c);
-char *getenv(const char* name);
+int strcmp(const char*c1,const char*c2);
 #define tcgetattr_h 
 #define TCGETS TIOCGETA
 static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
  return(ioctl(fd, TIOCGETA, io));
 }
-#define putchar(c) fputc(c,stdout)
-int memcmp(const void* c1,const void* c2,int len);
-void volatile free(void* p);
-int itodec(int i, char *buf, int prec, char limiter );
+DIR *opendir(const char *name);
+int isspace(int c);
+FILE *fopen(const char* filename, const char* mode);
+char *strcat(char *dest, const char *src );
+#define fwrites(fd,str) write(fd,str,sizeof(str))
+static inline void perror(char *msg);
+struct dirent *readdir(DIR *dir);
 void *memset( void *s, int c, int n);
+int dtodec(double d, char* buf, int precision);
+int itodec(int i, char *buf, int prec, char limiter );
+char* strerror( int errnum );
+void volatile free(void* p);
+int memcmp(const void* c1,const void* c2,int len);
+#define puts(msg) ( print(msg) + printl() )
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 #define termios_xxxxx 
 struct termios {
  tcflag_t c_iflag;
@@ -1429,11 +1485,7 @@ int ioctl( int fd, unsigned long int request, ... );
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
  return(ioctl(fd, TIOCSETA +opt, io));
 }
-static inline void perror(char *msg);
-#define vfprintf(...) fprintf(__VA_ARGS__)
-void srand( unsigned int i );
-int fprintfs( FILE* F, char *fmt, ...);
-int itohex(int i,char* buf,int padding);
+char *getenv(const char* name);
 #define mini_isprint_h 
 #define misprint(A) isprint(A)
 static inline int __attribute__((always_inline)) isprint(const char c){
@@ -1441,9 +1493,13 @@ static inline int __attribute__((always_inline)) isprint(const char c){
     return(1);
   return(0);
 }
-#define fwrites(fd,str) write(fd,str,sizeof(str))
-int strcmp(const char*c1,const char*c2);
-FILE *fopen(const char* filename, const char* mode);
+void srand( unsigned int i );
+int atoi(char *c);
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+int strncmp(const char*c1,const char*c2,int len);
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+#define putchar(c) fputc(c,stdout)
+char *strcpy(char *dest, const char *src);
 #define select_h 
 #define FD_SETSIZE 1024
   typedef unsigned long fd_mask;
@@ -1460,7 +1516,12 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
   register long int r10 asm ("r10") = (unsigned long int)exceptfd ; register long int r8 asm ("r8") = (unsigned long int) wait ; asm volatile ("syscall" : "=a" (ret) : "a" ( (23 | 0 ) ) , "D" (&fd), "S" (readfd), "d" ((unsigned long int)writefd), "r" (r10), "r" (r8) : "memory","rcx", "r11" );
   return(ret);
 }
+int closedir(DIR *dir);
+char *basename(char *path);
 int itoHEX(int i,char* buf,int padding);
+int itohex(int i,char* buf,int padding);
+#define vfprintf(...) fprintf(__VA_ARGS__)
+int fprintfs( FILE* F, char *fmt, ...);
+void* memfrob(void* s, unsigned int len);
 char *strncpy(char *dest, const char *src, int n);
-unsigned int rand();
 #endif

@@ -24,4 +24,4 @@ my $ln = join(" ", @files);
 	}
 
 	print("===============================================\n");
-	printf("%+44s", "size: $size\n");
+	printf("%+44s", "size: $size Bytes\n");

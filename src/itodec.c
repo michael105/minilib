@@ -96,6 +96,8 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 					p++;
 			} else
 					prec++;
+					//buf[p] = 'x';
+					//p++;
 
 			}
 	}

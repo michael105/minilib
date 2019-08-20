@@ -21,18 +21,37 @@ isspace        (src/isspace.c: 7)
 declarations.h
 ==========
 
-dup3           (include/syscall_stubs.h: 43)
+dup3           (include/syscall_stubs.h: 46)
                
-fstat          (include/syscall_stubs.h: 39)
+fstat          (include/syscall_stubs.h: 42)
                
-getcwd         (include/syscall_stubs.h: 45)
+getcwd         (include/syscall_stubs.h: 48)
+               
+getdents       (include/syscall_stubs.h: 34)
                
 gettimeofday   (include/syscall_stubs.h: 26)
                
 mprotect       (include/syscall_stubs.h: 30)
                
-stat           (include/syscall_stubs.h: 40)
+stat           (include/syscall_stubs.h: 43)
                
+uname          (include/syscall_stubs.h: 32)
+               
+
+
+==========
+dirent.h
+==========
+
+closedir       (src/dirent/closedir.c: 7)
+               int closedir(DIR *dir);
+
+opendir        (src/dirent/opendir.c: 11)
+               DIR *opendir(const char *name);
+
+readdir        (src/dirent/readdir.c: 10)
+               struct dirent *readdir(DIR *dir);
+
 
 
 ==========
@@ -62,6 +81,9 @@ _itobin        (src/itobin.c: 4)
 
 _mprints       (src/prints.c: 67)
                #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+
+basename       (src/basename.c: 30)
+               char *basename(char *path);
 
 def            (include/globaldefs.h: 54)
                typedef int FILE;
@@ -268,7 +290,7 @@ strncpy        (src/memcpy.c: 28)
 time.h
 ==========
 
-time           (include/syscall_stubs.h: 49)
+time           (include/syscall_stubs.h: 52)
                
 
 
@@ -279,9 +301,9 @@ unistd.h
 close          (include/close.h: 7)
                static inline int volatile __attribute__((always_inline)) close( int fd );
 
-dup            (include/syscall_stubs.h: 41)
+dup            (include/syscall_stubs.h: 44)
                
-dup2           (include/syscall_stubs.h: 42)
+dup2           (include/syscall_stubs.h: 45)
                
 fsync          (include/lseek.h: 21)
                
@@ -297,7 +319,7 @@ open           (src/open.c: 13)
 read           (include/read.h: 13)
                static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len );
 
-rename         (include/syscall_stubs.h: 36)
+rename         (include/syscall_stubs.h: 39)
                
 select         (include/select.h: 29)
                static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
@@ -308,7 +330,7 @@ tcgetattr      (include/tcgetattr.h: 19)
 tcsetattr      (include/tcsetattr.h: 19)
                static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
 
-unlink         (include/syscall_stubs.h: 37)
+unlink         (include/syscall_stubs.h: 40)
                
-write          (include/syscall_stubs.h: 33)
+write          (include/syscall_stubs.h: 36)
                
