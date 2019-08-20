@@ -8,9 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 
-//static const char *argv0;
 
-static int cat(int fd)
+int cat(int fd)
 {
 	char buf[4096];
 	ssize_t n;
@@ -30,7 +29,6 @@ int main(int argc, const char *argv[])
 {
 	int i;
 
-//	argv0 = argv[0];
 	if (argc == 1) {
 		return cat(STDIN_FILENO);
 	} else for (i = 1; i < argc; i++) {

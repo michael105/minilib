@@ -8,6 +8,7 @@ mini_itoHEX
 mini_printf
 mini_fprintf
 mini_prints
+mini_writes
 mini_putchar
 mini_strcmp
 mini_strerror
@@ -44,9 +45,11 @@ static struct {
 	int opts;
 } opt;
 
+//TODO: this is worth a separate header file within minilib.
+// It's simple and has low footprint.
 enum options { a, l, h };
-#define SET_OPT(args,opt) { args = ( args | 0x1 << opt ); }
-#define GET_OPT(args,opt)  ( args & 0x1 << opt )
+#define SET_OPT(args,opt) { args = ( args | (0x1 << opt) ); }
+#define GET_OPT(args,opt)  ( args & (0x1 << opt) )
 //#define SET_OPT(args,opt) { args = ( args | OPTBIT_##opt ) }
 //#define OPTBIT_a 0x1
 
@@ -148,10 +151,12 @@ int main(int argc, const char *argv[])
 			case 'l':
 				SET_OPT(args,l);
 				break;
-			default:
-			fprintfs(stderr, "%s: invalid argument: %s\n",
-				argv[0], argv[i]);
-			return 1;
+			case 'h':
+				writes( "ls [-a] [-l] [-h] [file(s) / dir(s)]\n" );
+				return(0);
+		default:
+			fprintfs(stderr, "ls: invalid argument: %s\n", argv[i]);
+			return(1);
 		}
 	}
 	printf("opt: %d\n", args );
@@ -166,5 +171,5 @@ int main(int argc, const char *argv[])
 		if (list(argv[i], 1, args))
 			return 1;
 	}
-	return 0;
+	return(0);
 }

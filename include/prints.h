@@ -5,10 +5,9 @@ extern int dprints(int fd, char *msg,...);
 //+header mini_addons.h
 
 //+doc print the string(s) supplied as arg(s) to stdout
-//+depends _mprints
+//+depends _mprints 
 //+macro
 #define prints(...) _mprints(__VA_ARGS__,0)
-//#define printl(...) _mprints(__VA_ARGS__,"\n",0)
 
 //+doc print the string(s) supplied as arg(s) and newline to stdout
 #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
@@ -19,11 +18,13 @@ extern int dprints(int fd, char *msg,...);
 
 
 //+depends write 
+//+doc write the constant str to stdout. Computes length with sizeof(str) at compile time.
 //+macro writes(str) write(STDOUT_FILENO,str,sizeof(str))
-//
-//+depends write 
-//+macro fwrites(fd,str) write(fd,str,sizeof(str))
 
+
+//+depends write 
+//+doc write the constant str to stdout. Computes length with sizeof(str) at compile time.
+//+macro fwrites(fd,str) write(fd,str,sizeof(str))
 
 
 //+depends write
@@ -32,7 +33,7 @@ extern int dprints(int fd, char *msg,...);
 
 
 //+depends printl print strlen
-//+doc write msg to stdout, append a newline
+//+doc write msg to stdout, append a newline. Needs strlen.
 //+macro puts(msg) ( print(msg) + printl() )
 
 #endif
