@@ -83,11 +83,20 @@ int itoHEX(int i,char* buf,int padding);
 // file: minilib/src/strerror.c
 static inline void perror(char *msg);
 
+// file: minilib/include/fgetc.h
+static inline int fgetc(FILE *F);
+
+// file: minilib/include/fgetc.h
+#define getc(F) fgetc(F)
+
 // file: minilib/include/fputc.h
 static inline int volatile fputc(int c, FILE* F);
 
 // file: minilib/include/fputc.h
 #define putchar(c) fputc(c,stdout)
+
+// file: minilib/include/fputc.h
+#define putc(c,stream) fputc(c,stream)
 
 // file: minilib/include/fputs.h
 static inline int volatile fputs(const char *c, FILE *F);
@@ -158,13 +167,14 @@ int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/sprintf.c"
+#include "minilib/include/fputs.h"
 #include "minilib/include/mini_fstream.h"
 #include "minilib/include/fputc.h"
-#include "minilib/src/sprintf.c"
-#include "minilib/src/itohex.c"
 #include "minilib/src/fopen.c"
-#include "minilib/include/fputs.h"
 #include "minilib/src/strerror.c"
+#include "minilib/include/fgetc.h"
+#include "minilib/src/itohex.c"
 #include "minilib/include/prints.h"
 
 // Need global included. Doesn't matter by which file.

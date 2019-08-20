@@ -15,4 +15,8 @@ static inline int volatile fputc(int c, FILE* F){
 //+depends fputc
 //+macro  putchar(c) fputc(c,stdout)
 
+//+depends fputc
+//+macro  putc(c,stream) fputc(c,stream)
+
+
 #endif

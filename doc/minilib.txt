@@ -101,7 +101,7 @@ fprintfs       (src/fprintfs.c: 11)
 fwrites        (include/prints.h: 26)
                #define fwrites(fd,str) write(fd,str,sizeof(str))
 
-itodec         (src/itodec.c: 113)
+itodec         (src/itodec.c: 122)
                int itodec(int i, char *buf, int prec, char limiter );
 
 memfrob        (src/memfrob.c: 4)
@@ -156,6 +156,9 @@ fflush         (include/mini_fstream.h: 29)
                static inline int __attribute__((always_inline)) fflush( FILE *F );
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
 
+fgetc          (include/fgetc.h: 11)
+               static inline int fgetc(FILE *F);
+
 fgetpos        (include/mini_fstream.h: 125)
                static inline void fgetpos(FILE *f, long *pos );
 
@@ -189,6 +192,9 @@ ftell          (include/mini_fstream.h: 119)
 fwrite         (include/mini_fstream.h: 104)
                static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
+getc           (include/fgetc.h: 19)
+               #define getc(F) fgetc(F)
+
 itoHEX         (src/itohex.c: 56)
                int itoHEX(int i,char* buf,int padding);
 
@@ -200,6 +206,9 @@ perror         (src/strerror.c: 23)
 
 printf         (include/mini_fstream.h: 93)
                #define printf(...) fprintf(stdout,__VA_ARGS__)
+
+putc           (include/fputc.h: 20)
+               #define putc(c,stream) fputc(c,stream)
 
 putchar        (include/fputc.h: 17)
                #define putchar(c) fputc(c,stdout)

@@ -20,6 +20,8 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 				//return(
 		}
 
+		int trailing = 1;
+
 	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
 	
 	if ( i >= 1000000000){
@@ -44,9 +46,10 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 					buf[0] = '1'; 
 					i-=1000000000;
 			}
+	trailing = 0;
 	} else {
 			if ( prec == 0 ){
-					buf[0] = '0';
+					buf[0] = ' ';
 					p++;
 			} else
 					prec++;
@@ -68,6 +71,7 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 
 			if ( (t1=(i - div[a])) >= 0 ){
 					prec = 0;
+					trailing = 0;
 					n = '1';
 					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
 							if ( (t3=t2-dec) >= 0 ){
@@ -92,7 +96,10 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 
 			if ( prec == 0 ){
 			write:
-					buf[p] = n;
+					if ( trailing )
+							buf[p] = ' ';
+					else
+							buf[p] = n;
 					p++;
 			} else
 					prec++;

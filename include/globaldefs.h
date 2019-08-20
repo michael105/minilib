@@ -67,6 +67,8 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 //Might be better to find later
 //also: endiannes.
 
+#define EOF (-1)
+
 #ifdef mini_buf
 #ifndef stdin
 #define stdin &ml.stream[0]
