@@ -1,3 +1,8 @@
+#ifndef mini_itobin_h
+#define mini_itobin_h
+
+
+
 //+ansi stdio.h
 //+def
 int _itobin(int i, char*buf, int prec, int groups ){
@@ -32,5 +37,8 @@ int _itobin(int i, char*buf, int prec, int groups ){
 		return(p);
 }
 
+//+depends _itobin
+//+macro itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
-		
+
+#endif

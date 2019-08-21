@@ -64,18 +64,10 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 // file: minilib/src/open.c
 int volatile open( const char *s, int flags, ... );
 
-// file: minilib/include/close.h
-static inline int volatile __attribute__((always_inline)) close( int fd );
-
 // file: minilib/include/exit.h
 #include "minilib/include/exit.h"
 // file: minilib/include/lseek.h
 #include "minilib/include/lseek.h"
-// file: minilib/include/read.h
-#include "minilib/include/read.h"
-// file: minilib/include/read.h
-static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len );
-
 // file: minilib/include/select.h
 #include "minilib/include/select.h"
 // file: minilib/include/select.h
@@ -95,10 +87,8 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 #ifdef mini_INCLUDESRC
 
 #include "minilib/include/tcgetattr.h"
-#include "minilib/include/close.h"
 #include "minilib/include/tcsetattr.h"
 #include "minilib/src/open.c"
-#include "minilib/include/read.h"
 #include "minilib/include/select.h"
 
 // Need global included. Doesn't matter by which file.

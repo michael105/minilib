@@ -10,6 +10,8 @@ extern int dprints(int fd, char *msg,...);
 #define prints(...) _mprints(__VA_ARGS__,0)
 
 //+doc print the string(s) supplied as arg(s) and newline to stdout
+//+depends _mprints 
+//+macro
 #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
 //+depends write strlen

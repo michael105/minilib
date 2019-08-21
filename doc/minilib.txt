@@ -21,21 +21,21 @@ isspace        (src/isspace.c: 7)
 declarations.h
 ==========
 
-dup3           (include/syscall_stubs.h: 46)
+dup3           (include/syscall_stubs.h: 51)
                
-fstat          (include/syscall_stubs.h: 42)
+fstat          (include/syscall_stubs.h: 47)
                
-getcwd         (include/syscall_stubs.h: 48)
+getcwd         (include/syscall_stubs.h: 53)
                
-getdents       (include/syscall_stubs.h: 34)
+getdents       (include/syscall_stubs.h: 39)
                
-gettimeofday   (include/syscall_stubs.h: 26)
+gettimeofday   (include/syscall_stubs.h: 28)
                
-mprotect       (include/syscall_stubs.h: 30)
+mprotect       (include/syscall_stubs.h: 32)
                
-stat           (include/syscall_stubs.h: 43)
+stat           (include/syscall_stubs.h: 48)
                
-uname          (include/syscall_stubs.h: 32)
+uname          (include/syscall_stubs.h: 37)
                
 
 
@@ -76,7 +76,7 @@ ioctl          (src/ioctl.c: 12)
 mini_addons.h
 ==========
 
-_itobin        (src/itobin.c: 4)
+_itobin        (src/itobin.c: 9)
                int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       (src/prints.c: 67)
@@ -98,8 +98,12 @@ fprintfs       (src/fprintfs.c: 11)
                int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
-fwrites        (include/prints.h: 26)
+fwrites        (include/prints.h: 30)
                #define fwrites(fd,str) write(fd,str,sizeof(str))
+               write the constant str to stdout. Computes length with sizeof(str) at compile time.
+
+itobin         (src/itobin.c: 42)
+               #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
 itodec         (src/itodec.c: 122)
                int itodec(int i, char *buf, int prec, char limiter );
@@ -107,17 +111,21 @@ itodec         (src/itodec.c: 122)
 memfrob        (src/memfrob.c: 4)
                void* memfrob(void* s, unsigned int len);
 
-print          (include/prints.h: 19)
+print          (include/prints.h: 20)
                #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
 
-printl         (include/prints.h: 32)
+printl         (include/prints.h: 35)
                #define printl() write(STDOUT_FILENO,"\n",1)
                write a newline to stdout
 
 prints         (include/prints.h: 11)
                #define prints(...) _mprints(__VA_ARGS__,0)
                print the string(s) supplied as arg(s) to stdout
+
+printsl        (include/prints.h: 16)
+               #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+               print the string(s) supplied as arg(s) and newline to stdout
 
 snprintf       (src/sprintf.c: 220)
                int snprintf( char *buf, size_t size, const char *fmt, ... );
@@ -128,8 +136,9 @@ uitodec        (src/itodec.c: 9)
 vsnprintf      (src/sprintf.c: 37)
                int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
-writes         (include/prints.h: 23)
+writes         (include/prints.h: 25)
                #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+               write the constant str to stdout. Computes length with sizeof(str) at compile time.
 
 
 
@@ -140,16 +149,16 @@ stdio.h
 _itohex        (src/itohex.c: 6)
                int _itohex(int i,char* buf,int padding, int capitals);
 
-clearerror     (include/mini_fstream.h: 196)
+clearerror     (include/mini_fstream.h: 194)
                static inline void clearerror(FILE *f);
 
-fclose         (include/mini_fstream.h: 67)
+fclose         (include/mini_fstream.h: 65)
                static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-feof           (include/mini_fstream.h: 182)
+feof           (include/mini_fstream.h: 180)
                static inline int feof(FILE *f);
 
-ferror         (include/mini_fstream.h: 189)
+ferror         (include/mini_fstream.h: 187)
                static inline int ferror(FILE *f);
 
 fflush         (include/mini_fstream.h: 29)
@@ -159,10 +168,10 @@ fflush         (include/mini_fstream.h: 29)
 fgetc          (include/fgetc.h: 11)
                static inline int fgetc(FILE *F);
 
-fgetpos        (include/mini_fstream.h: 125)
+fgetpos        (include/mini_fstream.h: 123)
                static inline void fgetpos(FILE *f, long *pos );
 
-fileno         (include/mini_fstream.h: 57)
+fileno         (include/mini_fstream.h: 55)
                static inline int __attribute__((always_inline)) fileno( FILE *f );
 
 fopen          (src/fopen.c: 12)
@@ -177,19 +186,19 @@ fputc          (include/fputc.h: 11)
 fputs          (include/fputs.h: 15)
                static inline int volatile fputs(const char *c, FILE *F);
 
-fread          (include/mini_fstream.h: 160)
+fread          (include/mini_fstream.h: 158)
                static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-fseek          (include/mini_fstream.h: 144)
+fseek          (include/mini_fstream.h: 142)
                static inline int fseek(FILE *f, long offset, int whence );
 
-fsetpos        (include/mini_fstream.h: 131)
+fsetpos        (include/mini_fstream.h: 129)
                static inline int fsetpos(FILE *f, int pos );
 
-ftell          (include/mini_fstream.h: 119)
+ftell          (include/mini_fstream.h: 117)
                static inline long ftell(FILE *f);
 
-fwrite         (include/mini_fstream.h: 104)
+fwrite         (include/mini_fstream.h: 102)
                static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
 getc           (include/fgetc.h: 19)
@@ -204,7 +213,7 @@ itohex         (src/itohex.c: 49)
 perror         (src/strerror.c: 23)
                static inline void perror(char *msg);
 
-printf         (include/mini_fstream.h: 93)
+printf         (include/mini_fstream.h: 91)
                #define printf(...) fprintf(stdout,__VA_ARGS__)
 
 putc           (include/fputc.h: 20)
@@ -213,24 +222,24 @@ putc           (include/fputc.h: 20)
 putchar        (include/fputc.h: 17)
                #define putchar(c) fputc(c,stdout)
 
-puts           (include/prints.h: 37)
+puts           (include/prints.h: 40)
                #define puts(msg) ( print(msg) + printl() )
-               write msg to stdout, append a newline
+               write msg to stdout, append a newline. Needs strlen.
 
-rewind         (include/mini_fstream.h: 154)
+rewind         (include/mini_fstream.h: 152)
                static inline void rewind( FILE *f );
 
-setbuf         (include/mini_fstream.h: 204)
+setbuf         (include/mini_fstream.h: 202)
                void setbuf(FILE *stream, char *buf);
 
-setvbuf        (include/mini_fstream.h: 208)
+setvbuf        (include/mini_fstream.h: 206)
                int setvbuf(FILE *stream, char *buf, int mode, size_t size);
                dummy
 
 sprintf        (src/sprintf.c: 27)
                #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
-vfprintf       (include/mini_fstream.h: 98)
+vfprintf       (include/mini_fstream.h: 96)
                #define vfprintf(...) fprintf(__VA_ARGS__)
 
 
@@ -299,7 +308,7 @@ strncpy        (src/memcpy.c: 28)
 time.h
 ==========
 
-time           (include/syscall_stubs.h: 52)
+time           (include/syscall_stubs.h: 57)
                
 
 
@@ -307,28 +316,26 @@ time           (include/syscall_stubs.h: 52)
 unistd.h
 ==========
 
-close          (include/close.h: 7)
-               static inline int volatile __attribute__((always_inline)) close( int fd );
-
-dup            (include/syscall_stubs.h: 44)
+close          (include/syscall_stubs.h: 34)
                
-dup2           (include/syscall_stubs.h: 45)
+dup            (include/syscall_stubs.h: 49)
+               
+dup2           (include/syscall_stubs.h: 50)
                
 fsync          (include/lseek.h: 21)
                
 ftruncate      (include/lseek.h: 20)
                
-getpid         (include/syscall_stubs.h: 28)
+getpid         (include/syscall_stubs.h: 30)
                
 lseek          (include/lseek.h: 18)
                
 open           (src/open.c: 13)
                int volatile open( const char *s, int flags, ... );
 
-read           (include/read.h: 13)
-               static inline int volatile __attribute__((always_inline)) read( int fd, void* buf, int len );
-
-rename         (include/syscall_stubs.h: 39)
+read           (include/syscall_stubs.h: 35)
+               
+rename         (include/syscall_stubs.h: 44)
                
 select         (include/select.h: 29)
                static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
@@ -339,7 +346,7 @@ tcgetattr      (include/tcgetattr.h: 19)
 tcsetattr      (include/tcsetattr.h: 19)
                static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
 
-unlink         (include/syscall_stubs.h: 40)
+unlink         (include/syscall_stubs.h: 45)
                
-write          (include/syscall_stubs.h: 36)
+write          (include/syscall_stubs.h: 41)
                

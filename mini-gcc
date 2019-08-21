@@ -119,7 +119,8 @@ exec_gcc(){
 						echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $@"
 						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $@
 				else
-						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $@
+						echo_verbose "$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@"
+						$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
 				fi
 
 				#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
@@ -133,6 +134,7 @@ exec_gcc(){
 						echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $@"
 						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $@
 				else
+						echo_verbose "$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $@"
 						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $@
 				fi
 		fi

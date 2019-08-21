@@ -1,5 +1,5 @@
-#ifndef timeval_h
-#define timeval_h
+#ifndef mini_timeval_h
+#define mini_timeval_h
 #include "time_t.h"
 
 #ifndef timevaldefined

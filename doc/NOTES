@@ -1,5 +1,33 @@
 ### assorted notes
 
+Config system:
+	-Write docu into the "template" config.
+	-Hint to the template config files
+	-Write "config-sets": e.g.: 
+
+arch amd64   # this exits or jumps to another section, when another arch is selected
+OPTION 1
+OPTION 2
+...
+arch Darwin
+...
+#  and so on
+
+
+Also: 
+mini_printf allformats
+
+....
+
+
+printf_allformats(){
+	atoi
+	itohex
+	...
+}
+
+
+
 
 pipe and prepend to gcc input:
   gcc -E main2.c -include <( cat prep2.h )

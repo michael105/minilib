@@ -53,6 +53,10 @@ enum options { a, l, h };
 //#define SET_OPT(args,opt) { args = ( args | OPTBIT_##opt ) }
 //#define OPTBIT_a 0x1
 
+#define OPT(a) (1<<(a-96)) 
+#define OPTIONS(opt) ( (1<<('a'-96)) | 
+
+
 int print_entry( struct dirent *ent, int args ){
 			if ( GET_OPT( args, l ) ){
 					struct stat st;

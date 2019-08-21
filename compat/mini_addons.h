@@ -70,6 +70,9 @@ int fprintfs( FILE* F, char *fmt, ...);
 // file: minilib/src/itobin.c
 int _itobin(int i, char*buf, int prec, int groups );
 
+// file: minilib/src/itobin.c
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+
 // file: minilib/src/itodec.c
 int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -98,6 +101,9 @@ typedef int FILE;
 #define prints(...) _mprints(__VA_ARGS__,0)
 
 // file: minilib/include/prints.h
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+
+// file: minilib/include/prints.h
 #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
 // file: minilib/include/prints.h
@@ -116,16 +122,16 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/sprintf.c"
-#include "minilib/src/prints.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/itobin.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/fprintfs.c"
 #include "minilib/src/itodec.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/sprintf.c"
+#include "minilib/src/memfrob.c"
 #include "minilib/include/prints.h"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/prints.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/itobin.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

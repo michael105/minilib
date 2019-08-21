@@ -20,7 +20,7 @@
 
 //+header stdio.h
 //+include
-
+//+after read close
 
 //+doc This does nothing, since minilib doesn't provide buffered streams yet.
 //+doc in order to sync the stream, please use fsync
@@ -42,14 +42,12 @@ static inline int __attribute__((always_inline)) fileno( FILE *F ){
 				return(1);
 		if ( F==stderr )
 	  		return(2);
-		exit(7);
-		return(7);
+		exit(-1);
+		return(-1);
 }
 
 #else
 
-static int close(int);
-static int read(int fd, void *buf, int len);
 int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 //+inline
