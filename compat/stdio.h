@@ -103,60 +103,6 @@ static inline int volatile fputs(const char *c, FILE *F);
 
 // file: minilib/include/mini_fstream.h
 #include "minilib/include/mini_fstream.h"
-// file: minilib/include/mini_fstream.h
-static inline int __attribute__((always_inline)) fflush( FILE *F );
-
-// file: minilib/include/mini_fstream.h
-static inline int __attribute__((always_inline)) fileno( FILE *F );
-
-// file: minilib/include/mini_fstream.h
-static inline int __attribute__((always_inline)) fileno( FILE *f );
-
-// file: minilib/include/mini_fstream.h
-static inline int __attribute__((always_inline)) fclose( FILE* f );
-
-// file: minilib/include/mini_fstream.h
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-
-// file: minilib/include/mini_fstream.h
-#define vfprintf(...) fprintf(__VA_ARGS__)
-
-// file: minilib/include/mini_fstream.h
-static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
-
-// file: minilib/include/mini_fstream.h
-static inline long ftell(FILE *f);
-
-// file: minilib/include/mini_fstream.h
-static inline void fgetpos(FILE *f, long *pos );
-
-// file: minilib/include/mini_fstream.h
-static inline int fsetpos(FILE *f, int pos );
-
-// file: minilib/include/mini_fstream.h
-static inline int fseek(FILE *f, long offset, int whence );
-
-// file: minilib/include/mini_fstream.h
-static inline void rewind( FILE *f );
-
-// file: minilib/include/mini_fstream.h
-static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
-
-// file: minilib/include/mini_fstream.h
-static inline int feof(FILE *f);
-
-// file: minilib/include/mini_fstream.h
-static inline int ferror(FILE *f);
-
-// file: minilib/include/mini_fstream.h
-static inline void clearerror(FILE *f);
-
-// file: minilib/include/mini_fstream.h
-void setbuf(FILE *stream, char *buf);
-
-// file: minilib/include/mini_fstream.h
-int setvbuf(FILE *stream, char *buf, int mode, size_t size);
-
 // file: minilib/include/prints.h
 #define puts(msg) ( print(msg) + printl() )
 
@@ -167,15 +113,14 @@ int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itohex.c"
 #include "minilib/src/strerror.c"
-#include "minilib/src/fopen.c"
+#include "minilib/src/itohex.c"
 #include "minilib/include/prints.h"
 #include "minilib/include/fputc.h"
-#include "minilib/include/fputs.h"
+#include "minilib/src/fopen.c"
 #include "minilib/src/sprintf.c"
 #include "minilib/include/fgetc.h"
-#include "minilib/include/mini_fstream.h"
+#include "minilib/include/fputs.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

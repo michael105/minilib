@@ -29,4 +29,7 @@
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
 
+#ifdef mini_GETOPTS
+#include "minilib/macros/getoptm.h"
+#endif
 

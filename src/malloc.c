@@ -84,12 +84,6 @@ void* malloc(int size){
 		return( &ml.mbuf[ml.mbufsize+4] );
 }
 
-#if 0
-///+def
-void free(void *p){
-}
-
-#else
 
 //+def
 void free(void *p){
@@ -145,7 +139,6 @@ void free(void *p){
 		
 }
 
-#endif
 
 
 #if 0

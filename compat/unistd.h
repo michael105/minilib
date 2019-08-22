@@ -70,9 +70,6 @@ int volatile open( const char *s, int flags, ... );
 #include "minilib/include/lseek.h"
 // file: minilib/include/select.h
 #include "minilib/include/select.h"
-// file: minilib/include/select.h
-static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
-
 // file: minilib/include/tcgetattr.h
 static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
 
@@ -86,10 +83,9 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/tcgetattr.h"
-#include "minilib/include/tcsetattr.h"
 #include "minilib/src/open.c"
-#include "minilib/include/select.h"
+#include "minilib/include/tcsetattr.h"
+#include "minilib/include/tcgetattr.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

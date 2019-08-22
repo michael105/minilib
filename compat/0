@@ -60,6 +60,8 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 
 // file: minilib/src/errno.c
 #include "minilib/src/errno.c"
+// file: minilib/macros/getoptm.h
+#include "minilib/macros/getoptm.h"
 
 
 #include "include/minilib_global.h"

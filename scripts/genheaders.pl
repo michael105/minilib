@@ -193,6 +193,8 @@ sub headerfh{
 # iterate over commandline args
 while ( my $file = shift ){
 		open (F, "<", $file) or die;
+		my @fa = <F>;
+		close( F );
 
 		if ( $file =~ /syscall_stubs.h/ ){
 				$syscallstubs = $file;
@@ -200,12 +202,13 @@ while ( my $file = shift ){
 
 		my $header = 0;
 		my $line = 0;
-		while ( my $l= <F>){
+		my $included = 0;
+		while ( my $l= $fa[$line]){
 				my $f;
 				my $tag = 0;
 				my $func = 0;
-				$line++;
 				$f->{file} = $file;
+				$f->{inc} = $included;
 				if ( $l =~ /^DEF_syscall(ret)*.(.*?),/ ){
 						$func = $2;
 						$syscalldefs->{$func}->{def} = $l;
@@ -215,7 +218,7 @@ while ( my $file = shift ){
 						do {
 								print ( "$M l: $l $N\n" );
 								$l=~ /^\/\/\+(\S*)\s?(.*)?$/;
-								$tag = $1;
+								$tag = $1 if ( $1 ); # 
 								my $c = $2 || 0;
 								dbg("tag: $tag c: $c\n");
 
@@ -224,22 +227,24 @@ while ( my $file = shift ){
 										#$l =~ /^\/\/\+header (\S*)/;
 										$header = $c or die;
 								} elsif ( 0 && $tag eq 'inline' ) { # commented out. Need to parse the header file
-										$l = <F>;
-										$line++;
+										$l = $fa[$line+=1];
+										#$line++;
 										$l =~ /.* \**(\S*)\(.+?\)\{.*$/;
 										$func = $1;
 										$f->{def} = $l;
 										do {
-												$l = <F>;
-												$line++;
+												$l = $fa[$line+=1];
+												#$l = <F>;
+												#$line++;
 												$f->{def} .= $l;
 										} while ( !($l =~ /^}/ ) );
 										dbg( "dbg: $f->{def}" );
 										$f->{file} = '';
 										
 								}elsif ( $tag eq 'def' | $tag eq 'inline'){
-										$f->{def} = <F>;
-										$line++;
+										#$f->{def} = <F>;
+										#$line++;
+										$f->{def} = $fa[$line+=1];
 										dbg("def: $f->{def} $file: $l");
 										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
 												$func = $2;
@@ -266,10 +271,16 @@ while ( my $file = shift ){
 										} else {
 												$f->{doc} .= $c;
 										}
+										while( $fa[$line+1] =~ /^\/\/(\+?)(.*)/ && !($1) ){
+												$line++;
+												$f->{doc} .= "\n" . $2;
+												dbg("dbg doc: $2");
+										}
 								} elsif ( $tag eq 'inc' | $tag eq 'include'){
 										print {headerfh($header,$headerdir)} "// file: $file\n#include \"$file\"\n";
 										dbg "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
+										$included = 1;
 								} elsif( $tag eq 'macro' ){
 										if ( $l =~ /^\/\/\+macro\s*(\S+)/ ){
 												$l =~ s/^\/\/\+macro\s*//;
@@ -278,8 +289,9 @@ while ( my $file = shift ){
 												$func = $1;
 												dbg("$LR macro: $f->{def}  -  func: $func $N");
 										} else {
-												$f->{def} = <F>;
-												$line++;
+												#$f->{def} = <F>;
+												#$line++;
+												$f->{def} = $fa[$line+=1];
 												dbg("def+ $f->{def}");
 												$f->{def} =~ s/^\/\///;
 												dbg("def+ $f->{def}");
@@ -290,8 +302,9 @@ while ( my $file = shift ){
 										}
 										$f->{macro} = 1;
 								}
-								$l = <F>;
-										$line++;
+								#$l = <F>;
+								#		$line++;
+								$l = $fa[$line+=1];
 								$tag = 0;
 						} while (defined($l) && ($l=~ /^\/\/\+(\S*)/) );
 				}
@@ -319,14 +332,15 @@ while ( my $file = shift ){
 								$syscalldefs->{$func}->{f} = $f
 						}
 
-						if ( $f->{header} && $f->{def} ){
+						if ( $f->{header} && $f->{def} && !($included)){
 								dbg("header: $f->{header}\n def: $f->{def}\n");
 								print {headerfh($f->{header},$headerdir)} "// file: $f->{file}\n$f->{def}\n";
 								$fhhash->{sources}->{$f->{header}}->{$file} = 1;
 						}
 				}
 
-		}
+				$line++;
+		} # while $fa[$line]
 }
 
 # write the #include "source.c" directives
@@ -361,7 +375,8 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 				print FDOC "($1: $funchash->{$f}->{line})\n";
 				print FDOC "               $funchash->{$f}->{def}";
 				if ( exists($funchash->{$f}->{doc} ) ){
-						print FDOC "               $funchash->{$f}->{doc}\n";
+						print FDOC "               ",join("\n             ", split( "\n", $funchash->{$f}->{doc}) ),"\n";
+						#print FDOC "               $funchash->{$f}->{doc}\n";
 				}
 				print FDOC "\n";
 		}
