@@ -5,7 +5,8 @@
     A tiny c system library,
     headeronly, intended for static linking
 
-    -------------------------------------------------------
+
+   -------------------------------------------------------
     Copyright (c) 2012-2019 Michael (Misc) Myer, 
     misc.myer@zoho.com / www.github.com/michael105
     
