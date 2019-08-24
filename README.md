@@ -6,7 +6,8 @@
     headeronly, intended for static linking
 
 
-    >    Copyright (c) 2012-2019 Michael (Misc) Myer, 
+```
+>    Copyright (c) 2012-2019 Michael (Misc) Myer, 
 >    misc.myer@zoho.com / www.github.com/michael105
 >
 >    BSD License
@@ -16,7 +17,7 @@
 >    have other licensing terms, 
 >    which are in my opinion compatible to the BSD-Licenses.
 >    Please look at the sources. 
-
+```
 
 
  Summary
