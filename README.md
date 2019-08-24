@@ -22,8 +22,10 @@
     -------------------------------------------------------
 
 
+--------------------
  Summary
-====================
+--------------------
+
 
 Minilib aims to be an incomplete libc replacement,
 single header only, as simple and small as possible, KISS,
@@ -48,7 +50,7 @@ at my development system. (amd Turion 2Ghz)
 ```
 
  About
-====================
+--------------------
 
 Minilib evolved out of some assembler experiments,
 where I saw how tiny executables can be, if not linked with glibc.
@@ -340,13 +342,11 @@ minibase
 
 
 
-====================================================
 ----------------------------------------------------
     Michael (Misc) Myer, 2012-2019
     misc.myer@zoho.com www.github.com/michael105
     (my "programming enthusiastic persona"..)
-------------------------------------------------------------
-============================================================
+----------------------------------------------------
 
 
 ------------------------------------------------------------
