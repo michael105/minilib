@@ -304,13 +304,14 @@ to work with Ansi-C / Posix-C in a compatible way.
 
 ----- tiny c lib implementations
 
+~~~
 klibc
 bionic
 musl
 uLibc
 dietlibc
 minibase
-
+~~~
 
  Notes
 ====================
@@ -339,11 +340,11 @@ minibase
 
 
 
-============================================================
-------------------------------------------------------------
-Michael (Misc) Myer, 2012-2019
-misc.myer@zoho.com www.github.com/michael105
-(my "programming enthusiastic persona"..)
+====================================================
+----------------------------------------------------
+    Michael (Misc) Myer, 2012-2019
+    misc.myer@zoho.com www.github.com/michael105
+    (my "programming enthusiastic persona"..)
 ------------------------------------------------------------
 ============================================================
 
