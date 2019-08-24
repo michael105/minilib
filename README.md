@@ -186,7 +186,7 @@ Then I'll be able to check for osx and Linux x32.
 	
 
 
-- 2019/03/28
+* 2019/03/28
 	Restructuring done,
 	config system written.
 
@@ -196,7 +196,7 @@ Then I'll be able to check for osx and Linux x32.
 
 
 
-..2019/03/19: 
+* 2019/03/19: 
 	Ok. about half of ansi c is done.
 	some important functions missing (free, e.g)
 	but close. Restructuring nearly done.
@@ -206,7 +206,7 @@ Then I'll be able to check for osx and Linux x32.
 	nearly 7 years myself..)
 
 
-~ 01/2019  Got minilib running on OSX (10.11, x64),
+* 01/2019  Got minilib running on OSX (10.11, x64),
 	enabling static linking for small tools.
 
 	Anyways, being able to link small tools statically 
@@ -246,7 +246,6 @@ Ideally minilib is going to supply glibc compatible
 headers. (sort of)
 
 
-====================
  Warning
 ====================
 
@@ -261,7 +260,6 @@ better head for something like musl, dietlibc, klib, ...
 
 
 
-====================
  Development
 ====================
 
@@ -284,7 +282,6 @@ I'm trying to figure out something sensible,
 to work with Ansi-C / Posix-C in a compatible way.
 
 
-====================
  Further Readings
 ====================
 
@@ -300,7 +297,6 @@ to work with Ansi-C / Posix-C in a compatible way.
 -> https://www.etalabs.net/compare_libcs.html  -  comparison of c/POSIC standard library implementations
 
 
-====================
  See Also
 ====================
 
@@ -316,7 +312,6 @@ dietlibc
 minibase
 
 
-====================
  Notes
 ====================
 
