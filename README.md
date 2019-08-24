@@ -4,8 +4,8 @@
 
     A tiny c system library,
     headeronly, intended for static linking.
-		151 Bytes for "Hello World",
-		compiled with the standard gcc toolchain.
+    151 Bytes for "Hello World",
+    compiled with the standard gcc toolchain.
 
 
 >    Copyright (c) 2012-2019 Michael (Misc) Myer, 
