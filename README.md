@@ -22,7 +22,6 @@
     -------------------------------------------------------
 
 
---------------------
  Summary
 --------------------
 
@@ -108,7 +107,7 @@ my harddisk lying and dying.
 
 
  Build dependencies
-====================
+--------------------
 
 * Needs:
 gcc or tcc, bash, sed
@@ -121,7 +120,7 @@ make, perl (when rebuilding minilib)
 
 
  Usage
-====================
+----------
 
 
 Include minilib.h in all sourcefiles, needing definitions from minilib.
@@ -152,8 +151,7 @@ Cross your fingers .. Get some strange errors .. shout out, loudly ..
 
 
  State
-====================
-
+----------
 
 ATM, most possibly neither the OSX nor the linux 32bit port will compile.
 I'm just about to finish some things at Linux amd64.
@@ -263,8 +261,7 @@ better head for something like musl, dietlibc, klib, ...
 
 
  Development
-====================
-
+--------------
 
 Especially adding more syscalls is easy.
 
@@ -285,7 +282,7 @@ to work with Ansi-C / Posix-C in a compatible way.
 
 
  Further Readings
-====================
+------------------ 
 
 -> https://elinux.org/System_Size  -  Embedded Linux and size
 
@@ -300,7 +297,7 @@ to work with Ansi-C / Posix-C in a compatible way.
 
 
  See Also
-====================
+-----------
 
 (google also..)
 
@@ -315,9 +312,9 @@ dietlibc
 minibase
 ~~~
 
- Notes
-====================
 
+ Notes
+-------
 
 
 "It's sometimes smarter to stay special,
