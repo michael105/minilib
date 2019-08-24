@@ -67,13 +67,13 @@ giving a more responsive system.
 Just for fun, but this minilib also beats klibc, dietlib and musl 
 in the matter of hello world's size..
 
-....
+```
 (Linux 32bit:)
 musl: 7.6k
 dietlibc: 672
 klibc: 367
 minilib: 151
-....
+```
 
 (On Linux 64bit I didn't check the other libraries,
  but the bigger registers cost a few bytes:
@@ -104,23 +104,19 @@ my harddisk lying and dying.
 
 
 
-
-====================
  Build dependencies
 ====================
 
-Needs:
+* Needs:
 gcc or tcc, bash, sed
 
-Optionally:
+* Optionally:
 gzip, sort (might be already on every unix related system)
 
 make, perl (when rebuilding minilib)
 
 
 
-
-====================
  Usage
 ====================
 
@@ -152,7 +148,6 @@ Cross your fingers .. Get some strange errors .. shout out, loudly ..
 
 
 
-====================
  State
 ====================
 
@@ -162,7 +157,7 @@ I'm just about to finish some things at Linux amd64.
 Then I'll be able to check for osx and Linux x32.
 
 
-2019/08
+* 2019/08
 	restructured the build system.
 	wrote mini-gcc, a wrapper around gcc.
 	Close to be a dropin replacement for glibc,
@@ -171,7 +166,7 @@ Then I'll be able to check for osx and Linux x32.
 	instead of glibc.
 
 
-2019/04/02
+* 2019/04/02
 	Overall, minilib gets into a more stable state.
 	The build framework as well as the config framework
 	look good to me. And it's generic enough to don't get into trouble,
