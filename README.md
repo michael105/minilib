@@ -186,7 +186,7 @@ Then I'll be able to check for osx and Linux x32.
 	
 
 
-2019/03/28
+- 2019/03/28
 	Restructuring done,
 	config system written.
 
