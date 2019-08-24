@@ -1,5 +1,4 @@
 
-==============================================
  minilib
 ==============================================
 
@@ -22,7 +21,6 @@
     -------------------------------------------------------
 
 
-====================
  Summary
 ====================
 
@@ -39,15 +37,15 @@ Although the header file is parsed and compiled for every
 source file, this takes only fractions of a second
 at my development system. (amd Turion 2Ghz)
 
+```
 >  ~/prog/minilib $  time ./mini-gcc --ldscript onlytext -o hello hello.c
  ./mini-gcc -o hello hello.c  0.06s user 0.05s system 92% cpu 0.116 total
 >  ~/prog/minilib $  ./tools/shrinkelf hello
  stripping: hello
 >  ~/prog/minilib $  ls -l hello
  -rwxr-xr-x 1 micha micha 185 Aug 15 16:16 hello
+```
 
-
-====================
  About
 ====================
 
@@ -69,12 +67,13 @@ giving a more responsive system.
 Just for fun, but this minilib also beats klibc, dietlib and musl 
 in the matter of hello world's size..
 
+....
 (Linux 32bit:)
 musl: 7.6k
 dietlibc: 672
 klibc: 367
 minilib: 151
-
+....
 
 (On Linux 64bit I didn't check the other libraries,
  but the bigger registers cost a few bytes:
