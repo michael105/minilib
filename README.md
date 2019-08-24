@@ -8,12 +8,10 @@
 
 >    Copyright (c) 2012-2019 Michael (Misc) Myer, 
 >    misc.myer@zoho.com / www.github.com/michael105
->   
+>
 >    BSD License
 >    Static linking is permitted.
->
 >    See bottom for the BSD License. 
->
 >    Some sourcefiles in the folders headers and contrib
 >    have other licensing terms, 
 >    which are in my opinion compatible to the BSD-Licenses.
