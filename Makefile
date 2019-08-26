@@ -1,5 +1,5 @@
 ifndef PROG
-PROG=hello
+PROG=examples/hello
 endif
 
 ONLYTEXT=1
