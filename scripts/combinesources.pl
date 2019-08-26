@@ -28,7 +28,7 @@ sub slurpfile{
 
 		if ( defined( $included{$f} ) ){
 				debug ("YYYYYYYYYYYYYY   Already included: $f");
-				#return;
+				return;
 		}
 		my $fn = $f;
 		$f =~/(.*)\/(.*)/;
@@ -45,7 +45,7 @@ sub slurpfile{
 		$f = $orif;
 
 		if ( $recursion > 2 ){
-				if ( grep { /$f/ } qw /minilib.c minilib.h syscall_stubs.h syscall.h timeval.h msprintf.c mfprintf.c/ ){
+				if ( grep { /$f/ } qw /minilib.h syscall_stubs.h syscall.h timeval.h msprintf.c mfprintf.c exit.h/ ){
 						debug "Recurse: $recursion, file: $f, Returning.";
 						return;
 				}

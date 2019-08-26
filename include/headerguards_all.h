@@ -1,5 +1,5 @@
-#ifndef headerguards_h
-#define headerguards_h
+#ifndef headerguards_all_h
+#define headerguards_all_h
 
 // prevent standard headers from being compiled
 
@@ -73,10 +73,10 @@
 #define _COMPLEX_H
 #define _CPIO_H
 #define _CRYPT_H
-//#define _DIRENT_H
+#define _DIRENT_H
 #define _DLFCN_H
-//#define _ELF_H
-//#define _ENDIAN_H
+#define _ELF_H
+#define _ENDIAN_H
 #define _ENVZ_H
 #define _ERROR_H
 #define _EXECINFO_H
@@ -161,7 +161,7 @@
 #define _SETJMP_H
 #define _SHADOW_H
 #define _SIGNAL_H
-//#define _STDINT_H
+#define _STDINT_H
 #define _STDIO_EXT_H
 #define _STDIO_H
 #define _STDLIB_H
@@ -202,12 +202,12 @@
 #define _SYS_SOCKET_H
 #define _SYS_STATFS_H
 #define _SYS_STATVFS_H
-//#define _SYS_STAT_H
+#define _SYS_STAT_H
 #define _SYS_SWAP_H
 #define _SYS_SYSINFO_H
 #define _SYS_SYSLOG_H
 #define _SYS_SYSMACROS_H
-//#define _SYS_TERMIOS_H
+#define _SYS_TERMIOS_H
 #define _SYS_TIMEB_H
 #define _SYS_TIME_H
 #define _SYS_TTYCHARS_H
@@ -215,12 +215,12 @@
 #define _SYS_UCONTEXT_H
 #define _SYS_UIO_H
 #define _SYS_USER_H
-//#define _SYS_UTSNAME_H
+#define _SYS_UTSNAME_H
 #define _SYS_VLIMIT_H
 #define _SYS_VM86_H
 #define _SYS_VTIMES_H
 #define _SYS_XATTR_H
-//#define _TERMIOS_H
+#define _TERMIOS_H
 #define _TGMATH_H
 #define _THREADS_H
 #define _THREAD_DB_H

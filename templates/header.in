@@ -23,9 +23,11 @@
 //#define mini_exit
 
 #include "minilib/include/globaldefs.h"
+#include "minilib/include/minilib_global.h"
 #include "minilib/include/timeval.h"
 #include "minilib/headers/common/dirent.h"
 #include "minilib/include/syscall.h"
+#include "minilib/headers/linux_x64/sys/syscall.h"
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
 

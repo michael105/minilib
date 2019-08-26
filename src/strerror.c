@@ -17,9 +17,9 @@ char* strerror( int errnum ){
 }
 
 //+header stdio.h
-//+depends fputs
-//+inline
-static inline void perror(char *msg){
+//+depends fputs strerror
+//+def
+void perror(char *msg){
 		if ( msg !=0 && msg[0] != '\0' )
 				fputs( msg, stderr );
 

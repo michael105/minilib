@@ -82,19 +82,16 @@ _itobin        (src/itobin.c: 8)
 _mprints       (src/prints.c: 66)
                #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
+_strcmp        (src/mstrcmp.c: 11)
+               int _strcmp(const char*c1,const char*c2,int len);
+
 basename       (src/basename.c: 29)
                char *basename(char *path);
 
-def            (macros/getoptm.h: 21)
-               #define PARSEOPTS_short( opts, argv, options, unrecognized ) (;
-               Parse "argv" for short options "options", small capitals.
-             	Save them in the bitfield (int32) "opts".
-             	If there is an unrecognized option, do "unrecognized". char "option" keeps the unrecognized option.
-             	Possible options have to be supplied in this form: ( a+l+h+... )
-             		(e.g. PARSEOPTS_short( opts, argv, (a+h+l),{ fprintf(stderr, "Unrecognized option: -%c\n", option); exit(1); })
-             
-             	Return a number, pointing to the first regular argument. 
-             		(Doesn't check for it's existence)
+def            (macros/getoptm.h: 52)
+               #define SETOPT_short( opts, option ) (;
+               Set a option flag(s) (bit(s))  manually.
+             		param options: e.g. just a, or ( a+h+l) to check for several flags at once
 
 dprintf        (src/sprintf.c: 202)
                int dprintf( int fd, const char *fmt, ... );
@@ -106,7 +103,11 @@ fprintfs       (src/fprintfs.c: 10)
                int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
-fwrites        (include/prints.h: 29)
+fprints        (include/prints.h: 17)
+               #define fprints(F,str) write(fileno(F),str,strlen(str))
+               print the string(s) supplied as arg(s) to stream
+
+fwrites        (include/prints.h: 39)
                #define fwrites(fd,str) write(fd,str,sizeof(str))
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
 
@@ -119,19 +120,19 @@ itodec         (src/itodec.c: 121)
 memfrob        (src/memfrob.c: 3)
                void* memfrob(void* s, unsigned int len);
 
-print          (include/prints.h: 19)
+print          (include/prints.h: 29)
                #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
 
-printl         (include/prints.h: 34)
+printl         (include/prints.h: 44)
                #define printl() write(STDOUT_FILENO,"\n",1)
                write a newline to stdout
 
-prints         (include/prints.h: 10)
+prints         (include/prints.h: 11)
                #define prints(...) _mprints(__VA_ARGS__,0)
                print the string(s) supplied as arg(s) to stdout
 
-printsl        (include/prints.h: 15)
+printsl        (include/prints.h: 25)
                #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
@@ -144,7 +145,7 @@ uitodec        (src/itodec.c: 8)
 vsnprintf      (src/sprintf.c: 36)
                int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
-writes         (include/prints.h: 24)
+writes         (include/prints.h: 34)
                #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
 
@@ -157,16 +158,16 @@ stdio.h
 _itohex        (src/itohex.c: 5)
                int _itohex(int i,char* buf,int padding, int capitals);
 
-clearerror     (include/mini_fstream.h: 193)
+clearerror     (include/mini_fstream.h: 197)
                static inline void clearerror(FILE *f);
 
 fclose         (include/mini_fstream.h: 64)
                static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-feof           (include/mini_fstream.h: 179)
+feof           (include/mini_fstream.h: 183)
                static inline int feof(FILE *f);
 
-ferror         (include/mini_fstream.h: 186)
+ferror         (include/mini_fstream.h: 190)
                static inline int ferror(FILE *f);
 
 fflush         (include/mini_fstream.h: 28)
@@ -176,7 +177,7 @@ fflush         (include/mini_fstream.h: 28)
 fgetc          (include/fgetc.h: 10)
                static inline int fgetc(FILE *F);
 
-fgetpos        (include/mini_fstream.h: 122)
+fgetpos        (include/mini_fstream.h: 126)
                static inline void fgetpos(FILE *f, long *pos );
 
 fileno         (include/mini_fstream.h: 54)
@@ -184,6 +185,9 @@ fileno         (include/mini_fstream.h: 54)
 
 fopen          (src/fopen.c: 11)
                FILE *fopen(const char* filename, const char* mode);
+
+fprint         (include/mini_fstream.h: 94)
+               #define fprint(...) fprintf(__VA_ARGS__)
 
 fprintf        (src/sprintf.c: 244)
                #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -194,19 +198,19 @@ fputc          (include/fputc.h: 10)
 fputs          (include/fputs.h: 14)
                static inline int volatile fputs(const char *c, FILE *F);
 
-fread          (include/mini_fstream.h: 157)
+fread          (include/mini_fstream.h: 161)
                static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-fseek          (include/mini_fstream.h: 141)
+fseek          (include/mini_fstream.h: 145)
                static inline int fseek(FILE *f, long offset, int whence );
 
-fsetpos        (include/mini_fstream.h: 128)
+fsetpos        (include/mini_fstream.h: 132)
                static inline int fsetpos(FILE *f, int pos );
 
-ftell          (include/mini_fstream.h: 116)
+ftell          (include/mini_fstream.h: 120)
                static inline long ftell(FILE *f);
 
-fwrite         (include/mini_fstream.h: 101)
+fwrite         (include/mini_fstream.h: 105)
                static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
 getc           (include/fgetc.h: 18)
@@ -219,7 +223,7 @@ itohex         (src/itohex.c: 48)
                int itohex(int i,char* buf,int padding);
 
 perror         (src/strerror.c: 22)
-               static inline void perror(char *msg);
+               void perror(char *msg);
 
 printf         (include/mini_fstream.h: 90)
                #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -230,26 +234,26 @@ putc           (include/fputc.h: 19)
 putchar        (include/fputc.h: 16)
                #define putchar(c) fputc(c,stdout)
 
-puts           (include/prints.h: 39)
+puts           (include/prints.h: 49)
                #define puts(msg) ( print(msg) + printl() )
                write msg to stdout, append a newline. Needs strlen.
 
-rewind         (include/mini_fstream.h: 151)
+rewind         (include/mini_fstream.h: 155)
                static inline void rewind( FILE *f );
 
-setbuf         (include/mini_fstream.h: 201)
+setbuf         (include/mini_fstream.h: 205)
                void setbuf(FILE *stream, char *buf);
                dummy functions.
               There is no buffering implemented for the streams yet.
 
-setvbuf        (include/mini_fstream.h: 205)
+setvbuf        (include/mini_fstream.h: 209)
                int setvbuf(FILE *stream, char *buf, int mode, size_t size);
                dummy
 
 sprintf        (src/sprintf.c: 26)
                #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
-vfprintf       (include/mini_fstream.h: 95)
+vfprintf       (include/mini_fstream.h: 99)
                #define vfprintf(...) fprintf(__VA_ARGS__)
 
 
@@ -282,7 +286,7 @@ srand          (src/rand.c: 7)
 string.h
 ==========
 
-memcmp         (src/mstrcmp.c: 36)
+memcmp         (src/mstrcmp.c: 43)
                int memcmp(const void* c1,const void* c2,int len);
 
 memcpy         (src/memcpy.c: 6)
@@ -294,7 +298,7 @@ memset         (src/memset.c: 3)
 strcat         (src/strcat.c: 6)
                char *strcat(char *dest, const char *src );
 
-strcmp         (src/mstrcmp.c: 24)
+strcmp         (src/mstrcmp.c: 27)
                int strcmp(const char*c1,const char*c2);
 
 strcpy         (src/memcpy.c: 17)
@@ -306,7 +310,7 @@ strerror       (src/strerror.c: 9)
 strlen         (src/strlen.c: 7)
                int strlen(const char*str);
 
-strncmp        (src/mstrcmp.c: 29)
+strncmp        (src/mstrcmp.c: 34)
                int strncmp(const char*c1,const char*c2,int len);
 
 strncpy        (src/memcpy.c: 27)
@@ -347,10 +351,10 @@ read           (include/syscall_stubs.h: 34)
                
 rename         (include/syscall_stubs.h: 43)
                
-select         (include/select.h: 28)
+select         (include/select.h: 10)
                static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
-tcgetattr      (include/tcgetattr.h: 18)
+tcgetattr      (include/tcgetattr.h: 17)
                static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
 
 tcsetattr      (include/tcsetattr.h: 18)

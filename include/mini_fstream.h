@@ -89,6 +89,10 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
+//+depends fprintf fileno
+//+macro
+#define fprint(...) fprintf(__VA_ARGS__)
+
 
 //+depends fprintf
 //+macro

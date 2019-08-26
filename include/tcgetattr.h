@@ -5,11 +5,10 @@
 //#include "ioctl.h"
 //#include <sys/ttycom.h>
 
-
-#ifndef TCGETS
-#warning TCGETS not defined. Applying ugly hack.
-#define TCGETS TIOCGETA
-#endif
+//#ifndef TCGETS
+//#warning TCGETS not defined. Applying ugly hack.
+//#define TCGETS TIOCGETA
+//#endif
 
 //+header unistd.h
 ///+needs sys/ttycom.h

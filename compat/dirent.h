@@ -4,8 +4,8 @@ Licensed under the terms of a BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
-#ifndef included_string_h
-#define included_string_h
+#ifndef included_dirent_h
+#define included_dirent_h
 
 #define mini_start
 #define mini_exit
@@ -58,35 +58,14 @@ Please see the files LICENSE and NOTICE for the exact conditions. */
 #include "minilib/headers/common/sys/types.h"
 
 
-// file: minilib/src/memcpy.c
-void *memcpy( void *d, const void *s, int n );
+// file: minilib/src/dirent/closedir.c
+int closedir(DIR *dir);
 
-// file: minilib/src/memcpy.c
-char *strcpy(char *dest, const char *src);
+// file: minilib/src/dirent/opendir.c
+DIR *opendir(const char *name);
 
-// file: minilib/src/memcpy.c
-char *strncpy(char *dest, const char *src, int n);
-
-// file: minilib/src/memset.c
-void *memset( void *s, int c, int n);
-
-// file: minilib/src/mstrcmp.c
-int strcmp(const char*c1,const char*c2);
-
-// file: minilib/src/mstrcmp.c
-int strncmp(const char*c1,const char*c2,int len);
-
-// file: minilib/src/mstrcmp.c
-int memcmp(const void* c1,const void* c2,int len);
-
-// file: minilib/src/strcat.c
-char *strcat(char *dest, const char *src );
-
-// file: minilib/src/strerror.c
-char* strerror( int errnum );
-
-// file: minilib/src/strlen.c
-int strlen(const char*str);
+// file: minilib/src/dirent/readdir.c
+struct dirent *readdir(DIR *dir);
 
 
 
@@ -95,12 +74,9 @@ int strlen(const char*str);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/strlen.c"
-#include "minilib/src/memcpy.c"
-#include "minilib/src/mstrcmp.c"
-#include "minilib/src/memset.c"
-#include "minilib/src/strerror.c"
-#include "minilib/src/strcat.c"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/src/dirent/readdir.c"
+#include "minilib/src/dirent/closedir.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

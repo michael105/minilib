@@ -5,6 +5,9 @@
 
 //TODO: not implemented correct. need to return also -1.
 
+// depend onto strncmp. Otherwise thias file will not be compiled.
+//+depends strncmp
+//+def
 int _strcmp(const char*c1,const char*c2,int len){
 		int a = 0;
 		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
@@ -19,12 +22,14 @@ int _strcmp(const char*c1,const char*c2,int len){
 }
 
 
-
+//+depends _strcmp strncmp
 //+def
 int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
 }
 
+
+//+depends _strcmp strncmp
 //+def
 int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )
@@ -32,6 +37,8 @@ int strncmp(const char*c1,const char*c2,int len){
 		return(_strcmp(c1,c2,len) );
 }
 
+
+//+depends _strcmp strncmp
 //+def
 int memcmp(const void* c1,const void* c2,int len){
 		const char* cc1 = c1;

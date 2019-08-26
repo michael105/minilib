@@ -59,7 +59,7 @@ tools:
 combined: 
 	cp templates/LICENSE.tmpl minilibcompiled.h
 	echo -e "#ifndef minilibcompiled_h\n#define minilibcompiled_h\n" >> minilibcompiled.h && \
-			scripts/combinesources.pl minilib.c >> minilibcompiled.h && \
+			scripts/combinesources.pl minilib.h >> minilibcompiled.h && \
 			echo "#endif" >> minilibcompiled.h
 #	cp templates/LICENSE.tmpl minilibcompiled.h
 #	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h

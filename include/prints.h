@@ -4,10 +4,20 @@
 extern int dprints(int fd, char *msg,...);
 //+header mini_addons.h
 
+
 //+doc print the string(s) supplied as arg(s) to stdout
 //+depends _mprints 
 //+macro
 #define prints(...) _mprints(__VA_ARGS__,0)
+
+
+//+doc print the string(s) supplied as arg(s) to stream
+//+depends fileno write strlen
+//+macro
+#define fprints(F,str) write(fileno(F),str,strlen(str))
+
+
+
 
 //+doc print the string(s) supplied as arg(s) and newline to stdout
 //+depends _mprints 
@@ -37,5 +47,9 @@ extern int dprints(int fd, char *msg,...);
 //+depends printl print strlen
 //+doc write msg to stdout, append a newline. Needs strlen.
 //+macro puts(msg) ( print(msg) + printl() )
+
+
+
+
 
 #endif
