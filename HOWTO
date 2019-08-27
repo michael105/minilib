@@ -4,7 +4,7 @@
 
 
 If you'd like to try this minilib,
-there are two ways:
+there are several ways:
 
 
 1. Using the "released" (pre-released..) bundled files "minilib.h" and "mini-gcc" 
@@ -18,11 +18,12 @@ there are two ways:
 
   (source of hello-combined attached below, with explanations..)
     
+	Compile, using mini-gcc:
+
+	mini-gcc -o hello hello-include.c
 
 
-
-
-	The tool "elfshrink" out of the folder minilib/tools brings this further down, now 185 Bytes here.
+	The tool "shrinkelf" out of the folder minilib/tools brings this further down, now 185 Bytes here.
 
 
 
@@ -88,6 +89,8 @@ ___________
 		All options, defined before the inclusion of minilib.h,
 		are going to be built.
 
+	- By the config system, integrated into mini-gcc
+		This is the preferred way now.
 
 
 
