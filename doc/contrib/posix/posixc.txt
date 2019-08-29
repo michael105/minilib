@@ -1,10 +1,9 @@
-source: https://www.mkompf.com/cplus/posixlist.html
+POSIX Library Functions
+-----------------------
 
-
-  POSIX Library Functions
 
 This is a reference of the POSIX functions which are not part of the
-Standard C Library <https://www.mkompf.com/cplus/cliblist.html>.
+Standard C Library.
 The POSIX 1003.1 specification was developed at the same time as the
 ANSI C standard. Although the POSIX standard is language-independent it
 is closely related to C and UNIX. Some effort was made to ensure that
@@ -12,8 +11,6 @@ the C and POSIX libraries were compatible, but in fact there are
 functions which are part of the POSIX standard but were never introduced
 into ANSI C.
 
-This is a very condensed list, consult your operating system's man-pages
-for a detailed information about each function.
 
   * Files and Directories <#files_and_directories>
   * Advanced File Operations <#advanced_file_operations>
@@ -25,7 +22,8 @@ for a detailed information about each function.
   * Process Groups and Job Control <#process_groups_and_job_control>
 
 
-    Files and Directories
+Files and Directories
+~~~~~~~~~~~~~~~~~~~~~
 
 |#include <unistd.h>|
 
@@ -61,7 +59,8 @@ for a detailed information about each function.
     reset directory stream
 
 
-    Advanced File Operations
+Advanced File Operations
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 |#include <unistd.h>|
 
@@ -99,7 +98,8 @@ for a detailed information about each function.
     return file descriptor of stream
 
 
-    Processes
+Processes
+~~~~~~~~~
 
 |#include <unistd.h>|
 
@@ -137,7 +137,8 @@ for a detailed information about each function.
     set group identity
 
 
-    Long Jumps
+Long Jumps
+~~~~~~~~~~
 
 |#include <setjmp.h>|
 
@@ -151,7 +152,8 @@ for a detailed information about each function.
     non-local jump to a saved stack context
 
 
-    Signal Handling
+Signal Handling
+~~~~~~~~~~~~~~~
 
 |#include <signal.h>|
 
@@ -175,7 +177,8 @@ for a detailed information about each function.
     wait for a signal
 
 
-    Obtaining Information at Runtime
+Obtaining Information at Runtime
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 |#include <unistd.h>|
 |#include <pwd.h>|
@@ -229,7 +232,8 @@ for a detailed information about each function.
     initialize time conversion information
 
 
-    Terminal I/O
+Terminal I/O
+~~~~~~~~~~~~
 
 |#include <termios.h>|
 
@@ -259,7 +263,8 @@ for a detailed information about each function.
     set terminal foreground process group ID
 
 
-    Process Groups and Job Control
+Process Groups and Job Control
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 |#include <unistd.h>|
 
@@ -270,17 +275,3 @@ for a detailed information about each function.
 |pid_t getpgrp(void);|
     get process group
 
-Copyright © 2018 Martin Kompf. All rights reserved. Imprint
-<https://www.mkompf.com/imprint.html> Privacy policy
-<https://www.mkompf.com/imprint.html>
-Blog
-Introduction <https://www.mkompf.com/cplus/index.html>
-Search <https://www.mkompf.com/search.html>
-Imprint <https://www.mkompf.com/imprint.html>
-Articles
-Index <https://www.mkompf.com/cplus/artikel/index.html>
-Tutorials
-OpenCV practice <https://www.mkompf.com/cplus/emeocv.html>
-Reference
-ANSI C Library <https://www.mkompf.com/cplus/cliblist.html>
-POSIX Library

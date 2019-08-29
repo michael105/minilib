@@ -1,5 +1,14 @@
 ### assorted notes
 
+
+Stackguard:
+	gcc is able to emit "pre code" for each function.
+	There: call another function, and jump back.
+	->ret of the "main function" will "return" here.
+	->check for stack integrity, and do the second ret here
+
+
+
 Config system:
 	-Write docu into the "template" config.
 	-Hint to the template config files
