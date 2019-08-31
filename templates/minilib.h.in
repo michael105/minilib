@@ -1,4 +1,4 @@
-
+/* templates/minilib.h.in */
 
 #include "minilib/include//utils.h"
 
@@ -41,4 +41,6 @@ struct udiv_t { unsigned int quot, rem; };
 //#endif
 //
 
+
+/* end templates/minilib.h.in */
 

@@ -1,6 +1,6 @@
 /* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
 misc.myer@zoho.com / www.github.com/michael105
-Licensed under the terms of a BSD 3-clause License.
+Licensed under the terms of the BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
@@ -74,8 +74,8 @@ struct dirent *readdir(DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/dirent/closedir.c"
 #include "minilib/src/dirent/readdir.c"
+#include "minilib/src/dirent/closedir.c"
 #include "minilib/src/dirent/opendir.c"
 
 // Need global included. Doesn't matter by which file.

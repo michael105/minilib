@@ -16,7 +16,7 @@ FILE *fopen(const char* filename, const char* mode){
 									break;
 				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
 									break;
-				case 'a': imode = O_APPEND; // somehow only "a+" works. Not sure, why.
+				case 'a': imode = O_APPEND | O_RDWR; // somehow only "a+" works. Not sure, why.
 									break;
 				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
 								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
@@ -29,12 +29,12 @@ FILE *fopen(const char* filename, const char* mode){
 						imode = imode | O_RDWR;
 				} else {
 						switch (mode[0]){
-								case 'r': 
+								case 'r': imode = O_RDONLY;
 										break;
 								case 'w': if ( mode[a] == 'x' )
 															imode = imode & ( ~(O_CREAT | O_TRUNC) );
 													break;
-								case 'a': 
+								case 'a': imode = O_APPEND | O_RDWR; 
 													break;
 						}
 				}

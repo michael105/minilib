@@ -10,3 +10,10 @@ ml.stream[1]=1;
 ml.stream[2]=2;
 ml.pstream = 3;
 #endif
+
+#ifdef mini_errno
+errno = 0;
+sysret = 0;
+#endif
+
+

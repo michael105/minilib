@@ -1,6 +1,6 @@
 /* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
 misc.myer@zoho.com / www.github.com/michael105
-Licensed under the terms of a BSD 3-clause License.
+Licensed under the terms of the BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
@@ -128,17 +128,17 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/prints.h"
-#include "minilib/src/itobin.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/itodec.c"
-#include "minilib/src/sprintf.c"
-#include "minilib/src/prints.c"
-#include "minilib/src/mstrcmp.c"
-#include "minilib/src/fprintfs.c"
 #include "minilib/src/dtodec.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/prints.c"
+#include "minilib/src/itobin.c"
 #include "minilib/include/globaldefs.h"
 #include "minilib/src/basename.c"
+#include "minilib/src/mstrcmp.c"
+#include "minilib/src/sprintf.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/include/prints.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

@@ -1,6 +1,6 @@
 /* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
 misc.myer@zoho.com / www.github.com/michael105
-Licensed under the terms of a BSD 3-clause License.
+Licensed under the terms of the BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
@@ -97,10 +97,10 @@ int strlen(const char*str);
 
 #include "minilib/src/memcpy.c"
 #include "minilib/src/strerror.c"
-#include "minilib/src/strcat.c"
-#include "minilib/src/mstrcmp.c"
-#include "minilib/src/strlen.c"
 #include "minilib/src/memset.c"
+#include "minilib/src/strlen.c"
+#include "minilib/src/mstrcmp.c"
+#include "minilib/src/strcat.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

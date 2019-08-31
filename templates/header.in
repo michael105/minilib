@@ -1,4 +1,4 @@
-/* header.in */
+/* templates/header.in */
 
 
 #ifndef mini_INCLUDESRC
@@ -35,3 +35,4 @@
 #include "minilib/macros/getoptm.h"
 #endif
 
+/* end templates/header.in */

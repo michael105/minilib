@@ -459,7 +459,9 @@ print $ml <<TMPL_END;
 
 
 #ifdef INCLUDESRC
+#ifndef included_minilib_c
 #include "minilib.c"
+#endif
 #endif
 
 #endif

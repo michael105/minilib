@@ -1,6 +1,11 @@
+/* templates/minilib.c.in */
 
 //#include "minilib.conf"
+
+#ifndef included_minilib_h
 #include "minilib.h"
+#endif
+
 #include "minilib/asm/start.c"
 #include "minilib/src/minilib_global.c"
 
@@ -14,3 +19,4 @@ int sysret;
 #endif
 
 
+/* end templates/minilib.c.in */

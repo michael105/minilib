@@ -117,7 +117,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												end=1;
 												break;
 										case 'X':
-#ifdef mini_itohex
+#ifdef mini_itoHEX
 												MINI_TEST_OVERRUN(b+8);
 												b = b + itoHEX(va_arg(args,int),&buf[b],padding);
 #endif

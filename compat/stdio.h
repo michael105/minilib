@@ -1,6 +1,6 @@
 /* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
 misc.myer@zoho.com / www.github.com/michael105
-Licensed under the terms of a BSD 3-clause License.
+Licensed under the terms of the BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. */
 
 
@@ -115,12 +115,12 @@ static inline int volatile fputs(const char *c, FILE *F);
 
 #include "minilib/src/fopen.c"
 #include "minilib/src/itohex.c"
-#include "minilib/src/sprintf.c"
 #include "minilib/include/fputs.h"
-#include "minilib/include/prints.h"
-#include "minilib/src/strerror.c"
-#include "minilib/include/fgetc.h"
 #include "minilib/include/fputc.h"
+#include "minilib/src/sprintf.c"
+#include "minilib/include/prints.h"
+#include "minilib/include/fgetc.h"
+#include "minilib/src/strerror.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
