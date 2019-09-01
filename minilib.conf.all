@@ -22,136 +22,136 @@ mini_exit
 
 # --- minilib_config-start: Allswitches --- 
 
-# === ioctl.h
-mini_ioctl
-
-
-# === time.h
-mini_time
-
-
-# === declarations.h
-mini_getcwd
-mini_uname
-mini_fstat
-mini_dup3
-mini_stat
-mini_getdents
-mini_gettimeofday
-mini_mprotect
-
-
-# === unistd.h
-mini_select
-mini_dup2
-mini_open
-mini_unlink
-mini_rename
-mini_tcsetattr
-mini_write
-mini_read
-mini_getpid
-mini_fsync
-mini_dup
-mini_close
-mini_tcgetattr
-mini_lseek
-mini_ftruncate
-
-
-# === string.h
-mini_strncpy
-mini_memcmp
-mini_strcmp
-mini_strcpy
-mini_memcpy
-mini_memset
-mini_strerror
-mini_strncmp
-mini_strlen
-mini_strcat
-
-
-# === stdio.h
-mini_fputs
-mini_fgetc
-mini_ftell
-mini_putc
-mini_itohex
-mini_fopen
-mini_rewind
-mini_sprintf
-mini__itohex
-mini_feof
-mini_vfprintf
-mini_fgetpos
-mini_printf
-mini_putchar
-mini_setvbuf
-mini_fseek
-mini_fread
-mini_setbuf
-mini_fileno
-mini_itoHEX
-mini_perror
-mini_fflush
-mini_fprintf
-mini_clearerror
-mini_fclose
-mini_puts
-mini_fwrite
-mini_getc
-mini_fprint
-mini_ferror
-mini_fsetpos
-mini_fputc
-
-
 # === mini_addons.h
-mini_writes
-mini_fprintfs
-mini_basename
-mini_vsnprintf
-mini_fwrites
-mini_fprints
-mini__strcmp
-mini_print
-mini_snprintf
-mini_memfrob
-mini__itobin
-mini_printl
-mini_def
-mini_itobin
-mini_prints
-mini_printsl
-mini_itodec
-mini_dprintf
-mini_dtodec
 mini_uitodec
+mini_vsnprintf
+mini_fprintfs
+mini_def
+mini_itodec
+mini_printl
+mini_fwrites
+mini_printsl
+mini_dtodec
 mini__mprints
-
-
-# === ctype.h
-mini_isspace
-mini_isprint
+mini_writes
+mini_dprintf
+mini_basename
+mini_itobin
+mini__itobin
+mini_snprintf
+mini_fprints
+mini_print
+mini__strcmp
+mini_prints
+mini_memfrob
 
 
 # === fcntl.h
 mini_creat
 
 
+# === declarations.h
+mini_mprotect
+mini_dup3
+mini_getdents
+mini_gettimeofday
+mini_fstat
+mini_stat
+mini_uname
+mini_getcwd
+
+
+# === ctype.h
+mini_isprint
+mini_isspace
+
+
+# === unistd.h
+mini_dup2
+mini_select
+mini_read
+mini_open
+mini_unlink
+mini_tcgetattr
+mini_ftruncate
+mini_fsync
+mini_write
+mini_tcsetattr
+mini_rename
+mini_close
+mini_lseek
+mini_getpid
+mini_dup
+
+
+# === time.h
+mini_time
+
+
+# === stdio.h
+mini_fread
+mini_feof
+mini_fwrite
+mini_fgetc
+mini_fsetpos
+mini_setbuf
+mini_fflush
+mini_fprint
+mini_putc
+mini_perror
+mini_sprintf
+mini_puts
+mini_fputc
+mini_clearerror
+mini_itoHEX
+mini_ftell
+mini_fprintf
+mini_fclose
+mini_setvbuf
+mini_itohex
+mini_putchar
+mini_getc
+mini_vfprintf
+mini_fileno
+mini_fopen
+mini_ferror
+mini_rewind
+mini_fgetpos
+mini_fputs
+mini_fseek
+mini_printf
+mini__itohex
+
+
 # === stdlib.h
+mini_rand
 mini_atoi
 mini_srand
-mini_getenv
-mini_malloc
 mini_free
-mini_rand
+mini_malloc
+mini_getenv
+
+
+# === string.h
+mini_strcat
+mini_strlen
+mini_strncpy
+mini_memcmp
+mini_memcpy
+mini_strcpy
+mini_strcmp
+mini_memset
+mini_strncmp
+mini_strerror
+
+
+# === ioctl.h
+mini_ioctl
 
 
 # === dirent.h
-mini_readdir
 mini_closedir
 mini_opendir
+mini_readdir
 
 # --- minilib_config-end: Allswitches --- 
