@@ -138,6 +138,43 @@ int main( int argc, char *argv[] ){
 		}
 		printf("\nftell: %d\n",ftell(f2));
 		
+		fclose(f2);
+		fclose(f);
+
+		f = fopen( "t3.test", "a" );
+		fprintf( f, "Appending\n" );
+		fclose(f);
+		f = fopen( "t3.test", "a+" );
+		fsetpos( f, 0 );
+		while( !feof( f )){
+				fread( bufc, 4,1, f );
+				write(fileno(stdout), bufc, 4 );
+				write(fileno(stdout), "  (t3)\n", 7 );
+		}
+		fsetpos( f, 1 );
+		fprintf( f, "ZZZZZ\n" );
+
+		for ( fsetpos(f,0); !feof(f); (fread( bufc, 1, 1, f )==1) && write( fileno(stdout), bufc, 1 ) );
+		fclose(f);
+
+		f = fopen( "t3.test", "r+" );
+		fsetpos( f, 12 );
+		fprintf( f, "YYYY" );
+		for ( fsetpos(f,0); !feof(f); (fread( bufc, 1, 1, f )==1) && write( fileno(stdout), bufc, 1 ) );
+		fclose(f);
+
+		f = fopen( "t3.test", "w+" );
+		//fsetpos( f, 0 );
+		fprintf(f,"Truncated\nOk..\n");
+		//fsetpos( f, 12 );
+		//fprintf( f, "VV" );
+		for ( fsetpos(f,0); !feof(f); (fread( bufc, 1, 1, f )==1) && write( fileno(stdout), bufc, 1 ) );
+		fclose(f);
+
+
+		f = fopen( "t3.test", "r+" );
+		printf("fileno: %d\n", fileno(f) );
+		fprintf( f, "Test\n" );
 
 		return(0);
 }

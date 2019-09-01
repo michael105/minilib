@@ -7,6 +7,7 @@
 //+header stdio.h
 //+depends open
 //+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
 //+def
 FILE *fopen(const char* filename, const char* mode){
 		int imode;
@@ -26,24 +27,27 @@ FILE *fopen(const char* filename, const char* mode){
 
 		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
  				if ( mode[a] == '+' ){ 
-						imode = imode | O_RDWR;
+						imode = ( ( imode | O_RDWR ) & ~( O_WRONLY | O_RDONLY) );
 				} else {
+#if 0
+				//printf("XXX: %c", mode[a]);
 						switch (mode[0]){
-								case 'r': imode = O_RDONLY;
+								case 'r': //imode = O_RDONLY;
 										break;
 								case 'w': if ( mode[a] == 'x' )
 															imode = imode & ( ~(O_CREAT | O_TRUNC) );
 													break;
-								case 'a': imode = O_APPEND | O_RDWR; 
+								case 'a': //imode = O_APPEND | O_RDWR; 
 													break;
 						}
+#endif
 				}
 		}
-		//puts("XXX");
+
 		int a;
-		if ( ml.stream[ml.pstream]>=FOPEN_MAX){
+		if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
 			for ( a=3; ml.stream[a]>=0; a++ )
-					if ( a >= FOPEN_MAX )
+					if ( a >= mini_FOPEN_MAX ) // 
 							return(0);
 		} else {
 				a = ml.pstream;

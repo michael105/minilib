@@ -33,7 +33,8 @@ static inline int __attribute__((always_inline)) fflush( FILE *F ){
 
 #ifndef mini_fstream
 
-
+//+doc Return the fd nummber of stdin,-out,-err. 
+// this is a boilerplate, in case, no minibuf and no streams are compiled.
 //+inline
 static inline int __attribute__((always_inline)) fileno( FILE *F ){
 		if ( F==stdin )
@@ -60,9 +61,10 @@ static inline int __attribute__((always_inline)) fileno( FILE *f ){
 
 
 //+depends close
+//+todo: seems strange. might be filene 
 //+inline
 static inline int __attribute__((always_inline)) fclose( FILE* f ){
-		int fd = *f;
+		int fd = fileno(f);
 		*f = -1;
 		// empty garbage; go back to first closed stream
 		if ( f[1] == ml.stream[ml.pstream] )

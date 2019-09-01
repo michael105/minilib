@@ -1,19 +1,11 @@
 ok.
-XXX
-a: 3
 ok open
 ml.pstream: 4
 ok written
 ml.pstream: 3
-XXX
-a: 3
 ml.pstream: 4
 ml.pstream: 3
-XXX
-a: 3
 ml.pstream: 4
-XXX
-a: 4
 ml.pstream: 5
 i: 24
 Got:
@@ -21,8 +13,6 @@ Hallo 23
   xxx Hallo 42+   Ok.
 ml.pstream: 5
 ml.pstream: 3
-XXX
-a: 3
 #if 0
 
 mini_start
@@ -138,11 +128,7 @@ int main( int argc, char *argv[] ){
 got: 2014
 i_feof
 mingot: 5
-XXX
-a: 4
 XXXXXXXXXXXXXXX
-XXX
-a: 4
 10
 11
 12
@@ -219,3 +205,88 @@ i:  0, r: 0, buf: 0
 23
 21
 ftell: 88
+10
+1  (t3)
+1
+12  (t3)
+
+13
+  (t3)
+14
+1  (t3)
+5
+16  (t3)
+
+17
+  (t3)
+18
+1  (t3)
+9
+1A  (t3)
+
+1B
+  (t3)
+1C
+1  (t3)
+D
+1E  (t3)
+
+1F
+  (t3)
+20
+2  (t3)
+1
+22  (t3)
+
+23
+  (t3)
+Appe  (t3)
+ndin  (t3)
+g
+in  (t3)
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1A
+1B
+1C
+1D
+1E
+1F
+20
+21
+22
+23
+Appending
+ZZZZZ
+10
+11
+12
+13
+YYYY5
+16
+17
+18
+19
+1A
+1B
+1C
+1D
+1E
+1F
+20
+21
+22
+23
+Appending
+ZZZZZ
+Truncated
+Ok..
+fileno: 3
