@@ -10,7 +10,7 @@ struct dirent *readdir(DIR *dir){
 	struct dirent *de;
 	
 	if (dir->buf_pos >= dir->buf_end) {
-		int len = getdents( dir->fd, dir->buf, sizeof dir->buf);
+		int len = getdents( dir->fd, (struct dirent*) dir->buf, sizeof dir->buf);
 		if (len <= 0) {
 			if (len < 0 && len != -ENOENT) errno = -len;
 			return 0;

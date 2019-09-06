@@ -61,7 +61,6 @@ static inline int __attribute__((always_inline)) fileno( FILE *f ){
 
 
 //+depends close
-//+todo: seems strange. might be filene 
 //+inline
 static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		int fd = fileno(f);

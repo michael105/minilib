@@ -21,6 +21,7 @@ DIR *opendir(const char *name){
 	}
 
 	dir->fd = fd;
+	dir->buf_pos=dir->buf_end=0;
 	return dir;
 }
 

@@ -15,8 +15,11 @@ int volatile open( const char *s, int flags, ... ){
 		va_start(args,flags);
 		int mode = va_arg(args,int);
 		va_end(args);
-
 		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
+#ifdef mini_errno
+		if ( ret<0 )
+				errno = -ret;
+#endif
 		return(ret);
 }
 

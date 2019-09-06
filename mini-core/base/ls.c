@@ -19,6 +19,8 @@ mini_fputs
 mini_puts
 mini_putchar
 mini_malloc
+mini_chdir
+mini_errno
 INCLUDESRC
 HEADERGUARDS
 shrinkelf
@@ -57,11 +59,11 @@ enum options { a, l, h };
 #define OPTIONS(opt) ( (1<<('a'-96)) | 
 
 
-int print_entry( struct dirent *ent, int args ){
+//int print_entry( struct dirent *ent, int args ){
+int print_entry( char *name, int args ){
 			if ( GET_OPT( args, l ) ){
 					struct stat st;
-					stat( ent->d_name, &st );
-
+					stat( name, &st );
 					switch( st.st_mode & S_IFMT ){
 							case S_IFREG: putchar('-');
 														break;
@@ -82,10 +84,10 @@ int print_entry( struct dirent *ent, int args ){
 					fprintf(stdout, "   %d %d ", st.st_uid, st.st_gid);
 					fprintf(stdout, "%-9d    ", st.st_size);
 
-					printf("%s\n", ent->d_name);
+					printf("%s\n", name);
 
 			} else {
-					printf("%s\n", ent->d_name);
+					printf("%s\n", name);
 			}
 
 
@@ -105,7 +107,9 @@ static int list(const char *path, int label, int args)
 		return 1;
 	}
 	if (!S_ISDIR(statbuf.st_mode)) {
-		printf("%s\n", path);
+		//printf("%s\n", path);
+
+		print_entry( path, args );
 		return 0;
 	}
 	if (label) {
@@ -117,14 +121,16 @@ static int list(const char *path, int label, int args)
 
 	dh = opendir(path);
 	if (!dh) {
-		fprintfs(stderr, "Here: ls: %s: %s\n",
-		 path, strerror(errno));
+		fprintf(stderr, "ls: Error openening %s\n%d\n",
+		 path, errno);
 		return 1;
 	}
+	chdir(path);
+
 	while ((ent = readdir(dh))) {
 		if (ent->d_name[0] == '.' && ! GET_OPT(args,a))
 			continue;
-			print_entry( ent, args );
+		print_entry( ent->d_name, args );
 	}
 	if (closedir(dh)) {
 		fprintfs(stderr, "ls: %s: %s\n",
@@ -163,7 +169,7 @@ int main(int argc, const char *argv[])
 			return(1);
 		}
 	}
-	printf("opt: %d\n", args );
+	//printf("opt: %d\n", args );
 
 	if (i == argc) {
 		if (list(".", 0, args))
