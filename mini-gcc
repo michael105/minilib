@@ -34,7 +34,8 @@ OPTFLAG="-Os"
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 
 # ld options 
-CFLAGS="$CFLAGS -Wl,-n,-s,--gc-sections,-nostdlib,--build-id=none"
+CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
+#CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
 
 # (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
 LDSCRIPT="ld_script"
@@ -496,6 +497,10 @@ INCLUDESRC(){
 		echo "#define INCLUDESRC"
 }
 
+# The (optimization)-flag, gcc is callen with.
+# Either leave it blank, or set it to e.g. '-Os'
+# -O2 and higher optimizations seem to give trouble.
+# -Os, -O0, -O1 passed all tests here and might be save.
 OPTFLAG(){
 		export OPTFLAG=$1
 }
@@ -515,74 +520,116 @@ HEADERGUARDS(){
 # when make header ist invoked
 
 # --- define_functions-start: generate --- #
-mini_memcpy(){ 
-  echo "#define mini_memcpy generate" 
+mini_printsl(){ 
+  echo "#define mini_printsl generate" 
 }
-mini_fprintfs(){ 
-  echo "#define mini_fprintfs generate" 
+mini_puts(){ 
+  echo "#define mini_puts generate" 
 }
-mini_vfprintf(){ 
-  echo "#define mini_vfprintf generate" 
+mini_dup2(){ 
+  echo "#define mini_dup2 generate" 
 }
-mini_strncpy(){ 
-  echo "#define mini_strncpy generate" 
+mini_dprintf(){ 
+  echo "#define mini_dprintf generate" 
 }
-mini_dup3(){ 
-  echo "#define mini_dup3 generate" 
-}
-mini_fsync(){ 
-  echo "#define mini_fsync generate" 
-}
-mini_fputc(){ 
-  echo "#define mini_fputc generate" 
-}
-mini_free(){ 
-  echo "#define mini_free generate" 
-}
-mini_fwrite(){ 
-  echo "#define mini_fwrite generate" 
-}
-mini_getpid(){ 
-  echo "#define mini_getpid generate" 
-}
-mini_getcwd(){ 
-  echo "#define mini_getcwd generate" 
-}
-mini_tcsetattr(){ 
-  echo "#define mini_tcsetattr generate" 
-}
-mini_dtodec(){ 
-  echo "#define mini_dtodec generate" 
-}
-mini_fputs(){ 
-  echo "#define mini_fputs generate" 
-}
-mini_strncmp(){ 
-  echo "#define mini_strncmp generate" 
-}
-mini_clearerror(){ 
-  echo "#define mini_clearerror generate" 
-}
-mini_def(){ 
-  echo "#define mini_def generate" 
-}
-mini_opendir(){ 
-  echo "#define mini_opendir generate" 
-}
-mini_dprints(){ 
-  echo "#define mini_dprints generate" 
+mini_prints(){ 
+  echo "#define mini_prints generate" 
 }
 mini_creat(){ 
   echo "#define mini_creat generate" 
 }
-mini_fread(){ 
-  echo "#define mini_fread generate" 
+mini_fsync(){ 
+  echo "#define mini_fsync generate" 
+}
+mini_lseek(){ 
+  echo "#define mini_lseek generate" 
+}
+mini_uitodec(){ 
+  echo "#define mini_uitodec generate" 
+}
+mini_fsetpos(){ 
+  echo "#define mini_fsetpos generate" 
 }
 mini_isprint(){ 
   echo "#define mini_isprint generate" 
 }
-mini_strlen(){ 
-  echo "#define mini_strlen generate" 
+mini__mprints(){ 
+  echo "#define mini__mprints generate" 
+}
+mini_clearerror(){ 
+  echo "#define mini_clearerror generate" 
+}
+mini_fopen(){ 
+  echo "#define mini_fopen generate" 
+}
+mini_fprintf(){ 
+  echo "#define mini_fprintf generate" 
+}
+mini__strcmp(){ 
+  echo "#define mini__strcmp generate" 
+}
+mini_strcmp(){ 
+  echo "#define mini_strcmp generate" 
+}
+mini_fprint(){ 
+  echo "#define mini_fprint generate" 
+}
+mini_setvbuf(){ 
+  echo "#define mini_setvbuf generate" 
+}
+mini_getpid(){ 
+  echo "#define mini_getpid generate" 
+}
+mini_dtodec(){ 
+  echo "#define mini_dtodec generate" 
+}
+mini_def(){ 
+  echo "#define mini_def generate" 
+}
+mini_uname(){ 
+  echo "#define mini_uname generate" 
+}
+mini_dup3(){ 
+  echo "#define mini_dup3 generate" 
+}
+mini_tcsetattr(){ 
+  echo "#define mini_tcsetattr generate" 
+}
+mini_print(){ 
+  echo "#define mini_print generate" 
+}
+mini_memfrob(){ 
+  echo "#define mini_memfrob generate" 
+}
+mini_read(){ 
+  echo "#define mini_read generate" 
+}
+mini_select(){ 
+  echo "#define mini_select generate" 
+}
+mini_sprintf(){ 
+  echo "#define mini_sprintf generate" 
+}
+mini_snprintf(){ 
+  echo "#define mini_snprintf generate" 
+}
+mini_getc(){ 
+  echo "#define mini_getc generate" 
+}
+mini_itodec(){ 
+  echo "#define mini_itodec generate" 
+}
+mini_itohex(){ 
+  echo "#define mini_itohex generate" 
+}
+mini_ferror(){ 
+  echo "#define mini_ferror generate" 
+}
+mini_dup(){ 
+  echo "#define mini_dup generate" 
+}
+mini_setbuf(){ 
+  echo "#define mini_setbuf generate" 
 }
 mini_fileno(){ 
   echo "#define mini_fileno generate" 
@@ -590,119 +637,38 @@ mini_fileno(){
 mini_basename(){ 
   echo "#define mini_basename generate" 
 }
-mini_rename(){ 
-  echo "#define mini_rename generate" 
+mini_ftell(){ 
+  echo "#define mini_ftell generate" 
+}
+mini_fwrites(){ 
+  echo "#define mini_fwrites generate" 
+}
+mini_unlink(){ 
+  echo "#define mini_unlink generate" 
 }
 mini_printf(){ 
   echo "#define mini_printf generate" 
 }
-mini_fsetpos(){ 
-  echo "#define mini_fsetpos generate" 
-}
-mini_chdir(){ 
-  echo "#define mini_chdir generate" 
-}
-mini_puts(){ 
-  echo "#define mini_puts generate" 
-}
-mini_ftruncate(){ 
-  echo "#define mini_ftruncate generate" 
-}
-mini_itodec(){ 
-  echo "#define mini_itodec generate" 
-}
-mini_putc(){ 
-  echo "#define mini_putc generate" 
-}
-mini__strcmp(){ 
-  echo "#define mini__strcmp generate" 
-}
-mini_snprintf(){ 
-  echo "#define mini_snprintf generate" 
-}
-mini_getenv(){ 
-  echo "#define mini_getenv generate" 
-}
-mini_read(){ 
-  echo "#define mini_read generate" 
-}
-mini_strcat(){ 
-  echo "#define mini_strcat generate" 
-}
-mini_srand(){ 
-  echo "#define mini_srand generate" 
-}
 mini_itobin(){ 
   echo "#define mini_itobin generate" 
 }
-mini_tcgetattr(){ 
-  echo "#define mini_tcgetattr generate" 
-}
-mini_select(){ 
-  echo "#define mini_select generate" 
-}
-mini_close(){ 
-  echo "#define mini_close generate" 
-}
-mini_fprints(){ 
-  echo "#define mini_fprints generate" 
-}
-mini_printsl(){ 
-  echo "#define mini_printsl generate" 
-}
-mini_dup(){ 
-  echo "#define mini_dup generate" 
-}
-mini_strerror(){ 
-  echo "#define mini_strerror generate" 
-}
-mini_ferror(){ 
-  echo "#define mini_ferror generate" 
-}
-mini_writes(){ 
-  echo "#define mini_writes generate" 
-}
-mini_write(){ 
-  echo "#define mini_write generate" 
-}
-mini__itohex(){ 
-  echo "#define mini__itohex generate" 
-}
-mini_strcmp(){ 
-  echo "#define mini_strcmp generate" 
-}
-mini_lseek(){ 
-  echo "#define mini_lseek generate" 
-}
-mini_dup2(){ 
-  echo "#define mini_dup2 generate" 
-}
-mini_printl(){ 
-  echo "#define mini_printl generate" 
-}
-mini_fstat(){ 
-  echo "#define mini_fstat generate" 
-}
-mini_atoi(){ 
-  echo "#define mini_atoi generate" 
+mini_memcpy(){ 
+  echo "#define mini_memcpy generate" 
 }
 mini_ioctl(){ 
   echo "#define mini_ioctl generate" 
 }
-mini_fgetc(){ 
-  echo "#define mini_fgetc generate" 
+mini_fseek(){ 
+  echo "#define mini_fseek generate" 
 }
-mini_fprintf(){ 
-  echo "#define mini_fprintf generate" 
+mini_strlen(){ 
+  echo "#define mini_strlen generate" 
 }
-mini_isspace(){ 
-  echo "#define mini_isspace generate" 
+mini_rand(){ 
+  echo "#define mini_rand generate" 
 }
-mini_closedir(){ 
-  echo "#define mini_closedir generate" 
-}
-mini_feof(){ 
-  echo "#define mini_feof generate" 
+mini_printl(){ 
+  echo "#define mini_printl generate" 
 }
 mini_getdents(){ 
   echo "#define mini_getdents generate" 
@@ -710,116 +676,155 @@ mini_getdents(){
 mini_readdir(){ 
   echo "#define mini_readdir generate" 
 }
-mini_fflush(){ 
-  echo "#define mini_fflush generate" 
+mini_vsnprintf(){ 
+  echo "#define mini_vsnprintf generate" 
 }
-mini_fprint(){ 
-  echo "#define mini_fprint generate" 
+mini_close(){ 
+  echo "#define mini_close generate" 
 }
 mini_strcpy(){ 
   echo "#define mini_strcpy generate" 
 }
-mini_uname(){ 
-  echo "#define mini_uname generate" 
+mini_time(){ 
+  echo "#define mini_time generate" 
 }
-mini_uitodec(){ 
-  echo "#define mini_uitodec generate" 
+mini__itohex(){ 
+  echo "#define mini__itohex generate" 
 }
 mini_stat(){ 
   echo "#define mini_stat generate" 
 }
-mini_fclose(){ 
-  echo "#define mini_fclose generate" 
-}
-mini_setbuf(){ 
-  echo "#define mini_setbuf generate" 
-}
-mini_rewind(){ 
-  echo "#define mini_rewind generate" 
-}
-mini_itoHEX(){ 
-  echo "#define mini_itoHEX generate" 
-}
-mini_dprintf(){ 
-  echo "#define mini_dprintf generate" 
-}
-mini_sprintf(){ 
-  echo "#define mini_sprintf generate" 
-}
-mini_setvbuf(){ 
-  echo "#define mini_setvbuf generate" 
-}
-mini_fopen(){ 
-  echo "#define mini_fopen generate" 
-}
-mini__mprints(){ 
-  echo "#define mini__mprints generate" 
-}
-mini_getc(){ 
-  echo "#define mini_getc generate" 
-}
-mini_print(){ 
-  echo "#define mini_print generate" 
-}
-mini_prints(){ 
-  echo "#define mini_prints generate" 
-}
-mini_memcmp(){ 
-  echo "#define mini_memcmp generate" 
-}
-mini_fwrites(){ 
-  echo "#define mini_fwrites generate" 
-}
-mini_fseek(){ 
-  echo "#define mini_fseek generate" 
-}
-mini_ftell(){ 
-  echo "#define mini_ftell generate" 
-}
-mini_putchar(){ 
-  echo "#define mini_putchar generate" 
-}
-mini__itobin(){ 
-  echo "#define mini__itobin generate" 
-}
-mini_itohex(){ 
-  echo "#define mini_itohex generate" 
-}
-mini_rand(){ 
-  echo "#define mini_rand generate" 
-}
-mini_mprotect(){ 
-  echo "#define mini_mprotect generate" 
-}
-mini_malloc(){ 
-  echo "#define mini_malloc generate" 
+mini_strcat(){ 
+  echo "#define mini_strcat generate" 
 }
 mini_fgetpos(){ 
   echo "#define mini_fgetpos generate" 
 }
+mini_putc(){ 
+  echo "#define mini_putc generate" 
+}
+mini_getcwd(){ 
+  echo "#define mini_getcwd generate" 
+}
+mini_isspace(){ 
+  echo "#define mini_isspace generate" 
+}
+mini_fflush(){ 
+  echo "#define mini_fflush generate" 
+}
+mini_gettimeofday(){ 
+  echo "#define mini_gettimeofday generate" 
+}
+mini_write(){ 
+  echo "#define mini_write generate" 
+}
+mini_fwrite(){ 
+  echo "#define mini_fwrite generate" 
+}
+mini_closedir(){ 
+  echo "#define mini_closedir generate" 
+}
+mini_strncmp(){ 
+  echo "#define mini_strncmp generate" 
+}
+mini_free(){ 
+  echo "#define mini_free generate" 
+}
+mini_fgetc(){ 
+  echo "#define mini_fgetc generate" 
+}
+mini_fputc(){ 
+  echo "#define mini_fputc generate" 
+}
+mini_memcmp(){ 
+  echo "#define mini_memcmp generate" 
+}
+mini_rewind(){ 
+  echo "#define mini_rewind generate" 
+}
+mini_fstat(){ 
+  echo "#define mini_fstat generate" 
+}
+mini_atoi(){ 
+  echo "#define mini_atoi generate" 
+}
+mini_itoHEX(){ 
+  echo "#define mini_itoHEX generate" 
+}
+mini_dprints(){ 
+  echo "#define mini_dprints generate" 
+}
+mini_opendir(){ 
+  echo "#define mini_opendir generate" 
+}
+mini_fclose(){ 
+  echo "#define mini_fclose generate" 
+}
+mini_rename(){ 
+  echo "#define mini_rename generate" 
+}
+mini_srand(){ 
+  echo "#define mini_srand generate" 
+}
 mini_memset(){ 
   echo "#define mini_memset generate" 
 }
-mini_vsnprintf(){ 
-  echo "#define mini_vsnprintf generate" 
+mini_fputs(){ 
+  echo "#define mini_fputs generate" 
 }
-mini_perror(){ 
-  echo "#define mini_perror generate" 
-}
-mini_unlink(){ 
-  echo "#define mini_unlink generate" 
+mini_strncpy(){ 
+  echo "#define mini_strncpy generate" 
 }
 mini_open(){ 
   echo "#define mini_open generate" 
 }
-mini_memfrob(){ 
-  echo "#define mini_memfrob generate" 
+mini_strerror(){ 
+  echo "#define mini_strerror generate" 
 }
-mini_time(){ 
-  echo "#define mini_time generate" 
+mini_fread(){ 
+  echo "#define mini_fread generate" 
 }
-mini_gettimeofday(){ 
-  echo "#define mini_gettimeofday generate" 
+mini_writes(){ 
+  echo "#define mini_writes generate" 
+}
+mini_perror(){ 
+  echo "#define mini_perror generate" 
+}
+mini_vfprintf(){ 
+  echo "#define mini_vfprintf generate" 
+}
+mini_malloc(){ 
+  echo "#define mini_malloc generate" 
+}
+mini__itobin(){ 
+  echo "#define mini__itobin generate" 
+}
+mini_fprints(){ 
+  echo "#define mini_fprints generate" 
+}
+mini_getenv(){ 
+  echo "#define mini_getenv generate" 
+}
+mini_fprintfs(){ 
+  echo "#define mini_fprintfs generate" 
+}
+mini_tcgetattr(){ 
+  echo "#define mini_tcgetattr generate" 
+}
+mini_mprotect(){ 
+  echo "#define mini_mprotect generate" 
+}
+mini_ftruncate(){ 
+  echo "#define mini_ftruncate generate" 
+}
+mini_chdir(){ 
+  echo "#define mini_chdir generate" 
+}
+mini_putchar(){ 
+  echo "#define mini_putchar generate" 
+}
+mini_feof(){ 
+  echo "#define mini_feof generate" 
 }
 # --- define_functions-end: generate --- #
 
@@ -1067,108 +1072,108 @@ genconfigmacros_h='
 // when make header ist invoked
 
 // --- define_macros-start: generate --- //
-#define memcpy(...) _M_MLIB_memcpy_M_(__VA_ARGS__)
-#define fprintfs(...) _M_MLIB_fprintfs_M_(__VA_ARGS__)
-#define vfprintf(...) _M_MLIB_vfprintf_M_(__VA_ARGS__)
-#define strncpy(...) _M_MLIB_strncpy_M_(__VA_ARGS__)
-#define dup3(...) _M_MLIB_dup3_M_(__VA_ARGS__)
-#define fsync(...) _M_MLIB_fsync_M_(__VA_ARGS__)
-#define fputc(...) _M_MLIB_fputc_M_(__VA_ARGS__)
-#define free(...) _M_MLIB_free_M_(__VA_ARGS__)
-#define fwrite(...) _M_MLIB_fwrite_M_(__VA_ARGS__)
-#define getpid(...) _M_MLIB_getpid_M_(__VA_ARGS__)
-#define getcwd(...) _M_MLIB_getcwd_M_(__VA_ARGS__)
-#define tcsetattr(...) _M_MLIB_tcsetattr_M_(__VA_ARGS__)
-#define dtodec(...) _M_MLIB_dtodec_M_(__VA_ARGS__)
-#define fputs(...) _M_MLIB_fputs_M_(__VA_ARGS__)
-#define strncmp(...) _M_MLIB_strncmp_M_(__VA_ARGS__)
-#define clearerror(...) _M_MLIB_clearerror_M_(__VA_ARGS__)
-#define def(...) _M_MLIB_def_M_(__VA_ARGS__)
-#define opendir(...) _M_MLIB_opendir_M_(__VA_ARGS__)
-#define dprints(...) _M_MLIB_dprints_M_(__VA_ARGS__)
+#define printsl(...) _M_MLIB_printsl_M_(__VA_ARGS__)
+#define puts(...) _M_MLIB_puts_M_(__VA_ARGS__)
+#define dup2(...) _M_MLIB_dup2_M_(__VA_ARGS__)
+#define dprintf(...) _M_MLIB_dprintf_M_(__VA_ARGS__)
+#define prints(...) _M_MLIB_prints_M_(__VA_ARGS__)
 #define creat(...) _M_MLIB_creat_M_(__VA_ARGS__)
-#define fread(...) _M_MLIB_fread_M_(__VA_ARGS__)
+#define fsync(...) _M_MLIB_fsync_M_(__VA_ARGS__)
+#define lseek(...) _M_MLIB_lseek_M_(__VA_ARGS__)
+#define uitodec(...) _M_MLIB_uitodec_M_(__VA_ARGS__)
+#define fsetpos(...) _M_MLIB_fsetpos_M_(__VA_ARGS__)
 #define isprint(...) _M_MLIB_isprint_M_(__VA_ARGS__)
-#define strlen(...) _M_MLIB_strlen_M_(__VA_ARGS__)
+#define _mprints(...) _M_MLIB__mprints_M_(__VA_ARGS__)
+#define clearerror(...) _M_MLIB_clearerror_M_(__VA_ARGS__)
+#define fopen(...) _M_MLIB_fopen_M_(__VA_ARGS__)
+#define fprintf(...) _M_MLIB_fprintf_M_(__VA_ARGS__)
+#define _strcmp(...) _M_MLIB__strcmp_M_(__VA_ARGS__)
+#define strcmp(...) _M_MLIB_strcmp_M_(__VA_ARGS__)
+#define fprint(...) _M_MLIB_fprint_M_(__VA_ARGS__)
+#define setvbuf(...) _M_MLIB_setvbuf_M_(__VA_ARGS__)
+#define getpid(...) _M_MLIB_getpid_M_(__VA_ARGS__)
+#define dtodec(...) _M_MLIB_dtodec_M_(__VA_ARGS__)
+#define def(...) _M_MLIB_def_M_(__VA_ARGS__)
+#define uname(...) _M_MLIB_uname_M_(__VA_ARGS__)
+#define dup3(...) _M_MLIB_dup3_M_(__VA_ARGS__)
+#define tcsetattr(...) _M_MLIB_tcsetattr_M_(__VA_ARGS__)
+#define print(...) _M_MLIB_print_M_(__VA_ARGS__)
+#define memfrob(...) _M_MLIB_memfrob_M_(__VA_ARGS__)
+#define read(...) _M_MLIB_read_M_(__VA_ARGS__)
+#define select(...) _M_MLIB_select_M_(__VA_ARGS__)
+#define sprintf(...) _M_MLIB_sprintf_M_(__VA_ARGS__)
+#define snprintf(...) _M_MLIB_snprintf_M_(__VA_ARGS__)
+#define getc(...) _M_MLIB_getc_M_(__VA_ARGS__)
+#define itodec(...) _M_MLIB_itodec_M_(__VA_ARGS__)
+#define itohex(...) _M_MLIB_itohex_M_(__VA_ARGS__)
+#define ferror(...) _M_MLIB_ferror_M_(__VA_ARGS__)
+#define dup(...) _M_MLIB_dup_M_(__VA_ARGS__)
+#define setbuf(...) _M_MLIB_setbuf_M_(__VA_ARGS__)
 #define fileno(...) _M_MLIB_fileno_M_(__VA_ARGS__)
 #define basename(...) _M_MLIB_basename_M_(__VA_ARGS__)
-#define rename(...) _M_MLIB_rename_M_(__VA_ARGS__)
+#define ftell(...) _M_MLIB_ftell_M_(__VA_ARGS__)
+#define fwrites(...) _M_MLIB_fwrites_M_(__VA_ARGS__)
+#define unlink(...) _M_MLIB_unlink_M_(__VA_ARGS__)
 #define printf(...) _M_MLIB_printf_M_(__VA_ARGS__)
-#define fsetpos(...) _M_MLIB_fsetpos_M_(__VA_ARGS__)
-#define chdir(...) _M_MLIB_chdir_M_(__VA_ARGS__)
-#define puts(...) _M_MLIB_puts_M_(__VA_ARGS__)
-#define ftruncate(...) _M_MLIB_ftruncate_M_(__VA_ARGS__)
-#define itodec(...) _M_MLIB_itodec_M_(__VA_ARGS__)
-#define putc(...) _M_MLIB_putc_M_(__VA_ARGS__)
-#define _strcmp(...) _M_MLIB__strcmp_M_(__VA_ARGS__)
-#define snprintf(...) _M_MLIB_snprintf_M_(__VA_ARGS__)
-#define getenv(...) _M_MLIB_getenv_M_(__VA_ARGS__)
-#define read(...) _M_MLIB_read_M_(__VA_ARGS__)
-#define strcat(...) _M_MLIB_strcat_M_(__VA_ARGS__)
-#define srand(...) _M_MLIB_srand_M_(__VA_ARGS__)
 #define itobin(...) _M_MLIB_itobin_M_(__VA_ARGS__)
-#define tcgetattr(...) _M_MLIB_tcgetattr_M_(__VA_ARGS__)
-#define select(...) _M_MLIB_select_M_(__VA_ARGS__)
-#define close(...) _M_MLIB_close_M_(__VA_ARGS__)
-#define fprints(...) _M_MLIB_fprints_M_(__VA_ARGS__)
-#define printsl(...) _M_MLIB_printsl_M_(__VA_ARGS__)
-#define dup(...) _M_MLIB_dup_M_(__VA_ARGS__)
-#define strerror(...) _M_MLIB_strerror_M_(__VA_ARGS__)
-#define ferror(...) _M_MLIB_ferror_M_(__VA_ARGS__)
-#define writes(...) _M_MLIB_writes_M_(__VA_ARGS__)
-#define write(...) _M_MLIB_write_M_(__VA_ARGS__)
-#define _itohex(...) _M_MLIB__itohex_M_(__VA_ARGS__)
-#define strcmp(...) _M_MLIB_strcmp_M_(__VA_ARGS__)
-#define lseek(...) _M_MLIB_lseek_M_(__VA_ARGS__)
-#define dup2(...) _M_MLIB_dup2_M_(__VA_ARGS__)
-#define printl(...) _M_MLIB_printl_M_(__VA_ARGS__)
-#define fstat(...) _M_MLIB_fstat_M_(__VA_ARGS__)
-#define atoi(...) _M_MLIB_atoi_M_(__VA_ARGS__)
+#define memcpy(...) _M_MLIB_memcpy_M_(__VA_ARGS__)
 #define ioctl(...) _M_MLIB_ioctl_M_(__VA_ARGS__)
-#define fgetc(...) _M_MLIB_fgetc_M_(__VA_ARGS__)
-#define fprintf(...) _M_MLIB_fprintf_M_(__VA_ARGS__)
-#define isspace(...) _M_MLIB_isspace_M_(__VA_ARGS__)
-#define closedir(...) _M_MLIB_closedir_M_(__VA_ARGS__)
-#define feof(...) _M_MLIB_feof_M_(__VA_ARGS__)
+#define fseek(...) _M_MLIB_fseek_M_(__VA_ARGS__)
+#define strlen(...) _M_MLIB_strlen_M_(__VA_ARGS__)
+#define rand(...) _M_MLIB_rand_M_(__VA_ARGS__)
+#define printl(...) _M_MLIB_printl_M_(__VA_ARGS__)
 #define getdents(...) _M_MLIB_getdents_M_(__VA_ARGS__)
 #define readdir(...) _M_MLIB_readdir_M_(__VA_ARGS__)
-#define fflush(...) _M_MLIB_fflush_M_(__VA_ARGS__)
-#define fprint(...) _M_MLIB_fprint_M_(__VA_ARGS__)
-#define strcpy(...) _M_MLIB_strcpy_M_(__VA_ARGS__)
-#define uname(...) _M_MLIB_uname_M_(__VA_ARGS__)
-#define uitodec(...) _M_MLIB_uitodec_M_(__VA_ARGS__)
-#define stat(...) _M_MLIB_stat_M_(__VA_ARGS__)
-#define fclose(...) _M_MLIB_fclose_M_(__VA_ARGS__)
-#define setbuf(...) _M_MLIB_setbuf_M_(__VA_ARGS__)
-#define rewind(...) _M_MLIB_rewind_M_(__VA_ARGS__)
-#define itoHEX(...) _M_MLIB_itoHEX_M_(__VA_ARGS__)
-#define dprintf(...) _M_MLIB_dprintf_M_(__VA_ARGS__)
-#define sprintf(...) _M_MLIB_sprintf_M_(__VA_ARGS__)
-#define setvbuf(...) _M_MLIB_setvbuf_M_(__VA_ARGS__)
-#define fopen(...) _M_MLIB_fopen_M_(__VA_ARGS__)
-#define _mprints(...) _M_MLIB__mprints_M_(__VA_ARGS__)
-#define getc(...) _M_MLIB_getc_M_(__VA_ARGS__)
-#define print(...) _M_MLIB_print_M_(__VA_ARGS__)
-#define prints(...) _M_MLIB_prints_M_(__VA_ARGS__)
-#define memcmp(...) _M_MLIB_memcmp_M_(__VA_ARGS__)
-#define fwrites(...) _M_MLIB_fwrites_M_(__VA_ARGS__)
-#define fseek(...) _M_MLIB_fseek_M_(__VA_ARGS__)
-#define ftell(...) _M_MLIB_ftell_M_(__VA_ARGS__)
-#define putchar(...) _M_MLIB_putchar_M_(__VA_ARGS__)
-#define _itobin(...) _M_MLIB__itobin_M_(__VA_ARGS__)
-#define itohex(...) _M_MLIB_itohex_M_(__VA_ARGS__)
-#define rand(...) _M_MLIB_rand_M_(__VA_ARGS__)
-#define mprotect(...) _M_MLIB_mprotect_M_(__VA_ARGS__)
-#define malloc(...) _M_MLIB_malloc_M_(__VA_ARGS__)
-#define fgetpos(...) _M_MLIB_fgetpos_M_(__VA_ARGS__)
-#define memset(...) _M_MLIB_memset_M_(__VA_ARGS__)
 #define vsnprintf(...) _M_MLIB_vsnprintf_M_(__VA_ARGS__)
-#define perror(...) _M_MLIB_perror_M_(__VA_ARGS__)
-#define unlink(...) _M_MLIB_unlink_M_(__VA_ARGS__)
-#define open(...) _M_MLIB_open_M_(__VA_ARGS__)
-#define memfrob(...) _M_MLIB_memfrob_M_(__VA_ARGS__)
+#define close(...) _M_MLIB_close_M_(__VA_ARGS__)
+#define strcpy(...) _M_MLIB_strcpy_M_(__VA_ARGS__)
 #define time(...) _M_MLIB_time_M_(__VA_ARGS__)
+#define _itohex(...) _M_MLIB__itohex_M_(__VA_ARGS__)
+#define stat(...) _M_MLIB_stat_M_(__VA_ARGS__)
+#define strcat(...) _M_MLIB_strcat_M_(__VA_ARGS__)
+#define fgetpos(...) _M_MLIB_fgetpos_M_(__VA_ARGS__)
+#define putc(...) _M_MLIB_putc_M_(__VA_ARGS__)
+#define getcwd(...) _M_MLIB_getcwd_M_(__VA_ARGS__)
+#define isspace(...) _M_MLIB_isspace_M_(__VA_ARGS__)
+#define fflush(...) _M_MLIB_fflush_M_(__VA_ARGS__)
 #define gettimeofday(...) _M_MLIB_gettimeofday_M_(__VA_ARGS__)
+#define write(...) _M_MLIB_write_M_(__VA_ARGS__)
+#define fwrite(...) _M_MLIB_fwrite_M_(__VA_ARGS__)
+#define closedir(...) _M_MLIB_closedir_M_(__VA_ARGS__)
+#define strncmp(...) _M_MLIB_strncmp_M_(__VA_ARGS__)
+#define free(...) _M_MLIB_free_M_(__VA_ARGS__)
+#define fgetc(...) _M_MLIB_fgetc_M_(__VA_ARGS__)
+#define fputc(...) _M_MLIB_fputc_M_(__VA_ARGS__)
+#define memcmp(...) _M_MLIB_memcmp_M_(__VA_ARGS__)
+#define rewind(...) _M_MLIB_rewind_M_(__VA_ARGS__)
+#define fstat(...) _M_MLIB_fstat_M_(__VA_ARGS__)
+#define atoi(...) _M_MLIB_atoi_M_(__VA_ARGS__)
+#define itoHEX(...) _M_MLIB_itoHEX_M_(__VA_ARGS__)
+#define dprints(...) _M_MLIB_dprints_M_(__VA_ARGS__)
+#define opendir(...) _M_MLIB_opendir_M_(__VA_ARGS__)
+#define fclose(...) _M_MLIB_fclose_M_(__VA_ARGS__)
+#define rename(...) _M_MLIB_rename_M_(__VA_ARGS__)
+#define srand(...) _M_MLIB_srand_M_(__VA_ARGS__)
+#define memset(...) _M_MLIB_memset_M_(__VA_ARGS__)
+#define fputs(...) _M_MLIB_fputs_M_(__VA_ARGS__)
+#define strncpy(...) _M_MLIB_strncpy_M_(__VA_ARGS__)
+#define open(...) _M_MLIB_open_M_(__VA_ARGS__)
+#define strerror(...) _M_MLIB_strerror_M_(__VA_ARGS__)
+#define fread(...) _M_MLIB_fread_M_(__VA_ARGS__)
+#define writes(...) _M_MLIB_writes_M_(__VA_ARGS__)
+#define perror(...) _M_MLIB_perror_M_(__VA_ARGS__)
+#define vfprintf(...) _M_MLIB_vfprintf_M_(__VA_ARGS__)
+#define malloc(...) _M_MLIB_malloc_M_(__VA_ARGS__)
+#define _itobin(...) _M_MLIB__itobin_M_(__VA_ARGS__)
+#define fprints(...) _M_MLIB_fprints_M_(__VA_ARGS__)
+#define getenv(...) _M_MLIB_getenv_M_(__VA_ARGS__)
+#define fprintfs(...) _M_MLIB_fprintfs_M_(__VA_ARGS__)
+#define tcgetattr(...) _M_MLIB_tcgetattr_M_(__VA_ARGS__)
+#define mprotect(...) _M_MLIB_mprotect_M_(__VA_ARGS__)
+#define ftruncate(...) _M_MLIB_ftruncate_M_(__VA_ARGS__)
+#define chdir(...) _M_MLIB_chdir_M_(__VA_ARGS__)
+#define putchar(...) _M_MLIB_putchar_M_(__VA_ARGS__)
+#define feof(...) _M_MLIB_feof_M_(__VA_ARGS__)
 // --- define_macros-end: generate --- //
 // --- content-genconf-macros-end: TMPL ---
 '
