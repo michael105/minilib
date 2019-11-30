@@ -22,7 +22,7 @@ MLIBDIR=../
 OPTFLAG=-Os
 
 # GCC
-GCC=gcc
+GCC=gcc-8
 
 # LD
 #LD=ld

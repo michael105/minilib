@@ -1,5 +1,6 @@
 #define mini_start
 #define mini_fputs
+#define OSX
 #define INCLUDESRC
 #include "minilib/minilib.h"
 

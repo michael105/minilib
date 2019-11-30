@@ -100,7 +100,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 
 #include <bits/alltypes.h>
 #include <bits/ioctl.h>
-#include <sys/utsname.h>
+#include "sys/utsname.h"
 #include <sys/termios.h>
 
 // from musl

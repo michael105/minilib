@@ -21,24 +21,32 @@ echo_verbose(){
 # gcc options
 # only linux x64 for now.
 
+# COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
+#		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
+#		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin\
+#		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \
+#		-I$MLIBDIR/include"
+
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
-		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin\
-		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
+		-I$MLIBDIR/compat -I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/darwin_x64 -I$MLIBDIR -I./ \
 		-I$MLIBDIR/include"
 		
 		#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
 OPTFLAG="-Os"
 
 # needs os detection. but not important for now
-CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
+CFLAGS="$COMMONCFLAGS -DOSX -DX64"
+#CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
 
 # ld options 
-CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
+# CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
+CFLAGS="$CFLAGS -Wl,-s"
 #CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
 
 # (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
-LDSCRIPT="ld_script"
+# LDSCRIPT="ld_script"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
@@ -143,9 +151,11 @@ exec_gcc(){
 				then
 						echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
 						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
+						#$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
 				else
 						echo_verbose "$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
 						$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
+						#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
 				fi
 
 				#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
@@ -160,7 +170,8 @@ exec_gcc(){
 						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@
 				else
 						echo_verbose "$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@"
-						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@
+						$REAL_CC $CFLAGS $OPTFLAG $@
+						#$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@
 				fi
 		fi
 				#$REAL_CC $CFLAGS$LDSCRIPT $@

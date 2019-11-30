@@ -4,8 +4,8 @@
 void start(){
 #include "src/startup.c"
 __asm__ volatile (
-//		".globl start\n\t"
-//		"start:	
+		".globl start\n\t"
+		"start:\n\t" 	
 		"pushq	$0\n\t"
 		"movq	%rsp,%rbp\n\t"
 		"andq    $-16,%rsp\n\t"
