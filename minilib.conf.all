@@ -22,76 +22,6 @@ mini_exit
 
 # --- minilib_config-start: Allswitches --- 
 
-# === dirent.h
-mini_readdir
-mini_closedir
-mini_opendir
-
-
-# === declarations.h
-mini_mprotect
-mini_gettimeofday
-mini_uname
-mini_dup3
-mini_getdents
-mini_fstat
-mini_stat
-mini_getcwd
-
-
-# === ctype.h
-mini_isspace
-mini_isprint
-
-
-# === string.h
-mini_memcpy
-mini_strerror
-mini_memcmp
-mini_strncmp
-mini_strcat
-mini_strcpy
-mini_strncpy
-mini_strcmp
-mini_memset
-mini_strlen
-
-
-# === stdio.h
-mini_fclose
-mini_setbuf
-mini_fflush
-mini_clearerror
-mini_fileno
-mini_fopen
-mini_fprintf
-mini_ftell
-mini_fputs
-mini_fprint
-mini_printf
-mini_fread
-mini_vfprintf
-mini_setvbuf
-mini_perror
-mini_fwrite
-mini_fseek
-mini_putchar
-mini_feof
-mini_fgetc
-mini_puts
-mini_fputc
-mini_rewind
-mini_fsetpos
-mini__itohex
-mini_sprintf
-mini_getc
-mini_itoHEX
-mini_itohex
-mini_fgetpos
-mini_ferror
-mini_putc
-
-
 # === ioctl.h
 mini_ioctl
 
@@ -100,59 +30,129 @@ mini_ioctl
 mini_time
 
 
+# === mini_addons.h
+mini__strcmp
+mini_itobin
+mini_vsnprintf
+mini_def
+mini_printl
+mini_print
+mini_dprintf
+mini_itodec
+mini_fprintfs
+mini__itobin
+mini_basename
+mini__mprints
+mini_printsl
+mini_uitodec
+mini_writes
+mini_memfrob
+mini_fprints
+mini_fwrites
+mini_snprintf
+mini_prints
+mini_dtodec
+
+
+# === ctype.h
+mini_isspace
+mini_isprint
+
+
 # === unistd.h
-mini_rename
-mini_tcsetattr
-mini_close
-mini_dup2
-mini_unlink
-mini_open
-mini_fsync
-mini_read
-mini_lseek
-mini_getpid
 mini_write
-mini_select
-mini_tcgetattr
-mini_dup
+mini_tcsetattr
+mini_rename
+mini_close
 mini_chdir
+mini_open
+mini_unlink
+mini_lseek
 mini_ftruncate
+mini_getpid
+mini_dup
+mini_tcgetattr
+mini_read
+mini_fsync
+mini_select
+mini_dup2
 
 
 # === fcntl.h
 mini_creat
 
 
-# === mini_addons.h
-mini_itobin
-mini_print
-mini_prints
-mini_fwrites
-mini_memfrob
-mini_dprintf
-mini__strcmp
-mini_basename
-mini_printsl
-mini_vsnprintf
-mini_def
-mini_printl
-mini__mprints
-mini_itodec
-mini_fprintfs
-mini_dtodec
-mini_snprintf
-mini_fprints
-mini__itobin
-mini_writes
-mini_uitodec
+# === stdio.h
+mini_fclose
+mini_fopen
+mini_fseek
+mini_fputc
+mini_itoHEX
+mini_ftell
+mini_sprintf
+mini_getc
+mini_setbuf
+mini_rewind
+mini_itohex
+mini_fgetpos
+mini_fprint
+mini_puts
+mini_putc
+mini_ferror
+mini_fwrite
+mini_setvbuf
+mini_fread
+mini_feof
+mini_vfprintf
+mini_putchar
+mini_fputs
+mini_fgetc
+mini_fileno
+mini_fsetpos
+mini_fprintf
+mini_clearerror
+mini_fflush
+mini_printf
+mini__itohex
+mini_perror
+
+
+# === dirent.h
+mini_opendir
+mini_closedir
+mini_readdir
 
 
 # === stdlib.h
+mini_atoi
+mini_malloc
+mini_rand
+mini_free
 mini_getenv
 mini_srand
-mini_malloc
-mini_free
-mini_atoi
-mini_rand
+
+
+# === string.h
+mini_memcmp
+mini_strcat
+mini_strcmp
+mini_strncpy
+mini_strcpy
+mini_memset
+mini_strerror
+mini_memcpy
+mini_strlen
+mini_strncmp
+
+
+# === declarations.h
+mini_fstat
+mini_dup3
+mini_uname
+mini_getdents
+mini_getcwd
+mini_mprotect
+mini_gettimeofday
+mini_stat
 
 # --- minilib_config-end: Allswitches --- 

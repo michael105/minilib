@@ -1,4 +1,5 @@
 #if 0
+# minilib config below
 mini_fprints
 mini_fwrites
 mini_buf 1024
@@ -11,12 +12,18 @@ INCLUDESRC
 OPTFLAG -Os
 shrinkelf
 
-
 return
 #endif
 
-// Buf 4 MB
-#define BUF 0x400000
+
+// This is the minimal implementation of 
+
+// Buf 1 MB
+//#define BUF 0x100000
+// 64kB seems to be a good compromise
+// Better keep below 64kB, so eventually
+// the buf fits into (L1) cache, including this binary
+#define BUF 60000
 
 int comp( unsigned char* data, int len, int fd ){
 
@@ -47,12 +54,14 @@ int comp( unsigned char* data, int len, int fd ){
 
 		int saved = 3;
 		int chr;
+		// main compression loop
 		for ( chr = 128; (chr<256) && (saved>2); chr++ ){
 
 				saved=0;
 				prev=0xff;
 				unsigned short int count = 0;
-
+				
+				// find max, pairs
 				for ( int i1 =0; i1<chr; i1++ ){
 						for ( int i2 =0; i2<chr; i2++ ){
 								if ( (ushort)k[i1][i2] > (ushort)count ){
@@ -66,13 +75,13 @@ int comp( unsigned char* data, int len, int fd ){
 				}
 				int p = 1;
 				int b = 0;
-				for ( b = 0; p<len; b++ ){
-						if ( (data[b] == ct[(chr-128)*2]) && ( data[p] == ct[(chr-128)*2+1] ) ){
+				for ( b = 0; p<len; b++ ){ // iterate over buf, replace pairs
+						if ( (data[b] == ct[(chr-128)*2]) && ( data[p] == ct[(chr-128)*2+1] ) ){ // found pair
 						//if ( (data[b] == ct[(uchar)(chr<<1)]) && ( data[p] == ct[(uchar)(chr<<1)+1] ) ){
 								if ( b>0 ){
 
 										if ( prev != chr ){
-												if ( (ushort)k[data[b-1]][chr] < (ushort)((ushort)0-1) )
+												//if ( (ushort)k[data[b-1]][chr] < (ushort)((ushort)0-1) ) // not needed for buf<64kB
 														(ushort)k[data[b-1]][chr]++;
 												prev=data[b-1];
 										} else {
@@ -86,8 +95,10 @@ int comp( unsigned char* data, int len, int fd ){
 
 										if ( (ushort)k[data[p]][data[p+1]]  > 0 )
 												(ushort)k[data[p]][data[p+1]] --;
+										else
+												fprints(stderr, "XXX !!\n");
 
-										if ( (ushort)k[chr][data[p+1]] < (ushort)((ushort)0-1) )
+										//if ( (ushort)k[chr][data[p+1]] < (ushort)((ushort)0-1) )  // not needed for buf<64kB
 												(ushort)k[chr][data[p+1]]++;
 								}
 
@@ -134,7 +145,7 @@ int main( int argc, char *argv[] ){
 		//FILE  *FOUT;
 		//FOUT  = fopen( argv[2], "w" );
 		int fdout;
-		fdout  = open( argv[2], O_WRONLY|O_CREAT|O_TRUNC );
+		fdout  = open( argv[2], O_WRONLY|O_CREAT|O_TRUNC, 0644 );
 		if ( fdout <=0 ){
 				fprints(stderr,"Error: Couldn't open "); fprints( stderr,argv[2] );fprints(stderr, "for writing\n" );
 		}

@@ -55,7 +55,7 @@ sub comp{
 
 print "len: ", length($in),"\n";
 
-my $z = 250;
+my $z = 255;
 for my $a ( 128..$z ){
 		($in,$c) = comp( 2, chr($a), $in );
 }

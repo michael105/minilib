@@ -154,7 +154,7 @@ unsigned char ct[256];
 void decomp( const unsigned char data){
 				if ( data & 0x80 ){
 						decomp( ct[(unsigned char)(data<<1)] );
-						decomp( ct[((unsigned char)(data<<1)+1)]  ); // this could be replaced by a loop.
+						decomp( ct[((unsigned char)(data<<1)+1)]  ); // this could be replaced by a loop. 
 				} else {
 						write( STDOUT_FILENO, &data, 1 );
 				}

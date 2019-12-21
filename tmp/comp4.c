@@ -105,7 +105,7 @@ int comp( unsigned char* data, int len, int fd ){
 				len = len-saved;
 
 				//fprintf(stderr, "diff: %d\n", diff );
-				//fprintf(stderr, "a: %X\ncount: %d =  -%2X-%2X-\nsaved: %d\n\n*********\n",a, (ushort)count, ct[(a-128)*2], ct[(a-128)*2+1], saved);
+				fprintf(stderr, "count: %d =  -%2X-%2X-\nsaved: %d\n\n*********\n", (ushort)count, ct[(chr-128)*2], ct[(chr-128)*2+1], saved);
 		}
 
 	//	chr--;
@@ -135,7 +135,7 @@ int main( int argc, char *argv[] ){
 		//FILE  *FOUT;
 		//FOUT  = fopen( argv[2], "w" );
 		int fdout;
-		fdout  = open( argv[2], O_WRONLY|O_CREAT|O_TRUNC );
+		fdout  = open( argv[2], O_WRONLY|O_CREAT|O_TRUNC, 00644 );
 		if ( fdout <=0 ){
 				fprintf(stderr,"Error: Couldn't open %s for writing.\nerrno: %d\n", argv[2], errno );
 		}
