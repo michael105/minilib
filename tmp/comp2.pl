@@ -36,22 +36,14 @@ sub comp{
 						$kk = $k;
 				}
 		}
-	 		$kk=~s/(\W)/\\$1/g;
-			print "ccomp: $c   -$kk-    x$token\n";
-	 #	print "   ", ord(substr($kk,0,1) ), " - ", ord(substr($kk,1,1) ),"\n";
-		if ( $c<=2 ){
-				return($s,$c);
-		}
-
-	 #	my @ar = map { $_=~s/$kk/$token/g; } @{$arr};
-	 #my @ar = map { my $s=$_; $s=~s/$kk/$token/g; $s; } @{$arr};
-	 #	 print $s;
-	 #$kk=~ s/\//\\\//g;
-	 #$kk=~ s/\./\\\./g;
-	 #$k1=substr( $kk, 0, 1 );
-	 #$k2=substr( $kk, 1, 1 );
-	 
-	 $s =~ s/$kk/$token/g;
+		print "ccomp: $c   -".ord(substr($kk,0,1))."-".ord(substr($kk,1,1)) ."-    x".ord($token)."\n";
+	 #if ( $c<=2 ){
+	 #		return($s,$c);
+	 #}
+	 my $p=0;
+	 while( ($p=index($s,$kk,$p))!=-1 ){
+			 substr($s,$p,2)=$token;
+	 }
 	 $dt.=$kk;
 	 #print $s;
 		return( $s, $c );
@@ -60,21 +52,21 @@ sub comp{
 
 print "len: ", length($in),"\n";
 
-my $z = 140;
+my $z = 255;
 for my $a ( 128..$z ){
 		($in,$c) = comp( 2, chr($a), $in );
 }
-for my $a ( $z+1..244 ){
-		($in,$c) = comp( 2, chr($a), $in );
-}
+#for my $a ( $z+1..244 ){
+#		($in,$c) = comp( 2, chr($a), $in );
+#}
 
 
 print "len: ", length($in),"\n";
 
 
-for my $a ( 0..8,11..31 ){
-			($in,$c) = comp( 4, chr($a), $in );
-}
+#for my $a ( 0..8,11..31 ){
+#			($in,$c) = comp( 4, chr($a), $in );
+#}
 
 print "len: ", length($in),"\n";
 

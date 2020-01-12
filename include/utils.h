@@ -58,6 +58,55 @@ static inline int fputc(int c, int fd);
 
 
 
+#ifdef SHORTCOLORNAMES
+
+#define NORM     AC_NORM
+#define INVERSE  AC_INVERSE
+#define BLINK    AC_BLINK
+#define BLACK    AC_BLACK
+#define RED      AC_RED
+#define GREEN    AC_GREEN
+#define BROWN    AC_BROWN
+#define BLUE     AC_BLUE
+#define MAGENTA  AC_MAGENTA
+#define MARINE   AC_MARINE
+#define LGREY    AC_LGREY
+#define WHITE    AC_WHITE
+#define GREY     AC_GREY
+#define LRED     AC_LRED
+#define LGREEN   AC_LGREEN
+#define YELLOW   AC_YELLOW
+#define LBLUE    AC_LBLUE
+#define LMAGENTA AC_LMAGENTA
+#define LMARINE  AC_LMARINE
+#define LWHITE   AC_LWHITE
+
+#endif
+
+#ifdef SHRTSHORTCOLORNAMES
+
+#define cN   AC_NORM
+#define cBL  AC_BLACK
+#define cR   AC_RED
+#define cG   AC_GREEN
+#define cBR  AC_BROWN
+#define cB   AC_BLUE
+#define cMG  AC_MAGENTA
+#define cM   AC_MARINE
+#define cLG  AC_LGREY
+#define cW   AC_WHITE
+#define cG   AC_GREY
+#define cLR  AC_LRED
+#define cLGN AC_LGREEN
+#define cY   AC_YELLOW
+#define cLB  AC_LBLUE
+#define cLMG AC_LMAGENTA
+#define cLM  AC_LMARINE
+#define cLW  AC_LWHITE
+
+#endif
+
+
 
 
 

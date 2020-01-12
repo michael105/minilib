@@ -29,6 +29,7 @@ foreach my $w ( @ar ){
 		$diff++;
 }
 print "*************\n";
+
 foreach my $w ( sort( { $a<=> $b }  keys(%c)) ){
 		printf "%3d   -",$w;
 		if($w>21 && $w<127 ){
@@ -39,7 +40,15 @@ foreach my $w ( sort( { $a<=> $b }  keys(%c)) ){
 		print "$c{$w}\n";
 }
 print "Different chars: $diff\n";
-
+print "free:"; 
+my $free=0;
+for ( 0..255 ){
+		if ( !defined($c{$_}) ){
+				print " $_,";
+				$free++;
+		}
+}
+print " ($free)\n";
 my $len = 4;
 my %tupels;
 for my $a ( 0..(length($s)-$len )){

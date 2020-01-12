@@ -23,7 +23,6 @@ I kept all copyright notices within the sources.
 ```
 basename        2019-08-19             493
 cat             2019-08-20             1038
-echo            2019-08-19             363
 false           2019-08-19             153
 getenv          2019-08-19             782
 head            2019-08-20             1407
@@ -35,5 +34,5 @@ true            2019-08-19             150
 uname           2019-08-19             1346
 yes             2019-08-19             309
 ===============================================
-                          size: 24573 Bytes
+                          size: 24210 Bytes
 ```
