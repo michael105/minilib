@@ -1,37 +1,27 @@
 #if 0
-mini_start
-mini_write
-mini_writes
-mini_puts
-mini_strlen
-LDSCRIPT onlytext
-INCLUDESRC
-shrinkelf
+ mini_start
+ mini_putchar
+ INCLUDESRC
+ shrinkelf
 return
 #endif
-
 #include "minilib.h"
-
+/* Usage: echo [-n] [TEXT...] */
 int main(int argc, char *argv[]){
-		int p = 1;
-		if ( argc > 1 ){
-				if ( argv[1][0] == '-' && argv[1][1] == 'h' ){
-						writes("echo [-h] [-n] [args]\n");
-						return(0);
-				}
-				if ( argv[1][0] == '-' && argv[1][1] == 'n' ){
-						p = 2;
-				}
-				int a = p;
-				if ( argc > p ){
-						while ( print(argv[a]) && a++ && a<argc ){
-								print(" ");
-						}
-				}
-		}
-		if ( p==1 ){
-				printl();
+		int n;
+		if ( argc>1 && argv[1][0] == '-' && argv[1][1] == 'n' ) 
+				n=2;
+		else 
+				n=1;
+
+		for ( int a = n; a<argc;  a++  ){
+				if ( a>n )
+						putchar(' ');
+				for ( char *c = argv[a]; *c!=0; c++ )
+						putchar(*c);
 		}
 
-		return(0);
+		if ( n==1 )
+				putchar( '\n' );
+		return 0;
 }
