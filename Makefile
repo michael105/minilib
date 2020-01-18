@@ -28,6 +28,10 @@ header:
 			echo "#endif" )\
 			> syntaxcheck.h )
 
+doc: header
+	asciidoc -b html4 mlfunctions-shortref.asc
+
+
 mini-gcc: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 
 	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh

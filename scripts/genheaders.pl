@@ -361,6 +361,31 @@ foreach my $key ( keys(%{$fhhash->{fh}}) ){
 		close( $fhhash->{fh}->{$key} );
 }
 
+# fulldepends
+sub rdep{
+		my $d = shift;
+		
+		return( $d ) if ( ! exists( $depends->{$d} ) );
+		my $r="";
+				foreach my $dd ( split(" ",$depends->{$d} )) {
+						next if ( $dd =~ /^_/ );
+						print "rdep: $dd\n";
+								$r.=" ".rdep($dd);
+				}
+		return($r);
+}
+print("rcu fulldep\n");
+my $fulldepends;
+foreach my $d ( keys(%{$depends}) ){
+		my $dd = rdep( $d );
+		foreach my $df( split(" ",$dd) ){
+				$fulldepends->{$d}->{$df} = 1;
+		}
+}
+dbg("fulldepends");
+dbgdump( %{$fulldepends} );
+
+
 # write doc
 open( FDOC, ">", "$mlibdir/doc/minilib.txt" ) or die;
 #*FDOC = *STDOUT;
@@ -372,8 +397,20 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
 				printf FDOC "%-15s",$f;
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
-				print FDOC "($1: $funchash->{$f}->{line})\n";
-				print FDOC "               $funchash->{$f}->{def}";
+				if ( exists($funchash->{$f}->{def}) ){
+						print FDOC "$funchash->{$f}->{def}";
+						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
+						my $s = "$syscalldefs->{$f}->{def}";
+						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
+						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+						print FDOC $s;
+						print FDOC "               Returns: $2\n" if ( $2 );
+				}
+				if ( exists($depends->{$f}) ){  
+						print FDOC "               Defines: ".join(" ",keys(%{$fulldepends->{$f}})),"\n";
+				}
+
+				print FDOC "               ($1: $funchash->{$f}->{line})\n";
 				if ( exists($funchash->{$f}->{doc} ) ){
 						print FDOC "               ",join("\n             ", split( "\n", $funchash->{$f}->{doc}) ),"\n";
 						#print FDOC "               $funchash->{$f}->{doc}\n";
@@ -384,10 +421,78 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 
 close FDOC;
 
+# write doc
+open( FDOC, ">", "$mlibdir/mlfunctions-shortref.asc" ) or die;
+#*FDOC = *STDOUT;
+
+copytemplates( FDOC, $mlibdir, "mlfunctions-shortref.asc.top" );
+
+foreach my $k ( sort(keys(%{$headerhash})) ){
+		print FDOC "\n\n";
+
+		print FDOC " $k\n";
+		print FDOC "-"
+				for ( 1..length($k)+2 ); 
+		print FDOC "\n\n"; #$k\n==========\n\n";
+		#print FDOC "\n\n==========\n$k\n==========\n\n";
+		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
+				printf FDOC "%s::\n\n ",$f;
+				$funchash->{$f}->{file}=~/minilib\/(.*)/;
+				if ( exists($funchash->{$f}->{def}) ){
+						print FDOC " $funchash->{$f}->{def} +\n ";
+						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
+						my $s = "$syscalldefs->{$f}->{def}";
+						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
+						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+						print FDOC " $s +\n";
+						print FDOC " Returns: $2 +\n" if ( $2 );
+				}
+				if ( exists($depends->{$f}) ){  
+						print FDOC " Defines: ".join(" ",keys(%{$fulldepends->{$f}}))," +\n";
+				}
+
+				print FDOC " (link:"."$1"."[$1]"." l.$funchash->{$f}->{line}) +\n";
+				if ( exists($funchash->{$f}->{doc} ) ){
+						print FDOC "",join(" +\n ", split( "\n", $funchash->{$f}->{doc}) )," +\n ";
+						#print FDOC "               $funchash->{$f}->{doc}\n";
+				}
+				print FDOC "\n\n";
+		}
+}
+
+close FDOC;
+
+
+# write doc
+open( FDOC, ">", "$mlibdir/doc/minilib.md" ) or die;
+#*FDOC = *STDOUT;
+
+copytemplates( FDOC, $mlibdir, "minilib.md.top" );
+
+foreach my $k ( sort(keys(%{$headerhash})) ){
+		print FDOC "\n\n==========\n$k\n==========\n\n";
+		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
+				printf FDOC "%-15s",$f;
+				print FDOC "$funchash->{$f}->{def}\n";
+				if ( exists($funchash->{$f}->{doc} ) ){
+						print FDOC "               ",join("\n             ", split( "\n", $funchash->{$f}->{doc}) ),"\n";
+						#print FDOC "               $funchash->{$f}->{doc}\n";
+				}
+				$funchash->{$f}->{file}=~/minilib\/(.*)/;
+				print FDOC  "               ($1: $funchash->{$f}->{line})\n";
+
+				print FDOC "\n";
+		}
+}
+
+close FDOC;
+
+
 #exit 0;
 # write 
 
 dbgdump( $funchash );
+dbg("depends");
 dbgdump( $depends );
 
 my $includefirst;

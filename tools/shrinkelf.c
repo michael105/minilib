@@ -2,7 +2,7 @@
  *
  * Modified to work with 64bit.
  * Rewrite.
- * (2019) Michael (misc) Myer misc.myer@zoho.com
+ * (2019,2020) Michael (misc) Myer misc.myer@zoho.com
  *
  * All modifications: MIT X License
  *   The original terms seem to be ok with "relicensing" the whole source 
@@ -11,7 +11,7 @@
  *   this file is based on work by Laurent Bercot and David Madore
  *
  
-Copyright (c) 2019 Michael misc Myer, 
+Copyright (c) 2019,2020 Michael misc Myer, 
 	2011 Laurent Bercot
 	2002 David Madore
 	
