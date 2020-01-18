@@ -397,14 +397,21 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
 				printf FDOC "%-15s",$f;
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
+				my $docdef="";
 				if ( exists($funchash->{$f}->{def}) ){
 						print FDOC "$funchash->{$f}->{def}";
+						$docdef= "$funchash->{$f}->{def}";
 						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
 						my $s = "$syscalldefs->{$f}->{def}";
 						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+						$docdef=$s;
 						print FDOC $s;
 						print FDOC "               Returns: $2\n" if ( $2 );
+				}
+				if ( $docdef ){
+						$docdef =~ s/(static)|(inline)|(volatile)|(__attribute__\(.*?\))//g;
+						$funchash->{$f}->{docdef} = $docdef;
 				}
 				if ( exists($depends->{$f}) ){  
 						print FDOC "               Defines: ".join(" ",keys(%{$fulldepends->{$f}})),"\n";
@@ -421,6 +428,10 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 
 close FDOC;
 
+require "index.pm"; # bsd manpage index
+print "XXXXX";
+dbgdump( $bsdmanpage );
+
 # write doc
 open( FDOC, ">", "$mlibdir/mlfunctions-shortref.asc" ) or die;
 #*FDOC = *STDOUT;
@@ -430,6 +441,7 @@ copytemplates( FDOC, $mlibdir, "mlfunctions-shortref.asc.top" );
 foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n";
 
+		#		print FDOC '[['.$k.']]'."\n";
 		print FDOC " $k\n";
 		print FDOC "-"
 				for ( 1..length($k)+2 ); 
@@ -451,7 +463,12 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 						print FDOC " Defines: ".join(" ",keys(%{$fulldepends->{$f}}))," +\n";
 				}
 
-				print FDOC " (link:"."$1"."[$1]"." l.$funchash->{$f}->{line}) +\n";
+				print FDOC " (link:"."$1"."[$1]"." l.$funchash->{$f}->{line}) ";
+				if ( exists($bsdmanpage{$f}) ){
+						print FDOC "manpage: link:manpages/$bsdmanpage{$f}.rst"."[$f] +\n";
+				}	else {
+						print FDOC " +\n";
+				}
 				if ( exists($funchash->{$f}->{doc} ) ){
 						print FDOC "",join(" +\n ", split( "\n", $funchash->{$f}->{doc}) )," +\n ";
 						#print FDOC "               $funchash->{$f}->{doc}\n";
@@ -461,6 +478,51 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 }
 
 close FDOC;
+
+# write doc
+open( FDOC, ">", "$mlibdir/mlfunctions-shortref-lf.html" ) or die;
+#*FDOC = *STDOUT;
+
+copytemplates( FDOC, $mlibdir, "mlfunctions-shortref-lf.html.top" );
+
+print FDOC '<html><body><table><colgroup><col><col><col width="150"></colgroup>';
+
+foreach my $f ( sort( keys(%{$funchash} ) ) ){
+				print FDOC "<tr valign=\"top\"><td><small>";
+		if ( exists($bsdmanpage{$f}) ){
+				printf FDOC "<a target=\"right\" href=\"manpages/$bsdmanpage{$f}.rst.html\">$f</a>";
+		} else {
+				printf FDOC "$f";
+		}
+		print FDOC "</small></td><td><small>";
+
+		print FDOC "   <a href=\"$1\" target=\"right\">$1</a>  $funchash->{$f}->{line} ";
+
+		print FDOC "</small></td><td><small>";
+		$funchash->{$f}->{file}=~/minilib\/(.*)/;
+
+		if(1){if ( exists($funchash->{$f}->{docdef}) ){
+				print FDOC " $funchash->{$f}->{docdef}";
+		}
+		#		print FDOC " </small></td><td><small>\n";
+		#if ( exists($depends->{$f}) ){  
+		#		print FDOC " Defines: ".join(" ",keys(%{$fulldeqpends->{$f}})),"\n";
+		#}
+}
+
+		if ( exists($funchash->{$f}->{doc} ) ){
+				print FDOC "</small></td></tr><tr><td></td><td colspan=\"2\"><small>";
+				print FDOC "",join("\n ", split( "\n", $funchash->{$f}->{doc}) ),"\n ";
+		
+				#print FDOC "               $funchash->{$f}->{doc}\n";
+		}
+		print FDOC "</small></td></tr>\n";
+}
+
+		print FDOC "</table>";
+print FDOC '</body></html>';
+close FDOC;
+
 
 
 # write doc

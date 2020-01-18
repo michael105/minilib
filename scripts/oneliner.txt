@@ -1,0 +1,3 @@
+grep manpages mlfunctions-shortref.asc | perl -ne 's/.*manpages//; s/\[.*//; print $_; chomp; $d=$_; $f=$_; if ( !-e "manpages/$f" ){ print "no"; system("cp /home/micha/git/docu-c/bsd-libc$f ./manpages$d")}'
+
+find . -name "*rst" -exec rst2html5 -r 5 {} {}.html \;

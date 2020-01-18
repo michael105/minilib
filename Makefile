@@ -29,7 +29,8 @@ header:
 			> syntaxcheck.h )
 
 doc: header
-	asciidoc -b html4 mlfunctions-shortref.asc
+	asciidoc -b html4 -n mlfunctions-shortref.asc
+	sed -ie 's/.rst/.rst.html/' mlfunctions-shortref.html
 
 
 mini-gcc: scripts/genconfig.sh ldscript
