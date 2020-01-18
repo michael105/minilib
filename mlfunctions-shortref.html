@@ -6,6 +6,8 @@
 <title></title>
 </head>
 <body>
+<p># implemented functions</p>
+<p>short ref, links to source files.</p>
 <hr>
 <h2><a name="_ctype_h"></a> ctype.h</h2>
 <dl>
@@ -266,7 +268,7 @@ fprintfs
 <p>
   int fprintfs( FILE* F, char *fmt, &#8230;);
 <br>
-  Defines: strlen write fileno<br>
+  Defines: strlen fileno write<br>
  (<a href="src/fprintfs.c">src/fprintfs.c</a> l.10)<br>
 prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
 </p>
@@ -278,7 +280,7 @@ fprints
 <p>
   #define fprints(F,str) write(fileno(F),str,strlen(str))
 <br>
-  Defines: strlen fileno write<br>
+  Defines: write fileno strlen<br>
  (<a href="include/prints.h">include/prints.h</a> l.17)<br>
 print the string(s) supplied as arg(s) to stream<br>
 </p>
@@ -334,7 +336,7 @@ print
 <p>
   #define print(str) write(STDOUT_FILENO,str,strlen(str))
 <br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  (<a href="include/prints.h">include/prints.h</a> l.29)<br>
 write str to stdout. Needs strlen<br>
 </p>
@@ -558,7 +560,7 @@ fputc
 <p>
   static inline int volatile fputc(int c, FILE* F);
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  (<a href="include/fputc.h">include/fputc.h</a> l.10)<br>
 </p>
 </dd>
@@ -569,7 +571,7 @@ fputs
 <p>
   static inline int volatile fputs(const char *c, FILE *F);
 <br>
-  Defines: strlen write fileno<br>
+  Defines: fileno strlen write<br>
  (<a href="include/fputs.h">include/fputs.h</a> l.14)<br>
 </p>
 </dd>
@@ -635,7 +637,7 @@ getc
 <p>
   #define getc(F) fgetc(F)
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  (<a href="include/fgetc.h">include/fgetc.h</a> l.18)<br>
 </p>
 </dd>
@@ -668,7 +670,7 @@ perror
 <p>
   void perror(char *msg);
 <br>
-  Defines: strlen strerror write fileno<br>
+  Defines: write strlen strerror fileno<br>
  (<a href="src/strerror.c">src/strerror.c</a> l.22)<br>
 </p>
 </dd>
@@ -690,7 +692,7 @@ putc
 <p>
   #define putc(c,stream) fputc(c,stream)
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  (<a href="include/fputc.h">include/fputc.h</a> l.19)<br>
 </p>
 </dd>
@@ -712,7 +714,7 @@ puts
 <p>
   #define puts(msg) ( print(msg) + printl() )
 <br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  (<a href="include/prints.h">include/prints.h</a> l.49)<br>
 write msg to stdout, append a newline. Needs strlen.<br>
 </p>
@@ -769,7 +771,7 @@ vfprintf
 <p>
   #define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  (<a href="include/mini_fstream.h">include/mini_fstream.h</a> l.100)<br>
 </p>
 </dd>
@@ -1130,7 +1132,7 @@ write
 <p></p>
 <hr><p><small>
 Last updated
- 2020-01-18 18:03:20 CET
+ 2020-01-18 18:23:19 CET
 </small></p>
 </body>
 </html>
