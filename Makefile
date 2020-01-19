@@ -5,6 +5,8 @@ endif
 ONLYTEXT=1
 NOINCLUDE=1
 
+NOW=$(shell echo `date '+%F %T'` )
+#NOW=$(shell echo `date +%F` r$$[ `date +%s` - 1579400000 ] )
 
 include Makefile.template
 
@@ -110,6 +112,7 @@ mini-gcc: scripts/genconfig.sh ldscript
 	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh
 	scripts/template.pl mini-gcc genconf-macros minilib.genconf.h
 	scripts/template.pl mini-gcc headerguards include/headerguards.h
+	sed -ie 's/^VERSION=.*/VERSION="GIT $(NOW)"/' mini-gcc
 
 
 compile-mini-gcc: mini-gcc unpack-mini-gcc
