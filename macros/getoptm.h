@@ -28,7 +28,7 @@
 						argp = ap+1;\
 						for ( int b=1; argv[ap][b]; b++ ){\
 								int ti; char option;\
-								args |= (ti=1<< ((option=argv[ap][b])-97) );\
+								opts |= (ti=1<< ((option=argv[ap][b])-97) );\
 								if ( ! ( (options) & ti ) ){\
 									unrecognized;\
 									}\
