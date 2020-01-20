@@ -33,7 +33,7 @@ return
 
 // it's possible to explicitely include minilib.h,
 // or syntaxcheck.h; so syntaxcheck plugins are able to do their work
-#include "syntaxcheck.h"
+//#include "syntaxcheck.h"
 
 // main, as usual
 int main(){
