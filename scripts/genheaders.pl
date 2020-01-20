@@ -433,7 +433,7 @@ print "XXXXX";
 dbgdump( $bsdmanpage );
 
 # write doc
-open( FDOC, ">", "$mlibdir/mlfunctions-shortref.asc" ) or die;
+open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref.asc" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref.asc.top" );
@@ -480,7 +480,7 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 close FDOC;
 
 # write doc
-open( FDOC, ">", "$mlibdir/mlfunctions-shortref-lf.html" ) or die;
+open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref-lf.html" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref-lf.html.top" );
