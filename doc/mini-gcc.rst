@@ -11,11 +11,14 @@ mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed 
 before options and parameters for gcc.
 
--h, --help:    shows this help
+-h, --help:    
+       shows this help
 
--v, --version: version info
+-v, --version: 
+       version info
 
---license:     shows the license (BSD 3-clause)
+--license:     
+       shows the license (BSD 3-clause)
 
 --config 'file': 
         when the --config 'file' option is given
