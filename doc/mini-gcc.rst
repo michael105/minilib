@@ -76,14 +76,15 @@ before options and parameters for gcc.
         TODO: implement proper search algorithm. 
         Prob. keep shrinkelf's sourcecode within mini-gcc (?)
 
---dump var
+
+--dump var:
         dump the content of 'var', if defined.
 
---dump-minilib
+--dump-minilib:
         dump the contained headerfile minilib.h to stdout
         (if bundled within mini-gcc)
 
---exec 'sourcefile'
+--exec 'sourcefile':
         Compile sourcefile to 'basename sourcefile .c';
         and execute the binary
 
