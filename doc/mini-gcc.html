@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
-<title>mini-gcc.rst</title>
+<title>mini-gcc v.GIT 2020-01-20 12:01:33</title>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
@@ -562,20 +562,19 @@ a { text-decoration: none; }
 </style>
 </head>
 <body>
-<div class="document">
+<div class="document" id="mini-gcc-v-git-2020-01-20-12-01-33">
+<h1 class="title">mini-gcc v.GIT 2020-01-20 12:01:33</h1>
 
-
-<p>mini-gcc v.GIT 2020-01-20 12:01:33</p>
-<p>Usage: mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c</p>
+<p>Usage: <cite>mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c</cite></p>
 <p>mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
 generate the config of minilib and include minilib.h.</p>
 <p>mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed
 before options and parameters for gcc.</p>
-<p>-h, --help:    shows this help
--v, --version: version info
---license:     shows the license (BSD 3-clause)</p>
+<p>-h, --help:    shows this help</p>
+<p>-v, --version: version info</p>
+<p>--license:     shows the license (BSD 3-clause)</p>
 <dl>
 <dt>--config 'file':</dt>
 <dd><p>when the --config 'file' option is given
@@ -612,11 +611,9 @@ Or use the switch '--ldscript onlytext'</p>
 from the directory ldscripts, if existent, or extracts the according
 script and writes it into minilib.ldscript.
 This script is passed to ld with the option -T
-name can be one of:</p>
-<blockquote>
-<p>onlytext     ( drop all sections beside the text segment )
-text_and_bss ( keep also the bss segment )</p>
-</blockquote>
+name can be one of:
+- onlytext     ( drop all sections beside the text segment )
+- text_and_bss ( keep also the bss segment )</p>
 </dd>
 <dt>--autoconf / -ac</dt>
 <dd><dl class="simple">

@@ -1,6 +1,7 @@
 mini-gcc v.GIT 2020-01-20 12:01:33
+----------------------------------
 
-Usage: mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c
+Usage: `mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c`
 
 mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
@@ -11,7 +12,9 @@ besides the options described below, which must be passed
 before options and parameters for gcc.
 
 -h, --help:    shows this help
+
 -v, --version: version info
+
 --license:     shows the license (BSD 3-clause)
 
 --config 'file': 
@@ -50,8 +53,8 @@ before options and parameters for gcc.
         script and writes it into minilib.ldscript.
         This script is passed to ld with the option -T
         name can be one of:
-          onlytext     ( drop all sections beside the text segment )
-          text_and_bss ( keep also the bss segment )
+        - onlytext     ( drop all sections beside the text segment )
+        - text_and_bss ( keep also the bss segment )
 
 --autoconf / -ac
         This is going to generate the configuration file 'minilib.mconf'
