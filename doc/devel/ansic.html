@@ -1,0 +1,3361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.10" />
+<title></title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_ansi_c_standard_library">ANSI C Standard Library</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#assert.h">[assert.h]</a> : Diagnostics
+</p>
+</li>
+<li>
+<p>
+<a href="#ctype.h">[ctype.h]</a> : Character Class Tests
+</p>
+</li>
+<li>
+<p>
+<a href="#errno.h">[errno.h]</a> : Error Number &lt;#errno&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#float.h">[float.h]</a> : Implementation-defined Floating-Point Limits &lt;#float&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#limits.h">[limits.h]</a> : Implementation-defined Limits &lt;#limits&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#locale.h">[locale.h]</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#math.h">[math.h]</a> : Mathematical Functions &lt;#math&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#setjmp.h">[setjmp.h]</a> : Non-local Jumps &lt;#setjmp&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#signal.h">[signal.h]</a> : Signals &lt;#signal&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#stdarg.h">[stdarg.h]</a> : Variable Argument Lists &lt;#stdarg&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#stddef.h">[stddef.h]</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#stdio.h">[stdio.h]</a> : Input and Output &lt;#stdio&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#stdlib.h">[stdlib.h]</a> : Utility functions &lt;#stdlib&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#string.h">[string.h]</a> : String functions &lt;#string&gt;
+</p>
+</li>
+<li>
+<p>
+<a href="#time.h">[time.h]</a> : Time and Date functions &lt;#time&gt;
+</p>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="assert.h">assert.h</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+void assert(int expression);
+</dt>
+<dd>
+<p>
+    /Macro/ used to add diagnostics. If expression is false, message
+    printed on |stderr &lt;#stderr&gt;| and abort called to terminate
+    execution. Source file and line number in message come from
+    preprocessor macros |<em>FILE</em>| and |<em>LINE</em>|. If |NDEBUG| is
+    defined where |&lt;assert.h&gt;| is included, |assert| macro is ignored.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="ctype.h">ctype.h</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+int isalnum(int c) 
+</dt>
+<dt class="hdlist1">
+isalpha(c)| or |isdigit(c) 
+</dt>
+<dt class="hdlist1">
+int isalpha(int c); 
+</dt>
+<dt class="hdlist1">
+isupper(c)| or |islower(c) 
+</dt>
+<dt class="hdlist1">
+int iscntrl(int c); 
+</dt>
+<dd>
+<p>
+    is control character
+</p>
+</dd>
+<dt class="hdlist1">
+int isdigit(int c); 
+</dt>
+<dd>
+<p>
+    is decimal digit
+</p>
+</dd>
+<dt class="hdlist1">
+int isgraph(int c); 
+</dt>
+<dd>
+<p>
+    is printing character other than space
+</p>
+</dd>
+<dt class="hdlist1">
+int islower(int c); 
+</dt>
+<dd>
+<p>
+    is lower-case letter
+</p>
+</dd>
+<dt class="hdlist1">
+int isprint(int c); 
+</dt>
+<dd>
+<p>
+    is printing character (including space)
+</p>
+</dd>
+<dt class="hdlist1">
+int ispunct(int c); 
+</dt>
+<dd>
+<p>
+    is printing character other than space, letter, digit
+</p>
+</dd>
+<dt class="hdlist1">
+int isspace(int c); 
+</dt>
+<dd>
+<p>
+    is space, formfeed, newline, carriage return, tab, vertical tab
+</p>
+</dd>
+<dt class="hdlist1">
+int isupper(int c); 
+</dt>
+<dd>
+<p>
+    is upper-case letter
+</p>
+</dd>
+<dt class="hdlist1">
+int isxdigit(int c); 
+</dt>
+<dd>
+<p>
+    is hexadecimal digit
+</p>
+</dd>
+<dt class="hdlist1">
+int tolower(int c); 
+</dt>
+<dd>
+<p>
+    return lower-case equivalent
+</p>
+</dd>
+<dt class="hdlist1">
+int toupper(int c); 
+</dt>
+<dd>
+<p>
+    return upper-case equivalent
+</p>
+</dd>
+</dl></div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Notes</div>
+<div class="literalblock">
+<div class="content">
+<pre><code>In ASCII (7-bit), printing characters are |0x20 (' ')| to |0x7E
+('~')|; control characters are |0x00 (NUL)| to |0x1F (US)| and |0x7F
+(DEL)|</code></pre>
+</div></div>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="errno.h">&lt;errno.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+extern int errno; 
+</dt>
+<dd>
+<p>
+    An error code value set by some functions. It is generally the
+    responsibility of the programmer to clear |errno| before calling
+    such a function.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="float.h">&lt;float.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+FLT_RADIX 
+</dt>
+<dt class="hdlist1">
+FLT_ROUNDS 
+</dt>
+<dt class="hdlist1">
+FLT_DIG 
+</dt>
+<dt class="hdlist1">
+FLT_EPSILON 
+</dt>
+<dd>
+<p>
+   smallest number x such that  |1.0 + x != 1.0|
+</p>
+</dd>
+<dt class="hdlist1">
+FLT_MANT_DIG 
+</dt>
+<dt class="hdlist1">
+FLT_MAX 
+</dt>
+<dd>
+<p>
+   maximum floating-point number
+</p>
+</dd>
+<dt class="hdlist1">
+FLT_MAX_EXP 
+</dt>
+<dt class="hdlist1">
+FLT_MIN 
+</dt>
+<dd>
+<p>
+   minimum normalised floating-point number
+</p>
+</dd>
+<dt class="hdlist1">
+FLT_MIN_EXP 
+</dt>
+<dt class="hdlist1">
+DBL_DIG 
+</dt>
+<dt class="hdlist1">
+DBL_EPSILON 
+</dt>
+<dt class="hdlist1">
+DBL_MANT_DIG 
+</dt>
+<dt class="hdlist1">
+DBL_MAX 
+</dt>
+<dd>
+<p>
+   maximum  double| floating-point number
+</p>
+</dd>
+<dt class="hdlist1">
+DBL_MAX_EXP 
+</dt>
+<dt class="hdlist1">
+DBL_MIN 
+</dt>
+<dd>
+<p>
+   minimum normalised  |double| floating-point number
+</p>
+</dd>
+<dt class="hdlist1">
+DBL_MIN_EXP 
+</dt>
+<dd>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="limits.h">&lt;limits.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+CHAR_BIT 
+</dt>
+<dd>
+<p>
+    number of bits in a |char|
+</p>
+</dd>
+<dt class="hdlist1">
+CHAR_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |char|
+</p>
+</dd>
+<dt class="hdlist1">
+CHAR_MIN 
+</dt>
+<dd>
+<p>
+    minimum value of |char|
+</p>
+</dd>
+<dt class="hdlist1">
+INT_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |int|
+</p>
+</dd>
+<dt class="hdlist1">
+INT_MIN 
+</dt>
+<dd>
+<p>
+    minimum value of |int|
+</p>
+</dd>
+<dt class="hdlist1">
+LONG_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |long|
+</p>
+</dd>
+<dt class="hdlist1">
+LONG_MIN 
+</dt>
+<dd>
+<p>
+    minimum value of |long|
+</p>
+</dd>
+<dt class="hdlist1">
+SCHAR_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |signed char|
+</p>
+</dd>
+<dt class="hdlist1">
+SCHAR_MIN 
+</dt>
+<dd>
+<p>
+    minimum value of |signed char|
+</p>
+</dd>
+<dt class="hdlist1">
+SHRT_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |short|
+</p>
+</dd>
+<dt class="hdlist1">
+SHRT_MIN 
+</dt>
+<dd>
+<p>
+    minimum value of |short|
+</p>
+</dd>
+<dt class="hdlist1">
+UCHAR_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |unsigned char|
+</p>
+</dd>
+<dt class="hdlist1">
+UCHAR_MIN 
+</dt>
+<dd>
+<p>
+    minimum value of |unsigned char|
+</p>
+</dd>
+<dt class="hdlist1">
+UINT_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |unsigned int|
+</p>
+</dd>
+<dt class="hdlist1">
+ULONG_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |unsigned long|
+</p>
+</dd>
+<dt class="hdlist1">
+USHRT_MAX 
+</dt>
+<dd>
+<p>
+    maximum value of |unsigned short|
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="locale.h">&lt;locale.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+struct lconv 
+</dt>
+<dd>
+<p>
+    Describes formatting of monetary and other numeric values:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+decimal_point;
+        decimal point for non-monetary values
+</p>
+</li>
+<li>
+<p>
+char* grouping;
+        sizes of digit groups for non-monetary values
+</p>
+</li>
+<li>
+<p>
+char* thousands_sep;
+        separator for digit groups for non-monetary values (left of
+        "decimal point")
+</p>
+</li>
+<li>
+<p>
+char* currency_symbol;
+        currency symbol
+</p>
+</li>
+<li>
+<p>
+char* int_curr_symbol;
+        international currency symbol
+</p>
+</li>
+<li>
+<p>
+char* mon_decimal_point;
+        decimal point for monetary values
+</p>
+</li>
+<li>
+<p>
+char* mon_grouping;
+        sizes of digit groups for monetary values
+</p>
+</li>
+<li>
+<p>
+char* mon_thousands_sep;
+        separator for digit groups for monetary values (left of "decimal
+        point")
+</p>
+</li>
+<li>
+<p>
+char* negative_sign;
+        negative sign for monetary values
+</p>
+</li>
+<li>
+<p>
+char* positive_sign;
+        positive sign for monetary values
+</p>
+</li>
+<li>
+<p>
+char frac_digits;
+        number of digits to be displayed to right of "decimal point" for
+        monetary values
+</p>
+</li>
+<li>
+<p>
+char int_frac_digits;
+        number of digits to be displayed to right of "decimal point" for
+        international monetary values
+</p>
+</li>
+<li>
+<p>
+char n_cs_precedes;
+        whether currency symbol precedes (|1|) or follows (|0|) negative
+        monetary values
+</p>
+</li>
+<li>
+<p>
+char n_sep_by_space;
+        whether currency symbol is (|1|) or is not (|0|) separated by
+        space from negative monetary values
+</p>
+</li>
+<li>
+<p>
+char n_sign_posn;
+        format for negative monetary values:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+0
+            parentheses surround quantity and currency symbol
+</p>
+</li>
+<li>
+<p>
+1
+            sign precedes quantity and currency symbol
+</p>
+</li>
+<li>
+<p>
+2
+            sign follows quantity and currency symbol
+</p>
+</li>
+<li>
+<p>
+3
+            sign immediately precedes currency symbol
+</p>
+</li>
+<li>
+<p>
+4
+            sign immediately follows currency symbol
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+char p_cs_precedes;
+        whether currency symbol precedes (|1|) or follows (|0|) positive
+        monetary values
+</p>
+</li>
+<li>
+<p>
+char p_sep_by_space;
+        whether currency symbol is (|1|) or is not (|0|) separated by
+        space from non-negative monetary values
+</p>
+</li>
+<li>
+<p>
+char p_sign_posn;
+        format for non-negative monetary values, with values as for
+</p>
+</li>
+<li>
+<p>
+n_sign_posn &lt;#n_sign_posn&gt;
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>Implementations may change field order and include additional
+fields. /Standard C Library/ functions use only |decimal_point
+&lt;#decimal_point&gt;|.</code></pre>
+</div></div>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+struct lconv &lt;#lconv&gt;* localeconv(void); 
+</dt>
+<dd>
+<p>
+    returns pointer to formatting information for current locale
+</p>
+</dd>
+<dt class="hdlist1">
+char* setlocale(int category, const char* locale); 
+</dt>
+<dd>
+<p>
+    Sets components of locale according to specified |category
+    &lt;#category&gt;| and |locale|. Returns string describing new locale or
+    null on error. (Implementations are permitted to define values of
+    |category &lt;#category&gt;| additional to those describe here.)
+</p>
+</dd>
+<dt class="hdlist1">
+LC_ALL 
+</dt>
+<dd>
+<p>
+    |category &lt;#category&gt;| argument for all categories
+</p>
+</dd>
+<dt class="hdlist1">
+LC_NUMERIC 
+</dt>
+<dd>
+<p>
+    |category &lt;#category&gt;| for numeric formatting information
+</p>
+</dd>
+<dt class="hdlist1">
+LC_MONETARY 
+</dt>
+<dd>
+<p>
+    |category &lt;#category&gt;| for monetary formatting information
+</p>
+</dd>
+<dt class="hdlist1">
+LC_COLLATE 
+</dt>
+<dd>
+<p>
+    |category &lt;#category&gt;| for information affecting collating functions
+</p>
+</dd>
+<dt class="hdlist1">
+LC_CTYPE 
+</dt>
+<dd>
+<p>
+    |category &lt;#category&gt;| for information affecting character class
+    tests &lt;#ctype.h&gt; functions
+</p>
+</dd>
+<dt class="hdlist1">
+LC_TIME 
+</dt>
+<dd>
+<p>
+    |category &lt;#category&gt;| for information affecting time conversions
+    functions
+</p>
+</dd>
+<dt class="hdlist1">
+NULL 
+</dt>
+<dd>
+<p>
+    null pointer constant
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="math.h">&lt;math.h&gt;</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>On domain error, implementation-defined value returned and |errno
+&lt;#errno&gt;| set to |EDOM &lt;#EDOM&gt;|. On range error, |errno &lt;#errno&gt;| set to
+|ERANGE &lt;#ERANGE&gt;| and return value is |HUGE_VAL &lt;#HUGE_VAL&gt;| with
+correct sign for overflow, or zero for underflow. Angles are in radians.</code></pre>
+</div></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+HUGE_VAL 
+</dt>
+<dd>
+<p>
+    magnitude returned (with correct sign) on overflow error
+</p>
+</dd>
+<dt class="hdlist1">
+double exp(double x); 
+</dt>
+<dd>
+<p>
+    exponential of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double log(double x); 
+</dt>
+<dd>
+<p>
+    natural logarithm of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double log10(double x); 
+</dt>
+<dd>
+<p>
+    base-10 logarithm of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double pow(double x, double y); 
+</dt>
+<dd>
+<p>
+    |x| raised to power |y|
+</p>
+</dd>
+<dt class="hdlist1">
+double sqrt(double x); 
+</dt>
+<dd>
+<p>
+    square root of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double ceil(double x); 
+</dt>
+<dd>
+<p>
+    smallest integer not less than |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double floor(double x); 
+</dt>
+<dd>
+<p>
+    largest integer not greater than |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double fabs(double x); 
+</dt>
+<dd>
+<p>
+    absolute value of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double ldexp(double x, int n); 
+</dt>
+<dd>
+<p>
+    |x| times 2 to the power |n|
+</p>
+</dd>
+<dt class="hdlist1">
+double frexp(double x, int* exp); 
+</dt>
+<dd>
+<p>
+    if |x| non-zero, returns value, with absolute value in interval
+    [1/2, 1), and assigns to |*exp| integer such that product of return
+    value and 2 raised to the power |*exp| equals |x|; if |x| zero, both
+    return value and |*exp| are zero
+</p>
+</dd>
+<dt class="hdlist1">
+double modf(double x, double* ip); 
+</dt>
+<dd>
+<p>
+    returns fractional part and assigns to |*ip| integral part of |x|,
+    both with same sign as |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double fmod(double x, double y); 
+</dt>
+<dd>
+<p>
+    if |y| non-zero, floating-point remainder of |x/y|, with same sign
+    as |x|; if |y| zero, result is implementation-defined
+</p>
+</dd>
+<dt class="hdlist1">
+double sin(double x); 
+</dt>
+<dd>
+<p>
+    sine of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double cos(double x); 
+</dt>
+<dd>
+<p>
+    cosine of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double tan(double x); 
+</dt>
+<dd>
+<p>
+    tangent of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double asin(double x); 
+</dt>
+<dd>
+<p>
+    arc-sine of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double acos(double x); 
+</dt>
+<dd>
+<p>
+    arc-cosine of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double atan(double x); 
+</dt>
+<dd>
+<p>
+    arc-tangent of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double atan2(double y, double x); 
+</dt>
+<dd>
+<p>
+    arc-tangent of |y/x|
+</p>
+</dd>
+<dt class="hdlist1">
+double sinh(double x); 
+</dt>
+<dd>
+<p>
+    hyperbolic sine of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double cosh(double x); 
+</dt>
+<dd>
+<p>
+    hyperbolic cosine of |x|
+</p>
+</dd>
+<dt class="hdlist1">
+double tanh(double x); 
+</dt>
+<dd>
+<p>
+    hyperbolic tangent of |x|
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="setjmp.h">&lt;setjmp.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+int setjmp(jmp_buf env); 
+</dt>
+<dd>
+<p>
+    Save state information in env. Zero returned from direct call;
+    non-zero from subsequent call of |longjmp|.
+</p>
+</dd>
+<dt class="hdlist1">
+void longjmp(jmp_buf env, int val); 
+</dt>
+<dd>
+<p>
+    Restore state saved by most recent call to |setjmp| using
+    information saved in env. Execution resumes as if |setjmp| just
+    executed and returned non-zero value val.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="signal.h">&lt;signal.h&gt;</h3>
+<div class="paragraph"><p>Handling exceptional conditions.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+SIGABRT 
+</dt>
+<dd>
+<p>
+    abnormal termination
+</p>
+</dd>
+<dt class="hdlist1">
+SIGFPE 
+</dt>
+<dd>
+<p>
+    arithmetic error
+</p>
+</dd>
+<dt class="hdlist1">
+SIGILL 
+</dt>
+<dd>
+<p>
+    illegal function image
+</p>
+</dd>
+<dt class="hdlist1">
+SIGINT 
+</dt>
+<dd>
+<p>
+    interactive attention
+</p>
+</dd>
+<dt class="hdlist1">
+SIGSEGV 
+</dt>
+<dd>
+<p>
+    illegal storage access
+</p>
+</dd>
+<dt class="hdlist1">
+SIGTERM 
+</dt>
+<dd>
+<p>
+    termination request sent to program
+</p>
+</dd>
+<dt class="hdlist1">
+void (*signal(int sig, void (*handler)(int)))(int); 
+</dt>
+<dd>
+<p>
+    Install handler for subsequent signal sig. If handler is |SIG_DFL|,
+    implementation-defined default behaviour is used; if handler is
+    |SIG_IGN|, signal is ignored; otherwise function pointed to by
+    handler is called with argument sig. |signal| returns the previous
+    handler or |SIG_ERR| on error. When signal sig subsequently occurs,
+    the signal is <strong>restored to its default behaviour</strong> and the handler is
+    called. If the handler returns, execution resumes where signal
+    occurred. Initial state of signals is implementation-defined.
+</p>
+</dd>
+<dt class="hdlist1">
+int raise(int sig); 
+</dt>
+<dd>
+<p>
+    Send signal sig to the program. Non-zero returned if unsuccessful.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="stdarg.h">&lt;stdarg.h&gt;</h3>
+<div class="paragraph"><p>Facilities for stepping through a list of function arguments of unknown
+number and type.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+void va_start(va_list ap, lastarg); 
+</dt>
+<dd>
+<p>
+    Initialisation macro to be called once before any unnamed argument
+    is accessed. ap must be declared as a local variable, and lastarg is
+    the last named parameter of the function.
+</p>
+</dd>
+<dt class="hdlist1">
+type va_arg(va_list ap, type); 
+</dt>
+<dd>
+<p>
+    Produce a value of the type (type) and value of the next unnamed
+    argument. Modifies ap.
+</p>
+</dd>
+<dt class="hdlist1">
+void va_end(va_list ap); 
+</dt>
+<dd>
+<p>
+    Must be called once after arguments processed and before function exit.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph" id="stddef.h"><p>&lt;stddef.h&gt;</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+NULL 
+</dt>
+<dd>
+<p>
+    Null pointer constant.
+</p>
+</dd>
+<dt class="hdlist1">
+offsetof(stype, m) 
+</dt>
+<dd>
+<p>
+    Offset (in bytes) of member |m| from start of structure type |stype|.
+</p>
+</dd>
+<dt class="hdlist1">
+ptrdiff_t 
+</dt>
+<dd>
+<p>
+    Type for objects declared to store result of subtracting pointers.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t 
+</dt>
+<dd>
+<p>
+    Type for objects declared to store result of |sizeof| operator.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="stdio.h">&lt;stdio.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+FILE 
+</dt>
+<dd>
+<p>
+    Type which records information necessary to control a stream.
+</p>
+</dd>
+<dt class="hdlist1">
+fpos_t 
+</dt>
+<dd>
+<p>
+    Type for objects declared to store file position information.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t 
+</dt>
+<dd>
+<p>
+    Type for objects declared to store result of |sizeof| operator.
+</p>
+</dd>
+<dt class="hdlist1">
+BUFSIZ 
+</dt>
+<dd>
+<p>
+    Size of buffer used by |setbuf &lt;#setbuf&gt;|.
+</p>
+</dd>
+<dt class="hdlist1">
+EOF 
+</dt>
+<dd>
+<p>
+    Value used to indicate end-of-stream or to report an error.
+</p>
+</dd>
+<dt class="hdlist1">
+L_tmpnam 
+</dt>
+<dd>
+<p>
+    Number of characters required for temporary filename generated by
+    |tmpnam &lt;#tmpnam&gt;|.
+</p>
+</dd>
+<dt class="hdlist1">
+NULL 
+</dt>
+<dd>
+<p>
+    Null pointer constant.
+</p>
+</dd>
+<dt class="hdlist1">
+SEEK_CUR 
+</dt>
+<dd>
+<p>
+    Value for |origin| argument to |fseek &lt;#fseek&gt;| specifying current
+    file position.
+</p>
+</dd>
+<dt class="hdlist1">
+SEEK_END 
+</dt>
+<dd>
+<p>
+    Value for |origin| argument to |fseek &lt;#fseek&gt;| specifying beginning
+    of file.
+</p>
+</dd>
+<dt class="hdlist1">
+TMP_MAX 
+</dt>
+<dd>
+<p>
+    Minimum number of unique filenames generated by calls to |tmpnam
+    &lt;#tmpnam&gt;|.
+</p>
+</dd>
+<dt class="hdlist1">
+_IOFBF 
+</dt>
+<dd>
+<p>
+    Value for |mode| argument to |setvbuf &lt;#setvbuf&gt;| specifying full
+    buffering.
+</p>
+</dd>
+<dt class="hdlist1">
+_IOLBF 
+</dt>
+<dd>
+<p>
+    Value for |mode| argument to |setvbuf &lt;#setvbuf&gt;| specifying line
+    buffering.
+</p>
+</dd>
+<dt class="hdlist1">
+_IONBF 
+</dt>
+<dd>
+<p>
+    Value for |mode| argument to |setvbuf &lt;#setvbuf&gt;| specifying no
+    buffering.
+</p>
+</dd>
+<dt class="hdlist1">
+stdin 
+</dt>
+<dd>
+<p>
+    Standard input stream. Automatically opened when a program begins
+    execution.
+</p>
+</dd>
+<dt class="hdlist1">
+stdout 
+</dt>
+<dd>
+<p>
+    Standard output stream. Automatically opened when a program begins
+    execution.
+</p>
+</dd>
+<dt class="hdlist1">
+stderr 
+</dt>
+<dd>
+<p>
+    Standard error stream. Automatically opened when a program begins
+    execution.
+</p>
+</dd>
+<dt class="hdlist1">
+FILENAME_MAX 
+</dt>
+<dd>
+<p>
+    Maximum permissible length of a file name
+</p>
+</dd>
+<dt class="hdlist1">
+FOPEN_MAX 
+</dt>
+<dd>
+<p>
+    Maximum number of files which may be open simultaneously.
+</p>
+</dd>
+<dt class="hdlist1">
+TMP_MAX 
+</dt>
+<dd>
+<p>
+    Maximum number of temporary files during program execution.
+</p>
+</dd>
+<dt class="hdlist1">
+FILE* fopen(const char* filename, const char* mode); 
+</dt>
+<dd>
+<p>
+    Opens file filename and returns a stream, or |NULL| on failure. mode
+    may be (combinations of):
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+"r"
+        text reading
+</p>
+</li>
+<li>
+<p>
+"w"
+        text writing; discard previous content
+</p>
+</li>
+<li>
+<p>
+"a"
+        text append; writing at end
+</p>
+</li>
+<li>
+<p>
+"r+"
+        text update (reading+writing)
+</p>
+</li>
+<li>
+<p>
+"w+"
+        text update; discard previous content
+</p>
+</li>
+<li>
+<p>
+"a+"
+        text append; reading, writing at end
+</p>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+FILE* freopen(const char* filename, const char* mode, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Opens file filename with the specified mode and associates with it
+    the specified stream. Returns stream or |NULL| on error. Usually
+    used to change files associated with |stdin &lt;#stdin&gt;|, |stdout
+    &lt;#stdout&gt;|, |stderr &lt;#stderr&gt;|.
+</p>
+</dd>
+<dt class="hdlist1">
+int fflush(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Flushes stream stream. Effect undefined for input stream. Returns
+    |EOF| for write error, zero otherwise. |fflush(NULL)| flushes all
+    output streams.
+</p>
+</dd>
+<dt class="hdlist1">
+int fclose(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Closes stream stream (after flushing, if output stream). Returns
+    |EOF| on error, zero otherwise.
+</p>
+</dd>
+<dt class="hdlist1">
+int remove(const char* filename); 
+</dt>
+<dd>
+<p>
+    Removes file filename. Returns non-zero on failure.
+</p>
+</dd>
+<dt class="hdlist1">
+int rename(const char* oldname, const char* newname); 
+</dt>
+<dd>
+<p>
+    Changes name of file oldname to newname. Returns non-zero on failure.
+</p>
+</dd>
+<dt class="hdlist1">
+FILE* tmpfile(); 
+</dt>
+<dd>
+<p>
+    Creates temporary file (mode |"wb+"|) which will be removed when
+    closed or on normal program termination. Returns stream or |NULL| on
+    failure.
+</p>
+</dd>
+<dt class="hdlist1">
+char* tmpname(char s[L_tmpnam]); 
+</dt>
+<dd>
+<p>
+    Assigns to s and returns unique name for temporary file.
+</p>
+</dd>
+<dt class="hdlist1">
+int setvbuf(FILE* stream, char* buf, int mode, size_t size); 
+</dt>
+<dd>
+<p>
+    Controls buffering for stream stream.
+</p>
+</dd>
+<dt class="hdlist1">
+void setbuf(FILE* stream, char* buf); 
+</dt>
+<dd>
+<p>
+    Controls buffering for stream stream.
+</p>
+</dd>
+<dt class="hdlist1">
+int fprintf(FILE* stream, const char* format, &#8230;); 
+</dt>
+<dd>
+<p>
+    Converts (with format format) and writes output to stream stream.
+    Number of characters written [negative on error] is returned.
+    Between % and format conversion character:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Flags:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+-
+            left adjust
+</p>
+</li>
+<li>
+<p>
++
+            always sign
+</p>
+</li>
+<li>
+<p>
+/space/
+            space if no sign
+</p>
+</li>
+<li>
+<p>
+0
+            zero pad
+</p>
+</li>
+<li>
+<p>
+#
+            Alternate form: for conversion character |o|, first digit
+            will be zero, for [|xX|], prefix |0x| or |0X| to non-zero,
+            for [|eEfgG|], always decimal point, for [|gG|] trailing
+            zeros not removed.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Width:
+</p>
+</li>
+<li>
+<p>
+Period:
+</p>
+</li>
+<li>
+<p>
+Precision: for conversion character |s|, maximum characters to
+        be printed from the string, for [|eEf|], digits after decimal
+        point, for [|gG|], significant digits, for an integer, minimum
+        number of digits to be printed.
+</p>
+</li>
+<li>
+<p>
+Length modifier:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+h
+            short or unsigned short
+</p>
+</li>
+<li>
+<p>
+l
+            long or unsigned long
+</p>
+</li>
+<li>
+<p>
+L
+            long double
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>Conversions:</code></pre>
+</div></div>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+%d, i
+        int; signed decimal notation
+</p>
+</li>
+<li>
+<p>
+%o
+        int; unsigned octal notation
+</p>
+</li>
+<li>
+<p>
+%x,X
+        int; unsigned hexadecimal notation
+</p>
+</li>
+<li>
+<p>
+%u
+        int; unsigned decimal notation
+</p>
+</li>
+<li>
+<p>
+%c
+        int; single character
+</p>
+</li>
+<li>
+<p>
+%s
+        char*;
+</p>
+</li>
+<li>
+<p>
+%f
+        double; [-]mmm.ddd
+</p>
+</li>
+<li>
+<p>
+%e,E
+        double; [-]m.dddddde(+|-)xx
+</p>
+</li>
+<li>
+<p>
+%g,G
+        double
+</p>
+</li>
+<li>
+<p>
+%p
+        void*; print as pointer
+</p>
+</li>
+<li>
+<p>
+%n
+        int*; number of chars written into arg
+</p>
+</li>
+<li>
+<p>
+%%
+        print %
+</p>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+int printf(const char* format, &#8230;); 
+</dt>
+<dd>
+<p>
+    |printf(f, &#8230;)| is equivalent to |fprintf &lt;#fprintf&gt;(stdout
+    &lt;#stdout&gt;, f, &#8230;)|
+</p>
+</dd>
+<dt class="hdlist1">
+int sprintf(char* s, const char* format, &#8230;); 
+</dt>
+<dd>
+<p>
+    Like fprintf &lt;#fprintf&gt;, but output written into string s, <strong>which
+    must be large enough to hold the output</strong>, rather than to a stream.
+    Output is |NUL|-terminated. Return length does not include the |NUL|.
+</p>
+</dd>
+<dt class="hdlist1">
+int vfprintf(FILE* stream, const char* format, va_list arg); 
+</dt>
+<dd>
+<p>
+    Equivalent to fprintf &lt;#fprintf&gt; except that the variable argument
+    list is replaced by arg, which must have been initialised by the
+    |va_start| macro and may have been used in calls to |va_arg|. See
+    &lt;#stdarg&gt;
+</p>
+</dd>
+<dt class="hdlist1">
+int vprintf(const char* format, va_list arg); 
+</dt>
+<dd>
+<p>
+    Equivalent to printf &lt;#printf&gt; except that the variable argument
+    list is replaced by arg, which must have been initialised by the
+    |va_start| macro and may have been used in calls to |va_arg|. See
+    &lt;#stdarg&gt;
+</p>
+</dd>
+<dt class="hdlist1">
+int vsprintf(char* s, const char* format, va_list arg); 
+</dt>
+<dd>
+<p>
+    Equivalent to sprintf &lt;#sprintf&gt; except that the variable argument
+    list is replaced by arg, which must have been initialised by the
+    |va_start &lt;#vastart&gt;| macro and may have been used in calls to
+    |va_arg &lt;#vaarg&gt;|. See &lt;#stdarg&gt;
+</p>
+</dd>
+<dt class="hdlist1">
+int fscanf(FILE* stream, const char* format, &#8230;); 
+</dt>
+<dd>
+<p>
+    Performs formatted input conversion, reading from stream stream
+    according to format format. The function returns when format is
+    fully processed. Returns |EOF| if end-of-file or error occurs before
+    any conversion; otherwise, the number of items converted and
+    assigned. Each of the arguments following format <strong>must be a
+    pointer</strong>. Format string may contain
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+/Blanks/, /Tabs/ : ignored
+</p>
+</li>
+<li>
+<p>
+/ordinary characters/ : expected to match next non-white-space
+</p>
+</li>
+<li>
+<p>
+|%| : Conversion specification, consisting of |%|, optional
+        assignment suppression character |*|, optional number indicating
+        maximum field width, optional [|hlL|] indicating width of
+        target, conversion character.
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>Conversion characters:</code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+%d
+        decimal integer; |int*| parameter required
+</p>
+</li>
+<li>
+<p>
+%i
+        integer; |int*| parameter required; decimal, octal or hex
+</p>
+</li>
+<li>
+<p>
+%o
+        octal integer; |int*| parameter required
+</p>
+</li>
+<li>
+<p>
+%u
+        unsigned decimal integer; |unsigned int*| parameter required
+</p>
+</li>
+<li>
+<p>
+%x
+        hexadecimal integer; |int*| parameter required
+</p>
+</li>
+<li>
+<p>
+%c
+        characters; |char*| parameter required; up to width; no |<em>\0</em>
+        added; no skip
+</p>
+</li>
+<li>
+<p>
+%s
+        string of non-white-space; |char*| parameter required; |<em>\0</em>| added
+</p>
+</li>
+<li>
+<p>
+%e,f,g
+        floating-point number; |float*| parameter required
+</p>
+</li>
+<li>
+<p>
+%p
+        pointer value; |void*| parameter required
+</p>
+</li>
+<li>
+<p>
+%n
+        chars read so far; |int*| parameter required
+</p>
+</li>
+<li>
+<p>
+%[&#8230;]
+        longest non-empty string from set; |char*| parameter required; <em>\0</em>
+</p>
+</li>
+<li>
+<p>
+%[|^|&#8230;]
+        longest non-empty string not from set; |char*| parameter
+        required; <em>\0</em>
+</p>
+</li>
+<li>
+<p>
+%%
+        literal |%|; no assignment
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+int scanf(const char* format, &#8230;); 
+</dt>
+<dd>
+<p>
+    |scanf(f, &#8230;)| is equivalent to |fscanf &lt;#fscanf&gt;(stdin &lt;#stdin&gt;,
+    f, &#8230;)|
+</p>
+</dd>
+<dt class="hdlist1">
+int sscanf(char* s, const char* format, &#8230;); 
+</dt>
+<dd>
+<p>
+    Like fscanf &lt;#fscanf&gt;, but input read from string s.
+</p>
+</dd>
+<dt class="hdlist1">
+int fgetc(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Returns next character from stream stream as an |unsigned char|, or
+    |EOF| on end-of-file or error.
+</p>
+</dd>
+<dt class="hdlist1">
+char* fgets(char* s, int n, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Reads at most the next n-1 characters from stream stream into s,
+    stopping if a newline is encountered (after copying the newline to
+    s). s is |NUL|-terminated. Returs s, or |EOF| on end-of-file or error.
+</p>
+</dd>
+<dt class="hdlist1">
+int fputc(int c, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Writes c, converted to |unsigned char|, to stream stream. Returns
+    the character written, or |EOF| on error.
+</p>
+</dd>
+<dt class="hdlist1">
+char* fputs(const char* s, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Writes s, which need not contain |<em>\n</em>| on stream stream. Returns
+    non-negative on success, |EOF| on error.
+</p>
+</dd>
+<dt class="hdlist1">
+int getc(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Equivalent to |fgetc &lt;#fgetc&gt;| except that it may be a macro.
+</p>
+</dd>
+<dt class="hdlist1">
+int getchar(); 
+</dt>
+<dd>
+<p>
+    Equivalent to |getc &lt;#getc&gt;(stdin &lt;#stdin&gt;)|.
+</p>
+</dd>
+<dt class="hdlist1">
+char* gets(char* s); 
+</dt>
+<dd>
+<p>
+    Reads next line from stdin &lt;#stdin&gt; into s. Replaces terminating
+    newline with |<em>\0</em>|. Returns s, or |NULL| on end-of-file or error.
+</p>
+</dd>
+<dt class="hdlist1">
+int putc(int c, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Equivalent to |fputc &lt;#fputc&gt;| except that it may be a macro.
+</p>
+</dd>
+<dt class="hdlist1">
+int putchar(int c); 
+</dt>
+<dd>
+<p>
+    |putchar(c)| is equivalent to |putc &lt;#putc&gt;(c, stdout &lt;#stdout&gt;)|.
+</p>
+</dd>
+<dt class="hdlist1">
+int puts(const char* s); 
+</dt>
+<dd>
+<p>
+    Writes s and a newline to stdout. Returns non-negative on success,
+    |EOF| on error.
+</p>
+</dd>
+<dt class="hdlist1">
+int unget(int c, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Pushes c (which must not be |EOF|), converted to unsigned char, onto
+    stream stream such that it will be returned by the next read. Only
+    one character of pushback is guaranteed for a stream. Returns c, or
+    |EOF| on error.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t fread(void* ptr, size_t size, size_t nobj, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Reads at most nobj objects of size size from stream stream into ptr.
+    Returns the number of objects read. |feof &lt;#feof&gt;| and |ferror
+    &lt;#ferror&gt;| must be used to determine status.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t fwrite(const void* ptr, size_t size, size_t nobj, FILE* stream); 
+</dt>
+<dd>
+<p>
+    Writes to stream stream, nobj objects of size size from array ptr.
+    Returns the number of objects written (which will be less than nobj
+    on error).
+</p>
+</dd>
+<dt class="hdlist1">
+int fseek(FILE* stream, long offset, int origin); 
+</dt>
+<dd>
+<p>
+    Sets file position for stream stream. For a binary file, position is
+</p>
+</dd>
+<dt class="hdlist1">
+set to offset characters from origin, which may be |SEEK_SET 
+</dt>
+<dt class="hdlist1">
+(beginning), |SEEK_CUR|(current position) or |SEEK_END 
+</dt>
+<dd>
+<p>
+    (end-of-file); for a text stream, offset must be zero or a value
+    returned by |ftell &lt;#ftell&gt;| (in which case origin must be
+    |SEEK_SET|). Returns non-zero on error.
+</p>
+</dd>
+<dt class="hdlist1">
+long ftell(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Returns current file position for stream stream, or |-1L| on error.
+</p>
+</dd>
+<dt class="hdlist1">
+void rewind(FILE* stream); 
+</dt>
+<dd>
+<p>
+    |rewind(stream)| is equivalent to |fseek &lt;#fseek&gt;(stream, 0L,
+    SEEK_SET); clearerr &lt;#clearerr&gt;(stream)|.
+</p>
+</dd>
+<dt class="hdlist1">
+int fgetpos(FILE* stream, fpos_t* ptr); 
+</dt>
+<dt class="hdlist1">
+Assigns current position in stream stream to |*ptr|. Type |fpos_t 
+</dt>
+<dd>
+<p>
+    is suitable for recording such values. Returns non-zero on error.
+</p>
+</dd>
+<dt class="hdlist1">
+int fsetpos(FILE* stream, const fpos_t* ptr); 
+</dt>
+<dd>
+<p>
+    Sets current position of stream stream to |*ptr|. Returns non-zero
+    on error.
+</p>
+</dd>
+<dt class="hdlist1">
+void clearerr(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Clears the end-of-file and error indicators for stream stream.
+</p>
+</dd>
+<dt class="hdlist1">
+int feof(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Returns non-zero if end-of-file indicator for stream stream is set.
+</p>
+</dd>
+<dt class="hdlist1">
+int ferror(FILE* stream); 
+</dt>
+<dd>
+<p>
+    Returns non-zero if error indicator for stream stream is set.
+</p>
+</dd>
+<dt class="hdlist1">
+void perror(const char* s); 
+</dt>
+<dd>
+<p>
+    Prints s and implementation-defined error message corresponding to
+    |errno &lt;#verrno&gt;|:
+</p>
+</dd>
+<dt class="hdlist1">
+|fprintf &lt;#fprintf&gt;(stderr &lt;#stderr&gt;, "%s: %s\n", s, "/error message/") 
+</dt>
+<dd>
+<p>
+    See strerror &lt;#strerror&gt;.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="stdlib.h">&lt;stdlib.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+EXIT_FAILURE 
+</dt>
+<dd>
+<p>
+    Value for |status| argument to |exit &lt;#exit&gt;| indicating failure.
+</p>
+</dd>
+<dt class="hdlist1">
+EXIT_SUCCESS 
+</dt>
+<dd>
+<p>
+    Value for |status| argument to |exit &lt;#exit&gt;| indicating success.
+</p>
+</dd>
+<dt class="hdlist1">
+RAND_MAX 
+</dt>
+<dd>
+<p>
+    Maximum value returned by |rand &lt;#rand&gt;()|.
+</p>
+</dd>
+<dt class="hdlist1">
+NULL 
+</dt>
+<dd>
+<p>
+    Null pointer constant.
+</p>
+</dd>
+<dt class="hdlist1">
+div_t 
+</dt>
+<dd>
+<p>
+    Return type of |div &lt;#div&gt;()|. Structure having members:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+int quot;
+        quotient
+</p>
+</li>
+<li>
+<p>
+int rem;
+        remainder
+</p>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+ldiv_t 
+</dt>
+<dd>
+<p>
+    Return type of |ldiv &lt;#ldiv&gt;()|. Structure having members:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+long quot;
+        quotient
+</p>
+</li>
+<li>
+<p>
+long rem;
+        remainder
+</p>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+size_t 
+</dt>
+<dd>
+<p>
+    Type for objects declared to store result of |sizeof| operator.
+</p>
+</dd>
+<dt class="hdlist1">
+double atof(const char* s); 
+</dt>
+<dd>
+<p>
+    Returns numerical value of s. Equivalent to |strtod &lt;#strtod&gt;(s,
+    (char**)NULL)|.
+</p>
+</dd>
+<dt class="hdlist1">
+int atoi(const char* s); 
+</dt>
+<dd>
+<p>
+    Returns numerical value of s. Equivalent to |(int)strtol
+    &lt;#strtol&gt;(s, (char**)NULL, 10)|.
+</p>
+</dd>
+<dt class="hdlist1">
+long atol(const char* s); 
+</dt>
+<dd>
+<p>
+    Returns numerical value of s. Equivalent to |strtol &lt;#strtol&gt;(s,
+    (char**)NULL, 10)|.
+</p>
+</dd>
+<dt class="hdlist1">
+double strtod(const char* s, char** endp); 
+</dt>
+<dd>
+<p>
+    Converts prefix of s to |double|, ignoring leading quite space.
+    Stores a pointer to any unconverted suffix in |*endp| if endp
+    non-|NULL|. If answer would overflow, |HUGE_VAL| is returned with
+    the appropriate sign; if underflow, zero returned. In either case,
+    |errno &lt;#verrno&gt;| is set to |ERANGE|.
+</p>
+</dd>
+<dt class="hdlist1">
+long strtol(const char* s, char** endp, int base); 
+</dt>
+<dd>
+<p>
+    Converts prefix of s to |long|, ignoring leading quite space. Stores
+    a pointer to any unconverted suffix in |*endp| if endp non-|NULL|.
+    If base between 2 and 36, that base used; if zero, leading |0X| or
+    |0x| implies hexadecimal, leading |0|implies octal, otherwise
+    decimal. Leading |0X| or |0x| permitted for base 16. If answer would
+    overflow, |LONG_MAX| or |LONG_MIN| returned and |errno &lt;#verrno&gt;| is
+    set to |ERANGE|.
+</p>
+</dd>
+<dt class="hdlist1">
+unsigned long strtoul(const char* s, char** endp, int base); 
+</dt>
+<dd>
+<p>
+    As for |strtol &lt;#strtol&gt;| except result is |unsigned long| and error
+    value is |ULONG_MAX|.
+</p>
+</dd>
+<dt class="hdlist1">
+int rand(); 
+</dt>
+<dd>
+<p>
+    Returns pseudo-random number in range |0| to |RAND_MAX|.
+</p>
+</dd>
+<dt class="hdlist1">
+void srand(unsigned int seed); 
+</dt>
+<dd>
+<p>
+    Uses seed as seed for new sequence of pseudo-random numbers. Initial
+    seed is |1|.
+</p>
+</dd>
+<dt class="hdlist1">
+void* calloc(size_t nobj, size_t size); 
+</dt>
+<dd>
+<p>
+    Returns pointer to zero-initialised newly-allocated space for an
+    array of nobj objects each of size size, or |NULL| if request cannot
+    be satisfied.
+</p>
+</dd>
+<dt class="hdlist1">
+void* malloc(size_t size); 
+</dt>
+<dd>
+<p>
+    Returns pointer to uninitialised newly-allocated space for an object
+    of size size, or |NULL| if request cannot be satisfied.
+</p>
+</dd>
+<dt class="hdlist1">
+void* realloc(void* p, size_t size); 
+</dt>
+<dd>
+<p>
+    Changes to size the size of the object to which p points. Contents
+    unchanged to minimum of old and new sizes. If new size larger, new
+    space is uninitialised. Returns ponter to the new space or, if
+    request cannot be satisfied |NULL| leaving |p| unchanged.
+</p>
+</dd>
+<dt class="hdlist1">
+void free(void* p); 
+</dt>
+<dd>
+<p>
+    Deallocats space to which p points. p must be |NULL|, in which case
+    there is no effect, or a pointer returned by |calloc|, |malloc| or
+    |realloc|.
+</p>
+</dd>
+<dt class="hdlist1">
+void abort(); 
+</dt>
+<dd>
+<p>
+    Causes program to terminate abnormally, as if by |raise
+    &lt;#raise&gt;(SIGABRT &lt;#sigabrt&gt;)|.
+</p>
+</dd>
+<dt class="hdlist1">
+void exit(int status); 
+</dt>
+<dd>
+<p>
+    Causes normal program termination. Functions installed using |atexit
+    &lt;#atexit&gt;| are called in reverse order of registration, open files
+    are flushed, open streams are closed and control is returned to
+    environment. status is returned to environment in
+    implementation-dependent manner. Zero indicates successful
+    termination and the values |EXIT_SUCCESS| and |EXIT_FAILURE| may be
+    used.
+</p>
+</dd>
+<dt class="hdlist1">
+int atexit(void (*fcm)(void)); 
+</dt>
+<dd>
+<p>
+    Registers fcn to be called when program terminates normally.
+    Non-zero returned if registration cannot be made.
+</p>
+</dd>
+<dt class="hdlist1">
+int system(const char* s); 
+</dt>
+<dd>
+<p>
+    Passes s to environment for execution. If s is |NULL|, non-zero
+    returned if command processor exists; return value is
+    implementation-dependent if s is non-|NULL|.
+</p>
+</dd>
+<dt class="hdlist1">
+char getenv(const char* name); 
+</dt>
+<dd>
+<p>
+    Returns (implementation-dependent) environment string associated
+    with name, or |NULL| if no such string exists.
+void bsearch(const void* key, const void* base, size_t n, size_t size,
+</p>
+</dd>
+<dt class="hdlist1">
+int (<strong>cmp)(const void</strong> keyval, const void* datum); 
+</dt>
+<dd>
+<p>
+    Searches |base[0]&#8230;base[n-1]| for item matching |<strong>key|. Comparison
+    function cmp must return negative if first argument is less than
+    second, zero if equal and positive if greater. The n items of base
+    must be in ascending order. Returns a pointer to the matching entry
+    or |NULL| if not found.
+void qsort(void</strong> base, size_t n, size_t size, int (<strong>cmp)(const void</strong>,
+</p>
+</dd>
+<dt class="hdlist1">
+const void/); 
+</dt>
+<dd>
+<p>
+    Arranges into ascending order the array |base[0]&#8230;base[n-1]| of
+    objects of size size. Comparison function cmp must return negative
+    if first argument is less than second, zero if equal and positive if
+    greater.
+</p>
+</dd>
+<dt class="hdlist1">
+int abs(int n); 
+</dt>
+<dd>
+<p>
+    Returns absolute value of n
+</p>
+</dd>
+<dt class="hdlist1">
+long labs(long n); 
+</dt>
+<dd>
+<p>
+    Returns absolute value of n
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="string.h">&lt;string.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+char* strcpy(char* s, const char* ct); 
+</dt>
+<dd>
+<p>
+    Copy ct to s including terminating |NUL|. Return s.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strncpy(char* s, const char* ct, int n); 
+</dt>
+<dd>
+<p>
+    Copy at most n characters of ct to s Pad with |NUL|s if ct is of
+    length less than n. Return s.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strcat(char* s, const char* ct); 
+</dt>
+<dd>
+<p>
+    Concatenate ct to s. Return s.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strncat(char* s, const char* ct, int n); 
+</dt>
+<dt class="hdlist1">
+Concatenate at most n characters of ct to s. Terminate s with |NUL 
+</dt>
+<dd>
+<p>
+    and return it.
+</p>
+</dd>
+<dt class="hdlist1">
+int strcmp(const char* cs, const char* ct); 
+</dt>
+<dd>
+<p>
+    Compare cs and ct. Return negative if |cs &lt; ct|, zero if |cs == ct|,
+    positive if |cs &gt; ct|.
+</p>
+</dd>
+<dt class="hdlist1">
+int strncmp(const char* cs, const char* ct, int n); 
+</dt>
+<dd>
+<p>
+    Compare at most n characters of cs and ct. Return negative if |cs &lt;
+    ct|, zero if |cs == ct|, positive if |cs &gt; ct|.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strchr(const char* cs, int c); 
+</dt>
+<dd>
+<p>
+    Return pointer to first occurrence of c in cs, or |NULL| if not found.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strrchr(const char* cs, int c); 
+</dt>
+<dd>
+<p>
+    Return pointer to last occurrence of c in cs, or |NULL| if not found.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t strspn(const char* cs, const char* ct); 
+</dt>
+<dd>
+<p>
+    Return length of prefix of cs consisting entirely of characters in ct.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t strcspn(const char* cs, const char* ct); 
+</dt>
+<dd>
+<p>
+    Return length of prefix of cs consisting entirely of characters
+    /not/ in ct.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strpbrk(const char* cs, const char* ct); 
+</dt>
+<dd>
+<p>
+    Return pointer to first occurrence within cs of any character of ct,
+    or |NULL| if not found.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strstr(const char* cs, const char* ct); 
+</dt>
+<dd>
+<p>
+    Return pointer to first occurrence of ct in cs, or |NULL| if not found.
+</p>
+</dd>
+<dt class="hdlist1">
+size_t strlen(const char* cs); 
+</dt>
+<dd>
+<p>
+    Return length of cs.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strerror(int n); 
+</dt>
+<dd>
+<p>
+    Return pointer to implementation-defined string corresponding with
+    error n.
+</p>
+</dd>
+<dt class="hdlist1">
+char* strtok(char* s, const char* t); 
+</dt>
+<dd>
+<p>
+    A sequence of calls to |strtok| returns tokens from s delimted by a
+    character in ct. Non-|NULL| s indicates the first call in a
+    sequence. ct may differ on each call. Returns |NULL| when no such
+    token found.
+</p>
+</dd>
+<dt class="hdlist1">
+void* memcpy(void* s, const void* ct, int n); 
+</dt>
+<dd>
+<p>
+    Copy n characters from ct to s. Return s. <strong>Does not work correctly
+    if objects overlap.</strong>
+</p>
+</dd>
+<dt class="hdlist1">
+void* memmove(void* s, const void* ct, int n); 
+</dt>
+<dd>
+<p>
+    Copy n characters from ct to s. Return s. Works correctly even if
+    objects overlap.
+</p>
+</dd>
+<dt class="hdlist1">
+int memcmp(const void* cs, const void* ct, int n); 
+</dt>
+<dd>
+<p>
+    Compare first n characters of cs with ct. Return negative if |cs &lt;
+    ct|, zero if |cs == ct|, positive if |cs &gt; ct|.
+</p>
+</dd>
+<dt class="hdlist1">
+void* strchr(const char* cs, int c, int n); 
+</dt>
+<dd>
+<p>
+    Return pointer to first occurrence of c in first n characters of cs,
+    or |NULL| if not found.
+</p>
+</dd>
+<dt class="hdlist1">
+void* strchr(char* s, int c, int n); 
+</dt>
+<dd>
+<p>
+    Replace each of the first n characters of s by c. Return s.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="time.h">&lt;time.h&gt;</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+clock_t 
+</dt>
+<dd>
+<p>
+    An arithmetic type representing time.
+</p>
+</dd>
+<dt class="hdlist1">
+CLOCKS_PER_SEC 
+</dt>
+<dd>
+<p>
+    The number of |clock_t| units per second.
+</p>
+</dd>
+<dt class="hdlist1">
+time_t 
+</dt>
+<dd>
+<p>
+    An arithmetic type representing time.
+</p>
+</dd>
+<dt class="hdlist1">
+struct tm 
+</dt>
+<dd>
+<p>
+    Represents the components of calendar time:
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_sec; 
+</dt>
+<dd>
+<p>
+        seconds after the minute
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_min; 
+</dt>
+<dd>
+<p>
+        minutes after the hour
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_hour; 
+</dt>
+<dd>
+<p>
+        hours since midnight
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_mday; 
+</dt>
+<dd>
+<p>
+        day of the month
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_ymon; 
+</dt>
+<dd>
+<p>
+        months <strong>since</strong> January
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_year; 
+</dt>
+<dd>
+<p>
+        years since 1900
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_day; 
+</dt>
+<dd>
+<p>
+        days since Sunday
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_yday; 
+</dt>
+<dd>
+<p>
+        days since January 1
+</p>
+</dd>
+<dt class="hdlist1">
+|int tm_isdst; 
+</dt>
+<dd>
+<p>
+        Daylight Saving Time flag : is positive if DST is in effect,
+        zero if not in effect, negative if information unavailable.
+</p>
+</dd>
+<dt class="hdlist1">
+clock_t clock(); 
+</dt>
+<dd>
+<p>
+    Returns processor time used by program or -1 if not available.
+</p>
+</dd>
+<dt class="hdlist1">
+time_t time(time_t* tp); 
+</dt>
+<dd>
+<p>
+    Returns current calendar time or -1 if not available. If tp is
+    non-|NULL|, return value is also assigned to |*tp|.
+</p>
+</dd>
+<dt class="hdlist1">
+double difftime(time_t time2, time_t time1); 
+</dt>
+<dd>
+<p>
+    Returns the difference is seconds between time2 and time1.
+</p>
+</dd>
+<dt class="hdlist1">
+time_t mktime(struct tm* tp); 
+</dt>
+<dd>
+<p>
+    Returns the local time corresponding to |*tp|, or |-1| if it cannot
+    be represented.
+</p>
+</dd>
+<dt class="hdlist1">
+char* asctime(const struct tm* tp); 
+</dt>
+<dd>
+<p>
+    Returns the given time as a string of the form:
+    |Sun Jan 3 14:14:13 1988\n\0|
+</p>
+</dd>
+<dt class="hdlist1">
+char* ctime(const time_t tp); 
+</dt>
+<dd>
+<p>
+    Converts the given calendar time to a local time and returns the
+    equivalent string. Equivalent to:
+    |asctime &lt;#asctime&gt;(localtime &lt;#localtime&gt;(tp))|
+</p>
+</dd>
+<dt class="hdlist1">
+struct tm* gmtime(const time_t tp); 
+</dt>
+<dd>
+<p>
+    Returns the given calendar time converted into Coordinated Universal
+    Time, or |NULL| if not available.
+</p>
+</dd>
+<dt class="hdlist1">
+struct tm* localtime(const time_t tp); 
+</dt>
+<dd>
+<p>
+    Returns calendar time |<strong>tp| converted into local time.
+size_t strftime(char</strong> s, size_t smax, const char* fmt, const struct tm*
+</p>
+</dd>
+<dt class="hdlist1">
+tp); 
+</dt>
+<dd>
+<p>
+    Formats |*tp| into s according to fmt.
+</p>
+</dd>
+</dl></div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Notes</div>
+<div class="literalblock">
+<div class="content">
+<pre><code>/Local/ time may differ from /calendar/ time, for example because of
+  time zone.</code></pre>
+</div></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2019-08-28 15:00:43 CEST
+</div>
+</div>
+</body>
+</html>
