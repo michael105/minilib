@@ -11,3 +11,5 @@ mini_start
 # function switches. Only functions named below will be compiled
 
 mini_write
+
+INCLUDESRC

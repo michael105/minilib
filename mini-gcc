@@ -166,70 +166,29 @@ before options and parameters for gcc.
 		exit
 }
 
+colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/error:.*/$RED\0$NORM/"'
 
 exec_gcc(){
-		if [ "$opt_execname" != "" ]; then # compile and execute
-				if [ "$LDSCRIPTFILE" != "" ]; then
-						if [ "$verbose" = "1" ]; then
-								echo $REAL_CC $@
-						fi
+		opt_args='$@'
+if [ "$opt_execname" != "" ]; then # compile and execute
+		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
+fi
 
-						if [ "$opt_config" != "" ]
-						then
-								$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
+if [ "$LDSCRIPTFILE" == "" ]; then
+		LDSCRIPTFILE="<($0 --dump $LDSCRIPT)"
+fi
 
-						else
-								$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
+INCLUDECONFIG=""
+if [ "$opt_config" != "" ]; then
+		INCLUDECONFIG="-include <($0 --dump-config $opt_config)"
+fi
 
-						fi
 
-				#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
-		else
-				if [ "$verbose" = "1" ]; then
-						echo $REAL_CC $@
-				fi
-				# todo: this is bash specific. write a version with either named pipes or temporary files.
-				if [ "$opt_config" != "" ]
-				then
-						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
-				else
-						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
-				fi
-				fi
-		else
+		eval echo_verbose "$REAL_CC $INCLUDECONFIG $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $opt_args"
+		eval $REAL_CC $INCLUDECONFIG $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $opt_args $colorize
 
-				if [ "$LDSCRIPTFILE" != "" ]; then
-						if [ $verbose = 0 ]; then
-								echo $REAL_CC $@
-						fi
-
-						if [ "$opt_config" != "" ]
-						then
-								echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
-								$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
-						else
-								echo_verbose "$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
-								$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
-						fi
-
-				#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
-		else
-				if [ $verbose = 0 ]; then
-						echo $REAL_CC $@
-				fi
-				# todo: this is bash specific. write a version with either named pipes or temporary files.
-				if [ "$opt_config" != "" ]
-				then
-						echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@"
-						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@
-				else
-						echo_verbose "$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@"
-						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@
-				fi
-				fi
-		fi
-				#$REAL_CC $CFLAGS$LDSCRIPT $@
-		return $?
+		#$REAL_CC $CFLAGS$LDSCRIPT $@
+return $?
 }
 
 
