@@ -83,8 +83,8 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/open.c"
 #include "minilib/include/tcsetattr.h"
+#include "minilib/src/open.c"
 #include "minilib/include/tcgetattr.h"
 
 // Need global included. Doesn't matter by which file.

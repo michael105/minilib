@@ -68,50 +68,53 @@ DEF_syscall(time,1,unsigned int *a1 )
 	// Will see it when trying to compile at osx again
 	//
 /* --- generated-macros-start: syscalldefs --- */
-/* minilib/include/syscall_stubs.h, line: 49 */
-REAL_define_syscall(chdir,1,const char* a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 45 */
-REAL_define_syscall(unlink,1, const char* a1) 		
-
-/* minilib/include/lseek.h, line: 17 */
-REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 30 */
-REAL_define_syscall(getpid,0 )
-
-/* minilib/include/syscall_stubs.h, line: 35 */
-REAL_define_syscall(read, 3, int a1,  POINTER *a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 53 */
-REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
-
-/* minilib/include/syscall_stubs.h, line: 59 */
-REAL_define_syscall(time,1,unsigned int *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 32 */
-REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
+/* minilib/include/syscall_stubs.h, line: 55 */
+REAL_define_syscall(getcwd,2,char *a1, long a2) 		
 
 /* minilib/include/syscall_stubs.h, line: 41 */
 REAL_define_syscall(write,3,int a1, const void *a2,  int a3) 
 
-/* minilib/include/syscall_stubs.h, line: 39 */
-REAL_define_syscall(getdents, 3, unsigned int a1,  struct dirent *a2,  unsigned int a3) 
+/* minilib/include/syscall_stubs.h, line: 34 */
+REAL_define_syscall(close, 1, int a1) 
+
+/* minilib/include/lseek.h, line: 17 */
+REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 49 */
+REAL_define_syscall(chdir,1,const char* a1) 		
+
+/* minilib/include/syscall_stubs.h, line: 32 */
+REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
+
+/* minilib/include/syscall_stubs.h, line: 53 */
+REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
+
+/* minilib/include/syscall_stubs.h, line: 35 */
+REAL_define_syscall(read, 3, int a1,  POINTER *a2,  int a3) 
 
 /* minilib/include/syscall_stubs.h, line: 44 */
 REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
 
-/* minilib/include/syscall_stubs.h, line: 48 */
-REAL_define_syscall(stat,2,const char* a1, struct stat* a2) 		
+/* minilib/include/syscall_stubs.h, line: 28 */
+REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
+
+/* minilib/include/lseek.h, line: 19 */
+REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 30 */
+REAL_define_syscall(getpid,0 )
 
 /* minilib/include/syscall_stubs.h, line: 51 */
 REAL_define_syscall(dup,1,int a1) 		
 
-/* minilib/include/lseek.h, line: 20 */
-REAL_define_syscall(fsync,1,int a1) 
+/* minilib/include/syscall_stubs.h, line: 47 */
+REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
 
-/* minilib/include/syscall_stubs.h, line: 55 */
-REAL_define_syscall(getcwd,2,char *a1, long a2) 		
+/* minilib/include/syscall_stubs.h, line: 48 */
+REAL_define_syscall(stat,2,const char* a1, struct stat* a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 45 */
+REAL_define_syscall(unlink,1, const char* a1) 		
 
 /* minilib/include/syscall_stubs.h, line: 52 */
 REAL_define_syscall(dup2,2,int a1,  int a2) 		
@@ -119,17 +122,14 @@ REAL_define_syscall(dup2,2,int a1,  int a2)
 /* minilib/include/syscall_stubs.h, line: 37 */
 REAL_define_syscall(uname,1,struct old_utsname *a1) 
 
-/* minilib/include/syscall_stubs.h, line: 28 */
-REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
+/* minilib/include/lseek.h, line: 20 */
+REAL_define_syscall(fsync,1,int a1) 
 
-/* minilib/include/syscall_stubs.h, line: 47 */
-REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
+/* minilib/include/syscall_stubs.h, line: 39 */
+REAL_define_syscall(getdents, 3, unsigned int a1,  struct dirent *a2,  unsigned int a3) 
 
-/* minilib/include/lseek.h, line: 19 */
-REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 34 */
-REAL_define_syscall(close, 1, int a1) 
+/* minilib/include/syscall_stubs.h, line: 59 */
+REAL_define_syscall(time,1,unsigned int *a1) 
 
 /* --- generated-macros-end: syscalldefs --- */
 
