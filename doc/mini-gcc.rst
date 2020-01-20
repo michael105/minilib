@@ -52,7 +52,7 @@ before options and parameters for gcc.
         from the directory ldscripts, if existent, or extracts the according
         script and writes it into minilib.ldscript.
         This script is passed to ld with the option -T
-        name can be one of:
+        name can be one of
    - onlytext     ( drop all sections beside the text segment )
    - text_and_bss ( keep also the bss segment )
 
