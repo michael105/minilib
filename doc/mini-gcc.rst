@@ -3,6 +3,7 @@
 
 Usage: `mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c`
 
+::
  *mini-gcc compiles binaries and links them statically with minilib.
  It's a wrapper to call gcc with the right compile options,
  generate the config of minilib and include minilib.h.* 
