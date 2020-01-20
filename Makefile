@@ -109,8 +109,8 @@ header:
 			> syntaxcheck.h )
 
 doc: header
-	asciidoc -b html4 -n mlfunctions-shortref.asc
-	sed -ie 's/.rst/.rst.html/' mlfunctions-shortref.html
+	asciidoc -b html4 -n doc/mlfunctions-shortref.asc
+	sed -ie 's/.rst/.rst.html/' doc/mlfunctions-shortref.html
 
 
 mini-gcc: scripts/genconfig.sh ldscript

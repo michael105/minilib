@@ -95,9 +95,9 @@ int strlen(const char*str);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/strcat.c"
 #include "minilib/src/mstrcmp.c"
 #include "minilib/src/strlen.c"
+#include "minilib/src/strcat.c"
 #include "minilib/src/memset.c"
 #include "minilib/src/strerror.c"
 #include "minilib/src/memcpy.c"

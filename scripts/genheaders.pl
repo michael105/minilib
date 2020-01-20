@@ -463,7 +463,7 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 						print FDOC " Defines: ".join(" ",keys(%{$fulldepends->{$f}}))," +\n";
 				}
 
-				print FDOC " (link:"."$1"."[$1]"." l.$funchash->{$f}->{line}) ";
+				print FDOC " (link:../"."$1"."[../$1]"." l.$funchash->{$f}->{line}) ";
 				if ( exists($bsdmanpage{$f}) ){
 						print FDOC "manpage: link:manpages/$bsdmanpage{$f}.rst"."[$f] +\n";
 				}	else {
@@ -496,7 +496,7 @@ foreach my $f ( sort( keys(%{$funchash} ) ) ){
 		}
 		print FDOC "</small></td><td><small>";
 
-		print FDOC "   <a href=\"$1\" target=\"right\">$1</a>  $funchash->{$f}->{line} ";
+		print FDOC "   <a href=\"../$1\" target=\"right\">../$1</a>  $funchash->{$f}->{line} ";
 
 		print FDOC "</small></td><td><small>";
 		$funchash->{$f}->{file}=~/minilib\/(.*)/;
