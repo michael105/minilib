@@ -567,13 +567,13 @@ a { text-decoration: none; }
 
 <p><strong>mini-gcc</strong> v.GIT 2020-01-20 12:01:33</p>
 <p>Usage: <cite>mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c</cite></p>
-<pre class="literal-block">*mini-gcc compiles binaries and links them statically with minilib.
+<pre class="literal-block">mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
-generate the config of minilib and include minilib.h.*
+generate the config of minilib and include minilib.h.
 
-*mini-gcc passes all options it's invoked with on to gcc,
+mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed
-before options and parameters for gcc.*</pre>
+before options and parameters for gcc.</pre>
 <dl>
 <dt>-h, --help:</dt>
 <dd><p>shows this help</p>
@@ -664,9 +664,7 @@ Prob. keep shrinkelf's sourcecode within mini-gcc (?)</p>
 and execute the binary</p>
 </dd>
 </dl>
-<ol class="loweralpha simple" start="3">
-<li><p>2019-2020 Michael misc Myer - BSD 3-clause</p></li>
-</ol>
+<p>(c) 2019-2020 Michael misc Myer - BSD 3-clause</p>
 <blockquote>
 <p>('mini-gcc --license' shows the terms)</p>
 </blockquote>

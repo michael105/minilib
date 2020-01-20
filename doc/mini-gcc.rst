@@ -94,7 +94,8 @@ Usage: `mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c`
         and execute the binary
 
 
-(c) 2019-2020 Michael misc Myer - BSD 3-clause
+\(c) 2019-2020 Michael misc Myer - BSD 3-clause
+
  ('mini-gcc --license' shows the terms)
 
 
