@@ -53,14 +53,14 @@ before options and parameters for gcc.
         script and writes it into minilib.ldscript.
         This script is passed to ld with the option -T
         name can be one of:
-        - onlytext     ( drop all sections beside the text segment )
-        - text_and_bss ( keep also the bss segment )
+        -onlytext     ( drop all sections beside the text segment )
+        -text_and_bss ( keep also the bss segment )
 
 --autoconf / -ac
         This is going to generate the configuration file 'minilib.mconf'
-				and compile the supplied sources with this configuration
-				It is essentially the same, as calling 'mini-gcc --genconf minilib.mconf',
-				and 'mini-gcc --config minilib.mconf [args]
+        and compile the supplied sources with this configuration
+        It is essentially the same, as calling 'mini-gcc --genconf minilib.mconf',
+        and 'mini-gcc --config minilib.mconf [args]
 
 [--force] --genconf 'outfile' 'infile1' 'infile2' ...:
         parses the sourcefiles 'infile1',.. and writes a config into
