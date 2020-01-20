@@ -5,6 +5,7 @@ VERSION="GIT 2020-01-19 16:56:46"
 REAL_CC=gcc
 REAL_LD=ld
 
+
 verbose=1
 
 # grep mini-gcc path 
@@ -13,6 +14,13 @@ MLIBDIR=/home/micha/prog/minilib
 
 
 echo_verbose(){
+		if [ $verbose = 1 ]; then
+		>&2 echo $@
+		fi
+}
+
+
+verbose(){
 		if [ $verbose = 1 ]; then
 		>&2 echo $@
 		fi
@@ -133,6 +141,11 @@ before options and parameters for gcc.
         dump the contained headerfile minilib.h to stdout
         (if bundled within mini-gcc)
 
+--exec 'sourcefile'
+        Compile sourcefile to 'basename sourcefile .c';
+        and execute the binary
+
+
 (c) 2019-2020 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)
 
@@ -142,19 +155,49 @@ before options and parameters for gcc.
 
 
 exec_gcc(){
-		if [ "$LDSCRIPTFILE" != "" ]; then
-				if [ $verbose = 0 ]; then
+		if [ "$opt_execname" != "" ]; then # compile and execute
+				if [ "$LDSCRIPTFILE" != "" ]; then
+						if [ "$verbose" = "1" ]; then
+								echo $REAL_CC $@
+						fi
+
+						if [ "$opt_config" != "" ]
+						then
+								$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
+
+						else
+								$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
+
+						fi
+
+				#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
+		else
+				if [ "$verbose" = "1" ]; then
 						echo $REAL_CC $@
 				fi
-
+				# todo: this is bash specific. write a version with either named pipes or temporary files.
 				if [ "$opt_config" != "" ]
 				then
-						echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
-						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
+						$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
 				else
-						echo_verbose "$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
-						$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
+						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG -x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'
 				fi
+				fi
+		else
+
+				if [ "$LDSCRIPTFILE" != "" ]; then
+						if [ $verbose = 0 ]; then
+								echo $REAL_CC $@
+						fi
+
+						if [ "$opt_config" != "" ]
+						then
+								echo_verbose "$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
+								$REAL_CC -include <($0 --dump-config $opt_config) $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
+						else
+								echo_verbose "$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@"
+								$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $@
+						fi
 
 				#$REAL_CC $CFLAGS,-T$LDSCRIPTFILE $@
 		else
@@ -170,10 +213,11 @@ exec_gcc(){
 						echo_verbose "$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@"
 						$REAL_CC $CFLAGS,-T<($0 --dump $LDSCRIPT) $OPTFLAG $@
 				fi
+				fi
 		fi
 				#$REAL_CC $CFLAGS$LDSCRIPT $@
-				return $?
-		}
+		return $?
+}
 
 
 # Parse config.
@@ -282,6 +326,8 @@ done
 opt=1
 opt_force=0
 opt_autoconf=0
+opt_exec=0
+opt_execname=""
 
 while [ "$1" != "" ] && [ $opt = 1 ]
 do
@@ -333,6 +379,16 @@ do
 						opt_nombuf="--no-mbuf"
 						shift
 						opt=1
+						;;
+				--exec ) #compile and run 
+						shift
+						opt=1
+						opt_exec=1
+						opt_execname=`basename $1 .c`
+						opt_compilename=`echo $1 | sed 's/.*\///'`
+						REAL_CC="$REAL_CC -o $opt_execname" # -x c <(cat $1)"
+						verbose compiling $1 to $opt_execname: $REAL_CC
+						#shift
 						;;
 				--autoconf | -ac )
 						shift
@@ -410,6 +466,7 @@ done
 
 if [ "$1" = "" ]; then
 		# Assume, everything is alright and there havent been parameters forgotten
+		# $1 will have the arguments for gcc, so continue below..
 		exit 0;
 fi
 
@@ -440,6 +497,12 @@ if [ "$opt_shrinkelf" = "1" ]; then
 		fi
 fi
 
+if [ "$opt_exec" = "1" ]; then
+		verbose execute: $opt_execname
+		verbose
+		./$opt_execname
+		ret=$?
+fi
 
 exit $ret
 
