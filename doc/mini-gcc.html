@@ -565,9 +565,7 @@ a { text-decoration: none; }
 <div class="document">
 
 
-<ul class="simple">
-<li><p>mini-gcc v.GIT 2020-01-20 12:01:33 *</p></li>
-</ul>
+<p><strong>mini-gcc v.GIT 2020-01-20 12:01:33</strong></p>
 <p>Usage: <cite>mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c</cite></p>
 <p>mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
@@ -575,10 +573,16 @@ generate the config of minilib and include minilib.h.</p>
 <p>mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed
 before options and parameters for gcc.</p>
-<p>-h, --help:    shows this help</p>
-<p>-v, --version: version info</p>
-<p>--license:     shows the license (BSD 3-clause)</p>
 <dl>
+<dt>-h, --help:</dt>
+<dd><p>shows this help</p>
+</dd>
+<dt>-v, --version:</dt>
+<dd><p>version info</p>
+</dd>
+<dt>--license:</dt>
+<dd><p>shows the license (BSD 3-clause)</p>
+</dd>
 <dt>--config 'file':</dt>
 <dd><p>when the --config 'file' option is given
 mini-gcc also parses the config in 'file',
@@ -610,17 +614,17 @@ Or use the switch '--ldscript onlytext'</p>
 <dd><p>Dumps the content of 'var' to stdout</p>
 </dd>
 <dt>--ldscript 'name':</dt>
-<dd><blockquote>
-<p>Either includes the according ld.script.'name' file
+<dd><p>Either includes the according ld.script.'name' file
 from the directory ldscripts, if existent, or extracts the according
 script and writes it into minilib.ldscript.
 This script is passed to ld with the option -T
-name can be one of:</p>
-</blockquote>
+name can be one of</p>
+<blockquote>
 <ul class="simple">
 <li><p>onlytext     ( drop all sections beside the text segment )</p></li>
 <li><p>text_and_bss ( keep also the bss segment )</p></li>
 </ul>
+</blockquote>
 </dd>
 <dt>--autoconf / -ac</dt>
 <dd><p>This is going to generate the configuration file 'minilib.mconf'
@@ -629,18 +633,18 @@ It is essentially the same, as calling 'mini-gcc --genconf minilib.mconf',
 and 'mini-gcc --config minilib.mconf [args]</p>
 </dd>
 <dt>[--force] --genconf 'outfile' 'infile1' 'infile2' ...:</dt>
-<dd><blockquote>
-<p>parses the sourcefiles 'infile1',.. and writes a config into
+<dd><p>parses the sourcefiles 'infile1',.. and writes a config into
 outfile, which enables compiling of all used minilib functions
 within 'infiles'
 After the config is written to outfile,
 use the config file with --config 'outfile'</p>
-</blockquote>
+<blockquote>
 <dl class="option-list">
 <dt><kbd><span class="option">--force</span></kbd></dt>
 <dd><p>Overwrite existing files without warning</p>
 </dd>
 </dl>
+</blockquote>
 </dd>
 <dt>--shrinkelf:</dt>
 <dd><p>Shrink the resulting elf binary via tools/shrinkelf.
