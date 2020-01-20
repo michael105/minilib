@@ -1,4 +1,4 @@
-### mini-gcc v.GIT 2020-01-20 12:01:33
+.h3 mini-gcc v.GIT 2020-01-20 12:01:33
 
 
 Usage: `mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c`
