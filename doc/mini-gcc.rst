@@ -56,8 +56,8 @@ before options and parameters for gcc.
         script and writes it into minilib.ldscript.
         This script is passed to ld with the option -T
         name can be one of
-   - onlytext     ( drop all sections beside the text segment )
-   - text_and_bss ( keep also the bss segment )
+        - onlytext     ( drop all sections beside the text segment )
+        - text_and_bss ( keep also the bss segment )
 
 --autoconf / -ac
         This is going to generate the configuration file 'minilib.mconf'
@@ -71,8 +71,8 @@ before options and parameters for gcc.
         within 'infiles'
         After the config is written to outfile, 
         use the config file with --config 'outfile' 
-    --force
-        Overwrite existing files without warning
+          --force
+            Overwrite existing files without warning
 
 --shrinkelf:
         Shrink the resulting elf binary via tools/shrinkelf.
