@@ -9,7 +9,7 @@ invocation and options
 [minilib.txt](minilib.txt)
 minilib implemented functions short reference
 
-[mlfunctions-shortref.md](mlfunctions-shortref.md)
+[mlfunctions-shortref.asc](mlfunctions-shortref.asc)
  minilib implemented functions short reference
  Markup, links to sources and the according bsd manpages
 
