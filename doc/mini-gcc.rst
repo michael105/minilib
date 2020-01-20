@@ -9,9 +9,9 @@ Usage: `mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c`
  It's a wrapper to call gcc with the right compile options,
  generate the config of minilib and include minilib.h.
 
- *mini-gcc passes all options it's invoked with on to gcc,
+ mini-gcc passes all options it's invoked with on to gcc,
  besides the options described below, which must be passed 
- before options and parameters for gcc.*
+ before options and parameters for gcc.
 
 -h, --help:    
        shows this help
