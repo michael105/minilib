@@ -2,6 +2,11 @@ ifndef PROG
 PROG=examples/hello
 endif
 
+ifndef RECURSE
+$(info Type 'make help' for help)
+RECURSE=1
+endif
+
 ONLYTEXT=1
 NOINCLUDE=1
 
