@@ -93,12 +93,18 @@ before options and parameters for gcc.
         dump the contained headerfile minilib.h to stdout
         (if bundled within mini-gcc)
 
+--gcc:
+        The following arguments are passed unchanged to gcc.
+        It's not strictly necessary, to pass this parameter;
+        the first argument not recognized will do the same
+        and be passed on to gcc
+
 --exec 'sourcefile':
         Compile sourcefile to 'basename sourcefile .c';
         and execute the binary 
         (works only with embedded 'define' configuration yet) (TODO)
 
--c, --compile 'sourcefile':
+-mlc, --compile 'sourcefile':
         compile sourcefile, use embedded scripting config
         (same as: --config 'sourcefile' -o `basename sourcefile` 'sourcefile')
 

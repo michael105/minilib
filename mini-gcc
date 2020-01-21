@@ -167,12 +167,18 @@ before options and parameters for gcc.
         dump the contained headerfile minilib.h to stdout
         (if bundled within mini-gcc)
 
+--gcc
+        The following arguments are passed unchanged to gcc.
+        It's not strictly necessary, to pass this parameter;
+        the first argument not recognized will do the same
+        and be passed on to gcc
+
 --exec 'sourcefile'
         Compile sourcefile to 'basename sourcefile .c';
         and execute the binary 
         (works only with embedded 'define' configuration yet) (TODO)
 
--c, --compile 'sourcefile'
+-mlc, --compile 'sourcefile'
         compile sourcefile, use embedded scripting config
         (same as: --config 'sourcefile' -o \`basename sourcefile\` 'sourcefile')
 
@@ -323,11 +329,16 @@ opt_force=0
 opt_autoconf=0
 opt_exec=0
 opt_execname=""
+binaryname=""
 
 while [ "$1" != "" ] && [ $opt = 1 ]
 do
 		opt=0
 		case $1 in
+				--gcc )
+						shift
+						opt=0
+						;;
 				--version )
 						echo $VERSION
 						exit 0
@@ -363,6 +374,19 @@ do
 						opt_config=$1
 						shift
 						opt=1
+						;;
+				-mlc | --compile )
+						shift
+						config=$1
+						echo $REAL_CC config: $config
+						checkconfig $config
+						opt_config=$1
+						outputfile=`basename $1 .c`
+						REAL_CC="$REAL_CC -o $outputfile $1"
+						echo $REAL_CC
+						compile=1
+						opt=1
+						shift
 						;;
 				--dump-config )   
 						shift
@@ -464,10 +488,14 @@ do
 		esac
 done
 
+verbose Parsing args done.
+
 if [ "$1" = "" ]; then
+		if [ "$compile" != "1" ]; then
 		# Assume, everything is alright and there havent been parameters forgotten
 		# $1 will have the arguments for gcc, so continue below..
 		exit 0;
+		fi
 fi
 
 #echo args: $@

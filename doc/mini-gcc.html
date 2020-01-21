@@ -665,12 +665,18 @@ Prob. keep shrinkelf's sourcecode within mini-gcc (?)</p>
 <dd><p>dump the contained headerfile minilib.h to stdout
 (if bundled within mini-gcc)</p>
 </dd>
+<dt>--gcc:</dt>
+<dd><p>The following arguments are passed unchanged to gcc.
+It's not strictly necessary, to pass this parameter;
+the first argument not recognized will do the same
+and be passed on to gcc</p>
+</dd>
 <dt>--exec 'sourcefile':</dt>
 <dd><p>Compile sourcefile to 'basename sourcefile .c';
 and execute the binary
 (works only with embedded 'define' configuration yet) (TODO)</p>
 </dd>
-<dt>-c, --compile 'sourcefile':</dt>
+<dt>-mlc, --compile 'sourcefile':</dt>
 <dd><p>compile sourcefile, use embedded scripting config
 (same as: --config 'sourcefile' -o <cite>basename sourcefile</cite> 'sourcefile')</p>
 </dd>
