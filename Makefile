@@ -112,9 +112,7 @@ header:
 			> syntaxcheck.h )
 
 doc: header
-	asciidoc -b html4 -n doc/mlfunctions-shortref.asc
-	sed -ie 's/.rst/.rst.html/' doc/mlfunctions-shortref.html
-
+	cd doc && make
 
 mini-gcc: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 

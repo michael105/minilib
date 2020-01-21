@@ -15,3 +15,9 @@ mini-gcc.rst: ../mini-gcc
 
 %.html: %.rst
 	rst2html5 -r 5 $< > $@
+
+mlfunctions-shortref.html: mlfunctions-shortref.asc
+	asciidoc -b html4 -n mlfunctions-shortref.asc
+	sed -ie 's/.rst/.rst.html/' mlfunctions-shortref.html
+
+

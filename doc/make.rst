@@ -1,3 +1,4 @@
+**make[1]: Entering directory '/home/micha/prog/minilib'**
 
 **make targets:**
 
@@ -68,3 +69,4 @@ I have to somehow sort and categorize all the documentation.
 May the source be with you, and have fun
 
 Michael (misc) Myer, 2012-2020, BSD 3clause
+make[1]: Leaving directory '/home/micha/prog/minilib'

@@ -1,8 +1,3 @@
-minilib doc
-
-Implemented Functions, sorted by the standard headers
-
-
 
 
 ==========
@@ -10,9 +5,11 @@ ctype.h
 ==========
 
 isprint        static inline int __attribute__((always_inline)) isprint(const char c);
+
                (include/isprint.h: 8)
 
 isspace        int isspace(int c);
+
                (src/isspace.c: 6)
 
 
@@ -21,29 +18,28 @@ isspace        int isspace(int c);
 declarations.h
 ==========
 
-dup3           dup3(int a1, int a2, int a3)		
+dup3           
                (include/syscall_stubs.h: 53)
 
-fstat          fstat(int a1,struct stat* a2)		
+fstat          
                (include/syscall_stubs.h: 47)
 
-getcwd         getcwd(char *buf,long size)		
+getcwd         
                (include/syscall_stubs.h: 55)
 
-getdents       getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
+getdents       
                (include/syscall_stubs.h: 39)
 
-gettimeofday   gettimeofday( struct timeval *a1, struct timezone *a2)
+gettimeofday   
                (include/syscall_stubs.h: 28)
 
-mprotect       mprotect( POINTER *a1, POINTER a2, int a3 )
-               Returns: *a1
+mprotect       
                (include/syscall_stubs.h: 32)
 
-stat           stat(const char* filename,struct stat* a2)		
+stat           
                (include/syscall_stubs.h: 48)
 
-uname          uname(struct old_utsname *name )
+uname          
                (include/syscall_stubs.h: 37)
 
 
@@ -53,14 +49,15 @@ dirent.h
 ==========
 
 closedir       int closedir(DIR *dir);
-               Defines: free
+
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open close malloc
+
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
+
                (src/dirent/readdir.c: 9)
 
 
@@ -70,6 +67,7 @@ fcntl.h
 ==========
 
 creat          inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+
                (src/open.c: 29)
 
 
@@ -79,6 +77,7 @@ ioctl.h
 ==========
 
 ioctl          int ioctl( int fd, unsigned long int request, ... );
+
                (src/ioctl.c: 11)
 
 
@@ -88,94 +87,98 @@ mini_addons.h
 ==========
 
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
+
                (src/itobin.c: 8)
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-               Defines: dprints
+
                (src/prints.c: 66)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
-               Defines: 0
+
                (src/mstrcmp.c: 11)
 
 basename       char *basename(char *path);
-               Defines: strlen
+
                (src/basename.c: 29)
 
 def            #define SETOPT_short( opts, option ) (;
-               (macros/getoptm.h: 52)
+
                Set a option flag(s) (bit(s))  manually.
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
+               (macros/getoptm.h: 52)
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
-               Defines: write
+
                (src/sprintf.c: 202)
 
 dtodec         int dtodec(double d, char* buf, int precision);
-               Defines: uitodec
+
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: strlen fileno write
-               (src/fprintfs.c: 10)
+
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
+               (src/fprintfs.c: 10)
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: strlen write fileno
-               (include/prints.h: 17)
+
                print the string(s) supplied as arg(s) to stream
+               (include/prints.h: 17)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
-               Defines: write
-               (include/prints.h: 39)
+
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
+               (include/prints.h: 39)
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-               Defines: 
+
                (src/itobin.c: 41)
 
 itodec         int itodec(int i, char *buf, int prec, char limiter );
-               Defines: uitodec
+
                (src/itodec.c: 121)
 
 memfrob        void* memfrob(void* s, unsigned int len);
+
                (src/memfrob.c: 3)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
-               (include/prints.h: 29)
+
                write str to stdout. Needs strlen
+               (include/prints.h: 29)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
-               Defines: write
-               (include/prints.h: 44)
+
                write a newline to stdout
+               (include/prints.h: 44)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
-               Defines: 
-               (include/prints.h: 11)
+
                print the string(s) supplied as arg(s) to stdout
+               (include/prints.h: 11)
 
 printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-               Defines: 
-               (include/prints.h: 25)
+
                print the string(s) supplied as arg(s) and newline to stdout
+               (include/prints.h: 25)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
-               Defines: write
+
                (src/sprintf.c: 219)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
+
                (src/itodec.c: 8)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-               Defines: write
+
                (src/sprintf.c: 36)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-               Defines: write
-               (include/prints.h: 34)
+
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
+               (include/prints.h: 34)
 
 
 
@@ -184,129 +187,137 @@ stdio.h
 ==========
 
 _itohex        int _itohex(int i,char* buf,int padding, int capitals);
+
                (src/itohex.c: 5)
 
 clearerror     static inline void clearerror(FILE *f);
+
                (include/mini_fstream.h: 198)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
-               Defines: close
+
                (include/mini_fstream.h: 65)
 
 feof           static inline int feof(FILE *f);
+
                (include/mini_fstream.h: 184)
 
 ferror         static inline int ferror(FILE *f);
+
                (include/mini_fstream.h: 191)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
-               (include/mini_fstream.h: 28)
+
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
+               (include/mini_fstream.h: 28)
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: fileno read
+
                (include/fgetc.h: 10)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
-               Defines: lseek
+
                (include/mini_fstream.h: 127)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
+
                (include/mini_fstream.h: 55)
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: open
-               (src/fopen.c: 12)
+
                modes implemented: r, r+, w, w+, a, a+
+               (src/fopen.c: 12)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: fileno write
+
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: write fileno
+
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno write strlen
+
                (include/fputs.h: 14)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
-               Defines: read
+
                (include/mini_fstream.h: 162)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
-               Defines: lseek
+
                (include/mini_fstream.h: 146)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
-               Defines: lseek
+
                (include/mini_fstream.h: 133)
 
 ftell          static inline long ftell(FILE *f);
-               Defines: lseek
+
                (include/mini_fstream.h: 121)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
-               Defines: write
+
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+
                (include/fgetc.h: 18)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
-               Defines: 
+
                (src/itohex.c: 55)
 
 itohex         int itohex(int i,char* buf,int padding);
-               Defines: 
+
                (src/itohex.c: 48)
 
 perror         void perror(char *msg);
-               Defines: strerror strlen fileno write
+
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
-               (include/prints.h: 49)
+
                write msg to stdout, append a newline. Needs strlen.
+               (include/prints.h: 49)
 
 rewind         static inline void rewind( FILE *f );
-               Defines: lseek
+
                (include/mini_fstream.h: 156)
 
 setbuf         void setbuf(FILE *stream, char *buf);
-               (include/mini_fstream.h: 206)
+
                dummy functions.
               There is no buffering implemented for the streams yet.
+               (include/mini_fstream.h: 206)
 
 setvbuf        int setvbuf(FILE *stream, char *buf, int mode, size_t size);
-               (include/mini_fstream.h: 210)
+
                dummy
+               (include/mini_fstream.h: 210)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
-               Defines: write
+
                (src/sprintf.c: 26)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+
                (include/mini_fstream.h: 100)
 
 
@@ -316,21 +327,27 @@ stdlib.h
 ==========
 
 atoi           int atoi(char *c);
+
                (src/atoi.c: 6)
 
 free           void volatile free(void* p);
+
                (src/malloc.c: 200)
 
 getenv         char *getenv(const char* name);
+
                (src/getenv.c: 11)
 
 malloc         void* volatile malloc(int size);
+
                (src/malloc.c: 150)
 
 rand           unsigned int rand();
+
                (src/rand.c: 15)
 
 srand          void srand( unsigned int i );
+
                (src/rand.c: 7)
 
 
@@ -340,37 +357,43 @@ string.h
 ==========
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
-               Defines: 0
+
                (src/mstrcmp.c: 43)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
+
                (src/memcpy.c: 6)
 
 memset         void *memset( void *s, int c, int n);
+
                (src/memset.c: 3)
 
 strcat         char *strcat(char *dest, const char *src );
+
                (src/strcat.c: 6)
 
 strcmp         int strcmp(const char*c1,const char*c2);
-               Defines: 
+
                (src/mstrcmp.c: 27)
 
 strcpy         char *strcpy(char *dest, const char *src);
+
                (src/memcpy.c: 17)
 
 strerror       char* strerror( int errnum );
+
                (src/strerror.c: 9)
 
 strlen         int strlen(const char*str);
+
                (src/strlen.c: 7)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
-               Defines: 
+
                (src/mstrcmp.c: 34)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
-               Defines: memcpy
+
                (src/memcpy.c: 27)
 
 
@@ -379,7 +402,7 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
 time.h
 ==========
 
-time           time(unsigned int *a1 )
+time           
                (include/syscall_stubs.h: 59)
 
 
@@ -388,53 +411,55 @@ time           time(unsigned int *a1 )
 unistd.h
 ==========
 
-chdir          chdir(const char* path)		
+chdir          
                (include/syscall_stubs.h: 49)
 
-close          close( int fd )
+close          
                (include/syscall_stubs.h: 34)
 
-dup            dup(int a1)		
+dup            
                (include/syscall_stubs.h: 51)
 
-dup2           dup2(int a1, int a2)		
+dup2           
                (include/syscall_stubs.h: 52)
 
-fsync          fsync(int a1 )
+fsync          
                (include/lseek.h: 20)
 
-ftruncate      ftruncate(unsigned int a1, unsigned int a2 )
+ftruncate      
                (include/lseek.h: 19)
 
-getpid         DEF_syscall(getpid,0 )
+getpid         
                (include/syscall_stubs.h: 30)
 
-lseek          lseek(unsigned int a1, int a2, int a3 )
+lseek          
                (include/lseek.h: 17)
 
 open           int volatile open( const char *s, int flags, ... );
+
                (src/open.c: 12)
 
-read           read( int fd, POINTER *buf, int len )
+read           
                (include/syscall_stubs.h: 35)
 
-rename         rename( const char* a1, const char* a2 )		
+rename         
                (include/syscall_stubs.h: 44)
 
 select         static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+
                (include/select.h: 10)
 
 tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
-               Defines: ioctl
+
                (include/tcgetattr.h: 17)
 
 tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
-               Defines: ioctl
+
                (include/tcsetattr.h: 18)
 
-unlink         unlink( const char* a1)		
+unlink         
                (include/syscall_stubs.h: 45)
 
-write          write(int fd,const void *buf, int len )
+write          
                (include/syscall_stubs.h: 41)
 
