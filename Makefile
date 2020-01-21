@@ -16,11 +16,14 @@ define HELP
 
 make targets:
 
+all
+  header compile-mini-gcc doc examples test
+
 header
 	rebuild header files, also rebuild some of the generated documentation.
 
 doc
-	rebuild generated documentation: html files
+	rebuild generated documentation: html files, mini-gcc info
 
 mini-gcc
 	rebuild the script mini-gcc, pack ldscripts and config scripts
@@ -53,17 +56,17 @@ help
 Most possibly you'll need: "make compile-mini-gcc", and "make test"
 Both run all needed other targets.
 
- However, building with minilib is sort of transparent:
+However, building with minilib is sort of transparent:
 You can include the uncompiled "minilib.h", which will include
 all other header files.
 And you can include the compiled "minilib.h", as only dependency.
 
- When compiling with mini-gcc, minilib.h will be prepended to the sources,
+When compiling with mini-gcc, minilib.h will be prepended to the sources,
 automatically. Again, when minilib.h is compiled into mini-gcc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
 (Making development easier - no need to compile mini-gcc every time)
 
- For using a syntaxchecker plugin there's the header file syntaxcheck.h
+For using a syntaxchecker plugin there's the header file syntaxcheck.h
 Just include this, to have all functions, macros and variables, minilib provides,
 defined. 
 You could either leave the include directive unchanged, when you guard the include

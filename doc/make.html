@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
-<title>mini-gcc.rst</title>
+<title>make.rst</title>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
@@ -565,119 +565,69 @@ a { text-decoration: none; }
 <div class="document">
 
 
-<p><strong>mini-gcc</strong> v.GIT 2020-01-20 13:25:42</p>
-<p>Usage: <cite>mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c</cite></p>
-<p>mini-gcc compiles binaries and links them statically with minilib.
-It's a wrapper to call gcc with the right compile options,
-generate the config of minilib and include minilib.h.</p>
-<p>mini-gcc passes all options it's invoked with on to gcc,
-besides the options described below, which must be passed
-before options and parameters for gcc.</p>
-<dl>
-<dt>-h, --help:</dt>
-<dd><p>shows this help</p>
+<p><strong>make targets:</strong></p>
+<dl class="simple">
+<dt>all</dt>
+<dd><p>header compile-mini-gcc doc examples test</p>
 </dd>
-<dt>--version:</dt>
-<dd><p>version info</p>
+<dt>header</dt>
+<dd><p>rebuild header files, also rebuild some of the generated documentation.</p>
 </dd>
-<dt>--license:</dt>
-<dd><p>shows the license (BSD 3-clause)</p>
+<dt>doc</dt>
+<dd><p>rebuild generated documentation: html files, mini-gcc info</p>
 </dd>
-<dt>-v,--verbose:</dt>
-<dd><p>work verbosely</p>
+<dt>mini-gcc</dt>
+<dd><p>rebuild the script mini-gcc, pack ldscripts and config scripts</p>
 </dd>
-<dt>--config 'file':</dt>
-<dd><p>when the --config 'file' option is given
-mini-gcc also parses the config in 'file',
-and includes the generated define switches
-into every compiled file via the gcc option -include and pipes.
-The configfile syntax is described within the file
-'minilib.mconf', which is also a minimal configuration file
-for the hello world examples.</p>
-<blockquote>
-<p>When the file 'minilib.h' is not found,
-minilib.h will be piped to gcc on the fly.</p>
-</blockquote>
+<dt>compile-mini-gcc</dt>
+<dd><p>pack the gzipped (complete) minilib into mini-gcc
+(run mini-gcc --dump-minilib to extract the header to stdout)</p>
 </dd>
-<dt>--dump-config 'file':</dt>
-<dd><p>Parses 'file' as configuration file, and dumps the generated
-define switches to stdout.
-Used internally, to pass the generated header via pipe to gcc</p>
+<dt>unpack-mini-gcc</dt>
+<dd><p>strip the gzipped minilib of mini-gcc</p>
 </dd>
-<dt>--no-mbuf:</dt>
-<dd><p>When generating a config, don't write switches for the global mini_buf,
-also don't generate the global structures for the fstream streams.
-(Handle them as simple numeric file descriptors within the according
-minilib fstream functions)
-Without global data some initialization code can be saved,
-as well as all elf segments besides 'text'.
-Eitheradd  the line into your configfile: 'LDSCRIPT onlytext'
-Or use the switch '--ldscript onlytext'</p>
+<dt>combined</dt>
+<dd><p>compile minilibcompiled.h.gz (single header sourcefile)</p>
 </dd>
-<dt>--ldscript-file 'file':</dt>
-<dd><p>Uses the supplied 'file' as linker script for ld.</p>
+<dt>tools</dt>
+<dd><p>make tools in the dir ./tools
+(shrinkelf)</p>
 </dd>
-<dt>--dump 'var':</dt>
-<dd><p>Dumps the content of 'var' to stdout</p>
+<dt>test</dt>
+<dd><p>make and run tests in ./test/</p>
 </dd>
-<dt>--ldscript 'name':</dt>
-<dd><p>Either includes the according ld.script.'name' file
-from the directory ldscripts, if existent, or extracts the according
-script and writes it into minilib.ldscript.
-This script is passed to ld with the option -T
-name can be one of:</p>
-<blockquote>
-<ul class="simple">
-<li><p>onlytext     ( drop all sections beside the text segment )</p></li>
-<li><p>text_and_bss ( keep also the bss segment )</p></li>
-</ul>
-</blockquote>
+<dt>retest</dt>
+<dd><p>rebuild the tests in test, (past changes to the tests)
+run make test after that</p>
 </dd>
-<dt>--autoconf / -ac:</dt>
-<dd><p>This is going to generate the configuration file 'minilib.mconf'
-and compile the supplied sources with this configuration
-It is essentially the same, as calling 'mini-gcc --genconf minilib.mconf',
-and 'mini-gcc --config minilib.mconf [args]</p>
-</dd>
-<dt>[--force] --genconf 'outfile' 'infile1' 'infile2' ...:</dt>
-<dd><p>parses the sourcefiles 'infile1',.. and writes a config into
-outfile, which enables compiling of all used minilib functions
-within 'infiles'
-After the config is written to outfile,
-use the config file with --config 'outfile'</p>
-<blockquote>
-<dl class="option-list">
-<dt><kbd><span class="option">--force</span></kbd></dt>
-<dd><p>Overwrite existing files without warning</p>
+<dt>help</dt>
+<dd><p>show this help</p>
 </dd>
 </dl>
-</blockquote>
-</dd>
-<dt>--shrinkelf:</dt>
-<dd><p>Shrink the resulting elf binary via tools/shrinkelf.
-TODO: implement proper search algorithm.
-Prob. keep shrinkelf's sourcecode within mini-gcc (?)</p>
-</dd>
-<dt>--dump var:</dt>
-<dd><p>dump the content of 'var', if defined.</p>
-</dd>
-<dt>--dump-minilib:</dt>
-<dd><p>dump the contained headerfile minilib.h to stdout
-(if bundled within mini-gcc)</p>
-</dd>
-<dt>--exec 'sourcefile':</dt>
-<dd><p>Compile sourcefile to 'basename sourcefile .c';
-and execute the binary
-(works only with embedded 'define' configuration yet) (TODO)</p>
-</dd>
-<dt>-c, --compile 'sourcefile':</dt>
-<dd><p>compile sourcefile, use embedded scripting config
-(same as: --config 'sourcefile' -o <cite>basename sourcefile</cite> 'sourcefile')</p>
-</dd>
-<dt>(c) 2019-2020 Michael misc Myer - BSD 3-clause</dt>
-<dd><p>('mini-gcc --license' shows the terms)</p>
-</dd>
-</dl>
+<p>Most possibly you'll need: &quot;make compile-mini-gcc&quot;, and &quot;make test&quot;
+Both run all needed other targets.</p>
+<p>However, building with minilib is sort of transparent:
+You can include the uncompiled &quot;minilib.h&quot;, which will include
+all other header files.
+And you can include the compiled &quot;minilib.h&quot;, as only dependency.</p>
+<p>When compiling with mini-gcc, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into mini-gcc; these
+sources will be used. When minilib.h is present as file, this will be preferred.
+(Making development easier - no need to compile mini-gcc every time)</p>
+<p>For using a syntaxchecker plugin there's the header file syntaxcheck.h
+Just include this, to have all functions, macros and variables, minilib provides,
+defined.
+You could either leave the include directive unchanged, when you guard the include
+with an
+#ifndef MBLIB
+#include &quot;syntaxcheck.h&quot;
+#endif</p>
+<p>Or, as me with vi syntaxchecker plugin, just add the syntaxcheck header to
+the includes sources of the plugin itself.</p>
+<p>;o this whole thing get's more and more complex.
+I have to somehow sort and categorize all the documentation.
+May the source be with you, and have fun</p>
+<p>Michael (misc) Myer, 2012-2020, BSD 3clause</p>
 </div>
 </body>
 </html>

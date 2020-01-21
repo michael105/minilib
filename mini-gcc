@@ -12,7 +12,7 @@ verbose=0
 # grep mini-gcc path 
 MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
 if [ ! -e "$MLIBDIR/minilib.h" ]; then
-		$MLIBDIR="."
+		MLIBDIR="."
 		if [ ! -e "$MLIBDIR/minilib.h" ]; then
 				MLIBDIR="/home/micha/prog/minilib"  # .. I know ;)
 		fi
@@ -87,9 +87,14 @@ mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed 
 before options and parameters for gcc.
 
--h, --help:    shows this help
---version:     version info
---license:     shows the license (BSD 3-clause)
+-h, --help:    
+        shows this help
+
+--version:     
+        version info
+
+--license:     
+        shows the license (BSD 3-clause)
 
 -v,--verbose: 
         work verbosely
@@ -164,7 +169,12 @@ before options and parameters for gcc.
 
 --exec 'sourcefile'
         Compile sourcefile to 'basename sourcefile .c';
-        and execute the binary
+        and execute the binary 
+        (works only with embedded 'define' configuration yet) (TODO)
+
+-c, --compile 'sourcefile'
+        compile sourcefile, use embedded scripting config
+        (same as: --config 'sourcefile' -o \`basename sourcefile\` 'sourcefile')
 
 
 (c) 2019-2020 Michael misc Myer - BSD 3-clause
