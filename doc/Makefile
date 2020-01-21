@@ -20,4 +20,9 @@ mlfunctions-shortref.html: mlfunctions-shortref.asc
 	asciidoc -b html4 -n mlfunctions-shortref.asc
 	sed -ie 's/.rst/.rst.html/' mlfunctions-shortref.html
 
+README.html: README.md
+	@echo "<html><body>" > README.html
+	markdown -html5 README.md >> README.html
+	@echo "</body></html>" >> README.html
+	sed -i -e 's/\(href="m[^.]*\)\.[a|r]../\1.html/' README.html
 
