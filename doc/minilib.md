@@ -370,7 +370,7 @@ memset         void *memset( void *s, int c, int n);
 
 strcat         char *strcat(char *dest, const char *src );
 
-               (src/strcat.c: 6)
+               (src/strcat.c: 7)
 
 strcmp         int strcmp(const char*c1,const char*c2);
 

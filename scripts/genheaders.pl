@@ -4,9 +4,10 @@
 #
 #
 # somethere I've to start to docu this thing.
-# although most possibly I'm going to pull the code out of here, which is not specific to the minilib,
+# although most possibly I'm going to pull parts of the code out of here, which is not specific to the minilib,
 # and do it more generic - this script works out quite useful,
-# and is good enough for a project on its own.
+# and is good enough for a project on its own. 
+# (Albite. well. got little bit spaghetti. but works. so..)
 #
 # This script gets callen with the target dir (mlibdir) as first param,
 # then the files it should scan. (*.h / *.c; invoked by "make header" in the case of minilib)
@@ -427,6 +428,20 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 }
 
 close FDOC;
+
+open F, ">", "$mlibdir/test/generated/functions.txt";
+foreach my $f ( keys( %{$funchash} ) ){
+		my $s = "";
+		if ( exists($funchash->{$f}->{docdef}) ){
+				$s=$funchash->{$f}->{docdef},"\n";
+		} else {
+				$s=$funchash->{$f}->{def},"\n";
+		}
+		if ( $s!~/^#/ ){
+				print F "$f:$s\n";
+		}
+}
+close F;
 
 require "index.pm"; # bsd manpage index
 print "XXXXX";

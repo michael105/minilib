@@ -5,7 +5,7 @@
 
 
 //+depends fileno read
-//+after mini_fstream.h
+//+needs mini_fstream.h
 //+inline
 static inline int fgetc(FILE *F){
 		int buf = 0;

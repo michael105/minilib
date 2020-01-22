@@ -84,7 +84,13 @@ sub slurpfile{
 }
 
 #
-## this also will not resolve every problem.
+## this also will not resolve every problem. 
+#    note.. (2020)..rotfl sometimes I have to
+#    laugh really hard about myself. grin. 
+#    "this also will not resolve every problem"...
+#    so my whatever recursive inclusion recursion
+#    solver did not solve every problem. :)) very well. slurpfile_rec grin
+#    dbg('XXXXXXXXXXXX') might mean .. fxx. :)
 #sub slurpfile_rec{
 #		my $f = shift;
 #		my $included = shift;
