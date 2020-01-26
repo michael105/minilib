@@ -14,7 +14,6 @@ strlen:int strlen(const char*str);
 
 fputs:  int  fputs(const char *c, FILE *F);
 
-getpid:DEF_syscall(getpid,0 )
 
 readdir:struct dirent *readdir(DIR *dir);
 

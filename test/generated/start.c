@@ -2,6 +2,7 @@
 mini_start
 shrinkelf
 INCLUDESRC
+mini_buf 0
 LDSCRIPT text_and_bss
 return
 #endif

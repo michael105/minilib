@@ -14,9 +14,6 @@
 ///+needs mini_fstream.h
 
 #include "timeval.h"
-//#include "syscall.h"
-//#include "sys/types.h"
-//#include "sys/syscall.h"
 
 extern int sysret;
 extern int errno;
@@ -42,7 +39,7 @@ DEF_syscall(getdents, 3, unsigned int fd, struct dirent *direntry, unsigned int 
 DEF_syscall(write,3,int fd,const void *buf, int len )
 //rename a1=oldpath a2=newpath
 
-DEF_syscall(rename,2, const char* a1, const char* a2 )		
+DEF_syscall(rename,2, const char* oldpath, const char* newpath )		
 DEF_syscall(unlink,1, const char* a1)		
 
 DEF_syscall(fstat,2,int a1,struct stat* a2)		

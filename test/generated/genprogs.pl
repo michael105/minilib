@@ -9,6 +9,11 @@ foreach my $l ( <F> ){
 		my $f = $1; my $def= $2;
 		print "f: $f, def: $def\n";
 		next if ( $def=~/DEF/ );
+		if ( -e "edited/$f.c" ){
+				print "Edited: $f\n";
+				system("cp edited/$f.c ./");
+				next;
+		}
 
 		open C, ">", "$f.c";
 		print C 

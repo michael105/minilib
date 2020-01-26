@@ -14,7 +14,7 @@ int main(){
   volatile   fd_set* a2=0;
   volatile   fd_set * a3=0;
   volatile   fd_set * a4=0;
-  volatile   struct timeval * a5=0;
+  volatile   struct timeval * a5=1;
   select(a1,a2,a3,a4,a5);
   return(ret);
 }
