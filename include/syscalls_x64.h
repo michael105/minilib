@@ -49,7 +49,7 @@ DEF_syscall(access,2, const char *filename,  int mode)
 
 DEF_syscall(pipe,1, int *filedes)
 
-DEF_syscall(select,5, int n,  fd_set *inp,  fd_set *outp,  fd_set*exp,  struct timeval *tvp)
+DEF_syscall(select,5, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
 
 DEF_syscall(sched_yield,0)
 
@@ -355,7 +355,7 @@ DEF_syscall(ioperm,3, unsigned long from,  unsigned long num,  int turn_on)
 
 DEF_syscall(init_module,3, void *umod,  unsigned long len,  const char *uargs)
 
-DEF_syscall(delete_module,2, const chat *name_user,  unsigned int flags)
+DEF_syscall(delete_module,2, const char *name_user,  unsigned int flags)
 
 //DEF_syscall(get_kernel_syms,1, REMOVED IN Linux 2.6)
 

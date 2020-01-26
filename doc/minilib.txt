@@ -21,30 +21,29 @@ isspace        int isspace(int c);
 declarations.h
 ==========
 
-dup3           dup3(int a1, int a2, int a3)		
-               (include/syscall_stubs.h: 53)
+dup3           dup3( unsigned int oldfd,  unsigned int newfd,  int flags)
+               (include/syscalls_x64.h: 592)
 
-fstat          fstat(int a1,struct stat* a2)		
-               (include/syscall_stubs.h: 47)
+fstat          fstat( unsigned int fd,  struct stat *statbuf)
+               (include/syscalls_x64.h: 15)
 
-getcwd         getcwd(char *buf,long size)		
-               (include/syscall_stubs.h: 55)
+getcwd         getcwd( char *buf,  unsigned long size)
+               (include/syscalls_x64.h: 163)
 
-getdents       getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
-               (include/syscall_stubs.h: 39)
+getdents       getdents( unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)
+               (include/syscalls_x64.h: 161)
 
-gettimeofday   gettimeofday( struct timeval *a1, struct timezone *a2)
-               (include/syscall_stubs.h: 28)
+gettimeofday   gettimeofday( struct timeval *tv,  struct timezone *tz)
+               (include/syscalls_x64.h: 197)
 
-mprotect       mprotect( POINTER *a1, POINTER a2, int a3 )
-               Returns: *a1
-               (include/syscall_stubs.h: 32)
+mprotect       mprotect( unsigned long start,  size_t len,  unsigned long prot)
+               (include/syscalls_x64.h: 25)
 
-stat           stat(const char* filename,struct stat* a2)		
-               (include/syscall_stubs.h: 48)
+stat           stat( const char *filename,  struct stat *statbuf)
+               (include/syscalls_x64.h: 13)
 
-uname          uname(struct old_utsname *name )
-               (include/syscall_stubs.h: 37)
+uname          uname( struct old_utsname *name)
+               (include/syscalls_x64.h: 131)
 
 
 
@@ -57,11 +56,14 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close malloc open
+               Defines: open close malloc
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
                (src/dirent/readdir.c: 9)
+
+statfs         statfs( const char *pathname,  struct statfs *buf)
+               (include/syscalls_x64.h: 279)
 
 
 
@@ -69,8 +71,8 @@ readdir        struct dirent *readdir(DIR *dir);
 fcntl.h
 ==========
 
-creat          inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
-               (src/open.c: 29)
+creat          creat( const char *pathname,  int mode)
+               (include/syscalls_x64.h: 175)
 
 
 
@@ -78,8 +80,8 @@ creat          inline int volatile __attribute__((always_inline)) creat( const c
 ioctl.h
 ==========
 
-ioctl          int ioctl( int fd, unsigned long int request, ... );
-               (src/ioctl.c: 11)
+ioctl          ioctl( unsigned int fd,  unsigned int cmd,  unsigned long arg)
+               (include/syscalls_x64.h: 37)
 
 
 
@@ -98,14 +100,80 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
                Defines: 0
                (src/mstrcmp.c: 11)
 
+_sysctl        _sysctl( struct __sysctl_args *args)
+               (include/syscalls_x64.h: 317)
+
+accept         accept( int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen)
+               (include/syscalls_x64.h: 91)
+
+accept4        accept4( int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)
+               (include/syscalls_x64.h: 584)
+
+acct           acct( const char *name)
+               (include/syscalls_x64.h: 331)
+
+add_key        add_key( const char *_type,  const char *_description,  const void *_payload,  size_t plen)
+               (include/syscalls_x64.h: 504)
+
+adjtimex       adjtimex( struct timex *txc_p)
+               (include/syscalls_x64.h: 323)
+
+arch_prctl     arch_prctl( struct task_struct *task,  int code,  unsigned long *addr)
+               (include/syscalls_x64.h: 321)
+
 basename       char *basename(char *path);
                Defines: strlen
                (src/basename.c: 29)
+
+bind           bind( int fd,  struct sokaddr *umyaddr,  int addrlen)
+               (include/syscalls_x64.h: 103)
+
+bpf            bpf( int cmd,  union bpf_attr *attr,  unsigned int size)
+               (include/syscalls_x64.h: 650)
+
+brk            brk( unsigned long brk)
+               (include/syscalls_x64.h: 29)
+
+capget         capget( cap_user_header_t header,  cap_user_data_t dataptr)
+               (include/syscalls_x64.h: 255)
+
+capset         capset( cap_user_header_t header,  const cap_user_data_t data)
+               (include/syscalls_x64.h: 257)
+
+chmod          chmod( const char *filename,  mode_t mode)
+               (include/syscalls_x64.h: 185)
+
+clock_adjtime  clock_adjtime( clockid_t which_clock,  struct timex *tx)
+               (include/syscalls_x64.h: 618)
+
+clock_getres   clock_getres( const clockid_t which_clock,  struct timespec *tp)
+               (include/syscalls_x64.h: 465)
+
+clock_gettime  clock_gettime( const clockid_t which_clock,  struct timespec *tp)
+               (include/syscalls_x64.h: 463)
+
+clock_nanosleepclock_nanosleep( const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)
+               (include/syscalls_x64.h: 467)
+
+clock_settime  clock_settime( const clockid_t which_clock,  const struct timespec *tp)
+               (include/syscalls_x64.h: 461)
+
+clone          clone( unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)
+               (include/syscalls_x64.h: 117)
+
+connect        connect( int fd,  struct sockaddr *uservaddr,  int addrlen)
+               (include/syscalls_x64.h: 89)
+
+creat          creat( const char *pathname,  int mode)
+               (include/syscalls_x64.h: 175)
 
 def            #define SETOPT_short( opts, option ) (;
                (macros/getoptm.h: 52)
                Set a option flag(s) (bit(s))  manually.
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
+
+delete_module  delete_module( const char *name_user,  unsigned int flags)
+               (include/syscalls_x64.h: 357)
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
                Defines: write
@@ -115,20 +183,227 @@ dtodec         int dtodec(double d, char* buf, int precision);
                Defines: uitodec
                (src/dtodec.c: 10)
 
+dup3           dup3( unsigned int oldfd,  unsigned int newfd,  int flags)
+               (include/syscalls_x64.h: 592)
+
+epoll_create   epoll_create( int size)
+               (include/syscalls_x64.h: 431)
+
+epoll_create1  epoll_create1( int flags)
+               (include/syscalls_x64.h: 590)
+
+epoll_ctl      epoll_ctl( int epfd,  int op,  int fd,  struct epoll_event *event)
+               (include/syscalls_x64.h: 473)
+
+epoll_pwait    epoll_pwait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,size_t sigsetsize  )
+               (include/syscalls_x64.h: 570)
+
+epoll_wait     epoll_wait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout)
+               (include/syscalls_x64.h: 471)
+
+eventfd        eventfd( unsigned int count)
+               (include/syscalls_x64.h: 576)
+
+eventfd2       eventfd2( unsigned int count,  int flags)
+               (include/syscalls_x64.h: 588)
+
+exit_group     exit_group( int error_code)
+               (include/syscalls_x64.h: 469)
+
+faccessat      faccessat( int dfd,  const char *filename,  int mode)
+               (include/syscalls_x64.h: 546)
+
+fadvise64      fadvise64( int fd,  loff_t offset,  size_t len,  int advice)
+               (include/syscalls_x64.h: 449)
+
+fallocate      fallocate( long fd,  long mode,  loff_t offset,  loff_t len)
+               (include/syscalls_x64.h: 578)
+
+fanotify_init  fanotify_init( unsigned int flags,  unsigned int event_f_flags)
+               (include/syscalls_x64.h: 608)
+
+fanotify_mark  fanotify_mark( long fanotify_fd,  long flags,  u64 mask,  long dfd, long pathname)
+               (include/syscalls_x64.h: 610)
+
+fchmod         fchmod( unsigned int fd,  mode_t mode)
+               (include/syscalls_x64.h: 187)
+
+fchmodat       fchmodat( int dfd,  const char *filename,  mode_t mode)
+               (include/syscalls_x64.h: 544)
+
+fchown         fchown( unsigned int fd,  uid_t user,  gid_t group)
+               (include/syscalls_x64.h: 191)
+
+fchownat       fchownat( int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)
+               (include/syscalls_x64.h: 528)
+
+fcntl          fcntl( unsigned int fd,  unsigned int cmd,  unsigned long arg)
+               (include/syscalls_x64.h: 149)
+
+fdatasync      fdatasync( unsigned int fd)
+               (include/syscalls_x64.h: 155)
+
+fgetxattr      fgetxattr( int fd,  const char *name,  void *value,  size_t size)
+               (include/syscalls_x64.h: 390)
+
+finit_module   finit_module( int fd,  const char *uargs,  int flags)
+               (include/syscalls_x64.h: 634)
+
+flistxattr     flistxattr( int fd,  char *list,  size_t size)
+               (include/syscalls_x64.h: 396)
+
+flock          flock( unsigned int fd,  unsigned int cmd)
+               (include/syscalls_x64.h: 151)
+
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write strlen fileno
+               Defines: strlen write fileno
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: write strlen fileno
+               Defines: write fileno strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
+
+fremovexattr   fremovexattr( int fd,  const char *name)
+               (include/syscalls_x64.h: 402)
+
+fsetxattr      fsetxattr( int fd,  const char *name,  const void *value,  size_t size, int flags)
+               (include/syscalls_x64.h: 384)
+
+fstat          fstat( unsigned int fd,  struct stat *statbuf)
+               (include/syscalls_x64.h: 15)
+
+fstatfs        fstatfs( unsigned int fd,  struct statfs *buf)
+               (include/syscalls_x64.h: 281)
+
+fsync          fsync( unsigned int fd)
+               (include/syscalls_x64.h: 153)
+
+ftruncate      ftruncate( unsigned int fd,  unsigned long length)
+               (include/syscalls_x64.h: 159)
+
+futex          futex( u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,u32 val3 )
+               (include/syscalls_x64.h: 408)
+
+futimesat      futimesat( int dfd,  const char *filename,  struct timeval *utimes)
+               (include/syscalls_x64.h: 530)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
                Defines: write
                (include/prints.h: 39)
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
+
+get_mempolicy  get_mempolicy( int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)
+               (include/syscalls_x64.h: 486)
+
+get_robust_listget_robust_list( int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)
+               (include/syscalls_x64.h: 556)
+
+getcpu         getcpu( unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)
+               (include/syscalls_x64.h: 626)
+
+getcwd         getcwd( char *buf,  unsigned long size)
+               (include/syscalls_x64.h: 163)
+
+getdents       getdents( unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)
+               (include/syscalls_x64.h: 161)
+
+getdents64     getdents64( unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)
+               (include/syscalls_x64.h: 441)
+
+getitimer      getitimer( int which,  struct itimerval *value)
+               (include/syscalls_x64.h: 77)
+
+getpeername    getpeername( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+               (include/syscalls_x64.h: 109)
+
+getpgid        getpgid( pid_t pid)
+               (include/syscalls_x64.h: 247)
+
+getppid        DEF_syscall(getppid,0)
+               (include/syscalls_x64.h: 225)
+
+getpriority    getpriority( int which,  int who)
+               (include/syscalls_x64.h: 285)
+
+getrandom      getrandom( char  *buf,  size_t count,  unsigned int flags)
+               (include/syscalls_x64.h: 644)
+
+getresgid      getresgid( gid_t *rgid,  gid_t *egid,  gid_t *sgid)
+               (include/syscalls_x64.h: 245)
+
+getresuid      getresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)
+               (include/syscalls_x64.h: 241)
+
+getrlimit      getrlimit( unsigned int resource,  struct rlimit *rlim)
+               (include/syscalls_x64.h: 199)
+
+getrusage      getrusage( int who,  struct rusage *ru)
+               (include/syscalls_x64.h: 201)
+
+getsid         getsid( pid_t pid)
+               (include/syscalls_x64.h: 253)
+
+getsockname    getsockname( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+               (include/syscalls_x64.h: 107)
+
+getsockopt     getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)
+               (include/syscalls_x64.h: 115)
+
+gettid         DEF_syscall(gettid,0)
+               (include/syscalls_x64.h: 376)
+
+gettimeofday   gettimeofday( struct timeval *tv,  struct timezone *tz)
+               (include/syscalls_x64.h: 197)
+
+getxattr       getxattr( const char *pathname,  const char *name,  void *value,  size_t size)
+               (include/syscalls_x64.h: 386)
+
+init_module    init_module( void *umod,  unsigned long len,  const char *uargs)
+               (include/syscalls_x64.h: 355)
+
+inotify_add_watchinotify_add_watch( int fd,  const char *pathname,  u32 mask)
+               (include/syscalls_x64.h: 516)
+
+inotify_init   DEF_syscall(inotify_init,0)
+               (include/syscalls_x64.h: 514)
+
+inotify_init1  inotify_init1( int flags)
+               (include/syscalls_x64.h: 596)
+
+inotify_rm_watchinotify_rm_watch( int fd,  int wd)
+               (include/syscalls_x64.h: 518)
+
+io_cancel      io_cancel( aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)
+               (include/syscalls_x64.h: 424)
+
+io_destroy     io_destroy( aio_context_t ctx)
+               (include/syscalls_x64.h: 418)
+
+io_getevents   io_getevents( aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)
+               (include/syscalls_x64.h: 420)
+
+io_setup       io_setup( unsigned nr_events,  aio_context_t *ctxp)
+               (include/syscalls_x64.h: 416)
+
+io_submit      io_submit( aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)
+               (include/syscalls_x64.h: 422)
+
+ioctl          ioctl( unsigned int fd,  unsigned int cmd,  unsigned long arg)
+               (include/syscalls_x64.h: 37)
+
+ioperm         ioperm( unsigned long from,  unsigned long num,  int turn_on)
+               (include/syscalls_x64.h: 351)
+
+iopl           iopl( unsigned int level,  struct pt_regs *regs)
+               (include/syscalls_x64.h: 349)
+
+ioprio_get     ioprio_get( int which,  int who)
+               (include/syscalls_x64.h: 512)
+
+ioprio_set     ioprio_set( int which,  int who,  int ioprio)
+               (include/syscalls_x64.h: 510)
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
                Defines: 
@@ -138,11 +413,188 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
                Defines: uitodec
                (src/itodec.c: 121)
 
+kcmp           kcmp( pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)
+               (include/syscalls_x64.h: 632)
+
+kexec_file_loadkexec_file_load( int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char *cmdline_ptr,  unsigned long flags)
+               (include/syscalls_x64.h: 648)
+
+kexec_load     kexec_load( unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)
+               (include/syscalls_x64.h: 500)
+
+keyctl         keyctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+               (include/syscalls_x64.h: 508)
+
+kill           kill( pid_t pid,  int sig)
+               (include/syscalls_x64.h: 129)
+
+lchown         lchown( const char *filename,  uid_t user,  gid_t group)
+               (include/syscalls_x64.h: 193)
+
+lgetxattr      lgetxattr( const char *pathname,  const char *name,  void *value,  size_t size)
+               (include/syscalls_x64.h: 388)
+
+linkat         linkat( int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)
+               (include/syscalls_x64.h: 538)
+
+listen         listen( int fd,  int backlog)
+               (include/syscalls_x64.h: 105)
+
+listxattr      listxattr( const char *pathname,  char *list,  size_t size)
+               (include/syscalls_x64.h: 392)
+
+llistxattr     llistxattr( const char *pathname,  char *list,  size_t size)
+               (include/syscalls_x64.h: 394)
+
+lookup_dcookie lookup_dcookie( u64 cookie64,  long buf,  long len)
+               (include/syscalls_x64.h: 429)
+
+lremovexattr   lremovexattr( const char *pathname,  const char *name)
+               (include/syscalls_x64.h: 400)
+
+lsetxattr      lsetxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
+               (include/syscalls_x64.h: 382)
+
+lstat          lstat( const char *filename,  struct stat *statbuf)
+               (include/syscalls_x64.h: 17)
+
+madvise        madvise( unsigned long start,  size_t len_in,  int behavior)
+               (include/syscalls_x64.h: 61)
+
+mbind          mbind( unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,unsigned flags )
+               (include/syscalls_x64.h: 482)
+
+memfd_create   memfd_create( const char  *uname_ptr,  unsigned int flags)
+               (include/syscalls_x64.h: 646)
+
 memfrob        void* memfrob(void* s, unsigned int len);
                (src/memfrob.c: 3)
 
+migrate_pages  migrate_pages( pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)
+               (include/syscalls_x64.h: 520)
+
+mincore        mincore( unsigned long start,  size_t len,  unsigned char *vec)
+               (include/syscalls_x64.h: 59)
+
+mkdirat        mkdirat( int dfd,  const char *pathname,  int mode)
+               (include/syscalls_x64.h: 524)
+
+mknod          mknod( const char *filename,  umode_t mode,  unsigned dev)
+               (include/syscalls_x64.h: 271)
+
+mknodat        mknodat( int dfd,  const char *filename,  int mode,  unsigned dev)
+               (include/syscalls_x64.h: 526)
+
+mlock          mlock( unsigned long start,  size_t len)
+               (include/syscalls_x64.h: 303)
+
+mlockall       mlockall( int flags)
+               (include/syscalls_x64.h: 307)
+
+mmap           mmap( unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,unsigned long off )
+               (include/syscalls_x64.h: 23)
+
+modify_ldt     modify_ldt( int func,  void *ptr,  unsigned long bytecount)
+               (include/syscalls_x64.h: 313)
+
+mount          mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
+               (include/syscalls_x64.h: 335)
+
+move_pages     move_pages( pid_t pid,  unsigned long nr_pages,  const void **pages, const int *nodes,  int *status,int flags )
+               (include/syscalls_x64.h: 566)
+
+mprotect       mprotect( unsigned long start,  size_t len,  unsigned long prot)
+               (include/syscalls_x64.h: 25)
+
+mq_getsetattr  mq_getsetattr( mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)
+               (include/syscalls_x64.h: 498)
+
+mq_notify      mq_notify( mqd_t mqdes,  const struct sigevent *u_notification)
+               (include/syscalls_x64.h: 496)
+
+mq_open        mq_open( const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)
+               (include/syscalls_x64.h: 488)
+
+mq_timedreceivemq_timedreceive( mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)
+               (include/syscalls_x64.h: 494)
+
+mq_timedsend   mq_timedsend( mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)
+               (include/syscalls_x64.h: 492)
+
+mq_unlink      mq_unlink( const char *u_name)
+               (include/syscalls_x64.h: 490)
+
+mremap         mremap( unsigned long addr,  unsigned long old_len,  unsigned long new_len,  unsigned long flags,  unsigned long new_addr)
+               (include/syscalls_x64.h: 55)
+
+msgctl         msgctl( int msqid,  int cmd,  struct msqid_ds *buf)
+               (include/syscalls_x64.h: 147)
+
+msgget         msgget( key_t key,  int msgflg)
+               (include/syscalls_x64.h: 141)
+
+msgrcv         msgrcv( int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)
+               (include/syscalls_x64.h: 145)
+
+msgsnd         msgsnd( int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)
+               (include/syscalls_x64.h: 143)
+
+msync          msync( unsigned long start,  size_t len,  int flags)
+               (include/syscalls_x64.h: 57)
+
+munlock        munlock( unsigned long start,  size_t len)
+               (include/syscalls_x64.h: 305)
+
+munlockall     DEF_syscall(munlockall,0)
+               (include/syscalls_x64.h: 309)
+
+munmap         munmap( unsigned long addr,  size_t len)
+               (include/syscalls_x64.h: 27)
+
+name_to_handle_atname_to_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)
+               (include/syscalls_x64.h: 614)
+
+nanosleep      nanosleep( struct timespec *rqtp,  struct timespec *rmtp)
+               (include/syscalls_x64.h: 75)
+
+newfstatat     newfstatat( int dfd,  const char *filename,  struct stat *statbuf,  int flag)
+               (include/syscalls_x64.h: 532)
+
+open_by_handle_atopen_by_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)
+               (include/syscalls_x64.h: 616)
+
+openat         openat( int dfd,  const char *filename,  int flags,  int mode)
+               (include/syscalls_x64.h: 522)
+
+perf_event_openperf_event_open( struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)
+               (include/syscalls_x64.h: 604)
+
+personality    personality( unsigned int personality)
+               (include/syscalls_x64.h: 275)
+
+pipe2          pipe2( int *filedes,  int flags)
+               (include/syscalls_x64.h: 594)
+
+pivot_root     pivot_root( const char *new_root,  const char *put_old)
+               (include/syscalls_x64.h: 315)
+
+poll           poll( struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)
+               (include/syscalls_x64.h: 19)
+
+ppoll          ppoll( struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)
+               (include/syscalls_x64.h: 550)
+
+prctl          prctl( int option,  unsigned long arg2,  unsigned long arg3, unsigned arg4)
+               (include/syscalls_x64.h: 319)
+
+pread64        pread64( unsigned long fd,  char *buf,  size_t count,  loff_t pos)
+               (include/syscalls_x64.h: 39)
+
+preadv         preadv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
+               (include/syscalls_x64.h: 598)
+
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 29)
                write str to stdout. Needs strlen
 
@@ -161,21 +613,381 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                (include/prints.h: 25)
                print the string(s) supplied as arg(s) and newline to stdout
 
+prlimit64      prlimit64( pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)
+               (include/syscalls_x64.h: 612)
+
+process_vm_readvprocess_vm_readv( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,unsigned long flags)
+               (include/syscalls_x64.h: 628)
+
+process_vm_writevprocess_vm_writev( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,unsigned long flags )
+               (include/syscalls_x64.h: 630)
+
+pselect6       pselect6( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,void *sig )
+               (include/syscalls_x64.h: 548)
+
+ptrace         ptrace( long request,  long pid,  unsigned long addr,  unsigned long data)
+               (include/syscalls_x64.h: 207)
+
+pwrite64       pwrite64( unsigned int fd,  const char *buf,  size_t count,  loff_t pos)
+               (include/syscalls_x64.h: 41)
+
+pwritev        pwritev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
+               (include/syscalls_x64.h: 600)
+
+quotactl       quotactl( unsigned int cmd,  const char *special,  qid_t id,  void *addr)
+               (include/syscalls_x64.h: 363)
+
+readahead      readahead( int fd,  loff_t offset,  size_t count)
+               (include/syscalls_x64.h: 378)
+
+readlink       readlink( const char *path,  char *buf,  int bufsiz)
+               (include/syscalls_x64.h: 183)
+
+readlinkat     readlinkat( int dfd,  const char *pathname,  char *buf,  int bufsiz)
+               (include/syscalls_x64.h: 542)
+
+readv          readv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
+               (include/syscalls_x64.h: 43)
+
+reboot         reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
+               (include/syscalls_x64.h: 343)
+
+recvfrom       recvfrom( int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,int *addr_len  )
+               (include/syscalls_x64.h: 95)
+
+recvmmsg       recvmmsg( int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)
+               (include/syscalls_x64.h: 606)
+
+recvmsg        recvmsg( int fd,  struct msghdr *msg,  unsigned int flags)
+               (include/syscalls_x64.h: 99)
+
+remap_file_pagesremap_file_pages( unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)
+               (include/syscalls_x64.h: 439)
+
+removexattr    removexattr( const char *pathname,  const char *name)
+               (include/syscalls_x64.h: 398)
+
+renameat       renameat( int oldfd,  const char *oldname,  int newfd,  const char *newname)
+               (include/syscalls_x64.h: 536)
+
+renameat2      renameat2( int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)
+               (include/syscalls_x64.h: 640)
+
+request_key    request_key( const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)
+               (include/syscalls_x64.h: 506)
+
+restart_syscallDEF_syscall(restart_syscall,0)
+               (include/syscalls_x64.h: 445)
+
+rt_sigaction   rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
+               (include/syscalls_x64.h: 31)
+
+rt_sigpending  rt_sigpending( sigset_t *set,  size_t sigsetsize)
+               (include/syscalls_x64.h: 259)
+
+rt_sigprocmask rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
+               (include/syscalls_x64.h: 33)
+
+rt_sigqueueinfort_sigqueueinfo( pid_t pid,  int sig,  siginfo_t *uinfo)
+               (include/syscalls_x64.h: 263)
+
+rt_sigreturn   rt_sigreturn( unsigned long __unused)
+               (include/syscalls_x64.h: 35)
+
+rt_sigsuspend  rt_sigsuspend( sigset_t *unewset,  size_t sigsetsize)
+               (include/syscalls_x64.h: 265)
+
+rt_sigtimedwaitrt_sigtimedwait( const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)
+               (include/syscalls_x64.h: 261)
+
+rt_tgsigqueueinfort_tgsigqueueinfo( pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)
+               (include/syscalls_x64.h: 602)
+
+sched_get_priority_maxsched_get_priority_max( int policy)
+               (include/syscalls_x64.h: 297)
+
+sched_get_priority_minsched_get_priority_min( int policy)
+               (include/syscalls_x64.h: 299)
+
+sched_getaffinitysched_getaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
+               (include/syscalls_x64.h: 412)
+
+sched_getattr  sched_getattr( pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)
+               (include/syscalls_x64.h: 638)
+
+sched_getparam sched_getparam( pid_t pid,  struct sched_param *param)
+               (include/syscalls_x64.h: 291)
+
+sched_getschedulersched_getscheduler( pid_t pid)
+               (include/syscalls_x64.h: 295)
+
+sched_rr_get_intervalsched_rr_get_interval( pid_t pid,  struct timespec *interval)
+               (include/syscalls_x64.h: 301)
+
+sched_setaffinitysched_setaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
+               (include/syscalls_x64.h: 410)
+
+sched_setattr  sched_setattr( pid_t pid,  struct sched_attr  *attr,  unsigned int flags)
+               (include/syscalls_x64.h: 636)
+
+sched_setparam sched_setparam( pid_t pid,  struct sched_param *param)
+               (include/syscalls_x64.h: 289)
+
+sched_setschedulersched_setscheduler( pid_t pid,  int policy,  struct sched_param *param)
+               (include/syscalls_x64.h: 293)
+
+sched_yield    DEF_syscall(sched_yield,0)
+               (include/syscalls_x64.h: 53)
+
+seccomp        seccomp( unsigned int op,  unsigned int flags,  const char  *uargs)
+               (include/syscalls_x64.h: 642)
+
+select         select( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
+               (include/syscalls_x64.h: 51)
+
+semctl         semctl( int semid,  int semnum,  int cmd,  union semun arg)
+               (include/syscalls_x64.h: 137)
+
+semget         semget( key_t key,  int nsems,  int semflg)
+               (include/syscalls_x64.h: 133)
+
+semop          semop( int semid,  struct sembuf *tsops,  unsigned nsops)
+               (include/syscalls_x64.h: 135)
+
+semtimedop     semtimedop( int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)
+               (include/syscalls_x64.h: 447)
+
+sendfile       sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
+               (include/syscalls_x64.h: 85)
+
+sendmmsg       sendmmsg( int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)
+               (include/syscalls_x64.h: 622)
+
+sendmsg        sendmsg( int fd,  struct msghdr *msg,  unsigned flags)
+               (include/syscalls_x64.h: 97)
+
+sendto         sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,int addr_len  )
+               (include/syscalls_x64.h: 93)
+
+set_mempolicy  set_mempolicy( int mode,  unsigned long *nmask,  unsigned long maxnode)
+               (include/syscalls_x64.h: 484)
+
+set_robust_listset_robust_list( struct robust_list_head *head,  size_t len)
+               (include/syscalls_x64.h: 554)
+
+set_tid_addressset_tid_address( int *tidptr)
+               (include/syscalls_x64.h: 443)
+
+setdomainname  setdomainname( char *name,  int len)
+               (include/syscalls_x64.h: 347)
+
+setfsgid       setfsgid( gid_t gid)
+               (include/syscalls_x64.h: 251)
+
+setfsuid       setfsuid( uid_t uid)
+               (include/syscalls_x64.h: 249)
+
+setgroups      setgroups( int gidsetsize,  gid_t *grouplist)
+               (include/syscalls_x64.h: 237)
+
+sethostname    sethostname( char *name,  int len)
+               (include/syscalls_x64.h: 345)
+
+setitimer      setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
+               (include/syscalls_x64.h: 81)
+
+setns          setns( int fd,  int nstype)
+               (include/syscalls_x64.h: 624)
+
+setpriority    setpriority( int which,  int who,  int niceval)
+               (include/syscalls_x64.h: 287)
+
+setregid       setregid( gid_t rgid,  gid_t egid)
+               (include/syscalls_x64.h: 233)
+
+setresgid      setresgid( gid_t rgid,  gid_t egid,  gid_t sgid)
+               (include/syscalls_x64.h: 243)
+
+setresuid      setresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)
+               (include/syscalls_x64.h: 239)
+
+setreuid       setreuid( uid_t ruid,  uid_t euid)
+               (include/syscalls_x64.h: 231)
+
+setrlimit      setrlimit( unsigned int resource,  struct rlimit *rlim)
+               (include/syscalls_x64.h: 325)
+
+setsockopt     setsockopt( int fd,  int level,  int optname,  char *optval,  int optlen)
+               (include/syscalls_x64.h: 113)
+
+settimeofday   settimeofday( struct timeval *tv,  struct timezone *tz)
+               (include/syscalls_x64.h: 333)
+
+setxattr       setxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
+               (include/syscalls_x64.h: 380)
+
+shmat          shmat( int shmid,  char *shmaddr,  int shmflg)
+               (include/syscalls_x64.h: 65)
+
+shmctl         shmctl( int shmid,  int cmd,  struct shmid_ds *buf)
+               (include/syscalls_x64.h: 67)
+
+shmdt          shmdt( char *shmaddr)
+               (include/syscalls_x64.h: 139)
+
+shmget         shmget( key_t key,  size_t size,  int shmflg)
+               (include/syscalls_x64.h: 63)
+
+shutdown       shutdown( int fd,  int how)
+               (include/syscalls_x64.h: 101)
+
+sigaltstack    sigaltstack( const stack_t *uss,  stack_t *uoss)
+               (include/syscalls_x64.h: 267)
+
+signalfd       signalfd( int ufd,  sigset_t *user_mask,  size_t sizemask)
+               (include/syscalls_x64.h: 572)
+
+signalfd4      signalfd4( int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)
+               (include/syscalls_x64.h: 586)
+
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
                Defines: write
                (src/sprintf.c: 219)
 
+socket         socket( int family,  int type,  int protocol)
+               (include/syscalls_x64.h: 87)
+
+socketpair     socketpair( int family,  int type,  int protocol,  int *usockvec)
+               (include/syscalls_x64.h: 111)
+
+splice         splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,unsigned int flags )
+               (include/syscalls_x64.h: 558)
+
+stat           stat( const char *filename,  struct stat *statbuf)
+               (include/syscalls_x64.h: 13)
+
+swapoff        swapoff( const char *specialfile)
+               (include/syscalls_x64.h: 341)
+
+swapon         swapon( const char *specialfile,  int swap_flags)
+               (include/syscalls_x64.h: 339)
+
+symlink        symlink( const char *oldname,  const char *newname)
+               (include/syscalls_x64.h: 181)
+
+symlinkat      symlinkat( const char *oldname,  int newfd,  const char *newname)
+               (include/syscalls_x64.h: 540)
+
+sync           DEF_syscall(sync,0)
+               (include/syscalls_x64.h: 329)
+
+sync_file_rangesync_file_range( long fd,  loff_t offset,  loff_t bytes,  long flags)
+               (include/syscalls_x64.h: 562)
+
+syncfs         syncfs( int fd)
+               (include/syscalls_x64.h: 620)
+
+sysfs          sysfs( int option,  unsigned long arg1,  unsigned long arg2)
+               (include/syscalls_x64.h: 283)
+
+sysinfo        sysinfo( struct sysinfo *info)
+               (include/syscalls_x64.h: 203)
+
+syslog         syslog( int type,  char *buf,  int len)
+               (include/syscalls_x64.h: 211)
+
+tee            tee( int fdin,  int fdout,  size_t len,  unsigned int flags)
+               (include/syscalls_x64.h: 560)
+
+tgkill         tgkill( pid_t tgid,  pid_t pid,  int sig)
+               (include/syscalls_x64.h: 475)
+
+timer_create   timer_create( const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)
+               (include/syscalls_x64.h: 451)
+
+timer_delete   timer_delete( timer_t timer_id)
+               (include/syscalls_x64.h: 459)
+
+timer_getoverruntimer_getoverrun( timer_t timer_id)
+               (include/syscalls_x64.h: 457)
+
+timer_gettime  timer_gettime( timer_t timer_id,  struct itimerspec *setting)
+               (include/syscalls_x64.h: 455)
+
+timer_settime  timer_settime( timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)
+               (include/syscalls_x64.h: 453)
+
+timerfd_create timerfd_create( int clockid,  int flags)
+               (include/syscalls_x64.h: 574)
+
+timerfd_gettimetimerfd_gettime( int ufd,  struct itimerspec *otmr)
+               (include/syscalls_x64.h: 582)
+
+timerfd_settimetimerfd_settime( int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)
+               (include/syscalls_x64.h: 580)
+
+times          times( struct sysinfo *info)
+               (include/syscalls_x64.h: 205)
+
+truncate       truncate( const char *path,  long length)
+               (include/syscalls_x64.h: 157)
+
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
                (src/itodec.c: 8)
+
+umask          umask( int mask)
+               (include/syscalls_x64.h: 195)
+
+umount2        umount2( const char *target,  int flags)
+               (include/syscalls_x64.h: 337)
+
+uname          uname( struct old_utsname *name)
+               (include/syscalls_x64.h: 131)
+
+unlinkat       unlinkat( int dfd,  const char *pathname,  int flag)
+               (include/syscalls_x64.h: 534)
+
+unshare        unshare( unsigned long unshare_flags)
+               (include/syscalls_x64.h: 552)
+
+ustat          ustat( unsigned dev,  struct ustat *ubuf)
+               (include/syscalls_x64.h: 277)
+
+utime          utime( char *filename,  struct utimbuf *times)
+               (include/syscalls_x64.h: 269)
+
+utimensat      utimensat( int dfd,  const char *filename,  struct timespec *utimes, int flags)
+               (include/syscalls_x64.h: 568)
+
+utimes         utimes( char *filename,  struct timeval *utimes)
+               (include/syscalls_x64.h: 477)
+
+vfork          DEF_syscall(vfork,0)
+               (include/syscalls_x64.h: 121)
+
+vhangup        DEF_syscall(vhangup,0)
+               (include/syscalls_x64.h: 311)
+
+vmsplice       vmsplice( int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)
+               (include/syscalls_x64.h: 564)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
                Defines: write
                (src/sprintf.c: 36)
 
+wait4          wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
+               (include/syscalls_x64.h: 127)
+
+waitid         waitid( int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)
+               (include/syscalls_x64.h: 502)
+
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
                Defines: write
                (include/prints.h: 34)
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
+
+writev         writev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
+               (include/syscalls_x64.h: 45)
 
 
 
@@ -220,7 +1032,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -232,7 +1044,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno strlen write
+               Defines: write fileno strlen
                (include/fputs.h: 14)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -268,11 +1080,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 48)
 
 perror         void perror(char *msg);
-               Defines: write strlen strerror fileno
+               Defines: fileno write strlen strerror
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -317,6 +1129,9 @@ stdlib.h
 
 atoi           int atoi(char *c);
                (src/atoi.c: 6)
+
+exit           exit( int error_code)
+               (include/syscalls_x64.h: 125)
 
 free           void volatile free(void* p);
                (src/malloc.c: 200)
@@ -380,8 +1195,8 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
 time.h
 ==========
 
-time           time(unsigned int *a1 )
-               (include/syscall_stubs.h: 59)
+time           time( time_t *tloc)
+               (include/syscalls_x64.h: 406)
 
 
 
@@ -389,41 +1204,107 @@ time           time(unsigned int *a1 )
 unistd.h
 ==========
 
-chdir          chdir(const char* path)		
-               (include/syscall_stubs.h: 49)
+access         access( const char *filename,  int mode)
+               (include/syscalls_x64.h: 47)
 
-close          close( int fd )
-               (include/syscall_stubs.h: 34)
+alarm          alarm( unsigned int seconds)
+               (include/syscalls_x64.h: 79)
 
-dup            dup(int a1)		
-               (include/syscall_stubs.h: 51)
+chdir          chdir( const char *filename)
+               (include/syscalls_x64.h: 165)
 
-dup2           dup2(int a1, int a2)		
-               (include/syscall_stubs.h: 52)
+chown          chown( const char *filename,  uid_t user,  gid_t group)
+               (include/syscalls_x64.h: 189)
 
-fsync          fsync(int a1 )
-               (include/lseek.h: 20)
+chroot         chroot( const char *filename)
+               (include/syscalls_x64.h: 327)
 
-ftruncate      ftruncate(unsigned int a1, unsigned int a2 )
-               (include/lseek.h: 19)
+close          close( unsigned int fd)
+               (include/syscalls_x64.h: 11)
 
-getpid         DEF_syscall(getpid,0 )
-               (include/syscall_stubs.h: 30)
+dup            dup( unsigned int fildes)
+               (include/syscalls_x64.h: 69)
 
-lseek          lseek(unsigned int a1, int a2, int a3 )
-               (include/lseek.h: 17)
+dup2           dup2( unsigned int oldfd,  unsigned int newfd)
+               (include/syscalls_x64.h: 71)
 
-open           int volatile open( const char *s, int flags, ... );
-               (src/open.c: 12)
+execve         execve( const char *filename,  const char *const argv[],  const char *const envp[])
+               (include/syscalls_x64.h: 123)
 
-read           read( int fd, POINTER *buf, int len )
-               (include/syscall_stubs.h: 35)
+fchdir         fchdir( unsigned int fd)
+               (include/syscalls_x64.h: 167)
 
-rename         rename( const char* a1, const char* a2 )		
-               (include/syscall_stubs.h: 44)
+fork           DEF_syscall(fork,0)
+               (include/syscalls_x64.h: 119)
 
-select         static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
-               (include/select.h: 10)
+fsync          fsync( unsigned int fd)
+               (include/syscalls_x64.h: 153)
+
+ftruncate      ftruncate( unsigned int fd,  unsigned long length)
+               (include/syscalls_x64.h: 159)
+
+getegid        DEF_syscall(getegid,0)
+               (include/syscalls_x64.h: 221)
+
+geteuid        DEF_syscall(geteuid,0)
+               (include/syscalls_x64.h: 219)
+
+getgid         DEF_syscall(getgid,0)
+               (include/syscalls_x64.h: 213)
+
+getgroups      getgroups( int gidsetsize,  gid_t *grouplist)
+               (include/syscalls_x64.h: 235)
+
+getpgrp        DEF_syscall(getpgrp,0)
+               (include/syscalls_x64.h: 227)
+
+getpid         DEF_syscall(getpid,0)
+               (include/syscalls_x64.h: 83)
+
+getuid         DEF_syscall(getuid,0)
+               (include/syscalls_x64.h: 209)
+
+link           link( const char *oldname,  const char *newname)
+               (include/syscalls_x64.h: 177)
+
+lseek          lseek( unsigned int fd,  off_t offset,  unsigned int origin)
+               (include/syscalls_x64.h: 21)
+
+mkdir          mkdir( const char *pathname,  int mode)
+               (include/syscalls_x64.h: 171)
+
+open           open( const char *filename,  int flags,  int mode)
+               (include/syscalls_x64.h: 9)
+
+pause          DEF_syscall(pause,0)
+               (include/syscalls_x64.h: 73)
+
+pipe           pipe( int *filedes)
+               (include/syscalls_x64.h: 49)
+
+read           read( unsigned int fd,  char *buf,  size_t count)
+               (include/syscalls_x64.h: 5)
+
+rename         rename( const char *oldname,  const char *newname)
+               (include/syscalls_x64.h: 169)
+
+rmdir          rmdir( const char *pathname)
+               (include/syscalls_x64.h: 173)
+
+select         select( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
+               (include/syscalls_x64.h: 51)
+
+setgid         setgid( gid_t gid)
+               (include/syscalls_x64.h: 217)
+
+setpgid        setpgid( pid_t pid,  pid_t pgid)
+               (include/syscalls_x64.h: 223)
+
+setsid         DEF_syscall(setsid,0)
+               (include/syscalls_x64.h: 229)
+
+setuid         setuid( uid_t uid)
+               (include/syscalls_x64.h: 215)
 
 tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
                Defines: ioctl
@@ -433,9 +1314,9 @@ tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd
                Defines: ioctl
                (include/tcsetattr.h: 18)
 
-unlink         unlink( const char* a1)		
-               (include/syscall_stubs.h: 45)
+unlink         unlink( const char *pathname)
+               (include/syscalls_x64.h: 179)
 
-write          write(int fd,const void *buf, int len )
-               (include/syscall_stubs.h: 41)
+write          write( unsigned int fd,  const char *buf,  size_t count)
+               (include/syscalls_x64.h: 7)
 
