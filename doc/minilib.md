@@ -19,7 +19,7 @@ declarations.h
 ==========
 
 dup3           
-               (include/syscalls_x64.h: 592)
+               (include/syscalls_x64.h: 559)
 
 fstat          
                (include/syscalls_x64.h: 15)
@@ -61,7 +61,7 @@ readdir        struct dirent *readdir(DIR *dir);
                (src/dirent/readdir.c: 9)
 
 statfs         
-               (include/syscalls_x64.h: 279)
+               (include/syscalls_x64.h: 277)
 
 
 
@@ -100,25 +100,25 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
                (src/mstrcmp.c: 11)
 
 _sysctl        
-               (include/syscalls_x64.h: 317)
+               (include/syscalls_x64.h: 315)
 
 accept         
                (include/syscalls_x64.h: 91)
 
 accept4        
-               (include/syscalls_x64.h: 584)
+               (include/syscalls_x64.h: 551)
 
 acct           
-               (include/syscalls_x64.h: 331)
+               (include/syscalls_x64.h: 329)
 
 add_key        
-               (include/syscalls_x64.h: 504)
+               (include/syscalls_x64.h: 471)
 
 adjtimex       
-               (include/syscalls_x64.h: 323)
+               (include/syscalls_x64.h: 321)
 
 arch_prctl     
-               (include/syscalls_x64.h: 321)
+               (include/syscalls_x64.h: 319)
 
 basename       char *basename(char *path);
 
@@ -128,7 +128,7 @@ bind
                (include/syscalls_x64.h: 103)
 
 bpf            
-               (include/syscalls_x64.h: 650)
+               (include/syscalls_x64.h: 617)
 
 brk            
                (include/syscalls_x64.h: 29)
@@ -143,19 +143,19 @@ chmod
                (include/syscalls_x64.h: 185)
 
 clock_adjtime  
-               (include/syscalls_x64.h: 618)
+               (include/syscalls_x64.h: 585)
 
 clock_getres   
-               (include/syscalls_x64.h: 465)
+               (include/syscalls_x64.h: 435)
 
 clock_gettime  
-               (include/syscalls_x64.h: 463)
+               (include/syscalls_x64.h: 433)
 
 clock_nanosleep
-               (include/syscalls_x64.h: 467)
+               (include/syscalls_x64.h: 437)
 
 clock_settime  
-               (include/syscalls_x64.h: 461)
+               (include/syscalls_x64.h: 431)
 
 clone          
                (include/syscalls_x64.h: 117)
@@ -173,7 +173,7 @@ def            #define SETOPT_short( opts, option ) (;
                (macros/getoptm.h: 52)
 
 delete_module  
-               (include/syscalls_x64.h: 357)
+               (include/syscalls_x64.h: 353)
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
@@ -184,58 +184,58 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 dup3           
-               (include/syscalls_x64.h: 592)
+               (include/syscalls_x64.h: 559)
 
 epoll_create   
-               (include/syscalls_x64.h: 431)
+               (include/syscalls_x64.h: 407)
 
 epoll_create1  
-               (include/syscalls_x64.h: 590)
+               (include/syscalls_x64.h: 557)
 
 epoll_ctl      
-               (include/syscalls_x64.h: 473)
+               (include/syscalls_x64.h: 443)
 
 epoll_pwait    
-               (include/syscalls_x64.h: 570)
+               (include/syscalls_x64.h: 537)
 
 epoll_wait     
-               (include/syscalls_x64.h: 471)
+               (include/syscalls_x64.h: 441)
 
 eventfd        
-               (include/syscalls_x64.h: 576)
+               (include/syscalls_x64.h: 543)
 
 eventfd2       
-               (include/syscalls_x64.h: 588)
+               (include/syscalls_x64.h: 555)
 
 exit_group     
-               (include/syscalls_x64.h: 469)
+               (include/syscalls_x64.h: 439)
 
 faccessat      
-               (include/syscalls_x64.h: 546)
+               (include/syscalls_x64.h: 513)
 
 fadvise64      
-               (include/syscalls_x64.h: 449)
+               (include/syscalls_x64.h: 419)
 
 fallocate      
-               (include/syscalls_x64.h: 578)
+               (include/syscalls_x64.h: 545)
 
 fanotify_init  
-               (include/syscalls_x64.h: 608)
+               (include/syscalls_x64.h: 575)
 
 fanotify_mark  
-               (include/syscalls_x64.h: 610)
+               (include/syscalls_x64.h: 577)
 
 fchmod         
                (include/syscalls_x64.h: 187)
 
 fchmodat       
-               (include/syscalls_x64.h: 544)
+               (include/syscalls_x64.h: 511)
 
 fchown         
                (include/syscalls_x64.h: 191)
 
 fchownat       
-               (include/syscalls_x64.h: 528)
+               (include/syscalls_x64.h: 495)
 
 fcntl          
                (include/syscalls_x64.h: 149)
@@ -244,13 +244,13 @@ fdatasync
                (include/syscalls_x64.h: 155)
 
 fgetxattr      
-               (include/syscalls_x64.h: 390)
+               (include/syscalls_x64.h: 371)
 
 finit_module   
-               (include/syscalls_x64.h: 634)
+               (include/syscalls_x64.h: 601)
 
 flistxattr     
-               (include/syscalls_x64.h: 396)
+               (include/syscalls_x64.h: 377)
 
 flock          
                (include/syscalls_x64.h: 151)
@@ -266,16 +266,16 @@ fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
                (include/prints.h: 17)
 
 fremovexattr   
-               (include/syscalls_x64.h: 402)
+               (include/syscalls_x64.h: 383)
 
 fsetxattr      
-               (include/syscalls_x64.h: 384)
+               (include/syscalls_x64.h: 365)
 
 fstat          
                (include/syscalls_x64.h: 15)
 
 fstatfs        
-               (include/syscalls_x64.h: 281)
+               (include/syscalls_x64.h: 279)
 
 fsync          
                (include/syscalls_x64.h: 153)
@@ -284,10 +284,10 @@ ftruncate
                (include/syscalls_x64.h: 159)
 
 futex          
-               (include/syscalls_x64.h: 408)
+               (include/syscalls_x64.h: 389)
 
 futimesat      
-               (include/syscalls_x64.h: 530)
+               (include/syscalls_x64.h: 497)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
@@ -295,13 +295,13 @@ fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
                (include/prints.h: 39)
 
 get_mempolicy  
-               (include/syscalls_x64.h: 486)
+               (include/syscalls_x64.h: 453)
 
 get_robust_list
-               (include/syscalls_x64.h: 556)
+               (include/syscalls_x64.h: 523)
 
 getcpu         
-               (include/syscalls_x64.h: 626)
+               (include/syscalls_x64.h: 593)
 
 getcwd         
                (include/syscalls_x64.h: 163)
@@ -310,7 +310,7 @@ getdents
                (include/syscalls_x64.h: 161)
 
 getdents64     
-               (include/syscalls_x64.h: 441)
+               (include/syscalls_x64.h: 411)
 
 getitimer      
                (include/syscalls_x64.h: 77)
@@ -325,10 +325,10 @@ getppid
                (include/syscalls_x64.h: 225)
 
 getpriority    
-               (include/syscalls_x64.h: 285)
+               (include/syscalls_x64.h: 283)
 
 getrandom      
-               (include/syscalls_x64.h: 644)
+               (include/syscalls_x64.h: 611)
 
 getresgid      
                (include/syscalls_x64.h: 245)
@@ -352,58 +352,58 @@ getsockopt
                (include/syscalls_x64.h: 115)
 
 gettid         
-               (include/syscalls_x64.h: 376)
+               (include/syscalls_x64.h: 357)
 
 gettimeofday   
                (include/syscalls_x64.h: 197)
 
 getxattr       
-               (include/syscalls_x64.h: 386)
+               (include/syscalls_x64.h: 367)
 
 init_module    
-               (include/syscalls_x64.h: 355)
+               (include/syscalls_x64.h: 351)
 
 inotify_add_watch
-               (include/syscalls_x64.h: 516)
+               (include/syscalls_x64.h: 483)
 
 inotify_init   
-               (include/syscalls_x64.h: 514)
+               (include/syscalls_x64.h: 481)
 
 inotify_init1  
-               (include/syscalls_x64.h: 596)
+               (include/syscalls_x64.h: 563)
 
 inotify_rm_watch
-               (include/syscalls_x64.h: 518)
+               (include/syscalls_x64.h: 485)
 
 io_cancel      
-               (include/syscalls_x64.h: 424)
+               (include/syscalls_x64.h: 403)
 
 io_destroy     
-               (include/syscalls_x64.h: 418)
+               (include/syscalls_x64.h: 397)
 
 io_getevents   
-               (include/syscalls_x64.h: 420)
+               (include/syscalls_x64.h: 399)
 
 io_setup       
-               (include/syscalls_x64.h: 416)
+               (include/syscalls_x64.h: 395)
 
 io_submit      
-               (include/syscalls_x64.h: 422)
+               (include/syscalls_x64.h: 401)
 
 ioctl          
                (include/syscalls_x64.h: 37)
 
 ioperm         
-               (include/syscalls_x64.h: 351)
-
-iopl           
                (include/syscalls_x64.h: 349)
 
+iopl           
+               (include/syscalls_x64.h: 347)
+
 ioprio_get     
-               (include/syscalls_x64.h: 512)
+               (include/syscalls_x64.h: 479)
 
 ioprio_set     
-               (include/syscalls_x64.h: 510)
+               (include/syscalls_x64.h: 477)
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
@@ -414,16 +414,16 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
                (src/itodec.c: 121)
 
 kcmp           
-               (include/syscalls_x64.h: 632)
+               (include/syscalls_x64.h: 599)
 
 kexec_file_load
-               (include/syscalls_x64.h: 648)
+               (include/syscalls_x64.h: 615)
 
 kexec_load     
-               (include/syscalls_x64.h: 500)
+               (include/syscalls_x64.h: 467)
 
 keyctl         
-               (include/syscalls_x64.h: 508)
+               (include/syscalls_x64.h: 475)
 
 kill           
                (include/syscalls_x64.h: 129)
@@ -432,28 +432,28 @@ lchown
                (include/syscalls_x64.h: 193)
 
 lgetxattr      
-               (include/syscalls_x64.h: 388)
+               (include/syscalls_x64.h: 369)
 
 linkat         
-               (include/syscalls_x64.h: 538)
+               (include/syscalls_x64.h: 505)
 
 listen         
                (include/syscalls_x64.h: 105)
 
 listxattr      
-               (include/syscalls_x64.h: 392)
+               (include/syscalls_x64.h: 373)
 
 llistxattr     
-               (include/syscalls_x64.h: 394)
+               (include/syscalls_x64.h: 375)
 
 lookup_dcookie 
-               (include/syscalls_x64.h: 429)
+               (include/syscalls_x64.h: 405)
 
 lremovexattr   
-               (include/syscalls_x64.h: 400)
+               (include/syscalls_x64.h: 381)
 
 lsetxattr      
-               (include/syscalls_x64.h: 382)
+               (include/syscalls_x64.h: 363)
 
 lstat          
                (include/syscalls_x64.h: 17)
@@ -462,68 +462,68 @@ madvise
                (include/syscalls_x64.h: 61)
 
 mbind          
-               (include/syscalls_x64.h: 482)
+               (include/syscalls_x64.h: 449)
 
 memfd_create   
-               (include/syscalls_x64.h: 646)
+               (include/syscalls_x64.h: 613)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
                (src/memfrob.c: 3)
 
 migrate_pages  
-               (include/syscalls_x64.h: 520)
+               (include/syscalls_x64.h: 487)
 
 mincore        
                (include/syscalls_x64.h: 59)
 
 mkdirat        
-               (include/syscalls_x64.h: 524)
+               (include/syscalls_x64.h: 491)
 
 mknod          
                (include/syscalls_x64.h: 271)
 
 mknodat        
-               (include/syscalls_x64.h: 526)
+               (include/syscalls_x64.h: 493)
 
 mlock          
-               (include/syscalls_x64.h: 303)
+               (include/syscalls_x64.h: 301)
 
 mlockall       
-               (include/syscalls_x64.h: 307)
+               (include/syscalls_x64.h: 305)
 
 mmap           
                (include/syscalls_x64.h: 23)
 
 modify_ldt     
-               (include/syscalls_x64.h: 313)
+               (include/syscalls_x64.h: 311)
 
 mount          
-               (include/syscalls_x64.h: 335)
+               (include/syscalls_x64.h: 333)
 
 move_pages     
-               (include/syscalls_x64.h: 566)
+               (include/syscalls_x64.h: 533)
 
 mprotect       
                (include/syscalls_x64.h: 25)
 
 mq_getsetattr  
-               (include/syscalls_x64.h: 498)
+               (include/syscalls_x64.h: 465)
 
 mq_notify      
-               (include/syscalls_x64.h: 496)
+               (include/syscalls_x64.h: 463)
 
 mq_open        
-               (include/syscalls_x64.h: 488)
+               (include/syscalls_x64.h: 455)
 
 mq_timedreceive
-               (include/syscalls_x64.h: 494)
+               (include/syscalls_x64.h: 461)
 
 mq_timedsend   
-               (include/syscalls_x64.h: 492)
+               (include/syscalls_x64.h: 459)
 
 mq_unlink      
-               (include/syscalls_x64.h: 490)
+               (include/syscalls_x64.h: 457)
 
 mremap         
                (include/syscalls_x64.h: 55)
@@ -544,55 +544,55 @@ msync
                (include/syscalls_x64.h: 57)
 
 munlock        
-               (include/syscalls_x64.h: 305)
+               (include/syscalls_x64.h: 303)
 
 munlockall     
-               (include/syscalls_x64.h: 309)
+               (include/syscalls_x64.h: 307)
 
 munmap         
                (include/syscalls_x64.h: 27)
 
 name_to_handle_at
-               (include/syscalls_x64.h: 614)
+               (include/syscalls_x64.h: 581)
 
 nanosleep      
                (include/syscalls_x64.h: 75)
 
 newfstatat     
-               (include/syscalls_x64.h: 532)
+               (include/syscalls_x64.h: 499)
 
 open_by_handle_at
-               (include/syscalls_x64.h: 616)
+               (include/syscalls_x64.h: 583)
 
 openat         
-               (include/syscalls_x64.h: 522)
+               (include/syscalls_x64.h: 489)
 
 perf_event_open
-               (include/syscalls_x64.h: 604)
+               (include/syscalls_x64.h: 571)
 
 personality    
-               (include/syscalls_x64.h: 275)
+               (include/syscalls_x64.h: 273)
 
 pipe2          
-               (include/syscalls_x64.h: 594)
+               (include/syscalls_x64.h: 561)
 
 pivot_root     
-               (include/syscalls_x64.h: 315)
+               (include/syscalls_x64.h: 313)
 
 poll           
                (include/syscalls_x64.h: 19)
 
 ppoll          
-               (include/syscalls_x64.h: 550)
+               (include/syscalls_x64.h: 517)
 
 prctl          
-               (include/syscalls_x64.h: 319)
+               (include/syscalls_x64.h: 317)
 
 pread64        
                (include/syscalls_x64.h: 39)
 
 preadv         
-               (include/syscalls_x64.h: 598)
+               (include/syscalls_x64.h: 565)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
@@ -615,16 +615,16 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                (include/prints.h: 25)
 
 prlimit64      
-               (include/syscalls_x64.h: 612)
+               (include/syscalls_x64.h: 579)
 
 process_vm_readv
-               (include/syscalls_x64.h: 628)
+               (include/syscalls_x64.h: 595)
 
 process_vm_writev
-               (include/syscalls_x64.h: 630)
+               (include/syscalls_x64.h: 597)
 
 pselect6       
-               (include/syscalls_x64.h: 548)
+               (include/syscalls_x64.h: 515)
 
 ptrace         
                (include/syscalls_x64.h: 207)
@@ -633,52 +633,52 @@ pwrite64
                (include/syscalls_x64.h: 41)
 
 pwritev        
-               (include/syscalls_x64.h: 600)
+               (include/syscalls_x64.h: 567)
 
 quotactl       
-               (include/syscalls_x64.h: 363)
+               (include/syscalls_x64.h: 355)
 
 readahead      
-               (include/syscalls_x64.h: 378)
+               (include/syscalls_x64.h: 359)
 
 readlink       
                (include/syscalls_x64.h: 183)
 
 readlinkat     
-               (include/syscalls_x64.h: 542)
+               (include/syscalls_x64.h: 509)
 
 readv          
                (include/syscalls_x64.h: 43)
 
 reboot         
-               (include/syscalls_x64.h: 343)
+               (include/syscalls_x64.h: 341)
 
 recvfrom       
                (include/syscalls_x64.h: 95)
 
 recvmmsg       
-               (include/syscalls_x64.h: 606)
+               (include/syscalls_x64.h: 573)
 
 recvmsg        
                (include/syscalls_x64.h: 99)
 
 remap_file_pages
-               (include/syscalls_x64.h: 439)
+               (include/syscalls_x64.h: 409)
 
 removexattr    
-               (include/syscalls_x64.h: 398)
+               (include/syscalls_x64.h: 379)
 
 renameat       
-               (include/syscalls_x64.h: 536)
+               (include/syscalls_x64.h: 503)
 
 renameat2      
-               (include/syscalls_x64.h: 640)
+               (include/syscalls_x64.h: 607)
 
 request_key    
-               (include/syscalls_x64.h: 506)
+               (include/syscalls_x64.h: 473)
 
 restart_syscall
-               (include/syscalls_x64.h: 445)
+               (include/syscalls_x64.h: 415)
 
 rt_sigaction   
                (include/syscalls_x64.h: 31)
@@ -702,46 +702,46 @@ rt_sigtimedwait
                (include/syscalls_x64.h: 261)
 
 rt_tgsigqueueinfo
-               (include/syscalls_x64.h: 602)
+               (include/syscalls_x64.h: 569)
 
 sched_get_priority_max
-               (include/syscalls_x64.h: 297)
-
-sched_get_priority_min
-               (include/syscalls_x64.h: 299)
-
-sched_getaffinity
-               (include/syscalls_x64.h: 412)
-
-sched_getattr  
-               (include/syscalls_x64.h: 638)
-
-sched_getparam 
-               (include/syscalls_x64.h: 291)
-
-sched_getscheduler
                (include/syscalls_x64.h: 295)
 
-sched_rr_get_interval
-               (include/syscalls_x64.h: 301)
+sched_get_priority_min
+               (include/syscalls_x64.h: 297)
 
-sched_setaffinity
-               (include/syscalls_x64.h: 410)
+sched_getaffinity
+               (include/syscalls_x64.h: 393)
 
-sched_setattr  
-               (include/syscalls_x64.h: 636)
+sched_getattr  
+               (include/syscalls_x64.h: 605)
 
-sched_setparam 
+sched_getparam 
                (include/syscalls_x64.h: 289)
 
-sched_setscheduler
+sched_getscheduler
                (include/syscalls_x64.h: 293)
+
+sched_rr_get_interval
+               (include/syscalls_x64.h: 299)
+
+sched_setaffinity
+               (include/syscalls_x64.h: 391)
+
+sched_setattr  
+               (include/syscalls_x64.h: 603)
+
+sched_setparam 
+               (include/syscalls_x64.h: 287)
+
+sched_setscheduler
+               (include/syscalls_x64.h: 291)
 
 sched_yield    
                (include/syscalls_x64.h: 53)
 
 seccomp        
-               (include/syscalls_x64.h: 642)
+               (include/syscalls_x64.h: 609)
 
 select         
                (include/syscalls_x64.h: 51)
@@ -756,13 +756,13 @@ semop
                (include/syscalls_x64.h: 135)
 
 semtimedop     
-               (include/syscalls_x64.h: 447)
+               (include/syscalls_x64.h: 417)
 
 sendfile       
                (include/syscalls_x64.h: 85)
 
 sendmmsg       
-               (include/syscalls_x64.h: 622)
+               (include/syscalls_x64.h: 589)
 
 sendmsg        
                (include/syscalls_x64.h: 97)
@@ -771,16 +771,16 @@ sendto
                (include/syscalls_x64.h: 93)
 
 set_mempolicy  
-               (include/syscalls_x64.h: 484)
+               (include/syscalls_x64.h: 451)
 
 set_robust_list
-               (include/syscalls_x64.h: 554)
+               (include/syscalls_x64.h: 521)
 
 set_tid_address
-               (include/syscalls_x64.h: 443)
+               (include/syscalls_x64.h: 413)
 
 setdomainname  
-               (include/syscalls_x64.h: 347)
+               (include/syscalls_x64.h: 345)
 
 setfsgid       
                (include/syscalls_x64.h: 251)
@@ -792,16 +792,16 @@ setgroups
                (include/syscalls_x64.h: 237)
 
 sethostname    
-               (include/syscalls_x64.h: 345)
+               (include/syscalls_x64.h: 343)
 
 setitimer      
                (include/syscalls_x64.h: 81)
 
 setns          
-               (include/syscalls_x64.h: 624)
+               (include/syscalls_x64.h: 591)
 
 setpriority    
-               (include/syscalls_x64.h: 287)
+               (include/syscalls_x64.h: 285)
 
 setregid       
                (include/syscalls_x64.h: 233)
@@ -816,16 +816,16 @@ setreuid
                (include/syscalls_x64.h: 231)
 
 setrlimit      
-               (include/syscalls_x64.h: 325)
+               (include/syscalls_x64.h: 323)
 
 setsockopt     
                (include/syscalls_x64.h: 113)
 
 settimeofday   
-               (include/syscalls_x64.h: 333)
+               (include/syscalls_x64.h: 331)
 
 setxattr       
-               (include/syscalls_x64.h: 380)
+               (include/syscalls_x64.h: 361)
 
 shmat          
                (include/syscalls_x64.h: 65)
@@ -846,10 +846,10 @@ sigaltstack
                (include/syscalls_x64.h: 267)
 
 signalfd       
-               (include/syscalls_x64.h: 572)
+               (include/syscalls_x64.h: 539)
 
 signalfd4      
-               (include/syscalls_x64.h: 586)
+               (include/syscalls_x64.h: 553)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
@@ -862,34 +862,34 @@ socketpair
                (include/syscalls_x64.h: 111)
 
 splice         
-               (include/syscalls_x64.h: 558)
+               (include/syscalls_x64.h: 525)
 
 stat           
                (include/syscalls_x64.h: 13)
 
 swapoff        
-               (include/syscalls_x64.h: 341)
+               (include/syscalls_x64.h: 339)
 
 swapon         
-               (include/syscalls_x64.h: 339)
+               (include/syscalls_x64.h: 337)
 
 symlink        
                (include/syscalls_x64.h: 181)
 
 symlinkat      
-               (include/syscalls_x64.h: 540)
+               (include/syscalls_x64.h: 507)
 
 sync           
-               (include/syscalls_x64.h: 329)
+               (include/syscalls_x64.h: 327)
 
 sync_file_range
-               (include/syscalls_x64.h: 562)
+               (include/syscalls_x64.h: 529)
 
 syncfs         
-               (include/syscalls_x64.h: 620)
+               (include/syscalls_x64.h: 587)
 
 sysfs          
-               (include/syscalls_x64.h: 283)
+               (include/syscalls_x64.h: 281)
 
 sysinfo        
                (include/syscalls_x64.h: 203)
@@ -898,37 +898,40 @@ syslog
                (include/syscalls_x64.h: 211)
 
 tee            
-               (include/syscalls_x64.h: 560)
+               (include/syscalls_x64.h: 527)
 
 tgkill         
-               (include/syscalls_x64.h: 475)
+               (include/syscalls_x64.h: 445)
 
 timer_create   
-               (include/syscalls_x64.h: 451)
+               (include/syscalls_x64.h: 421)
 
 timer_delete   
-               (include/syscalls_x64.h: 459)
+               (include/syscalls_x64.h: 429)
 
 timer_getoverrun
-               (include/syscalls_x64.h: 457)
+               (include/syscalls_x64.h: 427)
 
 timer_gettime  
-               (include/syscalls_x64.h: 455)
+               (include/syscalls_x64.h: 425)
 
 timer_settime  
-               (include/syscalls_x64.h: 453)
+               (include/syscalls_x64.h: 423)
 
 timerfd_create 
-               (include/syscalls_x64.h: 574)
+               (include/syscalls_x64.h: 541)
 
 timerfd_gettime
-               (include/syscalls_x64.h: 582)
+               (include/syscalls_x64.h: 549)
 
 timerfd_settime
-               (include/syscalls_x64.h: 580)
+               (include/syscalls_x64.h: 547)
 
 times          
                (include/syscalls_x64.h: 205)
+
+tkill          
+               (include/syscalls_x64.h: 385)
 
 truncate       
                (include/syscalls_x64.h: 157)
@@ -941,37 +944,37 @@ umask
                (include/syscalls_x64.h: 195)
 
 umount2        
-               (include/syscalls_x64.h: 337)
+               (include/syscalls_x64.h: 335)
 
 uname          
                (include/syscalls_x64.h: 131)
 
 unlinkat       
-               (include/syscalls_x64.h: 534)
+               (include/syscalls_x64.h: 501)
 
 unshare        
-               (include/syscalls_x64.h: 552)
+               (include/syscalls_x64.h: 519)
 
 ustat          
-               (include/syscalls_x64.h: 277)
+               (include/syscalls_x64.h: 275)
 
 utime          
                (include/syscalls_x64.h: 269)
 
 utimensat      
-               (include/syscalls_x64.h: 568)
+               (include/syscalls_x64.h: 535)
 
 utimes         
-               (include/syscalls_x64.h: 477)
+               (include/syscalls_x64.h: 447)
 
 vfork          
                (include/syscalls_x64.h: 121)
 
 vhangup        
-               (include/syscalls_x64.h: 311)
+               (include/syscalls_x64.h: 309)
 
 vmsplice       
-               (include/syscalls_x64.h: 564)
+               (include/syscalls_x64.h: 531)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -981,7 +984,7 @@ wait4
                (include/syscalls_x64.h: 127)
 
 waitid         
-               (include/syscalls_x64.h: 502)
+               (include/syscalls_x64.h: 469)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
@@ -1217,7 +1220,7 @@ time.h
 ==========
 
 time           
-               (include/syscalls_x64.h: 406)
+               (include/syscalls_x64.h: 387)
 
 
 
@@ -1238,7 +1241,7 @@ chown
                (include/syscalls_x64.h: 189)
 
 chroot         
-               (include/syscalls_x64.h: 327)
+               (include/syscalls_x64.h: 325)
 
 close          
                (include/syscalls_x64.h: 11)

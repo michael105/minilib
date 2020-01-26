@@ -85,6 +85,8 @@ extern int errno;
 #define syscall3_ret(call) syscall2_ret(call) , "d" (a3) 
 #define syscall4_ret(call) register long int r10 asm("r10")= a4; syscall3_ret(call) , "r" (r10)
 #define syscall5_ret(call) register long int r10 asm("r10")= a4; register long int r8 asm("r8")= a5 ; syscall3_ret(call) , "r" (r8) 
+#define syscall6_ret(call) register long int r10 asm("r10")= a4; register long int r8 asm("r8")= a5 ; register long int r9 asm("r9")=a6; syscall3_ret(call) , "r" (r8) 
+// r9: 6th param..
 
 #else
 
@@ -126,6 +128,7 @@ extern int errno;
 #define syscall3_ret(call) syscall2_ret(call) , "d" (a3) 
 #define syscall4_ret(call) syscall3_ret(call) , "S" (a4)
 #define syscall5_ret(call) syscall4_ret(call) , "D" (a5) 
+#define syscall6_ret(call) syscall5_ret(call) , "r10" (a6) 
 
 #endif
 

@@ -21,7 +21,7 @@ DEF_syscall(poll,3, struct poll_fd *ufds,  unsigned int nfds,  long timeout_msec
 
 DEF_syscall(lseek,3, unsigned int fd,  off_t offset,  unsigned int origin)
 
-DEF_syscall(mmap,5, unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,unsigned long off )
+DEF_syscall(mmap,6, unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)
 
 DEF_syscall(mprotect,3, unsigned long start,  size_t len,  unsigned long prot)
 
@@ -89,11 +89,11 @@ DEF_syscall(socket,3, int family,  int type,  int protocol)
 
 DEF_syscall(connect,3, int fd,  struct sockaddr *uservaddr,  int addrlen)
 
-DEF_syscall(accept,3, int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen)
+DEF_syscall(accept,3, int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)
 
-DEF_syscall(sendto,5, int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,int addr_len  )
+DEF_syscall(sendto,6, int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)
 
-DEF_syscall(recvfrom,5, int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,int *addr_len  )
+DEF_syscall(recvfrom,6, int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)
 
 DEF_syscall(sendmsg,3, int fd,  struct msghdr *msg,  unsigned flags)
 
@@ -101,7 +101,7 @@ DEF_syscall(recvmsg,3, int fd,  struct msghdr *msg,  unsigned int flags)
 
 DEF_syscall(shutdown,2, int fd,  int how)
 
-DEF_syscall(bind,3, int fd,  struct sokaddr *umyaddr,  int addrlen)
+DEF_syscall(bind,3, int fd,  struct sockaddr *umyaddr,  int addrlen)
 
 DEF_syscall(listen,2, int fd,  int backlog)
 
@@ -135,7 +135,7 @@ DEF_syscall(semget,3, key_t key,  int nsems,  int semflg)
 
 DEF_syscall(semop,3, int semid,  struct sembuf *tsops,  unsigned nsops)
 
-DEF_syscall(semctl,4, int semid,  int semnum,  int cmd,  union semun arg)
+DEF_syscall(semctl,4, int semid,  int semnum,  int cmd,  semun_u arg)
 
 DEF_syscall(shmdt,1, char *shmaddr)
 
@@ -271,8 +271,6 @@ DEF_syscall(utime,2, char *filename,  struct utimbuf *times)
 
 DEF_syscall(mknod,3, const char *filename,  umode_t mode,  unsigned dev)
 
-//DEF_syscall(uselib,1, NOT IMPLEMENTED)
-
 DEF_syscall(personality,1, unsigned int personality)
 
 DEF_syscall(ustat,2, unsigned dev,  struct ustat *ubuf)
@@ -317,7 +315,7 @@ DEF_syscall(pivot_root,2, const char *new_root,  const char *put_old)
 
 DEF_syscall(_sysctl,1, struct __sysctl_args *args)
 
-DEF_syscall(prctl,3, int option,  unsigned long arg2,  unsigned long arg3, unsigned arg4)
+DEF_syscall(prctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
 
 DEF_syscall(arch_prctl,3, struct task_struct *task,  int code,  unsigned long *addr)
 
@@ -351,29 +349,12 @@ DEF_syscall(iopl,2, unsigned int level,  struct pt_regs *regs)
 
 DEF_syscall(ioperm,3, unsigned long from,  unsigned long num,  int turn_on)
 
-//DEF_syscall(create_module,1, REMOVED IN Linux 2.6)
-
 DEF_syscall(init_module,3, void *umod,  unsigned long len,  const char *uargs)
 
 DEF_syscall(delete_module,2, const char *name_user,  unsigned int flags)
 
-//DEF_syscall(get_kernel_syms,1, REMOVED IN Linux 2.6)
-
-//DEF_syscall(query_module,1, REMOVED IN Linux 2.6)
-
 DEF_syscall(quotactl,4, unsigned int cmd,  const char *special,  qid_t id,  void *addr)
-//DEF_syscall(nfsservctl,1, NOT IMPLEMENTED)
-//
-//DEF_syscall(getpmsg,1, NOT IMPLEMENTED)
-//
-//DEF_syscall(putpmsg,1, NOT IMPLEMENTED)
-//
-//DEF_syscall(afs_syscall,1, NOT IMPLEMENTED)
-//
-//DEF_syscall(tuxcall,1, NOT IMPLEMENTED)
-//
-//DEF_syscall(security,1, NOT IMPLEMENTED)
-//
+
 DEF_syscall(gettid,0)
 
 DEF_syscall(readahead,3, int fd,  loff_t offset,  size_t count)
@@ -402,17 +383,15 @@ DEF_syscall(lremovexattr,2, const char *pathname,  const char *name)
 
 DEF_syscall(fremovexattr,2, int fd,  const char *name)
 
-//DEF_syscall(tkill,2, pid_t pid,  ing sig)
+DEF_syscall(tkill,2, pid_t pid,  int sig)
 
 DEF_syscall(time,1, time_t *tloc)
 
-DEF_syscall(futex,5, u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,u32 val3 )
+DEF_syscall(futex,6, u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)
 
 DEF_syscall(sched_setaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
 
 DEF_syscall(sched_getaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
-
-//DEF_syscall(set_thread_area,1, NOT IMPLEMENTED. Use arch_prctl)
 
 DEF_syscall(io_setup,2, unsigned nr_events,  aio_context_t *ctxp)
 
@@ -424,18 +403,9 @@ DEF_syscall(io_submit,3, aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)
 
 DEF_syscall(io_cancel,3, aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)
 
-// DEF_syscall(get_thread_area,1, NOT IMPLEMENTED. Use arch_prctl)
-// DEF_syscall(get_thread_area,1, NOT IMPLEMENTED. Use arch_prctl)
-
 DEF_syscall(lookup_dcookie,3, u64 cookie64,  long buf,  long len)
 
 DEF_syscall(epoll_create,1, int size)
-
-// DEF_syscall(epoll_ctl_old,1, NOT IMPLEMENTED)
-// DEF_syscall(epoll_ctl_old,1, NOT IMPLEMENTED)
-
-// DEF_syscall(epoll_wait_old,1, NOT IMPLEMENTED)
-// DEF_syscall(epoll_wait_old,1, NOT IMPLEMENTED)
 
 DEF_syscall(remap_file_pages,5, unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)
 
@@ -477,10 +447,7 @@ DEF_syscall(tgkill,3, pid_t tgid,  pid_t pid,  int sig)
 
 DEF_syscall(utimes,2, char *filename,  struct timeval *utimes)
 
-// DEF_syscall(vserver,1, NOT IMPLEMENTED)
-// DEF_syscall(vserver,1, NOT IMPLEMENTED)
-
-DEF_syscall(mbind,5, unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,unsigned flags )
+DEF_syscall(mbind,6, unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)
 
 DEF_syscall(set_mempolicy,3, int mode,  unsigned long *nmask,  unsigned long maxnode)
 
@@ -516,7 +483,7 @@ DEF_syscall(inotify_init,0)
 
 DEF_syscall(inotify_add_watch,3, int fd,  const char *pathname,  u32 mask)
 
-DEF_syscall(inotify_rm_watch,2, int fd,  int wd)
+DEF_syscall(inotify_rm_watch,2, int fd,  __s32 wd)
 
 DEF_syscall(migrate_pages,4, pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)
 
@@ -546,7 +513,7 @@ DEF_syscall(fchmodat,3, int dfd,  const char *filename,  mode_t mode)
 
 DEF_syscall(faccessat,3, int dfd,  const char *filename,  int mode)
 
-DEF_syscall(pselect6,5, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,void *sig )
+DEF_syscall(pselect6,6, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)
 
 DEF_syscall(ppoll,5, struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)
 
@@ -556,7 +523,7 @@ DEF_syscall(set_robust_list,2, struct robust_list_head *head,  size_t len)
 
 DEF_syscall(get_robust_list,3, int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)
 
-DEF_syscall(splice,5, int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,unsigned int flags )
+DEF_syscall(splice,6, int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
 
 DEF_syscall(tee,4, int fdin,  int fdout,  size_t len,  unsigned int flags)
 
@@ -564,11 +531,11 @@ DEF_syscall(sync_file_range,4, long fd,  loff_t offset,  loff_t bytes,  long fla
 
 DEF_syscall(vmsplice,4, int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)
 
-DEF_syscall(move_pages,5, pid_t pid,  unsigned long nr_pages,  const void **pages, const int *nodes,  int *status,int flags )
+DEF_syscall(move_pages,6, pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)
 
 DEF_syscall(utimensat,4, int dfd,  const char *filename,  struct timespec *utimes, int flags)
 
-DEF_syscall(epoll_pwait,5, int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,size_t sigsetsize  )
+DEF_syscall(epoll_pwait,6, int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)
 
 DEF_syscall(signalfd,3, int ufd,  sigset_t *user_mask,  size_t sizemask)
 
@@ -608,7 +575,7 @@ DEF_syscall(recvmmsg,5, int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsig
 
 DEF_syscall(fanotify_init,2, unsigned int flags,  unsigned int event_f_flags)
 
-DEF_syscall(fanotify_mark,5, long fanotify_fd,  long flags,  u64 mask,  long dfd, long pathname)
+DEF_syscall(fanotify_mark,5, long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)
 
 DEF_syscall(prlimit64,4, pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)
 
@@ -626,13 +593,13 @@ DEF_syscall(setns,2, int fd,  int nstype)
 
 DEF_syscall(getcpu,3, unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)
 
-DEF_syscall(process_vm_readv,5, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,unsigned long flags)
+DEF_syscall(process_vm_readv,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)
 
-DEF_syscall(process_vm_writev,5, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,unsigned long flags )
+DEF_syscall(process_vm_writev,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)
 
 DEF_syscall(kcmp,5, pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)
 
-DEF_syscall(finit_module,3, int fd,  const char *uargs,  int flags)
+DEF_syscall(finit_module,3, int fd,  const char  *uargs,  int flags)
 
 DEF_syscall(sched_setattr,3, pid_t pid,  struct sched_attr  *attr,  unsigned int flags)
 
@@ -646,9 +613,10 @@ DEF_syscall(getrandom,3, char  *buf,  size_t count,  unsigned int flags)
 
 DEF_syscall(memfd_create,2, const char  *uname_ptr,  unsigned int flags)
 
-DEF_syscall(kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char *cmdline_ptr,  unsigned long flags)
+DEF_syscall(kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
 
 DEF_syscall(bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
+
 
 #endif
 
