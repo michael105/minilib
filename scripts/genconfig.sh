@@ -73,1160 +73,1235 @@ HEADERGUARDS(){
 # when make header ist invoked
 
 # --- define_functions-start: generate --- #
-mini_mq_open(){ 
-  echo "#define mini_mq_open generate" 
+mini__time(){ 
+  echo "#define mini__time generate" 
 }
-mini_migrate_pages(){ 
-  echo "#define mini_migrate_pages generate" 
+mini__getrlimit(){ 
+  echo "#define mini__getrlimit generate" 
 }
-mini_sysfs(){ 
-  echo "#define mini_sysfs generate" 
+mini__fanotify_mark(){ 
+  echo "#define mini__fanotify_mark generate" 
 }
-mini_inotify_rm_watch(){ 
-  echo "#define mini_inotify_rm_watch generate" 
+mini__getcwd(){ 
+  echo "#define mini__getcwd generate" 
 }
-mini_mount(){ 
-  echo "#define mini_mount generate" 
+mini__memfd_create(){ 
+  echo "#define mini__memfd_create generate" 
 }
-mini_capget(){ 
-  echo "#define mini_capget generate" 
-}
-mini_getegid(){ 
-  echo "#define mini_getegid generate" 
-}
-mini_renameat(){ 
-  echo "#define mini_renameat generate" 
-}
-mini_srand(){ 
-  echo "#define mini_srand generate" 
-}
-mini_strncpy(){ 
-  echo "#define mini_strncpy generate" 
-}
-mini_unlink(){ 
-  echo "#define mini_unlink generate" 
-}
-mini_io_setup(){ 
-  echo "#define mini_io_setup generate" 
-}
-mini_kill(){ 
-  echo "#define mini_kill generate" 
-}
-mini_listxattr(){ 
-  echo "#define mini_listxattr generate" 
-}
-mini_uitodec(){ 
-  echo "#define mini_uitodec generate" 
-}
-mini_snprintf(){ 
-  echo "#define mini_snprintf generate" 
-}
-mini_waitid(){ 
-  echo "#define mini_waitid generate" 
-}
-mini_seccomp(){ 
-  echo "#define mini_seccomp generate" 
-}
-mini_poll(){ 
-  echo "#define mini_poll generate" 
-}
-mini_getxattr(){ 
-  echo "#define mini_getxattr generate" 
-}
-mini_fopen(){ 
-  echo "#define mini_fopen generate" 
-}
-mini_connect(){ 
-  echo "#define mini_connect generate" 
-}
-mini_setreuid(){ 
-  echo "#define mini_setreuid generate" 
-}
-mini_clock_settime(){ 
-  echo "#define mini_clock_settime generate" 
-}
-mini_dprints(){ 
-  echo "#define mini_dprints generate" 
-}
-mini_munlock(){ 
-  echo "#define mini_munlock generate" 
-}
-mini_fflush(){ 
-  echo "#define mini_fflush generate" 
-}
-mini_swapon(){ 
-  echo "#define mini_swapon generate" 
-}
-mini_signalfd(){ 
-  echo "#define mini_signalfd generate" 
-}
-mini_ftruncate(){ 
-  echo "#define mini_ftruncate generate" 
-}
-mini_sprintf(){ 
-  echo "#define mini_sprintf generate" 
-}
-mini_sysinfo(){ 
-  echo "#define mini_sysinfo generate" 
-}
-mini_setpgid(){ 
-  echo "#define mini_setpgid generate" 
-}
-mini_mremap(){ 
-  echo "#define mini_mremap generate" 
-}
-mini_semtimedop(){ 
-  echo "#define mini_semtimedop generate" 
-}
-mini_dup3(){ 
-  echo "#define mini_dup3 generate" 
-}
-mini_pipe(){ 
-  echo "#define mini_pipe generate" 
-}
-mini_sendfile(){ 
-  echo "#define mini_sendfile generate" 
-}
-mini_perf_event_open(){ 
-  echo "#define mini_perf_event_open generate" 
-}
-mini_setdomainname(){ 
-  echo "#define mini_setdomainname generate" 
-}
-mini_ppoll(){ 
-  echo "#define mini_ppoll generate" 
-}
-mini_timer_settime(){ 
-  echo "#define mini_timer_settime generate" 
-}
-mini_fread(){ 
-  echo "#define mini_fread generate" 
-}
-mini__itohex(){ 
-  echo "#define mini__itohex generate" 
-}
-mini_fchown(){ 
-  echo "#define mini_fchown generate" 
-}
-mini_adjtimex(){ 
-  echo "#define mini_adjtimex generate" 
-}
-mini_ioctl(){ 
-  echo "#define mini_ioctl generate" 
-}
-mini_fputc(){ 
-  echo "#define mini_fputc generate" 
-}
-mini_removexattr(){ 
-  echo "#define mini_removexattr generate" 
-}
-mini_wait4(){ 
-  echo "#define mini_wait4 generate" 
-}
-mini_strlen(){ 
-  echo "#define mini_strlen generate" 
-}
-mini_shmdt(){ 
-  echo "#define mini_shmdt generate" 
-}
-mini_msgctl(){ 
-  echo "#define mini_msgctl generate" 
-}
-mini_sendmsg(){ 
-  echo "#define mini_sendmsg generate" 
-}
-mini_execve(){ 
-  echo "#define mini_execve generate" 
-}
-mini_memfrob(){ 
-  echo "#define mini_memfrob generate" 
-}
-mini_getpgrp(){ 
-  echo "#define mini_getpgrp generate" 
-}
-mini_fchmodat(){ 
-  echo "#define mini_fchmodat generate" 
-}
-mini_isspace(){ 
-  echo "#define mini_isspace generate" 
-}
-mini_epoll_wait(){ 
-  echo "#define mini_epoll_wait generate" 
-}
-mini_msgget(){ 
-  echo "#define mini_msgget generate" 
-}
-mini_munmap(){ 
-  echo "#define mini_munmap generate" 
-}
-mini_timer_gettime(){ 
-  echo "#define mini_timer_gettime generate" 
-}
-mini_rt_sigpending(){ 
-  echo "#define mini_rt_sigpending generate" 
-}
-mini_memcpy(){ 
-  echo "#define mini_memcpy generate" 
-}
-mini_utimensat(){ 
-  echo "#define mini_utimensat generate" 
-}
-mini_free(){ 
-  echo "#define mini_free generate" 
-}
-mini_malloc(){ 
-  echo "#define mini_malloc generate" 
-}
-mini_sched_rr_get_interval(){ 
-  echo "#define mini_sched_rr_get_interval generate" 
-}
-mini_getpriority(){ 
-  echo "#define mini_getpriority generate" 
-}
-mini_getpid(){ 
-  echo "#define mini_getpid generate" 
-}
-mini_write(){ 
-  echo "#define mini_write generate" 
-}
-mini_access(){ 
-  echo "#define mini_access generate" 
-}
-mini_0(){ 
-  echo "#define mini_0 generate" 
-}
-mini_fanotify_init(){ 
-  echo "#define mini_fanotify_init generate" 
-}
-mini_flistxattr(){ 
-  echo "#define mini_flistxattr generate" 
-}
-mini_times(){ 
-  echo "#define mini_times generate" 
-}
-mini_memset(){ 
-  echo "#define mini_memset generate" 
-}
-mini_fchdir(){ 
-  echo "#define mini_fchdir generate" 
-}
-mini_getsockopt(){ 
-  echo "#define mini_getsockopt generate" 
-}
-mini_rt_sigsuspend(){ 
-  echo "#define mini_rt_sigsuspend generate" 
-}
-mini_fcntl(){ 
-  echo "#define mini_fcntl generate" 
-}
-mini_get_robust_list(){ 
-  echo "#define mini_get_robust_list generate" 
-}
-mini_bind(){ 
-  echo "#define mini_bind generate" 
-}
-mini_readlink(){ 
-  echo "#define mini_readlink generate" 
-}
-mini_nanosleep(){ 
-  echo "#define mini_nanosleep generate" 
-}
-mini_strcmp(){ 
-  echo "#define mini_strcmp generate" 
-}
-mini_quotactl(){ 
-  echo "#define mini_quotactl generate" 
-}
-mini_process_vm_writev(){ 
-  echo "#define mini_process_vm_writev generate" 
-}
-mini_mq_notify(){ 
-  echo "#define mini_mq_notify generate" 
-}
-mini_process_vm_readv(){ 
-  echo "#define mini_process_vm_readv generate" 
-}
-mini_flock(){ 
-  echo "#define mini_flock generate" 
-}
-mini_clock_gettime(){ 
-  echo "#define mini_clock_gettime generate" 
-}
-mini_getsockname(){ 
-  echo "#define mini_getsockname generate" 
-}
-mini_basename(){ 
-  echo "#define mini_basename generate" 
-}
-mini_geteuid(){ 
-  echo "#define mini_geteuid generate" 
-}
-mini_sethostname(){ 
-  echo "#define mini_sethostname generate" 
-}
-mini_getenv(){ 
-  echo "#define mini_getenv generate" 
-}
-mini_futex(){ 
-  echo "#define mini_futex generate" 
-}
-mini_ioperm(){ 
-  echo "#define mini_ioperm generate" 
-}
-mini_capset(){ 
-  echo "#define mini_capset generate" 
-}
-mini_iopl(){ 
-  echo "#define mini_iopl generate" 
-}
-mini_strncmp(){ 
-  echo "#define mini_strncmp generate" 
-}
-mini_socketpair(){ 
-  echo "#define mini_socketpair generate" 
-}
-mini_io_getevents(){ 
-  echo "#define mini_io_getevents generate" 
-}
-mini_gettid(){ 
-  echo "#define mini_gettid generate" 
-}
-mini_sigaltstack(){ 
-  echo "#define mini_sigaltstack generate" 
-}
-mini_set_tid_address(){ 
-  echo "#define mini_set_tid_address generate" 
-}
-mini_pause(){ 
-  echo "#define mini_pause generate" 
-}
-mini_renameat2(){ 
-  echo "#define mini_renameat2 generate" 
-}
-mini_openat(){ 
-  echo "#define mini_openat generate" 
-}
-mini_setresgid(){ 
-  echo "#define mini_setresgid generate" 
-}
-mini_mq_timedreceive(){ 
-  echo "#define mini_mq_timedreceive generate" 
-}
-mini_fseek(){ 
-  echo "#define mini_fseek generate" 
-}
-mini_statfs(){ 
-  echo "#define mini_statfs generate" 
-}
-mini_setregid(){ 
-  echo "#define mini_setregid generate" 
-}
-mini_open_by_handle_at(){ 
-  echo "#define mini_open_by_handle_at generate" 
-}
-mini_io_destroy(){ 
-  echo "#define mini_io_destroy generate" 
-}
-mini_truncate(){ 
-  echo "#define mini_truncate generate" 
-}
-mini_gettimeofday(){ 
-  echo "#define mini_gettimeofday generate" 
-}
-mini_readahead(){ 
-  echo "#define mini_readahead generate" 
-}
-mini_mq_timedsend(){ 
-  echo "#define mini_mq_timedsend generate" 
-}
-mini_set_mempolicy(){ 
-  echo "#define mini_set_mempolicy generate" 
-}
-mini_sched_yield(){ 
-  echo "#define mini_sched_yield generate" 
-}
-mini_link(){ 
-  echo "#define mini_link generate" 
-}
-mini_getrusage(){ 
-  echo "#define mini_getrusage generate" 
-}
-mini_lseek(){ 
-  echo "#define mini_lseek generate" 
-}
-mini_eventfd(){ 
-  echo "#define mini_eventfd generate" 
-}
-mini_puts(){ 
-  echo "#define mini_puts generate" 
-}
-mini_ioprio_set(){ 
-  echo "#define mini_ioprio_set generate" 
-}
-mini_setsid(){ 
-  echo "#define mini_setsid generate" 
-}
-mini_io_submit(){ 
-  echo "#define mini_io_submit generate" 
-}
-mini_add_key(){ 
-  echo "#define mini_add_key generate" 
-}
-mini_reboot(){ 
-  echo "#define mini_reboot generate" 
-}
-mini_sched_setscheduler(){ 
-  echo "#define mini_sched_setscheduler generate" 
-}
-mini_init_module(){ 
-  echo "#define mini_init_module generate" 
-}
-mini_pselect6(){ 
-  echo "#define mini_pselect6 generate" 
-}
-mini_setresuid(){ 
-  echo "#define mini_setresuid generate" 
-}
-mini_delete_module(){ 
-  echo "#define mini_delete_module generate" 
-}
-mini_setgroups(){ 
-  echo "#define mini_setgroups generate" 
-}
-mini_utimes(){ 
-  echo "#define mini_utimes generate" 
-}
-mini_clearerror(){ 
-  echo "#define mini_clearerror generate" 
-}
-mini_kexec_load(){ 
-  echo "#define mini_kexec_load generate" 
-}
-mini_clone(){ 
-  echo "#define mini_clone generate" 
-}
-mini_atoi(){ 
-  echo "#define mini_atoi generate" 
-}
-mini_print(){ 
-  echo "#define mini_print generate" 
-}
-mini_kcmp(){ 
-  echo "#define mini_kcmp generate" 
-}
-mini_getppid(){ 
-  echo "#define mini_getppid generate" 
-}
-mini_mq_getsetattr(){ 
-  echo "#define mini_mq_getsetattr generate" 
-}
-mini_fstatfs(){ 
-  echo "#define mini_fstatfs generate" 
-}
-mini_select(){ 
-  echo "#define mini_select generate" 
-}
-mini_chdir(){ 
-  echo "#define mini_chdir generate" 
-}
-mini_fprintfs(){ 
-  echo "#define mini_fprintfs generate" 
-}
-mini_putchar(){ 
-  echo "#define mini_putchar generate" 
-}
-mini_writev(){ 
-  echo "#define mini_writev generate" 
-}
-mini_shmget(){ 
-  echo "#define mini_shmget generate" 
-}
-mini_llistxattr(){ 
-  echo "#define mini_llistxattr generate" 
-}
-mini_tgkill(){ 
-  echo "#define mini_tgkill generate" 
-}
-mini_chroot(){ 
-  echo "#define mini_chroot generate" 
-}
-mini_pipe2(){ 
-  echo "#define mini_pipe2 generate" 
-}
-mini_readv(){ 
-  echo "#define mini_readv generate" 
-}
-mini_exit_group(){ 
-  echo "#define mini_exit_group generate" 
-}
-mini_signalfd4(){ 
-  echo "#define mini_signalfd4 generate" 
-}
-mini_shmctl(){ 
-  echo "#define mini_shmctl generate" 
-}
-mini_dup(){ 
-  echo "#define mini_dup generate" 
-}
-mini_sync(){ 
-  echo "#define mini_sync generate" 
-}
-mini_tee(){ 
-  echo "#define mini_tee generate" 
-}
-mini_recvfrom(){ 
-  echo "#define mini_recvfrom generate" 
-}
-mini_futimesat(){ 
-  echo "#define mini_futimesat generate" 
-}
-mini_timer_getoverrun(){ 
-  echo "#define mini_timer_getoverrun generate" 
-}
-mini_newfstatat(){ 
-  echo "#define mini_newfstatat generate" 
-}
-mini_getuid(){ 
-  echo "#define mini_getuid generate" 
-}
-mini_restart_syscall(){ 
-  echo "#define mini_restart_syscall generate" 
-}
-mini_accept4(){ 
-  echo "#define mini_accept4 generate" 
-}
-mini_isprint(){ 
-  echo "#define mini_isprint generate" 
-}
-mini_getrandom(){ 
-  echo "#define mini_getrandom generate" 
-}
-mini_umount2(){ 
-  echo "#define mini_umount2 generate" 
-}
-mini_lchown(){ 
-  echo "#define mini_lchown generate" 
-}
-mini_symlinkat(){ 
-  echo "#define mini_symlinkat generate" 
-}
-mini_setvbuf(){ 
-  echo "#define mini_setvbuf generate" 
-}
-mini_sched_getscheduler(){ 
-  echo "#define mini_sched_getscheduler generate" 
-}
-mini_recvmmsg(){ 
-  echo "#define mini_recvmmsg generate" 
-}
-mini_swapoff(){ 
-  echo "#define mini_swapoff generate" 
-}
-mini_preadv(){ 
-  echo "#define mini_preadv generate" 
-}
-mini_rt_sigtimedwait(){ 
-  echo "#define mini_rt_sigtimedwait generate" 
-}
-mini_fprint(){ 
-  echo "#define mini_fprint generate" 
-}
-mini_fputs(){ 
-  echo "#define mini_fputs generate" 
-}
-mini_strcat(){ 
-  echo "#define mini_strcat generate" 
-}
-mini_tcsetattr(){ 
-  echo "#define mini_tcsetattr generate" 
-}
-mini_move_pages(){ 
-  echo "#define mini_move_pages generate" 
-}
-mini_getrlimit(){ 
-  echo "#define mini_getrlimit generate" 
-}
-mini_clock_adjtime(){ 
-  echo "#define mini_clock_adjtime generate" 
-}
-mini_fdatasync(){ 
-  echo "#define mini_fdatasync generate" 
-}
-mini_mlock(){ 
-  echo "#define mini_mlock generate" 
-}
-mini_setgid(){ 
-  echo "#define mini_setgid generate" 
-}
-mini_setitimer(){ 
-  echo "#define mini_setitimer generate" 
-}
-mini_fprints(){ 
-  echo "#define mini_fprints generate" 
-}
-mini_syncfs(){ 
-  echo "#define mini_syncfs generate" 
-}
-mini_fileno(){ 
-  echo "#define mini_fileno generate" 
-}
-mini_sched_setattr(){ 
-  echo "#define mini_sched_setattr generate" 
-}
-mini_fchmod(){ 
-  echo "#define mini_fchmod generate" 
-}
-mini_creat(){ 
-  echo "#define mini_creat generate" 
-}
-mini_timerfd_settime(){ 
-  echo "#define mini_timerfd_settime generate" 
-}
-mini_itodec(){ 
-  echo "#define mini_itodec generate" 
-}
-mini_syslog(){ 
-  echo "#define mini_syslog generate" 
-}
-mini_itohex(){ 
-  echo "#define mini_itohex generate" 
-}
-mini_mq_unlink(){ 
-  echo "#define mini_mq_unlink generate" 
-}
-mini_setns(){ 
-  echo "#define mini_setns generate" 
-}
-mini_fchownat(){ 
-  echo "#define mini_fchownat generate" 
-}
-mini_chmod(){ 
-  echo "#define mini_chmod generate" 
-}
-mini_pivot_root(){ 
-  echo "#define mini_pivot_root generate" 
-}
-mini_fork(){ 
-  echo "#define mini_fork generate" 
-}
-mini_remap_file_pages(){ 
-  echo "#define mini_remap_file_pages generate" 
-}
-mini_setuid(){ 
-  echo "#define mini_setuid generate" 
-}
-mini_close(){ 
-  echo "#define mini_close generate" 
-}
-mini_fsetpos(){ 
-  echo "#define mini_fsetpos generate" 
-}
-mini_fremovexattr(){ 
-  echo "#define mini_fremovexattr generate" 
-}
-mini_fsync(){ 
-  echo "#define mini_fsync generate" 
-}
-mini_ustat(){ 
-  echo "#define mini_ustat generate" 
-}
-mini_pread64(){ 
-  echo "#define mini_pread64 generate" 
-}
-mini_rand(){ 
-  echo "#define mini_rand generate" 
-}
-mini_pwritev(){ 
-  echo "#define mini_pwritev generate" 
-}
-mini_vhangup(){ 
-  echo "#define mini_vhangup generate" 
-}
-mini_mlockall(){ 
-  echo "#define mini_mlockall generate" 
-}
-mini_prctl(){ 
-  echo "#define mini_prctl generate" 
-}
-mini_shutdown(){ 
-  echo "#define mini_shutdown generate" 
-}
-mini_unlinkat(){ 
-  echo "#define mini_unlinkat generate" 
-}
-mini_rename(){ 
-  echo "#define mini_rename generate" 
-}
-mini_umask(){ 
-  echo "#define mini_umask generate" 
-}
-mini__strcmp(){ 
-  echo "#define mini__strcmp generate" 
-}
-mini_setrlimit(){ 
-  echo "#define mini_setrlimit generate" 
-}
-mini_semget(){ 
-  echo "#define mini_semget generate" 
-}
-mini_sendmmsg(){ 
-  echo "#define mini_sendmmsg generate" 
-}
-mini_clock_nanosleep(){ 
-  echo "#define mini_clock_nanosleep generate" 
-}
-mini_sched_setaffinity(){ 
-  echo "#define mini_sched_setaffinity generate" 
-}
-mini_fallocate(){ 
-  echo "#define mini_fallocate generate" 
-}
-mini_getgid(){ 
-  echo "#define mini_getgid generate" 
-}
-mini_prlimit64(){ 
-  echo "#define mini_prlimit64 generate" 
-}
-mini_getitimer(){ 
-  echo "#define mini_getitimer generate" 
-}
-mini_lsetxattr(){ 
-  echo "#define mini_lsetxattr generate" 
-}
-mini_get_mempolicy(){ 
-  echo "#define mini_get_mempolicy generate" 
-}
-mini_mknod(){ 
-  echo "#define mini_mknod generate" 
-}
-mini_semctl(){ 
-  echo "#define mini_semctl generate" 
-}
-mini_mincore(){ 
-  echo "#define mini_mincore generate" 
-}
-mini_readdir(){ 
-  echo "#define mini_readdir generate" 
-}
-mini_sched_getaffinity(){ 
-  echo "#define mini_sched_getaffinity generate" 
-}
-mini_arch_prctl(){ 
-  echo "#define mini_arch_prctl generate" 
-}
-mini_prints(){ 
-  echo "#define mini_prints generate" 
-}
-mini_msgsnd(){ 
-  echo "#define mini_msgsnd generate" 
-}
-mini_settimeofday(){ 
-  echo "#define mini_settimeofday generate" 
-}
-mini_itobin(){ 
-  echo "#define mini_itobin generate" 
-}
-mini_utime(){ 
-  echo "#define mini_utime generate" 
-}
-mini_symlink(){ 
-  echo "#define mini_symlink generate" 
+mini__inotify_init(){ 
+  echo "#define mini__inotify_init generate" 
 }
 mini_perror(){ 
   echo "#define mini_perror generate" 
 }
-mini_putc(){ 
-  echo "#define mini_putc generate" 
+mini_memfrob(){ 
+  echo "#define mini_memfrob generate" 
+}
+mini_dprints(){ 
+  echo "#define mini_dprints generate" 
+}
+mini__setfsuid(){ 
+  echo "#define mini__setfsuid generate" 
+}
+mini__getresuid(){ 
+  echo "#define mini__getresuid generate" 
+}
+mini__io_getevents(){ 
+  echo "#define mini__io_getevents generate" 
+}
+mini__kill(){ 
+  echo "#define mini__kill generate" 
+}
+mini__recvmsg(){ 
+  echo "#define mini__recvmsg generate" 
+}
+mini__accept(){ 
+  echo "#define mini__accept generate" 
 }
 mini_mprotect(){ 
   echo "#define mini_mprotect generate" 
 }
-mini_getresuid(){ 
-  echo "#define mini_getresuid generate" 
+mini__utimensat(){ 
+  echo "#define mini__utimensat generate" 
 }
-mini_ftell(){ 
-  echo "#define mini_ftell generate" 
+mini__process_vm_writev(){ 
+  echo "#define mini__process_vm_writev generate" 
 }
-mini_getdents64(){ 
-  echo "#define mini_getdents64 generate" 
+mini__set_tid_address(){ 
+  echo "#define mini__set_tid_address generate" 
 }
-mini_getgroups(){ 
-  echo "#define mini_getgroups generate" 
+mini__fgetxattr(){ 
+  echo "#define mini__fgetxattr generate" 
 }
-mini_sched_get_priority_max(){ 
-  echo "#define mini_sched_get_priority_max generate" 
+mini__mprotect(){ 
+  echo "#define mini__mprotect generate" 
 }
-mini_dprintf(){ 
-  echo "#define mini_dprintf generate" 
+mini__setitimer(){ 
+  echo "#define mini__setitimer generate" 
 }
-mini_fgetc(){ 
-  echo "#define mini_fgetc generate" 
+mini__mq_notify(){ 
+  echo "#define mini__mq_notify generate" 
 }
-mini_open(){ 
-  echo "#define mini_open generate" 
+mini__sethostname(){ 
+  echo "#define mini__sethostname generate" 
 }
-mini_inotify_init1(){ 
-  echo "#define mini_inotify_init1 generate" 
+mini__sched_yield(){ 
+  echo "#define mini__sched_yield generate" 
 }
-mini_alarm(){ 
-  echo "#define mini_alarm generate" 
+mini__sched_getattr(){ 
+  echo "#define mini__sched_getattr generate" 
 }
-mini_mkdirat(){ 
-  echo "#define mini_mkdirat generate" 
+mini__pwritev(){ 
+  echo "#define mini__pwritev generate" 
 }
-mini_lgetxattr(){ 
-  echo "#define mini_lgetxattr generate" 
+mini__io_setup(){ 
+  echo "#define mini__io_setup generate" 
 }
-mini_shmat(){ 
-  echo "#define mini_shmat generate" 
+mini_creat(){ 
+  echo "#define mini_creat generate" 
 }
-mini_getsid(){ 
-  echo "#define mini_getsid generate" 
+mini__mbind(){ 
+  echo "#define mini__mbind generate" 
 }
-mini_getc(){ 
-  echo "#define mini_getc generate" 
+mini__chroot(){ 
+  echo "#define mini__chroot generate" 
 }
-mini_uname(){ 
-  echo "#define mini_uname generate" 
+mini__fchmodat(){ 
+  echo "#define mini__fchmodat generate" 
 }
-mini_lstat(){ 
-  echo "#define mini_lstat generate" 
+mini__linkat(){ 
+  echo "#define mini__linkat generate" 
 }
-mini_vfprintf(){ 
-  echo "#define mini_vfprintf generate" 
+mini__pause(){ 
+  echo "#define mini__pause generate" 
 }
-mini_mkdir(){ 
-  echo "#define mini_mkdir generate" 
+mini__llistxattr(){ 
+  echo "#define mini__llistxattr generate" 
 }
-mini_socket(){ 
-  echo "#define mini_socket generate" 
+mini__mkdir(){ 
+  echo "#define mini__mkdir generate" 
 }
-mini_printl(){ 
-  echo "#define mini_printl generate" 
+mini__recvmmsg(){ 
+  echo "#define mini__recvmmsg generate" 
 }
-mini_exit(){ 
-  echo "#define mini_exit generate" 
+mini__getsockname(){ 
+  echo "#define mini__getsockname generate" 
 }
-mini_fwrites(){ 
-  echo "#define mini_fwrites generate" 
+mini__rename(){ 
+  echo "#define mini__rename generate" 
 }
-mini_inotify_init(){ 
-  echo "#define mini_inotify_init generate" 
-}
-mini_munlockall(){ 
-  echo "#define mini_munlockall generate" 
-}
-mini_madvise(){ 
-  echo "#define mini_madvise generate" 
-}
-mini_ferror(){ 
-  echo "#define mini_ferror generate" 
-}
-mini_itoHEX(){ 
-  echo "#define mini_itoHEX generate" 
-}
-mini_semop(){ 
-  echo "#define mini_semop generate" 
-}
-mini_bpf(){ 
-  echo "#define mini_bpf generate" 
-}
-mini_getpeername(){ 
-  echo "#define mini_getpeername generate" 
-}
-mini_sched_getattr(){ 
-  echo "#define mini_sched_getattr generate" 
-}
-mini_rt_sigqueueinfo(){ 
-  echo "#define mini_rt_sigqueueinfo generate" 
-}
-mini_rt_sigreturn(){ 
-  echo "#define mini_rt_sigreturn generate" 
-}
-mini_vfork(){ 
-  echo "#define mini_vfork generate" 
-}
-mini_fgetpos(){ 
-  echo "#define mini_fgetpos generate" 
-}
-mini_fwrite(){ 
-  echo "#define mini_fwrite generate" 
-}
-mini_mknodat(){ 
-  echo "#define mini_mknodat generate" 
-}
-mini_name_to_handle_at(){ 
-  echo "#define mini_name_to_handle_at generate" 
-}
-mini_epoll_create1(){ 
-  echo "#define mini_epoll_create1 generate" 
-}
-mini_io_cancel(){ 
-  echo "#define mini_io_cancel generate" 
-}
-mini_closedir(){ 
-  echo "#define mini_closedir generate" 
-}
-mini_setpriority(){ 
-  echo "#define mini_setpriority generate" 
-}
-mini_setbuf(){ 
-  echo "#define mini_setbuf generate" 
-}
-mini_faccessat(){ 
-  echo "#define mini_faccessat generate" 
-}
-mini_mmap(){ 
-  echo "#define mini_mmap generate" 
-}
-mini_kexec_file_load(){ 
-  echo "#define mini_kexec_file_load generate" 
-}
-mini_readlinkat(){ 
-  echo "#define mini_readlinkat generate" 
-}
-mini_time(){ 
-  echo "#define mini_time generate" 
-}
-mini_memfd_create(){ 
-  echo "#define mini_memfd_create generate" 
-}
-mini_printf(){ 
-  echo "#define mini_printf generate" 
-}
-mini_fadvise64(){ 
-  echo "#define mini_fadvise64 generate" 
-}
-mini_fanotify_mark(){ 
-  echo "#define mini_fanotify_mark generate" 
-}
-mini_fstat(){ 
-  echo "#define mini_fstat generate" 
-}
-mini_modify_ldt(){ 
-  echo "#define mini_modify_ldt generate" 
-}
-mini_timerfd_gettime(){ 
-  echo "#define mini_timerfd_gettime generate" 
-}
-mini_splice(){ 
-  echo "#define mini_splice generate" 
-}
-mini_pwrite64(){ 
-  echo "#define mini_pwrite64 generate" 
-}
-mini_mbind(){ 
-  echo "#define mini_mbind generate" 
-}
-mini_epoll_ctl(){ 
-  echo "#define mini_epoll_ctl generate" 
-}
-mini_getcpu(){ 
-  echo "#define mini_getcpu generate" 
-}
-mini_timer_create(){ 
-  echo "#define mini_timer_create generate" 
-}
-mini_clock_getres(){ 
-  echo "#define mini_clock_getres generate" 
-}
-mini_epoll_pwait(){ 
-  echo "#define mini_epoll_pwait generate" 
-}
-mini_sendto(){ 
-  echo "#define mini_sendto generate" 
-}
-mini_setsockopt(){ 
-  echo "#define mini_setsockopt generate" 
-}
-mini_keyctl(){ 
-  echo "#define mini_keyctl generate" 
-}
-mini_feof(){ 
-  echo "#define mini_feof generate" 
-}
-mini_set_robust_list(){ 
-  echo "#define mini_set_robust_list generate" 
-}
-mini_getdents(){ 
-  echo "#define mini_getdents generate" 
+mini__getgid(){ 
+  echo "#define mini__getgid generate" 
 }
 mini_def(){ 
   echo "#define mini_def generate" 
 }
-mini_acct(){ 
-  echo "#define mini_acct generate" 
+mini_setbuf(){ 
+  echo "#define mini_setbuf generate" 
 }
-mini_lookup_dcookie(){ 
-  echo "#define mini_lookup_dcookie generate" 
+mini__ioctl(){ 
+  echo "#define mini__ioctl generate" 
 }
-mini_writes(){ 
-  echo "#define mini_writes generate" 
+mini__setpriority(){ 
+  echo "#define mini__setpriority generate" 
 }
-mini_ioprio_get(){ 
-  echo "#define mini_ioprio_get generate" 
+mini_print(){ 
+  echo "#define mini_print generate" 
 }
-mini_sched_getparam(){ 
-  echo "#define mini_sched_getparam generate" 
+mini_strlen(){ 
+  echo "#define mini_strlen generate" 
 }
-mini_setfsgid(){ 
-  echo "#define mini_setfsgid generate" 
+mini__kexec_file_load(){ 
+  echo "#define mini__kexec_file_load generate" 
 }
-mini_tkill(){ 
-  echo "#define mini_tkill generate" 
+mini__uname(){ 
+  echo "#define mini__uname generate" 
 }
-mini_linkat(){ 
-  echo "#define mini_linkat generate" 
+mini__ftruncate(){ 
+  echo "#define mini__ftruncate generate" 
 }
-mini_chown(){ 
-  echo "#define mini_chown generate" 
+mini__fstatfs(){ 
+  echo "#define mini__fstatfs generate" 
 }
-mini_epoll_create(){ 
-  echo "#define mini_epoll_create generate" 
+mini__ustat(){ 
+  echo "#define mini__ustat generate" 
 }
-mini_rt_tgsigqueueinfo(){ 
-  echo "#define mini_rt_tgsigqueueinfo generate" 
+mini_vfprintf(){ 
+  echo "#define mini_vfprintf generate" 
 }
-mini__mprints(){ 
-  echo "#define mini__mprints generate" 
+mini__perf_event_open(){ 
+  echo "#define mini__perf_event_open generate" 
 }
-mini_stat(){ 
-  echo "#define mini_stat generate" 
+mini_strcmp(){ 
+  echo "#define mini_strcmp generate" 
+}
+mini__setgid(){ 
+  echo "#define mini__setgid generate" 
+}
+mini__signalfd(){ 
+  echo "#define mini__signalfd generate" 
+}
+mini_time(){ 
+  echo "#define mini_time generate" 
+}
+mini__semop(){ 
+  echo "#define mini__semop generate" 
+}
+mini__lremovexattr(){ 
+  echo "#define mini__lremovexattr generate" 
+}
+mini__nanosleep(){ 
+  echo "#define mini__nanosleep generate" 
+}
+mini__getpriority(){ 
+  echo "#define mini__getpriority generate" 
+}
+mini_itoHEX(){ 
+  echo "#define mini_itoHEX generate" 
+}
+mini__iopl(){ 
+  echo "#define mini__iopl generate" 
+}
+mini__getegid(){ 
+  echo "#define mini__getegid generate" 
+}
+mini_gettimeofday(){ 
+  echo "#define mini_gettimeofday generate" 
 }
 mini_vsnprintf(){ 
   echo "#define mini_vsnprintf generate" 
 }
-mini_getresgid(){ 
-  echo "#define mini_getresgid generate" 
+mini__fanotify_init(){ 
+  echo "#define mini__fanotify_init generate" 
 }
-mini_fgetxattr(){ 
-  echo "#define mini_fgetxattr generate" 
+mini__acct(){ 
+  echo "#define mini__acct generate" 
 }
-mini_msync(){ 
-  echo "#define mini_msync generate" 
-}
-mini_timerfd_create(){ 
-  echo "#define mini_timerfd_create generate" 
-}
-mini_fprintf(){ 
-  echo "#define mini_fprintf generate" 
-}
-mini_listen(){ 
-  echo "#define mini_listen generate" 
-}
-mini_memcmp(){ 
-  echo "#define mini_memcmp generate" 
-}
-mini_sched_get_priority_min(){ 
-  echo "#define mini_sched_get_priority_min generate" 
-}
-mini_strerror(){ 
-  echo "#define mini_strerror generate" 
-}
-mini_dtodec(){ 
-  echo "#define mini_dtodec generate" 
-}
-mini_sync_file_range(){ 
-  echo "#define mini_sync_file_range generate" 
-}
-mini_rewind(){ 
-  echo "#define mini_rewind generate" 
-}
-mini_tcgetattr(){ 
-  echo "#define mini_tcgetattr generate" 
-}
-mini_personality(){ 
-  echo "#define mini_personality generate" 
-}
-mini_dup2(){ 
-  echo "#define mini_dup2 generate" 
-}
-mini_setfsuid(){ 
-  echo "#define mini_setfsuid generate" 
-}
-mini_rmdir(){ 
-  echo "#define mini_rmdir generate" 
-}
-mini_strcpy(){ 
-  echo "#define mini_strcpy generate" 
-}
-mini_finit_module(){ 
-  echo "#define mini_finit_module generate" 
-}
-mini_getcwd(){ 
-  echo "#define mini_getcwd generate" 
-}
-mini_fsetxattr(){ 
-  echo "#define mini_fsetxattr generate" 
-}
-mini_sched_setparam(){ 
-  echo "#define mini_sched_setparam generate" 
-}
-mini_setxattr(){ 
-  echo "#define mini_setxattr generate" 
-}
-mini_brk(){ 
-  echo "#define mini_brk generate" 
-}
-mini_printsl(){ 
-  echo "#define mini_printsl generate" 
-}
-mini_eventfd2(){ 
-  echo "#define mini_eventfd2 generate" 
-}
-mini_recvmsg(){ 
-  echo "#define mini_recvmsg generate" 
-}
-mini_rt_sigprocmask(){ 
-  echo "#define mini_rt_sigprocmask generate" 
-}
-mini_unshare(){ 
-  echo "#define mini_unshare generate" 
+mini__setrlimit(){ 
+  echo "#define mini__setrlimit generate" 
 }
 mini_opendir(){ 
   echo "#define mini_opendir generate" 
 }
-mini_timer_delete(){ 
-  echo "#define mini_timer_delete generate" 
+mini__inotify_rm_watch(){ 
+  echo "#define mini__inotify_rm_watch generate" 
 }
-mini_msgrcv(){ 
-  echo "#define mini_msgrcv generate" 
+mini_writes(){ 
+  echo "#define mini_writes generate" 
+}
+mini_fprintfs(){ 
+  echo "#define mini_fprintfs generate" 
+}
+mini__unlink(){ 
+  echo "#define mini__unlink generate" 
+}
+mini_printsl(){ 
+  echo "#define mini_printsl generate" 
+}
+mini_0(){ 
+  echo "#define mini_0 generate" 
+}
+mini__utimes(){ 
+  echo "#define mini__utimes generate" 
+}
+mini__setresuid(){ 
+  echo "#define mini__setresuid generate" 
+}
+mini__lsetxattr(){ 
+  echo "#define mini__lsetxattr generate" 
+}
+mini__adjtimex(){ 
+  echo "#define mini__adjtimex generate" 
+}
+mini__connect(){ 
+  echo "#define mini__connect generate" 
+}
+mini_strncmp(){ 
+  echo "#define mini_strncmp generate" 
+}
+mini__sysfs(){ 
+  echo "#define mini__sysfs generate" 
+}
+mini__getitimer(){ 
+  echo "#define mini__getitimer generate" 
+}
+mini__ioprio_set(){ 
+  echo "#define mini__ioprio_set generate" 
+}
+mini__mknod(){ 
+  echo "#define mini__mknod generate" 
+}
+mini__lseek(){ 
+  echo "#define mini__lseek generate" 
+}
+mini_setvbuf(){ 
+  echo "#define mini_setvbuf generate" 
+}
+mini_fwrites(){ 
+  echo "#define mini_fwrites generate" 
+}
+mini__sched_get_priority_min(){ 
+  echo "#define mini__sched_get_priority_min generate" 
+}
+mini__getrandom(){ 
+  echo "#define mini__getrandom generate" 
+}
+mini_fprint(){ 
+  echo "#define mini_fprint generate" 
+}
+mini_fflush(){ 
+  echo "#define mini_fflush generate" 
+}
+mini__fchdir(){ 
+  echo "#define mini__fchdir generate" 
+}
+mini__vmsplice(){ 
+  echo "#define mini__vmsplice generate" 
+}
+mini_fopen(){ 
+  echo "#define mini_fopen generate" 
+}
+mini__rmdir(){ 
+  echo "#define mini__rmdir generate" 
+}
+mini__personality(){ 
+  echo "#define mini__personality generate" 
+}
+mini__clock_adjtime(){ 
+  echo "#define mini__clock_adjtime generate" 
+}
+mini__setregid(){ 
+  echo "#define mini__setregid generate" 
+}
+mini_fileno(){ 
+  echo "#define mini_fileno generate" 
+}
+mini_fread(){ 
+  echo "#define mini_fread generate" 
+}
+mini__alarm(){ 
+  echo "#define mini__alarm generate" 
+}
+mini__mq_getsetattr(){ 
+  echo "#define mini__mq_getsetattr generate" 
+}
+mini_putchar(){ 
+  echo "#define mini_putchar generate" 
+}
+mini__pwrite64(){ 
+  echo "#define mini__pwrite64 generate" 
+}
+mini__semget(){ 
+  echo "#define mini__semget generate" 
+}
+mini__timer_gettime(){ 
+  echo "#define mini__timer_gettime generate" 
+}
+mini_chdir(){ 
+  echo "#define mini_chdir generate" 
+}
+mini__tkill(){ 
+  echo "#define mini__tkill generate" 
+}
+mini__capget(){ 
+  echo "#define mini__capget generate" 
+}
+mini__setgroups(){ 
+  echo "#define mini__setgroups generate" 
+}
+mini__dup(){ 
+  echo "#define mini__dup generate" 
+}
+mini__fstat(){ 
+  echo "#define mini__fstat generate" 
+}
+mini_fsetpos(){ 
+  echo "#define mini_fsetpos generate" 
+}
+mini__removexattr(){ 
+  echo "#define mini__removexattr generate" 
+}
+mini__rt_sigsuspend(){ 
+  echo "#define mini__rt_sigsuspend generate" 
+}
+mini__readlink(){ 
+  echo "#define mini__readlink generate" 
+}
+mini__pread64(){ 
+  echo "#define mini__pread64 generate" 
+}
+mini__select(){ 
+  echo "#define mini__select generate" 
+}
+mini__prctl(){ 
+  echo "#define mini__prctl generate" 
+}
+mini__statfs(){ 
+  echo "#define mini__statfs generate" 
+}
+mini__read(){ 
+  echo "#define mini__read generate" 
+}
+mini_open(){ 
+  echo "#define mini_open generate" 
+}
+mini__move_pages(){ 
+  echo "#define mini__move_pages generate" 
+}
+mini__setresgid(){ 
+  echo "#define mini__setresgid generate" 
+}
+mini_strerror(){ 
+  echo "#define mini_strerror generate" 
+}
+mini__open(){ 
+  echo "#define mini__open generate" 
+}
+mini__fchown(){ 
+  echo "#define mini__fchown generate" 
+}
+mini__gettimeofday(){ 
+  echo "#define mini__gettimeofday generate" 
 }
 mini__itobin(){ 
   echo "#define mini__itobin generate" 
 }
-mini_request_key(){ 
-  echo "#define mini_request_key generate" 
+mini__execve(){ 
+  echo "#define mini__execve generate" 
 }
-mini_getpgid(){ 
-  echo "#define mini_getpgid generate" 
+mini__sched_getscheduler(){ 
+  echo "#define mini__sched_getscheduler generate" 
 }
-mini_inotify_add_watch(){ 
-  echo "#define mini_inotify_add_watch generate" 
+mini__readlinkat(){ 
+  echo "#define mini__readlinkat generate" 
 }
-mini_accept(){ 
-  echo "#define mini_accept generate" 
+mini__quotactl(){ 
+  echo "#define mini__quotactl generate" 
 }
-mini_vmsplice(){ 
-  echo "#define mini_vmsplice generate" 
+mini__epoll_wait(){ 
+  echo "#define mini__epoll_wait generate" 
 }
-mini_lremovexattr(){ 
-  echo "#define mini_lremovexattr generate" 
+mini__shmget(){ 
+  echo "#define mini__shmget generate" 
 }
-mini__sysctl(){ 
-  echo "#define mini__sysctl generate" 
+mini_srand(){ 
+  echo "#define mini_srand generate" 
+}
+mini_getenv(){ 
+  echo "#define mini_getenv generate" 
+}
+mini__open_by_handle_at(){ 
+  echo "#define mini__open_by_handle_at generate" 
+}
+mini_close(){ 
+  echo "#define mini_close generate" 
+}
+mini__clock_settime(){ 
+  echo "#define mini__clock_settime generate" 
+}
+mini_fgetpos(){ 
+  echo "#define mini_fgetpos generate" 
+}
+mini__listxattr(){ 
+  echo "#define mini__listxattr generate" 
+}
+mini__splice(){ 
+  echo "#define mini__splice generate" 
+}
+mini__shmdt(){ 
+  echo "#define mini__shmdt generate" 
+}
+mini_dprintf(){ 
+  echo "#define mini_dprintf generate" 
+}
+mini_ioctl(){ 
+  echo "#define mini_ioctl generate" 
+}
+mini__arch_prctl(){ 
+  echo "#define mini__arch_prctl generate" 
+}
+mini_closedir(){ 
+  echo "#define mini_closedir generate" 
+}
+mini__poll(){ 
+  echo "#define mini__poll generate" 
+}
+mini__futex(){ 
+  echo "#define mini__futex generate" 
+}
+mini__sched_setparam(){ 
+  echo "#define mini__sched_setparam generate" 
+}
+mini__restart_syscall(){ 
+  echo "#define mini__restart_syscall generate" 
+}
+mini__syncfs(){ 
+  echo "#define mini__syncfs generate" 
+}
+mini__listen(){ 
+  echo "#define mini__listen generate" 
+}
+mini_strcpy(){ 
+  echo "#define mini_strcpy generate" 
+}
+mini__getresgid(){ 
+  echo "#define mini__getresgid generate" 
+}
+mini__preadv(){ 
+  echo "#define mini__preadv generate" 
+}
+mini__io_cancel(){ 
+  echo "#define mini__io_cancel generate" 
+}
+mini__inotify_add_watch(){ 
+  echo "#define mini__inotify_add_watch generate" 
+}
+mini_feof(){ 
+  echo "#define mini_feof generate" 
+}
+mini__timerfd_create(){ 
+  echo "#define mini__timerfd_create generate" 
+}
+mini_rename(){ 
+  echo "#define mini_rename generate" 
+}
+mini__shmat(){ 
+  echo "#define mini__shmat generate" 
+}
+mini__rt_sigprocmask(){ 
+  echo "#define mini__rt_sigprocmask generate" 
+}
+mini__epoll_create(){ 
+  echo "#define mini__epoll_create generate" 
+}
+mini__getcpu(){ 
+  echo "#define mini__getcpu generate" 
+}
+mini__renameat2(){ 
+  echo "#define mini__renameat2 generate" 
+}
+mini__getdents64(){ 
+  echo "#define mini__getdents64 generate" 
+}
+mini__settimeofday(){ 
+  echo "#define mini__settimeofday generate" 
+}
+mini__sched_setaffinity(){ 
+  echo "#define mini__sched_setaffinity generate" 
+}
+mini__chmod(){ 
+  echo "#define mini__chmod generate" 
+}
+mini__getrusage(){ 
+  echo "#define mini__getrusage generate" 
+}
+mini_tcgetattr(){ 
+  echo "#define mini_tcgetattr generate" 
+}
+mini__madvise(){ 
+  echo "#define mini__madvise generate" 
+}
+mini_atoi(){ 
+  echo "#define mini_atoi generate" 
+}
+mini_fputc(){ 
+  echo "#define mini_fputc generate" 
+}
+mini__sigaltstack(){ 
+  echo "#define mini__sigaltstack generate" 
+}
+mini__ptrace(){ 
+  echo "#define mini__ptrace generate" 
+}
+mini__sysinfo(){ 
+  echo "#define mini__sysinfo generate" 
+}
+mini__kexec_load(){ 
+  echo "#define mini__kexec_load generate" 
+}
+mini__chdir(){ 
+  echo "#define mini__chdir generate" 
+}
+mini__semtimedop(){ 
+  echo "#define mini__semtimedop generate" 
+}
+mini_select(){ 
+  echo "#define mini_select generate" 
+}
+mini_clearerror(){ 
+  echo "#define mini_clearerror generate" 
+}
+mini__getpgrp(){ 
+  echo "#define mini__getpgrp generate" 
+}
+mini_dup(){ 
+  echo "#define mini_dup generate" 
+}
+mini_printf(){ 
+  echo "#define mini_printf generate" 
+}
+mini__pselect6(){ 
+  echo "#define mini__pselect6 generate" 
+}
+mini__epoll_ctl(){ 
+  echo "#define mini__epoll_ctl generate" 
+}
+mini__timer_getoverrun(){ 
+  echo "#define mini__timer_getoverrun generate" 
+}
+mini__fork(){ 
+  echo "#define mini__fork generate" 
+}
+mini_puts(){ 
+  echo "#define mini_puts generate" 
+}
+mini__msgctl(){ 
+  echo "#define mini__msgctl generate" 
+}
+mini__getgroups(){ 
+  echo "#define mini__getgroups generate" 
+}
+mini_itodec(){ 
+  echo "#define mini_itodec generate" 
+}
+mini__pipe2(){ 
+  echo "#define mini__pipe2 generate" 
+}
+mini__io_submit(){ 
+  echo "#define mini__io_submit generate" 
+}
+mini__timerfd_gettime(){ 
+  echo "#define mini__timerfd_gettime generate" 
+}
+mini__shmctl(){ 
+  echo "#define mini__shmctl generate" 
+}
+mini__mincore(){ 
+  echo "#define mini__mincore generate" 
+}
+mini__rt_sigaction(){ 
+  echo "#define mini__rt_sigaction generate" 
+}
+mini_fwrite(){ 
+  echo "#define mini_fwrite generate" 
+}
+mini__times(){ 
+  echo "#define mini__times generate" 
+}
+mini__getxattr(){ 
+  echo "#define mini__getxattr generate" 
+}
+mini_fprints(){ 
+  echo "#define mini_fprints generate" 
+}
+mini__swapon(){ 
+  echo "#define mini__swapon generate" 
+}
+mini_dup2(){ 
+  echo "#define mini_dup2 generate" 
+}
+mini__io_destroy(){ 
+  echo "#define mini__io_destroy generate" 
+}
+mini__clock_getres(){ 
+  echo "#define mini__clock_getres generate" 
+}
+mini__ioperm(){ 
+  echo "#define mini__ioperm generate" 
+}
+mini__finit_module(){ 
+  echo "#define mini__finit_module generate" 
+}
+mini__seccomp(){ 
+  echo "#define mini__seccomp generate" 
+}
+mini_putc(){ 
+  echo "#define mini_putc generate" 
+}
+mini__accept4(){ 
+  echo "#define mini__accept4 generate" 
+}
+mini__vfork(){ 
+  echo "#define mini__vfork generate" 
+}
+mini__newfstatat(){ 
+  echo "#define mini__newfstatat generate" 
+}
+mini__gettid(){ 
+  echo "#define mini__gettid generate" 
+}
+mini__delete_module(){ 
+  echo "#define mini__delete_module generate" 
+}
+mini__unshare(){ 
+  echo "#define mini__unshare generate" 
+}
+mini__wait4(){ 
+  echo "#define mini__wait4 generate" 
 }
 mini_read(){ 
   echo "#define mini_read generate" 
 }
+mini__rt_sigreturn(){ 
+  echo "#define mini__rt_sigreturn generate" 
+}
+mini_getdents(){ 
+  echo "#define mini_getdents generate" 
+}
+mini__socketpair(){ 
+  echo "#define mini__socketpair generate" 
+}
+mini_snprintf(){ 
+  echo "#define mini_snprintf generate" 
+}
+mini__getpgid(){ 
+  echo "#define mini__getpgid generate" 
+}
+mini__epoll_pwait(){ 
+  echo "#define mini__epoll_pwait generate" 
+}
+mini__kcmp(){ 
+  echo "#define mini__kcmp generate" 
+}
+mini__tgkill(){ 
+  echo "#define mini__tgkill generate" 
+}
+mini__fadvise64(){ 
+  echo "#define mini__fadvise64 generate" 
+}
+mini__signalfd4(){ 
+  echo "#define mini__signalfd4 generate" 
+}
+mini__mount(){ 
+  echo "#define mini__mount generate" 
+}
+mini__link(){ 
+  echo "#define mini__link generate" 
+}
+mini__umount2(){ 
+  echo "#define mini__umount2 generate" 
+}
+mini__sync_file_range(){ 
+  echo "#define mini__sync_file_range generate" 
+}
+mini_memset(){ 
+  echo "#define mini_memset generate" 
+}
+mini_fseek(){ 
+  echo "#define mini_fseek generate" 
+}
+mini__brk(){ 
+  echo "#define mini__brk generate" 
+}
+mini__semctl(){ 
+  echo "#define mini__semctl generate" 
+}
+mini__getpid(){ 
+  echo "#define mini__getpid generate" 
+}
+mini_getcwd(){ 
+  echo "#define mini_getcwd generate" 
+}
+mini__geteuid(){ 
+  echo "#define mini__geteuid generate" 
+}
+mini__fdatasync(){ 
+  echo "#define mini__fdatasync generate" 
+}
+mini__swapoff(){ 
+  echo "#define mini__swapoff generate" 
+}
+mini__fcntl(){ 
+  echo "#define mini__fcntl generate" 
+}
+mini__rt_sigpending(){ 
+  echo "#define mini__rt_sigpending generate" 
+}
+mini_itobin(){ 
+  echo "#define mini_itobin generate" 
+}
+mini_memcpy(){ 
+  echo "#define mini_memcpy generate" 
+}
+mini__write(){ 
+  echo "#define mini__write generate" 
+}
+mini_prints(){ 
+  echo "#define mini_prints generate" 
+}
+mini_fgetc(){ 
+  echo "#define mini_fgetc generate" 
+}
+mini__symlinkat(){ 
+  echo "#define mini__symlinkat generate" 
+}
+mini__getppid(){ 
+  echo "#define mini__getppid generate" 
+}
+mini__vhangup(){ 
+  echo "#define mini__vhangup generate" 
+}
+mini_dtodec(){ 
+  echo "#define mini_dtodec generate" 
+}
+mini__msgget(){ 
+  echo "#define mini__msgget generate" 
+}
+mini__fchownat(){ 
+  echo "#define mini__fchownat generate" 
+}
+mini__mmap(){ 
+  echo "#define mini__mmap generate" 
+}
+mini__setpgid(){ 
+  echo "#define mini__setpgid generate" 
+}
+mini__lchown(){ 
+  echo "#define mini__lchown generate" 
+}
+mini__munlockall(){ 
+  echo "#define mini__munlockall generate" 
+}
+mini_strcat(){ 
+  echo "#define mini_strcat generate" 
+}
+mini__mlock(){ 
+  echo "#define mini__mlock generate" 
+}
+mini__symlink(){ 
+  echo "#define mini__symlink generate" 
+}
+mini_tcsetattr(){ 
+  echo "#define mini_tcsetattr generate" 
+}
+mini__ppoll(){ 
+  echo "#define mini__ppoll generate" 
+}
+mini__keyctl(){ 
+  echo "#define mini__keyctl generate" 
+}
+mini__futimesat(){ 
+  echo "#define mini__futimesat generate" 
+}
+mini_getc(){ 
+  echo "#define mini_getc generate" 
+}
+mini__reboot(){ 
+  echo "#define mini__reboot generate" 
+}
+mini__sched_setattr(){ 
+  echo "#define mini__sched_setattr generate" 
+}
+mini__creat(){ 
+  echo "#define mini__creat generate" 
+}
+mini__epoll_create1(){ 
+  echo "#define mini__epoll_create1 generate" 
+}
+mini__lstat(){ 
+  echo "#define mini__lstat generate" 
+}
+mini__exit_group(){ 
+  echo "#define mini__exit_group generate" 
+}
+mini_write(){ 
+  echo "#define mini_write generate" 
+}
+mini__clock_nanosleep(){ 
+  echo "#define mini__clock_nanosleep generate" 
+}
+mini__setxattr(){ 
+  echo "#define mini__setxattr generate" 
+}
+mini__modify_ldt(){ 
+  echo "#define mini__modify_ldt generate" 
+}
+mini__sched_get_priority_max(){ 
+  echo "#define mini__sched_get_priority_max generate" 
+}
+mini_getpid(){ 
+  echo "#define mini_getpid generate" 
+}
+mini__mprints(){ 
+  echo "#define mini__mprints generate" 
+}
+mini__setns(){ 
+  echo "#define mini__setns generate" 
+}
+mini_sprintf(){ 
+  echo "#define mini_sprintf generate" 
+}
+mini__mq_open(){ 
+  echo "#define mini__mq_open generate" 
+}
+mini__getdents(){ 
+  echo "#define mini__getdents generate" 
+}
+mini__ioprio_get(){ 
+  echo "#define mini__ioprio_get generate" 
+}
+mini_stat(){ 
+  echo "#define mini_stat generate" 
+}
+mini_unlink(){ 
+  echo "#define mini_unlink generate" 
+}
+mini__capset(){ 
+  echo "#define mini__capset generate" 
+}
+mini__fallocate(){ 
+  echo "#define mini__fallocate generate" 
+}
+mini__faccessat(){ 
+  echo "#define mini__faccessat generate" 
+}
+mini__rt_sigtimedwait(){ 
+  echo "#define mini__rt_sigtimedwait generate" 
+}
+mini__setreuid(){ 
+  echo "#define mini__setreuid generate" 
+}
+mini__mq_timedsend(){ 
+  echo "#define mini__mq_timedsend generate" 
+}
+mini__msync(){ 
+  echo "#define mini__msync generate" 
+}
+mini_ferror(){ 
+  echo "#define mini_ferror generate" 
+}
+mini__mremap(){ 
+  echo "#define mini__mremap generate" 
+}
+mini__sendto(){ 
+  echo "#define mini__sendto generate" 
+}
+mini_uname(){ 
+  echo "#define mini_uname generate" 
+}
+mini__bind(){ 
+  echo "#define mini__bind generate" 
+}
+mini__inotify_init1(){ 
+  echo "#define mini__inotify_init1 generate" 
+}
+mini_ftruncate(){ 
+  echo "#define mini_ftruncate generate" 
+}
+mini__writev(){ 
+  echo "#define mini__writev generate" 
+}
+mini_fputs(){ 
+  echo "#define mini_fputs generate" 
+}
+mini__sched_getparam(){ 
+  echo "#define mini__sched_getparam generate" 
+}
+mini__mkdirat(){ 
+  echo "#define mini__mkdirat generate" 
+}
+mini__clock_gettime(){ 
+  echo "#define mini__clock_gettime generate" 
+}
+mini__setdomainname(){ 
+  echo "#define mini__setdomainname generate" 
+}
+mini__readv(){ 
+  echo "#define mini__readv generate" 
+}
+mini__dup3(){ 
+  echo "#define mini__dup3 generate" 
+}
+mini__lookup_dcookie(){ 
+  echo "#define mini__lookup_dcookie generate" 
+}
+mini__sendmsg(){ 
+  echo "#define mini__sendmsg generate" 
+}
+mini__strcmp(){ 
+  echo "#define mini__strcmp generate" 
+}
+mini__eventfd2(){ 
+  echo "#define mini__eventfd2 generate" 
+}
+mini__timer_create(){ 
+  echo "#define mini__timer_create generate" 
+}
+mini_printl(){ 
+  echo "#define mini_printl generate" 
+}
+mini__unlinkat(){ 
+  echo "#define mini__unlinkat generate" 
+}
+mini__rt_sigqueueinfo(){ 
+  echo "#define mini__rt_sigqueueinfo generate" 
+}
+mini__pipe(){ 
+  echo "#define mini__pipe generate" 
+}
+mini__sched_getaffinity(){ 
+  echo "#define mini__sched_getaffinity generate" 
+}
+mini__fsetxattr(){ 
+  echo "#define mini__fsetxattr generate" 
+}
+mini__clone(){ 
+  echo "#define mini__clone generate" 
+}
+mini__itohex(){ 
+  echo "#define mini__itohex generate" 
+}
+mini__request_key(){ 
+  echo "#define mini__request_key generate" 
+}
+mini_malloc(){ 
+  echo "#define mini_malloc generate" 
+}
+mini__bpf(){ 
+  echo "#define mini__bpf generate" 
+}
+mini__timer_delete(){ 
+  echo "#define mini__timer_delete generate" 
+}
+mini__timerfd_settime(){ 
+  echo "#define mini__timerfd_settime generate" 
+}
+mini_strncpy(){ 
+  echo "#define mini_strncpy generate" 
+}
+mini__sync(){ 
+  echo "#define mini__sync generate" 
+}
+mini__msgsnd(){ 
+  echo "#define mini__msgsnd generate" 
+}
+mini_fsync(){ 
+  echo "#define mini_fsync generate" 
+}
+mini__process_vm_readv(){ 
+  echo "#define mini__process_vm_readv generate" 
+}
+mini__umask(){ 
+  echo "#define mini__umask generate" 
+}
+mini__access(){ 
+  echo "#define mini__access generate" 
+}
+mini_memcmp(){ 
+  echo "#define mini_memcmp generate" 
+}
+mini_isprint(){ 
+  echo "#define mini_isprint generate" 
+}
+mini__readahead(){ 
+  echo "#define mini__readahead generate" 
+}
+mini__socket(){ 
+  echo "#define mini__socket generate" 
+}
+mini__fremovexattr(){ 
+  echo "#define mini__fremovexattr generate" 
+}
+mini__sendmmsg(){ 
+  echo "#define mini__sendmmsg generate" 
+}
+mini__get_robust_list(){ 
+  echo "#define mini__get_robust_list generate" 
+}
+mini__eventfd(){ 
+  echo "#define mini__eventfd generate" 
+}
+mini__getsockopt(){ 
+  echo "#define mini__getsockopt generate" 
+}
+mini__exit(){ 
+  echo "#define mini__exit generate" 
+}
+mini__getpeername(){ 
+  echo "#define mini__getpeername generate" 
+}
+mini__mq_unlink(){ 
+  echo "#define mini__mq_unlink generate" 
+}
+mini__set_mempolicy(){ 
+  echo "#define mini__set_mempolicy generate" 
+}
+mini__tee(){ 
+  echo "#define mini__tee generate" 
+}
+mini__syslog(){ 
+  echo "#define mini__syslog generate" 
+}
+mini__setsid(){ 
+  echo "#define mini__setsid generate" 
+}
+mini__getuid(){ 
+  echo "#define mini__getuid generate" 
+}
+mini__munlock(){ 
+  echo "#define mini__munlock generate" 
+}
+mini_uitodec(){ 
+  echo "#define mini_uitodec generate" 
+}
+mini__openat(){ 
+  echo "#define mini__openat generate" 
+}
+mini__truncate(){ 
+  echo "#define mini__truncate generate" 
+}
+mini__dup2(){ 
+  echo "#define mini__dup2 generate" 
+}
+mini_fstat(){ 
+  echo "#define mini_fstat generate" 
+}
+mini__waitid(){ 
+  echo "#define mini__waitid generate" 
+}
 mini_fclose(){ 
   echo "#define mini_fclose generate" 
 }
-mini_ptrace(){ 
-  echo "#define mini_ptrace generate" 
+mini__sched_rr_get_interval(){ 
+  echo "#define mini__sched_rr_get_interval generate" 
 }
-mini_rt_sigaction(){ 
-  echo "#define mini_rt_sigaction generate" 
+mini_ftell(){ 
+  echo "#define mini_ftell generate" 
+}
+mini__add_key(){ 
+  echo "#define mini__add_key generate" 
+}
+mini__renameat(){ 
+  echo "#define mini__renameat generate" 
+}
+mini__name_to_handle_at(){ 
+  echo "#define mini__name_to_handle_at generate" 
+}
+mini_lseek(){ 
+  echo "#define mini_lseek generate" 
+}
+mini_readdir(){ 
+  echo "#define mini_readdir generate" 
+}
+mini_fprintf(){ 
+  echo "#define mini_fprintf generate" 
+}
+mini__migrate_pages(){ 
+  echo "#define mini__migrate_pages generate" 
+}
+mini_isspace(){ 
+  echo "#define mini_isspace generate" 
+}
+mini_free(){ 
+  echo "#define mini_free generate" 
+}
+mini__set_robust_list(){ 
+  echo "#define mini__set_robust_list generate" 
+}
+mini__setsockopt(){ 
+  echo "#define mini__setsockopt generate" 
+}
+mini__rt_tgsigqueueinfo(){ 
+  echo "#define mini__rt_tgsigqueueinfo generate" 
+}
+mini___sysctl(){ 
+  echo "#define mini___sysctl generate" 
+}
+mini__fchmod(){ 
+  echo "#define mini__fchmod generate" 
+}
+mini__flistxattr(){ 
+  echo "#define mini__flistxattr generate" 
+}
+mini__prlimit64(){ 
+  echo "#define mini__prlimit64 generate" 
+}
+mini__mlockall(){ 
+  echo "#define mini__mlockall generate" 
+}
+mini__get_mempolicy(){ 
+  echo "#define mini__get_mempolicy generate" 
+}
+mini__msgrcv(){ 
+  echo "#define mini__msgrcv generate" 
+}
+mini__setuid(){ 
+  echo "#define mini__setuid generate" 
+}
+mini__getsid(){ 
+  echo "#define mini__getsid generate" 
+}
+mini__timer_settime(){ 
+  echo "#define mini__timer_settime generate" 
+}
+mini__mq_timedreceive(){ 
+  echo "#define mini__mq_timedreceive generate" 
+}
+mini__munmap(){ 
+  echo "#define mini__munmap generate" 
+}
+mini_rand(){ 
+  echo "#define mini_rand generate" 
+}
+mini__fsync(){ 
+  echo "#define mini__fsync generate" 
+}
+mini__mknodat(){ 
+  echo "#define mini__mknodat generate" 
+}
+mini__recvfrom(){ 
+  echo "#define mini__recvfrom generate" 
+}
+mini__lgetxattr(){ 
+  echo "#define mini__lgetxattr generate" 
+}
+mini_basename(){ 
+  echo "#define mini_basename generate" 
+}
+mini__remap_file_pages(){ 
+  echo "#define mini__remap_file_pages generate" 
+}
+mini__flock(){ 
+  echo "#define mini__flock generate" 
+}
+mini_dup3(){ 
+  echo "#define mini_dup3 generate" 
+}
+mini__utime(){ 
+  echo "#define mini__utime generate" 
+}
+mini_itohex(){ 
+  echo "#define mini_itohex generate" 
+}
+mini__pivot_root(){ 
+  echo "#define mini__pivot_root generate" 
+}
+mini__sched_setscheduler(){ 
+  echo "#define mini__sched_setscheduler generate" 
+}
+mini_rewind(){ 
+  echo "#define mini_rewind generate" 
+}
+mini__sendfile(){ 
+  echo "#define mini__sendfile generate" 
+}
+mini__setfsgid(){ 
+  echo "#define mini__setfsgid generate" 
+}
+mini__shutdown(){ 
+  echo "#define mini__shutdown generate" 
+}
+mini__chown(){ 
+  echo "#define mini__chown generate" 
+}
+mini__init_module(){ 
+  echo "#define mini__init_module generate" 
+}
+mini__stat(){ 
+  echo "#define mini__stat generate" 
+}
+mini__close(){ 
+  echo "#define mini__close generate" 
 }
 # --- define_functions-end: generate --- #
 

@@ -81,6 +81,7 @@ my $headerhash;
 my $depends;
 
 my $syscalldefs;
+my $syscallsysdefs;
 my $syscallstubs=0; # Saves the name of the header "syscall_stubs.h",
 										# for later processing
 
@@ -214,6 +215,11 @@ while ( my $file = shift ){
 						$func = $2;
 						$syscalldefs->{$func}->{def} = $l;
 				}
+				if ( $l =~ /^SYSDEF_syscall(ret)*.(.*?),/ ){
+						$func = $2;
+						$syscallsysdefs->{$func}->{def} = $l;
+				}
+
 
 				if ($l=~ /^\/\/\+/){
 						do {
@@ -434,10 +440,10 @@ foreach my $f ( keys( %{$funchash} ) ){
 		my $s = "";
 		if ( exists($funchash->{$f}->{docdef}) ){
 				$s=$funchash->{$f}->{docdef},"\n";
-		} else {
+		} elsif ( exists($funchash->{$f}->{def}) ) {
 				$s=$funchash->{$f}->{def},"\n";
 		}
-		if ( $s!~/^#/ ){
+		if ( $s && $s!~/^#/ ){
 				print F "$f:$s\n";
 		}
 }
@@ -549,6 +555,7 @@ copytemplates( FDOC, $mlibdir, "minilib.md.top" );
 foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
+				if ( exists( $funchash->{$f}->{def} ) ){
 				printf FDOC "%-15s",$f;
 				print FDOC "$funchash->{$f}->{def}\n";
 				if ( exists($funchash->{$f}->{doc} ) ){
@@ -559,6 +566,7 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 				print FDOC  "               ($1: $funchash->{$f}->{line})\n";
 
 				print FDOC "\n";
+		}
 		}
 }
 
@@ -778,6 +786,28 @@ sub syscalldefine{
 				print $fh "REAL_$def\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("REAL_$def\n");
+		}
+		foreach my $k ( keys( %{$syscallsysdefs} ) ){
+				my $def = $syscallsysdefs->{$k}->{def};
+				my $a = 1;
+				my $b = 2;
+				while ( $def =~ s/(^SYSDEF_syscall\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1a$a$3 / ){
+						$a++; $b++;
+						#dbg "def: $def, $a, $b\n";
+				}
+				$a=1; $b=3;
+			 #while ( $def =~ s/(^DEF_syscallret\(.*\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1 a$a $3/ ){
+				while ( $def =~ s/(^SYSDEF_syscallret\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1a$a$3/ ){
+						$a++; $b++;
+				}
+
+
+				print $fh "/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */\n";
+				dbg ("/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */");
+				$def =~ s/^SYSDEF/define/;
+				print $fh "SYSREAL_$def\n";
+				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
+				dbg ("SYSREAL_$def\n");
 		}
 		return(1);
 }

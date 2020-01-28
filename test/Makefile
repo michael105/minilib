@@ -57,7 +57,7 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: test-generated fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
+all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c && ) true
 

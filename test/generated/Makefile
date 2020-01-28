@@ -4,7 +4,7 @@ bin = $(patsubst %.c,%,$(wildcard *.c))
 all: $(bin)
 
 clean:
-	rm $(bin)
+	rm -f $(bin)
 
 %: %.c
 	echo $@ $<

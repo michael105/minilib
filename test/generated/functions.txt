@@ -1,728 +1,163 @@
-fanotify_mark:fanotify_mark( long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)
-
-fadvise64:fadvise64( int fd,  loff_t offset,  size_t len,  int advice)
-
-memfd_create:memfd_create( const char  *uname_ptr,  unsigned int flags)
-
-mbind:mbind( unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)
-
-timerfd_gettime:timerfd_gettime( int ufd,  struct itimerspec *otmr)
-
-splice:splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
-
-pwrite64:pwrite64( unsigned int fd,  const char *buf,  size_t count,  loff_t pos)
-
-fstat:fstat( unsigned int fd,  struct stat *statbuf)
-
-modify_ldt:modify_ldt( int func,  void *ptr,  unsigned long bytecount)
-
-kexec_file_load:kexec_file_load( int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
-
-faccessat:faccessat( int dfd,  const char *filename,  int mode)
-
-mmap:mmap( unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)
-
-setbuf:void setbuf(FILE *stream, char *buf);
-
-readlinkat:readlinkat( int dfd,  const char *pathname,  char *buf,  int bufsiz)
-
-time:time( time_t *tloc)
-
-setpriority:setpriority( int which,  int who,  int niceval)
-
-closedir:int closedir(DIR *dir);
-
-io_cancel:io_cancel( aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)
-
-epoll_create1:epoll_create1( int flags)
-
-name_to_handle_at:name_to_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)
-
-feof:  int feof(FILE *f);
-
-set_robust_list:set_robust_list( struct robust_list_head *head,  size_t len)
-
-keyctl:keyctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
-
-getdents:getdents( unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)
-
-epoll_pwait:epoll_pwait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)
-
-sendto:sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)
-
-clock_getres:clock_getres( const clockid_t which_clock,  struct timespec *tp)
-
-setsockopt:setsockopt( int fd,  int level,  int optname,  char *optval,  int optlen)
-
-timer_create:timer_create( const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)
-
-getcpu:getcpu( unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)
-
-epoll_ctl:epoll_ctl( int epfd,  int op,  int fd,  struct epoll_event *event)
-
-tkill:tkill( pid_t pid,  int sig)
-
-chown:chown( const char *filename,  uid_t user,  gid_t group)
-
-linkat:linkat( int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)
-
-setfsgid:setfsgid( gid_t gid)
-
-ioprio_get:ioprio_get( int which,  int who)
-
-sched_getparam:sched_getparam( pid_t pid,  struct sched_param *param)
-
-lookup_dcookie:lookup_dcookie( u64 cookie64,  long buf,  long len)
-
-acct:acct( const char *name)
-
-timerfd_create:timerfd_create( int clockid,  int flags)
-
-listen:listen( int fd,  int backlog)
-
-msync:msync( unsigned long start,  size_t len,  int flags)
-
-fgetxattr:fgetxattr( int fd,  const char *name,  void *value,  size_t size)
-
-epoll_create:epoll_create( int size)
-
-rt_tgsigqueueinfo:rt_tgsigqueueinfo( pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)
-
-getresgid:getresgid( gid_t *rgid,  gid_t *egid,  gid_t *sgid)
-
-stat:stat( const char *filename,  struct stat *statbuf)
-
-vsnprintf:int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-
-setfsuid:setfsuid( uid_t uid)
-
-dup2:dup2( unsigned int oldfd,  unsigned int newfd)
-
-rmdir:rmdir( const char *pathname)
-
-personality:personality( unsigned int personality)
-
-tcgetattr:  int ) tcgetattr(int fd, struct termios *io);
-
-sync_file_range:sync_file_range( long fd,  loff_t offset,  loff_t bytes,  long flags)
-
-rewind:  void rewind( FILE *f );
-
-strerror:char* strerror( int errnum );
-
-sched_get_priority_min:sched_get_priority_min( int policy)
-
-memcmp:int memcmp(const void* c1,const void* c2,int len);
-
-dtodec:int dtodec(double d, char* buf, int precision);
-
-sched_setparam:sched_setparam( pid_t pid,  struct sched_param *param)
-
-setxattr:setxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
-
-fsetxattr:fsetxattr( int fd,  const char *name,  const void *value,  size_t size, int flags)
-
-getcwd:getcwd( char *buf,  unsigned long size)
-
-finit_module:finit_module( int fd,  const char  *uargs,  int flags)
-
-strcpy:char *strcpy(char *dest, const char *src);
-
-_itobin:int _itobin(int i, char*buf, int prec, int groups );
-
-inotify_add_watch:inotify_add_watch( int fd,  const char *pathname,  u32 mask)
-
-accept:accept( int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)
-
-getpgid:getpgid( pid_t pid)
-
-request_key:request_key( const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)
-
-msgrcv:msgrcv( int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)
-
-unshare:unshare( unsigned long unshare_flags)
-
-opendir:DIR *opendir(const char *name);
-
-rt_sigprocmask:rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
-
-timer_delete:timer_delete( timer_t timer_id)
-
-eventfd2:eventfd2( unsigned int count,  int flags)
-
-recvmsg:recvmsg( int fd,  struct msghdr *msg,  unsigned int flags)
-
-brk:brk( unsigned long brk)
-
-rt_sigaction:rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
-
-ptrace:ptrace( long request,  long pid,  unsigned long addr,  unsigned long data)
-
-fclose:  int ) fclose( FILE* f );
-
-read:read( unsigned int fd,  char *buf,  size_t count)
-
-lremovexattr:lremovexattr( const char *pathname,  const char *name)
-
-_sysctl:_sysctl( struct __sysctl_args *args)
-
-vmsplice:vmsplice( int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)
-
-pivot_root:pivot_root( const char *new_root,  const char *put_old)
-
-chmod:chmod( const char *filename,  mode_t mode)
-
-syslog:syslog( int type,  char *buf,  int len)
-
-setns:setns( int fd,  int nstype)
-
-fchownat:fchownat( int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)
-
-itohex:int itohex(int i,char* buf,int padding);
-
-mq_unlink:mq_unlink( const char *u_name)
-
-timerfd_settime:timerfd_settime( int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)
-
-itodec:int itodec(int i, char *buf, int prec, char limiter );
-
-fileno:  int ) fileno( FILE *f );
-
-sched_setattr:sched_setattr( pid_t pid,  struct sched_attr  *attr,  unsigned int flags)
-
-syncfs:syncfs( int fd)
-
-creat:creat( const char *pathname,  int mode)
-
-fchmod:fchmod( unsigned int fd,  mode_t mode)
-
-fremovexattr:fremovexattr( int fd,  const char *name)
-
-fsetpos:  int fsetpos(FILE *f, int pos );
-
-close:close( unsigned int fd)
-
-setuid:setuid( uid_t uid)
-
-remap_file_pages:remap_file_pages( unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)
-
-fork:DEF_syscall(fork,0)
-
-mlockall:mlockall( int flags)
-
-vhangup:DEF_syscall(vhangup,0)
-
-rand:unsigned int rand();
-
-pwritev:pwritev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
-
-fsync:fsync( unsigned int fd)
-
-pread64:pread64( unsigned long fd,  char *buf,  size_t count,  loff_t pos)
-
-ustat:ustat( unsigned dev,  struct ustat *ubuf)
-
-sched_setaffinity:sched_setaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
-
-lsetxattr:lsetxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
-
-getitimer:getitimer( int which,  struct itimerval *value)
-
-getgid:DEF_syscall(getgid,0)
-
-prlimit64:prlimit64( pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)
-
-fallocate:fallocate( long fd,  long mode,  loff_t offset,  loff_t len)
-
-sendmmsg:sendmmsg( int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)
-
-clock_nanosleep:clock_nanosleep( const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)
-
-_strcmp:int _strcmp(const char*c1,const char*c2,int len);
-
-setrlimit:setrlimit( unsigned int resource,  struct rlimit *rlim)
-
-semget:semget( key_t key,  int nsems,  int semflg)
-
-shutdown:shutdown( int fd,  int how)
-
-prctl:prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
-
-umask:umask( int mask)
-
-unlinkat:unlinkat( int dfd,  const char *pathname,  int flag)
-
-rename:rename( const char *oldname,  const char *newname)
-
-utime:utime( char *filename,  struct utimbuf *times)
-
-symlink:symlink( const char *oldname,  const char *newname)
-
-msgsnd:msgsnd( int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)
-
-settimeofday:settimeofday( struct timeval *tv,  struct timezone *tz)
-
-mincore:mincore( unsigned long start,  size_t len,  unsigned char *vec)
-
-readdir:struct dirent *readdir(DIR *dir);
-
-mknod:mknod( const char *filename,  umode_t mode,  unsigned dev)
-
-semctl:semctl( int semid,  int semnum,  int cmd,  semun_u arg)
-
-arch_prctl:arch_prctl( struct task_struct *task,  int code,  unsigned long *addr)
-
-sched_getaffinity:sched_getaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
-
-get_mempolicy:get_mempolicy( int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)
-
-mkdirat:mkdirat( int dfd,  const char *pathname,  int mode)
-
-getsid:getsid( pid_t pid)
-
-shmat:shmat( int shmid,  char *shmaddr,  int shmflg)
-
-lgetxattr:lgetxattr( const char *pathname,  const char *name,  void *value,  size_t size)
-
-fgetc:  int fgetc(FILE *F);
-
-dprintf:int dprintf( int fd, const char *fmt, ... );
-
-alarm:alarm( unsigned int seconds)
-
-inotify_init1:inotify_init1( int flags)
-
-open:open( const char *filename,  int flags,  int mode)
-
-ftell:  long ftell(FILE *f);
-
-getgroups:getgroups( int gidsetsize,  gid_t *grouplist)
-
-sched_get_priority_max:sched_get_priority_max( int policy)
-
-getdents64:getdents64( unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)
+memfrob:void* memfrob(void* s, unsigned int len);
 
 perror:void perror(char *msg);
 
-getresuid:getresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)
+mprotect:mprotect( POINTER *a1, POINTER a2, int a3 )
 
-mprotect:mprotect( unsigned long start,  size_t len,  unsigned long prot)
-
-madvise:madvise( unsigned long start,  size_t len_in,  int behavior)
-
-munlockall:DEF_syscall(munlockall,0)
-
-exit:exit( int error_code)
-
-socket:socket( int family,  int type,  int protocol)
-
-inotify_init:DEF_syscall(inotify_init,0)
-
-lstat:lstat( const char *filename,  struct stat *statbuf)
-
-mkdir:mkdir( const char *pathname,  int mode)
-
-uname:uname( struct old_utsname *name)
-
-fgetpos:  void fgetpos(FILE *f, long *pos );
-
-vfork:DEF_syscall(vfork,0)
-
-rt_sigqueueinfo:rt_sigqueueinfo( pid_t pid,  int sig,  siginfo_t *uinfo)
-
-rt_sigreturn:rt_sigreturn( unsigned long __unused)
-
-fwrite:  size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
-
-mknodat:mknodat( int dfd,  const char *filename,  int mode,  unsigned dev)
-
-sched_getattr:sched_getattr( pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)
-
-getpeername:getpeername( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
-
-bpf:bpf( int cmd,  union bpf_attr *attr,  unsigned int size)
-
-semop:semop( int semid,  struct sembuf *tsops,  unsigned nsops)
-
-itoHEX:int itoHEX(int i,char* buf,int padding);
-
-ferror:  int ferror(FILE *f);
-
-link:link( const char *oldname,  const char *newname)
-
-sched_yield:DEF_syscall(sched_yield,0)
-
-mq_timedsend:mq_timedsend( mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)
-
-set_mempolicy:set_mempolicy( int mode,  unsigned long *nmask,  unsigned long maxnode)
-
-readahead:readahead( int fd,  loff_t offset,  size_t count)
-
-io_destroy:io_destroy( aio_context_t ctx)
-
-gettimeofday:gettimeofday( struct timeval *tv,  struct timezone *tz)
-
-truncate:truncate( const char *path,  long length)
-
-delete_module:delete_module( const char *name_user,  unsigned int flags)
-
-setgroups:setgroups( int gidsetsize,  gid_t *grouplist)
-
-add_key:add_key( const char *_type,  const char *_description,  const void *_payload,  size_t plen)
-
-io_submit:io_submit( aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)
-
-pselect6:pselect6( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)
-
-setresuid:setresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)
-
-sched_setscheduler:sched_setscheduler( pid_t pid,  int policy,  struct sched_param *param)
-
-init_module:init_module( void *umod,  unsigned long len,  const char *uargs)
-
-reboot:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
-
-lseek:lseek( unsigned int fd,  off_t offset,  unsigned int origin)
-
-setsid:DEF_syscall(setsid,0)
-
-ioprio_set:ioprio_set( int which,  int who,  int ioprio)
-
-eventfd:eventfd( unsigned int count)
-
-getrusage:getrusage( int who,  struct rusage *ru)
-
-mq_getsetattr:mq_getsetattr( mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)
-
-getppid:DEF_syscall(getppid,0)
-
-atoi:int atoi(char *c);
-
-clone:clone( unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)
-
-kcmp:kcmp( pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)
-
-utimes:utimes( char *filename,  struct timeval *utimes)
-
-kexec_load:kexec_load( unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)
-
-clearerror:  void clearerror(FILE *f);
-
-tgkill:tgkill( pid_t tgid,  pid_t pid,  int sig)
-
-pipe2:pipe2( int *filedes,  int flags)
-
-chroot:chroot( const char *filename)
-
-shmget:shmget( key_t key,  size_t size,  int shmflg)
-
-llistxattr:llistxattr( const char *pathname,  char *list,  size_t size)
-
-fprintfs:int fprintfs( FILE* F, char *fmt, ...);
-
-select:select( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
-
-chdir:chdir( const char *filename)
-
-writev:writev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
-
-fstatfs:fstatfs( unsigned int fd,  struct statfs *buf)
-
-sync:DEF_syscall(sync,0)
-
-recvfrom:recvfrom( int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)
-
-tee:tee( int fdin,  int fdout,  size_t len,  unsigned int flags)
-
-dup:dup( unsigned int fildes)
-
-signalfd4:signalfd4( int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)
-
-exit_group:exit_group( int error_code)
-
-shmctl:shmctl( int shmid,  int cmd,  struct shmid_ds *buf)
-
-readv:readv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
-
-symlinkat:symlinkat( const char *oldname,  int newfd,  const char *newname)
-
-lchown:lchown( const char *filename,  uid_t user,  gid_t group)
-
-setvbuf:int setvbuf(FILE *stream, char *buf, int mode, size_t size);
-
-isprint:  int ) isprint(const char c);
-
-accept4:accept4( int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)
-
-umount2:umount2( const char *target,  int flags)
-
-getrandom:getrandom( char  *buf,  size_t count,  unsigned int flags)
-
-futimesat:futimesat( int dfd,  const char *filename,  struct timeval *utimes)
-
-restart_syscall:DEF_syscall(restart_syscall,0)
-
-getuid:DEF_syscall(getuid,0)
-
-timer_getoverrun:timer_getoverrun( timer_t timer_id)
-
-newfstatat:newfstatat( int dfd,  const char *filename,  struct stat *statbuf,  int flag)
-
-move_pages:move_pages( pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)
-
-tcsetattr:  int ) tcsetattr(int fd, int opt, const struct termios *io);
-
-strcat:char *strcat(char *dest, const char *src );
-
-rt_sigtimedwait:rt_sigtimedwait( const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)
-
-preadv:preadv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
-
-fputs:  int  fputs(const char *c, FILE *F);
-
-recvmmsg:recvmmsg( int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)
-
-swapoff:swapoff( const char *specialfile)
-
-sched_getscheduler:sched_getscheduler( pid_t pid)
-
-mlock:mlock( unsigned long start,  size_t len)
-
-setitimer:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
-
-setgid:setgid( gid_t gid)
-
-getrlimit:getrlimit( unsigned int resource,  struct rlimit *rlim)
-
-fdatasync:fdatasync( unsigned int fd)
-
-clock_adjtime:clock_adjtime( clockid_t which_clock,  struct timex *tx)
-
-snprintf:int snprintf( char *buf, size_t size, const char *fmt, ... );
-
-uitodec:int uitodec(unsigned int i, char *buf, int prec, char limiter );
-
-listxattr:listxattr( const char *pathname,  char *list,  size_t size)
-
-capget:capget( cap_user_header_t header,  cap_user_data_t dataptr)
-
-getegid:DEF_syscall(getegid,0)
-
-io_setup:io_setup( unsigned nr_events,  aio_context_t *ctxp)
-
-kill:kill( pid_t pid,  int sig)
-
-renameat:renameat( int oldfd,  const char *oldname,  int newfd,  const char *newname)
-
-srand:void srand( unsigned int i );
-
-strncpy:char *strncpy(char *dest, const char *src, int n);
-
-unlink:unlink( const char *pathname)
-
-inotify_rm_watch:inotify_rm_watch( int fd,  __s32 wd)
-
-mount:mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
-
-mq_open:mq_open( const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)
-
-sysfs:sysfs( int option,  unsigned long arg1,  unsigned long arg2)
-
-migrate_pages:migrate_pages( pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)
-
-fflush:  int ) fflush( FILE *F );
-
-munlock:munlock( unsigned long start,  size_t len)
-
-swapon:swapon( const char *specialfile,  int swap_flags)
-
-setreuid:setreuid( uid_t ruid,  uid_t euid)
-
-connect:connect( int fd,  struct sockaddr *uservaddr,  int addrlen)
-
-clock_settime:clock_settime( const clockid_t which_clock,  const struct timespec *tp)
-
-getxattr:getxattr( const char *pathname,  const char *name,  void *value,  size_t size)
-
-fopen:FILE *fopen(const char* filename, const char* mode);
-
-poll:poll( struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)
-
-waitid:waitid( int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)
-
-seccomp:seccomp( unsigned int op,  unsigned int flags,  const char  *uargs)
-
-dup3:dup3( unsigned int oldfd,  unsigned int newfd,  int flags)
-
-semtimedop:semtimedop( int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)
-
-mremap:mremap( unsigned long addr,  unsigned long old_len,  unsigned long new_len,  unsigned long flags,  unsigned long new_addr)
-
-sendfile:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
-
-pipe:pipe( int *filedes)
-
-sysinfo:sysinfo( struct sysinfo *info)
-
-setpgid:setpgid( pid_t pid,  pid_t pgid)
-
-signalfd:signalfd( int ufd,  sigset_t *user_mask,  size_t sizemask)
-
-ftruncate:ftruncate( unsigned int fd,  unsigned long length)
-
-sendmsg:sendmsg( int fd,  struct msghdr *msg,  unsigned flags)
-
-getpgrp:DEF_syscall(getpgrp,0)
-
-fchmodat:fchmodat( int dfd,  const char *filename,  mode_t mode)
-
-isspace:int isspace(int c);
-
-execve:execve( const char *filename,  const char *const argv[],  const char *const envp[])
-
-memfrob:void* memfrob(void* s, unsigned int len);
-
-ioctl:ioctl( unsigned int fd,  unsigned int cmd,  unsigned long arg)
-
-fputc:  int  fputc(int c, FILE* F);
-
-adjtimex:adjtimex( struct timex *txc_p)
-
-shmdt:shmdt( char *shmaddr)
-
-msgctl:msgctl( int msqid,  int cmd,  struct msqid_ds *buf)
-
-removexattr:removexattr( const char *pathname,  const char *name)
-
-wait4:wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
+creat: int  ) creat( const char *s, int mode );
 
 strlen:int strlen(const char*str);
 
-fchown:fchown( unsigned int fd,  uid_t user,  gid_t group)
-
-ppoll:ppoll( struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)
-
-setdomainname:setdomainname( char *name,  int len)
-
-perf_event_open:perf_event_open( struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)
-
-_itohex:int _itohex(int i,char* buf,int padding, int capitals);
-
-fread:  size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
-
-timer_settime:timer_settime( timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)
-
-malloc:void*  malloc(int size);
-
-utimensat:utimensat( int dfd,  const char *filename,  struct timespec *utimes, int flags)
-
-free:void  free(void* p);
-
-memcpy:void *memcpy( void *d, const void *s, int n );
-
-getpriority:getpriority( int which,  int who)
-
-getpid:DEF_syscall(getpid,0)
-
-write:write( unsigned int fd,  const char *buf,  size_t count)
-
-access:access( const char *filename,  int mode)
-
-sched_rr_get_interval:sched_rr_get_interval( pid_t pid,  struct timespec *interval)
-
-timer_gettime:timer_gettime( timer_t timer_id,  struct itimerspec *setting)
-
-munmap:munmap( unsigned long addr,  size_t len)
-
-rt_sigpending:rt_sigpending( sigset_t *set,  size_t sigsetsize)
-
-msgget:msgget( key_t key,  int msgflg)
-
-epoll_wait:epoll_wait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout)
+setbuf:void setbuf(FILE *stream, char *buf);
 
 strcmp:int strcmp(const char*c1,const char*c2);
 
-quotactl:quotactl( unsigned int cmd,  const char *special,  qid_t id,  void *addr)
+gettimeofday:gettimeofday( struct timeval *a1, struct timezone *a2)
 
-mq_notify:mq_notify( mqd_t mqdes,  const struct sigevent *u_notification)
+vsnprintf:int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
-process_vm_writev:process_vm_writev( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)
+itoHEX:int itoHEX(int i,char* buf,int padding);
 
-nanosleep:nanosleep( struct timespec *rqtp,  struct timespec *rmtp)
+time:time(unsigned int *a1 )
 
-get_robust_list:get_robust_list( int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)
+fprintfs:int fprintfs( FILE* F, char *fmt, ...);
 
-fcntl:fcntl( unsigned int fd,  unsigned int cmd,  unsigned long arg)
+opendir:DIR *opendir(const char *name);
 
-rt_sigsuspend:rt_sigsuspend( sigset_t *unewset,  size_t sigsetsize)
-
-bind:bind( int fd,  struct sockaddr *umyaddr,  int addrlen)
-
-readlink:readlink( const char *path,  char *buf,  int bufsiz)
-
-flistxattr:flistxattr( int fd,  char *list,  size_t size)
-
-times:times( struct sysinfo *info)
-
-memset:void *memset( void *s, int c, int n);
-
-fchdir:fchdir( unsigned int fd)
-
-fanotify_init:fanotify_init( unsigned int flags,  unsigned int event_f_flags)
-
-getsockopt:getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)
-
-socketpair:socketpair( int family,  int type,  int protocol,  int *usockvec)
-
-io_getevents:io_getevents( aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)
+setvbuf:int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
 strncmp:int strncmp(const char*c1,const char*c2,int len);
 
-iopl:iopl( unsigned int level,  struct pt_regs *regs)
+fileno:  int ) fileno( FILE *f );
 
-ioperm:ioperm( unsigned long from,  unsigned long num,  int turn_on)
+fread:  size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-capset:capset( cap_user_header_t header,  const cap_user_data_t data)
+fopen:FILE *fopen(const char* filename, const char* mode);
+
+fflush:  int ) fflush( FILE *F );
+
+chdir:chdir(const char* path)		
+
+fsetpos:  int fsetpos(FILE *f, int pos );
+
+_itobin:int _itobin(int i, char*buf, int prec, int groups );
+
+srand:void srand( unsigned int i );
 
 getenv:char *getenv(const char* name);
 
-sethostname:sethostname( char *name,  int len)
+strerror:char* strerror( int errnum );
 
-geteuid:DEF_syscall(geteuid,0)
+open:int  open( const char *s, int flags, ... );
 
-futex:futex( u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)
+ioctl:int ioctl( int fd, unsigned long int request, ... );
 
-clock_gettime:clock_gettime( const clockid_t which_clock,  struct timespec *tp)
+closedir:int closedir(DIR *dir);
 
-getsockname:getsockname( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+fgetpos:  void fgetpos(FILE *f, long *pos );
 
-flock:flock( unsigned int fd,  unsigned int cmd)
+dprintf:int dprintf( int fd, const char *fmt, ... );
 
-process_vm_readv:process_vm_readv( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)
+close:close( int fd )
 
-basename:char *basename(char *path);
+tcgetattr:  int ) tcgetattr(int fd, struct termios *io);
 
-setregid:setregid( gid_t rgid,  gid_t egid)
+atoi:int atoi(char *c);
 
-open_by_handle_at:open_by_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)
+feof:  int feof(FILE *f);
 
-statfs:statfs( const char *pathname,  struct statfs *buf)
+rename:rename( const char* oldpath, const char* newpath )		
+
+strcpy:char *strcpy(char *dest, const char *src);
+
+clearerror:  void clearerror(FILE *f);
+
+dup:dup(int a1)		
+
+select:  int  ) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+
+fputc:  int  fputc(int c, FILE* F);
+
+itodec:int itodec(int i, char *buf, int prec, char limiter );
+
+dup2:dup2(int a1, int a2)		
+
+fwrite:  size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+
+read:read( int fd, POINTER *buf, int len )
+
+snprintf:int snprintf( char *buf, size_t size, const char *fmt, ... );
+
+getdents:getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
 
 fseek:  int fseek(FILE *f, long offset, int whence );
 
-setresgid:setresgid( gid_t rgid,  gid_t egid,  gid_t sgid)
+memset:void *memset( void *s, int c, int n);
 
-mq_timedreceive:mq_timedreceive( mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)
+getcwd:getcwd(char *buf,long size)		
 
-openat:openat( int dfd,  const char *filename,  int flags,  int mode)
+dtodec:int dtodec(double d, char* buf, int precision);
 
-renameat2:renameat2( int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)
+fgetc:  int fgetc(FILE *F);
 
-set_tid_address:set_tid_address( int *tidptr)
+memcpy:void *memcpy( void *d, const void *s, int n );
 
-pause:DEF_syscall(pause,0)
+strcat:char *strcat(char *dest, const char *src );
 
-gettid:DEF_syscall(gettid,0)
+tcsetattr:  int ) tcsetattr(int fd, int opt, const struct termios *io);
 
-sigaltstack:sigaltstack( const stack_t *uss,  stack_t *uoss)
+
+write:write(int fd,const void *buf, int len )
+
+ferror:  int ferror(FILE *f);
+
+stat:stat(const char* filename,struct stat* a2)		
+
+unlink:unlink( const char* a1)		
+
+_strcmp:int _strcmp(const char*c1,const char*c2,int len);
+
+fputs:  int  fputs(const char *c, FILE *F);
+
+uname:uname(struct old_utsname *name )
+
+ftruncate:ftruncate(unsigned int a1, unsigned int a2 )
+
+strncpy:char *strncpy(char *dest, const char *src, int n);
+
+malloc:void*  malloc(int size);
+
+_itohex:int _itohex(int i,char* buf,int padding, int capitals);
+
+memcmp:int memcmp(const void* c1,const void* c2,int len);
+
+isprint:  int ) isprint(const char c);
+
+fsync:fsync(int a1 )
+
+uitodec:int uitodec(unsigned int i, char *buf, int prec, char limiter );
+
+isspace:int isspace(int c);
+
+readdir:struct dirent *readdir(DIR *dir);
+
+lseek:lseek(unsigned int a1, int a2, int a3 )
+
+ftell:  long ftell(FILE *f);
+
+fclose:  int ) fclose( FILE* f );
+
+fstat:fstat(int a1,struct stat* a2)		
+
+rand:unsigned int rand();
+
+free:void  free(void* p);
+
+itohex:int itohex(int i,char* buf,int padding);
+
+dup3:dup3(int a1, int a2, int a3)		
+
+basename:char *basename(char *path);
+
+rewind:  void rewind( FILE *f );
 

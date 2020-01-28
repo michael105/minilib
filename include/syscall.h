@@ -15,12 +15,14 @@ extern int errno;
 
 #define NCONST 0x2000000
 #define SCALL(call) SYS_##call
+#define __SYSCALL(call) SYS##call
 #include <sys/syscall.h>
 
 #else
 
 #define NCONST 0
 #define SCALL(call) __NR_##call
+#define __SYSCALL(call) __NR##call
 
 #ifdef X64
 #include <sys/syscall.h>
@@ -159,6 +161,27 @@ extern int errno;
 				return( (sysret<0) ? -1 : sysret );\
 		}
 #endif
+
+
+#ifdef mini_errno
+#define SYSREAL_define_syscall( name, argcount, ... ) inline \
+		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
+				if ( sysret<0){\
+						errno = -sysret;\
+						return(-1);}\
+				return(sysret);\
+		}
+#else
+#define SYSREAL_define_syscall( name, argcount, ... ) inline \
+		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
+				return( (sysret<0) ? -1 : sysret );\
+		}
+#endif
+
 
 //return( (sysret<0) ? -1 : sysret ); (no errno) : ok. not added anything to the final size
 
