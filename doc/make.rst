@@ -1,6 +1,7 @@
 **make[1]: Entering directory '/home/micha/prog/minilib'**
+**Type 'make help' for help**
 
-**make targets:**
+make targets:
 
 all
   header compile-mini-gcc doc examples test

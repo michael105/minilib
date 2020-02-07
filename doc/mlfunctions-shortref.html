@@ -74,7 +74,7 @@ dup3
 <p>
   dup3(int a1, int a2, int a3)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.53) manpage: <a href="manpages/gen/dup3.3.rst.html">dup3</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.81) manpage: <a href="manpages/gen/dup3.3.rst.html">dup3</a><br>
 </p>
 </dd>
 <dt>
@@ -84,7 +84,7 @@ fstat
 <p>
   fstat(int a1,struct stat* a2)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.47) manpage: <a href="manpages/sys/stat.2.rst.html">fstat</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.75) manpage: <a href="manpages/sys/stat.2.rst.html">fstat</a><br>
 </p>
 </dd>
 <dt>
@@ -94,7 +94,7 @@ getcwd
 <p>
   getcwd(char *buf,long size)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.55) manpage: <a href="manpages/gen/getcwd.3.rst.html">getcwd</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.83) manpage: <a href="manpages/gen/getcwd.3.rst.html">getcwd</a><br>
 </p>
 </dd>
 <dt>
@@ -104,7 +104,7 @@ getdents
 <p>
   getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.39) manpage: <a href="manpages/sys/getdirentries.2.rst.html">getdents</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.67) manpage: <a href="manpages/sys/getdirentries.2.rst.html">getdents</a><br>
 </p>
 </dd>
 <dt>
@@ -114,7 +114,7 @@ gettimeofday
 <p>
   gettimeofday( struct timeval *a1, struct timezone *a2)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.28) manpage: <a href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.56) manpage: <a href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a><br>
 </p>
 </dd>
 <dt>
@@ -125,7 +125,7 @@ mprotect
   mprotect( POINTER *a1, POINTER a2, int a3 )
 <br>
  Returns: *a1<br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.32) manpage: <a href="manpages/sys/mprotect.2.rst.html">mprotect</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.60) manpage: <a href="manpages/sys/mprotect.2.rst.html">mprotect</a><br>
 </p>
 </dd>
 <dt>
@@ -135,7 +135,7 @@ stat
 <p>
   stat(const char* filename,struct stat* a2)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.48) manpage: <a href="manpages/sys/stat.2.rst.html">stat</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.76) manpage: <a href="manpages/sys/stat.2.rst.html">stat</a><br>
 </p>
 </dd>
 <dt>
@@ -145,7 +145,7 @@ uname
 <p>
   uname(struct old_utsname *name )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.37) manpage: <a href="manpages/gen/uname.3.rst.html">uname</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.65) manpage: <a href="manpages/gen/uname.3.rst.html">uname</a><br>
 </p>
 </dd>
 </dl>
@@ -170,7 +170,7 @@ opendir
 <p>
   DIR *opendir(const char *name);
 <br>
-  Defines: open close malloc<br>
+  Defines: malloc open close<br>
  (<a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10) manpage: <a href="manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
 </dd>
@@ -217,6 +217,886 @@ ioctl
 <h2><a name="_mini_addons_h"></a>6.  mini_addons.h</h2>
 <dl>
 <dt>
+__sysctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.315) <br>
+</p>
+</dd>
+<dt>
+_accept
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.91) <br>
+</p>
+</dd>
+<dt>
+_accept4
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.551) <br>
+</p>
+</dd>
+<dt>
+_access
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.47) <br>
+</p>
+</dd>
+<dt>
+_acct
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.329) <br>
+</p>
+</dd>
+<dt>
+_add_key
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.471) <br>
+</p>
+</dd>
+<dt>
+_adjtimex
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.321) <br>
+</p>
+</dd>
+<dt>
+_alarm
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.79) <br>
+</p>
+</dd>
+<dt>
+_arch_prctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.319) <br>
+</p>
+</dd>
+<dt>
+_bind
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.103) <br>
+</p>
+</dd>
+<dt>
+_bpf
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.617) <br>
+</p>
+</dd>
+<dt>
+_brk
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.29) <br>
+</p>
+</dd>
+<dt>
+_capget
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.255) <br>
+</p>
+</dd>
+<dt>
+_capset
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.257) <br>
+</p>
+</dd>
+<dt>
+_chdir
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.165) <br>
+</p>
+</dd>
+<dt>
+_chmod
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.185) <br>
+</p>
+</dd>
+<dt>
+_chown
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.189) <br>
+</p>
+</dd>
+<dt>
+_chroot
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.325) <br>
+</p>
+</dd>
+<dt>
+_clock_adjtime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.585) <br>
+</p>
+</dd>
+<dt>
+_clock_getres
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.435) <br>
+</p>
+</dd>
+<dt>
+_clock_gettime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.433) <br>
+</p>
+</dd>
+<dt>
+_clock_nanosleep
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.437) <br>
+</p>
+</dd>
+<dt>
+_clock_settime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.431) <br>
+</p>
+</dd>
+<dt>
+_clone
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.117) <br>
+</p>
+</dd>
+<dt>
+_close
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.11) <br>
+</p>
+</dd>
+<dt>
+_connect
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.89) <br>
+</p>
+</dd>
+<dt>
+_creat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.175) <br>
+</p>
+</dd>
+<dt>
+_delete_module
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.353) <br>
+</p>
+</dd>
+<dt>
+_dup
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.69) <br>
+</p>
+</dd>
+<dt>
+_dup2
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.71) <br>
+</p>
+</dd>
+<dt>
+_dup3
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.559) <br>
+</p>
+</dd>
+<dt>
+_epoll_create
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.407) <br>
+</p>
+</dd>
+<dt>
+_epoll_create1
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.557) <br>
+</p>
+</dd>
+<dt>
+_epoll_ctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.443) <br>
+</p>
+</dd>
+<dt>
+_epoll_pwait
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.537) <br>
+</p>
+</dd>
+<dt>
+_epoll_wait
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.441) <br>
+</p>
+</dd>
+<dt>
+_eventfd
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.543) <br>
+</p>
+</dd>
+<dt>
+_eventfd2
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.555) <br>
+</p>
+</dd>
+<dt>
+_execve
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.123) <br>
+</p>
+</dd>
+<dt>
+_exit
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.125) manpage: <a href="manpages/sys/_exit.2.rst.html">_exit</a><br>
+</p>
+</dd>
+<dt>
+_exit_group
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.439) <br>
+</p>
+</dd>
+<dt>
+_faccessat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.513) <br>
+</p>
+</dd>
+<dt>
+_fadvise64
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.419) <br>
+</p>
+</dd>
+<dt>
+_fallocate
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.545) <br>
+</p>
+</dd>
+<dt>
+_fanotify_init
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.575) <br>
+</p>
+</dd>
+<dt>
+_fanotify_mark
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.577) <br>
+</p>
+</dd>
+<dt>
+_fchdir
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.167) <br>
+</p>
+</dd>
+<dt>
+_fchmod
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.187) <br>
+</p>
+</dd>
+<dt>
+_fchmodat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.511) <br>
+</p>
+</dd>
+<dt>
+_fchown
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.191) <br>
+</p>
+</dd>
+<dt>
+_fchownat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.495) <br>
+</p>
+</dd>
+<dt>
+_fcntl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.149) <br>
+</p>
+</dd>
+<dt>
+_fdatasync
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.155) <br>
+</p>
+</dd>
+<dt>
+_fgetxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.371) <br>
+</p>
+</dd>
+<dt>
+_finit_module
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.601) <br>
+</p>
+</dd>
+<dt>
+_flistxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.377) <br>
+</p>
+</dd>
+<dt>
+_flock
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.151) <br>
+</p>
+</dd>
+<dt>
+_fork
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.119) <br>
+</p>
+</dd>
+<dt>
+_fremovexattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.383) <br>
+</p>
+</dd>
+<dt>
+_fsetxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.365) <br>
+</p>
+</dd>
+<dt>
+_fstat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.15) <br>
+</p>
+</dd>
+<dt>
+_fstatfs
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.279) <br>
+</p>
+</dd>
+<dt>
+_fsync
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.153) <br>
+</p>
+</dd>
+<dt>
+_ftruncate
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.159) <br>
+</p>
+</dd>
+<dt>
+_futex
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.389) <br>
+</p>
+</dd>
+<dt>
+_futimesat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.497) <br>
+</p>
+</dd>
+<dt>
+_get_mempolicy
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.453) <br>
+</p>
+</dd>
+<dt>
+_get_robust_list
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.523) <br>
+</p>
+</dd>
+<dt>
+_getcpu
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.593) <br>
+</p>
+</dd>
+<dt>
+_getcwd
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.163) <br>
+</p>
+</dd>
+<dt>
+_getdents
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.161) <br>
+</p>
+</dd>
+<dt>
+_getdents64
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.411) <br>
+</p>
+</dd>
+<dt>
+_getegid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.221) <br>
+</p>
+</dd>
+<dt>
+_geteuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.219) <br>
+</p>
+</dd>
+<dt>
+_getgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.213) <br>
+</p>
+</dd>
+<dt>
+_getgroups
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.235) <br>
+</p>
+</dd>
+<dt>
+_getitimer
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.77) <br>
+</p>
+</dd>
+<dt>
+_getpeername
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.109) <br>
+</p>
+</dd>
+<dt>
+_getpgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.247) <br>
+</p>
+</dd>
+<dt>
+_getpgrp
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.227) <br>
+</p>
+</dd>
+<dt>
+_getpid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.83) <br>
+</p>
+</dd>
+<dt>
+_getppid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.225) <br>
+</p>
+</dd>
+<dt>
+_getpriority
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.283) <br>
+</p>
+</dd>
+<dt>
+_getrandom
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.611) <br>
+</p>
+</dd>
+<dt>
+_getresgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.245) <br>
+</p>
+</dd>
+<dt>
+_getresuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.241) <br>
+</p>
+</dd>
+<dt>
+_getrlimit
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.199) <br>
+</p>
+</dd>
+<dt>
+_getrusage
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.201) <br>
+</p>
+</dd>
+<dt>
+_getsid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.253) <br>
+</p>
+</dd>
+<dt>
+_getsockname
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.107) <br>
+</p>
+</dd>
+<dt>
+_getsockopt
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.115) <br>
+</p>
+</dd>
+<dt>
+_gettid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.357) <br>
+</p>
+</dd>
+<dt>
+_gettimeofday
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.197) <br>
+</p>
+</dd>
+<dt>
+_getuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.209) <br>
+</p>
+</dd>
+<dt>
+_getxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.367) <br>
+</p>
+</dd>
+<dt>
+_init_module
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.351) <br>
+</p>
+</dd>
+<dt>
+_inotify_add_watch
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.483) <br>
+</p>
+</dd>
+<dt>
+_inotify_init
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.481) <br>
+</p>
+</dd>
+<dt>
+_inotify_init1
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.563) <br>
+</p>
+</dd>
+<dt>
+_inotify_rm_watch
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.485) <br>
+</p>
+</dd>
+<dt>
+_io_cancel
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.403) <br>
+</p>
+</dd>
+<dt>
+_io_destroy
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.397) <br>
+</p>
+</dd>
+<dt>
+_io_getevents
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.399) <br>
+</p>
+</dd>
+<dt>
+_io_setup
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.395) <br>
+</p>
+</dd>
+<dt>
+_io_submit
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.401) <br>
+</p>
+</dd>
+<dt>
+_ioctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.37) <br>
+</p>
+</dd>
+<dt>
+_ioperm
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.349) <br>
+</p>
+</dd>
+<dt>
+_iopl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.347) <br>
+</p>
+</dd>
+<dt>
+_ioprio_get
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.479) <br>
+</p>
+</dd>
+<dt>
+_ioprio_set
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.477) <br>
+</p>
+</dd>
+<dt>
 _itobin
 </dt>
 <dd>
@@ -224,6 +1104,262 @@ _itobin
   int _itobin(int i, char*buf, int prec, int groups );
 <br>
   (<a href="../src/itobin.c">../src/itobin.c</a> l.8) <br>
+</p>
+</dd>
+<dt>
+_kcmp
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.599) <br>
+</p>
+</dd>
+<dt>
+_kexec_file_load
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.615) <br>
+</p>
+</dd>
+<dt>
+_kexec_load
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.467) <br>
+</p>
+</dd>
+<dt>
+_keyctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.475) <br>
+</p>
+</dd>
+<dt>
+_kill
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.129) <br>
+</p>
+</dd>
+<dt>
+_lchown
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.193) <br>
+</p>
+</dd>
+<dt>
+_lgetxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.369) <br>
+</p>
+</dd>
+<dt>
+_link
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.177) <br>
+</p>
+</dd>
+<dt>
+_linkat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.505) <br>
+</p>
+</dd>
+<dt>
+_listen
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.105) <br>
+</p>
+</dd>
+<dt>
+_listxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.373) <br>
+</p>
+</dd>
+<dt>
+_llistxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.375) <br>
+</p>
+</dd>
+<dt>
+_lookup_dcookie
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.405) <br>
+</p>
+</dd>
+<dt>
+_lremovexattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.381) <br>
+</p>
+</dd>
+<dt>
+_lseek
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.21) <br>
+</p>
+</dd>
+<dt>
+_lsetxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.363) <br>
+</p>
+</dd>
+<dt>
+_lstat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.17) <br>
+</p>
+</dd>
+<dt>
+_madvise
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.61) <br>
+</p>
+</dd>
+<dt>
+_mbind
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.449) <br>
+</p>
+</dd>
+<dt>
+_memfd_create
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.613) <br>
+</p>
+</dd>
+<dt>
+_migrate_pages
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.487) <br>
+</p>
+</dd>
+<dt>
+_mincore
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.59) <br>
+</p>
+</dd>
+<dt>
+_mkdir
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.171) <br>
+</p>
+</dd>
+<dt>
+_mkdirat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.491) <br>
+</p>
+</dd>
+<dt>
+_mknod
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.271) <br>
+</p>
+</dd>
+<dt>
+_mknodat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.493) <br>
+</p>
+</dd>
+<dt>
+_mlock
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.301) <br>
+</p>
+</dd>
+<dt>
+_mlockall
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.305) <br>
+</p>
+</dd>
+<dt>
+_mmap
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.23) <br>
+</p>
+</dd>
+<dt>
+_modify_ldt
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.311) <br>
+</p>
+</dd>
+<dt>
+_mount
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.333) <br>
+</p>
+</dd>
+<dt>
+_move_pages
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.533) <br>
 </p>
 </dd>
 <dt>
@@ -238,6 +1374,998 @@ _mprints
 </p>
 </dd>
 <dt>
+_mprotect
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.25) <br>
+</p>
+</dd>
+<dt>
+_mq_getsetattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.465) <br>
+</p>
+</dd>
+<dt>
+_mq_notify
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.463) <br>
+</p>
+</dd>
+<dt>
+_mq_open
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.455) <br>
+</p>
+</dd>
+<dt>
+_mq_timedreceive
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.461) <br>
+</p>
+</dd>
+<dt>
+_mq_timedsend
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.459) <br>
+</p>
+</dd>
+<dt>
+_mq_unlink
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.457) <br>
+</p>
+</dd>
+<dt>
+_mremap
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.55) <br>
+</p>
+</dd>
+<dt>
+_msgctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.147) <br>
+</p>
+</dd>
+<dt>
+_msgget
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.141) <br>
+</p>
+</dd>
+<dt>
+_msgrcv
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.145) <br>
+</p>
+</dd>
+<dt>
+_msgsnd
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.143) <br>
+</p>
+</dd>
+<dt>
+_msync
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.57) <br>
+</p>
+</dd>
+<dt>
+_munlock
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.303) <br>
+</p>
+</dd>
+<dt>
+_munlockall
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.307) <br>
+</p>
+</dd>
+<dt>
+_munmap
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.27) <br>
+</p>
+</dd>
+<dt>
+_name_to_handle_at
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.581) <br>
+</p>
+</dd>
+<dt>
+_nanosleep
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.75) <br>
+</p>
+</dd>
+<dt>
+_newfstatat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.499) <br>
+</p>
+</dd>
+<dt>
+_open
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.9) <br>
+</p>
+</dd>
+<dt>
+_open_by_handle_at
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.583) <br>
+</p>
+</dd>
+<dt>
+_openat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.489) <br>
+</p>
+</dd>
+<dt>
+_pause
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.73) <br>
+</p>
+</dd>
+<dt>
+_perf_event_open
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.571) <br>
+</p>
+</dd>
+<dt>
+_personality
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.273) <br>
+</p>
+</dd>
+<dt>
+_pipe
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.49) <br>
+</p>
+</dd>
+<dt>
+_pipe2
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.561) <br>
+</p>
+</dd>
+<dt>
+_pivot_root
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.313) <br>
+</p>
+</dd>
+<dt>
+_poll
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.19) <br>
+</p>
+</dd>
+<dt>
+_ppoll
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.517) <br>
+</p>
+</dd>
+<dt>
+_prctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.317) <br>
+</p>
+</dd>
+<dt>
+_pread64
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.39) <br>
+</p>
+</dd>
+<dt>
+_preadv
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.565) <br>
+</p>
+</dd>
+<dt>
+_prlimit64
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.579) <br>
+</p>
+</dd>
+<dt>
+_process_vm_readv
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.595) <br>
+</p>
+</dd>
+<dt>
+_process_vm_writev
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.597) <br>
+</p>
+</dd>
+<dt>
+_pselect6
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.515) <br>
+</p>
+</dd>
+<dt>
+_ptrace
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.207) <br>
+</p>
+</dd>
+<dt>
+_pwrite64
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.41) <br>
+</p>
+</dd>
+<dt>
+_pwritev
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.567) <br>
+</p>
+</dd>
+<dt>
+_quotactl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.355) <br>
+</p>
+</dd>
+<dt>
+_read
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.5) <br>
+</p>
+</dd>
+<dt>
+_readahead
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.359) <br>
+</p>
+</dd>
+<dt>
+_readlink
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.183) <br>
+</p>
+</dd>
+<dt>
+_readlinkat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.509) <br>
+</p>
+</dd>
+<dt>
+_readv
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.43) <br>
+</p>
+</dd>
+<dt>
+_reboot
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.341) <br>
+</p>
+</dd>
+<dt>
+_recvfrom
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.95) <br>
+</p>
+</dd>
+<dt>
+_recvmmsg
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.573) <br>
+</p>
+</dd>
+<dt>
+_recvmsg
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.99) <br>
+</p>
+</dd>
+<dt>
+_remap_file_pages
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.409) <br>
+</p>
+</dd>
+<dt>
+_removexattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.379) <br>
+</p>
+</dd>
+<dt>
+_rename
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.169) <br>
+</p>
+</dd>
+<dt>
+_renameat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.503) <br>
+</p>
+</dd>
+<dt>
+_renameat2
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.607) <br>
+</p>
+</dd>
+<dt>
+_request_key
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.473) <br>
+</p>
+</dd>
+<dt>
+_restart_syscall
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.415) <br>
+</p>
+</dd>
+<dt>
+_rmdir
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.173) <br>
+</p>
+</dd>
+<dt>
+_rt_sigaction
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.31) <br>
+</p>
+</dd>
+<dt>
+_rt_sigpending
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.259) <br>
+</p>
+</dd>
+<dt>
+_rt_sigprocmask
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.33) <br>
+</p>
+</dd>
+<dt>
+_rt_sigqueueinfo
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.263) <br>
+</p>
+</dd>
+<dt>
+_rt_sigreturn
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.35) <br>
+</p>
+</dd>
+<dt>
+_rt_sigsuspend
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.265) <br>
+</p>
+</dd>
+<dt>
+_rt_sigtimedwait
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.261) <br>
+</p>
+</dd>
+<dt>
+_rt_tgsigqueueinfo
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.569) <br>
+</p>
+</dd>
+<dt>
+_sched_get_priority_max
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.295) <br>
+</p>
+</dd>
+<dt>
+_sched_get_priority_min
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.297) <br>
+</p>
+</dd>
+<dt>
+_sched_getaffinity
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.393) <br>
+</p>
+</dd>
+<dt>
+_sched_getattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.605) <br>
+</p>
+</dd>
+<dt>
+_sched_getparam
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.289) <br>
+</p>
+</dd>
+<dt>
+_sched_getscheduler
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.293) <br>
+</p>
+</dd>
+<dt>
+_sched_rr_get_interval
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.299) <br>
+</p>
+</dd>
+<dt>
+_sched_setaffinity
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.391) <br>
+</p>
+</dd>
+<dt>
+_sched_setattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.603) <br>
+</p>
+</dd>
+<dt>
+_sched_setparam
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.287) <br>
+</p>
+</dd>
+<dt>
+_sched_setscheduler
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.291) <br>
+</p>
+</dd>
+<dt>
+_sched_yield
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.53) <br>
+</p>
+</dd>
+<dt>
+_seccomp
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.609) <br>
+</p>
+</dd>
+<dt>
+_select
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.51) <br>
+</p>
+</dd>
+<dt>
+_semctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.137) <br>
+</p>
+</dd>
+<dt>
+_semget
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.133) <br>
+</p>
+</dd>
+<dt>
+_semop
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.135) <br>
+</p>
+</dd>
+<dt>
+_semtimedop
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.417) <br>
+</p>
+</dd>
+<dt>
+_sendfile
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.85) <br>
+</p>
+</dd>
+<dt>
+_sendmmsg
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.589) <br>
+</p>
+</dd>
+<dt>
+_sendmsg
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.97) <br>
+</p>
+</dd>
+<dt>
+_sendto
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.93) <br>
+</p>
+</dd>
+<dt>
+_set_mempolicy
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.451) <br>
+</p>
+</dd>
+<dt>
+_set_robust_list
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.521) <br>
+</p>
+</dd>
+<dt>
+_set_tid_address
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.413) <br>
+</p>
+</dd>
+<dt>
+_setdomainname
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.345) <br>
+</p>
+</dd>
+<dt>
+_setfsgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.251) <br>
+</p>
+</dd>
+<dt>
+_setfsuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.249) <br>
+</p>
+</dd>
+<dt>
+_setgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.217) <br>
+</p>
+</dd>
+<dt>
+_setgroups
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.237) <br>
+</p>
+</dd>
+<dt>
+_sethostname
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.343) <br>
+</p>
+</dd>
+<dt>
+_setitimer
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.81) <br>
+</p>
+</dd>
+<dt>
+_setns
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.591) <br>
+</p>
+</dd>
+<dt>
+_setpgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.223) <br>
+</p>
+</dd>
+<dt>
+_setpriority
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.285) <br>
+</p>
+</dd>
+<dt>
+_setregid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.233) <br>
+</p>
+</dd>
+<dt>
+_setresgid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.243) <br>
+</p>
+</dd>
+<dt>
+_setresuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.239) <br>
+</p>
+</dd>
+<dt>
+_setreuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.231) <br>
+</p>
+</dd>
+<dt>
+_setrlimit
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.323) <br>
+</p>
+</dd>
+<dt>
+_setsid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.229) <br>
+</p>
+</dd>
+<dt>
+_setsockopt
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.113) <br>
+</p>
+</dd>
+<dt>
+_settimeofday
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.331) <br>
+</p>
+</dd>
+<dt>
+_setuid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.215) <br>
+</p>
+</dd>
+<dt>
+_setxattr
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.361) <br>
+</p>
+</dd>
+<dt>
+_shmat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.65) <br>
+</p>
+</dd>
+<dt>
+_shmctl
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.67) <br>
+</p>
+</dd>
+<dt>
+_shmdt
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.139) <br>
+</p>
+</dd>
+<dt>
+_shmget
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.63) <br>
+</p>
+</dd>
+<dt>
+_shutdown
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.101) <br>
+</p>
+</dd>
+<dt>
+_sigaltstack
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.267) <br>
+</p>
+</dd>
+<dt>
+_signalfd
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.539) <br>
+</p>
+</dd>
+<dt>
+_signalfd4
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.553) <br>
+</p>
+</dd>
+<dt>
+_socket
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.87) <br>
+</p>
+</dd>
+<dt>
+_socketpair
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.111) <br>
+</p>
+</dd>
+<dt>
+_splice
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.525) <br>
+</p>
+</dd>
+<dt>
+_stat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.13) <br>
+</p>
+</dd>
+<dt>
+_statfs
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.277) <br>
+</p>
+</dd>
+<dt>
 _strcmp
 </dt>
 <dd>
@@ -246,6 +2374,334 @@ _strcmp
 <br>
   Defines: 0<br>
  (<a href="../src/mstrcmp.c">../src/mstrcmp.c</a> l.11) <br>
+</p>
+</dd>
+<dt>
+_swapoff
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.339) <br>
+</p>
+</dd>
+<dt>
+_swapon
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.337) <br>
+</p>
+</dd>
+<dt>
+_symlink
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.181) <br>
+</p>
+</dd>
+<dt>
+_symlinkat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.507) <br>
+</p>
+</dd>
+<dt>
+_sync
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.327) <br>
+</p>
+</dd>
+<dt>
+_sync_file_range
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.529) <br>
+</p>
+</dd>
+<dt>
+_syncfs
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.587) <br>
+</p>
+</dd>
+<dt>
+_sysfs
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.281) <br>
+</p>
+</dd>
+<dt>
+_sysinfo
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.203) <br>
+</p>
+</dd>
+<dt>
+_syslog
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.211) <br>
+</p>
+</dd>
+<dt>
+_tee
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.527) <br>
+</p>
+</dd>
+<dt>
+_tgkill
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.445) <br>
+</p>
+</dd>
+<dt>
+_time
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.387) <br>
+</p>
+</dd>
+<dt>
+_timer_create
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.421) <br>
+</p>
+</dd>
+<dt>
+_timer_delete
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.429) <br>
+</p>
+</dd>
+<dt>
+_timer_getoverrun
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.427) <br>
+</p>
+</dd>
+<dt>
+_timer_gettime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.425) <br>
+</p>
+</dd>
+<dt>
+_timer_settime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.423) <br>
+</p>
+</dd>
+<dt>
+_timerfd_create
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.541) <br>
+</p>
+</dd>
+<dt>
+_timerfd_gettime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.549) <br>
+</p>
+</dd>
+<dt>
+_timerfd_settime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.547) <br>
+</p>
+</dd>
+<dt>
+_times
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.205) <br>
+</p>
+</dd>
+<dt>
+_tkill
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.385) <br>
+</p>
+</dd>
+<dt>
+_truncate
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.157) <br>
+</p>
+</dd>
+<dt>
+_umask
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.195) <br>
+</p>
+</dd>
+<dt>
+_umount2
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.335) <br>
+</p>
+</dd>
+<dt>
+_uname
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.131) <br>
+</p>
+</dd>
+<dt>
+_unlink
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.179) <br>
+</p>
+</dd>
+<dt>
+_unlinkat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.501) <br>
+</p>
+</dd>
+<dt>
+_unshare
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.519) <br>
+</p>
+</dd>
+<dt>
+_ustat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.275) <br>
+</p>
+</dd>
+<dt>
+_utime
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.269) <br>
+</p>
+</dd>
+<dt>
+_utimensat
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.535) <br>
+</p>
+</dd>
+<dt>
+_utimes
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.447) <br>
+</p>
+</dd>
+<dt>
+_vfork
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.121) <br>
+</p>
+</dd>
+<dt>
+_vhangup
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.309) <br>
+</p>
+</dd>
+<dt>
+_vmsplice
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.531) <br>
+</p>
+</dd>
+<dt>
+_wait4
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.127) <br>
+</p>
+</dd>
+<dt>
+_waitid
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.469) <br>
+</p>
+</dd>
+<dt>
+_write
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.7) <br>
+</p>
+</dd>
+<dt>
+_writev
+</dt>
+<dd>
+<p>
+  (<a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.45) <br>
 </p>
 </dd>
 <dt>
@@ -312,7 +2768,7 @@ fprints
 <p>
   #define fprints(F,str) write(fileno(F),str,strlen(str))
 <br>
-  Defines: fileno strlen write<br>
+  Defines: strlen write fileno<br>
  (<a href="../include/prints.h">../include/prints.h</a> l.17) <br>
 print the string(s) supplied as arg(s) to stream<br>
 </p>
@@ -526,7 +2982,7 @@ fgetc
 <p>
   static inline int fgetc(FILE *F);
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  (<a href="../include/fgetc.h">../include/fgetc.h</a> l.10) manpage: <a href="manpages/stdio/getc.3.rst.html">fgetc</a><br>
 </p>
 </dd>
@@ -570,7 +3026,7 @@ fprint
 <p>
   #define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95) <br>
 </p>
 </dd>
@@ -581,7 +3037,7 @@ fprintf
 <p>
   #define fprintf(stream,&#8230;)   write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,<em>VA_ARGS</em>))
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  (<a href="../src/sprintf.c">../src/sprintf.c</a> l.244) manpage: <a href="manpages/stdio/printf.3.rst.html">fprintf</a><br>
 </p>
 </dd>
@@ -592,7 +3048,7 @@ fputc
 <p>
   static inline int volatile fputc(int c, FILE* F);
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  (<a href="../include/fputc.h">../include/fputc.h</a> l.10) manpage: <a href="manpages/stdio/putc.3.rst.html">fputc</a><br>
 </p>
 </dd>
@@ -603,7 +3059,7 @@ fputs
 <p>
   static inline int volatile fputs(const char *c, FILE *F);
 <br>
-  Defines: fileno write strlen<br>
+  Defines: fileno strlen write<br>
  (<a href="../include/fputs.h">../include/fputs.h</a> l.14) manpage: <a href="manpages/stdio/fputs.3.rst.html">fputs</a><br>
 </p>
 </dd>
@@ -702,7 +3158,7 @@ perror
 <p>
   void perror(char *msg);
 <br>
-  Defines: write strlen strerror fileno<br>
+  Defines: strerror fileno write strlen<br>
  (<a href="../src/strerror.c">../src/strerror.c</a> l.22) manpage: <a href="manpages/string/strerror.3.rst.html">perror</a><br>
 </p>
 </dd>
@@ -724,7 +3180,7 @@ putc
 <p>
   #define putc(c,stream) fputc(c,stream)
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  (<a href="../include/fputc.h">../include/fputc.h</a> l.19) manpage: <a href="manpages/stdio/putc.3.rst.html">putc</a><br>
 </p>
 </dd>
@@ -913,7 +3369,8 @@ strcat
 <p>
   char *strcat(char *dest, const char *src );
 <br>
-  (<a href="../src/strcat.c">../src/strcat.c</a> l.6) manpage: <a href="manpages/string/string.3.rst.html">strcat</a><br>
+  Defines: strlen<br>
+ (<a href="../src/strcat.c">../src/strcat.c</a> l.7) manpage: <a href="manpages/string/string.3.rst.html">strcat</a><br>
 </p>
 </dd>
 <dt>
@@ -990,7 +3447,7 @@ time
 <p>
   time(unsigned int *a1 )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.59) manpage: <a href="manpages/gen/time.3.rst.html">time</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.87) manpage: <a href="manpages/gen/time.3.rst.html">time</a><br>
 </p>
 </dd>
 </dl>
@@ -1004,7 +3461,7 @@ chdir
 <p>
   chdir(const char* path)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.49) manpage: <a href="manpages/sys/chdir.2.rst.html">chdir</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.77) manpage: <a href="manpages/sys/chdir.2.rst.html">chdir</a><br>
 </p>
 </dd>
 <dt>
@@ -1014,7 +3471,7 @@ close
 <p>
   close( int fd )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.34) manpage: <a href="manpages/sys/close.2.rst.html">close</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.62) manpage: <a href="manpages/sys/close.2.rst.html">close</a><br>
 </p>
 </dd>
 <dt>
@@ -1024,7 +3481,7 @@ dup
 <p>
   dup(int a1)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.51) manpage: <a href="manpages/sys/dup.2.rst.html">dup</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.79) manpage: <a href="manpages/sys/dup.2.rst.html">dup</a><br>
 </p>
 </dd>
 <dt>
@@ -1034,7 +3491,7 @@ dup2
 <p>
   dup2(int a1, int a2)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.52) manpage: <a href="manpages/sys/dup.2.rst.html">dup2</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.80) manpage: <a href="manpages/sys/dup.2.rst.html">dup2</a><br>
 </p>
 </dd>
 <dt>
@@ -1064,7 +3521,7 @@ getpid
 <p>
   DEF_syscall(getpid,0 )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.30) manpage: <a href="manpages/sys/getpid.2.rst.html">getpid</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.58) manpage: <a href="manpages/sys/getpid.2.rst.html">getpid</a><br>
 </p>
 </dd>
 <dt>
@@ -1094,7 +3551,7 @@ read
 <p>
   read( int fd, POINTER *buf, int len )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.35) manpage: <a href="manpages/sys/read.2.rst.html">read</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.63) manpage: <a href="manpages/sys/read.2.rst.html">read</a><br>
 </p>
 </dd>
 <dt>
@@ -1102,9 +3559,9 @@ rename
 </dt>
 <dd>
 <p>
-  rename( const char* a1, const char* a2 )
+  rename( const char* oldpath, const char* newpath )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.44) manpage: <a href="manpages/sys/rename.2.rst.html">rename</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.72) manpage: <a href="manpages/sys/rename.2.rst.html">rename</a><br>
 </p>
 </dd>
 <dt>
@@ -1146,7 +3603,7 @@ unlink
 <p>
   unlink( const char* a1)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.45) manpage: <a href="manpages/sys/unlink.2.rst.html">unlink</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.73) manpage: <a href="manpages/sys/unlink.2.rst.html">unlink</a><br>
 </p>
 </dd>
 <dt>
@@ -1156,7 +3613,7 @@ write
 <p>
   write(int fd,const void *buf, int len )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.41) manpage: <a href="manpages/sys/write.2.rst.html">write</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.69) manpage: <a href="manpages/sys/write.2.rst.html">write</a><br>
 </p>
 </dd>
 </dl>
@@ -1164,7 +3621,7 @@ write
 <p></p>
 <hr><p><small>
 Last updated
- 2020-01-21 10:33:23 CET
+ 2020-02-07 18:52:16 CET
 </small></p>
 </body>
 </html>
