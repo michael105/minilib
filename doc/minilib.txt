@@ -22,29 +22,29 @@ declarations.h
 ==========
 
 dup3           dup3(int a1, int a2, int a3)		
-               (include/syscall_stubs.h: 81)
+               (include/syscall_stubs.h: 117)
 
 fstat          fstat(int a1,struct stat* a2)		
-               (include/syscall_stubs.h: 75)
+               (include/syscall_stubs.h: 111)
 
 getcwd         getcwd(char *buf,long size)		
-               (include/syscall_stubs.h: 83)
+               (include/syscall_stubs.h: 119)
 
 getdents       getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
-               (include/syscall_stubs.h: 67)
+               (include/syscall_stubs.h: 103)
 
 gettimeofday   gettimeofday( struct timeval *a1, struct timezone *a2)
-               (include/syscall_stubs.h: 56)
+               (include/syscall_stubs.h: 92)
 
 mprotect       mprotect( POINTER *a1, POINTER a2, int a3 )
                Returns: *a1
-               (include/syscall_stubs.h: 60)
+               (include/syscall_stubs.h: 96)
 
 stat           stat(const char* filename,struct stat* a2)		
-               (include/syscall_stubs.h: 76)
+               (include/syscall_stubs.h: 112)
 
 uname          uname(struct old_utsname *name )
-               (include/syscall_stubs.h: 65)
+               (include/syscall_stubs.h: 101)
 
 
 
@@ -57,7 +57,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: malloc open close
+               Defines: close open malloc
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -735,7 +735,7 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: strlen write fileno
+               Defines: strlen fileno write
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -834,11 +834,11 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: write fileno
+               Defines: fileno write
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
@@ -846,7 +846,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno strlen write
+               Defines: strlen fileno write
                (include/fputs.h: 14)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -870,7 +870,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 18)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -882,19 +882,19 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 48)
 
 perror         void perror(char *msg);
-               Defines: strerror fileno write strlen
+               Defines: fileno write strerror strlen
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
@@ -995,7 +995,7 @@ time.h
 ==========
 
 time           time(unsigned int *a1 )
-               (include/syscall_stubs.h: 87)
+               (include/syscall_stubs.h: 123)
 
 
 
@@ -1004,16 +1004,16 @@ unistd.h
 ==========
 
 chdir          chdir(const char* path)		
-               (include/syscall_stubs.h: 77)
+               (include/syscall_stubs.h: 113)
 
 close          close( int fd )
-               (include/syscall_stubs.h: 62)
+               (include/syscall_stubs.h: 98)
 
 dup            dup(int a1)		
-               (include/syscall_stubs.h: 79)
+               (include/syscall_stubs.h: 115)
 
 dup2           dup2(int a1, int a2)		
-               (include/syscall_stubs.h: 80)
+               (include/syscall_stubs.h: 116)
 
 fsync          fsync(int a1 )
                (include/lseek.h: 20)
@@ -1022,7 +1022,7 @@ ftruncate      ftruncate(unsigned int a1, unsigned int a2 )
                (include/lseek.h: 19)
 
 getpid         DEF_syscall(getpid,0 )
-               (include/syscall_stubs.h: 58)
+               (include/syscall_stubs.h: 94)
 
 lseek          lseek(unsigned int a1, int a2, int a3 )
                (include/lseek.h: 17)
@@ -1031,10 +1031,10 @@ open           int volatile open( const char *s, int flags, ... );
                (src/open.c: 12)
 
 read           read( int fd, POINTER *buf, int len )
-               (include/syscall_stubs.h: 63)
+               (include/syscall_stubs.h: 99)
 
 rename         rename( const char* oldpath, const char* newpath )		
-               (include/syscall_stubs.h: 72)
+               (include/syscall_stubs.h: 108)
 
 select         static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
                (include/select.h: 10)
@@ -1048,8 +1048,8 @@ tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd
                (include/tcsetattr.h: 18)
 
 unlink         unlink( const char* a1)		
-               (include/syscall_stubs.h: 73)
+               (include/syscall_stubs.h: 109)
 
 write          write(int fd,const void *buf, int len )
-               (include/syscall_stubs.h: 69)
+               (include/syscall_stubs.h: 105)
 

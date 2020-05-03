@@ -788,6 +788,8 @@ sub syscalldefine{
 				dbg ("REAL_$def\n");
 		}
 		foreach my $k ( keys( %{$syscallsysdefs} ) ){
+		}
+		if ( 0 ) {
 				my $def = $syscallsysdefs->{$k}->{def};
 				my $a = 1;
 				my $b = 2;

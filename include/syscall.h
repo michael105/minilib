@@ -163,6 +163,7 @@ extern int errno;
 #endif
 
 
+#if 0
 #ifdef mini_errno
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
@@ -181,7 +182,11 @@ extern int errno;
 				return( (sysret<0) ? -1 : sysret );\
 		}
 #endif
+#else
 
+#define SYSREAL_define_syscall( name, argcount, ... )
+
+#endif
 
 //return( (sysret<0) ? -1 : sysret ); (no errno) : ok. not added anything to the final size
 
