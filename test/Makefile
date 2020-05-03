@@ -52,7 +52,7 @@ endif
 
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
-		include ../Makefile.include
+		include ../Makefile.minilib
 else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"

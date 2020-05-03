@@ -72,7 +72,7 @@ _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
-               (src/mstrcmp.c: 11)
+               (src/mstrcmp.c: 12)
 
 basename       char *basename(char *path);
 
@@ -168,19 +168,19 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 198)
+               (include/mini_fstream.h: 199)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-               (include/mini_fstream.h: 65)
+               (include/mini_fstream.h: 66)
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 184)
+               (include/mini_fstream.h: 185)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 191)
+               (include/mini_fstream.h: 192)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
@@ -193,11 +193,12 @@ fgetc          static inline int fgetc(FILE *F);
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 127)
+               (include/mini_fstream.h: 128)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
 
-               (include/mini_fstream.h: 55)
+               Return the fd nummber of stdin,-out,-err. 
+               (include/mini_fstream.h: 56)
 
 fopen          FILE *fopen(const char* filename, const char* mode);
 
@@ -206,7 +207,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 95)
+               (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
@@ -218,27 +219,27 @@ fputc          static inline int volatile fputc(int c, FILE* F);
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
 
-               (include/fputs.h: 14)
+               (include/fputs.h: 15)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 162)
+               (include/mini_fstream.h: 163)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 146)
+               (include/mini_fstream.h: 147)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 133)
+               (include/mini_fstream.h: 134)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 121)
+               (include/mini_fstream.h: 122)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 106)
+               (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
 
@@ -258,7 +259,7 @@ perror         void perror(char *msg);
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-               (include/mini_fstream.h: 91)
+               (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
 
@@ -275,18 +276,18 @@ puts           #define puts(msg) ( print(msg) + printl() )
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 156)
+               (include/mini_fstream.h: 157)
 
 setbuf         void setbuf(FILE *stream, char *buf);
 
                dummy functions.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 206)
+               (include/mini_fstream.h: 207)
 
 setvbuf        int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy
-               (include/mini_fstream.h: 210)
+               (include/mini_fstream.h: 211)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -294,7 +295,7 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 100)
+               (include/mini_fstream.h: 101)
 
 
 
@@ -334,7 +335,7 @@ string.h
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/mstrcmp.c: 43)
+               (src/mstrcmp.c: 46)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
 
@@ -350,7 +351,7 @@ strcat         char *strcat(char *dest, const char *src );
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/mstrcmp.c: 27)
+               (src/mstrcmp.c: 29)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -366,7 +367,7 @@ strlen         int strlen(const char*str);
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/mstrcmp.c: 34)
+               (src/mstrcmp.c: 37)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 

@@ -51,6 +51,7 @@ static inline int __attribute__((always_inline)) fileno( FILE *F ){
 
 int snprintf( char *buf, size_t size, const char *fmt, ... );
 
+//+doc Return the fd nummber of stdin,-out,-err. 
 //+inline
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
 		return( *f & FD_MASK );

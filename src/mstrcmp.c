@@ -1,12 +1,13 @@
 #ifndef strcmp_c
 #define strcmp_c
 
+//+include
 //+ansi string.h
 
 //TODO: not implemented correct. need to return also -1.
 
 // depend onto strncmp. Otherwise thias file will not be compiled.
-//+depends
+//+inc
 //+def
 int _strcmp(const char*c1,const char*c2,int len){
 		int a = 0;
@@ -23,6 +24,7 @@ int _strcmp(const char*c1,const char*c2,int len){
 
 
 //+depends _strcmp
+//+inc
 //+def
 int strcmp(const char*c1,const char*c2){
 		return( _strcmp(c1,c2,-1) );
@@ -30,6 +32,7 @@ int strcmp(const char*c1,const char*c2){
 
 
 //+depends _strcmp
+//+inc
 //+def
 int strncmp(const char*c1,const char*c2,int len){
 		if ( len <=0 )

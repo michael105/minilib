@@ -771,7 +771,7 @@ sub syscalldefine{
 				my $b = 2;
 				while ( $def =~ s/(^DEF_syscall\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1a$a$3 / ){
 						$a++; $b++;
-						#dbg "def: $def, $a, $b\n";
+						dbg "def: $def, $a, $b\n";
 				}
 				$a=1; $b=3;
 			 #while ( $def =~ s/(^DEF_syscallret\(.*\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1 a$a $3/ ){

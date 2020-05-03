@@ -62,18 +62,18 @@ STRIP=1
 
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
-		include $(MLIBDIR)/Makefile.include
+		include $(MLIBDIR)/Makefile.minilib
 else
 
 #( This is a recursive Makefile and will call itself with this param)
 ifdef with-minilib
-include $(MLIBDIR)/Makefile.include 
+include $(MLIBDIR)/Makefile.minilib 
 endif
 
 #Compile with minilib or without
 # Will compile with minilib, if present and found in MLIBDIR
 default: 
-	$(if $(wildcard $(MLIBDIR)/Makefile.include), make with-minilib=1, make native )
+	$(if $(wildcard $(MLIBDIR)/Makefile.minilib), make with-minilib=1, make native )
 
 
 # build without minilib

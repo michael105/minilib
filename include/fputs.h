@@ -5,12 +5,13 @@
 
 
 //+header stdio.h
+//+include
 
 int strlen(const char*str);
 
 //+depends strlen fileno write
 //+needs mini_fstream.h
-//+def
+//+inline
 static inline int volatile fputs(const char *c, FILE *F){
 		return(write(fileno(F), c, strlen(c)));
 }
