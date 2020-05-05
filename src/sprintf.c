@@ -21,7 +21,7 @@
 
 
 
-//+depends snprintf
+//+depends snprintf vsnprintf
 //+macro
 #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 

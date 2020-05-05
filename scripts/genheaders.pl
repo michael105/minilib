@@ -79,6 +79,7 @@ my $mlfunchash; # Non standard functions
 my $allfunchash; # Allfuncs.
 my $headerhash;
 my $depends;
+my $rdepends; # depends in reverse.
 
 my $syscalldefs;
 my $syscallsysdefs;
@@ -332,8 +333,13 @@ while ( my $file = shift ){
 						$headerhash->{$f->{header}}->{$func}=1;
 						$funchash->{$func} = $f;
 						$f->{line} = $line;
-						if ( exists($f->{dep} )){
+						if ( exists($f->{dep} )){ # no. problems.
 								$depends->{$func} = $f->{dep};
+								foreach my $dpd ( split ( " ", $f->{dep} ) ){
+										#push @{$rdepends->{$dpd}},$func; waere gut fuer die defines
+										push @{$rdepends->{$func}},$dpd; 
+										dbg("$func depends: $f->{dep}, $dpd");
+								}
 						}
 						if ( exists($syscalldefs->{$func}) ){
 								$syscalldefs->{$func}->{f} = $f
@@ -391,7 +397,9 @@ foreach my $d ( keys(%{$depends}) ){
 }
 dbg("fulldepends");
 dbgdump( %{$fulldepends} );
-
+dbg("xxx depends");
+dbgdump( %{$depends} );
+dbg("yyy dep");
 
 # write doc
 open( FDOC, ">", "$mlibdir/doc/minilib.txt" ) or die;
@@ -672,10 +680,15 @@ my $mc = headerfh( "minilib.c", $mlibdir );
 sub sourceinclude{
 		my $fh = shift;
 		my $i = shift;
+
 		print $fh "\n// $funchash->{$i}->{file}\n";
+		#if ( ! exists( $depends->{$i} ) ){
 		print $fh "#ifdef mini_$i\n";
 		print $fh "#include \"$funchash->{$i}->{file}\"\n";
 		print $fh "#endif\n";
+		#} else {
+		#		print $fh "\n// mini_$i depends on $depends->{$i}. Included below/above\n";
+		#}
 }
 
 foreach my $f ( keys(%{$funchash}) ){
@@ -684,10 +697,13 @@ foreach my $f ( keys(%{$funchash}) ){
 		}
 }
 
-
+dbg(" xxxxx sourceinclude");
 dbg( $fhhash );
+dbg("xx funchash");
 dbgdump( $funchash );
+dbg("xx headerhash");
 dbg( $headerhash );
+dbg("zz headerhash");
 
 print $mc "\n#endif\n";
 
@@ -819,6 +835,8 @@ template( $syscallstubs, "generated-macros", { syscalldefs=>\&syscalldefine } );
 
 
 dbg( "$LB ====  genheaders done ==== $N" );
+
+dbgdump($rdepends);
 
 exit(0);
 

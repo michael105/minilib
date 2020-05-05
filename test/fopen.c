@@ -173,7 +173,7 @@ int main( int argc, char *argv[] ){
 
 
 		f = fopen( "t3.test", "r+" );
-		printf("fileno: %d\n", fileno(f) );
+		//printf("fileno: %d\n", fileno(f) );
 		fprintf( f, "Test\n" );
 
 		return(0);

@@ -100,6 +100,7 @@ hello-include: hello-include.c
 hello-smallest: hello-smallest.c
 	make BUILDPROG=hello-smallest SINGLERUN=1 NOINCLUDE=1 ONLYTEXT=1
 
+# collect the expected output of the applets
 inittest: all
 	@$(foreach P,$(PROG) $(PROGCUSTOM) $(MINIGCC) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
 	
