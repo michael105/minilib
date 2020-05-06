@@ -86,18 +86,6 @@ int itodec(int i, char *buf, int prec, char limiter );
 // file: minilib/src/memfrob.c
 void* memfrob(void* s, unsigned int len);
 
-// file: minilib/src/prints.c
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-
-// file: minilib/src/sprintf.c
-int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-
-// file: minilib/src/sprintf.c
-int dprintf( int fd, const char *fmt, ... );
-
-// file: minilib/src/sprintf.c
-int snprintf( char *buf, size_t size, const char *fmt, ... );
-
 // file: minilib/include/globaldefs.h
 typedef int FILE;
 
@@ -129,16 +117,14 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itodec.c"
-#include "minilib/include/globaldefs.h"
 #include "minilib/src/basename.c"
-#include "minilib/src/prints.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/itobin.c"
 #include "minilib/src/fprintfs.c"
 #include "minilib/include/prints.h"
-#include "minilib/src/sprintf.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/dtodec.c"
+#include "minilib/src/itodec.c"
 #include "minilib/src/memfrob.c"
+#include "minilib/src/dtodec.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

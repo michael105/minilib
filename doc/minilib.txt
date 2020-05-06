@@ -57,7 +57,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close open malloc
+               Defines: malloc close open
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -70,7 +70,7 @@ fcntl.h
 ==========
 
 creat          inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
-               (src/open.c: 29)
+               (src/open.c: 30)
 
 
 
@@ -376,7 +376,7 @@ _move_pages                   (include/syscalls_x64.h: 533)
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
                Defines: dprints
-               (src/prints.c: 66)
+               (src/prints.c: 68)
 
 _mprotect                     (include/syscalls_x64.h: 25)
 
@@ -729,12 +729,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno strlen write
+               Defines: strlen fileno write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno strlen write
+               Defines: write strlen fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -750,6 +750,9 @@ itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0),
 itodec         int itodec(int i, char *buf, int prec, char limiter );
                Defines: uitodec
                (src/itodec.c: 121)
+
+ltodec         int ltodec(long i, char *buf, int prec, char limiter );
+               (src/ltodec.c: 14)
 
 memfrob        void* memfrob(void* s, unsigned int len);
                (src/memfrob.c: 3)
@@ -781,6 +784,9 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
                (src/itodec.c: 8)
 
+ultodec        int ultodec(unsigned long i, char *buf, int prec, char limiter );
+               (src/ltodec.c: 3)
+
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
                Defines: write
                (src/sprintf.c: 36)
@@ -797,7 +803,7 @@ stdio.h
 ==========
 
 _itohex        int _itohex(int i,char* buf,int padding, int capitals);
-               (src/itohex.c: 5)
+               (src/itohex.c: 6)
 
 clearerror     static inline void clearerror(FILE *f);
                (include/mini_fstream.h: 199)
@@ -817,7 +823,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 10)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -834,11 +840,11 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: fileno write
+               Defines: write fileno
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
@@ -846,7 +852,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno write strlen
+               Defines: write fileno strlen
                (include/fputs.h: 15)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -870,19 +876,19 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 18)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
                Defines: 
-               (src/itohex.c: 55)
+               (src/itohex.c: 56)
 
 itohex         int itohex(int i,char* buf,int padding);
                Defines: 
-               (src/itohex.c: 48)
+               (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: strlen write fileno strerror
+               Defines: strlen fileno strerror write
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -890,7 +896,7 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -920,7 +926,7 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
                (src/sprintf.c: 26)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 101)
 
 
@@ -1028,7 +1034,7 @@ lseek          lseek(unsigned int a1, int a2, int a3 )
                (include/lseek.h: 17)
 
 open           int volatile open( const char *s, int flags, ... );
-               (src/open.c: 12)
+               (src/open.c: 13)
 
 read           read( int fd, POINTER *buf, int len )
                (include/syscall_stubs.h: 99)

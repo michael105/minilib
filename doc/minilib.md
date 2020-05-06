@@ -44,7 +44,7 @@ fcntl.h
 
 creat          inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
 
-               (src/open.c: 29)
+               (src/open.c: 30)
 
 
 
@@ -68,7 +68,7 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
-               (src/prints.c: 66)
+               (src/prints.c: 68)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
@@ -115,6 +115,10 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
 
                (src/itodec.c: 121)
 
+ltodec         int ltodec(long i, char *buf, int prec, char limiter );
+
+               (src/ltodec.c: 14)
+
 memfrob        void* memfrob(void* s, unsigned int len);
 
                (src/memfrob.c: 3)
@@ -147,6 +151,10 @@ uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
                (src/itodec.c: 8)
 
+ultodec        int ultodec(unsigned long i, char *buf, int prec, char limiter );
+
+               (src/ltodec.c: 3)
+
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
                (src/sprintf.c: 36)
@@ -164,7 +172,7 @@ stdio.h
 
 _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
-               (src/itohex.c: 5)
+               (src/itohex.c: 6)
 
 clearerror     static inline void clearerror(FILE *f);
 
@@ -247,11 +255,11 @@ getc           #define getc(F) fgetc(F)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
-               (src/itohex.c: 55)
+               (src/itohex.c: 56)
 
 itohex         int itohex(int i,char* buf,int padding);
 
-               (src/itohex.c: 48)
+               (src/itohex.c: 49)
 
 perror         void perror(char *msg);
 
@@ -387,7 +395,7 @@ unistd.h
 
 open           int volatile open( const char *s, int flags, ... );
 
-               (src/open.c: 12)
+               (src/open.c: 13)
 
 select         static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 

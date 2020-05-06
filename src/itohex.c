@@ -1,6 +1,7 @@
 #ifndef itohex_c
 #define itohex_c
 //+header stdio.h
+//+include
 //+def
 int _itohex(int i,char* buf,int padding, int capitals){
 

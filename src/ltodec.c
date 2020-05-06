@@ -1,4 +1,5 @@
-
+//+include
+//+def
 int ultodec(unsigned long i, char *buf, int prec, char limiter ){
 		int p = 0;
 		if ( i>2^16 ){
@@ -9,7 +10,7 @@ int ultodec(unsigned long i, char *buf, int prec, char limiter ){
 		}
 		return(uitodec((uint)i, &buf[p], prec, limiter));
 }
-
+//+def
 int ltodec(long i, char *buf, int prec, char limiter ){
 	if ( i < 0 ){
 			buf[0]='-';

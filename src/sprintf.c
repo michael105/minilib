@@ -19,7 +19,7 @@
 #undef MINI_TEST_OVERRUN
 #define MINI_TEST_OVERRUN(pos) if ( pos>= size ){ overflow=1; goto msprintfout;}
 
-
+//+include
 
 //+depends snprintf vsnprintf
 //+macro
