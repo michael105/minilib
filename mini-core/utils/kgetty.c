@@ -28,6 +28,9 @@
 static char *tty = "/dev/tty1";
 static char *defaultterm = "linux";
 
+
+
+
 static void
 usage(void)
 {
