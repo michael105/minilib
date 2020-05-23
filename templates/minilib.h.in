@@ -1,5 +1,7 @@
 /* templates/minilib.h.in */
 
+#ifndef LDSCRIPT
+
 #include "minilib/include//utils.h"
 
 #include "minilib/macros/vararg.h"

@@ -65,9 +65,14 @@
 
 
 
+
 my $fhhash;
+BEGIN{
 # Where to put the generated ansi/posix headers and look for templates
-my $mlibdir = shift;
+$mlibdir = shift;
+push @INC, "$mlibdir/scripts/perl";
+}
+
 # minilib headerfile
 #my $minilibheader = shift;
 my $headerdir="$mlibdir/compat";
@@ -654,16 +659,28 @@ foreach my $i ( keys(%{$funchash}) ){
 }
 
 print $ml <<TMPL_END;
-
-
 #ifdef INCLUDESRC
 #ifndef included_minilib_c
 #include "minilib.c"
 #endif
 #endif
 
-#endif
+
+// ifndef LDSCRIPT
+#else
+
 TMPL_END
+
+# minilib.h ends here.
+# ldscripts
+
+foreach my $script ( qw/script script.onlytext script.text_and_bss/ ){
+		print $ml "#ifdef LDSCRIPT_$script\n\n";
+		print $ml `cat $mlibdir/ldscripts/ld.$script`;
+		print $ml "#endif\n\n";
+}
+
+print $ml "#endif\n\n#endif\n\n";
 
 close($ml);
 

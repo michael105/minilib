@@ -38,7 +38,6 @@ Look at the sources.
 
 
 endif
-#endif
 
 export PATH := $(PATH):$(MLIBDIR)/contrib
 
@@ -313,6 +312,18 @@ clean:
 
 
 endif
+
+ifdef UNDEF
+#endif
+
+
+
+
+
+
+#if 0
+endif
+#endif
 
 
 

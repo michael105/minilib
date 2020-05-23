@@ -1,3 +1,19 @@
-#ifdef mini_INCLUDESRC
+// this is only a boilerplate.
+// atm, the code below is hardcoded into genheaders.pl
+
+#ifdef INCLUDESRC
+#ifndef included_minilib_c
 #include "minilib.c"
+#endif
+#endif
+
+#endif
+
+
+// ifndef LDSCRIPT
+#else 
+// dump ldscripts
+
+
+
 #endif
