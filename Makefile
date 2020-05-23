@@ -41,7 +41,7 @@ unpack-mini-gcc
 	strip the gzipped minilib of mini-gcc
 
 combined
-	compile minilibcompiled.h.gz (single header sourcefile)
+	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
 tools
 	make tools in the dir ./tools
@@ -51,8 +51,10 @@ test
 	make and run tests in ./test/
 
 retest
-	rebuild the tests in test, (past changes to the tests)
+	rebuild the tests in test, 
 	run make test after that
+  for rebuilding the expected output of the tests as well,
+	look into ./test/Makefile
 
 help
 	show this help
@@ -93,6 +95,9 @@ endef
 help:
 	$(info $(HELP)) 
 	@echo -ne  # surpress status 
+
+
+default: help
 
 all: header compile-mini-gcc doc examples test
 
