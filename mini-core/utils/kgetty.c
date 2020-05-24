@@ -6,24 +6,28 @@
 // misc
 
 #define TEST
+//
+//#include <sys/ioctl.h>
+//#include <sys/stat.h>
+//#include <sys/types.h>
+//
+//#include <fcntl.h>
+//#include <limits.h>
+//#include <signal.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <unistd.h>
+//#include <utmp.h>
+//#include <errno.h>
+//#include <pwd.h>
+//
 
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#define mini_start
+#define mini_prints
+#define mini_strncpy
 
-#include <fcntl.h>
-#include <limits.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <utmp.h>
-#include <errno.h>
-#include <pwd.h>
-
-#include "config.h"
-#include "util.h"
+#include "minilib.h"
 
 static char *tty = "/dev/tty1";
 static char *defaultterm = "linux";
@@ -31,17 +35,14 @@ static char *defaultterm = "linux";
 
 
 
-static void
-usage(void)
-{
-	eprintf("usage: %s [tty] [term] [cmd] [args...]\n", argv0);
+static void usage(void){
+	prints("usage: kgetty [tty] [term] [cmd] [args...]\n");
+	exit(0);
 }
 
-int
-main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
 
-	struct passwd *pw;
+	//struct passwd *pw;
 	char *user;
 	char term[128], logname[LOGIN_NAME_MAX], c;
 	char hostname[HOST_NAME_MAX + 1];
@@ -55,11 +56,6 @@ main(int argc, char *argv[])
 	uid_t uid;
 	gid_t gid;
 
-
-	ARGBEGIN {
-	default:
-		usage();
-	} ARGEND;
 
 	strlcpy(term, defaultterm, sizeof(term));
 	if (argc > 0) {

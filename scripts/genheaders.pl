@@ -665,6 +665,7 @@ print $ml <<TMPL_END;
 #endif
 #endif
 
+#endif
 
 // ifndef LDSCRIPT
 #else
@@ -675,12 +676,14 @@ TMPL_END
 # ldscripts
 
 foreach my $script ( qw/script script.onlytext script.text_and_bss/ ){
-		print $ml "#ifdef LDSCRIPT_$script\n\n";
+		my $s = $script;
+		$s =~ s/\./_/g;
+		print $ml "#ifdef LDSCRIPT_$s\n\n";
 		print $ml `cat $mlibdir/ldscripts/ld.$script`;
 		print $ml "#endif\n\n";
 }
 
-print $ml "#endif\n\n#endif\n\n";
+print $ml "#endif\n\n";
 
 close($ml);
 
