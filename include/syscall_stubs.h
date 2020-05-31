@@ -2,7 +2,7 @@
 #define syscall_stubs_h
 /*
  These are just wrapped syscalls.
- errno is set, anyway.
+ errno is set, anyways.
 
  This file (and the other headers) are parsed by 'genheaders.pl',
  and the "real" syscall defines below the mark generated-makros-start created.	
@@ -24,7 +24,7 @@ struct timezone;
 
 // TODO: declarations
 // below are untested definitions,
-// for the SYSREAL... (expaning to sys"syscallname" ) macros
+// for the SYSREAL... (expanding to sys"syscallname" ) macros
 //typedef long sigset_t;
 typedef unsigned long u64;
 typedef unsigned long __u64;
@@ -110,7 +110,6 @@ DEF_syscall(uname,1,struct old_utsname *name )
 DEF_syscall(getdents, 3, unsigned int fd, struct dirent *direntry, unsigned int count )
 
 DEF_syscall(write,3,int fd,const void *buf, int len )
-//rename a1=oldpath a2=newpath
 
 DEF_syscall(rename,2, const char* oldpath, const char* newpath )		
 DEF_syscall(unlink,1, const char* a1)		
@@ -128,12 +127,13 @@ DEF_syscall(dup3,3,int a1, int a2, int a3)
 
 DEF_syscall(getcwd,2,char *buf,long size)		
 
-// below untested
+
+// below untested. pandora lives here
 DEF_syscall(access,2, const char *filename,  int mode)
 DEF_syscall(fcntl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
 DEF_syscall(pipe,1, int *filedes)
 DEF_syscall(umask,1, int mask)
-DEF_syscall(fchmod,2, unsigned int fd,  mode_t mode)
+DEF_syscall(chmod,2, const char *filename,  mode_t mode)
 DEF_syscall(chown,3, const char *filename,  uid_t user,  gid_t group)
 DEF_syscall(mkdir,2, const char *pathname,  int mode)
 DEF_syscall(rmdir,1, const char *pathname)
