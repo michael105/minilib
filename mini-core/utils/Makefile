@@ -97,7 +97,7 @@ rebuild:
 clean: $(shell rm $(PROG))
 	$(shell cd $(BUILDDIR) && rm *.o)
 
-		endif
+endif
 
 getminilib: $(MLIBDIR)/minilib.h
 

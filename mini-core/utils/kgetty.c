@@ -24,6 +24,7 @@
 //
 
 #define mini_start
+#define mini_buf 1024
 #define mini_exit
 #define mini_vhangup
 #define mini_open
@@ -43,6 +44,7 @@
 #define mini_fseek
 #define mini_fchmod
 #define mini_fchown
+#define mini_sigemptyset
 
 #define INCLUDESRC
 #include "minilib.h"
