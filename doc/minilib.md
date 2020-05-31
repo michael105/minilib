@@ -167,6 +167,16 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
 
 ==========
+signal.h
+==========
+
+sigemptyset    int sigemptyset(sigset_t *set);
+
+               (src/sigemptyset.c: 8)
+
+
+
+==========
 stdio.h
 ==========
 

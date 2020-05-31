@@ -1,4 +1,4 @@
-**make[1]: Entering directory '/home/micha/prog/minilib'**
+**make[1]: Entering directory '/hd/sda8/home/micha/prog/minilib'**
 **Type 'make help' for help**
 
 make targets:
@@ -23,7 +23,7 @@ unpack-mini-gcc
 	strip the gzipped minilib of mini-gcc
 
 combined
-	compile minilibcompiled.h.gz (single header sourcefile)
+	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
 tools
 	make tools in the dir ./tools
@@ -33,8 +33,10 @@ test
 	make and run tests in ./test/
 
 retest
-	rebuild the tests in test, (past changes to the tests)
+	rebuild the tests in test, 
 	run make test after that
+  for rebuilding the expected output of the tests as well,
+	look into ./test/Makefile
 
 help
 	show this help
@@ -70,4 +72,4 @@ I have to somehow sort and categorize all the documentation.
 May the source be with you, and have fun
 
 Michael (misc) Myer, 2012-2020, BSD 3clause
-make[1]: Leaving directory '/home/micha/prog/minilib'
+make[1]: Leaving directory '/hd/sda8/home/micha/prog/minilib'
