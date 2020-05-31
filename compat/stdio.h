@@ -1,4 +1,4 @@
-/* This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
+/* This file is part of minilib, (c) 2012-2020 Michael Misc Myer.
 misc.myer@zoho.com / www.github.com/michael105
 Licensed under the terms of the BSD 3-clause License.
 Please see the files LICENSE and NOTICE for the exact conditions. 
@@ -103,11 +103,11 @@ static inline int volatile fputc(int c, FILE* F);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/fgetc.h"
-#include "minilib/include/prints.h"
 #include "minilib/src/strerror.c"
-#include "minilib/include/fputc.h"
+#include "minilib/include/prints.h"
 #include "minilib/src/fopen.c"
+#include "minilib/include/fgetc.h"
+#include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

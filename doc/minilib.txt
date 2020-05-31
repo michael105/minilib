@@ -21,23 +21,26 @@ isspace        int isspace(int c);
 declarations.h
 ==========
 
-dup3           dup3(int a1, int a2, int a3)		
-               (include/syscall_stubs.h: 126)
-
-fchmod         fchmod( unsigned int fd,  mode_t mode)
+chmod          chmod( const char *filename,  mode_t mode)
                (include/syscall_stubs.h: 135)
 
-fchown         fchown( unsigned int fd,  uid_t user,  gid_t group)
+dup3           dup3(int a1, int a2, int a3)		
+               (include/syscall_stubs.h: 125)
+
+fchmod         fchmod( unsigned int fd,  mode_t mode)
                (include/syscall_stubs.h: 121)
+
+fchown         fchown( unsigned int fd,  uid_t user,  gid_t group)
+               (include/syscall_stubs.h: 120)
 
 fcntl          fcntl( unsigned int fd,  unsigned int cmd,  unsigned long arg)
                (include/syscall_stubs.h: 132)
 
 fstat          fstat(int a1,struct stat* a2)		
-               (include/syscall_stubs.h: 117)
+               (include/syscall_stubs.h: 116)
 
 getcwd         getcwd(char *buf,long size)		
-               (include/syscall_stubs.h: 128)
+               (include/syscall_stubs.h: 127)
 
 getdents       getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
                (include/syscall_stubs.h: 109)
@@ -53,7 +56,7 @@ mprotect       mprotect( POINTER *a1, POINTER a2, int a3 )
                (include/syscall_stubs.h: 102)
 
 stat           stat(const char* filename,struct stat* a2)		
-               (include/syscall_stubs.h: 118)
+               (include/syscall_stubs.h: 117)
 
 umask          umask( int mask)
                (include/syscall_stubs.h: 134)
@@ -78,7 +81,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: malloc open close
+               Defines: open malloc close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -750,12 +753,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write fileno strlen
+               Defines: strlen write fileno
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno write strlen
+               Defines: strlen write fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -779,7 +782,7 @@ memfrob        void* memfrob(void* s, unsigned int len);
                (src/memfrob.c: 3)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 29)
                write str to stdout. Needs strlen
 
@@ -870,19 +873,19 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: write fileno
+               Defines: fileno write
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno write strlen
+               Defines: fileno strlen write
                (include/fputs.h: 15)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -906,7 +909,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 18)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -918,11 +921,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: write strerror fileno strlen
+               Defines: fileno write strlen strerror
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -934,7 +937,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -956,7 +959,7 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
                (src/sprintf.c: 26)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 101)
 
 
@@ -1043,7 +1046,7 @@ access         access( const char *filename,  int mode)
                (include/syscall_stubs.h: 131)
 
 chdir          chdir(const char* path)		
-               (include/syscall_stubs.h: 119)
+               (include/syscall_stubs.h: 118)
 
 chown          chown( const char *filename,  uid_t user,  gid_t group)
                (include/syscall_stubs.h: 136)
@@ -1052,10 +1055,10 @@ close          close( int fd )
                (include/syscall_stubs.h: 104)
 
 dup            dup(int a1)		
-               (include/syscall_stubs.h: 124)
+               (include/syscall_stubs.h: 123)
 
 dup2           dup2(int a1, int a2)		
-               (include/syscall_stubs.h: 125)
+               (include/syscall_stubs.h: 124)
 
 fork           DEF_syscall(fork,0)
                (include/syscall_stubs.h: 144)
@@ -1098,7 +1101,7 @@ read           read( int fd, POINTER *buf, int len )
                (include/syscall_stubs.h: 105)
 
 rename         rename( const char* oldpath, const char* newpath )		
-               (include/syscall_stubs.h: 114)
+               (include/syscall_stubs.h: 113)
 
 rmdir          rmdir( const char *pathname)
                (include/syscall_stubs.h: 138)
@@ -1127,7 +1130,7 @@ tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd
                (include/tcsetattr.h: 18)
 
 unlink         unlink( const char* a1)		
-               (include/syscall_stubs.h: 115)
+               (include/syscall_stubs.h: 114)
 
 write          write(int fd,const void *buf, int len )
                (include/syscall_stubs.h: 111)
