@@ -1,6 +1,7 @@
 #ifndef signal_h
 #define signal_h
 
+#define _NSIG 65
 
 #define SIGHUP    1
 #define SIGINT    2
