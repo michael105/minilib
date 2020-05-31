@@ -415,6 +415,12 @@ select         static inline int volatile __attribute__((always_inline)) select(
 
                (include/select.h: 10)
 
+sleep          unsigned int sleep(unsigned int seconds);
+
+               nonconformant sleep
+              TODO: ignore blocked signals, sigchld
+               (src/sleep.c: 10)
+
 tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
 
                (include/tcgetattr.h: 17)
