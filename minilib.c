@@ -72,79 +72,9 @@ int sysret;
 
 /* end templates/minilib.c.in */
 
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-#include "minilib/src/itodec.c"
-#endif
-
-// minilib/src/dirent/closedir.c
-#ifdef mini_closedir
-#include "minilib/src/dirent/closedir.c"
-#endif
-
 // minilib/src/sprintf.c
-#ifdef mini_snprintf
+#ifdef mini_dprintf
 #include "minilib/src/sprintf.c"
-#endif
-
-// minilib/src/basename.c
-#ifdef mini_basename
-#include "minilib/src/basename.c"
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini__itobin
-#include "minilib/src/itobin.c"
-#endif
-
-// minilib/src/mstrcmp.c
-#ifdef mini_memcmp
-#include "minilib/src/mstrcmp.c"
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_free
-#include "minilib/src/malloc.c"
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_strerror
-#include "minilib/src/strerror.c"
-#endif
-
-// minilib/src/ltodec.c
-#ifdef mini_ultodec
-#include "minilib/src/ltodec.c"
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_itodec
-#include "minilib/src/itodec.c"
-#endif
-
-// minilib/src/dirent/readdir.c
-#ifdef mini_readdir
-#include "minilib/src/dirent/readdir.c"
-#endif
-
-// minilib/src/open.c
-#ifdef mini_creat
-#include "minilib/src/open.c"
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini__itohex
-#include "minilib/src/itohex.c"
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itoHEX
-#include "minilib/src/itohex.c"
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-#include "minilib/src/strcat.c"
 #endif
 
 // minilib/src/mstrcmp.c
@@ -152,19 +82,24 @@ int sysret;
 #include "minilib/src/mstrcmp.c"
 #endif
 
-// minilib/src/strlen.c
-#ifdef mini_strlen
-#include "minilib/src/strlen.c"
+// minilib/src/isspace.c
+#ifdef mini_isspace
+#include "minilib/src/isspace.c"
 #endif
 
-// minilib/src/atoi.c
-#ifdef mini_atoi
-#include "minilib/src/atoi.c"
+// minilib/src/ltodec.c
+#ifdef mini_ultodec
+#include "minilib/src/ltodec.c"
 #endif
 
-// minilib/src/malloc.c
-#ifdef mini_malloc
-#include "minilib/src/malloc.c"
+// minilib/src/strcat.c
+#ifdef mini_strcat
+#include "minilib/src/strcat.c"
+#endif
+
+// minilib/src/ltodec.c
+#ifdef mini_ltodec
+#include "minilib/src/ltodec.c"
 #endif
 
 // minilib/src/open.c
@@ -172,28 +107,33 @@ int sysret;
 #include "minilib/src/open.c"
 #endif
 
-// minilib/src/rand.c
-#ifdef mini_rand
-#include "minilib/src/rand.c"
+// minilib/src/itohex.c
+#ifdef mini_itoHEX
+#include "minilib/src/itohex.c"
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_sprintf
-#include "minilib/src/sprintf.c"
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+#include "minilib/src/memcpy.c"
 #endif
 
-// minilib/src/memset.c
-#ifdef mini_memset
-#include "minilib/src/memset.c"
+// minilib/src/basename.c
+#ifdef mini_basename
+#include "minilib/src/basename.c"
 #endif
 
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-#include "minilib/src/ioctl.c"
+// minilib/src/isatty.c
+#ifdef mini_isatty
+#include "minilib/src/isatty.c"
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fopen
+#include "minilib/src/fopen.c"
 #endif
 
 // minilib/src/mstrcmp.c
-#ifdef mini_strcmp
+#ifdef mini_strncmp
 #include "minilib/src/mstrcmp.c"
 #endif
 
@@ -202,14 +142,14 @@ int sysret;
 #include "minilib/src/rand.c"
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_vsnprintf
-#include "minilib/src/sprintf.c"
+// minilib/src/itohex.c
+#ifdef mini_itohex
+#include "minilib/src/itohex.c"
 #endif
 
-// minilib/src/strerror.c
-#ifdef mini_perror
-#include "minilib/src/strerror.c"
+// minilib/src/open.c
+#ifdef mini_creat
+#include "minilib/src/open.c"
 #endif
 
 // minilib/src/memcpy.c
@@ -217,23 +157,33 @@ int sysret;
 #include "minilib/src/memcpy.c"
 #endif
 
-// minilib/src/prints.c
-#ifdef mini__mprints
-#include "minilib/src/prints.c"
+// minilib/src/rand.c
+#ifdef mini_rand
+#include "minilib/src/rand.c"
 #endif
 
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-#include "minilib/src/dtodec.c"
+// minilib/src/strerror.c
+#ifdef mini_strerror
+#include "minilib/src/strerror.c"
 #endif
 
-// minilib/src/mstrcmp.c
-#ifdef mini_strncmp
-#include "minilib/src/mstrcmp.c"
+// minilib/src/memset.c
+#ifdef mini_memset
+#include "minilib/src/memset.c"
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_snprintf
+#include "minilib/src/sprintf.c"
+#endif
+
+// minilib/src/dirent/opendir.c
+#ifdef mini_opendir
+#include "minilib/src/dirent/opendir.c"
 #endif
 
 // minilib/src/itohex.c
-#ifdef mini_itohex
+#ifdef mini__itohex
 #include "minilib/src/itohex.c"
 #endif
 
@@ -242,29 +192,24 @@ int sysret;
 #include "minilib/src/getenv.c"
 #endif
 
-// minilib/src/itobin.c
-#ifdef mini_itobin
-#include "minilib/src/itobin.c"
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+#include "minilib/src/dtodec.c"
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_fprintf
-#include "minilib/src/sprintf.c"
+// minilib/src/strlen.c
+#ifdef mini_strlen
+#include "minilib/src/strlen.c"
 #endif
 
-// minilib/src/isatty.c
-#ifdef mini_isatty
-#include "minilib/src/isatty.c"
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+#include "minilib/src/ioctl.c"
 #endif
 
-// minilib/src/fprintfs.c
-#ifdef mini_fprintfs
-#include "minilib/src/fprintfs.c"
-#endif
-
-// minilib/src/dirent/opendir.c
-#ifdef mini_opendir
-#include "minilib/src/dirent/opendir.c"
+// minilib/src/itodec.c
+#ifdef mini_itodec
+#include "minilib/src/itodec.c"
 #endif
 
 // minilib/src/memcpy.c
@@ -272,19 +217,54 @@ int sysret;
 #include "minilib/src/memcpy.c"
 #endif
 
-// minilib/src/ltodec.c
-#ifdef mini_ltodec
-#include "minilib/src/ltodec.c"
+// minilib/src/mstrcmp.c
+#ifdef mini_memcmp
+#include "minilib/src/mstrcmp.c"
 #endif
 
-// minilib/src/fopen.c
-#ifdef mini_fopen
-#include "minilib/src/fopen.c"
+// minilib/src/malloc.c
+#ifdef mini_malloc
+#include "minilib/src/malloc.c"
 #endif
 
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-#include "minilib/src/memcpy.c"
+// minilib/src/dirent/closedir.c
+#ifdef mini_closedir
+#include "minilib/src/dirent/closedir.c"
+#endif
+
+// minilib/src/dirent/readdir.c
+#ifdef mini_readdir
+#include "minilib/src/dirent/readdir.c"
+#endif
+
+// minilib/src/fprintfs.c
+#ifdef mini_fprintfs
+#include "minilib/src/fprintfs.c"
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_fprintf
+#include "minilib/src/sprintf.c"
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+#include "minilib/src/itodec.c"
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini_itobin
+#include "minilib/src/itobin.c"
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini__itobin
+#include "minilib/src/itobin.c"
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_vsnprintf
+#include "minilib/src/sprintf.c"
 #endif
 
 // minilib/src/memfrob.c
@@ -292,14 +272,34 @@ int sysret;
 #include "minilib/src/memfrob.c"
 #endif
 
-// minilib/src/isspace.c
-#ifdef mini_isspace
-#include "minilib/src/isspace.c"
+// minilib/src/malloc.c
+#ifdef mini_free
+#include "minilib/src/malloc.c"
+#endif
+
+// minilib/src/mstrcmp.c
+#ifdef mini_strcmp
+#include "minilib/src/mstrcmp.c"
+#endif
+
+// minilib/src/prints.c
+#ifdef mini__mprints
+#include "minilib/src/prints.c"
 #endif
 
 // minilib/src/sprintf.c
-#ifdef mini_dprintf
+#ifdef mini_sprintf
 #include "minilib/src/sprintf.c"
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_perror
+#include "minilib/src/strerror.c"
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+#include "minilib/src/atoi.c"
 #endif
 
 #endif
