@@ -121,6 +121,10 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 
 // end of musl 
 
+#define LOGIN_NAME_MAX 256
+#define HOST_NAME_MAX 64
+
+
 
 
 #endif

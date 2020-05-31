@@ -24,9 +24,27 @@
 //
 
 #define mini_start
+#define mini_exit
+#define mini_vhangup
+#define mini_open
+#define mini_fopen
+#define mini_fread
+#define mini_fwrite
+#define mini_close
+#define mini_fflush
+#define mini_ioctl
 #define mini_prints
+#define mini_printf
 #define mini_strncpy
+#define mini_strcmp
+#define mini_memset
+#define mini_sleep
+#define mini_ftell
+#define mini_fseek
+#define mini_fchmod
+#define mini_fchown
 
+#define INCLUDESRC
 #include "minilib.h"
 
 static char *tty = "/dev/tty1";
@@ -46,7 +64,7 @@ int main(int argc, char *argv[]){
 	char *user;
 	char term[128], logname[LOGIN_NAME_MAX], c;
 	char hostname[HOST_NAME_MAX + 1];
-	struct utmp usr;
+//	struct utmp usr;
 	struct sigaction sa;
 	FILE *fp;
 	int fd;
@@ -57,11 +75,11 @@ int main(int argc, char *argv[]){
 	gid_t gid;
 
 
-	strlcpy(term, defaultterm, sizeof(term));
+	strncpy(term, defaultterm, sizeof(term));
 	if (argc > 0) {
 		tty = argv[0];
 		if (argc > 1)
-			strlcpy(term, argv[1], sizeof(term));
+			strncpy(term, argv[1], sizeof(term));
 	}
 
 	sa.sa_handler = SIG_IGN;
@@ -69,7 +87,7 @@ int main(int argc, char *argv[]){
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGHUP, &sa, NULL);
 
-	setenv("TERM", term, 1);
+//	setenv("TERM", term, 1);
 
 	setsid();
 #ifndef TEST
@@ -129,9 +147,9 @@ int main(int argc, char *argv[]){
 
 	//if (argc > 2)
 	//	return execvp(argv[2], argv + 2);
-	if (gethostname(hostname, sizeof(hostname)) == 0)
-		printf("Kerberos@%s - login: ", hostname);
-	else
+//	if (gethostname(hostname, sizeof(hostname)) == 0)
+//		printf("Kerberos@%s - login: ", hostname);
+//	else
 	printf("Kerberos - login: ");
 	fflush(stdout);
 
@@ -171,11 +189,7 @@ int main(int argc, char *argv[]){
 
 		// better don't reveal, this user doesn't seem to exist. misc
 
-			// ho
-			//
-			//
-			//
-			// pefully this user doesn't exist.
+			// hopefully this user doesn't exist.
 			// when - well, there still is the password left to guess.
 	// need to emulate kerberos here, somehow ?
 			sleep(1);

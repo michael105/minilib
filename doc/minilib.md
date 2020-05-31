@@ -393,6 +393,10 @@ time.h
 unistd.h
 ==========
 
+isatty         int isatty(int fd);
+
+               (src/isatty.c: 7)
+
 open           int volatile open( const char *s, int flags, ... );
 
                (src/open.c: 13)

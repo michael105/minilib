@@ -78,8 +78,8 @@ struct dirent *readdir(DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/dirent/closedir.c"
 #include "minilib/src/dirent/readdir.c"
+#include "minilib/src/dirent/closedir.c"
 #include "minilib/src/dirent/opendir.c"
 
 // Need global included. Doesn't matter by which file.
