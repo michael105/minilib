@@ -1,5 +1,5 @@
-#ifndef signal_h
-#define signal_h
+#ifndef bits_signal_h
+#define bits_signal_h
 
 #define _NSIG 65
 

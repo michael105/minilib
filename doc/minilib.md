@@ -170,6 +170,10 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 signal.h
 ==========
 
+sigaction      int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+
+               (src/sigaction.c: 7)
+
 sigemptyset    int sigemptyset(sigset_t *set);
 
                (src/sigemptyset.c: 8)

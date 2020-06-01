@@ -24,7 +24,7 @@ BUILDDIR=.
 #BINDIR=./static_x64
 
 # Where minilib is installed, or should be installed to
-MLIBDIR=.
+MLIBDIR=minilib
 
 # Don't create obj files, include evrything in one gcc run.(yourself)
 SINGLERUN=1

@@ -27,6 +27,7 @@
 #include "minilib/include/timeval.h"
 #include "minilib/headers/common/dirent.h"
 #include "minilib/headers/common/bits/signal.h"
+#include "minilib/headers/common/signal.h"
 #include "minilib/include/syscall.h"
 #include "minilib/headers/linux_x64/sys/syscall.h"
 #include "minilib/include/syscall_stubs.h"

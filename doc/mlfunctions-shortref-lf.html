@@ -313,21 +313,21 @@
 <tr valign="top"><td><small>_waitid</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  469 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_write</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  7 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_writev</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  45 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  135 </small></td><td><small> access( const char *filename, int mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  138 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int atoi(char *c);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  29 </small></td><td><small> char *basename(char *path);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  118 </small></td><td><small> chdir(const char* path)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  117 </small></td><td><small> chdir(const char* path)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">chmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  139 </small></td><td><small> chmod( const char *filename, mode_t mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">chmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  142 </small></td><td><small> chmod( const char *filename, mode_t mode)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">chown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  140 </small></td><td><small> chown( const char *filename, uid_t user, gid_t group)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">chown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  143 </small></td><td><small> chown( const char *filename, uid_t user, gid_t group)
 </small></td></tr>
 <tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  199 </small></td><td><small>   void clearerror(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/close.2.rst.html">close</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  104 </small></td><td><small> close( int fd )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/close.2.rst.html">close</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  103 </small></td><td><small> close( int fd )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
@@ -341,19 +341,21 @@
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup</a></small></td><td><small>   <a href="../src/dtodec.c" target="right">../src/dtodec.c</a>  123 </small></td><td><small> dup(int a1)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup</a></small></td><td><small>   <a href="../src/dtodec.c" target="right">../src/dtodec.c</a>  122 </small></td><td><small> dup(int a1)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup2</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  124 </small></td><td><small> dup2(int a1, int a2)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup2</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  123 </small></td><td><small> dup2(int a1, int a2)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  125 </small></td><td><small> dup3(int a1, int a2, int a3)		
+<tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  124 </small></td><td><small> dup3(int a1, int a2, int a3)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  121 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  135 </small></td><td><small> execve( const char *filename,  const char *const argv[],  const char *const envp[])
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">fchown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  120 </small></td><td><small> fchown( unsigned int fd, uid_t user, gid_t group)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  120 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">fchown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  119 </small></td><td><small> fchown( unsigned int fd, uid_t user, gid_t group)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fclose.3.rst.html">fclose</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  66 </small></td><td><small>   int ) fclose( FILE* f );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  136 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  139 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  185 </small></td><td><small>   int feof(FILE *f);
 </small></td></tr>
@@ -372,7 +374,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  12 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  131 </small></td><td><small> DEF_syscall(fork,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  130 </small></td><td><small> DEF_syscall(fork,0)
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  96 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
@@ -396,7 +398,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  134 </small></td><td><small>   int fsetpos(FILE *f, int pos );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">fstat</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  116 </small></td><td><small> fstat(int a1,struct stat* a2)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">fstat</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  115 </small></td><td><small> fstat(int a1,struct stat* a2)		
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fsync.2.rst.html">fsync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> fsync(int a1 )
 </small></td></tr>
@@ -411,21 +413,21 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  18 </small></td><td><small> #define getc(F) fgetc(F)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getcwd.3.rst.html">getcwd</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  127 </small></td><td><small> getcwd(char *buf,long size)		
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getcwd.3.rst.html">getcwd</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  126 </small></td><td><small> getcwd(char *buf,long size)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getdirentries.2.rst.html">getdents</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  109 </small></td><td><small> getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getdirentries.2.rst.html">getdents</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  108 </small></td><td><small> getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">getenv</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> char *getenv(const char* name);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  147 </small></td><td><small> DEF_syscall(getgid,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  150 </small></td><td><small> DEF_syscall(getgid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  148 </small></td><td><small> DEF_syscall(getpgrp,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  151 </small></td><td><small> DEF_syscall(getpgrp,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getpid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  94 </small></td><td><small> DEF_syscall(getpid,0 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getpid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  93 </small></td><td><small> DEF_syscall(getpid,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  145 </small></td><td><small> DEF_syscall(getppid,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  148 </small></td><td><small> DEF_syscall(getppid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  92 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  91 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> int ioctl( int fd, unsigned long int request, ... );
 </small></td></tr>
@@ -443,7 +445,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>itohex</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  49 </small></td><td><small> int itohex(int i,char* buf,int padding);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/link.2.rst.html">link</a></small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  143 </small></td><td><small> link( const char *oldname, const char *newname)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/link.2.rst.html">link</a></small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  146 </small></td><td><small> link( const char *oldname, const char *newname)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  17 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
 </small></td></tr>
@@ -459,11 +461,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/memfrob.c" target="right">../src/memfrob.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/memset.c" target="right">../src/memset.c</a>  141 </small></td><td><small> mkdir( const char *pathname, int mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/memset.c" target="right">../src/memset.c</a>  144 </small></td><td><small> mkdir( const char *pathname, int mode)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  102 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  101 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  132 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  131 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  13 </small></td><td><small> int  open( const char *s, int flags, ... );
 </small></td></tr>
@@ -471,7 +473,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  22 </small></td><td><small> void perror(char *msg);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  137 </small></td><td><small> pipe( int *filedes)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  140 </small></td><td><small> pipe( int *filedes)
 </small></td></tr>
 <tr valign="top"><td><small>print</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  29 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
@@ -496,15 +498,17 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  105 </small></td><td><small> read( int fd, POINTER *buf, int len )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  104 </small></td><td><small> read( int fd, POINTER *buf, int len )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  113 </small></td><td><small> rename( const char* oldpath, const char* newpath )		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  112 </small></td><td><small> rename( const char* oldpath, const char* newpath )		
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  157 </small></td><td><small>   void rewind( FILE *f );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/rmdir.2.rst.html">rmdir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  142 </small></td><td><small> rmdir( const char *pathname)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/rmdir.2.rst.html">rmdir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  145 </small></td><td><small> rmdir( const char *pathname)
+</small></td></tr>
+<tr valign="top"><td><small>rt_sigaction</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  133 </small></td><td><small> rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small>   int  ) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
@@ -512,18 +516,20 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy functions.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setgid</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  99 </small></td><td><small> setgid( gid_t gid)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setgid</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  98 </small></td><td><small> setgid( gid_t gid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  146 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  149 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  95 </small></td><td><small> DEF_syscall(setsid,0 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  94 </small></td><td><small> DEF_syscall(setsid,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  100 </small></td><td><small> setuid( uid_t uid)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  99 </small></td><td><small> setuid( uid_t uid)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  211 </small></td><td><small> int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  8 </small></td><td><small> int sigemptyset(sigset_t *set);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  7 </small></td><td><small> int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  8 </small></td><td><small> int sigemptyset(sigset_t *set);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/sigemptyset.c" target="right">../src/sigemptyset.c</a>  10 </small></td><td><small> unsigned int sleep(unsigned int seconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
@@ -535,7 +541,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  7 </small></td><td><small> void srand( unsigned int i );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  117 </small></td><td><small> stat(const char* filename,struct stat* a2)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  116 </small></td><td><small> stat(const char* filename,struct stat* a2)		
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> char *strcat(char *dest, const char *src );
 </small></td></tr>
@@ -555,27 +561,27 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../include/tcgetattr.h" target="right">../include/tcgetattr.h</a>  18 </small></td><td><small>   int ) tcsetattr(int fd, int opt, const struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  154 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  157 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int uitodec(unsigned int i, char *buf, int prec, char limiter );
 </small></td></tr>
 <tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  3 </small></td><td><small> int ultodec(unsigned long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  138 </small></td><td><small> umask( int mask)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  141 </small></td><td><small> umask( int mask)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/uname.3.rst.html">uname</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  107 </small></td><td><small> uname(struct old_utsname *name )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/uname.3.rst.html">uname</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  106 </small></td><td><small> uname(struct old_utsname *name )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/unlink.2.rst.html">unlink</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  114 </small></td><td><small> unlink( const char* a1)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/unlink.2.rst.html">unlink</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  113 </small></td><td><small> unlink( const char* a1)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  144 </small></td><td><small> utime( char *filename, struct utimbuf *times)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  147 </small></td><td><small> utime( char *filename, struct utimbuf *times)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  101 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  96 </small></td><td><small> DEF_syscall(vhangup,0 )
+<tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  95 </small></td><td><small> DEF_syscall(vhangup,0 )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  36 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  111 </small></td><td><small> write(int fd,const void *buf, int len )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  110 </small></td><td><small> write(int fd,const void *buf, int len )
 </small></td></tr>
 <tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  34 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.

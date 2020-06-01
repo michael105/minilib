@@ -5,6 +5,21 @@
 //
 // misc
 
+// dropping privilieges to "nobody".
+// this user should be present on every unix system,
+// with the uid/gid defined below.
+// if not dropping privileges, 
+// running ksu as root would su to the given user,
+// with a wrong or missing password as well.
+// On the other hand, setting the tty up could
+// need root rights.
+// Therefore the code for dropping the user rights.
+
+#define uid_nobody 65534
+#define gid_nobody 65534
+
+
+
 #define TEST
 //
 //#include <sys/ioctl.h>
@@ -46,6 +61,7 @@
 #define mini_fchmod
 #define mini_fchown
 #define mini_sigemptyset
+#define mini_sigaction
 
 #define INCLUDESRC
 #include "minilib.h"
@@ -154,7 +170,7 @@ int main(int argc, char *argv[]){
 	sigaction(SIGHUP, &sa, NULL);
 
 	/* Clear all utmp entries for this tty */
-	fp = fopen(UTMP_PATH, "r+");
+/*	fp = fopen(UTMP_PATH, "r+");
 	if (fp) {
 		do {
 			pos = ftell(fp);
@@ -172,7 +188,7 @@ int main(int argc, char *argv[]){
 		if (ferror(fp))
 			warnprints2("I/O error: ", UTMP_PATH);
 		fclose(fp);
-	}
+	} */
 
 	//if (argc > 2)
 	//	return execvp(argv[2], argv + 2);
@@ -206,9 +222,9 @@ int main(int argc, char *argv[]){
 
 	printf("Y1: %s\n", &logname);
 // get gid and uid.
-	pw = getpwnam(&logname);
+	//pw = getpwnam(&logname);
 
-	if (!pw) { //user doesn't exist
+//	if (!pw) { //user doesn't exist
 
 			/*
 		if (errno)
@@ -221,32 +237,44 @@ int main(int argc, char *argv[]){
 			// hopefully this user doesn't exist.
 			// when - well, there still is the password left to guess.
 	// need to emulate kerberos here, somehow ?
-			sleep(1);
-			return(1);
-	}
+//			sleep(1);
+//			return(1);
+//	}
 
 	//pw = getpwnam("krb5-micha");
-	pw = getpwnam("nobody");
+//	pw = getpwnam("nobody");
 
-	if (!pw) {
-			errprints("Couldn't get uid of user nobody\n");
-	}
+//	if (!pw) {
+//			errprints("Couldn't get uid of user nobody\n");
+//	}
 
-	uid = pw->pw_uid;
-	gid = pw->pw_gid;
+//	uid = pw->pw_uid;
+//	gid = pw->pw_gid;
 
-	if (initgroups(&logname, gid) < 0)
-		errprints("initgroups:");
-	if (setgid(gid) < 0)
+//	if (initgroups(&logname, gid) < 0)
+//		errprints("initgroups:");
+	if (setgid(gid_nobody) < 0)
 		errprints("setgid:");
-	if (setuid(uid) < 0)
+	if (setuid(uid_nobody) < 0)
 		errprints("setuid:");
 
 	printf("exec ksu.\n");
+
 	char *envp[] = { 
-	envp[0]="KRB5CCNAME=FILE:/tmp/krb_csc",
-	envp[1]=0 };
-	return execle("/usr/bin/ksu", "ksu", &logname, "-n", &logname, "-k", NULL, envp );
+			envp[0]="KRB5CCNAME=FILE:/tmp/krb_csc",
+			envp[1]=0 
+	};
+
+  char *argvp[] = { 
+			argvp[0]="ksu", 
+			argvp[1]=&logname, 
+			argvp[2]="-n", 
+			argvp[3]=&logname, 
+			argvp[4]="-k", 
+			argvp[5]=NULL 
+	};
+
+	return execve("/usr/bin/ksu",argvp, envp );
 	//return execlp("/usr/bin/ksu", "ksu", &logname, "-n", &logname, "-k", NULL);
 	
 	//execlp("/usr/bin/id", "id", NULL);

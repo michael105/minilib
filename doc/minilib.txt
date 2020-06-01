@@ -22,56 +22,59 @@ declarations.h
 ==========
 
 chmod          chmod( const char *filename, mode_t mode)
-               (include/syscall_stubs.h: 139)
+               (include/syscall_stubs.h: 142)
 
 dup3           dup3(int a1, int a2, int a3)		
-               (include/syscall_stubs.h: 125)
+               (include/syscall_stubs.h: 124)
 
 fchmod         fchmod( unsigned int fd, mode_t mode)
-               (include/syscall_stubs.h: 121)
-
-fchown         fchown( unsigned int fd, uid_t user, gid_t group)
                (include/syscall_stubs.h: 120)
 
+fchown         fchown( unsigned int fd, uid_t user, gid_t group)
+               (include/syscall_stubs.h: 119)
+
 fcntl          fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
-               (include/syscall_stubs.h: 136)
+               (include/syscall_stubs.h: 139)
 
 fstat          fstat(int a1,struct stat* a2)		
-               (include/syscall_stubs.h: 116)
+               (include/syscall_stubs.h: 115)
 
 getcwd         getcwd(char *buf,long size)		
-               (include/syscall_stubs.h: 127)
+               (include/syscall_stubs.h: 126)
 
 getdents       getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
-               (include/syscall_stubs.h: 109)
+               (include/syscall_stubs.h: 108)
 
 getppid        DEF_syscall(getppid,0)
-               (include/syscall_stubs.h: 145)
+               (include/syscall_stubs.h: 148)
 
 gettimeofday   gettimeofday( struct timeval *a1, struct timezone *a2)
-               (include/syscall_stubs.h: 92)
+               (include/syscall_stubs.h: 91)
 
 mprotect       mprotect( POINTER *a1, POINTER a2, int a3 )
                Returns: *a1
-               (include/syscall_stubs.h: 102)
+               (include/syscall_stubs.h: 101)
 
 nanosleep      nanosleep( struct timespec *rqtp, struct timespec *rmtp)
-               (include/syscall_stubs.h: 132)
+               (include/syscall_stubs.h: 131)
+
+rt_sigaction   rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
+               (include/syscall_stubs.h: 133)
 
 stat           stat(const char* filename,struct stat* a2)		
-               (include/syscall_stubs.h: 117)
+               (include/syscall_stubs.h: 116)
 
 umask          umask( int mask)
-               (include/syscall_stubs.h: 138)
+               (include/syscall_stubs.h: 141)
 
 uname          uname(struct old_utsname *name )
-               (include/syscall_stubs.h: 107)
+               (include/syscall_stubs.h: 106)
 
 utime          utime( char *filename, struct utimbuf *times)
-               (include/syscall_stubs.h: 144)
+               (include/syscall_stubs.h: 147)
 
 vhangup        DEF_syscall(vhangup,0 )
-               (include/syscall_stubs.h: 96)
+               (include/syscall_stubs.h: 95)
 
 
 
@@ -84,7 +87,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open close malloc
+               Defines: open malloc close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -756,12 +759,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno write strlen
+               Defines: fileno strlen write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: write fileno strlen
+               Defines: strlen write fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -829,6 +832,9 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 signal.h
 ==========
 
+sigaction      int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+               (src/sigaction.c: 7)
+
 sigemptyset    int sigemptyset(sigset_t *set);
                (src/sigemptyset.c: 8)
 
@@ -876,7 +882,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -884,7 +890,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
@@ -912,7 +918,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 18)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -924,15 +930,15 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: strerror write fileno strlen
+               Defines: strerror fileno write strlen
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -940,7 +946,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1037,7 +1043,7 @@ time.h
 ==========
 
 time           time(unsigned int *a1 )
-               (include/syscall_stubs.h: 154)
+               (include/syscall_stubs.h: 157)
 
 
 
@@ -1046,25 +1052,28 @@ unistd.h
 ==========
 
 access         access( const char *filename, int mode)
-               (include/syscall_stubs.h: 135)
+               (include/syscall_stubs.h: 138)
 
 chdir          chdir(const char* path)		
-               (include/syscall_stubs.h: 118)
+               (include/syscall_stubs.h: 117)
 
 chown          chown( const char *filename, uid_t user, gid_t group)
-               (include/syscall_stubs.h: 140)
+               (include/syscall_stubs.h: 143)
 
 close          close( int fd )
-               (include/syscall_stubs.h: 104)
+               (include/syscall_stubs.h: 103)
 
 dup            dup(int a1)		
-               (include/syscall_stubs.h: 123)
+               (include/syscall_stubs.h: 122)
 
 dup2           dup2(int a1, int a2)		
-               (include/syscall_stubs.h: 124)
+               (include/syscall_stubs.h: 123)
+
+execve         execve( const char *filename,  const char *const argv[],  const char *const envp[])
+               (include/syscall_stubs.h: 135)
 
 fork           DEF_syscall(fork,0)
-               (include/syscall_stubs.h: 131)
+               (include/syscall_stubs.h: 130)
 
 fsync          fsync(int a1 )
                (include/lseek.h: 20)
@@ -1073,56 +1082,56 @@ ftruncate      ftruncate(unsigned int a1, unsigned int a2 )
                (include/lseek.h: 19)
 
 getgid         DEF_syscall(getgid,0)
-               (include/syscall_stubs.h: 147)
+               (include/syscall_stubs.h: 150)
 
 getpgrp        DEF_syscall(getpgrp,0)
-               (include/syscall_stubs.h: 148)
+               (include/syscall_stubs.h: 151)
 
 getpid         DEF_syscall(getpid,0 )
-               (include/syscall_stubs.h: 94)
+               (include/syscall_stubs.h: 93)
 
 isatty         int isatty(int fd);
                Defines: ioctl
                (src/isatty.c: 7)
 
 link           link( const char *oldname, const char *newname)
-               (include/syscall_stubs.h: 143)
+               (include/syscall_stubs.h: 146)
 
 lseek          lseek(unsigned int a1, int a2, int a3 )
                (include/lseek.h: 17)
 
 mkdir          mkdir( const char *pathname, int mode)
-               (include/syscall_stubs.h: 141)
+               (include/syscall_stubs.h: 144)
 
 open           int volatile open( const char *s, int flags, ... );
                (src/open.c: 13)
 
 pipe           pipe( int *filedes)
-               (include/syscall_stubs.h: 137)
+               (include/syscall_stubs.h: 140)
 
 read           read( int fd, POINTER *buf, int len )
-               (include/syscall_stubs.h: 105)
+               (include/syscall_stubs.h: 104)
 
 rename         rename( const char* oldpath, const char* newpath )		
-               (include/syscall_stubs.h: 113)
+               (include/syscall_stubs.h: 112)
 
 rmdir          rmdir( const char *pathname)
-               (include/syscall_stubs.h: 142)
+               (include/syscall_stubs.h: 145)
 
 select         static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
                (include/select.h: 10)
 
 setgid         setgid( gid_t gid)
-               (include/syscall_stubs.h: 99)
+               (include/syscall_stubs.h: 98)
 
 setpgid        setpgid( pid_t pid, pid_t pgid)
-               (include/syscall_stubs.h: 146)
+               (include/syscall_stubs.h: 149)
 
 setsid         DEF_syscall(setsid,0 )
-               (include/syscall_stubs.h: 95)
+               (include/syscall_stubs.h: 94)
 
 setuid         setuid( uid_t uid)
-               (include/syscall_stubs.h: 100)
+               (include/syscall_stubs.h: 99)
 
 sleep          unsigned int sleep(unsigned int seconds);
                (src/sleep.c: 10)
@@ -1138,8 +1147,8 @@ tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd
                (include/tcsetattr.h: 18)
 
 unlink         unlink( const char* a1)		
-               (include/syscall_stubs.h: 114)
+               (include/syscall_stubs.h: 113)
 
 write          write(int fd,const void *buf, int len )
-               (include/syscall_stubs.h: 111)
+               (include/syscall_stubs.h: 110)
 

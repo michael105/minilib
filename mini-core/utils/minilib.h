@@ -1,1 +1,1 @@
-/hd/sda8/home/micha/prog/minilib/minilibcompiled.h
+../../minilib.h
