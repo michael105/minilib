@@ -36,19 +36,19 @@ ____
 
 ==== CHARACTER HANDLING <ctype.h>
 
-         int isalnum(int c);
-         int isalpha(int c);
-         int iscntrl(int c);
-         int isdigit(int c);
-         int isgraph(int c);
-         int islower(int c);
+     x    int isalnum(int c);
+     x    int isalpha(int c);
+     x    int iscntrl(int c);
+     x    int isdigit(int c);
+     x    int isgraph(int c);
+     x    int islower(int c);
      x    int isprint(int c); 
-         int ispunct(int c);
+     x    int ispunct(int c);
      x    int isspace(int c); 
-         int isupper(int c);
-         int isxdigit(int c);
-         int tolower(int c);
-         int toupper(int c);
+     x    int isupper(int c);
+     x    int isxdigit(int c);
+     x    int tolower(int c);
+     x    int toupper(int c);
 
 
 ==== LOCALIZATION <locale.h>
@@ -164,11 +164,11 @@ ____
      x    int vfprintf(FILE *stream, const char *format, va_list arg);
      x    int vprintf(const char *format, va_list arg);
          int vsprintf(char *s, const char *format, va_list arg);
-         int fgetc(FILE *stream);
+     x    int fgetc(FILE *stream);
          char *fgets(char *s, int n, FILE *stream);
      x    int fputc(int c, FILE *stream);
      x    int fputs(const char *s, FILE *stream);
-         int getc(FILE *stream);
+     x    int getc(FILE *stream);
          int getchar(void);
          char *gets(char *s);
      x    int putc(int c, FILE *stream);
