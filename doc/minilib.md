@@ -107,6 +107,10 @@ fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
                (include/prints.h: 39)
 
+grantpt        int grantpt(int fd);
+
+               (src/pty.c: 13)
+
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
                (src/itobin.c: 41)
@@ -122,6 +126,10 @@ ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 memfrob        void* memfrob(void* s, unsigned int len);
 
                (src/memfrob.c: 3)
+
+posix_openpt   int posix_openpt(int flags);
+
+               (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
@@ -155,6 +163,10 @@ ultodec        int ultodec(unsigned long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 3)
 
+unlockpt       int unlockpt(int fd);
+
+               (src/pty.c: 20)
+
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
                (src/sprintf.c: 36)
@@ -180,7 +192,7 @@ sigemptyset    int sigemptyset(sigset_t *set);
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
-               (src/signal.c: 8)
+               (src/signal.c: 9)
 
 
 
