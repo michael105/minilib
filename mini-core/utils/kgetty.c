@@ -220,7 +220,6 @@ int main(int argc, char *argv[]){
 
 	printf("\n");
 
-	printf("Y1: %s\n", &logname);
 // get gid and uid.
 	//pw = getpwnam(&logname);
 
