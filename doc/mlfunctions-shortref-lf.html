@@ -55,7 +55,10 @@
 <tr valign="top"><td><small>_finit_module</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  601 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_flistxattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  377 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_flock</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  151 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>_fork</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  119 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>_fopen</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  12 </small></td><td><small> FILE *_fopen(int fd, const char* filename, const char* mode);
+</small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
+ </small></td></tr>
+<tr valign="top"><td><small>_fork</small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  119 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_fremovexattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  383 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_fsetxattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  365 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_fstat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  15 </small></td><td><small></small></td></tr>
@@ -361,7 +364,10 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  139 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  185 </small></td><td><small>   int feof(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  83 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
+</small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  185 </small></td><td><small>   int feof(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  192 </small></td><td><small>   int ferror(FILE *f);
 </small></td></tr>
@@ -375,7 +381,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  56 </small></td><td><small>   int ) fileno( FILE *f );
 </small></td></tr><tr><td></td><td colspan="2"><small>Return the fd nummber of stdin,-out,-err. 
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  12 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  73 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  128 </small></td><td><small> DEF_syscall(fork,0)
@@ -416,6 +422,8 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  18 </small></td><td><small> #define getc(F) fgetc(F)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  21 </small></td><td><small> #define getchar() fgetc(0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getcwd.3.rst.html">getcwd</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  156 </small></td><td><small> getcwd( char *buf,  unsigned long size)
 </small></td></tr>

@@ -200,6 +200,11 @@ signal         sighandler_t signal(int sig, sighandler_t func );
 stdio.h
 ==========
 
+_fopen         FILE *_fopen(int fd, const char* filename, const char* mode);
+
+               modes implemented: r, r+, w, w+, a, a+
+               (src/fopen.c: 12)
+
 _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
                (src/itohex.c: 6)
@@ -211,6 +216,11 @@ clearerror     static inline void clearerror(FILE *f);
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
                (include/mini_fstream.h: 66)
+
+fdopen         FILE *fdopen(int fd, const char* mode);
+
+               modes implemented: r, r+, w, w+, a, a+
+               (src/fopen.c: 83)
 
 feof           static inline int feof(FILE *f);
 
@@ -241,7 +251,7 @@ fileno         static inline int __attribute__((always_inline)) fileno( FILE *f 
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 12)
+               (src/fopen.c: 73)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -282,6 +292,10 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
 getc           #define getc(F) fgetc(F)
 
                (include/fgetc.h: 18)
+
+getchar        #define getchar() fgetc(0)
+
+               (include/fgetc.h: 21)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 

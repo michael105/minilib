@@ -99,8 +99,9 @@ help:
 
 default: help
 
-all: header compile-mini-gcc doc examples test
+all: header combined compile-mini-gcc doc examples test
 
+devel: header combined compile-mini-gcc 
 
 examples:
 	cd examples && make

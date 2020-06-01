@@ -17,5 +17,9 @@ static inline int fgetc(FILE *F){
 //+depends fgetc fileno read
 //+macro getc(F) fgetc(F)
 
+//+depends fgetc fileno read
+//+macro getchar() fgetc(0)
+
+
 
 #endif

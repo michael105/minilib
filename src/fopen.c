@@ -9,7 +9,7 @@
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
-FILE *fopen(const char* filename, const char* mode){
+FILE *_fopen(int fd, const char* filename, const char* mode){
 		int imode;
 
 		switch (mode[0]){
@@ -56,8 +56,35 @@ FILE *fopen(const char* filename, const char* mode){
 
 		//printf("a: %d\n",a);
 		FILE *f = &ml.stream[a];
-		ml.stream[a] =  open( filename, imode, 0666 );
+		if ( filename != 0 )
+				ml.stream[a] =  open( filename, imode, 0666 );
+		else 
+				ml.stream[a] = fd;
+
 		return ( f ); // 
 }
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *fopen(const char* filename, const char* mode){
+		return(_fopen(0,filename, mode));
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *fdopen(int fd, const char* mode){
+		return(_fopen(fd,0, mode));
+}
+
+
+
 
 #endif
