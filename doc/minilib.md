@@ -178,6 +178,10 @@ sigemptyset    int sigemptyset(sigset_t *set);
 
                (src/sigemptyset.c: 8)
 
+signal         sighandler_t signal(int sig, sighandler_t func );
+
+               (src/signal.c: 8)
+
 
 
 ==========
