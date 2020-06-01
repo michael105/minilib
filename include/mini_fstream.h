@@ -204,13 +204,15 @@ static inline void clearerror(FILE *f){
 //+doc dummy functions.
 // There is no buffering implemented for the streams yet.
 //+def
-void setbuf(FILE *stream, char *buf){
+static void setbuf(FILE *stream, char *buf){
 }
+
 //+doc dummy
 //+def
-int setvbuf(FILE *stream, char *buf, int mode, size_t size){
+static int setvbuf(FILE *stream, char *buf, int mode, size_t size){
 		return(0);
 }
+
 
 
 

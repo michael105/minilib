@@ -114,7 +114,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open close malloc
+               Defines: close open malloc
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -786,12 +786,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno write strlen
+               Defines: write fileno strlen
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: strlen write fileno
+               Defines: write fileno strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -840,6 +840,13 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                Defines: 
                (include/prints.h: 25)
                print the string(s) supplied as arg(s) and newline to stdout
+
+ptsname        char *ptsname(int fd);
+               Defines: ptsname_r
+               (src/pty.c: 36)
+
+ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
+               (src/pty.c: 26)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
                Defines: write
@@ -917,7 +924,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 10)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -934,11 +941,11 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: fileno write
+               Defines: write fileno
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
@@ -970,7 +977,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 18)
 
 getchar        #define getchar() fgetc(0)
@@ -986,7 +993,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: strlen write strerror fileno
+               Defines: fileno strerror write strlen
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -998,11 +1005,11 @@ putc           #define putc(c,stream) fputc(c,stream)
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1010,13 +1017,13 @@ rewind         static inline void rewind( FILE *f );
                Defines: lseek
                (include/mini_fstream.h: 157)
 
-setbuf         void setbuf(FILE *stream, char *buf);
+setbuf         static void setbuf(FILE *stream, char *buf);
                (include/mini_fstream.h: 207)
                dummy functions.
               There is no buffering implemented for the streams yet.
 
-setvbuf        int setvbuf(FILE *stream, char *buf, int mode, size_t size);
-               (include/mini_fstream.h: 211)
+setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+               (include/mini_fstream.h: 212)
                dummy
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
@@ -1024,7 +1031,7 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
                (src/sprintf.c: 26)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 101)
 
 

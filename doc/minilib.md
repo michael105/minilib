@@ -151,6 +151,14 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
                (include/prints.h: 25)
 
+ptsname        char *ptsname(int fd);
+
+               (src/pty.c: 36)
+
+ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
+
+               (src/pty.c: 26)
+
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 219)
@@ -330,16 +338,16 @@ rewind         static inline void rewind( FILE *f );
 
                (include/mini_fstream.h: 157)
 
-setbuf         void setbuf(FILE *stream, char *buf);
+setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy functions.
               There is no buffering implemented for the streams yet.
                (include/mini_fstream.h: 207)
 
-setvbuf        int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy
-               (include/mini_fstream.h: 211)
+               (include/mini_fstream.h: 212)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
