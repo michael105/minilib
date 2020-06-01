@@ -49,8 +49,8 @@
 #define mini_close
 #define mini_fflush
 #define mini_ioctl
-#define mini_prints
-#define mini_fprints
+#define mini_printf
+#define mini_fprintf
 #define mini_printf
 #define mini_strncpy
 #define mini_strcmp
@@ -73,30 +73,30 @@ static char *defaultterm = "linux";
 
 
 static void usage(void){
-	prints("usage: kgetty [tty] [term] [cmd] [args...]\n");
+	printf("usage: kgetty [tty] [term] [cmd] [args...]\n");
 	exit(0);
 }
 
-void errprints(const char *msg){
-		fprints(stderr,"Error.\n");
-		fprints(stderr,msg);
+void errprintf(const char *msg){
+		fprintf(stderr,"Error.\n");
+		fprintf(stderr,msg);
 
 		exit(1);
 }
 
-void errprints2(const char *msg1,const char *msg2){
-		fprints(stderr,"Error.\n");
-		fprints(stderr,msg1);
-		fprints(stderr,msg2);
+void errprintf2(const char *msg1,const char *msg2){
+		fprintf(stderr,"Error.\n");
+		fprintf(stderr,msg1);
+		fprintf(stderr,msg2);
 
 		exit(1);
 }
 
 
-void warnprints2(const char *msg1,const char *msg2){
-		fprints(stderr,msg1);
-		fprints(stderr,msg2);
-		fprints(stderr,"\n");
+void warnprintf2(const char *msg1,const char *msg2){
+		fprintf(stderr,msg1);
+		fprintf(stderr,msg2);
+		fprintf(stderr,"\n");
 
 		exit(1);
 }
@@ -139,27 +139,27 @@ int main(int argc, char *argv[]){
 
 	fd = open(tty, O_RDWR);
 	if (fd < 0)
-		errprints2("open %s:", tty);
+		errprintf2("open %s:", tty);
 	if (isatty(fd) == 0)
-		errprints2("%s is not a tty\n", tty);
+		errprintf2("%s is not a tty\n", tty);
 
 	/* steal the controlling terminal if necessary */
 /*	if (ioctl(fd, TIOCSCTTY, (void *)1) != 0)
-		warnprints2("TIOCSCTTY: could not set controlling tty\n");
+		warnprintf2("TIOCSCTTY: could not set controlling tty\n");
 	*/
 	vhangup();
 	close(fd);
 
 	fd = open(tty, O_RDWR);
 	if (fd < 0)
-		errprints2("open %s:", tty);
+		errprintf2("open %s:", tty);
 	dup2(fd, 0);
 	dup2(fd, 1);
 	dup2(fd, 2);
 	if (fchown(fd, 0, 0) < 0)
-		warnprints2("fchown ", tty);
+		warnprintf2("fchown ", tty);
 	if (fchmod(fd, 0600) < 0)
-		warnprints2("fchmod ", tty);
+		warnprintf2("fchmod ", tty);
 	if (fd > 2)
 		close(fd);
 
@@ -186,7 +186,7 @@ int main(int argc, char *argv[]){
 				break;
 		} while (1);
 		if (ferror(fp))
-			warnprints2("I/O error: ", UTMP_PATH);
+			warnprintf2("I/O error: ", UTMP_PATH);
 		fclose(fp);
 	} */
 
@@ -204,17 +204,17 @@ int main(int argc, char *argv[]){
 	while (1) {
 		n = read(0, &c, 1);
 		if (n < 0)
-			errprints("read:");
+			errprintf("read:");
 		if (n == 0)
 			return 1;
 		if (i >= sizeof(logname) - 1)
-			errprints("login name too long\n");
+			errprintf("login name too long\n");
 		if (c == '\n' || c == '\r')
 			break;
 		logname[i++] = c;
 	}
 	if (logname[0] == '-')
-		errprints("login name cannot start with '-'\n");
+		errprintf("login name cannot start with '-'\n");
 	if (logname[0] == '\0')
 		return 1;
 
@@ -244,18 +244,18 @@ int main(int argc, char *argv[]){
 //	pw = getpwnam("nobody");
 
 //	if (!pw) {
-//			errprints("Couldn't get uid of user nobody\n");
+//			errprintf("Couldn't get uid of user nobody\n");
 //	}
 
 //	uid = pw->pw_uid;
 //	gid = pw->pw_gid;
 
 //	if (initgroups(&logname, gid) < 0)
-//		errprints("initgroups:");
+//		errprintf("initgroups:");
 	if (setgid(gid_nobody) < 0)
-		errprints("setgid:");
+		errprintf("setgid:");
 	if (setuid(uid_nobody) < 0)
-		errprints("setuid:");
+		errprintf("setuid:");
 
 	printf("exec ksu.\n");
 
