@@ -225,6 +225,7 @@
 #define _THREADS_H
 #define _THREAD_DB_H
 #define _THREAD_SHARED_TYPES_H
+#define _TIME_H
 #define _UCHAR_H
 #define _UCONTEXT_H
 #define _ULIMIT_H

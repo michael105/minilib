@@ -103,6 +103,10 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #include <sys/utsname.h>
 #include <sys/termios.h>
 
+#ifdef mini_ioctl
+int ioctl( int fd, unsigned long int request, ... );
+#endif
+
 // from musl
 #define FD_SETSIZE 1024
 

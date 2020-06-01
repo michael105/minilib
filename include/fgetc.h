@@ -8,9 +8,9 @@
 //+needs mini_fstream.h
 //+inline
 static inline int fgetc(FILE *F){
-		int buf = 0;
+		POINTER buf = 0;
 		read(fileno(F), &buf, 1 );
-		return(buf);
+		return((int)buf);
 }
 
 
