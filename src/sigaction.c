@@ -4,7 +4,7 @@
 //+header signal.h
 //+include
 //+def
-int sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
+static int sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
 		return( rt_sigaction, 4, sig, act, oact, sizeof(act->sa_mask) );
 }
 

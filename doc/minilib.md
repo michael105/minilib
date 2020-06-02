@@ -198,7 +198,7 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 signal.h
 ==========
 
-sigaction      int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+sigaction      static int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
                (src/sigaction.c: 7)
 
