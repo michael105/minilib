@@ -202,7 +202,7 @@ sigaction      static int sigaction(int sig, const struct sigaction *act, struct
 
                (src/sigaction.c: 7)
 
-sigemptyset    int sigemptyset(sigset_t *set);
+sigemptyset    static int sigemptyset(sigset_t *set);
 
                (src/sigemptyset.c: 8)
 

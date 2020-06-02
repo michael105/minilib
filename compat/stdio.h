@@ -114,8 +114,8 @@ static inline int volatile fputc(int c, FILE* F);
 
 #include "minilib/include/fgetc.h"
 #include "minilib/src/strerror.c"
-#include "minilib/include/fputc.h"
 #include "minilib/src/fopen.c"
+#include "minilib/include/fputc.h"
 #include "minilib/include/prints.h"
 
 // Need global included. Doesn't matter by which file.

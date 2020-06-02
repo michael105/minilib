@@ -5,7 +5,7 @@
 //+header signal.h
 //+include
 //+def
-int sigemptyset(sigset_t *set){
+static int sigemptyset(sigset_t *set){
 		set->__bits[0] = 0;
 		if (sizeof(long)==4 || _NSIG > 65) set->__bits[1] = 0;
 		if (sizeof(long)==4 && _NSIG > 65) {
