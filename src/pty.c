@@ -22,12 +22,16 @@ int unlockpt(int fd){
 		return ioctl(fd, TIOCSPTLCK, &unlock);
 }
 
+//+depends snprintf itodec
 //+def
 int ptsname_r(int fd, char *buf, size_t len){
 		int pty, err;
 		if (!buf) len = 0;
 		if ((err = ioctl( fd, TIOCGPTN, &pty))) return -err;
-		if (snprintf(buf, len, "/dev/pts/%d", pty) >= len) return ERANGE;
+	//	printf("pts: %d, %d\n",pty,len);
+		if (sprintf(buf, "/dev/pts/%d", pty) >= len) return ERANGE;
+
+	//	printf("pts: %s\n",buf);
 		return 0;
 }
 

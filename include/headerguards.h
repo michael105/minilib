@@ -220,6 +220,7 @@
 #define _SYS_VM86_H
 #define _SYS_VTIMES_H
 #define _SYS_XATTR_H
+#define _SYS_WAIT_H
 //#define _TERMIOS_H
 #define _TGMATH_H
 #define _THREADS_H

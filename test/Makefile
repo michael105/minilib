@@ -7,7 +7,7 @@ PROG=hello
 PROGCUSTOM=fopen malloc fprintf select fputs
 
 
-MINIGCC=rand sleep
+MINIGCC=rand sleep execve
 
 # where to build object files
 #BUILDDIR=.
@@ -59,7 +59,7 @@ $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
 all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
-	@$(foreach P,$(MINIGCC) , minilib/mini-gcc --config $(P).c -o $(P) $(P).c && ) true
+	@$(foreach P,$(MINIGCC) , (echo minilib/mini-gcc --config $(P).c -o $(P) $(P).c && minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) && ) true
 
 test-generated: 
 	cd generated && make clean

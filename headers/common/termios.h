@@ -12,6 +12,21 @@ struct termios {
 	speed_t __c_ospeed;
 };
 
+// the old termio struct
+#define NCC 8
+struct termio
+{
+		unsigned short int c_iflag;   /* input mode flags */
+		unsigned short int c_oflag;   /* output mode flags */
+		unsigned short int c_cflag;   /* control mode flags */
+		unsigned short int c_lflag;   /* local mode flags */
+		unsigned char c_line;   /* line discipline */
+		unsigned char c_cc[NCC];    /* control characters */
+};
+
+
+
+
 #define VINTR     0
 #define VQUIT     1
 #define VERASE    2

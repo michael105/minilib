@@ -153,11 +153,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
 ptsname        char *ptsname(int fd);
 
-               (src/pty.c: 36)
+               (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
-               (src/pty.c: 26)
+               (src/pty.c: 27)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
@@ -178,6 +178,14 @@ unlockpt       int unlockpt(int fd);
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
                (src/sprintf.c: 36)
+
+wait           pid_t wait(int *wstatus);
+
+               (src/wait.c: 7)
+
+waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
+
+               (src/wait.c: 15)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 

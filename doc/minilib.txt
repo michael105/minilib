@@ -58,7 +58,7 @@ kill           kill( pid_t pid,  int sig)
                (include/syscall_stubs.h: 154)
 
 mount          mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
-               (include/syscall_stubs.h: 160)
+               (include/syscall_stubs.h: 159)
 
 mprotect       mprotect( POINTER *a1, POINTER a2, int a3 )
                Returns: *a1
@@ -71,13 +71,13 @@ pivot_root     pivot_root( const char *new_root,  const char *put_old)
                (include/syscall_stubs.h: 157)
 
 readahead      readahead( int fd,  loff_t offset,  size_t count)
-               (include/syscall_stubs.h: 161)
+               (include/syscall_stubs.h: 160)
 
 reboot         reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
-               (include/syscall_stubs.h: 162)
+               (include/syscall_stubs.h: 161)
 
 rt_sigaction   rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
-               (include/syscall_stubs.h: 131)
+               (include/syscall_stubs.h: 130)
 
 sendfile       sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
                (include/syscall_stubs.h: 155)
@@ -86,7 +86,7 @@ stat           stat(const char* filename,struct stat* a2)
                (include/syscall_stubs.h: 114)
 
 sync           DEF_syscall(sync,0)
-               (include/syscall_stubs.h: 159)
+               (include/syscall_stubs.h: 158)
 
 umask          umask( int mask)
                (include/syscall_stubs.h: 141)
@@ -103,6 +103,9 @@ vfork          DEF_syscall(vfork,0)
 vhangup        DEF_syscall(vhangup,0 )
                (include/syscall_stubs.h: 98)
 
+wait4          wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
+               (include/syscall_stubs.h: 163)
+
 
 
 ==========
@@ -114,7 +117,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close open malloc
+               Defines: close malloc open
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -791,7 +794,7 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: write fileno strlen
+               Defines: strlen fileno write
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -822,7 +825,7 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 29)
                write str to stdout. Needs strlen
 
@@ -842,11 +845,12 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: ptsname_r
-               (src/pty.c: 36)
+               Defines: write uitodec
+               (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               (src/pty.c: 26)
+               Defines: uitodec write
+               (src/pty.c: 27)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
                Defines: write
@@ -865,6 +869,14 @@ unlockpt       int unlockpt(int fd);
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
                Defines: write
                (src/sprintf.c: 36)
+
+wait           pid_t wait(int *wstatus);
+               Defines: wait4
+               (src/wait.c: 7)
+
+waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
+               Defines: wait4
+               (src/wait.c: 15)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
                Defines: write
@@ -941,7 +953,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -953,7 +965,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: strlen write fileno
+               Defines: fileno strlen write
                (include/fputs.h: 15)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -993,7 +1005,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: fileno strerror write strlen
+               Defines: write strerror fileno strlen
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1001,7 +1013,7 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -1009,7 +1021,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1124,7 +1136,7 @@ chown          chown( const char *filename, uid_t user, gid_t group)
                (include/syscall_stubs.h: 143)
 
 chroot         chroot( const char *filename)
-               (include/syscall_stubs.h: 158)
+               (include/syscall_stubs.h: 131)
 
 close          close( int fd )
                (include/syscall_stubs.h: 101)
@@ -1157,7 +1169,7 @@ getpid         DEF_syscall(getpid,0 )
                (include/syscall_stubs.h: 93)
 
 getuid         DEF_syscall(getuid,0)
-               (include/syscall_stubs.h: 163)
+               (include/syscall_stubs.h: 162)
 
 isatty         int isatty(int fd);
                Defines: ioctl
@@ -1178,7 +1190,7 @@ open           int volatile open( const char *s, int flags, ... );
 pipe           pipe( int *filedes)
                (include/syscall_stubs.h: 140)
 
-read           read( int fd, POINTER *buf, int len )
+read           read( int fd, void *buf, int len )
                (include/syscall_stubs.h: 102)
 
 rename         rename( const char* oldpath, const char* newpath )		
