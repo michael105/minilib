@@ -135,6 +135,7 @@ DEF_syscall(pivot_root,2, const char *new_root,  const char *put_old)
 
 // (char *argv[] is equivalent to **argv)
 DEF_syscall(execve,3, const char *filename,  const char **argv,  const char **envp)
+DEF_syscall(mkdir,2, const char *pathname, int mode)
 
 
 // below untested. 
@@ -144,7 +145,6 @@ DEF_syscall(pipe,1, int *filedes)
 DEF_syscall(umask,1, int mask)
 DEF_syscall(chmod,2, const char *filename, mode_t mode)
 DEF_syscall(chown,3, const char *filename, uid_t user, gid_t group)
-DEF_syscall(mkdir,2, const char *pathname, int mode)
 DEF_syscall(rmdir,1, const char *pathname)
 DEF_syscall(link,2, const char *oldname, const char *newname)
 DEF_syscall(utime,2, char *filename, struct utimbuf *times)
