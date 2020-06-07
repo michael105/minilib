@@ -112,10 +112,10 @@ static inline int volatile fputc(int c, FILE* F);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/fopen.c"
 #include "minilib/include/prints.h"
-#include "minilib/include/fgetc.h"
 #include "minilib/include/fputc.h"
+#include "minilib/include/fgetc.h"
+#include "minilib/src/fopen.c"
 #include "minilib/src/strerror.c"
 
 // Need global included. Doesn't matter by which file.

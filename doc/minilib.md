@@ -84,6 +84,10 @@ def            #define SETOPT_short( opts, option ) (;
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
                (macros/getoptm.h: 52)
 
+dirname        char *dirname(char *s);
+
+               (src/dirname.c: 8)
+
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
                (src/sprintf.c: 202)

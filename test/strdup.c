@@ -1,11 +1,7 @@
 #if 0
 
 mini_start
-mini_fprintf
-mini_printf
-mini_sprintf
 mini_strdup
-mini_print
 mini_writes
 mini_itodec
 mini_buf 1024

@@ -117,7 +117,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open malloc close
+               Defines: close malloc open
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -780,6 +780,10 @@ def            #define SETOPT_short( opts, option ) (;
                Set a option flag(s) (bit(s))  manually.
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
 
+dirname        char *dirname(char *s);
+               Defines: strlen
+               (src/dirname.c: 8)
+
 dprintf        int dprintf( int fd, const char *fmt, ... );
                Defines: write
                (src/sprintf.c: 202)
@@ -789,12 +793,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write strlen fileno
+               Defines: strlen fileno write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno strlen write
+               Defines: strlen write fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -845,7 +849,7 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
@@ -961,7 +965,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
@@ -1005,7 +1009,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: strerror fileno strlen write
+               Defines: strlen strerror write fileno
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1013,15 +1017,15 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1098,7 +1102,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: strcpy malloc strlen
+               Defines: malloc strlen strcpy
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
