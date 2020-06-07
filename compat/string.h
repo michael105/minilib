@@ -77,6 +77,9 @@ void *memset( void *s, int c, int n);
 // file: minilib/src/strcat.c
 char *strcat(char *dest, const char *src );
 
+// file: minilib/src/strdup.c
+char *strdup(const char *source);
+
 // file: minilib/src/strerror.c
 char* strerror( int errnum );
 
@@ -90,11 +93,12 @@ int strlen(const char*str);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/memset.c"
-#include "minilib/src/strcat.c"
 #include "minilib/src/strerror.c"
-#include "minilib/src/memcpy.c"
+#include "minilib/src/strcat.c"
+#include "minilib/src/memset.c"
 #include "minilib/src/strlen.c"
+#include "minilib/src/strdup.c"
+#include "minilib/src/memcpy.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

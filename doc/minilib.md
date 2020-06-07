@@ -425,6 +425,10 @@ strcpy         char *strcpy(char *dest, const char *src);
 
                (src/memcpy.c: 17)
 
+strdup         char *strdup(const char *source);
+
+               (src/strdup.c: 7)
+
 strerror       char* strerror( int errnum );
 
                (src/strerror.c: 9)
