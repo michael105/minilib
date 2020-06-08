@@ -121,6 +121,7 @@ header:
 			./mini-gcc --config minilib.conf.all -E minilib.h  -dD | sed -e '/^# /d' -e '/^$$/d' &&\
 			echo "#endif" )\
 			> syntaxcheck.h )
+			rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 
 doc: header
 	cd doc && make
@@ -131,6 +132,7 @@ mini-gcc: scripts/genconfig.sh ldscript
 	scripts/template.pl mini-gcc genconf-macros minilib.genconf.h
 	scripts/template.pl mini-gcc headerguards include/headerguards.h
 	sed -ie 's/^VERSION=.*/VERSION="GIT $(NOW)"/' mini-gcc
+	rm mini-gcce
 
 
 compile-mini-gcc: mini-gcc unpack-mini-gcc
@@ -139,6 +141,7 @@ compile-mini-gcc: mini-gcc unpack-mini-gcc
 unpack-mini-gcc:
 	sed '/^#MINILIBGZ#$$/q' mini-gcc > mini-gcc.tmp
 	cp mini-gcc.tmp mini-gcc
+	rm mini-gcc.tmp
 
 
 ldscript: ldscripts/ld.script*
