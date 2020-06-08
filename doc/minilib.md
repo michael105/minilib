@@ -4,13 +4,23 @@
 ctype.h
 ==========
 
+def            #define SETOPT_short( opts, option ) (;
+
+               Set a option flag(s) (bit(s))  manually.
+             		param options: e.g. just a, or ( a+h+l) to check for several flags at once
+               (macros/getoptm.h: 52)
+
+isascii        #define isascii(a) (0 ? isascii(a) : (unsigned)(a) < 128)
+
+               (include/ctype.h: 37)
+
 isprint        static inline int __attribute__((always_inline)) isprint(const char c);
 
                (include/isprint.h: 8)
 
-isspace        int isspace(int c);
+isspace        #define isspace(a) __isspace(a)
 
-               (src/isspace.c: 6)
+               (include/ctype.h: 25)
 
 
 
@@ -70,9 +80,13 @@ _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
                (src/prints.c: 68)
 
+_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
+
+               (src/strcmp.c: 30)
+
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 12)
+               (src/strcmp.c: 13)
 
 basename       char *basename(char *path);
 
@@ -166,6 +180,14 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 219)
+
+strcasecmp     int strcasecmp(const char*c1,const char*c2);
+
+               (src/strcmp.c: 49)
+
+strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
+
+               (src/strcmp.c: 57)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -407,7 +429,7 @@ string.h
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/strcmp.c: 46)
+               (src/strcmp.c: 85)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
 
@@ -423,7 +445,7 @@ strcat         char *strcat(char *dest, const char *src );
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 29)
+               (src/strcmp.c: 68)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -443,7 +465,7 @@ strlen         int strlen(const char*str);
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 37)
+               (src/strcmp.c: 76)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 

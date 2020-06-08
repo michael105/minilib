@@ -137,14 +137,14 @@ typedef int FILE;
 
 #include "minilib/src/dtodec.c"
 #include "minilib/src/itodec.c"
-#include "minilib/include/prints.h"
-#include "minilib/src/dirname.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/basename.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/pty.c"
 #include "minilib/src/fprintfs.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/prints.h"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/pty.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

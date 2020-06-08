@@ -9,11 +9,19 @@ Implemented Functions, sorted by the standard headers
 ctype.h
 ==========
 
+def            #define SETOPT_short( opts, option ) (;
+               (macros/getoptm.h: 52)
+               Set a option flag(s) (bit(s))  manually.
+             		param options: e.g. just a, or ( a+h+l) to check for several flags at once
+
+isascii        #define isascii(a) (0 ? isascii(a) : (unsigned)(a) < 128)
+               (include/ctype.h: 37)
+
 isprint        static inline int __attribute__((always_inline)) isprint(const char c);
                (include/isprint.h: 8)
 
-isspace        int isspace(int c);
-               (src/isspace.c: 6)
+isspace        #define isspace(a) __isspace(a)
+               (include/ctype.h: 25)
 
 
 
@@ -117,7 +125,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open malloc close
+               Defines: malloc open close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -686,8 +694,12 @@ _stat                         (include/syscalls_x64.h: 13)
 
 _statfs                       (include/syscalls_x64.h: 277)
 
+_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
+               Defines: tolower
+               (src/strcmp.c: 30)
+
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
-               (src/strcmp.c: 12)
+               (src/strcmp.c: 13)
 
 _swapoff                      (include/syscalls_x64.h: 339)
 
@@ -793,12 +805,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno write strlen
+               Defines: write fileno strlen
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: strlen write fileno
+               Defines: write fileno strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -829,7 +841,7 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 29)
                write str to stdout. Needs strlen
 
@@ -859,6 +871,14 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
                Defines: write
                (src/sprintf.c: 219)
+
+strcasecmp     int strcasecmp(const char*c1,const char*c2);
+               Defines: tolower
+               (src/strcmp.c: 49)
+
+strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
+               Defines: 
+               (src/strcmp.c: 57)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
                (src/itodec.c: 8)
@@ -940,7 +960,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 10)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -957,19 +977,19 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: write fileno
+               Defines: fileno write
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: strlen write fileno
+               Defines: strlen fileno write
                (include/fputs.h: 15)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -993,7 +1013,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 18)
 
 getchar        #define getchar() fgetc(0)
@@ -1009,15 +1029,15 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: strerror fileno write strlen
+               Defines: strlen strerror fileno write
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -1047,7 +1067,7 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
                (src/sprintf.c: 26)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 101)
 
 
@@ -1082,7 +1102,7 @@ string.h
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
                Defines: 0
-               (src/strcmp.c: 46)
+               (src/strcmp.c: 85)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
                (src/memcpy.c: 6)
@@ -1096,13 +1116,13 @@ strcat         char *strcat(char *dest, const char *src );
 
 strcmp         int strcmp(const char*c1,const char*c2);
                Defines: 
-               (src/strcmp.c: 29)
+               (src/strcmp.c: 68)
 
 strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strcpy strlen
+               Defines: strcpy malloc strlen
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1113,7 +1133,7 @@ strlen         int strlen(const char*str);
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
                Defines: 
-               (src/strcmp.c: 37)
+               (src/strcmp.c: 76)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
                Defines: memcpy
