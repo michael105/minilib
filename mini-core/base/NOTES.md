@@ -11,3 +11,12 @@ mkdir - bloating. nearly 4kb.
 
 rm : mini_errno is 50 Bytes (!)
 
+
+
+kill: quite bloated. 3K.
+better strip the signal names.
+
+
+
+
+

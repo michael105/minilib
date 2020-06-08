@@ -4,8 +4,8 @@ mini_writes
 mini_perror
 mini_errno
 mini_atoi
-mini_putchar
-mini_fprintf
+# mini_putchar
+mini_print
 mini_strcasecmp
 mini_tolower
 mini_buf 1024
@@ -95,10 +95,13 @@ static int get_signum(const char *name)
 		if (!strcasecmp(ent->name, name))
 			return ent->signum;
 	}
-	fprintf(stderr, "%s: invalid signal: %s\n", opt.argv0, name);
+//	fprintf(stderr, "%s: invalid signal: %s\n", opt.argv0, name);
+	writes("invalid signal: ");
+	writes(name);
 	exit(1);
 }
 
+/*
 static void print_table(void)
 {
 	const struct sig_entry *ent;
@@ -106,11 +109,12 @@ static void print_table(void)
 
 	for (i = 0; i < ARRAY_SIZE(sig_table); i++) {
 		ent = &sig_table[i];
-		printf("%2d %-7s ", ent->signum, ent->name);
+		//printf("%2d %-7s ", ent->signum, ent->name);
 		if (i % 10 == 9)
-			putchar('\n');
+			writes('\n');
 	}
 }
+*/
 
 static void print_names(int signum)
 {
@@ -121,9 +125,10 @@ static void print_names(int signum)
 	for (i = 0; i < ARRAY_SIZE(sig_table); i++) {
 		ent = &sig_table[i];
 		if (signum < 0 || signum == ent->signum) {
-			printf("%s ", ent->name);
+			print(ent->name);
+			print(" ");
 			if (j++ == 15) {
-				putchar('\n');
+				writes('\n');
 				j = 0;
 			}
 		}
@@ -151,7 +156,7 @@ int main(int argc, const char *argv[])
 	opt.signum = SIGTERM;
 
 	if (!strcmp(argv[1], "-L")) {
-		print_table();
+		print_names(-1);
 		return 0;
 	} else if (!strcmp(argv[1], "-l")) {
 		if (argc > 2)
@@ -172,8 +177,7 @@ int main(int argc, const char *argv[])
 	for (; i < argc; i++) {
 		pid = parse_int(argv[i]);
 		if (kill(pid, opt.signum)) {
-			fprintf(stderr, "%s: %d: %s\n",
-				opt.argv0, pid, strerror(errno));
+				perror("kill: ");
 			ret = 1;
 		}
 	}
