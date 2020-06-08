@@ -1,4 +1,4 @@
-**make[1]: Entering directory '/hd/sda8/home/micha/prog/minilib'**
+**make[1]: Entering directory '/home/micha/prog/minilib'**
 **Type 'make help' for help**
 
 make targets:
@@ -72,4 +72,4 @@ I have to somehow sort and categorize all the documentation.
 May the source be with you, and have fun
 
 Michael (misc) Myer, 2012-2020, BSD 3clause
-make[1]: Leaving directory '/hd/sda8/home/micha/prog/minilib'
+make[1]: Leaving directory '/home/micha/prog/minilib'

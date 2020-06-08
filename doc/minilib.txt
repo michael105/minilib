@@ -793,7 +793,7 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write strlen fileno
+               Defines: strlen fileno write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
@@ -849,11 +849,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 27)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
@@ -940,7 +940,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 10)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -957,7 +957,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -965,7 +965,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
@@ -993,7 +993,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 18)
 
 getchar        #define getchar() fgetc(0)
@@ -1009,11 +1009,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: write strlen fileno strerror
+               Defines: fileno strlen strerror write
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -1025,7 +1025,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1102,7 +1102,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strcpy strlen
+               Defines: strcpy malloc strlen
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
