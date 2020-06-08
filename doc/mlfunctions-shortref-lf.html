@@ -275,7 +275,7 @@
 <tr valign="top"><td><small>_statfs</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  277 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  12 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>_swapoff</small></td><td><small>   <a href="../src/mstrcmp.c" target="right">../src/mstrcmp.c</a>  339 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>_swapoff</small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  339 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_swapon</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  337 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_symlink</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  181 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_symlinkat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  507 </small></td><td><small></small></td></tr>
@@ -475,7 +475,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  46 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/mstrcmp.c" target="right">../src/mstrcmp.c</a>  6 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  6 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
 </small></td></tr>
 <tr valign="top"><td><small>memfrob</small></td><td><small>   <a href="../src/memcpy.c" target="right">../src/memcpy.c</a>  3 </small></td><td><small> void* memfrob(void* s, unsigned int len);
 </small></td></tr>
@@ -585,7 +585,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/strcat.c" target="right">../src/strcat.c</a>  29 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/mstrcmp.c" target="right">../src/mstrcmp.c</a>  17 </small></td><td><small> char *strcpy(char *dest, const char *src);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  17 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strdup.3.rst.html">strdup</a></small></td><td><small>   <a href="../src/memcpy.c" target="right">../src/memcpy.c</a>  7 </small></td><td><small> char *strdup(const char *source);
 </small></td></tr>
@@ -595,7 +595,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/strlen.c" target="right">../src/strlen.c</a>  37 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/mstrcmp.c" target="right">../src/mstrcmp.c</a>  27 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  27 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sync.2.rst.html">sync</a></small></td><td><small>   <a href="../src/memcpy.c" target="right">../src/memcpy.c</a>  158 </small></td><td><small> DEF_syscall(sync,0)
 </small></td></tr>

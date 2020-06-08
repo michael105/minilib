@@ -72,7 +72,7 @@ _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
-               (src/mstrcmp.c: 12)
+               (src/strcmp.c: 12)
 
 basename       char *basename(char *path);
 
@@ -407,7 +407,7 @@ string.h
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/mstrcmp.c: 46)
+               (src/strcmp.c: 46)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
 
@@ -423,7 +423,7 @@ strcat         char *strcat(char *dest, const char *src );
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/mstrcmp.c: 29)
+               (src/strcmp.c: 29)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -443,7 +443,7 @@ strlen         int strlen(const char*str);
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/mstrcmp.c: 37)
+               (src/strcmp.c: 37)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
