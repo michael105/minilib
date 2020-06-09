@@ -27,4 +27,19 @@ error.c -> just translate error codes.
 
 
 
+in general: printf bloats. itodec even more.
+
+either use writes or fputs/fprintfs, when possible
+
+comparing, what I've written from scratch to the other tools,
+or to other collections, wouldn't be fair.
+I wrote the tools with size in mind, before I started.
+
+Under normal circumstances, I wouldn't mind to use, e.g., fprintf.
+
+with option parsing, and so on, the same.
+
+I have fun, anyways.. <)
+
+
 

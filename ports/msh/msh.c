@@ -18,11 +18,19 @@ int main(void) {
   char ***l1 = NULL, *fv[3] ,dir[50] ,c;
   int vc, bg, id, p[2], d;
 
-  signal(SIGINT, SIG_IGN);	signal(SIGQUIT,SIG_IGN);
+  signal(SIGINT, SIG_IGN);	
+	signal(SIGQUIT,SIG_IGN);
 
   while (1) {
-    getcwd(dir,50); write(1,dir,strlen(dir)); write(1," $ ",d = bg = 3);
-    for (;bg; fv[bg] = NULL) realloc(fv[--bg],0); size(l1,4,0,NULL);
+    
+		getcwd(dir,50); 
+		write(1,dir,strlen(dir)); 
+		write(1," $ ",d = bg = 3);
+    
+		for (;bg; fv[bg] = NULL) 
+				realloc(fv[--bg],0); 
+
+		size(l1,4,0,NULL);
     for (vc = p[0] = 0; read(0,&c,1) && (c != '\n');)
     switch(c) {
      case '<': d = 0; break;
