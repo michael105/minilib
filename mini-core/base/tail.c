@@ -1,4 +1,5 @@
 /* tail - print the end of a file */
+// source: minutils
 
 #include <stdio.h>
 

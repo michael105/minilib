@@ -9,6 +9,8 @@ INCLUDESRC
 return
 #endif
 
+// misc 2020/06
+// BSD license
 
 void usage(){
 		writes("Usage: sleep val[s|m|h|d]\n");
