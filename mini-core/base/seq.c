@@ -4,9 +4,7 @@ mini_exit
 mini_writes
 mini_sleep
 
-mini_printf
-mini_itodec
-mini_buf 200
+mini_prints
 
 LDSCRIPT text_and_bss
 shrinkelf
@@ -35,22 +33,44 @@ int toint( const char c[] ){
 }
 
 
+char* count(char *digit, char* first){
+	if ( digit < first )
+			first=digit;
+	*digit = *digit+1;
+	if ( *digit > 57 ){ // > 9
+			*digit = '0';
+			*digit--;
+			return( count(digit,first) );
+	}
+	return(first);
+}
 
+#define VOID "0000000000"
 
 int main(int argc, char *argv[]){
 	if (argc == 1) {
 			usage();
 	}
-	
+
+	char *c=VOID;
+	char *p = c + sizeof(VOID) -2 ;
+	char *last = p;
 	int i=0;
+
 	int to = toint( argv[1] );
+
 	if ( argc>2 ){
-			i = to;
+
+			for ( ; i<to; i++ )
+					p=count(last,p);
+
 			to = toint( argv[2] );
 	}
 
 	for ( ; i<= to; i++ ){
-			printf("%d\n",i);
+			prints(p);
+			writes("\n");
+			p=count(last,p);
 	}
 
 
