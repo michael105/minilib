@@ -4,8 +4,6 @@ mini_exit
 mini_writes
 mini_sleep
 
-mini_prints
-
 LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
@@ -37,15 +35,14 @@ char* count(char *digit, char* first){
 	if ( digit < first )
 			first=digit;
 	*digit = *digit+1;
-	if ( *digit > 57 ){ // > 9
+	if ( *digit > '9' ){ 
 			*digit = '0';
-			*digit--;
-			return( count(digit,first) );
+			first = count(digit-1,first);
 	}
 	return(first);
 }
 
-#define VOID "0000000000"
+#define VOID "0000000000\n"
 
 int main(int argc, char *argv[]){
 	if (argc == 1) {
@@ -53,7 +50,7 @@ int main(int argc, char *argv[]){
 	}
 
 	char *c=VOID;
-	char *p = c + sizeof(VOID) -2 ;
+	char *p = c + sizeof(VOID) - 3 ;
 	char *last = p;
 	int i=0;
 
@@ -68,11 +65,9 @@ int main(int argc, char *argv[]){
 	}
 
 	for ( ; i<= to; i++ ){
-			prints(p);
-			writes("\n");
+			writes(p); // relies on write to stop at char 0x0
 			p=count(last,p);
 	}
-
 
 	return(0);
 }
