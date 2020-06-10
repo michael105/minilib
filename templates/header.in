@@ -27,6 +27,7 @@
 #include "minilib/include/timeval.h"
 #include "minilib/headers/common/dirent.h"
 #include "minilib/headers/common/bits/signal.h"
+#include "minilib/headers/common/bits/stat.h"
 #include "minilib/headers/common/signal.h"
 #include "minilib/headers/common/ctype.h"
 #include "minilib/include/ctype.h"

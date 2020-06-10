@@ -56,6 +56,10 @@ creat          inline int volatile __attribute__((always_inline)) creat( const c
 
                (src/open.c: 30)
 
+mkfifo         static int mkfifo( const char* path, mode_t mode );
+
+               (include/mkfifo.h: 4)
+
 
 
 ==========
