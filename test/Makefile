@@ -7,7 +7,7 @@ PROG=hello
 PROGCUSTOM=fopen malloc fprintf select fputs
 
 
-MINIGCC=rand sleep execve strdup
+MINIGCC=rand sleep execve strdup fgets
 
 # where to build object files
 #BUILDDIR=.

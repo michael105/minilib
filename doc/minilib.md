@@ -10,17 +10,13 @@ def            #define SETOPT_short( opts, option ) (;
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
                (macros/getoptm.h: 52)
 
-isascii        #define isascii(a) (0 ? isascii(a) : (unsigned)(a) < 128)
-
-               (include/ctype.h: 37)
-
 isprint        static inline int __attribute__((always_inline)) isprint(const char c);
 
                (include/isprint.h: 8)
 
-isspace        #define isspace(a) __isspace(a)
+isspace        int isspace(int c);
 
-               (include/ctype.h: 25)
+               (src/isspace.c: 6)
 
 
 
@@ -246,7 +242,7 @@ signal         sighandler_t signal(int sig, sighandler_t func );
 stdio.h
 ==========
 
-_fopen         FILE *_fopen(int fd, const char* filename, const char* mode);
+_fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 
                modes implemented: r, r+, w, w+, a, a+
                (src/fopen.c: 12)
@@ -266,7 +262,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 83)
+               (src/fopen.c: 87)
 
 feof           static inline int feof(FILE *f);
 
@@ -289,6 +285,10 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
                (include/mini_fstream.h: 128)
 
+fgets          char* fgets(char *buf, int size, FILE* F);
+
+               (src/fgets.c: 4)
+
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
 
                Return the fd nummber of stdin,-out,-err. 
@@ -297,7 +297,7 @@ fileno         static inline int __attribute__((always_inline)) fileno( FILE *f 
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 73)
+               (src/fopen.c: 77)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -313,11 +313,16 @@ fputc          static inline int volatile fputc(int c, FILE* F);
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
 
-               (include/fputs.h: 15)
+               (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
                (include/mini_fstream.h: 163)
+
+freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
+
+               modes implemented: r, r+, w, w+, a, a+
+               (src/fopen.c: 97)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 

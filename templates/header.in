@@ -22,6 +22,7 @@
 //#define mini_start
 //#define mini_exit
 
+#include "minilib/headers/common/bits/alltypes.h"
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/minilib_global.h"
 #include "minilib/include/timeval.h"

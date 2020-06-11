@@ -5,11 +5,11 @@
 
 
 //+header stdio.h
-//+depends open
+//+depends open fileno close
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
-FILE *_fopen(int fd, const char* filename, const char* mode){
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
 		int imode;
 
 		switch (mode[0]){
@@ -44,22 +44,26 @@ FILE *_fopen(int fd, const char* filename, const char* mode){
 				}
 		}
 
-		int a;
-		if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
-			for ( a=3; ml.stream[a]>=0; a++ )
-					if ( a >= mini_FOPEN_MAX ) // 
-							return(0);
-		} else {
-				a = ml.pstream;
-				ml.pstream++;
-		}
+		if ( f == 0 ){
+				int a;
+				if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
+						for ( a=3; ml.stream[a]>=0; a++ )
+								if ( a >= mini_FOPEN_MAX ) // 
+										return(0);
+				} else {
+						a = ml.pstream;
+						ml.pstream++;
+				}
 
-		//printf("a: %d\n",a);
-		FILE *f = &ml.stream[a];
+				//printf("a: %d\n",a);
+				f = &ml.stream[a];
+		} else { // freopen - error handling?
+				close(fileno(f));
+		}
 		if ( filename != 0 )
-				ml.stream[a] =  open( filename, imode, 0666 );
+			*f	 =  open( filename, imode, 0666 );
 		else 
-				ml.stream[a] = fd;
+			*f = fd;
 
 		return ( f ); // 
 }
@@ -71,7 +75,7 @@ FILE *_fopen(int fd, const char* filename, const char* mode){
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
 FILE *fopen(const char* filename, const char* mode){
-		return(_fopen(0,filename, mode));
+		return(_fopen(0,filename, mode,0));
 }
 
 
@@ -81,7 +85,17 @@ FILE *fopen(const char* filename, const char* mode){
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
 FILE *fdopen(int fd, const char* mode){
-		return(_fopen(fd,0, mode));
+		return(_fopen(fd,0, mode,0));
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *freopen(const char* filename, const char* mode, FILE *F){
+		return(_fopen(0,filename, mode,F));
 }
 
 

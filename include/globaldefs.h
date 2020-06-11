@@ -61,7 +61,8 @@ typedef int FILE;
 typedef union { FILE *F; int i, fd;} mfl_union;
 #else
 //typedef union { FILE *F; int fd;} mfl_union;
-#error checkme
+#warning checkme
+#warning typedef union { FILE *F; int fd;} mfl_union;
 #endif
 //(untested for x32) better commenting this out for now.
 //Might be better to find later
@@ -92,6 +93,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #endif
 #endif
 
+// TODO: ifdef mini_buf -> get ml.stream->fd
 #ifndef STDIN_FILENO
 #define STDIN_FILENO 0
 #define STDOUT_FILENO 1

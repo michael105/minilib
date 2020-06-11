@@ -1,6 +1,6 @@
 // source: musl
-#ifndef alltypes_h
-#define alltypes_h
+#ifndef mini_alltypes_h
+#define mini_alltypes_h
 
 
 #ifndef timevaldefined
@@ -37,9 +37,6 @@ typedef float float_t;
 
 typedef struct { long long __ll; long double __ld; } max_align_t;
 
-//typedef long time_t;
-
-//typedef long suseconds_t;
 
 typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
 
