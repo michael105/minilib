@@ -279,7 +279,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
 
 fgetc          static inline int fgetc(FILE *F);
 
-               (include/fgetc.h: 10)
+               (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
@@ -287,7 +287,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
-               (src/fgets.c: 4)
+               (src/fgets.c: 6)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
 
@@ -342,11 +342,11 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
 
 getc           #define getc(F) fgetc(F)
 
-               (include/fgetc.h: 18)
+               (include/fgetc.h: 19)
 
 getchar        #define getchar() fgetc(0)
 
-               (include/fgetc.h: 21)
+               (include/fgetc.h: 22)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -395,6 +395,10 @@ setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
                (src/sprintf.c: 26)
+
+ungetc         int ungetc(int c, FILE *F);
+
+               (include/fgetc.h: 25)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 

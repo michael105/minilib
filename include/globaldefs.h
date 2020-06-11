@@ -66,7 +66,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #endif
 //(untested for x32) better commenting this out for now.
 //Might be better to find later
-//also: endiannes.
+//also: endiannes. problem: ungetc. (in fgetc.h)
 
 #define EOF (-1)
 

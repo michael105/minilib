@@ -1,4 +1,6 @@
-
+#ifndef fgets_c
+#define fgets_c
+//+header stdio.h
 //+depends fgetc
 //+def
 char* fgets(char *buf, int size, FILE* F){
@@ -14,9 +16,10 @@ char* fgets(char *buf, int size, FILE* F){
 				if ( *buf == 0 )
 						return(ret);
 				if ( *buf == '\n' )
-						size=-0;
+						size=0;
 		}
 		buf++;
 		*buf = 0;
 		return(ret);
 }
+#endif
