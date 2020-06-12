@@ -151,7 +151,7 @@ ____
      x    int fclose(FILE *stream);
      x    int fflush(FILE *stream);
      x    FILE *fopen(const char *filename, const char *mode);
-         FILE *freopen(const char *filename, const char *mode,
+     x    FILE *freopen(const char *filename, const char *mode,
                   FILE *stream);
      x    void setbuf(FILE *stream, char *buf);
      x    int setvbuf(FILE *stream, char *buf, int mode, size_t size);
@@ -165,16 +165,16 @@ ____
      x    int vprintf(const char *format, va_list arg);
          int vsprintf(char *s, const char *format, va_list arg);
      x    int fgetc(FILE *stream);
-         char *fgets(char *s, int n, FILE *stream);
+     x    char *fgets(char *s, int n, FILE *stream);
      x    int fputc(int c, FILE *stream);
      x    int fputs(const char *s, FILE *stream);
      x    int getc(FILE *stream);
-         int getchar(void);
-         char *gets(char *s);
+     x    int getchar(void);
+     x    char *gets(char *s);
      x    int putc(int c, FILE *stream);
      x    int putchar(int c);
      x    int puts(const char *s);
-         int ungetc(int c, FILE *stream);
+     x    int ungetc(int c, FILE *stream);
      x    size_t fread(void *ptr, size_t size, size_t nmemb,
                   FILE *stream);
      x    size_t fwrite(const void *ptr, size_t size, size_t nmemb,

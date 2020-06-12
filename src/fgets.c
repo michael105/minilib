@@ -22,4 +22,10 @@ char* fgets(char *buf, int size, FILE* F){
 		*buf = 0;
 		return(ret);
 }
+
+//+depends fgets fgetc fileno read
+//+macro gets(F) fgets(F,0xfffffff,stdin)
+
+
+
 #endif
