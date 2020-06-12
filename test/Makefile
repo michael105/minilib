@@ -84,7 +84,7 @@ select: select.c
 fgets: fgets.c
 	minilib/mini-gcc --config fgets.c -o fgets-bin fgets.c
 	echo '#!/bin/sh' > fgets 
-	echo 'echo -e "Xesting\nfgets\n" | ./fgets-bin' >> fgets
+	echo 'echo -e "Xest\nfgets\n" | ./fgets-bin' >> fgets
 	chmod a+x fgets
 
 
