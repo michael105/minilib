@@ -2,7 +2,7 @@
 #define strcmp_c
 
 //+include
-//+ansi string.h
+//+header string.h
 //+needs ctype.h
 
 //TODO: not implemented correct. need to return also -1.

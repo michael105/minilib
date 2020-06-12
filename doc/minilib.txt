@@ -125,7 +125,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open close malloc
+               Defines: malloc open close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -697,13 +697,6 @@ _stat                         (include/syscalls_x64.h: 13)
 
 _statfs                       (include/syscalls_x64.h: 277)
 
-_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
-               Defines: tolower
-               (src/strcmp.c: 30)
-
-_strcmp        int _strcmp(const char*c1,const char*c2,int len);
-               (src/strcmp.c: 13)
-
 _swapoff                      (include/syscalls_x64.h: 339)
 
 _swapon                       (include/syscalls_x64.h: 337)
@@ -808,12 +801,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: strlen write fileno
+               Defines: fileno write strlen
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: strlen write fileno
+               Defines: write fileno strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -864,24 +857,16 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: uitodec write
+               Defines: write uitodec
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: uitodec write
+               Defines: write uitodec
                (src/pty.c: 27)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
                Defines: write
                (src/sprintf.c: 219)
-
-strcasecmp     int strcasecmp(const char*c1,const char*c2);
-               Defines: tolower
-               (src/strcmp.c: 49)
-
-strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
-               Defines: 
-               (src/strcmp.c: 57)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
                (src/itodec.c: 8)
@@ -925,7 +910,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: close open fileno
+               Defines: open fileno close
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -963,7 +948,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 128)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 6)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
@@ -988,7 +973,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno write strlen
+               Defines: strlen fileno write
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1017,7 +1002,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 107)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
@@ -1037,7 +1022,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: fileno strerror write strlen
+               Defines: fileno write strlen strerror
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1045,15 +1030,15 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1078,7 +1063,7 @@ ungetc         static int ungetc(int c, FILE *F);
                (include/fgetc.h: 36)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 101)
 
 
@@ -1111,6 +1096,13 @@ srand          void srand( unsigned int i );
 string.h
 ==========
 
+_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
+               Defines: tolower
+               (src/strcmp.c: 30)
+
+_strcmp        int _strcmp(const char*c1,const char*c2,int len);
+               (src/strcmp.c: 13)
+
 memcmp         int memcmp(const void* c1,const void* c2,int len);
                Defines: 0
                (src/strcmp.c: 85)
@@ -1120,6 +1112,10 @@ memcpy         void *memcpy( void *d, const void *s, int n );
 
 memset         void *memset( void *s, int c, int n);
                (src/memset.c: 3)
+
+strcasecmp     int strcasecmp(const char*c1,const char*c2);
+               Defines: tolower
+               (src/strcmp.c: 49)
 
 strcat         char *strcat(char *dest, const char *src );
                Defines: strlen
@@ -1133,7 +1129,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: strlen malloc strcpy
+               Defines: strcpy malloc strlen
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1141,6 +1137,10 @@ strerror       char* strerror( int errnum );
 
 strlen         int strlen(const char*str);
                (src/strlen.c: 7)
+
+strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
+               Defines: 
+               (src/strcmp.c: 57)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
                Defines: 

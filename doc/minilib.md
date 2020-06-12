@@ -80,14 +80,6 @@ _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
                (src/prints.c: 68)
 
-_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
-
-               (src/strcmp.c: 30)
-
-_strcmp        int _strcmp(const char*c1,const char*c2,int len);
-
-               (src/strcmp.c: 13)
-
 basename       char *basename(char *path);
 
                (src/basename.c: 29)
@@ -180,14 +172,6 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 219)
-
-strcasecmp     int strcasecmp(const char*c1,const char*c2);
-
-               (src/strcmp.c: 49)
-
-strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
-
-               (src/strcmp.c: 57)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -436,6 +420,14 @@ srand          void srand( unsigned int i );
 string.h
 ==========
 
+_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
+
+               (src/strcmp.c: 30)
+
+_strcmp        int _strcmp(const char*c1,const char*c2,int len);
+
+               (src/strcmp.c: 13)
+
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
                (src/strcmp.c: 85)
@@ -447,6 +439,10 @@ memcpy         void *memcpy( void *d, const void *s, int n );
 memset         void *memset( void *s, int c, int n);
 
                (src/memset.c: 3)
+
+strcasecmp     int strcasecmp(const char*c1,const char*c2);
+
+               (src/strcmp.c: 49)
 
 strcat         char *strcat(char *dest, const char *src );
 
@@ -471,6 +467,10 @@ strerror       char* strerror( int errnum );
 strlen         int strlen(const char*str);
 
                (src/strlen.c: 7)
+
+strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
+
+               (src/strcmp.c: 57)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 

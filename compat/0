@@ -93,18 +93,6 @@ Better include minilib.h, when possible
 #include "minilib/src/sprintf.c"
 // file: minilib/src/strcmp.c
 #include "minilib/src/strcmp.c"
-// file: minilib/src/strcmp.c
-#include "minilib/src/strcmp.c"
-// file: minilib/src/strcmp.c
-#include "minilib/src/strcmp.c"
-// file: minilib/src/strcmp.c
-#include "minilib/src/strcmp.c"
-// file: minilib/src/strcmp.c
-#include "minilib/src/strcmp.c"
-// file: minilib/src/strcmp.c
-#include "minilib/src/strcmp.c"
-// file: minilib/src/strcmp.c
-#include "minilib/src/strcmp.c"
 // file: minilib/macros/getoptm.h
 #include "minilib/macros/getoptm.h"
 
