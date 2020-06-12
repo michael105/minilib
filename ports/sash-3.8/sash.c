@@ -57,18 +57,19 @@ static const CommandEntry	commandEntryTable[] =
 		""
 	},
 
-	{
+/*	{
 		"-ar",		do_ar,		3,	INFINITE_ARGS,
 		"Extract or list files from an AR file",
 		"[txp]v arFileName fileName ..."
 	},
-
+*/
 	{
 		"cd",		do_cd,		1,	2,
 		"Change current directory",
 		"[dirName]"
 	},
 
+/*	
 #if	HAVE_LINUX_ATTR
 	{
 		"-chattr",	do_chattr,	3,	INFINITE_ARGS,
@@ -76,7 +77,7 @@ static const CommandEntry	commandEntryTable[] =
 		"[+i] [-i] [+a] [-a] fileName ..."
 	},
 #endif
-
+*/
 	{
 		"-chgrp",	do_chgrp,	3,	INFINITE_ARGS,
 		"Change the group id of some files",
@@ -114,25 +115,25 @@ static const CommandEntry	commandEntryTable[] =
 		"new_root_dir"
 	},
 #endif
-
+/*
 	{
 		"-dd",		do_dd,		3,	INFINITE_ARGS,
 		"Copy data between two files",
 		"if=name of=name [bs=n] [count=n] [skip=n] [seek=n]"
 	},
-
+*/
 	{
 		"-echo",	do_echo,	1,	INFINITE_ARGS,
 		"Echo the arguments",
 		"[args] ..."
 	},
-
+/*
 	{
 		"-ed",		do_ed,		1,	2,
 		"Edit a fileName using simple line mode commands",
 		"[fileName]"
 	},
-
+*/
 	{
 		"exec",		do_exec,	2,	INFINITE_ARGS,
 		"Execute another program in place of this sash process",
@@ -144,7 +145,7 @@ static const CommandEntry	commandEntryTable[] =
 		"Exit from sash",
 		"[exit value]"
 	},
-
+/*
 	{
 		"-file",	do_file,	1,	INFINITE_ARGS,
 		"Describe information about files",
@@ -176,7 +177,7 @@ static const CommandEntry	commandEntryTable[] =
 		"fileName ... [-o outputPath]"
 	},
 #endif
-
+*/
 	{
 		"help",		do_help,	1,	2,
 		"Print help about a command",
@@ -202,13 +203,13 @@ static const CommandEntry	commandEntryTable[] =
 		"Link one fileName to another",
 		"[-s] srcName ... destName"
 	},
-
+/*
 	{
 		"-ls",		do_ls,		1,	INFINITE_ARGS,
 		"List information about files or directories",
 		"[-lidFC] fileName ..."
 	},
-
+*/
 #if	HAVE_LINUX_ATTR
 	{
 		"-lsattr",	do_lsattr,	2,	INFINITE_ARGS,
@@ -320,13 +321,13 @@ static const CommandEntry	commandEntryTable[] =
 		"Sync the disks to force cached data to them",
 		""
 	},
-
+/*
 	{
 		"-tar",		do_tar,		2,	INFINITE_ARGS,
 		"Create, extract, or list files from a TAR file",
 		"[cxtv]f tarFileName fileName ..."
 	},
-
+*/
 	{
 		"-touch",	do_touch,	2,	INFINITE_ARGS,
 		"Update times or create the specified files",
