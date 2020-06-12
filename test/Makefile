@@ -6,6 +6,7 @@ PROG=hello
 
 PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
+MAKEPROGS=fprintf fopen
 
 MINIGCC=rand sleep execve strdup
 
@@ -57,7 +58,7 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM)
+all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM) $(MAKEPROGS)
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , (echo minilib/mini-gcc --config $(P).c -o $(P) $(P).c && minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) && ) true
 
@@ -65,14 +66,11 @@ test-generated:
 	cd generated && make clean
 	cd generated && make test
 
-fopen: fopen.c
-	minilib/mini-gcc --config fopen.c -o fopen fopen.c
+%: %.c
+	minilib/mini-gcc --config $< -o $@ $<
 
 build/minilib.o: minilib.conf
 	minilib/mini-gcc --config minilib.conf -c -o build/minilib.o minilib.c -DINCLUDESRC
-
-fprintf: fprintf.c
-	minilib/mini-gcc --config fprintf.c -o fprintf fprintf.c
 
 
 malloc: malloc.c
@@ -107,7 +105,7 @@ hello-smallest: hello-smallest.c
 
 # collect the expected output of the applets
 inittest: all
-	@$(foreach P,$(PROG) $(PROGCUSTOM) $(MINIGCC) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
+	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
 	
 retest: test rebuild
 	make test
@@ -115,7 +113,7 @@ retest: test rebuild
 test: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
-	@$(foreach P,$(PROG) hello-combined $(PROGCUSTOM) $(MINIGCC), \
+	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
 			set -o pipefail; ./$(P) | \
@@ -134,7 +132,8 @@ test: all
 
 clean:
 	#$(foreach P,$(PROGLIST4),$(MAKE) clean BUILDPROG=$(P) && ) true
-	#$(foreach P,$(PROGLIST4), rm $(P) && ) true
+	$(foreach P,$(MAKEPROGS) $(MINIGCC), rm -f $(P) && ) true
+	$(foreach P,$(PROGCUSTOM) fgets-bin, rm -f $(P) && ) true
 	rm $(PROG) failtest-segfault hello-combined hello-smallest hello-include || true
 	echo $(PROG) failtest-segfault hello-combined || true
 	rm -f results/*-test.stdout
