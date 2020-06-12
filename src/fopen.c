@@ -2,7 +2,7 @@
 #define mini_fopen_c
 
 #include "include/filemodes.h"
-
+int volatile open( const char *s, int flags, ... );
 
 //+header stdio.h
 //+depends open fileno close
