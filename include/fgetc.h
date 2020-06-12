@@ -4,7 +4,7 @@
 
 
 
-
+//+header stdio.h
 //+depends fileno read
 //+needs mini_fstream.h
 //+inline
