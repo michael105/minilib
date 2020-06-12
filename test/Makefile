@@ -4,10 +4,10 @@
 #PROG=malloc select
 PROG=hello
 
-PROGCUSTOM=fopen malloc fprintf select fputs
+PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
 
-MINIGCC=rand sleep execve strdup fgets
+MINIGCC=rand sleep execve strdup
 
 # where to build object files
 #BUILDDIR=.
@@ -81,6 +81,11 @@ malloc: malloc.c
 select: select.c
 	minilib/mini-gcc -o select select.c
 
+fgets: fgets.c
+	minilib/mini-gcc --config fgets.c -o fgets-bin fgets.c
+	echo '#!/bin/sh' > fgets 
+	echo 'echo -e "Xesting\nfgets\n" | ./fgets-bin' >> fgets
+	chmod a+x fgets
 
 
 args: args.c
