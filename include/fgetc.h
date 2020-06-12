@@ -10,10 +10,10 @@
 //+inline
 static inline int fgetc(FILE *F){
 		POINTER buf = 0;
-#ifdef mini_ungetcid
-		if ( *F & (~FD_MASK) ){
-				int r =  *F & (~FD_MASK);
-				*F =  *F & FD_MASK;
+#ifdef mini_ungetc
+		if ( *F >> 24 ){
+				int r =  *F >> 24;
+				*F =  *F & (~UNGETC_MASK);
 				return(r);
 		}
 #endif
@@ -28,9 +28,14 @@ static inline int fgetc(FILE *F){
 //+depends fgetc fileno read
 //+macro getchar() fgetc(0)
 
+// pushes a char back to the stream.
+// overwrites a previous backupushed char
+// (according to posix, only one char is guaranteed 
+// to be pushed back)
 //+def
-int ungetc(int c, FILE *F){
-		return(0);
+static int ungetc(int c, FILE *F){
+		*F = (*F & ~UNGETC_MASK) | (c<<24);
+		return(c);
 }		
 
 #endif

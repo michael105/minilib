@@ -52,10 +52,27 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 //+def
 typedef int FILE;
 
+#if 0
+// thats the old masks/flags.
+// possibly better change the fd/FILE len to long
+// not sure about that.
+// but the hard kernel limit on open fd's is
+// about 17 bits here. so. might be ok.
+// feeling a bit uncomfortable with that decision,
+// however.
 #define FEOF_FLAG 0x80000000
 #define ERR_FLAG 0x40000000
 #define FLAG_MASK 0xc0000000
 #define FD_MASK 0x3fffffff
+#else
+
+#define FEOF_FLAG 0x800000
+#define ERR_FLAG 0x400000
+#define FLAG_MASK 0xc00000
+#define FD_MASK 0x3fffff
+#define UNGETC_MASK 0xff000000
+
+#endif
 
 #ifdef X64
 typedef union { FILE *F; int i, fd;} mfl_union;

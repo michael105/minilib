@@ -430,9 +430,9 @@
 <tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  39 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  19 </small></td><td><small> #define getc(F) fgetc(F)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  26 </small></td><td><small> #define getc(F) fgetc(F)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  22 </small></td><td><small> #define getchar() fgetc(0)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  29 </small></td><td><small> #define getchar() fgetc(0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getcwd.3.rst.html">getcwd</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  157 </small></td><td><small> getcwd( char *buf,  unsigned long size)
 </small></td></tr>
@@ -628,7 +628,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/uname.3.rst.html">uname</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  105 </small></td><td><small> uname(struct old_utsname *name )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ungetc.3.rst.html">ungetc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  25 </small></td><td><small> int ungetc(int c, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ungetc.3.rst.html">ungetc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  36 </small></td><td><small>  int ungetc(int c, FILE *F);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/unlink.2.rst.html">unlink</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  111 </small></td><td><small> unlink( const char* a1)		
 </small></td></tr>

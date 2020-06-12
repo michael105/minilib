@@ -110,9 +110,9 @@ unsigned int rand();
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/atoi.c"
-#include "minilib/src/rand.c"
 #include "minilib/src/getenv.c"
+#include "minilib/src/rand.c"
+#include "minilib/src/atoi.c"
 #include "minilib/src/malloc.c"
 
 // Need global included. Doesn't matter by which file.

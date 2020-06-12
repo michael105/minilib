@@ -342,11 +342,11 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
 
 getc           #define getc(F) fgetc(F)
 
-               (include/fgetc.h: 19)
+               (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
 
-               (include/fgetc.h: 22)
+               (include/fgetc.h: 29)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -396,9 +396,9 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
                (src/sprintf.c: 26)
 
-ungetc         int ungetc(int c, FILE *F);
+ungetc         static int ungetc(int c, FILE *F);
 
-               (include/fgetc.h: 25)
+               (include/fgetc.h: 36)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
