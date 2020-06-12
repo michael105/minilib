@@ -520,9 +520,9 @@ sleep          unsigned int sleep(unsigned int seconds);
 
 tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
 
-               (include/tcgetattr.h: 17)
+               (include/tcgetattr.h: 18)
 
 tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
 
-               (include/tcsetattr.h: 18)
+               (include/tcsetattr.h: 19)
 

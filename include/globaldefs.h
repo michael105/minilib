@@ -149,6 +149,14 @@ int ioctl( int fd, unsigned long int request, ... );
 #define LOGIN_NAME_MAX 256
 #define HOST_NAME_MAX 64
 
+#define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
+
+#define F_OK 0
+#define X_OK 1
+#define W_OK 2
+#define R_OK 4
+
 
 
 #endif

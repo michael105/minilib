@@ -13,6 +13,7 @@
 
 //+needs termios.h ioctl.h
 //+header unistd.h
+//+include
 //+depends ioctl
 //+def
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
