@@ -348,6 +348,10 @@ getchar        #define getchar() fgetc(0)
 
                (include/fgetc.h: 29)
 
+gets           #define gets(F) fgets(F,0xfffffff,stdin)
+
+               (src/fgets.c: 27)
+
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
                (src/itohex.c: 56)

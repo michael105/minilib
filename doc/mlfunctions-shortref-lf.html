@@ -448,7 +448,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  151 </small></td><td><small> DEF_syscall(getppid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  91 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  27 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  91 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getuid.2.rst.html">getuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  162 </small></td><td><small> DEF_syscall(getuid,0)
 </small></td></tr>

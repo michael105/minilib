@@ -1,3 +1,8 @@
+#warning WARNING: compat headers are more or less instable.
+#warning better include minilib.h,
+#warning or use the supplied script mini-gcc
+
+
 #define mini_start
 #define mini_exit
 
