@@ -205,14 +205,6 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 
                (src/sprintf.c: 36)
 
-wait           pid_t wait(int *wstatus);
-
-               (src/wait.c: 7)
-
-waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
-
-               (src/wait.c: 15)
-
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
@@ -487,6 +479,20 @@ strncmp        int strncmp(const char*c1,const char*c2,int len);
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
                (src/memcpy.c: 27)
+
+
+
+==========
+sys/wait.h
+==========
+
+wait           pid_t wait(int *wstatus);
+
+               (src/wait.c: 8)
+
+waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
+
+               (src/wait.c: 16)
 
 
 

@@ -125,7 +125,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close open malloc
+               Defines: open close malloc
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -813,7 +813,7 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno strlen write
+               Defines: strlen write fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -864,7 +864,7 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
@@ -897,14 +897,6 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
                Defines: write
                (src/sprintf.c: 36)
 
-wait           pid_t wait(int *wstatus);
-               Defines: wait4
-               (src/wait.c: 7)
-
-waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
-               Defines: wait4
-               (src/wait.c: 15)
-
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
                Defines: write
                (include/prints.h: 34)
@@ -933,7 +925,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: fileno close open
+               Defines: close open fileno
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -963,7 +955,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -984,7 +976,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 96)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -996,7 +988,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: write strlen fileno
+               Defines: fileno write strlen
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1029,7 +1021,7 @@ getc           #define getc(F) fgetc(F)
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
@@ -1045,7 +1037,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(char *msg);
-               Defines: strerror fileno strlen write
+               Defines: fileno strerror write strlen
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1053,7 +1045,7 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -1061,7 +1053,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1086,7 +1078,7 @@ ungetc         static int ungetc(int c, FILE *F);
                (include/fgetc.h: 36)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 101)
 
 
@@ -1141,7 +1133,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strcpy strlen
+               Defines: strlen malloc strcpy
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1157,6 +1149,20 @@ strncmp        int strncmp(const char*c1,const char*c2,int len);
 strncpy        char *strncpy(char *dest, const char *src, int n);
                Defines: memcpy
                (src/memcpy.c: 27)
+
+
+
+==========
+sys/wait.h
+==========
+
+wait           pid_t wait(int *wstatus);
+               Defines: wait4
+               (src/wait.c: 8)
+
+waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
+               Defines: wait4
+               (src/wait.c: 16)
 
 
 

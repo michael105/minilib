@@ -1,6 +1,6 @@
-#warning WARNING: compat headers are more or less instable.
-#warning better include minilib.h,
-#warning or use the supplied script mini-gcc
+#warning compat headers are more or less instable. \
+Better include minilib.h, when possible
+
 
 
 #define mini_start

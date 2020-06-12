@@ -1,5 +1,6 @@
 #ifndef wait_c
 #define wait_c
+//+header sys/wait.h
 
 //+depends wait4
 //+include
