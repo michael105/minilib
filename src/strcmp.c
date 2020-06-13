@@ -24,7 +24,7 @@ int _strcmp(const char*c1,const char*c2,int len){
 }
 
 //+inc
-//+depends tolower
+///+depends tolower
 //+needs ctype.h
 //+def
 int _strcasecmp(const char*c1,const char*c2,int len){
@@ -43,7 +43,7 @@ int _strcasecmp(const char*c1,const char*c2,int len){
 
 
 //+inc
-//+depends _strcasecmp tolower
+//+depends _strcasecmp
 //+needs ctype.h
 //+def
 int strcasecmp(const char*c1,const char*c2){

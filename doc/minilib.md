@@ -4,12 +4,6 @@
 ctype.h
 ==========
 
-def            #define SETOPT_short( opts, option ) (;
-
-               Set a option flag(s) (bit(s))  manually.
-             		param options: e.g. just a, or ( a+h+l) to check for several flags at once
-               (macros/getoptm.h: 52)
-
 isprint        static inline int __attribute__((always_inline)) isprint(const char c);
 
                (include/isprint.h: 8)

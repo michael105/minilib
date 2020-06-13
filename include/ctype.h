@@ -3,11 +3,13 @@
 
 //+header ctype.h
 //+inc
-//+def
+
+/*
 static __inline int __isspace(int _c)
 {
 	return _c == ' ' || (unsigned)_c-'\t' < 5;
 }
+*/
 
 //+nop 
 #define isalpha(a) (0 ? 1 : (((unsigned)(a)|32)-'a') < 26)
@@ -22,7 +24,7 @@ static __inline int __isspace(int _c)
 //+nop 
 #define isgraph(a) (0 ? 1 : ((unsigned)(a)-0x21) < 0x5e)
 //+nop 
-#define isspace(a) __isspace(a)
+//#define isspace(a) __isspace(a)
 
 
 //+nop 
