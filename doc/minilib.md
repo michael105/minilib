@@ -42,7 +42,7 @@ readdir        struct dirent *readdir(DIR *dir);
 fcntl.h
 ==========
 
-creat          inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+creat          int volatile creat( const char *s, int mode );
 
                (src/open.c: 30)
 
@@ -179,6 +179,12 @@ unlockpt       int unlockpt(int fd);
 
                (src/pty.c: 20)
 
+verbose_errstr const char* verbose_errstr(int num);
+
+               verbose error (errno) string. 
+              this adds about 3.5kB to the compiled binary(!)
+               (include/errstr.h: 4)
+
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
                (src/sprintf.c: 36)
@@ -221,9 +227,13 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
                (src/itohex.c: 6)
 
-clearerror     static inline void clearerror(FILE *f);
+clearerr       static inline void clearerr(FILE *f);
 
                (include/mini_fstream.h: 199)
+
+clearerror     static inline void clearerror(FILE *f);
+
+               (include/mini_fstream.h: 204)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
@@ -332,7 +342,7 @@ itohex         int itohex(int i,char* buf,int padding);
 
 perror         void perror(const char *msg);
 
-               (src/strerror.c: 22)
+               (src/strerror.c: 26)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -359,12 +369,12 @@ setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy functions.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 207)
+               (include/mini_fstream.h: 212)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy
-               (include/mini_fstream.h: 212)
+               (include/mini_fstream.h: 217)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -415,6 +425,10 @@ srand          void srand( unsigned int i );
 system         int system( const char* command );
 
                (src/system.c: 4)
+
+todo_putenv    int todo_putenv( char *s );
+
+               (src/getenv.c: 21)
 
 
 
@@ -523,6 +537,19 @@ time.h
 ==========
 unistd.h
 ==========
+
+execv          static inline int execv(const char *pathname, char *const argv[]);
+
+               (include/exec.h: 7)
+
+execvp         static inline int execvp(const char *file, char *const argv[]);
+
+               (include/exec.h: 24)
+
+execvpe        static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
+
+               doesn't search the path env (todo)
+               (include/exec.h: 16)
 
 isatty         int isatty(int fd);
 

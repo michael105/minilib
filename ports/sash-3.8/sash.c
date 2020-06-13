@@ -78,11 +78,14 @@ static const CommandEntry	commandEntryTable[] =
 	},
 #endif
 */
+
+#ifdef mini_getgrnam
 	{
 		"-chgrp",	do_chgrp,	3,	INFINITE_ARGS,
 		"Change the group id of some files",
 		"gid fileName ..."
 	},
+#endif
 
 	{
 		"-chmod",	do_chmod,	3,	INFINITE_ARGS,
@@ -90,12 +93,13 @@ static const CommandEntry	commandEntryTable[] =
 		"mode fileName ..."
 	},
 
+#ifdef mini_getpwnam
 	{
 		"-chown",	do_chown,	3,	INFINITE_ARGS,
 		"Change the owner id of some files",
 		"uid fileName ..."
 	},
-
+#endif
 	{
 		"-cmp",		do_cmp,		3,	3,
 		"Compare two files for equality",
@@ -298,11 +302,13 @@ static const CommandEntry	commandEntryTable[] =
 		"dirName ..."
 	},
 
+#ifdef mini_putenv
 	{
 		"setenv",	do_setenv,	3,	3,
 		"Set an environment variable value",
 		"name value"
 	},
+#endif
 
 	{
 		"source",	do_source,	2,	2,
@@ -537,8 +543,8 @@ main(int argc, const char ** argv)
 	/*
 	 * Default our path if it is not set.
 	 */
-	if (getenv("PATH") == NULL)
-		putenv("PATH=/bin:/usr/bin:/sbin:/usr/sbin:/etc");
+	//if (getenv("PATH") == NULL)
+		//putenv("PATH=/bin:/usr/bin:/sbin:/usr/sbin:/etc");
 
 	/*
 	 * If the alias flag is set then define all aliases.

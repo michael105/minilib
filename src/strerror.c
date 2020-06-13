@@ -7,6 +7,7 @@ char *errstr = "error: 00";
 //+header string.h
 //+def
 char* strerror( int errnum ){
+#ifndef mini_verbose_errstr
 		errstr[7] = '0';
 		while ( errnum>9 ){
 				errnum-=10;
@@ -14,6 +15,9 @@ char* strerror( int errnum ){
 		}
 		errstr[8] = 48+errnum; // 0+errnum..
 		return( errstr );
+#else
+		return((char*)verbose_errstr(errnum));
+#endif
 }
 
 //+header stdio.h

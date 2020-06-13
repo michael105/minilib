@@ -196,6 +196,11 @@ static inline int ferror(FILE *f){
 }
 
 //+inline
+static inline void clearerr(FILE *f){
+		*f = *f & FD_MASK;
+}
+
+//+inline
 static inline void clearerror(FILE *f){
 		*f = *f & FD_MASK;
 }

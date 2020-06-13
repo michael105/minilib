@@ -334,13 +334,15 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chroot.2.rst.html">chroot</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  132 </small></td><td><small> chroot( const char *filename)
 </small></td></tr>
-<tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  199 </small></td><td><small>   void clearerror(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">clearerr</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  199 </small></td><td><small>   void clearerr(FILE *f);
+</small></td></tr>
+<tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  204 </small></td><td><small>   void clearerror(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/close.2.rst.html">close</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  101 </small></td><td><small> close( int fd )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  30 </small></td><td><small>  int  ) creat( const char *s, int mode );
+<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  30 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
 <tr valign="top"><td><small>def</small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
@@ -358,9 +360,16 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  122 </small></td><td><small> dup3(int a1, int a2, int a3)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  136 </small></td><td><small> execve( const char *filename,  const char **argv,  const char **envp)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execv</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small>   int execv(const char *pathname, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  118 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../include/exec.h" target="right">../include/exec.h</a>  136 </small></td><td><small> execve( const char *filename,  char const **argv, char const **envp)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  24 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
+</small></td></tr>
+<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../include/exec.h" target="right">../include/exec.h</a>  16 </small></td><td><small>   int execvpe(const char *file, char *const argv[], char *const envp[]);
+</small></td></tr><tr><td></td><td colspan="2"><small>doesn't search the path env (todo)
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../include/exec.h" target="right">../include/exec.h</a>  118 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">fchown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  117 </small></td><td><small> fchown( unsigned int fd, uid_t user, gid_t group)
 </small></td></tr>
@@ -506,7 +515,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small> DIR *opendir(const char *name);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  22 </small></td><td><small> void perror(const char *msg);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  26 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  148 </small></td><td><small> pipe( int *filedes)
 </small></td></tr>
@@ -563,7 +572,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  158 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  207 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  212 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy functions.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
@@ -575,7 +584,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  96 </small></td><td><small> setuid( uid_t uid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  212 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  217 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  7 </small></td><td><small>  int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
@@ -636,7 +645,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  170 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
-<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int uitodec(unsigned int i, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> int todo_putenv( char *s );
+</small></td></tr>
+<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  8 </small></td><td><small> int uitodec(unsigned int i, char *buf, int prec, char limiter );
 </small></td></tr>
 <tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  3 </small></td><td><small> int ultodec(unsigned long i, char *buf, int prec, char limiter );
 </small></td></tr>
@@ -652,7 +663,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  152 </small></td><td><small> utime( const char *filename, struct utimbuf *times)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  129 </small></td><td><small> DEF_syscall(vfork,0)
+<tr valign="top"><td><small>verbose_errstr</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> const char* verbose_errstr(int num);
+</small></td></tr><tr><td></td><td colspan="2"><small>verbose error (errno) string. 
+  this adds about 3.5kB to the compiled binary(!)
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../include/errstr.h" target="right">../include/errstr.h</a>  129 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  101 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>

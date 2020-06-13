@@ -9,11 +9,13 @@ int system( const char* command ){
 
 		if ( pid==0 ){
 				execve( "/bin/sh", arg, (const char**)environ );
-				fwrites(fileno(stderr), "Error. Coudln't exec sh in system()\n");
+				fwrites(fileno(stderr), "Error. Couldn't exec sh in system()\n");
 				exit(-1);
 		}
 		int ws;
-		waitpid( pid, &ws, 0 );
+		do {
+				waitpid( pid, &ws, 0 );
+		} while ( !WIFEXITED(ws) );
 
 		return(WEXITSTATUS(ws));
 }

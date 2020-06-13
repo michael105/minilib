@@ -307,7 +307,7 @@ do_chmod(int argc, const char ** argv)
 	return r;
 }
 
-
+#ifdef mini_getpwnam
 int
 do_chown(int argc, const char ** argv)
 {
@@ -365,8 +365,9 @@ do_chown(int argc, const char ** argv)
 
 	return r;
 }
+#endif
 
-
+#ifdef mini_getgrnam
 int
 do_chgrp(int argc, const char ** argv)
 {
@@ -424,7 +425,7 @@ do_chgrp(int argc, const char ** argv)
 
 	return r;
 }
-
+#endif
 
 int
 do_touch(int argc, const char ** argv)
@@ -1218,7 +1219,7 @@ do_exit(int argc, const char ** argv)
 	return 1;
 }
 
-
+#ifdef mini_putenv
 int
 do_setenv(int argc, const char ** argv)
 {
@@ -1250,7 +1251,7 @@ do_setenv(int argc, const char ** argv)
 
 	return 0;
 }
-
+#endif
 
 int
 do_printenv(int argc, const char ** argv)
