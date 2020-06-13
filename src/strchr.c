@@ -31,7 +31,15 @@ const char *strchr(const char *s, int c){
 }
 
 
-
-
+//+depends strchrnul
+//+def
+const char *strrchr(const char *s, int c){
+	char *ret = 0;
+	char *tmp = s-1;
+	while ( (tmp = strchrnul(tmp+1,c) ) && ( *tmp != 0 ) ){
+			ret=tmp;
+	}
+	return(ret);
+}
 
 #endif

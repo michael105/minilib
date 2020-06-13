@@ -488,6 +488,10 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
 
                (src/memcpy.c: 27)
 
+strrchr        const char *strrchr(const char *s, int c);
+
+               (src/strchr.c: 36)
+
 
 
 ==========
