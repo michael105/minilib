@@ -1,12 +1,46 @@
 ### assorted notes
 
 
+ldscript default and 
+defining mini_errno gives troubles.
+segfaults.
+sametime, ldscript textandbss 
+bloat sometimes up to 20 kB.
+strange. Both. Seems to me being related.
+Most possibly the globals.
+
+Test: the stack address is known, 
+it's set by the ldscripts.
+possibly drop the globals, instead 
+"push" the vars on the stack.
+
+I'm quite sure, either gcc or ld messes this up yet.
+
+
+
 Stackguard:
 	gcc is able to emit "pre code" for each function.
 	There: call another function, and jump back.
 	->ret of the "main function" will "return" here.
 	->check for stack integrity, and do the second ret here
 
+ -- possibly better do not add more code, which has again its vulnerabilities.
+ better make the given functions saver. / strip them
+ some of them simply have been written/specified, before things like stackoverflows have been known.
+ unsave code cannot be made save by adding more code, which possibly has its own flaws.
+ just know I'm thinking of another option: adding new types, for , e.g. sscanf.
+ the new type can be located at the beginning of the stack. 
+ (or in its own segment?)
+ Therefore, a stackoverflow would not be possible anymore,
+ only a segfault.
+
+ But these stackguards - afaik, someone already has overcome it,
+ as well as with position independent code, randomized in ram.
+
+ Yet, there's no scanf within minilib. 
+ Possibly I shouldn't add one at all.
+
+ I already have some headache with fgets sort.
 
 
 Config system:
