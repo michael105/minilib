@@ -336,7 +336,7 @@ itohex         int itohex(int i,char* buf,int padding);
 
                (src/itohex.c: 49)
 
-perror         void perror(char *msg);
+perror         void perror(const char *msg);
 
                (src/strerror.c: 22)
 
@@ -390,7 +390,7 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 stdlib.h
 ==========
 
-atoi           int atoi(char *c);
+atoi           int atoi(const char *c);
 
                (src/atoi.c: 6)
 
@@ -447,6 +447,14 @@ strcasecmp     int strcasecmp(const char*c1,const char*c2);
 strcat         char *strcat(char *dest, const char *src );
 
                (src/strcat.c: 7)
+
+strchr         const char *strchr(const char *s, int c);
+
+               (src/strchr.c: 20)
+
+strchrnul      const char *strchrnul(const char *s, int c);
+
+               (src/strchr.c: 7)
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
@@ -526,9 +534,9 @@ sleep          unsigned int sleep(unsigned int seconds);
 
 tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
 
-               (include/tcgetattr.h: 18)
+               (include/tcgetattr.h: 21)
 
 tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
 
-               (include/tcsetattr.h: 19)
+               (include/tcsetattr.h: 20)
 

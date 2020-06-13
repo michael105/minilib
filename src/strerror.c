@@ -19,7 +19,7 @@ char* strerror( int errnum ){
 //+header stdio.h
 //+depends fputs strerror strlen
 //+def
-void perror(char *msg){
+void perror(const char *msg){
 		if ( msg !=0 && msg[0] != '\0' )
 				fputs( msg, stderr );
 

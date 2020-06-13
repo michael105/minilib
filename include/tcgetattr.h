@@ -2,13 +2,16 @@
 #define tcgetattr_h
 
 //#include <sys/termios.h>
-//#include "ioctl.h"
+//#include <sys/ioctl.h>
 //#include <sys/ttycom.h>
 
 //#ifndef TCGETS
 //#warning TCGETS not defined. Applying ugly hack.
 //#define TCGETS TIOCGETA
 //#endif
+
+int ioctl( int fd, unsigned long int request, ... );
+
 
 //+header unistd.h
 //+include

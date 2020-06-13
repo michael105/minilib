@@ -106,6 +106,7 @@
 #define _LINK_H
 #define _LINUX_KERNEL_H
 #define _LINUX_LIST_H
+#define _LINUX_LOOP_H
 #define _LINUX_TYPES_H
 #define _MALLOC_H
 #define _MATH_H
@@ -231,6 +232,7 @@
 #define _UCONTEXT_H
 #define _ULIMIT_H
 #define _UNISTD_H
+#define _UTIME_H
 #define _UTMPX_H
 #define _UTMP_H
 #define _UTSNAME_MACHINE_LENGTH

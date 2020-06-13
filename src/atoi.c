@@ -3,7 +3,7 @@
 
 //+ansi stdlib.h
 //+def
-int atoi(char *c){
+int atoi(const char *c){
 		int t,a=0;
 	 	int ret=0;
 		int dez = 1;

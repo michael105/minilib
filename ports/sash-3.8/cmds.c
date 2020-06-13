@@ -16,6 +16,9 @@
 #include <grp.h>
 #include <utime.h>
 #include <errno.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #if	HAVE_LINUX_MOUNT
 #include <linux/fs.h>

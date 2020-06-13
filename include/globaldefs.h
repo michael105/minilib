@@ -32,6 +32,11 @@
 #define SEEK_MAX        SEEK_END
 #endif
 
+#ifndef ENOENT
+#define ENOENT           2
+#endif
+
+
 
 #define mini_FOPEN_MAX 16
 
@@ -45,6 +50,14 @@ typedef long suseconds_t;
 typedef unsigned useconds_t;
 struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 #endif
+
+struct utimbuf{
+		time_t actime;    /* Access time.  */
+		time_t modtime;   /* Modification time.  */
+};
+
+
+
 
 #define BUFSIZ 1024
 

@@ -1,6 +1,12 @@
-#warning compat headers are more or less instable. \
-Better include minilib.h, when possible
+// #warning compat headers are more or less instable. 
+// Better include minilib.h, when possible
 
+
+#ifndef mini_INCLUDESRC
+#ifdef INCLUDESRC
+#define mini_INCLUDESRC
+#endif
+#endif
 
 
 #define mini_start
@@ -69,4 +75,5 @@ Better include minilib.h, when possible
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
 
+#include "minilib/include/headerguards.h"
 

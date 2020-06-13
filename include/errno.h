@@ -1,7 +1,11 @@
 #ifndef mini_errno_h
 #define mini_errno_h
 #define EPERM            1
+
+#ifndef ENOENT
 #define ENOENT           2
+#endif
+
 #define ESRCH            3
 #define EINTR            4
 #define EIO              5

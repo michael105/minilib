@@ -12,6 +12,9 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <utime.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 
 /*
@@ -107,6 +110,7 @@ modeString(int mode)
  * The string is returned from a static buffer, and so is overwritten for
  * each call.
  */
+#ifdef UNDEF
 const char *
 timeString(time_t timeVal)
 {
@@ -129,7 +133,7 @@ timeString(time_t timeVal)
 
 	return buf;
 }
-
+#endif
 
 /*
  * Return TRUE if a fileName is a directory.
@@ -515,7 +519,8 @@ expandWildCards(const char * fileNamePattern, const char *** retFileTable)
 	/*
 	 * Sort the list of file names.
 	 */
-	qsort((void *) fileTable, fileCount, sizeof(char *), nameSort);
+	//qsort((void *) fileTable, fileCount, sizeof(char *), nameSort);
+//	TODO
 
 	/*
 	 * Return the file list and count.
