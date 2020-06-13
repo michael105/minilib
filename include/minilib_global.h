@@ -32,9 +32,9 @@ extern minilib_globals ml;
 
 #endif
 
-#ifdef mini_getenv
+#ifdef mini_environ
 //+doc pointer to env, when mini_getenv is defined.
-char **mini_env;
+char **environ;
 #endif
 
 

@@ -1,6 +1,10 @@
 #ifndef startc_c
 #define startc_c
 
+
+// this gets included only when
+// mini_vsyscalls is defined
+
 typedef struct _elf_aux_v {
 		unsigned int type;
 		unsigned int value;

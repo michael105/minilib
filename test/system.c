@@ -21,7 +21,7 @@ int main( int argc, char *argv[] ){
 		printf("ret: %d\n",r);
 		r = system("sleep 1");
 		printf("ret: %d\n",r);
-		r = system("sadf");
+		r = system("this_should_raise_an_error");
 		printf("ret: %d\n",r);
 		r = system("echo \"\e[32m system tests ok\"");
 		printf("ret: %d\n",r);

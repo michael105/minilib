@@ -394,7 +394,7 @@ free           void volatile free(void* p);
 
 getenv         char *getenv(const char* name);
 
-               (src/getenv.c: 11)
+               (src/getenv.c: 7)
 
 malloc         void* volatile malloc(int size);
 
@@ -411,6 +411,10 @@ realloc        void* realloc(void *p, int size);
 srand          void srand( unsigned int i );
 
                (src/rand.c: 7)
+
+system         int system( const char* command );
+
+               (src/system.c: 4)
 
 
 
