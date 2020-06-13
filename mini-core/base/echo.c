@@ -8,11 +8,10 @@ return
 #include "minilib.h"
 /* Usage: echo [-n] [TEXT...] */
 int main(int argc, char *argv[]){
-		int n;
+		int n = 1;
+
 		if ( argc>1 && argv[1][0] == '-' && argv[1][1] == 'n' ) 
 				n=2;
-		else 
-				n=1;
 
 		for ( int a = n; a<argc;  a++  ){
 				if ( a>n )
@@ -23,5 +22,6 @@ int main(int argc, char *argv[]){
 
 		if ( n==1 )
 				putchar( '\n' );
+
 		return 0;
 }
