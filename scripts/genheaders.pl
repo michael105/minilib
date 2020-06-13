@@ -192,6 +192,7 @@ sub headerfh{
 				copytemplates( $fhhash->{fh}->{$header}, "$mlibdir", "header.tmpl.top", "$header.top" );			
 				my $h = $header;
 				$h =~ s/\./_/g;
+				$h =~ s/\//_/g;
 				print {$fhhash->{fh}->{$header}} "#ifndef included_$h\n#define included_$h\n\n";
 				copytemplates( $fhhash->{fh}->{$header}, $path, "header.in", "$header.in" );			
 		}
