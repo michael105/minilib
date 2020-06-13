@@ -442,11 +442,11 @@ strcat         char *strcat(char *dest, const char *src );
 
                (src/strcat.c: 7)
 
-strchr         const char *strchr(const char *s, int c);
+strchr         char *strchr(const char *s, int c);
 
                (src/strchr.c: 20)
 
-strchrnul      const char *strchrnul(const char *s, int c);
+strchrnul      char *strchrnul(const char *s, int c);
 
                (src/strchr.c: 7)
 
@@ -482,7 +482,7 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
 
                (src/memcpy.c: 27)
 
-strrchr        const char *strrchr(const char *s, int c);
+strrchr        char *strrchr(const char *s, int c);
 
                (src/strchr.c: 36)
 

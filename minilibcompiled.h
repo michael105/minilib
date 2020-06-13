@@ -3209,182 +3209,182 @@ DEF_syscall(time,1,unsigned int *a1 )
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
 /* --- generated-macros-start: syscalldefs --- */
-/* minilib/include/syscall_stubs.h, line: 93 */
-REAL_define_syscall(getpid,0 )
-
-/* minilib/include/syscall_stubs.h, line: 101 */
-REAL_define_syscall(close, 1, int a1) 
-
-/* minilib/include/syscall_stubs.h, line: 161 */
-REAL_define_syscall(readahead,3, int a1,   loff_t a2,   size_t a3) 
-
-/* minilib/include/syscall_stubs.h, line: 110 */
-REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
-
-/* minilib/include/lseek.h, line: 19 */
-REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 152 */
-REAL_define_syscall(utime,2, const char *a1,  struct utimbuf *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 111 */
-REAL_define_syscall(unlink,1, const char* a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 117 */
-REAL_define_syscall(fchown,3, unsigned int a1,  uid_t a2,  gid_t a3) 
-
-/* minilib/include/syscall_stubs.h, line: 149 */
-REAL_define_syscall(umask,1, int a1) 
-
-/* minilib/include/syscall_stubs.h, line: 99 */
-REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
-
-/* minilib/include/syscall_stubs.h, line: 107 */
-REAL_define_syscall(getdents, 3, unsigned int a1,  struct dirent *a2,  unsigned int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 133 */
-REAL_define_syscall(pivot_root,2, const char *a1,   const char *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 158 */
-REAL_define_syscall(sendfile,4, int a1,   int a2,   off_t *a3,   size_t a4) 
-
-/* minilib/include/syscall_stubs.h, line: 153 */
-REAL_define_syscall(getppid,0)
-
-/* minilib/include/syscall_stubs.h, line: 163 */
-REAL_define_syscall(getuid,0)
-
-/* minilib/include/syscall_stubs.h, line: 130 */
-REAL_define_syscall(nanosleep,2, struct timespec *a1,  struct timespec *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 155 */
-REAL_define_syscall(getgid,0)
-
-/* minilib/include/syscall_stubs.h, line: 142 */
-REAL_define_syscall(sync,0)
-
-/* minilib/include/syscall_stubs.h, line: 128 */
-REAL_define_syscall(fork,0)
-
-/* minilib/include/syscall_stubs.h, line: 115 */
-REAL_define_syscall(chdir,1,const char* a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 165 */
-REAL_define_syscall(mknod,3, const char *a1,   umode_t a2,   unsigned a3) 
-
-/* minilib/include/syscall_stubs.h, line: 156 */
-REAL_define_syscall(getpgrp,0)
-
-/* minilib/include/syscall_stubs.h, line: 103 */
-REAL_define_syscall(write,3,int a1, const void *a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 138 */
-REAL_define_syscall(kill,2, pid_t a1,   int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 170 */
-REAL_define_syscall(time,1,unsigned int *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 137 */
-REAL_define_syscall(mkdir,2, const char *a1,  int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 164 */
-REAL_define_syscall(wait4,4, pid_t a1,   int *a2,   int a3,   struct rusage *a4) 
-
-/* minilib/include/syscall_stubs.h, line: 146 */
-REAL_define_syscall(access,2, const char *a1,  int a2) 
+/* minilib/include/syscall_stubs.h, line: 140 */
+REAL_define_syscall(link,2, const char *a1,  const char *a2) 
 
 /* minilib/include/syscall_stubs.h, line: 159 */
 REAL_define_syscall(getcwd,2, char *a1,   unsigned long a2) 
 
-/* minilib/include/syscall_stubs.h, line: 136 */
-REAL_define_syscall(execve,3, const char *a1,   const char **a2,   const char **a3) 
-
-/* minilib/include/syscall_stubs.h, line: 151 */
-REAL_define_syscall(chown,3, const char *a1,  uid_t a2,  gid_t a3) 
-
-/* minilib/include/syscall_stubs.h, line: 114 */
-REAL_define_syscall(stat,2,const char* a1, struct stat* a2) 		
-
-/* minilib/include/syscall_stubs.h, line: 132 */
-REAL_define_syscall(chroot,1, const char *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 150 */
-REAL_define_syscall(chmod,2, const char *a1,  mode_t a2) 
-
-/* minilib/include/syscall_stubs.h, line: 118 */
-REAL_define_syscall(fchmod,2, unsigned int a1,  mode_t a2) 
-
-/* minilib/include/syscall_stubs.h, line: 105 */
-REAL_define_syscall(uname,1,struct old_utsname *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 131 */
-REAL_define_syscall(rt_sigaction,4, int a1,   const struct sigaction *a2,   struct sigaction *a3,   size_t a4) 
-
-/* minilib/include/syscall_stubs.h, line: 162 */
-REAL_define_syscall(reboot,4, int a1,   int a2,   unsigned int a3,   void *a4) 
-
-/* minilib/include/syscall_stubs.h, line: 122 */
-REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
-
-/* minilib/include/syscall_stubs.h, line: 141 */
-REAL_define_syscall(symlink,2, const char *a1,   const char *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 98 */
-REAL_define_syscall(vhangup,0 )
-
-/* minilib/include/syscall_stubs.h, line: 96 */
-REAL_define_syscall(setuid,1, uid_t a1) 
-
-/* minilib/include/syscall_stubs.h, line: 148 */
-REAL_define_syscall(pipe,1, int *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 113 */
-REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
-
-/* minilib/include/lseek.h, line: 20 */
-REAL_define_syscall(fsync,1,int a1) 
-
-/* minilib/include/syscall_stubs.h, line: 120 */
-REAL_define_syscall(dup,1,int a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 102 */
-REAL_define_syscall(read, 3, int a1,  void *a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 95 */
-REAL_define_syscall(setgid,1, gid_t a1) 
+/* minilib/include/lseek.h, line: 19 */
+REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
 
 /* minilib/include/syscall_stubs.h, line: 147 */
 REAL_define_syscall(fcntl,3, unsigned int a1,  unsigned int a2,  unsigned long a3) 
 
-/* minilib/include/syscall_stubs.h, line: 160 */
-REAL_define_syscall(mount,5, char *a1,   char *a2,   char *a3,   unsigned long a4,   void *a5) 
+/* minilib/include/lseek.h, line: 20 */
+REAL_define_syscall(fsync,1,int a1) 
 
-/* minilib/include/syscall_stubs.h, line: 94 */
-REAL_define_syscall(setsid,0 )
-
-/* minilib/include/syscall_stubs.h, line: 139 */
-REAL_define_syscall(rmdir,1, const char *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 154 */
-REAL_define_syscall(setpgid,2, pid_t a1,  pid_t a2) 
-
-/* minilib/include/syscall_stubs.h, line: 121 */
-REAL_define_syscall(dup2,2,int a1,  int a2) 		
-
-/* minilib/include/syscall_stubs.h, line: 91 */
-REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 140 */
-REAL_define_syscall(link,2, const char *a1,  const char *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 157 */
-REAL_define_syscall(brk,1, unsigned long a1) 
+/* minilib/include/syscall_stubs.h, line: 162 */
+REAL_define_syscall(reboot,4, int a1,   int a2,   unsigned int a3,   void *a4) 
 
 /* minilib/include/lseek.h, line: 17 */
 REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
 
+/* minilib/include/syscall_stubs.h, line: 102 */
+REAL_define_syscall(read, 3, int a1,  void *a2,  int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 91 */
+REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 98 */
+REAL_define_syscall(vhangup,0 )
+
+/* minilib/include/syscall_stubs.h, line: 163 */
+REAL_define_syscall(getuid,0)
+
+/* minilib/include/syscall_stubs.h, line: 95 */
+REAL_define_syscall(setgid,1, gid_t a1) 
+
+/* minilib/include/syscall_stubs.h, line: 110 */
+REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 118 */
+REAL_define_syscall(fchmod,2, unsigned int a1,  mode_t a2) 
+
+/* minilib/include/syscall_stubs.h, line: 120 */
+REAL_define_syscall(dup,1,int a1) 		
+
+/* minilib/include/syscall_stubs.h, line: 94 */
+REAL_define_syscall(setsid,0 )
+
+/* minilib/include/syscall_stubs.h, line: 128 */
+REAL_define_syscall(fork,0)
+
+/* minilib/include/syscall_stubs.h, line: 107 */
+REAL_define_syscall(getdents, 3, unsigned int a1,  struct dirent *a2,  unsigned int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 156 */
+REAL_define_syscall(getpgrp,0)
+
+/* minilib/include/syscall_stubs.h, line: 160 */
+REAL_define_syscall(mount,5, char *a1,   char *a2,   char *a3,   unsigned long a4,   void *a5) 
+
+/* minilib/include/syscall_stubs.h, line: 113 */
+REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 131 */
+REAL_define_syscall(rt_sigaction,4, int a1,   const struct sigaction *a2,   struct sigaction *a3,   size_t a4) 
+
+/* minilib/include/syscall_stubs.h, line: 151 */
+REAL_define_syscall(chown,3, const char *a1,  uid_t a2,  gid_t a3) 
+
+/* minilib/include/syscall_stubs.h, line: 141 */
+REAL_define_syscall(symlink,2, const char *a1,   const char *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 111 */
+REAL_define_syscall(unlink,1, const char* a1) 		
+
+/* minilib/include/syscall_stubs.h, line: 164 */
+REAL_define_syscall(wait4,4, pid_t a1,   int *a2,   int a3,   struct rusage *a4) 
+
+/* minilib/include/syscall_stubs.h, line: 122 */
+REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
+
+/* minilib/include/syscall_stubs.h, line: 142 */
+REAL_define_syscall(sync,0)
+
+/* minilib/include/syscall_stubs.h, line: 115 */
+REAL_define_syscall(chdir,1,const char* a1) 		
+
+/* minilib/include/syscall_stubs.h, line: 99 */
+REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
+
+/* minilib/include/syscall_stubs.h, line: 153 */
+REAL_define_syscall(getppid,0)
+
+/* minilib/include/syscall_stubs.h, line: 158 */
+REAL_define_syscall(sendfile,4, int a1,   int a2,   off_t *a3,   size_t a4) 
+
+/* minilib/include/syscall_stubs.h, line: 165 */
+REAL_define_syscall(mknod,3, const char *a1,   umode_t a2,   unsigned a3) 
+
+/* minilib/include/syscall_stubs.h, line: 149 */
+REAL_define_syscall(umask,1, int a1) 
+
+/* minilib/include/syscall_stubs.h, line: 105 */
+REAL_define_syscall(uname,1,struct old_utsname *a1) 
+
 /* minilib/include/syscall_stubs.h, line: 129 */
 REAL_define_syscall(vfork,0)
+
+/* minilib/include/syscall_stubs.h, line: 161 */
+REAL_define_syscall(readahead,3, int a1,   loff_t a2,   size_t a3) 
+
+/* minilib/include/syscall_stubs.h, line: 170 */
+REAL_define_syscall(time,1,unsigned int *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 114 */
+REAL_define_syscall(stat,2,const char* a1, struct stat* a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 117 */
+REAL_define_syscall(fchown,3, unsigned int a1,  uid_t a2,  gid_t a3) 
+
+/* minilib/include/syscall_stubs.h, line: 130 */
+REAL_define_syscall(nanosleep,2, struct timespec *a1,  struct timespec *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 132 */
+REAL_define_syscall(chroot,1, const char *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 101 */
+REAL_define_syscall(close, 1, int a1) 
+
+/* minilib/include/syscall_stubs.h, line: 157 */
+REAL_define_syscall(brk,1, unsigned long a1) 
+
+/* minilib/include/syscall_stubs.h, line: 133 */
+REAL_define_syscall(pivot_root,2, const char *a1,   const char *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 138 */
+REAL_define_syscall(kill,2, pid_t a1,   int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 139 */
+REAL_define_syscall(rmdir,1, const char *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 148 */
+REAL_define_syscall(pipe,1, int *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 150 */
+REAL_define_syscall(chmod,2, const char *a1,  mode_t a2) 
+
+/* minilib/include/syscall_stubs.h, line: 152 */
+REAL_define_syscall(utime,2, const char *a1,  struct utimbuf *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 137 */
+REAL_define_syscall(mkdir,2, const char *a1,  int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 136 */
+REAL_define_syscall(execve,3, const char *a1,   const char **a2,   const char **a3) 
+
+/* minilib/include/syscall_stubs.h, line: 103 */
+REAL_define_syscall(write,3,int a1, const void *a2,  int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 121 */
+REAL_define_syscall(dup2,2,int a1,  int a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 96 */
+REAL_define_syscall(setuid,1, uid_t a1) 
+
+/* minilib/include/syscall_stubs.h, line: 155 */
+REAL_define_syscall(getgid,0)
+
+/* minilib/include/syscall_stubs.h, line: 154 */
+REAL_define_syscall(setpgid,2, pid_t a1,  pid_t a2) 
+
+/* minilib/include/syscall_stubs.h, line: 93 */
+REAL_define_syscall(getpid,0 )
+
+/* minilib/include/syscall_stubs.h, line: 146 */
+REAL_define_syscall(access,2, const char *a1,  int a2) 
 
 /* --- generated-macros-end: syscalldefs --- */
 
@@ -4150,44 +4150,108 @@ extern int errno;
 /* end templates/minilib.h.in */
 
 
-#ifdef mini_ftell
+#ifdef mini_opendir
 //dep
-#ifndef mini_lseek
-#define mini_lseek
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#ifndef mini_malloc
+#define mini_malloc
 #endif
 #endif
 
-#ifdef mini_fprintfs
+#ifdef mini_freopen
 //dep
-#ifndef mini_fputs
-#define mini_fputs
+#ifndef mini_open
+#define mini_open
 #endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#endif
+
+#ifdef mini_print
+//dep
 #ifndef mini_write
 #define mini_write
 #endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#endif
-
-#ifdef mini_basename
-//dep
 #ifndef mini_strlen
 #define mini_strlen
 #endif
 #endif
 
-#ifdef mini_strcasecmp
+#ifdef mini_closedir
+//dep
+#ifndef mini_free
+#define mini_free
+#endif
+#endif
+
+#ifdef mini_strncasecmp
 //dep
 #ifndef mini__strcasecmp
 #define mini__strcasecmp
 #endif
 #endif
 
-#ifdef mini_printsl
+#ifdef mini_tcgetattr
 //dep
-#ifndef mini__mprints
-#define mini__mprints
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_vsnprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_fwrite
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_itohex
+//dep
+#ifndef mini__itohex
+#define mini__itohex
+#endif
+#endif
+
+#ifdef mini_dprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#endif
+
+#ifdef mini_strdup
+//dep
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_strcpy
+#define mini_strcpy
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_signal
+//dep
+#ifndef mini_sigaction
+#define mini_sigaction
 #endif
 #endif
 
@@ -4210,310 +4274,16 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_fprints
-//dep
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_itodec
-//dep
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_wait
-//dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_printl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_writes
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_dtodec
-//dep
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_fputs
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_strncpy
-//dep
-#ifndef mini_memcpy
-#define mini_memcpy
-#endif
-#endif
-
-#ifdef mini_sprintf
-//dep
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#endif
-
-#ifdef mini_strchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_fdopen
+#ifdef mini__fopen
 //dep
 #ifndef mini_open
 #define mini_open
 #endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#endif
-
-#ifdef mini_fsetpos
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_memcmp
-//dep
-#ifndef mini_0
-#define mini_0
-#endif
-#endif
-
-#ifdef mini_vfprintf
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#endif
-
-#ifdef mini_printf
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
 #ifndef mini_fileno
 #define mini_fileno
 #endif
-#endif
-
-#ifdef mini_fwrites
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_freopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#endif
-
-#ifdef mini_fprint
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#endif
-
-#ifdef mini_strrchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_tcsetattr
-//dep
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini__mprints
-//dep
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_fwrite
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_itoHEX
-//dep
-#ifndef mini__itohex
-#define mini__itohex
-#endif
-#endif
-
-#ifdef mini_dprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#endif
-
-#ifdef mini_fgets
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_fread
-//dep
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_itobin
-//dep
-#ifndef mini__itobin
-#define mini__itobin
-#endif
-#endif
-
-#ifdef mini_isatty
-//dep
-#ifndef mini_tcgetattr
-#define mini_tcgetattr
-#endif
-#endif
-
-#ifdef mini_dirname
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_getchar
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_ptsname_r
-//dep
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#endif
-
-#ifdef mini_putc
-//dep
-#ifndef mini_fputc
-#define mini_fputc
-#endif
-#endif
-
-#ifdef mini_strncasecmp
-//dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
-#endif
-#endif
-
-#ifdef mini_strdup
-//dep
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_strcpy
-#define mini_strcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_fseek
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_ptsname
-//dep
-#ifndef mini_ptsname_r
-#define mini_ptsname_r
-#endif
-#endif
-
-#ifdef mini_closedir
-//dep
-#ifndef mini_free
-#define mini_free
+#ifndef mini_close
+#define mini_close
 #endif
 #endif
 
@@ -4524,78 +4294,13 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_rewind
+#ifdef mini_fprint
 //dep
-#ifndef mini_fseek
-#define mini_fseek
+#ifndef mini_fprintf
+#define mini_fprintf
 #endif
-#endif
-
-#ifdef mini_posix_openpt
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_puts
-//dep
-#ifndef mini_printl
-#define mini_printl
-#endif
-#ifndef mini_print
-#define mini_print
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_fclose
-//dep
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_fputc
-//dep
 #ifndef mini_fileno
 #define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_strcmp
-//dep
-#ifndef mini__strcmp
-#define mini__strcmp
-#endif
-#endif
-
-#ifdef mini_tcgetattr
-//dep
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_fgetc
-//dep
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_prints
-//dep
-#ifndef mini__mprints
-#define mini__mprints
 #endif
 #endif
 
@@ -4615,60 +4320,20 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_strcat
+#ifdef mini_printf
 //dep
-#ifndef mini_strlen
-#define mini_strlen
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
 #endif
 #endif
 
-#ifdef mini_waitpid
+#ifdef mini_unlockpt
 //dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_print
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_fopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#endif
-
-#ifdef mini_perror
-//dep
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_strerror
-#define mini_strerror
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_snprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
+#ifndef mini_ioctl
+#define mini_ioctl
 #endif
 #endif
 
@@ -4685,6 +4350,102 @@ extern int errno;
 #endif
 #endif
 
+#ifdef mini_fseek
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_dtodec
+//dep
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini__mprints
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_memcmp
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_printl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_tcsetattr
+//dep
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_fopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#endif
+
+#ifdef mini_prints
+//dep
+#ifndef mini__mprints
+#define mini__mprints
+#endif
+#endif
+
+#ifdef mini_fgetc
+//dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_fgets
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_fdopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#endif
+
+#ifdef mini_vfprintf
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
 #ifdef mini_putchar
 //dep
 #ifndef mini_fputc
@@ -4692,57 +4453,201 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini__fopen
+#ifdef mini_ptsname_r
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#endif
+
+#ifdef mini_posix_openpt
 //dep
 #ifndef mini_open
 #define mini_open
 #endif
+#endif
+
+#ifdef mini_dirname
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_strrchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
+#endif
+#endif
+
+#ifdef mini_fputs
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
 #ifndef mini_fileno
 #define mini_fileno
 #endif
-#ifndef mini_close
-#define mini_close
+#ifndef mini_write
+#define mini_write
 #endif
 #endif
 
-#ifdef mini_signal
+#ifdef mini_rewind
 //dep
-#ifndef mini_sigaction
-#define mini_sigaction
+#ifndef mini_fseek
+#define mini_fseek
 #endif
 #endif
 
-#ifdef mini_unlockpt
-//dep
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_vsnprintf
+#ifdef mini_fwrites
 //dep
 #ifndef mini_write
 #define mini_write
 #endif
 #endif
 
-#ifdef mini_opendir
+#ifdef mini_ptsname
 //dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#ifndef mini_malloc
-#define mini_malloc
+#ifndef mini_ptsname_r
+#define mini_ptsname_r
 #endif
 #endif
 
-#ifdef mini_itohex
+#ifdef mini_strcat
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_fputc
+//dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_strchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
+#endif
+#endif
+
+#ifdef mini_isatty
+//dep
+#ifndef mini_tcgetattr
+#define mini_tcgetattr
+#endif
+#endif
+
+#ifdef mini_perror
+//dep
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_wait
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_strncpy
+//dep
+#ifndef mini_memcpy
+#define mini_memcpy
+#endif
+#endif
+
+#ifdef mini_itobin
+//dep
+#ifndef mini__itobin
+#define mini__itobin
+#endif
+#endif
+
+#ifdef mini_fsetpos
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_puts
+//dep
+#ifndef mini_printl
+#define mini_printl
+#endif
+#ifndef mini_print
+#define mini_print
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_writes
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_sprintf
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#endif
+
+#ifdef mini_waitpid
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_basename
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_itoHEX
 //dep
 #ifndef mini__itohex
 #define mini__itohex
+#endif
+#endif
+
+#ifdef mini_snprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
 #endif
 #endif
 
@@ -4752,15 +4657,128 @@ extern int errno;
 #define mini_ftell
 #endif
 #endif
+
+#ifdef mini_putc
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_strcasecmp
+//dep
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
+#endif
+#endif
+
+#ifdef mini_fclose
+//dep
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_ftell
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_itodec
+//dep
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini_getchar
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_printsl
+//dep
+#ifndef mini__mprints
+#define mini__mprints
+#endif
+#endif
+
+#ifdef mini_strcmp
+//dep
+#ifndef mini__strcmp
+#define mini__strcmp
+#endif
+#endif
+
+#ifdef mini_fprintfs
+//dep
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#endif
+
+#ifdef mini_fprints
+//dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_fread
+//dep
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
 // Start incfirst
 
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-char *strcpy(char *dest, const char *src);
+// 
+#ifdef mini_0
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_sprintf
+#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_close
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_malloc
+void* volatile malloc(int size);
 #endif
 
 // minilib/include/mini_fstream.h
-#ifdef mini_fileno
+#ifdef mini_fseek
 #ifndef mini_fstream_h
 #define mini_fstream_h
 
@@ -5066,51 +5084,28 @@ static int setvbuf(FILE *stream, char *buf, int mode, size_t size){
 #endif
 #endif
 
-// minilib/include/syscall_stubs.h
-#ifdef mini_write
+// minilib/src/strchr.c
+#ifdef mini_strchrnul
+char *strchrnul(const char *s, int c);
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_ftell
-#endif
-
-// 
-#ifdef mini_0
+// minilib/src/prints.c
+#ifdef mini__mprints
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 #endif
 
 // minilib/src/sprintf.c
-#ifdef mini_fprintf
-#define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+#ifdef mini_snprintf
+int snprintf( char *buf, size_t size, const char *fmt, ... );
 #endif
 
-// minilib/src/pty.c
-#ifdef mini_ptsname_r
-int ptsname_r(int fd, char *buf, size_t len);
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_memcpy
-void *memcpy( void *d, const void *s, int n );
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_itodec
-int itodec(int i, char *buf, int prec, char limiter );
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_strerror
-char* strerror( int errnum );
+// minilib/include/syscall_stubs.h
+#ifdef mini_read
 #endif
 
 // minilib/include/prints.h
 #ifdef mini_printl
 #define printl() write(STDOUT_FILENO,"\n",1)
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini__itobin
-int _itobin(int i, char*buf, int prec, int groups );
 #endif
 
 // minilib/include/lseek.h
@@ -5144,13 +5139,8 @@ DEF_syscall(fsync,1,int a1 )
 
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_sprintf
-#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
-#endif
-
-// minilib/include/fputs.h
-#ifdef mini_fputs
+// minilib/include/fgetc.h
+#ifdef mini_fgetc
 #ifndef mini_fstream_h
 #define mini_fstream_h
 
@@ -5373,117 +5363,6 @@ static int setvbuf(FILE *stream, char *buf, int mode, size_t size){
 
 
 #endif
-#ifndef fputs_h
-#define fputs_h
-
-//#include "write.h"
-
-
-//+header stdio.h
-//+needs mini_fstream.h
-//+include
-
-int strlen(const char*str);
-// after doesnt ork here. inline. so here's the predef.
-// need to rethink the dependency build process
-static int fileno(FILE*);
-
-//+depends strlen fileno write
-//+needs mini_fstream.h
-//+after fileno
-//+inline
-static inline int volatile fputs(const char *c, FILE *F){
-		return(write(fileno(F), c, strlen(c)));
-}
-
-
-
-#endif
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_wait4
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fseek
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_read
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strchrnul
-const char *strchrnul(const char *s, int c);
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_fputc
-#ifndef fputc_c
-#define fputc_c
-
-//#include "write.h"
-
-//+header stdio.h
-//+depends fileno write
-//+needs mini_fstream.h
-//+def
-static inline int volatile fputc(int c, FILE* F){
-		write(fileno(F), &c, 1);
-		return(c);
-}
-
-//+depends fputc
-//+macro  putchar(c) fputc(c,stdout)
-
-//+depends fputc
-//+macro  putc(c,stream) fputc(c,stream)
-
-
-#endif
-#endif
-
-// minilib/include/tcgetattr.h
-#ifdef mini_tcgetattr
-#ifndef tcgetattr_h
-#define tcgetattr_h
-
-//#include <sys/termios.h>
-//#include <sys/ioctl.h>
-//#include <sys/ttycom.h>
-
-//#ifndef TCGETS
-//#warning TCGETS not defined. Applying ugly hack.
-//#define TCGETS TIOCGETA
-//#endif
-
-int ioctl( int fd, unsigned long int request, ... );
-
-
-//+header unistd.h
-//+include
-///+needs sys/ttycom.h
-//+depends ioctl
-//+def
-static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
-	//return(ioctl(fd, 0x5401, io));
-	return(ioctl(fd, TCGETS, io));
-
-}
-
-
-
-#endif
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_fgetc
 #ifndef fgetc_h
 #define fgetc_h
 
@@ -5528,77 +5407,33 @@ static int ungetc(int c, FILE *F){
 #endif
 #endif
 
+// minilib/src/itodec.c
+#ifdef mini_itodec
+int itodec(int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_free
+void volatile free(void* p);
+#endif
+
 // minilib/include/prints.h
 #ifdef mini_prints
 #define prints(...) _mprints(__VA_ARGS__,0)
 #endif
 
-// minilib/src/strlen.c
-#ifdef mini_strlen
-int strlen(const char*str);
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+char *strcpy(char *dest, const char *src);
 #endif
 
-// minilib/src/prints.c
-#ifdef mini__mprints
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+// minilib/include/mini_fstream.h
+#ifdef mini_ftell
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_print
-#define print(str) write(STDOUT_FILENO,str,strlen(str))
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_malloc
-void* volatile malloc(int size);
-#endif
-
-// minilib/src/open.c
-#ifdef mini_open
-int volatile open( const char *s, int flags, ... );
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini__strcmp
-int _strcmp(const char*c1,const char*c2,int len);
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_snprintf
-int snprintf( char *buf, size_t size, const char *fmt, ... );
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini__strcasecmp
-int _strcasecmp(const char*c1,const char*c2,int len);
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_dprintf
-int dprintf( int fd, const char *fmt, ... );
-#endif
-
-// 
-#ifdef mini_dprints
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_close
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_vsnprintf
-int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini__fopen
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini__itohex
-int _itohex(int i,char* buf,int padding, int capitals);
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+void *memcpy( void *d, const void *s, int n );
 #endif
 
 // minilib/src/fgets.c
@@ -5606,24 +5441,189 @@ int _itohex(int i,char* buf,int padding, int capitals);
 char* fgets(char *buf, int size, FILE* F);
 #endif
 
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-int ioctl( int fd, unsigned long int request, ... );
-#endif
-
 // minilib/src/sigaction.c
 #ifdef mini_sigaction
 static int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 #endif
 
-// minilib/src/malloc.c
-#ifdef mini_free
-void volatile free(void* p);
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+int ioctl( int fd, unsigned long int request, ... );
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_ptsname_r
+int ptsname_r(int fd, char *buf, size_t len);
+#endif
+
+// 
+#ifdef mini_dprints
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fileno
+#endif
+
+// minilib/include/fputs.h
+#ifdef mini_fputs
+#ifndef fputs_h
+#define fputs_h
+
+//#include "write.h"
+
+
+//+header stdio.h
+//+needs mini_fstream.h
+//+include
+
+int strlen(const char*str);
+// after doesnt ork here. inline. so here's the predef.
+// need to rethink the dependency build process
+static int fileno(FILE*);
+
+//+depends strlen fileno write
+//+needs mini_fstream.h
+//+after fileno
+//+inline
+static inline int volatile fputs(const char *c, FILE *F){
+		return(write(fileno(F), c, strlen(c)));
+}
+
+
+
+#endif
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_print
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini__itobin
+int _itobin(int i, char*buf, int prec, int groups );
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini__strcmp
+int _strcmp(const char*c1,const char*c2,int len);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_wait4
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_fputc
+#ifndef fputc_c
+#define fputc_c
+
+//#include "write.h"
+
+//+header stdio.h
+//+depends fileno write
+//+needs mini_fstream.h
+//+def
+static inline int volatile fputc(int c, FILE* F){
+		write(fileno(F), &c, 1);
+		return(c);
+}
+
+//+depends fputc
+//+macro  putchar(c) fputc(c,stdout)
+
+//+depends fputc
+//+macro  putc(c,stream) fputc(c,stream)
+
+
+#endif
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_vsnprintf
+int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini__itohex
+int _itohex(int i,char* buf,int padding, int capitals);
+#endif
+
+// minilib/include/tcgetattr.h
+#ifdef mini_tcgetattr
+#ifndef tcgetattr_h
+#define tcgetattr_h
+
+//#include <sys/termios.h>
+//#include <sys/ioctl.h>
+//#include <sys/ttycom.h>
+
+//#ifndef TCGETS
+//#warning TCGETS not defined. Applying ugly hack.
+//#define TCGETS TIOCGETA
+//#endif
+
+int ioctl( int fd, unsigned long int request, ... );
+
+
+//+header unistd.h
+//+include
+///+needs sys/ttycom.h
+//+depends ioctl
+//+def
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
+	//return(ioctl(fd, 0x5401, io));
+	return(ioctl(fd, TCGETS, io));
+
+}
+
+
+
+#endif
+#endif
+
+// minilib/src/strlen.c
+#ifdef mini_strlen
+int strlen(const char*str);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_write
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini__fopen
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_strerror
+char* strerror( int errnum );
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_fprintf
+#define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_dprintf
+int dprintf( int fd, const char *fmt, ... );
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini__strcasecmp
+int _strcasecmp(const char*c1,const char*c2,int len);
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+int volatile open( const char *s, int flags, ... );
 #endif
 // End incfirst
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__epoll_create1
+#ifdef mini__listxattr
 #ifndef syscalls_x64_h
 
 #define syscalls_x64_h
@@ -6249,100 +6249,113 @@ SYSDEF_syscall(_bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__seccomp
+#ifdef mini__getrandom
+#endif
+
+// minilib/src/ltodec.c
+#ifdef mini_ultodec
+int ultodec(unsigned long i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_gettime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fanotify_init
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__request_key
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fsync
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_delete
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigpending
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_dup
+#ifdef mini_pivot_root
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mprotect
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_unlink
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_posix_openpt
-int posix_openpt(int flags);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchmodat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_timedsend
+#ifdef mini__rename
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_dup2
+#ifdef mini_sendfile
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__nanosleep
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fclose
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__prlimit64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__symlinkat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setfsuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msync
 #endif
 
 // minilib/include/mini_fstream.h
 #ifdef mini_feof
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__getcpu
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_getchar
-#define getchar() fgetc(0)
+// minilib/include/mini_fstream.h
+#ifdef mini_clearerror
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fdatasync
+#ifdef mini__vfork
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__write
+#ifdef mini__fallocate
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__linkat
+#ifdef mini__inotify_init1
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__listen
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_srand
-void srand( unsigned int i );
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-int atoi(const char *c);
+#ifdef mini__sync
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__dup
+#ifdef mini__process_vm_writev
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigprocmask
+#ifdef mini__umount2
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getpgid
+#ifdef mini__rt_sigaction
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__reboot
-#endif
-
-// minilib/src/open.c
-#ifdef mini_creat
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_symlink
+// minilib/src/isatty.c
+#ifdef mini_isatty
+int isatty(int fd);
 #endif
 
 // minilib/include/isprint.h
@@ -6365,96 +6378,61 @@ static inline int __attribute__((always_inline)) isprint(const char c){
 
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__geteuid
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-char *strcat(char *dest, const char *src );
+// minilib/src/wait.c
+#ifdef mini_wait
+pid_t wait(int *wstatus);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__madvise
+#ifdef mini__sendmmsg
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_fstat
+#ifdef mini_rename
 #endif
 
-// minilib/src/fopen.c
-#ifdef mini_fopen
-FILE *fopen(const char* filename, const char* mode);
+// minilib/include/syscalls_x64.h
+#ifdef mini__ustat
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_pipe
+#ifdef mini_setsid
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_vhangup
+#ifdef mini_link
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__modify_ldt
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_memcmp
-int memcmp(const void* c1,const void* c2,int len);
+#ifdef mini__linkat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_getattr
+#ifdef mini__capset
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__timer_create
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setxattr
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strcasecmp
-int strcasecmp(const char*c1,const char*c2);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__keyctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setgroups
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__name_to_handle_at
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__arch_prctl
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getpid
-#endif
-
-// minilib/macros/getoptm.h
-#ifdef mini_def
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__symlink
+#ifdef mini__mlock
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__recvfrom
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getparam
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__newfstatat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setpriority
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getcwd
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -6462,85 +6440,11 @@ int strcasecmp(const char*c1,const char*c2);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__restart_syscall
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getuid
+#ifdef mini__tkill
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sync
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strrchr
-const char *strrchr(const char *s, int c);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__personality
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_fcntl
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mount
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_settime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__signalfd
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__unshare
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_yield
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msync
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sysinfo
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__prlimit64
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lchown
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__open_by_handle_at
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_chroot
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putchar
-#define putchar(c) fputc(c,stdout)
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_stat
+#ifdef mini__utimensat
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -6548,7 +6452,35 @@ const char *strrchr(const char *s, int c);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__recvmsg
+#ifdef mini__futimesat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kcmp
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lseek
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpriority
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_sync
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setscheduler
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_nanosleep
 #endif
 
 // minilib/src/signal.c
@@ -6557,109 +6489,78 @@ sighandler_t signal(int sig, sighandler_t func );
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__quotactl
-#endif
-
-// minilib/src/memset.c
-#ifdef mini_memset
-void *memset( void *s, int c, int n);
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itohex
-int itohex(int i,char* buf,int padding);
+#ifdef mini__flock
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__ptrace
+#ifdef mini__mincore
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getuid
+#ifdef mini__timerfd_create
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_getenv
+char *getenv(const char* name);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__renameat2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__listen
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semtimedop
+#endif
+
+// minilib/src/basename.c
+#ifdef mini_basename
+char *basename(char *path);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__socketpair
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__signalfd4
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__move_pages
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigtimedwait
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__set_tid_address
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_fchmod
+#ifdef mini_brk
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__socket
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utimes
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getppid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setresuid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setdomainname
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ftruncate
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vmsplice
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setsockopt
+// minilib/include/prints.h
+#ifdef mini_writes
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_setuid
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fsetpos
+#ifdef mini_umask
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini___sysctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigqueueinfo
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__swapoff
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fsync
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rmdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mkdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tkill
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_getres
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lstat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sysfs
+#ifdef mini__clock_gettime
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -6667,119 +6568,132 @@ int itohex(int i,char* buf,int padding);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__timer_delete
+#ifdef mini__fchdir
+#endif
+
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
+void* memfrob(void* s, unsigned int len);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__pwrite64
+#ifdef mini__rt_sigreturn
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__munmap
+#ifdef mini__msgctl
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__shutdown
+#ifdef mini__semctl
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__msgsnd
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semget
+#ifdef mini__name_to_handle_at
 #endif
 
 // minilib/include/mini_fstream.h
-#ifdef mini_setbuf
+#ifdef mini_ferror
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_get_priority_min
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lstat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fadvise64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__set_mempolicy
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readlinkat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__seccomp
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__get_mempolicy
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__add_key
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__creat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setgroups
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpeername
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__alarm
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendmsg
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_rm_watch
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getgroups
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_fsync
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini___sysctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unshare
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kexec_load
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getdents64
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_fchown
+#ifdef mini_getppid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mknod
+#ifdef mini__close
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__removexattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_adjtime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__link
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_pivot_root
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sigaltstack
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__process_vm_readv
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semtimedop
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_ptsname
-char *ptsname(int fd);
-#endif
-
-// minilib/src/ltodec.c
-#ifdef mini_ultodec
-int ultodec(unsigned long i, char *buf, int prec, char limiter );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mknodat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ppoll
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__set_tid_address
-#endif
-
-// minilib/src/dirname.c
-#ifdef mini_dirname
-char *dirname(char *s);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__finit_module
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioperm
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_brk
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_getc
-#define getc(F) fgetc(F)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__delete_module
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__syncfs
+#ifdef mini__gettid
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -6787,15 +6701,11 @@ char *dirname(char *s);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mkdirat
+#ifdef mini__fchownat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__readahead
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chroot
+#ifdef mini__openat
 #endif
 
 // minilib/include/mini_fstream.h
@@ -6803,49 +6713,152 @@ char *dirname(char *s);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__prctl
+#ifdef mini__mkdirat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mmap
+#ifdef mini__msgsnd
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fsetpos
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_setvbuf
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_chroot
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__clone
+#ifdef mini__getpgid
+#endif
+
+// minilib/src/isspace.c
+#ifdef mini_isspace
+int isspace(int c);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_tgsigqueueinfo
+#ifdef mini__stat
 #endif
 
-// minilib/src/strerror.c
-#ifdef mini_perror
-void perror(const char *msg);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setuid
+// minilib/include/mini_fstream.h
+#ifdef mini_setbuf
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_setattr
+#ifdef mini__futex
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__uname
+#ifdef mini__setpgid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getresuid
+#ifdef mini__munmap
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getsockopt
+#ifdef mini__inotify_add_watch
 #endif
 
-// minilib/src/sleep.c
-#ifdef mini_sleep
-unsigned int sleep(unsigned int seconds);
+// minilib/include/syscalls_x64.h
+#ifdef mini__bind
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pipe
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getegid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__remap_file_pages
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+int atoi(const char *c);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mkdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_create1
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_utime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mlockall
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_settime
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+char *strncpy(char *dest, const char *src, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sync_file_range
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__truncate
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readv
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getgid
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getuid
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fchmod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__perf_event_open
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrusage
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__syslog
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_putchar
+#define putchar(c) fputc(c,stdout)
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fdopen
+FILE *fdopen(int fd, const char* mode);
 #endif
 
 // minilib/include/mkfifo.h
@@ -6859,11 +6872,79 @@ static int mkfifo( const char* path, mode_t mode ){
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__bind
+#ifdef mini__exit_group
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fcntl
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__times
+#ifdef mini__epoll_pwait
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+int itohex(int i,char* buf,int padding);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrlimit
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lookup_dcookie
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setrlimit
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__select
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+void *memset( void *s, int c, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getdents
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_notify
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_timedsend
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getcpu
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setuid
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rmdir
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_getchar
+#define getchar() fgetc(0)
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strcmp
+int strcmp(const char*c1,const char*c2);
 #endif
 
 // minilib/include/prints.h
@@ -6872,63 +6953,82 @@ static int mkfifo( const char* path, mode_t mode ){
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_execve
+#ifdef mini_vfork
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_get_priority_min
+#ifdef mini__umask
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+char *strcat(char *dest, const char *src );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_getoverrun
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__accept4
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_tgsigqueueinfo
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__brk
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chmod
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_access
+#ifdef mini_setpgid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__utimensat
+#ifdef mini__prctl
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigtimedwait
+#ifdef mini__epoll_ctl
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini_itobin
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__init_module
+#ifdef mini__timer_settime
 #endif
 
-// minilib/include/lseek.h
-#ifdef mini_ftruncate
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pivot_root
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fread
+// minilib/src/strerror.c
+#ifdef mini_perror
+void perror(const char *msg);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__io_setup
+#ifdef mini__ioctl
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__recvmmsg
+#ifdef mini__unlinkat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_rr_get_interval
+#ifdef mini__rt_sigsuspend
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__wait4
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fcntl
+#ifdef mini__signalfd
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_getppid
+#ifdef mini_dup
 #endif
 
 // minilib/include/mini_fstream.h
@@ -6937,226 +7037,49 @@ static int mkfifo( const char* path, mode_t mode ){
 #endif
 
 // minilib/include/syscalls_x64.h
+#ifdef mini__timer_create
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_setup
+#endif
+
+// minilib/include/syscalls_x64.h
 #ifdef mini__waitid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mremap
+#ifdef mini__shmdt
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__exit_group
+#ifdef mini__kexec_file_load
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__clock_gettime
+#ifdef mini__sched_getaffinity
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__perf_event_open
+#ifdef mini__ptrace
 #endif
 
-// minilib/include/syscall_stubs.h
-#ifdef mini_setpgid
+// minilib/src/ltodec.c
+#ifdef mini_ltodec
+int ltodec(long i, char *buf, int prec, char limiter );
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__semop
+// minilib/src/rand.c
+#ifdef mini_srand
+void srand( unsigned int i );
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__process_vm_writev
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putc
-#define putc(c,stream) fputc(c,stream)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pipe
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munlock
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__request_key
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fanotify_init
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_init1
+// minilib/include/lseek.h
+#ifdef mini_ftruncate
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__fchmod
-#endif
-
-// minilib/src/sigemptyset.c
-#ifdef mini_sigemptyset
-static int sigemptyset(sigset_t *set);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__splice
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__dup3
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_dup3
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getgroups
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__umount2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_get_priority_max
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setpgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lgetxattr
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_chdir
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_grantpt
-int grantpt(int fd);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__close
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__poll
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kcmp
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_gettime
-#endif
-
-// minilib/src/fprintfs.c
-#ifdef mini_fprintfs
-int fprintfs( FILE* F, char *fmt, ...);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fsetxattr
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_printsl
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__swapon
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_nanosleep
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_settime
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strncpy
-char *strncpy(char *dest, const char *src, int n);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fremovexattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readv
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rename
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itoHEX
-int itoHEX(int i,char* buf,int padding);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__adjtimex
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__dup2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sethostname
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pselect6
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__llistxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pipe2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getegid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setitimer
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_getsetattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readlink
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_rewind
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -7164,73 +7087,11 @@ int itoHEX(int i,char* buf,int padding);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getrusage
-#endif
-
-// minilib/src/isatty.c
-#ifdef mini_isatty
-int isatty(int fd);
+#ifdef mini__sendfile
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getsockname
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_create
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__exit
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__futimesat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mbind
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_vfork
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_getoverrun
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__syslog
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fallocate
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_submit
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_gettime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tee
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_unlockpt
-int unlockpt(int fd);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tgkill
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lseek
+#ifdef mini__rt_sigprocmask
 #endif
 
 // minilib/src/dirent/opendir.c
@@ -7239,47 +7100,168 @@ DIR *opendir(const char *name);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__chown
+#ifdef mini__mkdir
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__ustat
+#ifdef mini__mmap
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getsid
+#ifdef mini__fstat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__openat
+#ifdef mini__mq_unlink
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fork
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__signalfd4
+#ifdef mini__setreuid
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fstat
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getpgrp
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fchdir
+#ifdef mini__acct
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__kill
+#ifdef mini__fdatasync
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_putc
+#define putc(c,stream) fputc(c,stream)
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__epoll_create
+#ifdef mini__getitimer
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__shmget
+#ifdef mini__access
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigaction
+#ifdef mini__rt_sigqueueinfo
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getpid
+#ifdef mini__setitimer
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_kill
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioprio_set
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__uname
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__eventfd2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__wait4
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__socket
+#endif
+
+// minilib/macros/getoptm.h
+#ifdef mini_def
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__connect
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_fwrites
+#define fwrites(fd,str) write(fd,str,sizeof(str))
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_ptsname
+char *ptsname(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__renameat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_destroy
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mremap
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setattr
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strrchr
+char *strrchr(const char *s, int c);
+#endif
+
+// minilib/src/dirname.c
+#ifdef mini_dirname
+char *dirname(char *s);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_yield
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setfsgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__recvmmsg
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__set_robust_list
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__get_robust_list
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__swapon
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__delete_module
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__eventfd
 #endif
 
 // minilib/src/rand.c
@@ -7288,79 +7270,37 @@ unsigned int rand();
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__epoll_pwait
+#ifdef mini__syncfs
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fchownat
+#ifdef mini__epoll_create
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__bpf
+#ifdef mini__ioperm
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_writes
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+// minilib/src/pty.c
+#ifdef mini_unlockpt
+int unlockpt(int fd);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__unlink
+#ifdef mini__flistxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ppoll
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__removexattr
 #endif
 
 // minilib/src/fopen.c
-#ifdef mini_fdopen
-FILE *fdopen(int fd, const char* mode);
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strchr
-const char *strchr(const char *s, int c);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_rm_watch
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_notify
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__gettid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chmod
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mprotect
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__alarm
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setparam
-#endif
-
-// minilib/src/ltodec.c
-#ifdef mini_ltodec
-int ltodec(long i, char *buf, int prec, char limiter );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__accept
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__futex
+#ifdef mini_fopen
+FILE *fopen(const char* filename, const char* mode);
 #endif
 
 // minilib/include/tcsetattr.h
@@ -7395,31 +7335,27 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__creat
+#ifdef mini__migrate_pages
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getgid
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_ferror
+#ifdef mini__execve
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sendmmsg
+#ifdef mini__swapoff
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_fflush
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vfork
+// minilib/include/syscall_stubs.h
+#ifdef mini_chdir
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getpeername
+#ifdef mini__pwritev
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chown
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -7427,11 +7363,147 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__writev
+#ifdef mini__pause
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigpending
+#ifdef mini__getpgrp
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getdents
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__poll
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readahead
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fwrite
+#endif
+
+// minilib/src/wait.c
+#ifdef mini_waitpid
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fchown
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_stat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pwrite64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__write
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_readahead
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__tgkill
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_uname
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sysfs
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__modify_ldt
+#endif
+
+// minilib/src/open.c
+#ifdef mini_creat
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__splice
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_gettime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__utime
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_execve
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__memfd_create
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pread64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fsetxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__open
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_pipe
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sethostname
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pivot_root
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mount
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sysinfo
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mbind
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_timedreceive
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_vhangup
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_getc
+#define getc(F) fgetc(F)
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+int dtodec(double d, char* buf, int precision);
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -7439,23 +7511,59 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sync_file_range
+#ifdef mini__ioprio_get
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_getaffinity
+#ifdef mini__recvmsg
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setfsgid
+#ifdef mini__fchown
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__flistxattr
+#ifdef mini__sched_setaffinity
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__set_robust_list
+#ifdef mini__chdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__writev
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_wait
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setresuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fremovexattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ftruncate
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getresuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_getsetattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lgetxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__symlink
 #endif
 
 // minilib/src/strcmp.c
@@ -7464,360 +7572,7 @@ int strncasecmp(const char*c1,const char*c2,int len);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__set_mempolicy
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_destroy
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fgetxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__settimeofday
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_chmod
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readlinkat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setreuid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lsetxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getresgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setns
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_fsync
-#endif
-
-// minilib/src/wait.c
-#ifdef mini_waitpid
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lremovexattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_open
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getscheduler
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_fwrites
-#define fwrites(fd,str) write(fd,str,sizeof(str))
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_ungetc
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigsuspend
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getpgrp
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgget
-#endif
-
-// minilib/src/dirent/readdir.c
-#ifdef mini_readdir
-struct dirent *readdir(DIR *dir);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__iopl
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fwrite
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini_itobin
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_umask
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pwritev
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setrlimit
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioprio_set
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_sendfile
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setpriority
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__eventfd2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kexec_load
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmdt
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rename
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__open
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__stat
-#endif
-
-// minilib/src/strdup.c
-#ifdef mini_strdup
-char *strdup(const char *source);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lookup_dcookie
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_ctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrlimit
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strncmp
-int strncmp(const char*c1,const char*c2,int len);
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fclose
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_timedreceive
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_link
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__umask
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rmdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpriority
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__socketpair
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fstatfs
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendto
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_settime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getcwd
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__capget
-#endif
-
-// minilib/src/fgets.c
-#ifdef mini_gets
-#define gets(F) fgets(F,0xfffffff,stdin)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__faccessat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__connect
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vhangup
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_cancel
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fork
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kexec_file_load
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_fork
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_vfprintf
-#define vfprintf(...) fprintf(__VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__gettimeofday
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_time
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__migrate_pages
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendmsg
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setresgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__execve
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setregid
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mkdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__renameat
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_clearerror
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_getenv
-char *getenv(const char* name);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_add_watch
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mlockall
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getparam
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getdents64
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__accept4
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_utime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mount
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setfsuid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__get_mempolicy
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__nanosleep
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pause
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__get_robust_list
+#ifdef mini__vmsplice
 #endif
 
 // minilib/src/fopen.c
@@ -7825,79 +7580,16 @@ char *getenv(const char* name);
 FILE *freopen(const char* filename, const char* mode, FILE *F);
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_setvbuf
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_open
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__capset
+#ifdef mini__setxattr
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigreturn
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getdents
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__acct
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__add_key
-#endif
-
-// minilib/src/dirent/closedir.c
-#ifdef mini_closedir
-int closedir(DIR *dir);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mlock
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_wait
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_puts
-#define puts(msg) ( print(msg) + printl() )
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strcmp
-int strcmp(const char*c1,const char*c2);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setsid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__eventfd
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__listxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__move_pages
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fanotify_mark
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setgid
+#ifdef mini__bpf
 #endif
 
 // minilib/include/select.h
@@ -7934,55 +7626,28 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__select
+#ifdef mini__utimes
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__renameat2
+#ifdef mini__tee
+#endif
+
+// minilib/src/sigemptyset.c
+#ifdef mini_sigemptyset
+static int sigemptyset(sigset_t *set);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_setaffinity
+#ifdef mini__getresgid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getpgrp
+#ifdef mini__setresgid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__shmat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getdents
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__symlinkat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__statfs
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__truncate
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__read
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__newfstatat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgctl
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_reboot
+#ifdef mini__getxattr
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -7990,23 +7655,189 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fstat
+#ifdef mini__restart_syscall
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__llistxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fcntl
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fflush
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_uname
+#ifdef mini_time
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mincore
+#ifdef mini__init_module
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_puts
+#define puts(msg) ( print(msg) + printl() )
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setsid
+#ifdef mini__vhangup
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__access
+#ifdef mini__time
+#endif
+
+// minilib/src/fprintfs.c
+#ifdef mini_fprintfs
+int fprintfs( FILE* F, char *fmt, ...);
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_posix_openpt
+int posix_openpt(int flags);
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_grantpt
+int grantpt(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fstatfs
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getpid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_getres
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__keyctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__iopl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setparam
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clone
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semop
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_init
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__madvise
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_get_priority_max
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mknod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__arch_prctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pselect6
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_rr_get_interval
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__open_by_handle_at
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setdomainname
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__accept
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getscheduler
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__statfs
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__personality
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kill
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__munlock
+#endif
+
+// minilib/src/strdup.c
+#ifdef mini_strdup
+char *strdup(const char *source);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fork
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strncmp
+int strncmp(const char*c1,const char*c2,int len);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pipe2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__finit_module
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__read
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mount
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__quotactl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lchown
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -8014,11 +7845,176 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_setscheduler
+#ifdef mini__getsid
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itoHEX
+int itoHEX(int i,char* buf,int padding);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chroot
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fanotify_mark
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_settime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unlink
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setsid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__faccessat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fgetxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lremovexattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsockopt
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_printsl
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fread
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setsockopt
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strcasecmp
+int strcasecmp(const char*c1,const char*c2);
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strchr
+char *strchr(const char *s, int c);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__capget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__adjtimex
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rmdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shutdown
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_sync
+#ifdef mini_access
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_rewind
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_chmod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendto
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mknodat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_adjtime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_submit
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__times
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_setuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setns
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_setgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__process_vm_readv
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__gettimeofday
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__settimeofday
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_cancel
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getppid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup3
+#endif
+
+// minilib/src/fgets.c
+#ifdef mini_gets
+#define gets(F) fgets(F,0xfffffff,stdin)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__geteuid
 #endif
 
 // minilib/include/mini_fstream.h
@@ -8026,101 +8022,105 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 #endif
 
-// minilib/include/syscall_stubs.h
-#ifdef mini_kill
-#endif
-
-// minilib/src/basename.c
-#ifdef mini_basename
-char *basename(char *path);
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__memfd_create
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrandom
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_getevents
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__time
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__flock
+#ifdef mini__fchmodat
 #endif
 
 // minilib/include/syscall_stubs.h
 #ifdef mini_getcwd
 #endif
 
-// minilib/src/wait.c
-#ifdef mini_wait
-pid_t wait(int *wstatus);
+// minilib/include/syscalls_x64.h
+#ifdef mini__readlink
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_vfprintf
+#define vfprintf(...) fprintf(__VA_ARGS__)
+#endif
+
+// minilib/src/dirent/readdir.c
+#ifdef mini_readdir
+struct dirent *readdir(DIR *dir);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fadvise64
+#ifdef mini__io_getevents
 #endif
 
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-int dtodec(double d, char* buf, int precision);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pread64
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__remap_file_pages
+// minilib/src/strcmp.c
+#ifdef mini_memcmp
+int memcmp(const void* c1,const void* c2,int len);
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_readahead
+#ifdef mini_reboot
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_symlink
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getitimer
+#ifdef mini__mprotect
+#endif
+
+// minilib/src/dirent/closedir.c
+#ifdef mini_closedir
+int closedir(DIR *dir);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__inotify_init
-#endif
-
-// minilib/src/isspace.c
-#ifdef mini_isspace
-int isspace(int c);
+#ifdef mini__shmctl
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__brk
+#ifdef mini__exit
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sendfile
+#ifdef mini__sigaltstack
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mprotect
+#endif
+
+// minilib/src/sleep.c
+#ifdef mini_sleep
+unsigned int sleep(unsigned int seconds);
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_ungetc
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__ioprio_get
+#ifdef mini__link
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup3
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fchown
+#ifdef mini__reboot
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__unlinkat
+#ifdef mini__getsockname
 #endif
 
-// minilib/src/memfrob.c
-#ifdef mini_memfrob
-void* memfrob(void* s, unsigned int len);
+// minilib/include/syscalls_x64.h
+#ifdef mini__setregid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lsetxattr
 #endif
 #ifdef INCLUDESRC
 #ifndef included_minilib_c
@@ -8570,622 +8570,187 @@ int sysret;
 
 /* end templates/minilib.c.in */
 
-// minilib/src/pty.c
-#ifdef mini_posix_openpt
-#ifndef pty_c
-#define pty_c
+// minilib/src/ltodec.c
+#ifdef mini_ultodec
+//+include
+//+def
+int ultodec(unsigned long i, char *buf, int prec, char limiter ){
+		int p = 0;
+		if ( i>2^16 ){
+				p=itodec((unsigned int)i-2^16, buf, prec, limiter);
+				strcpy(&buf[p], "*2^16+"); // rude hack. Correct, but..
+#todo: write ltodec
+				p+=7;
+		}
+		return(uitodec((uint)i, &buf[p], prec, limiter));
+}
+//+def
+int ltodec(long i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(ultodec((unsigned long)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(ultodec((unsigned long)i,buf,prec,limiter) );
+}
+
+#endif
+
+// minilib/src/isatty.c
+#ifdef mini_isatty
+#ifndef isatty_c
+#define isatty_c
+//+header unistd.h
+//+include
+//+depends tcgetattr
+//+def
+int isatty(int fd){
+	struct termios term;
+	return( tcgetattr(fd, &term) == 0 );
+}
+
+
+#endif
+
+#endif
+
+// minilib/src/wait.c
+#ifdef mini_wait
+#ifndef wait_c
+#define wait_c
+//+header sys/wait.h
+
+//+depends wait4
+//+include
+//+def
+pid_t wait(int *wstatus){
+	return(wait4(-1,wstatus,0,0));
+}
+
+
+//+depends wait4
+//+include
+//+def
+pid_t waitpid(pid_t pid, int *wstatus, int options){
+	return(wait4(pid,wstatus,options,0));
+}
+
+
+#endif
+#endif
+
+// minilib/src/fgets.c
+#ifdef mini_fgets
+#ifndef fgets_c
+#define fgets_c
+//+header stdio.h
+//+depends fgetc
+//+def
+char* fgets(char *buf, int size, FILE* F){
+		char *ret = buf;
+
+		*buf = (char)fgetc(F);
+		if ( !*buf ) // EOF
+				return(0);
+
+		while( --size >0 ){
+				buf++;
+				*buf = (char)fgetc(F);
+				if ( *buf == 0 )
+						return(ret);
+				if ( *buf == '\n' )
+						size=0;
+		}
+		buf++;
+		*buf = 0;
+		return(ret);
+}
+
+//+depends fgets fgetc fileno read
+//+macro gets(F) fgets(F,0xfffffff,stdin)
+
+
+
+#endif
+#endif
+
+// minilib/src/signal.c
+#ifdef mini_signal
+#ifndef signal_c
+#define signal_c
 
 // musl
 
-//+depends open
+//+header signal.h
+//+depends sigaction
 //+def
-int posix_openpt(int flags){
-		return open("/dev/ptmx", flags);
-}
-
-//+def
-int grantpt(int fd){
-		return 0;
-}
-
-
-//+depends ioctl
-//+def
-int unlockpt(int fd){
-		int unlock = 0;
-		return ioctl(fd, TIOCSPTLCK, &unlock);
-}
-
-//+depends snprintf itodec
-//+def
-int ptsname_r(int fd, char *buf, size_t len){
-		int pty, err;
-		if (!buf) len = 0;
-		if ((err = ioctl( fd, TIOCGPTN, &pty))) return -err;
-	//	printf("pts: %d, %d\n",pty,len);
-		if (sprintf(buf, "/dev/pts/%d", pty) >= len) return ERANGE;
-
-	//	printf("pts: %s\n",buf);
-		return 0;
-}
-
-//+depends ptsname_r 
-//+def
-char *ptsname(int fd){
-		static char buf[9 + sizeof(int)*3 + 1];
-		int err = ptsname_r(fd, buf, sizeof buf);
-		if (err) {
-				errno = err;
-				return 0;
+sighandler_t signal(int sig, sighandler_t func ){
+		struct sigaction sa_old = { .sa_handler=0, .sa_flags=0 };
+		struct sigaction sa = { .sa_handler = func, .sa_flags = SA_RESTART };
+		if (sigaction(sig, &sa, &sa_old) < 0){
+				prints("SIGNAL - ERR\n");
+				return SIG_ERR;
 		}
-		return buf;
-}
-
-
-#endif
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_srand
-#ifndef rand_c
-#define rand_c
-
-
-//+header stdlib.h
-//+def
-void srand( unsigned int i ){
-		ml.srand = i;
-}
-	
-
-
-//+header stdlib.h
-//+def
-unsigned int rand(){
-		// xorshift, algorithm af marsaglia.
-		// second round added, it doesn't give more randomness,
-		// but isn't so expensive on the other hand.
-		if ( ml.srand==0 ){
-				ml.srand=1;
-		}
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		unsigned int t = ml.srand;
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		return(t-1);
+		return sa_old.sa_handler;
 }
 
 
 
 
 
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-#ifndef atoi_c
-#define atoi_c
-
-//+ansi stdlib.h
-//+def
-int atoi(const char *c){
-		int t,a=0;
-	 	int ret=0;
-		int dez = 1;
-
-		while( c[a] != 0 ){ 
-				a++; 
-		}
-		while ( a>0 ){
-				a--;
-				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
-						t = c[a] - 48;
-						if ( t & 1 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 2 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 4 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 8 )
-								ret += dez;
-				} else {
-						dez <<= 3;
-				}
-				dez += (dez >> 2);
-		}
-		if ( c[0] == '-' )
-				ret = -ret;
-		return(ret);
-}
-
-
-#endif
-		
-#endif
-
-// minilib/src/open.c
-#ifdef mini_creat
-#ifndef open_c
-#define open_c
-//+header fcntl.h
-//+include
-
-
-//#include "syscall.h"
-#ifndef mini_filemodes_h
-#define mini_filemodes_h
-
-#ifdef OSX
-
-/* open-only flags */
-#define	O_RDONLY	0x0000		/* open for reading only */
-#define	O_WRONLY	0x0001		/* open for writing only */
-#define	O_RDWR		0x0002		/* open for reading and writing */
-#define	O_ACCMODE	0x0003		/* mask for above modes */
-
-#define	FREAD		0x0001
-#define	FWRITE		0x0002
-#define	O_NONBLOCK	0x0004		/* no delay */
-#define	O_APPEND	0x0008		/* set append mode */
-
-#define	O_SHLOCK	0x0010		/* open with shared file lock */
-#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
-#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
-#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
-#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
-#define	O_CREAT		0x0200		/* create if nonexistant */
-#define	O_TRUNC		0x0400		/* truncate to zero length */
-#define	O_EXCL		0x0800		/* error if already exists */
-
-#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
-
-#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
-#define O_DIRECTORY	0x100000
-#define O_SYMLINK	0x200000	/* allow open of a symlink */
-#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
-#define O_DP_GETRAWENCRYPTED	0x0001
-#define O_DP_GETRAWUNENCRYPTED	0x0002
-
-
-
-#else
-
-
-#define O_ACCMODE	00000003
-#define O_RDONLY	00000000
-#define O_WRONLY	00000001
-#define O_RDWR		00000002
-#define O_CREAT		00000100	/* not fcntl */
-#define O_EXCL		00000200	/* not fcntl */
-#define O_NOCTTY	00000400	/* not fcntl */
-#define O_TRUNC		00001000	/* not fcntl */
-#define O_APPEND	00002000
-#define O_NONBLOCK	00004000
-#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
-#define FASYNC		00020000	/* fcntl, for BSD compatibility */
-#define O_DIRECT	00040000	/* direct disk access hint */
-#define O_LARGEFILE	00100000
-#define O_DIRECTORY	00200000	/* must be a directory */
-#define O_NOFOLLOW	00400000	/* don't follow links */
-#define O_NOATIME	01000000
-#define O_CLOEXEC	02000000	/* set close_on_exec */
-
-#endif
-
-
-
-#endif
-
-
-#ifndef stdarg_h
-#define stdarg_h
-// copied from musl
-// copy more - the builtin list..
-
-#if 1
-#if __GNUC__ >= 3
-//#warning here 1
-typedef __builtin_va_list va_list;
-#define va_start(v,l)   __builtin_va_start(v,l)
-#define va_end(v)       __builtin_va_end(v)
-#define va_arg(v,l)     __builtin_va_arg(v,l)
-#define va_copy(d,s)    __builtin_va_copy(d,s)
-#else
-//#warning here 2
-
-#ifdef __GNUC__
-//#warning here 3
-//TODO: this gets scrambled if in the same compiler unit as the caller.
-typedef __builtin_va_list va_list;
-#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-
-#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
-#define va_end(ap) ((void)0)
-#define va_copy(dest, src) ((dest) = (src))
-
-#define va_arg(ap, type) \
-	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
-	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
-
-
-#else
-
-//#warning here 4
-// copied from tcc
-#ifdef __x86_64__
-//#warning here 5
-#ifndef _WIN64
-//#warning here 6
-
-typedef void *va_list;
-
-va_list __va_start(void *fp);
-void *__va_arg(va_list ap, int arg_type, int size);
-va_list __va_copy(va_list src);
-void __va_end(va_list ap);
-
-#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
-#define va_arg(ap, type)                                                \
-		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
-#define va_copy(dest, src) ((dest) = __va_copy(src))
-#define va_end(ap) __va_end(ap)
-
-#else /* _WIN64 */
-typedef char *va_list;
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
-#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-#else /* __i386__ */
-typedef char *va_list;
-/* only correct for i386 */
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
-#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-/* fix a buggy dependency on GCC in libio.h */
-typedef va_list __gnuc_va_list;
-#define _VA_LIST_DEFINED
-
 #endif
 #endif
 
-#endif
+// minilib/src/strlen.c
+#ifdef mini_strlen
+#ifndef strlen_c
+#define strlen_c
 
-#endif
-
-
-//+def
-int volatile open( const char *s, int flags, ... ){
-		int ret;
-		va_list args;
-		va_start(args,flags);
-		int mode = va_arg(args,int);
-		va_end(args);
-		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
-#ifdef mini_errno
-		if ( ret<0 )
-				errno = -ret;
-#endif
-		return(ret);
-}
-
-/// creat
-//d open
-//+def
-inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
-		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
-}
-
-
-
-//FILE* volatile fopen( const char *s, const char *mode ){
-//		int m = 0;
-
-
-
-
-#endif
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-#ifndef strcat_c
-#define strcat_c
-
-//+ansi string.h
-//+depends strlen
-//+def
-char *strcat(char *dest, const char *src ){
-		size_t dest_len = strlen(dest);
-		size_t i;
-
-		for (i = 0 ; src[i] != '\0' ; i++)
-				dest[dest_len + i] = src[i];
-		dest[dest_len + i] = '\0';
-
-		return dest;
-}
-
-
-#endif
-
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_fopen
-#ifndef mini_fopen_c
-#define mini_fopen_c
-
-int volatile open( const char *s, int flags, ... );
-
-//+header stdio.h
-//+depends open fileno close
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
-		int imode;
-
-		switch (mode[0]){
-				case 'r': imode = O_RDONLY;
-									break;
-				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
-									break;
-				case 'a': imode = O_APPEND | O_RDWR; // somehow only "a+" works. Not sure, why.
-									break;
-				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
-								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
-								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
-								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
-		}
-
-		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
- 				if ( mode[a] == '+' ){ 
-						imode = ( ( imode | O_RDWR ) & ~( O_WRONLY | O_RDONLY) );
-				} else {
-#if 0
-				//printf("XXX: %c", mode[a]);
-						switch (mode[0]){
-								case 'r': //imode = O_RDONLY;
-										break;
-								case 'w': if ( mode[a] == 'x' )
-															imode = imode & ( ~(O_CREAT | O_TRUNC) );
-													break;
-								case 'a': //imode = O_APPEND | O_RDWR; 
-													break;
-						}
-#endif
-				}
-		}
-
-		if ( f == 0 ){
-				int a;
-				if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
-						for ( a=3; ml.stream[a]>=0; a++ )
-								if ( a >= mini_FOPEN_MAX ) // 
-										return(0);
-				} else {
-						a = ml.pstream;
-						ml.pstream++;
-				}
-
-				//printf("a: %d\n",a);
-				f = &ml.stream[a];
-		} else { // freopen - error handling?
-				close(fileno(f));
-		}
-		if ( filename != 0 )
-			*f	 =  open( filename, imode, 0666 );
-		else 
-			*f = fd;
-
-		return ( f ); // 
-}
-
-
-//+header stdio.h
-//+depends open _fopen
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *fopen(const char* filename, const char* mode){
-		return(_fopen(0,filename, mode,0));
-}
-
-
-//+header stdio.h
-//+depends open _fopen
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *fdopen(int fd, const char* mode){
-		return(_fopen(fd,0, mode,0));
-}
-
-
-//+header stdio.h
-//+depends open _fopen
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *freopen(const char* filename, const char* mode, FILE *F){
-		return(_fopen(0,filename, mode,F));
-}
-
-
-
-
-#endif
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini__strcmp
-#ifndef strcmp_c
-#define strcmp_c
-
-//+include
 //+header string.h
-//+needs ctype.h
 
-//TODO: not implemented correct. need to return also -1.
-
-// depend onto strncmp. Otherwise thias file will not be compiled.
-//+inc
 //+def
-int _strcmp(const char*c1,const char*c2,int len){
+int strlen(const char*str){
 		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				//write(1,&c1[a],1);
-				if ( c1[a] != c2[a] )
-						return(1);
+		while ( str[a] != 0 ){
 				a++;
 		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
+		return (a);
 }
 
-//+inc
-///+depends tolower
-//+needs ctype.h
+
+#endif
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_getenv
+#ifndef getenv_c
+#define getenv_c
+
+#ifndef dumbsyntaxchecker
+char **mini_env;
+#endif
+
+
+//+header stdlib.h
 //+def
-int _strcasecmp(const char*c1,const char*c2,int len){
-		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				if ( c1[a] != c2[a] ){
-						if ( tolower( c1[a] ) != tolower( c2[a] ) )
-								return(1);
+char *getenv(const char* name){
+		int b;
+		for ( int a=0; mini_env[a]; a++ ){
+				for ( b = 0; mini_env[a][b] == name[b]; b++ ){}
+				if ( mini_env[a][b] == '=' ){
+						return( &mini_env[a][b+1] );
 				}
-				a++;
 		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
+		return(0);
 }
 
-
-//+inc
-//+depends _strcasecmp
-//+needs ctype.h
-//+def
-int strcasecmp(const char*c1,const char*c2){
-		return( _strcasecmp(c1,c2,-1) );
-}
-
-
-//+depends _strcasecmp
-//+inc
-//+def
-int strncasecmp(const char*c1,const char*c2,int len){
-		if ( len <=0 )
-				return(-1);
-		return(_strcasecmp(c1,c2,len) );
-}
-
-
-
-//+depends _strcmp
-//+inc
-//+def
-int strcmp(const char*c1,const char*c2){
-		return( _strcmp(c1,c2,-1) );
-}
-
-
-//+depends _strcmp
-//+inc
-//+def
-int strncmp(const char*c1,const char*c2,int len){
-		if ( len <=0 )
-				return(-1);
-		return(_strcmp(c1,c2,len) );
-}
-
-
-//+depends
-//+def
-int memcmp(const void* c1,const void* c2,int len){
-		const char* cc1 = c1;
-		const char* cc2 = c2;
-		if ( len <=0 )
-				return(-1);
-		int a = 0;
-		while ( a != len ){
-				//write(1,&c1[a],1);
-				if ( cc1[a] != cc2[a] )
-						return(1);
-				a++;
-		}
-	 return(0);
-}
 
 
 #endif
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_memcmp
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-#ifndef memcpy_c
-#define memcpy_c
-
-//+ansi string.h
-//+def
-void *memcpy( void *d, const void *s, int n ){
-		char *dp=d;
-		const char *sp = s;
-		int a;
-		for ( a=0; a<n; a++ )
-				dp[a] = sp[a];
-		return(d);
-}
-
-
-//+def
-char *strcpy(char *dest, const char *src){
-		int a;
-		for ( a=0; src[a] != 0; a++)
-				dest[a] = src[a];
-		dest[a] = 0;
-		return(dest);
-}
-
-//+depends memcpy
-//+def
-char *strncpy(char *dest, const char *src, int n){
-		return( memcpy( dest, src, n ) );
-}
-
-#endif
-
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strcasecmp
 #endif
 
 // minilib/src/sprintf.c
-#ifdef mini_fprintf
+#ifdef mini_vsnprintf
 #ifndef msprintf_c
 #define msprintf_c
 
@@ -9607,173 +9172,75 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 #endif
 #endif
 
-// minilib/src/prints.c
-#ifdef mini__mprints
+// minilib/src/basename.c
+#ifdef mini_basename
+/*-
+ * Copyright (c) 2015-2016 Nuxi, https://nuxi.nl/
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+// source freebsd 
+
+//+depends strlen
+//+def
+char *basename(char *path){
+	char *ptr;
+
+	/*
+	 * If path is a null pointer or points to an empty string,
+	 * basename() shall return a pointer to the string ".".
+	 */
+	if (path == NULL || *path == '\0')
+		return ( ".");
+
+	/* Find end of last pathname component and null terminate it. */
+	ptr = path + strlen(path);
+	while (ptr > path + 1 && *(ptr - 1) == '/')
+		--ptr;
+	*ptr-- = '\0';
+
+	/* Find beginning of last pathname component. */
+	while (ptr > path && *(ptr - 1) != '/')
+		--ptr;
+	return (ptr);
+}
 #endif
 
-// minilib/src/strchr.c
-#ifdef mini_strrchr
-#ifndef strchr_c
-#define strchr_c
-
-//+header string.h
-
-//+def
-const char *strchrnul(const char *s, int c){
-
-		while ( *s != 0 ){
-				if ( *s==c ){
-						return(s);
-				}
-				s++;
-		}
-		return(s);
-}
-
-//+depends strchrnul
-//+def
-const char *strchr(const char *s, int c){
-		
-		char *ret = strchrnul(s,c);
-
-		if ( c==0 )
-				return(ret);
-
-		if ( *ret==0 )
-				return(0);
-
-		return(ret);
-}
-
-
-//+depends strchrnul
-//+def
-const char *strrchr(const char *s, int c){
-	char *ret = 0;
-	char *tmp = s-1;
-	while ( (tmp = strchrnul(tmp+1,c) ) && ( *tmp != 0 ) ){
-			ret=tmp;
-	}
-	return(ret);
-}
-
-#endif
-#endif
-
-// minilib/src/signal.c
-#ifdef mini_signal
-#ifndef signal_c
-#define signal_c
-
-// musl
-
-//+header signal.h
-//+depends sigaction
-//+def
-sighandler_t signal(int sig, sighandler_t func ){
-		struct sigaction sa_old = { .sa_handler=0, .sa_flags=0 };
-		struct sigaction sa = { .sa_handler = func, .sa_flags = SA_RESTART };
-		if (sigaction(sig, &sa, &sa_old) < 0){
-				prints("SIGNAL - ERR\n");
-				return SIG_ERR;
-		}
-		return sa_old.sa_handler;
-}
-
-
-
-
-
-#endif
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini__itohex
-#ifndef itohex_c
-#define itohex_c
-//+header stdio.h
-//+include
-//+def
-int _itohex(int i,char* buf,int padding, int capitals){
-
-		if ( capitals>0 )
-				capitals = 55;
-		else
-				capitals = 87;
-
-		padding = padding - 8;
-		if ( padding < -7 )
-				padding = -7;
-
-		union { int n; char c[4]; } conv[2];
-		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
-		conv[1].n = ( i & 0x0f0f0f0f );
-		int p = 0;
-		int a,b;
-
-		for ( a=3; a>=0; a-- ){
-				for ( b=0; b <=1; b++ ){
-						if ( padding != 0 ){
-								if ( conv[b].c[a] != 0 ){
-										padding = 0;
-								}
-						}
-						if ( padding == 0 ){
-								char c = conv[b].c[a];
-								if ( c < 0xa )
-										c = c + 48;
-								else
-										c = c + capitals; // 55 for big abc ..
-								buf[p] = c;
-								p++;
-						} else
-								padding++;
-				}
-		}
-		buf[p] = 0 ;
-		return(p);
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itohex(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,0));
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itoHEX(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,1));
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/memset.c
-#ifdef mini_memset
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
 //+ansi string.h
 //+def
-void *memset( void *s, int c, int n){
-		int a;
-		char *sp = s;
-		for ( a=0; a<n; a++)
-				sp[a] = (char)c;
-		return(s);
+void* memfrob(void* s, unsigned int len){
+		unsigned int a;
+		char *c = s;
+		for ( a=0; a<len;a++)
+				c[a] = 	c[a] ^ 42;
+		return ( s );
 }
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itohex
+		
 #endif
 
 // minilib/src/malloc.c
-#ifdef mini_free
+#ifdef mini_malloc
 #ifndef mini_malloc_c
 #define mini_malloc_c
 //+header stdlib.h
@@ -10164,60 +9631,310 @@ void volatile free(void* p){
 #endif
 #endif
 
-// minilib/src/pty.c
-#ifdef mini_ptsname
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+#ifndef memcpy_c
+#define memcpy_c
+
+//+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
+}
+
+
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
+
 #endif
 
-// minilib/src/ltodec.c
-#ifdef mini_ultodec
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini__fopen
+#ifndef mini_fopen_c
+#define mini_fopen_c
+
+#ifndef mini_filemodes_h
+#define mini_filemodes_h
+
+#ifdef OSX
+
+/* open-only flags */
+#define	O_RDONLY	0x0000		/* open for reading only */
+#define	O_WRONLY	0x0001		/* open for writing only */
+#define	O_RDWR		0x0002		/* open for reading and writing */
+#define	O_ACCMODE	0x0003		/* mask for above modes */
+
+#define	FREAD		0x0001
+#define	FWRITE		0x0002
+#define	O_NONBLOCK	0x0004		/* no delay */
+#define	O_APPEND	0x0008		/* set append mode */
+
+#define	O_SHLOCK	0x0010		/* open with shared file lock */
+#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
+#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
+#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
+#define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_TRUNC		0x0400		/* truncate to zero length */
+#define	O_EXCL		0x0800		/* error if already exists */
+
+#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
+
+#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
+#define O_DIRECTORY	0x100000
+#define O_SYMLINK	0x200000	/* allow open of a symlink */
+#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
+#define O_DP_GETRAWENCRYPTED	0x0001
+#define O_DP_GETRAWUNENCRYPTED	0x0002
+
+
+
+#else
+
+
+#define O_ACCMODE	00000003
+#define O_RDONLY	00000000
+#define O_WRONLY	00000001
+#define O_RDWR		00000002
+#define O_CREAT		00000100	/* not fcntl */
+#define O_EXCL		00000200	/* not fcntl */
+#define O_NOCTTY	00000400	/* not fcntl */
+#define O_TRUNC		00001000	/* not fcntl */
+#define O_APPEND	00002000
+#define O_NONBLOCK	00004000
+#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
+#define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_DIRECT	00040000	/* direct disk access hint */
+#define O_LARGEFILE	00100000
+#define O_DIRECTORY	00200000	/* must be a directory */
+#define O_NOFOLLOW	00400000	/* don't follow links */
+#define O_NOATIME	01000000
+#define O_CLOEXEC	02000000	/* set close_on_exec */
+
+#endif
+
+
+
+#endif
+
+int volatile open( const char *s, int flags, ... );
+
+//+header stdio.h
+//+depends open fileno close
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
+		int imode;
+
+		switch (mode[0]){
+				case 'r': imode = O_RDONLY;
+									break;
+				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
+									break;
+				case 'a': imode = O_APPEND | O_RDWR; // somehow only "a+" works. Not sure, why.
+									break;
+				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
+								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
+								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
+								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
+		}
+
+		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
+ 				if ( mode[a] == '+' ){ 
+						imode = ( ( imode | O_RDWR ) & ~( O_WRONLY | O_RDONLY) );
+				} else {
+#if 0
+				//printf("XXX: %c", mode[a]);
+						switch (mode[0]){
+								case 'r': //imode = O_RDONLY;
+										break;
+								case 'w': if ( mode[a] == 'x' )
+															imode = imode & ( ~(O_CREAT | O_TRUNC) );
+													break;
+								case 'a': //imode = O_APPEND | O_RDWR; 
+													break;
+						}
+#endif
+				}
+		}
+
+		if ( f == 0 ){
+				int a;
+				if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
+						for ( a=3; ml.stream[a]>=0; a++ )
+								if ( a >= mini_FOPEN_MAX ) // 
+										return(0);
+				} else {
+						a = ml.pstream;
+						ml.pstream++;
+				}
+
+				//printf("a: %d\n",a);
+				f = &ml.stream[a];
+		} else { // freopen - error handling?
+				close(fileno(f));
+		}
+		if ( filename != 0 )
+			*f	 =  open( filename, imode, 0666 );
+		else 
+			*f = fd;
+
+		return ( f ); // 
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *fopen(const char* filename, const char* mode){
+		return(_fopen(0,filename, mode,0));
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *fdopen(int fd, const char* mode){
+		return(_fopen(fd,0, mode,0));
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *freopen(const char* filename, const char* mode, FILE *F){
+		return(_fopen(0,filename, mode,F));
+}
+
+
+
+
+#endif
+#endif
+
+// minilib/src/isspace.c
+#ifdef mini_isspace
+#ifndef isspace_c
+#define isspace_c
+
+//+ansi ctype.h
+//+def
+int isspace(int c){
+		switch (c){
+				case ' ':
+				case '\f':
+				case '\n':
+				case '\r':
+				case '\t':
+				case '\v':
+						return(1);
+		}
+		return(0);
+}
+
+
+
+
+#endif
+
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+#ifndef atoi_c
+#define atoi_c
+
+//+ansi stdlib.h
+//+def
+int atoi(const char *c){
+		int t,a=0;
+	 	int ret=0;
+		int dez = 1;
+
+		while( c[a] != 0 ){ 
+				a++; 
+		}
+		while ( a>0 ){
+				a--;
+				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
+						t = c[a] - 48;
+						if ( t & 1 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 2 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 4 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 8 )
+								ret += dez;
+				} else {
+						dez <<= 3;
+				}
+				dez += (dez >> 2);
+		}
+		if ( c[0] == '-' )
+				ret = -ret;
+		return(ret);
+}
+
+
+#endif
+		
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigaction
+#ifndef sigaction_c
+#define sigaction_c
+
+//+header signal.h
 //+include
 //+def
-int ultodec(unsigned long i, char *buf, int prec, char limiter ){
-		int p = 0;
-		if ( i>2^16 ){
-				p=itodec((unsigned int)i-2^16, buf, prec, limiter);
-				strcpy(&buf[p], "*2^16+"); // rude hack. Correct, but..
-#todo: write ltodec
-				p+=7;
-		}
-		return(uitodec((uint)i, &buf[p], prec, limiter));
+static int sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
+		return( rt_sigaction, 4, sig, act, oact, sizeof(act->sa_mask) );
 }
-//+def
-int ltodec(long i, char *buf, int prec, char limiter ){
-	if ( i < 0 ){
-			buf[0]='-';
-			i = -i;
-			return(ultodec((unsigned long)i,&buf[1],prec,limiter) + 1 );
-	}
-	return(ultodec((unsigned long)i,buf,prec,limiter) );
-}
+
+// memo: needs static definition, cause the +include
+// (mening, including the definition into the header.
+// What is the right thing to do for a wrapper call.)
 
 #endif
-
-// minilib/src/dirname.c
-#ifdef mini_dirname
-// source musl
-// License MIT
-
-
-
-//+depends strlen
-//+def
-char *dirname(char *s){
-		size_t i;
-		if (!s || !*s) return ".";
-		i = strlen(s)-1;
-		for (; s[i]=='/'; i--) if (!i) return "/";
-		for (; s[i]!='/'; i--) if (!i) return ".";
-		for (; s[i]=='/'; i--) if (!i) return "/";
-		s[i+1] = 0;
-		return s;
-}
-
 #endif
 
-// minilib/src/pty.c
-#ifdef mini_ptsname_r
+// minilib/src/fopen.c
+#ifdef mini_fdopen
 #endif
 
 // minilib/src/itobin.c
@@ -10269,7 +9986,221 @@ int _itobin(int i, char*buf, int prec, int groups ){
 #endif
 
 // minilib/src/sprintf.c
-#ifdef mini_snprintf
+#ifdef mini_dprintf
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+#ifndef itohex_c
+#define itohex_c
+//+header stdio.h
+//+include
+//+def
+int _itohex(int i,char* buf,int padding, int capitals){
+
+		if ( capitals>0 )
+				capitals = 55;
+		else
+				capitals = 87;
+
+		padding = padding - 8;
+		if ( padding < -7 )
+				padding = -7;
+
+		union { int n; char c[4]; } conv[2];
+		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
+		conv[1].n = ( i & 0x0f0f0f0f );
+		int p = 0;
+		int a,b;
+
+		for ( a=3; a>=0; a-- ){
+				for ( b=0; b <=1; b++ ){
+						if ( padding != 0 ){
+								if ( conv[b].c[a] != 0 ){
+										padding = 0;
+								}
+						}
+						if ( padding == 0 ){
+								char c = conv[b].c[a];
+								if ( c < 0xa )
+										c = c + 48;
+								else
+										c = c + capitals; // 55 for big abc ..
+								buf[p] = c;
+								p++;
+						} else
+								padding++;
+				}
+		}
+		buf[p] = 0 ;
+		return(p);
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itohex(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,0));
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itoHEX(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,1));
+}
+
+
+
+
+#endif
+
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+//+ansi string.h
+//+def
+void *memset( void *s, int c, int n){
+		int a;
+		char *sp = s;
+		for ( a=0; a<n; a++)
+				sp[a] = (char)c;
+		return(s);
+}
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strcmp
+#ifndef strcmp_c
+#define strcmp_c
+
+//+include
+//+header string.h
+//+needs ctype.h
+
+//TODO: not implemented correct. need to return also -1.
+
+// depend onto strncmp. Otherwise thias file will not be compiled.
+//+inc
+//+def
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+//+inc
+///+depends tolower
+//+needs ctype.h
+//+def
+int _strcasecmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				if ( c1[a] != c2[a] ){
+						if ( tolower( c1[a] ) != tolower( c2[a] ) )
+								return(1);
+				}
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+
+//+inc
+//+depends _strcasecmp
+//+needs ctype.h
+//+def
+int strcasecmp(const char*c1,const char*c2){
+		return( _strcasecmp(c1,c2,-1) );
+}
+
+
+//+depends _strcasecmp
+//+inc
+//+def
+int strncasecmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcasecmp(c1,c2,len) );
+}
+
+
+
+//+depends _strcmp
+//+inc
+//+def
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
+}
+
+
+//+depends _strcmp
+//+inc
+//+def
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+
+//+depends
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
+
+#endif
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+#ifndef strcat_c
+#define strcat_c
+
+//+ansi string.h
+//+depends strlen
+//+def
+char *strcat(char *dest, const char *src ){
+		size_t dest_len = strlen(dest);
+		size_t i;
+
+		for (i = 0 ; src[i] != '\0' ; i++)
+				dest[dest_len + i] = src[i];
+		dest[dest_len + i] = '\0';
+
+		return dest;
+}
+
+
+#endif
+
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini_itobin
 #endif
 
 // minilib/src/strerror.c
@@ -10307,31 +10238,509 @@ void perror(const char *msg){
 
 #endif
 
-// minilib/src/sleep.c
-#ifdef mini_sleep
-#ifndef mini_sleep_c
-#define mini_sleep_c
+// minilib/src/ltodec.c
+#ifdef mini_ltodec
+#endif
 
-//+header unistd.h
-//+include
-//+needs nanosleep
-//+doc nonconformant sleep
-// TODO: ignore blocked signals, sigchld
+// minilib/src/rand.c
+#ifdef mini_srand
+#ifndef rand_c
+#define rand_c
+
+
+//+header stdlib.h
 //+def
-unsigned int sleep(unsigned int seconds){
-		unsigned int res;
-		struct timespec ts = { .tv_sec = (long int) seconds, .tv_nsec = 0 };
-		res = nanosleep(&ts, &ts);
-		if (res) res = (unsigned int) ts.tv_sec + (ts.tv_nsec >= 500000000L);
-		return res;
+void srand( unsigned int i ){
+		ml.srand = i;
+}
+	
+
+
+//+header stdlib.h
+//+def
+unsigned int rand(){
+		// xorshift, algorithm af marsaglia.
+		// second round added, it doesn't give more randomness,
+		// but isn't so expensive on the other hand.
+		if ( ml.srand==0 ){
+				ml.srand=1;
+		}
+		ml.srand ^= ml.srand << 13;
+ 		ml.srand ^= ml.srand >> 17;
+ 		ml.srand ^= ml.srand << 5;
+		unsigned int t = ml.srand;
+		ml.srand ^= ml.srand << 13;
+ 		ml.srand ^= ml.srand >> 17;
+ 		ml.srand ^= ml.srand << 5;
+		return(t-1);
+}
+
+
+
+
+
+
+
+
+
+#endif
+
+#endif
+
+// minilib/src/dirent/opendir.c
+#ifdef mini_opendir
+#ifndef opendir_c
+#define opendir_c
+#ifndef	_DIRENT_H
+#define	_DIRENT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#define __NEED_ino_t
+#define __NEED_off_t
+#if defined(_BSD_SOURCE) || defined(_GNU_SOURCE)
+#define __NEED_size_t
+#endif
+
+
+struct __dirstream
+{
+	off_t tell;
+	int fd;
+	int buf_pos;
+	int buf_end;
+	volatile int lock[1];
+	/* Any changes to this struct must preserve the property:
+	 * offsetof(struct __dirent, buf) % sizeof(off_t) == 0 */
+	char buf[2048];
+};
+typedef struct __dirstream DIR;
+
+#define _DIRENT_HAVE_D_RECLEN
+#define _DIRENT_HAVE_D_OFF
+#define _DIRENT_HAVE_D_TYPE
+
+struct dirent {
+	ino_t d_ino;
+	off_t d_off;
+	unsigned short d_reclen;
+	//unsigned char d_type;
+	char d_name[256];
+};
+
+#define d_fileno d_ino
+#if 0
+int            closedir(DIR *);
+DIR           *fdopendir(int);
+DIR           *opendir(const char *);
+struct dirent *readdir(DIR *);
+int            readdir_r(DIR *__restrict, struct dirent *__restrict, struct dirent **__restrict);
+void           rewinddir(DIR *);
+int            dirfd(DIR *);
+
+int alphasort(const struct dirent **, const struct dirent **);
+int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **));
+
+#if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+void           seekdir(DIR *, long);
+long           telldir(DIR *);
+#endif
+#endif
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#define DT_UNKNOWN 0
+#define DT_FIFO 1
+#define DT_CHR 2
+#define DT_DIR 4
+#define DT_BLK 6
+#define DT_REG 8
+#define DT_LNK 10
+#define DT_SOCK 12
+#define DT_WHT 14
+#define IFTODT(x) ((x)>>12 & 017)
+#define DTTOIF(x) ((x)<<12)
+int getdents(int, struct dirent *, size_t);
+#endif
+
+#ifdef _GNU_SOURCE
+int versionsort(const struct dirent **, const struct dirent **);
+#endif
+
+#if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
+#define dirent64 dirent
+#define readdir64 readdir
+#define readdir64_r readdir_r
+#define scandir64 scandir
+#define alphasort64 alphasort
+#define versionsort64 versionsort
+#define off64_t off_t
+#define ino64_t ino_t
+#define getdents64 getdents
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+
+
+
+//+depends open close malloc
+//+needs dirent.h
+//+def
+DIR *opendir(const char *name){
+	int fd;
+	DIR *dir;
+
+	if ((fd = open(name, O_RDONLY|O_DIRECTORY|O_CLOEXEC)) < 0)
+		return 0;
+	dir = malloc(sizeof(*dir));
+	if ( dir == 0 ){
+		//	fprintf("Got: %d\n", dir);
+		close( fd );
+		return 0;
+	}
+
+	dir->fd = fd;
+	dir->buf_pos=dir->buf_end=0;
+	return dir;
+}
+
+
+
+#endif
+
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_strerror
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+#ifndef open_c
+#define open_c
+//+header fcntl.h
+//+include
+
+
+//#include "syscall.h"
+
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+
+//+def
+int volatile open( const char *s, int flags, ... ){
+		int ret;
+		va_list args;
+		va_start(args,flags);
+		int mode = va_arg(args,int);
+		va_end(args);
+		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
+#ifdef mini_errno
+		if ( ret<0 )
+				errno = -ret;
+#endif
+		return(ret);
+}
+
+/// creat
+//d open
+//+def
+inline int volatile __attribute__((always_inline)) creat( const char *s, int mode ){
+		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
+}
+
+
+
+//FILE* volatile fopen( const char *s, const char *mode ){
+//		int m = 0;
+
+
+
+
+#endif
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_ptsname
+#ifndef pty_c
+#define pty_c
+
+// musl
+
+//+depends open
+//+def
+int posix_openpt(int flags){
+		return open("/dev/ptmx", flags);
+}
+
+//+def
+int grantpt(int fd){
+		return 0;
+}
+
+
+//+depends ioctl
+//+def
+int unlockpt(int fd){
+		int unlock = 0;
+		return ioctl(fd, TIOCSPTLCK, &unlock);
+}
+
+//+depends snprintf itodec
+//+def
+int ptsname_r(int fd, char *buf, size_t len){
+		int pty, err;
+		if (!buf) len = 0;
+		if ((err = ioctl( fd, TIOCGPTN, &pty))) return -err;
+	//	printf("pts: %d, %d\n",pty,len);
+		if (sprintf(buf, "/dev/pts/%d", pty) >= len) return ERANGE;
+
+	//	printf("pts: %s\n",buf);
+		return 0;
+}
+
+//+depends ptsname_r 
+//+def
+char *ptsname(int fd){
+		static char buf[9 + sizeof(int)*3 + 1];
+		int err = ptsname_r(fd, buf, sizeof buf);
+		if (err) {
+				errno = err;
+				return 0;
+		}
+		return buf;
+}
+
+
+#endif
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strrchr
+#ifndef strchr_c
+#define strchr_c
+
+//+header string.h
+
+//+def
+char *strchrnul(const char *s, int c){
+
+		while ( *s != 0 ){
+				if ( *s==c ){
+						return((char*)s);
+				}
+				s++;
+		}
+		return((char*)s);
+}
+
+//+depends strchrnul
+//+def
+char *strchr(const char *s, int c){
+		
+		char *ret = strchrnul(s,c);
+
+		if ( c==0 )
+				return(ret);
+
+		if ( *ret==0 )
+				return(0);
+
+		return(ret);
+}
+
+
+//+depends strchrnul
+//+def
+char *strrchr(const char *s, int c){
+	char *ret = 0;
+	char *tmp = (char*)s-1;
+	while ( (tmp = strchrnul(tmp+1,c) ) && ( *tmp != 0 ) ){
+			ret=tmp;
+	}
+	return(ret);
+}
+
+#endif
+#endif
+
+// minilib/src/dirname.c
+#ifdef mini_dirname
+// source musl
+// License MIT
+
+
+
+//+depends strlen
+//+def
+char *dirname(char *s){
+		size_t i;
+		if (!s || !*s) return ".";
+		i = strlen(s)-1;
+		for (; s[i]=='/'; i--) if (!i) return "/";
+		for (; s[i]!='/'; i--) if (!i) return ".";
+		for (; s[i]=='/'; i--) if (!i) return "/";
+		s[i+1] = 0;
+		return s;
 }
 
 #endif
 
+// minilib/src/rand.c
+#ifdef mini_rand
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_unlockpt
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fopen
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini__itohex
+#endif
+
+// minilib/src/wait.c
+#ifdef mini_waitpid
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini__strcmp
+#endif
+
+// minilib/src/open.c
+#ifdef mini_creat
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+//convert double to string
+//return number of bytes written to buf.
+//doesn't convert numbers > 2^31 (!!!)
+//doesn't round(!)
+//max. prec after the dot: 8 digits. (!!)
+
+//+ansi stdio.h
+//+depends itodec uitodec
+//+def
+int dtodec(double d, char* buf, int precision){
+		int i = (int) d;
+		unsigned int i2;
+		if ( d >= 0 )
+			 i2 = (unsigned int)((d-i)*1000000000+0.1);
+		else 
+			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
+
+
+		int p;
+		if ( (d<=-1) || (d>0) )
+				p = itodec(i,buf,0,0);
+		else {
+				buf[0] = '-';
+				buf[1] = '0';
+				p = 1;
+		}
+
+	
+		buf[p+1]='.';
+		int p2 = uitodec(i2,&buf[p+2],9,0);
+		return(p+p2+2-9+precision);
+}
 #endif
 
 // minilib/src/itodec.c
-#ifdef mini_itodec
+#ifdef mini_uitodec
 #ifndef mini_itodec_c
 #define mini_itodec_c
 //+ansi stdio.h
@@ -10466,7 +10875,11 @@ int itodec(int i, char *buf, int prec, char limiter ){
 #endif
 
 // minilib/src/strcmp.c
-#ifdef mini__strcasecmp
+#ifdef mini_strncasecmp
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_freopen
 #endif
 
 // minilib/src/sigemptyset.c
@@ -10492,28 +10905,32 @@ static int sigemptyset(sigset_t *set){
 
 #endif
 
-// minilib/src/strlen.c
-#ifdef mini_strlen
-#ifndef strlen_c
-#define strlen_c
+// minilib/src/sprintf.c
+#ifdef mini_snprintf
+#endif
 
-//+header string.h
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+#ifndef mini_ioctl_h
+#define mini_ioctl_h
 
+//#include "../include/syscall.h"
+//#include "/usr/diet/include/stdarg.h"
+
+//+header ioctl.h
 //+def
-int strlen(const char*str){
-		int a = 0;
-		while ( str[a] != 0 ){
-				a++;
-		}
-		return (a);
+int ioctl( int fd, unsigned long int request, ... ){
+		va_list args;
+		va_start(args,request);
+
+		int ret;
+		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
+		va_end(args);
+		return(ret);
 }
 
 
 #endif
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_grantpt
 #endif
 
 // minilib/src/fprintfs.c
@@ -10559,235 +10976,81 @@ int fprintfs( FILE* F, char *fmt, ...){
 
 #endif
 
-// minilib/src/strerror.c
-#ifdef mini_strerror
+// minilib/src/pty.c
+#ifdef mini_posix_openpt
 #endif
 
-// minilib/src/memcpy.c
-#ifdef mini_strncpy
+// minilib/src/pty.c
+#ifdef mini_grantpt
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini__strcasecmp
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_ptsname_r
+#endif
+
+// minilib/src/strdup.c
+#ifdef mini_strdup
+#ifndef strdup_c
+#define strdup_c
+
+//+header string.h
+//+depends malloc strcpy strlen
+//+def
+char *strdup(const char *source){
+	char *d =  malloc(strlen(source));
+	if ( !d ) return(0);
+	strcpy(d,source);
+	return(d);
+}
+
+
+
+#endif
+
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_fprintf
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strncmp
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strchrnul
 #endif
 
 // minilib/src/itohex.c
 #ifdef mini_itoHEX
 #endif
 
-// minilib/src/isatty.c
-#ifdef mini_isatty
-#ifndef isatty_c
-#define isatty_c
-//+header unistd.h
-//+include
-//+depends tcgetattr
-//+def
-int isatty(int fd){
-	struct termios term;
-	return( tcgetattr(fd, &term) == 0 );
-}
-
-
+// minilib/src/sprintf.c
+#ifdef mini_sprintf
 #endif
 
+// minilib/src/strcmp.c
+#ifdef mini_strcasecmp
 #endif
 
-// minilib/src/pty.c
-#ifdef mini_unlockpt
-#endif
-
-// minilib/src/dirent/opendir.c
-#ifdef mini_opendir
-#ifndef opendir_c
-#define opendir_c
-#ifndef	_DIRENT_H
-#define	_DIRENT_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-#define __NEED_ino_t
-#define __NEED_off_t
-#if defined(_BSD_SOURCE) || defined(_GNU_SOURCE)
-#define __NEED_size_t
-#endif
-
-
-struct __dirstream
-{
-	off_t tell;
-	int fd;
-	int buf_pos;
-	int buf_end;
-	volatile int lock[1];
-	/* Any changes to this struct must preserve the property:
-	 * offsetof(struct __dirent, buf) % sizeof(off_t) == 0 */
-	char buf[2048];
-};
-typedef struct __dirstream DIR;
-
-#define _DIRENT_HAVE_D_RECLEN
-#define _DIRENT_HAVE_D_OFF
-#define _DIRENT_HAVE_D_TYPE
-
-struct dirent {
-	ino_t d_ino;
-	off_t d_off;
-	unsigned short d_reclen;
-	//unsigned char d_type;
-	char d_name[256];
-};
-
-#define d_fileno d_ino
-#if 0
-int            closedir(DIR *);
-DIR           *fdopendir(int);
-DIR           *opendir(const char *);
-struct dirent *readdir(DIR *);
-int            readdir_r(DIR *__restrict, struct dirent *__restrict, struct dirent **__restrict);
-void           rewinddir(DIR *);
-int            dirfd(DIR *);
-
-int alphasort(const struct dirent **, const struct dirent **);
-int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **));
-
-#if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-void           seekdir(DIR *, long);
-long           telldir(DIR *);
-#endif
-#endif
-
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-#define DT_UNKNOWN 0
-#define DT_FIFO 1
-#define DT_CHR 2
-#define DT_DIR 4
-#define DT_BLK 6
-#define DT_REG 8
-#define DT_LNK 10
-#define DT_SOCK 12
-#define DT_WHT 14
-#define IFTODT(x) ((x)>>12 & 017)
-#define DTTOIF(x) ((x)<<12)
-int getdents(int, struct dirent *, size_t);
-#endif
-
-#ifdef _GNU_SOURCE
-int versionsort(const struct dirent **, const struct dirent **);
-#endif
-
-#if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
-#define dirent64 dirent
-#define readdir64 readdir
-#define readdir64_r readdir_r
-#define scandir64 scandir
-#define alphasort64 alphasort
-#define versionsort64 versionsort
-#define off64_t off_t
-#define ino64_t ino_t
-#define getdents64 getdents
-#endif
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
-
-
-
-//+depends open close malloc
-//+needs dirent.h
-//+def
-DIR *opendir(const char *name){
-	int fd;
-	DIR *dir;
-
-	if ((fd = open(name, O_RDONLY|O_DIRECTORY|O_CLOEXEC)) < 0)
-		return 0;
-	dir = malloc(sizeof(*dir));
-	if ( dir == 0 ){
-		//	fprintf("Got: %d\n", dir);
-		close( fd );
-		return 0;
-	}
-
-	dir->fd = fd;
-	dir->buf_pos=dir->buf_end=0;
-	return dir;
-}
-
-
-
-#endif
-
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigaction
-#ifndef sigaction_c
-#define sigaction_c
-
-//+header signal.h
-//+include
-//+def
-static int sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
-		return( rt_sigaction, 4, sig, act, oact, sizeof(act->sa_mask) );
-}
-
-// memo: needs static definition, cause the +include
-// (mening, including the definition into the header.
-// What is the right thing to do for a wrapper call.)
-
-#endif
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_rand
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_fdopen
+// minilib/src/itodec.c
+#ifdef mini_itodec
 #endif
 
 // minilib/src/strchr.c
 #ifdef mini_strchr
 #endif
 
-// minilib/src/ltodec.c
-#ifdef mini_ltodec
+// minilib/src/prints.c
+#ifdef mini__mprints
 #endif
 
-// minilib/src/strcmp.c
-#ifdef mini_strncasecmp
-#endif
-
-// minilib/src/wait.c
-#ifdef mini_waitpid
-#ifndef wait_c
-#define wait_c
-//+header sys/wait.h
-
-//+depends wait4
-//+include
-//+def
-pid_t wait(int *wstatus){
-	return(wait4(-1,wstatus,0,0));
-}
-
-
-//+depends wait4
-//+include
-//+def
-pid_t waitpid(pid_t pid, int *wstatus, int options){
-	return(wait4(pid,wstatus,options,0));
-}
-
-
-#endif
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strchrnul
+// minilib/src/fgets.c
+#ifdef mini_gets
 #endif
 
 // minilib/src/dirent/readdir.c
@@ -10821,112 +11084,12 @@ struct dirent *readdir(DIR *dir){
 #endif
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_sprintf
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini_itobin
-#endif
-
-// minilib/src/strdup.c
-#ifdef mini_strdup
-#ifndef strdup_c
-#define strdup_c
-
-//+header string.h
-//+depends malloc strcpy strlen
-//+def
-char *strdup(const char *source){
-	char *d =  malloc(strlen(source));
-	if ( !d ) return(0);
-	strcpy(d,source);
-	return(d);
-}
-
-
-
-#endif
-
-#endif
-
 // minilib/src/strcmp.c
-#ifdef mini_strncmp
+#ifdef mini_memcmp
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_vsnprintf
-#endif
-
-// minilib/src/fgets.c
-#ifdef mini_gets
-#ifndef fgets_c
-#define fgets_c
-//+header stdio.h
-//+depends fgetc
-//+def
-char* fgets(char *buf, int size, FILE* F){
-		char *ret = buf;
-
-		*buf = (char)fgetc(F);
-		if ( !*buf ) // EOF
-				return(0);
-
-		while( --size >0 ){
-				buf++;
-				*buf = (char)fgetc(F);
-				if ( *buf == 0 )
-						return(ret);
-				if ( *buf == '\n' )
-						size=0;
-		}
-		buf++;
-		*buf = 0;
-		return(ret);
-}
-
-//+depends fgets fgetc fileno read
-//+macro gets(F) fgets(F,0xfffffff,stdin)
-
-
-
-#endif
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_getenv
-#ifndef getenv_c
-#define getenv_c
-
-#ifndef dumbsyntaxchecker
-char **mini_env;
-#endif
-
-
-//+header stdlib.h
-//+def
-char *getenv(const char* name){
-		int b;
-		for ( int a=0; mini_env[a]; a++ ){
-				for ( b = 0; mini_env[a][b] == name[b]; b++ ){}
-				if ( mini_env[a][b] == '=' ){
-						return( &mini_env[a][b+1] );
-				}
-		}
-		return(0);
-}
-
-
-
-#endif
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_dprintf
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_freopen
+// minilib/src/malloc.c
+#ifdef mini_free
 #endif
 
 // minilib/src/dirent/closedir.c
@@ -10947,190 +11110,27 @@ int closedir(DIR *dir){
 #endif
 #endif
 
-// minilib/src/strcmp.c
-#ifdef mini_strcmp
-#endif
+// minilib/src/sleep.c
+#ifdef mini_sleep
+#ifndef mini_sleep_c
+#define mini_sleep_c
 
-// minilib/src/memcpy.c
-#ifdef mini_memcpy
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini__fopen
-#endif
-
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-#ifndef mini_ioctl_h
-#define mini_ioctl_h
-
-//#include "../include/syscall.h"
-//#include "/usr/diet/include/stdarg.h"
-
-//+header ioctl.h
+//+header unistd.h
+//+include
+//+needs nanosleep
+//+doc nonconformant sleep
+// TODO: ignore blocked signals, sigchld
 //+def
-int ioctl( int fd, unsigned long int request, ... ){
-		va_list args;
-		va_start(args,request);
-
-		int ret;
-		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
-		va_end(args);
-		return(ret);
+unsigned int sleep(unsigned int seconds){
+		unsigned int res;
+		struct timespec ts = { .tv_sec = (long int) seconds, .tv_nsec = 0 };
+		res = nanosleep(&ts, &ts);
+		if (res) res = (unsigned int) ts.tv_sec + (ts.tv_nsec >= 500000000L);
+		return res;
 }
 
-
-#endif
 #endif
 
-// minilib/src/malloc.c
-#ifdef mini_malloc
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-#endif
-
-// minilib/src/basename.c
-#ifdef mini_basename
-/*-
- * Copyright (c) 2015-2016 Nuxi, https://nuxi.nl/
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-// source freebsd 
-
-//+depends strlen
-//+def
-char *basename(char *path){
-	char *ptr;
-
-	/*
-	 * If path is a null pointer or points to an empty string,
-	 * basename() shall return a pointer to the string ".".
-	 */
-	if (path == NULL || *path == '\0')
-		return ( ".");
-
-	/* Find end of last pathname component and null terminate it. */
-	ptr = path + strlen(path);
-	while (ptr > path + 1 && *(ptr - 1) == '/')
-		--ptr;
-	*ptr-- = '\0';
-
-	/* Find beginning of last pathname component. */
-	while (ptr > path && *(ptr - 1) != '/')
-		--ptr;
-	return (ptr);
-}
-#endif
-
-// minilib/src/wait.c
-#ifdef mini_wait
-#endif
-
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-//convert double to string
-//return number of bytes written to buf.
-//doesn't convert numbers > 2^31 (!!!)
-//doesn't round(!)
-//max. prec after the dot: 8 digits. (!!)
-
-//+ansi stdio.h
-//+depends itodec uitodec
-//+def
-int dtodec(double d, char* buf, int precision){
-		int i = (int) d;
-		unsigned int i2;
-		if ( d >= 0 )
-			 i2 = (unsigned int)((d-i)*1000000000+0.1);
-		else 
-			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
-
-
-		int p;
-		if ( (d<=-1) || (d>0) )
-				p = itodec(i,buf,0,0);
-		else {
-				buf[0] = '-';
-				buf[1] = '0';
-				p = 1;
-		}
-
-	
-		buf[p+1]='.';
-		int p2 = uitodec(i2,&buf[p+2],9,0);
-		return(p+p2+2-9+precision);
-}
-#endif
-
-// minilib/src/fgets.c
-#ifdef mini_fgets
-#endif
-
-// minilib/src/isspace.c
-#ifdef mini_isspace
-#ifndef isspace_c
-#define isspace_c
-
-//+ansi ctype.h
-//+def
-int isspace(int c){
-		switch (c){
-				case ' ':
-				case '\f':
-				case '\n':
-				case '\r':
-				case '\t':
-				case '\v':
-						return(1);
-		}
-		return(0);
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/memfrob.c
-#ifdef mini_memfrob
-//+ansi string.h
-//+def
-void* memfrob(void* s, unsigned int len){
-		unsigned int a;
-		char *c = s;
-		for ( a=0; a<len;a++)
-				c[a] = 	c[a] ^ 42;
-		return ( s );
-}
-		
-#endif
-
-// minilib/src/open.c
-#ifdef mini_open
 #endif
 
 #endif

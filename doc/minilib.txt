@@ -123,7 +123,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open malloc close
+               Defines: malloc open close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -799,12 +799,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: strlen fileno write
+               Defines: fileno strlen write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: write fileno strlen
+               Defines: write strlen fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -855,11 +855,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: uitodec write
+               Defines: write uitodec
                (src/pty.c: 27)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
@@ -908,7 +908,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: close open fileno
+               Defines: open close fileno
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -967,11 +967,11 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno write strlen
+               Defines: write fileno strlen
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1004,11 +1004,11 @@ getc           #define getc(F) fgetc(F)
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 27)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -1020,11 +1020,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: strerror write fileno strlen
+               Defines: write strlen strerror fileno
                (src/strerror.c: 22)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 92)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -1032,7 +1032,7 @@ putc           #define putc(c,stream) fputc(c,stream)
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
@@ -1061,7 +1061,7 @@ ungetc         static int ungetc(int c, FILE *F);
                (include/fgetc.h: 36)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 101)
 
 
@@ -1118,11 +1118,11 @@ strcat         char *strcat(char *dest, const char *src );
                Defines: strlen
                (src/strcat.c: 7)
 
-strchr         const char *strchr(const char *s, int c);
+strchr         char *strchr(const char *s, int c);
                Defines: strchrnul
                (src/strchr.c: 20)
 
-strchrnul      const char *strchrnul(const char *s, int c);
+strchrnul      char *strchrnul(const char *s, int c);
                (src/strchr.c: 7)
 
 strcmp         int strcmp(const char*c1,const char*c2);
@@ -1133,7 +1133,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strcpy strlen
+               Defines: strlen malloc strcpy
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1154,7 +1154,7 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
                Defines: memcpy
                (src/memcpy.c: 27)
 
-strrchr        const char *strrchr(const char *s, int c);
+strrchr        char *strrchr(const char *s, int c);
                Defines: strchrnul
                (src/strchr.c: 36)
 
