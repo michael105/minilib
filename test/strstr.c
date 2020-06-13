@@ -1,9 +1,10 @@
 #if 0
-mini_buf 256
 mini_start
 mini_prints
 mini_strstr
 mini_INCLUDESRC
+shrinkelf
+LDSCRIPT textandbss
 return
 #endif
 
