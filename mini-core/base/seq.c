@@ -2,7 +2,6 @@
 mini_start
 mini_exit
 mini_writes
-mini_sleep
 
 LDSCRIPT text_and_bss
 shrinkelf
