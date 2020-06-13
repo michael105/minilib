@@ -390,7 +390,7 @@ atoi           int atoi(const char *c);
 
 free           void volatile free(void* p);
 
-               (src/malloc.c: 205)
+               (src/malloc.c: 213)
 
 getenv         char *getenv(const char* name);
 
@@ -398,7 +398,7 @@ getenv         char *getenv(const char* name);
 
 malloc         void* volatile malloc(int size);
 
-               (src/malloc.c: 155)
+               (src/malloc.c: 163)
 
 rand           unsigned int rand();
 
@@ -406,7 +406,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 144)
+               (src/malloc.c: 152)
 
 srand          void srand( unsigned int i );
 
