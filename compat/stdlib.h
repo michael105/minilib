@@ -133,8 +133,8 @@ int system( const char* command );
 
 #include "minilib/src/system.c"
 #include "minilib/src/malloc.c"
-#include "minilib/src/getenv.c"
 #include "minilib/src/atoi.c"
+#include "minilib/src/getenv.c"
 #include "minilib/src/rand.c"
 
 // Need global included. Doesn't matter by which file.
