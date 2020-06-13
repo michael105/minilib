@@ -36,6 +36,18 @@ printf_allformats(){
 }
 
 
+Something breaks the config generation. (mini-gcc --genconf)
+It might be related to the header inclusion,
+and the headerguards.
+But that's only a guess.
+
+Sometimes unneeded functions are defined,
+needed functions not.
+:/
+
+same with the config file generation for multiple source files.
+I do have to check that.
+
 
 
 pipe and prepend to gcc input:
