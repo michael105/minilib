@@ -712,8 +712,19 @@ sub sourceinclude{
 }
 
 foreach my $f ( keys(%{$funchash}) ){
+	 if ( $f eq "0"){
+			 delete($funchash->{"0"});
+			 next;
+	 }
+
+		dbg("kkk: $f ");
+
+		if ( exists( $funchash->{$f}->{file} ) ){
+		dbg(" - $funchash->{$f}->{file} \n");
+
 		if ( $funchash->{$f}->{file} =~ /\S\.c$/ ){
 				sourceinclude( $mc, $f );
+		}
 		}
 }
 

@@ -182,6 +182,8 @@ before options and parameters for gcc.
         compile sourcefile, use embedded scripting config
         (same as: --config 'sourcefile' -o \`basename sourcefile\` 'sourcefile')
 
+--dlog  debug log, write debug info to 'debuglog.n' (n counting up)
+
 
 (c) 2019-2020 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)
@@ -2925,7 +2927,7 @@ genconfigmacros_h='
 #define _timerfd_settime(...) _M_MLIB__timerfd_settime_M_(__VA_ARGS__)
 #define _epoll_create1(...) _M_MLIB__epoll_create1_M_(__VA_ARGS__)
 #define _strcmp(...) _M_MLIB__strcmp_M_(__VA_ARGS__)
-#define 0(...) _M_MLIB_0_M_(__VA_ARGS__)
+//#define 0(...) _M_MLIB_0_M_(__VA_ARGS__)
 #define itohex(...) _M_MLIB_itohex_M_(__VA_ARGS__)
 #define _truncate(...) _M_MLIB__truncate_M_(__VA_ARGS__)
 #define posix_openpt(...) _M_MLIB_posix_openpt_M_(__VA_ARGS__)
