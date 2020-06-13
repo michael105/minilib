@@ -408,7 +408,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  163 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  200 </small></td><td><small> void  free(void* p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  205 </small></td><td><small> void  free(void* p);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  97 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
@@ -480,7 +480,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  14 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  150 </small></td><td><small> void*  malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  155 </small></td><td><small> void*  malloc(int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  85 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
@@ -547,7 +547,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  144 </small></td><td><small> void* realloc(void *p, int size);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  110 </small></td><td><small> rename( const char* oldpath, const char* newpath )		
 </small></td></tr>
@@ -620,7 +622,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/memcpy.c" target="right">../src/memcpy.c</a>  36 </small></td><td><small> char *strrchr(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/symlink.2.rst.html">symlink</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  141 </small></td><td><small> symlink( const char *oldname,  const char *newname)
+<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/symlink.2.rst.html">symlink</a></small></td><td><small>   <a href="../src/strstr.c" target="right">../src/strstr.c</a>  141 </small></td><td><small> symlink( const char *oldname,  const char *newname)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sync.2.rst.html">sync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  142 </small></td><td><small> DEF_syscall(sync,0)
 </small></td></tr>

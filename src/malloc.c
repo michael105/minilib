@@ -139,7 +139,20 @@ void free(void *p){
 		
 }
 
+// TODO
+// rewrite free and malloc.
+// best would be storing the allocated length in the first byte.
+// need to do some benchmarking.
+// comparing different malloc implementations.
+// again, it's a trade of speed and size.
+// especially with realloc, the minimalistic implementation hurts
 
+//+depends free malloc
+//+def
+void* realloc(void *p, int size){
+		free(p);
+		return( malloc(size) );
+}
 
 #if 0
 
