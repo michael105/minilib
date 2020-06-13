@@ -43,3 +43,12 @@ I have fun, anyways.. <)
 
 
 
+memo: seems to me, most bloat is given by the fprint family.
+      some tools I put in here, just to test the compilation.
+			Should change them to avoid the unnecessary bloat.
+			in most cases, only the printf calls have to be changed to
+			writes / prints.
+			Just now I realize, cpp has it's advantages. If used right,
+			even at system level programming.
+			The problem comes with "if used right".
+
