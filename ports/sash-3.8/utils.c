@@ -249,8 +249,7 @@ copyFile(
 		return FALSE;
 	}
 
-	if (setModes)
-	{
+	if (setModes){
 		checkStatus("chmod", chmod(destName, statBuf1.st_mode));
 
 		checkStatus("chown", chown(destName, statBuf1.st_uid, statBuf1.st_gid));
@@ -320,13 +319,10 @@ expandWildCards(const char * fileNamePattern, const char *** retFileTable)
 	DIR *		dirp;
 	struct dirent *	dp;
 	int		dirLen;
-	int		newFileTableSize;
-	char **		newFileTable;
 	char		dirName[PATH_LEN];
-
-	static int	fileCount;
-	static int	fileTableSize;
-	static char **	fileTable;
+#define ARGMAXFILE 512
+	int	fileCount;
+	char *fileTable[ARGMAXFILE];
 
 	/*
 	 * Clear the return values until we know their final values.
@@ -447,8 +443,16 @@ expandWildCards(const char * fileNamePattern, const char *** retFileTable)
 		 * This file name is selected.
 		 * See if we need to reallocate the file name table.
 		 */
-		if (fileCount >= fileTableSize)
+
+		//if (fileCount >= fileTableSize)
+		if (fileCount >=ARGMAXFILE)
 		{
+				fprintf(stderr,"Exceeded maxfiles\n");
+				return(-1);
+		}
+
+
+#if 0
 			/*
 			 * Increment the file table size and reallocate it.
 			 */
@@ -468,6 +472,7 @@ expandWildCards(const char * fileNamePattern, const char *** retFileTable)
 			fileTable = newFileTable;
 			fileTableSize = newFileTableSize;
 		}
+#endif
 
 		/*
 		 * Allocate space for storing the file name in a chunk.
@@ -649,9 +654,9 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 	char *			cp;
 	char *			cpOut;
 	char *			newStrings;
-	const char **		fileTable;
-	const char **		newArgTable;
-	int			newArgTableSize;
+	const char **		fileTable = 0;
+	//const char **		newArgTable = 0;
+	//int			newArgTableSize;
 	int			fileCount;
 	int			len;
 	int			ch;
@@ -660,9 +665,10 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 	BOOL			unquotedWildCards;
 
 	char 		strings[MAXCMDLENGTH];
-	static int		argCount;
-	static int		argTableSize;
-	static const char **	argTable;
+	int		argCount;
+	//static int		argTableSize;
+#define MAXARG 256
+	char *	argTable[256];
 
 	/*
 	 * Clear the returned values until we know them.
@@ -688,6 +694,7 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 	cp = strings;
   dbg("ma3\n");	
 
+	dbg("d5 HOME: %s\n",getenv("HOME"));
 	/*
 	 * Keep parsing the command string as long as there are any
 	 * arguments left.
@@ -809,8 +816,6 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 			return FALSE;
 		}
   dbg("ma5\n");	
-#undef dbg
-#define dbg(...) _dbg(__VA_ARGS__)
 		/*
 		 * Null terminate the argument if it had shrunk, and then
 		 * skip over all blanks to the next argument, nulling them
@@ -868,11 +873,15 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 			fileCount = 1;
 		}
 
+	dbg("d55 HOME: %s\n",getenv("HOME"));
 		/*
 		 * Now reallocate the argument table to hold the file name.
 		 */
-		if (argCount + fileCount >= argTableSize)
+		if (argCount + fileCount >= MAXARG)
 		{
+				fprintf(stderr,"Exceeded MAXARG argument limit\n");
+				exit(1);
+#ifndef MAXARG
 			newArgTableSize = argCount + fileCount + 1;
 
 			newArgTable = (const char **) realloc(argTable,
@@ -887,8 +896,10 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 
 			argTable = newArgTable;
 			argTableSize = newArgTableSize;
+#endif
 		}
 
+	dbg("d66 HOME: %s\n",getenv("HOME"));
 		/*
 		 * Copy the new arguments to the end of the old ones.
 		 */
@@ -901,6 +912,7 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 		argCount += fileCount;
 	}
 
+	dbg("d77 HOME: %s\n",getenv("HOME"));
 	/*
 	 * Null terminate the argument list and return it.
 	 */
@@ -908,6 +920,8 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 
 	*retArgc = argCount;
 	*retArgv = argTable;
+#undef dbg
+#define dbg(...) _dbg(__VA_ARGS__)
 
  	return TRUE;
 }

@@ -3,7 +3,7 @@
 //+def
 int system( const char* command ){
 	
-		int pid = fork();
+		int pid = vfork();
 
 		char* const arg[4] = { "sh", "-c", (char*)command, 0 };
 

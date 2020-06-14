@@ -9,6 +9,8 @@ char* fgets(char *buf, int size, FILE* F){
 		*buf = (char)fgetc(F);
 		if ( !*buf ) // EOF
 				return(0);
+		if ( *buf == '\n' )
+						size=0;
 
 		while( --size >0 ){
 				buf++;

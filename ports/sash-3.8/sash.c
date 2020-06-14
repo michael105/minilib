@@ -419,9 +419,19 @@ BOOL	intFlag;
 
 
 int
-main(int argc, const char ** argv)
+main(int argc, const char ** argv, char **envp)
 {
-		dbg("main\n");
+	/*	environ = envp;
+		write(2,"main\n",5);
+		int a = 0;
+		do {
+				prints(envp[a]);
+				prints("\n");
+				a++;
+		} while ( envp[a] );
+*/
+		prints(getenv("HOME"));
+
 	const char *	cp;
 	const char *	singleCommand;
 	const char *	commandFile;
@@ -597,7 +607,7 @@ main(int argc, const char ** argv)
  * Read commands from the specified file.
  * A null name pointer indicates to read from stdin.
  */
-static int
+int
 readFile(const char * name)
 {
 	FILE *	fp;
@@ -605,6 +615,9 @@ readFile(const char * name)
 	BOOL	ttyFlag;
 	char	buf[CMD_LEN];
 	int	r = 0;
+
+	//dbg("readFile\n");
+	//dbg("HOME: %s\n",getenv("HOME"));
 
 	if (sourceCount >= MAX_SOURCE)
 	{
@@ -693,7 +706,7 @@ readFile(const char * name)
  * This breaks the command line up into words, checks to see if the
  * command is an alias, and expands wildcards.
  */
-static int
+int
 command(const char * cmd)
 {
 	const char *	endCmd;
@@ -735,6 +748,7 @@ command(const char * cmd)
 
 	cmdName[endCmd - cmd] = '\0';
 
+	dbg("c HOME: %s\n",getenv("HOME"));
 	/*
 	 * Search for the command name in the alias table.
 	 * If it is found, then replace the command name with
@@ -778,7 +792,7 @@ command(const char * cmd)
  * Returns TRUE if the command is a built in, whether or not the
  * command succeeds.  Returns FALSE if this is not a built-in command.
  */
-static BOOL
+BOOL
 tryBuiltIn(const char * cmd)
 {
 	const char *		endCmd;
@@ -786,20 +800,26 @@ tryBuiltIn(const char * cmd)
 	int			argc;
 	const char **		argv;
 	char			cmdName[CMD_LEN];
-
+ 
 	/*
 	 * Look for the end of the command name and then copy the
 	 * command name to a buffer so we can null terminate it.
 	 */
 	endCmd = cmd;
+#undef dbg
+#define dbg(...) {}
 
+	dbg("d HOME: %s\n",getenv("HOME"));
 	while (*endCmd && !isBlank(*endCmd))
 		endCmd++;
 
+	dbg("d2 HOME: %s\n",getenv("HOME"));
 	memcpy(cmdName, cmd, endCmd - cmd);
 
+	dbg("d3 HOME: %s\n",getenv("HOME"));
 	cmdName[endCmd - cmd] = '\0';
 
+	dbg("d4 HOME: %s\n",getenv("HOME"));
 	/*
 	 * Search the command table looking for the command name.
 	 */
@@ -809,12 +829,14 @@ tryBuiltIn(const char * cmd)
 			break;
 	}
 
+	dbg("d5 HOME: %s\n",getenv("HOME"));
 	/*
 	 * If the command is not a built-in, return indicating that.
 	 */
 	if (entry->name == NULL)
 		return FALSE;
 
+	dbg("d5a HOME: %s\n",getenv("HOME"));
 	/*
 	 * The command is a built-in.
 	 * Break the command up into arguments and expand wildcards.
@@ -822,6 +844,7 @@ tryBuiltIn(const char * cmd)
 	if (!makeArgs(cmd, &argc, &argv))
 		return TRUE;
 
+	dbg("d6 HOME: %s\n",getenv("HOME"));
 	/*
 	 * Give a usage string if the number of arguments is too large
 	 * or too small.
@@ -833,10 +856,14 @@ tryBuiltIn(const char * cmd)
 		return TRUE;
 	}
 
+	dbg("e HOME: %s\n",getenv("HOME"));
 	/*
 	 * Call the built-in function with the argument list.
 	 */
 	entry->func(argc, argv);
+
+#undef dbg
+#define dbg(...) _dbg(__VA_ARGS__)
 
 	return TRUE;
 }
@@ -847,7 +874,7 @@ tryBuiltIn(const char * cmd)
  * the program ourself, or else by using the shell.  Returns the
  * exit status, or -1 if the program cannot be executed at all.
  */
-static int
+int
 runCmd(const char * cmd)
 {
 	const char *	cp;
@@ -954,7 +981,7 @@ runCmd(const char * cmd)
  * This is only called if there are no meta-characters in the command.
  * This procedure never returns.
  */
-static void
+void
 childProcess(const char * cmd)
 {
 	const char **	argv;
@@ -1205,7 +1232,7 @@ do_aliasall(int argc, const char **argv)
  * Look up an alias name, and return a pointer to it.
  * Returns NULL if the name does not exist.
  */
-static Alias *
+Alias *
 findAlias(const char * name)
 {
 	Alias *	alias;
@@ -1308,7 +1335,7 @@ do_unalias(int argc, const char ** argv)
 /*
  * Display the prompt string.
  */
-static void
+void
 showPrompt(void)
 {
 	const char *	cp;
@@ -1322,7 +1349,7 @@ showPrompt(void)
 }	
 
 
-static void
+void
 catchInt(int val)
 {
 	signal(SIGINT, catchInt);
@@ -1334,7 +1361,7 @@ catchInt(int val)
 }
 
 
-static void
+void
 catchQuit(int val)
 {
 	signal(SIGQUIT, catchQuit);
@@ -1349,7 +1376,7 @@ catchQuit(int val)
 /*
  * Print the usage information and quit.
  */
-static void
+void
 usage(void)
 {
 	fprintf(stderr, "Stand-alone shell (version %s)\n", version);
@@ -1363,7 +1390,7 @@ usage(void)
 /*
  * Expand one environment variable: Syntax $(VAR)
  */
-static void
+void
 expandVariable(char * cmd)
 {
 	char	tmp[CMD_LEN];

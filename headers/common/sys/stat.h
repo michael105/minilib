@@ -21,6 +21,8 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 /* copied from kernel definition, but with padding replaced
  * by the corresponding correctly-sized userspace types. */
 
+#ifndef stat_defined
+#define stat_defined
 struct stat {
 	dev_t st_dev;
 	ino_t st_ino;
@@ -40,7 +42,7 @@ struct stat {
 	struct timespec st_ctim;
 	long __unused[3];
 };
-
+#endif
 
 
 #define st_atime st_atim.tv_sec
