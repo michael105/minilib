@@ -8,26 +8,11 @@
 
 #ifndef	SASH_H
 #define	SASH_H
+#include "minilib.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <memory.h>
-#include <time.h>
-#include <ctype.h>
-
-#if __OpenBSD__
-#include <sys/param.h>
-#endif
-
-#if __Linux__
-#include <malloc.h>
-#endif
-
-
-#define dbg(...) fprintf(stderr,__VA_ARGS__)
+#define _dbg(...) fprintf(stderr,__VA_ARGS__)
+#undef dbg
+#define dbg(...) _dbg(__VA_ARGS__)
 
 #define	PATH_LEN	1024
 #define	CMD_LEN		10240

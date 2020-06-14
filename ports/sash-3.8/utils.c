@@ -7,15 +7,7 @@
  */
 
 #include "sash.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <utime.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
+#define MAXCMDLENGTH 1024
 
 /*
  * A chunk of data.
@@ -263,8 +255,8 @@ copyFile(
 
 		checkStatus("chown", chown(destName, statBuf1.st_uid, statBuf1.st_gid));
 
-		times.actime = statBuf1.st_atime;
-		times.modtime = statBuf1.st_mtime;
+		//times.actime = statBuf1.st_atime;
+		//times.modtime = statBuf1.st_mtime;
 
 		checkStatus("utime", utime(destName, &times));
 	}
@@ -667,8 +659,7 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 	BOOL			quotedWildCards;
 	BOOL			unquotedWildCards;
 
-	static int		stringsLength;
-	static char *		strings;
+	char 		strings[MAXCMDLENGTH];
 	static int		argCount;
 	static int		argTableSize;
 	static const char **	argTable;
@@ -685,25 +676,13 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 	 * reallocating it if necessary.
 	 */
 	len = strlen(cmd) + 1;
-
-	dbg("makeArgs, len: %d\n",len);
-	if (len > stringsLength)
-	{
-		dbg("reallocing\n");	
-		newStrings = realloc(strings, len);
-		dbg("ok\n");	
-
-		if (newStrings == NULL)
-		{
-			fprintf(stderr, "Cannot allocate string\n");
-
+	if ( len > MAXCMDLENGTH ){
+			fprintf(stderr,"Max cmd length exceeded\n");
 			return FALSE;
-		}
-
-		strings = newStrings;
-		stringsLength = len;
 	}
 
+#undef dbg
+#define dbg(...) {}
   dbg("ma2\n");	
 	memcpy(strings, cmd, len);
 	cp = strings;
@@ -830,7 +809,8 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 			return FALSE;
 		}
   dbg("ma5\n");	
-
+#undef dbg
+#define dbg(...) _dbg(__VA_ARGS__)
 		/*
 		 * Null terminate the argument if it had shrunk, and then
 		 * skip over all blanks to the next argument, nulling them

@@ -1,7 +1,7 @@
 #ifdef mini_start
 void _start(){
 #include "src/startup.c"
-__asm__("\
+__asm__ volatile("\
 #.global _start\n\
 #_start:\n\
 	popq %rdi\n\

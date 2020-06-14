@@ -3,12 +3,12 @@
 //+def
 int system( const char* command ){
 	
-		int pid = vfork();
+		int pid = fork();
 
-		const char *arg[4] = { "sh", "-c", (char*)command, 0 };
+		char* const arg[4] = { "sh", "-c", (char*)command, 0 };
 
 		if ( pid==0 ){
-				execve( "/bin/sh", arg, (const char**)environ );
+				execve( "/bin/sh", arg, (char* const*)environ );
 				fwrites(fileno(stderr), "Error. Couldn't exec sh in system()\n");
 				exit(-1);
 		}

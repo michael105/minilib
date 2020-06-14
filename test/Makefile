@@ -6,7 +6,7 @@ PROG=hello
 
 PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
-MAKEPROGS=fprintf fopen vforked vfork strchr strstr system
+MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static
 
 MINIGCC=rand sleep execve strdup
 

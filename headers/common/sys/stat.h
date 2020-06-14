@@ -1,5 +1,5 @@
-#ifndef	_SYS_STAT_H
-#define	_SYS_STAT_H
+#ifndef	_sys_stat_h
+#define	_sys_stat_h
 #ifdef __cplusplus
 extern "C" {
 #endif

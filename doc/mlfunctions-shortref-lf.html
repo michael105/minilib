@@ -362,7 +362,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execv</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small>   int execv(const char *pathname, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../include/exec.h" target="right">../include/exec.h</a>  136 </small></td><td><small> execve( const char *filename,  char const **argv, char const **envp)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../include/exec.h" target="right">../include/exec.h</a>  136 </small></td><td><small> execve( const char *filename,  char* const* argv, char* const* envp)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  24 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
 </small></td></tr>
@@ -447,7 +447,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getdirentries.2.rst.html">getdents</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  107 </small></td><td><small> getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">getenv</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> char *getenv(const char* name);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">getenv</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> char* getenv(const char* name);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  155 </small></td><td><small> DEF_syscall(getgid,0)
 </small></td></tr>
@@ -645,7 +645,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  170 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
-<tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> int todo_putenv( char *s );
+<tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> int todo_putenv( char *s );
 </small></td></tr>
 <tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  8 </small></td><td><small> int uitodec(unsigned int i, char *buf, int prec, char limiter );
 </small></td></tr>

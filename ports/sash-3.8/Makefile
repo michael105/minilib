@@ -1,4 +1,4 @@
-FLAGS=-g -O0
+FLAGS=
 
 all: cmds.o utils.o sash.c minilib.conf
 	../../mini-gcc --config minilib.conf -o sash sash.c *.o -DINCLUDESRC $(FLAGS)

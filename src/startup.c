@@ -16,4 +16,9 @@ errno = 0;
 sysret = 0;
 #endif
 
+#ifdef mini_environ
+// some trouble. guessing, the compiler does bad things with environ.
+environ = 0;
+#endif
+
 

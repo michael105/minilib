@@ -402,9 +402,9 @@ free           void volatile free(void* p);
 
                (src/malloc.c: 216)
 
-getenv         char *getenv(const char* name);
+getenv         char* getenv(const char* name);
 
-               (src/getenv.c: 7)
+               (src/getenv.c: 8)
 
 malloc         void* volatile malloc(int size);
 
@@ -428,7 +428,7 @@ system         int system( const char* command );
 
 todo_putenv    int todo_putenv( char *s );
 
-               (src/getenv.c: 21)
+               (src/getenv.c: 22)
 
 
 

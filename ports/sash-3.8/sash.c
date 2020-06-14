@@ -6,12 +6,6 @@
  * Stand-alone shell for system maintainance for Linux.
  * This program should NOT be built using shared libraries.
  */
-
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <errno.h>
-
 #include "sash.h"
 
 
@@ -427,6 +421,7 @@ BOOL	intFlag;
 int
 main(int argc, const char ** argv)
 {
+		dbg("main\n");
 	const char *	cp;
 	const char *	singleCommand;
 	const char *	commandFile;
@@ -706,6 +701,7 @@ command(const char * cmd)
 	char		newCommand[CMD_LEN];
 	char		cmdName[CMD_LEN];
 
+	dbg("command: %s\n",cmd);
 	/*
 	 * Rest the interrupt flag and free any memory chunks that
 	 * were allocated by the previous command.
@@ -760,12 +756,14 @@ command(const char * cmd)
 	 */
 	while (strstr(cmd, "$(")) expandVariable((char *)cmd);
 
+	dbg("trybuiltin\n");
 	/*
 	 * Now look for the command in the builtin table, and execute
 	 * the command if found.
 	 */
 	if (tryBuiltIn(cmd))
 		return 0; /* This is a blatant lie */
+	dbg("runCmd..\n");
 
 	/*
 	 * The command is not a built-in, so run the program along

@@ -7,23 +7,6 @@
  */
 
 #include "sash.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/mount.h>
-#include <signal.h>
-#include <pwd.h>
-#include <grp.h>
-#include <utime.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#if	HAVE_LINUX_MOUNT
-#include <linux/fs.h>
-#endif
-
 /* Need to tell loop.h what the actual dev_t type is. */
 #undef dev_t
 #if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
@@ -31,7 +14,6 @@
 #else
 #define dev_t unsigned short
 #endif
-#include <linux/loop.h>
 #undef dev_t
 #define dev_t dev_t
 

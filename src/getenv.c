@@ -2,9 +2,10 @@
 #define getenv_c
 
 //+header stdlib.h
+
 //+depends environ
 //+def
-char *getenv(const char* name){
+char* getenv(const char* name){
 		int b;
 		for ( int a=0; environ[a]; a++ ){
 				for ( b = 0; environ[a][b] == name[b]; b++ ){}
