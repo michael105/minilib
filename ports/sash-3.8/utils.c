@@ -25,7 +25,7 @@ struct	chunk
 };
 
 
-static	CHUNK *	chunkList;
+CHUNK *	chunkList;
 
 
 
@@ -281,7 +281,7 @@ const char *
 buildName(const char * dirName, const char * fileName)
 {
 	const char *	cp;
-	static	char	buf[PATH_LEN];
+	char	buf[PATH_LEN];
 
 	if ((dirName == NULL) || (*dirName == '\0'))
 		return fileName;

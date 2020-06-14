@@ -10,7 +10,7 @@
 
 
 
-static const char * const	version = "3.8";
+const char * const	version = "3.8";
 
 
 /*
@@ -38,7 +38,7 @@ typedef struct
  * The table of built-in commands.
  * This is terminated wih an entry containing NULL values.
  */
-static const CommandEntry	commandEntryTable[] =
+const CommandEntry	commandEntryTable[] =
 {
 	{
 		"alias",	do_alias,	1,	INFINITE_ARGS,

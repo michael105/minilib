@@ -51,7 +51,7 @@
 
 
 #ifdef X64
-
+/*
 struct stat {
 		dev_t st_dev;
 		ino_t st_ino;
@@ -70,7 +70,7 @@ struct stat {
 		struct timespec st_mtime;
 		struct timespec st_ctime;
 		long __unused[3];
-};
+};*/
 #else
 
 #endif
