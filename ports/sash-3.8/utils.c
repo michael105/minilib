@@ -704,8 +704,10 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 		stringsLength = len;
 	}
 
+  dbg("ma2\n");	
 	memcpy(strings, cmd, len);
 	cp = strings;
+  dbg("ma3\n");	
 
 	/*
 	 * Keep parsing the command string as long as there are any
@@ -779,6 +781,7 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 			 * remember whether it was seen inside or outside
 			 * of quotes.
 			 */
+  dbg("ma a\n");	
 			if (isWildCard(ch))
 			{
 				if (quote)
@@ -787,6 +790,7 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 					unquotedWildCards = TRUE;
 			}
 
+  dbg("ma ab\n");	
 			/*
 			 * If we were in a quote and we saw the same quote
 			 * character again then the quote is done.
@@ -825,6 +829,7 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 
 			return FALSE;
 		}
+  dbg("ma5\n");	
 
 		/*
 		 * Null terminate the argument if it had shrunk, and then

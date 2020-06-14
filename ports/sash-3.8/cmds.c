@@ -85,7 +85,10 @@ do_cd(int argc, const char ** argv)
 		path = argv[1];
 	else
 	{
+			dbg("get home\n");
 		path = getenv("HOME");
+			dbg("got \n");
+			dbg("home: %s\n",path);
 
 		if (path == NULL)
 		{
