@@ -27,6 +27,8 @@
 #endif
 
 
+#define dbg(...) fprintf(stderr,__VA_ARGS__)
+
 #define	PATH_LEN	1024
 #define	CMD_LEN		10240
 #define	ALIAS_ALLOC	20

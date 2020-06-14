@@ -87,6 +87,9 @@ void* malloc(int size){
 
 //+def
 void free(void *p){
+		if ( p == 0 )
+				return;
+
 		char *c = p;
 		int *i = p;
 		i--;

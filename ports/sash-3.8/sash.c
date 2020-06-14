@@ -15,6 +15,7 @@
 #include "sash.h"
 
 
+
 static const char * const	version = "3.8";
 
 
@@ -856,6 +857,8 @@ runCmd(const char * cmd)
 	pid_t		pid;
 	int		status;
 
+	dbg("runCmd %s\n",cmd);
+
 	/*
 	 * Check the command for any magic shell characters
 	 * except for quoting.
@@ -919,9 +922,13 @@ runCmd(const char * cmd)
 	 */
 	status = 0;
 	intCrlf = FALSE;
+	errno = 0;
 
 	while (((pid = waitpid(pid, &status, 0)) < 0) && (errno == EINTR))
-		;
+	{ fprintf(stderr,"waitpid, errno: %d\n", errno); } ;
+	dbg("waitpid out, errno: %d\n", errno); 
+	fprintf(stderr,"status %d\n", status); 
+	//dbg
 
 	intCrlf = TRUE;
 
@@ -934,7 +941,7 @@ runCmd(const char * cmd)
 
 	if (WIFSIGNALED(status))
 	{
-		fprintf(stderr, "pid %ld: killed by signal %d\n",
+		fprintf(stderr, "pid %d: killed by signal %d\n",
 			(long) pid, WTERMSIG(status));
 
 		return -1;
@@ -954,7 +961,7 @@ childProcess(const char * cmd)
 {
 	const char **	argv;
 	int		argc;
-
+dbg("childProcess %s\n", cmd);
 	/*
 	 * Close any extra file descriptors we have opened.
 	 */	
@@ -964,12 +971,14 @@ childProcess(const char * cmd)
 			fclose(sourcefiles[sourceCount]);
 	}
 
+dbg("childProcess2 %s\n", cmd);
 	/*
 	 * Break the command line up into individual arguments.
 	 * If this fails, then run the shell to execute the command.
 	 */
 	if (!makeArgs(cmd, &argc, &argv))
 	{
+	dbg("sys: %s\n",cmd);
 		int status = trySystem(cmd);
 
 		if (status == -1)
@@ -981,6 +990,7 @@ childProcess(const char * cmd)
 	/*
 	 * Try to execute the program directly.
 	 */
+	dbg("run: %s\n",argv[0]);
 	execvp(argv[0], (char **) argv);
 
 	/*

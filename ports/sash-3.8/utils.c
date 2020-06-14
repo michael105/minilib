@@ -686,9 +686,12 @@ makeArgs(const char * cmd, int * retArgc, const char *** retArgv)
 	 */
 	len = strlen(cmd) + 1;
 
+	dbg("makeArgs, len: %d\n",len);
 	if (len > stringsLength)
 	{
+		dbg("reallocing\n");	
 		newStrings = realloc(strings, len);
+		dbg("ok\n");	
 
 		if (newStrings == NULL)
 		{
@@ -1125,6 +1128,7 @@ int
 trySystem(const char * cmd)
 {
 	int status;
+	dbg("system: %s\n",cmd);
 
 	status = system(cmd);
 
