@@ -54,7 +54,7 @@ int snprintf( char *buf, size_t size, const char *fmt, ... );
 //+doc Return the fd nummber of stdin,-out,-err. 
 //+inline
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
-		return( *f & FD_MASK );
+		return( (f==0) ? 0 : (*f & FD_MASK) );
 }
 
 ////+macro

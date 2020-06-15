@@ -49,12 +49,19 @@
 #define O_NONBLOCK	00004000
 #define O_DSYNC		00010000	/* used to be O_SYNC, see below */
 #define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_ASYNC      020000
 #define O_DIRECT	00040000	/* direct disk access hint */
 #define O_LARGEFILE	00100000
 #define O_DIRECTORY	00200000	/* must be a directory */
 #define O_NOFOLLOW	00400000	/* don't follow links */
 #define O_NOATIME	01000000
 #define O_CLOEXEC	02000000	/* set close_on_exec */
+#define O_PATH    010000000
+
+#define O_SYNC     04010000
+#define O_RSYNC    04010000
+
+
 
 #endif
 

@@ -585,6 +585,11 @@ usleep         unsigned int usleep(unsigned int useconds);
 
                nonconformant usleep. 
               Sleep useconds, one usecond equals 1.024 microseconds.
+              I just hope, noone relies on an exact sleep time.
+              which isn't possible without a real time os, anyways.
+              When for whatever reason you'd need nanoseconds exact times,
+              best shot might be a spinloop, and looking for cpu ticks.
+             
               TODO: ignore blocked signals, sigchld
-               (src/sleep.c: 26)
+               (src/sleep.c: 31)
 

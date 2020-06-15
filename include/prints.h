@@ -1,6 +1,6 @@
 #ifndef prints_h
 #define prints_h
-//extern int _mprints(char*msg,...);
+extern int _mprints(char*msg,...);
 extern int dprints(int fd, char *msg,...);
 //+header mini_addons.h
 
