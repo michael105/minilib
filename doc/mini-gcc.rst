@@ -1,4 +1,4 @@
-**mini-gcc** v.GIT 2020-06-08 11:51:39
+**mini-gcc** v.GIT 2020-06-15 13:58:41
 
 ::
 
@@ -107,6 +107,8 @@ before options and parameters for gcc.
 -mlc, --compile 'sourcefile':
         compile sourcefile, use embedded scripting config
         (same as: --config 'sourcefile' -o `basename sourcefile` 'sourcefile')
+
+--dlog  debug log, write debug info to 'debuglog.n' (n counting up):
 
 
 \(c) 2019-2020 Michael misc Myer - BSD 3-clause

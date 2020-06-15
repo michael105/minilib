@@ -74,7 +74,7 @@ brk
 <p>
   brk( unsigned long brk)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.154) manpage: <a href="manpages/sys/brk.2.rst.html">brk</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.161) manpage: <a href="manpages/sys/brk.2.rst.html">brk</a><br>
 </p>
 </dd>
 <dt>
@@ -84,7 +84,7 @@ chmod
 <p>
   chmod( const char *filename, mode_t mode)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145) manpage: <a href="manpages/sys/chmod.2.rst.html">chmod</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.154) manpage: <a href="manpages/sys/chmod.2.rst.html">chmod</a><br>
 </p>
 </dd>
 <dt>
@@ -95,6 +95,16 @@ dup3
   dup3(int a1, int a2, int a3)
 <br>
  (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.122) manpage: <a href="manpages/gen/dup3.3.rst.html">dup3</a><br>
+</p>
+</dd>
+<dt>
+execveat
+</dt>
+<dd>
+<p>
+  execveat( int dirfd, const char <strong>filename,  char</strong> const* argv, char* const* envp, int flags)
+<br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.144) <br>
 </p>
 </dd>
 <dt>
@@ -124,7 +134,7 @@ fcntl
 <p>
   fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142) manpage: <a href="manpages/sys/fcntl.2.rst.html">fcntl</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.151) manpage: <a href="manpages/sys/fcntl.2.rst.html">fcntl</a><br>
 </p>
 </dd>
 <dt>
@@ -144,7 +154,7 @@ getcwd
 <p>
   getcwd( char *buf,  unsigned long size)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.157) manpage: <a href="manpages/gen/getcwd.3.rst.html">getcwd</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.133) manpage: <a href="manpages/gen/getcwd.3.rst.html">getcwd</a><br>
 </p>
 </dd>
 <dt>
@@ -164,7 +174,7 @@ getppid
 <p>
   DEF_syscall(getppid,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.150) manpage: <a href="manpages/sys/getpid.2.rst.html">getppid</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.157) manpage: <a href="manpages/sys/getpid.2.rst.html">getppid</a><br>
 </p>
 </dd>
 <dt>
@@ -184,7 +194,17 @@ kill
 <p>
   kill( pid_t pid,  int sig)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.155) manpage: <a href="manpages/sys/kill.2.rst.html">kill</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146) manpage: <a href="manpages/sys/kill.2.rst.html">kill</a><br>
+</p>
+</dd>
+<dt>
+mknod
+</dt>
+<dd>
+<p>
+  mknod( const char *filename,  umode_t mode,  unsigned dev)
+<br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.168) manpage: <a href="manpages/sys/mknod.2.rst.html">mknod</a><br>
 </p>
 </dd>
 <dt>
@@ -194,7 +214,7 @@ mount
 <p>
   mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.159) manpage: <a href="manpages/sys/mount.2.rst.html">mount</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.163) manpage: <a href="manpages/sys/mount.2.rst.html">mount</a><br>
 </p>
 </dd>
 <dt>
@@ -215,7 +235,7 @@ nanosleep
 <p>
   nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.130) manpage: <a href="manpages/sys/nanosleep.2.rst.html">nanosleep</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.138) manpage: <a href="manpages/sys/nanosleep.2.rst.html">nanosleep</a><br>
 </p>
 </dd>
 <dt>
@@ -225,7 +245,7 @@ pivot_root
 <p>
   pivot_root( const char *new_root,  const char *put_old)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.133) <br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.141) <br>
 </p>
 </dd>
 <dt>
@@ -235,7 +255,7 @@ readahead
 <p>
   readahead( int fd,  loff_t offset,  size_t count)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.160) <br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.164) <br>
 </p>
 </dd>
 <dt>
@@ -245,7 +265,7 @@ reboot
 <p>
   reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.161) manpage: <a href="manpages/sys/reboot.2.rst.html">reboot</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.165) manpage: <a href="manpages/sys/reboot.2.rst.html">reboot</a><br>
 </p>
 </dd>
 <dt>
@@ -255,7 +275,7 @@ rt_sigaction
 <p>
   rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.131) <br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.139) <br>
 </p>
 </dd>
 <dt>
@@ -265,7 +285,7 @@ sendfile
 <p>
   sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.156) manpage: <a href="manpages/sys/sendfile.2.rst.html">sendfile</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162) manpage: <a href="manpages/sys/sendfile.2.rst.html">sendfile</a><br>
 </p>
 </dd>
 <dt>
@@ -279,13 +299,23 @@ stat
 </p>
 </dd>
 <dt>
+symlink
+</dt>
+<dd>
+<p>
+  symlink( const char *oldname,  const char *newname)
+<br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127) manpage: <a href="manpages/sys/symlink.2.rst.html">symlink</a><br>
+</p>
+</dd>
+<dt>
 sync
 </dt>
 <dd>
 <p>
   DEF_syscall(sync,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.158) manpage: <a href="manpages/sys/sync.2.rst.html">sync</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.128) manpage: <a href="manpages/sys/sync.2.rst.html">sync</a><br>
 </p>
 </dd>
 <dt>
@@ -295,7 +325,7 @@ umask
 <p>
   umask( int mask)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.144) manpage: <a href="manpages/sys/umask.2.rst.html">umask</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.153) manpage: <a href="manpages/sys/umask.2.rst.html">umask</a><br>
 </p>
 </dd>
 <dt>
@@ -313,9 +343,9 @@ utime
 </dt>
 <dd>
 <p>
-  utime( char *filename, struct utimbuf *times)
+  utime( const char *filename, struct utimbuf *times)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.149) manpage: <a href="manpages/gen/utime.3.rst.html">utime</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.156) manpage: <a href="manpages/gen/utime.3.rst.html">utime</a><br>
 </p>
 </dd>
 <dt>
@@ -325,7 +355,7 @@ vfork
 <p>
   DEF_syscall(vfork,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.129) manpage: <a href="manpages/sys/vfork.2.rst.html">vfork</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.137) manpage: <a href="manpages/sys/vfork.2.rst.html">vfork</a><br>
 </p>
 </dd>
 <dt>
@@ -345,7 +375,7 @@ wait4
 <p>
   wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.163) manpage: <a href="manpages/sys/wait.2.rst.html">wait4</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.167) manpage: <a href="manpages/sys/wait.2.rst.html">wait4</a><br>
 </p>
 </dd>
 </dl>
@@ -370,7 +400,7 @@ opendir
 <p>
   DIR *opendir(const char *name);
 <br>
-  Defines: malloc close open<br>
+  Defines: open malloc close<br>
  (<a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10) manpage: <a href="manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
 </dd>
@@ -393,9 +423,20 @@ creat
 </dt>
 <dd>
 <p>
-  inline int volatile <em>attribute</em>always_inline creat( const char *s, int mode );
+  int volatile creat( const char *s, int mode );
 <br>
-  (<a href="../src/open.c">../src/open.c</a> l.30) manpage: <a href="manpages/compat-43/creat.2.rst.html">creat</a><br>
+  Defines: open<br>
+ (<a href="../src/open.c">../src/open.c</a> l.30) manpage: <a href="manpages/compat-43/creat.2.rst.html">creat</a><br>
+</p>
+</dd>
+<dt>
+mkfifo
+</dt>
+<dd>
+<p>
+  static int mkfifo( const char* path, mode_t mode );
+<br>
+  (<a href="../include/mkfifo.h">../include/mkfifo.h</a> l.4) manpage: <a href="manpages/sys/mkfifo.2.rst.html">mkfifo</a><br>
 </p>
 </dd>
 </dl>
@@ -2566,16 +2607,6 @@ _statfs
 </p>
 </dd>
 <dt>
-_strcmp
-</dt>
-<dd>
-<p>
-  int _strcmp(const char*c1,const char*c2,int len);
-<br>
-  (<a href="../src/mstrcmp.c">../src/mstrcmp.c</a> l.12) <br>
-</p>
-</dd>
-<dt>
 _swapoff
 </dt>
 <dd>
@@ -2966,7 +2997,7 @@ fprintfs
 <p>
   int fprintfs( FILE* F, char *fmt, &#8230;);
 <br>
-  Defines: strlen fileno write<br>
+  Defines: write strlen fileno<br>
  (<a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10) <br>
 prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
 </p>
@@ -2978,7 +3009,7 @@ fprints
 <p>
   #define fprints(F,str) write(fileno(F),str,strlen(str))
 <br>
-  Defines: fileno strlen write<br>
+  Defines: fileno write strlen<br>
  (<a href="../include/prints.h">../include/prints.h</a> l.17) <br>
 print the string(s) supplied as arg(s) to stream<br>
 </p>
@@ -3065,7 +3096,7 @@ print
 <p>
   #define print(str) write(STDOUT_FILENO,str,strlen(str))
 <br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  (<a href="../include/prints.h">../include/prints.h</a> l.29) <br>
 write str to stdout. Needs strlen<br>
 </p>
@@ -3171,6 +3202,18 @@ unlockpt
 </p>
 </dd>
 <dt>
+verbose_e.rst.htmlr
+</dt>
+<dd>
+<p>
+  const char* verbose_e.rst.htmlr(int num);
+<br>
+  (<a href="../include/e.rst.htmlr.h">../include/errstr.h</a> l.4) <br>
+verbose error (errno) string. <br>
+  this adds about 3.5kB to the compiled binary(!)<br>
+</p>
+</dd>
+<dt>
 vsnprintf
 </dt>
 <dd>
@@ -3179,28 +3222,6 @@ vsnprintf
 <br>
   Defines: write<br>
  (<a href="../src/sprintf.c">../src/sprintf.c</a> l.36) manpage: <a href="manpages/stdio/printf.3.rst.html">vsnprintf</a><br>
-</p>
-</dd>
-<dt>
-wait
-</dt>
-<dd>
-<p>
-  pid_t wait(int *wstatus);
-<br>
-  Defines: wait4<br>
- (<a href="../src/wait.c">../src/wait.c</a> l.7) manpage: <a href="manpages/sys/wait.2.rst.html">wait</a><br>
-</p>
-</dd>
-<dt>
-waitpid
-</dt>
-<dd>
-<p>
-  pid_t waitpid(pid_t pid, int *wstatus, int options);
-<br>
-  Defines: wait4<br>
- (<a href="../src/wait.c">../src/wait.c</a> l.15) manpage: <a href="manpages/sys/wait.2.rst.html">waitpid</a><br>
 </p>
 </dd>
 <dt>
@@ -3259,9 +3280,9 @@ _fopen
 </dt>
 <dd>
 <p>
-  FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode);
+  FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE *f);
 <br>
-  Defines: open<br>
+  Defines: fileno close open<br>
  (<a href="../src/fopen.c">../src/fopen.c</a> l.12) <br>
 modes implemented: r, r+, w, w+, a, a+<br>
 </p>
@@ -3277,13 +3298,23 @@ _itohex
 </p>
 </dd>
 <dt>
+clearerr
+</dt>
+<dd>
+<p>
+  static inline void clearerr(FILE *f);
+<br>
+  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.199) manpage: <a href="manpages/stdio/ferror.3.rst.html">clearerr</a><br>
+</p>
+</dd>
+<dt>
 clearerror
 </dt>
 <dd>
 <p>
   static inline void clearerror(FILE *f);
 <br>
-  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.199) <br>
+  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.204) <br>
 </p>
 </dd>
 <dt>
@@ -3305,7 +3336,7 @@ fdopen
   FILE <strong>fdopen(int fd, const char</strong> mode);
 <br>
   Defines: open<br>
- (<a href="../src/fopen.c">../src/fopen.c</a> l.83) manpage: <a href="manpages/stdio/fopen.3.rst.html">fdopen</a><br>
+ (<a href="../src/fopen.c">../src/fopen.c</a> l.87) manpage: <a href="manpages/stdio/fopen.3.rst.html">fdopen</a><br>
 modes implemented: r, r+, w, w+, a, a+<br>
 </p>
 </dd>
@@ -3348,7 +3379,7 @@ fgetc
   static inline int fgetc(FILE *F);
 <br>
   Defines: read fileno<br>
- (<a href="../include/fgetc.h">../include/fgetc.h</a> l.10) manpage: <a href="manpages/stdio/getc.3.rst.html">fgetc</a><br>
+ (<a href="../include/fgetc.h">../include/fgetc.h</a> l.11) manpage: <a href="manpages/stdio/getc.3.rst.html">fgetc</a><br>
 </p>
 </dd>
 <dt>
@@ -3360,6 +3391,17 @@ fgetpos
 <br>
   Defines: lseek<br>
  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.128) manpage: <a href="manpages/stdio/fseek.3.rst.html">fgetpos</a><br>
+</p>
+</dd>
+<dt>
+fgets
+</dt>
+<dd>
+<p>
+  char* fgets(char <strong>buf, int size, FILE</strong> F);
+<br>
+  Defines: read fileno<br>
+ (<a href="../src/fgets.c">../src/fgets.c</a> l.6) manpage: <a href="manpages/stdio/fgets.3.rst.html">fgets</a><br>
 </p>
 </dd>
 <dt>
@@ -3381,7 +3423,7 @@ fopen
   FILE <strong>fopen(const char</strong> filename, const char* mode);
 <br>
   Defines: open<br>
- (<a href="../src/fopen.c">../src/fopen.c</a> l.73) manpage: <a href="manpages/stdio/fopen.3.rst.html">fopen</a><br>
+ (<a href="../src/fopen.c">../src/fopen.c</a> l.77) manpage: <a href="manpages/stdio/fopen.3.rst.html">fopen</a><br>
 modes implemented: r, r+, w, w+, a, a+<br>
 </p>
 </dd>
@@ -3403,7 +3445,7 @@ fprintf
 <p>
   #define fprintf(stream,&#8230;)   write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,<em>VA_ARGS</em>))
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  (<a href="../src/sprintf.c">../src/sprintf.c</a> l.244) manpage: <a href="manpages/stdio/printf.3.rst.html">fprintf</a><br>
 </p>
 </dd>
@@ -3414,7 +3456,7 @@ fputc
 <p>
   static inline int volatile fputc(int c, FILE* F);
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  (<a href="../include/fputc.h">../include/fputc.h</a> l.10) manpage: <a href="manpages/stdio/putc.3.rst.html">fputc</a><br>
 </p>
 </dd>
@@ -3425,8 +3467,8 @@ fputs
 <p>
   static inline int volatile fputs(const char *c, FILE *F);
 <br>
-  Defines: write strlen fileno<br>
- (<a href="../include/fputs.h">../include/fputs.h</a> l.15) manpage: <a href="manpages/stdio/fputs.3.rst.html">fputs</a><br>
+  Defines: fileno write strlen<br>
+ (<a href="../include/fputs.h">../include/fputs.h</a> l.20) manpage: <a href="manpages/stdio/fputs.3.rst.html">fputs</a><br>
 </p>
 </dd>
 <dt>
@@ -3438,6 +3480,18 @@ fread
 <br>
   Defines: read<br>
  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.163) manpage: <a href="manpages/stdio/fread.3.rst.html">fread</a><br>
+</p>
+</dd>
+<dt>
+freopen
+</dt>
+<dd>
+<p>
+  FILE <strong>freopen(const char</strong> filename, const char* mode, FILE *F);
+<br>
+  Defines: open<br>
+ (<a href="../src/fopen.c">../src/fopen.c</a> l.97) manpage: <a href="manpages/stdio/fopen.3.rst.html">freopen</a><br>
+modes implemented: r, r+, w, w+, a, a+<br>
 </p>
 </dd>
 <dt>
@@ -3491,8 +3545,8 @@ getc
 <p>
   #define getc(F) fgetc(F)
 <br>
-  Defines: fileno read<br>
- (<a href="../include/fgetc.h">../include/fgetc.h</a> l.18) manpage: <a href="manpages/stdio/getc.3.rst.html">getc</a><br>
+  Defines: read fileno<br>
+ (<a href="../include/fgetc.h">../include/fgetc.h</a> l.26) manpage: <a href="manpages/stdio/getc.3.rst.html">getc</a><br>
 </p>
 </dd>
 <dt>
@@ -3502,8 +3556,19 @@ getchar
 <p>
   #define getchar() fgetc(0)
 <br>
-  Defines: read fileno<br>
- (<a href="../include/fgetc.h">../include/fgetc.h</a> l.21) manpage: <a href="manpages/stdio/getc.3.rst.html">getchar</a><br>
+  Defines: fileno read<br>
+ (<a href="../include/fgetc.h">../include/fgetc.h</a> l.29) manpage: <a href="manpages/stdio/getc.3.rst.html">getchar</a><br>
+</p>
+</dd>
+<dt>
+gets
+</dt>
+<dd>
+<p>
+  #define gets(F) fgets(F,0xfffffff,stdin)
+<br>
+  Defines: fileno read<br>
+ (<a href="../src/fgets.c">../src/fgets.c</a> l.29) manpage: <a href="manpages/stdio/fgets.3.rst.html">gets</a><br>
 </p>
 </dd>
 <dt>
@@ -3533,10 +3598,10 @@ perror
 </dt>
 <dd>
 <p>
-  void perror(char *msg);
+  void perror(const char *msg);
 <br>
-  Defines: fileno strlen strerror write<br>
- (<a href="../src/strerror.c">../src/strerror.c</a> l.22) manpage: <a href="manpages/string/strerror.3.rst.html">perror</a><br>
+  Defines: write strlen strerror fileno<br>
+ (<a href="../src/strerror.c">../src/strerror.c</a> l.26) manpage: <a href="manpages/string/strerror.3.rst.html">perror</a><br>
 </p>
 </dd>
 <dt>
@@ -3546,7 +3611,7 @@ printf
 <p>
   #define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.92) manpage: <a href="manpages/stdio/printf.3.rst.html">printf</a><br>
 </p>
 </dd>
@@ -3557,7 +3622,7 @@ putc
 <p>
   #define putc(c,stream) fputc(c,stream)
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  (<a href="../include/fputc.h">../include/fputc.h</a> l.19) manpage: <a href="manpages/stdio/putc.3.rst.html">putc</a><br>
 </p>
 </dd>
@@ -3579,7 +3644,7 @@ puts
 <p>
   #define puts(msg) ( print(msg) + printl() )
 <br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  (<a href="../include/prints.h">../include/prints.h</a> l.49) manpage: <a href="manpages/stdio/fputs.3.rst.html">puts</a><br>
 write msg to stdout, append a newline. Needs strlen.<br>
 </p>
@@ -3602,7 +3667,7 @@ setbuf
 <p>
   static void setbuf(FILE *stream, char *buf);
 <br>
-  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.207) manpage: <a href="manpages/stdio/setbuf.3.rst.html">setbuf</a><br>
+  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.212) manpage: <a href="manpages/stdio/setbuf.3.rst.html">setbuf</a><br>
 dummy functions.<br>
   There is no buffering implemented for the streams yet.<br>
 </p>
@@ -3614,7 +3679,7 @@ setvbuf
 <p>
   static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 <br>
-  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.212) manpage: <a href="manpages/stdio/setbuf.3.rst.html">setvbuf</a><br>
+  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.217) manpage: <a href="manpages/stdio/setbuf.3.rst.html">setvbuf</a><br>
 dummy<br>
 </p>
 </dd>
@@ -3630,13 +3695,23 @@ sprintf
 </p>
 </dd>
 <dt>
+ungetc
+</dt>
+<dd>
+<p>
+  static int ungetc(int c, FILE *F);
+<br>
+  (<a href="../include/fgetc.h">../include/fgetc.h</a> l.36) manpage: <a href="manpages/stdio/ungetc.3.rst.html">ungetc</a><br>
+</p>
+</dd>
+<dt>
 vfprintf
 </dt>
 <dd>
 <p>
   #define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  (<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.101) manpage: <a href="manpages/stdio/printf.3.rst.html">vfprintf</a><br>
 </p>
 </dd>
@@ -3649,7 +3724,7 @@ atoi
 </dt>
 <dd>
 <p>
-  int atoi(char *c);
+  int atoi(const char *c);
 <br>
   (<a href="../src/atoi.c">../src/atoi.c</a> l.6) manpage: <a href="manpages/stdlib/atoi.3.rst.html">atoi</a><br>
 </p>
@@ -3661,7 +3736,7 @@ free
 <p>
   void volatile free(void* p);
 <br>
-  (<a href="../src/malloc.c">../src/malloc.c</a> l.200) manpage: <a href="manpages/stdlib/memory.3.rst.html">free</a><br>
+  (<a href="../src/malloc.c">../src/malloc.c</a> l.216) manpage: <a href="manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
 </dd>
 <dt>
@@ -3669,9 +3744,10 @@ getenv
 </dt>
 <dd>
 <p>
-  char <strong>getenv(const char</strong> name);
+  char* getenv(const char* name);
 <br>
-  (<a href="../src/getenv.c">../src/getenv.c</a> l.11) manpage: <a href="manpages/stdlib/getenv.3.rst.html">getenv</a><br>
+  Defines: environ<br>
+ (<a href="../src/getenv.c">../src/getenv.c</a> l.8) manpage: <a href="manpages/stdlib/getenv.3.rst.html">getenv</a><br>
 </p>
 </dd>
 <dt>
@@ -3681,7 +3757,7 @@ malloc
 <p>
   void* volatile malloc(int size);
 <br>
-  (<a href="../src/malloc.c">../src/malloc.c</a> l.150) manpage: <a href="manpages/stdlib/memory.3.rst.html">malloc</a><br>
+  (<a href="../src/malloc.c">../src/malloc.c</a> l.166) manpage: <a href="manpages/stdlib/memory.3.rst.html">malloc</a><br>
 </p>
 </dd>
 <dt>
@@ -3695,6 +3771,17 @@ rand
 </p>
 </dd>
 <dt>
+realloc
+</dt>
+<dd>
+<p>
+  void* realloc(void *p, int size);
+<br>
+  Defines: malloc free<br>
+ (<a href="../src/malloc.c">../src/malloc.c</a> l.155) manpage: <a href="manpages/stdlib/memory.3.rst.html">realloc</a><br>
+</p>
+</dd>
+<dt>
 srand
 </dt>
 <dd>
@@ -3704,10 +3791,52 @@ srand
   (<a href="../src/rand.c">../src/rand.c</a> l.7) manpage: <a href="manpages/stdlib/rand.3.rst.html">srand</a><br>
 </p>
 </dd>
+<dt>
+system
+</dt>
+<dd>
+<p>
+  int system( const char* command );
+<br>
+  Defines: execve write vfork wait4 environ<br>
+ (<a href="../src/system.c">../src/system.c</a> l.4) manpage: <a href="manpages/stdlib/system.3.rst.html">system</a><br>
+</p>
+</dd>
+<dt>
+todo_putenv
+</dt>
+<dd>
+<p>
+  int todo_putenv( char *s );
+<br>
+  Defines: environ<br>
+ (<a href="../src/getenv.c">../src/getenv.c</a> l.22) <br>
+</p>
+</dd>
 </dl>
 <hr>
 <h2><a name="_string_h"></a>10.  string.h</h2>
 <dl>
+<dt>
+_strcasecmp
+</dt>
+<dd>
+<p>
+  int _strcasecmp(const char*c1,const char*c2,int len);
+<br>
+  (<a href="../src/strcmp.c">../src/strcmp.c</a> l.30) <br>
+</p>
+</dd>
+<dt>
+_strcmp
+</dt>
+<dd>
+<p>
+  int _strcmp(const char*c1,const char*c2,int len);
+<br>
+  (<a href="../src/strcmp.c">../src/strcmp.c</a> l.13) <br>
+</p>
+</dd>
 <dt>
 memcmp
 </dt>
@@ -3716,7 +3845,7 @@ memcmp
   int memcmp(const void* c1,const void* c2,int len);
 <br>
   Defines: 0<br>
- (<a href="../src/mstrcmp.c">../src/mstrcmp.c</a> l.46) manpage: <a href="manpages/string/memcmp.3.rst.html">memcmp</a><br>
+ (<a href="../src/strcmp.c">../src/strcmp.c</a> l.85) manpage: <a href="manpages/string/memcmp.3.rst.html">memcmp</a><br>
 </p>
 </dd>
 <dt>
@@ -3740,6 +3869,17 @@ memset
 </p>
 </dd>
 <dt>
+strcasecmp
+</dt>
+<dd>
+<p>
+  int strcasecmp(const char*c1,const char*c2);
+<br>
+  Defines: <br>
+ (<a href="../src/strcmp.c">../src/strcmp.c</a> l.49) manpage: <a href="manpages/string/string.3.rst.html">strcasecmp</a><br>
+</p>
+</dd>
+<dt>
 strcat
 </dt>
 <dd>
@@ -3751,6 +3891,27 @@ strcat
 </p>
 </dd>
 <dt>
+strchr
+</dt>
+<dd>
+<p>
+  char *strchr(const char *s, int c);
+<br>
+  Defines: strchrnul<br>
+ (<a href="../src/strchr.c">../src/strchr.c</a> l.20) manpage: <a href="manpages/string/string.3.rst.html">strchr</a><br>
+</p>
+</dd>
+<dt>
+strchrnul
+</dt>
+<dd>
+<p>
+  char *strchrnul(const char *s, int c);
+<br>
+  (<a href="../src/strchr.c">../src/strchr.c</a> l.7) manpage: <a href="manpages/string/strchr.3.rst.html">strchrnul</a><br>
+</p>
+</dd>
+<dt>
 strcmp
 </dt>
 <dd>
@@ -3758,7 +3919,7 @@ strcmp
   int strcmp(const char*c1,const char*c2);
 <br>
   Defines: <br>
- (<a href="../src/mstrcmp.c">../src/mstrcmp.c</a> l.29) manpage: <a href="manpages/string/string.3.rst.html">strcmp</a><br>
+ (<a href="../src/strcmp.c">../src/strcmp.c</a> l.68) manpage: <a href="manpages/string/string.3.rst.html">strcmp</a><br>
 </p>
 </dd>
 <dt>
@@ -3803,6 +3964,17 @@ strlen
 </p>
 </dd>
 <dt>
+strncasecmp
+</dt>
+<dd>
+<p>
+  int strncasecmp(const char*c1,const char*c2,int len);
+<br>
+  Defines: <br>
+ (<a href="../src/strcmp.c">../src/strcmp.c</a> l.57) manpage: <a href="manpages/string/string.3.rst.html">strncasecmp</a><br>
+</p>
+</dd>
+<dt>
 strncmp
 </dt>
 <dd>
@@ -3810,7 +3982,7 @@ strncmp
   int strncmp(const char*c1,const char*c2,int len);
 <br>
   Defines: <br>
- (<a href="../src/mstrcmp.c">../src/mstrcmp.c</a> l.37) manpage: <a href="manpages/string/string.3.rst.html">strncmp</a><br>
+ (<a href="../src/strcmp.c">../src/strcmp.c</a> l.76) manpage: <a href="manpages/string/string.3.rst.html">strncmp</a><br>
 </p>
 </dd>
 <dt>
@@ -3824,9 +3996,56 @@ strncpy
  (<a href="../src/memcpy.c">../src/memcpy.c</a> l.27) manpage: <a href="manpages/string/string.3.rst.html">strncpy</a><br>
 </p>
 </dd>
+<dt>
+strrchr
+</dt>
+<dd>
+<p>
+  char *strrchr(const char *s, int c);
+<br>
+  Defines: strchrnul<br>
+ (<a href="../src/strchr.c">../src/strchr.c</a> l.36) manpage: <a href="manpages/string/string.3.rst.html">strrchr</a><br>
+</p>
+</dd>
+<dt>
+s.rst.htmlr
+</dt>
+<dd>
+<p>
+  char* s.rst.htmlr(const char *big, const char *little);
+<br>
+  (<a href="../src/s.rst.htmlr.c">../src/strstr.c</a> l.3) manpage: <a href="manpages/string/strstr.3.rst">strstr</a><br>
+</p>
+</dd>
 </dl>
 <hr>
-<h2><a name="_time_h"></a>11.  time.h</h2>
+<h2><a name="_sys_wait_h"></a>11.  sys/wait.h</h2>
+<dl>
+<dt>
+wait
+</dt>
+<dd>
+<p>
+  pid_t wait(int *wstatus);
+<br>
+  Defines: wait4<br>
+ (<a href="../src/wait.c">../src/wait.c</a> l.8) manpage: <a href="manpages/sys/wait.2.rst.html">wait</a><br>
+</p>
+</dd>
+<dt>
+waitpid
+</dt>
+<dd>
+<p>
+  pid_t waitpid(pid_t pid, int *wstatus, int options);
+<br>
+  Defines: wait4<br>
+ (<a href="../src/wait.c">../src/wait.c</a> l.16) manpage: <a href="manpages/sys/wait.2.rst.html">waitpid</a><br>
+</p>
+</dd>
+</dl>
+<hr>
+<h2><a name="_time_h"></a>12.  time.h</h2>
 <dl>
 <dt>
 time
@@ -3835,12 +4054,12 @@ time
 <p>
   time(unsigned int *a1 )
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.168) manpage: <a href="manpages/gen/time.3.rst.html">time</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.173) manpage: <a href="manpages/gen/time.3.rst.html">time</a><br>
 </p>
 </dd>
 </dl>
 <hr>
-<h2><a name="_unistd_h"></a>12.  unistd.h</h2>
+<h2><a name="_unistd_h"></a>13.  unistd.h</h2>
 <dl>
 <dt>
 access
@@ -3849,7 +4068,7 @@ access
 <p>
   access( const char *filename, int mode)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.141) manpage: <a href="manpages/sys/access.2.rst.html">access</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.150) manpage: <a href="manpages/sys/access.2.rst.html">access</a><br>
 </p>
 </dd>
 <dt>
@@ -3869,7 +4088,7 @@ chown
 <p>
   chown( const char *filename, uid_t user, gid_t group)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146) manpage: <a href="manpages/sys/chown.2.rst.html">chown</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.155) manpage: <a href="manpages/sys/chown.2.rst.html">chown</a><br>
 </p>
 </dd>
 <dt>
@@ -3879,7 +4098,7 @@ chroot
 <p>
   chroot( const char *filename)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.132) manpage: <a href="manpages/sys/chroot.2.rst.html">chroot</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.140) manpage: <a href="manpages/sys/chroot.2.rst.html">chroot</a><br>
 </p>
 </dd>
 <dt>
@@ -3913,13 +4132,57 @@ dup2
 </p>
 </dd>
 <dt>
+execv
+</dt>
+<dd>
+<p>
+  static inline int execv(const char *pathname, char *const argv[]);
+<br>
+  Defines: environ execve<br>
+ (<a href="../src/execvp.c">../src/execvp.c</a> l.7) manpage: <a href="manpages/gen/exec.3.rst.html">execv</a><br>
+</p>
+</dd>
+<dt>
 execve
 </dt>
 <dd>
 <p>
-  execve( const char *filename,  const char <strong>argv,  const char </strong>envp)
+  execve( const char <strong>filename,  char</strong> const* argv, char* const* envp)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.136) manpage: <a href="manpages/sys/execve.2.rst.html">execve</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.130) manpage: <a href="manpages/sys/execve.2.rst.html">execve</a><br>
+</p>
+</dd>
+<dt>
+execvp
+</dt>
+<dd>
+<p>
+  static inline int execvp(const char *file, char *const argv[]);
+<br>
+  Defines: execve environ<br>
+ (<a href="../src/execvp.c">../src/execvp.c</a> l.28) manpage: <a href="manpages/gen/exec.3.rst.html">execvp</a><br>
+</p>
+</dd>
+<dt>
+execvpe
+</dt>
+<dd>
+<p>
+  static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
+<br>
+  Defines: execve environ<br>
+ (<a href="../src/execvp.c">../src/execvp.c</a> l.20) <br>
+doesn&#8217;t search the path env (todo)<br>
+</p>
+</dd>
+<dt>
+fexecveat
+</dt>
+<dd>
+<p>
+  static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+<br>
+  (<a href="../src/execvp.c">../src/execvp.c</a> l.12) <br>
 </p>
 </dd>
 <dt>
@@ -3929,7 +4192,7 @@ fork
 <p>
   DEF_syscall(fork,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.128) manpage: <a href="manpages/sys/fork.2.rst.html">fork</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.136) manpage: <a href="manpages/sys/fork.2.rst.html">fork</a><br>
 </p>
 </dd>
 <dt>
@@ -3959,7 +4222,7 @@ getgid
 <p>
   DEF_syscall(getgid,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.152) manpage: <a href="manpages/sys/getgid.2.rst.html">getgid</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.159) manpage: <a href="manpages/sys/getgid.2.rst.html">getgid</a><br>
 </p>
 </dd>
 <dt>
@@ -3969,7 +4232,7 @@ getpgrp
 <p>
   DEF_syscall(getpgrp,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.153) manpage: <a href="manpages/sys/getpgrp.2.rst.html">getpgrp</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.160) manpage: <a href="manpages/sys/getpgrp.2.rst.html">getpgrp</a><br>
 </p>
 </dd>
 <dt>
@@ -3989,7 +4252,7 @@ getuid
 <p>
   DEF_syscall(getuid,0)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162) manpage: <a href="manpages/sys/getuid.2.rst.html">getuid</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.166) manpage: <a href="manpages/sys/getuid.2.rst.html">getuid</a><br>
 </p>
 </dd>
 <dt>
@@ -4010,7 +4273,7 @@ link
 <p>
   link( const char *oldname, const char *newname)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.148) manpage: <a href="manpages/sys/link.2.rst.html">link</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.126) manpage: <a href="manpages/sys/link.2.rst.html">link</a><br>
 </p>
 </dd>
 <dt>
@@ -4030,7 +4293,7 @@ mkdir
 <p>
   mkdir( const char *pathname, int mode)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.137) manpage: <a href="manpages/sys/mkdir.2.rst.html">mkdir</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145) manpage: <a href="manpages/sys/mkdir.2.rst.html">mkdir</a><br>
 </p>
 </dd>
 <dt>
@@ -4050,7 +4313,7 @@ pipe
 <p>
   pipe( int *filedes)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.143) manpage: <a href="manpages/sys/pipe.2.rst.html">pipe</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.152) manpage: <a href="manpages/sys/pipe.2.rst.html">pipe</a><br>
 </p>
 </dd>
 <dt>
@@ -4110,7 +4373,7 @@ setpgid
 <p>
   setpgid( pid_t pid, pid_t pgid)
 <br>
- (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.151) manpage: <a href="manpages/sys/setpgid.2.rst.html">setpgid</a><br>
+ (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.158) manpage: <a href="manpages/sys/setpgid.2.rst.html">setpgid</a><br>
 </p>
 </dd>
 <dt>
@@ -4153,7 +4416,7 @@ tcgetattr
   static inline int <em>attribute</em>always_inline tcgetattr(int fd, struct termios *io);
 <br>
   Defines: ioctl<br>
- (<a href="../include/tcgetattr.h">../include/tcgetattr.h</a> l.17) manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
+ (<a href="../include/tcgetattr.h">../include/tcgetattr.h</a> l.21) manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
 </p>
 </dd>
 <dt>
@@ -4164,7 +4427,7 @@ tcsetattr
   static inline int <em>attribute</em>always_inline tcsetattr(int fd, int opt, const struct termios *io);
 <br>
   Defines: ioctl<br>
- (<a href="../include/tcsetattr.h">../include/tcsetattr.h</a> l.18) manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a><br>
+ (<a href="../include/tcsetattr.h">../include/tcsetattr.h</a> l.20) manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a><br>
 </p>
 </dd>
 <dt>
@@ -4175,6 +4438,19 @@ unlink
   unlink( const char* a1)
 <br>
  (<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.111) manpage: <a href="manpages/sys/unlink.2.rst.html">unlink</a><br>
+</p>
+</dd>
+<dt>
+usleep
+</dt>
+<dd>
+<p>
+  unsigned int usleep(unsigned int useconds);
+<br>
+  (<a href="../src/sleep.c">../src/sleep.c</a> l.26) manpage: <a href="manpages/gen/usleep.3.rst.html">usleep</a><br>
+nonconformant usleep. <br>
+  Sleep useconds, one usecond equals 1.024 microseconds.<br>
+  TODO: ignore blocked signals, sigchld<br>
 </p>
 </dd>
 <dt>
@@ -4192,7 +4468,7 @@ write
 <p></p>
 <hr><p><small>
 Last updated
- 2020-06-08 15:30:59 CEST
+ 2020-06-15 16:01:50 CEST
 </small></p>
 </body>
 </html>

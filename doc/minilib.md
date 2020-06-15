@@ -330,7 +330,7 @@ getchar        #define getchar() fgetc(0)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
-               (src/fgets.c: 27)
+               (src/fgets.c: 29)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -540,16 +540,20 @@ unistd.h
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
 
-               (include/exec.h: 7)
+               (src/execvp.c: 7)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
 
-               (include/exec.h: 24)
+               (src/execvp.c: 28)
 
 execvpe        static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
 
                doesn't search the path env (todo)
-               (include/exec.h: 16)
+               (src/execvp.c: 20)
+
+fexecveat      static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+
+               (src/execvp.c: 12)
 
 isatty         int isatty(int fd);
 
@@ -576,4 +580,11 @@ tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd
 tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
 
                (include/tcsetattr.h: 20)
+
+usleep         unsigned int usleep(unsigned int useconds);
+
+               nonconformant usleep. 
+              Sleep useconds, one usecond equals 1.024 microseconds.
+              TODO: ignore blocked signals, sigchld
+               (src/sleep.c: 26)
 

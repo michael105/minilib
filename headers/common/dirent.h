@@ -71,7 +71,7 @@ long           telldir(DIR *);
 #define DT_WHT 14
 #define IFTODT(x) ((x)>>12 & 017)
 #define DTTOIF(x) ((x)<<12)
-int getdents(int, struct dirent *, size_t);
+//int getdents(int, struct dirent *, size_t);
 #endif
 
 #ifdef _GNU_SOURCE
