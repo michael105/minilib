@@ -109,8 +109,8 @@ sighandler_t signal(int sig, sighandler_t func );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/sigaddset.c"
 #include "minilib/src/signal.c"
+#include "minilib/src/sigaddset.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
