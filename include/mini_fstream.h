@@ -23,7 +23,7 @@
 //+after read close
 
 //+doc This does nothing, since minilib doesn't provide buffered streams yet.
-//+doc in order to sync the stream, please use fsync
+//+doc In order to sync data to disc, please use fsync
 //+inline
 static inline int __attribute__((always_inline)) fflush( FILE *F ){
 		return(0);
@@ -59,7 +59,6 @@ static inline int __attribute__((always_inline)) fileno( FILE *f ){
 
 ////+macro
 //#define fileno(stream) ({union ful { FILE *F; int i, fd;};ful.F=stream;ful.fd;})
-
 
 //+depends close
 //+inline
@@ -165,7 +164,7 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 		int a;
 		for ( a = 0; a<nmemb; a++ ){
 				if ( read( fileno(f), p, size ) != size ){
-						*f = *f | FEOF_FLAG ; // set feof. Could also have been another error.
+						*f = *f | FEOF_FLAG ; // set feof. Could have also been another error.
 						return(a);
 				}
 				p = p + size;
@@ -206,13 +205,13 @@ static inline void clearerror(FILE *f){
 }
 
 
-//+doc dummy functions.
+//+doc dummy function.
 // There is no buffering implemented for the streams yet.
 //+def
 static void setbuf(FILE *stream, char *buf){
 }
 
-//+doc dummy
+//+doc dummy function
 //+def
 static int setvbuf(FILE *stream, char *buf, int mode, size_t size){
 		return(0);

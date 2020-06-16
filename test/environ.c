@@ -16,7 +16,7 @@ return
 int main( int argc, char *argv[] ){
 		printf("getenv.\n");
 
-		prints(getenv("HOME"));
+		//prints(getenv("HOME"));
 
 		return(0);
 }

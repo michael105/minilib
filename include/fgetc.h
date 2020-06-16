@@ -28,10 +28,9 @@ static inline int fgetc(FILE *F){
 //+depends fgetc fileno read
 //+macro getchar() fgetc(0)
 
-// pushes a char back to the stream.
-// overwrites a previous backupushed char
-// (according to posix, only one char is guaranteed 
-// to be pushed back)
+//+doc pushes one char back to the stream.
+// Overwrites a previously pushed char
+// (conforming to the posix spec) 
 //+def
 static int ungetc(int c, FILE *F){
 		*F = (*F & ~UNGETC_MASK) | (c<<24);

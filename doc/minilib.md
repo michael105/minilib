@@ -254,15 +254,15 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerr       static inline void clearerr(FILE *f);
 
-               (include/mini_fstream.h: 199)
+               (include/mini_fstream.h: 198)
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 204)
+               (include/mini_fstream.h: 203)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-               (include/mini_fstream.h: 66)
+               (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
@@ -271,15 +271,15 @@ fdopen         FILE *fdopen(int fd, const char* mode);
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 185)
+               (include/mini_fstream.h: 184)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 192)
+               (include/mini_fstream.h: 191)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
-               This does nothing, since minilib doesn't provide buffered streams yet.in order to sync the stream, please use fsync
+               This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
                (include/mini_fstream.h: 28)
 
 fgetc          static inline int fgetc(FILE *F);
@@ -288,7 +288,7 @@ fgetc          static inline int fgetc(FILE *F);
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 128)
+               (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
@@ -306,7 +306,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 96)
+               (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
@@ -322,7 +322,7 @@ fputs          static inline int volatile fputs(const char *c, FILE *F);
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 163)
+               (include/mini_fstream.h: 162)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
@@ -331,19 +331,19 @@ freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 147)
+               (include/mini_fstream.h: 146)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 134)
+               (include/mini_fstream.h: 133)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 122)
+               (include/mini_fstream.h: 121)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 107)
+               (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
 
@@ -371,7 +371,7 @@ perror         void perror(const char *msg);
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-               (include/mini_fstream.h: 92)
+               (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
 
@@ -388,18 +388,18 @@ puts           #define puts(msg) ( print(msg) + printl() )
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 157)
+               (include/mini_fstream.h: 156)
 
 setbuf         static void setbuf(FILE *stream, char *buf);
 
-               dummy functions.
+               dummy function.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 212)
+               (include/mini_fstream.h: 211)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
-               dummy
-               (include/mini_fstream.h: 217)
+               dummy function
+               (include/mini_fstream.h: 216)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -407,11 +407,15 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
 ungetc         static int ungetc(int c, FILE *F);
 
+               pushes one char back to the stream.
+              overwrites a previous backupushed char
+              (according to posix, only one char is guaranteed 
+              to be pushed back)
                (include/fgetc.h: 36)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 101)
+               (include/mini_fstream.h: 100)
 
 
 

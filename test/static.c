@@ -26,7 +26,7 @@ int main( int argc, char *argv[] ){
 		printf("Pid: %d\n",pid);
 		printf("Got: %s\n",st);
 
-		printf("HOME: %s\n", getenv("HOME"));
+		//printf("HOME: %s\n", getenv("HOME"));
 
 
 		return(0);
