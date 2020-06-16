@@ -28,8 +28,8 @@ int main(int argc, char *argv[],const char*envp[]){
 
 		if ( argc < 3 ){
 				char *av[]={av[0]="sh",av[1]=0 };
-				return(execve("/bin/sh",av,envp));
+				return(execve("/bin/sh",av,(char*const*)envp));
 		}
 
-		return(execve(argv[2],&argv[2],envp));
+		return(execve(argv[2],&argv[2],(char*const*)envp));
 }
