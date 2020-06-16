@@ -331,7 +331,11 @@ while ( my $file = shift ){
 								#$mlfunchash->{$func}= $f; # no standard function
 								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
-										$f->{header} = "mini_addons.h";
+										if ( exists( $syscallsysdefs->{$func} ) ){
+												$f->{header} = "mini_syscalls.h";
+										} else {
+												$f->{header} = "mini_addons.h";
+										}
 								} else {
 										$f->{header} = $header;
 								}

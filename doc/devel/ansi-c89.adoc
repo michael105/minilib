@@ -59,7 +59,7 @@ ____
          LC_MONETARY
          LC_NUMERIC
          LC_TIME
-         NULL
+      x   NULL
          struct lconv
          char *setlocale(int category, const char *locale);
          struct lconv *localeconv(void);

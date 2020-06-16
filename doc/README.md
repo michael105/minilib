@@ -1,6 +1,10 @@
 Contents
 ________
 
+In this directory is documentation about minilib itself stored.
+
+In the subdirectories there is information on the implemented functions,
+namely the bsd manpages, and ansic / posixc function references.
 
 
 [mini-gcc](mini-gcc.rst)
