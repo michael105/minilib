@@ -25,9 +25,9 @@ minilib_globals ml;
 #ifndef dumbsyntaxchecker
 // pointer to env**
 // gets assigned in asm/start-*.c
+#endif
 #ifdef mini_environ
 char **environ;
-#endif
 #endif
 
 

@@ -17,7 +17,7 @@ int main( int argc, char *argv[] ){
 		
 		int r = system("ls system.c Makefile");
 		printf("ret: %d\n",r);
-		r = system("ls sadf");
+		r = system("ls should_not_be_there");
 		printf("ret: %d\n",r);
 		r = system("sleep 1");
 		printf("ret: %d\n",r);

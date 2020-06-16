@@ -19,6 +19,15 @@
 
 struct udiv_t { unsigned int quot, rem; };
 
+#ifndef itodec
+#ifdef printf
+#warning printf defined, but no int conversion (%d). Consider defining mini_itodec
+#endif
+#ifdef fprintf
+#warning fprintf defined, but no int conversion (%d). Consider defining mini_itodec
+#endif
+#endif
+
 #ifdef mini_perror
 //#define perror(str) fprintf(stderr,str)
 //#ifndef mini_fprintf

@@ -14,8 +14,11 @@
 #endif
 #endif
 
-#ifdef mini_getenv
 #ifndef mini_environ
+#ifdef mini_getenv
+#define mini_environ
+#endif
+#ifdef mini_system
 #define mini_environ
 #endif
 #endif
