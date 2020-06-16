@@ -18,7 +18,7 @@ sysret = 0;
 
 #ifdef mini_environ
 // some trouble. guessing, the compiler does bad things with environ.
-//environ = 0;
+environ = 0;
 #endif
 
 

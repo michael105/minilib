@@ -12,9 +12,7 @@ __asm__ volatile("\
 #ifdef mini_environ
 	"movq %rdx, environ\n"
 #endif
-  );
 
-__asm__ volatile(
 	"call main\n\
 	movq %rax, %rdi\n\
 .global _exit\n\
