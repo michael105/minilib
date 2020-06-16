@@ -149,7 +149,8 @@ typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
 
 typedef struct __locale_struct * locale_t;
 
-typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
+// x64 TODO: put in according file.
+typedef struct __sigset_t { unsigned long sig[1]; } sigset_t;
 
 struct iovec { void *iov_base; size_t iov_len; };
 

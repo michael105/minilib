@@ -88,6 +88,17 @@ dirname        char *dirname(char *s);
 
                (src/dirname.c: 8)
 
+djb2_hash      unsigned long djb2_hash(unsigned char *str);
+
+               hashes, from d.j.Bernstein
+              (http://www.cse.yorku.ca/~oz/hash.html)
+              I've tested djb2_hash, and it gives quite good results.
+              But I'm sure, Bernstein did think and test his algorithm sincerely.
+              When combining djb2_hash and sdbm_hash, the probability of collisions
+              might tend to zero.
+              Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
+               (src/hashes.c: 10)
+
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
                (src/sprintf.c: 202)
@@ -163,6 +174,10 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
+sdbm_hash      unsigned long sdbm_hash(unsigned char *str);
+
+               (src/hashes.c: 21)
+
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 219)
@@ -200,9 +215,13 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 signal.h
 ==========
 
-sigaction      static int sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+sigaction      int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/sigaction.c: 7)
+               (src/sigaction.c: 22)
+
+sigaddset      int sigaddset(sigset_t *set, int sig);
+
+               (src/sigaddset.c: 3)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 

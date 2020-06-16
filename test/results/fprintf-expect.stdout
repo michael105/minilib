@@ -1,3 +1,4 @@
 stdio.
 Check d 12345 12345
 Check d 12345 12345
+sizeof long: 8

@@ -10,11 +10,11 @@
 #endif
 
 #ifndef uint32_t
-#define uint32_t uint
+#define uint32_t unsigned int
 #endif
 
 #ifndef uint8_t
-#define uint8_t uchar
+#define uint8_t unsigned char
 #endif
 
 #ifndef size_t
