@@ -49,9 +49,10 @@ int main( int argc, char *argv[] ){
 	 int pid = fork();
 	 //		int pid = 0;
 	 printf("Forked.\n");
+	 usleep(1000);
 	 if ( pid ){
 			 int r=0;
-			 usleep(1000);
+			 usleep(10000);
 			 kill(pid,SIGUSR1);
 			 kill(pid,SIGTERM);
 			 do{

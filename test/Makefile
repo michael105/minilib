@@ -122,8 +122,8 @@ test: all
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \
 			( echo -e $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
-	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && cat passed.txt && echo -e $(WHITE) )
-	@if [ -e failed.txt ]; then ( echo -e  $(RED)   FAILED: && cat failed.txt && echo -e $(WHITE) && false ); fi
+	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && sort passed.txt && echo -e $(WHITE) )
+	@if [ -e failed.txt ]; then ( echo -e  $(RED)   FAILED: && sort failed.txt && echo -e $(WHITE) && false ); fi
 
 
 # @$(foreach P,$(PROG), diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo $(GREEN)Pass:$(WHITE) $(P) && echo $(P) >> passed.txt) || (echo $(RED)Fail:$(WHITE) $(P) && echo $(P) >> failed.txt)   ; ) true
