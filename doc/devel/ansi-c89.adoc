@@ -14,8 +14,8 @@ ____
 
 ==== ERRORS <errno.h>
 
-         EDOM
-         ERANGE
+     x    EDOM
+     x    ERANGE
      x    errno
 
 
@@ -102,16 +102,16 @@ ____
 ==== SIGNAL HANDLING <signal.h>
 
          sig_atomic_t
-         SIG_DFL
-         SIG_ERR
-         SIG_IGN
-         SIGABRT
-         SIGFPE
-         SIGILL
-         SIGINT
-         SIGSEGV
-         SIGTERM
-         void (*signal(int sig, void (*func)(int)))(int);
+     x    SIG_DFL
+     x    SIG_ERR
+     x    SIG_IGN
+     x    SIGABRT
+     x    SIGFPE
+     x    SIGILL
+     x    SIGINT
+     x    SIGSEGV
+     x    SIGTERM
+     x    void (*signal(int sig, void (*func)(int)))(int);
          int raise(int sig);
 
 
@@ -186,14 +186,14 @@ ____
      x    void rewind(FILE *stream);
      x    void clearerr(FILE *stream);
      x    int feof(FILE *stream);
-         int ferror(FILE *stream);
+     x    int ferror(FILE *stream);
      x    void perror(const char *s);
 
 
 ==== GENERAL UTILITIES <stdlib.h>
 
-         EXIT_FAILURE
-         EXIT_SUCCESS
+     x    EXIT_FAILURE
+     x    EXIT_SUCCESS
          MB_CUR_MAX
      x    NULL
          RAND_MAX
@@ -218,7 +218,7 @@ ____
          int atexit(void (*func)(void));
      x    void exit(int status);
      x    char *getenv(const char *name);
-         int system(const char *string);
+     x    int system(const char *string);
          void *bsearch(const void *key, const void *base,
                   size_t nmemb, size_t size,
                   int (*compar)(const void *, const void *));
@@ -257,7 +257,7 @@ ____
          char *strpbrk(const char *s1, const char *s2);
      x    char *strrchr(const char *s, int c);
          size_t strspn(const char *s1, const char *s2);
-         char *strstr(const char *s1, const char *s2);
+     x    char *strstr(const char *s1, const char *s2);
          char *strtok(char *s1, const char *s2);
      x    void *memset(void *s, int c, size_t n);
      x    char *strerror(int errnum);
@@ -267,7 +267,7 @@ ____
 ==== DATE AND TIME <time.h>
 
          CLK_TCK
-         NULL
+      x   NULL
          clock_t
       x   time_t
       x   size_t
