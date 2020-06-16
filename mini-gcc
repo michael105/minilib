@@ -299,7 +299,7 @@ HEADERGUARDS
 mini_start
 
 # optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
-OPTFLAG Os
+OPTFLAG -Os
 
 # (with debug info)
 #OPTFLAG '-g -O0'

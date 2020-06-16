@@ -1,5 +1,5 @@
 ifndef PROG
-PROG=examples/hello
+#PROG=examples/hello
 endif
 
 ifndef RECURSE
@@ -13,7 +13,7 @@ NOINCLUDE=1
 NOW=$(shell echo `date '+%F %T'` )
 #NOW=$(shell echo `date +%F` r$$[ `date +%s` - 1579400000 ] )
 
-include Makefile.template
+#include Makefile.template
 
 .PHONY: test combined header tools
 
@@ -23,6 +23,9 @@ make targets:
 
 all
   header compile-mini-gcc doc examples test
+	
+examples
+	make examples
 
 header
 	rebuild header files, also rebuild some of the generated documentation.
