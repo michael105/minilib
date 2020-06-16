@@ -408,10 +408,9 @@ sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 ungetc         static int ungetc(int c, FILE *F);
 
                pushes one char back to the stream.
-              overwrites a previous backupushed char
-              (according to posix, only one char is guaranteed 
-              to be pushed back)
-               (include/fgetc.h: 36)
+              Overwrites a previously pushed char
+              (conforming to the posix spec) 
+               (include/fgetc.h: 35)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 

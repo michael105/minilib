@@ -565,12 +565,14 @@ a { text-decoration: none; }
 <div class="document">
 
 
-<p><strong>make[1]: Entering directory '/home/micha/prog/minilib'</strong>
-<strong>Type 'make help' for help</strong></p>
-<p>make targets:</p>
-<dl>
+<p><strong>make[1]: Entering directory '/home/micha/prog/minilib'</strong></p>
+<p><strong>make targets:</strong></p>
+<dl class="simple">
 <dt>all</dt>
 <dd><p>header compile-mini-gcc doc examples test</p>
+</dd>
+<dt>examples</dt>
+<dd><p>make examples</p>
 </dd>
 <dt>header</dt>
 <dd><p>rebuild header files, also rebuild some of the generated documentation.</p>
@@ -591,6 +593,9 @@ a { text-decoration: none; }
 <dt>combined</dt>
 <dd><p>compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)</p>
 </dd>
+<dt>devel</dt>
+<dd><p>make header combined compile-mini-gcc</p>
+</dd>
 <dt>tools</dt>
 <dd><p>make tools in the dir ./tools
 (shrinkelf)</p>
@@ -599,15 +604,10 @@ a { text-decoration: none; }
 <dd><p>make and run tests in ./test/</p>
 </dd>
 <dt>retest</dt>
-<dd><blockquote>
-<p>rebuild the tests in test,
-run make test after that</p>
-</blockquote>
-<dl class="simple">
-<dt>for rebuilding the expected output of the tests as well,</dt>
-<dd><p>look into ./test/Makefile</p>
-</dd>
-</dl>
+<dd><p>rebuild the tests in test,
+run make test after that
+for rebuilding the expected output of the tests as well,
+please have a look into ./test/Makefile</p>
 </dd>
 <dt>help</dt>
 <dd><p>show this help</p>
@@ -623,19 +623,21 @@ And you can include the compiled &quot;minilib.h&quot;, as only dependency.</p>
 automatically. Again, when minilib.h is compiled into mini-gcc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
 (Making development easier - no need to compile mini-gcc every time)</p>
+<p>The included compat headers are not stable yet.
+(stdio.h, stdlib.h, ...)
+I leave them here.
+But better avoid them.
+Besides sometimes giving trouble, they define the functions and variables of the
+standard libc header files with the same name.
+What will give neccessarily some bloat.</p>
 <p>For using a syntaxchecker plugin there's the header file syntaxcheck.h
 Just include this, to have all functions, macros and variables, minilib provides,
-defined.
-You could either leave the include directive unchanged, when you guard the include
-with an
-#ifndef MBLIB
-#include &quot;syntaxcheck.h&quot;
-#endif</p>
+defined.</p>
+<p>To use it, either include it via
+#include &quot;syntaxcheck.h&quot;</p>
 <p>Or, as me with vi syntaxchecker plugin, just add the syntaxcheck header to
-the includes sources of the plugin itself.</p>
-<p>;o this whole thing get's more and more complex.
-I have to somehow sort and categorize all the documentation.
-May the source be with you, and have fun</p>
+the includes sources of the plugin.</p>
+<p>For further documentation please have a look into README.asc, and the folder ./doc/</p>
 <p>Michael (misc) Myer, 2012-2020, BSD 3clause
 make[1]: Leaving directory '/home/micha/prog/minilib'</p>
 </div>

@@ -1,10 +1,12 @@
 **make[1]: Entering directory '/home/micha/prog/minilib'**
-**Type 'make help' for help**
 
-make targets:
+**make targets:**
 
 all
   header compile-mini-gcc doc examples test
+	
+examples
+	make examples
 
 header
 	rebuild header files, also rebuild some of the generated documentation.
@@ -25,6 +27,9 @@ unpack-mini-gcc
 combined
 	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
+devel
+	make header combined compile-mini-gcc
+
 tools
 	make tools in the dir ./tools
 	(shrinkelf)
@@ -35,8 +40,8 @@ test
 retest
 	rebuild the tests in test, 
 	run make test after that
-  for rebuilding the expected output of the tests as well,
-	look into ./test/Makefile
+	for rebuilding the expected output of the tests as well,
+	please have a look into ./test/Makefile
 
 help
 	show this help
@@ -55,21 +60,25 @@ automatically. Again, when minilib.h is compiled into mini-gcc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
 (Making development easier - no need to compile mini-gcc every time)
 
+The included compat headers are not stable yet.
+(stdio.h, stdlib.h, ...)
+I leave them here. 
+But better avoid them. 
+Besides sometimes giving trouble, they define the functions and variables of the 
+standard libc header files with the same name.
+What will give neccessarily some bloat.
+
 For using a syntaxchecker plugin there's the header file syntaxcheck.h
 Just include this, to have all functions, macros and variables, minilib provides,
 defined. 
-You could either leave the include directive unchanged, when you guard the include
-with an 
-#ifndef MBLIB
+
+To use it, either include it via 
 #include "syntaxcheck.h"
-#endif
 
 Or, as me with vi syntaxchecker plugin, just add the syntaxcheck header to 
-the includes sources of the plugin itself.
+the includes sources of the plugin.
 
-;o this whole thing get's more and more complex.
-I have to somehow sort and categorize all the documentation.
-May the source be with you, and have fun
+For further documentation please have a look into README.asc, and the folder ./doc/
 
 Michael (misc) Myer, 2012-2020, BSD 3clause
 make[1]: Leaving directory '/home/micha/prog/minilib'
