@@ -88,7 +88,7 @@ dirname        char *dirname(char *s);
 
                (src/dirname.c: 8)
 
-djb2_hash      unsigned long djb2_hash(unsigned char *str);
+djb2_hash      unsigned long djb2_hash(const unsigned char *str);
 
                hashes, from d.j.Bernstein
               (http://www.cse.yorku.ca/~oz/hash.html)
@@ -174,7 +174,7 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
-sdbm_hash      unsigned long sdbm_hash(unsigned char *str);
+sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
                (src/hashes.c: 21)
 

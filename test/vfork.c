@@ -22,7 +22,7 @@ int main( int argc, char *argv[], char *envp[] ){
 			printf("Pid: > 0\n" );
 		} else {
 			printf("Pid 0\n" );
-			execve("./vforked", (const char**)argv, (const char**)envp );
+			execve("./vforked", (char* const*)argv, (char* const*)envp );
 			printf("exec ERROR\n");
 		}
 

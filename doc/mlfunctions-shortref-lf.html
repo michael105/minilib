@@ -350,7 +350,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  8 </small></td><td><small> char *dirname(char *s);
 </small></td></tr>
-<tr valign="top"><td><small>djb2_hash</small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  10 </small></td><td><small> unsigned long djb2_hash(unsigned char *str);
+<tr valign="top"><td><small>djb2_hash</small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  10 </small></td><td><small> unsigned long djb2_hash(const unsigned char *str);
 </small></td></tr><tr><td></td><td colspan="2"><small>hashes, from d.j.Bernstein
   (http://www.cse.yorku.ca/~oz/hash.html)
   I've tested djb2_hash, and it gives quite good results.
@@ -585,7 +585,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigreturn</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  134 </small></td><td><small> rt_sigreturn( unsigned long __unused)
 </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> unsigned long sdbm_hash(unsigned char *str);
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  10 </small></td><td><small>   int  ) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>

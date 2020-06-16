@@ -103,10 +103,10 @@ int dtodec(double d, char* buf, int precision);
 int fprintfs( FILE* F, char *fmt, ...);
 
 // file: minilib/src/hashes.c
-unsigned long djb2_hash(unsigned char *str);
+unsigned long djb2_hash(const unsigned char *str);
 
 // file: minilib/src/hashes.c
-unsigned long sdbm_hash(unsigned char *str);
+unsigned long sdbm_hash(const unsigned char *str);
 
 // file: minilib/src/itobin.c
 int _itobin(int i, char*buf, int prec, int groups );
@@ -172,18 +172,18 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/globaldefs.h"
-#include "minilib/include/errstr.h"
 #include "minilib/src/hashes.c"
+#include "minilib/src/pty.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/basename.c"
+#include "minilib/include/errstr.h"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/dirname.c"
 #include "minilib/src/itobin.c"
 #include "minilib/include/prints.h"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/pty.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/itodec.c"
 #include "minilib/src/dtodec.c"
 #include "minilib/src/fprintfs.c"
-#include "minilib/src/dirname.c"
+#include "minilib/src/itodec.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

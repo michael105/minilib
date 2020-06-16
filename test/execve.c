@@ -38,13 +38,13 @@ int main(int argc, char**argv, char** envp){
 		//printf("pid: %d\n",pid);
 		
 		if ( pid > 0 ){
-				execve("/bin/echo", (const char**)av, (const char**)envp );
+				execve("/bin/echo", (char* const*)av, (char* const*)envp );
 		}
 
 		for ( int i=0; i<100000; i++ ){
 				pid++;
 		}
-		execve("/bin/echo", (const char**)av2,  (const char**)envp );
+		execve("/bin/echo", (char* const*)av2,  (char* const*)envp );
 
 
 
