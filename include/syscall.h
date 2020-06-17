@@ -163,7 +163,7 @@ extern int errno;
 #endif
 
 
-#if 0
+#if 1
 #ifdef mini_errno
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\

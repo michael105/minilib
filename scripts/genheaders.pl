@@ -354,6 +354,10 @@ while ( my $file = shift ){
 						if ( exists($syscalldefs->{$func}) ){
 								$syscalldefs->{$func}->{f} = $f
 						}
+						if ( exists($syscallsysdefs->{$func}) ){
+								$syscallsysdefs->{$func}->{f} = $f
+						}
+
 
 						if ( $f->{header} && $f->{def} && !($included)){
 								dbg("header: $f->{header}\n def: $f->{def}\n");
@@ -839,12 +843,17 @@ sub syscalldefine{
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("REAL_$def\n");
 		}
+
+		if ( 1 ) { # syscalldefs (without wrapper) are written here.
+				print $fh "#ifdef mini_ksyscalls\n\n";
 		foreach my $k ( keys( %{$syscallsysdefs} ) ){
-		}
-		if ( 0 ) {
 				my $def = $syscallsysdefs->{$k}->{def};
 				my $a = 1;
 				my $b = 2;
+				chomp $def;
+
+				print $fh "// $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line}\n";
+				print $fh "// $def\n";
 				while ( $def =~ s/(^SYSDEF_syscall\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1a$a$3 / ){
 						$a++; $b++;
 						#dbg "def: $def, $a, $b\n";
@@ -855,13 +864,13 @@ sub syscalldefine{
 						$a++; $b++;
 				}
 
-
-				print $fh "/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */\n";
-				dbg ("/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */");
+				#dbg ("/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */");
 				$def =~ s/^SYSDEF/define/;
-				print $fh "SYSREAL_$def\n";
+				print $fh "SYSREAL_$def\n\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("SYSREAL_$def\n");
+		}
+				print $fh "#endif\n\n";
 		}
 		return(1);
 }

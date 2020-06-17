@@ -10,7 +10,7 @@ static int sigemptyset(sigset_t *set){
 #else
 		set->sig[0]=0;
 		if ((8/sizeof(long)) > 1)
-i				set->sig[1]=0;
+				set->sig[1]=0;
 #endif
 		return 0;
 }
