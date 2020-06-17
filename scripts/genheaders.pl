@@ -332,7 +332,7 @@ while ( my $file = shift ){
 								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
 										if ( exists( $syscallsysdefs->{$func} ) ){
-												$f->{header} = "mini_syscalls.h";
+												$f->{header} = "mini_ksyscalls";
 										} else {
 												$f->{header} = "mini_addons.h";
 										}

@@ -65,7 +65,8 @@ int dprints(int fd, char *msg,...){
 
 //+needs write.h prints.h stdarg.h
 //+depends dprints
-//+macro _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+//+macro
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
 
 #endif

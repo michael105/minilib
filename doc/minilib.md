@@ -72,7 +72,7 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
-               (src/prints.c: 68)
+               (src/prints.c: 69)
 
 basename       char *basename(char *path);
 
@@ -212,7 +212,7 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
 
 ==========
-mini_syscalls.h
+mini_ksyscalls
 ==========
 
 ksys__sysctl       

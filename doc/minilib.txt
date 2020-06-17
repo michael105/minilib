@@ -135,7 +135,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close malloc open
+               Defines: open malloc close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -174,7 +174,7 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
                Defines: dprints
-               (src/prints.c: 68)
+               (src/prints.c: 69)
 
 basename       char *basename(char *path);
                Defines: strlen
@@ -208,12 +208,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: strlen write fileno
+               Defines: write fileno strlen
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno strlen write
+               Defines: fileno write strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -264,7 +264,7 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
@@ -305,7 +305,7 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
 
 ==========
-mini_syscalls.h
+mini_ksyscalls
 ==========
 
 ksys__sysctl                      (include/syscalls_x64.h: 315)
@@ -953,7 +953,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: fileno close open
+               Defines: close open fileno
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -986,7 +986,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1007,7 +1007,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -1015,11 +1015,11 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(
                (src/sprintf.c: 244)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno write strlen
+               Defines: strlen fileno write
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1068,11 +1068,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: fileno strerror write strlen
+               Defines: strlen write fileno strerror
                (src/strerror.c: 26)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -1080,7 +1080,7 @@ putc           #define putc(c,stream) fputc(c,stream)
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
@@ -1112,7 +1112,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 100)
 
 
@@ -1138,14 +1138,14 @@ rand           unsigned int rand();
                (src/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
-               Defines: malloc free
+               Defines: free malloc
                (src/malloc.c: 155)
 
 srand          void srand( unsigned int i );
                (src/rand.c: 7)
 
 system         int system( const char* command );
-               Defines: write wait4 execve environ vfork
+               Defines: write vfork environ execve wait4
                (src/system.c: 4)
 
 todo_putenv    int todo_putenv( char *s );
@@ -1197,7 +1197,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: strcpy malloc strlen
+               Defines: strcpy strlen malloc
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1287,7 +1287,7 @@ execvp         static inline int execvp(const char *file, char *const argv[]);
                (src/execvp.c: 28)
 
 execvpe        static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: execve environ
+               Defines: environ execve
                (src/execvp.c: 20)
                doesn't search the path env (todo)
 
