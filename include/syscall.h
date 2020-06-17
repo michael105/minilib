@@ -167,7 +167,7 @@ extern int errno;
 
 #ifdef mini_errno
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
-		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) ksys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -177,7 +177,7 @@ extern int errno;
 		}
 #else
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
-		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) ksys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
@@ -188,7 +188,7 @@ extern int errno;
 
 #define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
 
-#define SYSREAL_define_syscall( name, argcount, ... ) int volatile sys##name( __VA_ARGS__ );
+#define SYSREAL_define_syscall( name, argcount, ... ) int volatile ksys##name( __VA_ARGS__ );
 
 
 #endif

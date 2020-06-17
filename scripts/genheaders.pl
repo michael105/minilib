@@ -424,7 +424,12 @@ copytemplates( FDOC, $mlibdir, "minilib.txt.top" );
 foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
-				printf FDOC "%-15s",$f;
+				if ( exists($syscallsysdefs->{$f} ) ){
+						printf FDOC "ksys%-15s",$f;
+				} else {
+						printf FDOC "%-15s",$f;
+				}
+
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
 				my $docdef="";
 				if ( exists($funchash->{$f}->{def}) ){
@@ -498,12 +503,17 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n"; #$k\n==========\n\n";
 		#print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
-				printf FDOC "%s::\n\n ",$f;
+				if ( exists($syscallsysdefs->{$f} ) ){
+						printf FDOC "ksys%s::\n\n ",$f;
+				} else {
+						printf FDOC "%s::\n\n ",$f;
+				}
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
 				if ( exists($funchash->{$f}->{def}) ){
-						print FDOC " $funchash->{$f}->{def} +\n ";
+								print FDOC " $funchash->{$f}->{def} +\n ";
 						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
 						my $s = "$syscalldefs->{$f}->{def}";
+						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
 						print FDOC " $s +\n";
@@ -542,7 +552,11 @@ foreach my $f ( sort( keys(%{$funchash} ) ) ){
 		if ( exists($bsdmanpage{$f}) ){
 				printf FDOC "<a target=\"right\" href=\"manpages/$bsdmanpage{$f}.rst.html\">$f</a>";
 		} else {
-				printf FDOC "$f";
+				if ( exists($syscallsysdefs->{$f} ) ){
+						printf FDOC "ksys_$f";
+				} else {
+						printf FDOC "$f";
+				}
 		}
 		print FDOC "</small></td><td><small>";
 
@@ -584,8 +598,13 @@ copytemplates( FDOC, $mlibdir, "minilib.md.top" );
 foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
+				if ( exists($syscallsysdefs->{$f} ) ){
+						printf FDOC "ksys%-15s\n",$f;
+				};
+
 				if ( exists( $funchash->{$f}->{def} ) ){
-				printf FDOC "%-15s",$f;
+						printf FDOC "%-15s",$f;
+
 				print FDOC "$funchash->{$f}->{def}\n";
 				if ( exists($funchash->{$f}->{doc} ) ){
 						print FDOC "               ",join("\n             ", split( "\n", $funchash->{$f}->{doc}) ),"\n";
