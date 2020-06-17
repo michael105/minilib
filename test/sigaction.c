@@ -9,6 +9,8 @@ mini_atoi
 mini_fork
 mini_sigaction
 mini_sigemptyset
+mini_sigaddset
+mini_sigdelset
 mini_writes
 mini_errno
 mini_INCLUDESRC
@@ -28,9 +30,11 @@ int main( int argc, char *argv[] ){
    struct sigaction action;
 
    sigemptyset(&action.sa_mask);
-   //sigaddset(&action.sa_mask, signo);
    action.sa_flags = 0;
    action.sa_handler = handler;
+   sigaddset(&action.sa_mask, SIGUSR2);
+   //sigdelset(&action.sa_mask, SIGUSR2);
+	 //sigfillset(&action.sa_mask);
 
 		errno=0;
    int r;
@@ -54,6 +58,7 @@ int main( int argc, char *argv[] ){
 			 int r=0;
 			 usleep(10000);
 			 kill(pid,SIGUSR1);
+			 kill(pid,SIGUSR2);
 			 kill(pid,SIGTERM);
 			 do{
 					 printf("errno: %d, r: %d\n",errno,r);

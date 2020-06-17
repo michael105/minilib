@@ -607,11 +607,15 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  216 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  45 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  100 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  19 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  52 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  69 </small></td><td><small> int sigismember(sigset_t *set, int sig);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  8 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
 </small></td></tr>

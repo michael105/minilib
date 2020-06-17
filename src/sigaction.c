@@ -15,6 +15,21 @@ static int sigemptyset(sigset_t *set){
 		return 0;
 }
 
+#if 0
+////+inline
+static int todo_sigfillset(sigset_t *set){
+#ifdef X64
+		set->sig=0x7FFFFFFF; // doesn't work. ?
+#else
+#error implemented only for X64
+//		set->sig[0]=0x1FFFFFFF;
+//		if ((8/sizeof(long)) > 1)
+//				set->sig[1]=0;
+#endif
+		return 0;
+}
+#endif
+
 //+def
 int sigaddset(sigset_t *set, int sig){
 		unsigned s = sig-1;
@@ -24,9 +39,50 @@ int sigaddset(sigset_t *set, int sig){
 #endif
 				return -1;
 		}
-		//set->sig = 
+#ifdef X64
+		set->sig |= (1<<s);
+#else
+#error implemented only for X64
+#endif
 		return(0);
 }
+
+
+//+def
+int sigdelset(sigset_t *set, int sig){
+		unsigned s = sig-1;
+		if (sig >= _NSIG-1 || sig <0 ) {
+#ifdef mini_errno
+				errno = EINVAL;
+#endif
+				return -1;
+		}
+#ifdef X64
+		set->sig &= ~(1<<s);
+#else
+#error implemented only for X64
+#endif
+		return(0);
+}
+
+//+def
+int sigismember(sigset_t *set, int sig){
+		unsigned s = sig-1;
+		if (sig >= _NSIG-1 || sig <0 ) {
+#ifdef mini_errno
+				errno = EINVAL;
+#endif
+				return -1;
+		}
+#ifdef X64
+		return( set->sig & (1<<s) );
+#else
+#error implemented only for X64
+		return(-1);
+#endif
+}
+
+
 
 #ifdef mini_sigaction
 extern void _sigrestore();
@@ -35,7 +91,6 @@ __asm__ ( "\
 _sigrestore:\n\
 	mov $15,%rax\n\
 	syscall");
-
 #endif
 
 //+header signal.h

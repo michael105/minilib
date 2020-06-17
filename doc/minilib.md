@@ -223,15 +223,23 @@ signal.h
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/sigaction.c: 45)
+               (src/sigaction.c: 100)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
-               (src/sigaction.c: 19)
+               (src/sigaction.c: 34)
+
+sigdelset      int sigdelset(sigset_t *set, int sig);
+
+               (src/sigaction.c: 52)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
                (src/sigaction.c: 7)
+
+sigismember    int sigismember(sigset_t *set, int sig);
+
+               (src/sigaction.c: 69)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 

@@ -131,11 +131,11 @@ int system( const char* command );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/atoi.c"
-#include "minilib/src/system.c"
-#include "minilib/src/malloc.c"
-#include "minilib/src/getenv.c"
 #include "minilib/src/rand.c"
+#include "minilib/src/system.c"
+#include "minilib/src/atoi.c"
+#include "minilib/src/getenv.c"
+#include "minilib/src/malloc.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
