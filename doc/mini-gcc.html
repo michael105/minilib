@@ -565,7 +565,7 @@ a { text-decoration: none; }
 <div class="document">
 
 
-<p><strong>mini-gcc</strong> v.GIT 2020-06-16 16:40:25</p>
+<p><strong>mini-gcc</strong> v.GIT 2020-06-17 13:54:49</p>
 <p>Usage: <cite>mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c</cite></p>
 <p>mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
@@ -687,6 +687,14 @@ and execute the binary
 </dd>
 </dl>
 <dl class="simple">
+<dt>--compat:</dt>
+<dd><dl class="simple">
+<dt>Include the provided compat headers (stdio.h,stdlib.h,...) directory</dt>
+<dd><p>into the include search path.
+Using them is not recommended, they are not stable.</p>
+</dd>
+</dl>
+</dd>
 <dt>(c) 2019-2020 Michael misc Myer - BSD 3-clause</dt>
 <dd><p>('mini-gcc --license' shows the terms)</p>
 </dd>

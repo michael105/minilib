@@ -1,4 +1,4 @@
-**mini-gcc** v.GIT 2020-06-16 16:40:25
+**mini-gcc** v.GIT 2020-06-17 13:54:49
 
 ::
 
@@ -110,6 +110,10 @@ before options and parameters for gcc.
 
 --dlog  debug log, write debug info to 'debuglog.n' (n counting up):
 
+--compat:
+        Include the provided compat headers (stdio.h,stdlib.h,...) directory 
+  			into the include search path.
+  			Using them is not recommended, they are not stable.
 
 \(c) 2019-2020 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)

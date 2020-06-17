@@ -428,12 +428,19 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
 				my $docdef="";
 				if ( exists($funchash->{$f}->{def}) ){
-						print FDOC "$funchash->{$f}->{def}";
-						$docdef= "$funchash->{$f}->{def}";
+						if ( exists( $syscallsysdefs->{$f} ) ){
+								print FDOC "sys$funchash->{$f}->{def}";
+								$docdef= "sys$funchash->{$f}->{def}";
+						} else {
+								print FDOC "$funchash->{$f}->{def}";
+								$docdef= "$funchash->{$f}->{def}";
+						};
 						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
 						my $s = "$syscalldefs->{$f}->{def}";
+						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/sys$1(/;
 						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+						#$s=~s/^_/sys_/;
 						$docdef=$s;
 						print FDOC $s;
 						print FDOC "               Returns: $2\n" if ( $2 );
