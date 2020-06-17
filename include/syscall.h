@@ -143,6 +143,8 @@ extern int errno;
 // args: name (e.g. getpid), count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
 
+#ifndef GENSYNTAXCHECK 
+
 #ifdef mini_errno
 #define REAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
@@ -163,7 +165,6 @@ extern int errno;
 #endif
 
 
-#if 1
 #ifdef mini_errno
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
@@ -182,9 +183,13 @@ extern int errno;
 				return( (sysret<0) ? -1 : sysret );\
 		}
 #endif
-#else
 
-#define SYSREAL_define_syscall( name, argcount, ... )
+#else //ifndef gensyntaxcheck
+
+#define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
+
+#define SYSREAL_define_syscall( name, argcount, ... ) int volatile sys##name( __VA_ARGS__ );
+
 
 #endif
 

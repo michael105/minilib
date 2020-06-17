@@ -128,7 +128,7 @@ header:
 			echo "// all macros and functions, defined by minilib." &&\
 			echo "// intended to be parsed by (my) syntaxchecker plugin" &&\
 			echo -e "#ifndef MLIB\n#ifndef included_minilib_h" &&\
-			./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d' &&\
+			./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -DGENSYNTAXCHECK -dD | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
 			echo -e "#endif\n#endif" )\
 			> syntaxcheck.h )
 			rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp

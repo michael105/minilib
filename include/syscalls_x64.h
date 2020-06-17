@@ -615,7 +615,7 @@ SYSDEF_syscall(_memfd_create,2, const char  *uname_ptr,  unsigned int flags)
 
 SYSDEF_syscall(_kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
 
-SYSDEF_syscall(_bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
+//SYSDEF_syscall(_bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
 
 
 #endif
