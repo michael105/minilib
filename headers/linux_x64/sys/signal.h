@@ -3,6 +3,7 @@
 
 
 
+typedef struct __sigset_t { unsigned long sig; } sigset_t;
 
 
 struct sigaction {

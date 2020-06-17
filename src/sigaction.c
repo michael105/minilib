@@ -3,15 +3,38 @@
 //+header signal.h
 //+include
 
+//+inline
+static int sigemptyset(sigset_t *set){
+#ifdef X64
+		set->sig=0;
+#else
+		set->sig[0]=0;
+		if ((8/sizeof(long)) > 1)
+i				set->sig[1]=0;
+#endif
+		return 0;
+}
+
+//+def
+int sigaddset(sigset_t *set, int sig){
+		unsigned s = sig-1;
+		if (sig >= _NSIG-1 || sig <0 ) {
+#ifdef mini_errno
+				errno = EINVAL;
+#endif
+				return -1;
+		}
+		//set->sig = 
+		return(0);
+}
+
 #ifdef mini_sigaction
 extern void _sigrestore();
-//volatile void __sigrestore(){
 __asm__ ( "\
 .global _sigrestore\n\
 _sigrestore:\n\
 	mov $15,%rax\n\
 	syscall");
-//}
 
 #endif
 
@@ -19,12 +42,17 @@ _sigrestore:\n\
 //+include
 //+depends memcpy
 //+def
-int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
 		struct sigaction sa;
 		//memcpy(&sa,act,sizeof(sigaction));
+
+#ifdef X64
+		sa.sa_mask.sig=act->sa_mask.sig;
+#else
 		sa.sa_mask.sig[0]=act->sa_mask.sig[0];
 		if ((8/sizeof(long)) > 1)
 				sa.sa_mask.sig[1]=act->sa_mask.sig[1];
+#endif
 
 		sa.sa_handler=act->sa_handler;
 		sa.sa_flags = act->sa_flags | SA_RESTORER;

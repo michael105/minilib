@@ -12,7 +12,7 @@ int ioctl( int fd, unsigned long int request, ... );
 #define TCSETS TIOCSETA
 #endif
 
-//+needs termios.h ioctl.h
+//+needs termios.h bits/ioctl.h
 //+header unistd.h
 //+include
 //+depends ioctl

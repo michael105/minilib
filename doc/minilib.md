@@ -221,21 +221,21 @@ mini_syscalls.h
 signal.h
 ==========
 
-sigaction      int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/sigaction.c: 22)
+               (src/sigaction.c: 45)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
-               (src/sigaddset.c: 3)
+               (src/sigaction.c: 19)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
-               (src/sigemptyset.c: 8)
+               (src/sigaction.c: 7)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
-               (src/signal.c: 9)
+               (src/signal.c: 8)
 
 
 

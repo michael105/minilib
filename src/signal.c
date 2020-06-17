@@ -1,7 +1,6 @@
 #ifndef signal_c
 #define signal_c
 
-// musl
 
 //+header signal.h
 //+depends sigaction
@@ -15,8 +14,6 @@ sighandler_t signal(int sig, sighandler_t func ){
 		}
 		return sa_old.sa_handler;
 }
-
-
 
 
 
