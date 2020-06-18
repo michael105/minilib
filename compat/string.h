@@ -99,6 +99,9 @@ char *strcpy(char *dest, const char *src);
 // file: minilib/src/memcpy.c
 char *strncpy(char *dest, const char *src, int n);
 
+// file: minilib/src/memmove.c
+void* memmove(void *dest, const void *src, int n);
+
 // file: minilib/src/memset.c
 void *memset( void *s, int c, int n);
 
@@ -145,14 +148,15 @@ char* strstr(const char *big, const char *little);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/strstr.c"
-#include "minilib/src/memset.c"
-#include "minilib/src/strlen.c"
 #include "minilib/src/strcat.c"
-#include "minilib/src/memcpy.c"
-#include "minilib/src/strerror.c"
-#include "minilib/src/strdup.c"
 #include "minilib/src/strchr.c"
+#include "minilib/src/strstr.c"
+#include "minilib/src/memmove.c"
+#include "minilib/src/strerror.c"
+#include "minilib/src/strlen.c"
+#include "minilib/src/strdup.c"
+#include "minilib/src/memset.c"
+#include "minilib/src/memcpy.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

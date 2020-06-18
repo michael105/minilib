@@ -26,12 +26,16 @@
 #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
 // I'm really uncertain about the size arg here, amongst others
-
+// these are just misdefined functions, inhaerent insecure. :/
+// If possible, do not use sprintf. Use snprintf instead. 
 
 //+ansi stdio.h
 //+depends write
 //+needs exit.h stdarg.h overrun.h
 //+after itohex itoHEX
+//+doc the function, translating the fmt of printf.
+// warning - most possibly you'd like to define besides fprintf, or family,
+// mini_itodec as well. (%d conversion)
 //+def
 int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 

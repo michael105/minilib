@@ -36,6 +36,9 @@
 #define ENOENT           2
 #endif
 
+#define SIG_BLOCK     0
+#define SIG_UNBLOCK   1
+#define SIG_SETMASK   2
 
 
 #define mini_FOPEN_MAX 16

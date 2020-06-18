@@ -24,7 +24,7 @@ BUILDDIR=.
 #BINDIR=./static_x64
 
 # Where minilib is installed, or should be installed to
-MLIBDIR=minilib
+MLIBDIR=.
 
 # Don't create obj files, include evrything in one gcc run.(yourself)
 SINGLERUN=1
@@ -80,7 +80,7 @@ default:
 # compile with dynamic loading, os native libs
 native: $(PROG).c
 	$(info call "make getminilib" to fetch and extract the "minilib" and compile $(PROG) static (recommended) )
-	gcc -o $(PROG) $(PROG).c
+	gcc -o $(BUILDDIR)/$(PROG) $(PROG).c
 
 
 # we haven't been callen recursive

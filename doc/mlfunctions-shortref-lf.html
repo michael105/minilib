@@ -358,7 +358,7 @@
   might tend to zero.
   Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  202 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  206 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
@@ -415,7 +415,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  95 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  244 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  248 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 </small></td></tr>
 <tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  10 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
@@ -511,7 +511,9 @@
 </small></td></tr>
 <tr valign="top"><td><small>memfrob</small></td><td><small>   <a href="../src/memcpy.c" target="right">../src/memcpy.c</a>  3 </small></td><td><small> void* memfrob(void* s, unsigned int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/memfrob.c" target="right">../src/memfrob.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memmove.3.rst.html">memmove</a></small></td><td><small>   <a href="../src/memfrob.c" target="right">../src/memfrob.c</a>  3 </small></td><td><small> void* memmove(void *dest, const void *src, int n);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/memmove.c" target="right">../src/memmove.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/memset.c" target="right">../src/memset.c</a>  154 </small></td><td><small> mkdir( const char *pathname, int mode)
 </small></td></tr>
@@ -582,6 +584,8 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigaction</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  133 </small></td><td><small> rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 </small></td></tr>
+<tr valign="top"><td><small>rt_sigprocmask</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  181 </small></td><td><small> rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
+</small></td></tr>
 <tr valign="top"><td><small>rt_sigreturn</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  134 </small></td><td><small> rt_sigreturn( unsigned long __unused)
 </small></td></tr>
 <tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
@@ -623,7 +627,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">snprintf</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  219 </small></td><td><small> int snprintf( char *buf, size_t size, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">snprintf</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  223 </small></td><td><small> int snprintf( char *buf, size_t size, const char *fmt, ... );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  26 </small></td><td><small> #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 </small></td></tr>
@@ -669,7 +673,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../include/tcgetattr.h" target="right">../include/tcgetattr.h</a>  20 </small></td><td><small>   int ) tcsetattr(int fd, int opt, const struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  183 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  184 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> int todo_putenv( char *s );
 </small></td></tr>
@@ -712,8 +716,11 @@
 </small></td></tr>
 <tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  145 </small></td><td><small> DEF_syscall(vhangup,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  36 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  40 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+</small></td></tr><tr><td></td><td colspan="2"><small>the function, translating the fmt of printf.
+  warning - most possibly you'd like to define besides fprintf, or family,
+  mini_itodec as well. (%d conversion)
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait4</a></small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  156 </small></td><td><small> wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
