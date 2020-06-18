@@ -429,7 +429,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  162 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  216 </small></td><td><small> void  free(void* p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  217 </small></td><td><small> void  free(void* p);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  97 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
@@ -503,7 +503,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  14 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  166 </small></td><td><small> void*  malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  167 </small></td><td><small> void*  malloc(int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  85 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
@@ -572,8 +572,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  155 </small></td><td><small> void* realloc(void *p, int size);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  156 </small></td><td><small> void* realloc(void *p, int size);
+</small></td></tr><tr><td></td><td colspan="2"><small>non conform realloc. Doesn't keep the old memory content(!)
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  174 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  101 </small></td><td><small> rename( const char* oldpath, const char* newpath )		
@@ -611,19 +612,21 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  216 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  100 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  106 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  52 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  58 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  69 </small></td><td><small> int sigismember(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  75 </small></td><td><small> int sigismember(sigset_t *set, int sig);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  8 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/signal.c" target="right">../src/signal.c</a>  10 </small></td><td><small> unsigned int sleep(unsigned int seconds);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/signal.c" target="right">../src/signal.c</a>  52 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  10 </small></td><td><small> unsigned int sleep(unsigned int seconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
   TODO: ignore blocked signals, sigchld
  </small></td></tr>

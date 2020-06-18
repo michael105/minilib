@@ -532,7 +532,7 @@ signal.h
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/sigaction.c: 100)
+               (src/sigaction.c: 106)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
@@ -540,7 +540,7 @@ sigaddset      int sigaddset(sigset_t *set, int sig);
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
 
-               (src/sigaction.c: 52)
+               (src/sigaction.c: 58)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
@@ -548,11 +548,15 @@ sigemptyset    static int sigemptyset(sigset_t *set);
 
 sigismember    int sigismember(sigset_t *set, int sig);
 
-               (src/sigaction.c: 69)
+               (src/sigaction.c: 75)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
                (src/signal.c: 8)
+
+sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+
+               (src/sigaction.c: 52)
 
 
 
@@ -745,7 +749,7 @@ atoi           int atoi(const char *c);
 
 free           void volatile free(void* p);
 
-               (src/malloc.c: 216)
+               (src/malloc.c: 217)
 
 getenv         char* getenv(const char* name);
 
@@ -753,7 +757,7 @@ getenv         char* getenv(const char* name);
 
 malloc         void* volatile malloc(int size);
 
-               (src/malloc.c: 166)
+               (src/malloc.c: 167)
 
 rand           unsigned int rand();
 
@@ -761,7 +765,8 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 155)
+               non conform realloc. Doesn't keep the old memory content(!)
+               (src/malloc.c: 156)
 
 srand          void srand( unsigned int i );
 

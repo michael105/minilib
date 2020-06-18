@@ -31,3 +31,4 @@ mini_strlen
 mini_strerror
 mini_write
 mini_writes
+mini_errno

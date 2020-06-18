@@ -23,3 +23,5 @@ mini_open
 mini_read
 mini_strerror
 mini_write
+mini_errno
+

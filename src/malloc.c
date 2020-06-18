@@ -150,6 +150,7 @@ void free(void *p){
 // again, it's a trade of speed and size.
 // especially with realloc, the minimalistic implementation hurts
 
+//+doc non conform realloc. Doesn't keep the old memory content(!)
 //+depends free malloc
 //+def
 void* realloc(void *p, int size){

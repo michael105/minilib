@@ -28,4 +28,4 @@ mini_strcmp
 mini_strdup
 mini_strerror
 mini_dirname
-
+mini_errno

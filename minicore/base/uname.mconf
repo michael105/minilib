@@ -25,3 +25,4 @@ mini_fputs
 mini_putchar
 mini_strcmp
 mini_strerror
+mini_errno

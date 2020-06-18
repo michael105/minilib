@@ -138,7 +138,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close malloc open
+               Defines: close open malloc
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -211,12 +211,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write fileno strlen
+               Defines: fileno strlen write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: write strlen fileno
+               Defines: fileno write strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -247,7 +247,7 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 29)
                write str to stdout. Needs strlen
 
@@ -267,7 +267,7 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: uitodec write
+               Defines: write uitodec
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
@@ -934,23 +934,26 @@ signal.h
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
                Defines: memcpy
-               (src/sigaction.c: 100)
+               (src/sigaction.c: 106)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
                (src/sigaction.c: 34)
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
-               (src/sigaction.c: 52)
+               (src/sigaction.c: 58)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
                (src/sigaction.c: 7)
 
 sigismember    int sigismember(sigset_t *set, int sig);
-               (src/sigaction.c: 69)
+               (src/sigaction.c: 75)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
                Defines: memcpy
                (src/signal.c: 8)
+
+sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+               (src/sigaction.c: 52)
 
 
 
@@ -959,7 +962,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: close open fileno
+               Defines: fileno open close
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1000,7 +1003,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 6)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
@@ -1013,11 +1016,11 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: fileno write
+               Defines: write fileno
                (src/sprintf.c: 248)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
@@ -1025,7 +1028,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: write fileno strlen
+               Defines: fileno write strlen
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1054,15 +1057,15 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 29)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -1074,19 +1077,19 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: write strlen strerror fileno
+               Defines: strlen write strerror fileno
                (src/strerror.c: 26)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
@@ -1131,27 +1134,28 @@ atoi           int atoi(const char *c);
                (src/atoi.c: 6)
 
 free           void volatile free(void* p);
-               (src/malloc.c: 216)
+               (src/malloc.c: 217)
 
 getenv         char* getenv(const char* name);
                Defines: environ
                (src/getenv.c: 8)
 
 malloc         void* volatile malloc(int size);
-               (src/malloc.c: 166)
+               (src/malloc.c: 167)
 
 rand           unsigned int rand();
                (src/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
                Defines: free malloc
-               (src/malloc.c: 155)
+               (src/malloc.c: 156)
+               non conform realloc. Doesn't keep the old memory content(!)
 
 srand          void srand( unsigned int i );
                (src/rand.c: 7)
 
 system         int system( const char* command );
-               Defines: write execve environ wait4 vfork
+               Defines: wait4 write environ vfork execve
                (src/system.c: 4)
 
 todo_putenv    int todo_putenv( char *s );
@@ -1206,7 +1210,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strcpy strlen
+               Defines: strcpy strlen malloc
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1296,7 +1300,7 @@ execvp         static inline int execvp(const char *file, char *const argv[]);
                (src/execvp.c: 28)
 
 execvpe        static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: environ execve
+               Defines: execve environ
                (src/execvp.c: 20)
                doesn't search the path env (todo)
 

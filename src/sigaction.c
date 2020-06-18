@@ -49,6 +49,12 @@ int sigaddset(sigset_t *set, int sig){
 
 
 //+def
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
+		return( rt_sigprocmask( how, set, oldset, sizeof(sigset_t) ) );
+}
+
+
+//+def
 int sigdelset(sigset_t *set, int sig){
 		unsigned s = sig-1;
 		if (sig >= _NSIG-1 || sig <0 ) {
