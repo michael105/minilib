@@ -151,6 +151,12 @@ print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
                (include/prints.h: 29)
 
+printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+
+               write str to stdout. 
+              only format %s is recognized
+               (include/prints.h: 55)
+
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
@@ -198,7 +204,7 @@ verbose_errstr const char* verbose_errstr(int num);
 
                verbose error (errno) string. 
               this adds about 3.5kB to the compiled binary(!)
-               (include/errstr.h: 4)
+               (include/errstr.h: 8)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -588,7 +594,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 87)
+               (src/fopen.c: 90)
 
 feof           static inline int feof(FILE *f);
 
@@ -623,7 +629,7 @@ fileno         static inline int __attribute__((always_inline)) fileno( FILE *f 
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 77)
+               (src/fopen.c: 80)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -648,7 +654,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 97)
+               (src/fopen.c: 100)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
@@ -749,7 +755,7 @@ atoi           int atoi(const char *c);
 
 free           void volatile free(void* p);
 
-               (src/malloc.c: 217)
+               (src/malloc.c: 295)
 
 getenv         char* getenv(const char* name);
 
@@ -757,7 +763,7 @@ getenv         char* getenv(const char* name);
 
 malloc         void* volatile malloc(int size);
 
-               (src/malloc.c: 167)
+               (src/malloc.c: 245)
 
 rand           unsigned int rand();
 
@@ -765,8 +771,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               non conform realloc. Doesn't keep the old memory content(!)
-               (src/malloc.c: 156)
+               (src/malloc.c: 176)
 
 srand          void srand( unsigned int i );
 
@@ -898,12 +903,14 @@ execv          static inline int execv(const char *pathname, char *const argv[])
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
 
-               (src/execvp.c: 28)
+               (src/execvp.c: 61)
 
-execvpe        static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
+execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
 
-               doesn't search the path env (todo)
-               (src/execvp.c: 20)
+               When invoked with a filename, starting with "." or "/",
+              interprets this as absolute path. (calls execve with the pathname)
+              Looks for file in the PATH environment, othwerise.
+               (src/execvp.c: 21)
 
 fexecveat      static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
 

@@ -26,13 +26,13 @@
 #define MBUF_PREVISFREE 0x20000000
 #define MBUF_V 0x1FFFFFFF
 
-
+//+doc
 // Here we go.. with the .. well. 
 // Fastes and smallest malloc/free combi ever. 
 // Not the smartest.
 // Since it isn't exactly a memory allocation,
 // instead it (mis)uses the minilib buf.
-// muahaha. 1024 Bytes should be enough for everyone.
+// ;) 1024 Bytes should be enough for everyone.
 //  Ok. If you really do need more memory - 
 //  rethink your design, increase mini_mbuf,
 //  or use a proper malloc implementation.
@@ -70,9 +70,31 @@
 //   ? I'm not sure what this sentence means XD
 //misc
 //
+// The memory layout looks like this:
+// ml.ibuf and ml.mbuf do point to the same address range.
+// ml.ibuf is provided for alignment and faster access to the int values.
+//
+// flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
+// (mbufsize)
+//      size  data          mini_buf size
+//      8008dataxxxx0004data8000|
+//      ----========----====----|
+//
+// also, when free space is in between two areas
+// 
+// 8004data8008  free  0004data8000|
+// ----====----________----====----|
+//
+// the free space is only freed, 
+// when all areas below (left) are free'd as well.
+//
+// just now I'm wondering, why I did the layout growing from top to bottom.
+// Most possibly I should rearrange that, to grow from bottom to top.(todo)
+//
 //+def
 void* malloc(int size){
-		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"
+		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer", 
+																//  size is in integers (4Bytes)
 		if( ml.mbufsize-(size<<2)<64 ){
 				write( STDERR_FILENO, "Out of memory.\n",15 );
 				return((void*)0);
@@ -144,18 +166,74 @@ void free(void *p){
 
 // TODO
 // rewrite free and malloc.
-// best would be storing the allocated length in the first byte.
 // need to do some benchmarking.
 // comparing different malloc implementations.
 // again, it's a trade of speed and size.
 // especially with realloc, the minimalistic implementation hurts
 
-//+doc non conform realloc. Doesn't keep the old memory content(!)
 //+depends free malloc
 //+def
 void* realloc(void *p, int size){
+
+		if ( size == 0 ){
+				free(p);
+				return((void*)0);
+		}
+
+		if ( p == 0 ){
+				return(malloc(size));
+		}
+
+		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"(int)
+
+				char *c = p;
+				int *i = p;
+				i--;
+				c-=4;
+				int oldsize = (i[0] & MBUF_V); //<<2;
+
+				if ( oldsize == size )
+						return( p );
+
+				if ( size < oldsize ){ // shrink. But can't free. so do nothing.
+						//if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack. 
+
+		//ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+		//ml.mbufsize -= (size<<2);
+		//ml.mbufsize += oldsize-size; // can't free. would need to copy the contents. 
+		// I should rearrange to bottom to top layout.
+		//ml.ibuf[(ml.mbufsize>>2)] = size;
+		//return( &ml.mbuf[ml.mbufsize+4] ); 
+						return(p); 
+				} // if shrink.
+
+			// enlarge
+		if( ml.mbufsize-(size<<2)+(oldsize<<2)<64 ){
+				write( STDERR_FILENO, "Out of memory.\n",15 );
+				free(p);
+				return((void*)0);
+		}
 		free(p);
-		return( malloc(size) );
+		int *s = (int*)p;
+		void *n = malloc(size<<2);
+		if ( p > n ){
+				//writes("p>n\n");
+				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize<<2)); d++ ){
+						*d = *s;
+						s++;
+				}
+		} else { // p<n
+				//writes("p<n\n");
+						int *s = (int*)n;
+				for ( int *d = (int*)p; d<=(int*)((void*)p+(oldsize<<2)); d++ ){
+						*d = *s;
+						s++;
+				}
+
+		}
+
+
+		return( n );
 }
 
 #if 0

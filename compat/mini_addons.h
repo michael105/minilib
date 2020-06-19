@@ -138,9 +138,6 @@ int ptsname_r(int fd, char *buf, size_t len);
 // file: minilib/src/pty.c
 char *ptsname(int fd);
 
-// file: minilib/include/errstr.h
-const char* verbose_errstr(int num);
-
 // file: minilib/include/globaldefs.h
 typedef int FILE;
 
@@ -165,6 +162,9 @@ typedef int FILE;
 // file: minilib/include/prints.h
 #define printl() write(STDOUT_FILENO,"\n",1)
 
+// file: minilib/include/prints.h
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+
 
 
 #include "include/minilib_global.h"
@@ -172,18 +172,17 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/dtodec.c"
 #include "minilib/src/pty.c"
-#include "minilib/include/errstr.h"
+#include "minilib/src/fprintfs.c"
 #include "minilib/src/itodec.c"
 #include "minilib/src/basename.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/include/prints.h"
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/hashes.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/itobin.c"
-#include "minilib/src/dtodec.c"
 #include "minilib/src/dirname.c"
+#include "minilib/src/itobin.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/hashes.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

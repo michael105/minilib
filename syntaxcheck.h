@@ -13,503 +13,505 @@
 #define mini_start 
 #define mini_exit 
 #define mini_ksyscalls 
-#define mini_closedir generate
-#define mini_opendir generate
-#define mini_readdir generate
 #define mini_rand generate
-#define mini_todo_putenv generate
+#define mini_malloc generate
 #define mini_realloc generate
 #define mini_getenv generate
-#define mini_malloc generate
-#define mini_srand generate
-#define mini_free generate
-#define mini_system generate
+#define mini_todo_putenv generate
 #define mini_atoi generate
-#define mini_mkfifo generate
-#define mini_creat generate
+#define mini_srand generate
+#define mini_system generate
+#define mini_free generate
+#define mini_printfs generate
+#define mini_itobin generate
+#define mini_print generate
+#define mini_djb2_hash generate
+#define mini_fwrites generate
+#define mini_ptsname generate
+#define mini_printsl generate
+#define mini_dprintf generate
+#define mini_dtodec generate
+#define mini_unlockpt generate
+#define mini_fprints generate
+#define mini_ptsname_r generate
+#define mini_sdbm_hash generate
+#define mini__itobin generate
+#define mini__mprints generate
+#define mini_vsnprintf generate
+#define mini_snprintf generate
+#define mini_def generate
+#define mini_basename generate
+#define mini_grantpt generate
+#define mini_itodec generate
+#define mini_fprintfs generate
+#define mini_printl generate
+#define mini_uitodec generate
 #define mini_verbose_errstr generate
 #define mini_ltodec generate
-#define mini_ptsname_r generate
-#define mini_dtodec generate
-#define mini_uitodec generate
 #define mini_writes generate
-#define mini_snprintf generate
-#define mini_sdbm_hash generate
-#define mini_basename generate
-#define mini_fwrites generate
-#define mini_posix_openpt generate
-#define mini_fprintfs generate
-#define mini_memfrob generate
-#define mini_def generate
-#define mini_djb2_hash generate
-#define mini_dprintf generate
-#define mini__itobin generate
-#define mini_grantpt generate
-#define mini_printl generate
-#define mini_vsnprintf generate
-#define mini_fprints generate
-#define mini_unlockpt generate
-#define mini_itobin generate
-#define mini_printsl generate
-#define mini_print generate
-#define mini_dirname generate
-#define mini_itodec generate
-#define mini_ptsname generate
-#define mini__mprints generate
 #define mini_ultodec generate
+#define mini_dirname generate
+#define mini_memfrob generate
 #define mini_prints generate
-#define mini_waitpid generate
-#define mini_wait generate
-#define mini_getgid generate
-#define mini_execvpe generate
-#define mini_setgid generate
-#define mini_close generate
-#define mini_execvp generate
-#define mini_execve generate
-#define mini_chown generate
-#define mini_setpgid generate
-#define mini_setsid generate
-#define mini_rmdir generate
-#define mini_fsync generate
-#define mini_execv generate
+#define mini_posix_openpt generate
 #define mini_mkdir generate
-#define mini_chdir generate
-#define mini_tcsetattr generate
-#define mini_link generate
-#define mini_usleep generate
-#define mini_ftruncate generate
-#define mini_sleep generate
+#define mini_execvpe generate
 #define mini_open generate
-#define mini_tcgetattr generate
+#define mini_link generate
+#define mini_lseek generate
+#define mini_rename generate
+#define mini_fexecveat generate
+#define mini_tcsetattr generate
+#define mini_chown generate
+#define mini_access generate
+#define mini_chroot generate
+#define mini_ftruncate generate
+#define mini_chdir generate
+#define mini_usleep generate
+#define mini_setgid generate
+#define mini_fork generate
+#define mini_execv generate
+#define mini_rmdir generate
+#define mini_dup generate
+#define mini_pipe generate
+#define mini_dup2 generate
+#define mini_write generate
 #define mini_getuid generate
 #define mini_select generate
-#define mini_setuid generate
-#define mini_fexecveat generate
-#define mini_chroot generate
-#define mini_rename generate
-#define mini_fork generate
-#define mini_lseek generate
-#define mini_dup2 generate
-#define mini_read generate
-#define mini_dup generate
+#define mini_fsync generate
+#define mini_setpgid generate
 #define mini_getpgrp generate
+#define mini_read generate
+#define mini_close generate
+#define mini_tcgetattr generate
+#define mini_setsid generate
+#define mini_getgid generate
+#define mini_setuid generate
+#define mini_execve generate
+#define mini_sleep generate
 #define mini_getpid generate
-#define mini_unlink generate
-#define mini_pipe generate
-#define mini_write generate
 #define mini_isatty generate
-#define mini_access generate
-#define mini_time generate
+#define mini_execvp generate
+#define mini_unlink generate
 #define mini_sigaction generate
-#define mini_sigdelset generate
-#define mini_sigemptyset generate
-#define mini_sigismember generate
 #define mini_sigaddset generate
+#define mini_sigismember generate
+#define mini_sigprocmask generate
+#define mini_sigemptyset generate
 #define mini_signal generate
-#define mini_ioctl generate
+#define mini_sigdelset generate
 #define mini_isspace generate
 #define mini_isprint generate
-#define mini__execve generate
-#define mini__io_getevents generate
-#define mini__mknod generate
-#define mini__prctl generate
-#define mini__setsid generate
-#define mini__getcwd generate
-#define mini__dup3 generate
-#define mini__quotactl generate
-#define mini__epoll_wait generate
-#define mini__pivot_root generate
-#define mini__set_tid_address generate
-#define mini__getresuid generate
-#define mini__swapoff generate
-#define mini__chdir generate
-#define mini__lgetxattr generate
-#define mini__wait4 generate
-#define mini__eventfd generate
-#define mini__access generate
-#define mini__readlinkat generate
-#define mini__read generate
-#define mini__chown generate
-#define mini__rt_sigpending generate
-#define mini__shmat generate
-#define mini__sched_setscheduler generate
-#define mini__rename generate
-#define mini__link generate
-#define mini__semop generate
-#define mini__pread64 generate
-#define mini__getitimer generate
-#define mini__modify_ldt generate
-#define mini__futex generate
-#define mini__io_setup generate
-#define mini__mprotect generate
-#define mini__symlinkat generate
-#define mini__msgrcv generate
-#define mini__rt_sigreturn generate
-#define mini__getpgrp generate
-#define mini__timerfd_gettime generate
-#define mini__restart_syscall generate
-#define mini__clock_gettime generate
-#define mini__syncfs generate
-#define mini__prlimit64 generate
-#define mini__unlink generate
-#define mini__rt_tgsigqueueinfo generate
-#define mini__syslog generate
-#define mini__getsockname generate
-#define mini__socketpair generate
-#define mini__epoll_pwait generate
-#define mini__getegid generate
-#define mini__capget generate
-#define mini__ustat generate
-#define mini__mq_getsetattr generate
-#define mini__mq_unlink generate
-#define mini__sysfs generate
-#define mini__getgid generate
-#define mini__creat generate
-#define mini__setxattr generate
-#define mini__arch_prctl generate
-#define mini__getresgid generate
-#define mini__sched_get_priority_min generate
-#define mini__getuid generate
-#define mini__kexec_file_load generate
-#define mini__tgkill generate
-#define mini__mq_notify generate
-#define mini__clone generate
-#define mini__getdents64 generate
-#define mini__signalfd4 generate
-#define mini__inotify_add_watch generate
-#define mini__gettimeofday generate
-#define mini__getrlimit generate
-#define mini__delete_module generate
-#define mini___sysctl generate
-#define mini__dup2 generate
-#define mini__io_submit generate
-#define mini__linkat generate
-#define mini__eventfd2 generate
-#define mini__recvfrom generate
-#define mini__ioprio_get generate
-#define mini__io_destroy generate
-#define mini__sched_getscheduler generate
-#define mini__shmget generate
-#define mini__getsockopt generate
-#define mini__mq_open generate
-#define mini__sched_yield generate
-#define mini__mount generate
-#define mini__ioprio_set generate
-#define mini__msgsnd generate
-#define mini__umount2 generate
-#define mini__tkill generate
-#define mini__pipe generate
-#define mini__shmdt generate
-#define mini__munlock generate
-#define mini__name_to_handle_at generate
-#define mini__recvmsg generate
-#define mini__statfs generate
-#define mini__sync_file_range generate
-#define mini__llistxattr generate
-#define mini__lstat generate
-#define mini__ppoll generate
-#define mini__flock generate
-#define mini__uname generate
-#define mini__semctl generate
-#define mini__getpgid generate
-#define mini__getppid generate
-#define mini__fchmodat generate
-#define mini__getpid generate
-#define mini__memfd_create generate
-#define mini__inotify_rm_watch generate
-#define mini__fsync generate
-#define mini__sched_rr_get_interval generate
-#define mini__fstatfs generate
-#define mini__sendmmsg generate
-#define mini__getpriority generate
-#define mini__lookup_dcookie generate
-#define mini__unshare generate
-#define mini__listen generate
-#define mini__writev generate
-#define mini__set_mempolicy generate
-#define mini__set_robust_list generate
-#define mini__shmctl generate
-#define mini__iopl generate
-#define mini__process_vm_writev generate
-#define mini__symlink generate
-#define mini__alarm generate
-#define mini__munmap generate
-#define mini__mkdir generate
-#define mini__fchown generate
-#define mini__semget generate
-#define mini__readv generate
-#define mini__gettid generate
-#define mini__sigaltstack generate
-#define mini__move_pages generate
-#define mini__fsetxattr generate
-#define mini__fremovexattr generate
-#define mini__ioperm generate
-#define mini__signalfd generate
-#define mini__clock_settime generate
-#define mini__times generate
-#define mini__getrandom generate
-#define mini__kcmp generate
-#define mini__getgroups generate
-#define mini__sendfile generate
-#define mini__mremap generate
-#define mini__fanotify_init generate
-#define mini__pselect6 generate
-#define mini__munlockall generate
-#define mini__mlockall generate
-#define mini__finit_module generate
-#define mini__timerfd_settime generate
-#define mini__exit generate
-#define mini__fcntl generate
-#define mini__rt_sigprocmask generate
-#define mini__mq_timedsend generate
-#define mini__accept generate
-#define mini__sendmsg generate
-#define mini__connect generate
-#define mini__openat generate
-#define mini__process_vm_readv generate
-#define mini__getrusage generate
-#define mini__setpgid generate
-#define mini__kill generate
-#define mini__umask generate
-#define mini__fgetxattr generate
-#define mini__setrlimit generate
-#define mini__timer_getoverrun generate
-#define mini__adjtimex generate
-#define mini__pause generate
-#define mini__settimeofday generate
-#define mini__epoll_create generate
-#define mini__madvise generate
-#define mini__epoll_create1 generate
-#define mini__exit_group generate
-#define mini__vhangup generate
-#define mini__reboot generate
-#define mini__inotify_init generate
-#define mini__utimensat generate
-#define mini__sched_getattr generate
-#define mini__stat generate
-#define mini__inotify_init1 generate
-#define mini__fchownat generate
-#define mini__init_module generate
-#define mini__vfork generate
-#define mini__setsockopt generate
-#define mini__readlink generate
-#define mini__seccomp generate
-#define mini__fork generate
-#define mini__mbind generate
-#define mini__preadv generate
-#define mini__listxattr generate
-#define mini__timer_settime generate
-#define mini__close generate
-#define mini__setns generate
-#define mini__tee generate
-#define mini__splice generate
-#define mini__ptrace generate
-#define mini__dup generate
-#define mini__personality generate
-#define mini__sched_get_priority_max generate
-#define mini__rmdir generate
-#define mini__chroot generate
-#define mini__mincore generate
-#define mini__futimesat generate
-#define mini__mkdirat generate
-#define mini__setgroups generate
-#define mini__sched_getparam generate
-#define mini__rt_sigqueueinfo generate
-#define mini__pwrite64 generate
-#define mini__sysinfo generate
-#define mini__write generate
-#define mini__semtimedop generate
-#define mini__fchmod generate
-#define mini__io_cancel generate
-#define mini__renameat2 generate
-#define mini__fallocate generate
-#define mini__select generate
-#define mini__setdomainname generate
-#define mini__setpriority generate
-#define mini__getcpu generate
-#define mini__sched_getaffinity generate
-#define mini__poll generate
-#define mini__fchdir generate
-#define mini__faccessat generate
-#define mini__utime generate
-#define mini__get_robust_list generate
-#define mini__request_key generate
-#define mini__perf_event_open generate
-#define mini__clock_getres generate
-#define mini__getpeername generate
-#define mini__fadvise64 generate
-#define mini__ftruncate generate
-#define mini__recvmmsg generate
-#define mini__acct generate
-#define mini__get_mempolicy generate
-#define mini__geteuid generate
-#define mini__clock_adjtime generate
-#define mini__unlinkat generate
-#define mini__epoll_ctl generate
-#define mini__ioctl generate
-#define mini__pwritev generate
-#define mini__sched_setattr generate
-#define mini__remap_file_pages generate
-#define mini__flistxattr generate
-#define mini__shutdown generate
-#define mini__open_by_handle_at generate
-#define mini__fstat generate
-#define mini__truncate generate
-#define mini__setitimer generate
-#define mini__brk generate
-#define mini__vmsplice generate
-#define mini__removexattr generate
-#define mini__rt_sigsuspend generate
-#define mini__getsid generate
-#define mini__timer_create generate
-#define mini__mq_timedreceive generate
-#define mini__mmap generate
-#define mini__open generate
-#define mini__capset generate
-#define mini__pipe2 generate
-#define mini__keyctl generate
-#define mini__add_key generate
-#define mini__migrate_pages generate
-#define mini__bind generate
-#define mini__fdatasync generate
-#define mini__time generate
-#define mini__mknodat generate
-#define mini__setresuid generate
-#define mini__sendto generate
-#define mini__socket generate
-#define mini__msgctl generate
-#define mini__rt_sigaction generate
-#define mini__getxattr generate
-#define mini__fanotify_mark generate
-#define mini__setfsuid generate
-#define mini__setgid generate
-#define mini__sync generate
-#define mini__swapon generate
-#define mini__sched_setaffinity generate
-#define mini__setfsgid generate
-#define mini__clock_nanosleep generate
-#define mini__newfstatat generate
-#define mini__lseek generate
-#define mini__sethostname generate
-#define mini__readahead generate
-#define mini__lsetxattr generate
-#define mini__chmod generate
-#define mini__lremovexattr generate
-#define mini__setresgid generate
-#define mini__setuid generate
-#define mini__lchown generate
-#define mini__kexec_load generate
-#define mini__timer_delete generate
-#define mini__setreuid generate
-#define mini__sched_setparam generate
-#define mini__msync generate
-#define mini__timerfd_create generate
-#define mini__setregid generate
-#define mini__utimes generate
-#define mini__renameat generate
-#define mini__accept4 generate
-#define mini__waitid generate
-#define mini__rt_sigtimedwait generate
-#define mini__nanosleep generate
-#define mini__msgget generate
-#define mini__getdents generate
-#define mini__timer_gettime generate
-#define mini__mlock generate
-#define mini_clearerr generate
-#define mini_putc generate
-#define mini_fgetpos generate
-#define mini_ftell generate
-#define mini_fdopen generate
-#define mini_vfprintf generate
-#define mini_fputs generate
-#define mini_ungetc generate
-#define mini_printf generate
-#define mini_clearerror generate
-#define mini_fputc generate
-#define mini_fprint generate
-#define mini_fclose generate
-#define mini_setvbuf generate
-#define mini_fflush generate
-#define mini_getc generate
+#define mini_mkfifo generate
+#define mini_creat generate
 #define mini_fseek generate
-#define mini_itoHEX generate
-#define mini_fprintf generate
-#define mini_itohex generate
-#define mini_putchar generate
-#define mini_sprintf generate
-#define mini_ferror generate
-#define mini__itohex generate
-#define mini_gets generate
-#define mini_fsetpos generate
+#define mini_perror generate
+#define mini_fgetc generate
+#define mini_putc generate
+#define mini__fopen generate
+#define mini_fputs generate
+#define mini_clearerr generate
+#define mini_puts generate
 #define mini_setbuf generate
+#define mini_fflush generate
 #define mini_fgets generate
 #define mini_fileno generate
-#define mini_fread generate
-#define mini_puts generate
-#define mini_rewind generate
-#define mini_fwrite generate
-#define mini_freopen generate
-#define mini_getchar generate
-#define mini_feof generate
-#define mini_fgetc generate
-#define mini_perror generate
-#define mini__fopen generate
+#define mini_fsetpos generate
+#define mini_vfprintf generate
+#define mini_putchar generate
+#define mini_fputc generate
+#define mini_fdopen generate
+#define mini_ferror generate
+#define mini__itohex generate
+#define mini_printf generate
 #define mini_fopen generate
+#define mini_feof generate
+#define mini_fprintf generate
+#define mini_itoHEX generate
+#define mini_freopen generate
+#define mini_getc generate
+#define mini_ungetc generate
+#define mini_fwrite generate
+#define mini_fgetpos generate
+#define mini_sprintf generate
+#define mini_clearerror generate
+#define mini_rewind generate
+#define mini_fprint generate
+#define mini_fread generate
+#define mini_gets generate
+#define mini_itohex generate
+#define mini_fclose generate
+#define mini_ftell generate
+#define mini_setvbuf generate
+#define mini_getchar generate
+#define mini_readdir generate
+#define mini_closedir generate
+#define mini_opendir generate
+#define mini_waitpid generate
+#define mini_wait generate
+#define mini_brk generate
+#define mini_setitimer generate
+#define mini_fchmod generate
+#define mini_pivot_root generate
+#define mini_getcwd generate
+#define mini_fstat generate
+#define mini_rt_sigreturn generate
+#define mini_mount generate
+#define mini_sendfile generate
+#define mini_sync generate
+#define mini_mprotect generate
+#define mini_gettimeofday generate
+#define mini_uname generate
+#define mini_getppid generate
+#define mini_getdents generate
+#define mini_vhangup generate
+#define mini_readahead generate
+#define mini_fchown generate
+#define mini_wait4 generate
+#define mini_symlink generate
+#define mini_getitimer generate
+#define mini_dup3 generate
+#define mini_nanosleep generate
+#define mini_umask generate
+#define mini_reboot generate
+#define mini_fcntl generate
+#define mini_execveat generate
+#define mini_rt_sigprocmask generate
+#define mini_rt_sigaction generate
+#define mini_utime generate
+#define mini_mknod generate
+#define mini_stat generate
+#define mini_vfork generate
+#define mini_kill generate
+#define mini_chmod generate
 #define mini_strncmp generate
 #define mini_strdup generate
-#define mini_strchr generate
-#define mini_strcmp generate
+#define mini_strrchr generate
+#define mini_memset generate
+#define mini_strchrnul generate
 #define mini_strncasecmp generate
 #define mini_strlen generate
 #define mini_strcat generate
-#define mini_memset generate
 #define mini_memmove generate
-#define mini_memcpy generate
-#define mini__strcasecmp generate
+#define mini_strcmp generate
 #define mini__strcmp generate
-#define mini_strcpy generate
-#define mini_strcasecmp generate
 #define mini_strncpy generate
-#define mini_strchrnul generate
+#define mini_memcpy generate
+#define mini_strcasecmp generate
+#define mini__strcasecmp generate
 #define mini_memcmp generate
-#define mini_strrchr generate
+#define mini_strchr generate
 #define mini_strerror generate
+#define mini_strcpy generate
 #define mini_strstr generate
-#define mini_mknod generate
-#define mini_sendfile generate
-#define mini_pivot_root generate
-#define mini_vhangup generate
-#define mini_mount generate
-#define mini_mprotect generate
-#define mini_vfork generate
-#define mini_nanosleep generate
-#define mini_fchown generate
-#define mini_symlink generate
-#define mini_dup3 generate
-#define mini_setitimer generate
-#define mini_uname generate
-#define mini_umask generate
-#define mini_getitimer generate
-#define mini_brk generate
-#define mini_execveat generate
-#define mini_gettimeofday generate
-#define mini_getcwd generate
-#define mini_rt_sigaction generate
-#define mini_fstat generate
-#define mini_rt_sigreturn generate
-#define mini_wait4 generate
-#define mini_sync generate
-#define mini_rt_sigprocmask generate
-#define mini_fcntl generate
-#define mini_kill generate
-#define mini_reboot generate
-#define mini_chmod generate
-#define mini_readahead generate
-#define mini_getdents generate
-#define mini_getppid generate
-#define mini_stat generate
-#define mini_fchmod generate
-#define mini_utime generate
+#define mini__fchown generate
+#define mini__chown generate
+#define mini__prlimit64 generate
+#define mini__mq_notify generate
+#define mini__name_to_handle_at generate
+#define mini__getcpu generate
+#define mini__pwritev generate
+#define mini__rt_sigqueueinfo generate
+#define mini__getrandom generate
+#define mini__getppid generate
+#define mini__getxattr generate
+#define mini__utimes generate
+#define mini__pivot_root generate
+#define mini__getresgid generate
+#define mini__umask generate
+#define mini__pipe generate
+#define mini__setgroups generate
+#define mini__timerfd_settime generate
+#define mini__signalfd4 generate
+#define mini__vhangup generate
+#define mini__io_getevents generate
+#define mini__setxattr generate
+#define mini__fcntl generate
+#define mini__lgetxattr generate
+#define mini__setresgid generate
+#define mini__shmget generate
+#define mini__futimesat generate
+#define mini__ptrace generate
+#define mini__rt_sigaction generate
+#define mini__open_by_handle_at generate
+#define mini__timer_getoverrun generate
+#define mini__getgroups generate
+#define mini__waitid generate
+#define mini__mmap generate
+#define mini__fremovexattr generate
+#define mini__lseek generate
+#define mini__recvmsg generate
+#define mini__mq_unlink generate
+#define mini__process_vm_writev generate
+#define mini__uname generate
+#define mini__mlockall generate
+#define mini__getegid generate
+#define mini__mknod generate
+#define mini__fstatfs generate
+#define mini__ftruncate generate
+#define mini__mkdir generate
+#define mini__sync generate
+#define mini__execve generate
+#define mini__settimeofday generate
+#define mini__getsockopt generate
+#define mini__set_tid_address generate
+#define mini__vfork generate
+#define mini__mlock generate
+#define mini__statfs generate
+#define mini__pipe2 generate
+#define mini__lchown generate
+#define mini__open generate
+#define mini__connect generate
+#define mini__sethostname generate
+#define mini__msgget generate
+#define mini__lookup_dcookie generate
+#define mini__timer_delete generate
+#define mini__timer_create generate
+#define mini__fdatasync generate
+#define mini__adjtimex generate
+#define mini__readlinkat generate
+#define mini__capset generate
+#define mini__setsockopt generate
+#define mini__lremovexattr generate
+#define mini__gettimeofday generate
+#define mini__getdents generate
+#define mini__msync generate
+#define mini__inotify_init generate
+#define mini__alarm generate
+#define mini__iopl generate
+#define mini__msgrcv generate
+#define mini__fgetxattr generate
+#define mini__ppoll generate
+#define mini__utime generate
+#define mini__getitimer generate
+#define mini__chroot generate
+#define mini__reboot generate
+#define mini__move_pages generate
+#define mini__sched_getattr generate
+#define mini__capget generate
+#define mini__setuid generate
+#define mini__getrusage generate
+#define mini__brk generate
+#define mini__chmod generate
+#define mini__setitimer generate
+#define mini__tee generate
+#define mini__rename generate
+#define mini__splice generate
+#define mini__pselect6 generate
+#define mini__shutdown generate
+#define mini__accept4 generate
+#define mini__shmctl generate
+#define mini__utimensat generate
+#define mini__ioctl generate
+#define mini__linkat generate
+#define mini__vmsplice generate
+#define mini__getsockname generate
+#define mini__getuid generate
+#define mini__rt_sigreturn generate
+#define mini__sched_getparam generate
+#define mini__mprotect generate
+#define mini__msgctl generate
+#define mini__mincore generate
+#define mini__clone generate
+#define mini__setresuid generate
+#define mini__eventfd generate
+#define mini__exit_group generate
+#define mini__ioprio_set generate
+#define mini__madvise generate
+#define mini__epoll_create generate
+#define mini__sched_setparam generate
+#define mini__epoll_ctl generate
+#define mini__unlink generate
+#define mini__kcmp generate
+#define mini__preadv generate
+#define mini__times generate
+#define mini__sched_setattr generate
+#define mini__mremap generate
+#define mini__seccomp generate
+#define mini__fchmod generate
+#define mini__symlinkat generate
+#define mini__select generate
+#define mini__getresuid generate
+#define mini__removexattr generate
+#define mini__sendfile generate
+#define mini__sendmsg generate
+#define mini__nanosleep generate
+#define mini__restart_syscall generate
+#define mini__rmdir generate
+#define mini__msgsnd generate
+#define mini__accept generate
+#define mini__epoll_create1 generate
+#define mini__semtimedop generate
+#define mini__shmat generate
+#define mini__getpgrp generate
+#define mini__setreuid generate
+#define mini__lsetxattr generate
+#define mini__close generate
+#define mini__fchmodat generate
+#define mini__mq_timedreceive generate
+#define mini__creat generate
+#define mini__kexec_file_load generate
+#define mini__syncfs generate
+#define mini__io_cancel generate
+#define mini__fstat generate
+#define mini__quotactl generate
+#define mini__epoll_wait generate
+#define mini__stat generate
+#define mini__finit_module generate
+#define mini__ustat generate
+#define mini__io_setup generate
+#define mini__syslog generate
+#define mini__time generate
+#define mini__bind generate
+#define mini__mq_getsetattr generate
+#define mini__get_mempolicy generate
+#define mini__access generate
+#define mini__timerfd_gettime generate
+#define mini__link generate
+#define mini__llistxattr generate
+#define mini__prctl generate
+#define mini__setfsuid generate
+#define mini__semget generate
+#define mini__ioprio_get generate
+#define mini__clock_getres generate
+#define mini__dup generate
+#define mini__exit generate
+#define mini__chdir generate
+#define mini__mkdirat generate
+#define mini__readv generate
+#define mini__set_mempolicy generate
+#define mini__inotify_add_watch generate
+#define mini__sendmmsg generate
+#define mini__unlinkat generate
+#define mini__lstat generate
+#define mini__mknodat generate
+#define mini__renameat generate
+#define mini__rt_sigtimedwait generate
+#define mini__socket generate
+#define mini__umount2 generate
+#define mini__dup3 generate
+#define mini__modify_ldt generate
+#define mini__dup2 generate
+#define mini__readlink generate
+#define mini__signalfd generate
+#define mini__fadvise64 generate
+#define mini__setsid generate
+#define mini__arch_prctl generate
+#define mini__personality generate
+#define mini__fsetxattr generate
+#define mini__rt_sigsuspend generate
+#define mini__mbind generate
+#define mini__write generate
+#define mini__fchdir generate
+#define mini__geteuid generate
+#define mini__kexec_load generate
+#define mini__sysfs generate
+#define mini__futex generate
+#define mini__getdents64 generate
+#define mini__getpid generate
+#define mini__getsid generate
+#define mini__poll generate
+#define mini__setns generate
+#define mini__munlock generate
+#define mini__epoll_pwait generate
+#define mini__truncate generate
+#define mini__flistxattr generate
+#define mini__recvfrom generate
+#define mini__clock_nanosleep generate
+#define mini__read generate
+#define mini__getgid generate
+#define mini__mq_open generate
+#define mini__rt_tgsigqueueinfo generate
+#define mini__mq_timedsend generate
+#define mini__clock_settime generate
+#define mini__tkill generate
+#define mini__getpeername generate
+#define mini__getpriority generate
+#define mini__timerfd_create generate
+#define mini__clock_adjtime generate
+#define mini__ioperm generate
+#define mini__rt_sigpending generate
+#define mini__get_robust_list generate
+#define mini__getrlimit generate
+#define mini__listen generate
+#define mini__sched_getscheduler generate
+#define mini__init_module generate
+#define mini__sysinfo generate
+#define mini__sched_setaffinity generate
+#define mini__sched_get_priority_max generate
+#define mini__timer_gettime generate
+#define mini__acct generate
+#define mini__readahead generate
+#define mini__setdomainname generate
+#define mini__pread64 generate
+#define mini__getcwd generate
+#define mini__setgid generate
+#define mini__inotify_init1 generate
+#define mini__unshare generate
+#define mini__fanotify_init generate
+#define mini__munlockall generate
+#define mini__listxattr generate
+#define mini__setpriority generate
+#define mini__inotify_rm_watch generate
+#define mini__process_vm_readv generate
+#define mini__kill generate
+#define mini__shmdt generate
+#define mini__sendto generate
+#define mini__gettid generate
+#define mini__swapon generate
+#define mini__fallocate generate
+#define mini__fork generate
+#define mini__set_robust_list generate
+#define mini__swapoff generate
+#define mini__setrlimit generate
+#define mini__writev generate
+#define mini__memfd_create generate
+#define mini__semctl generate
+#define mini__sync_file_range generate
+#define mini__eventfd2 generate
+#define mini__remap_file_pages generate
+#define mini__mount generate
+#define mini__getpgid generate
+#define mini__openat generate
+#define mini__io_submit generate
+#define mini__migrate_pages generate
+#define mini__sigaltstack generate
+#define mini__pwrite64 generate
+#define mini__sched_yield generate
+#define mini__tgkill generate
+#define mini__delete_module generate
+#define mini__fsync generate
+#define mini__setregid generate
+#define mini__io_destroy generate
+#define mini__sched_get_priority_min generate
+#define mini__sched_rr_get_interval generate
+#define mini__request_key generate
+#define mini__munmap generate
+#define mini__clock_gettime generate
+#define mini__faccessat generate
+#define mini__pause generate
+#define mini__setpgid generate
+#define mini__renameat2 generate
+#define mini__fanotify_mark generate
+#define mini__fchownat generate
+#define mini__wait4 generate
+#define mini__newfstatat generate
+#define mini__perf_event_open generate
+#define mini__timer_settime generate
+#define mini__socketpair generate
+#define mini__keyctl generate
+#define mini__add_key generate
+#define mini__flock generate
+#define mini__rt_sigprocmask generate
+#define mini__setfsgid generate
+#define mini__symlink generate
+#define mini__sched_setscheduler generate
+#define mini__sched_getaffinity generate
+#define mini__recvmmsg generate
+#define mini__semop generate
+#define mini___sysctl generate
+#define mini_ioctl generate
+#define mini_time generate
 // 1 "./minilib.h" 1
 // 17 "./minilib.h"
 #define included_minilib_h 
@@ -615,26 +617,33 @@ struct utimbuf{
   time_t actime;
   time_t modtime;
 };
+#define AT_STATX_SYNC_AS_STAT 0x0000
+#define AT_NO_AUTOMOUNT 0x800
+#define AT_EMPTY_PATH 0x1000
+#define AT_STATX_SYNC_TYPE 0x6000
+#define AT_STATX_FORCE_SYNC 0x2000
+#define AT_STATX_DONT_SYNC 0x4000
+#define AT_RECURSIVE 0x8000
 #define BUFSIZ 1024
 typedef int FILE;
-// 85 "./minilib/include/globaldefs.h"
+// 91 "./minilib/include/globaldefs.h"
 #define FEOF_FLAG 0x800000
 #define ERR_FLAG 0x400000
 #define FLAG_MASK 0xc00000
 #define FD_MASK 0x3fffff
 #define UNGETC_MASK 0xff000000
 typedef union { FILE *F; int i, fd;} mfl_union;
-// 104 "./minilib/include/globaldefs.h"
+// 110 "./minilib/include/globaldefs.h"
 #define EOF (-1)
 #define stdin &ml.stream[0]
 #define stdout &ml.stream[1]
 #define stderr &ml.stream[2]
-// 131 "./minilib/include/globaldefs.h"
+// 137 "./minilib/include/globaldefs.h"
 #define STDIN_FILENO 0
 #define STDOUT_FILENO 1
 #define STDERR_FILENO 2
 // 1 "./headers/common/bits/alltypes.h" 1
-// 137 "./minilib/include/globaldefs.h" 2
+// 143 "./minilib/include/globaldefs.h" 2
 // 1 "./headers/common/bits/ioctl.h" 1
 #define ioctl_h 
 #define _IOC(a,b,c,d) ( ((a)<<30) | ((b)<<8) | (c) | ((d)<<16) )
@@ -822,7 +831,7 @@ struct winsize {
 #define SIOCDELDLCI 0x8981
 #define SIOCDEVPRIVATE 0x89F0
 #define SIOCPROTOPRIVATE 0x89E0
-// 138 "./minilib/include/globaldefs.h" 2
+// 144 "./minilib/include/globaldefs.h" 2
 // 1 "./headers/linux_x64/sys/utsname.h" 1
 #define _LINUX_UTSNAME_H 
 #define __OLD_UTS_LEN 8
@@ -849,7 +858,7 @@ struct new_utsname {
         char machine[64 + 1];
         char domainname[64 + 1];
 };
-// 139 "./minilib/include/globaldefs.h" 2
+// 145 "./minilib/include/globaldefs.h" 2
 // 1 "./headers/common/sys/termios.h" 1
 #define _TERMIOS_H 
 // 1 "./headers/common/features.h" 1
@@ -1003,7 +1012,7 @@ int tcdrain (int);
 int tcflush (int, int);
 int tcflow (int, int);
 pid_t tcgetsid (int);
-// 140 "./minilib/include/globaldefs.h" 2
+// 146 "./minilib/include/globaldefs.h" 2
 typedef void (*sighandler_t)(int);
 int ioctl( int fd, unsigned long int request, ... );
 #define FD_SETSIZE 1024
@@ -1049,8 +1058,8 @@ typedef struct {
   int mbufsize;
   int stream[16];
   union {
-    int ibuf[(4096>>2)+1];
-    char mbuf[4096 +4];
+    int ibuf[(4096>>2)];
+    char mbuf[4096];
   };
 } minilib_globals;
 extern minilib_globals ml;
@@ -1749,376 +1758,376 @@ struct msqid_ds;
 // 196 "./minilib/include/syscall_stubs.h"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-conversion"
-int volatile getdents( unsigned int a1, struct dirent *a2, unsigned int a3 );
-int volatile mkdir( const char *a1, int a2 );
-int volatile chdir( const char* a1 );
-int volatile ftruncate( unsigned int a1, unsigned int a2 );
-int volatile setsid( );
-int volatile rmdir( const char *a1 );
-int volatile kill( pid_t a1, int a2 );
-int volatile time( unsigned int *a1 );
-int volatile rt_sigprocmask( int a1, sigset_t *a2, sigset_t *a3, long a4 );
-int volatile wait4( pid_t a1, int *a2, int a3, struct rusage *a4 );
-int volatile chown( const char *a1, uid_t a2, gid_t a3 );
-int volatile setpgid( pid_t a1, pid_t a2 );
-int volatile getcwd( char *a1, unsigned long a2 );
-int volatile gettimeofday( struct timeval *a1, struct timezone *a2 );
-int volatile getitimer( int a1, struct itimerval *a2 );
-int volatile setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
 int volatile rt_sigreturn( unsigned long a1 );
 int volatile fstat( int a1, struct stat* a2 );
-int volatile getpid( );
-int volatile rt_sigaction( int a1, const struct sigaction *a2, struct sigaction *a3, long a4 );
-int volatile lseek( unsigned int a1, int a2, int a3 );
-int volatile dup2( int a1, int a2 );
-int volatile vfork( );
 int volatile mount( char *a1, char *a2, char *a3, unsigned long a4, void *a5 );
-int volatile vhangup( );
-int volatile pivot_root( const char *a1, const char *a2 );
-int volatile symlink( const char *a1, const char *a2 );
-int volatile fchown( unsigned int a1, uid_t a2, gid_t a3 );
-int volatile fork( );
-int volatile getppid( );
-int volatile getuid( );
-int volatile setuid( uid_t a1 );
-int volatile readahead( int a1, loff_t a2, long a3 );
-int volatile utime( const char *a1, struct utimbuf *a2 );
-int volatile fchmod( unsigned int a1, mode_t a2 );
-int volatile link( const char *a1, const char *a2 );
-int volatile stat( const char* a1, struct stat* a2 );
-int volatile fsync( int a1 );
-int volatile fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
-int volatile sync( );
-int volatile getgid( );
-int volatile setgid( gid_t a1 );
-int volatile chmod( const char *a1, mode_t a2 );
-int volatile close( int a1 );
-int volatile execve( const char *a1, char* const* a2, char* const* a3 );
-int volatile reboot( int a1, int a2, unsigned int a3, void *a4 );
-int volatile execveat( int a1, const char *a2, char* const* a3, char* const* a4, int a5 );
-int volatile brk( unsigned long a1 );
-int volatile access( const char *a1, int a2 );
-int volatile umask( int a1 );
-int volatile uname( struct old_utsname *a1 );
-int volatile getpgrp( );
-int volatile unlink( const char* a1 );
-int volatile pipe( int *a1 );
-int volatile write( int a1, const void *a2, int a3 );
-inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (10 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
-int volatile read( int a1, void *a2, int a3 );
-int volatile dup( int a1 );
 int volatile sendfile( int a1, int a2, off_t *a3, long a4 );
-int volatile mknod( const char *a1, umode_t a2, unsigned a3 );
-int volatile dup3( int a1, int a2, int a3 );
+int volatile getpid( );
+int volatile fchmod( unsigned int a1, mode_t a2 );
+int volatile brk( unsigned long a1 );
+int volatile setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
+int volatile getgid( );
+int volatile pivot_root( const char *a1, const char *a2 );
+int volatile setsid( );
+int volatile read( int a1, void *a2, int a3 );
+int volatile fchown( unsigned int a1, uid_t a2, gid_t a3 );
+int volatile getpgrp( );
+int volatile gettimeofday( struct timeval *a1, struct timezone *a2 );
+int volatile uname( struct old_utsname *a1 );
+int volatile setpgid( pid_t a1, pid_t a2 );
+int volatile getdents( unsigned int a1, struct dirent *a2, unsigned int a3 );
+int volatile dup2( int a1, int a2 );
+int volatile write( int a1, const void *a2, int a3 );
+int volatile fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
+int volatile reboot( int a1, int a2, unsigned int a3, void *a4 );
+int volatile rmdir( const char *a1 );
+int volatile fork( );
+int volatile setgid( gid_t a1 );
+int volatile getitimer( int a1, struct itimerval *a2 );
+int volatile chdir( const char* a1 );
 int volatile chroot( const char *a1 );
-int volatile rename( const char* a1, const char* a2 );
+int volatile chmod( const char *a1, mode_t a2 );
+int volatile execveat( int a1, const char *a2, char* const* a3, char* const* a4, int a5 );
+int volatile rt_sigaction( int a1, const struct sigaction *a2, struct sigaction *a3, long a4 );
+int volatile utime( const char *a1, struct utimbuf *a2 );
+int volatile vfork( );
+int volatile stat( const char* a1, struct stat* a2 );
+int volatile unlink( const char* a1 );
+int volatile sync( );
+int volatile setuid( uid_t a1 );
+int volatile execve( const char *a1, char* const* a2, char* const* a3 );
+int volatile getcwd( char *a1, unsigned long a2 );
+int volatile close( int a1 );
+int volatile readahead( int a1, loff_t a2, long a3 );
+int volatile vhangup( );
+int volatile time( unsigned int *a1 );
+inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (10 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
+int volatile getppid( );
+int volatile fsync( int a1 );
+int volatile getuid( );
+int volatile dup( int a1 );
+int volatile pipe( int *a1 );
+int volatile umask( int a1 );
+int volatile symlink( const char *a1, const char *a2 );
+int volatile wait4( pid_t a1, int *a2, int a3, struct rusage *a4 );
 int volatile nanosleep( struct timespec *a1, struct timespec *a2 );
-int volatile ksys_inotify_init1( int a1 );
-int volatile ksys_sched_getattr( pid_t a1, struct sched_attr *a2, unsigned int a3, unsigned int a4 );
-int volatile ksys_utimensat( int a1, const char *a2, struct timespec *a3, int a4 );
-int volatile ksys_inotify_init( );
-int volatile ksys_stat( const char *a1, struct stat *a2 );
-int volatile ksys_seccomp( unsigned int a1, unsigned int a2, const char *a3 );
-int volatile ksys_fork( );
-int volatile ksys_readlink( const char *a1, char *a2, int a3 );
-int volatile ksys_setsockopt( int a1, int a2, int a3, char *a4, int a5 );
-int volatile ksys_vfork( );
-int volatile ksys_init_module( void *a1, unsigned long a2, const char *a3 );
-int volatile ksys_fchownat( int a1, const char *a2, uid_t a3, gid_t a4, int a5 );
-int volatile ksys_timer_getoverrun( timer_t a1 );
-int volatile ksys_setrlimit( unsigned int a1, struct rlimit *a2 );
-int volatile ksys_fgetxattr( int a1, const char *a2, void *a3, long a4 );
-int volatile ksys_umask( int a1 );
-int volatile ksys_epoll_create1( int a1 );
-int volatile ksys_exit_group( int a1 );
-int volatile ksys_vhangup( );
-int volatile ksys_reboot( int a1, int a2, unsigned int a3, void *a4 );
-int volatile ksys_pause( );
-int volatile ksys_adjtimex( struct timex *a1 );
-int volatile ksys_madvise( unsigned long a1, long a2, int a3 );
-int volatile ksys_epoll_create( int a1 );
-int volatile ksys_settimeofday( struct timeval *a1, struct timezone *a2 );
-int volatile ksys_openat( int a1, const char *a2, int a3, int a4 );
-int volatile ksys_accept( int a1, struct sockaddr *a2, int *a3 );
-int volatile ksys_sendmsg( int a1, struct msghdr *a2, unsigned a3 );
-int volatile ksys_connect( int a1, struct sockaddr *a2, int a3 );
-int volatile ksys_process_vm_readv( pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovec *a4, unsigned long a5, unsigned long a6 );
-int volatile ksys_rt_sigprocmask( int a1, sigset_t *a2, sigset_t *a3, long a4 );
-int volatile ksys_mq_timedsend( mqd_t a1, const char *a2, long a3, unsigned int a4, const struct timespec *a5 );
-int volatile ksys_setpgid( pid_t a1, pid_t a2 );
-int volatile ksys_kill( pid_t a1, int a2 );
-int volatile ksys_getrusage( int a1, struct rusage *a2 );
-int volatile ksys_mlockall( int a1 );
-int volatile ksys_finit_module( int a1, const char *a2, int a3 );
-int volatile ksys_munlockall( );
-int volatile ksys_fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
-int volatile ksys_timerfd_settime( int a1, int a2, const struct itimerspec *a3, struct itimerspec *a4 );
-int volatile ksys_exit( int a1 );
-int volatile ksys_get_robust_list( int a1, struct robust_list_head **a2, long *a3 );
-int volatile ksys_utime( char *a1, struct utimbuf *a2 );
-int volatile ksys_request_key( const char *a1, const char *a2, const char *a3, key_serial_t a4 );
-int volatile ksys_faccessat( int a1, const char *a2, int a3 );
-int volatile ksys_getpeername( int a1, struct sockaddr *a2, int *a3 );
-int volatile ksys_clock_getres( const clockid_t a1, struct timespec *a2 );
-int volatile ksys_perf_event_open( struct perf_event_attr *a1, pid_t a2, int a3, int a4, unsigned long a5 );
-int volatile ksys_poll( struct poll_fd *a1, unsigned int a2, long a3 );
-int volatile ksys_sched_getaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
-int volatile ksys_fchdir( unsigned int a1 );
-int volatile ksys_acct( const char *a1 );
-int volatile ksys_recvmmsg( int a1, struct msghdr *a2, unsigned int a3, unsigned int a4, struct timespec *a5 );
-int volatile ksys_get_mempolicy( int *a1, unsigned long *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_fadvise64( int a1, loff_t a2, long a3, int a4 );
-int volatile ksys_ftruncate( unsigned int a1, unsigned long a2 );
-int volatile ksys_sysinfo( struct sysinfo *a1 );
-int volatile ksys_pwrite64( unsigned int a1, const char *a2, long a3, loff_t a4 );
-int volatile ksys_write( unsigned int a1, const char *a2, long a3 );
-int volatile ksys_semtimedop( int a1, struct sembuf *a2, unsigned a3, const struct timespec *a4 );
-int volatile ksys_setpriority( int a1, int a2, int a3 );
-int volatile ksys_getcpu( unsigned *a1, unsigned *a2, struct getcpu_cache *a3 );
-int volatile ksys_fchmod( unsigned int a1, mode_t a2 );
-int volatile ksys_setdomainname( char *a1, int a2 );
-int volatile ksys_io_cancel( aio_context_t a1, struct iocb *a2, struct io_event *a3 );
-int volatile ksys_renameat2( int a1, const char *a2, int a3, const char *a4, unsigned int a5 );
-int volatile ksys_fallocate( long a1, long a2, loff_t a3, loff_t a4 );
-int volatile ksys_select( int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timeval *a5 );
-int volatile ksys_rmdir( const char *a1 );
-int volatile ksys_chroot( const char *a1 );
-int volatile ksys_sched_get_priority_max( int a1 );
-int volatile ksys_rt_sigqueueinfo( pid_t a1, int a2, siginfo_t *a3 );
-int volatile ksys_futimesat( int a1, const char *a2, struct timeval *a3 );
-int volatile ksys_mincore( unsigned long a1, long a2, unsigned char *a3 );
-int volatile ksys_setgroups( int a1, gid_t *a2 );
-int volatile ksys_mkdirat( int a1, const char *a2, int a3 );
-int volatile ksys_sched_getparam( pid_t a1, struct sched_param *a2 );
-int volatile ksys_listxattr( const char *a1, char *a2, long a3 );
-int volatile ksys_timer_settime( timer_t a1, int a2, const struct itimerspec *a3, struct itimerspec *a4 );
-int volatile ksys_mbind( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long *a4, unsigned long a5, unsigned a6 );
-int volatile ksys_preadv( unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_splice( int a1, loff_t *a2, int a3, loff_t *a4, long a5, unsigned int a6 );
-int volatile ksys_ptrace( long a1, long a2, unsigned long a3, unsigned long a4 );
-int volatile ksys_personality( unsigned int a1 );
-int volatile ksys_dup( unsigned int a1 );
-int volatile ksys_tee( int a1, int a2, long a3, unsigned int a4 );
-int volatile ksys_close( unsigned int a1 );
-int volatile ksys_setns( int a1, int a2 );
-int volatile ksys_migrate_pages( pid_t a1, unsigned long a2, const unsigned long *a3, const unsigned long *a4 );
-int volatile ksys_bind( int a1, struct sockaddr *a2, int a3 );
-int volatile ksys_fdatasync( unsigned int a1 );
-int volatile ksys_add_key( const char *a1, const char *a2, const void *a3, long a4 );
-int volatile ksys_setresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
-int volatile ksys_mknodat( int a1, const char *a2, int a3, unsigned a4 );
-int volatile ksys_sendto( int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int a6 );
-int volatile ksys_msgctl( int a1, int a2, struct msqid_ds *a3 );
-int volatile ksys_socket( int a1, int a2, int a3 );
-int volatile ksys_time( time_t *a1 );
-int volatile ksys_getsid( pid_t a1 );
-int volatile ksys_vmsplice( int a1, const struct iovec *a2, unsigned long a3, unsigned int a4 );
-int volatile ksys_rt_sigsuspend( sigset_t *a1, long a2 );
-int volatile ksys_removexattr( const char *a1, const char *a2 );
-int volatile ksys_mmap( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5, unsigned long a6 );
-int volatile ksys_keyctl( int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_pipe2( int *a1, int a2 );
-int volatile ksys_capset( cap_user_header_t a1, const cap_user_data_t a2 );
-int volatile ksys_open( const char *a1, int a2, int a3 );
-int volatile ksys_mq_timedreceive( mqd_t a1, char *a2, long a3, unsigned int *a4, const struct timespec *a5 );
-int volatile ksys_timer_create( const clockid_t a1, struct sigevent *a2, timer_t *a3 );
-int volatile ksys_truncate( const char *a1, long a2 );
-int volatile ksys_fstat( unsigned int a1, struct stat *a2 );
-int volatile ksys_open_by_handle_at( int a1, const char *a2, struct file_handle *a3, int *a4, int a5 );
-int volatile ksys_setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
-int volatile ksys_shutdown( int a1, int a2 );
-int volatile ksys_flistxattr( int a1, char *a2, long a3 );
-int volatile ksys_brk( unsigned long a1 );
-int volatile ksys_unlinkat( int a1, const char *a2, int a3 );
-int volatile ksys_clock_adjtime( clockid_t a1, struct timex *a2 );
-int volatile ksys_geteuid( );
-int volatile ksys_sched_setattr( pid_t a1, struct sched_attr *a2, unsigned int a3 );
-int volatile ksys_remap_file_pages( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_epoll_ctl( int a1, int a2, int a3, struct epoll_event *a4 );
-int volatile ksys_pwritev( unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_ioctl( unsigned int a1, unsigned int a2, unsigned long a3 );
-int volatile ksys_nanosleep( struct timespec *a1, struct timespec *a2 );
-int volatile ksys_waitid( int a1, pid_t a2, struct siginfo *a3, int a4, struct rusage *a5 );
-int volatile ksys_rt_sigtimedwait( const sigset_t *a1, siginfo_t *a2, const struct timespec *a3, long a4 );
-int volatile ksys_msgget( key_t a1, int a2 );
-int volatile ksys_mlock( unsigned long a1, long a2 );
-int volatile ksys_getdents( unsigned int a1, struct linux_dirent *a2, unsigned int a3 );
-int volatile ksys_timer_gettime( timer_t a1, struct itimerspec *a2 );
-int volatile ksys_setreuid( uid_t a1, uid_t a2 );
-int volatile ksys_sched_setparam( pid_t a1, struct sched_param *a2 );
-int volatile ksys_kexec_load( unsigned long a1, unsigned long a2, struct kexec_segment *a3, unsigned long a4 );
-int volatile ksys_timer_delete( timer_t a1 );
-int volatile ksys_renameat( int a1, const char *a2, int a3, const char *a4 );
-int volatile ksys_accept4( int a1, struct sockaddr *a2, int *a3, int a4 );
-int volatile ksys_utimes( char *a1, struct timeval *a2 );
-int volatile ksys_timerfd_create( int a1, int a2 );
-int volatile ksys_setregid( gid_t a1, gid_t a2 );
-int volatile ksys_msync( unsigned long a1, long a2, int a3 );
-int volatile ksys_lsetxattr( const char *a1, const char *a2, const void *a3, long a4, int a5 );
-int volatile ksys_lremovexattr( const char *a1, const char *a2 );
-int volatile ksys_chmod( const char *a1, mode_t a2 );
-int volatile ksys_lseek( unsigned int a1, off_t a2, unsigned int a3 );
-int volatile ksys_newfstatat( int a1, const char *a2, struct stat *a3, int a4 );
-int volatile ksys_readahead( int a1, loff_t a2, long a3 );
-int volatile ksys_sethostname( char *a1, int a2 );
-int volatile ksys_lchown( const char *a1, uid_t a2, gid_t a3 );
-int volatile ksys_setresgid( gid_t a1, gid_t a2, gid_t a3 );
-int volatile ksys_setuid( uid_t a1 );
-int volatile ksys_setgid( gid_t a1 );
-int volatile ksys_rt_sigaction( int a1, const struct sigaction *a2, struct sigaction *a3, long a4 );
-int volatile ksys_getxattr( const char *a1, const char *a2, void *a3, long a4 );
-int volatile ksys_setfsuid( uid_t a1 );
-int volatile ksys_fanotify_mark( long a1, long a2, __u64 a3, long a4, long a5 );
-int volatile ksys_setfsgid( gid_t a1 );
-int volatile ksys_sched_setaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
-int volatile ksys_swapon( const char *a1, int a2 );
-int volatile ksys_clock_nanosleep( const clockid_t a1, int a2, const struct timespec *a3, struct timespec *a4 );
-int volatile ksys_sync( );
-int volatile ksys_link( const char *a1, const char *a2 );
-int volatile ksys_semop( int a1, struct sembuf *a2, unsigned a3 );
-int volatile ksys_rename( const char *a1, const char *a2 );
-int volatile ksys_modify_ldt( int a1, void *a2, unsigned long a3 );
-int volatile ksys_pread64( unsigned long a1, char *a2, long a3, loff_t a4 );
-int volatile ksys_getitimer( int a1, struct itimerval *a2 );
-int volatile ksys_chown( const char *a1, uid_t a2, gid_t a3 );
-int volatile ksys_access( const char *a1, int a2 );
-int volatile ksys_eventfd( unsigned int a1 );
-int volatile ksys_read( unsigned int a1, char *a2, long a3 );
-int volatile ksys_readlinkat( int a1, const char *a2, char *a3, int a4 );
-int volatile ksys_shmat( int a1, char *a2, int a3 );
-int volatile ksys_sched_setscheduler( pid_t a1, int a2, struct sched_param *a3 );
-int volatile ksys_rt_sigpending( sigset_t *a1, long a2 );
-int volatile ksys_swapoff( const char *a1 );
-int volatile ksys_chdir( const char *a1 );
-int volatile ksys_epoll_wait( int a1, struct epoll_event *a2, int a3, int a4 );
-int volatile ksys_set_tid_address( int *a1 );
-int volatile ksys_pivot_root( const char *a1, const char *a2 );
-int volatile ksys_getresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
-int volatile ksys_lgetxattr( const char *a1, const char *a2, void *a3, long a4 );
-int volatile ksys_wait4( pid_t a1, int *a2, int a3, struct rusage *a4 );
-int volatile ksys_prctl( int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_execve( const char *a1, const char *const a2, const char *const a3 );
-int volatile ksys_mknod( const char *a1, umode_t a2, unsigned a3 );
-int volatile ksys_io_getevents( aio_context_t a1, long a2, long a3, struct io_event *a4 );
-int volatile ksys_quotactl( unsigned int a1, const char *a2, qid_t a3, void *a4 );
-int volatile ksys_dup3( unsigned int a1, unsigned int a2, int a3 );
-int volatile ksys_setsid( );
-int volatile ksys_getcwd( char *a1, unsigned long a2 );
-int volatile ksys_arch_prctl( struct task_struct *a1, int a2, unsigned long *a3 );
-int volatile ksys_getresgid( gid_t *a1, gid_t *a2, gid_t *a3 );
-int volatile ksys_getuid( );
-int volatile ksys_sched_get_priority_min( int a1 );
-int volatile ksys_mq_notify( mqd_t a1, const struct sigevent *a2 );
-int volatile ksys_tgkill( pid_t a1, pid_t a2, int a3 );
-int volatile ksys_kexec_file_load( int a1, int a2, unsigned long a3, const char *a4, unsigned long a5 );
-int volatile ksys_mq_unlink( const char *a1 );
-int volatile ksys_sysfs( int a1, unsigned long a2, unsigned long a3 );
-int volatile ksys_epoll_pwait( int a1, struct epoll_event *a2, int a3, int a4, const sigset_t *a5, long a6 );
-int volatile ksys_capget( cap_user_header_t a1, cap_user_data_t a2 );
-int volatile ksys_getegid( );
-int volatile ksys_mq_getsetattr( mqd_t a1, const struct mq_attr *a2, struct mq_attr *a3 );
-int volatile ksys_ustat( unsigned a1, struct ustat *a2 );
-int volatile ksys_setxattr( const char *a1, const char *a2, const void *a3, long a4, int a5 );
-int volatile ksys_getgid( );
-int volatile ksys_creat( const char *a1, int a2 );
-int volatile ksys_prlimit64( pid_t a1, unsigned int a2, const struct rlimit64 *a3, struct rlimit64 *a4 );
-int volatile ksys_syncfs( int a1 );
-int volatile ksys_getsockname( int a1, struct sockaddr *a2, int *a3 );
-int volatile ksys_socketpair( int a1, int a2, int a3, int *a4 );
-int volatile ksys_rt_tgsigqueueinfo( pid_t a1, pid_t a2, int a3, siginfo_t *a4 );
-int volatile ksys_syslog( int a1, char *a2, int a3 );
-int volatile ksys_unlink( const char *a1 );
-int volatile ksys_mprotect( unsigned long a1, long a2, unsigned long a3 );
-int volatile ksys_symlinkat( const char *a1, int a2, const char *a3 );
-int volatile ksys_msgrcv( int a1, struct msgbuf *a2, long a3, long a4, int a5 );
-int volatile ksys_futex( u32 *a1, int a2, u32 a3, struct timespec *a4, u32 *a5, u32 a6 );
-int volatile ksys_io_setup( unsigned a1, aio_context_t *a2 );
-int volatile ksys_clock_gettime( const clockid_t a1, struct timespec *a2 );
-int volatile ksys_timerfd_gettime( int a1, struct itimerspec *a2 );
-int volatile ksys_restart_syscall( );
-int volatile ksys_rt_sigreturn( unsigned long a1 );
-int volatile ksys_getpgrp( );
-int volatile ksys_fchmodat( int a1, const char *a2, mode_t a3 );
-int volatile ksys_getpid( );
-int volatile ksys_getppid( );
-int volatile ksys_getpgid( pid_t a1 );
-int volatile ksys_sched_rr_get_interval( pid_t a1, struct timespec *a2 );
-int volatile ksys_fstatfs( unsigned int a1, struct statfs *a2 );
-int volatile ksys_inotify_rm_watch( int a1, __s32 a2 );
-int volatile ksys_memfd_create( const char *a1, unsigned int a2 );
-int volatile ksys_fsync( unsigned int a1 );
-int volatile ksys_shmdt( char *a1 );
-int volatile ksys_munlock( unsigned long a1, long a2 );
-int volatile ksys_pipe( int *a1 );
-int volatile ksys_lstat( const char *a1, struct stat *a2 );
-int volatile ksys_semctl( int a1, int a2, int a3, semun_u a4 );
-int volatile ksys_ppoll( struct pollfd *a1, unsigned int a2, struct timespec *a3, const sigset_t *a4, long a5 );
-int volatile ksys_uname( struct old_utsname *a1 );
-int volatile ksys_flock( unsigned int a1, unsigned int a2 );
-int volatile ksys_statfs( const char *a1, struct statfs *a2 );
-int volatile ksys_recvmsg( int a1, struct msghdr *a2, unsigned int a3 );
-int volatile ksys_name_to_handle_at( int a1, const char *a2, struct file_handle *a3, int *a4, int a5 );
-int volatile ksys_sync_file_range( long a1, loff_t a2, loff_t a3, long a4 );
-int volatile ksys_llistxattr( const char *a1, char *a2, long a3 );
-int volatile ksys_sched_yield( );
-int volatile ksys_mq_open( const char *a1, int a2, mode_t a3, struct mq_attr *a4 );
-int volatile ksys_mount( char *a1, char *a2, char *a3, unsigned long a4, void *a5 );
-int volatile ksys_recvfrom( int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int *a6 );
-int volatile ksys_io_destroy( aio_context_t a1 );
-int volatile ksys_shmget( key_t a1, long a2, int a3 );
-int volatile ksys_sched_getscheduler( pid_t a1 );
-int volatile ksys_getsockopt( int a1, int a2, int a3, char *a4, int *a5 );
-int volatile ksys_ioprio_get( int a1, int a2 );
-int volatile ksys_umount2( const char *a1, int a2 );
-int volatile ksys_tkill( pid_t a1, int a2 );
-int volatile ksys_msgsnd( int a1, struct msgbuf *a2, long a3, int a4 );
-int volatile ksys_ioprio_set( int a1, int a2, int a3 );
-int volatile ksys_inotify_add_watch( int a1, const char *a2, u32 a3 );
-int volatile ksys_gettimeofday( struct timeval *a1, struct timezone *a2 );
-int volatile ksys_getdents64( unsigned int a1, struct linux_dirent64 *a2, unsigned int a3 );
-int volatile ksys_clone( unsigned long a1, unsigned long a2, void *a3, void *a4 );
-int volatile ksys_signalfd4( int a1, sigset_t *a2, long a3, int a4 );
-int volatile ksys_dup2( unsigned int a1, unsigned int a2 );
-int volatile ksys_eventfd2( unsigned int a1, int a2 );
-int volatile ksys_linkat( int a1, const char *a2, int a3, const char *a4, int a5 );
-int volatile ksys_io_submit( aio_context_t a1, long a2, struct iocb **a3 );
-int volatile ksys__sysctl( struct __sysctl_args *a1 );
-int volatile ksys_delete_module( const char *a1, unsigned int a2 );
-int volatile ksys_getrlimit( unsigned int a1, struct rlimit *a2 );
-int volatile ksys_times( struct sysinfo *a1 );
-int volatile ksys_getgroups( int a1, gid_t *a2 );
-int volatile ksys_sendfile( int a1, int a2, off_t *a3, long a4 );
-int volatile ksys_kcmp( pid_t a1, pid_t a2, int a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_getrandom( char *a1, long a2, unsigned int a3 );
-int volatile ksys_ioperm( unsigned long a1, unsigned long a2, int a3 );
-int volatile ksys_signalfd( int a1, sigset_t *a2, long a3 );
-int volatile ksys_clock_settime( const clockid_t a1, const struct timespec *a2 );
-int volatile ksys_pselect6( int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timespec *a5, void *a6 );
-int volatile ksys_fanotify_init( unsigned int a1, unsigned int a2 );
+int volatile dup3( int a1, int a2, int a3 );
+int volatile ftruncate( unsigned int a1, unsigned int a2 );
+int volatile kill( pid_t a1, int a2 );
+int volatile access( const char *a1, int a2 );
+int volatile chown( const char *a1, uid_t a2, gid_t a3 );
+int volatile rt_sigprocmask( int a1, sigset_t *a2, sigset_t *a3, long a4 );
+int volatile lseek( unsigned int a1, int a2, int a3 );
+int volatile rename( const char* a1, const char* a2 );
+int volatile mkdir( const char *a1, int a2 );
+int volatile link( const char *a1, const char *a2 );
+int volatile mknod( const char *a1, umode_t a2, unsigned a3 );
 int volatile ksys_mremap( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_mkdir( const char *a1, int a2 );
-int volatile ksys_munmap( unsigned long a1, long a2 );
-int volatile ksys_semget( key_t a1, int a2, int a3 );
-int volatile ksys_fchown( unsigned int a1, uid_t a2, gid_t a3 );
-int volatile ksys_process_vm_writev( pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovcc *a4, unsigned long a5, unsigned long a6 );
-int volatile ksys_symlink( const char *a1, const char *a2 );
-int volatile ksys_alarm( unsigned int a1 );
-int volatile ksys_fsetxattr( int a1, const char *a2, const void *a3, long a4, int a5 );
-int volatile ksys_move_pages( pid_t a1, unsigned long a2, const void *a3, const int *a4, int *a5, int a6 );
-int volatile ksys_fremovexattr( int a1, const char *a2 );
-int volatile ksys_readv( unsigned long a1, const struct iovec *a2, unsigned long a3 );
-int volatile ksys_sigaltstack( const stack_t *a1, stack_t *a2 );
-int volatile ksys_gettid( );
-int volatile ksys_writev( unsigned long a1, const struct iovec *a2, unsigned long a3 );
-int volatile ksys_set_mempolicy( int a1, unsigned long *a2, unsigned long a3 );
-int volatile ksys_iopl( unsigned int a1, struct pt_regs *a2 );
-int volatile ksys_set_robust_list( struct robust_list_head *a1, long a2 );
+int volatile ksys_times( struct sysinfo *a1 );
+int volatile ksys_sched_setattr( pid_t a1, struct sched_attr *a2, unsigned int a3 );
+int volatile ksys_select( int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timeval *a5 );
+int volatile ksys_getresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
+int volatile ksys_symlinkat( const char *a1, int a2, const char *a3 );
+int volatile ksys_fchmod( unsigned int a1, mode_t a2 );
+int volatile ksys_seccomp( unsigned int a1, unsigned int a2, const char *a3 );
+int volatile ksys_removexattr( const char *a1, const char *a2 );
+int volatile ksys_sendfile( int a1, int a2, off_t *a3, long a4 );
+int volatile ksys_restart_syscall( );
+int volatile ksys_nanosleep( struct timespec *a1, struct timespec *a2 );
+int volatile ksys_sendmsg( int a1, struct msghdr *a2, unsigned a3 );
+int volatile ksys_clone( unsigned long a1, unsigned long a2, void *a3, void *a4 );
+int volatile ksys_mincore( unsigned long a1, long a2, unsigned char *a3 );
+int volatile ksys_msgctl( int a1, int a2, struct msqid_ds *a3 );
+int volatile ksys_ioprio_set( int a1, int a2, int a3 );
+int volatile ksys_exit_group( int a1 );
+int volatile ksys_setresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
+int volatile ksys_eventfd( unsigned int a1 );
+int volatile ksys_sched_setparam( pid_t a1, struct sched_param *a2 );
+int volatile ksys_epoll_create( int a1 );
+int volatile ksys_madvise( unsigned long a1, long a2, int a3 );
+int volatile ksys_kcmp( pid_t a1, pid_t a2, int a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_preadv( unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_unlink( const char *a1 );
+int volatile ksys_epoll_ctl( int a1, int a2, int a3, struct epoll_event *a4 );
+int volatile ksys_utimensat( int a1, const char *a2, struct timespec *a3, int a4 );
 int volatile ksys_shmctl( int a1, int a2, struct shmid_ds *a3 );
-int volatile ksys_sendmmsg( int a1, struct mmsghdr *a2, unsigned int a3, unsigned int a4 );
-int volatile ksys_getpriority( int a1, int a2 );
+int volatile ksys_accept4( int a1, struct sockaddr *a2, int *a3, int a4 );
+int volatile ksys_shutdown( int a1, int a2 );
+int volatile ksys_splice( int a1, loff_t *a2, int a3, loff_t *a4, long a5, unsigned int a6 );
+int volatile ksys_pselect6( int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timespec *a5, void *a6 );
+int volatile ksys_rename( const char *a1, const char *a2 );
+int volatile ksys_tee( int a1, int a2, long a3, unsigned int a4 );
+int volatile ksys_setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
+int volatile ksys_ioctl( unsigned int a1, unsigned int a2, unsigned long a3 );
+int volatile ksys_getuid( );
+int volatile ksys_rt_sigreturn( unsigned long a1 );
+int volatile ksys_getsockname( int a1, struct sockaddr *a2, int *a3 );
+int volatile ksys_vmsplice( int a1, const struct iovec *a2, unsigned long a3, unsigned int a4 );
+int volatile ksys_linkat( int a1, const char *a2, int a3, const char *a4, int a5 );
+int volatile ksys_mprotect( unsigned long a1, long a2, unsigned long a3 );
+int volatile ksys_sched_getparam( pid_t a1, struct sched_param *a2 );
+int volatile ksys_getitimer( int a1, struct itimerval *a2 );
+int volatile ksys_capget( cap_user_header_t a1, cap_user_data_t a2 );
+int volatile ksys_sched_getattr( pid_t a1, struct sched_attr *a2, unsigned int a3, unsigned int a4 );
+int volatile ksys_move_pages( pid_t a1, unsigned long a2, const void *a3, const int *a4, int *a5, int a6 );
+int volatile ksys_reboot( int a1, int a2, unsigned int a3, void *a4 );
+int volatile ksys_chroot( const char *a1 );
+int volatile ksys_getrusage( int a1, struct rusage *a2 );
+int volatile ksys_setuid( uid_t a1 );
+int volatile ksys_chmod( const char *a1, mode_t a2 );
+int volatile ksys_brk( unsigned long a1 );
+int volatile ksys_readlinkat( int a1, const char *a2, char *a3, int a4 );
+int volatile ksys_capset( cap_user_header_t a1, const cap_user_data_t a2 );
+int volatile ksys_adjtimex( struct timex *a1 );
+int volatile ksys_fdatasync( unsigned int a1 );
+int volatile ksys_timer_create( const clockid_t a1, struct sigevent *a2, timer_t *a3 );
+int volatile ksys_timer_delete( timer_t a1 );
+int volatile ksys_getdents( unsigned int a1, struct linux_dirent *a2, unsigned int a3 );
+int volatile ksys_gettimeofday( struct timeval *a1, struct timezone *a2 );
+int volatile ksys_lremovexattr( const char *a1, const char *a2 );
+int volatile ksys_setsockopt( int a1, int a2, int a3, char *a4, int a5 );
+int volatile ksys_alarm( unsigned int a1 );
+int volatile ksys_inotify_init( );
+int volatile ksys_msync( unsigned long a1, long a2, int a3 );
+int volatile ksys_utime( char *a1, struct utimbuf *a2 );
+int volatile ksys_fgetxattr( int a1, const char *a2, void *a3, long a4 );
+int volatile ksys_ppoll( struct pollfd *a1, unsigned int a2, struct timespec *a3, const sigset_t *a4, long a5 );
+int volatile ksys_msgrcv( int a1, struct msgbuf *a2, long a3, long a4, int a5 );
+int volatile ksys_iopl( unsigned int a1, struct pt_regs *a2 );
+int volatile ksys_mkdir( const char *a1, int a2 );
+int volatile ksys_ftruncate( unsigned int a1, unsigned long a2 );
+int volatile ksys_fstatfs( unsigned int a1, struct statfs *a2 );
+int volatile ksys_vfork( );
+int volatile ksys_set_tid_address( int *a1 );
+int volatile ksys_getsockopt( int a1, int a2, int a3, char *a4, int *a5 );
+int volatile ksys_settimeofday( struct timeval *a1, struct timezone *a2 );
+int volatile ksys_execve( const char *a1, const char *const a2, const char *const a3 );
+int volatile ksys_sync( );
+int volatile ksys_connect( int a1, struct sockaddr *a2, int a3 );
+int volatile ksys_sethostname( char *a1, int a2 );
+int volatile ksys_msgget( key_t a1, int a2 );
+int volatile ksys_open( const char *a1, int a2, int a3 );
+int volatile ksys_pipe2( int *a1, int a2 );
+int volatile ksys_lchown( const char *a1, uid_t a2, gid_t a3 );
+int volatile ksys_mlock( unsigned long a1, long a2 );
+int volatile ksys_statfs( const char *a1, struct statfs *a2 );
 int volatile ksys_lookup_dcookie( u64 a1, long a2, long a3 );
-int volatile ksys_listen( int a1, int a2 );
+int volatile ksys_vhangup( );
+int volatile ksys_io_getevents( aio_context_t a1, long a2, long a3, struct io_event *a4 );
+int volatile ksys_timerfd_settime( int a1, int a2, const struct itimerspec *a3, struct itimerspec *a4 );
+int volatile ksys_signalfd4( int a1, sigset_t *a2, long a3, int a4 );
+int volatile ksys_lgetxattr( const char *a1, const char *a2, void *a3, long a4 );
+int volatile ksys_fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
+int volatile ksys_setxattr( const char *a1, const char *a2, const void *a3, long a4, int a5 );
+int volatile ksys_timer_getoverrun( timer_t a1 );
+int volatile ksys_open_by_handle_at( int a1, const char *a2, struct file_handle *a3, int *a4, int a5 );
+int volatile ksys_rt_sigaction( int a1, const struct sigaction *a2, struct sigaction *a3, long a4 );
+int volatile ksys_futimesat( int a1, const char *a2, struct timeval *a3 );
+int volatile ksys_ptrace( long a1, long a2, unsigned long a3, unsigned long a4 );
+int volatile ksys_shmget( key_t a1, long a2, int a3 );
+int volatile ksys_setresgid( gid_t a1, gid_t a2, gid_t a3 );
+int volatile ksys_mlockall( int a1 );
+int volatile ksys_mknod( const char *a1, umode_t a2, unsigned a3 );
+int volatile ksys_getegid( );
+int volatile ksys_uname( struct old_utsname *a1 );
+int volatile ksys_process_vm_writev( pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovcc *a4, unsigned long a5, unsigned long a6 );
+int volatile ksys_mq_unlink( const char *a1 );
+int volatile ksys_lseek( unsigned int a1, off_t a2, unsigned int a3 );
+int volatile ksys_fremovexattr( int a1, const char *a2 );
+int volatile ksys_mmap( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5, unsigned long a6 );
+int volatile ksys_recvmsg( int a1, struct msghdr *a2, unsigned int a3 );
+int volatile ksys_getgroups( int a1, gid_t *a2 );
+int volatile ksys_waitid( int a1, pid_t a2, struct siginfo *a3, int a4, struct rusage *a5 );
+int volatile ksys_getcpu( unsigned *a1, unsigned *a2, struct getcpu_cache *a3 );
+int volatile ksys_pwritev( unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_rt_sigqueueinfo( pid_t a1, int a2, siginfo_t *a3 );
+int volatile ksys_name_to_handle_at( int a1, const char *a2, struct file_handle *a3, int *a4, int a5 );
+int volatile ksys_mq_notify( mqd_t a1, const struct sigevent *a2 );
+int volatile ksys_chown( const char *a1, uid_t a2, gid_t a3 );
+int volatile ksys_prlimit64( pid_t a1, unsigned int a2, const struct rlimit64 *a3, struct rlimit64 *a4 );
+int volatile ksys_fchown( unsigned int a1, uid_t a2, gid_t a3 );
+int volatile ksys_getppid( );
+int volatile ksys_getxattr( const char *a1, const char *a2, void *a3, long a4 );
+int volatile ksys_getrandom( char *a1, long a2, unsigned int a3 );
+int volatile ksys_getresgid( gid_t *a1, gid_t *a2, gid_t *a3 );
+int volatile ksys_pivot_root( const char *a1, const char *a2 );
+int volatile ksys_utimes( char *a1, struct timeval *a2 );
+int volatile ksys_setgroups( int a1, gid_t *a2 );
+int volatile ksys_pipe( int *a1 );
+int volatile ksys_umask( int a1 );
+int volatile ksys_wait4( pid_t a1, int *a2, int a3, struct rusage *a4 );
+int volatile ksys_fchownat( int a1, const char *a2, uid_t a3, gid_t a4, int a5 );
+int volatile ksys_fanotify_mark( long a1, long a2, __u64 a3, long a4, long a5 );
+int volatile ksys_renameat2( int a1, const char *a2, int a3, const char *a4, unsigned int a5 );
+int volatile ksys_setpgid( pid_t a1, pid_t a2 );
+int volatile ksys_pause( );
+int volatile ksys_faccessat( int a1, const char *a2, int a3 );
+int volatile ksys_clock_gettime( const clockid_t a1, struct timespec *a2 );
+int volatile ksys_munmap( unsigned long a1, long a2 );
+int volatile ksys_perf_event_open( struct perf_event_attr *a1, pid_t a2, int a3, int a4, unsigned long a5 );
+int volatile ksys_newfstatat( int a1, const char *a2, struct stat *a3, int a4 );
+int volatile ksys_rt_sigprocmask( int a1, sigset_t *a2, sigset_t *a3, long a4 );
+int volatile ksys_setfsgid( gid_t a1 );
+int volatile ksys_add_key( const char *a1, const char *a2, const void *a3, long a4 );
+int volatile ksys_flock( unsigned int a1, unsigned int a2 );
+int volatile ksys_keyctl( int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_socketpair( int a1, int a2, int a3, int *a4 );
+int volatile ksys_timer_settime( timer_t a1, int a2, const struct itimerspec *a3, struct itimerspec *a4 );
+int volatile ksys_recvmmsg( int a1, struct msghdr *a2, unsigned int a3, unsigned int a4, struct timespec *a5 );
+int volatile ksys__sysctl( struct __sysctl_args *a1 );
+int volatile ksys_semop( int a1, struct sembuf *a2, unsigned a3 );
+int volatile ksys_sched_getaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
+int volatile ksys_sched_setscheduler( pid_t a1, int a2, struct sched_param *a3 );
+int volatile ksys_symlink( const char *a1, const char *a2 );
+int volatile ksys_openat( int a1, const char *a2, int a3, int a4 );
+int volatile ksys_io_submit( aio_context_t a1, long a2, struct iocb **a3 );
+int volatile ksys_getpgid( pid_t a1 );
+int volatile ksys_remap_file_pages( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_mount( char *a1, char *a2, char *a3, unsigned long a4, void *a5 );
+int volatile ksys_sched_yield( );
+int volatile ksys_pwrite64( unsigned int a1, const char *a2, long a3, loff_t a4 );
+int volatile ksys_migrate_pages( pid_t a1, unsigned long a2, const unsigned long *a3, const unsigned long *a4 );
+int volatile ksys_sigaltstack( const stack_t *a1, stack_t *a2 );
+int volatile ksys_setregid( gid_t a1, gid_t a2 );
+int volatile ksys_io_destroy( aio_context_t a1 );
+int volatile ksys_fsync( unsigned int a1 );
+int volatile ksys_delete_module( const char *a1, unsigned int a2 );
+int volatile ksys_tgkill( pid_t a1, pid_t a2, int a3 );
+int volatile ksys_request_key( const char *a1, const char *a2, const char *a3, key_serial_t a4 );
+int volatile ksys_sched_rr_get_interval( pid_t a1, struct timespec *a2 );
+int volatile ksys_sched_get_priority_min( int a1 );
+int volatile ksys_fanotify_init( unsigned int a1, unsigned int a2 );
 int volatile ksys_unshare( unsigned long a1 );
+int volatile ksys_inotify_init1( int a1 );
+int volatile ksys_setgid( gid_t a1 );
+int volatile ksys_getcwd( char *a1, unsigned long a2 );
+int volatile ksys_pread64( unsigned long a1, char *a2, long a3, loff_t a4 );
+int volatile ksys_inotify_rm_watch( int a1, __s32 a2 );
+int volatile ksys_process_vm_readv( pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovec *a4, unsigned long a5, unsigned long a6 );
+int volatile ksys_setpriority( int a1, int a2, int a3 );
+int volatile ksys_listxattr( const char *a1, char *a2, long a3 );
+int volatile ksys_munlockall( );
+int volatile ksys_setrlimit( unsigned int a1, struct rlimit *a2 );
+int volatile ksys_set_robust_list( struct robust_list_head *a1, long a2 );
+int volatile ksys_swapoff( const char *a1 );
+int volatile ksys_fork( );
+int volatile ksys_fallocate( long a1, long a2, loff_t a3, loff_t a4 );
+int volatile ksys_swapon( const char *a1, int a2 );
+int volatile ksys_gettid( );
+int volatile ksys_sendto( int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int a6 );
+int volatile ksys_kill( pid_t a1, int a2 );
+int volatile ksys_shmdt( char *a1 );
+int volatile ksys_eventfd2( unsigned int a1, int a2 );
+int volatile ksys_semctl( int a1, int a2, int a3, semun_u a4 );
+int volatile ksys_sync_file_range( long a1, loff_t a2, loff_t a3, long a4 );
+int volatile ksys_writev( unsigned long a1, const struct iovec *a2, unsigned long a3 );
+int volatile ksys_memfd_create( const char *a1, unsigned int a2 );
+int volatile ksys_rt_tgsigqueueinfo( pid_t a1, pid_t a2, int a3, siginfo_t *a4 );
+int volatile ksys_mq_open( const char *a1, int a2, mode_t a3, struct mq_attr *a4 );
+int volatile ksys_mq_timedsend( mqd_t a1, const char *a2, long a3, unsigned int a4, const struct timespec *a5 );
+int volatile ksys_getgid( );
+int volatile ksys_read( unsigned int a1, char *a2, long a3 );
+int volatile ksys_ioperm( unsigned long a1, unsigned long a2, int a3 );
+int volatile ksys_rt_sigpending( sigset_t *a1, long a2 );
+int volatile ksys_clock_adjtime( clockid_t a1, struct timex *a2 );
+int volatile ksys_timerfd_create( int a1, int a2 );
+int volatile ksys_getpriority( int a1, int a2 );
+int volatile ksys_getpeername( int a1, struct sockaddr *a2, int *a3 );
+int volatile ksys_tkill( pid_t a1, int a2 );
+int volatile ksys_clock_settime( const clockid_t a1, const struct timespec *a2 );
+int volatile ksys_sched_setaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
+int volatile ksys_sched_get_priority_max( int a1 );
+int volatile ksys_sysinfo( struct sysinfo *a1 );
+int volatile ksys_init_module( void *a1, unsigned long a2, const char *a3 );
+int volatile ksys_sched_getscheduler( pid_t a1 );
+int volatile ksys_listen( int a1, int a2 );
+int volatile ksys_getrlimit( unsigned int a1, struct rlimit *a2 );
+int volatile ksys_get_robust_list( int a1, struct robust_list_head **a2, long *a3 );
+int volatile ksys_setdomainname( char *a1, int a2 );
+int volatile ksys_acct( const char *a1 );
+int volatile ksys_readahead( int a1, loff_t a2, long a3 );
+int volatile ksys_timer_gettime( timer_t a1, struct itimerspec *a2 );
+int volatile ksys_getpid( );
+int volatile ksys_getdents64( unsigned int a1, struct linux_dirent64 *a2, unsigned int a3 );
+int volatile ksys_sysfs( int a1, unsigned long a2, unsigned long a3 );
+int volatile ksys_futex( u32 *a1, int a2, u32 a3, struct timespec *a4, u32 *a5, u32 a6 );
+int volatile ksys_kexec_load( unsigned long a1, unsigned long a2, struct kexec_segment *a3, unsigned long a4 );
+int volatile ksys_poll( struct poll_fd *a1, unsigned int a2, long a3 );
+int volatile ksys_getsid( pid_t a1 );
+int volatile ksys_epoll_pwait( int a1, struct epoll_event *a2, int a3, int a4, const sigset_t *a5, long a6 );
+int volatile ksys_munlock( unsigned long a1, long a2 );
+int volatile ksys_setns( int a1, int a2 );
+int volatile ksys_clock_nanosleep( const clockid_t a1, int a2, const struct timespec *a3, struct timespec *a4 );
+int volatile ksys_recvfrom( int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int *a6 );
+int volatile ksys_flistxattr( int a1, char *a2, long a3 );
+int volatile ksys_truncate( const char *a1, long a2 );
+int volatile ksys_renameat( int a1, const char *a2, int a3, const char *a4 );
+int volatile ksys_mknodat( int a1, const char *a2, int a3, unsigned a4 );
+int volatile ksys_lstat( const char *a1, struct stat *a2 );
+int volatile ksys_setsid( );
+int volatile ksys_fadvise64( int a1, loff_t a2, long a3, int a4 );
+int volatile ksys_signalfd( int a1, sigset_t *a2, long a3 );
+int volatile ksys_readlink( const char *a1, char *a2, int a3 );
+int volatile ksys_dup2( unsigned int a1, unsigned int a2 );
+int volatile ksys_dup3( unsigned int a1, unsigned int a2, int a3 );
+int volatile ksys_umount2( const char *a1, int a2 );
+int volatile ksys_modify_ldt( int a1, void *a2, unsigned long a3 );
+int volatile ksys_rt_sigtimedwait( const sigset_t *a1, siginfo_t *a2, const struct timespec *a3, long a4 );
+int volatile ksys_socket( int a1, int a2, int a3 );
+int volatile ksys_arch_prctl( struct task_struct *a1, int a2, unsigned long *a3 );
+int volatile ksys_geteuid( );
+int volatile ksys_fchdir( unsigned int a1 );
+int volatile ksys_write( unsigned int a1, const char *a2, long a3 );
+int volatile ksys_mbind( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long *a4, unsigned long a5, unsigned a6 );
+int volatile ksys_fsetxattr( int a1, const char *a2, const void *a3, long a4, int a5 );
+int volatile ksys_rt_sigsuspend( sigset_t *a1, long a2 );
+int volatile ksys_personality( unsigned int a1 );
+int volatile ksys_link( const char *a1, const char *a2 );
+int volatile ksys_timerfd_gettime( int a1, struct itimerspec *a2 );
+int volatile ksys_access( const char *a1, int a2 );
+int volatile ksys_semget( key_t a1, int a2, int a3 );
+int volatile ksys_setfsuid( uid_t a1 );
+int volatile ksys_prctl( int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_llistxattr( const char *a1, char *a2, long a3 );
+int volatile ksys_exit( int a1 );
+int volatile ksys_dup( unsigned int a1 );
+int volatile ksys_ioprio_get( int a1, int a2 );
+int volatile ksys_clock_getres( const clockid_t a1, struct timespec *a2 );
+int volatile ksys_unlinkat( int a1, const char *a2, int a3 );
+int volatile ksys_sendmmsg( int a1, struct mmsghdr *a2, unsigned int a3, unsigned int a4 );
+int volatile ksys_inotify_add_watch( int a1, const char *a2, u32 a3 );
+int volatile ksys_set_mempolicy( int a1, unsigned long *a2, unsigned long a3 );
+int volatile ksys_readv( unsigned long a1, const struct iovec *a2, unsigned long a3 );
+int volatile ksys_mkdirat( int a1, const char *a2, int a3 );
+int volatile ksys_chdir( const char *a1 );
+int volatile ksys_epoll_create1( int a1 );
+int volatile ksys_semtimedop( int a1, struct sembuf *a2, unsigned a3, const struct timespec *a4 );
+int volatile ksys_accept( int a1, struct sockaddr *a2, int *a3 );
+int volatile ksys_msgsnd( int a1, struct msgbuf *a2, long a3, int a4 );
+int volatile ksys_rmdir( const char *a1 );
+int volatile ksys_syncfs( int a1 );
+int volatile ksys_kexec_file_load( int a1, int a2, unsigned long a3, const char *a4, unsigned long a5 );
+int volatile ksys_creat( const char *a1, int a2 );
+int volatile ksys_fchmodat( int a1, const char *a2, mode_t a3 );
+int volatile ksys_mq_timedreceive( mqd_t a1, char *a2, long a3, unsigned int *a4, const struct timespec *a5 );
+int volatile ksys_close( unsigned int a1 );
+int volatile ksys_setreuid( uid_t a1, uid_t a2 );
+int volatile ksys_lsetxattr( const char *a1, const char *a2, const void *a3, long a4, int a5 );
+int volatile ksys_getpgrp( );
+int volatile ksys_shmat( int a1, char *a2, int a3 );
+int volatile ksys_finit_module( int a1, const char *a2, int a3 );
+int volatile ksys_stat( const char *a1, struct stat *a2 );
+int volatile ksys_epoll_wait( int a1, struct epoll_event *a2, int a3, int a4 );
+int volatile ksys_quotactl( unsigned int a1, const char *a2, qid_t a3, void *a4 );
+int volatile ksys_fstat( unsigned int a1, struct stat *a2 );
+int volatile ksys_io_cancel( aio_context_t a1, struct iocb *a2, struct io_event *a3 );
+int volatile ksys_get_mempolicy( int *a1, unsigned long *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
+int volatile ksys_mq_getsetattr( mqd_t a1, const struct mq_attr *a2, struct mq_attr *a3 );
+int volatile ksys_bind( int a1, struct sockaddr *a2, int a3 );
+int volatile ksys_syslog( int a1, char *a2, int a3 );
+int volatile ksys_time( time_t *a1 );
+int volatile ksys_io_setup( unsigned a1, aio_context_t *a2 );
+int volatile ksys_ustat( unsigned a1, struct ustat *a2 );
 #pragma GCC diagnostic pop
 // 65 "./minilib.h" 2
 // 1 "./minilib/headers/common/sys/types.h" 1
@@ -2198,7 +2207,7 @@ typedef __builtin_va_list va_list;
 // 85 "./minilib.h" 2
 // 1 "./minilib/include/filemodes.h" 1
 #define mini_filemodes_h 
-// 40 "./minilib/include/filemodes.h"
+// 41 "./minilib/include/filemodes.h"
 #define O_ACCMODE 00000003
 #define O_RDONLY 00000000
 #define O_WRONLY 00000001
@@ -2360,22 +2369,39 @@ struct udiv_t { unsigned int quot, rem; };
 #define ERFKILL 132
 extern int errno;
 // 122 "./minilib.h" 2
-// 139 "./minilib.h"
-#define mini_0 
-// 775 "./minilib.h"
+// 616 "./minilib.h"
 #define mini_dprints 
-// 830 "./minilib.h"
-// 1 "./include/mini_fstream.h" 1
+// 824 "./minilib.h"
+#define mini_0 
+// 838 "./minilib.h"
+int _itohex(int i,char* buf,int padding, int capitals);
+// 848 "./minilib.h"
+int vsnprintf(char *buf, long size, const char* fmt, va_list args );
+char *strcpy(char *dest, const char *src);
+int ioctl( int fd, unsigned long int request, ... );
+// 868 "./minilib.h"
+#define prints(...) _mprints(__VA_ARGS__,0)
+// 1 "./minilib/include/tcgetattr.h" 1
+#define tcgetattr_h 
+// 13 "./minilib/include/tcgetattr.h"
+int ioctl( int fd, unsigned long int request, ... );
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
+ return(ioctl(fd, 0x5401, io));
+}
+// 874 "./minilib.h" 2
+// 886 "./minilib.h"
+int strlen(const char*str);
+// 1 "./minilib/include/mini_fstream.h" 1
 #define mini_fstream_h 
-// 1 "./include/stdarg.h" 1
-// 5 "./include/mini_fstream.h" 2
-// 16 "./include/mini_fstream.h"
+// 1 "./minilib/include/stdarg.h" 1
+// 5 "./minilib/include/mini_fstream.h" 2
+// 16 "./minilib/include/mini_fstream.h"
 #define mini_fstream 
-// 28 "./include/mini_fstream.h"
+// 28 "./minilib/include/mini_fstream.h"
 static inline int __attribute__((always_inline)) fflush( FILE *F ){
   return(0);
 }
-// 52 "./include/mini_fstream.h"
+// 52 "./minilib/include/mini_fstream.h"
 int snprintf( char *buf, long size, const char *fmt, ... );
 static inline int __attribute__((always_inline)) fileno( FILE *f ){
   return( (f==0) ? 0 : (*f & 0x3fffff) );
@@ -2387,7 +2413,7 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
     for ( ml.pstream--; ml.stream[ml.pstream-1] == -1; ml.pstream-- );
   return( close(fd) );
 }
-// 91 "./include/mini_fstream.h"
+// 91 "./minilib/include/mini_fstream.h"
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 #define fprint(...) fprintf(__VA_ARGS__)
 #define vfprintf(...) fprintf(__VA_ARGS__)
@@ -2438,7 +2464,7 @@ static inline long fread(void *ptr, long size, long nmemb, FILE *f){
   }
   return(a);
 }
-// 184 "./include/mini_fstream.h"
+// 184 "./minilib/include/mini_fstream.h"
 static inline int feof(FILE *f){
   if ( *f & 0xc00000 )
     return(1);
@@ -2460,7 +2486,47 @@ static void setbuf(FILE *stream, char *buf){
 static int setvbuf(FILE *stream, char *buf, int mode, long size){
   return(0);
 }
-// 831 "./minilib.h" 2
+// 892 "./minilib.h" 2
+// 901 "./minilib.h"
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+void* volatile malloc(int size);
+// 916 "./minilib.h"
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+char* fgets(char *buf, int size, FILE* F);
+int _itobin(int i, char*buf, int prec, int groups );
+// 1 "./include/mini_fstream.h" 1
+// 932 "./minilib.h" 2
+// 1 "./minilib/include/fputc.h" 1
+#define fputc_c 
+static inline int volatile fputc(int c, FILE* F){
+  write(fileno(F), &c, 1);
+  return(c);
+}
+// 933 "./minilib.h" 2
+// 1 "./minilib/include/lseek.h" 1
+#define mini_lseek_h 
+// 15 "./minilib/include/lseek.h"
+extern int sysret;
+extern int errno;
+// 938 "./minilib.h" 2
+void *memcpy( void *d, const void *s, int n );
+void volatile free(void* p);
+// 956 "./minilib.h"
+int itodec(int i, char *buf, int prec, char limiter );
+int _strcmp(const char*c1,const char*c2,int len);
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+#define fprintf(stream,...) write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+#define printl() write(STDOUT_FILENO,"\n",1)
+int fprintfs( FILE* F, char *fmt, ...);
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+int snprintf( char *buf, long size, const char *fmt, ... );
+char* strerror( int errnum );
+#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
+// 1011 "./minilib.h"
+char* getenv(const char* name);
+// 1021 "./minilib.h"
+#define fwrites(fd,str) write(fd,str,sizeof(str))
+// 1032 "./minilib.h"
 // 1 "./minilib/include/fgetc.h" 1
 #define fgetc_h 
 // 11 "./minilib/include/fgetc.h"
@@ -2479,32 +2545,8 @@ static int ungetc(int c, FILE *F){
   *F = (*F & ~0xff000000) | (c<<24);
   return(c);
 }
-// 832 "./minilib.h" 2
+// 1033 "./minilib.h" 2
 FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-void *memcpy( void *d, const void *s, int n );
-char* getenv(const char* name);
-// 1 "./minilib/include/mini_fstream.h" 1
-// 852 "./minilib.h" 2
-int _strcmp(const char*c1,const char*c2,int len);
-char* fgets(char *buf, int size, FILE* F);
-#define fwrites(fd,str) write(fd,str,sizeof(str))
-char *strcpy(char *dest, const char *src);
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-// 890 "./minilib.h"
-int ptsname_r(int fd, char *buf, long len);
-#define fprintf(stream,...) write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-void volatile free(void* p);
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-// 915 "./minilib.h"
-// 1 "./minilib/include/fputc.h" 1
-#define fputc_c 
-static inline int volatile fputc(int c, FILE* F){
-  write(fileno(F), &c, 1);
-  return(c);
-}
-// 916 "./minilib.h" 2
-// 930 "./minilib.h"
-#define print(str) write(STDOUT_FILENO,str,strlen(str))
 // 1 "./minilib/include/fputs.h" 1
 #define fputs_h 
 // 11 "./minilib/include/fputs.h"
@@ -2513,74 +2555,31 @@ static int fileno(FILE*);
 static inline int volatile fputs(const char *c, FILE *F){
   return(write(fileno(F), c, strlen(c)));
 }
-// 937 "./minilib.h" 2
-void* volatile malloc(int size);
-int ioctl( int fd, unsigned long int request, ... );
-char *strchrnul(const char *s, int c);
-int _itobin(int i, char*buf, int prec, int groups );
-int dprintf( int fd, const char *fmt, ... );
-// 971 "./minilib.h"
-int strlen(const char*str);
-// 1 "./minilib/include/lseek.h" 1
-#define mini_lseek_h 
-// 15 "./minilib/include/lseek.h"
-extern int sysret;
-extern int errno;
-// 977 "./minilib.h" 2
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
-// 995 "./minilib.h"
-int snprintf( char *buf, long size, const char *fmt, ... );
-#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
-int _itohex(int i,char* buf,int padding, int capitals);
-// 1015 "./minilib.h"
-char* strerror( int errnum );
-// 1025 "./minilib.h"
-#define prints(...) _mprints(__VA_ARGS__,0)
-int itodec(int i, char *buf, int prec, char limiter );
+// 1044 "./minilib.h" 2
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
 int _strcasecmp(const char*c1,const char*c2,int len);
-// 1 "./minilib/include/tcgetattr.h" 1
-#define tcgetattr_h 
-// 13 "./minilib/include/tcgetattr.h"
-int ioctl( int fd, unsigned long int request, ... );
-static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
- return(ioctl(fd, 0x5401, io));
-}
-// 1041 "./minilib.h" 2
-// 1050 "./minilib.h"
+// 1063 "./minilib.h"
+int dprintf( int fd, const char *fmt, ... );
+int ptsname_r(int fd, char *buf, long len);
+// 1078 "./minilib.h"
 int volatile open( const char *s, int flags, ... );
-#define printl() write(STDOUT_FILENO,"\n",1)
-int vsnprintf(char *buf, long size, const char* fmt, va_list args );
-pid_t wait(int *wstatus);
+char *strchrnul(const char *s, int c);
+// 1094 "./minilib.h"
 // 1 "./minilib/include/syscalls_x64.h" 1
 #define syscalls_x64_h 
-// 1072 "./minilib.h" 2
-// 1091 "./minilib.h"
-int closedir(DIR *dir);
-// 1121 "./minilib.h"
-int posix_openpt(int flags);
-// 1131 "./minilib.h"
-int fprintfs( FILE* F, char *fmt, ...);
-FILE *fopen(const char* filename, const char* mode);
-// 1146 "./minilib.h"
-int volatile creat( const char *s, int mode );
-int sigaddset(sigset_t *set, int sig);
-// 1176 "./minilib.h"
-sighandler_t signal(int sig, sighandler_t func );
-// 1206 "./minilib.h"
-int atoi(const char *c);
-int todo_putenv( char *s );
-int itohex(int i,char* buf,int padding);
-// 1306 "./minilib.h"
-static inline int execvpe(const char *file, char *const argv[], char *const envp[]);
-// 1326 "./minilib.h"
-struct dirent *readdir(DIR *dir);
-// 1356 "./minilib.h"
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-// 1401 "./minilib.h"
-#define putc(c,stream) fputc(c,stream)
-// 1421 "./minilib.h"
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+// 1095 "./minilib.h" 2
+// 1124 "./minilib.h"
+static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+int dtodec(double d, char* buf, int precision);
+// 1159 "./minilib.h"
+pid_t wait(int *wstatus);
+// 1169 "./minilib.h"
+char *basename(char *path);
+// 1199 "./minilib.h"
+int isatty(int fd);
+// 1209 "./minilib.h"
+static int sigemptyset(sigset_t *set);
+// 1304 "./minilib.h"
 // 1 "./minilib/include/select.h" 1
 #define select_h 
 static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
@@ -2588,15 +2587,24 @@ static inline int volatile __attribute__((always_inline)) select(int fd, volatil
   register long int r10 asm ("r10") = (unsigned long int)exceptfd ; register long int r8 asm ("r8") = (unsigned long int) wait ; asm volatile ("syscall" : "=a" (ret) : "a" ( (23 | 0 ) ) , "D" (&fd), "S" (readfd), "d" ((unsigned long int)writefd), "r" (r10), "r" (r8) : "memory","rcx", "r11" );
   return(ret);
 }
-// 1427 "./minilib.h" 2
-void srand( unsigned int i );
-// 1441 "./minilib.h"
-// 1 "./minilib/include/mkfifo.h" 1
-static int mkfifo( const char* path, mode_t mode ){
-  return( mknod(path, mode | 0010000, 0 ) );
-}
-// 1442 "./minilib.h" 2
-// 1576 "./minilib.h"
+// 1305 "./minilib.h" 2
+// 1409 "./minilib.h"
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+// 1509 "./minilib.h"
+int itoHEX(int i,char* buf,int padding);
+// 1534 "./minilib.h"
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+// 1589 "./minilib.h"
+char *strdup(const char *source);
+// 1599 "./minilib.h"
+unsigned long djb2_hash(const unsigned char *str);
+// 1614 "./minilib.h"
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+// 1629 "./minilib.h"
+void* realloc(void *p, int size);
+// 1649 "./minilib.h"
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+// 1714 "./minilib.h"
 // 1 "./minilib/macros/getoptm.h" 1
 #define mini_getoptm_h 
 #define DEF_OPTIONS_ENUM_short enum MINI_OPTIONS_short { a=0x1,b=0x2,c=0x4,d=0x8,e=0x10,f=0x20,g=0x40,h=0x80,i=0x100,j=0x200, k=0x400,l=0x800,m=0x1000,n=0x2000,o=0x4000,p=0x8000,q=0x10000,r=0x20000,s=0x40000, t=0x80000,u=0x100000,v=0x200000,w=0x400000,x=0x800000,y=0x1000000,z=0x2000000 };
@@ -2605,22 +2613,94 @@ static int mkfifo( const char* path, mode_t mode ){
 // 44 "./minilib/macros/getoptm.h"
 #define GETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts & option; } )
 #define SETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts = (opts | option); } )
-// 1577 "./minilib.h" 2
-// 1601 "./minilib.h"
+// 1715 "./minilib.h" 2
+// 1734 "./minilib.h"
+char *strncpy(char *dest, const char *src, int n);
+// 1744 "./minilib.h"
+#define getchar() fgetc(0)
+// 1809 "./minilib.h"
 #define vfprintf(...) fprintf(__VA_ARGS__)
-// 1616 "./minilib.h"
-#define getc(F) fgetc(F)
-// 1636 "./minilib.h"
-int dtodec(double d, char* buf, int precision);
-// 1696 "./minilib.h"
+// 1854 "./minilib.h"
+unsigned int sleep(unsigned int seconds);
+// 1909 "./minilib.h"
+int posix_openpt(int flags);
+// 1954 "./minilib.h"
+void srand( unsigned int i );
+// 1979 "./minilib.h"
+int grantpt(int fd);
+int sigismember(sigset_t *set, int sig);
+// 2049 "./minilib.h"
+static inline int execvp(const char *file, char *const argv[]);
+// 2064 "./minilib.h"
 unsigned int rand();
-// 1706 "./minilib.h"
-FILE *fdopen(int fd, const char* mode);
-// 1776 "./minilib.h"
-int ltodec(long i, char *buf, int prec, char limiter );
-// 1811 "./minilib.h"
-void *memset( void *s, int c, int n);
-// 1846 "./minilib.h"
+// 2099 "./minilib.h"
+char* strstr(const char *big, const char *little);
+// 2144 "./minilib.h"
+#define puts(msg) ( print(msg) + printl() )
+// 2154 "./minilib.h"
+#define getc(F) fgetc(F)
+// 2234 "./minilib.h"
+int sigdelset(sigset_t *set, int sig);
+// 2279 "./minilib.h"
+FILE *fopen(const char* filename, const char* mode);
+// 2289 "./minilib.h"
+char *dirname(char *s);
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+// 2324 "./minilib.h"
+char *strcat(char *dest, const char *src );
+// 2344 "./minilib.h"
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+// 2369 "./minilib.h"
+void perror(const char *msg);
+// 2429 "./minilib.h"
+int strncasecmp(const char*c1,const char*c2,int len);
+// 2444 "./minilib.h"
+int volatile creat( const char *s, int mode );
+void* memfrob(void* s, unsigned int len);
+// 2486 "./minilib.h"
+// 1 "./minilib/include/tcsetattr.h" 1
+#define tcsetattr_h 
+int ioctl( int fd, unsigned long int request, ... );
+// 20 "./minilib/include/tcsetattr.h"
+static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
+ return(ioctl(fd, 0x5402 +opt, io));
+}
+// 2487 "./minilib.h" 2
+// 2551 "./minilib.h"
+int ultodec(unsigned long i, char *buf, int prec, char limiter );
+int itohex(int i,char* buf,int padding);
+// 2571 "./minilib.h"
+static inline int execv(const char *pathname, char *const argv[]);
+// 2591 "./minilib.h"
+int unlockpt(int fd);
+int strncmp(const char*c1,const char*c2,int len);
+// 2626 "./minilib.h"
+// 1 "./minilib/include/mkfifo.h" 1
+static int mkfifo( const char* path, mode_t mode ){
+  return( mknod(path, mode | 0010000, 0 ) );
+}
+// 2627 "./minilib.h" 2
+// 2636 "./minilib.h"
+int isspace(int c);
+int strcasecmp(const char*c1,const char*c2);
+// 2731 "./minilib.h"
+#define putchar(c) fputc(c,stdout)
+// 2806 "./minilib.h"
+int atoi(const char *c);
+void* memmove(void *dest, const void *src, int n);
+// 2896 "./minilib.h"
+char *ptsname(int fd);
+// 2926 "./minilib.h"
+int closedir(DIR *dir);
+// 2936 "./minilib.h"
+char *strchr(const char *s, int c);
+// 2981 "./minilib.h"
+char *strrchr(const char *s, int c);
+// 3016 "./minilib.h"
+static int execvpe(const char *file, char *const argv[], char *const envp[]);
+unsigned long sdbm_hash(const unsigned char *str);
+// 3051 "./minilib.h"
+DIR *opendir(const char *name);
 // 1 "./minilib/include/isprint.h" 1
 #define mini_isprint_h 
 #define misprint(A) isprint(A)
@@ -2629,20 +2709,32 @@ static inline int __attribute__((always_inline)) isprint(const char c){
     return(1);
   return(0);
 }
-// 1847 "./minilib.h" 2
-// 1896 "./minilib.h"
-char *strrchr(const char *s, int c);
-// 1936 "./minilib.h"
-#define getchar() fgetc(0)
-// 1961 "./minilib.h"
-void perror(const char *msg);
-// 1986 "./minilib.h"
-int unlockpt(int fd);
-// 2016 "./minilib.h"
-char *dirname(char *s);
-// 2026 "./minilib.h"
+// 3057 "./minilib.h" 2
+// 3101 "./minilib.h"
+sighandler_t signal(int sig, sighandler_t func );
+// 3116 "./minilib.h"
+unsigned int usleep(unsigned int useconds);
+// 3126 "./minilib.h"
+#define putc(c,stream) fputc(c,stream)
+// 3151 "./minilib.h"
+#define fprints(F,str) write(fileno(F),str,strlen(str))
+// 3166 "./minilib.h"
+void *memset( void *s, int c, int n);
+// 3176 "./minilib.h"
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+// 3196 "./minilib.h"
+int strcmp(const char*c1,const char*c2);
+int system( const char* command );
+// 3211 "./minilib.h"
+FILE *fdopen(int fd, const char* mode);
+int ltodec(long i, char *buf, int prec, char limiter );
+// 3231 "./minilib.h"
 // 1 "./minilib/include/errstr.h" 1
+#define ERRNO_MAX 133
 const char* verbose_errstr(int num){
+  if ( num > 133 || num < 0 ){
+    return("Errno unknown");
+  }
 char *errstr[] = { "Internal error (errno=0)",
   "Operation not permitted",
 "No such file or directory",
@@ -2779,91 +2871,19 @@ char *errstr[] = { "Internal error (errno=0)",
 "Memory page has hardware error" };
 return(errstr[num]);
 }
-// 2027 "./minilib.h" 2
-// 2051 "./minilib.h"
-#define putchar(c) fputc(c,stdout)
-// 2086 "./minilib.h"
-char *strchr(const char *s, int c);
-// 2116 "./minilib.h"
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-// 2146 "./minilib.h"
-int sigismember(sigset_t *set, int sig);
-// 2156 "./minilib.h"
-int itoHEX(int i,char* buf,int padding);
-// 2171 "./minilib.h"
-int strcasecmp(const char*c1,const char*c2);
-char *strcat(char *dest, const char *src );
-#define puts(msg) ( print(msg) + printl() )
-// 2216 "./minilib.h"
-int isspace(int c);
-int grantpt(int fd);
-// 2301 "./minilib.h"
+// 3232 "./minilib.h" 2
+// 3241 "./minilib.h"
 #define gets(F) fgets(F,0xfffffff,stdin)
-// 2311 "./minilib.h"
-char *strncpy(char *dest, const char *src, int n);
-// 2376 "./minilib.h"
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
-// 2386 "./minilib.h"
-unsigned int sleep(unsigned int seconds);
-// 2431 "./minilib.h"
+// 3261 "./minilib.h"
+int sigaddset(sigset_t *set, int sig);
+// 3281 "./minilib.h"
 int memcmp(const void* c1,const void* c2,int len);
-// 2506 "./minilib.h"
-unsigned long djb2_hash(const unsigned char *str);
-// 2601 "./minilib.h"
-int isatty(int fd);
-// 2611 "./minilib.h"
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-// 2626 "./minilib.h"
-void* memfrob(void* s, unsigned int len);
-// 2653 "./minilib.h"
-// 1 "./minilib/include/tcsetattr.h" 1
-#define tcsetattr_h 
-int ioctl( int fd, unsigned long int request, ... );
-// 20 "./minilib/include/tcsetattr.h"
-static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
- return(ioctl(fd, 0x5402 +opt, io));
-}
-// 2654 "./minilib.h" 2
-// 2678 "./minilib.h"
-DIR *opendir(const char *name);
-// 2693 "./minilib.h"
-static int sigemptyset(sigset_t *set);
-// 2773 "./minilib.h"
-int strcmp(const char*c1,const char*c2);
-// 2788 "./minilib.h"
-unsigned int usleep(unsigned int useconds);
-// 2828 "./minilib.h"
-int ultodec(unsigned long i, char *buf, int prec, char limiter );
+// 3316 "./minilib.h"
+struct dirent *readdir(DIR *dir);
+// 3341 "./minilib.h"
 #define fprint(...) fprintf(__VA_ARGS__)
-// 2888 "./minilib.h"
-unsigned long sdbm_hash(const unsigned char *str);
-// 2908 "./minilib.h"
-void* memmove(void *dest, const void *src, int n);
-// 2948 "./minilib.h"
-char *strdup(const char *source);
-// 2958 "./minilib.h"
-int strncasecmp(const char*c1,const char*c2,int len);
-// 2998 "./minilib.h"
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-// 3013 "./minilib.h"
-void* realloc(void *p, int size);
-static inline int execvp(const char *file, char *const argv[]);
-// 3033 "./minilib.h"
-static inline int execv(const char *pathname, char *const argv[]);
-// 3043 "./minilib.h"
-char *ptsname(int fd);
-int system( const char* command );
-// 3068 "./minilib.h"
-char* strstr(const char *big, const char *little);
-// 3088 "./minilib.h"
-char *basename(char *path);
-// 3143 "./minilib.h"
-#define fprints(F,str) write(fileno(F),str,strlen(str))
-// 3193 "./minilib.h"
-int strncmp(const char*c1,const char*c2,int len);
-// 3233 "./minilib.h"
-int sigdelset(sigset_t *set, int sig);
-// 502 "/dev/fd/63" 2
+int todo_putenv( char *s );
+// 504 "/dev/fd/63" 2
 // 1 "<command-line>" 2
 // 1 "minilib.h"
 #endif

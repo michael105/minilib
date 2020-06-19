@@ -20,8 +20,8 @@ typedef struct {
 		int mbufsize;
 		int stream[mini_FOPEN_MAX];
 		union {
-				int ibuf[(mini_buf>>2)+1];
-				char mbuf[mini_buf+4];
+				int ibuf[(mini_buf>>2)];
+				char mbuf[mini_buf];
 		};
 } minilib_globals;
 

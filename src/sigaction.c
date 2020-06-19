@@ -50,7 +50,7 @@ int sigaddset(sigset_t *set, int sig){
 
 //+def
 int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
-		return( rt_sigprocmask( how, set, oldset, sizeof(sigset_t) ) );
+		return( rt_sigprocmask( how, (sigset_t*)set, oldset, sizeof(sigset_t) ) );
 }
 
 

@@ -158,7 +158,7 @@ void snake_init(void) {
 	snake_head[Y] = SCREEN_HEIGHT / 2;
 
 	//snake_body = malloc(snake_len * sizeof(int *));
-	snake_body = malloc(1024 * sizeof(int *));
+	snake_body = malloc(SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(int *));
 
 	int i;
 	for(i = 0; i < snake_len; i++) {

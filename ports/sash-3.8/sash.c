@@ -144,6 +144,12 @@ const CommandEntry	commandEntryTable[] =
 		"Exit from sash",
 		"[exit value]"
 	},
+
+	{
+		"q",		do_exit,	1,	2,
+		"Exit from sash",
+		"[exit value]"
+	},
 /*
 	{
 		"-file",	do_file,	1,	INFINITE_ARGS,

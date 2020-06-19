@@ -49,6 +49,12 @@ extern int dprints(int fd, char *msg,...);
 //+macro puts(msg) ( print(msg) + printl() )
 
 
+//+depends fprintfs fputs
+//+doc write str to stdout. 
+// only format %s is recognized
+//+macro printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+
+
 
 
 
