@@ -18,7 +18,7 @@ return
 
 int main(int argc, char *argv[]){
 		if ( argc == 1 ){
-				writes("Usage: error [-l] [errno number]\n");
+				writes("Usage: errno [-l] [errno number]\n");
 				return(0);
 		}
 		if ( argv[1][0]=='-' && argv[1][1] == 'l' ){

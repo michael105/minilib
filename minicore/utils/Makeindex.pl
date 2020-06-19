@@ -1,6 +1,6 @@
 #!/bin/perl -w
 
-my @files = `	find . -executable -name '??*' `; #-exec ls -lo --time-style=long-iso {} \; `;
+my @files = `	find . -executable -type f`; #-exec ls -lo --time-style=long-iso {} \; `;
 chomp @files;
 my $ln = join(" ", @files);
 @ls = `ls -lo --time-style=long-iso $ln `;

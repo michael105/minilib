@@ -20,9 +20,13 @@ int		g_busy;
 int		command_line(char ***env)
 {
   char	buf[1024];
+	char cwd[PATH_MAX];
   int	size;
 
-  my_putstr("$>");
+	getcwd(&cwd[0],PATH_MAX);
+  my_putstr(cwd);
+  my_putstr(" $ ");
+
   while ((size = read(0, buf, 1024)) > 0)
     {
       if (buf[size - 1] == '\n')
@@ -30,13 +34,17 @@ int		command_line(char ***env)
 	  g_busy = 0;
 	  buf[size] = '\0';
 	  exec_cmds_by_order(buf, env);
-	  my_putstr("$>");
+
+		getcwd(&cwd[0],PATH_MAX);
+		my_putstr(cwd);
+		my_putstr(" $ ");
+
 	}
       else
 	{
 	  g_busy = 1;
 	  while ((size = read(0, buf, 1024)) > 0);
-	  my_puterror("Error: Command can containt only 1024 characters\n");
+	  my_puterror("Error: Command can contain only 1024 characters\n");
 	}
     }
   if (size == 0)
