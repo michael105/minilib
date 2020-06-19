@@ -15,9 +15,9 @@ static int sigemptyset(sigset_t *set){
 		return 0;
 }
 
-#if 0
-////+inline
-static int todo_sigfillset(sigset_t *set){
+#if 1
+//+inline
+static int sigfillset(sigset_t *set){
 #ifdef X64
 		set->sig=0x7FFFFFFF; // doesn't work. ?
 #else

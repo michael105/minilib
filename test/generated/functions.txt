@@ -1,342 +1,344 @@
-isspace:int isspace(int c);
-
-perror:void perror(const char *msg);
-
-snprintf:int snprintf( char *buf, size_t size, const char *fmt, ... );
-
-ultodec:int ultodec(unsigned long i, char *buf, int prec, char limiter );
-
-_strcmp:int _strcmp(const char*c1,const char*c2,int len);
-
-getitimer:getitimer( int which,  struct itimerval *value)
-
-realloc:void* realloc(void *p, int size);
-
-sigprocmask:int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
-
-pipe:pipe( int *filedes)
-
-sigaction: int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
-
-dup3:dup3(int a1, int a2, int a3)		
-
-kill:kill( pid_t pid,  int sig)
-
-freopen:FILE *freopen(const char* filename, const char* mode, FILE *F);
-
-fseek:  int fseek(FILE *f, long offset, int whence );
-
-ftruncate:ftruncate(unsigned int a1, unsigned int a2 )
-
-closedir:int closedir(DIR *dir);
-
-sendfile:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
-
-fread:  size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
-
-rt_sigprocmask:rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
-
-brk:brk( unsigned long brk)
-
-itodec:int itodec(int i, char *buf, int prec, char limiter );
-
-sleep:unsigned int sleep(unsigned int seconds);
-
-strcat:char *strcat(char *dest, const char *src );
-
-vsnprintf:int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-
-usleep:unsigned int usleep(unsigned int useconds);
-
-ptsname:char *ptsname(int fd);
-
-select:  int  ) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
-
-memcmp:int memcmp(const void* c1,const void* c2,int len);
-
-access:access( const char *filename, int mode)
-
-setpgid:setpgid( pid_t pid, pid_t pgid)
-
-open:int  open( const char *s, int flags, ... );
-
-tcsetattr:  int ) tcsetattr(int fd, int opt, const struct termios *io);
-
-getuid:DEF_syscall(getuid,0)
-
-write:write(int fd,const void *buf, int len )
-
-system:int system( const char* command );
-
-ioctl:int ioctl( int fd, unsigned long int request, ... );
-
-sigemptyset: int sigemptyset(sigset_t *set);
-
-fdopen:FILE *fdopen(int fd, const char* mode);
-
-strlen:int strlen(const char*str);
-
-setvbuf: int setvbuf(FILE *stream, char *buf, int mode, size_t size);
-
-vfork:DEF_syscall(vfork,0)
-
-unlink:unlink( const char* a1)		
-
-posix_openpt:int posix_openpt(int flags);
-
-getpgrp:DEF_syscall(getpgrp,0)
-
-rt_sigreturn:rt_sigreturn( unsigned long __unused)
-
-fexecveat:  int fexecveat(int fd, char *const argv[], char *const envp[]);
-
-strncpy:char *strncpy(char *dest, const char *src, int n);
-
-rt_sigaction:rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
-
-utime:utime( const char *filename, struct utimbuf *times)
-
-fclose:  int ) fclose( FILE* f );
-
-execve:execve( const char *filename,  char* const* argv, char* const* envp)
-
-itohex:int itohex(int i,char* buf,int padding);
-
-rewind:  void rewind( FILE *f );
-
-mkfifo: int mkfifo( const char* path, mode_t mode );
-
-strcpy:char *strcpy(char *dest, const char *src);
-
-fgets:char* fgets(char *buf, int size, FILE* F);
-
 nanosleep:nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 
-fsync:fsync(int a1 )
+verbose_errstr:const char* verbose_errstr(int num);
 
-chmod:chmod( const char *filename, mode_t mode)
+unlockpt:int unlockpt(int fd);
+
+signal:sighandler_t signal(int sig, sighandler_t func );
+
+fputs:  int  fputs(const char *c, FILE *F);
 
 sync:DEF_syscall(sync,0)
 
-fork:DEF_syscall(fork,0)
+isprint:  int ) isprint(const char c);
 
-read:read( int fd, void *buf, int len )
+system:int system( const char* command );
 
-reboot:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
+pipe:pipe( int *filedes)
 
-ungetc: int ungetc(int c, FILE *F);
+setpgid:setpgid( pid_t pid, pid_t pgid)
 
-_strcasecmp:int _strcasecmp(const char*c1,const char*c2,int len);
+mprotect:mprotect( POINTER *a1, POINTER a2, int a3 )
+
+memcmp:int memcmp(const void* c1,const void* c2,int len);
+
+getenv:char* getenv(const char* name);
+
+rename:rename( const char* oldpath, const char* newpath )		
+
+itodec:int itodec(int i, char *buf, int prec, char limiter );
+
+execvp:  int execvp(const char *file, char *const argv[]);
+
+chmod:chmod( const char *filename, mode_t mode)
+
+readahead:readahead( int fd,  loff_t offset,  size_t count)
+
+ultodec:int ultodec(unsigned long i, char *buf, int prec, char limiter );
+
+memset:void *memset( void *s, int c, int n);
+
+feof:  int feof(FILE *f);
 
 dtodec:int dtodec(double d, char* buf, int precision);
 
-setbuf: void setbuf(FILE *stream, char *buf);
+utime:utime( const char *filename, struct utimbuf *times)
 
-memfrob:void* memfrob(void* s, unsigned int len);
+perror:void perror(const char *msg);
 
-rand:unsigned int rand();
+wait:pid_t wait(int *wstatus);
 
-_itohex:int _itohex(int i,char* buf,int padding, int capitals);
+fopen:FILE *fopen(const char* filename, const char* mode);
 
-symlink:symlink( const char *oldname,  const char *newname)
+kill:kill( pid_t pid,  int sig)
 
-umask:umask( int mask)
+_strcasecmp:int _strcasecmp(const char*c1,const char*c2,int len);
 
-getgid:DEF_syscall(getgid,0)
+gettimeofday:gettimeofday( struct timeval *a1, struct timezone *a2)
 
-uitodec:int uitodec(unsigned int i, char *buf, int prec, char limiter );
+getuid:DEF_syscall(getuid,0)
 
-strchr:char *strchr(const char *s, int c);
+getpid:DEF_syscall(getpid,0 )
 
-mkdir:mkdir( const char *pathname, int mode)
+strlen:int strlen(const char*str);
 
-close:close( int fd )
+pivot_root:pivot_root( const char *new_root,  const char *put_old)
 
-link:link( const char *oldname, const char *newname)
+vfork:DEF_syscall(vfork,0)
 
-_itobin:int _itobin(int i, char*buf, int prec, int groups );
+getitimer:getitimer( int which,  struct itimerval *value)
 
-todo_putenv:int todo_putenv( char *s );
+strncpy:char *strncpy(char *dest, const char *src, int n);
 
-ltodec:int ltodec(long i, char *buf, int prec, char limiter );
+unlink:unlink( const char* a1)		
+
+rmdir:rmdir( const char *pathname)
+
+dirname:char *dirname(char *s);
+
+open:int  open( const char *s, int flags, ... );
+
+readdir:struct dirent *readdir(DIR *dir);
+
+sigprocmask:int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+
+posix_openpt:int posix_openpt(int flags);
+
+fwrite:  size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+
+itoHEX:int itoHEX(int i,char* buf,int padding);
+
+itohex:int itohex(int i,char* buf,int padding);
 
 mount:mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 
-gettimeofday:gettimeofday( struct timeval *a1, struct timezone *a2)
+getppid:DEF_syscall(getppid,0)
+
+execve:execve( const char *filename,  char* const* argv, char* const* envp)
+
+isatty:int isatty(int fd);
+
+sdbm_hash:unsigned long sdbm_hash(const unsigned char *str);
+
+symlink:symlink( const char *oldname,  const char *newname)
+
+dup:dup(int a1)		
+
+chown:chown( const char *filename, uid_t user, gid_t group)
+
+fputc:  int  fputc(int c, FILE* F);
+
+closedir:int closedir(DIR *dir);
+
+ptsname_r:int ptsname_r(int fd, char *buf, size_t len);
+
+rand:unsigned int rand();
+
+fstat:fstat(int a1,struct stat* a2)		
+
+ftruncate:ftruncate(unsigned int a1, unsigned int a2 )
+
+ltodec:int ltodec(long i, char *buf, int prec, char limiter );
+
+grantpt:int grantpt(int fd);
+
+fdopen:FILE *fdopen(int fd, const char* mode);
+
+ferror:  int ferror(FILE *f);
+
+stat:stat(const char* filename,struct stat* a2)		
+
+fork:DEF_syscall(fork,0)
+
+strncasecmp:int strncasecmp(const char*c1,const char*c2,int len);
+
+strdup:char *strdup(const char *source);
+
+strcmp:int strcmp(const char*c1,const char*c2);
+
+fprintfs:int fprintfs( FILE* F, char *fmt, ...);
+
+setsid:DEF_syscall(setsid,0 )
+
+fflush:  int ) fflush( FILE *F );
+
+fileno:  int ) fileno( FILE *f );
+
+_itobin:int _itobin(int i, char*buf, int prec, int groups );
+
+fchmod:fchmod( unsigned int fd, mode_t mode)
+
+setgid:setgid( gid_t gid)
+
+fclose:  int ) fclose( FILE* f );
+
+creat:int  creat( const char *s, int mode );
+
+basename:char *basename(char *path);
+
+sendfile:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
+
+snprintf:int snprintf( char *buf, size_t size, const char *fmt, ... );
+
+strstr:char* strstr(const char *big, const char *little);
+
+sigfillset: int sigfillset(sigset_t *set);
+
+rt_sigaction:rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
+
+isspace:int isspace(int c);
+
+rt_sigprocmask:rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
+
+sigismember:int sigismember(sigset_t *set, int sig);
+
+strncmp:int strncmp(const char*c1,const char*c2,int len);
+
+fread:  size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
+
+usleep:unsigned int usleep(unsigned int useconds);
+
+execvpe: int execvpe(const char *file, char *const argv[], char *const envp[]);
+
+strcpy:char *strcpy(char *dest, const char *src);
+
+ftell:  long ftell(FILE *f);
+
+sleep:unsigned int sleep(unsigned int seconds);
+
+reboot:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
+
+execv:  int execv(const char *pathname, char *const argv[]);
+
+select:  int  ) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+
+fsync:fsync(int a1 )
+
+ungetc: int ungetc(int c, FILE *F);
+
+brk:brk( unsigned long brk)
+
+chroot:chroot( const char *filename)
+
+rewind:  void rewind( FILE *f );
 
 fgetc:  int fgetc(FILE *F);
 
 fcntl:fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 
-free:void  free(void* p);
-
-execvp:  int execvp(const char *file, char *const argv[]);
-
-dirname:char *dirname(char *s);
-
-sigdelset:int sigdelset(sigset_t *set, int sig);
-
-ptsname_r:int ptsname_r(int fd, char *buf, size_t len);
-
-waitpid:pid_t waitpid(pid_t pid, int *wstatus, int options);
-
-setuid:setuid( uid_t uid)
-
 getcwd:getcwd( char *buf,  unsigned long size)
-
-dprintf:int dprintf( int fd, const char *fmt, ... );
-
-memmove:void* memmove(void *dest, const void *src, int n);
-
-strncmp:int strncmp(const char*c1,const char*c2,int len);
-
-sigismember:int sigismember(sigset_t *set, int sig);
-
-strcmp:int strcmp(const char*c1,const char*c2);
-
-isprint:  int ) isprint(const char c);
-
-malloc:void*  malloc(int size);
-
-readdir:struct dirent *readdir(DIR *dir);
-
-dup:dup(int a1)		
-
-fsetpos:  int fsetpos(FILE *f, int pos );
-
-rmdir:rmdir( const char *pathname)
-
-creat:int  creat( const char *s, int mode );
-
-strcasecmp:int strcasecmp(const char*c1,const char*c2);
-
-unlockpt:int unlockpt(int fd);
-
-getdents:getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
 
 chdir:chdir(const char* path)		
 
-strstr:char* strstr(const char *big, const char *little);
+_fopen:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 
-fchown:fchown( unsigned int fd, uid_t user, gid_t group)
+mknod:mknod( const char *filename,  umode_t mode,  unsigned dev)
 
-getpid:DEF_syscall(getpid,0 )
+time:time(unsigned int *a1 )
 
-strerror:char* strerror( int errnum );
+realloc:void* realloc(void *p, int size);
 
-fstat:fstat(int a1,struct stat* a2)		
-
-feof:  int feof(FILE *f);
-
-fchmod:fchmod( unsigned int fd, mode_t mode)
-
-stat:stat(const char* filename,struct stat* a2)		
-
-setitimer:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
-
-wait4:wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
-
-strdup:char *strdup(const char *source);
-
-isatty:int isatty(int fd);
-
-memset:void *memset( void *s, int c, int n);
-
-tcgetattr:  int ) tcgetattr(int fd, struct termios *io);
-
-mprotect:mprotect( POINTER *a1, POINTER a2, int a3 )
+fgetpos:  void fgetpos(FILE *f, long *pos );
 
 strchrnul:char *strchrnul(const char *s, int c);
 
-getenv:char* getenv(const char* name);
+mkfifo: int mkfifo( const char* path, mode_t mode );
 
-chown:chown( const char *filename, uid_t user, gid_t group)
+strrchr:char *strrchr(const char *s, int c);
 
-fileno:  int ) fileno( FILE *f );
+fchown:fchown( unsigned int fd, uid_t user, gid_t group)
 
-setsid:DEF_syscall(setsid,0 )
+strcasecmp:int strcasecmp(const char*c1,const char*c2);
 
-verbose_errstr:const char* verbose_errstr(int num);
+write:write(int fd,const void *buf, int len )
 
-grantpt:int grantpt(int fd);
+dup3:dup3(int a1, int a2, int a3)		
 
-wait:pid_t wait(int *wstatus);
+access:access( const char *filename, int mode)
 
-setgid:setgid( gid_t gid)
+vhangup:DEF_syscall(vhangup,0 )
+
+getdents:getdents( unsigned int fd, struct dirent *direntry, unsigned int count )
+
+freopen:FILE *freopen(const char* filename, const char* mode, FILE *F);
+
+malloc:void*  malloc(int size);
+
+getgid:DEF_syscall(getgid,0)
+
+dprintf:int dprintf( int fd, const char *fmt, ... );
+
+ptsname:char *ptsname(int fd);
+
+sigdelset:int sigdelset(sigset_t *set, int sig);
+
+uname:uname(struct old_utsname *name )
+
+todo_putenv:int todo_putenv( char *s );
+
+wait4:wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
 
 execveat:execveat( int dirfd, const char *filename,  char* const* argv, char* const* envp, int flags)
 
-sigaddset:int sigaddset(sigset_t *set, int sig);
+strchr:char *strchr(const char *s, int c);
 
-itoHEX:int itoHEX(int i,char* buf,int padding);
+memfrob:void* memfrob(void* s, unsigned int len);
 
-fputs:  int  fputs(const char *c, FILE *F);
+mkdir:mkdir( const char *pathname, int mode)
 
-ftell:  long ftell(FILE *f);
+waitpid:pid_t waitpid(pid_t pid, int *wstatus, int options);
 
-chroot:chroot( const char *filename)
+tcgetattr:  int ) tcgetattr(int fd, struct termios *io);
 
-djb2_hash:unsigned long djb2_hash(const unsigned char *str);
+umask:umask( int mask)
 
-fwrite:  size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+fseek:  int fseek(FILE *f, long offset, int whence );
 
-pivot_root:pivot_root( const char *new_root,  const char *put_old)
+setvbuf: int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
-execv:  int execv(const char *pathname, char *const argv[]);
+setbuf: void setbuf(FILE *stream, char *buf);
+
+fgets:char* fgets(char *buf, int size, FILE* F);
+
+_strcmp:int _strcmp(const char*c1,const char*c2,int len);
+
+clearerror:  void clearerror(FILE *f);
+
+fexecveat:  int fexecveat(int fd, char *const argv[], char *const envp[]);
+
+ioctl:int ioctl( int fd, unsigned long int request, ... );
+
+tcsetattr:  int ) tcsetattr(int fd, int opt, const struct termios *io);
+
+rt_sigreturn:rt_sigreturn( unsigned long __unused)
+
+getpgrp:DEF_syscall(getpgrp,0)
 
 lseek:lseek(unsigned int a1, int a2, int a3 )
 
-clearerror:  void clearerror(FILE *f);
+sigaction: int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+
+dup2:dup2(int a1, int a2)		
+
+sigaddset:int sigaddset(sigset_t *set, int sig);
+
+strerror:char* strerror( int errnum );
+
+memmove:void* memmove(void *dest, const void *src, int n);
+
+free:void  free(void* p);
+
+djb2_hash:unsigned long djb2_hash(const unsigned char *str);
+
+sigemptyset: int sigemptyset(sigset_t *set);
 
 atoi:int atoi(const char *c);
 
 srand:void srand( unsigned int i );
 
-time:time(unsigned int *a1 )
-
-strrchr:char *strrchr(const char *s, int c);
-
-memcpy:void *memcpy( void *d, const void *s, int n );
-
-vhangup:DEF_syscall(vhangup,0 )
-
-ferror:  int ferror(FILE *f);
-
-getppid:DEF_syscall(getppid,0)
-
-uname:uname(struct old_utsname *name )
-
-clearerr:  void clearerr(FILE *f);
-
-fflush:  int ) fflush( FILE *F );
-
-execvpe: int execvpe(const char *file, char *const argv[], char *const envp[]);
-
-fopen:FILE *fopen(const char* filename, const char* mode);
-
-fputc:  int  fputc(int c, FILE* F);
+setuid:setuid( uid_t uid)
 
 opendir:DIR *opendir(const char *name);
 
-readahead:readahead( int fd,  loff_t offset,  size_t count)
+read:read( int fd, void *buf, int len )
 
-rename:rename( const char* oldpath, const char* newpath )		
+memcpy:void *memcpy( void *d, const void *s, int n );
 
-fprintfs:int fprintfs( FILE* F, char *fmt, ...);
+strcat:char *strcat(char *dest, const char *src );
 
-basename:char *basename(char *path);
+link:link( const char *oldname, const char *newname)
 
-dup2:dup2(int a1, int a2)		
+_itohex:int _itohex(int i,char* buf,int padding, int capitals);
 
-mknod:mknod( const char *filename,  umode_t mode,  unsigned dev)
+setitimer:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
 
-fgetpos:  void fgetpos(FILE *f, long *pos );
+fsetpos:  int fsetpos(FILE *f, int pos );
 
-sdbm_hash:unsigned long sdbm_hash(const unsigned char *str);
+uitodec:int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
-_fopen:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
+vsnprintf:int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
-strncasecmp:int strncasecmp(const char*c1,const char*c2,int len);
+close:close( int fd )
 
-signal:sighandler_t signal(int sig, sighandler_t func );
+clearerr:  void clearerr(FILE *f);
 

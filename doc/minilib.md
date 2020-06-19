@@ -552,6 +552,10 @@ sigemptyset    static int sigemptyset(sigset_t *set);
 
                (src/sigaction.c: 7)
 
+sigfillset     static int sigfillset(sigset_t *set);
+
+               (src/sigaction.c: 20)
+
 sigismember    int sigismember(sigset_t *set, int sig);
 
                (src/sigaction.c: 75)

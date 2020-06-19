@@ -45,7 +45,7 @@ int _prints(char *msg,...){
 
 //+needs write.h prints.h stdarg.h
 //+depends write
-int dprints(int fd, char *msg,...){
+int dprints(int fd, const char *msg,...){
 		va_list args;
 		va_start(args,msg);
 		int a;

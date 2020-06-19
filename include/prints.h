@@ -1,7 +1,7 @@
 #ifndef prints_h
 #define prints_h
 //extern int _mprints(char*msg,...); // strange errors caused by that
-extern int dprints(int fd, char *msg,...);
+extern int dprints(int fd, const char *msg,...);
 //+header mini_addons.h
 
 
