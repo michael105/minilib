@@ -47,6 +47,7 @@ return
 #define PREF HL "--- " NORM
 
 int shutdown;
+int stagepid;
 
 
 void error(const char*c){
@@ -64,21 +65,44 @@ void log(const char*c){
 		printsl( c );
 }
 
-
-void sighandler(int signal){
-		writes("Within handler\n");
-		sleep(3);
-		if ( signal == SIGINT ){
-				shutdown = 1;
-		}
+// set a timer, which calls sigalarm
+void settimer(int secs){
+		struct itimerval timer = { 
+				.it_value.tv_sec  = 3,
+				.it_value.tv_usec = 0 };
+		setitimer (ITIMER_REAL, &timer, 0);
 }
 
 
+void sighandler(int signal){
+		writes("Within handler\n");
+		if ( signal == SIGTERM ){
+				shutdown = 1; // halt
+		}
+		if ( signal == SIGINT ){
+				shutdown = 2; // reboot
+		}
+
+		kill(stagepid,SIGTERM);
+	
+		// set a timer, 
+		// and kill the curent stage, 
+		// when init is still running at that time
+		settimer(3);
+}
+
+
+void sigalarm(int signal){
+		if ( shutdown ){
+				kill(stagepid, SIGKILL);
+				settimer(3);
+		}
+}
 
 int vexec( const char* exec, char* const* argv, char* const* envp ){
-		int pid = vfork();
+		stagepid = vfork();
 
-		if ( pid == 0 ){
+		if ( stagepid == 0 ){
 				execve(exec, argv, envp );
 				error("Couldn't execute");
 				error(exec);
@@ -89,37 +113,48 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 		int ws;
 		int w;
 		do {
-				w = waitpid( pid, &ws, 0 );
+				w = waitpid( stagepid, &ws, 0 );
 		} while ( ! ( WIFEXITED(ws) || WIFSIGNALED(ws) ) );
 
 		return(0);
 }
 
+
+
 int main(int argc, char **argv, char **envp){
 		shutdown = 0;
-	
+		stagepid = 0;
+
 		log("start init");
 
-   struct sigaction sa;
+		struct sigaction sa;
 
-   sigfillset(&sa.sa_mask);
-   sa.sa_flags = 0;
-   sa.sa_handler = sighandler;
+		sigfillset(&sa.sa_mask);
+		sa.sa_flags = 0;
+		sa.sa_handler = sighandler;
 
-	 if ( sigaction (SIGTERM, &sa, 0) ||
-		 		sigaction (SIGQUIT, &sa, 0) ||
-		 		sigaction (SIGINT, &sa, 0) 
-				){
-			 error("Couldn't install signal handler");
-	 }
+		if ( sigaction (SIGTERM, &sa, 0) ||
+						sigaction (SIGQUIT, &sa, 0) ||
+						sigaction (SIGINT, &sa, 0) ){
+				error("Couldn't install signal handler");
+				// try to continue anyways.
+		}
 
-		log( "exec " STAGE1);
-		if ( vexec( STAGE1, argv, envp ) )
-				return(-1);
+		sa.sa_handler = sigalarm;
+		if ( sigaction (SIGALRM, &sa, 0) ){
+				error("Couldn't install alarm handler");
+		}
+
+
+START:
+
+		log("exec " STAGE1);
+		vexec( STAGE1, argv, envp );
 
 		int a = 0;
-		do {
-				log("exec " STAGE2 );
+
+		while (!shutdown){
+				log("exec " STAGE2);
 				if ( vexec(STAGE2, argv, envp) )
 						return(-1);
 				if ( (a++) > 1 ){ // prevent spinning 
@@ -127,9 +162,35 @@ int main(int argc, char **argv, char **envp){
 						a=0;
 						sleep(5);
 				}
-		} while (!shutdown);
+		};
 
+		if ( shutdown==1 )
+				log("Shutdown");
+		else
+				log("Reboot");
 
+		log("exec " STAGE3);
+		vexec(STAGE3, argv, envp);
+
+		if ( shutdown == 0 )
+				goto START; // shutdown aborted. start with stage1 again
+
+		log("Sync remaining file systems");
+		sync();
+
+		if ( shutdown == 1 ){
+				log("Power off");
+				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_POWER_OFF,0);
+				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_HALT,0);
+		}
+
+		if ( shutdown == 2 ){
+				log("Reboot");
+				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART,0);
+		}
+
+		log("Exit init.");
+		
 		return(0); // exit
 }
 
