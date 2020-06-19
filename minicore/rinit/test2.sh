@@ -2,6 +2,6 @@
 
 echo test2 started
 echo args: $*
-sleep 2
+sleep 20
 echo Ok.
 

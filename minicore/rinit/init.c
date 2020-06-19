@@ -41,6 +41,10 @@ return
 #define STAGE2 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test2.sh"
 #define STAGE3 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test3.sh"
 
+// After this time in seconds, after signalling the current stage with SIGTERM,
+// the (running) stage is killed with SIGKILL
+#define WAITTIME 3
+
 #define HL "\033[1;36m"
 #define RED "\033[31m"
 #define NORM "\033[0;37m"
@@ -48,6 +52,7 @@ return
 
 int shutdown;
 int stagepid;
+int zombie;
 
 
 void error(const char*c){
@@ -68,14 +73,14 @@ void log(const char*c){
 // set a timer, which calls sigalarm
 void settimer(int secs){
 		struct itimerval timer = { 
-				.it_value.tv_sec  = 3,
+				.it_value.tv_sec  = secs,
 				.it_value.tv_usec = 0 };
 		setitimer (ITIMER_REAL, &timer, 0);
 }
 
 
 void sighandler(int signal){
-		writes("Within handler\n");
+		//writes("Within handler\n");
 		if ( signal == SIGTERM ){
 				shutdown = 1; // halt
 		}
@@ -88,14 +93,19 @@ void sighandler(int signal){
 		// set a timer, 
 		// and kill the curent stage, 
 		// when init is still running at that time
-		settimer(3);
+		settimer(WAITTIME);
 }
 
 
 void sigalarm(int signal){
+		writes("alarm handler\n");
 		if ( shutdown ){
+				if ( zombie == stagepid ){ // stage hangs, didn't respond to sigkill
+					 kill(1,SIGTERM); // kill ourselves / meaning continue in vexec
+				}
 				kill(stagepid, SIGKILL);
-				settimer(3);
+				zombie = stagepid; // when stage is zombified, just continue with the next stage / shutdown
+				settimer(WAITTIME);
 		}
 }
 
@@ -106,7 +116,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 				execve(exec, argv, envp );
 				error("Couldn't execute");
 				error(exec);
-				sleep(5);
+				sleep(3);
 				return(1); // exit with failure
 		}
 
@@ -114,7 +124,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 		int w;
 		do {
 				w = waitpid( stagepid, &ws, 0 );
-		} while ( ! ( WIFEXITED(ws) || WIFSIGNALED(ws) ) );
+		} while ( ! ( WIFEXITED(ws) || WIFSIGNALED(ws) ) || zombie );
 
 		return(0);
 }
@@ -124,6 +134,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 int main(int argc, char **argv, char **envp){
 		shutdown = 0;
 		stagepid = 0;
+		zombie = 0;
 
 		log("start init");
 
@@ -147,7 +158,7 @@ int main(int argc, char **argv, char **envp){
 
 
 START:
-
+		zombie = 0;
 		log("exec " STAGE1);
 		vexec( STAGE1, argv, envp );
 
@@ -170,6 +181,8 @@ START:
 				log("Reboot");
 
 		log("exec " STAGE3);
+		settimer(WAITTIME);
+		zombie = 0;
 		vexec(STAGE3, argv, envp);
 
 		if ( shutdown == 0 )
