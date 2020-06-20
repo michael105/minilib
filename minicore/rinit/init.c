@@ -12,7 +12,11 @@ mini_sigaction
 mini_sigaddset
 mini_sigemptyset
 mini_sigfillset
+mini_raise
 
+mini_printf
+mini_itodec
+mini_buf 256
 
 LDSCRIPT text_and_bss
 shrinkelf
@@ -53,6 +57,7 @@ return
 int shutdown;
 int stagepid;
 int zombie;
+int initpid;
 
 
 void error(const char*c){
@@ -88,6 +93,7 @@ void sighandler(int signal){
 				shutdown = 2; // reboot
 		}
 
+		printf("sighandler stagepid: %d yombie %d\n",stagepid,zombie);
 		kill(stagepid,SIGTERM);
 	
 		// set a timer, 
@@ -100,12 +106,15 @@ void sighandler(int signal){
 void sigalarm(int signal){
 		writes("alarm handler\n");
 		if ( shutdown ){
-				if ( zombie == stagepid ){ // stage hangs, didn't respond to sigkill
-					 kill(1,SIGTERM); // kill ourselves / meaning continue in vexec
-				}
+				printf("shutdown: %d\n",shutdown);
+				printf("stagepid: %d yombie %d\n",stagepid,zombie);
 				kill(stagepid, SIGKILL);
-				zombie = stagepid; // when stage is zombified, just continue with the next stage / shutdown
-				settimer(WAITTIME);
+				if ( zombie == stagepid ){ // stage hangs, didn't respond to sigkill
+					 raise(SIGTERM); // kill ourselves / meaning continue in vexec, waitpid
+				}
+				zombie = stagepid; // save stagepid.
+				settimer(WAITTIME); // when the stage process doesn't respond to the sigkill,
+				// kill ourselves after "waittime"
 		}
 }
 
@@ -124,7 +133,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 		int w;
 		do {
 				w = waitpid( stagepid, &ws, 0 );
-		} while ( ! ( WIFEXITED(ws) || WIFSIGNALED(ws) ) || zombie );
+		} while ( ! ( WIFEXITED(ws) || WIFSIGNALED(ws)  || zombie ) );
 
 		return(0);
 }
@@ -156,6 +165,8 @@ int main(int argc, char **argv, char **envp){
 				error("Couldn't install alarm handler");
 		}
 
+		// Ctrl-Alt-Del sends sigint to init, but doesn't reboot
+		reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_CAD_OFF,0);
 
 START:
 		zombie = 0;
