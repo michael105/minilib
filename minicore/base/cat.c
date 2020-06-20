@@ -1,13 +1,21 @@
+#if 0
+mini_start
+mini_writes
+mini_fwrites
+mini_perror
+mini_read
+mini_write
+mini_fprintfs
+
+LDSCRIPT default
+shrinkelf
+INCLUDESRC
+return
+#endif
+
+
 // Original work by ammongit (github.com/ammongit/minutils)
 // Modified by misc 2019
-
-#include <fcntl.h>
-#include <unistd.h>
-
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
 
 int cat(int fd)
 {
@@ -16,8 +24,7 @@ int cat(int fd)
 
 	while ((n = read(fd, buf, sizeof(buf))) > 0) {
 		if (write(STDOUT_FILENO, buf, n) != n) {
-			fputs("cat: ", stderr );
-			fputs(strerror(errno), stderr);
+			perror("cat: ");
 			return 1;
 		}
 	}

@@ -14,9 +14,9 @@ mini_sigemptyset
 mini_sigfillset
 mini_raise
 
-mini_printf
-mini_itodec
-mini_buf 256
+#mini_printf
+#mini_itodec
+#mini_buf 256
 
 LDSCRIPT text_and_bss
 shrinkelf
@@ -41,9 +41,15 @@ return
 // 
 // 
 
+#if 1
 #define STAGE1 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test1.sh"
 #define STAGE2 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test2.sh"
 #define STAGE3 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test3.sh"
+#else
+#define STAGE1 "/etc/rinit/1"
+#define STAGE2 "/etc/rinit/2"
+#define STAGE3 "/etc/rinit/3"
+#endif
 
 // After this time in seconds, after signalling the current stage with SIGTERM,
 // the (running) stage is killed with SIGKILL
@@ -57,7 +63,6 @@ return
 int shutdown;
 int stagepid;
 int zombie;
-int initpid;
 
 
 void error(const char*c){
@@ -85,15 +90,15 @@ void settimer(int secs){
 
 
 void sighandler(int signal){
-		//writes("Within handler\n");
 		if ( signal == SIGTERM ){
 				shutdown = 1; // halt
+				log("init: Shutdown");
 		}
 		if ( signal == SIGINT ){
 				shutdown = 2; // reboot
+				log("init: Reboot");
 		}
 
-		printf("sighandler stagepid: %d yombie %d\n",stagepid,zombie);
 		kill(stagepid,SIGTERM);
 	
 		// set a timer, 
@@ -104,12 +109,10 @@ void sighandler(int signal){
 
 
 void sigalarm(int signal){
-		writes("alarm handler\n");
 		if ( shutdown ){
-				printf("shutdown: %d\n",shutdown);
-				printf("stagepid: %d yombie %d\n",stagepid,zombie);
+				warning("Shutdown: timeout reached. Send kill.");
 				kill(stagepid, SIGKILL);
-				if ( zombie == stagepid ){ // stage hangs, didn't respond to sigkill
+				if ( zombie == stagepid ){ // stage process hangs, didn't respond to sigkill
 					 raise(SIGTERM); // kill ourselves / meaning continue in vexec, waitpid
 				}
 				zombie = stagepid; // save stagepid.

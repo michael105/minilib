@@ -22,7 +22,7 @@ I kept all copyright notices within the sources.
 
 ```
 basename        2020-06-18             493
-cat             2020-06-18             1110
+cat             2020-06-20             1126
 chmod           2020-06-10             208
 chroot          2020-06-18             538
 echo            2020-06-18             350
@@ -50,5 +50,5 @@ true            2020-06-18             152
 uname           2020-06-18             1378
 yes             2020-06-18             315
 ===============================================
-                          size: 34199 Bytes
+                          size: 34215 Bytes
 ```

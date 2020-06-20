@@ -536,6 +536,10 @@ ksys_writev
 signal.h
 ==========
 
+raise          static inline int raise(int signr);
+
+               (src/sigaction.c: 132)
+
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
                (src/sigaction.c: 106)

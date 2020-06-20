@@ -126,4 +126,12 @@ static int volatile sigaction(int sig, const struct sigaction *act, struct sigac
 // (meaning, including the definition into the header.
 // What is the right thing to do for a wrapper call.)
 
+
+//+depends getpid
+//+def
+static inline int raise(int signr){
+		return(kill(getpid(),signr));
+}
+
+
 #endif
