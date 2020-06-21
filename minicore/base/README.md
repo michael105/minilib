@@ -1,6 +1,6 @@
 ### Static builds for linux amd64
 
-Compiled abd linked with the standard toolchain, gcc and ld,  -Os;
+Compiled and linked with the standard toolchain, gcc and ld,  -Os;
 
 I'm trying to get a usable basic Unix system (without kernel) built statically within 64kB,
 it's going to be interesting.
@@ -36,8 +36,9 @@ ln              2020-06-18             510
 ls              2020-06-18             8432
 mkdir           2020-06-18             3816
 mkfifo          2020-06-18             520
-mount           2020-06-21             1260
-mount-sash      2020-06-21             2482
+mount           2020-06-21             1272
+mount-sash      2020-06-21             2692
+pivot_root      2020-06-21             243
 printenv        2020-06-18             386
 pwd             2020-06-18             283
 rm              2020-06-18             508
@@ -49,8 +50,9 @@ tail            2020-06-18             2688
 tee             2020-06-18             2547
 touch           2020-06-18             424
 true            2020-06-18             152
+umount          2020-06-21             792
 uname           2020-06-18             1378
 yes             2020-06-18             315
 ===============================================
-                          size: 37957 Bytes
+                          size: 39214 Bytes
 ```

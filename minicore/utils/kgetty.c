@@ -1,3 +1,37 @@
+#if 0
+mini_start
+mini_buf 1024
+mini_exit
+mini_vhangup
+mini_open
+mini_fopen
+mini_fread
+mini_fwrite
+mini_close
+mini_fflush
+mini_ioctl
+mini_printf
+mini_fprintf
+mini_printf
+mini_strncpy
+mini_strcmp
+mini_memset
+mini_sleep
+mini_ftell
+mini_fseek
+mini_fchmod
+mini_fchown
+mini_sigemptyset
+mini_sigaction
+
+LDSCRIPT text_and_bss
+shrinkelf
+INCLUDESRC
+return
+#endif
+
+
+
 /* See LICENSE file for copyright and license details. */
 //
 // most of this is borrowed from the suckless project. (getty,and login)
@@ -21,50 +55,6 @@
 
 
 #define TEST
-//
-//#include <sys/ioctl.h>
-//#include <sys/stat.h>
-//#include <sys/types.h>
-//
-//#include <fcntl.h>
-//#include <limits.h>
-//#include <signal.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//#include <unistd.h>
-//#include <utmp.h>
-//#include <errno.h>
-//#include <pwd.h>
-//
-
-#define mini_start
-#define mini_buf 1024
-#define mini_exit
-#define mini_vhangup
-#define mini_open
-#define mini_fopen
-#define mini_fread
-#define mini_fwrite
-#define mini_close
-#define mini_fflush
-#define mini_ioctl
-#define mini_printf
-#define mini_fprintf
-#define mini_printf
-#define mini_strncpy
-#define mini_strcmp
-#define mini_memset
-#define mini_sleep
-#define mini_ftell
-#define mini_fseek
-#define mini_fchmod
-#define mini_fchown
-#define mini_sigemptyset
-#define mini_sigaction
-
-#define INCLUDESRC
-#include "minilib.h"
 
 static char *tty = "/dev/tty1";
 static char *defaultterm = "linux";

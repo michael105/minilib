@@ -1,6 +1,6 @@
 ### Static builds for linux amd64
 
-Compiled abd linked with the standard toolchain, gcc and ld,  -Os;
+Compiled and linked with the standard toolchain, gcc and ld,  -Os;
 
 I'm trying to get a usable basic Unix system (without kernel) built statically within 64kB,
 it's going to be interesting.
