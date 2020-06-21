@@ -1,0 +1,58 @@
+
+This file was taken from the September 1995 edition of the Linux Gazette.
+
+---
+
+Running splitvt 
+
+Here's a great little program that I just ran across a couple days ago.  I
+recently had to reinstall Linux (as well as DOS, OS/2 Warp, Win 3.1...) after
+deciding to upgrade to a 850MB second HD.  I won't go into all the horrific
+details, but it was a bit of a mess for a few days... 
+
+Anyway, during the installation, as I watched the Slackware installation
+dialog boxes merrily flip by... one of the utility programs caught my eye.
+So, I jotted down the name of the program, and after installation was done,
+tried running the thing... splitvt. 
+
+This is a too-way-cool little program that'll let you run two shells in a
+split screen fashion. "So what's so cool about that..." you ask, since you've
+already told us that we've got 63 virtual terminals to choose from?  Well,
+you're right, except that it lets you run two programs and watch the output
+from the same screen. 
+
+For example, if you read the manpage for it, it gives you a suggested
+~/.splitvtrc run-command file that would fire up a split screen with two
+login shells, and run the program top in the bottom half.  That way, you'll
+have a dynamic display of your current CPU and memory usage while you merrily
+work away at some task in the top screen. If you've ever used the split
+screen function in the VIM editor, you'll know what I mean. 
+
+I tried using it with a couple PPP login scripts I've been working on.  I
+have one script that does auto-redial to the local university's PPP comm
+server (see last month's Linux Gazette for the file) and another one, which
+I recently wrote, that hangs around waiting for the /var/run/ppp0.PID file
+to appear, indicating a PPP connection had been established.  Once it
+finds it, it automatically updates the /etc/hosts file (since the school does
+dynamic IP addressing), POP's my mail from the mail server and plunks it in
+the /var/spool/mail/root file, and then starts periodically pinging the
+gateway host to keep the connection up.  Running it in the split screen
+let's me see what's going on with both progs as they run. 
+
+Mucho cool. 
+
+The beauty of this program is that it's really simple to use and set up.  The
+man page is clearly written and gives an example rc file.  You can also
+configure it to start up running two programs automatically, but specifying 
+
+        run -upper first_program
+        run -lower second_program
+
+in the ~/.splitvtrc file.  I'm sure that there are some fun things that can
+be done with this.
+
+We'll see... 
+
+---
+Author: John M. Fisk (fiskjm@ctrvax.vanderbilt.edu)
+

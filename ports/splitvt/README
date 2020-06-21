@@ -1,0 +1,33 @@
+
+
+
+
+	Well, this program just splits your screen into two 
+windows, each running a shell, so you can do two things at once.
+All you have to do is unbundle the package and run the 'Configure' 
+script that is included.  It is fairly simple, and should run on
+any terminal that supports hardware scrolling regions.  At the 
+moment, only vt100 compatible terminals (such as xterm, decterm,
+linux console, etc) will run splitvt.
+
+	More documentation for this program can be found in the
+file "splitvt.man".
+
+	If you have trouble compiling or running splitvt, remember
+that you must run it within a vt100 compatible terminal, and check
+the "NOTES" file in this distribution for hints.
+
+Enjoy!
+
+	-Sam Lantinga		slouken@cs.ucdavis.edu
+
+
+
+The idea for this program came from Dave Ljung (dxl@hpesdxl.fc.hp.com)
+
+	Thanks Dave++!
+
+
+
+
+

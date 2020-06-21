@@ -1,0 +1,40 @@
+
+Install Notes:
+
+	This program has been compiled on the following UNIX systems:
+
+		Sun/OS 4.1.x
+		Sun/OS 5.1  (Solaris 2.1)
+		ULTRIX 4.2
+		ULTRIX 4.3
+		OSF 3.0
+		IRIX 4.0.1
+		IRIX 4.0.5F
+		HP-UX 7.00
+		HP-UX 8.07
+		HP-UX 9.01
+		AT&T System V.3.2  
+		BSD 4.3
+		Linux   	(by upsyf173@HRZ.Uni-Bielefeld.DE)
+		FreeBSD
+		AIX 3.2.4
+		NeXTStep	(by mgrlhc@NeXTwork.Rose-Hulman.Edu)
+		System V/88 	(by tony@plaza.ds.adp.com)
+		MP-RAS 2.0	(by Shawn.Shealy@ColumbiaSC.NCR.COM)
+		Coherent 4.2.x	(by fredex@fcshome.stoneham.ma.us)
+		
+	If splitvt fails to run and prints out the message:
+"Can't initialize screen: Your terminal lacks the XX termcap capability."
+then do "make clean", remove "-DTERMCAP" from the CFLAGS line in the
+Makefile and then recompile.
+
+	Under AT&T System V.3.2 (a 3b2 machine) I had to add the line:
+CC = gcc
+at the top of the Makefile so that it didn't get a syntax error in
+/usr/include/sys/wait.h.  This particular 3b2 machine had been souped
+up with gcc and other exotic software. 
+
+	Under Sun/OS 5.0 (Solaris 2.1), running gcc, the grantpt()
+function breaks under the -O compiling option.  Just remove that 
+from the CFLAGS, and everything will work fine.
+

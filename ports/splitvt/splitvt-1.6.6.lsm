@@ -1,0 +1,14 @@
+Begin3
+Title:          Splitvt - a split windows utility
+Version:        1.6.6
+Entered-date:   1APR2007
+Description:    A utility to split a vt100 compatible screen into two halfs,
+                upper and lower, and run a different program simultaneously
+                in each half.
+Keywords:       screen vt100 emulator
+Author:         slouken@devolution.com  (Sam Lantinga)
+Maintained-by:  slouken@devolution.com  (Sam Lantinga)
+Primary-site:   http://www.devolution.com/~slouken/projects/splitvt/
+Platform:       UNIX
+Copying-policy: GPL
+End

@@ -1,0 +1,147 @@
+
+Version Notes:
+
+
+	Version 1.6.6
+				Added -bottom option (from Eugen Minciu)
+				Added support for Mac OS X
+
+	Version 1.6.5
+				Security fixes by fish stiqz
+
+	Version 1.6.4
+				Placed under the GNU General Public License
+				Fixed scroll region reset on exit
+				Fixed a comparison of unsigned char with EOF
+				Patched some security holes:
+					fixed buffer overflow in lock.c
+				Added "make install" target (/usr/local/bin)
+
+	Version 1.6.3
+				Patched some security holes:
+					fixed sprintf overflow in parserc.c
+					fixed env label overflow in parserc.c
+					fixed env variable expansion overflow
+					added read access check in parserc.c
+					added chdir() access check in parserc.c
+					fixed sprintf overflow in vtmouse.c
+
+	Version 1.6.2
+				Fixed a bug in vt_showscreen()
+				Fixed separator redisplay in vt_prompt()
+				Added the ANNOUNCE file
+				Added a "cd" command to the startup file
+				Added -t option to change xterm title
+				xterm title is reset, if possible, at exit
+				Added xterm drag-n-drop of separator bar
+				Speeded up separator bar movement
+(broken)			Fixed cut-paste highlighting
+(broken)			Integrated cut-paste with X selection (xcb)
+				Fixed job control for FreeBSD
+					(thanks to Quang Ngo)
+				Fixed bug in cursor keys (showed up in vi)
+
+	Version 1.6.1	Ninth release	1/10/95
+				Added simple cut-paste support
+				Middle button in xterm performs paste
+				Fixed a compilation bug in terminal.c
+				Fixed cut and paste in xterm
+				Fixed core dump in terminal.c
+				Changed +/- to grow/shrink current window
+				Can move separator bar more than one line
+				Fixed display of ansi color
+				Added a help screen (^O-h)
+				Added simple if statements in startup file
+				Added env variable=value in startup file
+				Fixed command line -upper/-lower parsing
+				Ported to OSF/1 3.0
+
+	Version 1.6.0	Eighth release
+				Completely rewrote vt100 driver routines
+				Added skeleton for termcap support
+				Separated this file from the README
+				Added 132 column support
+				Added screen refresh on window resize
+				Added screen refresh command
+				Fixed highlight between windows bug
+				Added multiple charset support (G0, G1)
+				Added commands to move the separator bar
+				Fixed tab output processing
+				Added simple screen locking
+				Added kill window command 'k'
+				Added lock screen command 'x'
+				Cursor moves away from a dead window
+				Fixed xterm cursor key input bug
+
+	Version 1.5.8
+				Rewrote utmp handling routines
+				Fixed a bug in vt100.c scroll regions
+					(thanks to Shawn Shealy)
+				Fixed dropctty() for Solaris 2.3
+
+	Version 1.5.7
+				Fixed echo in menu.example
+				Fixed splitvt.1 bold macro
+				Made maxfds code semi-POSIX compliant
+				Ported to System V/88 by Tony Leneis
+				Ported to MP-RAS 2.0 by Shawn Shealy
+				Fixed utmp host entries
+				Added autodetection of pty banks 
+					(thanks to Tony Leneis)
+
+	Version 1.5.6	Seventh release
+				Fixed a major bug in xterm support
+				Fixed so 'w' showed proper idle times
+
+	Version 1.5.5	Sixth release
+				Added simple 8 bit char support (output)
+
+	Version 1.5.4
+				Ported to NeXT by Lans Carstensen
+				Miscellaneous bug fixes
+
+	Version 1.5.3
+				Added -login option
+				Added -nologin option
+				Added -rcfile option
+
+	Version 1.5.2	Fifth release
+				Added slick xterm title bar
+				Added xterm mouse click support
+
+	Version 1.5.1
+				Removed top and bottom bars
+				Added -norc option
+
+	Version 1.5.0	Fourth release 	
+				Reworked command line options
+				Added .splitvtrc support
+
+	Version 1.4.2
+				Added SPLITVT environment variable
+					(thanks to Mark Fugazzotto)
+				Fixed bug in vt_prompt()
+
+	Version 1.4.1	
+				Reformatted man page by march@tudor.com
+
+	Version 1.4.0	Third release
+				Added "sticky" cursor for windows
+				Ported to Linux 
+				Added modifiable upper window size
+				Added utmp logging
+				Added set-uid root capability
+				Slightly optimized the vt100 code
+				Improved vt100 emulation
+				Added verbose configuration
+				Ported to BSD 4.3
+				Added a command mode
+
+	Version 1.3.1
+				Improved portability.
+
+	Version 1.3.0	Second release
+				Added window size change handling.
+				Added automatic vt100 detection.
+
+	Version 1.0.1	First release

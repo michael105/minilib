@@ -1,0 +1,264 @@
+
+
+
+SPLITVT(1)	    NONESSENTIAL UTILITIES	   SPLITVT(1)
+
+
+NAME
+       splitvt - run two shells in a split window
+
+SYNOPSIS
+       splitvt [options] [shell]
+
+
+OPTIONS
+       -upper command
+	      Runs 'command' in the upper window
+
+       -lower command
+	      Runs 'command' in the lower window
+
+       -s numlines
+	      Sets  'numlines'	to the number of lines in the top
+	      window.  This number will be modified if the screen
+	      isn't big enough to handle the full size.
+
+       -t title
+	      Sets an xterm title bar to 'title'
+
+       -login Runs  the programs under each window as though they
+	      were login shells.  This	is  useful  to	have  csh
+	      source it's .login file, bash source .profile, etc.
+
+       -nologin
+	      Ovverrides any "set  login  on"  statement  in  the
+	      startup file.
+
+       -rcfile file
+	      Loads   'file'  as  the  startup	file  instead  of
+	      ~/.splitvtrc.  If %s is present in the filename, it
+	      will  be	replaced  by  your home directory.  (E.g.
+	      %s/.splitvtrc is equivalent to the default  startup
+	      file)
+
+       -norc  Suppresses loading your ~/.splitvtrc
+
+       -v     Print out the version number of splitvt
+
+
+DESCRIPTION
+       This program splits the screen into two windows, one above
+       the other, and runs a shell  in	each  one.   The  default
+       shell  is  taken	from  the SHELL environment variable, or
+       /bin/csh if SHELL isn't in the  environment,  but  another
+       shell can be specified on the command line.
+
+       The  top window is the default current window, but you can
+       change to the other by  pressing	^W.   Pressing	^V  will
+       quote  the  next character to the current shell.	Pressing
+       ^O will put splitvt into command mode.
+
+
+
+
+SPLITVT			1/5/95				1
+
+
+
+
+
+SPLITVT(1)	    NONESSENTIAL UTILITIES	   SPLITVT(1)
+
+
+       These special characters (command mode, switch window, and
+       quote  next  character)	can  be	modified from within the
+       .splitvtrc file.
+
+       When in command mode, splitvt will  read	one  non-numeric
+       character,  perform the requested command, and then revert
+       to normal operations.  Numeric characters are  interpreted
+       as  a  parameter for the specified command.  The currently
+       supported commands are:
+
+
+       'h'    Print a help window for the escape commands
+
+
+       '-'    Shrink the current window
+
+
+       '+'    Expand the current window
+
+
+       'c'    Select a block of text in the current window
+
+
+       'p'    Paste the selected text to the current window
+
+
+       'k'    Kill the current window (hangup signal)
+
+
+       'x'    Lock the screen, after prompting for password
+
+
+       'r'    Repaint the screen (clearing screen garbage)
+
+
+       'q'    Quickly quit splitvt, killing the running shells
+
+       More functions may be added in the future.
+
+       If the -s command line option is used,  the  upper  window
+       will  be bound to the user defined number of lines even if
+       the screen is resized.	Otherwise,  the	screen	will  be
+       split  into  two	equal parts based on the new size of the
+       screen.
+
+       The environment variable SPLITVT	is  set  in  the  shells
+       forked by splitvt.  In the shell running in the upper win-
+       dow, this variable is set to the value "upper", while  the
+       shell running in the lower window has this variable set to
+       the value "lower".  This is useful  in  shell  scripts  to
+       provide	different  behavior depending on which window the
+       script is running in.  An example of this is shown in  the
+       file  "menu" in the examples directory in the splitvt dis-
+       tribution.
+
+
+
+SPLITVT			1/5/95				2
+
+
+
+
+
+SPLITVT(1)	    NONESSENTIAL UTILITIES	   SPLITVT(1)
+
+
+       When splitvt starts up, it looks in  your  home	directory
+       for a file named .splitvtrc You can set a number of param-
+       eters from within this file, including all of the  special
+       characters,  the default number of lines in the upper win-
+       dow, whether or not to run the commands as  login  shells,
+       and even default commands to run in each window.
+
+       Here is an example of a .splitvtrc file:
+
+	    # This is an example .splitvtrc file.
+	    set command_char	^O
+	    set quote_char	  ^V
+	    set switch_char	 ^W
+	    set upper_lines	 12
+	    run -upper		/bin/sh
+	    run -lower		top
+	    set login		on
+	    # This next line would override the above run statements
+	    #run /bin/tcsh
+
+       If programs like vi are doing strange things to the window
+       while in splitvt, you probably need to set the LINES envi-
+       ronment variable to a correct value, or set the terminal's
+       window sizing correctly.	This should  be  done	automati-
+       cally, but may need to be corrected.
+
+       If  you	are  running under an xterm window, the title bar
+       will probably be updated to show the  version  of  splitvt
+       that  you are running.  Under a true xterm window, you can
+       also switch which half of the window you are  typing  into
+       by  clicking  the mouse in the half of the window in which
+       you want to type.  You can also drag and drop the  separa-
+       tor bar by pressing down on the mouse button over the sep-
+       arator bar, holding it down, moving the mouse to where you
+       want the bar to end up, and then releasing the button.
+
+       splitvt	will attempt to erase the current utmp entry, and
+       replace it with entries for the two windows.  This  allows
+       you to use programs such as 'talk' within the splitvt win-
+       dows.   If  you	do  not	have  write  permission  to  the
+       /etc/utmp  file,	you  will not be able to modify the utmp
+       entries.
+
+       splitvt can be made set-uid root.  splitvt will reset  its
+       user  id	to that of the person running it, just before it
+       exec()'s the shell under the window.  The splitvt  process
+       remains	with  root permissions, and will change ownership
+       of the pseudo terminals to  that	of  the  person  running
+       splitvt,	and  then  reset  it  to root when the window is
+       closed.
+
+       SPLITVT IS NOT GUARANTEED TO BE A SAFE SET-UID PROGRAM!
+
+       I have done all I know to keep  splitvt	a  safely  usable
+
+
+
+SPLITVT			1/5/95				3
+
+
+
+
+
+SPLITVT(1)	    NONESSENTIAL UTILITIES	   SPLITVT(1)
+
+
+       set-uid	program, but I do not know everything, and am not
+       responsible for	any  security  weaknesses  splitvt  might
+       posess.
+
+BUGS
+       When used with a certain public domain version of ksh, you
+       have to manually kill -9 on the shell processes after  you
+       quit  splitvt.	This has to do with a bug in that version
+       of ksh (Version 06/03/86a and possibly others).
+
+       If splitvt is compiled with xterm support, when run  under
+       an xterm, the cut and paste feature is semi-disabled.  The
+       title bar may also be reset to the  string  "xterm"  after
+       splitvt	quits.	See the comments at the top of splitvt.c
+       for how to disable xterm support.
+
+       Ansi colors are not repainted on screen refresh.
+
+CAVEATS
+       There may be conflicts between  splitvt's  characters  and
+       other  programs.	You can either change splitvt's default
+       characters with command line  options,  or  you	can  type
+       Ctrl-V  (the quote character) within splitvt, and the next
+       character typed will be sent to	the  current  window,  no
+       matter what it is.
+
+       splitvt	can  only be used by terminals using vt100 emula-
+       tion, due to the	use  of  specific  vt100  escape  codes.
+       (vt300, xterm, Linux console, etc, emulation also works)
+
+       When running in an xterm, if you press the escape key, you
+       will have to type  another  character  in  order	for  the
+       escape to be seen by the running program.
+
+
+AUTHOR
+       Sam Lantinga   slouken@cs.ucdavis.edu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SPLITVT			1/5/95				4
+
+

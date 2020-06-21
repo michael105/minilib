@@ -1,0 +1,24 @@
+
+This directory just contains some simple utilites I used in developing
+the splitvt package.  They are all placed in the Public Domain.
+
+Contents:
+
+title		Change the title bar on an xterm to the arguments
+		of this program.
+
+treset		A shell script and C program, used to reset a vt100
+		screen after it has it's scroll regions messed up.
+
+unman		Used to turn an nroff formatted page into a text file
+		Example: nroff -man file.1 | unman >file.man
+
+getxtitle	Perl script to find out the title of an xterm
+
+which		Prints out the full path of a command in your $PATH
+
+
+Enjoy!
+
+	-Sam Lantinga			(slouken@cs.ucdavis.edu)
+

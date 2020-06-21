@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+#	An example menu utilizing the SPLITVT environment variable.
+#
+
+# Portably echo a line with no trailing newline:
+echo_n() {
+	if [ "`echo -n \"\"`" = "" ]; then
+		echo -n "$*"
+	elif [ "`echo -e \"\\c\"`" == "" ]; then
+		echo -e "$*\c"
+	else 
+		echo "$*\c"
+	fi
+}
+
+if [ "$SPLITVT" = "upper" ]; then
+	echo "This is the upper window MENU:"
+	echo ""
+	echo "1)	apples"
+	echo "2)	oranges"
+	echo "3)	bananas"
+	echo ""
+	echo_n "Enter your fruit of choice: "
+	read fruit
+	case $fruit in
+		1)	echo "You like apples!";;
+		2)	echo "You like oranges!";;
+		3)	echo "You like bananas!";;
+		*) echo "What fruit was that?";;
+	esac
+elif [ "$SPLITVT" = "lower" ]; then
+	echo "This is the lower window MENU:"
+	echo ""
+	echo "1)	pickles"
+	echo "2)	carrots"
+	echo "3)	cabbage"
+	echo ""
+	echo_n "Enter your vegetable of choice: "
+	read fruit
+	case $fruit in
+		1)	echo "You like pickles!";;
+		2)	echo "You like carrots!";;
+		3)	echo "You like cabbage!";;
+		*) echo "What vegetable was that?";;
+	esac
+else
+	echo "You are not running splitvt!"
+fi

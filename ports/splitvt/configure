@@ -1,0 +1,37 @@
+#!/bin/sh
+#  Script to auto-configure splitvt.		-Sam Lantinga
+
+QUIET="-v"
+# use $CC if set, else set it to cc
+: ${CC:=cc}
+CFLAGS=
+MAKE="echo \"Done.  Type 'make' to build\"" 
+
+echo "Making configuration..."
+
+while [ $# -gt 0 ]
+  do case $1 in
+       -d) CFLAGS=-DDEBUG
+           echo "Configuring for debug mode."
+           shift;;
+       -m) MAKE="echo Compiling now...; make && \
+                 echo Compilation successfully completed."
+           shift;;
+       -q) QUIET=""
+           shift;;
+        *)  echo "Usage: Configure [-q] [-d] [-m]"
+            exit;;
+     esac
+done
+
+$CC $CFLAGS -o config config.c
+if [ -f config ]; then
+	if ./config $QUIET
+	  then eval $MAKE
+	fi
+else
+	echo "Can't compile configuration...  Makefile NOT created."
+	exit 1
+fi
+rm -f config
+exit 0

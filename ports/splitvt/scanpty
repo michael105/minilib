@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# A shell/awk script to find out your range of pseudo-ttys
+
+# If BSD pseudo-ttys exist, /dev/pty?? is sure to exist.
+# What do we do if we don't find anything??
+exists=`echo /dev/pty??`
+if [ "$exists" = "/dev/pty??" ]; then
+	echo "PTYCHAR=\\\"\\\""
+	echo "HEXDIGIT=\\\"\\\""
+	exit 0
+fi
+
+# Make sure we have system directories in our path.
+PATH=$PATH:/bin/usr/bin
+
+# First, make sure we have awk.
+haveawk=`echo yes | (exec 2>/dev/null; awk '{print $1}')`
+if [ "$haveawk" != "yes" ]
+then   # No awk, select a default set of ptys.
+	echo "PTYCHAR=\\\"pqrstuvwxyzPQRST\\\""
+	echo "HEXDIGIT=\\\"0123456789abcdef\\\""
+	exit 0
+fi
+
+# Well, there are ptys and we have awk, find the range.
+echo $exists | awk '
+BEGIN	{ RS=" "; printf "PTYCHAR=\\\""; }
+        { c=substr($1, 9, 1); 
+	  if (range[c] == 0) { ++range[c]; printf "%s", c; }
+	}
+END	{ printf("\\\"\n"); }'
+echo $exists | awk '
+BEGIN	{ RS=" "; printf "HEXDIGIT=\\\""; }
+	{ c=substr($1, 10, 1); 
+	  if (range[c] == 0) { ++range[c]; printf "%s", c; }
+	}
+END	{ printf("\\\"\n"); }'
+exit 0
