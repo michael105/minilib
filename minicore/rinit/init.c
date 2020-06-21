@@ -41,7 +41,7 @@ return
 // 
 // 
 
-#if 1
+#if 0
 #define STAGE1 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test1.sh"
 #define STAGE2 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test2.sh"
 #define STAGE3 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test3.sh"
@@ -53,7 +53,7 @@ return
 
 // After this time in seconds, after signalling the current stage with SIGTERM,
 // the (running) stage is killed with SIGKILL
-#define WAITTIME 3
+#define WAITTIME 30
 
 #define HL "\033[1;36m"
 #define RED "\033[31m"
@@ -74,6 +74,7 @@ void warning(const char*c){
 		writes( RED "Warning: " NORM );
 		printsl( c );
 }
+
 
 void log(const char*c){
 		writes( HL "--- " NORM );
