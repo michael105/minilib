@@ -1,11 +1,31 @@
-/* Minimal shell C source - (c) 1999, Spock (Oscar Portela Arjona) */
+#if 0
+mini_start
+mini_writes
+mini_realloc
+mini_write
+mini_strlen
+mini_getcwd
+mini_strcmp
+mini_dup
+mini_signal
+mini_execvp
+mini_environ
+mini_perror
+mini_open
+mini_wait
+mini_getenv
+mini_errno
+mini_prints
+mini_buf 1024
 
-#include <sys/wait.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <string.h>
+LDSCRIPT text_and_bss
+shrinkelf
+INCLUDESRC
+return
+#endif
+
+
+/* Minimal shell C source - (c) 1999, Spock (Oscar Portela Arjona) */
 
 #define chkerr(c,msg) if (c < 0) {perror("ERROR (" msg ")"); exit(-1);}
 #define mvdesc(d1,d2) {close(d1); dup(d2); close(d2);}

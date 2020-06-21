@@ -163,9 +163,9 @@ ifeq "$(strip $(GCC))" "tcc"
 	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
 else
 ifdef DEBUG
- 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPT)
+ 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPT),--allow-multiple-definition
 else	
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPT)
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPT),--allow-multiple-definition
 	#--orphan-handling=discard
 endif
 endif
@@ -240,7 +240,7 @@ ifdef MAKEPROG
 
 
 $(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o
-	$(LD) $(LDFLAGS) -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
+	$(LD) $(LDFLAGS) --allow-multiple-definition -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
 	$(STRIPEXEC) $(MAKEPROG)
 	#$(if $(strip $(SHRINKELF)),$(MLIBDIR)/tools/sstrip $(MAKEPROG))
 	$(if $(strip $(BINDIR)),cp $(MAKEPROG) $(BINDIR)/$(MAKEPROG))
@@ -279,7 +279,7 @@ else
 
 $(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o
 	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
-	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
+	$(LD) $(LDFLAGS) --allow-multiple-definition -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
 	$(STRIPEXEC) $(PROG)
 	#$(if $(strip $(SHRINKELF)),elftrunc $(PROG) $(PROG))
 	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))

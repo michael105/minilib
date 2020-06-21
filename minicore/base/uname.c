@@ -1,9 +1,10 @@
-#include <sys/utsname.h>
+//#include <sys/utsname.h>
 
-#include <errno.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
+//#include <errno.h>
+//#include <stdbool.h>
+//#include <stdio.h>
+//#include <string.h>
+#define bool char
 
 static struct {
 	bool sys     : 1;
@@ -13,6 +14,7 @@ static struct {
 	bool machine : 1;
 } opt;
 
+// source: ammongit
 /* Usage: uname [-a] [-s] [-n] [-r] [-v] [-m] */
 int main(int argc, const char *argv[])
 {

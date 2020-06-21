@@ -1,5 +1,81 @@
 ### assorted notes
 
+about the differences of scripts and c
+
+seems, there should be something in between.
+would be better, having init scripts to be compiled binaries.
+
+so - I believe, the biggest difference is the one step more.
+
+scripts are just executed.
+c programs need to be compiled first, then run.
+
+This is already overcome with the switch --exec to mini-gcc.
+
+another difference: scripts start at the top.
+
+c programs at main.
+
+
+have to test closures in c.
+
+My idea is about a conglomeration of c and script.
+
+Somehow a reinvention of the wheel,
+and sametime, it's not very much work to implement.
+
+There are just some basic design questions:
+
+ what to do with errors?
+ pipes and redirections - not very asthetic,
+  but easy with macros like PIPE( cmd1, cmd2 )
+	can also be recursive.
+	PIPE( cmd1, PIPE( cmd2, cmd3 ) )
+
+hard to read.
+
+cpp would be advantegeous.
+
+there it might be possible to overwrite the '|' operator.
+
+or write the own parser.
+the parser just needs to recognize unquoted |,>
+
+
+another option:
+ 
+ doing a preparser,
+ just translating everything not being c to c.
+
+ (would also omit the ugly construct of 
+ #if 0
+ ...
+ return
+ #endif
+
+next idea. 
+ in general, boot scripts might have 3 stages:
+ init, run, shutdown
+
+ so - write 3 makros.
+ instead of int main(...)
+ just 
+
+ boot (
+ )
+ run (
+ )
+ shutdown (
+ )
+
+way better. and stupidly simple.
+
+so boot, run and shutdown can be compiled.
+on the otherside. 
+
+
+
+---
 
 ldscript default and 
 defining mini_errno gives troubles.

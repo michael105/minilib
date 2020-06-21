@@ -1,10 +1,9 @@
 # Minimal shell "make" source
 
-CC	= gcc
-CFLAGS	= -Wall -O3 -fomit-frame-pointer
+CC	= ../../mini-gcc 
 
 all: 
-	$(CC) $(CFLAGS) msh.c -o msh
+	$(CC) --config msh.c -o msh msh.c
 
 clean:
 	rm -f *.o core msh
