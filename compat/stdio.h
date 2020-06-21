@@ -117,6 +117,9 @@ FILE *freopen(const char* filename, const char* mode, FILE *F);
 // file: minilib/src/strerror.c
 void perror(const char *msg);
 
+// file: minilib/src/strerror.c
+const char *errno_str(int err);
+
 // file: minilib/include/fgetc.h
 static inline int fgetc(FILE *F);
 
@@ -153,11 +156,11 @@ static inline int volatile fputc(int c, FILE* F);
 #ifdef mini_INCLUDESRC
 
 #include "minilib/src/fopen.c"
+#include "minilib/include/fputc.h"
+#include "minilib/include/prints.h"
 #include "minilib/include/fgetc.h"
 #include "minilib/src/fgets.c"
 #include "minilib/src/strerror.c"
-#include "minilib/include/prints.h"
-#include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

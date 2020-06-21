@@ -31,5 +31,25 @@ void perror(const char *msg){
 }
 
 
+//+doc convert errno to str, with 3 chars length
+// ending the string (located on the stack (!) 
+// with two \0\0, when errno<100
+//+def
+const char *errno_str(int err){
+		char *e="100\0";
+		char *p = e;
+		if ( err>99 ){
+				err-=100;
+		} else {
+				p++;
+		}
+		e[1]+=err/10;
+		e[2]+=err%10;
+
+		return(p);
+}
+
+
+
 #endif
 

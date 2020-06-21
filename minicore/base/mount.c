@@ -17,8 +17,6 @@ mini_errno
 LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
-# somehow there is too much optimized.
-# mount options are gone with -Os (albite mount is a volatile syscall)
 OPTFLAG -Os
 return
 #endif
@@ -42,28 +40,10 @@ const char *errno_str(int err){
 
 
 void usage(){
-		writes("mount [-h|r] [-t type] [-o options] source mountpoint\n");
+		writes("mount [-h|r|m|s|e|B|M] [-t type] [-o options] source mountpoint\n");
 		exit(0);
 }
 
-// this still gets optimized out. this is nuts.
-// flags isn't submitted. wtf. Seems to be a gcc bug. I give up for now.
-// going to file a bugreport
-// Now it works. but. ok. the manual comfirms my troubles.
-int volatile __attribute__((optimize("-O0"))) do_mount( char *s, char *d, char *t, long fl, char *o){
- 	int sysret; 
-	register volatile long int r10 asm("r10")= fl; 
-	register volatile long int r8 asm("r8")= o; 
-	asm volatile ("syscall" : "=a" (sysret) : "a" ( ((165 | 0 ) | 0 ) ) , "D" (s) , "S" (d) , "d" (t) , "r" (r8) : "memory","rcx", "r11" ); 
-	if ( sysret<0){ 
-			errno = -sysret; 
-			return(-1);
-	} 
-	return(sysret);
-		//__asm__ volatile("" ::"S" (fl) );
-		//int r = mount(s,d,t,fl,o);
-		//return(r);
-}
 
 int main(int argc, char *argv[]){
 	  long flags = 0;
@@ -113,21 +93,22 @@ int main(int argc, char *argv[]){
 										case 'M':
 												flags |= MS_MOVE;
 												break;
-												// this is crazy. the pragnmas are ignored, with a warning.
-												// but the assignment of type and options isn't
-												// optimized out, at least without the pragmas
-												// gcc optimizes with -Os too much.
-												// there might be correct pragmas as well,
-												// but it works now. The bug is compiler and version
-												// dependent, anyways.
+										case 'S':
+												flags |= MS_SYNCHRONOUS;
+												break;
+
 										case 't':
 												*argv++;
 												type = *argv;
 												break;
+												
+										/* only options, the according filesystem itself recognizes
+										 * may be passed. 
+										 * that's another behaviour than that of gnu mount */
 										case 'o':
 												*argv++;
 												options = *argv;
-												break;
+												break; 
 										default:
 												fwrites(STDERR_FILENO,"Unknown option: -");
 												write(STDERR_FILENO,p,1);

@@ -595,6 +595,13 @@ clearerror     static inline void clearerror(FILE *f);
 
                (include/mini_fstream.h: 203)
 
+errno_str      const char *errno_str(int err);
+
+               convert errno to str, with 3 chars length
+              ending the string (located on the stack (!) 
+              with two \0\0, when errno<100
+               (src/strerror.c: 38)
+
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
                (include/mini_fstream.h: 65)
