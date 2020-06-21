@@ -1,0 +1,19 @@
+#ifndef common_allheaders_h
+#define common_allheaders_h
+#include "./sys/types.h"
+#include "./sys/stat.h"
+#include "./sys/termios.h"
+#include "./bits/signal.h"
+#include "./bits/alltypes.h"
+#include "./bits/fcntl.h"
+#include "./bits/stat.h"
+#include "./bits/ioctl.h"
+#include "./ctype.h"
+#include "./elf.h"
+#include "./signal.h"
+#include "./dirent.h"
+#include "./endian.h"
+#include "./termios.h"
+#include "./stdint.h"
+#include "./features.h"
+#endif

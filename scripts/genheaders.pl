@@ -865,6 +865,11 @@ sub syscalldefine{
 				print $fh "/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */\n";
 				dbg ("/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */");
 				$def =~ s/^DEF/define/;
+
+				$def =~ /^\S*?,(\d*)/;
+				if ( $1 >= 4 ){
+						$def =~ s/define_syscall/define_syscall_noopt/;
+				}
 				print $fh "REAL_$def\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("REAL_$def\n");
@@ -892,6 +897,11 @@ sub syscalldefine{
 
 				#dbg ("/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */");
 				$def =~ s/^SYSDEF/define/;
+				$def =~ /^\S*?,(\d*)/;
+				if ( $1 >= 4 ){
+						$def =~ s/define_syscall/define_syscall_noopt/;
+				}
+
 				print $fh "SYSREAL_$def\n\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("SYSREAL_$def\n");

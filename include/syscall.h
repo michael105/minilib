@@ -155,6 +155,18 @@ extern int errno;
 						return(-1);}\
 				return(sysret);\
 		}
+// syscalls with more than 4 args may not be optimized nor inlined.
+// register assignment gets optimized out otherways.
+#define REAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
+				if ( sysret<0){\
+						errno = -sysret;\
+						return(-1);}\
+				return(sysret);\
+		}
+
 #else
 #define REAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
@@ -162,6 +174,13 @@ extern int errno;
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
 		}
+#define REAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
+				return( (sysret<0) ? -1 : sysret );\
+		}
+
 #endif
 
 
@@ -175,6 +194,17 @@ extern int errno;
 						return(-1);}\
 				return(sysret);\
 		}
+
+#define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile __attribute__((optimize("O0"))) ksys##name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
+				if ( sysret<0){\
+						errno = -sysret;\
+						return(-1);}\
+				return(sysret);\
+		}
+
 #else
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) ksys##name( __VA_ARGS__ ){\
@@ -182,6 +212,14 @@ extern int errno;
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
 				return( (sysret<0) ? -1 : sysret );\
 		}
+
+#define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile __attribute__((optimize("O0"))) ksys##name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
+				return( (sysret<0) ? -1 : sysret );\
+		}
+
 #endif
 
 #else //ifndef gensyntaxcheck

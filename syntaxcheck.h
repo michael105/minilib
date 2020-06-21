@@ -13,507 +13,507 @@
 #define mini_start 
 #define mini_exit 
 #define mini_ksyscalls 
-#define mini_isprint generate
-#define mini_isspace generate
-#define mini_ioctl generate
-#define mini_waitpid generate
-#define mini_wait generate
-#define mini_setsid generate
-#define mini_execvpe generate
-#define mini_usleep generate
-#define mini_lseek generate
-#define mini_getuid generate
-#define mini_execve generate
-#define mini_tcgetattr generate
-#define mini_ftruncate generate
-#define mini_pipe generate
-#define mini_setpgid generate
-#define mini_rmdir generate
-#define mini_chown generate
-#define mini_getpid generate
-#define mini_isatty generate
-#define mini_fsync generate
-#define mini_link generate
-#define mini_getpgrp generate
-#define mini_unlink generate
-#define mini_read generate
-#define mini_setuid generate
-#define mini_open generate
-#define mini_setgid generate
-#define mini_rename generate
-#define mini_mkdir generate
-#define mini_fork generate
-#define mini_dup2 generate
-#define mini_write generate
-#define mini_execv generate
-#define mini_execvp generate
-#define mini_fexecveat generate
-#define mini_sleep generate
-#define mini_tcsetattr generate
-#define mini_getgid generate
-#define mini_close generate
-#define mini_select generate
-#define mini_dup generate
-#define mini_chdir generate
-#define mini_access generate
-#define mini_chroot generate
-#define mini_dtodec generate
-#define mini_prints generate
-#define mini_posix_openpt generate
-#define mini_grantpt generate
-#define mini_basename generate
-#define mini_print generate
-#define mini_vsnprintf generate
-#define mini_unlockpt generate
-#define mini__itobin generate
-#define mini_printsl generate
-#define mini_itodec generate
-#define mini_ptsname generate
-#define mini_printl generate
-#define mini_dirname generate
-#define mini_memfrob generate
-#define mini_fwrites generate
-#define mini_verbose_errstr generate
-#define mini_ltodec generate
-#define mini_ptsname_r generate
-#define mini_printfs generate
-#define mini_def generate
-#define mini_fprints generate
-#define mini_dprintf generate
-#define mini__mprints generate
-#define mini_fprintfs generate
-#define mini_sdbm_hash generate
-#define mini_writes generate
-#define mini_snprintf generate
-#define mini_uitodec generate
-#define mini_djb2_hash generate
-#define mini_ultodec generate
-#define mini_itobin generate
-#define mini_readdir generate
-#define mini_closedir generate
-#define mini_opendir generate
-#define mini_todo_putenv generate
-#define mini_realloc generate
-#define mini_srand generate
-#define mini_atoi generate
-#define mini_malloc generate
-#define mini_free generate
-#define mini_system generate
-#define mini_rand generate
-#define mini_getenv generate
-#define mini_creat generate
-#define mini_mkfifo generate
-#define mini_sigprocmask generate
-#define mini_sigismember generate
-#define mini_raise generate
-#define mini_sigaction generate
-#define mini_sigemptyset generate
-#define mini_sigdelset generate
-#define mini_sigfillset generate
-#define mini_signal generate
-#define mini_sigaddset generate
-#define mini_time generate
-#define mini_fgetc generate
-#define mini_fgetpos generate
-#define mini_perror generate
-#define mini_vfprintf generate
-#define mini_fputc generate
-#define mini_getc generate
-#define mini_putc generate
-#define mini_itoHEX generate
-#define mini_fread generate
-#define mini_fileno generate
-#define mini__fopen generate
-#define mini_fsetpos generate
-#define mini_ungetc generate
-#define mini_gets generate
-#define mini_putchar generate
-#define mini_puts generate
-#define mini_getchar generate
-#define mini_fprintf generate
-#define mini_setbuf generate
-#define mini__itohex generate
-#define mini_ferror generate
-#define mini_fflush generate
-#define mini_fgets generate
-#define mini_fputs generate
-#define mini_sprintf generate
-#define mini_itohex generate
-#define mini_setvbuf generate
-#define mini_fseek generate
-#define mini_printf generate
-#define mini_ftell generate
-#define mini_freopen generate
-#define mini_fwrite generate
-#define mini_clearerror generate
-#define mini_clearerr generate
-#define mini_feof generate
-#define mini_fprint generate
-#define mini_fdopen generate
-#define mini_fopen generate
-#define mini_rewind generate
-#define mini_fclose generate
-#define mini_memset generate
-#define mini_strcpy generate
-#define mini_memmove generate
-#define mini_strdup generate
-#define mini_strcmp generate
-#define mini_strchrnul generate
-#define mini_strncpy generate
-#define mini_strncasecmp generate
-#define mini_strstr generate
-#define mini_strcasecmp generate
+#define mini__getgid generate
+#define mini__openat generate
+#define mini__msgsnd generate
+#define mini__vmsplice generate
+#define mini__newfstatat generate
+#define mini__poll generate
+#define mini__kexec_file_load generate
+#define mini__clock_adjtime generate
+#define mini__clock_gettime generate
+#define mini__setreuid generate
+#define mini__request_key generate
+#define mini__lremovexattr generate
+#define mini__fgetxattr generate
+#define mini__semget generate
+#define mini__epoll_pwait generate
+#define mini__sched_rr_get_interval generate
+#define mini__mkdirat generate
+#define mini__kcmp generate
+#define mini__select generate
+#define mini__sendmsg generate
+#define mini__arch_prctl generate
+#define mini__clock_settime generate
+#define mini__ftruncate generate
+#define mini__utimes generate
+#define mini__rt_sigtimedwait generate
+#define mini__splice generate
+#define mini__open_by_handle_at generate
+#define mini__chroot generate
+#define mini__getdents generate
+#define mini__acct generate
+#define mini__recvmsg generate
+#define mini__dup3 generate
+#define mini__msync generate
+#define mini__process_vm_writev generate
+#define mini__ioperm generate
+#define mini__accept generate
+#define mini__dup generate
+#define mini__exit generate
+#define mini__mkdir generate
+#define mini__prlimit64 generate
+#define mini__io_setup generate
+#define mini__accept4 generate
+#define mini__clock_getres generate
+#define mini__getsockopt generate
+#define mini__add_key generate
+#define mini__fstatfs generate
+#define mini__setregid generate
+#define mini__set_robust_list generate
+#define mini__seccomp generate
+#define mini__mq_notify generate
+#define mini__socketpair generate
+#define mini__faccessat generate
+#define mini__getrlimit generate
+#define mini__getresuid generate
+#define mini__geteuid generate
+#define mini__removexattr generate
+#define mini__inotify_init generate
+#define mini__link generate
+#define mini__getitimer generate
+#define mini__fchown generate
+#define mini__vfork generate
+#define mini__fanotify_init generate
+#define mini__lsetxattr generate
+#define mini__signalfd4 generate
+#define mini__umask generate
+#define mini__getpid generate
+#define mini__fstat generate
+#define mini__setns generate
+#define mini__unlinkat generate
+#define mini__shmctl generate
+#define mini__preadv generate
+#define mini__nanosleep generate
+#define mini__setpgid generate
+#define mini__ppoll generate
+#define mini__listen generate
+#define mini__shmat generate
+#define mini__sigaltstack generate
+#define mini__swapoff generate
+#define mini__tkill generate
+#define mini__getresgid generate
+#define mini__rt_sigprocmask generate
+#define mini__munlockall generate
+#define mini__kexec_load generate
+#define mini__pwritev generate
+#define mini__get_mempolicy generate
+#define mini__mq_timedsend generate
+#define mini__getuid generate
+#define mini__getsockname generate
+#define mini__fchmodat generate
+#define mini__inotify_add_watch generate
+#define mini__ioprio_set generate
+#define mini__ptrace generate
+#define mini__setgroups generate
+#define mini__sethostname generate
+#define mini__semtimedop generate
+#define mini__getppid generate
+#define mini__mq_unlink generate
+#define mini__exit_group generate
+#define mini__listxattr generate
+#define mini__init_module generate
+#define mini__chown generate
+#define mini__pselect6 generate
+#define mini__mknodat generate
+#define mini__stat generate
+#define mini__utimensat generate
+#define mini__mknod generate
+#define mini__mprotect generate
+#define mini__renameat2 generate
+#define mini__renameat generate
+#define mini__unshare generate
+#define mini__getdents64 generate
+#define mini___sysctl generate
+#define mini__open generate
+#define mini__mremap generate
+#define mini__futimesat generate
+#define mini__munlock generate
+#define mini__time generate
+#define mini__uname generate
+#define mini__getxattr generate
+#define mini__brk generate
+#define mini__readahead generate
+#define mini__semop generate
+#define mini__msgctl generate
+#define mini__tee generate
+#define mini__finit_module generate
+#define mini__flock generate
+#define mini__epoll_create generate
+#define mini__clock_nanosleep generate
+#define mini__truncate generate
+#define mini__setdomainname generate
+#define mini__sched_setparam generate
+#define mini__creat generate
+#define mini__timer_delete generate
+#define mini__linkat generate
+#define mini__rt_sigreturn generate
+#define mini__pread64 generate
+#define mini__syncfs generate
+#define mini__settimeofday generate
+#define mini__mlockall generate
+#define mini__fcntl generate
+#define mini__mbind generate
+#define mini__write generate
+#define mini__setpriority generate
+#define mini__getsid generate
+#define mini__vhangup generate
+#define mini__flistxattr generate
+#define mini__execve generate
+#define mini__getpgrp generate
+#define mini__sched_getparam generate
+#define mini__mincore generate
+#define mini__rt_tgsigqueueinfo generate
+#define mini__ioctl generate
+#define mini__mq_open generate
+#define mini__shmget generate
+#define mini__setsockopt generate
+#define mini__fdatasync generate
+#define mini__chdir generate
+#define mini__pipe generate
+#define mini__mmap generate
+#define mini__fsetxattr generate
+#define mini__fchdir generate
+#define mini__lchown generate
+#define mini__get_robust_list generate
+#define mini__futex generate
+#define mini__sched_setaffinity generate
+#define mini__alarm generate
+#define mini__setresuid generate
+#define mini__setrlimit generate
+#define mini__umount2 generate
+#define mini__symlink generate
+#define mini__fadvise64 generate
+#define mini__clone generate
+#define mini__madvise generate
+#define mini__restart_syscall generate
+#define mini__io_submit generate
+#define mini__personality generate
+#define mini__timer_gettime generate
+#define mini__timerfd_create generate
+#define mini__writev generate
+#define mini__setitimer generate
+#define mini__rt_sigqueueinfo generate
+#define mini__eventfd generate
+#define mini__inotify_init1 generate
+#define mini__rt_sigsuspend generate
+#define mini__ustat generate
+#define mini__sysinfo generate
+#define mini__sched_getaffinity generate
+#define mini__bind generate
+#define mini__lseek generate
+#define mini__fallocate generate
+#define mini__signalfd generate
+#define mini__lstat generate
+#define mini__shutdown generate
+#define mini__getpgid generate
+#define mini__getegid generate
+#define mini__timer_getoverrun generate
+#define mini__shmdt generate
+#define mini__name_to_handle_at generate
+#define mini__timer_settime generate
+#define mini__lgetxattr generate
+#define mini__fremovexattr generate
+#define mini__chmod generate
+#define mini__capget generate
+#define mini__setgid generate
+#define mini__mlock generate
+#define mini__timerfd_gettime generate
+#define mini__rename generate
+#define mini__sync_file_range generate
+#define mini__sched_setscheduler generate
+#define mini__utime generate
+#define mini__move_pages generate
+#define mini__sched_yield generate
+#define mini__pivot_root generate
+#define mini__pwrite64 generate
+#define mini__fanotify_mark generate
+#define mini__swapon generate
+#define mini__readv generate
+#define mini__process_vm_readv generate
+#define mini__remap_file_pages generate
+#define mini__connect generate
+#define mini__fchmod generate
+#define mini__sched_getscheduler generate
+#define mini__set_tid_address generate
+#define mini__pause generate
+#define mini__sendto generate
+#define mini__timerfd_settime generate
+#define mini__modify_ldt generate
+#define mini__mq_getsetattr generate
+#define mini__sched_get_priority_min generate
+#define mini__rmdir generate
+#define mini__getrusage generate
+#define mini__close generate
+#define mini__semctl generate
+#define mini__waitid generate
+#define mini__munmap generate
+#define mini__symlinkat generate
+#define mini__sched_getattr generate
+#define mini__getcpu generate
+#define mini__sysfs generate
+#define mini__pipe2 generate
+#define mini__rt_sigaction generate
+#define mini__setxattr generate
+#define mini__keyctl generate
+#define mini__syslog generate
+#define mini__mq_timedreceive generate
+#define mini__getcwd generate
+#define mini__prctl generate
+#define mini__unlink generate
+#define mini__quotactl generate
+#define mini__kill generate
+#define mini__io_cancel generate
+#define mini__readlinkat generate
+#define mini__io_destroy generate
+#define mini__inotify_rm_watch generate
+#define mini__fsync generate
+#define mini__fchownat generate
+#define mini__getrandom generate
+#define mini__sched_setattr generate
+#define mini__iopl generate
+#define mini__memfd_create generate
+#define mini__epoll_create1 generate
+#define mini__gettimeofday generate
+#define mini__llistxattr generate
+#define mini__capset generate
+#define mini__recvfrom generate
+#define mini__setsid generate
+#define mini__statfs generate
+#define mini__getpriority generate
+#define mini__ioprio_get generate
+#define mini__io_getevents generate
+#define mini__times generate
+#define mini__gettid generate
+#define mini__setfsuid generate
+#define mini__tgkill generate
+#define mini__msgget generate
+#define mini__reboot generate
+#define mini__getpeername generate
+#define mini__rt_sigpending generate
+#define mini__lookup_dcookie generate
+#define mini__setresgid generate
+#define mini__sendfile generate
+#define mini__epoll_ctl generate
+#define mini__epoll_wait generate
+#define mini__sendmmsg generate
+#define mini__setuid generate
+#define mini__set_mempolicy generate
+#define mini__socket generate
+#define mini__delete_module generate
+#define mini__recvmmsg generate
+#define mini__fork generate
+#define mini__adjtimex generate
+#define mini__mount generate
+#define mini__getgroups generate
+#define mini__read generate
+#define mini__dup2 generate
+#define mini__eventfd2 generate
+#define mini__perf_event_open generate
+#define mini__timer_create generate
+#define mini__access generate
+#define mini__migrate_pages generate
+#define mini__sync generate
+#define mini__sched_get_priority_max generate
+#define mini__wait4 generate
+#define mini__setfsgid generate
+#define mini__msgrcv generate
+#define mini__readlink generate
 #define mini_strerror generate
-#define mini_strlen generate
-#define mini_memcmp generate
-#define mini__strcasecmp generate
+#define mini_memmove generate
 #define mini_strcat generate
+#define mini_strlen generate
+#define mini_strchrnul generate
+#define mini_strdup generate
+#define mini_strncasecmp generate
+#define mini_strcasecmp generate
+#define mini_memcmp generate
+#define mini_strcmp generate
 #define mini__strcmp generate
 #define mini_strrchr generate
-#define mini_memcpy generate
 #define mini_strncmp generate
 #define mini_strchr generate
-#define mini_mount generate
-#define mini_uname generate
-#define mini_setitimer generate
-#define mini_vfork generate
-#define mini_utime generate
-#define mini_fchmod generate
-#define mini_fchown generate
-#define mini_vhangup generate
-#define mini_getdents generate
-#define mini_rt_sigprocmask generate
-#define mini_stat generate
-#define mini_getitimer generate
-#define mini_chmod generate
-#define mini_reboot generate
-#define mini_rt_sigaction generate
-#define mini_umask generate
-#define mini_dup3 generate
+#define mini_strstr generate
+#define mini__strcasecmp generate
+#define mini_memset generate
+#define mini_memcpy generate
+#define mini_strcpy generate
+#define mini_strncpy generate
+#define mini_fsetpos generate
+#define mini_vfprintf generate
+#define mini_fdopen generate
+#define mini__itohex generate
+#define mini_fwrite generate
+#define mini_puts generate
+#define mini_freopen generate
+#define mini_fgetpos generate
+#define mini_fputc generate
+#define mini_gets generate
+#define mini_itohex generate
+#define mini_clearerror generate
+#define mini_fread generate
+#define mini_setvbuf generate
+#define mini_sprintf generate
+#define mini_getchar generate
+#define mini_fgets generate
+#define mini_fileno generate
+#define mini_itoHEX generate
+#define mini_setbuf generate
+#define mini_fopen generate
+#define mini_fclose generate
+#define mini_fflush generate
+#define mini_putc generate
+#define mini_getc generate
+#define mini__fopen generate
+#define mini_putchar generate
+#define mini_printf generate
+#define mini_perror generate
+#define mini_ungetc generate
+#define mini_fgetc generate
+#define mini_clearerr generate
+#define mini_ftell generate
+#define mini_fputs generate
+#define mini_fseek generate
+#define mini_fprintf generate
+#define mini_feof generate
+#define mini_rewind generate
+#define mini_fprint generate
+#define mini_ferror generate
+#define mini_sigemptyset generate
+#define mini_sigfillset generate
+#define mini_sigaction generate
+#define mini_sigdelset generate
+#define mini_sigaddset generate
+#define mini_signal generate
+#define mini_sigismember generate
+#define mini_raise generate
+#define mini_sigprocmask generate
+#define mini_printsl generate
+#define mini_fprints generate
+#define mini_verbose_errstr generate
+#define mini_snprintf generate
+#define mini_ptsname_r generate
+#define mini_uitodec generate
+#define mini_dirname generate
+#define mini_posix_openpt generate
+#define mini_dtodec generate
+#define mini__mprints generate
+#define mini_printl generate
+#define mini_prints generate
+#define mini_itodec generate
+#define mini_fprintfs generate
+#define mini_unlockpt generate
+#define mini_ultodec generate
+#define mini_memfrob generate
+#define mini_itobin generate
+#define mini_vsnprintf generate
+#define mini_sdbm_hash generate
+#define mini_printfs generate
+#define mini_ptsname generate
+#define mini_print generate
+#define mini_ltodec generate
+#define mini_grantpt generate
+#define mini_basename generate
+#define mini_writes generate
+#define mini_dprintf generate
+#define mini__itobin generate
+#define mini_djb2_hash generate
+#define mini_fwrites generate
+#define mini_def generate
+#define mini_isspace generate
+#define mini_isprint generate
+#define mini_opendir generate
+#define mini_closedir generate
+#define mini_readdir generate
+#define mini_atoi generate
+#define mini_todo_putenv generate
+#define mini_system generate
+#define mini_free generate
+#define mini_malloc generate
+#define mini_realloc generate
+#define mini_rand generate
+#define mini_srand generate
+#define mini_getenv generate
+#define mini_usleep generate
+#define mini_fexecveat generate
+#define mini_read generate
+#define mini_setuid generate
+#define mini_chown generate
+#define mini_pipe generate
+#define mini_dup2 generate
+#define mini_chdir generate
+#define mini_tcgetattr generate
+#define mini_access generate
+#define mini_tcsetattr generate
+#define mini_getuid generate
+#define mini_rmdir generate
+#define mini_ftruncate generate
+#define mini_dup generate
+#define mini_unlink generate
+#define mini_execvp generate
+#define mini_chroot generate
+#define mini_link generate
+#define mini_isatty generate
+#define mini_lseek generate
+#define mini_execvpe generate
+#define mini_close generate
+#define mini_getpid generate
+#define mini_write generate
+#define mini_setpgid generate
+#define mini_setgid generate
+#define mini_rename generate
+#define mini_fsync generate
+#define mini_select generate
+#define mini_mkdir generate
+#define mini_getpgrp generate
+#define mini_sleep generate
+#define mini_open generate
+#define mini_setsid generate
+#define mini_fork generate
+#define mini_execv generate
+#define mini_getgid generate
+#define mini_execve generate
+#define mini_ioctl generate
+#define mini_mkfifo generate
+#define mini_creat generate
 #define mini_sendfile generate
+#define mini_rt_sigreturn generate
+#define mini_pivot_root generate
+#define mini_symlink generate
 #define mini_fcntl generate
-#define mini_readahead generate
-#define mini_execveat generate
-#define mini_mknod generate
-#define mini_brk generate
+#define mini_gettimeofday generate
+#define mini_fchmod generate
+#define mini_sync generate
+#define mini_wait4 generate
+#define mini_mprotect generate
+#define mini_vhangup generate
 #define mini_getcwd generate
 #define mini_getppid generate
-#define mini_wait4 generate
-#define mini_rt_sigreturn generate
+#define mini_vfork generate
+#define mini_readahead generate
+#define mini_rt_sigaction generate
+#define mini_setitimer generate
+#define mini_reboot generate
+#define mini_fchown generate
+#define mini_uname generate
+#define mini_getdents generate
 #define mini_nanosleep generate
-#define mini_pivot_root generate
+#define mini_mount generate
+#define mini_utime generate
+#define mini_brk generate
+#define mini_execveat generate
+#define mini_getitimer generate
+#define mini_mknod generate
+#define mini_chmod generate
+#define mini_dup3 generate
+#define mini_umask generate
+#define mini_stat generate
 #define mini_kill generate
-#define mini_symlink generate
-#define mini_gettimeofday generate
-#define mini_mprotect generate
-#define mini_sync generate
 #define mini_fstat generate
-#define mini__getgid generate
-#define mini__dup generate
-#define mini__clone generate
-#define mini__munmap generate
-#define mini__fchmodat generate
-#define mini__iopl generate
-#define mini__tgkill generate
-#define mini__prlimit64 generate
-#define mini__ustat generate
-#define mini__gettimeofday generate
-#define mini__rt_sigsuspend generate
-#define mini__migrate_pages generate
-#define mini__vfork generate
-#define mini__prctl generate
-#define mini__kexec_load generate
-#define mini__sched_getaffinity generate
-#define mini__socket generate
-#define mini__mq_open generate
-#define mini__accept4 generate
-#define mini__sync_file_range generate
-#define mini__dup2 generate
-#define mini__add_key generate
-#define mini__mbind generate
-#define mini__sched_rr_get_interval generate
-#define mini__unshare generate
-#define mini__sysfs generate
-#define mini__rt_sigpending generate
-#define mini__renameat generate
-#define mini__shmget generate
-#define mini__sched_setscheduler generate
-#define mini__clock_gettime generate
-#define mini__stat generate
-#define mini__mlockall generate
-#define mini__getxattr generate
-#define mini__truncate generate
-#define mini__msgget generate
-#define mini__setpriority generate
-#define mini__inotify_init1 generate
-#define mini__ioperm generate
-#define mini__msgsnd generate
-#define mini__exit generate
-#define mini__gettid generate
-#define mini__clock_nanosleep generate
-#define mini__getgroups generate
-#define mini__setsid generate
-#define mini__finit_module generate
-#define mini__epoll_ctl generate
-#define mini__lookup_dcookie generate
-#define mini__set_robust_list generate
-#define mini__ppoll generate
-#define mini__fstatfs generate
-#define mini__timer_getoverrun generate
-#define mini__rt_sigaction generate
-#define mini__sched_getparam generate
-#define mini__chmod generate
-#define mini__adjtimex generate
-#define mini__signalfd4 generate
-#define mini__getrusage generate
-#define mini__munlock generate
-#define mini__pause generate
-#define mini__signalfd generate
-#define mini__epoll_create generate
-#define mini__openat generate
-#define mini__mq_getsetattr generate
-#define mini__kexec_file_load generate
-#define mini__mq_timedsend generate
-#define mini__ftruncate generate
-#define mini__delete_module generate
-#define mini__setresuid generate
-#define mini__fdatasync generate
-#define mini__setitimer generate
-#define mini__alarm generate
-#define mini__acct generate
-#define mini__semop generate
-#define mini__sched_get_priority_min generate
-#define mini__getegid generate
-#define mini__seccomp generate
-#define mini__getsockopt generate
-#define mini__setpgid generate
-#define mini__timer_settime generate
-#define mini__epoll_pwait generate
-#define mini__msync generate
-#define mini__sysinfo generate
-#define mini__getcpu generate
-#define mini__poll generate
-#define mini__clock_adjtime generate
-#define mini__setfsgid generate
-#define mini__creat generate
-#define mini__swapoff generate
-#define mini__capset generate
-#define mini__sendmmsg generate
-#define mini__io_getevents generate
-#define mini__removexattr generate
-#define mini__name_to_handle_at generate
-#define mini__fadvise64 generate
-#define mini__listen generate
-#define mini__getdents generate
-#define mini__futimesat generate
-#define mini__write generate
-#define mini__fallocate generate
-#define mini__ioctl generate
-#define mini__dup3 generate
-#define mini__setrlimit generate
-#define mini__setfsuid generate
-#define mini__shmctl generate
-#define mini__request_key generate
-#define mini__io_submit generate
-#define mini__keyctl generate
-#define mini__waitid generate
-#define mini__get_mempolicy generate
-#define mini__mprotect generate
-#define mini__remap_file_pages generate
-#define mini__getpid generate
-#define mini__msgctl generate
-#define mini__readahead generate
-#define mini__pselect6 generate
-#define mini__sendfile generate
-#define mini__eventfd2 generate
-#define mini__fchownat generate
-#define mini__select generate
-#define mini__reboot generate
-#define mini__unlinkat generate
-#define mini__getrandom generate
-#define mini__fork generate
-#define mini__setuid generate
-#define mini__pread64 generate
-#define mini__rt_sigreturn generate
-#define mini__mkdir generate
-#define mini__rt_tgsigqueueinfo generate
-#define mini__sigaltstack generate
-#define mini__getsockname generate
-#define mini__pivot_root generate
-#define mini__listxattr generate
-#define mini__readlinkat generate
-#define mini__shmat generate
-#define mini__epoll_wait generate
-#define mini__getresgid generate
-#define mini__sched_getattr generate
-#define mini__ioprio_set generate
-#define mini__swapon generate
-#define mini__sync generate
-#define mini__open generate
-#define mini__mkdirat generate
-#define mini__fsync generate
-#define mini__process_vm_readv generate
-#define mini__recvmsg generate
-#define mini__eventfd generate
-#define mini__connect generate
-#define mini__munlockall generate
-#define mini__splice generate
-#define mini__semtimedop generate
-#define mini__clock_settime generate
-#define mini__wait4 generate
-#define mini__getdents64 generate
-#define mini__sched_getscheduler generate
-#define mini__accept generate
-#define mini__vhangup generate
-#define mini__mmap generate
-#define mini__mount generate
-#define mini__inotify_rm_watch generate
-#define mini__capget generate
-#define mini__arch_prctl generate
-#define mini__umount2 generate
-#define mini__utime generate
-#define mini__set_mempolicy generate
-#define mini__shutdown generate
-#define mini__perf_event_open generate
-#define mini__rename generate
-#define mini__symlinkat generate
-#define mini__lsetxattr generate
-#define mini__flock generate
-#define mini__chdir generate
-#define mini__setresgid generate
-#define mini__fcntl generate
-#define mini__lseek generate
-#define mini__rmdir generate
-#define mini__getppid generate
-#define mini__getcwd generate
-#define mini__brk generate
-#define mini__umask generate
-#define mini__mq_timedreceive generate
-#define mini__kill generate
-#define mini__mq_notify generate
-#define mini__io_destroy generate
-#define mini__mremap generate
-#define mini__shmdt generate
-#define mini__getuid generate
-#define mini__lremovexattr generate
-#define mini__fchmod generate
-#define mini__sched_setaffinity generate
-#define mini__chroot generate
-#define mini__modify_ldt generate
-#define mini__readv generate
-#define mini__link generate
-#define mini__setns generate
-#define mini__preadv generate
-#define mini__fremovexattr generate
-#define mini__chown generate
-#define mini__vmsplice generate
-#define mini__sched_yield generate
-#define mini__nanosleep generate
-#define mini__readlink generate
-#define mini__tee generate
-#define mini__symlink generate
-#define mini__times generate
-#define mini__exit_group generate
-#define mini__read generate
-#define mini__syncfs generate
-#define mini__syslog generate
-#define mini__recvfrom generate
-#define mini__rt_sigqueueinfo generate
-#define mini__fsetxattr generate
-#define mini__timerfd_create generate
-#define mini__getrlimit generate
-#define mini__quotactl generate
-#define mini__mlock generate
-#define mini__semget generate
-#define mini__io_setup generate
-#define mini__close generate
-#define mini__ioprio_get generate
-#define mini__utimes generate
-#define mini__sched_get_priority_max generate
-#define mini__fanotify_mark generate
-#define mini__fchdir generate
-#define mini__sched_setparam generate
-#define mini__getpeername generate
-#define mini__memfd_create generate
-#define mini__inotify_add_watch generate
-#define mini__sendmsg generate
-#define mini__fanotify_init generate
-#define mini__move_pages generate
-#define mini___sysctl generate
-#define mini__pipe2 generate
-#define mini__get_robust_list generate
-#define mini__timerfd_gettime generate
-#define mini__flistxattr generate
-#define mini__mknodat generate
-#define mini__statfs generate
-#define mini__time generate
-#define mini__getpgrp generate
-#define mini__semctl generate
-#define mini__setreuid generate
-#define mini__kcmp generate
-#define mini__io_cancel generate
-#define mini__mknod generate
-#define mini__lchown generate
-#define mini__geteuid generate
-#define mini__getsid generate
-#define mini__renameat2 generate
-#define mini__timer_create generate
-#define mini__bind generate
-#define mini__fgetxattr generate
-#define mini__ptrace generate
-#define mini__getitimer generate
-#define mini__mincore generate
-#define mini__getresuid generate
-#define mini__epoll_create1 generate
-#define mini__getpgid generate
-#define mini__setsockopt generate
-#define mini__sethostname generate
-#define mini__timer_gettime generate
-#define mini__tkill generate
-#define mini__timerfd_settime generate
-#define mini__utimensat generate
-#define mini__fstat generate
-#define mini__process_vm_writev generate
-#define mini__setregid generate
-#define mini__rt_sigtimedwait generate
-#define mini__lstat generate
-#define mini__mq_unlink generate
-#define mini__setdomainname generate
-#define mini__futex generate
-#define mini__clock_getres generate
-#define mini__pwrite64 generate
-#define mini__uname generate
-#define mini__msgrcv generate
-#define mini__linkat generate
-#define mini__init_module generate
-#define mini__setgid generate
-#define mini__sendto generate
-#define mini__pwritev generate
-#define mini__sched_setattr generate
-#define mini__socketpair generate
-#define mini__settimeofday generate
-#define mini__unlink generate
-#define mini__lgetxattr generate
-#define mini__open_by_handle_at generate
-#define mini__writev generate
-#define mini__recvmmsg generate
-#define mini__getpriority generate
-#define mini__setgroups generate
-#define mini__newfstatat generate
-#define mini__fchown generate
-#define mini__personality generate
-#define mini__inotify_init generate
-#define mini__rt_sigprocmask generate
-#define mini__faccessat generate
-#define mini__madvise generate
-#define mini__pipe generate
-#define mini__timer_delete generate
-#define mini__execve generate
-#define mini__llistxattr generate
-#define mini__access generate
-#define mini__restart_syscall generate
-#define mini__setxattr generate
-#define mini__set_tid_address generate
+#define mini_rt_sigprocmask generate
+#define mini_waitpid generate
+#define mini_wait generate
+#define mini_time generate
 // 1 "./minilib.h" 1
 // 17 "./minilib.h"
 #define included_minilib_h 
@@ -521,7 +521,3444 @@
 #define mini_environ 
 #define mini_environ 
 // 51 "./minilib.h"
-// 1 "./minilib/headers/linux_x64/sys/syscall.h" 1
+// 1 "./minilib/headers/common/allheaders.h" 1
+#define common_allheaders_h 
+// 1 "./minilib/headers/common/./sys/types.h" 1
+#define SYS_TYPES_H 
+#define POINTER unsigned long int
+// 1 "./headers/common/bits/alltypes.h" 1
+#define mini_alltypes_h 
+#define timevaldefined 
+typedef long time_t;
+typedef long suseconds_t;
+typedef unsigned useconds_t;
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+#define ITIMER_REAL 0
+#define ITIMER_VIRTUAL 1
+#define ITIMER_PROF 2
+struct itimerval {
+  struct timeval it_interval;
+  struct timeval it_value;
+};
+#define _Addr long
+#define _Int64 long
+#define _Reg long
+#define size_t long
+typedef unsigned char uchar;
+typedef int wchar_t;
+typedef long double double_t;
+typedef float float_t;
+typedef struct { long long __ll; long double __ld; } max_align_t;
+typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } pthread_mutex_t;
+typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } mtx_t;
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } pthread_cond_t;
+typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } cnd_t;
+typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u; } pthread_rwlock_t;
+typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
+typedef unsigned long uintptr_t;
+typedef long ptrdiff_t;
+typedef long ssize_t;
+typedef long intptr_t;
+typedef long regoff_t;
+typedef long register_t;
+typedef signed char int8_t;
+typedef signed short int16_t;
+typedef signed int int32_t;
+typedef signed long int64_t;
+typedef signed long intmax_t;
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
+typedef unsigned long uint64_t;
+typedef unsigned long u_int64_t;
+typedef unsigned long uintmax_t;
+typedef unsigned mode_t;
+typedef unsigned long nlink_t;
+typedef long off_t;
+typedef unsigned long ino_t;
+typedef unsigned long dev_t;
+typedef long blksize_t;
+typedef long blkcnt_t;
+typedef unsigned long fsblkcnt_t;
+typedef unsigned long fsfilcnt_t;
+typedef unsigned wint_t;
+typedef unsigned long wctype_t;
+typedef void * timer_t;
+typedef int clockid_t;
+typedef long clock_t;
+struct timespec { time_t tv_sec; long tv_nsec; };
+typedef int pid_t;
+typedef unsigned id_t;
+typedef unsigned uid_t;
+typedef unsigned gid_t;
+typedef int key_t;
+typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
+typedef struct __locale_struct * locale_t;
+struct iovec { void *iov_base; long iov_len; };
+typedef unsigned socklen_t;
+typedef unsigned short sa_family_t;
+#undef _Addr
+#undef _Int64
+#undef _Reg
+// 14 "./minilib/headers/common/./sys/types.h" 2
+typedef unsigned char u_int8_t;
+typedef unsigned short u_int16_t;
+typedef unsigned u_int32_t;
+typedef char *caddr_t;
+typedef unsigned char u_char;
+typedef unsigned short u_short, ushort;
+typedef unsigned u_int, uint;
+typedef unsigned long u_long, ulong;
+typedef long long quad_t;
+typedef unsigned long long u_quad_t;
+// 1 "./headers/common/endian.h" 1
+#define _ENDIAN_H 
+#define __LITTLE_ENDIAN 1234
+#define __BIG_ENDIAN 4321
+#define __PDP_ENDIAN 3412
+// 26 "./minilib/headers/common/./sys/types.h" 2
+#define blkcnt64_t blkcnt_t
+#define fsblkcnt64_t fsblkcnt_t
+#define fsfilcnt64_t fsfilcnt_t
+#define ino64_t ino_t
+#define off64_t off_t
+// 4 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./sys/stat.h" 1
+#define _sys_stat_h 
+// 25 "./minilib/headers/common/./sys/stat.h"
+#define stat_defined 
+struct stat {
+ dev_t st_dev;
+ ino_t st_ino;
+ nlink_t st_nlink;
+ mode_t st_mode;
+ uid_t st_uid;
+ gid_t st_gid;
+ unsigned int __pad0;
+ dev_t st_rdev;
+ off_t st_size;
+ blksize_t st_blksize;
+ blkcnt_t st_blocks;
+ struct timespec st_atim;
+ struct timespec st_mtim;
+ struct timespec st_ctim;
+ long __unused[3];
+};
+#define st_atime st_atim.tv_sec
+#define st_mtime st_mtim.tv_sec
+#define st_ctime st_ctim.tv_sec
+#define S_IFMT 0170000
+#define S_IFDIR 0040000
+#define S_IFCHR 0020000
+#define S_IFBLK 0060000
+#define S_IFREG 0100000
+#define S_IFIFO 0010000
+#define S_IFLNK 0120000
+#define S_IFSOCK 0140000
+#define S_TYPEISMQ(buf) 0
+#define S_TYPEISSEM(buf) 0
+#define S_TYPEISSHM(buf) 0
+#define S_TYPEISTMO(buf) 0
+#define S_ISDIR(mode) (((mode) & S_IFMT) == S_IFDIR)
+#define S_ISCHR(mode) (((mode) & S_IFMT) == S_IFCHR)
+#define S_ISBLK(mode) (((mode) & S_IFMT) == S_IFBLK)
+#define S_ISREG(mode) (((mode) & S_IFMT) == S_IFREG)
+#define S_ISFIFO(mode) (((mode) & S_IFMT) == S_IFIFO)
+#define S_ISLNK(mode) (((mode) & S_IFMT) == S_IFLNK)
+#define S_ISSOCK(mode) (((mode) & S_IFMT) == S_IFSOCK)
+#define S_ISUID 04000
+#define S_ISGID 02000
+#define S_ISVTX 01000
+#define S_IRUSR 0400
+#define S_IWUSR 0200
+#define S_IXUSR 0100
+#define S_IRWXU 0700
+#define S_IRGRP 0040
+#define S_IWGRP 0020
+#define S_IXGRP 0010
+#define S_IRWXG 0070
+#define S_IROTH 0004
+#define S_IWOTH 0002
+#define S_IXOTH 0001
+#define S_IRWXO 0007
+#define UTIME_NOW 0x3fffffff
+#define UTIME_OMIT 0x3ffffffe
+// 5 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./sys/termios.h" 1
+#define _TERMIOS_H 
+// 1 "./headers/common/features.h" 1
+// 9 "./minilib/headers/common/./sys/termios.h" 2
+#define __NEED_pid_t 
+typedef unsigned char cc_t;
+typedef unsigned int speed_t;
+typedef unsigned int tcflag_t;
+#define NCCS 32
+// 1 "./headers/common-links/bits/termios.h" 1
+#define termios_h_linked 
+// 1 "./headers/common-links/bits/termios.h" 1
+// 4 "./headers/common-links/bits/termios.h" 2
+// 21 "./minilib/headers/common/./sys/termios.h" 2
+// 1 "./headers/common/termios.h" 1
+#define termios_xxxxx 
+struct termios {
+ tcflag_t c_iflag;
+ tcflag_t c_oflag;
+ tcflag_t c_cflag;
+ tcflag_t c_lflag;
+ cc_t c_line;
+ cc_t c_cc[32];
+ speed_t __c_ispeed;
+ speed_t __c_ospeed;
+};
+#define NCC 8
+struct termio
+{
+  unsigned short int c_iflag;
+  unsigned short int c_oflag;
+  unsigned short int c_cflag;
+  unsigned short int c_lflag;
+  unsigned char c_line;
+  unsigned char c_cc[8];
+};
+#define VINTR 0
+#define VQUIT 1
+#define VERASE 2
+#define VKILL 3
+#define VEOF 4
+#define VTIME 5
+#define VMIN 6
+#define VSWTC 7
+#define VSTART 8
+#define VSTOP 9
+#define VSUSP 10
+#define VEOL 11
+#define VREPRINT 12
+#define VDISCARD 13
+#define VWERASE 14
+#define VLNEXT 15
+#define VEOL2 16
+#define IGNBRK 0000001
+#define BRKINT 0000002
+#define IGNPAR 0000004
+#define PARMRK 0000010
+#define INPCK 0000020
+#define ISTRIP 0000040
+#define INLCR 0000100
+#define IGNCR 0000200
+#define ICRNL 0000400
+#define IUCLC 0001000
+#define IXON 0002000
+#define IXANY 0004000
+#define IXOFF 0010000
+#define IMAXBEL 0020000
+#define IUTF8 0040000
+#define OPOST 0000001
+#define OLCUC 0000002
+#define ONLCR 0000004
+#define OCRNL 0000010
+#define ONOCR 0000020
+#define ONLRET 0000040
+#define OFILL 0000100
+#define OFDEL 0000200
+// 94 "./headers/common/termios.h"
+#define VTDLY 0040000
+#define VT0 0000000
+#define VT1 0040000
+#define B0 0000000
+#define B50 0000001
+#define B75 0000002
+#define B110 0000003
+#define B134 0000004
+#define B150 0000005
+#define B200 0000006
+#define B300 0000007
+#define B600 0000010
+#define B1200 0000011
+#define B1800 0000012
+#define B2400 0000013
+#define B4800 0000014
+#define B9600 0000015
+#define B19200 0000016
+#define B38400 0000017
+#define B57600 0010001
+#define B115200 0010002
+#define B230400 0010003
+#define B460800 0010004
+#define B500000 0010005
+#define B576000 0010006
+#define B921600 0010007
+#define B1000000 0010010
+#define B1152000 0010011
+#define B1500000 0010012
+#define B2000000 0010013
+#define B2500000 0010014
+#define B3000000 0010015
+#define B3500000 0010016
+#define B4000000 0010017
+#define CSIZE 0000060
+#define CS5 0000000
+#define CS6 0000020
+#define CS7 0000040
+#define CS8 0000060
+#define CSTOPB 0000100
+#define CREAD 0000200
+#define PARENB 0000400
+#define PARODD 0001000
+#define HUPCL 0002000
+#define CLOCAL 0004000
+#define ISIG 0000001
+#define ICANON 0000002
+#define ECHO 0000010
+#define ECHOE 0000020
+#define ECHOK 0000040
+#define ECHONL 0000100
+#define NOFLSH 0000200
+#define TOSTOP 0000400
+#define IEXTEN 0100000
+#define TCOOFF 0
+#define TCOON 1
+#define TCIOFF 2
+#define TCION 3
+#define TCIFLUSH 0
+#define TCOFLUSH 1
+#define TCIOFLUSH 2
+#define TCSANOW 0
+#define TCSADRAIN 1
+#define TCSAFLUSH 2
+// 22 "./minilib/headers/common/./sys/termios.h" 2
+speed_t cfgetospeed (const struct termios *);
+speed_t cfgetispeed (const struct termios *);
+int cfsetospeed (struct termios *, speed_t);
+int cfsetispeed (struct termios *, speed_t);
+static inline int tcgetattr (int, struct termios *);
+static inline int tcsetattr (int, int, const struct termios *);
+int tcsendbreak (int, int);
+int tcdrain (int);
+int tcflush (int, int);
+int tcflow (int, int);
+pid_t tcgetsid (int);
+// 6 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./bits/signal.h" 1
+#define bits_signal_h 
+#define SA_NOCLDSTOP 1
+#define SA_NOCLDWAIT 2
+#define SA_SIGINFO 4
+#define SA_ONSTACK 0x08000000
+#define SA_RESTART 0x10000000
+#define SA_NODEFER 0x40000000
+#define SA_RESETHAND 0x80000000
+#define SA_RESTORER 0x04000000
+#define _NSIG 65
+#define SIGHUP 1
+#define SIGINT 2
+#define SIGQUIT 3
+#define SIGILL 4
+#define SIGTRAP 5
+#define SIGABRT 6
+#define SIGIOT SIGABRT
+#define SIGBUS 7
+#define SIGFPE 8
+#define SIGKILL 9
+#define SIGUSR1 10
+#define SIGSEGV 11
+#define SIGUSR2 12
+#define SIGPIPE 13
+#define SIGALRM 14
+#define SIGTERM 15
+#define SIGSTKFLT 16
+#define SIGCHLD 17
+#define SIGCONT 18
+#define SIGSTOP 19
+#define SIGTSTP 20
+#define SIGTTIN 21
+#define SIGTTOU 22
+#define SIGURG 23
+#define SIGXCPU 24
+#define SIGXFSZ 25
+#define SIGVTALRM 26
+#define SIGPROF 27
+#define SIGWINCH 28
+#define SIGIO 29
+#define SIGPOLL 29
+#define SIGPWR 30
+#define SIGSYS 31
+#define SIGUNUSED SIGSYS
+// 7 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./bits/alltypes.h" 1
+// 8 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./bits/fcntl.h" 1
+#define common_bits_fcntl_h 
+#define F_DUPFD 0
+#define F_GETFD 1
+#define F_SETFD 2
+#define F_GETFL 3
+#define F_SETFL 4
+#define F_SETOWN 8
+#define F_GETOWN 9
+#define F_SETSIG 10
+#define F_GETSIG 11
+#define F_GETLK 5
+#define F_SETLK 6
+#define F_SETLKW 7
+#define F_SETOWN_EX 15
+#define F_GETOWN_EX 16
+#define F_GETOWNER_UIDS 17
+// 9 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./bits/stat.h" 1
+#define __bits_stat_h 
+#define S_IFMT 0170000
+#define S_IFDIR 0040000
+#define S_IFCHR 0020000
+#define S_IFBLK 0060000
+#define S_IFREG 0100000
+#define S_IFIFO 0010000
+#define S_IFLNK 0120000
+#define S_IFSOCK 0140000
+#define S_ISUID 04000
+#define S_ISGID 02000
+#define S_ISVTX 01000
+#define S_IREAD 0400
+#define S_IWRITE 0200
+#define S_IEXEC 0100
+#define S_ISDIR(mode) (((mode) & S_IFMT) == S_IFDIR)
+#define S_ISCHR(mode) (((mode) & S_IFMT) == S_IFCHR)
+#define S_ISBLK(mode) (((mode) & S_IFMT) == S_IFBLK)
+#define S_ISREG(mode) (((mode) & S_IFMT) == S_IFREG)
+#define S_ISFIFO(mode) (((mode) & S_IFMT) == S_IFIFO)
+#define S_ISLNK(mode) (((mode) & S_IFMT) == S_IFLNK)
+#define S_ISSOCK(mode) (((mode) & S_IFMT) == S_IFSOCK)
+#define S_ISUID 04000
+#define S_ISGID 02000
+#define S_ISVTX 01000
+#define S_IRUSR 0400
+#define S_IWUSR 0200
+#define S_IXUSR 0100
+#define S_IRWXU 0700
+#define S_IRGRP 0040
+#define S_IWGRP 0020
+#define S_IXGRP 0010
+#define S_IRWXG 0070
+#define S_IROTH 0004
+#define S_IWOTH 0002
+#define S_IXOTH 0001
+#define S_IRWXO 0007
+// 10 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./bits/ioctl.h" 1
+#define ioctl_h 
+#define _IOC(a,b,c,d) ( ((a)<<30) | ((b)<<8) | (c) | ((d)<<16) )
+#define _IOC_NONE 0U
+#define _IOC_WRITE 1U
+#define _IOC_READ 2U
+#define _IO(a,b) _IOC(_IOC_NONE,(a),(b),0)
+#define _IOW(a,b,c) _IOC(_IOC_WRITE,(a),(b),sizeof(c))
+#define _IOR(a,b,c) _IOC(_IOC_READ,(a),(b),sizeof(c))
+#define _IOWR(a,b,c) _IOC(_IOC_READ|_IOC_WRITE,(a),(b),sizeof(c))
+#define TCGETS 0x5401
+#define TCSETS 0x5402
+#define TCSETSW 0x5403
+#define TCSETSF 0x5404
+#define TCGETA 0x5405
+#define TCSETA 0x5406
+#define TCSETAW 0x5407
+#define TCSETAF 0x5408
+#define TCSBRK 0x5409
+#define TCXONC 0x540A
+#define TCFLSH 0x540B
+#define TIOCEXCL 0x540C
+#define TIOCNXCL 0x540D
+#define TIOCSCTTY 0x540E
+#define TIOCGPGRP 0x540F
+#define TIOCSPGRP 0x5410
+#define TIOCOUTQ 0x5411
+#define TIOCSTI 0x5412
+#define TIOCGWINSZ 0x5413
+#define TIOCSWINSZ 0x5414
+#define TIOCMGET 0x5415
+#define TIOCMBIS 0x5416
+#define TIOCMBIC 0x5417
+#define TIOCMSET 0x5418
+#define TIOCGSOFTCAR 0x5419
+#define TIOCSSOFTCAR 0x541A
+#define FIONREAD 0x541B
+#define TIOCINQ FIONREAD
+#define TIOCLINUX 0x541C
+#define TIOCCONS 0x541D
+#define TIOCGSERIAL 0x541E
+#define TIOCSSERIAL 0x541F
+#define TIOCPKT 0x5420
+#define FIONBIO 0x5421
+#define TIOCNOTTY 0x5422
+#define TIOCSETD 0x5423
+#define TIOCGETD 0x5424
+#define TCSBRKP 0x5425
+#define TIOCSBRK 0x5427
+#define TIOCCBRK 0x5428
+#define TIOCGSID 0x5429
+#define TIOCGRS485 0x542E
+#define TIOCSRS485 0x542F
+#define TIOCGPTN 0x80045430
+#define TIOCSPTLCK 0x40045431
+#define TIOCGDEV 0x80045432
+#define TCGETX 0x5432
+#define TCSETX 0x5433
+#define TCSETXF 0x5434
+#define TCSETXW 0x5435
+#define TIOCSIG 0x40045436
+#define TIOCVHANGUP 0x5437
+#define TIOCGPKT 0x80045438
+#define TIOCGPTLCK 0x80045439
+#define TIOCGEXCL 0x80045440
+#define TIOCGPTPEER 0x5441
+#define FIONCLEX 0x5450
+#define FIOCLEX 0x5451
+#define FIOASYNC 0x5452
+#define TIOCSERCONFIG 0x5453
+#define TIOCSERGWILD 0x5454
+#define TIOCSERSWILD 0x5455
+#define TIOCGLCKTRMIOS 0x5456
+#define TIOCSLCKTRMIOS 0x5457
+#define TIOCSERGSTRUCT 0x5458
+#define TIOCSERGETLSR 0x5459
+#define TIOCSERGETMULTI 0x545A
+#define TIOCSERSETMULTI 0x545B
+#define TIOCMIWAIT 0x545C
+#define TIOCGICOUNT 0x545D
+#define FIOQSIZE 0x5460
+#define TIOCPKT_DATA 0
+#define TIOCPKT_FLUSHREAD 1
+#define TIOCPKT_FLUSHWRITE 2
+#define TIOCPKT_STOP 4
+#define TIOCPKT_START 8
+#define TIOCPKT_NOSTOP 16
+#define TIOCPKT_DOSTOP 32
+#define TIOCPKT_IOCTL 64
+#define TIOCSER_TEMT 0x01
+struct winsize {
+ unsigned short ws_row;
+ unsigned short ws_col;
+ unsigned short ws_xpixel;
+ unsigned short ws_ypixel;
+};
+#define TIOCM_LE 0x001
+#define TIOCM_DTR 0x002
+#define TIOCM_RTS 0x004
+#define TIOCM_ST 0x008
+#define TIOCM_SR 0x010
+#define TIOCM_CTS 0x020
+#define TIOCM_CAR 0x040
+#define TIOCM_RNG 0x080
+#define TIOCM_DSR 0x100
+#define TIOCM_CD TIOCM_CAR
+#define TIOCM_RI TIOCM_RNG
+#define TIOCM_OUT1 0x2000
+#define TIOCM_OUT2 0x4000
+#define TIOCM_LOOP 0x8000
+#define N_TTY 0
+#define N_SLIP 1
+#define N_MOUSE 2
+#define N_PPP 3
+#define N_STRIP 4
+#define N_AX25 5
+#define N_X25 6
+#define N_6PACK 7
+#define N_MASC 8
+#define N_R3964 9
+#define N_PROFIBUS_FDL 10
+#define N_IRDA 11
+#define N_SMSBLOCK 12
+#define N_HDLC 13
+#define N_SYNC_PPP 14
+#define N_HCI 15
+#define FIOSETOWN 0x8901
+#define SIOCSPGRP 0x8902
+#define FIOGETOWN 0x8903
+#define SIOCGPGRP 0x8904
+#define SIOCATMARK 0x8905
+#define SIOCGSTAMP 0x8906
+#define SIOCGSTAMPNS 0x8907
+#define SIOCADDRT 0x890B
+#define SIOCDELRT 0x890C
+#define SIOCRTMSG 0x890D
+#define SIOCGIFNAME 0x8910
+#define SIOCSIFLINK 0x8911
+#define SIOCGIFCONF 0x8912
+#define SIOCGIFFLAGS 0x8913
+#define SIOCSIFFLAGS 0x8914
+#define SIOCGIFADDR 0x8915
+#define SIOCSIFADDR 0x8916
+#define SIOCGIFDSTADDR 0x8917
+#define SIOCSIFDSTADDR 0x8918
+#define SIOCGIFBRDADDR 0x8919
+#define SIOCSIFBRDADDR 0x891a
+#define SIOCGIFNETMASK 0x891b
+#define SIOCSIFNETMASK 0x891c
+#define SIOCGIFMETRIC 0x891d
+#define SIOCSIFMETRIC 0x891e
+#define SIOCGIFMEM 0x891f
+#define SIOCSIFMEM 0x8920
+#define SIOCGIFMTU 0x8921
+#define SIOCSIFMTU 0x8922
+#define SIOCSIFNAME 0x8923
+#define SIOCSIFHWADDR 0x8924
+#define SIOCGIFENCAP 0x8925
+#define SIOCSIFENCAP 0x8926
+#define SIOCGIFHWADDR 0x8927
+#define SIOCGIFSLAVE 0x8929
+#define SIOCSIFSLAVE 0x8930
+#define SIOCADDMULTI 0x8931
+#define SIOCDELMULTI 0x8932
+#define SIOCGIFINDEX 0x8933
+#define SIOGIFINDEX SIOCGIFINDEX
+#define SIOCSIFPFLAGS 0x8934
+#define SIOCGIFPFLAGS 0x8935
+#define SIOCDIFADDR 0x8936
+#define SIOCSIFHWBROADCAST 0x8937
+#define SIOCGIFCOUNT 0x8938
+#define SIOCGIFBR 0x8940
+#define SIOCSIFBR 0x8941
+#define SIOCGIFTXQLEN 0x8942
+#define SIOCSIFTXQLEN 0x8943
+#define SIOCDARP 0x8953
+#define SIOCGARP 0x8954
+#define SIOCSARP 0x8955
+#define SIOCDRARP 0x8960
+#define SIOCGRARP 0x8961
+#define SIOCSRARP 0x8962
+#define SIOCGIFMAP 0x8970
+#define SIOCSIFMAP 0x8971
+#define SIOCADDDLCI 0x8980
+#define SIOCDELDLCI 0x8981
+#define SIOCDEVPRIVATE 0x89F0
+#define SIOCPROTOPRIVATE 0x89E0
+// 11 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./ctype.h" 1
+#define _CTYPE_H 
+// 1 "./headers/common/features.h" 1
+// 9 "./minilib/headers/common/./ctype.h" 2
+int isalnum_l(int, locale_t);
+int isalpha_l(int, locale_t);
+int isblank_l(int, locale_t);
+int iscntrl_l(int, locale_t);
+int isdigit_l(int, locale_t);
+int isgraph_l(int, locale_t);
+int islower_l(int, locale_t);
+int isprint_l(int, locale_t);
+int ispunct_l(int, locale_t);
+int isspace_l(int, locale_t);
+int isupper_l(int, locale_t);
+int isxdigit_l(int, locale_t);
+int tolower_l(int, locale_t);
+int toupper_l(int, locale_t);
+// 12 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./elf.h" 1
+#define _ELF_H 
+// 1 "./headers/common/stdint.h" 1
+#define _STDINT_H 
+#define __NEED_int8_t 
+#define __NEED_int16_t 
+#define __NEED_int32_t 
+#define __NEED_int64_t 
+#define __NEED_uint8_t 
+#define __NEED_uint16_t 
+#define __NEED_uint32_t 
+#define __NEED_uint64_t 
+#define __NEED_intptr_t 
+#define __NEED_uintptr_t 
+#define __NEED_intmax_t 
+#define __NEED_uintmax_t 
+// 1 "./headers/common/bits/alltypes.h" 1
+// 21 "./headers/common/stdint.h" 2
+typedef int8_t int_fast8_t;
+typedef int64_t int_fast64_t;
+typedef int8_t int_least8_t;
+typedef int16_t int_least16_t;
+typedef int32_t int_least32_t;
+typedef int64_t int_least64_t;
+typedef uint8_t uint_fast8_t;
+typedef uint64_t uint_fast64_t;
+typedef uint8_t uint_least8_t;
+typedef uint16_t uint_least16_t;
+typedef uint32_t uint_least32_t;
+typedef uint64_t uint_least64_t;
+#define INT8_MIN (-1-0x7f)
+#define INT16_MIN (-1-0x7fff)
+#define INT32_MIN (-1-0x7fffffff)
+#define INT64_MIN (-1-0x7fffffffffffffff)
+#define INT8_MAX (0x7f)
+#define INT16_MAX (0x7fff)
+#define INT32_MAX (0x7fffffff)
+#define INT64_MAX (0x7fffffffffffffff)
+#define UINT8_MAX (0xff)
+#define UINT16_MAX (0xffff)
+#define UINT32_MAX (0xffffffffu)
+#define UINT64_MAX (0xffffffffffffffffu)
+#define INT_FAST8_MIN INT8_MIN
+#define INT_FAST64_MIN INT64_MIN
+#define INT_LEAST8_MIN INT8_MIN
+#define INT_LEAST16_MIN INT16_MIN
+#define INT_LEAST32_MIN INT32_MIN
+#define INT_LEAST64_MIN INT64_MIN
+#define INT_FAST8_MAX INT8_MAX
+#define INT_FAST64_MAX INT64_MAX
+#define INT_LEAST8_MAX INT8_MAX
+#define INT_LEAST16_MAX INT16_MAX
+#define INT_LEAST32_MAX INT32_MAX
+#define INT_LEAST64_MAX INT64_MAX
+#define UINT_FAST8_MAX UINT8_MAX
+#define UINT_FAST64_MAX UINT64_MAX
+#define UINT_LEAST8_MAX UINT8_MAX
+#define UINT_LEAST16_MAX UINT16_MAX
+#define UINT_LEAST32_MAX UINT32_MAX
+#define UINT_LEAST64_MAX UINT64_MAX
+#define INTMAX_MIN INT64_MIN
+#define INTMAX_MAX INT64_MAX
+#define UINTMAX_MAX UINT64_MAX
+#define WINT_MIN 0U
+#define WINT_MAX UINT32_MAX
+#define WCHAR_MAX (0x7fffffff+L'\0')
+#define WCHAR_MIN (-1-0x7fffffff+L'\0')
+#define SIG_ATOMIC_MIN INT32_MIN
+#define SIG_ATOMIC_MAX INT32_MAX
+#define INT8_C(c) c
+#define INT16_C(c) c
+#define INT32_C(c) c
+#define UINT8_C(c) c
+#define UINT16_C(c) c
+#define UINT32_C(c) c ## U
+#define INT64_C(c) c ## LL
+#define UINT64_C(c) c ## ULL
+#define INTMAX_C(c) c ## LL
+#define UINTMAX_C(c) c ## ULL
+// 9 "./minilib/headers/common/./elf.h" 2
+typedef uint16_t Elf32_Half;
+typedef uint16_t Elf64_Half;
+typedef uint32_t Elf32_Word;
+typedef int32_t Elf32_Sword;
+typedef uint32_t Elf64_Word;
+typedef int32_t Elf64_Sword;
+typedef uint64_t Elf32_Xword;
+typedef int64_t Elf32_Sxword;
+typedef uint64_t Elf64_Xword;
+typedef int64_t Elf64_Sxword;
+typedef uint32_t Elf32_Addr;
+typedef uint64_t Elf64_Addr;
+typedef uint32_t Elf32_Off;
+typedef uint64_t Elf64_Off;
+typedef uint16_t Elf32_Section;
+typedef uint16_t Elf64_Section;
+typedef Elf32_Half Elf32_Versym;
+typedef Elf64_Half Elf64_Versym;
+#define EI_NIDENT (16)
+typedef struct {
+  unsigned char e_ident[(16)];
+  Elf32_Half e_type;
+  Elf32_Half e_machine;
+  Elf32_Word e_version;
+  Elf32_Addr e_entry;
+  Elf32_Off e_phoff;
+  Elf32_Off e_shoff;
+  Elf32_Word e_flags;
+  Elf32_Half e_ehsize;
+  Elf32_Half e_phentsize;
+  Elf32_Half e_phnum;
+  Elf32_Half e_shentsize;
+  Elf32_Half e_shnum;
+  Elf32_Half e_shstrndx;
+} Elf32_Ehdr;
+typedef struct {
+  unsigned char e_ident[(16)];
+  Elf64_Half e_type;
+  Elf64_Half e_machine;
+  Elf64_Word e_version;
+  Elf64_Addr e_entry;
+  Elf64_Off e_phoff;
+  Elf64_Off e_shoff;
+  Elf64_Word e_flags;
+  Elf64_Half e_ehsize;
+  Elf64_Half e_phentsize;
+  Elf64_Half e_phnum;
+  Elf64_Half e_shentsize;
+  Elf64_Half e_shnum;
+  Elf64_Half e_shstrndx;
+} Elf64_Ehdr;
+#define EI_MAG0 0
+#define ELFMAG0 0x7f
+#define EI_MAG1 1
+#define ELFMAG1 'E'
+#define EI_MAG2 2
+#define ELFMAG2 'L'
+#define EI_MAG3 3
+#define ELFMAG3 'F'
+#define ELFMAG "\177ELF"
+#define SELFMAG 4
+#define EI_CLASS 4
+#define ELFCLASSNONE 0
+#define ELFCLASS32 1
+#define ELFCLASS64 2
+#define ELFCLASSNUM 3
+#define EI_DATA 5
+#define ELFDATANONE 0
+#define ELFDATA2LSB 1
+#define ELFDATA2MSB 2
+#define ELFDATANUM 3
+#define EI_VERSION 6
+#define EI_OSABI 7
+#define ELFOSABI_NONE 0
+#define ELFOSABI_SYSV 0
+#define ELFOSABI_HPUX 1
+#define ELFOSABI_NETBSD 2
+#define ELFOSABI_LINUX 3
+#define ELFOSABI_GNU 3
+#define ELFOSABI_SOLARIS 6
+#define ELFOSABI_AIX 7
+#define ELFOSABI_IRIX 8
+#define ELFOSABI_FREEBSD 9
+#define ELFOSABI_TRU64 10
+#define ELFOSABI_MODESTO 11
+#define ELFOSABI_OPENBSD 12
+#define ELFOSABI_ARM 97
+#define ELFOSABI_STANDALONE 255
+#define EI_ABIVERSION 8
+#define EI_PAD 9
+#define ET_NONE 0
+#define ET_REL 1
+#define ET_EXEC 2
+#define ET_DYN 3
+#define ET_CORE 4
+#define ET_NUM 5
+#define ET_LOOS 0xfe00
+#define ET_HIOS 0xfeff
+#define ET_LOPROC 0xff00
+#define ET_HIPROC 0xffff
+#define EM_NONE 0
+#define EM_M32 1
+#define EM_SPARC 2
+#define EM_386 3
+#define EM_68K 4
+#define EM_88K 5
+#define EM_860 7
+#define EM_MIPS 8
+#define EM_S370 9
+#define EM_MIPS_RS3_LE 10
+#define EM_PARISC 15
+#define EM_VPP500 17
+#define EM_SPARC32PLUS 18
+#define EM_960 19
+#define EM_PPC 20
+#define EM_PPC64 21
+#define EM_S390 22
+#define EM_V800 36
+#define EM_FR20 37
+#define EM_RH32 38
+#define EM_RCE 39
+#define EM_ARM 40
+#define EM_FAKE_ALPHA 41
+#define EM_SH 42
+#define EM_SPARCV9 43
+#define EM_TRICORE 44
+#define EM_ARC 45
+#define EM_H8_300 46
+#define EM_H8_300H 47
+#define EM_H8S 48
+#define EM_H8_500 49
+#define EM_IA_64 50
+#define EM_MIPS_X 51
+#define EM_COLDFIRE 52
+#define EM_68HC12 53
+#define EM_MMA 54
+#define EM_PCP 55
+#define EM_NCPU 56
+#define EM_NDR1 57
+#define EM_STARCORE 58
+#define EM_ME16 59
+#define EM_ST100 60
+#define EM_TINYJ 61
+#define EM_X86_64 62
+#define EM_PDSP 63
+#define EM_FX66 66
+#define EM_ST9PLUS 67
+#define EM_ST7 68
+#define EM_68HC16 69
+#define EM_68HC11 70
+#define EM_68HC08 71
+#define EM_68HC05 72
+#define EM_SVX 73
+#define EM_ST19 74
+#define EM_VAX 75
+#define EM_CRIS 76
+#define EM_JAVELIN 77
+#define EM_FIREPATH 78
+#define EM_ZSP 79
+#define EM_MMIX 80
+#define EM_HUANY 81
+#define EM_PRISM 82
+#define EM_AVR 83
+#define EM_FR30 84
+#define EM_D10V 85
+#define EM_D30V 86
+#define EM_V850 87
+#define EM_M32R 88
+#define EM_MN10300 89
+#define EM_MN10200 90
+#define EM_PJ 91
+#define EM_OR1K 92
+#define EM_OPENRISC 92
+#define EM_ARC_A5 93
+#define EM_ARC_COMPACT 93
+#define EM_XTENSA 94
+#define EM_VIDEOCORE 95
+#define EM_TMM_GPP 96
+#define EM_NS32K 97
+#define EM_TPC 98
+#define EM_SNP1K 99
+#define EM_ST200 100
+#define EM_IP2K 101
+#define EM_MAX 102
+#define EM_CR 103
+#define EM_F2MC16 104
+#define EM_MSP430 105
+#define EM_BLACKFIN 106
+#define EM_SE_C33 107
+#define EM_SEP 108
+#define EM_ARCA 109
+#define EM_UNICORE 110
+#define EM_EXCESS 111
+#define EM_DXP 112
+#define EM_ALTERA_NIOS2 113
+#define EM_CRX 114
+#define EM_XGATE 115
+#define EM_C166 116
+#define EM_M16C 117
+#define EM_DSPIC30F 118
+#define EM_CE 119
+#define EM_M32C 120
+#define EM_TSK3000 131
+#define EM_RS08 132
+#define EM_SHARC 133
+#define EM_ECOG2 134
+#define EM_SCORE7 135
+#define EM_DSP24 136
+#define EM_VIDEOCORE3 137
+#define EM_LATTICEMICO32 138
+#define EM_SE_C17 139
+#define EM_TI_C6000 140
+#define EM_TI_C2000 141
+#define EM_TI_C5500 142
+#define EM_TI_ARP32 143
+#define EM_TI_PRU 144
+#define EM_MMDSP_PLUS 160
+#define EM_CYPRESS_M8C 161
+#define EM_R32C 162
+#define EM_TRIMEDIA 163
+#define EM_QDSP6 164
+#define EM_8051 165
+#define EM_STXP7X 166
+#define EM_NDS32 167
+#define EM_ECOG1X 168
+#define EM_MAXQ30 169
+#define EM_XIMO16 170
+#define EM_MANIK 171
+#define EM_CRAYNV2 172
+#define EM_RX 173
+#define EM_METAG 174
+#define EM_MCST_ELBRUS 175
+#define EM_ECOG16 176
+#define EM_CR16 177
+#define EM_ETPU 178
+#define EM_SLE9X 179
+#define EM_L10M 180
+#define EM_K10M 181
+#define EM_AARCH64 183
+#define EM_AVR32 185
+#define EM_STM8 186
+#define EM_TILE64 187
+#define EM_TILEPRO 188
+#define EM_MICROBLAZE 189
+#define EM_CUDA 190
+#define EM_TILEGX 191
+#define EM_CLOUDSHIELD 192
+#define EM_COREA_1ST 193
+#define EM_COREA_2ND 194
+#define EM_ARC_COMPACT2 195
+#define EM_OPEN8 196
+#define EM_RL78 197
+#define EM_VIDEOCORE5 198
+#define EM_78KOR 199
+#define EM_56800EX 200
+#define EM_BA1 201
+#define EM_BA2 202
+#define EM_XCORE 203
+#define EM_MCHP_PIC 204
+#define EM_KM32 210
+#define EM_KMX32 211
+#define EM_EMX16 212
+#define EM_EMX8 213
+#define EM_KVARC 214
+#define EM_CDP 215
+#define EM_COGE 216
+#define EM_COOL 217
+#define EM_NORC 218
+#define EM_CSR_KALIMBA 219
+#define EM_Z80 220
+#define EM_VISIUM 221
+#define EM_FT32 222
+#define EM_MOXIE 223
+#define EM_AMDGPU 224
+#define EM_RISCV 243
+#define EM_BPF 247
+#define EM_NUM 248
+#define EM_ALPHA 0x9026
+#define EV_NONE 0
+#define EV_CURRENT 1
+#define EV_NUM 2
+typedef struct {
+  Elf32_Word sh_name;
+  Elf32_Word sh_type;
+  Elf32_Word sh_flags;
+  Elf32_Addr sh_addr;
+  Elf32_Off sh_offset;
+  Elf32_Word sh_size;
+  Elf32_Word sh_link;
+  Elf32_Word sh_info;
+  Elf32_Word sh_addralign;
+  Elf32_Word sh_entsize;
+} Elf32_Shdr;
+typedef struct {
+  Elf64_Word sh_name;
+  Elf64_Word sh_type;
+  Elf64_Xword sh_flags;
+  Elf64_Addr sh_addr;
+  Elf64_Off sh_offset;
+  Elf64_Xword sh_size;
+  Elf64_Word sh_link;
+  Elf64_Word sh_info;
+  Elf64_Xword sh_addralign;
+  Elf64_Xword sh_entsize;
+} Elf64_Shdr;
+#define SHN_UNDEF 0
+#define SHN_LORESERVE 0xff00
+#define SHN_LOPROC 0xff00
+#define SHN_BEFORE 0xff00
+#define SHN_AFTER 0xff01
+#define SHN_HIPROC 0xff1f
+#define SHN_LOOS 0xff20
+#define SHN_HIOS 0xff3f
+#define SHN_ABS 0xfff1
+#define SHN_COMMON 0xfff2
+#define SHN_XINDEX 0xffff
+#define SHN_HIRESERVE 0xffff
+#define SHT_NULL 0
+#define SHT_PROGBITS 1
+#define SHT_SYMTAB 2
+#define SHT_STRTAB 3
+#define SHT_RELA 4
+#define SHT_HASH 5
+#define SHT_DYNAMIC 6
+#define SHT_NOTE 7
+#define SHT_NOBITS 8
+#define SHT_REL 9
+#define SHT_SHLIB 10
+#define SHT_DYNSYM 11
+#define SHT_INIT_ARRAY 14
+#define SHT_FINI_ARRAY 15
+#define SHT_PREINIT_ARRAY 16
+#define SHT_GROUP 17
+#define SHT_SYMTAB_SHNDX 18
+#define SHT_NUM 19
+#define SHT_LOOS 0x60000000
+#define SHT_GNU_ATTRIBUTES 0x6ffffff5
+#define SHT_GNU_HASH 0x6ffffff6
+#define SHT_GNU_LIBLIST 0x6ffffff7
+#define SHT_CHECKSUM 0x6ffffff8
+#define SHT_LOSUNW 0x6ffffffa
+#define SHT_SUNW_move 0x6ffffffa
+#define SHT_SUNW_COMDAT 0x6ffffffb
+#define SHT_SUNW_syminfo 0x6ffffffc
+#define SHT_GNU_verdef 0x6ffffffd
+#define SHT_GNU_verneed 0x6ffffffe
+#define SHT_GNU_versym 0x6fffffff
+#define SHT_HISUNW 0x6fffffff
+#define SHT_HIOS 0x6fffffff
+#define SHT_LOPROC 0x70000000
+#define SHT_HIPROC 0x7fffffff
+#define SHT_LOUSER 0x80000000
+#define SHT_HIUSER 0x8fffffff
+#define SHF_WRITE (1 << 0)
+#define SHF_ALLOC (1 << 1)
+#define SHF_EXECINSTR (1 << 2)
+#define SHF_MERGE (1 << 4)
+#define SHF_STRINGS (1 << 5)
+#define SHF_INFO_LINK (1 << 6)
+#define SHF_LINK_ORDER (1 << 7)
+#define SHF_OS_NONCONFORMING (1 << 8)
+#define SHF_GROUP (1 << 9)
+#define SHF_TLS (1 << 10)
+#define SHF_COMPRESSED (1 << 11)
+#define SHF_MASKOS 0x0ff00000
+#define SHF_MASKPROC 0xf0000000
+#define SHF_ORDERED (1 << 30)
+#define SHF_EXCLUDE (1U << 31)
+typedef struct {
+  Elf32_Word ch_type;
+  Elf32_Word ch_size;
+  Elf32_Word ch_addralign;
+} Elf32_Chdr;
+typedef struct {
+  Elf64_Word ch_type;
+  Elf64_Word ch_reserved;
+  Elf64_Xword ch_size;
+  Elf64_Xword ch_addralign;
+} Elf64_Chdr;
+#define ELFCOMPRESS_ZLIB 1
+#define ELFCOMPRESS_LOOS 0x60000000
+#define ELFCOMPRESS_HIOS 0x6fffffff
+#define ELFCOMPRESS_LOPROC 0x70000000
+#define ELFCOMPRESS_HIPROC 0x7fffffff
+#define GRP_COMDAT 0x1
+typedef struct {
+  Elf32_Word st_name;
+  Elf32_Addr st_value;
+  Elf32_Word st_size;
+  unsigned char st_info;
+  unsigned char st_other;
+  Elf32_Section st_shndx;
+} Elf32_Sym;
+typedef struct {
+  Elf64_Word st_name;
+  unsigned char st_info;
+  unsigned char st_other;
+  Elf64_Section st_shndx;
+  Elf64_Addr st_value;
+  Elf64_Xword st_size;
+} Elf64_Sym;
+typedef struct {
+  Elf32_Half si_boundto;
+  Elf32_Half si_flags;
+} Elf32_Syminfo;
+typedef struct {
+  Elf64_Half si_boundto;
+  Elf64_Half si_flags;
+} Elf64_Syminfo;
+#define SYMINFO_BT_SELF 0xffff
+#define SYMINFO_BT_PARENT 0xfffe
+#define SYMINFO_BT_LOWRESERVE 0xff00
+#define SYMINFO_FLG_DIRECT 0x0001
+#define SYMINFO_FLG_PASSTHRU 0x0002
+#define SYMINFO_FLG_COPY 0x0004
+#define SYMINFO_FLG_LAZYLOAD 0x0008
+#define SYMINFO_NONE 0
+#define SYMINFO_CURRENT 1
+#define SYMINFO_NUM 2
+#define ELF32_ST_BIND(val) (((unsigned char) (val)) >> 4)
+#define ELF32_ST_TYPE(val) ((val) & 0xf)
+#define ELF32_ST_INFO(bind,type) (((bind) << 4) + ((type) & 0xf))
+#define ELF64_ST_BIND(val) ELF32_ST_BIND (val)
+#define ELF64_ST_TYPE(val) ELF32_ST_TYPE (val)
+#define ELF64_ST_INFO(bind,type) ELF32_ST_INFO ((bind), (type))
+#define STB_LOCAL 0
+#define STB_GLOBAL 1
+#define STB_WEAK 2
+#define STB_NUM 3
+#define STB_LOOS 10
+#define STB_GNU_UNIQUE 10
+#define STB_HIOS 12
+#define STB_LOPROC 13
+#define STB_HIPROC 15
+#define STT_NOTYPE 0
+#define STT_OBJECT 1
+#define STT_FUNC 2
+#define STT_SECTION 3
+#define STT_FILE 4
+#define STT_COMMON 5
+#define STT_TLS 6
+#define STT_NUM 7
+#define STT_LOOS 10
+#define STT_GNU_IFUNC 10
+#define STT_HIOS 12
+#define STT_LOPROC 13
+#define STT_HIPROC 15
+#define STN_UNDEF 0
+#define ELF32_ST_VISIBILITY(o) ((o) & 0x03)
+#define ELF64_ST_VISIBILITY(o) ELF32_ST_VISIBILITY (o)
+#define STV_DEFAULT 0
+#define STV_INTERNAL 1
+#define STV_HIDDEN 2
+#define STV_PROTECTED 3
+typedef struct {
+  Elf32_Addr r_offset;
+  Elf32_Word r_info;
+} Elf32_Rel;
+typedef struct {
+  Elf64_Addr r_offset;
+  Elf64_Xword r_info;
+} Elf64_Rel;
+typedef struct {
+  Elf32_Addr r_offset;
+  Elf32_Word r_info;
+  Elf32_Sword r_addend;
+} Elf32_Rela;
+typedef struct {
+  Elf64_Addr r_offset;
+  Elf64_Xword r_info;
+  Elf64_Sxword r_addend;
+} Elf64_Rela;
+#define ELF32_R_SYM(val) ((val) >> 8)
+#define ELF32_R_TYPE(val) ((val) & 0xff)
+#define ELF32_R_INFO(sym,type) (((sym) << 8) + ((type) & 0xff))
+#define ELF64_R_SYM(i) ((i) >> 32)
+#define ELF64_R_TYPE(i) ((i) & 0xffffffff)
+#define ELF64_R_INFO(sym,type) ((((Elf64_Xword) (sym)) << 32) + (type))
+typedef struct {
+  Elf32_Word p_type;
+  Elf32_Off p_offset;
+  Elf32_Addr p_vaddr;
+  Elf32_Addr p_paddr;
+  Elf32_Word p_filesz;
+  Elf32_Word p_memsz;
+  Elf32_Word p_flags;
+  Elf32_Word p_align;
+} Elf32_Phdr;
+typedef struct {
+  Elf64_Word p_type;
+  Elf64_Word p_flags;
+  Elf64_Off p_offset;
+  Elf64_Addr p_vaddr;
+  Elf64_Addr p_paddr;
+  Elf64_Xword p_filesz;
+  Elf64_Xword p_memsz;
+  Elf64_Xword p_align;
+} Elf64_Phdr;
+#define PT_NULL 0
+#define PT_LOAD 1
+#define PT_DYNAMIC 2
+#define PT_INTERP 3
+#define PT_NOTE 4
+#define PT_SHLIB 5
+#define PT_PHDR 6
+#define PT_TLS 7
+#define PT_NUM 8
+#define PT_LOOS 0x60000000
+#define PT_GNU_EH_FRAME 0x6474e550
+#define PT_GNU_STACK 0x6474e551
+#define PT_GNU_RELRO 0x6474e552
+#define PT_LOSUNW 0x6ffffffa
+#define PT_SUNWBSS 0x6ffffffa
+#define PT_SUNWSTACK 0x6ffffffb
+#define PT_HISUNW 0x6fffffff
+#define PT_HIOS 0x6fffffff
+#define PT_LOPROC 0x70000000
+#define PT_HIPROC 0x7fffffff
+#define PN_XNUM 0xffff
+#define PF_X (1 << 0)
+#define PF_W (1 << 1)
+#define PF_R (1 << 2)
+#define PF_MASKOS 0x0ff00000
+#define PF_MASKPROC 0xf0000000
+#define NT_PRSTATUS 1
+#define NT_PRFPREG 2
+#define NT_FPREGSET 2
+#define NT_PRPSINFO 3
+#define NT_PRXREG 4
+#define NT_TASKSTRUCT 4
+#define NT_PLATFORM 5
+#define NT_AUXV 6
+#define NT_GWINDOWS 7
+#define NT_ASRS 8
+#define NT_PSTATUS 10
+#define NT_PSINFO 13
+#define NT_PRCRED 14
+#define NT_UTSNAME 15
+#define NT_LWPSTATUS 16
+#define NT_LWPSINFO 17
+#define NT_PRFPXREG 20
+#define NT_SIGINFO 0x53494749
+#define NT_FILE 0x46494c45
+#define NT_PRXFPREG 0x46e62b7f
+#define NT_PPC_VMX 0x100
+#define NT_PPC_SPE 0x101
+#define NT_PPC_VSX 0x102
+#define NT_PPC_TAR 0x103
+#define NT_PPC_PPR 0x104
+#define NT_PPC_DSCR 0x105
+#define NT_PPC_EBB 0x106
+#define NT_PPC_PMU 0x107
+#define NT_PPC_TM_CGPR 0x108
+#define NT_PPC_TM_CFPR 0x109
+#define NT_PPC_TM_CVMX 0x10a
+#define NT_PPC_TM_CVSX 0x10b
+#define NT_PPC_TM_SPR 0x10c
+#define NT_PPC_TM_CTAR 0x10d
+#define NT_PPC_TM_CPPR 0x10e
+#define NT_PPC_TM_CDSCR 0x10f
+#define NT_386_TLS 0x200
+#define NT_386_IOPERM 0x201
+#define NT_X86_XSTATE 0x202
+#define NT_S390_HIGH_GPRS 0x300
+#define NT_S390_TIMER 0x301
+#define NT_S390_TODCMP 0x302
+#define NT_S390_TODPREG 0x303
+#define NT_S390_CTRS 0x304
+#define NT_S390_PREFIX 0x305
+#define NT_S390_LAST_BREAK 0x306
+#define NT_S390_SYSTEM_CALL 0x307
+#define NT_S390_TDB 0x308
+#define NT_S390_VXRS_LOW 0x309
+#define NT_S390_VXRS_HIGH 0x30a
+#define NT_S390_GS_CB 0x30b
+#define NT_S390_GS_BC 0x30c
+#define NT_S390_RI_CB 0x30d
+#define NT_ARM_VFP 0x400
+#define NT_ARM_TLS 0x401
+#define NT_ARM_HW_BREAK 0x402
+#define NT_ARM_HW_WATCH 0x403
+#define NT_ARM_SYSTEM_CALL 0x404
+#define NT_ARM_SVE 0x405
+#define NT_METAG_CBUF 0x500
+#define NT_METAG_RPIPE 0x501
+#define NT_METAG_TLS 0x502
+#define NT_ARC_V2 0x600
+#define NT_VMCOREDD 0x700
+#define NT_VERSION 1
+typedef struct {
+  Elf32_Sword d_tag;
+  union {
+      Elf32_Word d_val;
+      Elf32_Addr d_ptr;
+  } d_un;
+} Elf32_Dyn;
+typedef struct {
+  Elf64_Sxword d_tag;
+  union {
+      Elf64_Xword d_val;
+      Elf64_Addr d_ptr;
+  } d_un;
+} Elf64_Dyn;
+#define DT_NULL 0
+#define DT_NEEDED 1
+#define DT_PLTRELSZ 2
+#define DT_PLTGOT 3
+#define DT_HASH 4
+#define DT_STRTAB 5
+#define DT_SYMTAB 6
+#define DT_RELA 7
+#define DT_RELASZ 8
+#define DT_RELAENT 9
+#define DT_STRSZ 10
+#define DT_SYMENT 11
+#define DT_INIT 12
+#define DT_FINI 13
+#define DT_SONAME 14
+#define DT_RPATH 15
+#define DT_SYMBOLIC 16
+#define DT_REL 17
+#define DT_RELSZ 18
+#define DT_RELENT 19
+#define DT_PLTREL 20
+#define DT_DEBUG 21
+#define DT_TEXTREL 22
+#define DT_JMPREL 23
+#define DT_BIND_NOW 24
+#define DT_INIT_ARRAY 25
+#define DT_FINI_ARRAY 26
+#define DT_INIT_ARRAYSZ 27
+#define DT_FINI_ARRAYSZ 28
+#define DT_RUNPATH 29
+#define DT_FLAGS 30
+#define DT_ENCODING 32
+#define DT_PREINIT_ARRAY 32
+#define DT_PREINIT_ARRAYSZ 33
+#define DT_SYMTAB_SHNDX 34
+#define DT_NUM 35
+#define DT_LOOS 0x6000000d
+#define DT_HIOS 0x6ffff000
+#define DT_LOPROC 0x70000000
+#define DT_HIPROC 0x7fffffff
+#define DT_PROCNUM DT_MIPS_NUM
+#define DT_VALRNGLO 0x6ffffd00
+#define DT_GNU_PRELINKED 0x6ffffdf5
+#define DT_GNU_CONFLICTSZ 0x6ffffdf6
+#define DT_GNU_LIBLISTSZ 0x6ffffdf7
+#define DT_CHECKSUM 0x6ffffdf8
+#define DT_PLTPADSZ 0x6ffffdf9
+#define DT_MOVEENT 0x6ffffdfa
+#define DT_MOVESZ 0x6ffffdfb
+#define DT_FEATURE_1 0x6ffffdfc
+#define DT_POSFLAG_1 0x6ffffdfd
+#define DT_SYMINSZ 0x6ffffdfe
+#define DT_SYMINENT 0x6ffffdff
+#define DT_VALRNGHI 0x6ffffdff
+#define DT_VALTAGIDX(tag) (DT_VALRNGHI - (tag))
+#define DT_VALNUM 12
+#define DT_ADDRRNGLO 0x6ffffe00
+#define DT_GNU_HASH 0x6ffffef5
+#define DT_TLSDESC_PLT 0x6ffffef6
+#define DT_TLSDESC_GOT 0x6ffffef7
+#define DT_GNU_CONFLICT 0x6ffffef8
+#define DT_GNU_LIBLIST 0x6ffffef9
+#define DT_CONFIG 0x6ffffefa
+#define DT_DEPAUDIT 0x6ffffefb
+#define DT_AUDIT 0x6ffffefc
+#define DT_PLTPAD 0x6ffffefd
+#define DT_MOVETAB 0x6ffffefe
+#define DT_SYMINFO 0x6ffffeff
+#define DT_ADDRRNGHI 0x6ffffeff
+#define DT_ADDRTAGIDX(tag) (DT_ADDRRNGHI - (tag))
+#define DT_ADDRNUM 11
+#define DT_VERSYM 0x6ffffff0
+#define DT_RELACOUNT 0x6ffffff9
+#define DT_RELCOUNT 0x6ffffffa
+#define DT_FLAGS_1 0x6ffffffb
+#define DT_VERDEF 0x6ffffffc
+#define DT_VERDEFNUM 0x6ffffffd
+#define DT_VERNEED 0x6ffffffe
+#define DT_VERNEEDNUM 0x6fffffff
+#define DT_VERSIONTAGIDX(tag) (DT_VERNEEDNUM - (tag))
+#define DT_VERSIONTAGNUM 16
+#define DT_AUXILIARY 0x7ffffffd
+#define DT_FILTER 0x7fffffff
+#define DT_EXTRATAGIDX(tag) ((Elf32_Word)-((Elf32_Sword) (tag) <<1>>1)-1)
+#define DT_EXTRANUM 3
+#define DF_ORIGIN 0x00000001
+#define DF_SYMBOLIC 0x00000002
+#define DF_TEXTREL 0x00000004
+#define DF_BIND_NOW 0x00000008
+#define DF_STATIC_TLS 0x00000010
+#define DF_1_NOW 0x00000001
+#define DF_1_GLOBAL 0x00000002
+#define DF_1_GROUP 0x00000004
+#define DF_1_NODELETE 0x00000008
+#define DF_1_LOADFLTR 0x00000010
+#define DF_1_INITFIRST 0x00000020
+#define DF_1_NOOPEN 0x00000040
+#define DF_1_ORIGIN 0x00000080
+#define DF_1_DIRECT 0x00000100
+#define DF_1_TRANS 0x00000200
+#define DF_1_INTERPOSE 0x00000400
+#define DF_1_NODEFLIB 0x00000800
+#define DF_1_NODUMP 0x00001000
+#define DF_1_CONFALT 0x00002000
+#define DF_1_ENDFILTEE 0x00004000
+#define DF_1_DISPRELDNE 0x00008000
+#define DF_1_DISPRELPND 0x00010000
+#define DF_1_NODIRECT 0x00020000
+#define DF_1_IGNMULDEF 0x00040000
+#define DF_1_NOKSYMS 0x00080000
+#define DF_1_NOHDR 0x00100000
+#define DF_1_EDITED 0x00200000
+#define DF_1_NORELOC 0x00400000
+#define DF_1_SYMINTPOSE 0x00800000
+#define DF_1_GLOBAUDIT 0x01000000
+#define DF_1_SINGLETON 0x02000000
+#define DF_1_STUB 0x04000000
+#define DF_1_PIE 0x08000000
+#define DTF_1_PARINIT 0x00000001
+#define DTF_1_CONFEXP 0x00000002
+#define DF_P1_LAZYLOAD 0x00000001
+#define DF_P1_GROUPPERM 0x00000002
+typedef struct {
+  Elf32_Half vd_version;
+  Elf32_Half vd_flags;
+  Elf32_Half vd_ndx;
+  Elf32_Half vd_cnt;
+  Elf32_Word vd_hash;
+  Elf32_Word vd_aux;
+  Elf32_Word vd_next;
+} Elf32_Verdef;
+typedef struct {
+  Elf64_Half vd_version;
+  Elf64_Half vd_flags;
+  Elf64_Half vd_ndx;
+  Elf64_Half vd_cnt;
+  Elf64_Word vd_hash;
+  Elf64_Word vd_aux;
+  Elf64_Word vd_next;
+} Elf64_Verdef;
+#define VER_DEF_NONE 0
+#define VER_DEF_CURRENT 1
+#define VER_DEF_NUM 2
+#define VER_FLG_BASE 0x1
+#define VER_FLG_WEAK 0x2
+#define VER_NDX_LOCAL 0
+#define VER_NDX_GLOBAL 1
+#define VER_NDX_LORESERVE 0xff00
+#define VER_NDX_ELIMINATE 0xff01
+typedef struct {
+  Elf32_Word vda_name;
+  Elf32_Word vda_next;
+} Elf32_Verdaux;
+typedef struct {
+  Elf64_Word vda_name;
+  Elf64_Word vda_next;
+} Elf64_Verdaux;
+typedef struct {
+  Elf32_Half vn_version;
+  Elf32_Half vn_cnt;
+  Elf32_Word vn_file;
+  Elf32_Word vn_aux;
+  Elf32_Word vn_next;
+} Elf32_Verneed;
+typedef struct {
+  Elf64_Half vn_version;
+  Elf64_Half vn_cnt;
+  Elf64_Word vn_file;
+  Elf64_Word vn_aux;
+  Elf64_Word vn_next;
+} Elf64_Verneed;
+#define VER_NEED_NONE 0
+#define VER_NEED_CURRENT 1
+#define VER_NEED_NUM 2
+typedef struct {
+  Elf32_Word vna_hash;
+  Elf32_Half vna_flags;
+  Elf32_Half vna_other;
+  Elf32_Word vna_name;
+  Elf32_Word vna_next;
+} Elf32_Vernaux;
+typedef struct {
+  Elf64_Word vna_hash;
+  Elf64_Half vna_flags;
+  Elf64_Half vna_other;
+  Elf64_Word vna_name;
+  Elf64_Word vna_next;
+} Elf64_Vernaux;
+#define VER_FLG_WEAK 0x2
+typedef struct {
+  uint32_t a_type;
+  union {
+      uint32_t a_val;
+  } a_un;
+} Elf32_auxv_t;
+typedef struct {
+  uint64_t a_type;
+  union {
+      uint64_t a_val;
+  } a_un;
+} Elf64_auxv_t;
+#define AT_NULL 0
+#define AT_IGNORE 1
+#define AT_EXECFD 2
+#define AT_PHDR 3
+#define AT_PHENT 4
+#define AT_PHNUM 5
+#define AT_PAGESZ 6
+#define AT_BASE 7
+#define AT_FLAGS 8
+#define AT_ENTRY 9
+#define AT_NOTELF 10
+#define AT_UID 11
+#define AT_EUID 12
+#define AT_GID 13
+#define AT_EGID 14
+#define AT_CLKTCK 17
+#define AT_PLATFORM 15
+#define AT_HWCAP 16
+#define AT_FPUCW 18
+#define AT_DCACHEBSIZE 19
+#define AT_ICACHEBSIZE 20
+#define AT_UCACHEBSIZE 21
+#define AT_IGNOREPPC 22
+#define AT_SECURE 23
+#define AT_BASE_PLATFORM 24
+#define AT_RANDOM 25
+#define AT_HWCAP2 26
+#define AT_EXECFN 31
+#define AT_SYSINFO 32
+#define AT_SYSINFO_EHDR 33
+#define AT_L1I_CACHESHAPE 34
+#define AT_L1D_CACHESHAPE 35
+#define AT_L2_CACHESHAPE 36
+#define AT_L3_CACHESHAPE 37
+#define AT_L1I_CACHESIZE 40
+#define AT_L1I_CACHEGEOMETRY 41
+#define AT_L1D_CACHESIZE 42
+#define AT_L1D_CACHEGEOMETRY 43
+#define AT_L2_CACHESIZE 44
+#define AT_L2_CACHEGEOMETRY 45
+#define AT_L3_CACHESIZE 46
+#define AT_L3_CACHEGEOMETRY 47
+#define AT_MINSIGSTKSZ 51
+typedef struct {
+  Elf32_Word n_namesz;
+  Elf32_Word n_descsz;
+  Elf32_Word n_type;
+} Elf32_Nhdr;
+typedef struct {
+  Elf64_Word n_namesz;
+  Elf64_Word n_descsz;
+  Elf64_Word n_type;
+} Elf64_Nhdr;
+#define ELF_NOTE_SOLARIS "SUNW Solaris"
+#define ELF_NOTE_GNU "GNU"
+#define ELF_NOTE_PAGESIZE_HINT 1
+#define NT_GNU_ABI_TAG 1
+#define ELF_NOTE_ABI NT_GNU_ABI_TAG
+#define ELF_NOTE_OS_LINUX 0
+#define ELF_NOTE_OS_GNU 1
+#define ELF_NOTE_OS_SOLARIS2 2
+#define ELF_NOTE_OS_FREEBSD 3
+#define NT_GNU_BUILD_ID 3
+#define NT_GNU_GOLD_VERSION 4
+typedef struct {
+  Elf32_Xword m_value;
+  Elf32_Word m_info;
+  Elf32_Word m_poffset;
+  Elf32_Half m_repeat;
+  Elf32_Half m_stride;
+} Elf32_Move;
+typedef struct {
+  Elf64_Xword m_value;
+  Elf64_Xword m_info;
+  Elf64_Xword m_poffset;
+  Elf64_Half m_repeat;
+  Elf64_Half m_stride;
+} Elf64_Move;
+#define ELF32_M_SYM(info) ((info) >> 8)
+#define ELF32_M_SIZE(info) ((unsigned char) (info))
+#define ELF32_M_INFO(sym,size) (((sym) << 8) + (unsigned char) (size))
+#define ELF64_M_SYM(info) ELF32_M_SYM (info)
+#define ELF64_M_SIZE(info) ELF32_M_SIZE (info)
+#define ELF64_M_INFO(sym,size) ELF32_M_INFO (sym, size)
+#define EF_CPU32 0x00810000
+#define R_68K_NONE 0
+#define R_68K_32 1
+#define R_68K_16 2
+#define R_68K_8 3
+#define R_68K_PC32 4
+#define R_68K_PC16 5
+#define R_68K_PC8 6
+#define R_68K_GOT32 7
+#define R_68K_GOT16 8
+#define R_68K_GOT8 9
+#define R_68K_GOT32O 10
+#define R_68K_GOT16O 11
+#define R_68K_GOT8O 12
+#define R_68K_PLT32 13
+#define R_68K_PLT16 14
+#define R_68K_PLT8 15
+#define R_68K_PLT32O 16
+#define R_68K_PLT16O 17
+#define R_68K_PLT8O 18
+#define R_68K_COPY 19
+#define R_68K_GLOB_DAT 20
+#define R_68K_JMP_SLOT 21
+#define R_68K_RELATIVE 22
+#define R_68K_TLS_GD32 25
+#define R_68K_TLS_GD16 26
+#define R_68K_TLS_GD8 27
+#define R_68K_TLS_LDM32 28
+#define R_68K_TLS_LDM16 29
+#define R_68K_TLS_LDM8 30
+#define R_68K_TLS_LDO32 31
+#define R_68K_TLS_LDO16 32
+#define R_68K_TLS_LDO8 33
+#define R_68K_TLS_IE32 34
+#define R_68K_TLS_IE16 35
+#define R_68K_TLS_IE8 36
+#define R_68K_TLS_LE32 37
+#define R_68K_TLS_LE16 38
+#define R_68K_TLS_LE8 39
+#define R_68K_TLS_DTPMOD32 40
+#define R_68K_TLS_DTPREL32 41
+#define R_68K_TLS_TPREL32 42
+#define R_68K_NUM 43
+#define R_386_NONE 0
+#define R_386_32 1
+#define R_386_PC32 2
+#define R_386_GOT32 3
+#define R_386_PLT32 4
+#define R_386_COPY 5
+#define R_386_GLOB_DAT 6
+#define R_386_JMP_SLOT 7
+#define R_386_RELATIVE 8
+#define R_386_GOTOFF 9
+#define R_386_GOTPC 10
+#define R_386_32PLT 11
+#define R_386_TLS_TPOFF 14
+#define R_386_TLS_IE 15
+#define R_386_TLS_GOTIE 16
+#define R_386_TLS_LE 17
+#define R_386_TLS_GD 18
+#define R_386_TLS_LDM 19
+#define R_386_16 20
+#define R_386_PC16 21
+#define R_386_8 22
+#define R_386_PC8 23
+#define R_386_TLS_GD_32 24
+#define R_386_TLS_GD_PUSH 25
+#define R_386_TLS_GD_CALL 26
+#define R_386_TLS_GD_POP 27
+#define R_386_TLS_LDM_32 28
+#define R_386_TLS_LDM_PUSH 29
+#define R_386_TLS_LDM_CALL 30
+#define R_386_TLS_LDM_POP 31
+#define R_386_TLS_LDO_32 32
+#define R_386_TLS_IE_32 33
+#define R_386_TLS_LE_32 34
+#define R_386_TLS_DTPMOD32 35
+#define R_386_TLS_DTPOFF32 36
+#define R_386_TLS_TPOFF32 37
+#define R_386_SIZE32 38
+#define R_386_TLS_GOTDESC 39
+#define R_386_TLS_DESC_CALL 40
+#define R_386_TLS_DESC 41
+#define R_386_IRELATIVE 42
+#define R_386_GOT32X 43
+#define R_386_NUM 44
+#define STT_SPARC_REGISTER 13
+#define EF_SPARCV9_MM 3
+#define EF_SPARCV9_TSO 0
+#define EF_SPARCV9_PSO 1
+#define EF_SPARCV9_RMO 2
+#define EF_SPARC_LEDATA 0x800000
+#define EF_SPARC_EXT_MASK 0xFFFF00
+#define EF_SPARC_32PLUS 0x000100
+#define EF_SPARC_SUN_US1 0x000200
+#define EF_SPARC_HAL_R1 0x000400
+#define EF_SPARC_SUN_US3 0x000800
+#define R_SPARC_NONE 0
+#define R_SPARC_8 1
+#define R_SPARC_16 2
+#define R_SPARC_32 3
+#define R_SPARC_DISP8 4
+#define R_SPARC_DISP16 5
+#define R_SPARC_DISP32 6
+#define R_SPARC_WDISP30 7
+#define R_SPARC_WDISP22 8
+#define R_SPARC_HI22 9
+#define R_SPARC_22 10
+#define R_SPARC_13 11
+#define R_SPARC_LO10 12
+#define R_SPARC_GOT10 13
+#define R_SPARC_GOT13 14
+#define R_SPARC_GOT22 15
+#define R_SPARC_PC10 16
+#define R_SPARC_PC22 17
+#define R_SPARC_WPLT30 18
+#define R_SPARC_COPY 19
+#define R_SPARC_GLOB_DAT 20
+#define R_SPARC_JMP_SLOT 21
+#define R_SPARC_RELATIVE 22
+#define R_SPARC_UA32 23
+#define R_SPARC_PLT32 24
+#define R_SPARC_HIPLT22 25
+#define R_SPARC_LOPLT10 26
+#define R_SPARC_PCPLT32 27
+#define R_SPARC_PCPLT22 28
+#define R_SPARC_PCPLT10 29
+#define R_SPARC_10 30
+#define R_SPARC_11 31
+#define R_SPARC_64 32
+#define R_SPARC_OLO10 33
+#define R_SPARC_HH22 34
+#define R_SPARC_HM10 35
+#define R_SPARC_LM22 36
+#define R_SPARC_PC_HH22 37
+#define R_SPARC_PC_HM10 38
+#define R_SPARC_PC_LM22 39
+#define R_SPARC_WDISP16 40
+#define R_SPARC_WDISP19 41
+#define R_SPARC_GLOB_JMP 42
+#define R_SPARC_7 43
+#define R_SPARC_5 44
+#define R_SPARC_6 45
+#define R_SPARC_DISP64 46
+#define R_SPARC_PLT64 47
+#define R_SPARC_HIX22 48
+#define R_SPARC_LOX10 49
+#define R_SPARC_H44 50
+#define R_SPARC_M44 51
+#define R_SPARC_L44 52
+#define R_SPARC_REGISTER 53
+#define R_SPARC_UA64 54
+#define R_SPARC_UA16 55
+#define R_SPARC_TLS_GD_HI22 56
+#define R_SPARC_TLS_GD_LO10 57
+#define R_SPARC_TLS_GD_ADD 58
+#define R_SPARC_TLS_GD_CALL 59
+#define R_SPARC_TLS_LDM_HI22 60
+#define R_SPARC_TLS_LDM_LO10 61
+#define R_SPARC_TLS_LDM_ADD 62
+#define R_SPARC_TLS_LDM_CALL 63
+#define R_SPARC_TLS_LDO_HIX22 64
+#define R_SPARC_TLS_LDO_LOX10 65
+#define R_SPARC_TLS_LDO_ADD 66
+#define R_SPARC_TLS_IE_HI22 67
+#define R_SPARC_TLS_IE_LO10 68
+#define R_SPARC_TLS_IE_LD 69
+#define R_SPARC_TLS_IE_LDX 70
+#define R_SPARC_TLS_IE_ADD 71
+#define R_SPARC_TLS_LE_HIX22 72
+#define R_SPARC_TLS_LE_LOX10 73
+#define R_SPARC_TLS_DTPMOD32 74
+#define R_SPARC_TLS_DTPMOD64 75
+#define R_SPARC_TLS_DTPOFF32 76
+#define R_SPARC_TLS_DTPOFF64 77
+#define R_SPARC_TLS_TPOFF32 78
+#define R_SPARC_TLS_TPOFF64 79
+#define R_SPARC_GOTDATA_HIX22 80
+#define R_SPARC_GOTDATA_LOX10 81
+#define R_SPARC_GOTDATA_OP_HIX22 82
+#define R_SPARC_GOTDATA_OP_LOX10 83
+#define R_SPARC_GOTDATA_OP 84
+#define R_SPARC_H34 85
+#define R_SPARC_SIZE32 86
+#define R_SPARC_SIZE64 87
+#define R_SPARC_GNU_VTINHERIT 250
+#define R_SPARC_GNU_VTENTRY 251
+#define R_SPARC_REV32 252
+#define R_SPARC_NUM 253
+#define DT_SPARC_REGISTER 0x70000001
+#define DT_SPARC_NUM 2
+#define EF_MIPS_NOREORDER 1
+#define EF_MIPS_PIC 2
+#define EF_MIPS_CPIC 4
+#define EF_MIPS_XGOT 8
+#define EF_MIPS_64BIT_WHIRL 16
+#define EF_MIPS_ABI2 32
+#define EF_MIPS_ABI_ON32 64
+#define EF_MIPS_FP64 512
+#define EF_MIPS_NAN2008 1024
+#define EF_MIPS_ARCH 0xf0000000
+#define EF_MIPS_ARCH_1 0x00000000
+#define EF_MIPS_ARCH_2 0x10000000
+#define EF_MIPS_ARCH_3 0x20000000
+#define EF_MIPS_ARCH_4 0x30000000
+#define EF_MIPS_ARCH_5 0x40000000
+#define EF_MIPS_ARCH_32 0x50000000
+#define EF_MIPS_ARCH_64 0x60000000
+#define EF_MIPS_ARCH_32R2 0x70000000
+#define EF_MIPS_ARCH_64R2 0x80000000
+#define E_MIPS_ARCH_1 0x00000000
+#define E_MIPS_ARCH_2 0x10000000
+#define E_MIPS_ARCH_3 0x20000000
+#define E_MIPS_ARCH_4 0x30000000
+#define E_MIPS_ARCH_5 0x40000000
+#define E_MIPS_ARCH_32 0x50000000
+#define E_MIPS_ARCH_64 0x60000000
+#define SHN_MIPS_ACOMMON 0xff00
+#define SHN_MIPS_TEXT 0xff01
+#define SHN_MIPS_DATA 0xff02
+#define SHN_MIPS_SCOMMON 0xff03
+#define SHN_MIPS_SUNDEFINED 0xff04
+#define SHT_MIPS_LIBLIST 0x70000000
+#define SHT_MIPS_MSYM 0x70000001
+#define SHT_MIPS_CONFLICT 0x70000002
+#define SHT_MIPS_GPTAB 0x70000003
+#define SHT_MIPS_UCODE 0x70000004
+#define SHT_MIPS_DEBUG 0x70000005
+#define SHT_MIPS_REGINFO 0x70000006
+#define SHT_MIPS_PACKAGE 0x70000007
+#define SHT_MIPS_PACKSYM 0x70000008
+#define SHT_MIPS_RELD 0x70000009
+#define SHT_MIPS_IFACE 0x7000000b
+#define SHT_MIPS_CONTENT 0x7000000c
+#define SHT_MIPS_OPTIONS 0x7000000d
+#define SHT_MIPS_SHDR 0x70000010
+#define SHT_MIPS_FDESC 0x70000011
+#define SHT_MIPS_EXTSYM 0x70000012
+#define SHT_MIPS_DENSE 0x70000013
+#define SHT_MIPS_PDESC 0x70000014
+#define SHT_MIPS_LOCSYM 0x70000015
+#define SHT_MIPS_AUXSYM 0x70000016
+#define SHT_MIPS_OPTSYM 0x70000017
+#define SHT_MIPS_LOCSTR 0x70000018
+#define SHT_MIPS_LINE 0x70000019
+#define SHT_MIPS_RFDESC 0x7000001a
+#define SHT_MIPS_DELTASYM 0x7000001b
+#define SHT_MIPS_DELTAINST 0x7000001c
+#define SHT_MIPS_DELTACLASS 0x7000001d
+#define SHT_MIPS_DWARF 0x7000001e
+#define SHT_MIPS_DELTADECL 0x7000001f
+#define SHT_MIPS_SYMBOL_LIB 0x70000020
+#define SHT_MIPS_EVENTS 0x70000021
+#define SHT_MIPS_TRANSLATE 0x70000022
+#define SHT_MIPS_PIXIE 0x70000023
+#define SHT_MIPS_XLATE 0x70000024
+#define SHT_MIPS_XLATE_DEBUG 0x70000025
+#define SHT_MIPS_WHIRL 0x70000026
+#define SHT_MIPS_EH_REGION 0x70000027
+#define SHT_MIPS_XLATE_OLD 0x70000028
+#define SHT_MIPS_PDR_EXCEPTION 0x70000029
+#define SHF_MIPS_GPREL 0x10000000
+#define SHF_MIPS_MERGE 0x20000000
+#define SHF_MIPS_ADDR 0x40000000
+#define SHF_MIPS_STRINGS 0x80000000
+#define SHF_MIPS_NOSTRIP 0x08000000
+#define SHF_MIPS_LOCAL 0x04000000
+#define SHF_MIPS_NAMES 0x02000000
+#define SHF_MIPS_NODUPE 0x01000000
+#define STO_MIPS_DEFAULT 0x0
+#define STO_MIPS_INTERNAL 0x1
+#define STO_MIPS_HIDDEN 0x2
+#define STO_MIPS_PROTECTED 0x3
+#define STO_MIPS_PLT 0x8
+#define STO_MIPS_SC_ALIGN_UNUSED 0xff
+#define STB_MIPS_SPLIT_COMMON 13
+typedef union {
+  struct {
+      Elf32_Word gt_current_g_value;
+      Elf32_Word gt_unused;
+  } gt_header;
+  struct {
+      Elf32_Word gt_g_value;
+      Elf32_Word gt_bytes;
+  } gt_entry;
+} Elf32_gptab;
+typedef struct {
+  Elf32_Word ri_gprmask;
+  Elf32_Word ri_cprmask[4];
+  Elf32_Sword ri_gp_value;
+} Elf32_RegInfo;
+typedef struct {
+  unsigned char kind;
+  unsigned char size;
+  Elf32_Section section;
+  Elf32_Word info;
+} Elf_Options;
+#define ODK_NULL 0
+#define ODK_REGINFO 1
+#define ODK_EXCEPTIONS 2
+#define ODK_PAD 3
+#define ODK_HWPATCH 4
+#define ODK_FILL 5
+#define ODK_TAGS 6
+#define ODK_HWAND 7
+#define ODK_HWOR 8
+#define OEX_FPU_MIN 0x1f
+#define OEX_FPU_MAX 0x1f00
+#define OEX_PAGE0 0x10000
+#define OEX_SMM 0x20000
+#define OEX_FPDBUG 0x40000
+#define OEX_PRECISEFP OEX_FPDBUG
+#define OEX_DISMISS 0x80000
+#define OEX_FPU_INVAL 0x10
+#define OEX_FPU_DIV0 0x08
+#define OEX_FPU_OFLO 0x04
+#define OEX_FPU_UFLO 0x02
+#define OEX_FPU_INEX 0x01
+#define OHW_R4KEOP 0x1
+#define OHW_R8KPFETCH 0x2
+#define OHW_R5KEOP 0x4
+#define OHW_R5KCVTL 0x8
+#define OPAD_PREFIX 0x1
+#define OPAD_POSTFIX 0x2
+#define OPAD_SYMBOL 0x4
+typedef struct {
+  Elf32_Word hwp_flags1;
+  Elf32_Word hwp_flags2;
+} Elf_Options_Hw;
+#define OHWA0_R4KEOP_CHECKED 0x00000001
+#define OHWA1_R4KEOP_CLEAN 0x00000002
+#define R_MIPS_NONE 0
+#define R_MIPS_16 1
+#define R_MIPS_32 2
+#define R_MIPS_REL32 3
+#define R_MIPS_26 4
+#define R_MIPS_HI16 5
+#define R_MIPS_LO16 6
+#define R_MIPS_GPREL16 7
+#define R_MIPS_LITERAL 8
+#define R_MIPS_GOT16 9
+#define R_MIPS_PC16 10
+#define R_MIPS_CALL16 11
+#define R_MIPS_GPREL32 12
+#define R_MIPS_SHIFT5 16
+#define R_MIPS_SHIFT6 17
+#define R_MIPS_64 18
+#define R_MIPS_GOT_DISP 19
+#define R_MIPS_GOT_PAGE 20
+#define R_MIPS_GOT_OFST 21
+#define R_MIPS_GOT_HI16 22
+#define R_MIPS_GOT_LO16 23
+#define R_MIPS_SUB 24
+#define R_MIPS_INSERT_A 25
+#define R_MIPS_INSERT_B 26
+#define R_MIPS_DELETE 27
+#define R_MIPS_HIGHER 28
+#define R_MIPS_HIGHEST 29
+#define R_MIPS_CALL_HI16 30
+#define R_MIPS_CALL_LO16 31
+#define R_MIPS_SCN_DISP 32
+#define R_MIPS_REL16 33
+#define R_MIPS_ADD_IMMEDIATE 34
+#define R_MIPS_PJUMP 35
+#define R_MIPS_RELGOT 36
+#define R_MIPS_JALR 37
+#define R_MIPS_TLS_DTPMOD32 38
+#define R_MIPS_TLS_DTPREL32 39
+#define R_MIPS_TLS_DTPMOD64 40
+#define R_MIPS_TLS_DTPREL64 41
+#define R_MIPS_TLS_GD 42
+#define R_MIPS_TLS_LDM 43
+#define R_MIPS_TLS_DTPREL_HI16 44
+#define R_MIPS_TLS_DTPREL_LO16 45
+#define R_MIPS_TLS_GOTTPREL 46
+#define R_MIPS_TLS_TPREL32 47
+#define R_MIPS_TLS_TPREL64 48
+#define R_MIPS_TLS_TPREL_HI16 49
+#define R_MIPS_TLS_TPREL_LO16 50
+#define R_MIPS_GLOB_DAT 51
+#define R_MIPS_COPY 126
+#define R_MIPS_JUMP_SLOT 127
+#define R_MIPS_NUM 128
+#define PT_MIPS_REGINFO 0x70000000
+#define PT_MIPS_RTPROC 0x70000001
+#define PT_MIPS_OPTIONS 0x70000002
+#define PT_MIPS_ABIFLAGS 0x70000003
+#define PF_MIPS_LOCAL 0x10000000
+#define DT_MIPS_RLD_VERSION 0x70000001
+#define DT_MIPS_TIME_STAMP 0x70000002
+#define DT_MIPS_ICHECKSUM 0x70000003
+#define DT_MIPS_IVERSION 0x70000004
+#define DT_MIPS_FLAGS 0x70000005
+#define DT_MIPS_BASE_ADDRESS 0x70000006
+#define DT_MIPS_MSYM 0x70000007
+#define DT_MIPS_CONFLICT 0x70000008
+#define DT_MIPS_LIBLIST 0x70000009
+#define DT_MIPS_LOCAL_GOTNO 0x7000000a
+#define DT_MIPS_CONFLICTNO 0x7000000b
+#define DT_MIPS_LIBLISTNO 0x70000010
+#define DT_MIPS_SYMTABNO 0x70000011
+#define DT_MIPS_UNREFEXTNO 0x70000012
+#define DT_MIPS_GOTSYM 0x70000013
+#define DT_MIPS_HIPAGENO 0x70000014
+#define DT_MIPS_RLD_MAP 0x70000016
+#define DT_MIPS_DELTA_CLASS 0x70000017
+#define DT_MIPS_DELTA_CLASS_NO 0x70000018
+#define DT_MIPS_DELTA_INSTANCE 0x70000019
+#define DT_MIPS_DELTA_INSTANCE_NO 0x7000001a
+#define DT_MIPS_DELTA_RELOC 0x7000001b
+#define DT_MIPS_DELTA_RELOC_NO 0x7000001c
+#define DT_MIPS_DELTA_SYM 0x7000001d
+#define DT_MIPS_DELTA_SYM_NO 0x7000001e
+#define DT_MIPS_DELTA_CLASSSYM 0x70000020
+#define DT_MIPS_DELTA_CLASSSYM_NO 0x70000021
+#define DT_MIPS_CXX_FLAGS 0x70000022
+#define DT_MIPS_PIXIE_INIT 0x70000023
+#define DT_MIPS_SYMBOL_LIB 0x70000024
+#define DT_MIPS_LOCALPAGE_GOTIDX 0x70000025
+#define DT_MIPS_LOCAL_GOTIDX 0x70000026
+#define DT_MIPS_HIDDEN_GOTIDX 0x70000027
+#define DT_MIPS_PROTECTED_GOTIDX 0x70000028
+#define DT_MIPS_OPTIONS 0x70000029
+#define DT_MIPS_INTERFACE 0x7000002a
+#define DT_MIPS_DYNSTR_ALIGN 0x7000002b
+#define DT_MIPS_INTERFACE_SIZE 0x7000002c
+#define DT_MIPS_RLD_TEXT_RESOLVE_ADDR 0x7000002d
+#define DT_MIPS_PERF_SUFFIX 0x7000002e
+#define DT_MIPS_COMPACT_SIZE 0x7000002f
+#define DT_MIPS_GP_VALUE 0x70000030
+#define DT_MIPS_AUX_DYNAMIC 0x70000031
+#define DT_MIPS_PLTGOT 0x70000032
+#define DT_MIPS_RWPLT 0x70000034
+#define DT_MIPS_RLD_MAP_REL 0x70000035
+#define DT_MIPS_NUM 0x36
+#define RHF_NONE 0
+#define RHF_QUICKSTART (1 << 0)
+#define RHF_NOTPOT (1 << 1)
+#define RHF_NO_LIBRARY_REPLACEMENT (1 << 2)
+#define RHF_NO_MOVE (1 << 3)
+#define RHF_SGI_ONLY (1 << 4)
+#define RHF_GUARANTEE_INIT (1 << 5)
+#define RHF_DELTA_C_PLUS_PLUS (1 << 6)
+#define RHF_GUARANTEE_START_INIT (1 << 7)
+#define RHF_PIXIE (1 << 8)
+#define RHF_DEFAULT_DELAY_LOAD (1 << 9)
+#define RHF_REQUICKSTART (1 << 10)
+#define RHF_REQUICKSTARTED (1 << 11)
+#define RHF_CORD (1 << 12)
+#define RHF_NO_UNRES_UNDEF (1 << 13)
+#define RHF_RLD_ORDER_SAFE (1 << 14)
+typedef struct {
+  Elf32_Word l_name;
+  Elf32_Word l_time_stamp;
+  Elf32_Word l_checksum;
+  Elf32_Word l_version;
+  Elf32_Word l_flags;
+} Elf32_Lib;
+typedef struct {
+  Elf64_Word l_name;
+  Elf64_Word l_time_stamp;
+  Elf64_Word l_checksum;
+  Elf64_Word l_version;
+  Elf64_Word l_flags;
+} Elf64_Lib;
+#define LL_NONE 0
+#define LL_EXACT_MATCH (1 << 0)
+#define LL_IGNORE_INT_VER (1 << 1)
+#define LL_REQUIRE_MINOR (1 << 2)
+#define LL_EXPORTS (1 << 3)
+#define LL_DELAY_LOAD (1 << 4)
+#define LL_DELTA (1 << 5)
+typedef Elf32_Addr Elf32_Conflict;
+typedef struct {
+  Elf32_Half version;
+  unsigned char isa_level;
+  unsigned char isa_rev;
+  unsigned char gpr_size;
+  unsigned char cpr1_size;
+  unsigned char cpr2_size;
+  unsigned char fp_abi;
+  Elf32_Word isa_ext;
+  Elf32_Word ases;
+  Elf32_Word flags1;
+  Elf32_Word flags2;
+} Elf_MIPS_ABIFlags_v0;
+#define MIPS_AFL_REG_NONE 0x00
+#define MIPS_AFL_REG_32 0x01
+#define MIPS_AFL_REG_64 0x02
+#define MIPS_AFL_REG_128 0x03
+#define MIPS_AFL_ASE_DSP 0x00000001
+#define MIPS_AFL_ASE_DSPR2 0x00000002
+#define MIPS_AFL_ASE_EVA 0x00000004
+#define MIPS_AFL_ASE_MCU 0x00000008
+#define MIPS_AFL_ASE_MDMX 0x00000010
+#define MIPS_AFL_ASE_MIPS3D 0x00000020
+#define MIPS_AFL_ASE_MT 0x00000040
+#define MIPS_AFL_ASE_SMARTMIPS 0x00000080
+#define MIPS_AFL_ASE_VIRT 0x00000100
+#define MIPS_AFL_ASE_MSA 0x00000200
+#define MIPS_AFL_ASE_MIPS16 0x00000400
+#define MIPS_AFL_ASE_MICROMIPS 0x00000800
+#define MIPS_AFL_ASE_XPA 0x00001000
+#define MIPS_AFL_ASE_MASK 0x00001fff
+#define MIPS_AFL_EXT_XLR 1
+#define MIPS_AFL_EXT_OCTEON2 2
+#define MIPS_AFL_EXT_OCTEONP 3
+#define MIPS_AFL_EXT_LOONGSON_3A 4
+#define MIPS_AFL_EXT_OCTEON 5
+#define MIPS_AFL_EXT_5900 6
+#define MIPS_AFL_EXT_4650 7
+#define MIPS_AFL_EXT_4010 8
+#define MIPS_AFL_EXT_4100 9
+#define MIPS_AFL_EXT_3900 10
+#define MIPS_AFL_EXT_10000 11
+#define MIPS_AFL_EXT_SB1 12
+#define MIPS_AFL_EXT_4111 13
+#define MIPS_AFL_EXT_4120 14
+#define MIPS_AFL_EXT_5400 15
+#define MIPS_AFL_EXT_5500 16
+#define MIPS_AFL_EXT_LOONGSON_2E 17
+#define MIPS_AFL_EXT_LOONGSON_2F 18
+#define MIPS_AFL_FLAGS1_ODDSPREG 1
+enum
+{
+  Val_GNU_MIPS_ABI_FP_ANY = 0,
+  Val_GNU_MIPS_ABI_FP_DOUBLE = 1,
+  Val_GNU_MIPS_ABI_FP_SINGLE = 2,
+  Val_GNU_MIPS_ABI_FP_SOFT = 3,
+  Val_GNU_MIPS_ABI_FP_OLD_64 = 4,
+  Val_GNU_MIPS_ABI_FP_XX = 5,
+  Val_GNU_MIPS_ABI_FP_64 = 6,
+  Val_GNU_MIPS_ABI_FP_64A = 7,
+  Val_GNU_MIPS_ABI_FP_MAX = 7
+};
+#define EF_PARISC_TRAPNIL 0x00010000
+#define EF_PARISC_EXT 0x00020000
+#define EF_PARISC_LSB 0x00040000
+#define EF_PARISC_WIDE 0x00080000
+#define EF_PARISC_NO_KABP 0x00100000
+#define EF_PARISC_LAZYSWAP 0x00400000
+#define EF_PARISC_ARCH 0x0000ffff
+#define EFA_PARISC_1_0 0x020b
+#define EFA_PARISC_1_1 0x0210
+#define EFA_PARISC_2_0 0x0214
+#define SHN_PARISC_ANSI_COMMON 0xff00
+#define SHN_PARISC_HUGE_COMMON 0xff01
+#define SHT_PARISC_EXT 0x70000000
+#define SHT_PARISC_UNWIND 0x70000001
+#define SHT_PARISC_DOC 0x70000002
+#define SHF_PARISC_SHORT 0x20000000
+#define SHF_PARISC_HUGE 0x40000000
+#define SHF_PARISC_SBP 0x80000000
+#define STT_PARISC_MILLICODE 13
+#define STT_HP_OPAQUE (STT_LOOS + 0x1)
+#define STT_HP_STUB (STT_LOOS + 0x2)
+#define R_PARISC_NONE 0
+#define R_PARISC_DIR32 1
+#define R_PARISC_DIR21L 2
+#define R_PARISC_DIR17R 3
+#define R_PARISC_DIR17F 4
+#define R_PARISC_DIR14R 6
+#define R_PARISC_PCREL32 9
+#define R_PARISC_PCREL21L 10
+#define R_PARISC_PCREL17R 11
+#define R_PARISC_PCREL17F 12
+#define R_PARISC_PCREL14R 14
+#define R_PARISC_DPREL21L 18
+#define R_PARISC_DPREL14R 22
+#define R_PARISC_GPREL21L 26
+#define R_PARISC_GPREL14R 30
+#define R_PARISC_LTOFF21L 34
+#define R_PARISC_LTOFF14R 38
+#define R_PARISC_SECREL32 41
+#define R_PARISC_SEGBASE 48
+#define R_PARISC_SEGREL32 49
+#define R_PARISC_PLTOFF21L 50
+#define R_PARISC_PLTOFF14R 54
+#define R_PARISC_LTOFF_FPTR32 57
+#define R_PARISC_LTOFF_FPTR21L 58
+#define R_PARISC_LTOFF_FPTR14R 62
+#define R_PARISC_FPTR64 64
+#define R_PARISC_PLABEL32 65
+#define R_PARISC_PLABEL21L 66
+#define R_PARISC_PLABEL14R 70
+#define R_PARISC_PCREL64 72
+#define R_PARISC_PCREL22F 74
+#define R_PARISC_PCREL14WR 75
+#define R_PARISC_PCREL14DR 76
+#define R_PARISC_PCREL16F 77
+#define R_PARISC_PCREL16WF 78
+#define R_PARISC_PCREL16DF 79
+#define R_PARISC_DIR64 80
+#define R_PARISC_DIR14WR 83
+#define R_PARISC_DIR14DR 84
+#define R_PARISC_DIR16F 85
+#define R_PARISC_DIR16WF 86
+#define R_PARISC_DIR16DF 87
+#define R_PARISC_GPREL64 88
+#define R_PARISC_GPREL14WR 91
+#define R_PARISC_GPREL14DR 92
+#define R_PARISC_GPREL16F 93
+#define R_PARISC_GPREL16WF 94
+#define R_PARISC_GPREL16DF 95
+#define R_PARISC_LTOFF64 96
+#define R_PARISC_LTOFF14WR 99
+#define R_PARISC_LTOFF14DR 100
+#define R_PARISC_LTOFF16F 101
+#define R_PARISC_LTOFF16WF 102
+#define R_PARISC_LTOFF16DF 103
+#define R_PARISC_SECREL64 104
+#define R_PARISC_SEGREL64 112
+#define R_PARISC_PLTOFF14WR 115
+#define R_PARISC_PLTOFF14DR 116
+#define R_PARISC_PLTOFF16F 117
+#define R_PARISC_PLTOFF16WF 118
+#define R_PARISC_PLTOFF16DF 119
+#define R_PARISC_LTOFF_FPTR64 120
+#define R_PARISC_LTOFF_FPTR14WR 123
+#define R_PARISC_LTOFF_FPTR14DR 124
+#define R_PARISC_LTOFF_FPTR16F 125
+#define R_PARISC_LTOFF_FPTR16WF 126
+#define R_PARISC_LTOFF_FPTR16DF 127
+#define R_PARISC_LORESERVE 128
+#define R_PARISC_COPY 128
+#define R_PARISC_IPLT 129
+#define R_PARISC_EPLT 130
+#define R_PARISC_TPREL32 153
+#define R_PARISC_TPREL21L 154
+#define R_PARISC_TPREL14R 158
+#define R_PARISC_LTOFF_TP21L 162
+#define R_PARISC_LTOFF_TP14R 166
+#define R_PARISC_LTOFF_TP14F 167
+#define R_PARISC_TPREL64 216
+#define R_PARISC_TPREL14WR 219
+#define R_PARISC_TPREL14DR 220
+#define R_PARISC_TPREL16F 221
+#define R_PARISC_TPREL16WF 222
+#define R_PARISC_TPREL16DF 223
+#define R_PARISC_LTOFF_TP64 224
+#define R_PARISC_LTOFF_TP14WR 227
+#define R_PARISC_LTOFF_TP14DR 228
+#define R_PARISC_LTOFF_TP16F 229
+#define R_PARISC_LTOFF_TP16WF 230
+#define R_PARISC_LTOFF_TP16DF 231
+#define R_PARISC_GNU_VTENTRY 232
+#define R_PARISC_GNU_VTINHERIT 233
+#define R_PARISC_TLS_GD21L 234
+#define R_PARISC_TLS_GD14R 235
+#define R_PARISC_TLS_GDCALL 236
+#define R_PARISC_TLS_LDM21L 237
+#define R_PARISC_TLS_LDM14R 238
+#define R_PARISC_TLS_LDMCALL 239
+#define R_PARISC_TLS_LDO21L 240
+#define R_PARISC_TLS_LDO14R 241
+#define R_PARISC_TLS_DTPMOD32 242
+#define R_PARISC_TLS_DTPMOD64 243
+#define R_PARISC_TLS_DTPOFF32 244
+#define R_PARISC_TLS_DTPOFF64 245
+#define R_PARISC_TLS_LE21L R_PARISC_TPREL21L
+#define R_PARISC_TLS_LE14R R_PARISC_TPREL14R
+#define R_PARISC_TLS_IE21L R_PARISC_LTOFF_TP21L
+#define R_PARISC_TLS_IE14R R_PARISC_LTOFF_TP14R
+#define R_PARISC_TLS_TPREL32 R_PARISC_TPREL32
+#define R_PARISC_TLS_TPREL64 R_PARISC_TPREL64
+#define R_PARISC_HIRESERVE 255
+#define PT_HP_TLS (PT_LOOS + 0x0)
+#define PT_HP_CORE_NONE (PT_LOOS + 0x1)
+#define PT_HP_CORE_VERSION (PT_LOOS + 0x2)
+#define PT_HP_CORE_KERNEL (PT_LOOS + 0x3)
+#define PT_HP_CORE_COMM (PT_LOOS + 0x4)
+#define PT_HP_CORE_PROC (PT_LOOS + 0x5)
+#define PT_HP_CORE_LOADABLE (PT_LOOS + 0x6)
+#define PT_HP_CORE_STACK (PT_LOOS + 0x7)
+#define PT_HP_CORE_SHM (PT_LOOS + 0x8)
+#define PT_HP_CORE_MMF (PT_LOOS + 0x9)
+#define PT_HP_PARALLEL (PT_LOOS + 0x10)
+#define PT_HP_FASTBIND (PT_LOOS + 0x11)
+#define PT_HP_OPT_ANNOT (PT_LOOS + 0x12)
+#define PT_HP_HSL_ANNOT (PT_LOOS + 0x13)
+#define PT_HP_STACK (PT_LOOS + 0x14)
+#define PT_PARISC_ARCHEXT 0x70000000
+#define PT_PARISC_UNWIND 0x70000001
+#define PF_PARISC_SBP 0x08000000
+#define PF_HP_PAGE_SIZE 0x00100000
+#define PF_HP_FAR_SHARED 0x00200000
+#define PF_HP_NEAR_SHARED 0x00400000
+#define PF_HP_CODE 0x01000000
+#define PF_HP_MODIFY 0x02000000
+#define PF_HP_LAZYSWAP 0x04000000
+#define PF_HP_SBP 0x08000000
+#define EF_ALPHA_32BIT 1
+#define EF_ALPHA_CANRELAX 2
+#define SHT_ALPHA_DEBUG 0x70000001
+#define SHT_ALPHA_REGINFO 0x70000002
+#define SHF_ALPHA_GPREL 0x10000000
+#define STO_ALPHA_NOPV 0x80
+#define STO_ALPHA_STD_GPLOAD 0x88
+#define R_ALPHA_NONE 0
+#define R_ALPHA_REFLONG 1
+#define R_ALPHA_REFQUAD 2
+#define R_ALPHA_GPREL32 3
+#define R_ALPHA_LITERAL 4
+#define R_ALPHA_LITUSE 5
+#define R_ALPHA_GPDISP 6
+#define R_ALPHA_BRADDR 7
+#define R_ALPHA_HINT 8
+#define R_ALPHA_SREL16 9
+#define R_ALPHA_SREL32 10
+#define R_ALPHA_SREL64 11
+#define R_ALPHA_GPRELHIGH 17
+#define R_ALPHA_GPRELLOW 18
+#define R_ALPHA_GPREL16 19
+#define R_ALPHA_COPY 24
+#define R_ALPHA_GLOB_DAT 25
+#define R_ALPHA_JMP_SLOT 26
+#define R_ALPHA_RELATIVE 27
+#define R_ALPHA_TLS_GD_HI 28
+#define R_ALPHA_TLSGD 29
+#define R_ALPHA_TLS_LDM 30
+#define R_ALPHA_DTPMOD64 31
+#define R_ALPHA_GOTDTPREL 32
+#define R_ALPHA_DTPREL64 33
+#define R_ALPHA_DTPRELHI 34
+#define R_ALPHA_DTPRELLO 35
+#define R_ALPHA_DTPREL16 36
+#define R_ALPHA_GOTTPREL 37
+#define R_ALPHA_TPREL64 38
+#define R_ALPHA_TPRELHI 39
+#define R_ALPHA_TPRELLO 40
+#define R_ALPHA_TPREL16 41
+#define R_ALPHA_NUM 46
+#define LITUSE_ALPHA_ADDR 0
+#define LITUSE_ALPHA_BASE 1
+#define LITUSE_ALPHA_BYTOFF 2
+#define LITUSE_ALPHA_JSR 3
+#define LITUSE_ALPHA_TLS_GD 4
+#define LITUSE_ALPHA_TLS_LDM 5
+#define DT_ALPHA_PLTRO (DT_LOPROC + 0)
+#define DT_ALPHA_NUM 1
+#define EF_PPC_EMB 0x80000000
+#define EF_PPC_RELOCATABLE 0x00010000
+#define EF_PPC_RELOCATABLE_LIB 0x00008000
+#define R_PPC_NONE 0
+#define R_PPC_ADDR32 1
+#define R_PPC_ADDR24 2
+#define R_PPC_ADDR16 3
+#define R_PPC_ADDR16_LO 4
+#define R_PPC_ADDR16_HI 5
+#define R_PPC_ADDR16_HA 6
+#define R_PPC_ADDR14 7
+#define R_PPC_ADDR14_BRTAKEN 8
+#define R_PPC_ADDR14_BRNTAKEN 9
+#define R_PPC_REL24 10
+#define R_PPC_REL14 11
+#define R_PPC_REL14_BRTAKEN 12
+#define R_PPC_REL14_BRNTAKEN 13
+#define R_PPC_GOT16 14
+#define R_PPC_GOT16_LO 15
+#define R_PPC_GOT16_HI 16
+#define R_PPC_GOT16_HA 17
+#define R_PPC_PLTREL24 18
+#define R_PPC_COPY 19
+#define R_PPC_GLOB_DAT 20
+#define R_PPC_JMP_SLOT 21
+#define R_PPC_RELATIVE 22
+#define R_PPC_LOCAL24PC 23
+#define R_PPC_UADDR32 24
+#define R_PPC_UADDR16 25
+#define R_PPC_REL32 26
+#define R_PPC_PLT32 27
+#define R_PPC_PLTREL32 28
+#define R_PPC_PLT16_LO 29
+#define R_PPC_PLT16_HI 30
+#define R_PPC_PLT16_HA 31
+#define R_PPC_SDAREL16 32
+#define R_PPC_SECTOFF 33
+#define R_PPC_SECTOFF_LO 34
+#define R_PPC_SECTOFF_HI 35
+#define R_PPC_SECTOFF_HA 36
+#define R_PPC_TLS 67
+#define R_PPC_DTPMOD32 68
+#define R_PPC_TPREL16 69
+#define R_PPC_TPREL16_LO 70
+#define R_PPC_TPREL16_HI 71
+#define R_PPC_TPREL16_HA 72
+#define R_PPC_TPREL32 73
+#define R_PPC_DTPREL16 74
+#define R_PPC_DTPREL16_LO 75
+#define R_PPC_DTPREL16_HI 76
+#define R_PPC_DTPREL16_HA 77
+#define R_PPC_DTPREL32 78
+#define R_PPC_GOT_TLSGD16 79
+#define R_PPC_GOT_TLSGD16_LO 80
+#define R_PPC_GOT_TLSGD16_HI 81
+#define R_PPC_GOT_TLSGD16_HA 82
+#define R_PPC_GOT_TLSLD16 83
+#define R_PPC_GOT_TLSLD16_LO 84
+#define R_PPC_GOT_TLSLD16_HI 85
+#define R_PPC_GOT_TLSLD16_HA 86
+#define R_PPC_GOT_TPREL16 87
+#define R_PPC_GOT_TPREL16_LO 88
+#define R_PPC_GOT_TPREL16_HI 89
+#define R_PPC_GOT_TPREL16_HA 90
+#define R_PPC_GOT_DTPREL16 91
+#define R_PPC_GOT_DTPREL16_LO 92
+#define R_PPC_GOT_DTPREL16_HI 93
+#define R_PPC_GOT_DTPREL16_HA 94
+#define R_PPC_TLSGD 95
+#define R_PPC_TLSLD 96
+#define R_PPC_EMB_NADDR32 101
+#define R_PPC_EMB_NADDR16 102
+#define R_PPC_EMB_NADDR16_LO 103
+#define R_PPC_EMB_NADDR16_HI 104
+#define R_PPC_EMB_NADDR16_HA 105
+#define R_PPC_EMB_SDAI16 106
+#define R_PPC_EMB_SDA2I16 107
+#define R_PPC_EMB_SDA2REL 108
+#define R_PPC_EMB_SDA21 109
+#define R_PPC_EMB_MRKREF 110
+#define R_PPC_EMB_RELSEC16 111
+#define R_PPC_EMB_RELST_LO 112
+#define R_PPC_EMB_RELST_HI 113
+#define R_PPC_EMB_RELST_HA 114
+#define R_PPC_EMB_BIT_FLD 115
+#define R_PPC_EMB_RELSDA 116
+#define R_PPC_DIAB_SDA21_LO 180
+#define R_PPC_DIAB_SDA21_HI 181
+#define R_PPC_DIAB_SDA21_HA 182
+#define R_PPC_DIAB_RELSDA_LO 183
+#define R_PPC_DIAB_RELSDA_HI 184
+#define R_PPC_DIAB_RELSDA_HA 185
+#define R_PPC_IRELATIVE 248
+#define R_PPC_REL16 249
+#define R_PPC_REL16_LO 250
+#define R_PPC_REL16_HI 251
+#define R_PPC_REL16_HA 252
+#define R_PPC_TOC16 255
+#define DT_PPC_GOT (DT_LOPROC + 0)
+#define DT_PPC_OPT (DT_LOPROC + 1)
+#define DT_PPC_NUM 2
+#define PPC_OPT_TLS 1
+#define R_PPC64_NONE R_PPC_NONE
+#define R_PPC64_ADDR32 R_PPC_ADDR32
+#define R_PPC64_ADDR24 R_PPC_ADDR24
+#define R_PPC64_ADDR16 R_PPC_ADDR16
+#define R_PPC64_ADDR16_LO R_PPC_ADDR16_LO
+#define R_PPC64_ADDR16_HI R_PPC_ADDR16_HI
+#define R_PPC64_ADDR16_HA R_PPC_ADDR16_HA
+#define R_PPC64_ADDR14 R_PPC_ADDR14
+#define R_PPC64_ADDR14_BRTAKEN R_PPC_ADDR14_BRTAKEN
+#define R_PPC64_ADDR14_BRNTAKEN R_PPC_ADDR14_BRNTAKEN
+#define R_PPC64_REL24 R_PPC_REL24
+#define R_PPC64_REL14 R_PPC_REL14
+#define R_PPC64_REL14_BRTAKEN R_PPC_REL14_BRTAKEN
+#define R_PPC64_REL14_BRNTAKEN R_PPC_REL14_BRNTAKEN
+#define R_PPC64_GOT16 R_PPC_GOT16
+#define R_PPC64_GOT16_LO R_PPC_GOT16_LO
+#define R_PPC64_GOT16_HI R_PPC_GOT16_HI
+#define R_PPC64_GOT16_HA R_PPC_GOT16_HA
+#define R_PPC64_COPY R_PPC_COPY
+#define R_PPC64_GLOB_DAT R_PPC_GLOB_DAT
+#define R_PPC64_JMP_SLOT R_PPC_JMP_SLOT
+#define R_PPC64_RELATIVE R_PPC_RELATIVE
+#define R_PPC64_UADDR32 R_PPC_UADDR32
+#define R_PPC64_UADDR16 R_PPC_UADDR16
+#define R_PPC64_REL32 R_PPC_REL32
+#define R_PPC64_PLT32 R_PPC_PLT32
+#define R_PPC64_PLTREL32 R_PPC_PLTREL32
+#define R_PPC64_PLT16_LO R_PPC_PLT16_LO
+#define R_PPC64_PLT16_HI R_PPC_PLT16_HI
+#define R_PPC64_PLT16_HA R_PPC_PLT16_HA
+#define R_PPC64_SECTOFF R_PPC_SECTOFF
+#define R_PPC64_SECTOFF_LO R_PPC_SECTOFF_LO
+#define R_PPC64_SECTOFF_HI R_PPC_SECTOFF_HI
+#define R_PPC64_SECTOFF_HA R_PPC_SECTOFF_HA
+#define R_PPC64_ADDR30 37
+#define R_PPC64_ADDR64 38
+#define R_PPC64_ADDR16_HIGHER 39
+#define R_PPC64_ADDR16_HIGHERA 40
+#define R_PPC64_ADDR16_HIGHEST 41
+#define R_PPC64_ADDR16_HIGHESTA 42
+#define R_PPC64_UADDR64 43
+#define R_PPC64_REL64 44
+#define R_PPC64_PLT64 45
+#define R_PPC64_PLTREL64 46
+#define R_PPC64_TOC16 47
+#define R_PPC64_TOC16_LO 48
+#define R_PPC64_TOC16_HI 49
+#define R_PPC64_TOC16_HA 50
+#define R_PPC64_TOC 51
+#define R_PPC64_PLTGOT16 52
+#define R_PPC64_PLTGOT16_LO 53
+#define R_PPC64_PLTGOT16_HI 54
+#define R_PPC64_PLTGOT16_HA 55
+#define R_PPC64_ADDR16_DS 56
+#define R_PPC64_ADDR16_LO_DS 57
+#define R_PPC64_GOT16_DS 58
+#define R_PPC64_GOT16_LO_DS 59
+#define R_PPC64_PLT16_LO_DS 60
+#define R_PPC64_SECTOFF_DS 61
+#define R_PPC64_SECTOFF_LO_DS 62
+#define R_PPC64_TOC16_DS 63
+#define R_PPC64_TOC16_LO_DS 64
+#define R_PPC64_PLTGOT16_DS 65
+#define R_PPC64_PLTGOT16_LO_DS 66
+#define R_PPC64_TLS 67
+#define R_PPC64_DTPMOD64 68
+#define R_PPC64_TPREL16 69
+#define R_PPC64_TPREL16_LO 70
+#define R_PPC64_TPREL16_HI 71
+#define R_PPC64_TPREL16_HA 72
+#define R_PPC64_TPREL64 73
+#define R_PPC64_DTPREL16 74
+#define R_PPC64_DTPREL16_LO 75
+#define R_PPC64_DTPREL16_HI 76
+#define R_PPC64_DTPREL16_HA 77
+#define R_PPC64_DTPREL64 78
+#define R_PPC64_GOT_TLSGD16 79
+#define R_PPC64_GOT_TLSGD16_LO 80
+#define R_PPC64_GOT_TLSGD16_HI 81
+#define R_PPC64_GOT_TLSGD16_HA 82
+#define R_PPC64_GOT_TLSLD16 83
+#define R_PPC64_GOT_TLSLD16_LO 84
+#define R_PPC64_GOT_TLSLD16_HI 85
+#define R_PPC64_GOT_TLSLD16_HA 86
+#define R_PPC64_GOT_TPREL16_DS 87
+#define R_PPC64_GOT_TPREL16_LO_DS 88
+#define R_PPC64_GOT_TPREL16_HI 89
+#define R_PPC64_GOT_TPREL16_HA 90
+#define R_PPC64_GOT_DTPREL16_DS 91
+#define R_PPC64_GOT_DTPREL16_LO_DS 92
+#define R_PPC64_GOT_DTPREL16_HI 93
+#define R_PPC64_GOT_DTPREL16_HA 94
+#define R_PPC64_TPREL16_DS 95
+#define R_PPC64_TPREL16_LO_DS 96
+#define R_PPC64_TPREL16_HIGHER 97
+#define R_PPC64_TPREL16_HIGHERA 98
+#define R_PPC64_TPREL16_HIGHEST 99
+#define R_PPC64_TPREL16_HIGHESTA 100
+#define R_PPC64_DTPREL16_DS 101
+#define R_PPC64_DTPREL16_LO_DS 102
+#define R_PPC64_DTPREL16_HIGHER 103
+#define R_PPC64_DTPREL16_HIGHERA 104
+#define R_PPC64_DTPREL16_HIGHEST 105
+#define R_PPC64_DTPREL16_HIGHESTA 106
+#define R_PPC64_TLSGD 107
+#define R_PPC64_TLSLD 108
+#define R_PPC64_TOCSAVE 109
+#define R_PPC64_ADDR16_HIGH 110
+#define R_PPC64_ADDR16_HIGHA 111
+#define R_PPC64_TPREL16_HIGH 112
+#define R_PPC64_TPREL16_HIGHA 113
+#define R_PPC64_DTPREL16_HIGH 114
+#define R_PPC64_DTPREL16_HIGHA 115
+#define R_PPC64_JMP_IREL 247
+#define R_PPC64_IRELATIVE 248
+#define R_PPC64_REL16 249
+#define R_PPC64_REL16_LO 250
+#define R_PPC64_REL16_HI 251
+#define R_PPC64_REL16_HA 252
+#define EF_PPC64_ABI 3
+#define DT_PPC64_GLINK (DT_LOPROC + 0)
+#define DT_PPC64_OPD (DT_LOPROC + 1)
+#define DT_PPC64_OPDSZ (DT_LOPROC + 2)
+#define DT_PPC64_OPT (DT_LOPROC + 3)
+#define DT_PPC64_NUM 4
+#define PPC64_OPT_TLS 1
+#define PPC64_OPT_MULTI_TOC 2
+#define PPC64_OPT_LOCALENTRY 4
+#define STO_PPC64_LOCAL_BIT 5
+#define STO_PPC64_LOCAL_MASK 0xe0
+#define PPC64_LOCAL_ENTRY_OFFSET(x) (1 << (((x)&0xe0)>>5) & 0xfc)
+#define EF_ARM_RELEXEC 0x01
+#define EF_ARM_HASENTRY 0x02
+#define EF_ARM_INTERWORK 0x04
+#define EF_ARM_APCS_26 0x08
+#define EF_ARM_APCS_FLOAT 0x10
+#define EF_ARM_PIC 0x20
+#define EF_ARM_ALIGN8 0x40
+#define EF_ARM_NEW_ABI 0x80
+#define EF_ARM_OLD_ABI 0x100
+#define EF_ARM_SOFT_FLOAT 0x200
+#define EF_ARM_VFP_FLOAT 0x400
+#define EF_ARM_MAVERICK_FLOAT 0x800
+#define EF_ARM_ABI_FLOAT_SOFT 0x200
+#define EF_ARM_ABI_FLOAT_HARD 0x400
+#define EF_ARM_SYMSARESORTED 0x04
+#define EF_ARM_DYNSYMSUSESEGIDX 0x08
+#define EF_ARM_MAPSYMSFIRST 0x10
+#define EF_ARM_EABIMASK 0XFF000000
+#define EF_ARM_BE8 0x00800000
+#define EF_ARM_LE8 0x00400000
+#define EF_ARM_EABI_VERSION(flags) ((flags) & EF_ARM_EABIMASK)
+#define EF_ARM_EABI_UNKNOWN 0x00000000
+#define EF_ARM_EABI_VER1 0x01000000
+#define EF_ARM_EABI_VER2 0x02000000
+#define EF_ARM_EABI_VER3 0x03000000
+#define EF_ARM_EABI_VER4 0x04000000
+#define EF_ARM_EABI_VER5 0x05000000
+#define STT_ARM_TFUNC STT_LOPROC
+#define STT_ARM_16BIT STT_HIPROC
+#define SHF_ARM_ENTRYSECT 0x10000000
+#define SHF_ARM_COMDEF 0x80000000
+#define PF_ARM_SB 0x10000000
+#define PF_ARM_PI 0x20000000
+#define PF_ARM_ABS 0x40000000
+#define PT_ARM_EXIDX (PT_LOPROC + 1)
+#define SHT_ARM_EXIDX (SHT_LOPROC + 1)
+#define SHT_ARM_PREEMPTMAP (SHT_LOPROC + 2)
+#define SHT_ARM_ATTRIBUTES (SHT_LOPROC + 3)
+#define R_AARCH64_NONE 0
+#define R_AARCH64_P32_ABS32 1
+#define R_AARCH64_P32_COPY 180
+#define R_AARCH64_P32_GLOB_DAT 181
+#define R_AARCH64_P32_JUMP_SLOT 182
+#define R_AARCH64_P32_RELATIVE 183
+#define R_AARCH64_P32_TLS_DTPMOD 184
+#define R_AARCH64_P32_TLS_DTPREL 185
+#define R_AARCH64_P32_TLS_TPREL 186
+#define R_AARCH64_P32_TLSDESC 187
+#define R_AARCH64_P32_IRELATIVE 188
+#define R_AARCH64_ABS64 257
+#define R_AARCH64_ABS32 258
+#define R_AARCH64_ABS16 259
+#define R_AARCH64_PREL64 260
+#define R_AARCH64_PREL32 261
+#define R_AARCH64_PREL16 262
+#define R_AARCH64_MOVW_UABS_G0 263
+#define R_AARCH64_MOVW_UABS_G0_NC 264
+#define R_AARCH64_MOVW_UABS_G1 265
+#define R_AARCH64_MOVW_UABS_G1_NC 266
+#define R_AARCH64_MOVW_UABS_G2 267
+#define R_AARCH64_MOVW_UABS_G2_NC 268
+#define R_AARCH64_MOVW_UABS_G3 269
+#define R_AARCH64_MOVW_SABS_G0 270
+#define R_AARCH64_MOVW_SABS_G1 271
+#define R_AARCH64_MOVW_SABS_G2 272
+#define R_AARCH64_LD_PREL_LO19 273
+#define R_AARCH64_ADR_PREL_LO21 274
+#define R_AARCH64_ADR_PREL_PG_HI21 275
+#define R_AARCH64_ADR_PREL_PG_HI21_NC 276
+#define R_AARCH64_ADD_ABS_LO12_NC 277
+#define R_AARCH64_LDST8_ABS_LO12_NC 278
+#define R_AARCH64_TSTBR14 279
+#define R_AARCH64_CONDBR19 280
+#define R_AARCH64_JUMP26 282
+#define R_AARCH64_CALL26 283
+#define R_AARCH64_LDST16_ABS_LO12_NC 284
+#define R_AARCH64_LDST32_ABS_LO12_NC 285
+#define R_AARCH64_LDST64_ABS_LO12_NC 286
+#define R_AARCH64_MOVW_PREL_G0 287
+#define R_AARCH64_MOVW_PREL_G0_NC 288
+#define R_AARCH64_MOVW_PREL_G1 289
+#define R_AARCH64_MOVW_PREL_G1_NC 290
+#define R_AARCH64_MOVW_PREL_G2 291
+#define R_AARCH64_MOVW_PREL_G2_NC 292
+#define R_AARCH64_MOVW_PREL_G3 293
+#define R_AARCH64_LDST128_ABS_LO12_NC 299
+#define R_AARCH64_MOVW_GOTOFF_G0 300
+#define R_AARCH64_MOVW_GOTOFF_G0_NC 301
+#define R_AARCH64_MOVW_GOTOFF_G1 302
+#define R_AARCH64_MOVW_GOTOFF_G1_NC 303
+#define R_AARCH64_MOVW_GOTOFF_G2 304
+#define R_AARCH64_MOVW_GOTOFF_G2_NC 305
+#define R_AARCH64_MOVW_GOTOFF_G3 306
+#define R_AARCH64_GOTREL64 307
+#define R_AARCH64_GOTREL32 308
+#define R_AARCH64_GOT_LD_PREL19 309
+#define R_AARCH64_LD64_GOTOFF_LO15 310
+#define R_AARCH64_ADR_GOT_PAGE 311
+#define R_AARCH64_LD64_GOT_LO12_NC 312
+#define R_AARCH64_LD64_GOTPAGE_LO15 313
+#define R_AARCH64_TLSGD_ADR_PREL21 512
+#define R_AARCH64_TLSGD_ADR_PAGE21 513
+#define R_AARCH64_TLSGD_ADD_LO12_NC 514
+#define R_AARCH64_TLSGD_MOVW_G1 515
+#define R_AARCH64_TLSGD_MOVW_G0_NC 516
+#define R_AARCH64_TLSLD_ADR_PREL21 517
+#define R_AARCH64_TLSLD_ADR_PAGE21 518
+#define R_AARCH64_TLSLD_ADD_LO12_NC 519
+#define R_AARCH64_TLSLD_MOVW_G1 520
+#define R_AARCH64_TLSLD_MOVW_G0_NC 521
+#define R_AARCH64_TLSLD_LD_PREL19 522
+#define R_AARCH64_TLSLD_MOVW_DTPREL_G2 523
+#define R_AARCH64_TLSLD_MOVW_DTPREL_G1 524
+#define R_AARCH64_TLSLD_MOVW_DTPREL_G1_NC 525
+#define R_AARCH64_TLSLD_MOVW_DTPREL_G0 526
+#define R_AARCH64_TLSLD_MOVW_DTPREL_G0_NC 527
+#define R_AARCH64_TLSLD_ADD_DTPREL_HI12 528
+#define R_AARCH64_TLSLD_ADD_DTPREL_LO12 529
+#define R_AARCH64_TLSLD_ADD_DTPREL_LO12_NC 530
+#define R_AARCH64_TLSLD_LDST8_DTPREL_LO12 531
+#define R_AARCH64_TLSLD_LDST8_DTPREL_LO12_NC 532
+#define R_AARCH64_TLSLD_LDST16_DTPREL_LO12 533
+#define R_AARCH64_TLSLD_LDST16_DTPREL_LO12_NC 534
+#define R_AARCH64_TLSLD_LDST32_DTPREL_LO12 535
+#define R_AARCH64_TLSLD_LDST32_DTPREL_LO12_NC 536
+#define R_AARCH64_TLSLD_LDST64_DTPREL_LO12 537
+#define R_AARCH64_TLSLD_LDST64_DTPREL_LO12_NC 538
+#define R_AARCH64_TLSIE_MOVW_GOTTPREL_G1 539
+#define R_AARCH64_TLSIE_MOVW_GOTTPREL_G0_NC 540
+#define R_AARCH64_TLSIE_ADR_GOTTPREL_PAGE21 541
+#define R_AARCH64_TLSIE_LD64_GOTTPREL_LO12_NC 542
+#define R_AARCH64_TLSIE_LD_GOTTPREL_PREL19 543
+#define R_AARCH64_TLSLE_MOVW_TPREL_G2 544
+#define R_AARCH64_TLSLE_MOVW_TPREL_G1 545
+#define R_AARCH64_TLSLE_MOVW_TPREL_G1_NC 546
+#define R_AARCH64_TLSLE_MOVW_TPREL_G0 547
+#define R_AARCH64_TLSLE_MOVW_TPREL_G0_NC 548
+#define R_AARCH64_TLSLE_ADD_TPREL_HI12 549
+#define R_AARCH64_TLSLE_ADD_TPREL_LO12 550
+#define R_AARCH64_TLSLE_ADD_TPREL_LO12_NC 551
+#define R_AARCH64_TLSLE_LDST8_TPREL_LO12 552
+#define R_AARCH64_TLSLE_LDST8_TPREL_LO12_NC 553
+#define R_AARCH64_TLSLE_LDST16_TPREL_LO12 554
+#define R_AARCH64_TLSLE_LDST16_TPREL_LO12_NC 555
+#define R_AARCH64_TLSLE_LDST32_TPREL_LO12 556
+#define R_AARCH64_TLSLE_LDST32_TPREL_LO12_NC 557
+#define R_AARCH64_TLSLE_LDST64_TPREL_LO12 558
+#define R_AARCH64_TLSLE_LDST64_TPREL_LO12_NC 559
+#define R_AARCH64_TLSDESC_LD_PREL19 560
+#define R_AARCH64_TLSDESC_ADR_PREL21 561
+#define R_AARCH64_TLSDESC_ADR_PAGE21 562
+#define R_AARCH64_TLSDESC_LD64_LO12 563
+#define R_AARCH64_TLSDESC_ADD_LO12 564
+#define R_AARCH64_TLSDESC_OFF_G1 565
+#define R_AARCH64_TLSDESC_OFF_G0_NC 566
+#define R_AARCH64_TLSDESC_LDR 567
+#define R_AARCH64_TLSDESC_ADD 568
+#define R_AARCH64_TLSDESC_CALL 569
+#define R_AARCH64_TLSLE_LDST128_TPREL_LO12 570
+#define R_AARCH64_TLSLE_LDST128_TPREL_LO12_NC 571
+#define R_AARCH64_TLSLD_LDST128_DTPREL_LO12 572
+#define R_AARCH64_TLSLD_LDST128_DTPREL_LO12_NC 573
+#define R_AARCH64_COPY 1024
+#define R_AARCH64_GLOB_DAT 1025
+#define R_AARCH64_JUMP_SLOT 1026
+#define R_AARCH64_RELATIVE 1027
+#define R_AARCH64_TLS_DTPMOD 1028
+#define R_AARCH64_TLS_DTPMOD64 1028
+#define R_AARCH64_TLS_DTPREL 1029
+#define R_AARCH64_TLS_DTPREL64 1029
+#define R_AARCH64_TLS_TPREL 1030
+#define R_AARCH64_TLS_TPREL64 1030
+#define R_AARCH64_TLSDESC 1031
+#define R_ARM_NONE 0
+#define R_ARM_PC24 1
+#define R_ARM_ABS32 2
+#define R_ARM_REL32 3
+#define R_ARM_PC13 4
+#define R_ARM_ABS16 5
+#define R_ARM_ABS12 6
+#define R_ARM_THM_ABS5 7
+#define R_ARM_ABS8 8
+#define R_ARM_SBREL32 9
+#define R_ARM_THM_PC22 10
+#define R_ARM_THM_PC8 11
+#define R_ARM_AMP_VCALL9 12
+#define R_ARM_TLS_DESC 13
+#define R_ARM_THM_SWI8 14
+#define R_ARM_XPC25 15
+#define R_ARM_THM_XPC22 16
+#define R_ARM_TLS_DTPMOD32 17
+#define R_ARM_TLS_DTPOFF32 18
+#define R_ARM_TLS_TPOFF32 19
+#define R_ARM_COPY 20
+#define R_ARM_GLOB_DAT 21
+#define R_ARM_JUMP_SLOT 22
+#define R_ARM_RELATIVE 23
+#define R_ARM_GOTOFF 24
+#define R_ARM_GOTPC 25
+#define R_ARM_GOT32 26
+#define R_ARM_PLT32 27
+#define R_ARM_CALL 28
+#define R_ARM_JUMP24 29
+#define R_ARM_THM_JUMP24 30
+#define R_ARM_BASE_ABS 31
+#define R_ARM_ALU_PCREL_7_0 32
+#define R_ARM_ALU_PCREL_15_8 33
+#define R_ARM_ALU_PCREL_23_15 34
+#define R_ARM_LDR_SBREL_11_0 35
+#define R_ARM_ALU_SBREL_19_12 36
+#define R_ARM_ALU_SBREL_27_20 37
+#define R_ARM_TARGET1 38
+#define R_ARM_SBREL31 39
+#define R_ARM_V4BX 40
+#define R_ARM_TARGET2 41
+#define R_ARM_PREL31 42
+#define R_ARM_MOVW_ABS_NC 43
+#define R_ARM_MOVT_ABS 44
+#define R_ARM_MOVW_PREL_NC 45
+#define R_ARM_MOVT_PREL 46
+#define R_ARM_THM_MOVW_ABS_NC 47
+#define R_ARM_THM_MOVT_ABS 48
+#define R_ARM_THM_MOVW_PREL_NC 49
+#define R_ARM_THM_MOVT_PREL 50
+#define R_ARM_THM_JUMP19 51
+#define R_ARM_THM_JUMP6 52
+#define R_ARM_THM_ALU_PREL_11_0 53
+#define R_ARM_THM_PC12 54
+#define R_ARM_ABS32_NOI 55
+#define R_ARM_REL32_NOI 56
+#define R_ARM_ALU_PC_G0_NC 57
+#define R_ARM_ALU_PC_G0 58
+#define R_ARM_ALU_PC_G1_NC 59
+#define R_ARM_ALU_PC_G1 60
+#define R_ARM_ALU_PC_G2 61
+#define R_ARM_LDR_PC_G1 62
+#define R_ARM_LDR_PC_G2 63
+#define R_ARM_LDRS_PC_G0 64
+#define R_ARM_LDRS_PC_G1 65
+#define R_ARM_LDRS_PC_G2 66
+#define R_ARM_LDC_PC_G0 67
+#define R_ARM_LDC_PC_G1 68
+#define R_ARM_LDC_PC_G2 69
+#define R_ARM_ALU_SB_G0_NC 70
+#define R_ARM_ALU_SB_G0 71
+#define R_ARM_ALU_SB_G1_NC 72
+#define R_ARM_ALU_SB_G1 73
+#define R_ARM_ALU_SB_G2 74
+#define R_ARM_LDR_SB_G0 75
+#define R_ARM_LDR_SB_G1 76
+#define R_ARM_LDR_SB_G2 77
+#define R_ARM_LDRS_SB_G0 78
+#define R_ARM_LDRS_SB_G1 79
+#define R_ARM_LDRS_SB_G2 80
+#define R_ARM_LDC_SB_G0 81
+#define R_ARM_LDC_SB_G1 82
+#define R_ARM_LDC_SB_G2 83
+#define R_ARM_MOVW_BREL_NC 84
+#define R_ARM_MOVT_BREL 85
+#define R_ARM_MOVW_BREL 86
+#define R_ARM_THM_MOVW_BREL_NC 87
+#define R_ARM_THM_MOVT_BREL 88
+#define R_ARM_THM_MOVW_BREL 89
+#define R_ARM_TLS_GOTDESC 90
+#define R_ARM_TLS_CALL 91
+#define R_ARM_TLS_DESCSEQ 92
+#define R_ARM_THM_TLS_CALL 93
+#define R_ARM_PLT32_ABS 94
+#define R_ARM_GOT_ABS 95
+#define R_ARM_GOT_PREL 96
+#define R_ARM_GOT_BREL12 97
+#define R_ARM_GOTOFF12 98
+#define R_ARM_GOTRELAX 99
+#define R_ARM_GNU_VTENTRY 100
+#define R_ARM_GNU_VTINHERIT 101
+#define R_ARM_THM_PC11 102
+#define R_ARM_THM_PC9 103
+#define R_ARM_TLS_GD32 104
+#define R_ARM_TLS_LDM32 105
+#define R_ARM_TLS_LDO32 106
+#define R_ARM_TLS_IE32 107
+#define R_ARM_TLS_LE32 108
+#define R_ARM_TLS_LDO12 109
+#define R_ARM_TLS_LE12 110
+#define R_ARM_TLS_IE12GP 111
+#define R_ARM_ME_TOO 128
+#define R_ARM_THM_TLS_DESCSEQ 129
+#define R_ARM_THM_TLS_DESCSEQ16 129
+#define R_ARM_THM_TLS_DESCSEQ32 130
+#define R_ARM_THM_GOT_BREL12 131
+#define R_ARM_IRELATIVE 160
+#define R_ARM_RXPC25 249
+#define R_ARM_RSBREL32 250
+#define R_ARM_THM_RPC22 251
+#define R_ARM_RREL32 252
+#define R_ARM_RABS22 253
+#define R_ARM_RPC24 254
+#define R_ARM_RBASE 255
+#define R_ARM_NUM 256
+#define EF_IA_64_MASKOS 0x0000000f
+#define EF_IA_64_ABI64 0x00000010
+#define EF_IA_64_ARCH 0xff000000
+#define PT_IA_64_ARCHEXT (PT_LOPROC + 0)
+#define PT_IA_64_UNWIND (PT_LOPROC + 1)
+#define PT_IA_64_HP_OPT_ANOT (PT_LOOS + 0x12)
+#define PT_IA_64_HP_HSL_ANOT (PT_LOOS + 0x13)
+#define PT_IA_64_HP_STACK (PT_LOOS + 0x14)
+#define PF_IA_64_NORECOV 0x80000000
+#define SHT_IA_64_EXT (SHT_LOPROC + 0)
+#define SHT_IA_64_UNWIND (SHT_LOPROC + 1)
+#define SHF_IA_64_SHORT 0x10000000
+#define SHF_IA_64_NORECOV 0x20000000
+#define DT_IA_64_PLT_RESERVE (DT_LOPROC + 0)
+#define DT_IA_64_NUM 1
+#define R_IA64_NONE 0x00
+#define R_IA64_IMM14 0x21
+#define R_IA64_IMM22 0x22
+#define R_IA64_IMM64 0x23
+#define R_IA64_DIR32MSB 0x24
+#define R_IA64_DIR32LSB 0x25
+#define R_IA64_DIR64MSB 0x26
+#define R_IA64_DIR64LSB 0x27
+#define R_IA64_GPREL22 0x2a
+#define R_IA64_GPREL64I 0x2b
+#define R_IA64_GPREL32MSB 0x2c
+#define R_IA64_GPREL32LSB 0x2d
+#define R_IA64_GPREL64MSB 0x2e
+#define R_IA64_GPREL64LSB 0x2f
+#define R_IA64_LTOFF22 0x32
+#define R_IA64_LTOFF64I 0x33
+#define R_IA64_PLTOFF22 0x3a
+#define R_IA64_PLTOFF64I 0x3b
+#define R_IA64_PLTOFF64MSB 0x3e
+#define R_IA64_PLTOFF64LSB 0x3f
+#define R_IA64_FPTR64I 0x43
+#define R_IA64_FPTR32MSB 0x44
+#define R_IA64_FPTR32LSB 0x45
+#define R_IA64_FPTR64MSB 0x46
+#define R_IA64_FPTR64LSB 0x47
+#define R_IA64_PCREL60B 0x48
+#define R_IA64_PCREL21B 0x49
+#define R_IA64_PCREL21M 0x4a
+#define R_IA64_PCREL21F 0x4b
+#define R_IA64_PCREL32MSB 0x4c
+#define R_IA64_PCREL32LSB 0x4d
+#define R_IA64_PCREL64MSB 0x4e
+#define R_IA64_PCREL64LSB 0x4f
+#define R_IA64_LTOFF_FPTR22 0x52
+#define R_IA64_LTOFF_FPTR64I 0x53
+#define R_IA64_LTOFF_FPTR32MSB 0x54
+#define R_IA64_LTOFF_FPTR32LSB 0x55
+#define R_IA64_LTOFF_FPTR64MSB 0x56
+#define R_IA64_LTOFF_FPTR64LSB 0x57
+#define R_IA64_SEGREL32MSB 0x5c
+#define R_IA64_SEGREL32LSB 0x5d
+#define R_IA64_SEGREL64MSB 0x5e
+#define R_IA64_SEGREL64LSB 0x5f
+#define R_IA64_SECREL32MSB 0x64
+#define R_IA64_SECREL32LSB 0x65
+#define R_IA64_SECREL64MSB 0x66
+#define R_IA64_SECREL64LSB 0x67
+#define R_IA64_REL32MSB 0x6c
+#define R_IA64_REL32LSB 0x6d
+#define R_IA64_REL64MSB 0x6e
+#define R_IA64_REL64LSB 0x6f
+#define R_IA64_LTV32MSB 0x74
+#define R_IA64_LTV32LSB 0x75
+#define R_IA64_LTV64MSB 0x76
+#define R_IA64_LTV64LSB 0x77
+#define R_IA64_PCREL21BI 0x79
+#define R_IA64_PCREL22 0x7a
+#define R_IA64_PCREL64I 0x7b
+#define R_IA64_IPLTMSB 0x80
+#define R_IA64_IPLTLSB 0x81
+#define R_IA64_COPY 0x84
+#define R_IA64_SUB 0x85
+#define R_IA64_LTOFF22X 0x86
+#define R_IA64_LDXMOV 0x87
+#define R_IA64_TPREL14 0x91
+#define R_IA64_TPREL22 0x92
+#define R_IA64_TPREL64I 0x93
+#define R_IA64_TPREL64MSB 0x96
+#define R_IA64_TPREL64LSB 0x97
+#define R_IA64_LTOFF_TPREL22 0x9a
+#define R_IA64_DTPMOD64MSB 0xa6
+#define R_IA64_DTPMOD64LSB 0xa7
+#define R_IA64_LTOFF_DTPMOD22 0xaa
+#define R_IA64_DTPREL14 0xb1
+#define R_IA64_DTPREL22 0xb2
+#define R_IA64_DTPREL64I 0xb3
+#define R_IA64_DTPREL32MSB 0xb4
+#define R_IA64_DTPREL32LSB 0xb5
+#define R_IA64_DTPREL64MSB 0xb6
+#define R_IA64_DTPREL64LSB 0xb7
+#define R_IA64_LTOFF_DTPREL22 0xba
+#define EF_SH_MACH_MASK 0x1f
+#define EF_SH_UNKNOWN 0x0
+#define EF_SH1 0x1
+#define EF_SH2 0x2
+#define EF_SH3 0x3
+#define EF_SH_DSP 0x4
+#define EF_SH3_DSP 0x5
+#define EF_SH4AL_DSP 0x6
+#define EF_SH3E 0x8
+#define EF_SH4 0x9
+#define EF_SH2E 0xb
+#define EF_SH4A 0xc
+#define EF_SH2A 0xd
+#define EF_SH4_NOFPU 0x10
+#define EF_SH4A_NOFPU 0x11
+#define EF_SH4_NOMMU_NOFPU 0x12
+#define EF_SH2A_NOFPU 0x13
+#define EF_SH3_NOMMU 0x14
+#define EF_SH2A_SH4_NOFPU 0x15
+#define EF_SH2A_SH3_NOFPU 0x16
+#define EF_SH2A_SH4 0x17
+#define EF_SH2A_SH3E 0x18
+#define R_SH_NONE 0
+#define R_SH_DIR32 1
+#define R_SH_REL32 2
+#define R_SH_DIR8WPN 3
+#define R_SH_IND12W 4
+#define R_SH_DIR8WPL 5
+#define R_SH_DIR8WPZ 6
+#define R_SH_DIR8BP 7
+#define R_SH_DIR8W 8
+#define R_SH_DIR8L 9
+#define R_SH_SWITCH16 25
+#define R_SH_SWITCH32 26
+#define R_SH_USES 27
+#define R_SH_COUNT 28
+#define R_SH_ALIGN 29
+#define R_SH_CODE 30
+#define R_SH_DATA 31
+#define R_SH_LABEL 32
+#define R_SH_SWITCH8 33
+#define R_SH_GNU_VTINHERIT 34
+#define R_SH_GNU_VTENTRY 35
+#define R_SH_TLS_GD_32 144
+#define R_SH_TLS_LD_32 145
+#define R_SH_TLS_LDO_32 146
+#define R_SH_TLS_IE_32 147
+#define R_SH_TLS_LE_32 148
+#define R_SH_TLS_DTPMOD32 149
+#define R_SH_TLS_DTPOFF32 150
+#define R_SH_TLS_TPOFF32 151
+#define R_SH_GOT32 160
+#define R_SH_PLT32 161
+#define R_SH_COPY 162
+#define R_SH_GLOB_DAT 163
+#define R_SH_JMP_SLOT 164
+#define R_SH_RELATIVE 165
+#define R_SH_GOTOFF 166
+#define R_SH_GOTPC 167
+#define R_SH_GOT20 201
+#define R_SH_GOTOFF20 202
+#define R_SH_GOTFUNCDESC 203
+#define R_SH_GOTFUNCDEST20 204
+#define R_SH_GOTOFFFUNCDESC 205
+#define R_SH_GOTOFFFUNCDEST20 206
+#define R_SH_FUNCDESC 207
+#define R_SH_FUNCDESC_VALUE 208
+#define R_SH_NUM 256
+#define R_390_NONE 0
+#define R_390_8 1
+#define R_390_12 2
+#define R_390_16 3
+#define R_390_32 4
+#define R_390_PC32 5
+#define R_390_GOT12 6
+#define R_390_GOT32 7
+#define R_390_PLT32 8
+#define R_390_COPY 9
+#define R_390_GLOB_DAT 10
+#define R_390_JMP_SLOT 11
+#define R_390_RELATIVE 12
+#define R_390_GOTOFF32 13
+#define R_390_GOTPC 14
+#define R_390_GOT16 15
+#define R_390_PC16 16
+#define R_390_PC16DBL 17
+#define R_390_PLT16DBL 18
+#define R_390_PC32DBL 19
+#define R_390_PLT32DBL 20
+#define R_390_GOTPCDBL 21
+#define R_390_64 22
+#define R_390_PC64 23
+#define R_390_GOT64 24
+#define R_390_PLT64 25
+#define R_390_GOTENT 26
+#define R_390_GOTOFF16 27
+#define R_390_GOTOFF64 28
+#define R_390_GOTPLT12 29
+#define R_390_GOTPLT16 30
+#define R_390_GOTPLT32 31
+#define R_390_GOTPLT64 32
+#define R_390_GOTPLTENT 33
+#define R_390_PLTOFF16 34
+#define R_390_PLTOFF32 35
+#define R_390_PLTOFF64 36
+#define R_390_TLS_LOAD 37
+#define R_390_TLS_GDCALL 38
+#define R_390_TLS_LDCALL 39
+#define R_390_TLS_GD32 40
+#define R_390_TLS_GD64 41
+#define R_390_TLS_GOTIE12 42
+#define R_390_TLS_GOTIE32 43
+#define R_390_TLS_GOTIE64 44
+#define R_390_TLS_LDM32 45
+#define R_390_TLS_LDM64 46
+#define R_390_TLS_IE32 47
+#define R_390_TLS_IE64 48
+#define R_390_TLS_IEENT 49
+#define R_390_TLS_LE32 50
+#define R_390_TLS_LE64 51
+#define R_390_TLS_LDO32 52
+#define R_390_TLS_LDO64 53
+#define R_390_TLS_DTPMOD 54
+#define R_390_TLS_DTPOFF 55
+#define R_390_TLS_TPOFF 56
+#define R_390_20 57
+#define R_390_GOT20 58
+#define R_390_GOTPLT20 59
+#define R_390_TLS_GOTIE20 60
+#define R_390_NUM 61
+#define R_CRIS_NONE 0
+#define R_CRIS_8 1
+#define R_CRIS_16 2
+#define R_CRIS_32 3
+#define R_CRIS_8_PCREL 4
+#define R_CRIS_16_PCREL 5
+#define R_CRIS_32_PCREL 6
+#define R_CRIS_GNU_VTINHERIT 7
+#define R_CRIS_GNU_VTENTRY 8
+#define R_CRIS_COPY 9
+#define R_CRIS_GLOB_DAT 10
+#define R_CRIS_JUMP_SLOT 11
+#define R_CRIS_RELATIVE 12
+#define R_CRIS_16_GOT 13
+#define R_CRIS_32_GOT 14
+#define R_CRIS_16_GOTPLT 15
+#define R_CRIS_32_GOTPLT 16
+#define R_CRIS_32_GOTREL 17
+#define R_CRIS_32_PLT_GOTREL 18
+#define R_CRIS_32_PLT_PCREL 19
+#define R_CRIS_NUM 20
+#define R_X86_64_NONE 0
+#define R_X86_64_64 1
+#define R_X86_64_PC32 2
+#define R_X86_64_GOT32 3
+#define R_X86_64_PLT32 4
+#define R_X86_64_COPY 5
+#define R_X86_64_GLOB_DAT 6
+#define R_X86_64_JUMP_SLOT 7
+#define R_X86_64_RELATIVE 8
+#define R_X86_64_GOTPCREL 9
+#define R_X86_64_32 10
+#define R_X86_64_32S 11
+#define R_X86_64_16 12
+#define R_X86_64_PC16 13
+#define R_X86_64_8 14
+#define R_X86_64_PC8 15
+#define R_X86_64_DTPMOD64 16
+#define R_X86_64_DTPOFF64 17
+#define R_X86_64_TPOFF64 18
+#define R_X86_64_TLSGD 19
+#define R_X86_64_TLSLD 20
+#define R_X86_64_DTPOFF32 21
+#define R_X86_64_GOTTPOFF 22
+#define R_X86_64_TPOFF32 23
+#define R_X86_64_PC64 24
+#define R_X86_64_GOTOFF64 25
+#define R_X86_64_GOTPC32 26
+#define R_X86_64_GOT64 27
+#define R_X86_64_GOTPCREL64 28
+#define R_X86_64_GOTPC64 29
+#define R_X86_64_GOTPLT64 30
+#define R_X86_64_PLTOFF64 31
+#define R_X86_64_SIZE32 32
+#define R_X86_64_SIZE64 33
+#define R_X86_64_GOTPC32_TLSDESC 34
+#define R_X86_64_TLSDESC_CALL 35
+#define R_X86_64_TLSDESC 36
+#define R_X86_64_IRELATIVE 37
+#define R_X86_64_RELATIVE64 38
+#define R_X86_64_GOTPCRELX 41
+#define R_X86_64_REX_GOTPCRELX 42
+#define R_X86_64_NUM 43
+#define R_MN10300_NONE 0
+#define R_MN10300_32 1
+#define R_MN10300_16 2
+#define R_MN10300_8 3
+#define R_MN10300_PCREL32 4
+#define R_MN10300_PCREL16 5
+#define R_MN10300_PCREL8 6
+#define R_MN10300_GNU_VTINHERIT 7
+#define R_MN10300_GNU_VTENTRY 8
+#define R_MN10300_24 9
+#define R_MN10300_GOTPC32 10
+#define R_MN10300_GOTPC16 11
+#define R_MN10300_GOTOFF32 12
+#define R_MN10300_GOTOFF24 13
+#define R_MN10300_GOTOFF16 14
+#define R_MN10300_PLT32 15
+#define R_MN10300_PLT16 16
+#define R_MN10300_GOT32 17
+#define R_MN10300_GOT24 18
+#define R_MN10300_GOT16 19
+#define R_MN10300_COPY 20
+#define R_MN10300_GLOB_DAT 21
+#define R_MN10300_JMP_SLOT 22
+#define R_MN10300_RELATIVE 23
+#define R_MN10300_NUM 24
+#define R_M32R_NONE 0
+#define R_M32R_16 1
+#define R_M32R_32 2
+#define R_M32R_24 3
+#define R_M32R_10_PCREL 4
+#define R_M32R_18_PCREL 5
+#define R_M32R_26_PCREL 6
+#define R_M32R_HI16_ULO 7
+#define R_M32R_HI16_SLO 8
+#define R_M32R_LO16 9
+#define R_M32R_SDA16 10
+#define R_M32R_GNU_VTINHERIT 11
+#define R_M32R_GNU_VTENTRY 12
+#define R_M32R_16_RELA 33
+#define R_M32R_32_RELA 34
+#define R_M32R_24_RELA 35
+#define R_M32R_10_PCREL_RELA 36
+#define R_M32R_18_PCREL_RELA 37
+#define R_M32R_26_PCREL_RELA 38
+#define R_M32R_HI16_ULO_RELA 39
+#define R_M32R_HI16_SLO_RELA 40
+#define R_M32R_LO16_RELA 41
+#define R_M32R_SDA16_RELA 42
+#define R_M32R_RELA_GNU_VTINHERIT 43
+#define R_M32R_RELA_GNU_VTENTRY 44
+#define R_M32R_REL32 45
+#define R_M32R_GOT24 48
+#define R_M32R_26_PLTREL 49
+#define R_M32R_COPY 50
+#define R_M32R_GLOB_DAT 51
+#define R_M32R_JMP_SLOT 52
+#define R_M32R_RELATIVE 53
+#define R_M32R_GOTOFF 54
+#define R_M32R_GOTPC24 55
+#define R_M32R_GOT16_HI_ULO 56
+#define R_M32R_GOT16_HI_SLO 57
+#define R_M32R_GOT16_LO 58
+#define R_M32R_GOTPC_HI_ULO 59
+#define R_M32R_GOTPC_HI_SLO 60
+#define R_M32R_GOTPC_LO 61
+#define R_M32R_GOTOFF_HI_ULO 62
+#define R_M32R_GOTOFF_HI_SLO 63
+#define R_M32R_GOTOFF_LO 64
+#define R_M32R_NUM 256
+#define R_MICROBLAZE_NONE 0
+#define R_MICROBLAZE_32 1
+#define R_MICROBLAZE_32_PCREL 2
+#define R_MICROBLAZE_64_PCREL 3
+#define R_MICROBLAZE_32_PCREL_LO 4
+#define R_MICROBLAZE_64 5
+#define R_MICROBLAZE_32_LO 6
+#define R_MICROBLAZE_SRO32 7
+#define R_MICROBLAZE_SRW32 8
+#define R_MICROBLAZE_64_NONE 9
+#define R_MICROBLAZE_32_SYM_OP_SYM 10
+#define R_MICROBLAZE_GNU_VTINHERIT 11
+#define R_MICROBLAZE_GNU_VTENTRY 12
+#define R_MICROBLAZE_GOTPC_64 13
+#define R_MICROBLAZE_GOT_64 14
+#define R_MICROBLAZE_PLT_64 15
+#define R_MICROBLAZE_REL 16
+#define R_MICROBLAZE_JUMP_SLOT 17
+#define R_MICROBLAZE_GLOB_DAT 18
+#define R_MICROBLAZE_GOTOFF_64 19
+#define R_MICROBLAZE_GOTOFF_32 20
+#define R_MICROBLAZE_COPY 21
+#define R_MICROBLAZE_TLS 22
+#define R_MICROBLAZE_TLSGD 23
+#define R_MICROBLAZE_TLSLD 24
+#define R_MICROBLAZE_TLSDTPMOD32 25
+#define R_MICROBLAZE_TLSDTPREL32 26
+#define R_MICROBLAZE_TLSDTPREL64 27
+#define R_MICROBLAZE_TLSGOTTPREL32 28
+#define R_MICROBLAZE_TLSTPREL32 29
+#define DT_NIOS2_GP 0x70000002
+#define R_NIOS2_NONE 0
+#define R_NIOS2_S16 1
+#define R_NIOS2_U16 2
+#define R_NIOS2_PCREL16 3
+#define R_NIOS2_CALL26 4
+#define R_NIOS2_IMM5 5
+#define R_NIOS2_CACHE_OPX 6
+#define R_NIOS2_IMM6 7
+#define R_NIOS2_IMM8 8
+#define R_NIOS2_HI16 9
+#define R_NIOS2_LO16 10
+#define R_NIOS2_HIADJ16 11
+#define R_NIOS2_BFD_RELOC_32 12
+#define R_NIOS2_BFD_RELOC_16 13
+#define R_NIOS2_BFD_RELOC_8 14
+#define R_NIOS2_GPREL 15
+#define R_NIOS2_GNU_VTINHERIT 16
+#define R_NIOS2_GNU_VTENTRY 17
+#define R_NIOS2_UJMP 18
+#define R_NIOS2_CJMP 19
+#define R_NIOS2_CALLR 20
+#define R_NIOS2_ALIGN 21
+#define R_NIOS2_GOT16 22
+#define R_NIOS2_CALL16 23
+#define R_NIOS2_GOTOFF_LO 24
+#define R_NIOS2_GOTOFF_HA 25
+#define R_NIOS2_PCREL_LO 26
+#define R_NIOS2_PCREL_HA 27
+#define R_NIOS2_TLS_GD16 28
+#define R_NIOS2_TLS_LDM16 29
+#define R_NIOS2_TLS_LDO16 30
+#define R_NIOS2_TLS_IE16 31
+#define R_NIOS2_TLS_LE16 32
+#define R_NIOS2_TLS_DTPMOD 33
+#define R_NIOS2_TLS_DTPREL 34
+#define R_NIOS2_TLS_TPREL 35
+#define R_NIOS2_COPY 36
+#define R_NIOS2_GLOB_DAT 37
+#define R_NIOS2_JUMP_SLOT 38
+#define R_NIOS2_RELATIVE 39
+#define R_NIOS2_GOTOFF 40
+#define R_NIOS2_CALL26_NOAT 41
+#define R_NIOS2_GOT_LO 42
+#define R_NIOS2_GOT_HA 43
+#define R_NIOS2_CALL_LO 44
+#define R_NIOS2_CALL_HA 45
+#define R_OR1K_NONE 0
+#define R_OR1K_32 1
+#define R_OR1K_16 2
+#define R_OR1K_8 3
+#define R_OR1K_LO_16_IN_INSN 4
+#define R_OR1K_HI_16_IN_INSN 5
+#define R_OR1K_INSN_REL_26 6
+#define R_OR1K_GNU_VTENTRY 7
+#define R_OR1K_GNU_VTINHERIT 8
+#define R_OR1K_32_PCREL 9
+#define R_OR1K_16_PCREL 10
+#define R_OR1K_8_PCREL 11
+#define R_OR1K_GOTPC_HI16 12
+#define R_OR1K_GOTPC_LO16 13
+#define R_OR1K_GOT16 14
+#define R_OR1K_PLT26 15
+#define R_OR1K_GOTOFF_HI16 16
+#define R_OR1K_GOTOFF_LO16 17
+#define R_OR1K_COPY 18
+#define R_OR1K_GLOB_DAT 19
+#define R_OR1K_JMP_SLOT 20
+#define R_OR1K_RELATIVE 21
+#define R_OR1K_TLS_GD_HI16 22
+#define R_OR1K_TLS_GD_LO16 23
+#define R_OR1K_TLS_LDM_HI16 24
+#define R_OR1K_TLS_LDM_LO16 25
+#define R_OR1K_TLS_LDO_HI16 26
+#define R_OR1K_TLS_LDO_LO16 27
+#define R_OR1K_TLS_IE_HI16 28
+#define R_OR1K_TLS_IE_LO16 29
+#define R_OR1K_TLS_LE_HI16 30
+#define R_OR1K_TLS_LE_LO16 31
+#define R_OR1K_TLS_TPOFF 32
+#define R_OR1K_TLS_DTPOFF 33
+#define R_OR1K_TLS_DTPMOD 34
+#define R_BPF_NONE 0
+#define R_BPF_MAP_FD 1
+// 13 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./signal.h" 1
+#define signal_h 
+// 1 "./headers/linux_x64/sys/signal.h" 1
+#define linux_x64_signal_h 
+typedef long __band_t;
+typedef union sigval {
+  int sival_int;
+  void *sival_ptr;
+} sigval_t;
+typedef struct siginfo {
+  int32_t si_signo;
+  int32_t si_errno;
+  int32_t si_code;
+  union {
+    char __pad[128 - 2*sizeof(int) - sizeof(long)];
+    struct {
+      pid_t _pid;
+      uid_t _uid;
+    } _kill;
+    struct {
+      uint32_t _timer1;
+      uint32_t _timer2;
+    } _timer;
+    struct {
+      pid_t _pid;
+      uid_t _uid;
+      sigval_t _sigval;
+    } _rt;
+    struct {
+      pid_t _pid;
+      uid_t _uid;
+      int32_t _status;
+      clock_t _utime;
+      clock_t _stime;
+    } _sigchld;
+    struct {
+      void *_addr;
+    } _sigfault;
+    struct {
+      __band_t _band;
+      int32_t _fd;
+    } _sigpoll;
+  } _sifields;
+} siginfo_t;
+typedef struct __sigset_t { unsigned long sig; } sigset_t;
+struct sigaction {
+  void (*sa_handler)(int);
+  unsigned long sa_flags;
+  void (*restorer)(void);
+  sigset_t sa_mask;
+};
+// 5 "./minilib/headers/common/./signal.h" 2
+#define SIG_ERR ((void (*)(int))-1)
+#define SIG_DFL ((void (*)(int)) 0)
+#define SIG_IGN ((void (*)(int)) 1)
+// 14 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./dirent.h" 1
+#define _DIRENT_H 
+// 1 "./headers/common/features.h" 1
+// 9 "./minilib/headers/common/./dirent.h" 2
+#define __NEED_ino_t 
+#define __NEED_off_t 
+struct __dirstream
+{
+ off_t tell;
+ int fd;
+ int buf_pos;
+ int buf_end;
+ volatile int lock[1];
+ char buf[2048];
+};
+typedef struct __dirstream DIR;
+#define _DIRENT_HAVE_D_RECLEN 
+#define _DIRENT_HAVE_D_OFF 
+#define _DIRENT_HAVE_D_TYPE 
+struct dirent {
+ ino_t d_ino;
+ off_t d_off;
+ unsigned short d_reclen;
+ char d_name[256];
+};
+#define d_fileno d_ino
+// 15 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./endian.h" 1
+// 16 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./termios.h" 1
+// 17 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./stdint.h" 1
+// 18 "./minilib/headers/common/allheaders.h" 2
+// 1 "./minilib/headers/common/./features.h" 1
+// 19 "./minilib/headers/common/allheaders.h" 2
+// 52 "./minilib.h" 2
+// 1 "./minilib/headers/linux_x64/allheaders.h" 1
+#define linux_x64_allheaders_h 
+// 1 "./minilib/headers/linux_x64/./sys/syscall.h" 1
 #define _ASM_X86_UNISTD_64_H 1
 #define __NR_read 0
 #define __NR_write 1
@@ -856,15 +4293,139 @@
 #define __NR_pkey_alloc 330
 #define __NR_pkey_free 331
 #define __NR_statx 332
-// 52 "./minilib.h" 2
-// 1 "./minilib/headers/linux_x64/reboot.h" 1
+// 4 "./minilib/headers/linux_x64/allheaders.h" 2
+// 1 "./minilib/headers/linux_x64/./sys/signal.h" 1
+// 5 "./minilib/headers/linux_x64/allheaders.h" 2
+// 1 "./minilib/headers/linux_x64/./sys/utsname.h" 1
+#define _LINUX_UTSNAME_H 
+#define __OLD_UTS_LEN 8
+struct oldold_utsname {
+        char sysname[9];
+        char nodename[9];
+        char release[9];
+        char version[9];
+        char machine[9];
+};
+#define __NEW_UTS_LEN 64
+struct old_utsname {
+        char sysname[65];
+        char nodename[65];
+        char release[65];
+        char version[65];
+        char machine[65];
+};
+struct new_utsname {
+        char sysname[64 + 1];
+        char nodename[64 + 1];
+        char release[64 + 1];
+        char version[64 + 1];
+        char machine[64 + 1];
+        char domainname[64 + 1];
+};
+// 6 "./minilib/headers/linux_x64/allheaders.h" 2
+// 1 "./minilib/headers/linux_x64/./bits/stat.h" 1
+// 7 "./minilib/headers/linux_x64/allheaders.h" 2
+// 1 "./minilib/headers/linux_x64/./fcntl.h" 1
+#define linux_fcntl_h 
+#define DN_ACCESS 0x00000001
+#define DN_MODIFY 0x00000002
+#define DN_CREATE 0x00000004
+#define DN_DELETE 0x00000008
+#define DN_RENAME 0x00000010
+#define DN_ATTRIB 0x00000020
+#define DN_MULTISHOT 0x80000000
+#define AT_FDCWD -100
+#define AT_SYMLINK_NOFOLLOW 0x100
+#define AT_REMOVEDIR 0x200
+#define AT_SYMLINK_FOLLOW 0x400
+#define AT_NO_AUTOMOUNT 0x800
+#define AT_EMPTY_PATH 0x1000
+#define AT_STATX_SYNC_TYPE 0x6000
+#define AT_STATX_SYNC_AS_STAT 0x0000
+#define AT_STATX_FORCE_SYNC 0x2000
+#define AT_STATX_DONT_SYNC 0x4000
+#define AT_RECURSIVE 0x8000
+// 8 "./minilib/headers/linux_x64/allheaders.h" 2
+// 1 "./minilib/headers/linux_x64/./mount.h" 1
+#define _LINUX_MOUNT_H 
+// 11 "./minilib/headers/linux_x64/./mount.h"
+#define MS_RDONLY 1
+#define MS_NOSUID 2
+#define MS_NODEV 4
+#define MS_NOEXEC 8
+#define MS_SYNCHRONOUS 16
+#define MS_REMOUNT 32
+#define MS_MANDLOCK 64
+#define MS_DIRSYNC 128
+#define MS_NOATIME 1024
+#define MS_NODIRATIME 2048
+#define MS_BIND 4096
+#define MS_MOVE 8192
+#define MS_REC 16384
+#define MS_VERBOSE 32768
+#define MS_SILENT 32768
+#define MS_POSIXACL (1<<16)
+#define MS_UNBINDABLE (1<<17)
+#define MS_PRIVATE (1<<18)
+#define MS_SLAVE (1<<19)
+#define MS_SHARED (1<<20)
+#define MS_RELATIME (1<<21)
+#define MS_KERNMOUNT (1<<22)
+#define MS_I_VERSION (1<<23)
+#define MS_STRICTATIME (1<<24)
+#define MS_LAZYTIME (1<<25)
+#define MS_SUBMOUNT (1<<26)
+#define MS_NOREMOTELOCK (1<<27)
+#define MS_NOSEC (1<<28)
+#define MS_BORN (1<<29)
+#define MS_ACTIVE (1<<30)
+#define MS_NOUSER (1<<31)
+#define MS_RMT_MASK (MS_RDONLY|MS_SYNCHRONOUS|MS_MANDLOCK|MS_I_VERSION| MS_LAZYTIME)
+#define MS_MGC_VAL 0xC0ED0000
+#define MS_MGC_MSK 0xffff0000
+#define OPEN_TREE_CLONE 1
+#define OPEN_TREE_CLOEXEC O_CLOEXEC
+#define MOVE_MOUNT_F_SYMLINKS 0x00000001
+#define MOVE_MOUNT_F_AUTOMOUNTS 0x00000002
+#define MOVE_MOUNT_F_EMPTY_PATH 0x00000004
+#define MOVE_MOUNT_T_SYMLINKS 0x00000010
+#define MOVE_MOUNT_T_AUTOMOUNTS 0x00000020
+#define MOVE_MOUNT_T_EMPTY_PATH 0x00000040
+#define MOVE_MOUNT__MASK 0x00000077
+#define FSOPEN_CLOEXEC 0x00000001
+#define FSPICK_CLOEXEC 0x00000001
+#define FSPICK_SYMLINK_NOFOLLOW 0x00000002
+#define FSPICK_NO_AUTOMOUNT 0x00000004
+#define FSPICK_EMPTY_PATH 0x00000008
+enum fsconfig_command {
+ FSCONFIG_SET_FLAG = 0,
+ FSCONFIG_SET_STRING = 1,
+ FSCONFIG_SET_BINARY = 2,
+ FSCONFIG_SET_PATH = 3,
+ FSCONFIG_SET_PATH_EMPTY = 4,
+ FSCONFIG_SET_FD = 5,
+ FSCONFIG_CMD_CREATE = 6,
+ FSCONFIG_CMD_RECONFIGURE = 7,
+};
+#define FSMOUNT_CLOEXEC 0x00000001
+#define MOUNT_ATTR_RDONLY 0x00000001
+#define MOUNT_ATTR_NOSUID 0x00000002
+#define MOUNT_ATTR_NODEV 0x00000004
+#define MOUNT_ATTR_NOEXEC 0x00000008
+#define MOUNT_ATTR__ATIME 0x00000070
+#define MOUNT_ATTR_RELATIME 0x00000000
+#define MOUNT_ATTR_NOATIME 0x00000010
+#define MOUNT_ATTR_STRICTATIME 0x00000020
+#define MOUNT_ATTR_NODIRATIME 0x00000080
+// 9 "./minilib/headers/linux_x64/allheaders.h" 2
+// 1 "./minilib/headers/linux_x64/./reboot.h" 1
 #define _LINUX_REBOOT_H 
 #define LINUX_REBOOT_MAGIC1 0xfee1dead
 #define LINUX_REBOOT_MAGIC2 672274793
 #define LINUX_REBOOT_MAGIC2A 85072278
 #define LINUX_REBOOT_MAGIC2B 369367448
 #define LINUX_REBOOT_MAGIC2C 537993216
-// 29 "./minilib/headers/linux_x64/reboot.h"
+// 29 "./minilib/headers/linux_x64/./reboot.h"
 #define LINUX_REBOOT_CMD_RESTART 0x01234567
 #define LINUX_REBOOT_CMD_HALT 0xCDEF0123
 #define LINUX_REBOOT_CMD_CAD_ON 0x89ABCDEF
@@ -873,83 +4434,8 @@
 #define LINUX_REBOOT_CMD_RESTART2 0xA1B2C3D4
 #define LINUX_REBOOT_CMD_SW_SUSPEND 0xD000FCE2
 #define LINUX_REBOOT_CMD_KEXEC 0x45584543
+// 10 "./minilib/headers/linux_x64/allheaders.h" 2
 // 53 "./minilib.h" 2
-// 1 "./minilib/headers/common/bits/alltypes.h" 1
-#define mini_alltypes_h 
-#define timevaldefined 
-typedef long time_t;
-typedef long suseconds_t;
-typedef unsigned useconds_t;
-struct timeval { time_t tv_sec; suseconds_t tv_usec; };
-#define ITIMER_REAL 0
-#define ITIMER_VIRTUAL 1
-#define ITIMER_PROF 2
-struct itimerval {
-  struct timeval it_interval;
-  struct timeval it_value;
-};
-#define _Addr long
-#define _Int64 long
-#define _Reg long
-#define size_t long
-typedef unsigned char uchar;
-typedef int wchar_t;
-typedef long double double_t;
-typedef float float_t;
-typedef struct { long long __ll; long double __ld; } max_align_t;
-typedef struct { union { int __i[14]; volatile int __vi[14]; unsigned long __s[7]; } __u; } pthread_attr_t;
-typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } pthread_mutex_t;
-typedef struct { union { int __i[10]; volatile int __vi[10]; volatile void *volatile __p[5]; } __u; } mtx_t;
-typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } pthread_cond_t;
-typedef struct { union { int __i[12]; volatile int __vi[12]; void *__p[6]; } __u; } cnd_t;
-typedef struct { union { int __i[14]; volatile int __vi[14]; void *__p[7]; } __u; } pthread_rwlock_t;
-typedef struct { union { int __i[8]; volatile int __vi[8]; void *__p[4]; } __u; } pthread_barrier_t;
-typedef unsigned long uintptr_t;
-typedef long ptrdiff_t;
-typedef long ssize_t;
-typedef long intptr_t;
-typedef long regoff_t;
-typedef long register_t;
-typedef signed char int8_t;
-typedef signed short int16_t;
-typedef signed int int32_t;
-typedef signed long int64_t;
-typedef signed long intmax_t;
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int uint32_t;
-typedef unsigned long uint64_t;
-typedef unsigned long u_int64_t;
-typedef unsigned long uintmax_t;
-typedef unsigned mode_t;
-typedef unsigned long nlink_t;
-typedef long off_t;
-typedef unsigned long ino_t;
-typedef unsigned long dev_t;
-typedef long blksize_t;
-typedef long blkcnt_t;
-typedef unsigned long fsblkcnt_t;
-typedef unsigned long fsfilcnt_t;
-typedef unsigned wint_t;
-typedef unsigned long wctype_t;
-typedef void * timer_t;
-typedef int clockid_t;
-typedef long clock_t;
-struct timespec { time_t tv_sec; long tv_nsec; };
-typedef int pid_t;
-typedef unsigned id_t;
-typedef unsigned uid_t;
-typedef unsigned gid_t;
-typedef int key_t;
-typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
-typedef struct __locale_struct * locale_t;
-struct iovec { void *iov_base; long iov_len; };
-typedef unsigned socklen_t;
-typedef unsigned short sa_family_t;
-#undef _Addr
-#undef _Int64
-#undef _Reg
-// 55 "./minilib.h" 2
 // 1 "./minilib/include/globaldefs.h" 1
 #define globaldefs_h 
 #define POINTER unsigned long int
@@ -997,376 +4483,11 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #define STDIN_FILENO 0
 #define STDOUT_FILENO 1
 #define STDERR_FILENO 2
-// 1 "./headers/common/bits/alltypes.h" 1
-// 143 "./minilib/include/globaldefs.h" 2
 // 1 "./headers/common/bits/ioctl.h" 1
-#define ioctl_h 
-#define _IOC(a,b,c,d) ( ((a)<<30) | ((b)<<8) | (c) | ((d)<<16) )
-#define _IOC_NONE 0U
-#define _IOC_WRITE 1U
-#define _IOC_READ 2U
-#define _IO(a,b) _IOC(_IOC_NONE,(a),(b),0)
-#define _IOW(a,b,c) _IOC(_IOC_WRITE,(a),(b),sizeof(c))
-#define _IOR(a,b,c) _IOC(_IOC_READ,(a),(b),sizeof(c))
-#define _IOWR(a,b,c) _IOC(_IOC_READ|_IOC_WRITE,(a),(b),sizeof(c))
-#define TCGETS 0x5401
-#define TCSETS 0x5402
-#define TCSETSW 0x5403
-#define TCSETSF 0x5404
-#define TCGETA 0x5405
-#define TCSETA 0x5406
-#define TCSETAW 0x5407
-#define TCSETAF 0x5408
-#define TCSBRK 0x5409
-#define TCXONC 0x540A
-#define TCFLSH 0x540B
-#define TIOCEXCL 0x540C
-#define TIOCNXCL 0x540D
-#define TIOCSCTTY 0x540E
-#define TIOCGPGRP 0x540F
-#define TIOCSPGRP 0x5410
-#define TIOCOUTQ 0x5411
-#define TIOCSTI 0x5412
-#define TIOCGWINSZ 0x5413
-#define TIOCSWINSZ 0x5414
-#define TIOCMGET 0x5415
-#define TIOCMBIS 0x5416
-#define TIOCMBIC 0x5417
-#define TIOCMSET 0x5418
-#define TIOCGSOFTCAR 0x5419
-#define TIOCSSOFTCAR 0x541A
-#define FIONREAD 0x541B
-#define TIOCINQ FIONREAD
-#define TIOCLINUX 0x541C
-#define TIOCCONS 0x541D
-#define TIOCGSERIAL 0x541E
-#define TIOCSSERIAL 0x541F
-#define TIOCPKT 0x5420
-#define FIONBIO 0x5421
-#define TIOCNOTTY 0x5422
-#define TIOCSETD 0x5423
-#define TIOCGETD 0x5424
-#define TCSBRKP 0x5425
-#define TIOCSBRK 0x5427
-#define TIOCCBRK 0x5428
-#define TIOCGSID 0x5429
-#define TIOCGRS485 0x542E
-#define TIOCSRS485 0x542F
-#define TIOCGPTN 0x80045430
-#define TIOCSPTLCK 0x40045431
-#define TIOCGDEV 0x80045432
-#define TCGETX 0x5432
-#define TCSETX 0x5433
-#define TCSETXF 0x5434
-#define TCSETXW 0x5435
-#define TIOCSIG 0x40045436
-#define TIOCVHANGUP 0x5437
-#define TIOCGPKT 0x80045438
-#define TIOCGPTLCK 0x80045439
-#define TIOCGEXCL 0x80045440
-#define TIOCGPTPEER 0x5441
-#define FIONCLEX 0x5450
-#define FIOCLEX 0x5451
-#define FIOASYNC 0x5452
-#define TIOCSERCONFIG 0x5453
-#define TIOCSERGWILD 0x5454
-#define TIOCSERSWILD 0x5455
-#define TIOCGLCKTRMIOS 0x5456
-#define TIOCSLCKTRMIOS 0x5457
-#define TIOCSERGSTRUCT 0x5458
-#define TIOCSERGETLSR 0x5459
-#define TIOCSERGETMULTI 0x545A
-#define TIOCSERSETMULTI 0x545B
-#define TIOCMIWAIT 0x545C
-#define TIOCGICOUNT 0x545D
-#define FIOQSIZE 0x5460
-#define TIOCPKT_DATA 0
-#define TIOCPKT_FLUSHREAD 1
-#define TIOCPKT_FLUSHWRITE 2
-#define TIOCPKT_STOP 4
-#define TIOCPKT_START 8
-#define TIOCPKT_NOSTOP 16
-#define TIOCPKT_DOSTOP 32
-#define TIOCPKT_IOCTL 64
-#define TIOCSER_TEMT 0x01
-struct winsize {
- unsigned short ws_row;
- unsigned short ws_col;
- unsigned short ws_xpixel;
- unsigned short ws_ypixel;
-};
-#define TIOCM_LE 0x001
-#define TIOCM_DTR 0x002
-#define TIOCM_RTS 0x004
-#define TIOCM_ST 0x008
-#define TIOCM_SR 0x010
-#define TIOCM_CTS 0x020
-#define TIOCM_CAR 0x040
-#define TIOCM_RNG 0x080
-#define TIOCM_DSR 0x100
-#define TIOCM_CD TIOCM_CAR
-#define TIOCM_RI TIOCM_RNG
-#define TIOCM_OUT1 0x2000
-#define TIOCM_OUT2 0x4000
-#define TIOCM_LOOP 0x8000
-#define N_TTY 0
-#define N_SLIP 1
-#define N_MOUSE 2
-#define N_PPP 3
-#define N_STRIP 4
-#define N_AX25 5
-#define N_X25 6
-#define N_6PACK 7
-#define N_MASC 8
-#define N_R3964 9
-#define N_PROFIBUS_FDL 10
-#define N_IRDA 11
-#define N_SMSBLOCK 12
-#define N_HDLC 13
-#define N_SYNC_PPP 14
-#define N_HCI 15
-#define FIOSETOWN 0x8901
-#define SIOCSPGRP 0x8902
-#define FIOGETOWN 0x8903
-#define SIOCGPGRP 0x8904
-#define SIOCATMARK 0x8905
-#define SIOCGSTAMP 0x8906
-#define SIOCGSTAMPNS 0x8907
-#define SIOCADDRT 0x890B
-#define SIOCDELRT 0x890C
-#define SIOCRTMSG 0x890D
-#define SIOCGIFNAME 0x8910
-#define SIOCSIFLINK 0x8911
-#define SIOCGIFCONF 0x8912
-#define SIOCGIFFLAGS 0x8913
-#define SIOCSIFFLAGS 0x8914
-#define SIOCGIFADDR 0x8915
-#define SIOCSIFADDR 0x8916
-#define SIOCGIFDSTADDR 0x8917
-#define SIOCSIFDSTADDR 0x8918
-#define SIOCGIFBRDADDR 0x8919
-#define SIOCSIFBRDADDR 0x891a
-#define SIOCGIFNETMASK 0x891b
-#define SIOCSIFNETMASK 0x891c
-#define SIOCGIFMETRIC 0x891d
-#define SIOCSIFMETRIC 0x891e
-#define SIOCGIFMEM 0x891f
-#define SIOCSIFMEM 0x8920
-#define SIOCGIFMTU 0x8921
-#define SIOCSIFMTU 0x8922
-#define SIOCSIFNAME 0x8923
-#define SIOCSIFHWADDR 0x8924
-#define SIOCGIFENCAP 0x8925
-#define SIOCSIFENCAP 0x8926
-#define SIOCGIFHWADDR 0x8927
-#define SIOCGIFSLAVE 0x8929
-#define SIOCSIFSLAVE 0x8930
-#define SIOCADDMULTI 0x8931
-#define SIOCDELMULTI 0x8932
-#define SIOCGIFINDEX 0x8933
-#define SIOGIFINDEX SIOCGIFINDEX
-#define SIOCSIFPFLAGS 0x8934
-#define SIOCGIFPFLAGS 0x8935
-#define SIOCDIFADDR 0x8936
-#define SIOCSIFHWBROADCAST 0x8937
-#define SIOCGIFCOUNT 0x8938
-#define SIOCGIFBR 0x8940
-#define SIOCSIFBR 0x8941
-#define SIOCGIFTXQLEN 0x8942
-#define SIOCSIFTXQLEN 0x8943
-#define SIOCDARP 0x8953
-#define SIOCGARP 0x8954
-#define SIOCSARP 0x8955
-#define SIOCDRARP 0x8960
-#define SIOCGRARP 0x8961
-#define SIOCSRARP 0x8962
-#define SIOCGIFMAP 0x8970
-#define SIOCSIFMAP 0x8971
-#define SIOCADDDLCI 0x8980
-#define SIOCDELDLCI 0x8981
-#define SIOCDEVPRIVATE 0x89F0
-#define SIOCPROTOPRIVATE 0x89E0
 // 144 "./minilib/include/globaldefs.h" 2
 // 1 "./headers/linux_x64/sys/utsname.h" 1
-#define _LINUX_UTSNAME_H 
-#define __OLD_UTS_LEN 8
-struct oldold_utsname {
-        char sysname[9];
-        char nodename[9];
-        char release[9];
-        char version[9];
-        char machine[9];
-};
-#define __NEW_UTS_LEN 64
-struct old_utsname {
-        char sysname[65];
-        char nodename[65];
-        char release[65];
-        char version[65];
-        char machine[65];
-};
-struct new_utsname {
-        char sysname[64 + 1];
-        char nodename[64 + 1];
-        char release[64 + 1];
-        char version[64 + 1];
-        char machine[64 + 1];
-        char domainname[64 + 1];
-};
 // 145 "./minilib/include/globaldefs.h" 2
 // 1 "./headers/common/sys/termios.h" 1
-#define _TERMIOS_H 
-// 1 "./headers/common/features.h" 1
-// 9 "./headers/common/sys/termios.h" 2
-#define __NEED_pid_t 
-typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-#define NCCS 32
-// 1 "./headers/common-links/bits/termios.h" 1
-#define termios_h_linked 
-// 1 "./headers/common-links/bits/termios.h" 1
-// 4 "./headers/common-links/bits/termios.h" 2
-// 21 "./headers/common/sys/termios.h" 2
-// 1 "./headers/common/termios.h" 1
-#define termios_xxxxx 
-struct termios {
- tcflag_t c_iflag;
- tcflag_t c_oflag;
- tcflag_t c_cflag;
- tcflag_t c_lflag;
- cc_t c_line;
- cc_t c_cc[32];
- speed_t __c_ispeed;
- speed_t __c_ospeed;
-};
-#define NCC 8
-struct termio
-{
-  unsigned short int c_iflag;
-  unsigned short int c_oflag;
-  unsigned short int c_cflag;
-  unsigned short int c_lflag;
-  unsigned char c_line;
-  unsigned char c_cc[8];
-};
-#define VINTR 0
-#define VQUIT 1
-#define VERASE 2
-#define VKILL 3
-#define VEOF 4
-#define VTIME 5
-#define VMIN 6
-#define VSWTC 7
-#define VSTART 8
-#define VSTOP 9
-#define VSUSP 10
-#define VEOL 11
-#define VREPRINT 12
-#define VDISCARD 13
-#define VWERASE 14
-#define VLNEXT 15
-#define VEOL2 16
-#define IGNBRK 0000001
-#define BRKINT 0000002
-#define IGNPAR 0000004
-#define PARMRK 0000010
-#define INPCK 0000020
-#define ISTRIP 0000040
-#define INLCR 0000100
-#define IGNCR 0000200
-#define ICRNL 0000400
-#define IUCLC 0001000
-#define IXON 0002000
-#define IXANY 0004000
-#define IXOFF 0010000
-#define IMAXBEL 0020000
-#define IUTF8 0040000
-#define OPOST 0000001
-#define OLCUC 0000002
-#define ONLCR 0000004
-#define OCRNL 0000010
-#define ONOCR 0000020
-#define ONLRET 0000040
-#define OFILL 0000100
-#define OFDEL 0000200
-// 94 "./headers/common/termios.h"
-#define VTDLY 0040000
-#define VT0 0000000
-#define VT1 0040000
-#define B0 0000000
-#define B50 0000001
-#define B75 0000002
-#define B110 0000003
-#define B134 0000004
-#define B150 0000005
-#define B200 0000006
-#define B300 0000007
-#define B600 0000010
-#define B1200 0000011
-#define B1800 0000012
-#define B2400 0000013
-#define B4800 0000014
-#define B9600 0000015
-#define B19200 0000016
-#define B38400 0000017
-#define B57600 0010001
-#define B115200 0010002
-#define B230400 0010003
-#define B460800 0010004
-#define B500000 0010005
-#define B576000 0010006
-#define B921600 0010007
-#define B1000000 0010010
-#define B1152000 0010011
-#define B1500000 0010012
-#define B2000000 0010013
-#define B2500000 0010014
-#define B3000000 0010015
-#define B3500000 0010016
-#define B4000000 0010017
-#define CSIZE 0000060
-#define CS5 0000000
-#define CS6 0000020
-#define CS7 0000040
-#define CS8 0000060
-#define CSTOPB 0000100
-#define CREAD 0000200
-#define PARENB 0000400
-#define PARODD 0001000
-#define HUPCL 0002000
-#define CLOCAL 0004000
-#define ISIG 0000001
-#define ICANON 0000002
-#define ECHO 0000010
-#define ECHOE 0000020
-#define ECHOK 0000040
-#define ECHONL 0000100
-#define NOFLSH 0000200
-#define TOSTOP 0000400
-#define IEXTEN 0100000
-#define TCOOFF 0
-#define TCOON 1
-#define TCIOFF 2
-#define TCION 3
-#define TCIFLUSH 0
-#define TCOFLUSH 1
-#define TCIOFLUSH 2
-#define TCSANOW 0
-#define TCSADRAIN 1
-#define TCSAFLUSH 2
-// 22 "./headers/common/sys/termios.h" 2
-speed_t cfgetospeed (const struct termios *);
-speed_t cfgetispeed (const struct termios *);
-int cfsetospeed (struct termios *, speed_t);
-int cfsetispeed (struct termios *, speed_t);
-static inline int tcgetattr (int, struct termios *);
-static inline int tcsetattr (int, int, const struct termios *);
-int tcsendbreak (int, int);
-int tcdrain (int);
-int tcflush (int, int);
-int tcflow (int, int);
-pid_t tcgetsid (int);
 // 146 "./minilib/include/globaldefs.h" 2
 typedef void (*sighandler_t)(int);
 int ioctl( int fd, unsigned long int request, ... );
@@ -1402,7 +4523,7 @@ int ioctl( int fd, unsigned long int request, ... );
 #define WIFSTOPPED(s) ((short)((((s)&0xffff)*0x10001)>>8) > 0x7f00)
 #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
 #define WIFCONTINUED(s) ((s) == 0xffff)
-// 56 "./minilib.h" 2
+// 55 "./minilib.h" 2
 // 1 "./minilib/include/minilib_global.h" 1
 #define minilib_global_h 
 // 16 "./minilib/include/minilib_global.h"
@@ -1420,7 +4541,7 @@ typedef struct {
 extern minilib_globals ml;
 // 37 "./minilib/include/minilib_global.h"
 extern char **environ;
-// 57 "./minilib.h" 2
+// 56 "./minilib.h" 2
 // 1 "./minilib/include/timeval.h" 1
 #define mini_timeval_h 
 // 1 "./minilib/include/time_t.h" 1
@@ -1432,230 +4553,7 @@ struct timezone {
   int tz_minuteswest;
   int tz_dsttime;
 };
-// 58 "./minilib.h" 2
-// 1 "./minilib/headers/common/dirent.h" 1
-#define _DIRENT_H 
-// 1 "./headers/common/features.h" 1
-// 9 "./minilib/headers/common/dirent.h" 2
-#define __NEED_ino_t 
-#define __NEED_off_t 
-struct __dirstream
-{
- off_t tell;
- int fd;
- int buf_pos;
- int buf_end;
- volatile int lock[1];
- char buf[2048];
-};
-typedef struct __dirstream DIR;
-#define _DIRENT_HAVE_D_RECLEN 
-#define _DIRENT_HAVE_D_OFF 
-#define _DIRENT_HAVE_D_TYPE 
-struct dirent {
- ino_t d_ino;
- off_t d_off;
- unsigned short d_reclen;
- char d_name[256];
-};
-#define d_fileno d_ino
-// 59 "./minilib.h" 2
-// 1 "./minilib/headers/common/bits/signal.h" 1
-#define bits_signal_h 
-#define SA_NOCLDSTOP 1
-#define SA_NOCLDWAIT 2
-#define SA_SIGINFO 4
-#define SA_ONSTACK 0x08000000
-#define SA_RESTART 0x10000000
-#define SA_NODEFER 0x40000000
-#define SA_RESETHAND 0x80000000
-#define SA_RESTORER 0x04000000
-#define _NSIG 65
-#define SIGHUP 1
-#define SIGINT 2
-#define SIGQUIT 3
-#define SIGILL 4
-#define SIGTRAP 5
-#define SIGABRT 6
-#define SIGIOT SIGABRT
-#define SIGBUS 7
-#define SIGFPE 8
-#define SIGKILL 9
-#define SIGUSR1 10
-#define SIGSEGV 11
-#define SIGUSR2 12
-#define SIGPIPE 13
-#define SIGALRM 14
-#define SIGTERM 15
-#define SIGSTKFLT 16
-#define SIGCHLD 17
-#define SIGCONT 18
-#define SIGSTOP 19
-#define SIGTSTP 20
-#define SIGTTIN 21
-#define SIGTTOU 22
-#define SIGURG 23
-#define SIGXCPU 24
-#define SIGXFSZ 25
-#define SIGVTALRM 26
-#define SIGPROF 27
-#define SIGWINCH 28
-#define SIGIO 29
-#define SIGPOLL 29
-#define SIGPWR 30
-#define SIGSYS 31
-#define SIGUNUSED SIGSYS
-// 60 "./minilib.h" 2
-// 1 "./minilib/headers/common/bits/stat.h" 1
-#define __bits_stat_h 
-#define S_IFMT 0170000
-#define S_IFDIR 0040000
-#define S_IFCHR 0020000
-#define S_IFBLK 0060000
-#define S_IFREG 0100000
-#define S_IFIFO 0010000
-#define S_IFLNK 0120000
-#define S_IFSOCK 0140000
-#define S_ISUID 04000
-#define S_ISGID 02000
-#define S_ISVTX 01000
-#define S_IREAD 0400
-#define S_IWRITE 0200
-#define S_IEXEC 0100
-#define S_ISDIR(mode) (((mode) & S_IFMT) == S_IFDIR)
-#define S_ISCHR(mode) (((mode) & S_IFMT) == S_IFCHR)
-#define S_ISBLK(mode) (((mode) & S_IFMT) == S_IFBLK)
-#define S_ISREG(mode) (((mode) & S_IFMT) == S_IFREG)
-#define S_ISFIFO(mode) (((mode) & S_IFMT) == S_IFIFO)
-#define S_ISLNK(mode) (((mode) & S_IFMT) == S_IFLNK)
-#define S_ISSOCK(mode) (((mode) & S_IFMT) == S_IFSOCK)
-#define S_ISUID 04000
-#define S_ISGID 02000
-#define S_ISVTX 01000
-#define S_IRUSR 0400
-#define S_IWUSR 0200
-#define S_IXUSR 0100
-#define S_IRWXU 0700
-#define S_IRGRP 0040
-#define S_IWGRP 0020
-#define S_IXGRP 0010
-#define S_IRWXG 0070
-#define S_IROTH 0004
-#define S_IWOTH 0002
-#define S_IXOTH 0001
-#define S_IRWXO 0007
-#define stat_defined 
-struct stat {
-  dev_t st_dev;
-  ino_t st_ino;
-  nlink_t st_nlink;
-  mode_t st_mode;
-  uid_t st_uid;
-  gid_t st_gid;
-  unsigned int __pad0;
-  dev_t st_rdev;
-  off_t st_size;
-  blksize_t st_blksize;
-  blkcnt_t st_blocks;
-  struct timespec st_atime;
-  struct timespec st_mtime;
-  struct timespec st_ctime;
-  long __unused[3];
-};
-// 61 "./minilib.h" 2
-// 1 "./minilib/headers/common/bits/fcntl.h" 1
-#define common_bits_fcntl_h 
-#define F_DUPFD 0
-#define F_GETFD 1
-#define F_SETFD 2
-#define F_GETFL 3
-#define F_SETFL 4
-#define F_SETOWN 8
-#define F_GETOWN 9
-#define F_SETSIG 10
-#define F_GETSIG 11
-#define F_GETLK 5
-#define F_SETLK 6
-#define F_SETLKW 7
-#define F_SETOWN_EX 15
-#define F_GETOWN_EX 16
-#define F_GETOWNER_UIDS 17
-// 62 "./minilib.h" 2
-// 1 "./minilib/headers/common/signal.h" 1
-#define signal_h 
-// 1 "./headers/linux_x64/sys/signal.h" 1
-#define linux_x64_signal_h 
-typedef long __band_t;
-typedef union sigval {
-  int sival_int;
-  void *sival_ptr;
-} sigval_t;
-typedef struct siginfo {
-  int32_t si_signo;
-  int32_t si_errno;
-  int32_t si_code;
-  union {
-    char __pad[128 - 2*sizeof(int) - sizeof(long)];
-    struct {
-      pid_t _pid;
-      uid_t _uid;
-    } _kill;
-    struct {
-      unsigned int _timer1;
-      unsigned int _timer2;
-    } _timer;
-    struct {
-      pid_t _pid;
-      uid_t _uid;
-      sigval_t _sigval;
-    } _rt;
-    struct {
-      pid_t _pid;
-      uid_t _uid;
-      int32_t _status;
-      clock_t _utime;
-      clock_t _stime;
-    } _sigchld;
-    struct {
-      void *_addr;
-    } _sigfault;
-    struct {
-      __band_t _band;
-      int32_t _fd;
-    } _sigpoll;
-  } _sifields;
-} siginfo_t;
-typedef struct __sigset_t { unsigned long sig; } sigset_t;
-struct sigaction {
-  void (*sa_handler)(int);
-  unsigned long sa_flags;
-  void (*restorer)(void);
-  sigset_t sa_mask;
-};
-// 5 "./minilib/headers/common/signal.h" 2
-#define SIG_ERR ((void (*)(int))-1)
-#define SIG_DFL ((void (*)(int)) 0)
-#define SIG_IGN ((void (*)(int)) 1)
-// 63 "./minilib.h" 2
-// 1 "./minilib/headers/common/ctype.h" 1
-#define _CTYPE_H 
-// 1 "./headers/common/features.h" 1
-// 9 "./minilib/headers/common/ctype.h" 2
-int isalnum_l(int, locale_t);
-int isalpha_l(int, locale_t);
-int isblank_l(int, locale_t);
-int iscntrl_l(int, locale_t);
-int isdigit_l(int, locale_t);
-int isgraph_l(int, locale_t);
-int islower_l(int, locale_t);
-int isprint_l(int, locale_t);
-int ispunct_l(int, locale_t);
-int isspace_l(int, locale_t);
-int isupper_l(int, locale_t);
-int isxdigit_l(int, locale_t);
-int tolower_l(int, locale_t);
-int toupper_l(int, locale_t);
-// 64 "./minilib.h" 2
+// 57 "./minilib.h" 2
 // 1 "./minilib/include/ctype.h" 1
 #define ctype_h 
 // 15 "./minilib/include/ctype.h"
@@ -1669,7 +4567,7 @@ int toupper_l(int, locale_t);
 #define _toupper(a) ((a)&0x5f)
 #define toupper(a) ((a)&0x5f)
 #define isascii(a) (0 ? isascii(a) : (unsigned)(a) < 128)
-// 65 "./minilib.h" 2
+// 58 "./minilib.h" 2
 // 1 "./minilib/include/syscall.h" 1
 #define minilib_syscall_h 
 // 23 "./minilib/include/syscall.h"
@@ -1697,15 +4595,15 @@ int toupper_l(int, locale_t);
 #define syscall6_ret(call) register long int r10 asm("r10")= a4; register long int r8 asm("r8")= a5 ; register long int r9 asm("r9")=a6; syscall3_ret(call) , "r" (r8)
 // 141 "./minilib/include/syscall.h"
 #define __DO_syscall(n,...) syscall ##n ##_ret( __VA_ARGS__ ) __callend
-// 189 "./minilib/include/syscall.h"
+// 227 "./minilib/include/syscall.h"
 #define REAL_define_syscall(name,argcount,...) int volatile name( __VA_ARGS__ );
 #define SYSREAL_define_syscall(name,argcount,...) int volatile ksys ##name( __VA_ARGS__ );
-// 220 "./minilib/include/syscall.h"
+// 258 "./minilib/include/syscall.h"
 #define REAL_define_syscallret(name,ret,argcount,...) inline int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){ __DO_syscall( argcount, SCALL(name)); if ( sysret<0 ){ errno = -sysret; return(-1);} return(ret); }
-// 230 "./minilib/include/syscall.h"
+// 268 "./minilib/include/syscall.h"
 #define DEF_syscall(...) 
 #define DEF_syscallret(...) 
-// 66 "./minilib.h" 2
+// 59 "./minilib.h" 2
 // 1 "./minilib/include/syscall_stubs.h" 1
 #define syscall_stubs_h 
 // 16 "./minilib/include/syscall_stubs.h"
@@ -1777,404 +4675,379 @@ struct msqid_ds;
 // 196 "./minilib/include/syscall_stubs.h"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-conversion"
-int volatile fork( );
-int volatile dup2( int a1, int a2 );
-int volatile chmod( const char *a1, mode_t a2 );
-int volatile mkdir( const char *a1, int a2 );
-int volatile rt_sigaction( int a1, const struct sigaction *a2, struct sigaction *a3, long a4 );
-int volatile vhangup( );
-int volatile fchown( unsigned int a1, uid_t a2, gid_t a3 );
-int volatile getdents( unsigned int a1, struct dirent *a2, unsigned int a3 );
-int volatile utime( const char *a1, struct utimbuf *a2 );
-int volatile dup( int a1 );
-int volatile fchmod( unsigned int a1, mode_t a2 );
-int volatile getgid( );
-int volatile uname( struct old_utsname *a1 );
-int volatile setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
-int volatile chdir( const char* a1 );
-int volatile symlink( const char *a1, const char *a2 );
-int volatile kill( pid_t a1, int a2 );
 inline int volatile __attribute__((always_inline)) mprotect( unsigned long int *a1, unsigned long int a2, int a3 ){ asm volatile ("syscall" : "=a" (sysret) : "a" ( (10 | 0 ) ) , "D" (a1) , "S" (a2) , "d" (a3) : "memory","rcx", "r11" ); if ( sysret<0 ){ errno = -sysret; return(-1);} return(*a1); }
-int volatile sync( );
-int volatile getppid( );
-int volatile pivot_root( const char *a1, const char *a2 );
-int volatile chown( const char *a1, uid_t a2, gid_t a3 );
-int volatile rmdir( const char *a1 );
-int volatile readahead( int a1, loff_t a2, long a3 );
-int volatile setpgid( pid_t a1, pid_t a2 );
-int volatile pipe( int *a1 );
-int volatile fsync( int a1 );
-int volatile getpid( );
-int volatile getcwd( char *a1, unsigned long a2 );
-int volatile umask( int a1 );
-int volatile dup3( int a1, int a2, int a3 );
-int volatile unlink( const char* a1 );
-int volatile sendfile( int a1, int a2, off_t *a3, long a4 );
-int volatile fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
-int volatile setuid( uid_t a1 );
-int volatile reboot( int a1, int a2, unsigned int a3, void *a4 );
-int volatile rename( const char* a1, const char* a2 );
-int volatile setgid( gid_t a1 );
-int volatile write( int a1, const void *a2, int a3 );
-int volatile rt_sigprocmask( int a1, sigset_t *a2, sigset_t *a3, long a4 );
-int volatile getitimer( int a1, struct itimerval *a2 );
-int volatile stat( const char* a1, struct stat* a2 );
-int volatile time( unsigned int *a1 );
-int volatile close( int a1 );
-int volatile mount( char *a1, char *a2, char *a3, unsigned long a4, void *a5 );
-int volatile chroot( const char *a1 );
-int volatile access( const char *a1, int a2 );
-int volatile vfork( );
-int volatile setsid( );
-int volatile gettimeofday( struct timeval *a1, struct timezone *a2 );
-int volatile fstat( int a1, struct stat* a2 );
-int volatile lseek( unsigned int a1, int a2, int a3 );
-int volatile execve( const char *a1, char* const* a2, char* const* a3 );
-int volatile getuid( );
-int volatile rt_sigreturn( unsigned long a1 );
-int volatile ftruncate( unsigned int a1, unsigned int a2 );
-int volatile wait4( pid_t a1, int *a2, int a3, struct rusage *a4 );
-int volatile nanosleep( struct timespec *a1, struct timespec *a2 );
-int volatile mknod( const char *a1, umode_t a2, unsigned a3 );
-int volatile execveat( int a1, const char *a2, char* const* a3, char* const* a4, int a5 );
-int volatile brk( unsigned long a1 );
-int volatile read( int a1, void *a2, int a3 );
-int volatile getpgrp( );
 int volatile link( const char *a1, const char *a2 );
-int volatile ksys_set_mempolicy( int a1, unsigned long *a2, unsigned long a3 );
-int volatile ksys_utime( char *a1, struct utimbuf *a2 );
-int volatile ksys_umount2( const char *a1, int a2 );
-int volatile ksys_arch_prctl( struct task_struct *a1, int a2, unsigned long *a3 );
-int volatile ksys_shutdown( int a1, int a2 );
-int volatile ksys_symlinkat( const char *a1, int a2, const char *a3 );
-int volatile ksys_rename( const char *a1, const char *a2 );
-int volatile ksys_perf_event_open( struct perf_event_attr *a1, pid_t a2, int a3, int a4, unsigned long a5 );
-int volatile ksys_chdir( const char *a1 );
-int volatile ksys_flock( unsigned int a1, unsigned int a2 );
-int volatile ksys_lsetxattr( const char *a1, const char *a2, const void *a3, long a4, int a5 );
-int volatile ksys_connect( int a1, struct sockaddr *a2, int a3 );
-int volatile ksys_eventfd( unsigned int a1 );
-int volatile ksys_clock_settime( const clockid_t a1, const struct timespec *a2 );
-int volatile ksys_semtimedop( int a1, struct sembuf *a2, unsigned a3, const struct timespec *a4 );
-int volatile ksys_splice( int a1, loff_t *a2, int a3, loff_t *a4, long a5, unsigned int a6 );
-int volatile ksys_munlockall( );
+int volatile chroot( const char *a1 );
+int volatile time( unsigned int *a1 );
+REAL_define_syscall_noopt(wait4,4, pid_t a1, int *a2, int a3, struct rusage *a4)
+int volatile dup( int a1 );
+int volatile getuid( );
+int volatile rmdir( const char *a1 );
+int volatile getppid( );
+int volatile getcwd( char *a1, unsigned long a2 );
+int volatile pivot_root( const char *a1, const char *a2 );
+int volatile pipe( int *a1 );
+int volatile dup2( int a1, int a2 );
+REAL_define_syscall_noopt(sendfile,4, int a1, int a2, off_t *a3, long a4)
+int volatile chown( const char *a1, uid_t a2, gid_t a3 );
+int volatile sync( );
+int volatile read( int a1, void *a2, int a3 );
+int volatile gettimeofday( struct timeval *a1, struct timezone *a2 );
+int volatile fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
+int volatile symlink( const char *a1, const char *a2 );
+int volatile chmod( const char *a1, mode_t a2 );
+int volatile getitimer( int a1, struct itimerval *a2 );
+int volatile getgid( );
+int volatile mknod( const char *a1, umode_t a2, unsigned a3 );
+int volatile setsid( );
+int volatile fork( );
+int volatile getpgrp( );
+int volatile mkdir( const char *a1, int a2 );
+int volatile fstat( int a1, struct stat* a2 );
+int volatile stat( const char* a1, struct stat* a2 );
+int volatile kill( pid_t a1, int a2 );
+int volatile fchown( unsigned int a1, uid_t a2, gid_t a3 );
+int volatile uname( struct old_utsname *a1 );
+REAL_define_syscall_noopt(reboot,4, int a1, int a2, unsigned int a3, void *a4)
+int volatile rename( const char* a1, const char* a2 );
+int volatile write( int a1, const void *a2, int a3 );
+int volatile setpgid( pid_t a1, pid_t a2 );
+int volatile brk( unsigned long a1 );
+int volatile utime( const char *a1, struct utimbuf *a2 );
+int volatile close( int a1 );
+int volatile vhangup( );
+int volatile unlink( const char* a1 );
+int volatile ftruncate( unsigned int a1, unsigned int a2 );
+REAL_define_syscall_noopt(rt_sigaction,4, int a1, const struct sigaction *a2, struct sigaction *a3, long a4)
+int volatile readahead( int a1, loff_t a2, long a3 );
+int volatile vfork( );
+int volatile rt_sigreturn( unsigned long a1 );
+int volatile access( const char *a1, int a2 );
+int volatile chdir( const char* a1 );
+int volatile fchmod( unsigned int a1, mode_t a2 );
+int volatile setuid( uid_t a1 );
+int volatile execve( const char *a1, char* const* a2, char* const* a3 );
+int volatile dup3( int a1, int a2, int a3 );
+REAL_define_syscall_noopt(rt_sigprocmask,4, int a1, sigset_t *a2, sigset_t *a3, long a4)
+int volatile umask( int a1 );
+int volatile nanosleep( struct timespec *a1, struct timespec *a2 );
+int volatile getdents( unsigned int a1, struct dirent *a2, unsigned int a3 );
+int volatile fsync( int a1 );
+int volatile setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
+int volatile setgid( gid_t a1 );
+int volatile getpid( );
+REAL_define_syscall_noopt(mount,5, char *a1, char *a2, char *a3, unsigned long a4, void *a5)
+REAL_define_syscall_noopt(execveat,5, int a1, const char *a2, char* const* a3, char* const* a4, int a5)
+int volatile lseek( unsigned int a1, int a2, int a3 );
 int volatile ksys_inotify_rm_watch( int a1, __s32 a2 );
-int volatile ksys_capget( cap_user_header_t a1, cap_user_data_t a2 );
-int volatile ksys_vhangup( );
-int volatile ksys_mmap( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5, unsigned long a6 );
-int volatile ksys_mount( char *a1, char *a2, char *a3, unsigned long a4, void *a5 );
-int volatile ksys_accept( int a1, struct sockaddr *a2, int *a3 );
-int volatile ksys_sched_getscheduler( pid_t a1 );
-int volatile ksys_getdents64( unsigned int a1, struct linux_dirent64 *a2, unsigned int a3 );
-int volatile ksys_wait4( pid_t a1, int *a2, int a3, struct rusage *a4 );
-int volatile ksys_io_destroy( aio_context_t a1 );
-int volatile ksys_mremap( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_mq_notify( mqd_t a1, const struct sigevent *a2 );
-int volatile ksys_kill( pid_t a1, int a2 );
-int volatile ksys_mq_timedreceive( mqd_t a1, char *a2, long a3, unsigned int *a4, const struct timespec *a5 );
-int volatile ksys_getuid( );
-int volatile ksys_shmdt( char *a1 );
-int volatile ksys_lremovexattr( const char *a1, const char *a2 );
-int volatile ksys_chroot( const char *a1 );
-int volatile ksys_sched_setaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
-int volatile ksys_fchmod( unsigned int a1, mode_t a2 );
-int volatile ksys_setresgid( gid_t a1, gid_t a2, gid_t a3 );
-int volatile ksys_getppid( );
-int volatile ksys_rmdir( const char *a1 );
-int volatile ksys_fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
-int volatile ksys_lseek( unsigned int a1, off_t a2, unsigned int a3 );
-int volatile ksys_brk( unsigned long a1 );
-int volatile ksys_getcwd( char *a1, unsigned long a2 );
-int volatile ksys_umask( int a1 );
-int volatile ksys_symlink( const char *a1, const char *a2 );
-int volatile ksys_tee( int a1, int a2, long a3, unsigned int a4 );
-int volatile ksys_nanosleep( struct timespec *a1, struct timespec *a2 );
-int volatile ksys_readlink( const char *a1, char *a2, int a3 );
-int volatile ksys_exit_group( int a1 );
-int volatile ksys_times( struct sysinfo *a1 );
-int volatile ksys_read( unsigned int a1, char *a2, long a3 );
-int volatile ksys_syncfs( int a1 );
-int volatile ksys_readv( unsigned long a1, const struct iovec *a2, unsigned long a3 );
-int volatile ksys_modify_ldt( int a1, void *a2, unsigned long a3 );
-int volatile ksys_fremovexattr( int a1, const char *a2 );
-int volatile ksys_link( const char *a1, const char *a2 );
-int volatile ksys_setns( int a1, int a2 );
-int volatile ksys_preadv( unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_vmsplice( int a1, const struct iovec *a2, unsigned long a3, unsigned int a4 );
-int volatile ksys_chown( const char *a1, uid_t a2, gid_t a3 );
-int volatile ksys_sched_yield( );
-int volatile ksys_io_setup( unsigned a1, aio_context_t *a2 );
-int volatile ksys_semget( key_t a1, int a2, int a3 );
-int volatile ksys_utimes( char *a1, struct timeval *a2 );
-int volatile ksys_sched_get_priority_max( int a1 );
-int volatile ksys_ioprio_get( int a1, int a2 );
-int volatile ksys_close( unsigned int a1 );
-int volatile ksys_getpeername( int a1, struct sockaddr *a2, int *a3 );
-int volatile ksys_sched_setparam( pid_t a1, struct sched_param *a2 );
-int volatile ksys_fchdir( unsigned int a1 );
-int volatile ksys_fanotify_mark( long a1, long a2, __u64 a3, long a4, long a5 );
-int volatile ksys_inotify_add_watch( int a1, const char *a2, u32 a3 );
-int volatile ksys_memfd_create( const char *a1, unsigned int a2 );
-int volatile ksys_fsetxattr( int a1, const char *a2, const void *a3, long a4, int a5 );
-int volatile ksys_recvfrom( int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int *a6 );
-int volatile ksys_syslog( int a1, char *a2, int a3 );
-int volatile ksys_rt_sigqueueinfo( pid_t a1, int a2, siginfo_t *a3 );
-int volatile ksys_timerfd_create( int a1, int a2 );
-int volatile ksys_quotactl( unsigned int a1, const char *a2, qid_t a3, void *a4 );
-int volatile ksys_getrlimit( unsigned int a1, struct rlimit *a2 );
-int volatile ksys_mlock( unsigned long a1, long a2 );
-int volatile ksys_mknod( const char *a1, umode_t a2, unsigned a3 );
-int volatile ksys_kcmp( pid_t a1, pid_t a2, int a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_io_cancel( aio_context_t a1, struct iocb *a2, struct io_event *a3 );
-int volatile ksys_lchown( const char *a1, uid_t a2, gid_t a3 );
-int volatile ksys_setreuid( uid_t a1, uid_t a2 );
-int volatile ksys_semctl( int a1, int a2, int a3, semun_u a4 );
-int volatile ksys_time( time_t *a1 );
-int volatile ksys_getpgrp( );
-int volatile ksys_getsid( pid_t a1 );
-int volatile ksys_geteuid( );
-int volatile ksys_bind( int a1, struct sockaddr *a2, int a3 );
-int volatile ksys_timer_create( const clockid_t a1, struct sigevent *a2, timer_t *a3 );
-int volatile ksys_renameat2( int a1, const char *a2, int a3, const char *a4, unsigned int a5 );
-int volatile ksys_fgetxattr( int a1, const char *a2, void *a3, long a4 );
-int volatile ksys_move_pages( pid_t a1, unsigned long a2, const void *a3, const int *a4, int *a5, int a6 );
-int volatile ksys_fanotify_init( unsigned int a1, unsigned int a2 );
-int volatile ksys_sendmsg( int a1, struct msghdr *a2, unsigned a3 );
-int volatile ksys_timerfd_gettime( int a1, struct itimerspec *a2 );
-int volatile ksys_get_robust_list( int a1, struct robust_list_head **a2, long *a3 );
-int volatile ksys_pipe2( int *a1, int a2 );
-int volatile ksys__sysctl( struct __sysctl_args *a1 );
-int volatile ksys_flistxattr( int a1, char *a2, long a3 );
-int volatile ksys_statfs( const char *a1, struct statfs *a2 );
-int volatile ksys_mknodat( int a1, const char *a2, int a3, unsigned a4 );
-int volatile ksys_tkill( pid_t a1, int a2 );
-int volatile ksys_timerfd_settime( int a1, int a2, const struct itimerspec *a3, struct itimerspec *a4 );
-int volatile ksys_utimensat( int a1, const char *a2, struct timespec *a3, int a4 );
-int volatile ksys_fstat( unsigned int a1, struct stat *a2 );
-int volatile ksys_setregid( gid_t a1, gid_t a2 );
-int volatile ksys_process_vm_writev( pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovcc *a4, unsigned long a5, unsigned long a6 );
-int volatile ksys_getitimer( int a1, struct itimerval *a2 );
-int volatile ksys_ptrace( long a1, long a2, unsigned long a3, unsigned long a4 );
-int volatile ksys_epoll_create1( int a1 );
-int volatile ksys_getresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
-int volatile ksys_mincore( unsigned long a1, long a2, unsigned char *a3 );
-int volatile ksys_sethostname( char *a1, int a2 );
-int volatile ksys_setsockopt( int a1, int a2, int a3, char *a4, int a5 );
-int volatile ksys_getpgid( pid_t a1 );
-int volatile ksys_timer_gettime( timer_t a1, struct itimerspec *a2 );
-int volatile ksys_msgrcv( int a1, struct msgbuf *a2, long a3, long a4, int a5 );
-int volatile ksys_init_module( void *a1, unsigned long a2, const char *a3 );
-int volatile ksys_setgid( gid_t a1 );
-int volatile ksys_linkat( int a1, const char *a2, int a3, const char *a4, int a5 );
-int volatile ksys_sched_setattr( pid_t a1, struct sched_attr *a2, unsigned int a3 );
-int volatile ksys_sendto( int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int a6 );
-int volatile ksys_pwritev( unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_settimeofday( struct timeval *a1, struct timezone *a2 );
-int volatile ksys_socketpair( int a1, int a2, int a3, int *a4 );
-int volatile ksys_rt_sigtimedwait( const sigset_t *a1, siginfo_t *a2, const struct timespec *a3, long a4 );
-int volatile ksys_futex( u32 *a1, int a2, u32 a3, struct timespec *a4, u32 *a5, u32 a6 );
-int volatile ksys_setdomainname( char *a1, int a2 );
-int volatile ksys_mq_unlink( const char *a1 );
-int volatile ksys_lstat( const char *a1, struct stat *a2 );
-int volatile ksys_uname( struct old_utsname *a1 );
-int volatile ksys_pwrite64( unsigned int a1, const char *a2, long a3, loff_t a4 );
-int volatile ksys_clock_getres( const clockid_t a1, struct timespec *a2 );
-int volatile ksys_faccessat( int a1, const char *a2, int a3 );
-int volatile ksys_madvise( unsigned long a1, long a2, int a3 );
-int volatile ksys_pipe( int *a1 );
-int volatile ksys_rt_sigprocmask( int a1, sigset_t *a2, sigset_t *a3, long a4 );
-int volatile ksys_inotify_init( );
-int volatile ksys_llistxattr( const char *a1, char *a2, long a3 );
-int volatile ksys_access( const char *a1, int a2 );
-int volatile ksys_execve( const char *a1, const char *const a2, const char *const a3 );
-int volatile ksys_timer_delete( timer_t a1 );
-int volatile ksys_setxattr( const char *a1, const char *a2, const void *a3, long a4, int a5 );
-int volatile ksys_restart_syscall( );
-int volatile ksys_set_tid_address( int *a1 );
-int volatile ksys_lgetxattr( const char *a1, const char *a2, void *a3, long a4 );
-int volatile ksys_unlink( const char *a1 );
-int volatile ksys_getpriority( int a1, int a2 );
-int volatile ksys_recvmmsg( int a1, struct msghdr *a2, unsigned int a3, unsigned int a4, struct timespec *a5 );
-int volatile ksys_writev( unsigned long a1, const struct iovec *a2, unsigned long a3 );
-int volatile ksys_open_by_handle_at( int a1, const char *a2, struct file_handle *a3, int *a4, int a5 );
-int volatile ksys_setgroups( int a1, gid_t *a2 );
-int volatile ksys_personality( unsigned int a1 );
-int volatile ksys_fchown( unsigned int a1, uid_t a2, gid_t a3 );
-int volatile ksys_newfstatat( int a1, const char *a2, struct stat *a3, int a4 );
-int volatile ksys_sched_getaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
-int volatile ksys_socket( int a1, int a2, int a3 );
-int volatile ksys_prctl( int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_kexec_load( unsigned long a1, unsigned long a2, struct kexec_segment *a3, unsigned long a4 );
-int volatile ksys_mbind( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long *a4, unsigned long a5, unsigned a6 );
-int volatile ksys_dup2( unsigned int a1, unsigned int a2 );
-int volatile ksys_add_key( const char *a1, const char *a2, const void *a3, long a4 );
-int volatile ksys_sync_file_range( long a1, loff_t a2, loff_t a3, long a4 );
-int volatile ksys_accept4( int a1, struct sockaddr *a2, int *a3, int a4 );
-int volatile ksys_mq_open( const char *a1, int a2, mode_t a3, struct mq_attr *a4 );
-int volatile ksys_sched_rr_get_interval( pid_t a1, struct timespec *a2 );
-int volatile ksys_unshare( unsigned long a1 );
-int volatile ksys_clone( unsigned long a1, unsigned long a2, void *a3, void *a4 );
-int volatile ksys_dup( unsigned int a1 );
-int volatile ksys_getgid( );
-int volatile ksys_fchmodat( int a1, const char *a2, mode_t a3 );
-int volatile ksys_munmap( unsigned long a1, long a2 );
-int volatile ksys_gettimeofday( struct timeval *a1, struct timezone *a2 );
-int volatile ksys_prlimit64( pid_t a1, unsigned int a2, const struct rlimit64 *a3, struct rlimit64 *a4 );
-int volatile ksys_tgkill( pid_t a1, pid_t a2, int a3 );
-int volatile ksys_ustat( unsigned a1, struct ustat *a2 );
 int volatile ksys_iopl( unsigned int a1, struct pt_regs *a2 );
-int volatile ksys_migrate_pages( pid_t a1, unsigned long a2, const unsigned long *a3, const unsigned long *a4 );
-int volatile ksys_vfork( );
-int volatile ksys_rt_sigsuspend( sigset_t *a1, long a2 );
-int volatile ksys_inotify_init1( int a1 );
-int volatile ksys_setpriority( int a1, int a2, int a3 );
-int volatile ksys_ioperm( unsigned long a1, unsigned long a2, int a3 );
-int volatile ksys_msgsnd( int a1, struct msgbuf *a2, long a3, int a4 );
-int volatile ksys_exit( int a1 );
-int volatile ksys_getgroups( int a1, gid_t *a2 );
-int volatile ksys_clock_nanosleep( const clockid_t a1, int a2, const struct timespec *a3, struct timespec *a4 );
-int volatile ksys_gettid( );
-int volatile ksys_sched_setscheduler( pid_t a1, int a2, struct sched_param *a3 );
-int volatile ksys_shmget( key_t a1, long a2, int a3 );
-int volatile ksys_renameat( int a1, const char *a2, int a3, const char *a4 );
-int volatile ksys_rt_sigpending( sigset_t *a1, long a2 );
-int volatile ksys_sysfs( int a1, unsigned long a2, unsigned long a3 );
-int volatile ksys_stat( const char *a1, struct stat *a2 );
-int volatile ksys_clock_gettime( const clockid_t a1, struct timespec *a2 );
-int volatile ksys_mlockall( int a1 );
-int volatile ksys_truncate( const char *a1, long a2 );
-int volatile ksys_msgget( key_t a1, int a2 );
-int volatile ksys_getxattr( const char *a1, const char *a2, void *a3, long a4 );
-int volatile ksys_fstatfs( unsigned int a1, struct statfs *a2 );
-int volatile ksys_ppoll( struct pollfd *a1, unsigned int a2, struct timespec *a3, const sigset_t *a4, long a5 );
-int volatile ksys_set_robust_list( struct robust_list_head *a1, long a2 );
-int volatile ksys_sched_getparam( pid_t a1, struct sched_param *a2 );
-int volatile ksys_chmod( const char *a1, mode_t a2 );
-int volatile ksys_rt_sigaction( int a1, const struct sigaction *a2, struct sigaction *a3, long a4 );
-int volatile ksys_timer_getoverrun( timer_t a1 );
-int volatile ksys_signalfd4( int a1, sigset_t *a2, long a3, int a4 );
-int volatile ksys_adjtimex( struct timex *a1 );
-int volatile ksys_setsid( );
-int volatile ksys_epoll_ctl( int a1, int a2, int a3, struct epoll_event *a4 );
-int volatile ksys_finit_module( int a1, const char *a2, int a3 );
-int volatile ksys_lookup_dcookie( u64 a1, long a2, long a3 );
-int volatile ksys_fdatasync( unsigned int a1 );
-int volatile ksys_setresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
-int volatile ksys_delete_module( const char *a1, unsigned int a2 );
-int volatile ksys_acct( const char *a1 );
-int volatile ksys_semop( int a1, struct sembuf *a2, unsigned a3 );
-int volatile ksys_alarm( unsigned int a1 );
-int volatile ksys_setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
-int volatile ksys_getegid( );
-int volatile ksys_sched_get_priority_min( int a1 );
-int volatile ksys_getsockopt( int a1, int a2, int a3, char *a4, int *a5 );
-int volatile ksys_seccomp( unsigned int a1, unsigned int a2, const char *a3 );
-int volatile ksys_setpgid( pid_t a1, pid_t a2 );
-int volatile ksys_pause( );
-int volatile ksys_munlock( unsigned long a1, long a2 );
-int volatile ksys_getrusage( int a1, struct rusage *a2 );
-int volatile ksys_epoll_create( int a1 );
-int volatile ksys_openat( int a1, const char *a2, int a3, int a4 );
-int volatile ksys_signalfd( int a1, sigset_t *a2, long a3 );
-int volatile ksys_kexec_file_load( int a1, int a2, unsigned long a3, const char *a4, unsigned long a5 );
-int volatile ksys_mq_getsetattr( mqd_t a1, const struct mq_attr *a2, struct mq_attr *a3 );
-int volatile ksys_mq_timedsend( mqd_t a1, const char *a2, long a3, unsigned int a4, const struct timespec *a5 );
-int volatile ksys_ftruncate( unsigned int a1, unsigned long a2 );
-int volatile ksys_clock_adjtime( clockid_t a1, struct timex *a2 );
-int volatile ksys_setfsgid( gid_t a1 );
-int volatile ksys_sendmmsg( int a1, struct mmsghdr *a2, unsigned int a3, unsigned int a4 );
-int volatile ksys_swapoff( const char *a1 );
-int volatile ksys_creat( const char *a1, int a2 );
-int volatile ksys_capset( cap_user_header_t a1, const cap_user_data_t a2 );
-int volatile ksys_timer_settime( timer_t a1, int a2, const struct itimerspec *a3, struct itimerspec *a4 );
-int volatile ksys_sysinfo( struct sysinfo *a1 );
-int volatile ksys_msync( unsigned long a1, long a2, int a3 );
-int volatile ksys_epoll_pwait( int a1, struct epoll_event *a2, int a3, int a4, const sigset_t *a5, long a6 );
-int volatile ksys_getcpu( unsigned *a1, unsigned *a2, struct getcpu_cache *a3 );
-int volatile ksys_poll( struct poll_fd *a1, unsigned int a2, long a3 );
-int volatile ksys_getdents( unsigned int a1, struct linux_dirent *a2, unsigned int a3 );
-int volatile ksys_listen( int a1, int a2 );
-int volatile ksys_futimesat( int a1, const char *a2, struct timeval *a3 );
-int volatile ksys_write( unsigned int a1, const char *a2, long a3 );
-int volatile ksys_fallocate( long a1, long a2, loff_t a3, loff_t a4 );
-int volatile ksys_ioctl( unsigned int a1, unsigned int a2, unsigned long a3 );
-int volatile ksys_setfsuid( uid_t a1 );
-int volatile ksys_setrlimit( unsigned int a1, struct rlimit *a2 );
-int volatile ksys_dup3( unsigned int a1, unsigned int a2, int a3 );
-int volatile ksys_removexattr( const char *a1, const char *a2 );
-int volatile ksys_io_getevents( aio_context_t a1, long a2, long a3, struct io_event *a4 );
-int volatile ksys_fadvise64( int a1, loff_t a2, long a3, int a4 );
-int volatile ksys_name_to_handle_at( int a1, const char *a2, struct file_handle *a3, int *a4, int a5 );
-int volatile ksys_sendfile( int a1, int a2, off_t *a3, long a4 );
-int volatile ksys_pselect6( int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timespec *a5, void *a6 );
-int volatile ksys_select( int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timeval *a5 );
-int volatile ksys_fchownat( int a1, const char *a2, uid_t a3, gid_t a4, int a5 );
-int volatile ksys_eventfd2( unsigned int a1, int a2 );
-int volatile ksys_reboot( int a1, int a2, unsigned int a3, void *a4 );
-int volatile ksys_unlinkat( int a1, const char *a2, int a3 );
-int volatile ksys_fork( );
 int volatile ksys_getrandom( char *a1, long a2, unsigned int a3 );
-int volatile ksys_io_submit( aio_context_t a1, long a2, struct iocb **a3 );
-int volatile ksys_shmctl( int a1, int a2, struct shmid_ds *a3 );
-int volatile ksys_request_key( const char *a1, const char *a2, const char *a3, key_serial_t a4 );
-int volatile ksys_get_mempolicy( int *a1, unsigned long *a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_mprotect( unsigned long a1, long a2, unsigned long a3 );
-int volatile ksys_keyctl( int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_waitid( int a1, pid_t a2, struct siginfo *a3, int a4, struct rusage *a5 );
-int volatile ksys_remap_file_pages( unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5 );
-int volatile ksys_readahead( int a1, loff_t a2, long a3 );
-int volatile ksys_msgctl( int a1, int a2, struct msqid_ds *a3 );
-int volatile ksys_getpid( );
-int volatile ksys_swapon( const char *a1, int a2 );
-int volatile ksys_sync( );
-int volatile ksys_open( const char *a1, int a2, int a3 );
-int volatile ksys_ioprio_set( int a1, int a2, int a3 );
-int volatile ksys_sched_getattr( pid_t a1, struct sched_attr *a2, unsigned int a3, unsigned int a4 );
-int volatile ksys_getresgid( gid_t *a1, gid_t *a2, gid_t *a3 );
-int volatile ksys_epoll_wait( int a1, struct epoll_event *a2, int a3, int a4 );
+int volatile ksys_sched_setattr( pid_t a1, struct sched_attr *a2, unsigned int a3 );
 int volatile ksys_fsync( unsigned int a1 );
-int volatile ksys_mkdirat( int a1, const char *a2, int a3 );
-int volatile ksys_recvmsg( int a1, struct msghdr *a2, unsigned int a3 );
-int volatile ksys_process_vm_readv( pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovec *a4, unsigned long a5, unsigned long a6 );
+SYSREAL_define_syscall_noopt(_fchownat,5, int a1, const char *a2, uid_t a3, gid_t a4, int a5)
+int volatile ksys_io_destroy( aio_context_t a1 );
+int volatile ksys_llistxattr( const char *a1, char *a2, long a3 );
+int volatile ksys_gettimeofday( struct timeval *a1, struct timezone *a2 );
+int volatile ksys_memfd_create( const char *a1, unsigned int a2 );
+int volatile ksys_epoll_create1( int a1 );
+int volatile ksys_getpriority( int a1, int a2 );
+SYSREAL_define_syscall_noopt(_io_getevents,4, aio_context_t a1, long a2, long a3, struct io_event *a4)
+int volatile ksys_ioprio_get( int a1, int a2 );
+SYSREAL_define_syscall_noopt(_recvfrom,6, int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int *a6)
+int volatile ksys_capset( cap_user_header_t a1, const cap_user_data_t a2 );
+int volatile ksys_statfs( const char *a1, struct statfs *a2 );
+int volatile ksys_setsid( );
+int volatile ksys_msgget( key_t a1, int a2 );
+SYSREAL_define_syscall_noopt(_reboot,4, int a1, int a2, unsigned int a3, void *a4)
+int volatile ksys_tgkill( pid_t a1, pid_t a2, int a3 );
+int volatile ksys_gettid( );
+int volatile ksys_setfsuid( uid_t a1 );
+int volatile ksys_times( struct sysinfo *a1 );
+SYSREAL_define_syscall_noopt(_sched_getattr,4, pid_t a1, struct sched_attr *a2, unsigned int a3, unsigned int a4)
+int volatile ksys_symlinkat( const char *a1, int a2, const char *a3 );
+int volatile ksys_sysfs( int a1, unsigned long a2, unsigned long a3 );
+int volatile ksys_getcpu( unsigned *a1, unsigned *a2, struct getcpu_cache *a3 );
+SYSREAL_define_syscall_noopt(_waitid,5, int a1, pid_t a2, struct siginfo *a3, int a4, struct rusage *a5)
+int volatile ksys_munmap( unsigned long a1, long a2 );
+int volatile ksys_syslog( int a1, char *a2, int a3 );
+SYSREAL_define_syscall_noopt(_mq_timedreceive,5, mqd_t a1, char *a2, long a3, unsigned int *a4, const struct timespec *a5)
+int volatile ksys_getcwd( char *a1, unsigned long a2 );
+SYSREAL_define_syscall_noopt(_rt_sigaction,4, int a1, const struct sigaction *a2, struct sigaction *a3, long a4)
+int volatile ksys_pipe2( int *a1, int a2 );
+SYSREAL_define_syscall_noopt(_keyctl,5, int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5)
+SYSREAL_define_syscall_noopt(_setxattr,5, const char *a1, const char *a2, const void *a3, long a4, int a5)
+int volatile ksys_unlink( const char *a1 );
+SYSREAL_define_syscall_noopt(_quotactl,4, unsigned int a1, const char *a2, qid_t a3, void *a4)
+SYSREAL_define_syscall_noopt(_prctl,5, int a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5)
+SYSREAL_define_syscall_noopt(_readlinkat,4, int a1, const char *a2, char *a3, int a4)
+int volatile ksys_kill( pid_t a1, int a2 );
+int volatile ksys_io_cancel( aio_context_t a1, struct iocb *a2, struct io_event *a3 );
+int volatile ksys_read( unsigned int a1, char *a2, long a3 );
+int volatile ksys_dup2( unsigned int a1, unsigned int a2 );
+int volatile ksys_getgroups( int a1, gid_t *a2 );
+SYSREAL_define_syscall_noopt(_mount,5, char *a1, char *a2, char *a3, unsigned long a4, void *a5)
+int volatile ksys_adjtimex( struct timex *a1 );
+SYSREAL_define_syscall_noopt(_wait4,4, pid_t a1, int *a2, int a3, struct rusage *a4)
+int volatile ksys_sched_get_priority_max( int a1 );
+int volatile ksys_eventfd2( unsigned int a1, int a2 );
+SYSREAL_define_syscall_noopt(_perf_event_open,5, struct perf_event_attr *a1, pid_t a2, int a3, int a4, unsigned long a5)
+int volatile ksys_access( const char *a1, int a2 );
+int volatile ksys_timer_create( const clockid_t a1, struct sigevent *a2, timer_t *a3 );
+int volatile ksys_sync( );
+SYSREAL_define_syscall_noopt(_migrate_pages,4, pid_t a1, unsigned long a2, const unsigned long *a3, const unsigned long *a4)
+SYSREAL_define_syscall_noopt(_msgrcv,5, int a1, struct msgbuf *a2, long a3, long a4, int a5)
+int volatile ksys_setfsgid( gid_t a1 );
+int volatile ksys_readlink( const char *a1, char *a2, int a3 );
+int volatile ksys_setresgid( gid_t a1, gid_t a2, gid_t a3 );
+int volatile ksys_lookup_dcookie( u64 a1, long a2, long a3 );
+SYSREAL_define_syscall_noopt(_epoll_ctl,4, int a1, int a2, int a3, struct epoll_event *a4)
+SYSREAL_define_syscall_noopt(_epoll_wait,4, int a1, struct epoll_event *a2, int a3, int a4)
+SYSREAL_define_syscall_noopt(_sendfile,4, int a1, int a2, off_t *a3, long a4)
+int volatile ksys_getpeername( int a1, struct sockaddr *a2, int *a3 );
+int volatile ksys_rt_sigpending( sigset_t *a1, long a2 );
+int volatile ksys_delete_module( const char *a1, unsigned int a2 );
+int volatile ksys_set_mempolicy( int a1, unsigned long *a2, unsigned long a3 );
+int volatile ksys_socket( int a1, int a2, int a3 );
+SYSREAL_define_syscall_noopt(_sendmmsg,4, int a1, struct mmsghdr *a2, unsigned int a3, unsigned int a4)
 int volatile ksys_setuid( uid_t a1 );
-int volatile ksys_mkdir( const char *a1, int a2 );
-int volatile ksys_rt_sigreturn( unsigned long a1 );
-int volatile ksys_pread64( unsigned long a1, char *a2, long a3, loff_t a4 );
+int volatile ksys_fork( );
+SYSREAL_define_syscall_noopt(_recvmmsg,5, int a1, struct msghdr *a2, unsigned int a3, unsigned int a4, struct timespec *a5)
+int volatile ksys_inotify_init1( int a1 );
+int volatile ksys_eventfd( unsigned int a1 );
+int volatile ksys_rt_sigqueueinfo( pid_t a1, int a2, siginfo_t *a3 );
+SYSREAL_define_syscall_noopt(_fallocate,4, long a1, long a2, loff_t a3, loff_t a4)
+int volatile ksys_signalfd( int a1, sigset_t *a2, long a3 );
+int volatile ksys_lseek( unsigned int a1, off_t a2, unsigned int a3 );
+int volatile ksys_sched_getaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
+int volatile ksys_bind( int a1, struct sockaddr *a2, int a3 );
+int volatile ksys_rt_sigsuspend( sigset_t *a1, long a2 );
+int volatile ksys_ustat( unsigned a1, struct ustat *a2 );
+int volatile ksys_sysinfo( struct sysinfo *a1 );
+int volatile ksys_timer_getoverrun( timer_t a1 );
+int volatile ksys_shutdown( int a1, int a2 );
+int volatile ksys_getpgid( pid_t a1 );
+int volatile ksys_lstat( const char *a1, struct stat *a2 );
+int volatile ksys_getegid( );
+SYSREAL_define_syscall_noopt(_name_to_handle_at,5, int a1, const char *a2, struct file_handle *a3, int *a4, int a5)
+int volatile ksys_shmdt( char *a1 );
+SYSREAL_define_syscall_noopt(_timer_settime,4, timer_t a1, int a2, const struct itimerspec *a3, struct itimerspec *a4)
+int volatile ksys_pipe( int *a1 );
+int volatile ksys_chdir( const char *a1 );
+int volatile ksys_fdatasync( unsigned int a1 );
+SYSREAL_define_syscall_noopt(_setsockopt,5, int a1, int a2, int a3, char *a4, int a5)
+SYSREAL_define_syscall_noopt(_mq_open,4, const char *a1, int a2, mode_t a3, struct mq_attr *a4)
+int volatile ksys_ioctl( unsigned int a1, unsigned int a2, unsigned long a3 );
+int volatile ksys_shmget( key_t a1, long a2, int a3 );
+SYSREAL_define_syscall_noopt(_futex,6, u32 *a1, int a2, u32 a3, struct timespec *a4, u32 *a5, u32 a6)
+int volatile ksys_get_robust_list( int a1, struct robust_list_head **a2, long *a3 );
+int volatile ksys_lchown( const char *a1, uid_t a2, gid_t a3 );
+int volatile ksys_sched_setaffinity( pid_t a1, unsigned int a2, unsigned long *a3 );
+SYSREAL_define_syscall_noopt(_mmap,6, unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5, unsigned long a6)
+int volatile ksys_fchdir( unsigned int a1 );
+SYSREAL_define_syscall_noopt(_fsetxattr,5, int a1, const char *a2, const void *a3, long a4, int a5)
+SYSREAL_define_syscall_noopt(_clone,4, unsigned long a1, unsigned long a2, void *a3, void *a4)
+int volatile ksys_madvise( unsigned long a1, long a2, int a3 );
+SYSREAL_define_syscall_noopt(_fadvise64,4, int a1, loff_t a2, long a3, int a4)
+int volatile ksys_io_submit( aio_context_t a1, long a2, struct iocb **a3 );
+int volatile ksys_personality( unsigned int a1 );
+int volatile ksys_restart_syscall( );
+int volatile ksys_setresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
+int volatile ksys_setrlimit( unsigned int a1, struct rlimit *a2 );
+int volatile ksys_alarm( unsigned int a1 );
+int volatile ksys_symlink( const char *a1, const char *a2 );
+int volatile ksys_umount2( const char *a1, int a2 );
+int volatile ksys_setitimer( int a1, struct itimerval *a2, struct itimerval *a3 );
+int volatile ksys_timerfd_create( int a1, int a2 );
+int volatile ksys_timer_gettime( timer_t a1, struct itimerspec *a2 );
+int volatile ksys_writev( unsigned long a1, const struct iovec *a2, unsigned long a3 );
+SYSREAL_define_syscall_noopt(_remap_file_pages,5, unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5)
+int volatile ksys_connect( int a1, struct sockaddr *a2, int a3 );
+int volatile ksys_fchmod( unsigned int a1, mode_t a2 );
+int volatile ksys_sched_getscheduler( pid_t a1 );
+int volatile ksys_pause( );
+SYSREAL_define_syscall_noopt(_sendto,6, int a1, void *a2, long a3, unsigned a4, struct sockaddr *a5, int a6)
+int volatile ksys_set_tid_address( int *a1 );
+int volatile ksys_mq_getsetattr( mqd_t a1, const struct mq_attr *a2, struct mq_attr *a3 );
+int volatile ksys_sched_get_priority_min( int a1 );
+int volatile ksys_modify_ldt( int a1, void *a2, unsigned long a3 );
+SYSREAL_define_syscall_noopt(_timerfd_settime,4, int a1, int a2, const struct itimerspec *a3, struct itimerspec *a4)
+int volatile ksys_close( unsigned int a1 );
+SYSREAL_define_syscall_noopt(_semctl,4, int a1, int a2, int a3, semun_u a4)
+int volatile ksys_getrusage( int a1, struct rusage *a2 );
+int volatile ksys_rmdir( const char *a1 );
+int volatile ksys_capget( cap_user_header_t a1, cap_user_data_t a2 );
+int volatile ksys_fremovexattr( int a1, const char *a2 );
+int volatile ksys_chmod( const char *a1, mode_t a2 );
+SYSREAL_define_syscall_noopt(_lgetxattr,4, const char *a1, const char *a2, void *a3, long a4)
+int volatile ksys_mlock( unsigned long a1, long a2 );
+int volatile ksys_setgid( gid_t a1 );
+SYSREAL_define_syscall_noopt(_sync_file_range,4, long a1, loff_t a2, loff_t a3, long a4)
+int volatile ksys_sched_setscheduler( pid_t a1, int a2, struct sched_param *a3 );
+int volatile ksys_timerfd_gettime( int a1, struct itimerspec *a2 );
+int volatile ksys_rename( const char *a1, const char *a2 );
+SYSREAL_define_syscall_noopt(_pwrite64,4, unsigned int a1, const char *a2, long a3, loff_t a4)
+SYSREAL_define_syscall_noopt(_fanotify_mark,5, long a1, long a2, __u64 a3, long a4, long a5)
+SYSREAL_define_syscall_noopt(_move_pages,6, pid_t a1, unsigned long a2, const void *a3, const int *a4, int *a5, int a6)
+int volatile ksys_utime( char *a1, struct utimbuf *a2 );
+int volatile ksys_sched_yield( );
 int volatile ksys_pivot_root( const char *a1, const char *a2 );
-int volatile ksys_sigaltstack( const stack_t *a1, stack_t *a2 );
-int volatile ksys_rt_tgsigqueueinfo( pid_t a1, pid_t a2, int a3, siginfo_t *a4 );
-int volatile ksys_getsockname( int a1, struct sockaddr *a2, int *a3 );
-int volatile ksys_shmat( int a1, char *a2, int a3 );
-int volatile ksys_readlinkat( int a1, const char *a2, char *a3, int a4 );
+int volatile ksys_readv( unsigned long a1, const struct iovec *a2, unsigned long a3 );
+SYSREAL_define_syscall_noopt(_process_vm_readv,6, pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovec *a4, unsigned long a5, unsigned long a6)
+int volatile ksys_swapon( const char *a1, int a2 );
+int volatile ksys_getppid( );
+int volatile ksys_mq_unlink( const char *a1 );
+SYSREAL_define_syscall_noopt(_semtimedop,4, int a1, struct sembuf *a2, unsigned a3, const struct timespec *a4)
+int volatile ksys_sethostname( char *a1, int a2 );
+int volatile ksys_setgroups( int a1, gid_t *a2 );
+SYSREAL_define_syscall_noopt(_mknodat,4, int a1, const char *a2, int a3, unsigned a4)
+SYSREAL_define_syscall_noopt(_pselect6,6, int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timespec *a5, void *a6)
+int volatile ksys_chown( const char *a1, uid_t a2, gid_t a3 );
 int volatile ksys_listxattr( const char *a1, char *a2, long a3 );
+int volatile ksys_exit_group( int a1 );
+int volatile ksys_init_module( void *a1, unsigned long a2, const char *a3 );
+int volatile ksys_unshare( unsigned long a1 );
+SYSREAL_define_syscall_noopt(_renameat2,5, int a1, const char *a2, int a3, const char *a4, unsigned int a5)
+SYSREAL_define_syscall_noopt(_renameat,4, int a1, const char *a2, int a3, const char *a4)
+int volatile ksys_mknod( const char *a1, umode_t a2, unsigned a3 );
+int volatile ksys_mprotect( unsigned long a1, long a2, unsigned long a3 );
+SYSREAL_define_syscall_noopt(_utimensat,4, int a1, const char *a2, struct timespec *a3, int a4)
+int volatile ksys_stat( const char *a1, struct stat *a2 );
+int volatile ksys_open( const char *a1, int a2, int a3 );
+SYSREAL_define_syscall_noopt(_mremap,5, unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4, unsigned long a5)
+int volatile ksys_getdents64( unsigned int a1, struct linux_dirent64 *a2, unsigned int a3 );
+int volatile ksys__sysctl( struct __sysctl_args *a1 );
+SYSREAL_define_syscall_noopt(_rt_sigprocmask,4, int a1, sigset_t *a2, sigset_t *a3, long a4)
+int volatile ksys_munlockall( );
+SYSREAL_define_syscall_noopt(_kexec_load,4, unsigned long a1, unsigned long a2, struct kexec_segment *a3, unsigned long a4)
+int volatile ksys_getresgid( gid_t *a1, gid_t *a2, gid_t *a3 );
+int volatile ksys_getsockname( int a1, struct sockaddr *a2, int *a3 );
+int volatile ksys_getuid( );
+SYSREAL_define_syscall_noopt(_mq_timedsend,5, mqd_t a1, const char *a2, long a3, unsigned int a4, const struct timespec *a5)
+SYSREAL_define_syscall_noopt(_pwritev,5, unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5)
+SYSREAL_define_syscall_noopt(_get_mempolicy,5, int *a1, unsigned long *a2, unsigned long a3, unsigned long a4, unsigned long a5)
+int volatile ksys_inotify_add_watch( int a1, const char *a2, u32 a3 );
+int volatile ksys_ioprio_set( int a1, int a2, int a3 );
+int volatile ksys_fchmodat( int a1, const char *a2, mode_t a3 );
+SYSREAL_define_syscall_noopt(_ptrace,4, long a1, long a2, unsigned long a3, unsigned long a4)
+int volatile ksys_rt_sigreturn( unsigned long a1 );
+SYSREAL_define_syscall_noopt(_linkat,5, int a1, const char *a2, int a3, const char *a4, int a5)
+int volatile ksys_creat( const char *a1, int a2 );
+int volatile ksys_timer_delete( timer_t a1 );
+int volatile ksys_mlockall( int a1 );
+int volatile ksys_fcntl( unsigned int a1, unsigned int a2, unsigned long a3 );
+SYSREAL_define_syscall_noopt(_mbind,6, unsigned long a1, unsigned long a2, unsigned long a3, unsigned long *a4, unsigned long a5, unsigned a6)
+int volatile ksys_write( unsigned int a1, const char *a2, long a3 );
+SYSREAL_define_syscall_noopt(_pread64,4, unsigned long a1, char *a2, long a3, loff_t a4)
+int volatile ksys_settimeofday( struct timeval *a1, struct timezone *a2 );
+int volatile ksys_syncfs( int a1 );
+int volatile ksys_getsid( pid_t a1 );
+int volatile ksys_setpriority( int a1, int a2, int a3 );
+int volatile ksys_mincore( unsigned long a1, long a2, unsigned char *a3 );
+int volatile ksys_sched_getparam( pid_t a1, struct sched_param *a2 );
+SYSREAL_define_syscall_noopt(_rt_tgsigqueueinfo,4, pid_t a1, pid_t a2, int a3, siginfo_t *a4)
+int volatile ksys_vhangup( );
+int volatile ksys_getpgrp( );
+int volatile ksys_execve( const char *a1, const char *const a2, const char *const a3 );
+int volatile ksys_flistxattr( int a1, char *a2, long a3 );
+int volatile ksys_time( time_t *a1 );
+int volatile ksys_munlock( unsigned long a1, long a2 );
+int volatile ksys_futimesat( int a1, const char *a2, struct timeval *a3 );
+int volatile ksys_brk( unsigned long a1 );
+SYSREAL_define_syscall_noopt(_getxattr,4, const char *a1, const char *a2, void *a3, long a4)
+int volatile ksys_uname( struct old_utsname *a1 );
+int volatile ksys_finit_module( int a1, const char *a2, int a3 );
+int volatile ksys_epoll_create( int a1 );
+int volatile ksys_flock( unsigned int a1, unsigned int a2 );
+int volatile ksys_readahead( int a1, loff_t a2, long a3 );
+SYSREAL_define_syscall_noopt(_tee,4, int a1, int a2, long a3, unsigned int a4)
+int volatile ksys_msgctl( int a1, int a2, struct msqid_ds *a3 );
+int volatile ksys_semop( int a1, struct sembuf *a2, unsigned a3 );
+int volatile ksys_setdomainname( char *a1, int a2 );
+int volatile ksys_sched_setparam( pid_t a1, struct sched_param *a2 );
+SYSREAL_define_syscall_noopt(_clock_nanosleep,4, const clockid_t a1, int a2, const struct timespec *a3, struct timespec *a4)
+int volatile ksys_truncate( const char *a1, long a2 );
+int volatile ksys_sendmsg( int a1, struct msghdr *a2, unsigned a3 );
+SYSREAL_define_syscall_noopt(_select,5, int a1, fd_set *a2, fd_set *a3, fd_set *a4, struct timeval *a5)
+int volatile ksys_mkdirat( int a1, const char *a2, int a3 );
+SYSREAL_define_syscall_noopt(_kcmp,5, pid_t a1, pid_t a2, int a3, unsigned long a4, unsigned long a5)
+int volatile ksys_getdents( unsigned int a1, struct linux_dirent *a2, unsigned int a3 );
+int volatile ksys_utimes( char *a1, struct timeval *a2 );
+SYSREAL_define_syscall_noopt(_rt_sigtimedwait,4, const sigset_t *a1, siginfo_t *a2, const struct timespec *a3, long a4)
+int volatile ksys_ftruncate( unsigned int a1, unsigned long a2 );
+int volatile ksys_clock_settime( const clockid_t a1, const struct timespec *a2 );
+int volatile ksys_arch_prctl( struct task_struct *a1, int a2, unsigned long *a3 );
+SYSREAL_define_syscall_noopt(_open_by_handle_at,5, int a1, const char *a2, struct file_handle *a3, int *a4, int a5)
+int volatile ksys_chroot( const char *a1 );
+SYSREAL_define_syscall_noopt(_splice,6, int a1, loff_t *a2, int a3, loff_t *a4, long a5, unsigned int a6)
+int volatile ksys_recvmsg( int a1, struct msghdr *a2, unsigned int a3 );
+int volatile ksys_dup3( unsigned int a1, unsigned int a2, int a3 );
+SYSREAL_define_syscall_noopt(_process_vm_writev,6, pid_t a1, const struct iovec *a2, unsigned long a3, const struct iovcc *a4, unsigned long a5, unsigned long a6)
+int volatile ksys_ioperm( unsigned long a1, unsigned long a2, int a3 );
+int volatile ksys_msync( unsigned long a1, long a2, int a3 );
+int volatile ksys_acct( const char *a1 );
+int volatile ksys_io_setup( unsigned a1, aio_context_t *a2 );
+SYSREAL_define_syscall_noopt(_prlimit64,4, pid_t a1, unsigned int a2, const struct rlimit64 *a3, struct rlimit64 *a4)
+SYSREAL_define_syscall_noopt(_accept4,4, int a1, struct sockaddr *a2, int *a3, int a4)
+int volatile ksys_dup( unsigned int a1 );
+int volatile ksys_accept( int a1, struct sockaddr *a2, int *a3 );
+int volatile ksys_exit( int a1 );
+int volatile ksys_mkdir( const char *a1, int a2 );
+int volatile ksys_poll( struct poll_fd *a1, unsigned int a2, long a3 );
+SYSREAL_define_syscall_noopt(_kexec_file_load,5, int a1, int a2, unsigned long a3, const char *a4, unsigned long a5)
+SYSREAL_define_syscall_noopt(_vmsplice,4, int a1, const struct iovec *a2, unsigned long a3, unsigned int a4)
+SYSREAL_define_syscall_noopt(_newfstatat,4, int a1, const char *a2, struct stat *a3, int a4)
+SYSREAL_define_syscall_noopt(_openat,4, int a1, const char *a2, int a3, int a4)
+int volatile ksys_getgid( );
+SYSREAL_define_syscall_noopt(_msgsnd,4, int a1, struct msgbuf *a2, long a3, int a4)
+int volatile ksys_setreuid( uid_t a1, uid_t a2 );
+int volatile ksys_clock_adjtime( clockid_t a1, struct timex *a2 );
+int volatile ksys_clock_gettime( const clockid_t a1, struct timespec *a2 );
+int volatile ksys_lremovexattr( const char *a1, const char *a2 );
+SYSREAL_define_syscall_noopt(_request_key,4, const char *a1, const char *a2, const char *a3, key_serial_t a4)
+SYSREAL_define_syscall_noopt(_fgetxattr,4, int a1, const char *a2, void *a3, long a4)
+int volatile ksys_semget( key_t a1, int a2, int a3 );
+int volatile ksys_sched_rr_get_interval( pid_t a1, struct timespec *a2 );
+SYSREAL_define_syscall_noopt(_epoll_pwait,6, int a1, struct epoll_event *a2, int a3, int a4, const sigset_t *a5, long a6)
+int volatile ksys_getpid( );
+int volatile ksys_umask( int a1 );
+SYSREAL_define_syscall_noopt(_signalfd4,4, int a1, sigset_t *a2, long a3, int a4)
+int volatile ksys_fstat( unsigned int a1, struct stat *a2 );
+int volatile ksys_shmctl( int a1, int a2, struct shmid_ds *a3 );
+SYSREAL_define_syscall_noopt(_preadv,5, unsigned long a1, const struct iovec *a2, unsigned long a3, unsigned long a4, unsigned long a5)
+int volatile ksys_nanosleep( struct timespec *a1, struct timespec *a2 );
+int volatile ksys_unlinkat( int a1, const char *a2, int a3 );
+int volatile ksys_setns( int a1, int a2 );
+SYSREAL_define_syscall_noopt(_ppoll,5, struct pollfd *a1, unsigned int a2, struct timespec *a3, const sigset_t *a4, long a5)
+int volatile ksys_setpgid( pid_t a1, pid_t a2 );
+int volatile ksys_tkill( pid_t a1, int a2 );
+int volatile ksys_swapoff( const char *a1 );
+int volatile ksys_sigaltstack( const stack_t *a1, stack_t *a2 );
+int volatile ksys_listen( int a1, int a2 );
+int volatile ksys_shmat( int a1, char *a2, int a3 );
+SYSREAL_define_syscall_noopt(_add_key,4, const char *a1, const char *a2, const void *a3, long a4)
+int volatile ksys_fstatfs( unsigned int a1, struct statfs *a2 );
+int volatile ksys_setregid( gid_t a1, gid_t a2 );
+SYSREAL_define_syscall_noopt(_getsockopt,5, int a1, int a2, int a3, char *a4, int *a5)
+int volatile ksys_clock_getres( const clockid_t a1, struct timespec *a2 );
+int volatile ksys_seccomp( unsigned int a1, unsigned int a2, const char *a3 );
+int volatile ksys_mq_notify( mqd_t a1, const struct sigevent *a2 );
+int volatile ksys_set_robust_list( struct robust_list_head *a1, long a2 );
+int volatile ksys_getrlimit( unsigned int a1, struct rlimit *a2 );
+int volatile ksys_getresuid( uid_t *a1, uid_t *a2, uid_t *a3 );
+int volatile ksys_geteuid( );
+SYSREAL_define_syscall_noopt(_socketpair,4, int a1, int a2, int a3, int *a4)
+int volatile ksys_faccessat( int a1, const char *a2, int a3 );
+int volatile ksys_fanotify_init( unsigned int a1, unsigned int a2 );
+SYSREAL_define_syscall_noopt(_lsetxattr,5, const char *a1, const char *a2, const void *a3, long a4, int a5)
+int volatile ksys_vfork( );
+int volatile ksys_removexattr( const char *a1, const char *a2 );
+int volatile ksys_inotify_init( );
+int volatile ksys_fchown( unsigned int a1, uid_t a2, gid_t a3 );
+int volatile ksys_getitimer( int a1, struct itimerval *a2 );
+int volatile ksys_link( const char *a1, const char *a2 );
 #pragma GCC diagnostic pop
-// 67 "./minilib.h" 2
-// 1 "./minilib/headers/common/sys/types.h" 1
-#define SYS_TYPES_H 
-// 15 "./minilib/headers/common/sys/types.h"
-typedef unsigned char u_int8_t;
-typedef unsigned short u_int16_t;
-typedef unsigned u_int32_t;
-typedef char *caddr_t;
-typedef unsigned char u_char;
-typedef unsigned short u_short, ushort;
-typedef unsigned u_int, uint;
-typedef unsigned long u_long, ulong;
-typedef long long quad_t;
-typedef unsigned long long u_quad_t;
-// 1 "./headers/common/endian.h" 1
-#define _ENDIAN_H 
-#define __LITTLE_ENDIAN 1234
-#define __BIG_ENDIAN 4321
-#define __PDP_ENDIAN 3412
-// 26 "./minilib/headers/common/sys/types.h" 2
-#define blkcnt64_t blkcnt_t
-#define fsblkcnt64_t fsblkcnt_t
-#define fsfilcnt64_t fsfilcnt_t
-#define ino64_t ino_t
-#define off64_t off_t
-// 68 "./minilib.h" 2
-// 77 "./minilib.h"
+// 60 "./minilib.h" 2
+// 69 "./minilib.h"
 // 1 "./minilib/include//utils.h" 1
 // 23 "./minilib/include//utils.h"
 #define dbg(s) {}
@@ -2204,13 +5077,13 @@ typedef unsigned long long u_quad_t;
 #define AC_LMAGENTA "\033[1;35m"
 #define AC_LMARINE "\033[1;36m"
 #define AC_LWHITE "\033[1;37m"
-// 78 "./minilib.h" 2
+// 70 "./minilib.h" 2
 // 1 "./minilib/macros/vararg.h" 1
 #define vararg_h 
 #define VARARG(A,B) ((A+0) ?: B )
 #define SHIFT(A,...) A
 #define ARG(A,...) __VA_ARGS__
-// 80 "./minilib.h" 2
+// 72 "./minilib.h" 2
 // 1 "./minilib/include/stdarg.h" 1
 #define stdarg_h 
 typedef __builtin_va_list va_list;
@@ -2218,12 +5091,12 @@ typedef __builtin_va_list va_list;
 #define va_end(v) __builtin_va_end(v)
 #define va_arg(v,l) __builtin_va_arg(v,l)
 #define va_copy(d,s) __builtin_va_copy(d,s)
-// 83 "./minilib.h" 2
+// 75 "./minilib.h" 2
 // 1 "./minilib/include/exit.h" 1
 #define minilib_exit_h 
 // 12 "./minilib/include/exit.h"
 #define exit(ret) asm("jmp _exit"::"D"(ret))
-// 87 "./minilib.h" 2
+// 79 "./minilib.h" 2
 // 1 "./minilib/include/filemodes.h" 1
 #define mini_filemodes_h 
 // 41 "./minilib/include/filemodes.h"
@@ -2249,9 +5122,9 @@ typedef __builtin_va_list va_list;
 #define O_PATH 010000000
 #define O_SYNC 04010000
 #define O_RSYNC 04010000
-// 89 "./minilib.h" 2
+// 81 "./minilib.h" 2
 struct udiv_t { unsigned int quot, rem; };
-// 123 "./minilib.h"
+// 115 "./minilib.h"
 // 1 "./include/errno.h" 1
 #define mini_errno_h 
 #define EPERM 1
@@ -2387,16 +5260,13 @@ struct udiv_t { unsigned int quot, rem; };
 #define ENOTRECOVERABLE 131
 #define ERFKILL 132
 extern int errno;
-// 124 "./minilib.h" 2
-// 151 "./minilib.h"
-#define mini_0 
-// 624 "./minilib.h"
+// 116 "./minilib.h" 2
+// 603 "./minilib.h"
 #define mini_dprints 
-// 850 "./minilib.h"
-int dprintf( int fd, const char *fmt, ... );
-int fprintfs( FILE* F, char *fmt, ...);
-// 865 "./minilib.h"
-char* getenv(const char* name);
+// 815 "./minilib.h"
+#define mini_0 
+// 842 "./minilib.h"
+pid_t waitpid(pid_t pid, int *wstatus, int options);
 // 1 "./minilib/include/mini_fstream.h" 1
 #define mini_fstream_h 
 // 1 "./minilib/include/stdarg.h" 1
@@ -2492,39 +5362,7 @@ static void setbuf(FILE *stream, char *buf){
 static int setvbuf(FILE *stream, char *buf, int mode, long size){
   return(0);
 }
-// 871 "./minilib.h" 2
-int ptsname_r(int fd, char *buf, long len);
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-// 890 "./minilib.h"
-char *strcpy(char *dest, const char *src);
-// 900 "./minilib.h"
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-// 910 "./minilib.h"
-// 1 "./include/mini_fstream.h" 1
-// 911 "./minilib.h" 2
-// 1 "./minilib/include/fputc.h" 1
-#define fputc_c 
-static inline int volatile fputc(int c, FILE* F){
-  write(fileno(F), &c, 1);
-  return(c);
-}
-// 912 "./minilib.h" 2
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-void volatile free(void* p);
-int snprintf( char *buf, long size, const char *fmt, ... );
-void* volatile malloc(int size);
-#define print(str) write(STDOUT_FILENO,str,strlen(str))
-// 946 "./minilib.h"
-int itodec(int i, char *buf, int prec, char limiter );
-char* fgets(char *buf, int size, FILE* F);
-// 1 "./minilib/include/lseek.h" 1
-#define mini_lseek_h 
-// 15 "./minilib/include/lseek.h"
-extern int sysret;
-extern int errno;
-// 957 "./minilib.h" 2
-int vsnprintf(char *buf, long size, const char* fmt, va_list args );
-// 976 "./minilib.h"
+// 848 "./minilib.h" 2
 // 1 "./minilib/include/tcgetattr.h" 1
 #define tcgetattr_h 
 // 13 "./minilib/include/tcgetattr.h"
@@ -2532,13 +5370,36 @@ int ioctl( int fd, unsigned long int request, ... );
 static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io){
  return(ioctl(fd, 0x5401, io));
 }
-// 977 "./minilib.h" 2
+// 853 "./minilib.h" 2
+// 867 "./minilib.h"
 int strlen(const char*str);
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-char *strchrnul(const char *s, int c);
-#define fwrites(fd,str) write(fd,str,sizeof(str))
-int _strcmp(const char*c1,const char*c2,int len);
-int volatile open( const char *s, int flags, ... );
+#define fprintf(stream,...) write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+char* strerror( int errnum );
+// 887 "./minilib.h"
+int ptsname_r(int fd, char *buf, long len);
+char* getenv(const char* name);
+// 902 "./minilib.h"
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+int ioctl( int fd, unsigned long int request, ... );
+// 1 "./minilib/include/lseek.h" 1
+#define mini_lseek_h 
+// 15 "./minilib/include/lseek.h"
+extern int sysret;
+extern int errno;
+// 913 "./minilib.h" 2
+void volatile free(void* p);
+// 926 "./minilib.h"
+#define printl() write(STDOUT_FILENO,"\n",1)
+int itodec(int i, char *buf, int prec, char limiter );
+int fprintfs( FILE* F, char *fmt, ...);
+#define prints(...) _mprints(__VA_ARGS__,0)
+// 951 "./minilib.h"
+void* volatile malloc(int size);
+// 965 "./minilib.h"
+#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
+// 975 "./minilib.h"
+// 1 "./include/mini_fstream.h" 1
+// 976 "./minilib.h" 2
 // 1 "./minilib/include/fgetc.h" 1
 #define fgetc_h 
 // 11 "./minilib/include/fgetc.h"
@@ -2557,13 +5418,11 @@ static int ungetc(int c, FILE *F){
   *F = (*F & ~0xff000000) | (c<<24);
   return(c);
 }
-// 1013 "./minilib.h" 2
-// 1021 "./minilib.h"
-int ioctl( int fd, unsigned long int request, ... );
-#define prints(...) _mprints(__VA_ARGS__,0)
-// 1046 "./minilib.h"
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
-// 1056 "./minilib.h"
+// 977 "./minilib.h" 2
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
+int vsnprintf(char *buf, long size, const char* fmt, va_list args );
+#define fwrites(fd,str) write(fd,str,sizeof(str))
+int _itobin(int i, char*buf, int prec, int groups );
 // 1 "./minilib/include/fputs.h" 1
 #define fputs_h 
 // 11 "./minilib/include/fputs.h"
@@ -2572,122 +5431,68 @@ static int fileno(FILE*);
 static inline int volatile fputs(const char *c, FILE *F){
   return(write(fileno(F), c, strlen(c)));
 }
-// 1057 "./minilib.h" 2
-#define printl() write(STDOUT_FILENO,"\n",1)
+// 1003 "./minilib.h" 2
+// 1016 "./minilib.h"
+int dprintf( int fd, const char *fmt, ... );
+int snprintf( char *buf, long size, const char *fmt, ... );
+// 1031 "./minilib.h"
+char *strcpy(char *dest, const char *src);
+// 1041 "./minilib.h"
 void *memcpy( void *d, const void *s, int n );
-#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
-// 1080 "./minilib.h"
-#define fprintf(stream,...) write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-int _itohex(int i,char* buf,int padding, int capitals);
-int _itobin(int i, char*buf, int prec, int groups );
-char* strerror( int errnum );
 int _strcasecmp(const char*c1,const char*c2,int len);
-// 1111 "./minilib.h"
+// 1 "./minilib/include/fputc.h" 1
+#define fputc_c 
+static inline int volatile fputc(int c, FILE* F){
+  write(fileno(F), &c, 1);
+  return(c);
+}
+// 1053 "./minilib.h" 2
+int _itohex(int i,char* buf,int padding, int capitals);
+int _strcmp(const char*c1,const char*c2,int len);
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
+char *strchrnul(const char *s, int c);
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+int volatile open( const char *s, int flags, ... );
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+char* fgets(char *buf, int size, FILE* F);
 // 1 "./minilib/include/syscalls_x64.h" 1
 #define syscalls_x64_h 
-// 1112 "./minilib.h" 2
-// 1176 "./minilib.h"
-char *strrchr(const char *s, int c);
-// 1196 "./minilib.h"
-static int execvpe(const char *file, char *const argv[], char *const envp[]);
-// 1216 "./minilib.h"
-FILE *fdopen(int fd, const char* mode);
-// 1236 "./minilib.h"
-int todo_putenv( char *s );
-// 1281 "./minilib.h"
-int ultodec(unsigned long i, char *buf, int prec, char limiter );
-// 1301 "./minilib.h"
-#define gets(F) fgets(F,0xfffffff,stdin)
-// 1311 "./minilib.h"
-// 1 "./minilib/include/select.h" 1
-#define select_h 
-static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
-  int ret;
-  register long int r10 asm ("r10") = (unsigned long int)exceptfd ; register long int r8 asm ("r8") = (unsigned long int) wait ; asm volatile ("syscall" : "=a" (ret) : "a" ( (23 | 0 ) ) , "D" (&fd), "S" (readfd), "d" ((unsigned long int)writefd), "r" (r10), "r" (r8) : "memory","rcx", "r11" );
-  return(ret);
-}
-// 1312 "./minilib.h" 2
-// 1331 "./minilib.h"
-char *dirname(char *s);
-// 1351 "./minilib.h"
-int posix_openpt(int flags);
-int sigdelset(sigset_t *set, int sig);
-// 1366 "./minilib.h"
-// 1 "./minilib/include/mkfifo.h" 1
-static int mkfifo( const char* path, mode_t mode ){
-  return( mknod(path, mode | 0010000, 0 ) );
-}
-// 1367 "./minilib.h" 2
-// 1406 "./minilib.h"
-int ltodec(long i, char *buf, int prec, char limiter );
-// 1426 "./minilib.h"
-void* realloc(void *p, int size);
-// 1481 "./minilib.h"
-unsigned long sdbm_hash(const unsigned char *str);
-// 1521 "./minilib.h"
-int strncmp(const char*c1,const char*c2,int len);
-// 1571 "./minilib.h"
-int grantpt(int fd);
-// 1736 "./minilib.h"
-#define getc(F) fgetc(F)
-// 1746 "./minilib.h"
-char *strcat(char *dest, const char *src );
-// 1846 "./minilib.h"
-int strcmp(const char*c1,const char*c2);
-// 1891 "./minilib.h"
-unsigned long djb2_hash(const unsigned char *str);
-// 1931 "./minilib.h"
-#define fprints(F,str) write(fileno(F),str,strlen(str))
-// 1951 "./minilib.h"
-void* memfrob(void* s, unsigned int len);
-char *ptsname(int fd);
-// 1966 "./minilib.h"
-char *strncpy(char *dest, const char *src, int n);
-// 1996 "./minilib.h"
-int isatty(int fd);
-// 2006 "./minilib.h"
-void *memset( void *s, int c, int n);
-// 2021 "./minilib.h"
-char *strdup(const char *source);
-// 2041 "./minilib.h"
-void perror(const char *msg);
-// 2051 "./minilib.h"
-sighandler_t signal(int sig, sighandler_t func );
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
-// 2076 "./minilib.h"
-#define getchar() fgetc(0)
-// 2086 "./minilib.h"
-int sigismember(sigset_t *set, int sig);
-// 2111 "./minilib.h"
-#define fprint(...) fprintf(__VA_ARGS__)
-// 2161 "./minilib.h"
-void* memmove(void *dest, const void *src, int n);
-// 2181 "./minilib.h"
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-// 2221 "./minilib.h"
-#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-// 2241 "./minilib.h"
-static int sigemptyset(sigset_t *set);
-DIR *opendir(const char *name);
-// 2291 "./minilib.h"
-int volatile creat( const char *s, int mode );
-// 2301 "./minilib.h"
-static int sigfillset(sigset_t *set);
-// 2311 "./minilib.h"
+// 1099 "./minilib.h" 2
+// 1128 "./minilib.h"
 #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-// 2346 "./minilib.h"
+// 1183 "./minilib.h"
+#define getchar() fgetc(0)
+// 1263 "./minilib.h"
+// 1 "./minilib/macros/getoptm.h" 1
+#define mini_getoptm_h 
+#define DEF_OPTIONS_ENUM_short enum MINI_OPTIONS_short { a=0x1,b=0x2,c=0x4,d=0x8,e=0x10,f=0x20,g=0x40,h=0x80,i=0x100,j=0x200, k=0x400,l=0x800,m=0x1000,n=0x2000,o=0x4000,p=0x8000,q=0x10000,r=0x20000,s=0x40000, t=0x80000,u=0x100000,v=0x200000,w=0x400000,x=0x800000,y=0x1000000,z=0x2000000 };
+// 23 "./minilib/macros/getoptm.h"
+#define PARSEOPTS_short(opts,argv,options,unrecognized) ({ DEF_OPTIONS_ENUM_short; int argp=1; for ( int ap=1; argv[ap]; ap++ ){ if ( argv[ap][0] == '-' ){ argp = ap+1; for ( int b=1; argv[ap][b]; b++ ){ int ti; char option; opts |= (ti=1<< ((option=argv[ap][b])-97) ); if ( ! ( (options) & ti ) ){ unrecognized; } } } } argp; } )
+// 44 "./minilib/macros/getoptm.h"
+#define GETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts & option; } )
+#define SETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts = (opts | option); } )
+// 1264 "./minilib.h" 2
+// 1273 "./minilib.h"
+char *basename(char *path);
+// 1348 "./minilib.h"
+char *strcat(char *dest, const char *src );
+// 1373 "./minilib.h"
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+// 1393 "./minilib.h"
+#define fprint(...) fprintf(__VA_ARGS__)
+// 1508 "./minilib.h"
+unsigned int sleep(unsigned int seconds);
+// 1558 "./minilib.h"
 #define puts(msg) ( print(msg) + printl() )
-// 2361 "./minilib.h"
-int closedir(DIR *dir);
-// 2386 "./minilib.h"
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-// 2446 "./minilib.h"
-#define vfprintf(...) fprintf(__VA_ARGS__)
-int strcasecmp(const char*c1,const char*c2);
-static inline int execvp(const char *file, char *const argv[]);
-// 2481 "./minilib.h"
-void srand( unsigned int i );
-// 2506 "./minilib.h"
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+// 1643 "./minilib.h"
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+unsigned long sdbm_hash(const unsigned char *str);
+// 1693 "./minilib.h"
+int itohex(int i,char* buf,int padding);
+// 1703 "./minilib.h"
+static int execvpe(const char *file, char *const argv[], char *const envp[]);
+// 1723 "./minilib.h"
 // 1 "./minilib/include/errstr.h" 1
 #define ERRNO_MAX 133
 const char* verbose_errstr(int num){
@@ -2830,45 +5635,78 @@ char *errstr[] = { "Internal error (errno=0)",
 "Memory page has hardware error" };
 return(errstr[num]);
 }
-// 2507 "./minilib.h" 2
-int system( const char* command );
-// 2546 "./minilib.h"
-static inline int raise(int signr);
-// 2596 "./minilib.h"
-int itoHEX(int i,char* buf,int padding);
-// 2616 "./minilib.h"
-int isspace(int c);
-// 2636 "./minilib.h"
-struct dirent *readdir(DIR *dir);
-// 2761 "./minilib.h"
-int sigaddset(sigset_t *set, int sig);
-// 2786 "./minilib.h"
+// 1724 "./minilib.h" 2
+// 1 "./minilib/include/tcsetattr.h" 1
+#define tcsetattr_h 
+int ioctl( int fd, unsigned long int request, ... );
+// 20 "./minilib/include/tcsetattr.h"
+static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
+ return(ioctl(fd, 0x5402 +opt, io));
+}
+// 1731 "./minilib.h" 2
+// 1755 "./minilib.h"
+int ltodec(long i, char *buf, int prec, char limiter );
+void *memset( void *s, int c, int n);
+int grantpt(int fd);
+// 1775 "./minilib.h"
+void perror(const char *msg);
+// 1785 "./minilib.h"
 char* strstr(const char *big, const char *little);
+// 1840 "./minilib.h"
 int memcmp(const void* c1,const void* c2,int len);
-// 1 "./minilib/macros/getoptm.h" 1
-#define mini_getoptm_h 
-#define DEF_OPTIONS_ENUM_short enum MINI_OPTIONS_short { a=0x1,b=0x2,c=0x4,d=0x8,e=0x10,f=0x20,g=0x40,h=0x80,i=0x100,j=0x200, k=0x400,l=0x800,m=0x1000,n=0x2000,o=0x4000,p=0x8000,q=0x10000,r=0x20000,s=0x40000, t=0x80000,u=0x100000,v=0x200000,w=0x400000,x=0x800000,y=0x1000000,z=0x2000000 };
-// 23 "./minilib/macros/getoptm.h"
-#define PARSEOPTS_short(opts,argv,options,unrecognized) ({ DEF_OPTIONS_ENUM_short; int argp=1; for ( int ap=1; argv[ap]; ap++ ){ if ( argv[ap][0] == '-' ){ argp = ap+1; for ( int b=1; argv[ap][b]; b++ ){ int ti; char option; opts |= (ti=1<< ((option=argv[ap][b])-97) ); if ( ! ( (options) & ti ) ){ unrecognized; } } } } argp; } )
-// 44 "./minilib/macros/getoptm.h"
-#define GETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts & option; } )
-#define SETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts = (opts | option); } )
-// 2797 "./minilib.h" 2
-// 2851 "./minilib.h"
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-// 2866 "./minilib.h"
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-unsigned int rand();
-// 2916 "./minilib.h"
-int strncasecmp(const char*c1,const char*c2,int len);
+// 1850 "./minilib.h"
+static inline int execvp(const char *file, char *const argv[]);
+char *strchr(const char *s, int c);
+unsigned int usleep(unsigned int useconds);
+// 1870 "./minilib.h"
+int atoi(const char *c);
+// 1910 "./minilib.h"
+// 1 "./minilib/include/mkfifo.h" 1
+static int mkfifo( const char* path, mode_t mode ){
+  return( mknod(path, mode | 0010000, 0 ) );
+}
+// 1911 "./minilib.h" 2
+// 1920 "./minilib.h"
+int dtodec(double d, char* buf, int precision);
+// 1935 "./minilib.h"
+int sigaddset(sigset_t *set, int sig);
+// 1965 "./minilib.h"
+struct dirent *readdir(DIR *dir);
+// 1975 "./minilib.h"
+int strcasecmp(const char*c1,const char*c2);
+// 2005 "./minilib.h"
+int closedir(DIR *dir);
+// 2035 "./minilib.h"
+int sigismember(sigset_t *set, int sig);
+// 2080 "./minilib.h"
 #define putc(c,stream) fputc(c,stream)
-// 3011 "./minilib.h"
-char *basename(char *path);
-// 3036 "./minilib.h"
+// 2110 "./minilib.h"
+char *strrchr(const char *s, int c);
+// 2140 "./minilib.h"
+unsigned long djb2_hash(const unsigned char *str);
+// 2160 "./minilib.h"
 int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
-// 3076 "./minilib.h"
-pid_t wait(int *wstatus);
-// 3111 "./minilib.h"
+// 2210 "./minilib.h"
+void srand( unsigned int i );
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+// 2230 "./minilib.h"
+int posix_openpt(int flags);
+// 2250 "./minilib.h"
+static inline int raise(int signr);
+// 2320 "./minilib.h"
+char *ptsname(int fd);
+// 2360 "./minilib.h"
+static inline int execv(const char *pathname, char *const argv[]);
+// 2380 "./minilib.h"
+FILE *fdopen(int fd, const char* mode);
+// 2415 "./minilib.h"
+int isspace(int c);
+// 2465 "./minilib.h"
+static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+int sigdelset(sigset_t *set, int sig);
+// 2485 "./minilib.h"
+#define getc(F) fgetc(F)
+// 2500 "./minilib.h"
 // 1 "./minilib/include/isprint.h" 1
 #define mini_isprint_h 
 #define misprint(A) isprint(A)
@@ -2877,34 +5715,67 @@ static inline int __attribute__((always_inline)) isprint(const char c){
     return(1);
   return(0);
 }
-// 3112 "./minilib.h" 2
-int unlockpt(int fd);
-// 3146 "./minilib.h"
-int dtodec(double d, char* buf, int precision);
-// 3171 "./minilib.h"
-char *strchr(const char *s, int c);
-// 3186 "./minilib.h"
-static inline int execv(const char *pathname, char *const argv[]);
-// 3206 "./minilib.h"
-unsigned int sleep(unsigned int seconds);
-// 1 "./minilib/include/tcsetattr.h" 1
-#define tcsetattr_h 
-int ioctl( int fd, unsigned long int request, ... );
-// 20 "./minilib/include/tcsetattr.h"
-static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
- return(ioctl(fd, 0x5402 +opt, io));
+// 2501 "./minilib.h" 2
+// 2520 "./minilib.h"
+static int sigemptyset(sigset_t *set);
+// 2575 "./minilib.h"
+char *strdup(const char *source);
+int todo_putenv( char *s );
+// 2590 "./minilib.h"
+int itoHEX(int i,char* buf,int padding);
+// 2650 "./minilib.h"
+int strcmp(const char*c1,const char*c2);
+// 2695 "./minilib.h"
+int ultodec(unsigned long i, char *buf, int prec, char limiter );
+// 2720 "./minilib.h"
+#define vfprintf(...) fprintf(__VA_ARGS__)
+// 2785 "./minilib.h"
+unsigned int rand();
+// 2805 "./minilib.h"
+int strncasecmp(const char*c1,const char*c2,int len);
+// 2865 "./minilib.h"
+pid_t wait(int *wstatus);
+// 2885 "./minilib.h"
+char *dirname(char *s);
+// 2905 "./minilib.h"
+DIR *opendir(const char *name);
+// 2980 "./minilib.h"
+void* memmove(void *dest, const void *src, int n);
+// 3005 "./minilib.h"
+#define gets(F) fgets(F,0xfffffff,stdin)
+// 3025 "./minilib.h"
+// 1 "./minilib/include/select.h" 1
+#define select_h 
+static inline int volatile __attribute__((always_inline)) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
+  int ret;
+  register long int r10 asm ("r10") = (unsigned long int)exceptfd ; register long int r8 asm ("r8") = (unsigned long int) wait ; asm volatile ("syscall" : "=a" (ret) : "a" ( (23 | 0 ) ) , "D" (&fd), "S" (readfd), "d" ((unsigned long int)writefd), "r" (r10), "r" (r8) : "memory","rcx", "r11" );
+  return(ret);
 }
-// 3214 "./minilib.h" 2
-// 3238 "./minilib.h"
+// 3026 "./minilib.h" 2
+// 3045 "./minilib.h"
+int volatile creat( const char *s, int mode );
+// 3060 "./minilib.h"
+int isatty(int fd);
+// 3095 "./minilib.h"
+int unlockpt(int fd);
+void* memfrob(void* s, unsigned int len);
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+// 3140 "./minilib.h"
+int strncmp(const char*c1,const char*c2,int len);
+// 3215 "./minilib.h"
+int system( const char* command );
+// 3235 "./minilib.h"
+sighandler_t signal(int sig, sighandler_t func );
+// 3290 "./minilib.h"
 #define putchar(c) fputc(c,stdout)
-// 3258 "./minilib.h"
-int atoi(const char *c);
-// 3268 "./minilib.h"
-unsigned int usleep(unsigned int useconds);
-// 3278 "./minilib.h"
-int itohex(int i,char* buf,int padding);
-// 3328 "./minilib.h"
+// 3315 "./minilib.h"
+static int sigfillset(sigset_t *set);
 FILE *fopen(const char* filename, const char* mode);
+char *strncpy(char *dest, const char *src, int n);
+// 3335 "./minilib.h"
+void* realloc(void *p, int size);
+// 3350 "./minilib.h"
+#define fprints(F,str) write(fileno(F),str,strlen(str))
 // 506 "/dev/fd/63" 2
 // 1 "<command-line>" 2
 // 1 "minilib.h"
