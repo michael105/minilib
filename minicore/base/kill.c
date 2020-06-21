@@ -7,7 +7,7 @@ mini_atoi
 # mini_putchar
 mini_print
 mini_strcasecmp
-mini_tolower
+#mini_tolower
 mini_buf 1024
 LDSCRIPT text_and_bss
 shrinkelf
