@@ -368,7 +368,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  113 </small></td><td><small> dup3(int a1, int a2, int a3)		
 </small></td></tr>
-<tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  38 </small></td><td><small> const char *errno_str(int err);
+<tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  43 </small></td><td><small> const char *errno_str(int err);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert errno to str, with 3 chars length
   ending the string (located on the stack (!) 
   with two \0\0, when errno<100
@@ -538,7 +538,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small> DIR *opendir(const char *name);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  26 </small></td><td><small> void perror(const char *msg);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  31 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  166 </small></td><td><small> pipe( int *filedes)
 </small></td></tr>
@@ -603,7 +603,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  10 </small></td><td><small>  int  )) select( int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  10 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  176 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>

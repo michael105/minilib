@@ -600,7 +600,7 @@ errno_str      const char *errno_str(int err);
                convert errno to str, with 3 chars length
               ending the string (located on the stack (!) 
               with two \0\0, when errno<100
-               (src/strerror.c: 38)
+               (src/strerror.c: 43)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
@@ -709,7 +709,7 @@ itohex         int itohex(int i,char* buf,int padding);
 
 perror         void perror(const char *msg);
 
-               (src/strerror.c: 26)
+               (src/strerror.c: 31)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -939,7 +939,7 @@ open           int volatile open( const char *s, int flags, ... );
 
                (src/open.c: 13)
 
-select         static int volatile __attribute__((optimize("O0"))) select(volatile int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
                (include/select.h: 10)
 
