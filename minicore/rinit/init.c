@@ -42,6 +42,16 @@ return
  and after it's termination
  /etc/rinit/3 is executed.
 
+ SIGQUIT: send the current stage a sigterm.
+    when the current stage is stage 2, 
+		restart the process after termination
+
+
+(todo)
+ SIGABRT: cancel a shutdown.
+ 		if stage 3 is running, send SIGABRT to the process, and restart at stage 1.
+		is stage 2 is still running, and a shutdown is in progress,
+		send stage 2 SIGABRT. If the process exits restart stage 2
 */
  
 
@@ -151,6 +161,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 
 
 int main(int argc, char **argv, char **envp){
+		// setup 
 		shutdown = 0;
 		stagepid = 0;
 		zombie = 0;
@@ -175,16 +186,18 @@ int main(int argc, char **argv, char **envp){
 				error("Couldn't install alarm handler");
 		}
 
-		// Ctrl-Alt-Del sends sigint to init, but doesn't reboot
+		// Ctrl-Alt-Del: send sigint to init, but do not reboot
 		reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_CAD_OFF,0);
 
-START:
+		// stage 1
+STAGE1_START:
 		zombie = 0;
 		log("exec " STAGE1);
 		vexec( STAGE1, argv, envp );
 
 		int a = 0;
 
+		// stage 2
 		while (!shutdown){
 				log("exec " STAGE2);
 				if ( vexec(STAGE2, argv, envp) )
@@ -196,6 +209,7 @@ START:
 				}
 		};
 
+		// stage 3
 		if ( shutdown==1 )
 				log("Shutdown");
 		else
@@ -206,23 +220,27 @@ START:
 		zombie = 0;
 		vexec(STAGE3, argv, envp);
 
-		if ( shutdown == 0 )
-				goto START; // shutdown aborted. start with stage1 again
-
 		log("Sync remaining file systems");
 		sync();
 
+		if ( shutdown == 0 )
+				goto STAGE1_START; // shutdown aborted. start with stage1 again
+
+		// shutdown
 		if ( shutdown == 1 ){
 				log("Power off");
+				sync();
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_POWER_OFF,0);
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_HALT,0);
 		}
 
 		if ( shutdown == 2 ){
 				log("Reboot");
+				sync();
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART,0);
 		}
 
+		// shouldn't get here.
 		log("Exit init.");
 		
 		return(0); // exit

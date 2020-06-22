@@ -12,6 +12,8 @@
 #ifdef HAVE_TERMIO_H
 #ifndef MLIB
 #include	<termio.h>
+#include <stropts.h>
+#include <utime.h>
 #endif
 #else
 #include	<sys/ioctl.h>
@@ -27,6 +29,8 @@
 #ifdef NEED_INET_H
 /*#define STTY_HACK*/
 #endif
+
+#define DEBUG
 
 /*
  * Initialize a pty, fork a command running under it, and then 
@@ -76,12 +80,13 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		/* Under old UNIX, just opening the new tty after
 		   losing the controlling tty is good enough.
 		   Under newer Unices, it requires an ioctl().  */
-#if 1
+#if 0
 		(void) ioctl(0, TIOCSCTTY, 0);
 #endif
 
 		/* Set the lines and columns on the new tty */
-#ifdef TIOCGWINSZ	/* We don't want to set the environment if possible */
+//#ifdef TIOCGWINSZ	/* We don't want to set the environment if possible */
+#if 1	/* We don't want to set the environment if possible */
 		pty_setwin(0, win);
 #else
 		if ( win == UPPER )
@@ -249,7 +254,7 @@ int get_slave_pty()
 	int	slave_fd;
 	char	*slavename;
 
-	//printf("ttyname XX: %s\n",tty_name);
+	printf("ttyname XX: %s\n",tty_name);
 	slavename=tty_name;
 
 	if ( (slave_fd=open(slavename, O_RDWR)) < 0 )	/* open the slave */
@@ -258,7 +263,8 @@ int get_slave_pty()
 		return(-1);
 	}
 
-#ifdef SOLARIS
+//#ifdef SOLARIS
+#if 0
 	if ( ioctl(slave_fd, I_PUSH, "ptem") < 0 )
 	{
 		close(master_fd);

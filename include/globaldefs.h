@@ -147,7 +147,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 typedef void (*sighandler_t)(int);
 
 #ifdef mini_ioctl
-int ioctl( int fd, unsigned long int request, ... );
+//int ioctl( int fd, unsigned long int request, ... );
 #endif
 
 // from musl

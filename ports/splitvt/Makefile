@@ -8,7 +8,7 @@ PTYCHAR=\"\"
 HEXDIGIT=\"\"
 PTYOPTS = -DPTYCHAR=$(PTYCHAR) -DHEXDIGIT=$(HEXDIGIT)
 
-CFLAGS =  -DHAVE_UTHOST -DHAVE_TERMIO_H -DHAVE_UNISTD_H -DNEED_SELECT_H -DHAVE_WAIT4 -DSHELL=\"/bin/sh\" $(PTYOPTS) -static
+CFLAGS =  -DHAVE_UTHOST -DHAVE_TERMIO_H -DHAVE_UNISTD_H -DNEED_SELECT_H -DHAVE_WAIT4 -DSHELL=\"/bin/sh\" $(PTYOPTS) -static 
 LIBS = 
 #OBJS = videomem.o terminal.o vtmouse.o 
 OBJS = splitvt.o videomem.o terminal.o vtmouse.o 
@@ -17,7 +17,7 @@ OBJS = splitvt.o videomem.o terminal.o vtmouse.o
 
 splitvt: $(OBJS) misc.c vt100.c minilib.conf
 	#musl-gcc -o splitvt *.o -static -s -Os
-	$(CC) -o $@ minilib.c $(OBJS) $(LIBS) -DINCLUDESRC $(CFLAGS)
+	$(CC) -o spm minilib.c $(OBJS) $(LIBS) -DINCLUDESRC $(CFLAGS)
 
 clean: 
 	rm -f *.o core 

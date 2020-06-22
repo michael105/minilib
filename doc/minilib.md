@@ -56,7 +56,7 @@ mkfifo         static int mkfifo( const char* path, mode_t mode );
 ioctl.h
 ==========
 
-ioctl          int ioctl( int fd, unsigned long int request, ... );
+ioctl          int volatile ioctl( int fd, unsigned long int request, ... );
 
                (src/ioctl.c: 11)
 

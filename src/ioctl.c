@@ -8,7 +8,7 @@
 
 //+header ioctl.h
 //+def
-int ioctl( int fd, unsigned long int request, ... ){
+int volatile ioctl( int fd, unsigned long int request, ... ){
 		va_list args;
 		va_start(args,request);
 

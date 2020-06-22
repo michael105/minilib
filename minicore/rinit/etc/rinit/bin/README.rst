@@ -19,9 +19,9 @@ contents
        Currently defined functions:
         	[, [[, ash, base64, basename, busybox, cat, chmod, chown, cksum, 
           cp, cut, date, echo, false, fsync, head, hello, id, ls, md5sum, 
-          mkdir, mv, nologin, passp, printf, pwd, rm, sed, sh, sha1sum, 
-          sha256sum, sha3sum, sha512sum, shred, sleep, stat, sum, sync, tac, 
-          tail, test, touch, true, uname, uniq, uuencode, wc, whoami
+          mkdir, mv, nologin, printf, pwd, rm, sed, sh, sha1sum, sha256sum, 
+          sha3sum, sha512sum, shred, sleep, stat, sum, sync, tac, tail, 
+          test, touch, true, uname, uniq, uuencode, wc, whoami
 
 
 - bb: directory, containing busybox and symbolic links
