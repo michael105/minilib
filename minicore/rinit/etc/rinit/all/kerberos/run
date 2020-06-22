@@ -1,0 +1,4 @@
+#!/bin/sh
+
+krb5kdc -n 2> /var/log/krb5kdc
+

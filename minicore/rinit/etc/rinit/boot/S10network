@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+hostname laptop
+
+ifconfig lo 127.0.0.1
+
+(
+echo 0 999999 > /proc/sys/net/ipv4/ping_group_range
+
+ip netns add root
+ip link add core type veth peer name veth
+ip link set netns core root
+ifconfig veth 10.0.0.1
+ip netns exec root ifconfig core 10.0.0.2
+)&

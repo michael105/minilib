@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# ( keymaps are in /usr/share/keymaps )
+loadkeys windowkeys de-latin1-nodeadkeys &
+

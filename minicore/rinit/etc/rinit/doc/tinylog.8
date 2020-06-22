@@ -1,0 +1,279 @@
+.\" tinylog.8
+.\" wcm, 2009.09.29 - 2011.02.01
+.\" ===
+.TH tinylog 8 "January 2013" "perp-2.07" "persistent process supervision"
+.SH NAME
+tinylog \- log stdin to a directory of rotated log files
+.SH SYNOPSIS
+.B tinylog [\-hV] [\-k
+.I numkeep
+.B ] [\-r] [\-s
+.I logsize
+.B ] [\-t] [\-z]
+.I dir
+.SH DESCRIPTION
+.B tinylog
+reads lines from standard input and writes them to a set of rotated log files
+maintained in
+.IR dir . 
+.PP
+While active,
+.B tinylog
+switches into
+.I dir
+and writes into a log file named
+.IR current .
+When
+.I current
+reaches the size specified with the
+.B -s
+option (default 100000 bytes),
+it rotates the file:
+.I current
+is renamed with a filename in the form
+.IR _yyyymmddThhmmss.uuuuuu.s ,
+and a new
+.I current
+is opened.
+.PP
+.B tinylog
+maintains a set of older rotated log files in
+.IR dir ,
+upto the number specified with the
+.B -k
+option (default 5).
+After this number is reached,
+.B tinylog
+deletes the rotated log file with the oldest timestamp before
+continuing with a new
+.IR current .
+.PP
+If the
+.B -z
+option is specified,
+.B tinylog
+will compress log files during rotation with the utility specified in the
+environmental variable
+.B TINYLOG_ZIP
+(default
+.IR /usr/bin/gzip ).
+If the compression is successful,
+the rotated log file is renamed with a
+.I .Z
+extension.
+.PP
+The name of a rotated log file may be described further:
+beginning with an underscore,
+followed by a current
+.B gmtime(3)
+timestamp in RFC8601 format (to the nearest microsecond),
+followed by a status suffix, 
+and optionally followed by a
+.I .Z
+zip extension.
+Normally the status suffix is
+.IR .s ,
+indicating the file was safely written to disk.
+Otherwise a status suffix of
+.I .u
+indicates that the file was not safely written to disk,
+and may possibly be incomplete and/or corrupted by an unexpected failure.
+.PP
+.B tinylog
+sets the file mode of
+.I current
+to 0644 while active.
+When
+.B tinylog
+sees eof on stdin,
+it writes any pending line to
+.IR current ,
+fsyncs and closes the file,
+and changes its mode to 0744 before exiting.
+Whenever
+.B tinylog
+restarts,
+it looks for an existing
+.I current
+and,
+if one is found with a file mode 0744,
+reopens it and changes its mode back to 0644 for continued logging.
+Otherwise,
+if an existing
+.I current
+is found set with a mode of 0644,
+it is immediately rotated with a
+.I .u
+suffix,
+and a new
+.I current
+is opened.
+.PP
+.B tinylog
+ignores empty lines,
+truncates lines longer than 1000 characters,
+and converts unprintable control characters to `?'.
+.SH OPTIONS
+.TP
+.B \-h
+Help.
+Print a brief usage message to stderr and exit.
+.TP
+.B \-k numkeep
+Keep.
+Sets the maximum number of log files that
+.B tinylog
+will keep after rotation.
+Whenever
+.B tinylog
+rotates the most recent log file,
+it deletes any more than
+.I numkeep
+older log files found in the directory.
+The minimum number is 0,
+in which case no older log files are kept.
+If not specified,
+the default number of older log files kept is 5.
+.TP
+.B \-r
+Rotate on start.
+Normally on start-up,
+.B tinylog
+begins logging with an existing
+.I current
+file if it has been safely closed from a previous session.
+The
+.B \-r
+option causes
+.B tinylog
+to immediately rotate any existing
+.I current
+file and begin logging with a new one.
+.TP
+.B \-s logsize
+Size.
+Sets the maximum size (in bytes) that a log file may grow before
+rotation.
+The minimum size is 2000.
+The default size is 100000.
+.TP
+.B -t
+Timestamp.
+A current
+.B gmtime(3)
+timestamp string in the form of ``yyyymmddThhmmss.uuuuuu'' is prepended
+to each line written to the log file.
+.TP
+.B \-V
+Version.
+Print the version number to stderr and exit.
+.TP
+.B \-z
+Zip.
+This option instructs
+.B tinylog
+to run a compression utility when it rotates the log file.
+The compression utility may be specified in the environmental variable
+.BR TINYLOG_ZIP .
+If the variable is not set or empty,
+.B tinylog
+will use a compiled-in default,
+usually
+.IR /usr/bin/gzip .
+The compression utility should be designed to run without any arguments,
+reading from stdin and writing to stdout.
+After successful compression,
+.B tinylog
+will rename the rotated log file with a
+.I .Z
+extension.
+.SH ENVIRONMENT
+TINYLOG_ZIP
+.RS
+If defined and the
+.B \-z
+option is specified,
+will be taken as the executable for the compression utility to use when rotating a log file.
+.RE
+.SH SIGNALS
+.B tinylog
+traps the following signals for adminstrative control during runtime:
+.PP
+SIGHUP
+.RS
+Close and rotate
+.IR current ,
+then continue logging with a new
+.IR current .
+.RE
+.PP
+SIGTERM
+.RS
+Stop reading stdin,
+process any pending lines already read,
+flush and close
+.IR current
+safely to disk,
+then exit 0 (no error).
+Stdin will be left at the first byte of any unprocessed data.
+.RE
+.SH EXIT STATUS
+.B tinylog
+exits with the following values:
+.TP
+0
+Normally
+.B tinylog
+runs until eof is found on stdin,
+or until it receives a
+.B TERM
+signal.
+In these cases,
+.B tinylog
+writes any pending lines to the log,
+flushes and closes
+.IR current ,
+changes its mode to 0744,
+and exits 0.
+.TP
+100
+.B tinylog
+failed on startup because of some usage error,
+such as invalid command-line option or missing argument.
+In this case
+.B tinylog
+will print a brief diagnostic to stderr on exit.
+.TP
+111
+.B tinylog
+found another instance or active lockfile running in
+.IR dir ,
+or failed due to some other system or resource error on startup.
+In this case
+.B tinylog
+will print a brief diagnostic to stderr on exit.
+.PP
+Otherwise,
+after startup,
+.B tinylog
+tries very hard not to exit until eof is read on stdin.
+In the case of system or resource failures,
+.B tinylog
+will print a diagnostic message to stderr,
+pause for a brief interval,
+and then retry the failed operation.
+.SH AUTHOR
+Wayne Marshall, http://b0llix.net/perp/
+.SH SEE ALSO
+.nh
+.BR perp_intro (8),
+.BR perpboot (8),
+.BR perpctl (8),
+.BR perpd (8),
+.BR perpetrate (5),
+.BR perphup (8),
+.BR perpls (8),
+.BR perpok (8),
+.BR perpstat (8),
+.BR sissylog (8)
+.\" EOF tinylog.8
