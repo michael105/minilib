@@ -24,22 +24,26 @@ INCLUDESRC
 return
 #endif
 
-// misc 2020/06
-// BSD license
-//
-// a minimal init
-// 
-// starts /etc/rinit/boot and hands all over all arguments, invoked with.
-//
-// after "boot" has been started, 
-// init reads from the named pipe /etc/rinit/initpipe,
-// and handles signals.
-//
-// depending on signal/pipe input, 
-// the next runlevel is started.
-//
-// 
-// 
+
+/*
+ 
+ misc 2020/06
+ BSD license
+
+ a minimal init
+ 
+ starts /etc/rinit/1 and hands all over all arguments, invoked with.
+
+ after "1" has exited, 
+ /etc/rinit/2 is started, and restarted if it should exit.
+
+ on signals SIGINT, Ctrl+Alt+Del (->reboot) and SIGTERM (->shutdown)
+ /etc/rinit/2 is sent SIGTERM, when not responding SIGKILL,
+ and after it's termination
+ /etc/rinit/3 is executed.
+
+*/
+ 
 
 #if 0
 #define STAGE1 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test1.sh"
@@ -51,8 +55,10 @@ return
 #define STAGE3 "/etc/rinit/3"
 #endif
 
-// After this time in seconds, after signalling the current stage with SIGTERM,
-// the (running) stage is killed with SIGKILL
+// After signalling the current stage with SIGTERM,
+// wait this time (in seconds). When the (running) stage still runs 
+// kill it with SIGTERM, when still not responding within WAITTIME seconds
+// continue anyways
 #define WAITTIME 30
 
 #define HL "\033[1;36m"
