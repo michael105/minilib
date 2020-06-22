@@ -76,7 +76,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		/* Under old UNIX, just opening the new tty after
 		   losing the controlling tty is good enough.
 		   Under newer Unices, it requires an ioctl().  */
-#ifdef TIOCSCTTY
+#if 1
 		(void) ioctl(0, TIOCSCTTY, 0);
 #endif
 
@@ -103,7 +103,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 #ifdef SIGTSTP
 		signal(SIGTSTP, SIG_IGN);
 #endif
-#ifdef STTY_HACK
+#if 0
 		system("stty sane echo echoe intr '^C' erase '^H'");
 #else
 		(void) tty_reset(0);
@@ -112,7 +112,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		(void) utime(get_ttyname(), NULL);
 
 		/* Set our uid to our real uid if necessary */
-		(void) setuid(getuid());
+		//(void) setuid(getuid());
 			
 		/* Run the requested program, with possible leading dash. */
 		//printf("exec..> %s\n",argv[0]);

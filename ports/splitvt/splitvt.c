@@ -49,7 +49,7 @@ static char *version=
 //#include "vtmouse.c"
 
 // default shell
-#define SHELL "/bin/mksh"
+#define SHELL "/bin/sh"
 
 
 /* With xterm support, cut and paste is disabled and the title bar is
