@@ -160,8 +160,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 		int pid;
 		do {
 				pid = waitpid( -1, &ws, 0 ); // wait for any child (reap zonbies)
-		} while ( (pid != stagepid) && (!( WIFEXITED(ws) || zombie )) );
-		//} while ( (pid != stagepid) && (!( WIFEXITED(ws) || WIFSIGNALED(ws)  || zombie )) );
+		} while ( !( ( (pid == stagepid) && (WIFEXITED(ws) || WIFSIGNALED(ws) ) ) || zombie ) );
 
 		return(0);
 }

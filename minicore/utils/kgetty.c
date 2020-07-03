@@ -23,6 +23,7 @@ mini_fchmod
 mini_fchown
 mini_sigemptyset
 mini_sigaction
+mini_isatty
 
 LDSCRIPT text_and_bss
 shrinkelf
@@ -54,7 +55,7 @@ return
 
 
 
-#define TEST
+//#define TEST
 
 static char *tty = "/dev/tty1";
 static char *defaultterm = "linux";
@@ -111,10 +112,10 @@ int main(int argc, char *argv[]){
 
 
 	strncpy(term, defaultterm, sizeof(term));
-	if (argc > 0) {
-		tty = argv[0];
-		if (argc > 1)
-			strncpy(term, argv[1], sizeof(term));
+	if (argc > 1) {
+		tty = argv[1];
+		if (argc > 2)
+			strncpy(term, argv[2], sizeof(term));
 	}
 
 	sa.sa_handler = SIG_IGN;
@@ -247,7 +248,7 @@ int main(int argc, char *argv[]){
 	if (setuid(uid_nobody) < 0)
 		errprintf("setuid:");
 
-	printf("exec ksu.\n");
+	//printf("exec ksu.\n");
 
 	char *envp[] = { 
 			envp[0]="KRB5CCNAME=FILE:/tmp/krb_csc",

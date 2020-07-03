@@ -254,7 +254,7 @@ int get_slave_pty()
 	int	slave_fd;
 	char	*slavename;
 
-	printf("ttyname XX: %s\n",tty_name);
+	//printf("ttyname XX: %s\n",tty_name);
 	slavename=tty_name;
 
 	if ( (slave_fd=open(slavename, O_RDWR)) < 0 )	/* open the slave */
@@ -377,6 +377,7 @@ int get_slave_pty()
 {
 	int slave_fd;
 
+	//printf("ttyname Xi2: %s\n",tty_name);
 	if ( (slave_fd=open(tty_name, O_RDWR)) < 0 )
 	{
 		close(master_fd);

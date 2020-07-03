@@ -9,9 +9,9 @@ Since I'm aiming at a 64kB (128kB max) base system, I've to separate them.
 
 ```
 errno           2020-06-21             6608
-kgetty          2020-06-21             3266
+kgetty          2020-07-03             3980
 sed/sed         2020-06-12             18744
 sed/sed.bak     2020-06-12             18320
 ===============================================
-                          size: 46938 Bytes
+                          size: 47652 Bytes
 ```

@@ -49,8 +49,9 @@ static char *version=
 //#include "vtmouse.c"
 
 // default shell
-#define SHELL "/bin/sh"
+#define SHELL "/bin/ash"
 
+#define ew(stream,string) fwrites(fileno(stream),string)
 
 /* With xterm support, cut and paste is disabled and the title bar is
    reset to the string "xterm" after splitvt quits.  Not desirable in
@@ -112,22 +113,22 @@ extern char **environ;
 void print_usage(argv)
 char *argv;
 {
-	fprintf(stderr, "\nUsage: %s [options] [shell]\n\n", argv);
-	fprintf(stderr, "Options:\n");
-	fprintf(stderr, "\t-s numlines\t\tSets 'numlines' to the number of lines\n");
-	fprintf(stderr, "\t\t\t\tin the top window.  This number will\n");
-	fprintf(stderr, "\t\t\t\tbe modified if the screen isn't big\n");
-	fprintf(stderr, "\t\t\t\tenough to handle the full size.\n\n");
-	fprintf(stderr, "\t-t title\t\tSets the xterm title bar to 'title'\n");
-	fprintf(stderr, "\t-upper command\t\tRuns 'command' in the upper window\n");
-	fprintf(stderr, "\t-lower command\t\tRuns 'command' in the lower window\n");
-	fprintf(stderr, "\t-bottom\t\t\tStarts in the lower window\n");
-	fprintf(stderr, "\t-login\t\t\tRuns programs as if they were login shells\n");
-	fprintf(stderr, "\t-nologin\t\tOverrides \"set login on\" in startup file\n");
-	fprintf(stderr, "\t-rcfile file\t\tLoads 'file' at startup instead of ~/.splitvtrc\n");
-	fprintf(stderr, "\t-norc\t\t\tSuppresses loading your startup file\n");
-	fprintf(stderr, "\t-v\t\t\tPrint out the version number\n");
-	fprintf(stderr, "\n");
+	ew(stderr, "\nUsage: splitvt [options] [shell]\n\n");
+	ew(stderr, "Options:\n");
+	ew(stderr, "\t-s numlines\t\tSets 'numlines' to the number of lines\n");
+	ew(stderr, "\t\t\t\tin the top window.  This number will\n");
+	ew(stderr, "\t\t\t\tbe modified if the screen isn't big\n");
+	ew(stderr, "\t\t\t\tenough to handle the full size.\n\n");
+	ew(stderr, "\t-t title\t\tSets the xterm title bar to 'title'\n");
+	ew(stderr, "\t-upper command\t\tRuns 'command' in the upper window\n");
+	ew(stderr, "\t-lower command\t\tRuns 'command' in the lower window\n");
+	ew(stderr, "\t-bottom\t\t\tStarts in the lower window\n");
+	ew(stderr, "\t-login\t\t\tRuns programs as if they were login shells\n");
+	ew(stderr, "\t-nologin\t\tOverrides \"set login on\" in startup file\n");
+	ew(stderr, "\t-rcfile file\t\tLoads 'file' at startup instead of ~/.splitvtrc\n");
+	ew(stderr, "\t-norc\t\t\tSuppresses loading your startup file\n");
+	ew(stderr, "\t-v\t\t\tPrint out the version number\n");
+	ew(stderr, "\n");
 	exit(1);
 }
 
@@ -149,7 +150,7 @@ int main(int argc, char **argv, char **envp){
 
 	/* Are we called sanely? */
 	if ( argv == NULL || argv[0] == NULL ) {
-		fprintf(stderr, "%s is NULL! aborting.\n",
+		fprintfs(stderr, "%s is NULL! aborting.\n",
 			argv == NULL ? "argv" : "argv[0]");
 		exit(-1);
 	}
@@ -237,7 +238,7 @@ int main(int argc, char **argv, char **envp){
 #ifdef ORI
 	/* Retrieve and save our passwd entry */
 	if ( (pw=(struct passwd *)getpwuid(getuid())) == NULL ) {
-		fprintf(stderr, 
+		ew(stderr, 
 		"Warning: Can't find your passwd entry; no utmp logging.\n");
 		sleep(2);
 	} else { /* Save the passwd entry for future reference */
@@ -250,7 +251,7 @@ int main(int argc, char **argv, char **envp){
 
 	if ( tty_getmode(ttyfd) < 0 ) 
 	{
-		fprintf(stderr, "Can't get terminal settings.\n");
+		ew(stderr, "Can't get terminal settings.\n");
 		exit(2);
 	}
 	(void) tty_raw(0);   /* Set the tty raw here to prevent lost input */
@@ -260,7 +261,7 @@ int main(int argc, char **argv, char **envp){
 		if ( tty_reset(0) < 0 )	
 			(void) tty_sane(0);
 
-		fprintf(stderr, "\rCan't initialize screen: %s\n", ptr);
+		fprintfs(stderr, "\rCan't initialize screen: %s\n", ptr);
 		exit(3);
 	}
 #ifdef X_SUPPORT
@@ -321,10 +322,10 @@ int main(int argc, char **argv, char **envp){
 		   case EIO:
 		   case EPERM:
 		   case ENOENT:
-			fprintf(stderr, "No available pseudo terminals.\n");
+			ew(stderr, "No available pseudo terminals.\n");
 			break;
 			case EAGAIN:
-			fprintf(stderr, "No more processes, try again later.\n");
+			ew(stderr, "No more processes, try again later.\n");
 			break;
 		   default:
 			perror("pty_open() error");
@@ -344,10 +345,10 @@ int main(int argc, char **argv, char **envp){
 		   case EIO:
 		   case EPERM:
 		   case ENOENT:
-			fprintf(stderr, "No available pseudo terminals.\n");
+			ew(stderr, "No available pseudo terminals.\n");
 			break;
 			case EAGAIN:
-			fprintf(stderr, "No more processes, try again later.\n");
+			ew(stderr, "No more processes, try again later.\n");
 			break;
 		   default:
 			perror("pty_open() error");
@@ -425,7 +426,7 @@ int main(int argc, char **argv, char **envp){
 			errno = 0;
 			//if ( (numready=select(maxfds, &read_mask, NULL, NULL, tvptr)) <= 0 ){
 			if ( (numready=select(16, &read_mask, 0, 0, 0 )) <= 0 ){
-					printf("Err. errno %d maxfd %d fd's: %d, %d\n", errno, maxfds, topfd, bottomfd );
+					//printf("Err. errno %d maxfd %d fd's: %d, %d\n", errno, maxfds, topfd, bottomfd );
 					sleep(1);
 					tvptr=0;
 					if ( (numready=select(maxfds, &read_mask, NULL, NULL, tvptr)) <= 0 )
@@ -440,9 +441,9 @@ int main(int argc, char **argv, char **envp){
 											break;
 									default:        
 
-											fprintf(stderr, "errno: %d\n",errno);
+											//fprintf(stderr, "errno: %d\n",errno);
 											perror("select() error");
-											fprintf(stderr, "\r");
+											ew(stderr, "\r");
 											break;
 							}
 					
