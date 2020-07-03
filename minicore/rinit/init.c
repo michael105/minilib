@@ -124,7 +124,6 @@ void sighandler(int signal){
 		settimer(WAITTIME);
 }
 
-
 void sigalarm(int signal){
 		if ( shutdown ){
 				warning("Shutdown: timeout reached. Send kill.");
@@ -135,6 +134,14 @@ void sigalarm(int signal){
 				zombie = stagepid; // save stagepid.
 				settimer(WAITTIME); // when the stage process doesn't respond to the sigkill,
 				// kill ourselves after "waittime"
+		}
+}
+
+void sigabrt(int signal){
+		if ( shutdown ){
+				shutdown = 0;
+				warning("Abort shutdown");
+				kill(stagepid, SIGABRT);
 		}
 }
 
@@ -150,10 +157,11 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 		}
 
 		int ws;
-		int w;
+		int pid;
 		do {
-				w = waitpid( stagepid, &ws, 0 );
-		} while ( ! ( WIFEXITED(ws) || WIFSIGNALED(ws)  || zombie ) );
+				pid = waitpid( -1, &ws, 0 ); // wait for any child (reap zonbies)
+		} while ( (pid != stagepid) && (!( WIFEXITED(ws) || zombie )) );
+		//} while ( (pid != stagepid) && (!( WIFEXITED(ws) || WIFSIGNALED(ws)  || zombie )) );
 
 		return(0);
 }
@@ -168,6 +176,7 @@ int main(int argc, char **argv, char **envp){
 
 		log("start init");
 
+		// install signal handlers
 		struct sigaction sa;
 
 		sigfillset(&sa.sa_mask);
@@ -186,20 +195,25 @@ int main(int argc, char **argv, char **envp){
 				error("Couldn't install alarm handler");
 		}
 
+		sa.sa_handler = sigabrt;
+		if ( sigaction (SIGABRT, &sa, 0) ){
+				error("Couldn't install sigabrt handler");
+		}
+
 		// Ctrl-Alt-Del: send sigint to init, but do not reboot
 		reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_CAD_OFF,0);
 
 		// stage 1
 STAGE1_START:
 		zombie = 0;
-		log("exec " STAGE1);
+		log("Run " STAGE1);
 		vexec( STAGE1, argv, envp );
 
 		int a = 0;
 
 		// stage 2
 		while (!shutdown){
-				log("exec " STAGE2);
+				log("Run " STAGE2);
 				if ( vexec(STAGE2, argv, envp) )
 						return(-1);
 				if ( (a++) > 1 ){ // prevent spinning 
@@ -215,16 +229,13 @@ STAGE1_START:
 		else
 				log("Reboot");
 
-		log("exec " STAGE3);
+		log("Run " STAGE3);
 		settimer(WAITTIME);
 		zombie = 0;
 		vexec(STAGE3, argv, envp);
 
 		log("Sync remaining file systems");
 		sync();
-
-		if ( shutdown == 0 )
-				goto STAGE1_START; // shutdown aborted. start with stage1 again
 
 		// shutdown
 		if ( shutdown == 1 ){
@@ -239,6 +250,9 @@ STAGE1_START:
 				sync();
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART,0);
 		}
+
+		if ( shutdown == 0 )
+				goto STAGE1_START; // shutdown aborted. start with stage1 again
 
 		// shouldn't get here.
 		log("Exit init.");
