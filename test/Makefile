@@ -8,7 +8,7 @@ PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
 MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static hashes sigaction realloc
 
-MINIGCC=rand sleep execve strdup
+MINIGCC=rand sleep execve strdup div
 
 # where to build object files
 #BUILDDIR=.

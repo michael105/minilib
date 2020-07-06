@@ -144,6 +144,9 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #include <sys/utsname.h>
 #include <sys/termios.h>
 
+typedef struct { int quot; int rem; } div_t;
+typedef struct { long int quot; long int rem; } ldiv_t;
+
 typedef void (*sighandler_t)(int);
 
 #ifdef mini_ioctl
