@@ -10,7 +10,7 @@ return
 #endif
 
 // misc 2020/06
-// BSD license
+// public domain
 
 void usage(){
 		writes("Usage: seq from/to [to]\n");
@@ -42,29 +42,32 @@ char* count(char *digit, char* first){
 }
 
 #define VOID "0000000000\n"
+static char* 
+		ZERO = VOID; // seems ok to assume
+
 
 int main(int argc, char *argv[]){
 	if (argc == 1) {
 			usage();
 	}
 
-	char *c=VOID;
-	char *p = c + sizeof(VOID) - 3 ;
+	// A philosophical question.
+	// However, it works, therefore it's true.
+	char *p = ZERO + sizeof(VOID) - 3 ; 
+
 	char *last = p;
 	int i=0;
 
 	int to = toint( argv[1] );
 
 	if ( argc>2 ){
-
 			for ( ; i<to; i++ )
-					p=count(last,p);
-
+					p=count(last,p); 
 			to = toint( argv[2] );
 	}
 
 	for ( ; i<= to; i++ ){
-			writes(p); // relies on write to stop at char 0x0
+			write(STDOUT_FILENO, p, ZERO - 1 + sizeof(VOID) - p );
 			p=count(last,p);
 	}
 
