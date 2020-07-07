@@ -957,7 +957,7 @@ open           int volatile open( const char *s, int flags, ... );
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
-               (include/select.h: 10)
+               (include/select.h: 9)
 
 sleep          unsigned int volatile sleep(unsigned int seconds);
 

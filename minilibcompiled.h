@@ -2801,49 +2801,6 @@ typedef struct {
 
 #define EF_CPU32	0x00810000
 
-#define R_68K_NONE	0
-#define R_68K_32	1
-#define R_68K_16	2
-#define R_68K_8		3
-#define R_68K_PC32	4
-#define R_68K_PC16	5
-#define R_68K_PC8	6
-#define R_68K_GOT32	7
-#define R_68K_GOT16	8
-#define R_68K_GOT8	9
-#define R_68K_GOT32O	10
-#define R_68K_GOT16O	11
-#define R_68K_GOT8O	12
-#define R_68K_PLT32	13
-#define R_68K_PLT16	14
-#define R_68K_PLT8	15
-#define R_68K_PLT32O	16
-#define R_68K_PLT16O	17
-#define R_68K_PLT8O	18
-#define R_68K_COPY	19
-#define R_68K_GLOB_DAT	20
-#define R_68K_JMP_SLOT	21
-#define R_68K_RELATIVE	22
-#define R_68K_TLS_GD32	25
-#define R_68K_TLS_GD16	26
-#define R_68K_TLS_GD8	27
-#define R_68K_TLS_LDM32	28
-#define R_68K_TLS_LDM16	29
-#define R_68K_TLS_LDM8	30
-#define R_68K_TLS_LDO32	31
-#define R_68K_TLS_LDO16	32
-#define R_68K_TLS_LDO8	33
-#define R_68K_TLS_IE32	34
-#define R_68K_TLS_IE16	35
-#define R_68K_TLS_IE8	36
-#define R_68K_TLS_LE32	37
-#define R_68K_TLS_LE16	38
-#define R_68K_TLS_LE8	39
-#define R_68K_TLS_DTPMOD32	40
-#define R_68K_TLS_DTPREL32	41
-#define R_68K_TLS_TPREL32	42
-#define R_68K_NUM	43
-
 #define R_386_NONE	   0
 #define R_386_32	   1
 #define R_386_PC32	   2
@@ -2889,235 +2846,6 @@ typedef struct {
 #define R_386_NUM	   44
 
 
-
-
-
-#define STT_SPARC_REGISTER	13
-
-
-
-#define EF_SPARCV9_MM		3
-#define EF_SPARCV9_TSO		0
-#define EF_SPARCV9_PSO		1
-#define EF_SPARCV9_RMO		2
-#define EF_SPARC_LEDATA		0x800000
-#define EF_SPARC_EXT_MASK	0xFFFF00
-#define EF_SPARC_32PLUS		0x000100
-#define EF_SPARC_SUN_US1	0x000200
-#define EF_SPARC_HAL_R1		0x000400
-#define EF_SPARC_SUN_US3	0x000800
-
-
-
-#define R_SPARC_NONE		0
-#define R_SPARC_8		1
-#define R_SPARC_16		2
-#define R_SPARC_32		3
-#define R_SPARC_DISP8		4
-#define R_SPARC_DISP16		5
-#define R_SPARC_DISP32		6
-#define R_SPARC_WDISP30		7
-#define R_SPARC_WDISP22		8
-#define R_SPARC_HI22		9
-#define R_SPARC_22		10
-#define R_SPARC_13		11
-#define R_SPARC_LO10		12
-#define R_SPARC_GOT10		13
-#define R_SPARC_GOT13		14
-#define R_SPARC_GOT22		15
-#define R_SPARC_PC10		16
-#define R_SPARC_PC22		17
-#define R_SPARC_WPLT30		18
-#define R_SPARC_COPY		19
-#define R_SPARC_GLOB_DAT	20
-#define R_SPARC_JMP_SLOT	21
-#define R_SPARC_RELATIVE	22
-#define R_SPARC_UA32		23
-
-
-
-#define R_SPARC_PLT32		24
-#define R_SPARC_HIPLT22		25
-#define R_SPARC_LOPLT10		26
-#define R_SPARC_PCPLT32		27
-#define R_SPARC_PCPLT22		28
-#define R_SPARC_PCPLT10		29
-#define R_SPARC_10		30
-#define R_SPARC_11		31
-#define R_SPARC_64		32
-#define R_SPARC_OLO10		33
-#define R_SPARC_HH22		34
-#define R_SPARC_HM10		35
-#define R_SPARC_LM22		36
-#define R_SPARC_PC_HH22		37
-#define R_SPARC_PC_HM10		38
-#define R_SPARC_PC_LM22		39
-#define R_SPARC_WDISP16		40
-#define R_SPARC_WDISP19		41
-#define R_SPARC_GLOB_JMP	42
-#define R_SPARC_7		43
-#define R_SPARC_5		44
-#define R_SPARC_6		45
-#define R_SPARC_DISP64		46
-#define R_SPARC_PLT64		47
-#define R_SPARC_HIX22		48
-#define R_SPARC_LOX10		49
-#define R_SPARC_H44		50
-#define R_SPARC_M44		51
-#define R_SPARC_L44		52
-#define R_SPARC_REGISTER	53
-#define R_SPARC_UA64		54
-#define R_SPARC_UA16		55
-#define R_SPARC_TLS_GD_HI22	56
-#define R_SPARC_TLS_GD_LO10	57
-#define R_SPARC_TLS_GD_ADD	58
-#define R_SPARC_TLS_GD_CALL	59
-#define R_SPARC_TLS_LDM_HI22	60
-#define R_SPARC_TLS_LDM_LO10	61
-#define R_SPARC_TLS_LDM_ADD	62
-#define R_SPARC_TLS_LDM_CALL	63
-#define R_SPARC_TLS_LDO_HIX22	64
-#define R_SPARC_TLS_LDO_LOX10	65
-#define R_SPARC_TLS_LDO_ADD	66
-#define R_SPARC_TLS_IE_HI22	67
-#define R_SPARC_TLS_IE_LO10	68
-#define R_SPARC_TLS_IE_LD	69
-#define R_SPARC_TLS_IE_LDX	70
-#define R_SPARC_TLS_IE_ADD	71
-#define R_SPARC_TLS_LE_HIX22	72
-#define R_SPARC_TLS_LE_LOX10	73
-#define R_SPARC_TLS_DTPMOD32	74
-#define R_SPARC_TLS_DTPMOD64	75
-#define R_SPARC_TLS_DTPOFF32	76
-#define R_SPARC_TLS_DTPOFF64	77
-#define R_SPARC_TLS_TPOFF32	78
-#define R_SPARC_TLS_TPOFF64	79
-#define R_SPARC_GOTDATA_HIX22	80
-#define R_SPARC_GOTDATA_LOX10	81
-#define R_SPARC_GOTDATA_OP_HIX22	82
-#define R_SPARC_GOTDATA_OP_LOX10	83
-#define R_SPARC_GOTDATA_OP	84
-#define R_SPARC_H34		85
-#define R_SPARC_SIZE32		86
-#define R_SPARC_SIZE64		87
-#define R_SPARC_GNU_VTINHERIT	250
-#define R_SPARC_GNU_VTENTRY	251
-#define R_SPARC_REV32		252
-
-#define R_SPARC_NUM		253
-
-
-
-#define DT_SPARC_REGISTER 0x70000001
-#define DT_SPARC_NUM	2
-
-
-#define EF_MIPS_NOREORDER   1
-#define EF_MIPS_PIC	    2
-#define EF_MIPS_CPIC	    4
-#define EF_MIPS_XGOT	    8
-#define EF_MIPS_64BIT_WHIRL 16
-#define EF_MIPS_ABI2	    32
-#define EF_MIPS_ABI_ON32    64
-#define EF_MIPS_FP64	    512
-#define EF_MIPS_NAN2008     1024
-#define EF_MIPS_ARCH	    0xf0000000
-
-
-
-#define EF_MIPS_ARCH_1	    0x00000000
-#define EF_MIPS_ARCH_2	    0x10000000
-#define EF_MIPS_ARCH_3	    0x20000000
-#define EF_MIPS_ARCH_4	    0x30000000
-#define EF_MIPS_ARCH_5	    0x40000000
-#define EF_MIPS_ARCH_32     0x50000000
-#define EF_MIPS_ARCH_64     0x60000000
-#define EF_MIPS_ARCH_32R2   0x70000000
-#define EF_MIPS_ARCH_64R2   0x80000000
-
-
-#define E_MIPS_ARCH_1	  0x00000000
-#define E_MIPS_ARCH_2	  0x10000000
-#define E_MIPS_ARCH_3	  0x20000000
-#define E_MIPS_ARCH_4	  0x30000000
-#define E_MIPS_ARCH_5	  0x40000000
-#define E_MIPS_ARCH_32	  0x50000000
-#define E_MIPS_ARCH_64	  0x60000000
-
-
-
-#define SHN_MIPS_ACOMMON    0xff00
-#define SHN_MIPS_TEXT	    0xff01
-#define SHN_MIPS_DATA	    0xff02
-#define SHN_MIPS_SCOMMON    0xff03
-#define SHN_MIPS_SUNDEFINED 0xff04
-
-
-
-#define SHT_MIPS_LIBLIST       0x70000000
-#define SHT_MIPS_MSYM	       0x70000001
-#define SHT_MIPS_CONFLICT      0x70000002
-#define SHT_MIPS_GPTAB	       0x70000003
-#define SHT_MIPS_UCODE	       0x70000004
-#define SHT_MIPS_DEBUG	       0x70000005
-#define SHT_MIPS_REGINFO       0x70000006
-#define SHT_MIPS_PACKAGE       0x70000007
-#define SHT_MIPS_PACKSYM       0x70000008
-#define SHT_MIPS_RELD	       0x70000009
-#define SHT_MIPS_IFACE         0x7000000b
-#define SHT_MIPS_CONTENT       0x7000000c
-#define SHT_MIPS_OPTIONS       0x7000000d
-#define SHT_MIPS_SHDR	       0x70000010
-#define SHT_MIPS_FDESC	       0x70000011
-#define SHT_MIPS_EXTSYM	       0x70000012
-#define SHT_MIPS_DENSE	       0x70000013
-#define SHT_MIPS_PDESC	       0x70000014
-#define SHT_MIPS_LOCSYM	       0x70000015
-#define SHT_MIPS_AUXSYM	       0x70000016
-#define SHT_MIPS_OPTSYM	       0x70000017
-#define SHT_MIPS_LOCSTR	       0x70000018
-#define SHT_MIPS_LINE	       0x70000019
-#define SHT_MIPS_RFDESC	       0x7000001a
-#define SHT_MIPS_DELTASYM      0x7000001b
-#define SHT_MIPS_DELTAINST     0x7000001c
-#define SHT_MIPS_DELTACLASS    0x7000001d
-#define SHT_MIPS_DWARF         0x7000001e
-#define SHT_MIPS_DELTADECL     0x7000001f
-#define SHT_MIPS_SYMBOL_LIB    0x70000020
-#define SHT_MIPS_EVENTS	       0x70000021
-#define SHT_MIPS_TRANSLATE     0x70000022
-#define SHT_MIPS_PIXIE	       0x70000023
-#define SHT_MIPS_XLATE	       0x70000024
-#define SHT_MIPS_XLATE_DEBUG   0x70000025
-#define SHT_MIPS_WHIRL	       0x70000026
-#define SHT_MIPS_EH_REGION     0x70000027
-#define SHT_MIPS_XLATE_OLD     0x70000028
-#define SHT_MIPS_PDR_EXCEPTION 0x70000029
-
-
-
-#define SHF_MIPS_GPREL	 0x10000000
-#define SHF_MIPS_MERGE	 0x20000000
-#define SHF_MIPS_ADDR	 0x40000000
-#define SHF_MIPS_STRINGS 0x80000000
-#define SHF_MIPS_NOSTRIP 0x08000000
-#define SHF_MIPS_LOCAL	 0x04000000
-#define SHF_MIPS_NAMES	 0x02000000
-#define SHF_MIPS_NODUPE	 0x01000000
-
-
-
-
-
-#define STO_MIPS_DEFAULT		0x0
-#define STO_MIPS_INTERNAL		0x1
-#define STO_MIPS_HIDDEN			0x2
-#define STO_MIPS_PROTECTED		0x3
-#define STO_MIPS_PLT			0x8
-#define STO_MIPS_SC_ALIGN_UNUSED	0xff
-
-
-#define STB_MIPS_SPLIT_COMMON		13
 
 
 
@@ -3199,158 +2927,6 @@ typedef struct {
 
 
 
-#define OHWA0_R4KEOP_CHECKED	0x00000001
-#define OHWA1_R4KEOP_CLEAN	0x00000002
-
-
-
-#define R_MIPS_NONE		0
-#define R_MIPS_16		1
-#define R_MIPS_32		2
-#define R_MIPS_REL32		3
-#define R_MIPS_26		4
-#define R_MIPS_HI16		5
-#define R_MIPS_LO16		6
-#define R_MIPS_GPREL16		7
-#define R_MIPS_LITERAL		8
-#define R_MIPS_GOT16		9
-#define R_MIPS_PC16		10
-#define R_MIPS_CALL16		11
-#define R_MIPS_GPREL32		12
-
-#define R_MIPS_SHIFT5		16
-#define R_MIPS_SHIFT6		17
-#define R_MIPS_64		18
-#define R_MIPS_GOT_DISP		19
-#define R_MIPS_GOT_PAGE		20
-#define R_MIPS_GOT_OFST		21
-#define R_MIPS_GOT_HI16		22
-#define R_MIPS_GOT_LO16		23
-#define R_MIPS_SUB		24
-#define R_MIPS_INSERT_A		25
-#define R_MIPS_INSERT_B		26
-#define R_MIPS_DELETE		27
-#define R_MIPS_HIGHER		28
-#define R_MIPS_HIGHEST		29
-#define R_MIPS_CALL_HI16	30
-#define R_MIPS_CALL_LO16	31
-#define R_MIPS_SCN_DISP		32
-#define R_MIPS_REL16		33
-#define R_MIPS_ADD_IMMEDIATE	34
-#define R_MIPS_PJUMP		35
-#define R_MIPS_RELGOT		36
-#define R_MIPS_JALR		37
-#define R_MIPS_TLS_DTPMOD32	38
-#define R_MIPS_TLS_DTPREL32	39
-#define R_MIPS_TLS_DTPMOD64	40
-#define R_MIPS_TLS_DTPREL64	41
-#define R_MIPS_TLS_GD		42
-#define R_MIPS_TLS_LDM		43
-#define R_MIPS_TLS_DTPREL_HI16	44
-#define R_MIPS_TLS_DTPREL_LO16	45
-#define R_MIPS_TLS_GOTTPREL	46
-#define R_MIPS_TLS_TPREL32	47
-#define R_MIPS_TLS_TPREL64	48
-#define R_MIPS_TLS_TPREL_HI16	49
-#define R_MIPS_TLS_TPREL_LO16	50
-#define R_MIPS_GLOB_DAT		51
-#define R_MIPS_COPY		126
-#define R_MIPS_JUMP_SLOT        127
-
-#define R_MIPS_NUM		128
-
-
-
-#define PT_MIPS_REGINFO	0x70000000
-#define PT_MIPS_RTPROC  0x70000001
-#define PT_MIPS_OPTIONS 0x70000002
-#define PT_MIPS_ABIFLAGS 0x70000003
-
-
-
-#define PF_MIPS_LOCAL	0x10000000
-
-
-
-#define DT_MIPS_RLD_VERSION  0x70000001
-#define DT_MIPS_TIME_STAMP   0x70000002
-#define DT_MIPS_ICHECKSUM    0x70000003
-#define DT_MIPS_IVERSION     0x70000004
-#define DT_MIPS_FLAGS	     0x70000005
-#define DT_MIPS_BASE_ADDRESS 0x70000006
-#define DT_MIPS_MSYM	     0x70000007
-#define DT_MIPS_CONFLICT     0x70000008
-#define DT_MIPS_LIBLIST	     0x70000009
-#define DT_MIPS_LOCAL_GOTNO  0x7000000a
-#define DT_MIPS_CONFLICTNO   0x7000000b
-#define DT_MIPS_LIBLISTNO    0x70000010
-#define DT_MIPS_SYMTABNO     0x70000011
-#define DT_MIPS_UNREFEXTNO   0x70000012
-#define DT_MIPS_GOTSYM	     0x70000013
-#define DT_MIPS_HIPAGENO     0x70000014
-#define DT_MIPS_RLD_MAP	     0x70000016
-#define DT_MIPS_DELTA_CLASS  0x70000017
-#define DT_MIPS_DELTA_CLASS_NO    0x70000018
-
-#define DT_MIPS_DELTA_INSTANCE    0x70000019
-#define DT_MIPS_DELTA_INSTANCE_NO 0x7000001a
-
-#define DT_MIPS_DELTA_RELOC  0x7000001b
-#define DT_MIPS_DELTA_RELOC_NO 0x7000001c
-
-#define DT_MIPS_DELTA_SYM    0x7000001d
-
-#define DT_MIPS_DELTA_SYM_NO 0x7000001e
-
-#define DT_MIPS_DELTA_CLASSSYM 0x70000020
-
-#define DT_MIPS_DELTA_CLASSSYM_NO 0x70000021
-
-#define DT_MIPS_CXX_FLAGS    0x70000022
-#define DT_MIPS_PIXIE_INIT   0x70000023
-#define DT_MIPS_SYMBOL_LIB   0x70000024
-#define DT_MIPS_LOCALPAGE_GOTIDX 0x70000025
-#define DT_MIPS_LOCAL_GOTIDX 0x70000026
-#define DT_MIPS_HIDDEN_GOTIDX 0x70000027
-#define DT_MIPS_PROTECTED_GOTIDX 0x70000028
-#define DT_MIPS_OPTIONS	     0x70000029
-#define DT_MIPS_INTERFACE    0x7000002a
-#define DT_MIPS_DYNSTR_ALIGN 0x7000002b
-#define DT_MIPS_INTERFACE_SIZE 0x7000002c
-#define DT_MIPS_RLD_TEXT_RESOLVE_ADDR 0x7000002d
-
-#define DT_MIPS_PERF_SUFFIX  0x7000002e
-
-#define DT_MIPS_COMPACT_SIZE 0x7000002f
-#define DT_MIPS_GP_VALUE     0x70000030
-#define DT_MIPS_AUX_DYNAMIC  0x70000031
-
-#define DT_MIPS_PLTGOT	     0x70000032
-
-#define DT_MIPS_RWPLT        0x70000034
-#define DT_MIPS_RLD_MAP_REL  0x70000035
-#define DT_MIPS_NUM	     0x36
-
-
-
-#define RHF_NONE		   0
-#define RHF_QUICKSTART		   (1 << 0)
-#define RHF_NOTPOT		   (1 << 1)
-#define RHF_NO_LIBRARY_REPLACEMENT (1 << 2)
-#define RHF_NO_MOVE		   (1 << 3)
-#define RHF_SGI_ONLY		   (1 << 4)
-#define RHF_GUARANTEE_INIT	   (1 << 5)
-#define RHF_DELTA_C_PLUS_PLUS	   (1 << 6)
-#define RHF_GUARANTEE_START_INIT   (1 << 7)
-#define RHF_PIXIE		   (1 << 8)
-#define RHF_DEFAULT_DELAY_LOAD	   (1 << 9)
-#define RHF_REQUICKSTART	   (1 << 10)
-#define RHF_REQUICKSTARTED	   (1 << 11)
-#define RHF_CORD		   (1 << 12)
-#define RHF_NO_UNRES_UNDEF	   (1 << 13)
-#define RHF_RLD_ORDER_SAFE	   (1 << 14)
-
-
 
 typedef struct {
   Elf32_Word l_name;
@@ -3382,607 +2958,6 @@ typedef struct {
 
 
 typedef Elf32_Addr Elf32_Conflict;
-
-typedef struct {
-  Elf32_Half version;
-  unsigned char isa_level;
-  unsigned char isa_rev;
-  unsigned char gpr_size;
-  unsigned char cpr1_size;
-  unsigned char cpr2_size;
-  unsigned char fp_abi;
-  Elf32_Word isa_ext;
-  Elf32_Word ases;
-  Elf32_Word flags1;
-  Elf32_Word flags2;
-} Elf_MIPS_ABIFlags_v0;
-
-#define MIPS_AFL_REG_NONE	0x00
-#define MIPS_AFL_REG_32		0x01
-#define MIPS_AFL_REG_64		0x02
-#define MIPS_AFL_REG_128	0x03
-
-#define MIPS_AFL_ASE_DSP	0x00000001
-#define MIPS_AFL_ASE_DSPR2	0x00000002
-#define MIPS_AFL_ASE_EVA	0x00000004
-#define MIPS_AFL_ASE_MCU	0x00000008
-#define MIPS_AFL_ASE_MDMX	0x00000010
-#define MIPS_AFL_ASE_MIPS3D	0x00000020
-#define MIPS_AFL_ASE_MT		0x00000040
-#define MIPS_AFL_ASE_SMARTMIPS	0x00000080
-#define MIPS_AFL_ASE_VIRT	0x00000100
-#define MIPS_AFL_ASE_MSA	0x00000200
-#define MIPS_AFL_ASE_MIPS16	0x00000400
-#define MIPS_AFL_ASE_MICROMIPS	0x00000800
-#define MIPS_AFL_ASE_XPA	0x00001000
-#define MIPS_AFL_ASE_MASK	0x00001fff
-
-#define MIPS_AFL_EXT_XLR	  1
-#define MIPS_AFL_EXT_OCTEON2	  2
-#define MIPS_AFL_EXT_OCTEONP	  3
-#define MIPS_AFL_EXT_LOONGSON_3A  4
-#define MIPS_AFL_EXT_OCTEON	  5
-#define MIPS_AFL_EXT_5900	  6
-#define MIPS_AFL_EXT_4650	  7
-#define MIPS_AFL_EXT_4010	  8
-#define MIPS_AFL_EXT_4100	  9
-#define MIPS_AFL_EXT_3900	  10
-#define MIPS_AFL_EXT_10000	  11
-#define MIPS_AFL_EXT_SB1	  12
-#define MIPS_AFL_EXT_4111	  13
-#define MIPS_AFL_EXT_4120	  14
-#define MIPS_AFL_EXT_5400	  15
-#define MIPS_AFL_EXT_5500	  16
-#define MIPS_AFL_EXT_LOONGSON_2E  17
-#define MIPS_AFL_EXT_LOONGSON_2F  18
-
-#define MIPS_AFL_FLAGS1_ODDSPREG  1
-
-enum
-{
-  Val_GNU_MIPS_ABI_FP_ANY = 0,
-  Val_GNU_MIPS_ABI_FP_DOUBLE = 1,
-  Val_GNU_MIPS_ABI_FP_SINGLE = 2,
-  Val_GNU_MIPS_ABI_FP_SOFT = 3,
-  Val_GNU_MIPS_ABI_FP_OLD_64 = 4,
-  Val_GNU_MIPS_ABI_FP_XX = 5,
-  Val_GNU_MIPS_ABI_FP_64 = 6,
-  Val_GNU_MIPS_ABI_FP_64A = 7,
-  Val_GNU_MIPS_ABI_FP_MAX = 7
-};
-
-
-
-
-#define EF_PARISC_TRAPNIL	0x00010000
-#define EF_PARISC_EXT		0x00020000
-#define EF_PARISC_LSB		0x00040000
-#define EF_PARISC_WIDE		0x00080000
-#define EF_PARISC_NO_KABP	0x00100000
-
-#define EF_PARISC_LAZYSWAP	0x00400000
-#define EF_PARISC_ARCH		0x0000ffff
-
-
-
-#define EFA_PARISC_1_0		    0x020b
-#define EFA_PARISC_1_1		    0x0210
-#define EFA_PARISC_2_0		    0x0214
-
-
-
-#define SHN_PARISC_ANSI_COMMON	0xff00
-
-#define SHN_PARISC_HUGE_COMMON	0xff01
-
-
-
-#define SHT_PARISC_EXT		0x70000000
-#define SHT_PARISC_UNWIND	0x70000001
-#define SHT_PARISC_DOC		0x70000002
-
-
-
-#define SHF_PARISC_SHORT	0x20000000
-#define SHF_PARISC_HUGE		0x40000000
-#define SHF_PARISC_SBP		0x80000000
-
-
-
-#define STT_PARISC_MILLICODE	13
-
-#define STT_HP_OPAQUE		(STT_LOOS + 0x1)
-#define STT_HP_STUB		(STT_LOOS + 0x2)
-
-
-
-#define R_PARISC_NONE		0
-#define R_PARISC_DIR32		1
-#define R_PARISC_DIR21L		2
-#define R_PARISC_DIR17R		3
-#define R_PARISC_DIR17F		4
-#define R_PARISC_DIR14R		6
-#define R_PARISC_PCREL32	9
-#define R_PARISC_PCREL21L	10
-#define R_PARISC_PCREL17R	11
-#define R_PARISC_PCREL17F	12
-#define R_PARISC_PCREL14R	14
-#define R_PARISC_DPREL21L	18
-#define R_PARISC_DPREL14R	22
-#define R_PARISC_GPREL21L	26
-#define R_PARISC_GPREL14R	30
-#define R_PARISC_LTOFF21L	34
-#define R_PARISC_LTOFF14R	38
-#define R_PARISC_SECREL32	41
-#define R_PARISC_SEGBASE	48
-#define R_PARISC_SEGREL32	49
-#define R_PARISC_PLTOFF21L	50
-#define R_PARISC_PLTOFF14R	54
-#define R_PARISC_LTOFF_FPTR32	57
-#define R_PARISC_LTOFF_FPTR21L	58
-#define R_PARISC_LTOFF_FPTR14R	62
-#define R_PARISC_FPTR64		64
-#define R_PARISC_PLABEL32	65
-#define R_PARISC_PLABEL21L	66
-#define R_PARISC_PLABEL14R	70
-#define R_PARISC_PCREL64	72
-#define R_PARISC_PCREL22F	74
-#define R_PARISC_PCREL14WR	75
-#define R_PARISC_PCREL14DR	76
-#define R_PARISC_PCREL16F	77
-#define R_PARISC_PCREL16WF	78
-#define R_PARISC_PCREL16DF	79
-#define R_PARISC_DIR64		80
-#define R_PARISC_DIR14WR	83
-#define R_PARISC_DIR14DR	84
-#define R_PARISC_DIR16F		85
-#define R_PARISC_DIR16WF	86
-#define R_PARISC_DIR16DF	87
-#define R_PARISC_GPREL64	88
-#define R_PARISC_GPREL14WR	91
-#define R_PARISC_GPREL14DR	92
-#define R_PARISC_GPREL16F	93
-#define R_PARISC_GPREL16WF	94
-#define R_PARISC_GPREL16DF	95
-#define R_PARISC_LTOFF64	96
-#define R_PARISC_LTOFF14WR	99
-#define R_PARISC_LTOFF14DR	100
-#define R_PARISC_LTOFF16F	101
-#define R_PARISC_LTOFF16WF	102
-#define R_PARISC_LTOFF16DF	103
-#define R_PARISC_SECREL64	104
-#define R_PARISC_SEGREL64	112
-#define R_PARISC_PLTOFF14WR	115
-#define R_PARISC_PLTOFF14DR	116
-#define R_PARISC_PLTOFF16F	117
-#define R_PARISC_PLTOFF16WF	118
-#define R_PARISC_PLTOFF16DF	119
-#define R_PARISC_LTOFF_FPTR64	120
-#define R_PARISC_LTOFF_FPTR14WR	123
-#define R_PARISC_LTOFF_FPTR14DR	124
-#define R_PARISC_LTOFF_FPTR16F	125
-#define R_PARISC_LTOFF_FPTR16WF	126
-#define R_PARISC_LTOFF_FPTR16DF	127
-#define R_PARISC_LORESERVE	128
-#define R_PARISC_COPY		128
-#define R_PARISC_IPLT		129
-#define R_PARISC_EPLT		130
-#define R_PARISC_TPREL32	153
-#define R_PARISC_TPREL21L	154
-#define R_PARISC_TPREL14R	158
-#define R_PARISC_LTOFF_TP21L	162
-#define R_PARISC_LTOFF_TP14R	166
-#define R_PARISC_LTOFF_TP14F	167
-#define R_PARISC_TPREL64	216
-#define R_PARISC_TPREL14WR	219
-#define R_PARISC_TPREL14DR	220
-#define R_PARISC_TPREL16F	221
-#define R_PARISC_TPREL16WF	222
-#define R_PARISC_TPREL16DF	223
-#define R_PARISC_LTOFF_TP64	224
-#define R_PARISC_LTOFF_TP14WR	227
-#define R_PARISC_LTOFF_TP14DR	228
-#define R_PARISC_LTOFF_TP16F	229
-#define R_PARISC_LTOFF_TP16WF	230
-#define R_PARISC_LTOFF_TP16DF	231
-#define R_PARISC_GNU_VTENTRY	232
-#define R_PARISC_GNU_VTINHERIT	233
-#define R_PARISC_TLS_GD21L	234
-#define R_PARISC_TLS_GD14R	235
-#define R_PARISC_TLS_GDCALL	236
-#define R_PARISC_TLS_LDM21L	237
-#define R_PARISC_TLS_LDM14R	238
-#define R_PARISC_TLS_LDMCALL	239
-#define R_PARISC_TLS_LDO21L	240
-#define R_PARISC_TLS_LDO14R	241
-#define R_PARISC_TLS_DTPMOD32	242
-#define R_PARISC_TLS_DTPMOD64	243
-#define R_PARISC_TLS_DTPOFF32	244
-#define R_PARISC_TLS_DTPOFF64	245
-#define R_PARISC_TLS_LE21L	R_PARISC_TPREL21L
-#define R_PARISC_TLS_LE14R	R_PARISC_TPREL14R
-#define R_PARISC_TLS_IE21L	R_PARISC_LTOFF_TP21L
-#define R_PARISC_TLS_IE14R	R_PARISC_LTOFF_TP14R
-#define R_PARISC_TLS_TPREL32	R_PARISC_TPREL32
-#define R_PARISC_TLS_TPREL64	R_PARISC_TPREL64
-#define R_PARISC_HIRESERVE	255
-
-
-
-#define PT_HP_TLS		(PT_LOOS + 0x0)
-#define PT_HP_CORE_NONE		(PT_LOOS + 0x1)
-#define PT_HP_CORE_VERSION	(PT_LOOS + 0x2)
-#define PT_HP_CORE_KERNEL	(PT_LOOS + 0x3)
-#define PT_HP_CORE_COMM		(PT_LOOS + 0x4)
-#define PT_HP_CORE_PROC		(PT_LOOS + 0x5)
-#define PT_HP_CORE_LOADABLE	(PT_LOOS + 0x6)
-#define PT_HP_CORE_STACK	(PT_LOOS + 0x7)
-#define PT_HP_CORE_SHM		(PT_LOOS + 0x8)
-#define PT_HP_CORE_MMF		(PT_LOOS + 0x9)
-#define PT_HP_PARALLEL		(PT_LOOS + 0x10)
-#define PT_HP_FASTBIND		(PT_LOOS + 0x11)
-#define PT_HP_OPT_ANNOT		(PT_LOOS + 0x12)
-#define PT_HP_HSL_ANNOT		(PT_LOOS + 0x13)
-#define PT_HP_STACK		(PT_LOOS + 0x14)
-
-#define PT_PARISC_ARCHEXT	0x70000000
-#define PT_PARISC_UNWIND	0x70000001
-
-
-
-#define PF_PARISC_SBP		0x08000000
-
-#define PF_HP_PAGE_SIZE		0x00100000
-#define PF_HP_FAR_SHARED	0x00200000
-#define PF_HP_NEAR_SHARED	0x00400000
-#define PF_HP_CODE		0x01000000
-#define PF_HP_MODIFY		0x02000000
-#define PF_HP_LAZYSWAP		0x04000000
-#define PF_HP_SBP		0x08000000
-
-
-
-
-
-
-#define EF_ALPHA_32BIT		1
-#define EF_ALPHA_CANRELAX	2
-
-
-
-
-#define SHT_ALPHA_DEBUG		0x70000001
-#define SHT_ALPHA_REGINFO	0x70000002
-
-
-
-#define SHF_ALPHA_GPREL		0x10000000
-
-
-#define STO_ALPHA_NOPV		0x80
-#define STO_ALPHA_STD_GPLOAD	0x88
-
-
-
-#define R_ALPHA_NONE		0
-#define R_ALPHA_REFLONG		1
-#define R_ALPHA_REFQUAD		2
-#define R_ALPHA_GPREL32		3
-#define R_ALPHA_LITERAL		4
-#define R_ALPHA_LITUSE		5
-#define R_ALPHA_GPDISP		6
-#define R_ALPHA_BRADDR		7
-#define R_ALPHA_HINT		8
-#define R_ALPHA_SREL16		9
-#define R_ALPHA_SREL32		10
-#define R_ALPHA_SREL64		11
-#define R_ALPHA_GPRELHIGH	17
-#define R_ALPHA_GPRELLOW	18
-#define R_ALPHA_GPREL16		19
-#define R_ALPHA_COPY		24
-#define R_ALPHA_GLOB_DAT	25
-#define R_ALPHA_JMP_SLOT	26
-#define R_ALPHA_RELATIVE	27
-#define R_ALPHA_TLS_GD_HI	28
-#define R_ALPHA_TLSGD		29
-#define R_ALPHA_TLS_LDM		30
-#define R_ALPHA_DTPMOD64	31
-#define R_ALPHA_GOTDTPREL	32
-#define R_ALPHA_DTPREL64	33
-#define R_ALPHA_DTPRELHI	34
-#define R_ALPHA_DTPRELLO	35
-#define R_ALPHA_DTPREL16	36
-#define R_ALPHA_GOTTPREL	37
-#define R_ALPHA_TPREL64		38
-#define R_ALPHA_TPRELHI		39
-#define R_ALPHA_TPRELLO		40
-#define R_ALPHA_TPREL16		41
-
-#define R_ALPHA_NUM		46
-
-
-#define LITUSE_ALPHA_ADDR	0
-#define LITUSE_ALPHA_BASE	1
-#define LITUSE_ALPHA_BYTOFF	2
-#define LITUSE_ALPHA_JSR	3
-#define LITUSE_ALPHA_TLS_GD	4
-#define LITUSE_ALPHA_TLS_LDM	5
-
-
-#define DT_ALPHA_PLTRO		(DT_LOPROC + 0)
-#define DT_ALPHA_NUM		1
-
-
-
-
-#define EF_PPC_EMB		0x80000000
-
-
-#define EF_PPC_RELOCATABLE	0x00010000
-#define EF_PPC_RELOCATABLE_LIB	0x00008000
-
-
-
-#define R_PPC_NONE		0
-#define R_PPC_ADDR32		1
-#define R_PPC_ADDR24		2
-#define R_PPC_ADDR16		3
-#define R_PPC_ADDR16_LO		4
-#define R_PPC_ADDR16_HI		5
-#define R_PPC_ADDR16_HA		6
-#define R_PPC_ADDR14		7
-#define R_PPC_ADDR14_BRTAKEN	8
-#define R_PPC_ADDR14_BRNTAKEN	9
-#define R_PPC_REL24		10
-#define R_PPC_REL14		11
-#define R_PPC_REL14_BRTAKEN	12
-#define R_PPC_REL14_BRNTAKEN	13
-#define R_PPC_GOT16		14
-#define R_PPC_GOT16_LO		15
-#define R_PPC_GOT16_HI		16
-#define R_PPC_GOT16_HA		17
-#define R_PPC_PLTREL24		18
-#define R_PPC_COPY		19
-#define R_PPC_GLOB_DAT		20
-#define R_PPC_JMP_SLOT		21
-#define R_PPC_RELATIVE		22
-#define R_PPC_LOCAL24PC		23
-#define R_PPC_UADDR32		24
-#define R_PPC_UADDR16		25
-#define R_PPC_REL32		26
-#define R_PPC_PLT32		27
-#define R_PPC_PLTREL32		28
-#define R_PPC_PLT16_LO		29
-#define R_PPC_PLT16_HI		30
-#define R_PPC_PLT16_HA		31
-#define R_PPC_SDAREL16		32
-#define R_PPC_SECTOFF		33
-#define R_PPC_SECTOFF_LO	34
-#define R_PPC_SECTOFF_HI	35
-#define R_PPC_SECTOFF_HA	36
-
-
-#define R_PPC_TLS		67
-#define R_PPC_DTPMOD32		68
-#define R_PPC_TPREL16		69
-#define R_PPC_TPREL16_LO	70
-#define R_PPC_TPREL16_HI	71
-#define R_PPC_TPREL16_HA	72
-#define R_PPC_TPREL32		73
-#define R_PPC_DTPREL16		74
-#define R_PPC_DTPREL16_LO	75
-#define R_PPC_DTPREL16_HI	76
-#define R_PPC_DTPREL16_HA	77
-#define R_PPC_DTPREL32		78
-#define R_PPC_GOT_TLSGD16	79
-#define R_PPC_GOT_TLSGD16_LO	80
-#define R_PPC_GOT_TLSGD16_HI	81
-#define R_PPC_GOT_TLSGD16_HA	82
-#define R_PPC_GOT_TLSLD16	83
-#define R_PPC_GOT_TLSLD16_LO	84
-#define R_PPC_GOT_TLSLD16_HI	85
-#define R_PPC_GOT_TLSLD16_HA	86
-#define R_PPC_GOT_TPREL16	87
-#define R_PPC_GOT_TPREL16_LO	88
-#define R_PPC_GOT_TPREL16_HI	89
-#define R_PPC_GOT_TPREL16_HA	90
-#define R_PPC_GOT_DTPREL16	91
-#define R_PPC_GOT_DTPREL16_LO	92
-#define R_PPC_GOT_DTPREL16_HI	93
-#define R_PPC_GOT_DTPREL16_HA	94
-#define R_PPC_TLSGD		95
-#define R_PPC_TLSLD		96
-
-
-#define R_PPC_EMB_NADDR32	101
-#define R_PPC_EMB_NADDR16	102
-#define R_PPC_EMB_NADDR16_LO	103
-#define R_PPC_EMB_NADDR16_HI	104
-#define R_PPC_EMB_NADDR16_HA	105
-#define R_PPC_EMB_SDAI16	106
-#define R_PPC_EMB_SDA2I16	107
-#define R_PPC_EMB_SDA2REL	108
-#define R_PPC_EMB_SDA21		109
-#define R_PPC_EMB_MRKREF	110
-#define R_PPC_EMB_RELSEC16	111
-#define R_PPC_EMB_RELST_LO	112
-#define R_PPC_EMB_RELST_HI	113
-#define R_PPC_EMB_RELST_HA	114
-#define R_PPC_EMB_BIT_FLD	115
-#define R_PPC_EMB_RELSDA	116
-
-
-#define R_PPC_DIAB_SDA21_LO	180
-#define R_PPC_DIAB_SDA21_HI	181
-#define R_PPC_DIAB_SDA21_HA	182
-#define R_PPC_DIAB_RELSDA_LO	183
-#define R_PPC_DIAB_RELSDA_HI	184
-#define R_PPC_DIAB_RELSDA_HA	185
-
-
-#define R_PPC_IRELATIVE		248
-
-
-#define R_PPC_REL16		249
-#define R_PPC_REL16_LO		250
-#define R_PPC_REL16_HI		251
-#define R_PPC_REL16_HA		252
-
-
-
-#define R_PPC_TOC16		255
-
-
-#define DT_PPC_GOT		(DT_LOPROC + 0)
-#define DT_PPC_OPT		(DT_LOPROC + 1)
-#define DT_PPC_NUM		2
-
-#define PPC_OPT_TLS		1
-
-
-#define R_PPC64_NONE		R_PPC_NONE
-#define R_PPC64_ADDR32		R_PPC_ADDR32
-#define R_PPC64_ADDR24		R_PPC_ADDR24
-#define R_PPC64_ADDR16		R_PPC_ADDR16
-#define R_PPC64_ADDR16_LO	R_PPC_ADDR16_LO
-#define R_PPC64_ADDR16_HI	R_PPC_ADDR16_HI
-#define R_PPC64_ADDR16_HA	R_PPC_ADDR16_HA
-#define R_PPC64_ADDR14		R_PPC_ADDR14
-#define R_PPC64_ADDR14_BRTAKEN	R_PPC_ADDR14_BRTAKEN
-#define R_PPC64_ADDR14_BRNTAKEN	R_PPC_ADDR14_BRNTAKEN
-#define R_PPC64_REL24		R_PPC_REL24
-#define R_PPC64_REL14		R_PPC_REL14
-#define R_PPC64_REL14_BRTAKEN	R_PPC_REL14_BRTAKEN
-#define R_PPC64_REL14_BRNTAKEN	R_PPC_REL14_BRNTAKEN
-#define R_PPC64_GOT16		R_PPC_GOT16
-#define R_PPC64_GOT16_LO	R_PPC_GOT16_LO
-#define R_PPC64_GOT16_HI	R_PPC_GOT16_HI
-#define R_PPC64_GOT16_HA	R_PPC_GOT16_HA
-
-#define R_PPC64_COPY		R_PPC_COPY
-#define R_PPC64_GLOB_DAT	R_PPC_GLOB_DAT
-#define R_PPC64_JMP_SLOT	R_PPC_JMP_SLOT
-#define R_PPC64_RELATIVE	R_PPC_RELATIVE
-
-#define R_PPC64_UADDR32		R_PPC_UADDR32
-#define R_PPC64_UADDR16		R_PPC_UADDR16
-#define R_PPC64_REL32		R_PPC_REL32
-#define R_PPC64_PLT32		R_PPC_PLT32
-#define R_PPC64_PLTREL32	R_PPC_PLTREL32
-#define R_PPC64_PLT16_LO	R_PPC_PLT16_LO
-#define R_PPC64_PLT16_HI	R_PPC_PLT16_HI
-#define R_PPC64_PLT16_HA	R_PPC_PLT16_HA
-
-#define R_PPC64_SECTOFF		R_PPC_SECTOFF
-#define R_PPC64_SECTOFF_LO	R_PPC_SECTOFF_LO
-#define R_PPC64_SECTOFF_HI	R_PPC_SECTOFF_HI
-#define R_PPC64_SECTOFF_HA	R_PPC_SECTOFF_HA
-#define R_PPC64_ADDR30		37
-#define R_PPC64_ADDR64		38
-#define R_PPC64_ADDR16_HIGHER	39
-#define R_PPC64_ADDR16_HIGHERA	40
-#define R_PPC64_ADDR16_HIGHEST	41
-#define R_PPC64_ADDR16_HIGHESTA	42
-#define R_PPC64_UADDR64		43
-#define R_PPC64_REL64		44
-#define R_PPC64_PLT64		45
-#define R_PPC64_PLTREL64	46
-#define R_PPC64_TOC16		47
-#define R_PPC64_TOC16_LO	48
-#define R_PPC64_TOC16_HI	49
-#define R_PPC64_TOC16_HA	50
-#define R_PPC64_TOC		51
-#define R_PPC64_PLTGOT16	52
-#define R_PPC64_PLTGOT16_LO	53
-#define R_PPC64_PLTGOT16_HI	54
-#define R_PPC64_PLTGOT16_HA	55
-
-#define R_PPC64_ADDR16_DS	56
-#define R_PPC64_ADDR16_LO_DS	57
-#define R_PPC64_GOT16_DS	58
-#define R_PPC64_GOT16_LO_DS	59
-#define R_PPC64_PLT16_LO_DS	60
-#define R_PPC64_SECTOFF_DS	61
-#define R_PPC64_SECTOFF_LO_DS	62
-#define R_PPC64_TOC16_DS	63
-#define R_PPC64_TOC16_LO_DS	64
-#define R_PPC64_PLTGOT16_DS	65
-#define R_PPC64_PLTGOT16_LO_DS	66
-
-
-#define R_PPC64_TLS		67
-#define R_PPC64_DTPMOD64	68
-#define R_PPC64_TPREL16		69
-#define R_PPC64_TPREL16_LO	70
-#define R_PPC64_TPREL16_HI	71
-#define R_PPC64_TPREL16_HA	72
-#define R_PPC64_TPREL64		73
-#define R_PPC64_DTPREL16	74
-#define R_PPC64_DTPREL16_LO	75
-#define R_PPC64_DTPREL16_HI	76
-#define R_PPC64_DTPREL16_HA	77
-#define R_PPC64_DTPREL64	78
-#define R_PPC64_GOT_TLSGD16	79
-#define R_PPC64_GOT_TLSGD16_LO	80
-#define R_PPC64_GOT_TLSGD16_HI	81
-#define R_PPC64_GOT_TLSGD16_HA	82
-#define R_PPC64_GOT_TLSLD16	83
-#define R_PPC64_GOT_TLSLD16_LO	84
-#define R_PPC64_GOT_TLSLD16_HI	85
-#define R_PPC64_GOT_TLSLD16_HA	86
-#define R_PPC64_GOT_TPREL16_DS	87
-#define R_PPC64_GOT_TPREL16_LO_DS 88
-#define R_PPC64_GOT_TPREL16_HI	89
-#define R_PPC64_GOT_TPREL16_HA	90
-#define R_PPC64_GOT_DTPREL16_DS	91
-#define R_PPC64_GOT_DTPREL16_LO_DS 92
-#define R_PPC64_GOT_DTPREL16_HI	93
-#define R_PPC64_GOT_DTPREL16_HA	94
-#define R_PPC64_TPREL16_DS	95
-#define R_PPC64_TPREL16_LO_DS	96
-#define R_PPC64_TPREL16_HIGHER	97
-#define R_PPC64_TPREL16_HIGHERA	98
-#define R_PPC64_TPREL16_HIGHEST	99
-#define R_PPC64_TPREL16_HIGHESTA 100
-#define R_PPC64_DTPREL16_DS	101
-#define R_PPC64_DTPREL16_LO_DS	102
-#define R_PPC64_DTPREL16_HIGHER	103
-#define R_PPC64_DTPREL16_HIGHERA 104
-#define R_PPC64_DTPREL16_HIGHEST 105
-#define R_PPC64_DTPREL16_HIGHESTA 106
-#define R_PPC64_TLSGD		107
-#define R_PPC64_TLSLD		108
-#define R_PPC64_TOCSAVE		109
-#define R_PPC64_ADDR16_HIGH	110
-#define R_PPC64_ADDR16_HIGHA	111
-#define R_PPC64_TPREL16_HIGH	112
-#define R_PPC64_TPREL16_HIGHA	113
-#define R_PPC64_DTPREL16_HIGH	114
-#define R_PPC64_DTPREL16_HIGHA	115
-
-
-#define R_PPC64_JMP_IREL	247
-#define R_PPC64_IRELATIVE	248
-#define R_PPC64_REL16		249
-#define R_PPC64_REL16_LO	250
-#define R_PPC64_REL16_HI	251
-#define R_PPC64_REL16_HA	252
-
-#define EF_PPC64_ABI	3
-
-#define DT_PPC64_GLINK  (DT_LOPROC + 0)
-#define DT_PPC64_OPD	(DT_LOPROC + 1)
-#define DT_PPC64_OPDSZ	(DT_LOPROC + 2)
-#define DT_PPC64_OPT	(DT_LOPROC + 3)
-#define DT_PPC64_NUM	4
-
-#define PPC64_OPT_TLS		1
-#define PPC64_OPT_MULTI_TOC	2
-#define PPC64_OPT_LOCALENTRY	4
-
-#define STO_PPC64_LOCAL_BIT	5
-#define STO_PPC64_LOCAL_MASK	0xe0
-#define PPC64_LOCAL_ENTRY_OFFSET(x) (1 << (((x)&0xe0)>>5) & 0xfc)
 
 
 #define EF_ARM_RELEXEC		0x01
@@ -4424,187 +3399,6 @@ enum
 #define R_IA64_LTOFF_DTPREL22	0xba
 
 
-#define EF_SH_MACH_MASK		0x1f
-#define EF_SH_UNKNOWN		0x0
-#define EF_SH1			0x1
-#define EF_SH2			0x2
-#define EF_SH3			0x3
-#define EF_SH_DSP		0x4
-#define EF_SH3_DSP		0x5
-#define EF_SH4AL_DSP		0x6
-#define EF_SH3E			0x8
-#define EF_SH4			0x9
-#define EF_SH2E			0xb
-#define EF_SH4A			0xc
-#define EF_SH2A			0xd
-#define EF_SH4_NOFPU		0x10
-#define EF_SH4A_NOFPU		0x11
-#define EF_SH4_NOMMU_NOFPU	0x12
-#define EF_SH2A_NOFPU		0x13
-#define EF_SH3_NOMMU		0x14
-#define EF_SH2A_SH4_NOFPU	0x15
-#define EF_SH2A_SH3_NOFPU	0x16
-#define EF_SH2A_SH4		0x17
-#define EF_SH2A_SH3E		0x18
-
-#define	R_SH_NONE		0
-#define	R_SH_DIR32		1
-#define	R_SH_REL32		2
-#define	R_SH_DIR8WPN		3
-#define	R_SH_IND12W		4
-#define	R_SH_DIR8WPL		5
-#define	R_SH_DIR8WPZ		6
-#define	R_SH_DIR8BP		7
-#define	R_SH_DIR8W		8
-#define	R_SH_DIR8L		9
-#define	R_SH_SWITCH16		25
-#define	R_SH_SWITCH32		26
-#define	R_SH_USES		27
-#define	R_SH_COUNT		28
-#define	R_SH_ALIGN		29
-#define	R_SH_CODE		30
-#define	R_SH_DATA		31
-#define	R_SH_LABEL		32
-#define	R_SH_SWITCH8		33
-#define	R_SH_GNU_VTINHERIT	34
-#define	R_SH_GNU_VTENTRY	35
-#define	R_SH_TLS_GD_32		144
-#define	R_SH_TLS_LD_32		145
-#define	R_SH_TLS_LDO_32		146
-#define	R_SH_TLS_IE_32		147
-#define	R_SH_TLS_LE_32		148
-#define	R_SH_TLS_DTPMOD32	149
-#define	R_SH_TLS_DTPOFF32	150
-#define	R_SH_TLS_TPOFF32	151
-#define	R_SH_GOT32		160
-#define	R_SH_PLT32		161
-#define	R_SH_COPY		162
-#define	R_SH_GLOB_DAT		163
-#define	R_SH_JMP_SLOT		164
-#define	R_SH_RELATIVE		165
-#define	R_SH_GOTOFF		166
-#define	R_SH_GOTPC		167
-#define	R_SH_GOT20		201
-#define	R_SH_GOTOFF20		202
-#define	R_SH_GOTFUNCDESC	203
-#define	R_SH_GOTFUNCDEST20	204
-#define	R_SH_GOTOFFFUNCDESC	205
-#define	R_SH_GOTOFFFUNCDEST20	206
-#define	R_SH_FUNCDESC		207
-#define	R_SH_FUNCDESC_VALUE	208
-
-#define	R_SH_NUM		256
-
-
-
-#define R_390_NONE		0
-#define R_390_8			1
-#define R_390_12		2
-#define R_390_16		3
-#define R_390_32		4
-#define R_390_PC32		5
-#define R_390_GOT12		6
-#define R_390_GOT32		7
-#define R_390_PLT32		8
-#define R_390_COPY		9
-#define R_390_GLOB_DAT		10
-#define R_390_JMP_SLOT		11
-#define R_390_RELATIVE		12
-#define R_390_GOTOFF32		13
-#define R_390_GOTPC		14
-#define R_390_GOT16		15
-#define R_390_PC16		16
-#define R_390_PC16DBL		17
-#define R_390_PLT16DBL		18
-#define R_390_PC32DBL		19
-#define R_390_PLT32DBL		20
-#define R_390_GOTPCDBL		21
-#define R_390_64		22
-#define R_390_PC64		23
-#define R_390_GOT64		24
-#define R_390_PLT64		25
-#define R_390_GOTENT		26
-#define R_390_GOTOFF16		27
-#define R_390_GOTOFF64		28
-#define R_390_GOTPLT12		29
-#define R_390_GOTPLT16		30
-#define R_390_GOTPLT32		31
-#define R_390_GOTPLT64		32
-#define R_390_GOTPLTENT		33
-#define R_390_PLTOFF16		34
-#define R_390_PLTOFF32		35
-#define R_390_PLTOFF64		36
-#define R_390_TLS_LOAD		37
-#define R_390_TLS_GDCALL	38
-
-#define R_390_TLS_LDCALL	39
-
-#define R_390_TLS_GD32		40
-
-#define R_390_TLS_GD64		41
-
-#define R_390_TLS_GOTIE12	42
-
-#define R_390_TLS_GOTIE32	43
-
-#define R_390_TLS_GOTIE64	44
-
-#define R_390_TLS_LDM32		45
-
-#define R_390_TLS_LDM64		46
-
-#define R_390_TLS_IE32		47
-
-#define R_390_TLS_IE64		48
-
-#define R_390_TLS_IEENT		49
-
-#define R_390_TLS_LE32		50
-
-#define R_390_TLS_LE64		51
-
-#define R_390_TLS_LDO32		52
-
-#define R_390_TLS_LDO64		53
-
-#define R_390_TLS_DTPMOD	54
-#define R_390_TLS_DTPOFF	55
-#define R_390_TLS_TPOFF		56
-
-#define R_390_20		57
-#define R_390_GOT20		58
-#define R_390_GOTPLT20		59
-#define R_390_TLS_GOTIE20	60
-
-
-#define R_390_NUM		61
-
-
-
-#define R_CRIS_NONE		0
-#define R_CRIS_8		1
-#define R_CRIS_16		2
-#define R_CRIS_32		3
-#define R_CRIS_8_PCREL		4
-#define R_CRIS_16_PCREL		5
-#define R_CRIS_32_PCREL		6
-#define R_CRIS_GNU_VTINHERIT	7
-#define R_CRIS_GNU_VTENTRY	8
-#define R_CRIS_COPY		9
-#define R_CRIS_GLOB_DAT		10
-#define R_CRIS_JUMP_SLOT	11
-#define R_CRIS_RELATIVE		12
-#define R_CRIS_16_GOT		13
-#define R_CRIS_32_GOT		14
-#define R_CRIS_16_GOTPLT	15
-#define R_CRIS_32_GOTPLT	16
-#define R_CRIS_32_GOTREL	17
-#define R_CRIS_32_PLT_GOTREL	18
-#define R_CRIS_32_PLT_PCREL	19
-
-#define R_CRIS_NUM		20
-
-
 
 #define R_X86_64_NONE		0
 #define R_X86_64_64		1
@@ -4656,208 +3450,6 @@ enum
 #define R_X86_64_NUM		43
 
 
-
-#define R_MN10300_NONE		0
-#define R_MN10300_32		1
-#define R_MN10300_16		2
-#define R_MN10300_8		3
-#define R_MN10300_PCREL32	4
-#define R_MN10300_PCREL16	5
-#define R_MN10300_PCREL8	6
-#define R_MN10300_GNU_VTINHERIT	7
-#define R_MN10300_GNU_VTENTRY	8
-#define R_MN10300_24		9
-#define R_MN10300_GOTPC32	10
-#define R_MN10300_GOTPC16	11
-#define R_MN10300_GOTOFF32	12
-#define R_MN10300_GOTOFF24	13
-#define R_MN10300_GOTOFF16	14
-#define R_MN10300_PLT32		15
-#define R_MN10300_PLT16		16
-#define R_MN10300_GOT32		17
-#define R_MN10300_GOT24		18
-#define R_MN10300_GOT16		19
-#define R_MN10300_COPY		20
-#define R_MN10300_GLOB_DAT	21
-#define R_MN10300_JMP_SLOT	22
-#define R_MN10300_RELATIVE	23
-
-#define R_MN10300_NUM		24
-
-
-
-#define R_M32R_NONE		0
-#define R_M32R_16		1
-#define R_M32R_32		2
-#define R_M32R_24		3
-#define R_M32R_10_PCREL		4
-#define R_M32R_18_PCREL		5
-#define R_M32R_26_PCREL		6
-#define R_M32R_HI16_ULO		7
-#define R_M32R_HI16_SLO		8
-#define R_M32R_LO16		9
-#define R_M32R_SDA16		10
-#define R_M32R_GNU_VTINHERIT	11
-#define R_M32R_GNU_VTENTRY	12
-
-#define R_M32R_16_RELA		33
-#define R_M32R_32_RELA		34
-#define R_M32R_24_RELA		35
-#define R_M32R_10_PCREL_RELA	36
-#define R_M32R_18_PCREL_RELA	37
-#define R_M32R_26_PCREL_RELA	38
-#define R_M32R_HI16_ULO_RELA	39
-#define R_M32R_HI16_SLO_RELA	40
-#define R_M32R_LO16_RELA	41
-#define R_M32R_SDA16_RELA	42
-#define R_M32R_RELA_GNU_VTINHERIT	43
-#define R_M32R_RELA_GNU_VTENTRY	44
-#define R_M32R_REL32		45
-
-#define R_M32R_GOT24		48
-#define R_M32R_26_PLTREL	49
-#define R_M32R_COPY		50
-#define R_M32R_GLOB_DAT		51
-#define R_M32R_JMP_SLOT		52
-#define R_M32R_RELATIVE		53
-#define R_M32R_GOTOFF		54
-#define R_M32R_GOTPC24		55
-#define R_M32R_GOT16_HI_ULO	56
-
-#define R_M32R_GOT16_HI_SLO	57
-
-#define R_M32R_GOT16_LO		58
-#define R_M32R_GOTPC_HI_ULO	59
-
-#define R_M32R_GOTPC_HI_SLO	60
-
-#define R_M32R_GOTPC_LO		61
-
-#define R_M32R_GOTOFF_HI_ULO	62
-
-#define R_M32R_GOTOFF_HI_SLO	63
-
-#define R_M32R_GOTOFF_LO	64
-#define R_M32R_NUM		256
-
-#define R_MICROBLAZE_NONE 0
-#define R_MICROBLAZE_32 1
-#define R_MICROBLAZE_32_PCREL 2
-#define R_MICROBLAZE_64_PCREL 3
-#define R_MICROBLAZE_32_PCREL_LO 4
-#define R_MICROBLAZE_64 5
-#define R_MICROBLAZE_32_LO 6
-#define R_MICROBLAZE_SRO32 7
-#define R_MICROBLAZE_SRW32 8
-#define R_MICROBLAZE_64_NONE 9
-#define R_MICROBLAZE_32_SYM_OP_SYM 10
-#define R_MICROBLAZE_GNU_VTINHERIT 11
-#define R_MICROBLAZE_GNU_VTENTRY 12
-#define R_MICROBLAZE_GOTPC_64 13
-#define R_MICROBLAZE_GOT_64 14
-#define R_MICROBLAZE_PLT_64 15
-#define R_MICROBLAZE_REL 16
-#define R_MICROBLAZE_JUMP_SLOT 17
-#define R_MICROBLAZE_GLOB_DAT 18
-#define R_MICROBLAZE_GOTOFF_64 19
-#define R_MICROBLAZE_GOTOFF_32 20
-#define R_MICROBLAZE_COPY 21
-#define R_MICROBLAZE_TLS 22
-#define R_MICROBLAZE_TLSGD 23
-#define R_MICROBLAZE_TLSLD 24
-#define R_MICROBLAZE_TLSDTPMOD32 25
-#define R_MICROBLAZE_TLSDTPREL32 26
-#define R_MICROBLAZE_TLSDTPREL64 27
-#define R_MICROBLAZE_TLSGOTTPREL32 28
-#define R_MICROBLAZE_TLSTPREL32	 29
-
-#define DT_NIOS2_GP             0x70000002
-
-#define R_NIOS2_NONE		0
-#define R_NIOS2_S16		1
-#define R_NIOS2_U16		2
-#define R_NIOS2_PCREL16		3
-#define R_NIOS2_CALL26		4
-#define R_NIOS2_IMM5		5
-#define R_NIOS2_CACHE_OPX	6
-#define R_NIOS2_IMM6		7
-#define R_NIOS2_IMM8		8
-#define R_NIOS2_HI16		9
-#define R_NIOS2_LO16		10
-#define R_NIOS2_HIADJ16		11
-#define R_NIOS2_BFD_RELOC_32	12
-#define R_NIOS2_BFD_RELOC_16	13
-#define R_NIOS2_BFD_RELOC_8	14
-#define R_NIOS2_GPREL		15
-#define R_NIOS2_GNU_VTINHERIT	16
-#define R_NIOS2_GNU_VTENTRY	17
-#define R_NIOS2_UJMP		18
-#define R_NIOS2_CJMP		19
-#define R_NIOS2_CALLR		20
-#define R_NIOS2_ALIGN		21
-#define R_NIOS2_GOT16		22
-#define R_NIOS2_CALL16		23
-#define R_NIOS2_GOTOFF_LO	24
-#define R_NIOS2_GOTOFF_HA	25
-#define R_NIOS2_PCREL_LO	26
-#define R_NIOS2_PCREL_HA	27
-#define R_NIOS2_TLS_GD16	28
-#define R_NIOS2_TLS_LDM16	29
-#define R_NIOS2_TLS_LDO16	30
-#define R_NIOS2_TLS_IE16	31
-#define R_NIOS2_TLS_LE16	32
-#define R_NIOS2_TLS_DTPMOD	33
-#define R_NIOS2_TLS_DTPREL	34
-#define R_NIOS2_TLS_TPREL	35
-#define R_NIOS2_COPY		36
-#define R_NIOS2_GLOB_DAT	37
-#define R_NIOS2_JUMP_SLOT	38
-#define R_NIOS2_RELATIVE	39
-#define R_NIOS2_GOTOFF		40
-#define R_NIOS2_CALL26_NOAT	41
-#define R_NIOS2_GOT_LO		42
-#define R_NIOS2_GOT_HA		43
-#define R_NIOS2_CALL_LO		44
-#define R_NIOS2_CALL_HA		45
-
-#define R_OR1K_NONE		0
-#define R_OR1K_32		1
-#define R_OR1K_16		2
-#define R_OR1K_8		3
-#define R_OR1K_LO_16_IN_INSN	4
-#define R_OR1K_HI_16_IN_INSN	5
-#define R_OR1K_INSN_REL_26	6
-#define R_OR1K_GNU_VTENTRY	7
-#define R_OR1K_GNU_VTINHERIT	8
-#define R_OR1K_32_PCREL		9
-#define R_OR1K_16_PCREL		10
-#define R_OR1K_8_PCREL		11
-#define R_OR1K_GOTPC_HI16	12
-#define R_OR1K_GOTPC_LO16	13
-#define R_OR1K_GOT16		14
-#define R_OR1K_PLT26		15
-#define R_OR1K_GOTOFF_HI16	16
-#define R_OR1K_GOTOFF_LO16	17
-#define R_OR1K_COPY		18
-#define R_OR1K_GLOB_DAT		19
-#define R_OR1K_JMP_SLOT		20
-#define R_OR1K_RELATIVE		21
-#define R_OR1K_TLS_GD_HI16	22
-#define R_OR1K_TLS_GD_LO16	23
-#define R_OR1K_TLS_LDM_HI16	24
-#define R_OR1K_TLS_LDM_LO16	25
-#define R_OR1K_TLS_LDO_HI16	26
-#define R_OR1K_TLS_LDO_LO16	27
-#define R_OR1K_TLS_IE_HI16	28
-#define R_OR1K_TLS_IE_LO16	29
-#define R_OR1K_TLS_LE_HI16	30
-#define R_OR1K_TLS_LE_LO16	31
-#define R_OR1K_TLS_TPOFF	32
-#define R_OR1K_TLS_DTPOFF	33
-#define R_OR1K_TLS_DTPMOD	34
-
-#define R_BPF_NONE		0
-#define R_BPF_MAP_FD		1
 
 #ifdef __cplusplus
 }
@@ -8099,1426 +6691,1426 @@ DEF_syscall(time,1,unsigned int *a1 )
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
 /* --- generated-macros-start: syscalldefs --- */
-/* minilib/include/syscall_stubs.h, line: 116 */
-REAL_define_syscall(link,2, const char *a1,  const char *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 140 */
-REAL_define_syscall(setsid,0 )
-
-/* minilib/include/syscall_stubs.h, line: 180 */
-REAL_define_syscall(mknod,3, const char *a1,   umode_t a2,   unsigned a3) 
-
-/* minilib/include/syscall_stubs.h, line: 173 */
-REAL_define_syscall(getpgrp,0)
-
-/* minilib/include/syscall_stubs.h, line: 117 */
-REAL_define_syscall(symlink,2, const char *a1,   const char *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 129 */
-REAL_define_syscall(nanosleep,2, struct timespec *a1,  struct timespec *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 168 */
-REAL_define_syscall(chown,3, const char *a1,  uid_t a2,  gid_t a3) 
-
-/* minilib/include/syscall_stubs.h, line: 144 */
-REAL_define_syscall(vhangup,0 )
-
-/* minilib/include/syscall_stubs.h, line: 174 */
-REAL_define_syscall(brk,1, unsigned long a1) 
-
-/* minilib/include/syscall_stubs.h, line: 118 */
-REAL_define_syscall(sync,0)
-
-/* minilib/include/syscall_stubs.h, line: 157 */
-REAL_define_syscall(fcntl,3, unsigned int a1,  unsigned int a2,  unsigned long a3) 
-
-/* minilib/include/syscall_stubs.h, line: 170 */
-REAL_define_syscall(getppid,0)
+/* minilib/include/syscall_stubs.h, line: 101 */
+REAL_define_syscall(unlink,1, const char* a1) 		
 
 /* minilib/include/syscall_stubs.h, line: 104 */
 REAL_define_syscall(stat,2,const char* a1, struct stat* a2) 		
 
-/* minilib/include/syscall_stubs.h, line: 112 */
-REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
-
-/* minilib/include/syscall_stubs.h, line: 155 */
-REAL_define_syscall_noopt(wait4,4, pid_t a1,   int *a2,   int a3,   struct rusage *a4) 
-
-/* minilib/include/syscall_stubs.h, line: 172 */
-REAL_define_syscall(getgid,0)
-
-/* minilib/include/syscall_stubs.h, line: 108 */
-REAL_define_syscall(fchmod,2, unsigned int a1,  mode_t a2) 
-
-/* minilib/include/syscall_stubs.h, line: 182 */
-REAL_define_syscall(setitimer,3, int a1,   struct itimerval *a2,   struct itimerval *a3) 
-
-/* minilib/include/syscall_stubs.h, line: 167 */
-REAL_define_syscall(chmod,2, const char *a1,  mode_t a2) 
-
-/* minilib/include/syscall_stubs.h, line: 133 */
-REAL_define_syscall(rt_sigreturn,1, unsigned long a1) 
-
-/* minilib/include/syscall_stubs.h, line: 110 */
-REAL_define_syscall(dup,1,int a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 152 */
-REAL_define_syscall_noopt(execveat,5, int a1,  const char *a2,   char* const* a3,  char* const* a4,  int a5) 
-
-/* minilib/include/syscall_stubs.h, line: 147 */
-REAL_define_syscall(uname,1,struct old_utsname *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 105 */
-REAL_define_syscall(chdir,1,const char* a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 179 */
-REAL_define_syscall(getuid,0)
-
-/* minilib/include/syscall_stubs.h, line: 169 */
-REAL_define_syscall(utime,2, const char *a1,  struct utimbuf *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 177 */
-REAL_define_syscall(readahead,3, int a1,   loff_t a2,   size_t a3) 
-
-/* minilib/include/lseek.h, line: 19 */
-REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 135 */
-REAL_define_syscall(chroot,1, const char *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 101 */
-REAL_define_syscall(unlink,1, const char* a1) 		
-
-/* minilib/include/syscall_stubs.h, line: 166 */
-REAL_define_syscall(umask,1, int a1) 
-
-/* minilib/include/syscall_stubs.h, line: 145 */
-REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
-
-/* minilib/include/syscall_stubs.h, line: 95 */
-REAL_define_syscall(read, 3, int a1,  void *a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 154 */
-REAL_define_syscall(rmdir,1, const char *a1) 
-
-/* minilib/include/lseek.h, line: 17 */
-REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 183 */
-REAL_define_syscall(getitimer,2, int a1,   struct itimerval *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 141 */
-REAL_define_syscall(setgid,1, gid_t a1) 
-
-/* minilib/include/syscall_stubs.h, line: 176 */
-REAL_define_syscall_noopt(mount,5, char *a1,   char *a2,   char *a3,   unsigned long a4,   void *a5) 
-
-/* minilib/include/syscall_stubs.h, line: 153 */
-REAL_define_syscall(mkdir,2, const char *a1,  int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 159 */
-REAL_define_syscall(umount2,2, const char *a1,  int a2)  
-
-/* minilib/include/lseek.h, line: 20 */
-REAL_define_syscall(fsync,1,int a1) 
-
-/* minilib/include/syscall_stubs.h, line: 107 */
-REAL_define_syscall(fchown,3, unsigned int a1,  uid_t a2,  gid_t a3) 
-
-/* minilib/include/syscall_stubs.h, line: 175 */
-REAL_define_syscall_noopt(sendfile,4, int a1,   int a2,   off_t *a3,   size_t a4) 
-
-/* minilib/include/syscall_stubs.h, line: 185 */
-REAL_define_syscall_noopt(rt_sigprocmask,4, int a1,   sigset_t *a2,   sigset_t *a3,   size_t a4) 
-
-/* minilib/include/syscall_stubs.h, line: 156 */
-REAL_define_syscall(access,2, const char *a1,  int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 136 */
-REAL_define_syscall(pivot_root,2, const char *a1,   const char *a2) 
-
-/* minilib/include/syscall_stubs.h, line: 123 */
-REAL_define_syscall(kill,2, pid_t a1,   int a2) 
-
-/* minilib/include/syscall_stubs.h, line: 111 */
-REAL_define_syscall(dup2,2,int a1,  int a2) 		
-
-/* minilib/include/syscall_stubs.h, line: 126 */
-REAL_define_syscall(vfork,0)
-
-/* minilib/include/syscall_stubs.h, line: 178 */
-REAL_define_syscall_noopt(reboot,4, int a1,   int a2,   unsigned int a3,   void *a4) 
-
-/* minilib/include/syscall_stubs.h, line: 100 */
-REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
+/* minilib/include/syscall_stubs.h, line: 139 */
+REAL_define_syscall(getpid,0 )
 
 /* minilib/include/syscall_stubs.h, line: 188 */
 REAL_define_syscall(time,1,unsigned int *a1) 
 
-/* minilib/include/syscall_stubs.h, line: 139 */
-REAL_define_syscall(getpid,0 )
+/* minilib/include/syscall_stubs.h, line: 166 */
+REAL_define_syscall(umask,1, int a1) 
 
-/* minilib/include/syscall_stubs.h, line: 132 */
-REAL_define_syscall_noopt(rt_sigaction,4, int a1,   const struct sigaction *a2,   struct sigaction *a3,   size_t a4) 
+/* minilib/include/syscall_stubs.h, line: 173 */
+REAL_define_syscall(getpgrp,0)
 
-/* minilib/include/syscall_stubs.h, line: 96 */
-REAL_define_syscall(write,3,int a1, const void *a2,  int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 121 */
-REAL_define_syscall(execve,3, const char *a1,   char* const* a2,  char* const* a3) 
-
-/* minilib/include/syscall_stubs.h, line: 125 */
-REAL_define_syscall(fork,0)
-
-/* minilib/include/syscall_stubs.h, line: 165 */
-REAL_define_syscall(pipe,1, int *a1) 
-
-/* minilib/include/syscall_stubs.h, line: 98 */
-REAL_define_syscall(getdents, 3, unsigned int a1,  struct dirent *a2,  unsigned int a3) 
-
-/* minilib/include/syscall_stubs.h, line: 94 */
-REAL_define_syscall(close, 1, int a1) 
-
-/* minilib/include/syscall_stubs.h, line: 103 */
-REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
-
-/* minilib/include/syscall_stubs.h, line: 142 */
-REAL_define_syscall(setuid,1, uid_t a1) 
-
-/* minilib/include/syscall_stubs.h, line: 171 */
-REAL_define_syscall(setpgid,2, pid_t a1,  pid_t a2) 
+/* minilib/include/syscall_stubs.h, line: 105 */
+REAL_define_syscall(chdir,1,const char* a1) 		
 
 /* minilib/include/syscall_stubs.h, line: 130 */
 REAL_define_syscall(gettimeofday,2, struct timeval *a1,  struct timezone *a2) 
 
+/* minilib/include/lseek.h, line: 17 */
+REAL_define_syscall(lseek,3,unsigned int a1,  int a2,  int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 142 */
+REAL_define_syscall(setuid,1, uid_t a1) 
+
+/* minilib/include/syscall_stubs.h, line: 100 */
+REAL_define_syscall(rename,2, const char* a1,  const char* a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 129 */
+REAL_define_syscall(nanosleep,2, struct timespec *a1,  struct timespec *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 98 */
+REAL_define_syscall(getdents, 3, unsigned int a1,  struct dirent *a2,  unsigned int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 136 */
+REAL_define_syscall(pivot_root,2, const char *a1,   const char *a2) 
+
+/* minilib/include/lseek.h, line: 19 */
+REAL_define_syscall(ftruncate,2,unsigned int a1,  unsigned int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 121 */
+REAL_define_syscall(execve,3, const char *a1,   char* const* a2,  char* const* a3) 
+
+/* minilib/include/syscall_stubs.h, line: 116 */
+REAL_define_syscall(link,2, const char *a1,  const char *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 179 */
+REAL_define_syscall(getuid,0)
+
+/* minilib/include/syscall_stubs.h, line: 132 */
+REAL_define_syscall_noopt(rt_sigaction,4, int a1,   const struct sigaction *a2,   struct sigaction *a3,   size_t a4) 
+
+/* minilib/include/syscall_stubs.h, line: 117 */
+REAL_define_syscall(symlink,2, const char *a1,   const char *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 118 */
+REAL_define_syscall(sync,0)
+
+/* minilib/include/syscall_stubs.h, line: 174 */
+REAL_define_syscall(brk,1, unsigned long a1) 
+
+/* minilib/include/syscall_stubs.h, line: 108 */
+REAL_define_syscall(fchmod,2, unsigned int a1,  mode_t a2) 
+
+/* minilib/include/syscall_stubs.h, line: 107 */
+REAL_define_syscall(fchown,3, unsigned int a1,  uid_t a2,  gid_t a3) 
+
+/* minilib/include/syscall_stubs.h, line: 177 */
+REAL_define_syscall(readahead,3, int a1,   loff_t a2,   size_t a3) 
+
+/* minilib/include/syscall_stubs.h, line: 167 */
+REAL_define_syscall(chmod,2, const char *a1,  mode_t a2) 
+
+/* minilib/include/syscall_stubs.h, line: 154 */
+REAL_define_syscall(rmdir,1, const char *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 96 */
+REAL_define_syscall(write,3,int a1, const void *a2,  int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 144 */
+REAL_define_syscall(vhangup,0 )
+
+/* minilib/include/syscall_stubs.h, line: 156 */
+REAL_define_syscall(access,2, const char *a1,  int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 175 */
+REAL_define_syscall_noopt(sendfile,4, int a1,   int a2,   off_t *a3,   size_t a4) 
+
+/* minilib/include/syscall_stubs.h, line: 141 */
+REAL_define_syscall(setgid,1, gid_t a1) 
+
+/* minilib/include/syscall_stubs.h, line: 171 */
+REAL_define_syscall(setpgid,2, pid_t a1,  pid_t a2) 
+
+/* minilib/include/syscall_stubs.h, line: 103 */
+REAL_define_syscall(fstat,2,int a1, struct stat* a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 155 */
+REAL_define_syscall_noopt(wait4,4, pid_t a1,   int *a2,   int a3,   struct rusage *a4) 
+
+/* minilib/include/syscall_stubs.h, line: 140 */
+REAL_define_syscall(setsid,0 )
+
+/* minilib/include/syscall_stubs.h, line: 169 */
+REAL_define_syscall(utime,2, const char *a1,  struct utimbuf *a2) 
+
+/* minilib/include/syscall_stubs.h, line: 168 */
+REAL_define_syscall(chown,3, const char *a1,  uid_t a2,  gid_t a3) 
+
+/* minilib/include/syscall_stubs.h, line: 126 */
+REAL_define_syscall(vfork,0)
+
+/* minilib/include/syscall_stubs.h, line: 152 */
+REAL_define_syscall_noopt(execveat,5, int a1,  const char *a2,   char* const* a3,  char* const* a4,  int a5) 
+
+/* minilib/include/syscall_stubs.h, line: 182 */
+REAL_define_syscall(setitimer,3, int a1,   struct itimerval *a2,   struct itimerval *a3) 
+
+/* minilib/include/syscall_stubs.h, line: 123 */
+REAL_define_syscall(kill,2, pid_t a1,   int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 165 */
+REAL_define_syscall(pipe,1, int *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 112 */
+REAL_define_syscall(dup3,3,int a1,  int a2,  int a3) 		
+
+/* minilib/include/syscall_stubs.h, line: 145 */
+REAL_define_syscallret(mprotect, *a1, 3, POINTER *a1, POINTER a2, int a3)
+
+/* minilib/include/syscall_stubs.h, line: 180 */
+REAL_define_syscall(mknod,3, const char *a1,   umode_t a2,   unsigned a3) 
+
+/* minilib/include/lseek.h, line: 20 */
+REAL_define_syscall(fsync,1,int a1) 
+
+/* minilib/include/syscall_stubs.h, line: 157 */
+REAL_define_syscall(fcntl,3, unsigned int a1,  unsigned int a2,  unsigned long a3) 
+
+/* minilib/include/syscall_stubs.h, line: 135 */
+REAL_define_syscall(chroot,1, const char *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 125 */
+REAL_define_syscall(fork,0)
+
+/* minilib/include/syscall_stubs.h, line: 95 */
+REAL_define_syscall(read, 3, int a1,  void *a2,  int a3) 
+
+/* minilib/include/syscall_stubs.h, line: 185 */
+REAL_define_syscall_noopt(rt_sigprocmask,4, int a1,   sigset_t *a2,   sigset_t *a3,   size_t a4) 
+
+/* minilib/include/syscall_stubs.h, line: 170 */
+REAL_define_syscall(getppid,0)
+
+/* minilib/include/syscall_stubs.h, line: 176 */
+REAL_define_syscall_noopt(mount,5, char *a1,   char *a2,   char *a3,   unsigned long a4,   void *a5) 
+
+/* minilib/include/syscall_stubs.h, line: 159 */
+REAL_define_syscall(umount2,2, const char *a1,  int a2)  
+
+/* minilib/include/syscall_stubs.h, line: 183 */
+REAL_define_syscall(getitimer,2, int a1,   struct itimerval *a2) 
+
 /* minilib/include/syscall_stubs.h, line: 114 */
 REAL_define_syscall(getcwd,2, char *a1,   unsigned long a2) 
 
+/* minilib/include/syscall_stubs.h, line: 178 */
+REAL_define_syscall_noopt(reboot,4, int a1,   int a2,   unsigned int a3,   void *a4) 
+
+/* minilib/include/syscall_stubs.h, line: 133 */
+REAL_define_syscall(rt_sigreturn,1, unsigned long a1) 
+
+/* minilib/include/syscall_stubs.h, line: 153 */
+REAL_define_syscall(mkdir,2, const char *a1,  int a2) 
+
+/* minilib/include/syscall_stubs.h, line: 111 */
+REAL_define_syscall(dup2,2,int a1,  int a2) 		
+
+/* minilib/include/syscall_stubs.h, line: 172 */
+REAL_define_syscall(getgid,0)
+
+/* minilib/include/syscall_stubs.h, line: 110 */
+REAL_define_syscall(dup,1,int a1) 		
+
+/* minilib/include/syscall_stubs.h, line: 147 */
+REAL_define_syscall(uname,1,struct old_utsname *a1) 
+
+/* minilib/include/syscall_stubs.h, line: 94 */
+REAL_define_syscall(close, 1, int a1) 
+
 #ifdef mini_ksyscalls
-
-// minilib/include/syscalls_x64.h, line: 195
-// SYSDEF_syscall(_umask,1, int mask)
-SYSREAL_define_syscall(_umask,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 25
-// SYSDEF_syscall(_mprotect,3, unsigned long start,  size_t len,  unsigned long prot)
-SYSREAL_define_syscall(_mprotect,3, unsigned long a1,   size_t a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 381
-// SYSDEF_syscall(_lremovexattr,2, const char *pathname,  const char *name)
-SYSREAL_define_syscall(_lremovexattr,2, const char *a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 215
-// SYSDEF_syscall(_setuid,1, uid_t uid)
-SYSREAL_define_syscall(_setuid,1, uid_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 317
-// SYSDEF_syscall(_prctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
-SYSREAL_define_syscall_noopt(_prctl,5, int a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 461
-// SYSDEF_syscall(_mq_timedreceive,5, mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)
-SYSREAL_define_syscall_noopt(_mq_timedreceive,5, mqd_t a1,   char *a2,   size_t a3,   unsigned int *a4,   const struct timespec *a5) 
-
-// minilib/include/syscalls_x64.h, line: 435
-// SYSDEF_syscall(_clock_getres,2, const clockid_t which_clock,  struct timespec *tp)
-SYSREAL_define_syscall(_clock_getres,2, const clockid_t a1,   struct timespec *a2) 
-
-// minilib/include/syscalls_x64.h, line: 569
-// SYSDEF_syscall(_rt_tgsigqueueinfo,4, pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)
-SYSREAL_define_syscall_noopt(_rt_tgsigqueueinfo,4, pid_t a1,   pid_t a2,   int a3,   siginfo_t *a4) 
-
-// minilib/include/syscalls_x64.h, line: 339
-// SYSDEF_syscall(_swapoff,1, const char *specialfile)
-SYSREAL_define_syscall(_swapoff,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 123
-// SYSDEF_syscall(_execve,3, const char *filename,  const char *const argv[],  const char *const envp[])
-SYSREAL_define_syscall(_execve,3, const char *a1,   const char *const a2,   const char *const a3) 
-
-// minilib/include/syscalls_x64.h, line: 367
-// SYSDEF_syscall(_getxattr,4, const char *pathname,  const char *name,  void *value,  size_t size)
-SYSREAL_define_syscall_noopt(_getxattr,4, const char *a1,   const char *a2,   void *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 511
-// SYSDEF_syscall(_fchmodat,3, int dfd,  const char *filename,  mode_t mode)
-SYSREAL_define_syscall(_fchmodat,3, int a1,   const char *a2,   mode_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 17
-// SYSDEF_syscall(_lstat,2, const char *filename,  struct stat *statbuf)
-SYSREAL_define_syscall(_lstat,2, const char *a1,   struct stat *a2) 
-
-// minilib/include/syscalls_x64.h, line: 585
-// SYSDEF_syscall(_clock_adjtime,2, clockid_t which_clock,  struct timex *tx)
-SYSREAL_define_syscall(_clock_adjtime,2, clockid_t a1,   struct timex *a2) 
-
-// minilib/include/syscalls_x64.h, line: 61
-// SYSDEF_syscall(_madvise,3, unsigned long start,  size_t len_in,  int behavior)
-SYSREAL_define_syscall(_madvise,3, unsigned long a1,   size_t a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 501
-// SYSDEF_syscall(_unlinkat,3, int dfd,  const char *pathname,  int flag)
-SYSREAL_define_syscall(_unlinkat,3, int a1,   const char *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 303
-// SYSDEF_syscall(_munlock,2, unsigned long start,  size_t len)
-SYSREAL_define_syscall(_munlock,2, unsigned long a1,   size_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 5
-// SYSDEF_syscall(_read,3, unsigned int fd,  char *buf,  size_t count)
-SYSREAL_define_syscall(_read,3, unsigned int a1,   char *a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 423
-// SYSDEF_syscall(_timer_settime,4, timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)
-SYSREAL_define_syscall_noopt(_timer_settime,4, timer_t a1,   int a2,   const struct itimerspec *a3,   struct itimerspec *a4) 
-
-// minilib/include/syscalls_x64.h, line: 489
-// SYSDEF_syscall(_openat,4, int dfd,  const char *filename,  int flags,  int mode)
-SYSREAL_define_syscall_noopt(_openat,4, int a1,   const char *a2,   int a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 449
-// SYSDEF_syscall(_mbind,6, unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)
-SYSREAL_define_syscall_noopt(_mbind,6, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long *a4,   unsigned long a5,   unsigned a6) 
-
-// minilib/include/syscalls_x64.h, line: 413
-// SYSDEF_syscall(_set_tid_address,1, int *tidptr)
-SYSREAL_define_syscall(_set_tid_address,1, int *a1) 
-
-// minilib/include/syscalls_x64.h, line: 407
-// SYSDEF_syscall(_epoll_create,1, int size)
-SYSREAL_define_syscall(_epoll_create,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 533
-// SYSDEF_syscall(_move_pages,6, pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)
-SYSREAL_define_syscall_noopt(_move_pages,6, pid_t a1,   unsigned long a2,   const void *a3,  const int *a4,   int *a5,   int a6) 
-
-// minilib/include/syscalls_x64.h, line: 601
-// SYSDEF_syscall(_finit_module,3, int fd,  const char  *uargs,  int flags)
-SYSREAL_define_syscall(_finit_module,3, int a1,   const char  *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 129
-// SYSDEF_syscall(_kill,2, pid_t pid,  int sig)
-SYSREAL_define_syscall(_kill,2, pid_t a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 497
-// SYSDEF_syscall(_futimesat,3, int dfd,  const char *filename,  struct timeval *utimes)
-SYSREAL_define_syscall(_futimesat,3, int a1,   const char *a2,   struct timeval *a3) 
-
-// minilib/include/syscalls_x64.h, line: 249
-// SYSDEF_syscall(_setfsuid,1, uid_t uid)
-SYSREAL_define_syscall(_setfsuid,1, uid_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 589
-// SYSDEF_syscall(_sendmmsg,4, int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)
-SYSREAL_define_syscall_noopt(_sendmmsg,4, int a1,   struct mmsghdr *a2,   unsigned int a3,   unsigned int a4) 
-
-// minilib/include/syscalls_x64.h, line: 465
-// SYSDEF_syscall(_mq_getsetattr,3, mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)
-SYSREAL_define_syscall(_mq_getsetattr,3, mqd_t a1,   const struct mq_attr *a2,   struct mq_attr *a3) 
-
-// minilib/include/syscalls_x64.h, line: 167
-// SYSDEF_syscall(_fchdir,1, unsigned int fd)
-SYSREAL_define_syscall(_fchdir,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 27
-// SYSDEF_syscall(_munmap,2, unsigned long addr,  size_t len)
-SYSREAL_define_syscall(_munmap,2, unsigned long a1,   size_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 543
-// SYSDEF_syscall(_eventfd,1, unsigned int count)
-SYSREAL_define_syscall(_eventfd,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 221
-// SYSDEF_syscall(_getegid,0)
-SYSREAL_define_syscall(_getegid,0)
-
-// minilib/include/syscalls_x64.h, line: 409
-// SYSDEF_syscall(_remap_file_pages,5, unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_remap_file_pages,5, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 33
-// SYSDEF_syscall(_rt_sigprocmask,4, int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
-SYSREAL_define_syscall_noopt(_rt_sigprocmask,4, int a1,   sigset_t *a2,   sigset_t *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 175
-// SYSDEF_syscall(_creat,2, const char *pathname,  int mode)
-SYSREAL_define_syscall(_creat,2, const char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 267
-// SYSDEF_syscall(_sigaltstack,2, const stack_t *uss,  stack_t *uoss)
-SYSREAL_define_syscall(_sigaltstack,2, const stack_t *a1,   stack_t *a2) 
-
-// minilib/include/syscalls_x64.h, line: 297
-// SYSDEF_syscall(_sched_get_priority_min,1, int policy)
-SYSREAL_define_syscall(_sched_get_priority_min,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 125
-// SYSDEF_syscall(_exit,1, int error_code)
-SYSREAL_define_syscall(_exit,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 187
-// SYSDEF_syscall(_fchmod,2, unsigned int fd,  mode_t mode)
-SYSREAL_define_syscall(_fchmod,2, unsigned int a1,   mode_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 415
-// SYSDEF_syscall(_restart_syscall,0)
-SYSREAL_define_syscall(_restart_syscall,0)
-
-// minilib/include/syscalls_x64.h, line: 171
-// SYSDEF_syscall(_mkdir,2, const char *pathname,  int mode)
-SYSREAL_define_syscall(_mkdir,2, const char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 281
-// SYSDEF_syscall(_sysfs,3, int option,  unsigned long arg1,  unsigned long arg2)
-SYSREAL_define_syscall(_sysfs,3, int a1,   unsigned long a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 565
-// SYSDEF_syscall(_preadv,5, unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
-SYSREAL_define_syscall_noopt(_preadv,5, unsigned long a1,   const struct iovec *a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 179
-// SYSDEF_syscall(_unlink,1, const char *pathname)
-SYSREAL_define_syscall(_unlink,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 19
-// SYSDEF_syscall(_poll,3, struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)
-SYSREAL_define_syscall(_poll,3, struct poll_fd *a1,   unsigned int a2,   long a3) 
-
-// minilib/include/syscalls_x64.h, line: 225
-// SYSDEF_syscall(_getppid,0)
-SYSREAL_define_syscall(_getppid,0)
-
-// minilib/include/syscalls_x64.h, line: 153
-// SYSDEF_syscall(_fsync,1, unsigned int fd)
-SYSREAL_define_syscall(_fsync,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 199
-// SYSDEF_syscall(_getrlimit,2, unsigned int resource,  struct rlimit *rlim)
-SYSREAL_define_syscall(_getrlimit,2, unsigned int a1,   struct rlimit *a2) 
-
-// minilib/include/syscalls_x64.h, line: 463
-// SYSDEF_syscall(_mq_notify,2, mqd_t mqdes,  const struct sigevent *u_notification)
-SYSREAL_define_syscall(_mq_notify,2, mqd_t a1,   const struct sigevent *a2) 
-
-// minilib/include/syscalls_x64.h, line: 459
-// SYSDEF_syscall(_mq_timedsend,5, mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)
-SYSREAL_define_syscall_noopt(_mq_timedsend,5, mqd_t a1,   const char *a2,   size_t a3,   unsigned int a4,   const struct timespec *a5) 
-
-// minilib/include/syscalls_x64.h, line: 251
-// SYSDEF_syscall(_setfsgid,1, gid_t gid)
-SYSREAL_define_syscall(_setfsgid,1, gid_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 269
-// SYSDEF_syscall(_utime,2, char *filename,  struct utimbuf *times)
-SYSREAL_define_syscall(_utime,2, char *a1,   struct utimbuf *a2) 
-
-// minilib/include/syscalls_x64.h, line: 559
-// SYSDEF_syscall(_dup3,3, unsigned int oldfd,  unsigned int newfd,  int flags)
-SYSREAL_define_syscall(_dup3,3, unsigned int a1,   unsigned int a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 285
-// SYSDEF_syscall(_setpriority,3, int which,  int who,  int niceval)
-SYSREAL_define_syscall(_setpriority,3, int a1,   int a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 299
-// SYSDEF_syscall(_sched_rr_get_interval,2, pid_t pid,  struct timespec *interval)
-SYSREAL_define_syscall(_sched_rr_get_interval,2, pid_t a1,   struct timespec *a2) 
-
-// minilib/include/syscalls_x64.h, line: 603
-// SYSDEF_syscall(_sched_setattr,3, pid_t pid,  struct sched_attr  *attr,  unsigned int flags)
-SYSREAL_define_syscall(_sched_setattr,3, pid_t a1,   struct sched_attr  *a2,   unsigned int a3) 
-
-// minilib/include/syscalls_x64.h, line: 615
-// SYSDEF_syscall(_kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_kexec_file_load,5, int a1,   int a2,   unsigned long a3,   const char  *a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 103
-// SYSDEF_syscall(_bind,3, int fd,  struct sockaddr *umyaddr,  int addrlen)
-SYSREAL_define_syscall(_bind,3, int a1,   struct sockaddr *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 263
-// SYSDEF_syscall(_rt_sigqueueinfo,3, pid_t pid,  int sig,  siginfo_t *uinfo)
-SYSREAL_define_syscall(_rt_sigqueueinfo,3, pid_t a1,   int a2,   siginfo_t *a3) 
-
-// minilib/include/syscalls_x64.h, line: 265
-// SYSDEF_syscall(_rt_sigsuspend,2, sigset_t *unewset,  size_t sigsetsize)
-SYSREAL_define_syscall(_rt_sigsuspend,2, sigset_t *a1,   size_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 141
-// SYSDEF_syscall(_msgget,2, key_t key,  int msgflg)
-SYSREAL_define_syscall(_msgget,2, key_t a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 467
-// SYSDEF_syscall(_kexec_load,4, unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_kexec_load,4, unsigned long a1,   unsigned long a2,   struct kexec_segment *a3,   unsigned long a4) 
-
-// minilib/include/syscalls_x64.h, line: 481
-// SYSDEF_syscall(_inotify_init,0)
-SYSREAL_define_syscall(_inotify_init,0)
-
-// minilib/include/syscalls_x64.h, line: 13
-// SYSDEF_syscall(_stat,2, const char *filename,  struct stat *statbuf)
-SYSREAL_define_syscall(_stat,2, const char *a1,   struct stat *a2) 
-
-// minilib/include/syscalls_x64.h, line: 453
-// SYSDEF_syscall(_get_mempolicy,5, int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_get_mempolicy,5, int *a1,   unsigned long *a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 307
-// SYSDEF_syscall(_munlockall,0)
-SYSREAL_define_syscall(_munlockall,0)
-
-// minilib/include/syscalls_x64.h, line: 593
-// SYSDEF_syscall(_getcpu,3, unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)
-SYSREAL_define_syscall(_getcpu,3, unsigned *a1,   unsigned *a2,   struct getcpu_cache *a3) 
-
-// minilib/include/syscalls_x64.h, line: 161
-// SYSDEF_syscall(_getdents,3, unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)
-SYSREAL_define_syscall(_getdents,3, unsigned int a1,   struct linux_dirent *a2,   unsigned int a3) 
-
-// minilib/include/syscalls_x64.h, line: 115
-// SYSDEF_syscall(_getsockopt,5, int fd,  int level,  int optname,  char *optval,  int *optlen)
-SYSREAL_define_syscall_noopt(_getsockopt,5, int a1,   int a2,   int a3,   char *a4,   int *a5) 
-
-// minilib/include/syscalls_x64.h, line: 369
-// SYSDEF_syscall(_lgetxattr,4, const char *pathname,  const char *name,  void *value,  size_t size)
-SYSREAL_define_syscall_noopt(_lgetxattr,4, const char *a1,   const char *a2,   void *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 45
-// SYSDEF_syscall(_writev,3, unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
-SYSREAL_define_syscall(_writev,3, unsigned long a1,   const struct iovec *a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 331
-// SYSDEF_syscall(_settimeofday,2, struct timeval *tv,  struct timezone *tz)
-SYSREAL_define_syscall(_settimeofday,2, struct timeval *a1,   struct timezone *a2) 
-
-// minilib/include/syscalls_x64.h, line: 361
-// SYSDEF_syscall(_setxattr,5, const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
-SYSREAL_define_syscall_noopt(_setxattr,5, const char *a1,   const char *a2,   const void *a3,  size_t a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 349
-// SYSDEF_syscall(_ioperm,3, unsigned long from,  unsigned long num,  int turn_on)
-SYSREAL_define_syscall(_ioperm,3, unsigned long a1,   unsigned long a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 607
-// SYSDEF_syscall(_renameat2,5, int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)
-SYSREAL_define_syscall_noopt(_renameat2,5, int a1,   const char  *a2,   int a3,   const char  *a4,   unsigned int a5) 
-
-// minilib/include/syscalls_x64.h, line: 209
-// SYSDEF_syscall(_getuid,0)
-SYSREAL_define_syscall(_getuid,0)
-
-// minilib/include/syscalls_x64.h, line: 111
-// SYSDEF_syscall(_socketpair,4, int family,  int type,  int protocol,  int *usockvec)
-SYSREAL_define_syscall_noopt(_socketpair,4, int a1,   int a2,   int a3,   int *a4) 
-
-// minilib/include/syscalls_x64.h, line: 429
-// SYSDEF_syscall(_timer_delete,1, timer_t timer_id)
-SYSREAL_define_syscall(_timer_delete,1, timer_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 385
-// SYSDEF_syscall(_tkill,2, pid_t pid,  int sig)
-SYSREAL_define_syscall(_tkill,2, pid_t a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 35
-// SYSDEF_syscall(_rt_sigreturn,1, unsigned long __unused)
-SYSREAL_define_syscall(_rt_sigreturn,1, unsigned long a1) 
-
-// minilib/include/syscalls_x64.h, line: 513
-// SYSDEF_syscall(_faccessat,3, int dfd,  const char *filename,  int mode)
-SYSREAL_define_syscall(_faccessat,3, int a1,   const char *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 347
-// SYSDEF_syscall(_iopl,2, unsigned int level,  struct pt_regs *regs)
-SYSREAL_define_syscall(_iopl,2, unsigned int a1,   struct pt_regs *a2) 
-
-// minilib/include/syscalls_x64.h, line: 493
-// SYSDEF_syscall(_mknodat,4, int dfd,  const char *filename,  int mode,  unsigned dev)
-SYSREAL_define_syscall_noopt(_mknodat,4, int a1,   const char *a2,   int a3,   unsigned a4) 
-
-// minilib/include/syscalls_x64.h, line: 433
-// SYSDEF_syscall(_clock_gettime,2, const clockid_t which_clock,  struct timespec *tp)
-SYSREAL_define_syscall(_clock_gettime,2, const clockid_t a1,   struct timespec *a2) 
-
-// minilib/include/syscalls_x64.h, line: 311
-// SYSDEF_syscall(_modify_ldt,3, int func,  void *ptr,  unsigned long bytecount)
-SYSREAL_define_syscall(_modify_ldt,3, int a1,   void *a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 575
-// SYSDEF_syscall(_fanotify_init,2, unsigned int flags,  unsigned int event_f_flags)
-SYSREAL_define_syscall(_fanotify_init,2, unsigned int a1,   unsigned int a2) 
-
-// minilib/include/syscalls_x64.h, line: 505
-// SYSDEF_syscall(_linkat,5, int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)
-SYSREAL_define_syscall_noopt(_linkat,5, int a1,   const char *a2,   int a3,   const char *a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 457
-// SYSDEF_syscall(_mq_unlink,1, const char *u_name)
-SYSREAL_define_syscall(_mq_unlink,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 193
-// SYSDEF_syscall(_lchown,3, const char *filename,  uid_t user,  gid_t group)
-SYSREAL_define_syscall(_lchown,3, const char *a1,   uid_t a2,   gid_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 393
-// SYSDEF_syscall(_sched_getaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
-SYSREAL_define_syscall(_sched_getaffinity,3, pid_t a1,   unsigned int a2,   unsigned long *a3) 
-
-// minilib/include/syscalls_x64.h, line: 137
-// SYSDEF_syscall(_semctl,4, int semid,  int semnum,  int cmd,  semun_u arg)
-SYSREAL_define_syscall_noopt(_semctl,4, int a1,   int a2,   int a3,   semun_u a4) 
-
-// minilib/include/syscalls_x64.h, line: 597
-// SYSDEF_syscall(_process_vm_writev,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_process_vm_writev,6, pid_t a1,   const struct iovec *a2,   unsigned long a3,   const struct iovcc *a4,   unsigned long a5,   unsigned long a6) 
-
-// minilib/include/syscalls_x64.h, line: 581
-// SYSDEF_syscall(_name_to_handle_at,5, int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)
-SYSREAL_define_syscall_noopt(_name_to_handle_at,5, int a1,   const char *a2,   struct file_handle *a3,   int *a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 93
-// SYSDEF_syscall(_sendto,6, int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)
-SYSREAL_define_syscall_noopt(_sendto,6, int a1,   void *a2,   size_t a3,   unsigned a4,   struct sockaddr *a5,   int a6) 
-
-// minilib/include/syscalls_x64.h, line: 63
-// SYSDEF_syscall(_shmget,3, key_t key,  size_t size,  int shmflg)
-SYSREAL_define_syscall(_shmget,3, key_t a1,   size_t a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 325
-// SYSDEF_syscall(_chroot,1, const char *filename)
-SYSREAL_define_syscall(_chroot,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 357
-// SYSDEF_syscall(_gettid,0)
-SYSREAL_define_syscall(_gettid,0)
-
-// minilib/include/syscalls_x64.h, line: 591
-// SYSDEF_syscall(_setns,2, int fd,  int nstype)
-SYSREAL_define_syscall(_setns,2, int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 157
-// SYSDEF_syscall(_truncate,2, const char *path,  long length)
-SYSREAL_define_syscall(_truncate,2, const char *a1,   long a2) 
-
-// minilib/include/syscalls_x64.h, line: 73
-// SYSDEF_syscall(_pause,0)
-SYSREAL_define_syscall(_pause,0)
-
-// minilib/include/syscalls_x64.h, line: 7
-// SYSDEF_syscall(_write,3, unsigned int fd,  const char *buf,  size_t count)
-SYSREAL_define_syscall(_write,3, unsigned int a1,   const char *a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 353
-// SYSDEF_syscall(_delete_module,2, const char *name_user,  unsigned int flags)
-SYSREAL_define_syscall(_delete_module,2, const char *a1,   unsigned int a2) 
-
-// minilib/include/syscalls_x64.h, line: 557
-// SYSDEF_syscall(_epoll_create1,1, int flags)
-SYSREAL_define_syscall(_epoll_create1,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 571
-// SYSDEF_syscall(_perf_event_open,5, struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_perf_event_open,5, struct perf_event_attr *a1,   pid_t a2,   int a3,   int a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 59
-// SYSDEF_syscall(_mincore,3, unsigned long start,  size_t len,  unsigned char *vec)
-SYSREAL_define_syscall(_mincore,3, unsigned long a1,   size_t a2,   unsigned char *a3) 
-
-// minilib/include/syscalls_x64.h, line: 189
-// SYSDEF_syscall(_chown,3, const char *filename,  uid_t user,  gid_t group)
-SYSREAL_define_syscall(_chown,3, const char *a1,   uid_t a2,   gid_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 405
-// SYSDEF_syscall(_lookup_dcookie,3, u64 cookie64,  long buf,  long len)
-SYSREAL_define_syscall(_lookup_dcookie,3, u64 a1,   long a2,   long a3) 
-
-// minilib/include/syscalls_x64.h, line: 395
-// SYSDEF_syscall(_io_setup,2, unsigned nr_events,  aio_context_t *ctxp)
-SYSREAL_define_syscall(_io_setup,2, unsigned a1,   aio_context_t *a2) 
-
-// minilib/include/syscalls_x64.h, line: 375
-// SYSDEF_syscall(_llistxattr,3, const char *pathname,  char *list,  size_t size)
-SYSREAL_define_syscall(_llistxattr,3, const char *a1,   char *a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 469
-// SYSDEF_syscall(_waitid,5, int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)
-SYSREAL_define_syscall_noopt(_waitid,5, int a1,   pid_t a2,   struct siginfo *a3,   int a4,   struct rusage *a5) 
-
-// minilib/include/syscalls_x64.h, line: 275
-// SYSDEF_syscall(_ustat,2, unsigned dev,  struct ustat *ubuf)
-SYSREAL_define_syscall(_ustat,2, unsigned a1,   struct ustat *a2) 
-
-// minilib/include/syscalls_x64.h, line: 277
-// SYSDEF_syscall(_statfs,2, const char *pathname,  struct statfs *buf)
-SYSREAL_define_syscall(_statfs,2, const char *a1,   struct statfs *a2) 
-
-// minilib/include/syscalls_x64.h, line: 365
-// SYSDEF_syscall(_fsetxattr,5, int fd,  const char *name,  const void *value,  size_t size, int flags)
-SYSREAL_define_syscall_noopt(_fsetxattr,5, int a1,   const char *a2,   const void *a3,   size_t a4,  int a5) 
-
-// minilib/include/syscalls_x64.h, line: 499
-// SYSDEF_syscall(_newfstatat,4, int dfd,  const char *filename,  struct stat *statbuf,  int flag)
-SYSREAL_define_syscall_noopt(_newfstatat,4, int a1,   const char *a2,   struct stat *a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 287
-// SYSDEF_syscall(_sched_setparam,2, pid_t pid,  struct sched_param *param)
-SYSREAL_define_syscall(_sched_setparam,2, pid_t a1,   struct sched_param *a2) 
-
-// minilib/include/syscalls_x64.h, line: 313
-// SYSDEF_syscall(_pivot_root,2, const char *new_root,  const char *put_old)
-SYSREAL_define_syscall(_pivot_root,2, const char *a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 283
-// SYSDEF_syscall(_getpriority,2, int which,  int who)
-SYSREAL_define_syscall(_getpriority,2, int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 159
-// SYSDEF_syscall(_ftruncate,2, unsigned int fd,  unsigned long length)
-SYSREAL_define_syscall(_ftruncate,2, unsigned int a1,   unsigned long a2) 
-
-// minilib/include/syscalls_x64.h, line: 545
-// SYSDEF_syscall(_fallocate,4, long fd,  long mode,  loff_t offset,  loff_t len)
-SYSREAL_define_syscall_noopt(_fallocate,4, long a1,   long a2,   loff_t a3,   loff_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 345
-// SYSDEF_syscall(_setdomainname,2, char *name,  int len)
-SYSREAL_define_syscall(_setdomainname,2, char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 29
-// SYSDEF_syscall(_brk,1, unsigned long brk)
-SYSREAL_define_syscall(_brk,1, unsigned long a1) 
-
-// minilib/include/syscalls_x64.h, line: 181
-// SYSDEF_syscall(_symlink,2, const char *oldname,  const char *newname)
-SYSREAL_define_syscall(_symlink,2, const char *a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 323
-// SYSDEF_syscall(_setrlimit,2, unsigned int resource,  struct rlimit *rlim)
-SYSREAL_define_syscall(_setrlimit,2, unsigned int a1,   struct rlimit *a2) 
-
-// minilib/include/syscalls_x64.h, line: 31
-// SYSDEF_syscall(_rt_sigaction,4, int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
-SYSREAL_define_syscall_noopt(_rt_sigaction,4, int a1,   const struct sigaction *a2,   struct sigaction *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 451
-// SYSDEF_syscall(_set_mempolicy,3, int mode,  unsigned long *nmask,  unsigned long maxnode)
-SYSREAL_define_syscall(_set_mempolicy,3, int a1,   unsigned long *a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 579
-// SYSDEF_syscall(_prlimit64,4, pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)
-SYSREAL_define_syscall_noopt(_prlimit64,4, pid_t a1,   unsigned int a2,   const struct rlimit64 *a3,   struct rlimit64 *a4) 
-
-// minilib/include/syscalls_x64.h, line: 121
-// SYSDEF_syscall(_vfork,0)
-SYSREAL_define_syscall(_vfork,0)
-
-// minilib/include/syscalls_x64.h, line: 293
-// SYSDEF_syscall(_sched_getscheduler,1, pid_t pid)
-SYSREAL_define_syscall(_sched_getscheduler,1, pid_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 373
-// SYSDEF_syscall(_listxattr,3, const char *pathname,  char *list,  size_t size)
-SYSREAL_define_syscall(_listxattr,3, const char *a1,   char *a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 309
-// SYSDEF_syscall(_vhangup,0)
-SYSREAL_define_syscall(_vhangup,0)
-
-// minilib/include/syscalls_x64.h, line: 273
-// SYSDEF_syscall(_personality,1, unsigned int personality)
-SYSREAL_define_syscall(_personality,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 515
-// SYSDEF_syscall(_pselect6,6, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)
-SYSREAL_define_syscall_noopt(_pselect6,6, int a1,   fd_set *a2,   fd_set *a3,   fd_set *a4,   struct timespec *a5,   void *a6) 
-
-// minilib/include/syscalls_x64.h, line: 97
-// SYSDEF_syscall(_sendmsg,3, int fd,  struct msghdr *msg,  unsigned flags)
-SYSREAL_define_syscall(_sendmsg,3, int a1,   struct msghdr *a2,   unsigned a3) 
-
-// minilib/include/syscalls_x64.h, line: 47
-// SYSDEF_syscall(_access,2, const char *filename,  int mode)
-SYSREAL_define_syscall(_access,2, const char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 65
-// SYSDEF_syscall(_shmat,3, int shmid,  char *shmaddr,  int shmflg)
-SYSREAL_define_syscall(_shmat,3, int a1,   char *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 417
-// SYSDEF_syscall(_semtimedop,4, int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)
-SYSREAL_define_syscall_noopt(_semtimedop,4, int a1,   struct sembuf *a2,   unsigned a3,   const struct timespec *a4) 
-
-// minilib/include/syscalls_x64.h, line: 197
-// SYSDEF_syscall(_gettimeofday,2, struct timeval *tv,  struct timezone *tz)
-SYSREAL_define_syscall(_gettimeofday,2, struct timeval *a1,   struct timezone *a2) 
-
-// minilib/include/syscalls_x64.h, line: 201
-// SYSDEF_syscall(_getrusage,2, int who,  struct rusage *ru)
-SYSREAL_define_syscall(_getrusage,2, int a1,   struct rusage *a2) 
-
-// minilib/include/syscalls_x64.h, line: 101
-// SYSDEF_syscall(_shutdown,2, int fd,  int how)
-SYSREAL_define_syscall(_shutdown,2, int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 301
-// SYSDEF_syscall(_mlock,2, unsigned long start,  size_t len)
-SYSREAL_define_syscall(_mlock,2, unsigned long a1,   size_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 479
-// SYSDEF_syscall(_ioprio_get,2, int which,  int who)
-SYSREAL_define_syscall(_ioprio_get,2, int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 75
-// SYSDEF_syscall(_nanosleep,2, struct timespec *rqtp,  struct timespec *rmtp)
-SYSREAL_define_syscall(_nanosleep,2, struct timespec *a1,   struct timespec *a2) 
-
-// minilib/include/syscalls_x64.h, line: 343
-// SYSDEF_syscall(_sethostname,2, char *name,  int len)
-SYSREAL_define_syscall(_sethostname,2, char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 563
-// SYSDEF_syscall(_inotify_init1,1, int flags)
-SYSREAL_define_syscall(_inotify_init1,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 113
-// SYSDEF_syscall(_setsockopt,5, int fd,  int level,  int optname,  char *optval,  int optlen)
-SYSREAL_define_syscall_noopt(_setsockopt,5, int a1,   int a2,   int a3,   char *a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 87
-// SYSDEF_syscall(_socket,3, int family,  int type,  int protocol)
-SYSREAL_define_syscall(_socket,3, int a1,   int a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 595
-// SYSDEF_syscall(_process_vm_readv,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)
-SYSREAL_define_syscall_noopt(_process_vm_readv,6, pid_t a1,   const struct iovec *a2,   unsigned long a3,   const struct iovec *a4,   unsigned long a5,   unsigned long a6) 
-
-// minilib/include/syscalls_x64.h, line: 139
-// SYSDEF_syscall(_shmdt,1, char *shmaddr)
-SYSREAL_define_syscall(_shmdt,1, char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 441
-// SYSDEF_syscall(_epoll_wait,4, int epfd,  struct epoll_event *events,  int maxevents,  int timeout)
-SYSREAL_define_syscall_noopt(_epoll_wait,4, int a1,   struct epoll_event *a2,   int a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 127
-// SYSDEF_syscall(_wait4,4, pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
-SYSREAL_define_syscall_noopt(_wait4,4, pid_t a1,   int *a2,   int a3,   struct rusage *a4) 
-
-// minilib/include/syscalls_x64.h, line: 185
-// SYSDEF_syscall(_chmod,2, const char *filename,  mode_t mode)
-SYSREAL_define_syscall(_chmod,2, const char *a1,   mode_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 553
-// SYSDEF_syscall(_signalfd4,4, int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)
-SYSREAL_define_syscall_noopt(_signalfd4,4, int a1,   sigset_t *a2,   size_t a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 523
-// SYSDEF_syscall(_get_robust_list,3, int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)
-SYSREAL_define_syscall(_get_robust_list,3, int a1,   struct robust_list_head **a2,   size_t *a3) 
-
-// minilib/include/syscalls_x64.h, line: 389
-// SYSDEF_syscall(_futex,6, u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)
-SYSREAL_define_syscall_noopt(_futex,6, u32 *a1,   int a2,   u32 a3,   struct timespec *a4,   u32 *a5,   u32 a6) 
-
-// minilib/include/syscalls_x64.h, line: 203
-// SYSDEF_syscall(_sysinfo,1, struct sysinfo *info)
-SYSREAL_define_syscall(_sysinfo,1, struct sysinfo *a1) 
-
-// minilib/include/syscalls_x64.h, line: 223
-// SYSDEF_syscall(_setpgid,2, pid_t pid,  pid_t pgid)
-SYSREAL_define_syscall(_setpgid,2, pid_t a1,   pid_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 431
-// SYSDEF_syscall(_clock_settime,2, const clockid_t which_clock,  const struct timespec *tp)
-SYSREAL_define_syscall(_clock_settime,2, const clockid_t a1,   const struct timespec *a2) 
-
-// minilib/include/syscalls_x64.h, line: 355
-// SYSDEF_syscall(_quotactl,4, unsigned int cmd,  const char *special,  qid_t id,  void *addr)
-SYSREAL_define_syscall_noopt(_quotactl,4, unsigned int a1,   const char *a2,   qid_t a3,   void *a4) 
-
-// minilib/include/syscalls_x64.h, line: 163
-// SYSDEF_syscall(_getcwd,2, char *buf,  unsigned long size)
-SYSREAL_define_syscall(_getcwd,2, char *a1,   unsigned long a2) 
-
-// minilib/include/syscalls_x64.h, line: 105
-// SYSDEF_syscall(_listen,2, int fd,  int backlog)
-SYSREAL_define_syscall(_listen,2, int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 253
-// SYSDEF_syscall(_getsid,1, pid_t pid)
-SYSREAL_define_syscall(_getsid,1, pid_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 541
-// SYSDEF_syscall(_timerfd_create,2, int clockid,  int flags)
-SYSREAL_define_syscall(_timerfd_create,2, int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 239
-// SYSDEF_syscall(_setresuid,3, uid_t *ruid,  uid_t *euid,  uid_t *suid)
-SYSREAL_define_syscall(_setresuid,3, uid_t *a1,   uid_t *a2,   uid_t *a3) 
-
-// minilib/include/syscalls_x64.h, line: 397
-// SYSDEF_syscall(_io_destroy,1, aio_context_t ctx)
-SYSREAL_define_syscall(_io_destroy,1, aio_context_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 371
-// SYSDEF_syscall(_fgetxattr,4, int fd,  const char *name,  void *value,  size_t size)
-SYSREAL_define_syscall_noopt(_fgetxattr,4, int a1,   const char *a2,   void *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 49
-// SYSDEF_syscall(_pipe,1, int *filedes)
-SYSREAL_define_syscall(_pipe,1, int *a1) 
-
-// minilib/include/syscalls_x64.h, line: 79
-// SYSDEF_syscall(_alarm,1, unsigned int seconds)
-SYSREAL_define_syscall(_alarm,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 227
-// SYSDEF_syscall(_getpgrp,0)
-SYSREAL_define_syscall(_getpgrp,0)
-
-// minilib/include/syscalls_x64.h, line: 539
-// SYSDEF_syscall(_signalfd,3, int ufd,  sigset_t *user_mask,  size_t sizemask)
-SYSREAL_define_syscall(_signalfd,3, int a1,   sigset_t *a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 475
-// SYSDEF_syscall(_keyctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
-SYSREAL_define_syscall_noopt(_keyctl,5, int a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 609
-// SYSDEF_syscall(_seccomp,3, unsigned int op,  unsigned int flags,  const char  *uargs)
-SYSREAL_define_syscall(_seccomp,3, unsigned int a1,   unsigned int a2,   const char  *a3) 
-
-// minilib/include/syscalls_x64.h, line: 517
-// SYSDEF_syscall(_ppoll,5, struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)
-SYSREAL_define_syscall_noopt(_ppoll,5, struct pollfd *a1,   unsigned int a2,   struct timespec *a3,   const sigset_t *a4,   size_t a5) 
-
-// minilib/include/syscalls_x64.h, line: 165
-// SYSDEF_syscall(_chdir,1, const char *filename)
-SYSREAL_define_syscall(_chdir,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 67
-// SYSDEF_syscall(_shmctl,3, int shmid,  int cmd,  struct shmid_ds *buf)
-SYSREAL_define_syscall(_shmctl,3, int a1,   int a2,   struct shmid_ds *a3) 
-
-// minilib/include/syscalls_x64.h, line: 205
-// SYSDEF_syscall(_times,1, struct sysinfo *info)
-SYSREAL_define_syscall(_times,1, struct sysinfo *a1) 
-
-// minilib/include/syscalls_x64.h, line: 71
-// SYSDEF_syscall(_dup2,2, unsigned int oldfd,  unsigned int newfd)
-SYSREAL_define_syscall(_dup2,2, unsigned int a1,   unsigned int a2) 
-
-// minilib/include/syscalls_x64.h, line: 427
-// SYSDEF_syscall(_timer_getoverrun,1, timer_t timer_id)
-SYSREAL_define_syscall(_timer_getoverrun,1, timer_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 255
-// SYSDEF_syscall(_capget,2, cap_user_header_t header,  cap_user_data_t dataptr)
-SYSREAL_define_syscall(_capget,2, cap_user_header_t a1,   cap_user_data_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 445
-// SYSDEF_syscall(_tgkill,3, pid_t tgid,  pid_t pid,  int sig)
-SYSREAL_define_syscall(_tgkill,3, pid_t a1,   pid_t a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 133
-// SYSDEF_syscall(_semget,3, key_t key,  int nsems,  int semflg)
-SYSREAL_define_syscall(_semget,3, key_t a1,   int a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 455
-// SYSDEF_syscall(_mq_open,4, const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)
-SYSREAL_define_syscall_noopt(_mq_open,4, const char *a1,   int a2,   mode_t a3,   struct mq_attr *a4) 
-
-// minilib/include/syscalls_x64.h, line: 537
-// SYSDEF_syscall(_epoll_pwait,6, int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)
-SYSREAL_define_syscall_noopt(_epoll_pwait,6, int a1,   struct epoll_event *a2,   int a3,   int a4,   const sigset_t *a5,   size_t a6) 
-
-// minilib/include/syscalls_x64.h, line: 329
-// SYSDEF_syscall(_acct,1, const char *name)
-SYSREAL_define_syscall(_acct,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 503
-// SYSDEF_syscall(_renameat,4, int oldfd,  const char *oldname,  int newfd,  const char *newname)
-SYSREAL_define_syscall_noopt(_renameat,4, int a1,   const char *a2,   int a3,   const char *a4) 
-
-// minilib/include/syscalls_x64.h, line: 419
-// SYSDEF_syscall(_fadvise64,4, int fd,  loff_t offset,  size_t len,  int advice)
-SYSREAL_define_syscall_noopt(_fadvise64,4, int a1,   loff_t a2,   size_t a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 295
-// SYSDEF_syscall(_sched_get_priority_max,1, int policy)
-SYSREAL_define_syscall(_sched_get_priority_max,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 547
-// SYSDEF_syscall(_timerfd_settime,4, int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)
-SYSREAL_define_syscall_noopt(_timerfd_settime,4, int a1,   int a2,   const struct itimerspec *a3,   struct itimerspec *a4) 
-
-// minilib/include/syscalls_x64.h, line: 391
-// SYSDEF_syscall(_sched_setaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
-SYSREAL_define_syscall(_sched_setaffinity,3, pid_t a1,   unsigned int a2,   unsigned long *a3) 
-
-// minilib/include/syscalls_x64.h, line: 81
-// SYSDEF_syscall(_setitimer,3, int which,  struct itimerval *value,  struct itimerval *ovalue)
-SYSREAL_define_syscall(_setitimer,3, int a1,   struct itimerval *a2,   struct itimerval *a3) 
-
-// minilib/include/syscalls_x64.h, line: 257
-// SYSDEF_syscall(_capset,2, cap_user_header_t header,  const cap_user_data_t data)
-SYSREAL_define_syscall(_capset,2, cap_user_header_t a1,   const cap_user_data_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 53
-// SYSDEF_syscall(_sched_yield,0)
-SYSREAL_define_syscall(_sched_yield,0)
-
-// minilib/include/syscalls_x64.h, line: 289
-// SYSDEF_syscall(_sched_getparam,2, pid_t pid,  struct sched_param *param)
-SYSREAL_define_syscall(_sched_getparam,2, pid_t a1,   struct sched_param *a2) 
-
-// minilib/include/syscalls_x64.h, line: 211
-// SYSDEF_syscall(_syslog,3, int type,  char *buf,  int len)
-SYSREAL_define_syscall(_syslog,3, int a1,   char *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 567
-// SYSDEF_syscall(_pwritev,5, unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
-SYSREAL_define_syscall_noopt(_pwritev,5, unsigned long a1,   const struct iovec *a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 177
-// SYSDEF_syscall(_link,2, const char *oldname,  const char *newname)
-SYSREAL_define_syscall(_link,2, const char *a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 11
-// SYSDEF_syscall(_close,1, unsigned int fd)
-SYSREAL_define_syscall(_close,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 327
-// SYSDEF_syscall(_sync,0)
-SYSREAL_define_syscall(_sync,0)
-
-// minilib/include/syscalls_x64.h, line: 145
-// SYSDEF_syscall(_msgrcv,5, int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)
-SYSREAL_define_syscall_noopt(_msgrcv,5, int a1,   struct msgbuf *a2,   size_t a3,   long a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 477
-// SYSDEF_syscall(_ioprio_set,3, int which,  int who,  int ioprio)
-SYSREAL_define_syscall(_ioprio_set,3, int a1,   int a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 359
-// SYSDEF_syscall(_readahead,3, int fd,  loff_t offset,  size_t count)
-SYSREAL_define_syscall(_readahead,3, int a1,   loff_t a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 613
-// SYSDEF_syscall(_memfd_create,2, const char  *uname_ptr,  unsigned int flags)
-SYSREAL_define_syscall(_memfd_create,2, const char  *a1,   unsigned int a2) 
-
-// minilib/include/syscalls_x64.h, line: 245
-// SYSDEF_syscall(_getresgid,3, gid_t *rgid,  gid_t *egid,  gid_t *sgid)
-SYSREAL_define_syscall(_getresgid,3, gid_t *a1,   gid_t *a2,   gid_t *a3) 
-
-// minilib/include/syscalls_x64.h, line: 577
-// SYSDEF_syscall(_fanotify_mark,5, long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)
-SYSREAL_define_syscall_noopt(_fanotify_mark,5, long a1,   long a2,   __u64 a3,   long a4,  long a5) 
-
-// minilib/include/syscalls_x64.h, line: 279
-// SYSDEF_syscall(_fstatfs,2, unsigned int fd,  struct statfs *buf)
-SYSREAL_define_syscall(_fstatfs,2, unsigned int a1,   struct statfs *a2) 
-
-// minilib/include/syscalls_x64.h, line: 143
-// SYSDEF_syscall(_msgsnd,4, int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)
-SYSREAL_define_syscall_noopt(_msgsnd,4, int a1,   struct msgbuf *a2,   size_t a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 379
-// SYSDEF_syscall(_removexattr,2, const char *pathname,  const char *name)
-SYSREAL_define_syscall(_removexattr,2, const char *a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 271
-// SYSDEF_syscall(_mknod,3, const char *filename,  umode_t mode,  unsigned dev)
-SYSREAL_define_syscall(_mknod,3, const char *a1,   umode_t a2,   unsigned a3) 
-
-// minilib/include/syscalls_x64.h, line: 437
-// SYSDEF_syscall(_clock_nanosleep,4, const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)
-SYSREAL_define_syscall_noopt(_clock_nanosleep,4, const clockid_t a1,   int a2,   const struct timespec *a3,   struct timespec *a4) 
-
-// minilib/include/syscalls_x64.h, line: 261
-// SYSDEF_syscall(_rt_sigtimedwait,4, const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)
-SYSREAL_define_syscall_noopt(_rt_sigtimedwait,4, const sigset_t *a1,   siginfo_t *a2,   const struct timespec *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 337
-// SYSDEF_syscall(_swapon,2, const char *specialfile,  int swap_flags)
-SYSREAL_define_syscall(_swapon,2, const char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 169
-// SYSDEF_syscall(_rename,2, const char *oldname,  const char *newname)
-SYSREAL_define_syscall(_rename,2, const char *a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 237
-// SYSDEF_syscall(_setgroups,2, int gidsetsize,  gid_t *grouplist)
-SYSREAL_define_syscall(_setgroups,2, int a1,   gid_t *a2) 
-
-// minilib/include/syscalls_x64.h, line: 57
-// SYSDEF_syscall(_msync,3, unsigned long start,  size_t len,  int flags)
-SYSREAL_define_syscall(_msync,3, unsigned long a1,   size_t a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 485
-// SYSDEF_syscall(_inotify_rm_watch,2, int fd,  __s32 wd)
-SYSREAL_define_syscall(_inotify_rm_watch,2, int a1,   __s32 a2) 
-
-// minilib/include/syscalls_x64.h, line: 39
-// SYSDEF_syscall(_pread64,4, unsigned long fd,  char *buf,  size_t count,  loff_t pos)
-SYSREAL_define_syscall_noopt(_pread64,4, unsigned long a1,   char *a2,   size_t a3,   loff_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 41
-// SYSDEF_syscall(_pwrite64,4, unsigned int fd,  const char *buf,  size_t count,  loff_t pos)
-SYSREAL_define_syscall_noopt(_pwrite64,4, unsigned int a1,   const char *a2,   size_t a3,   loff_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 21
-// SYSDEF_syscall(_lseek,3, unsigned int fd,  off_t offset,  unsigned int origin)
-SYSREAL_define_syscall(_lseek,3, unsigned int a1,   off_t a2,   unsigned int a3) 
-
-// minilib/include/syscalls_x64.h, line: 383
-// SYSDEF_syscall(_fremovexattr,2, int fd,  const char *name)
-SYSREAL_define_syscall(_fremovexattr,2, int a1,   const char *a2) 
-
-// minilib/include/syscalls_x64.h, line: 99
-// SYSDEF_syscall(_recvmsg,3, int fd,  struct msghdr *msg,  unsigned int flags)
-SYSREAL_define_syscall(_recvmsg,3, int a1,   struct msghdr *a2,   unsigned int a3) 
-
-// minilib/include/syscalls_x64.h, line: 473
-// SYSDEF_syscall(_request_key,4, const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)
-SYSREAL_define_syscall_noopt(_request_key,4, const char *a1,   const char *a2,   const char *a3,   key_serial_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 107
-// SYSDEF_syscall(_getsockname,3, int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
-SYSREAL_define_syscall(_getsockname,3, int a1,   struct sockaddr *a2,   int *a3) 
-
-// minilib/include/syscalls_x64.h, line: 131
-// SYSDEF_syscall(_uname,1, struct old_utsname *name)
-SYSREAL_define_syscall(_uname,1, struct old_utsname *a1) 
-
-// minilib/include/syscalls_x64.h, line: 69
-// SYSDEF_syscall(_dup,1, unsigned int fildes)
-SYSREAL_define_syscall(_dup,1, unsigned int a1) 
-
-// minilib/include/syscalls_x64.h, line: 109
-// SYSDEF_syscall(_getpeername,3, int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
-SYSREAL_define_syscall(_getpeername,3, int a1,   struct sockaddr *a2,   int *a3) 
-
-// minilib/include/syscalls_x64.h, line: 15
-// SYSDEF_syscall(_fstat,2, unsigned int fd,  struct stat *statbuf)
-SYSREAL_define_syscall(_fstat,2, unsigned int a1,   struct stat *a2) 
-
-// minilib/include/syscalls_x64.h, line: 213
-// SYSDEF_syscall(_getgid,0)
-SYSREAL_define_syscall(_getgid,0)
-
-// minilib/include/syscalls_x64.h, line: 291
-// SYSDEF_syscall(_sched_setscheduler,3, pid_t pid,  int policy,  struct sched_param *param)
-SYSREAL_define_syscall(_sched_setscheduler,3, pid_t a1,   int a2,   struct sched_param *a3) 
-
-// minilib/include/syscalls_x64.h, line: 599
-// SYSDEF_syscall(_kcmp,5, pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)
-SYSREAL_define_syscall_noopt(_kcmp,5, pid_t a1,   pid_t a2,   int a3,   unsigned long a4,   unsigned long a5) 
-
-// minilib/include/syscalls_x64.h, line: 341
-// SYSDEF_syscall(_reboot,4, int magic1,  int magic2,  unsigned int cmd,  void *arg)
-SYSREAL_define_syscall_noopt(_reboot,4, int a1,   int a2,   unsigned int a3,   void *a4) 
-
-// minilib/include/syscalls_x64.h, line: 173
-// SYSDEF_syscall(_rmdir,1, const char *pathname)
-SYSREAL_define_syscall(_rmdir,1, const char *a1) 
-
-// minilib/include/syscalls_x64.h, line: 43
-// SYSDEF_syscall(_readv,3, unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
-SYSREAL_define_syscall(_readv,3, unsigned long a1,   const struct iovec *a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 119
-// SYSDEF_syscall(_fork,0)
-SYSREAL_define_syscall(_fork,0)
-
-// minilib/include/syscalls_x64.h, line: 443
-// SYSDEF_syscall(_epoll_ctl,4, int epfd,  int op,  int fd,  struct epoll_event *event)
-SYSREAL_define_syscall_noopt(_epoll_ctl,4, int a1,   int a2,   int a3,   struct epoll_event *a4) 
-
-// minilib/include/syscalls_x64.h, line: 351
-// SYSDEF_syscall(_init_module,3, void *umod,  unsigned long len,  const char *uargs)
-SYSREAL_define_syscall(_init_module,3, void *a1,   unsigned long a2,   const char *a3) 
-
-// minilib/include/syscalls_x64.h, line: 247
-// SYSDEF_syscall(_getpgid,1, pid_t pid)
-SYSREAL_define_syscall(_getpgid,1, pid_t a1) 
-
-// minilib/include/syscalls_x64.h, line: 535
-// SYSDEF_syscall(_utimensat,4, int dfd,  const char *filename,  struct timespec *utimes, int flags)
-SYSREAL_define_syscall_noopt(_utimensat,4, int a1,   const char *a2,   struct timespec *a3,  int a4) 
-
-// minilib/include/syscalls_x64.h, line: 321
-// SYSDEF_syscall(_adjtimex,1, struct timex *txc_p)
-SYSREAL_define_syscall(_adjtimex,1, struct timex *a1) 
-
-// minilib/include/syscalls_x64.h, line: 611
-// SYSDEF_syscall(_getrandom,3, char  *buf,  size_t count,  unsigned int flags)
-SYSREAL_define_syscall(_getrandom,3, char  *a1,   size_t a2,   unsigned int a3) 
-
-// minilib/include/syscalls_x64.h, line: 521
-// SYSDEF_syscall(_set_robust_list,2, struct robust_list_head *head,  size_t len)
-SYSREAL_define_syscall(_set_robust_list,2, struct robust_list_head *a1,   size_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 561
-// SYSDEF_syscall(_pipe2,2, int *filedes,  int flags)
-SYSREAL_define_syscall(_pipe2,2, int *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 425
-// SYSDEF_syscall(_timer_gettime,2, timer_t timer_id,  struct itimerspec *setting)
-SYSREAL_define_syscall(_timer_gettime,2, timer_t a1,   struct itimerspec *a2) 
-
-// minilib/include/syscalls_x64.h, line: 491
-// SYSDEF_syscall(_mkdirat,3, int dfd,  const char *pathname,  int mode)
-SYSREAL_define_syscall(_mkdirat,3, int a1,   const char *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 183
-// SYSDEF_syscall(_readlink,3, const char *path,  char *buf,  int bufsiz)
-SYSREAL_define_syscall(_readlink,3, const char *a1,   char *a2,   int a3) 
-
-// minilib/include/syscalls_x64.h, line: 51
-// SYSDEF_syscall(_select,5, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
-SYSREAL_define_syscall_noopt(_select,5, int a1,   fd_set *a2,   fd_set *a3,   fd_set *a4,   struct timeval *a5) 
-
-// minilib/include/syscalls_x64.h, line: 149
-// SYSDEF_syscall(_fcntl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
-SYSREAL_define_syscall(_fcntl,3, unsigned int a1,   unsigned int a2,   unsigned long a3) 
-
-// minilib/include/syscalls_x64.h, line: 447
-// SYSDEF_syscall(_utimes,2, char *filename,  struct timeval *utimes)
-SYSREAL_define_syscall(_utimes,2, char *a1,   struct timeval *a2) 
 
 // minilib/include/syscalls_x64.h, line: 55
 // SYSDEF_syscall(_mremap,5, unsigned long addr,  unsigned long old_len,  unsigned long new_len,  unsigned long flags,  unsigned long new_addr)
 SYSREAL_define_syscall_noopt(_mremap,5, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
 
-// minilib/include/syscalls_x64.h, line: 37
-// SYSDEF_syscall(_ioctl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
-SYSREAL_define_syscall(_ioctl,3, unsigned int a1,   unsigned int a2,   unsigned long a3) 
+// minilib/include/syscalls_x64.h, line: 317
+// SYSDEF_syscall(_prctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+SYSREAL_define_syscall_noopt(_prctl,5, int a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
 
-// minilib/include/syscalls_x64.h, line: 229
-// SYSDEF_syscall(_setsid,0)
-SYSREAL_define_syscall(_setsid,0)
+// minilib/include/syscalls_x64.h, line: 227
+// SYSDEF_syscall(_getpgrp,0)
+SYSREAL_define_syscall(_getpgrp,0)
 
-// minilib/include/syscalls_x64.h, line: 241
-// SYSDEF_syscall(_getresuid,3, uid_t *ruid,  uid_t *euid,  uid_t *suid)
-SYSREAL_define_syscall(_getresuid,3, uid_t *a1,   uid_t *a2,   uid_t *a3) 
+// minilib/include/syscalls_x64.h, line: 535
+// SYSDEF_syscall(_utimensat,4, int dfd,  const char *filename,  struct timespec *utimes, int flags)
+SYSREAL_define_syscall_noopt(_utimensat,4, int a1,   const char *a2,   struct timespec *a3,  int a4) 
 
-// minilib/include/syscalls_x64.h, line: 207
-// SYSDEF_syscall(_ptrace,4, long request,  long pid,  unsigned long addr,  unsigned long data)
-SYSREAL_define_syscall_noopt(_ptrace,4, long a1,   long a2,   unsigned long a3,   unsigned long a4) 
+// minilib/include/syscalls_x64.h, line: 111
+// SYSDEF_syscall(_socketpair,4, int family,  int type,  int protocol,  int *usockvec)
+SYSREAL_define_syscall_noopt(_socketpair,4, int a1,   int a2,   int a3,   int *a4) 
 
-// minilib/include/syscalls_x64.h, line: 259
-// SYSDEF_syscall(_rt_sigpending,2, sigset_t *set,  size_t sigsetsize)
-SYSREAL_define_syscall(_rt_sigpending,2, sigset_t *a1,   size_t a2) 
+// minilib/include/syscalls_x64.h, line: 307
+// SYSDEF_syscall(_munlockall,0)
+SYSREAL_define_syscall(_munlockall,0)
 
-// minilib/include/syscalls_x64.h, line: 495
-// SYSDEF_syscall(_fchownat,5, int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)
-SYSREAL_define_syscall_noopt(_fchownat,5, int a1,   const char *a2,   uid_t a3,   gid_t a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 95
-// SYSDEF_syscall(_recvfrom,6, int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)
-SYSREAL_define_syscall_noopt(_recvfrom,6, int a1,   void *a2,   size_t a3,   unsigned a4,   struct sockaddr *a5,   int *a6) 
-
-// minilib/include/syscalls_x64.h, line: 319
-// SYSDEF_syscall(_arch_prctl,3, struct task_struct *task,  int code,  unsigned long *addr)
-SYSREAL_define_syscall(_arch_prctl,3, struct task_struct *a1,   int a2,   unsigned long *a3) 
-
-// minilib/include/syscalls_x64.h, line: 439
-// SYSDEF_syscall(_exit_group,1, int error_code)
-SYSREAL_define_syscall(_exit_group,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 363
-// SYSDEF_syscall(_lsetxattr,5, const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
-SYSREAL_define_syscall_noopt(_lsetxattr,5, const char *a1,   const char *a2,   const void *a3,  size_t a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 573
-// SYSDEF_syscall(_recvmmsg,5, int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)
-SYSREAL_define_syscall_noopt(_recvmmsg,5, int a1,   struct msghdr *a2,   unsigned int a3,   unsigned int a4,   struct timespec *a5) 
-
-// minilib/include/syscalls_x64.h, line: 91
-// SYSDEF_syscall(_accept,3, int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)
-SYSREAL_define_syscall(_accept,3, int a1,   struct sockaddr *a2,   int *a3) 
-
-// minilib/include/syscalls_x64.h, line: 509
-// SYSDEF_syscall(_readlinkat,4, int dfd,  const char *pathname,  char *buf,  int bufsiz)
-SYSREAL_define_syscall_noopt(_readlinkat,4, int a1,   const char *a2,   char *a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 377
-// SYSDEF_syscall(_flistxattr,3, int fd,  char *list,  size_t size)
-SYSREAL_define_syscall(_flistxattr,3, int a1,   char *a2,   size_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 77
-// SYSDEF_syscall(_getitimer,2, int which,  struct itimerval *value)
-SYSREAL_define_syscall(_getitimer,2, int a1,   struct itimerval *a2) 
-
-// minilib/include/syscalls_x64.h, line: 231
-// SYSDEF_syscall(_setreuid,2, uid_t ruid,  uid_t euid)
-SYSREAL_define_syscall(_setreuid,2, uid_t a1,   uid_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 529
-// SYSDEF_syscall(_sync_file_range,4, long fd,  loff_t offset,  loff_t bytes,  long flags)
-SYSREAL_define_syscall_noopt(_sync_file_range,4, long a1,   loff_t a2,   loff_t a3,   long a4) 
-
-// minilib/include/syscalls_x64.h, line: 83
-// SYSDEF_syscall(_getpid,0)
-SYSREAL_define_syscall(_getpid,0)
-
-// minilib/include/syscalls_x64.h, line: 335
-// SYSDEF_syscall(_umount2,2, const char *target,  int flags)
-SYSREAL_define_syscall(_umount2,2, const char *a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 531
-// SYSDEF_syscall(_vmsplice,4, int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)
-SYSREAL_define_syscall_noopt(_vmsplice,4, int a1,   const struct iovec *a2,   unsigned long a3,  unsigned int a4) 
-
-// minilib/include/syscalls_x64.h, line: 411
-// SYSDEF_syscall(_getdents64,3, unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)
-SYSREAL_define_syscall(_getdents64,3, unsigned int a1,   struct linux_dirent64 *a2,   unsigned int a3) 
-
-// minilib/include/syscalls_x64.h, line: 605
-// SYSDEF_syscall(_sched_getattr,4, pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)
-SYSREAL_define_syscall_noopt(_sched_getattr,4, pid_t a1,   struct sched_attr  *a2,   unsigned int a3,   unsigned int a4) 
-
-// minilib/include/syscalls_x64.h, line: 191
-// SYSDEF_syscall(_fchown,3, unsigned int fd,  uid_t user,  gid_t group)
-SYSREAL_define_syscall(_fchown,3, unsigned int a1,   uid_t a2,   gid_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 117
-// SYSDEF_syscall(_clone,4, unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)
-SYSREAL_define_syscall_noopt(_clone,4, unsigned long a1,   unsigned long a2,   void *a3,   void *a4) 
-
-// minilib/include/syscalls_x64.h, line: 333
-// SYSDEF_syscall(_mount,5, char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
-SYSREAL_define_syscall_noopt(_mount,5, char *a1,   char *a2,   char *a3,   unsigned long a4,   void *a5) 
-
-// minilib/include/syscalls_x64.h, line: 233
-// SYSDEF_syscall(_setregid,2, gid_t rgid,  gid_t egid)
-SYSREAL_define_syscall(_setregid,2, gid_t a1,   gid_t a2) 
-
-// minilib/include/syscalls_x64.h, line: 219
-// SYSDEF_syscall(_geteuid,0)
-SYSREAL_define_syscall(_geteuid,0)
-
-// minilib/include/syscalls_x64.h, line: 403
-// SYSDEF_syscall(_io_cancel,3, aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)
-SYSREAL_define_syscall(_io_cancel,3, aio_context_t a1,   struct iocb *a2,   struct io_event *a3) 
-
-// minilib/include/syscalls_x64.h, line: 483
-// SYSDEF_syscall(_inotify_add_watch,3, int fd,  const char *pathname,  u32 mask)
-SYSREAL_define_syscall(_inotify_add_watch,3, int a1,   const char *a2,   u32 a3) 
-
-// minilib/include/syscalls_x64.h, line: 551
-// SYSDEF_syscall(_accept4,4, int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)
-SYSREAL_define_syscall_noopt(_accept4,4, int a1,   struct sockaddr *a2,   int *a3,   int a4) 
-
-// minilib/include/syscalls_x64.h, line: 527
-// SYSDEF_syscall(_tee,4, int fdin,  int fdout,  size_t len,  unsigned int flags)
-SYSREAL_define_syscall_noopt(_tee,4, int a1,   int a2,   size_t a3,   unsigned int a4) 
-
-// minilib/include/syscalls_x64.h, line: 399
-// SYSDEF_syscall(_io_getevents,4, aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)
-SYSREAL_define_syscall_noopt(_io_getevents,4, aio_context_t a1,   long a2,   long a3,   struct io_event *a4) 
-
-// minilib/include/syscalls_x64.h, line: 555
-// SYSDEF_syscall(_eventfd2,2, unsigned int count,  int flags)
-SYSREAL_define_syscall(_eventfd2,2, unsigned int a1,   int a2) 
-
-// minilib/include/syscalls_x64.h, line: 525
-// SYSDEF_syscall(_splice,6, int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
-SYSREAL_define_syscall_noopt(_splice,6, int a1,   loff_t *a2,   int a3,   loff_t *a4,  size_t a5,   unsigned int a6) 
-
-// minilib/include/syscalls_x64.h, line: 151
-// SYSDEF_syscall(_flock,2, unsigned int fd,  unsigned int cmd)
-SYSREAL_define_syscall(_flock,2, unsigned int a1,   unsigned int a2) 
-
-// minilib/include/syscalls_x64.h, line: 487
-// SYSDEF_syscall(_migrate_pages,4, pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)
-SYSREAL_define_syscall_noopt(_migrate_pages,4, pid_t a1,   unsigned long a2,   const unsigned long *a3,   const unsigned long *a4) 
-
-// minilib/include/syscalls_x64.h, line: 243
-// SYSDEF_syscall(_setresgid,3, gid_t rgid,  gid_t egid,  gid_t sgid)
-SYSREAL_define_syscall(_setresgid,3, gid_t a1,   gid_t a2,   gid_t a3) 
-
-// minilib/include/syscalls_x64.h, line: 135
-// SYSDEF_syscall(_semop,3, int semid,  struct sembuf *tsops,  unsigned nsops)
-SYSREAL_define_syscall(_semop,3, int a1,   struct sembuf *a2,   unsigned a3) 
-
-// minilib/include/syscalls_x64.h, line: 583
-// SYSDEF_syscall(_open_by_handle_at,5, int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)
-SYSREAL_define_syscall_noopt(_open_by_handle_at,5, int a1,   const char *a2,   struct file_handle *a3,   int *a4,   int a5) 
-
-// minilib/include/syscalls_x64.h, line: 471
-// SYSDEF_syscall(_add_key,4, const char *_type,  const char *_description,  const void *_payload,  size_t plen)
-SYSREAL_define_syscall_noopt(_add_key,4, const char *a1,   const char *a2,   const void *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 85
-// SYSDEF_syscall(_sendfile,4, int out_fd,  int in_fd,  off_t *offset,  size_t count)
-SYSREAL_define_syscall_noopt(_sendfile,4, int a1,   int a2,   off_t *a3,   size_t a4) 
-
-// minilib/include/syscalls_x64.h, line: 305
-// SYSDEF_syscall(_mlockall,1, int flags)
-SYSREAL_define_syscall(_mlockall,1, int a1) 
-
-// minilib/include/syscalls_x64.h, line: 401
-// SYSDEF_syscall(_io_submit,3, aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)
-SYSREAL_define_syscall(_io_submit,3, aio_context_t a1,   long a2,   struct iocb **a3) 
-
-// minilib/include/syscalls_x64.h, line: 587
-// SYSDEF_syscall(_syncfs,1, int fd)
-SYSREAL_define_syscall(_syncfs,1, int a1) 
+// minilib/include/syscalls_x64.h, line: 107
+// SYSDEF_syscall(_getsockname,3, int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+SYSREAL_define_syscall(_getsockname,3, int a1,   struct sockaddr *a2,   int *a3) 
 
 // minilib/include/syscalls_x64.h, line: 155
 // SYSDEF_syscall(_fdatasync,1, unsigned int fd)
 SYSREAL_define_syscall(_fdatasync,1, unsigned int a1) 
 
+// minilib/include/syscalls_x64.h, line: 343
+// SYSDEF_syscall(_sethostname,2, char *name,  int len)
+SYSREAL_define_syscall(_sethostname,2, char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 383
+// SYSDEF_syscall(_fremovexattr,2, int fd,  const char *name)
+SYSREAL_define_syscall(_fremovexattr,2, int a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 173
+// SYSDEF_syscall(_rmdir,1, const char *pathname)
+SYSREAL_define_syscall(_rmdir,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 565
+// SYSDEF_syscall(_preadv,5, unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
+SYSREAL_define_syscall_noopt(_preadv,5, unsigned long a1,   const struct iovec *a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 239
+// SYSDEF_syscall(_setresuid,3, uid_t *ruid,  uid_t *euid,  uid_t *suid)
+SYSREAL_define_syscall(_setresuid,3, uid_t *a1,   uid_t *a2,   uid_t *a3) 
+
+// minilib/include/syscalls_x64.h, line: 391
+// SYSDEF_syscall(_sched_setaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
+SYSREAL_define_syscall(_sched_setaffinity,3, pid_t a1,   unsigned int a2,   unsigned long *a3) 
+
+// minilib/include/syscalls_x64.h, line: 143
+// SYSDEF_syscall(_msgsnd,4, int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)
+SYSREAL_define_syscall_noopt(_msgsnd,4, int a1,   struct msgbuf *a2,   size_t a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 221
+// SYSDEF_syscall(_getegid,0)
+SYSREAL_define_syscall(_getegid,0)
+
+// minilib/include/syscalls_x64.h, line: 479
+// SYSDEF_syscall(_ioprio_get,2, int which,  int who)
+SYSREAL_define_syscall(_ioprio_get,2, int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 265
+// SYSDEF_syscall(_rt_sigsuspend,2, sigset_t *unewset,  size_t sigsetsize)
+SYSREAL_define_syscall(_rt_sigsuspend,2, sigset_t *a1,   size_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 309
+// SYSDEF_syscall(_vhangup,0)
+SYSREAL_define_syscall(_vhangup,0)
+
 // minilib/include/syscalls_x64.h, line: 507
 // SYSDEF_syscall(_symlinkat,3, const char *oldname,  int newfd,  const char *newname)
 SYSREAL_define_syscall(_symlinkat,3, const char *a1,   int a2,   const char *a3) 
 
-// minilib/include/syscalls_x64.h, line: 147
-// SYSDEF_syscall(_msgctl,3, int msqid,  int cmd,  struct msqid_ds *buf)
-SYSREAL_define_syscall(_msgctl,3, int a1,   int a2,   struct msqid_ds *a3) 
+// minilib/include/syscalls_x64.h, line: 615
+// SYSDEF_syscall(_kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_kexec_file_load,5, int a1,   int a2,   unsigned long a3,   const char  *a4,   unsigned long a5) 
 
-// minilib/include/syscalls_x64.h, line: 235
-// SYSDEF_syscall(_getgroups,2, int gidsetsize,  gid_t *grouplist)
-SYSREAL_define_syscall(_getgroups,2, int a1,   gid_t *a2) 
+// minilib/include/syscalls_x64.h, line: 575
+// SYSDEF_syscall(_fanotify_init,2, unsigned int flags,  unsigned int event_f_flags)
+SYSREAL_define_syscall(_fanotify_init,2, unsigned int a1,   unsigned int a2) 
 
-// minilib/include/syscalls_x64.h, line: 9
-// SYSDEF_syscall(_open,3, const char *filename,  int flags,  int mode)
-SYSREAL_define_syscall(_open,3, const char *a1,   int a2,   int a3) 
+// minilib/include/syscalls_x64.h, line: 333
+// SYSDEF_syscall(_mount,5, char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
+SYSREAL_define_syscall_noopt(_mount,5, char *a1,   char *a2,   char *a3,   unsigned long a4,   void *a5) 
 
-// minilib/include/syscalls_x64.h, line: 421
-// SYSDEF_syscall(_timer_create,3, const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)
-SYSREAL_define_syscall(_timer_create,3, const clockid_t a1,   struct sigevent *a2,   timer_t *a3) 
+// minilib/include/syscalls_x64.h, line: 253
+// SYSDEF_syscall(_getsid,1, pid_t pid)
+SYSREAL_define_syscall(_getsid,1, pid_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 313
+// SYSDEF_syscall(_pivot_root,2, const char *new_root,  const char *put_old)
+SYSREAL_define_syscall(_pivot_root,2, const char *a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 583
+// SYSDEF_syscall(_open_by_handle_at,5, int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)
+SYSREAL_define_syscall_noopt(_open_by_handle_at,5, int a1,   const char *a2,   struct file_handle *a3,   int *a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 519
+// SYSDEF_syscall(_unshare,1, unsigned long unshare_flags)
+SYSREAL_define_syscall(_unshare,1, unsigned long a1) 
+
+// minilib/include/syscalls_x64.h, line: 425
+// SYSDEF_syscall(_timer_gettime,2, timer_t timer_id,  struct itimerspec *setting)
+SYSREAL_define_syscall(_timer_gettime,2, timer_t a1,   struct itimerspec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 97
+// SYSDEF_syscall(_sendmsg,3, int fd,  struct msghdr *msg,  unsigned flags)
+SYSREAL_define_syscall(_sendmsg,3, int a1,   struct msghdr *a2,   unsigned a3) 
+
+// minilib/include/syscalls_x64.h, line: 53
+// SYSDEF_syscall(_sched_yield,0)
+SYSREAL_define_syscall(_sched_yield,0)
+
+// minilib/include/syscalls_x64.h, line: 163
+// SYSDEF_syscall(_getcwd,2, char *buf,  unsigned long size)
+SYSREAL_define_syscall(_getcwd,2, char *a1,   unsigned long a2) 
+
+// minilib/include/syscalls_x64.h, line: 339
+// SYSDEF_syscall(_swapoff,1, const char *specialfile)
+SYSREAL_define_syscall(_swapoff,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 359
+// SYSDEF_syscall(_readahead,3, int fd,  loff_t offset,  size_t count)
+SYSREAL_define_syscall(_readahead,3, int a1,   loff_t a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 153
+// SYSDEF_syscall(_fsync,1, unsigned int fd)
+SYSREAL_define_syscall(_fsync,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 475
+// SYSDEF_syscall(_keyctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+SYSREAL_define_syscall_noopt(_keyctl,5, int a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 419
+// SYSDEF_syscall(_fadvise64,4, int fd,  loff_t offset,  size_t len,  int advice)
+SYSREAL_define_syscall_noopt(_fadvise64,4, int a1,   loff_t a2,   size_t a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 127
+// SYSDEF_syscall(_wait4,4, pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
+SYSREAL_define_syscall_noopt(_wait4,4, pid_t a1,   int *a2,   int a3,   struct rusage *a4) 
+
+// minilib/include/syscalls_x64.h, line: 357
+// SYSDEF_syscall(_gettid,0)
+SYSREAL_define_syscall(_gettid,0)
+
+// minilib/include/syscalls_x64.h, line: 161
+// SYSDEF_syscall(_getdents,3, unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)
+SYSREAL_define_syscall(_getdents,3, unsigned int a1,   struct linux_dirent *a2,   unsigned int a3) 
 
 // minilib/include/syscalls_x64.h, line: 89
 // SYSDEF_syscall(_connect,3, int fd,  struct sockaddr *uservaddr,  int addrlen)
 SYSREAL_define_syscall(_connect,3, int a1,   struct sockaddr *a2,   int a3) 
 
-// minilib/include/syscalls_x64.h, line: 549
-// SYSDEF_syscall(_timerfd_gettime,2, int ufd,  struct itimerspec *otmr)
-SYSREAL_define_syscall(_timerfd_gettime,2, int a1,   struct itimerspec *a2) 
+// minilib/include/syscalls_x64.h, line: 205
+// SYSDEF_syscall(_times,1, struct sysinfo *info)
+SYSREAL_define_syscall(_times,1, struct sysinfo *a1) 
 
-// minilib/include/syscalls_x64.h, line: 23
-// SYSDEF_syscall(_mmap,6, unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)
-SYSREAL_define_syscall_noopt(_mmap,6, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5,   unsigned long a6) 
+// minilib/include/syscalls_x64.h, line: 189
+// SYSDEF_syscall(_chown,3, const char *filename,  uid_t user,  gid_t group)
+SYSREAL_define_syscall(_chown,3, const char *a1,   uid_t a2,   gid_t a3) 
 
-// minilib/include/syscalls_x64.h, line: 387
-// SYSDEF_syscall(_time,1, time_t *tloc)
-SYSREAL_define_syscall(_time,1, time_t *a1) 
+// minilib/include/syscalls_x64.h, line: 573
+// SYSDEF_syscall(_recvmmsg,5, int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)
+SYSREAL_define_syscall_noopt(_recvmmsg,5, int a1,   struct msghdr *a2,   unsigned int a3,   unsigned int a4,   struct timespec *a5) 
+
+// minilib/include/syscalls_x64.h, line: 137
+// SYSDEF_syscall(_semctl,4, int semid,  int semnum,  int cmd,  semun_u arg)
+SYSREAL_define_syscall_noopt(_semctl,4, int a1,   int a2,   int a3,   semun_u a4) 
+
+// minilib/include/syscalls_x64.h, line: 223
+// SYSDEF_syscall(_setpgid,2, pid_t pid,  pid_t pgid)
+SYSREAL_define_syscall(_setpgid,2, pid_t a1,   pid_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 133
+// SYSDEF_syscall(_semget,3, key_t key,  int nsems,  int semflg)
+SYSREAL_define_syscall(_semget,3, key_t a1,   int a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 599
+// SYSDEF_syscall(_kcmp,5, pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)
+SYSREAL_define_syscall_noopt(_kcmp,5, pid_t a1,   pid_t a2,   int a3,   unsigned long a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 407
+// SYSDEF_syscall(_epoll_create,1, int size)
+SYSREAL_define_syscall(_epoll_create,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 609
+// SYSDEF_syscall(_seccomp,3, unsigned int op,  unsigned int flags,  const char  *uargs)
+SYSREAL_define_syscall(_seccomp,3, unsigned int a1,   unsigned int a2,   const char  *a3) 
+
+// minilib/include/syscalls_x64.h, line: 325
+// SYSDEF_syscall(_chroot,1, const char *filename)
+SYSREAL_define_syscall(_chroot,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 445
+// SYSDEF_syscall(_tgkill,3, pid_t tgid,  pid_t pid,  int sig)
+SYSREAL_define_syscall(_tgkill,3, pid_t a1,   pid_t a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 13
+// SYSDEF_syscall(_stat,2, const char *filename,  struct stat *statbuf)
+SYSREAL_define_syscall(_stat,2, const char *a1,   struct stat *a2) 
+
+// minilib/include/syscalls_x64.h, line: 611
+// SYSDEF_syscall(_getrandom,3, char  *buf,  size_t count,  unsigned int flags)
+SYSREAL_define_syscall(_getrandom,3, char  *a1,   size_t a2,   unsigned int a3) 
+
+// minilib/include/syscalls_x64.h, line: 61
+// SYSDEF_syscall(_madvise,3, unsigned long start,  size_t len_in,  int behavior)
+SYSREAL_define_syscall(_madvise,3, unsigned long a1,   size_t a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 69
+// SYSDEF_syscall(_dup,1, unsigned int fildes)
+SYSREAL_define_syscall(_dup,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 593
+// SYSDEF_syscall(_getcpu,3, unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)
+SYSREAL_define_syscall(_getcpu,3, unsigned *a1,   unsigned *a2,   struct getcpu_cache *a3) 
+
+// minilib/include/syscalls_x64.h, line: 219
+// SYSDEF_syscall(_geteuid,0)
+SYSREAL_define_syscall(_geteuid,0)
+
+// minilib/include/syscalls_x64.h, line: 481
+// SYSDEF_syscall(_inotify_init,0)
+SYSREAL_define_syscall(_inotify_init,0)
+
+// minilib/include/syscalls_x64.h, line: 351
+// SYSDEF_syscall(_init_module,3, void *umod,  unsigned long len,  const char *uargs)
+SYSREAL_define_syscall(_init_module,3, void *a1,   unsigned long a2,   const char *a3) 
+
+// minilib/include/syscalls_x64.h, line: 461
+// SYSDEF_syscall(_mq_timedreceive,5, mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)
+SYSREAL_define_syscall_noopt(_mq_timedreceive,5, mqd_t a1,   char *a2,   size_t a3,   unsigned int *a4,   const struct timespec *a5) 
+
+// minilib/include/syscalls_x64.h, line: 597
+// SYSDEF_syscall(_process_vm_writev,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_process_vm_writev,6, pid_t a1,   const struct iovec *a2,   unsigned long a3,   const struct iovcc *a4,   unsigned long a5,   unsigned long a6) 
+
+// minilib/include/syscalls_x64.h, line: 319
+// SYSDEF_syscall(_arch_prctl,3, struct task_struct *task,  int code,  unsigned long *addr)
+SYSREAL_define_syscall(_arch_prctl,3, struct task_struct *a1,   int a2,   unsigned long *a3) 
+
+// minilib/include/syscalls_x64.h, line: 59
+// SYSDEF_syscall(_mincore,3, unsigned long start,  size_t len,  unsigned char *vec)
+SYSREAL_define_syscall(_mincore,3, unsigned long a1,   size_t a2,   unsigned char *a3) 
+
+// minilib/include/syscalls_x64.h, line: 323
+// SYSDEF_syscall(_setrlimit,2, unsigned int resource,  struct rlimit *rlim)
+SYSREAL_define_syscall(_setrlimit,2, unsigned int a1,   struct rlimit *a2) 
+
+// minilib/include/syscalls_x64.h, line: 353
+// SYSDEF_syscall(_delete_module,2, const char *name_user,  unsigned int flags)
+SYSREAL_define_syscall(_delete_module,2, const char *a1,   unsigned int a2) 
+
+// minilib/include/syscalls_x64.h, line: 141
+// SYSDEF_syscall(_msgget,2, key_t key,  int msgflg)
+SYSREAL_define_syscall(_msgget,2, key_t a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 29
+// SYSDEF_syscall(_brk,1, unsigned long brk)
+SYSREAL_define_syscall(_brk,1, unsigned long a1) 
+
+// minilib/include/syscalls_x64.h, line: 67
+// SYSDEF_syscall(_shmctl,3, int shmid,  int cmd,  struct shmid_ds *buf)
+SYSREAL_define_syscall(_shmctl,3, int a1,   int a2,   struct shmid_ds *a3) 
+
+// minilib/include/syscalls_x64.h, line: 551
+// SYSDEF_syscall(_accept4,4, int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)
+SYSREAL_define_syscall_noopt(_accept4,4, int a1,   struct sockaddr *a2,   int *a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 245
+// SYSDEF_syscall(_getresgid,3, gid_t *rgid,  gid_t *egid,  gid_t *sgid)
+SYSREAL_define_syscall(_getresgid,3, gid_t *a1,   gid_t *a2,   gid_t *a3) 
+
+// minilib/include/syscalls_x64.h, line: 109
+// SYSDEF_syscall(_getpeername,3, int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+SYSREAL_define_syscall(_getpeername,3, int a1,   struct sockaddr *a2,   int *a3) 
+
+// minilib/include/syscalls_x64.h, line: 525
+// SYSDEF_syscall(_splice,6, int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
+SYSREAL_define_syscall_noopt(_splice,6, int a1,   loff_t *a2,   int a3,   loff_t *a4,  size_t a5,   unsigned int a6) 
+
+// minilib/include/syscalls_x64.h, line: 147
+// SYSDEF_syscall(_msgctl,3, int msqid,  int cmd,  struct msqid_ds *buf)
+SYSREAL_define_syscall(_msgctl,3, int a1,   int a2,   struct msqid_ds *a3) 
+
+// minilib/include/syscalls_x64.h, line: 63
+// SYSDEF_syscall(_shmget,3, key_t key,  size_t size,  int shmflg)
+SYSREAL_define_syscall(_shmget,3, key_t a1,   size_t a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 375
+// SYSDEF_syscall(_llistxattr,3, const char *pathname,  char *list,  size_t size)
+SYSREAL_define_syscall(_llistxattr,3, const char *a1,   char *a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 603
+// SYSDEF_syscall(_sched_setattr,3, pid_t pid,  struct sched_attr  *attr,  unsigned int flags)
+SYSREAL_define_syscall(_sched_setattr,3, pid_t a1,   struct sched_attr  *a2,   unsigned int a3) 
+
+// minilib/include/syscalls_x64.h, line: 409
+// SYSDEF_syscall(_remap_file_pages,5, unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_remap_file_pages,5, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 85
+// SYSDEF_syscall(_sendfile,4, int out_fd,  int in_fd,  off_t *offset,  size_t count)
+SYSREAL_define_syscall_noopt(_sendfile,4, int a1,   int a2,   off_t *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 279
+// SYSDEF_syscall(_fstatfs,2, unsigned int fd,  struct statfs *buf)
+SYSREAL_define_syscall(_fstatfs,2, unsigned int a1,   struct statfs *a2) 
+
+// minilib/include/syscalls_x64.h, line: 289
+// SYSDEF_syscall(_sched_getparam,2, pid_t pid,  struct sched_param *param)
+SYSREAL_define_syscall(_sched_getparam,2, pid_t a1,   struct sched_param *a2) 
+
+// minilib/include/syscalls_x64.h, line: 361
+// SYSDEF_syscall(_setxattr,5, const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
+SYSREAL_define_syscall_noopt(_setxattr,5, const char *a1,   const char *a2,   const void *a3,  size_t a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 443
+// SYSDEF_syscall(_epoll_ctl,4, int epfd,  int op,  int fd,  struct epoll_event *event)
+SYSREAL_define_syscall_noopt(_epoll_ctl,4, int a1,   int a2,   int a3,   struct epoll_event *a4) 
+
+// minilib/include/syscalls_x64.h, line: 131
+// SYSDEF_syscall(_uname,1, struct old_utsname *name)
+SYSREAL_define_syscall(_uname,1, struct old_utsname *a1) 
+
+// minilib/include/syscalls_x64.h, line: 453
+// SYSDEF_syscall(_get_mempolicy,5, int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_get_mempolicy,5, int *a1,   unsigned long *a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 199
+// SYSDEF_syscall(_getrlimit,2, unsigned int resource,  struct rlimit *rlim)
+SYSREAL_define_syscall(_getrlimit,2, unsigned int a1,   struct rlimit *a2) 
+
+// minilib/include/syscalls_x64.h, line: 243
+// SYSDEF_syscall(_setresgid,3, gid_t rgid,  gid_t egid,  gid_t sgid)
+SYSREAL_define_syscall(_setresgid,3, gid_t a1,   gid_t a2,   gid_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 395
+// SYSDEF_syscall(_io_setup,2, unsigned nr_events,  aio_context_t *ctxp)
+SYSREAL_define_syscall(_io_setup,2, unsigned a1,   aio_context_t *a2) 
+
+// minilib/include/syscalls_x64.h, line: 93
+// SYSDEF_syscall(_sendto,6, int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)
+SYSREAL_define_syscall_noopt(_sendto,6, int a1,   void *a2,   size_t a3,   unsigned a4,   struct sockaddr *a5,   int a6) 
+
+// minilib/include/syscalls_x64.h, line: 411
+// SYSDEF_syscall(_getdents64,3, unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)
+SYSREAL_define_syscall(_getdents64,3, unsigned int a1,   struct linux_dirent64 *a2,   unsigned int a3) 
+
+// minilib/include/syscalls_x64.h, line: 203
+// SYSDEF_syscall(_sysinfo,1, struct sysinfo *info)
+SYSREAL_define_syscall(_sysinfo,1, struct sysinfo *a1) 
+
+// minilib/include/syscalls_x64.h, line: 367
+// SYSDEF_syscall(_getxattr,4, const char *pathname,  const char *name,  void *value,  size_t size)
+SYSREAL_define_syscall_noopt(_getxattr,4, const char *a1,   const char *a2,   void *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 123
+// SYSDEF_syscall(_execve,3, const char *filename,  const char *const argv[],  const char *const envp[])
+SYSREAL_define_syscall(_execve,3, const char *a1,   const char *const a2,   const char *const a3) 
+
+// minilib/include/syscalls_x64.h, line: 449
+// SYSDEF_syscall(_mbind,6, unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)
+SYSREAL_define_syscall_noopt(_mbind,6, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long *a4,   unsigned long a5,   unsigned a6) 
+
+// minilib/include/syscalls_x64.h, line: 543
+// SYSDEF_syscall(_eventfd,1, unsigned int count)
+SYSREAL_define_syscall(_eventfd,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 195
+// SYSDEF_syscall(_umask,1, int mask)
+SYSREAL_define_syscall(_umask,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 469
+// SYSDEF_syscall(_waitid,5, int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)
+SYSREAL_define_syscall_noopt(_waitid,5, int a1,   pid_t a2,   struct siginfo *a3,   int a4,   struct rusage *a5) 
+
+// minilib/include/syscalls_x64.h, line: 397
+// SYSDEF_syscall(_io_destroy,1, aio_context_t ctx)
+SYSREAL_define_syscall(_io_destroy,1, aio_context_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 547
+// SYSDEF_syscall(_timerfd_settime,4, int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)
+SYSREAL_define_syscall_noopt(_timerfd_settime,4, int a1,   int a2,   const struct itimerspec *a3,   struct itimerspec *a4) 
+
+// minilib/include/syscalls_x64.h, line: 437
+// SYSDEF_syscall(_clock_nanosleep,4, const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)
+SYSREAL_define_syscall_noopt(_clock_nanosleep,4, const clockid_t a1,   int a2,   const struct timespec *a3,   struct timespec *a4) 
+
+// minilib/include/syscalls_x64.h, line: 451
+// SYSDEF_syscall(_set_mempolicy,3, int mode,  unsigned long *nmask,  unsigned long maxnode)
+SYSREAL_define_syscall(_set_mempolicy,3, int a1,   unsigned long *a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 207
+// SYSDEF_syscall(_ptrace,4, long request,  long pid,  unsigned long addr,  unsigned long data)
+SYSREAL_define_syscall_noopt(_ptrace,4, long a1,   long a2,   unsigned long a3,   unsigned long a4) 
+
+// minilib/include/syscalls_x64.h, line: 341
+// SYSDEF_syscall(_reboot,4, int magic1,  int magic2,  unsigned int cmd,  void *arg)
+SYSREAL_define_syscall_noopt(_reboot,4, int a1,   int a2,   unsigned int a3,   void *a4) 
+
+// minilib/include/syscalls_x64.h, line: 377
+// SYSDEF_syscall(_flistxattr,3, int fd,  char *list,  size_t size)
+SYSREAL_define_syscall(_flistxattr,3, int a1,   char *a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 57
+// SYSDEF_syscall(_msync,3, unsigned long start,  size_t len,  int flags)
+SYSREAL_define_syscall(_msync,3, unsigned long a1,   size_t a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 41
+// SYSDEF_syscall(_pwrite64,4, unsigned int fd,  const char *buf,  size_t count,  loff_t pos)
+SYSREAL_define_syscall_noopt(_pwrite64,4, unsigned int a1,   const char *a2,   size_t a3,   loff_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 27
+// SYSDEF_syscall(_munmap,2, unsigned long addr,  size_t len)
+SYSREAL_define_syscall(_munmap,2, unsigned long a1,   size_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 157
+// SYSDEF_syscall(_truncate,2, const char *path,  long length)
+SYSREAL_define_syscall(_truncate,2, const char *a1,   long a2) 
+
+// minilib/include/syscalls_x64.h, line: 581
+// SYSDEF_syscall(_name_to_handle_at,5, int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)
+SYSREAL_define_syscall_noopt(_name_to_handle_at,5, int a1,   const char *a2,   struct file_handle *a3,   int *a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 247
+// SYSDEF_syscall(_getpgid,1, pid_t pid)
+SYSREAL_define_syscall(_getpgid,1, pid_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 95
+// SYSDEF_syscall(_recvfrom,6, int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)
+SYSREAL_define_syscall_noopt(_recvfrom,6, int a1,   void *a2,   size_t a3,   unsigned a4,   struct sockaddr *a5,   int *a6) 
+
+// minilib/include/syscalls_x64.h, line: 585
+// SYSDEF_syscall(_clock_adjtime,2, clockid_t which_clock,  struct timex *tx)
+SYSREAL_define_syscall(_clock_adjtime,2, clockid_t a1,   struct timex *a2) 
+
+// minilib/include/syscalls_x64.h, line: 257
+// SYSDEF_syscall(_capset,2, cap_user_header_t header,  const cap_user_data_t data)
+SYSREAL_define_syscall(_capset,2, cap_user_header_t a1,   const cap_user_data_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 487
+// SYSDEF_syscall(_migrate_pages,4, pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)
+SYSREAL_define_syscall_noopt(_migrate_pages,4, pid_t a1,   unsigned long a2,   const unsigned long *a3,   const unsigned long *a4) 
+
+// minilib/include/syscalls_x64.h, line: 73
+// SYSDEF_syscall(_pause,0)
+SYSREAL_define_syscall(_pause,0)
+
+// minilib/include/syscalls_x64.h, line: 531
+// SYSDEF_syscall(_vmsplice,4, int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)
+SYSREAL_define_syscall_noopt(_vmsplice,4, int a1,   const struct iovec *a2,   unsigned long a3,  unsigned int a4) 
+
+// minilib/include/syscalls_x64.h, line: 277
+// SYSDEF_syscall(_statfs,2, const char *pathname,  struct statfs *buf)
+SYSREAL_define_syscall(_statfs,2, const char *a1,   struct statfs *a2) 
+
+// minilib/include/syscalls_x64.h, line: 355
+// SYSDEF_syscall(_quotactl,4, unsigned int cmd,  const char *special,  qid_t id,  void *addr)
+SYSREAL_define_syscall_noopt(_quotactl,4, unsigned int a1,   const char *a2,   qid_t a3,   void *a4) 
+
+// minilib/include/syscalls_x64.h, line: 51
+// SYSDEF_syscall(_select,5, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
+SYSREAL_define_syscall_noopt(_select,5, int a1,   fd_set *a2,   fd_set *a3,   fd_set *a4,   struct timeval *a5) 
+
+// minilib/include/syscalls_x64.h, line: 329
+// SYSDEF_syscall(_acct,1, const char *name)
+SYSREAL_define_syscall(_acct,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 553
+// SYSDEF_syscall(_signalfd4,4, int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)
+SYSREAL_define_syscall_noopt(_signalfd4,4, int a1,   sigset_t *a2,   size_t a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 83
+// SYSDEF_syscall(_getpid,0)
+SYSREAL_define_syscall(_getpid,0)
+
+// minilib/include/syscalls_x64.h, line: 491
+// SYSDEF_syscall(_mkdirat,3, int dfd,  const char *pathname,  int mode)
+SYSREAL_define_syscall(_mkdirat,3, int a1,   const char *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 229
+// SYSDEF_syscall(_setsid,0)
+SYSREAL_define_syscall(_setsid,0)
+
+// minilib/include/syscalls_x64.h, line: 509
+// SYSDEF_syscall(_readlinkat,4, int dfd,  const char *pathname,  char *buf,  int bufsiz)
+SYSREAL_define_syscall_noopt(_readlinkat,4, int a1,   const char *a2,   char *a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 607
+// SYSDEF_syscall(_renameat2,5, int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)
+SYSREAL_define_syscall_noopt(_renameat2,5, int a1,   const char  *a2,   int a3,   const char  *a4,   unsigned int a5) 
+
+// minilib/include/syscalls_x64.h, line: 433
+// SYSDEF_syscall(_clock_gettime,2, const clockid_t which_clock,  struct timespec *tp)
+SYSREAL_define_syscall(_clock_gettime,2, const clockid_t a1,   struct timespec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 413
+// SYSDEF_syscall(_set_tid_address,1, int *tidptr)
+SYSREAL_define_syscall(_set_tid_address,1, int *a1) 
+
+// minilib/include/syscalls_x64.h, line: 439
+// SYSDEF_syscall(_exit_group,1, int error_code)
+SYSREAL_define_syscall(_exit_group,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 529
+// SYSDEF_syscall(_sync_file_range,4, long fd,  loff_t offset,  loff_t bytes,  long flags)
+SYSREAL_define_syscall_noopt(_sync_file_range,4, long a1,   loff_t a2,   loff_t a3,   long a4) 
+
+// minilib/include/syscalls_x64.h, line: 557
+// SYSDEF_syscall(_epoll_create1,1, int flags)
+SYSREAL_define_syscall(_epoll_create1,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 455
+// SYSDEF_syscall(_mq_open,4, const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)
+SYSREAL_define_syscall_noopt(_mq_open,4, const char *a1,   int a2,   mode_t a3,   struct mq_attr *a4) 
+
+// minilib/include/syscalls_x64.h, line: 261
+// SYSDEF_syscall(_rt_sigtimedwait,4, const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)
+SYSREAL_define_syscall_noopt(_rt_sigtimedwait,4, const sigset_t *a1,   siginfo_t *a2,   const struct timespec *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 35
+// SYSDEF_syscall(_rt_sigreturn,1, unsigned long __unused)
+SYSREAL_define_syscall(_rt_sigreturn,1, unsigned long a1) 
+
+// minilib/include/syscalls_x64.h, line: 381
+// SYSDEF_syscall(_lremovexattr,2, const char *pathname,  const char *name)
+SYSREAL_define_syscall(_lremovexattr,2, const char *a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 271
+// SYSDEF_syscall(_mknod,3, const char *filename,  umode_t mode,  unsigned dev)
+SYSREAL_define_syscall(_mknod,3, const char *a1,   umode_t a2,   unsigned a3) 
+
+// minilib/include/syscalls_x64.h, line: 241
+// SYSDEF_syscall(_getresuid,3, uid_t *ruid,  uid_t *euid,  uid_t *suid)
+SYSREAL_define_syscall(_getresuid,3, uid_t *a1,   uid_t *a2,   uid_t *a3) 
+
+// minilib/include/syscalls_x64.h, line: 563
+// SYSDEF_syscall(_inotify_init1,1, int flags)
+SYSREAL_define_syscall(_inotify_init1,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 499
+// SYSDEF_syscall(_newfstatat,4, int dfd,  const char *filename,  struct stat *statbuf,  int flag)
+SYSREAL_define_syscall_noopt(_newfstatat,4, int a1,   const char *a2,   struct stat *a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 483
+// SYSDEF_syscall(_inotify_add_watch,3, int fd,  const char *pathname,  u32 mask)
+SYSREAL_define_syscall(_inotify_add_watch,3, int a1,   const char *a2,   u32 a3) 
+
+// minilib/include/syscalls_x64.h, line: 293
+// SYSDEF_syscall(_sched_getscheduler,1, pid_t pid)
+SYSREAL_define_syscall(_sched_getscheduler,1, pid_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 159
+// SYSDEF_syscall(_ftruncate,2, unsigned int fd,  unsigned long length)
+SYSREAL_define_syscall(_ftruncate,2, unsigned int a1,   unsigned long a2) 
+
+// minilib/include/syscalls_x64.h, line: 321
+// SYSDEF_syscall(_adjtimex,1, struct timex *txc_p)
+SYSREAL_define_syscall(_adjtimex,1, struct timex *a1) 
+
+// minilib/include/syscalls_x64.h, line: 183
+// SYSDEF_syscall(_readlink,3, const char *path,  char *buf,  int bufsiz)
+SYSREAL_define_syscall(_readlink,3, const char *a1,   char *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 117
+// SYSDEF_syscall(_clone,4, unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)
+SYSREAL_define_syscall_noopt(_clone,4, unsigned long a1,   unsigned long a2,   void *a3,   void *a4) 
+
+// minilib/include/syscalls_x64.h, line: 417
+// SYSDEF_syscall(_semtimedop,4, int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)
+SYSREAL_define_syscall_noopt(_semtimedop,4, int a1,   struct sembuf *a2,   unsigned a3,   const struct timespec *a4) 
+
+// minilib/include/syscalls_x64.h, line: 139
+// SYSDEF_syscall(_shmdt,1, char *shmaddr)
+SYSREAL_define_syscall(_shmdt,1, char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 431
+// SYSDEF_syscall(_clock_settime,2, const clockid_t which_clock,  const struct timespec *tp)
+SYSREAL_define_syscall(_clock_settime,2, const clockid_t a1,   const struct timespec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 421
+// SYSDEF_syscall(_timer_create,3, const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)
+SYSREAL_define_syscall(_timer_create,3, const clockid_t a1,   struct sigevent *a2,   timer_t *a3) 
+
+// minilib/include/syscalls_x64.h, line: 211
+// SYSDEF_syscall(_syslog,3, int type,  char *buf,  int len)
+SYSREAL_define_syscall(_syslog,3, int a1,   char *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 311
+// SYSDEF_syscall(_modify_ldt,3, int func,  void *ptr,  unsigned long bytecount)
+SYSREAL_define_syscall(_modify_ldt,3, int a1,   void *a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 11
+// SYSDEF_syscall(_close,1, unsigned int fd)
+SYSREAL_define_syscall(_close,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 235
+// SYSDEF_syscall(_getgroups,2, int gidsetsize,  gid_t *grouplist)
+SYSREAL_define_syscall(_getgroups,2, int a1,   gid_t *a2) 
+
+// minilib/include/syscalls_x64.h, line: 181
+// SYSDEF_syscall(_symlink,2, const char *oldname,  const char *newname)
+SYSREAL_define_syscall(_symlink,2, const char *a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 541
+// SYSDEF_syscall(_timerfd_create,2, int clockid,  int flags)
+SYSREAL_define_syscall(_timerfd_create,2, int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 493
+// SYSDEF_syscall(_mknodat,4, int dfd,  const char *filename,  int mode,  unsigned dev)
+SYSREAL_define_syscall_noopt(_mknodat,4, int a1,   const char *a2,   int a3,   unsigned a4) 
+
+// minilib/include/syscalls_x64.h, line: 517
+// SYSDEF_syscall(_ppoll,5, struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)
+SYSREAL_define_syscall_noopt(_ppoll,5, struct pollfd *a1,   unsigned int a2,   struct timespec *a3,   const sigset_t *a4,   size_t a5) 
 
 // minilib/include/syscalls_x64.h, line: 315
 // SYSDEF_syscall(__sysctl,1, struct __sysctl_args *args)
 SYSREAL_define_syscall(__sysctl,1, struct __sysctl_args *a1) 
 
+// minilib/include/syscalls_x64.h, line: 471
+// SYSDEF_syscall(_add_key,4, const char *_type,  const char *_description,  const void *_payload,  size_t plen)
+SYSREAL_define_syscall_noopt(_add_key,4, const char *a1,   const char *a2,   const void *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 349
+// SYSDEF_syscall(_ioperm,3, unsigned long from,  unsigned long num,  int turn_on)
+SYSREAL_define_syscall(_ioperm,3, unsigned long a1,   unsigned long a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 571
+// SYSDEF_syscall(_perf_event_open,5, struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_perf_event_open,5, struct perf_event_attr *a1,   pid_t a2,   int a3,   int a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 403
+// SYSDEF_syscall(_io_cancel,3, aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)
+SYSREAL_define_syscall(_io_cancel,3, aio_context_t a1,   struct iocb *a2,   struct io_event *a3) 
+
+// minilib/include/syscalls_x64.h, line: 225
+// SYSDEF_syscall(_getppid,0)
+SYSREAL_define_syscall(_getppid,0)
+
+// minilib/include/syscalls_x64.h, line: 465
+// SYSDEF_syscall(_mq_getsetattr,3, mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)
+SYSREAL_define_syscall(_mq_getsetattr,3, mqd_t a1,   const struct mq_attr *a2,   struct mq_attr *a3) 
+
+// minilib/include/syscalls_x64.h, line: 273
+// SYSDEF_syscall(_personality,1, unsigned int personality)
+SYSREAL_define_syscall(_personality,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 39
+// SYSDEF_syscall(_pread64,4, unsigned long fd,  char *buf,  size_t count,  loff_t pos)
+SYSREAL_define_syscall_noopt(_pread64,4, unsigned long a1,   char *a2,   size_t a3,   loff_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 151
+// SYSDEF_syscall(_flock,2, unsigned int fd,  unsigned int cmd)
+SYSREAL_define_syscall(_flock,2, unsigned int a1,   unsigned int a2) 
+
+// minilib/include/syscalls_x64.h, line: 495
+// SYSDEF_syscall(_fchownat,5, int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)
+SYSREAL_define_syscall_noopt(_fchownat,5, int a1,   const char *a2,   uid_t a3,   gid_t a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 299
+// SYSDEF_syscall(_sched_rr_get_interval,2, pid_t pid,  struct timespec *interval)
+SYSREAL_define_syscall(_sched_rr_get_interval,2, pid_t a1,   struct timespec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 369
+// SYSDEF_syscall(_lgetxattr,4, const char *pathname,  const char *name,  void *value,  size_t size)
+SYSREAL_define_syscall_noopt(_lgetxattr,4, const char *a1,   const char *a2,   void *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 505
+// SYSDEF_syscall(_linkat,5, int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)
+SYSREAL_define_syscall_noopt(_linkat,5, int a1,   const char *a2,   int a3,   const char *a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 213
+// SYSDEF_syscall(_getgid,0)
+SYSREAL_define_syscall(_getgid,0)
+
+// minilib/include/syscalls_x64.h, line: 601
+// SYSDEF_syscall(_finit_module,3, int fd,  const char  *uargs,  int flags)
+SYSREAL_define_syscall(_finit_module,3, int a1,   const char  *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 23
+// SYSDEF_syscall(_mmap,6, unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)
+SYSREAL_define_syscall_noopt(_mmap,6, unsigned long a1,   unsigned long a2,   unsigned long a3,   unsigned long a4,   unsigned long a5,   unsigned long a6) 
+
+// minilib/include/syscalls_x64.h, line: 415
+// SYSDEF_syscall(_restart_syscall,0)
+SYSREAL_define_syscall(_restart_syscall,0)
+
+// minilib/include/syscalls_x64.h, line: 75
+// SYSDEF_syscall(_nanosleep,2, struct timespec *rqtp,  struct timespec *rmtp)
+SYSREAL_define_syscall(_nanosleep,2, struct timespec *a1,   struct timespec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 527
+// SYSDEF_syscall(_tee,4, int fdin,  int fdout,  size_t len,  unsigned int flags)
+SYSREAL_define_syscall_noopt(_tee,4, int a1,   int a2,   size_t a3,   unsigned int a4) 
+
+// minilib/include/syscalls_x64.h, line: 459
+// SYSDEF_syscall(_mq_timedsend,5, mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)
+SYSREAL_define_syscall_noopt(_mq_timedsend,5, mqd_t a1,   const char *a2,   size_t a3,   unsigned int a4,   const struct timespec *a5) 
+
+// minilib/include/syscalls_x64.h, line: 521
+// SYSDEF_syscall(_set_robust_list,2, struct robust_list_head *head,  size_t len)
+SYSREAL_define_syscall(_set_robust_list,2, struct robust_list_head *a1,   size_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 463
+// SYSDEF_syscall(_mq_notify,2, mqd_t mqdes,  const struct sigevent *u_notification)
+SYSREAL_define_syscall(_mq_notify,2, mqd_t a1,   const struct sigevent *a2) 
+
+// minilib/include/syscalls_x64.h, line: 447
+// SYSDEF_syscall(_utimes,2, char *filename,  struct timeval *utimes)
+SYSREAL_define_syscall(_utimes,2, char *a1,   struct timeval *a2) 
+
+// minilib/include/syscalls_x64.h, line: 191
+// SYSDEF_syscall(_fchown,3, unsigned int fd,  uid_t user,  gid_t group)
+SYSREAL_define_syscall(_fchown,3, unsigned int a1,   uid_t a2,   gid_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 291
+// SYSDEF_syscall(_sched_setscheduler,3, pid_t pid,  int policy,  struct sched_param *param)
+SYSREAL_define_syscall(_sched_setscheduler,3, pid_t a1,   int a2,   struct sched_param *a3) 
+
+// minilib/include/syscalls_x64.h, line: 5
+// SYSDEF_syscall(_read,3, unsigned int fd,  char *buf,  size_t count)
+SYSREAL_define_syscall(_read,3, unsigned int a1,   char *a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 503
+// SYSDEF_syscall(_renameat,4, int oldfd,  const char *oldname,  int newfd,  const char *newname)
+SYSREAL_define_syscall_noopt(_renameat,4, int a1,   const char *a2,   int a3,   const char *a4) 
+
+// minilib/include/syscalls_x64.h, line: 379
+// SYSDEF_syscall(_removexattr,2, const char *pathname,  const char *name)
+SYSREAL_define_syscall(_removexattr,2, const char *a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 113
+// SYSDEF_syscall(_setsockopt,5, int fd,  int level,  int optname,  char *optval,  int optlen)
+SYSREAL_define_syscall_noopt(_setsockopt,5, int a1,   int a2,   int a3,   char *a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 47
+// SYSDEF_syscall(_access,2, const char *filename,  int mode)
+SYSREAL_define_syscall(_access,2, const char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 185
+// SYSDEF_syscall(_chmod,2, const char *filename,  mode_t mode)
+SYSREAL_define_syscall(_chmod,2, const char *a1,   mode_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 31
+// SYSDEF_syscall(_rt_sigaction,4, int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
+SYSREAL_define_syscall_noopt(_rt_sigaction,4, int a1,   const struct sigaction *a2,   struct sigaction *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 45
+// SYSDEF_syscall(_writev,3, unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
+SYSREAL_define_syscall(_writev,3, unsigned long a1,   const struct iovec *a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 171
+// SYSDEF_syscall(_mkdir,2, const char *pathname,  int mode)
+SYSREAL_define_syscall(_mkdir,2, const char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 169
+// SYSDEF_syscall(_rename,2, const char *oldname,  const char *newname)
+SYSREAL_define_syscall(_rename,2, const char *a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 427
+// SYSDEF_syscall(_timer_getoverrun,1, timer_t timer_id)
+SYSREAL_define_syscall(_timer_getoverrun,1, timer_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 467
+// SYSDEF_syscall(_kexec_load,4, unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_kexec_load,4, unsigned long a1,   unsigned long a2,   struct kexec_segment *a3,   unsigned long a4) 
+
+// minilib/include/syscalls_x64.h, line: 365
+// SYSDEF_syscall(_fsetxattr,5, int fd,  const char *name,  const void *value,  size_t size, int flags)
+SYSREAL_define_syscall_noopt(_fsetxattr,5, int a1,   const char *a2,   const void *a3,   size_t a4,  int a5) 
+
+// minilib/include/syscalls_x64.h, line: 373
+// SYSDEF_syscall(_listxattr,3, const char *pathname,  char *list,  size_t size)
+SYSREAL_define_syscall(_listxattr,3, const char *a1,   char *a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 145
+// SYSDEF_syscall(_msgrcv,5, int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)
+SYSREAL_define_syscall_noopt(_msgrcv,5, int a1,   struct msgbuf *a2,   size_t a3,   long a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 91
+// SYSDEF_syscall(_accept,3, int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)
+SYSREAL_define_syscall(_accept,3, int a1,   struct sockaddr *a2,   int *a3) 
+
+// minilib/include/syscalls_x64.h, line: 105
+// SYSDEF_syscall(_listen,2, int fd,  int backlog)
+SYSREAL_define_syscall(_listen,2, int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 87
+// SYSDEF_syscall(_socket,3, int family,  int type,  int protocol)
+SYSREAL_define_syscall(_socket,3, int a1,   int a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 21
+// SYSDEF_syscall(_lseek,3, unsigned int fd,  off_t offset,  unsigned int origin)
+SYSREAL_define_syscall(_lseek,3, unsigned int a1,   off_t a2,   unsigned int a3) 
+
+// minilib/include/syscalls_x64.h, line: 215
+// SYSDEF_syscall(_setuid,1, uid_t uid)
+SYSREAL_define_syscall(_setuid,1, uid_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 17
+// SYSDEF_syscall(_lstat,2, const char *filename,  struct stat *statbuf)
+SYSREAL_define_syscall(_lstat,2, const char *a1,   struct stat *a2) 
+
+// minilib/include/syscalls_x64.h, line: 71
+// SYSDEF_syscall(_dup2,2, unsigned int oldfd,  unsigned int newfd)
+SYSREAL_define_syscall(_dup2,2, unsigned int a1,   unsigned int a2) 
+
+// minilib/include/syscalls_x64.h, line: 25
+// SYSDEF_syscall(_mprotect,3, unsigned long start,  size_t len,  unsigned long prot)
+SYSREAL_define_syscall(_mprotect,3, unsigned long a1,   size_t a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 331
+// SYSDEF_syscall(_settimeofday,2, struct timeval *tv,  struct timezone *tz)
+SYSREAL_define_syscall(_settimeofday,2, struct timeval *a1,   struct timezone *a2) 
+
+// minilib/include/syscalls_x64.h, line: 275
+// SYSDEF_syscall(_ustat,2, unsigned dev,  struct ustat *ubuf)
+SYSREAL_define_syscall(_ustat,2, unsigned a1,   struct ustat *a2) 
+
+// minilib/include/syscalls_x64.h, line: 327
+// SYSDEF_syscall(_sync,0)
+SYSREAL_define_syscall(_sync,0)
+
+// minilib/include/syscalls_x64.h, line: 283
+// SYSDEF_syscall(_getpriority,2, int which,  int who)
+SYSREAL_define_syscall(_getpriority,2, int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 119
+// SYSDEF_syscall(_fork,0)
+SYSREAL_define_syscall(_fork,0)
+
+// minilib/include/syscalls_x64.h, line: 579
+// SYSDEF_syscall(_prlimit64,4, pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)
+SYSREAL_define_syscall_noopt(_prlimit64,4, pid_t a1,   unsigned int a2,   const struct rlimit64 *a3,   struct rlimit64 *a4) 
+
+// minilib/include/syscalls_x64.h, line: 511
+// SYSDEF_syscall(_fchmodat,3, int dfd,  const char *filename,  mode_t mode)
+SYSREAL_define_syscall(_fchmodat,3, int a1,   const char *a2,   mode_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 497
+// SYSDEF_syscall(_futimesat,3, int dfd,  const char *filename,  struct timeval *utimes)
+SYSREAL_define_syscall(_futimesat,3, int a1,   const char *a2,   struct timeval *a3) 
+
+// minilib/include/syscalls_x64.h, line: 435
+// SYSDEF_syscall(_clock_getres,2, const clockid_t which_clock,  struct timespec *tp)
+SYSREAL_define_syscall(_clock_getres,2, const clockid_t a1,   struct timespec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 177
+// SYSDEF_syscall(_link,2, const char *oldname,  const char *newname)
+SYSREAL_define_syscall(_link,2, const char *a1,   const char *a2) 
+
+// minilib/include/syscalls_x64.h, line: 539
+// SYSDEF_syscall(_signalfd,3, int ufd,  sigset_t *user_mask,  size_t sizemask)
+SYSREAL_define_syscall(_signalfd,3, int a1,   sigset_t *a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 103
+// SYSDEF_syscall(_bind,3, int fd,  struct sockaddr *umyaddr,  int addrlen)
+SYSREAL_define_syscall(_bind,3, int a1,   struct sockaddr *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 555
+// SYSDEF_syscall(_eventfd2,2, unsigned int count,  int flags)
+SYSREAL_define_syscall(_eventfd2,2, unsigned int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 567
+// SYSDEF_syscall(_pwritev,5, unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
+SYSREAL_define_syscall_noopt(_pwritev,5, unsigned long a1,   const struct iovec *a2,   unsigned long a3,   unsigned long a4,   unsigned long a5) 
+
+// minilib/include/syscalls_x64.h, line: 387
+// SYSDEF_syscall(_time,1, time_t *tloc)
+SYSREAL_define_syscall(_time,1, time_t *a1) 
+
+// minilib/include/syscalls_x64.h, line: 591
+// SYSDEF_syscall(_setns,2, int fd,  int nstype)
+SYSREAL_define_syscall(_setns,2, int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 81
+// SYSDEF_syscall(_setitimer,3, int which,  struct itimerval *value,  struct itimerval *ovalue)
+SYSREAL_define_syscall(_setitimer,3, int a1,   struct itimerval *a2,   struct itimerval *a3) 
+
+// minilib/include/syscalls_x64.h, line: 187
+// SYSDEF_syscall(_fchmod,2, unsigned int fd,  mode_t mode)
+SYSREAL_define_syscall(_fchmod,2, unsigned int a1,   mode_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 297
+// SYSDEF_syscall(_sched_get_priority_min,1, int policy)
+SYSREAL_define_syscall(_sched_get_priority_min,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 457
+// SYSDEF_syscall(_mq_unlink,1, const char *u_name)
+SYSREAL_define_syscall(_mq_unlink,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 125
+// SYSDEF_syscall(_exit,1, int error_code)
+SYSREAL_define_syscall(_exit,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 79
+// SYSDEF_syscall(_alarm,1, unsigned int seconds)
+SYSREAL_define_syscall(_alarm,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 515
+// SYSDEF_syscall(_pselect6,6, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)
+SYSREAL_define_syscall_noopt(_pselect6,6, int a1,   fd_set *a2,   fd_set *a3,   fd_set *a4,   struct timespec *a5,   void *a6) 
+
+// minilib/include/syscalls_x64.h, line: 285
+// SYSDEF_syscall(_setpriority,3, int which,  int who,  int niceval)
+SYSREAL_define_syscall(_setpriority,3, int a1,   int a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 301
+// SYSDEF_syscall(_mlock,2, unsigned long start,  size_t len)
+SYSREAL_define_syscall(_mlock,2, unsigned long a1,   size_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 231
+// SYSDEF_syscall(_setreuid,2, uid_t ruid,  uid_t euid)
+SYSREAL_define_syscall(_setreuid,2, uid_t a1,   uid_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 405
+// SYSDEF_syscall(_lookup_dcookie,3, u64 cookie64,  long buf,  long len)
+SYSREAL_define_syscall(_lookup_dcookie,3, u64 a1,   long a2,   long a3) 
+
+// minilib/include/syscalls_x64.h, line: 587
+// SYSDEF_syscall(_syncfs,1, int fd)
+SYSREAL_define_syscall(_syncfs,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 259
+// SYSDEF_syscall(_rt_sigpending,2, sigset_t *set,  size_t sigsetsize)
+SYSREAL_define_syscall(_rt_sigpending,2, sigset_t *a1,   size_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 251
+// SYSDEF_syscall(_setfsgid,1, gid_t gid)
+SYSREAL_define_syscall(_setfsgid,1, gid_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 389
+// SYSDEF_syscall(_futex,6, u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)
+SYSREAL_define_syscall_noopt(_futex,6, u32 *a1,   int a2,   u32 a3,   struct timespec *a4,   u32 *a5,   u32 a6) 
+
+// minilib/include/syscalls_x64.h, line: 15
+// SYSDEF_syscall(_fstat,2, unsigned int fd,  struct stat *statbuf)
+SYSREAL_define_syscall(_fstat,2, unsigned int a1,   struct stat *a2) 
+
+// minilib/include/syscalls_x64.h, line: 99
+// SYSDEF_syscall(_recvmsg,3, int fd,  struct msghdr *msg,  unsigned int flags)
+SYSREAL_define_syscall(_recvmsg,3, int a1,   struct msghdr *a2,   unsigned int a3) 
+
+// minilib/include/syscalls_x64.h, line: 209
+// SYSDEF_syscall(_getuid,0)
+SYSREAL_define_syscall(_getuid,0)
+
+// minilib/include/syscalls_x64.h, line: 561
+// SYSDEF_syscall(_pipe2,2, int *filedes,  int flags)
+SYSREAL_define_syscall(_pipe2,2, int *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 545
+// SYSDEF_syscall(_fallocate,4, long fd,  long mode,  loff_t offset,  loff_t len)
+SYSREAL_define_syscall_noopt(_fallocate,4, long a1,   long a2,   loff_t a3,   loff_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 165
+// SYSDEF_syscall(_chdir,1, const char *filename)
+SYSREAL_define_syscall(_chdir,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 179
+// SYSDEF_syscall(_unlink,1, const char *pathname)
+SYSREAL_define_syscall(_unlink,1, const char *a1) 
+
+// minilib/include/syscalls_x64.h, line: 197
+// SYSDEF_syscall(_gettimeofday,2, struct timeval *tv,  struct timezone *tz)
+SYSREAL_define_syscall(_gettimeofday,2, struct timeval *a1,   struct timezone *a2) 
+
+// minilib/include/syscalls_x64.h, line: 485
+// SYSDEF_syscall(_inotify_rm_watch,2, int fd,  __s32 wd)
+SYSREAL_define_syscall(_inotify_rm_watch,2, int a1,   __s32 a2) 
+
+// minilib/include/syscalls_x64.h, line: 267
+// SYSDEF_syscall(_sigaltstack,2, const stack_t *uss,  stack_t *uoss)
+SYSREAL_define_syscall(_sigaltstack,2, const stack_t *a1,   stack_t *a2) 
+
+// minilib/include/syscalls_x64.h, line: 513
+// SYSDEF_syscall(_faccessat,3, int dfd,  const char *filename,  int mode)
+SYSREAL_define_syscall(_faccessat,3, int a1,   const char *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 77
+// SYSDEF_syscall(_getitimer,2, int which,  struct itimerval *value)
+SYSREAL_define_syscall(_getitimer,2, int a1,   struct itimerval *a2) 
+
+// minilib/include/syscalls_x64.h, line: 281
+// SYSDEF_syscall(_sysfs,3, int option,  unsigned long arg1,  unsigned long arg2)
+SYSREAL_define_syscall(_sysfs,3, int a1,   unsigned long a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 7
+// SYSDEF_syscall(_write,3, unsigned int fd,  const char *buf,  size_t count)
+SYSREAL_define_syscall(_write,3, unsigned int a1,   const char *a2,   size_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 577
+// SYSDEF_syscall(_fanotify_mark,5, long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)
+SYSREAL_define_syscall_noopt(_fanotify_mark,5, long a1,   long a2,   __u64 a3,   long a4,  long a5) 
+
+// minilib/include/syscalls_x64.h, line: 9
+// SYSDEF_syscall(_open,3, const char *filename,  int flags,  int mode)
+SYSREAL_define_syscall(_open,3, const char *a1,   int a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 501
+// SYSDEF_syscall(_unlinkat,3, int dfd,  const char *pathname,  int flag)
+SYSREAL_define_syscall(_unlinkat,3, int a1,   const char *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 385
+// SYSDEF_syscall(_tkill,2, pid_t pid,  int sig)
+SYSREAL_define_syscall(_tkill,2, pid_t a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 295
+// SYSDEF_syscall(_sched_get_priority_max,1, int policy)
+SYSREAL_define_syscall(_sched_get_priority_max,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 101
+// SYSDEF_syscall(_shutdown,2, int fd,  int how)
+SYSREAL_define_syscall(_shutdown,2, int a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 167
+// SYSDEF_syscall(_fchdir,1, unsigned int fd)
+SYSREAL_define_syscall(_fchdir,1, unsigned int a1) 
+
+// minilib/include/syscalls_x64.h, line: 537
+// SYSDEF_syscall(_epoll_pwait,6, int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)
+SYSREAL_define_syscall_noopt(_epoll_pwait,6, int a1,   struct epoll_event *a2,   int a3,   int a4,   const sigset_t *a5,   size_t a6) 
+
+// minilib/include/syscalls_x64.h, line: 401
+// SYSDEF_syscall(_io_submit,3, aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)
+SYSREAL_define_syscall(_io_submit,3, aio_context_t a1,   long a2,   struct iocb **a3) 
+
+// minilib/include/syscalls_x64.h, line: 605
+// SYSDEF_syscall(_sched_getattr,4, pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)
+SYSREAL_define_syscall_noopt(_sched_getattr,4, pid_t a1,   struct sched_attr  *a2,   unsigned int a3,   unsigned int a4) 
+
+// minilib/include/syscalls_x64.h, line: 303
+// SYSDEF_syscall(_munlock,2, unsigned long start,  size_t len)
+SYSREAL_define_syscall(_munlock,2, unsigned long a1,   size_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 287
+// SYSDEF_syscall(_sched_setparam,2, pid_t pid,  struct sched_param *param)
+SYSREAL_define_syscall(_sched_setparam,2, pid_t a1,   struct sched_param *a2) 
+
+// minilib/include/syscalls_x64.h, line: 347
+// SYSDEF_syscall(_iopl,2, unsigned int level,  struct pt_regs *regs)
+SYSREAL_define_syscall(_iopl,2, unsigned int a1,   struct pt_regs *a2) 
+
+// minilib/include/syscalls_x64.h, line: 533
+// SYSDEF_syscall(_move_pages,6, pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)
+SYSREAL_define_syscall_noopt(_move_pages,6, pid_t a1,   unsigned long a2,   const void *a3,  const int *a4,   int *a5,   int a6) 
+
+// minilib/include/syscalls_x64.h, line: 115
+// SYSDEF_syscall(_getsockopt,5, int fd,  int level,  int optname,  char *optval,  int *optlen)
+SYSREAL_define_syscall_noopt(_getsockopt,5, int a1,   int a2,   int a3,   char *a4,   int *a5) 
+
+// minilib/include/syscalls_x64.h, line: 263
+// SYSDEF_syscall(_rt_sigqueueinfo,3, pid_t pid,  int sig,  siginfo_t *uinfo)
+SYSREAL_define_syscall(_rt_sigqueueinfo,3, pid_t a1,   int a2,   siginfo_t *a3) 
+
+// minilib/include/syscalls_x64.h, line: 363
+// SYSDEF_syscall(_lsetxattr,5, const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
+SYSREAL_define_syscall_noopt(_lsetxattr,5, const char *a1,   const char *a2,   const void *a3,  size_t a4,   int a5) 
+
+// minilib/include/syscalls_x64.h, line: 337
+// SYSDEF_syscall(_swapon,2, const char *specialfile,  int swap_flags)
+SYSREAL_define_syscall(_swapon,2, const char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 559
+// SYSDEF_syscall(_dup3,3, unsigned int oldfd,  unsigned int newfd,  int flags)
+SYSREAL_define_syscall(_dup3,3, unsigned int a1,   unsigned int a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 345
+// SYSDEF_syscall(_setdomainname,2, char *name,  int len)
+SYSREAL_define_syscall(_setdomainname,2, char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 249
+// SYSDEF_syscall(_setfsuid,1, uid_t uid)
+SYSREAL_define_syscall(_setfsuid,1, uid_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 33
+// SYSDEF_syscall(_rt_sigprocmask,4, int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
+SYSREAL_define_syscall_noopt(_rt_sigprocmask,4, int a1,   sigset_t *a2,   sigset_t *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 305
+// SYSDEF_syscall(_mlockall,1, int flags)
+SYSREAL_define_syscall(_mlockall,1, int a1) 
+
+// minilib/include/syscalls_x64.h, line: 233
+// SYSDEF_syscall(_setregid,2, gid_t rgid,  gid_t egid)
+SYSREAL_define_syscall(_setregid,2, gid_t a1,   gid_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 129
+// SYSDEF_syscall(_kill,2, pid_t pid,  int sig)
+SYSREAL_define_syscall(_kill,2, pid_t a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 175
+// SYSDEF_syscall(_creat,2, const char *pathname,  int mode)
+SYSREAL_define_syscall(_creat,2, const char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 255
+// SYSDEF_syscall(_capget,2, cap_user_header_t header,  cap_user_data_t dataptr)
+SYSREAL_define_syscall(_capget,2, cap_user_header_t a1,   cap_user_data_t a2) 
+
+// minilib/include/syscalls_x64.h, line: 613
+// SYSDEF_syscall(_memfd_create,2, const char  *uname_ptr,  unsigned int flags)
+SYSREAL_define_syscall(_memfd_create,2, const char  *a1,   unsigned int a2) 
+
+// minilib/include/syscalls_x64.h, line: 135
+// SYSDEF_syscall(_semop,3, int semid,  struct sembuf *tsops,  unsigned nsops)
+SYSREAL_define_syscall(_semop,3, int a1,   struct sembuf *a2,   unsigned a3) 
+
+// minilib/include/syscalls_x64.h, line: 371
+// SYSDEF_syscall(_fgetxattr,4, int fd,  const char *name,  void *value,  size_t size)
+SYSREAL_define_syscall_noopt(_fgetxattr,4, int a1,   const char *a2,   void *a3,   size_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 477
+// SYSDEF_syscall(_ioprio_set,3, int which,  int who,  int ioprio)
+SYSREAL_define_syscall(_ioprio_set,3, int a1,   int a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 335
+// SYSDEF_syscall(_umount2,2, const char *target,  int flags)
+SYSREAL_define_syscall(_umount2,2, const char *a1,   int a2) 
+
+// minilib/include/syscalls_x64.h, line: 269
+// SYSDEF_syscall(_utime,2, char *filename,  struct utimbuf *times)
+SYSREAL_define_syscall(_utime,2, char *a1,   struct utimbuf *a2) 
+
+// minilib/include/syscalls_x64.h, line: 37
+// SYSDEF_syscall(_ioctl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
+SYSREAL_define_syscall(_ioctl,3, unsigned int a1,   unsigned int a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 49
+// SYSDEF_syscall(_pipe,1, int *filedes)
+SYSREAL_define_syscall(_pipe,1, int *a1) 
+
+// minilib/include/syscalls_x64.h, line: 549
+// SYSDEF_syscall(_timerfd_gettime,2, int ufd,  struct itimerspec *otmr)
+SYSREAL_define_syscall(_timerfd_gettime,2, int a1,   struct itimerspec *a2) 
+
+// minilib/include/syscalls_x64.h, line: 65
+// SYSDEF_syscall(_shmat,3, int shmid,  char *shmaddr,  int shmflg)
+SYSREAL_define_syscall(_shmat,3, int a1,   char *a2,   int a3) 
+
+// minilib/include/syscalls_x64.h, line: 193
+// SYSDEF_syscall(_lchown,3, const char *filename,  uid_t user,  gid_t group)
+SYSREAL_define_syscall(_lchown,3, const char *a1,   uid_t a2,   gid_t a3) 
+
+// minilib/include/syscalls_x64.h, line: 121
+// SYSDEF_syscall(_vfork,0)
+SYSREAL_define_syscall(_vfork,0)
+
+// minilib/include/syscalls_x64.h, line: 523
+// SYSDEF_syscall(_get_robust_list,3, int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)
+SYSREAL_define_syscall(_get_robust_list,3, int a1,   struct robust_list_head **a2,   size_t *a3) 
+
+// minilib/include/syscalls_x64.h, line: 569
+// SYSDEF_syscall(_rt_tgsigqueueinfo,4, pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)
+SYSREAL_define_syscall_noopt(_rt_tgsigqueueinfo,4, pid_t a1,   pid_t a2,   int a3,   siginfo_t *a4) 
+
+// minilib/include/syscalls_x64.h, line: 43
+// SYSDEF_syscall(_readv,3, unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
+SYSREAL_define_syscall(_readv,3, unsigned long a1,   const struct iovec *a2,   unsigned long a3) 
+
 // minilib/include/syscalls_x64.h, line: 217
 // SYSDEF_syscall(_setgid,1, gid_t gid)
 SYSREAL_define_syscall(_setgid,1, gid_t a1) 
 
-// minilib/include/syscalls_x64.h, line: 519
-// SYSDEF_syscall(_unshare,1, unsigned long unshare_flags)
-SYSREAL_define_syscall(_unshare,1, unsigned long a1) 
+// minilib/include/syscalls_x64.h, line: 441
+// SYSDEF_syscall(_epoll_wait,4, int epfd,  struct epoll_event *events,  int maxevents,  int timeout)
+SYSREAL_define_syscall_noopt(_epoll_wait,4, int a1,   struct epoll_event *a2,   int a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 19
+// SYSDEF_syscall(_poll,3, struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)
+SYSREAL_define_syscall(_poll,3, struct poll_fd *a1,   unsigned int a2,   long a3) 
+
+// minilib/include/syscalls_x64.h, line: 489
+// SYSDEF_syscall(_openat,4, int dfd,  const char *filename,  int flags,  int mode)
+SYSREAL_define_syscall_noopt(_openat,4, int a1,   const char *a2,   int a3,   int a4) 
+
+// minilib/include/syscalls_x64.h, line: 429
+// SYSDEF_syscall(_timer_delete,1, timer_t timer_id)
+SYSREAL_define_syscall(_timer_delete,1, timer_t a1) 
+
+// minilib/include/syscalls_x64.h, line: 393
+// SYSDEF_syscall(_sched_getaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
+SYSREAL_define_syscall(_sched_getaffinity,3, pid_t a1,   unsigned int a2,   unsigned long *a3) 
+
+// minilib/include/syscalls_x64.h, line: 237
+// SYSDEF_syscall(_setgroups,2, int gidsetsize,  gid_t *grouplist)
+SYSREAL_define_syscall(_setgroups,2, int a1,   gid_t *a2) 
+
+// minilib/include/syscalls_x64.h, line: 149
+// SYSDEF_syscall(_fcntl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
+SYSREAL_define_syscall(_fcntl,3, unsigned int a1,   unsigned int a2,   unsigned long a3) 
+
+// minilib/include/syscalls_x64.h, line: 589
+// SYSDEF_syscall(_sendmmsg,4, int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)
+SYSREAL_define_syscall_noopt(_sendmmsg,4, int a1,   struct mmsghdr *a2,   unsigned int a3,   unsigned int a4) 
+
+// minilib/include/syscalls_x64.h, line: 473
+// SYSDEF_syscall(_request_key,4, const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)
+SYSREAL_define_syscall_noopt(_request_key,4, const char *a1,   const char *a2,   const char *a3,   key_serial_t a4) 
+
+// minilib/include/syscalls_x64.h, line: 423
+// SYSDEF_syscall(_timer_settime,4, timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)
+SYSREAL_define_syscall_noopt(_timer_settime,4, timer_t a1,   int a2,   const struct itimerspec *a3,   struct itimerspec *a4) 
+
+// minilib/include/syscalls_x64.h, line: 399
+// SYSDEF_syscall(_io_getevents,4, aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)
+SYSREAL_define_syscall_noopt(_io_getevents,4, aio_context_t a1,   long a2,   long a3,   struct io_event *a4) 
+
+// minilib/include/syscalls_x64.h, line: 595
+// SYSDEF_syscall(_process_vm_readv,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)
+SYSREAL_define_syscall_noopt(_process_vm_readv,6, pid_t a1,   const struct iovec *a2,   unsigned long a3,   const struct iovec *a4,   unsigned long a5,   unsigned long a6) 
+
+// minilib/include/syscalls_x64.h, line: 201
+// SYSDEF_syscall(_getrusage,2, int who,  struct rusage *ru)
+SYSREAL_define_syscall(_getrusage,2, int a1,   struct rusage *a2) 
 
 #endif
 
@@ -10079,50 +8671,95 @@ extern int errno;
 /* end templates/minilib.h.in */
 
 
-#ifdef mini_dprintf
+#ifdef mini_realloc
 //dep
-#ifndef mini_write
-#define mini_write
+#ifndef mini_free
+#define mini_free
 #endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
+#ifndef mini_malloc
+#define mini_malloc
 #endif
 #endif
 
-#ifdef mini_strncpy
+#ifdef mini_posix_openpt
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_sigaction
 //dep
 #ifndef mini_memcpy
 #define mini_memcpy
 #endif
 #endif
 
-#ifdef mini_perror
+#ifdef mini_gets
 //dep
-#ifndef mini_fputs
-#define mini_fputs
+#ifndef mini_fgets
+#define mini_fgets
 #endif
-#ifndef mini_strerror
-#define mini_strerror
+#ifndef mini_fgetc
+#define mini_fgetc
 #endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_ptsname
+//dep
+#ifndef mini_ptsname_r
+#define mini_ptsname_r
+#endif
+#endif
+
+#ifdef mini_writes
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_closedir
+//dep
+#ifndef mini_free
+#define mini_free
+#endif
+#endif
+
+#ifdef mini_dtodec
+//dep
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini_rewind
+//dep
+#ifndef mini_fseek
+#define mini_fseek
+#endif
+#endif
+
+#ifdef mini_dirname
+//dep
 #ifndef mini_strlen
 #define mini_strlen
 #endif
 #endif
 
-#ifdef mini_raise
+#ifdef mini_itodec
 //dep
-#ifndef mini_getpid
-#define mini_getpid
-#endif
-#endif
-
-#ifdef mini_fdopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
+#ifndef mini_uitodec
+#define mini_uitodec
 #endif
 #endif
 
@@ -10133,62 +8770,23 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_sprintf
+#ifdef mini_getc
 //dep
-#ifndef mini_snprintf
-#define mini_snprintf
+#ifndef mini_fgetc
+#define mini_fgetc
 #endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
+#ifndef mini_fileno
+#define mini_fileno
 #endif
-#endif
-
-#ifdef mini_ftell
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_fread
-//dep
 #ifndef mini_read
 #define mini_read
 #endif
 #endif
 
-#ifdef mini_wait
+#ifdef mini_fwrites
 //dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_putchar
-//dep
-#ifndef mini_fputc
-#define mini_fputc
-#endif
-#endif
-
-#ifdef mini_itobin
-//dep
-#ifndef mini__itobin
-#define mini__itobin
-#endif
-#endif
-
-#ifdef mini_unlockpt
-//dep
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_tcgetattr
-//dep
-#ifndef mini_ioctl
-#define mini_ioctl
+#ifndef mini_write
+#define mini_write
 #endif
 #endif
 
@@ -10199,31 +8797,44 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_waitpid
+#ifdef mini_itobin
 //dep
-#ifndef mini_wait4
-#define mini_wait4
+#ifndef mini__itobin
+#define mini__itobin
 #endif
 #endif
 
-#ifdef mini_creat
+#ifdef mini_snprintf
 //dep
-#ifndef mini_open
-#define mini_open
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
 #endif
 #endif
 
-#ifdef mini_putc
+#ifdef mini_getenv
 //dep
-#ifndef mini_fputc
-#define mini_fputc
+#ifndef mini_environ
+#define mini_environ
 #endif
 #endif
 
-#ifdef mini_prints
+#ifdef mini_fgets
 //dep
-#ifndef mini__mprints
-#define mini__mprints
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_printfs
+//dep
+#ifndef mini_fprintfs
+#define mini_fprintfs
+#endif
+#ifndef mini_fputs
+#define mini_fputs
 #endif
 #endif
 
@@ -10246,33 +8857,84 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_execvpe
+#ifdef mini_strcasecmp
 //dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_access
-#define mini_access
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
 #endif
 #endif
 
-#ifdef mini_writes
+#ifdef mini_fputc
 //dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
 #ifndef mini_write
 #define mini_write
 #endif
 #endif
 
-#ifdef mini_itoHEX
+#ifdef mini_unlockpt
 //dep
-#ifndef mini__itohex
-#define mini__itohex
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_strdup
+//dep
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_strcpy
+#define mini_strcpy
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_strncmp
+//dep
+#ifndef mini__strcmp
+#define mini__strcmp
+#endif
+#endif
+
+#ifdef mini_putchar
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_ftell
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_fprintfs
+//dep
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#endif
+
+#ifdef mini_sprintf
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
 #endif
 #endif
 
@@ -10289,44 +8951,10 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini__fopen
+#ifdef mini_fgetpos
 //dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_getenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#endif
-
-#ifdef mini_strncasecmp
-//dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
-#endif
-#endif
-
-#ifdef mini_strcat
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_closedir
-//dep
-#ifndef mini_free
-#define mini_free
+#ifndef mini_ftell
+#define mini_ftell
 #endif
 #endif
 
@@ -10340,6 +8968,80 @@ extern int errno;
 #endif
 #endif
 
+#ifdef mini_strncasecmp
+//dep
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
+#endif
+#endif
+
+#ifdef mini_wait
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_execvpe
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#endif
+
+#ifdef mini_strrchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
+#endif
+#endif
+
+#ifdef mini_execvp
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#endif
+
+#ifdef mini_ptsname_r
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#endif
+
+#ifdef mini_itohex
+//dep
+#ifndef mini__itohex
+#define mini__itohex
+#endif
+#endif
+
+#ifdef mini_fprint
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#endif
+
 #ifdef mini_freopen
 //dep
 #ifndef mini_open
@@ -10350,6 +9052,119 @@ extern int errno;
 #endif
 #endif
 
+#ifdef mini_strchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
+#endif
+#endif
+
+#ifdef mini_raise
+//dep
+#ifndef mini_getpid
+#define mini_getpid
+#endif
+#endif
+
+#ifdef mini_waitpid
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_print
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_dprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#endif
+
+#ifdef mini_printl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_fread
+//dep
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_tcgetattr
+//dep
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_strcat
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_printf
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#endif
+
+#ifdef mini__fopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_tcsetattr
+//dep
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_memcmp
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_vsnprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
 #ifdef mini_fsetpos
 //dep
 #ifndef mini_lseek
@@ -10357,10 +9172,16 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_vfprintf
+#ifdef mini_getchar
 //dep
-#ifndef mini_fprintf
-#define mini_fprintf
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
 #endif
 #endif
 
@@ -10377,84 +9198,17 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_dirname
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_gets
-//dep
-#ifndef mini_fgets
-#define mini_fgets
-#endif
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_fwrite
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_dtodec
-//dep
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_printf
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#endif
-
-#ifdef mini_itohex
+#ifdef mini_itoHEX
 //dep
 #ifndef mini__itohex
 #define mini__itohex
 #endif
 #endif
 
-#ifdef mini_fgetpos
+#ifdef mini_fseek
 //dep
-#ifndef mini_ftell
-#define mini_ftell
-#endif
-#endif
-
-#ifdef mini_snprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#endif
-
-#ifdef mini_fclose
-//dep
-#ifndef mini_close
-#define mini_close
+#ifndef mini_lseek
+#define mini_lseek
 #endif
 #endif
 
@@ -10462,50 +9216,6 @@ extern int errno;
 //dep
 #ifndef mini_strlen
 #define mini_strlen
-#endif
-#endif
-
-#ifdef mini_ptsname_r
-//dep
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#endif
-
-#ifdef mini_print
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_execv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#endif
-
-#ifdef mini_sigaction
-//dep
-#ifndef mini_memcpy
-#define mini_memcpy
-#endif
-#endif
-
-#ifdef mini_strncmp
-//dep
-#ifndef mini__strcmp
-#define mini__strcmp
 #endif
 #endif
 
@@ -10519,10 +9229,55 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_strchr
+#ifdef mini_strcmp
 //dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
+#ifndef mini__strcmp
+#define mini__strcmp
+#endif
+#endif
+
+#ifdef mini_creat
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini__mprints
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_putc
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_strncpy
+//dep
+#ifndef mini_memcpy
+#define mini_memcpy
+#endif
+#endif
+
+#ifdef mini_fopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#endif
+
+#ifdef mini_fwrite
+//dep
+#ifndef mini_write
+#define mini_write
 #endif
 #endif
 
@@ -10552,27 +9307,40 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_execvp
+#ifdef mini_perror
 //dep
-#ifndef mini_environ
-#define mini_environ
+#ifndef mini_fputs
+#define mini_fputs
 #endif
-#ifndef mini_execve
-#define mini_execve
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_strlen
+#define mini_strlen
 #endif
 #endif
 
-#ifdef mini_rewind
+#ifdef mini_signal
 //dep
-#ifndef mini_fseek
-#define mini_fseek
+#ifndef mini_sigaction
+#define mini_sigaction
 #endif
 #endif
 
-#ifdef mini_tcsetattr
+#ifdef mini_prints
 //dep
-#ifndef mini_ioctl
-#define mini_ioctl
+#ifndef mini__mprints
+#define mini__mprints
+#endif
+#endif
+
+#ifdef mini_fdopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
 #endif
 #endif
 
@@ -10595,213 +9363,37 @@ extern int errno;
 #endif
 #endif
 
-#ifdef mini_itodec
-//dep
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_memcmp
-//dep
-#ifndef mini_0
-#define mini_0
-#endif
-#endif
-
-#ifdef mini__mprints
-//dep
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_strrchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_vsnprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fprintfs
-//dep
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#endif
-
-#ifdef mini_strdup
-//dep
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_strcpy
-#define mini_strcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_getchar
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_realloc
-//dep
-#ifndef mini_free
-#define mini_free
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#endif
-
-#ifdef mini_fwrites
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_strcasecmp
-//dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
-#endif
-#endif
-
-#ifdef mini_printfs
-//dep
-#ifndef mini_fprintfs
-#define mini_fprintfs
-#endif
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#endif
-
-#ifdef mini_strcmp
-//dep
-#ifndef mini__strcmp
-#define mini__strcmp
-#endif
-#endif
-
-#ifdef mini_getc
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_posix_openpt
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_signal
-//dep
-#ifndef mini_sigaction
-#define mini_sigaction
-#endif
-#endif
-
-#ifdef mini_fputc
-//dep
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fgets
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_ptsname
-//dep
-#ifndef mini_ptsname_r
-#define mini_ptsname_r
-#endif
-#endif
-
-#ifdef mini_fprint
+#ifdef mini_vfprintf
 //dep
 #ifndef mini_fprintf
 #define mini_fprintf
 #endif
-#ifndef mini_fileno
-#define mini_fileno
+#endif
+
+#ifdef mini_execv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
 #endif
 #endif
 
-#ifdef mini_fseek
+#ifdef mini_fclose
 //dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_printl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
+#ifndef mini_close
+#define mini_close
 #endif
 #endif
 // Start incfirst
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_getpid
+#ifdef mini_wait4
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_fseek
+// minilib/include/fputc.h
+#ifdef mini_fputc
 #ifndef mini_fstream_h
 #define mini_fstream_h
 
@@ -11109,38 +9701,65 @@ static int setvbuf(FILE *stream, char *buf, int mode, size_t size){
 
 
 #endif
+#ifndef fputc_c
+#define fputc_c
+
+//#include "write.h"
+
+//+header stdio.h
+//+depends fileno write
+//+needs mini_fstream.h
+//+def
+static inline int volatile fputc(int c, FILE* F){
+		write(fileno(F), &c, 1);
+		return(c);
+}
+
+//+depends fputc
+//+macro  putchar(c) fputc(c,stdout)
+
+//+depends fputc
+//+macro  putc(c,stream) fputc(c,stream)
+
+
+#endif
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_execve
+#ifdef mini_access
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+char *strcpy(char *dest, const char *src);
+#endif
+
+// minilib/src/fgets.c
+#ifdef mini_fgets
+char* fgets(char *buf, int size, FILE* F);
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_write
+#ifdef mini_vfork
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_printl
-#define printl() write(STDOUT_FILENO,"\n",1)
+// minilib/src/pty.c
+#ifdef mini_ptsname_r
+int ptsname_r(int fd, char *buf, size_t len);
 #endif
 
-// minilib/src/itodec.c
-#ifdef mini_uitodec
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
+// minilib/src/strlen.c
+#ifdef mini_strlen
+int strlen(const char*str);
 #endif
 
-// minilib/src/itohex.c
-#ifdef mini__itohex
-int _itohex(int i,char* buf,int padding, int capitals);
+// minilib/src/fprintfs.c
+#ifdef mini_fprintfs
+int fprintfs( FILE* F, char *fmt, ...);
 #endif
 
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_fputc
+// minilib/include/mini_fstream.h
+#ifdef mini_ftell
 #ifndef mini_fstream_h
 #define mini_fstream_h
 
@@ -11367,120 +9986,20 @@ static int setvbuf(FILE *stream, char *buf, int mode, size_t size){
 
 
 #endif
-#ifndef fputc_c
-#define fputc_c
-
-//#include "write.h"
-
-//+header stdio.h
-//+depends fileno write
-//+needs mini_fstream.h
-//+def
-static inline int volatile fputc(int c, FILE* F){
-		write(fileno(F), &c, 1);
-		return(c);
-}
-
-//+depends fputc
-//+macro  putchar(c) fputc(c,stdout)
-
-//+depends fputc
-//+macro  putc(c,stream) fputc(c,stream)
-
-
-#endif
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_vfork
-#endif
-
-// 
-#ifdef mini_dprints
-#endif
-
-// minilib/src/fgets.c
-#ifdef mini_fgets
-char* fgets(char *buf, int size, FILE* F);
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fileno
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_close
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_fwrites
-#define fwrites(fd,str) write(fd,str,sizeof(str))
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_strerror
-char* strerror( int errnum );
-#endif
-
-// minilib/src/fprintfs.c
-#ifdef mini_fprintfs
-int fprintfs( FILE* F, char *fmt, ...);
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_lseek
-#ifndef mini_lseek_h
-#define mini_lseek_h
-
-//+header unistd.h
-//+inc
-
-//#include "syscall.h"
-#ifndef SEEK_SET
-#define SEEK_SET        0       /* seek relative to beginning of file */
-#define SEEK_CUR        1       /* seek relative to current file position */
-#define SEEK_END        2       /* seek relative to end of file */
-#define SEEK_MAX        SEEK_END
-#endif
-
-extern int sysret;
-extern int errno;
-
-DEF_syscall(lseek,3,unsigned int a1, int a2, int a3 )
-
-DEF_syscall(ftruncate,2,unsigned int a1, unsigned int a2 )
-DEF_syscall(fsync,1,int a1 )
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_malloc
-void* volatile malloc(int size);
 #endif
 
 // minilib/src/sprintf.c
-#ifdef mini_vsnprintf
-int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+#ifdef mini_sprintf
+#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 #endif
 
-// minilib/src/prints.c
-#ifdef mini__mprints
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+// minilib/include/syscall_stubs.h
+#ifdef mini_write
 #endif
 
-// minilib/src/itodec.c
-#ifdef mini_itodec
-int itodec(int i, char *buf, int prec, char limiter );
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_fprintf
-#define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+// minilib/src/strcmp.c
+#ifdef mini__strcmp
+int _strcmp(const char*c1,const char*c2,int len);
 #endif
 
 // 
@@ -11491,8 +10010,27 @@ int itodec(int i, char *buf, int prec, char limiter );
 #ifdef mini_read
 #endif
 
+// minilib/src/sigaction.c
+#ifdef mini_sigaction
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+#endif
+
 // minilib/include/syscall_stubs.h
-#ifdef mini_access
+#ifdef mini_close
+#endif
+
+// 
+#ifdef mini_dprints
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_fwrites
+#define fwrites(fd,str) write(fd,str,sizeof(str))
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_getenv
+char* getenv(const char* name);
 #endif
 
 // minilib/src/strcmp.c
@@ -11500,8 +10038,87 @@ int itodec(int i, char *buf, int prec, char limiter );
 int _strcasecmp(const char*c1,const char*c2,int len);
 #endif
 
-// 
-#ifdef mini_0
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+void *memcpy( void *d, const void *s, int n );
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_snprintf
+int snprintf( char *buf, size_t size, const char *fmt, ... );
+#endif
+
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strchrnul
+char *strchrnul(const char *s, int c);
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_free
+void volatile free(void* p);
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_itodec
+int itodec(int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/prints.c
+#ifdef mini__mprints
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+#endif
+
+// minilib/include/fputs.h
+#ifdef mini_fputs
+#ifndef fputs_h
+#define fputs_h
+
+//#include "write.h"
+
+
+//+header stdio.h
+//+needs mini_fstream.h
+//+include
+
+int strlen(const char*str);
+// after doesnt ork here. inline. so here's the predef.
+// need to rethink the dependency build process
+static int fileno(FILE*);
+
+//+depends strlen fileno write
+//+needs mini_fstream.h
+//+after fileno
+//+inline
+static inline int volatile fputs(const char *c, FILE *F){
+		return(write(fileno(F), c, strlen(c)));
+}
+
+
+
+#endif
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini__itohex
+int _itohex(int i,char* buf,int padding, int capitals);
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fileno
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fseek
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+int volatile open( const char *s, int flags, ... );
 #endif
 
 // minilib/include/fgetc.h
@@ -11549,39 +10166,78 @@ static int ungetc(int c, FILE *F){
 #endif
 #endif
 
-// minilib/include/fputs.h
-#ifdef mini_fputs
-#ifndef fputs_h
-#define fputs_h
+// 
+#ifdef mini_0
+#endif
 
-//#include "write.h"
+// minilib/include/lseek.h
+#ifdef mini_lseek
+#ifndef mini_lseek_h
+#define mini_lseek_h
 
+//+header unistd.h
+//+inc
 
-//+header stdio.h
-//+needs mini_fstream.h
-//+include
+//#include "syscall.h"
+#ifndef SEEK_SET
+#define SEEK_SET        0       /* seek relative to beginning of file */
+#define SEEK_CUR        1       /* seek relative to current file position */
+#define SEEK_END        2       /* seek relative to end of file */
+#define SEEK_MAX        SEEK_END
+#endif
 
-int strlen(const char*str);
-// after doesnt ork here. inline. so here's the predef.
-// need to rethink the dependency build process
-static int fileno(FILE*);
+extern int sysret;
+extern int errno;
 
-//+depends strlen fileno write
-//+needs mini_fstream.h
-//+after fileno
-//+inline
-static inline int volatile fputs(const char *c, FILE *F){
-		return(write(fileno(F), c, strlen(c)));
-}
+DEF_syscall(lseek,3,unsigned int a1, int a2, int a3 )
+
+DEF_syscall(ftruncate,2,unsigned int a1, unsigned int a2 )
+DEF_syscall(fsync,1,int a1 )
+
 
 
 
 #endif
+
 #endif
 
-// minilib/src/sigaction.c
-#ifdef mini_sigaction
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+// minilib/src/sprintf.c
+#ifdef mini_fprintf
+#define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getpid
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_malloc
+void* volatile malloc(int size);
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_strerror
+char* strerror( int errnum );
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_prints
+#define prints(...) _mprints(__VA_ARGS__,0)
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_printl
+#define printl() write(STDOUT_FILENO,"\n",1)
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_dprintf
+int dprintf( int fd, const char *fmt, ... );
 #endif
 
 // minilib/include/prints.h
@@ -11589,54 +10245,9 @@ static int volatile sigaction(int sig, const struct sigaction *act, struct sigac
 #define print(str) write(STDOUT_FILENO,str,strlen(str))
 #endif
 
-// minilib/src/pty.c
-#ifdef mini_ptsname_r
-int ptsname_r(int fd, char *buf, size_t len);
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini__itobin
-int _itobin(int i, char*buf, int prec, int groups );
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_snprintf
-int snprintf( char *buf, size_t size, const char *fmt, ... );
-#endif
-
-// minilib/src/open.c
-#ifdef mini_open
-int volatile open( const char *s, int flags, ... );
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini__strcmp
-int _strcmp(const char*c1,const char*c2,int len);
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-char *strcpy(char *dest, const char *src);
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_getenv
-char* getenv(const char* name);
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini__fopen
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-#endif
-
-// minilib/src/strlen.c
-#ifdef mini_strlen
-int strlen(const char*str);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_prints
-#define prints(...) _mprints(__VA_ARGS__,0)
+// minilib/src/wait.c
+#ifdef mini_waitpid
+pid_t waitpid(pid_t pid, int *wstatus, int options);
 #endif
 
 // minilib/include/tcgetattr.h
@@ -11672,47 +10283,28 @@ static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termio
 #endif
 #endif
 
-// minilib/src/wait.c
-#ifdef mini_waitpid
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_memcpy
-void *memcpy( void *d, const void *s, int n );
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_ftell
-#endif
-
 // minilib/include/syscall_stubs.h
-#ifdef mini_wait4
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strchrnul
-char *strchrnul(const char *s, int c);
+#ifdef mini_execve
 #endif
 
 // minilib/src/sprintf.c
-#ifdef mini_sprintf
-#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
+#ifdef mini_vsnprintf
+int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 #endif
 
-// minilib/src/malloc.c
-#ifdef mini_free
-void volatile free(void* p);
+// minilib/src/itobin.c
+#ifdef mini__itobin
+int _itobin(int i, char*buf, int prec, int groups );
 #endif
 
-// minilib/src/sprintf.c
-#ifdef mini_dprintf
-int dprintf( int fd, const char *fmt, ... );
+// minilib/src/fopen.c
+#ifdef mini__fopen
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 #endif
 // End incfirst
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__perf_event_open
+#ifdef mini__pwrite64
 #ifndef syscalls_x64_h
 
 #define syscalls_x64_h
@@ -12337,52 +10929,66 @@ SYSDEF_syscall(_kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long
 
 #endif
 
-// minilib/src/strcmp.c
-#ifdef mini_memcmp
-int memcmp(const void* c1,const void* c2,int len);
+// minilib/include/syscalls_x64.h
+#ifdef mini__reboot
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__write
+#ifdef mini__ptrace
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__delete_module
+#ifdef mini__flistxattr
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__shmget
+#ifdef mini__clock_nanosleep
 #endif
 
-// minilib/include/tcsetattr.h
-#ifdef mini_tcsetattr
-#ifndef tcsetattr_h
-#define tcsetattr_h
-
-//#include <termios.h>
-//#include "ioctl.h"
-int ioctl( int fd, unsigned long int request, ... );
-
-//#include <sys/ttycom.h>
-
-#ifndef TCSETS
-#warning TCSETS not defined. Applying ugly hack.
-#define TCSETS TIOCSETA
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_settime
 #endif
 
-//+needs termios.h bits/ioctl.h
-//+header unistd.h
-//+include
-//+depends ioctl
-//+def
-static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
-	return(ioctl(fd, TCSETS +opt, io));
-	//return(ioctl(fd, 0x5402+opt, io));
-}
-
-
-
+// minilib/include/syscalls_x64.h
+#ifdef mini__getxattr
 #endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__execve
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mbind
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__waitid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__umask
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_realloc
+void* realloc(void *p, int size);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getdents64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sysinfo
+#endif
+
+// minilib/src/sleep.c
+#ifdef mini_sleep
+unsigned int volatile sleep(unsigned int seconds);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_uname
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -12390,23 +10996,392 @@ static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, cons
 #endif
 
 // minilib/include/syscalls_x64.h
+#ifdef mini__io_setup
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setresgid
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrlimit
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rt_sigprocmask
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__quotactl
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rmdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__acct
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pause
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_adjtime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__migrate_pages
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_chown
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpgid
+#endif
+
+// minilib/include/syscalls_x64.h
 #ifdef mini__truncate
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__gettid
+// minilib/src/strdup.c
+#ifdef mini_strdup
+char *strdup(const char *source);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_sendfile
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strncmp
+int strncmp(const char*c1,const char*c2,int len);
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_ferror
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigismember
+int sigismember(sigset_t *set, int sig);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setns
+#ifdef mini__exit_group
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__linkat
+#ifdef mini__epoll_create1
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__lchown
+#ifdef mini__clock_gettime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__renameat2
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_raise
+static inline int raise(int signr);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setsid
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_setbuf
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readlink
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clone
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getscheduler
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ftruncate
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__newfstatat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lremovexattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mknod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getresuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_init1
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigreturn
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__symlinkat
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fork
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigsuspend
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_ungetc
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__vhangup
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setresuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setaffinity
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fremovexattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__munlockall
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__socketpair
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fdatasync
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rt_sigreturn
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mremap
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+int dtodec(double d, char* buf, int precision);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__prctl
+#endif
+
+// minilib/src/dirent/readdir.c
+#ifdef mini_readdir
+struct dirent *readdir(DIR *dir);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fsync
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+int itohex(int i,char* buf,int padding);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__keyctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendmsg
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_yield
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__swapoff
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__open_by_handle_at
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mount
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsid
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_setpgid
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_putchar
+#define putchar(c) fputc(c,stdout)
+#endif
+
+// minilib/include/isprint.h
+#ifdef mini_isprint
+#ifndef mini_isprint_h
+#define mini_isprint_h
+#define misprint(A) isprint(A)
+
+//+header ctype.h
+//+inc
+//+def
+static inline int __attribute__((always_inline)) isprint(const char c){
+		if ( (c>31) && ( c<127 ))
+				return(1);
+		return(0);
+}
+
+
+#endif
+
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_ftruncate
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__madvise
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+void *memset( void *s, int c, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__seccomp
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kcmp
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_create
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__recvmmsg
+#endif
+
+// minilib/src/memmove.c
+#ifdef mini_memmove
+void* memmove(void *dest, const void *src, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setpgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semctl
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strchr
+char *strchr(const char *s, int c);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__times
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__connect
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__uname
+#endif
+
+// minilib/src/signal.c
+#ifdef mini_signal
+sighandler_t signal(int sig, sighandler_t func );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fstatfs
+#endif
+
+// minilib/src/execvp.c
+#ifdef mini_fexecveat
+static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_ctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__llistxattr
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getpgrp
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__remap_file_pages
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__splice
 #endif
 
 // minilib/src/execvp.c
@@ -12415,88 +11390,23 @@ static inline int execv(const char *pathname, char *const argv[]);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__name_to_handle_at
+#ifdef mini__getresgid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_getaffinity
+#ifdef mini__accept4
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__semctl
+#ifdef mini__mincore
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setrlimit
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__process_vm_writev
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fclose
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fprint
-#define fprint(...) fprintf(__VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigreturn
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_delete
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tkill
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getcwd
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__socketpair
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getuid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioperm
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__renameat2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmdt
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_init1
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getpgrp
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setsockopt
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semtimedop
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrusage
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__gettimeofday
 #endif
 
 // minilib/src/sigaction.c
@@ -12504,53 +11414,359 @@ static inline int execv(const char *pathname, char *const argv[]);
 int sigaddset(sigset_t *set, int sig);
 #endif
 
+// minilib/include/syscalls_x64.h
+#ifdef mini__getcpu
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__geteuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_init
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shutdown
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sysfs
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sigaltstack
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_getc
+#define getc(F) fgetc(F)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getitimer
+#endif
+
 // minilib/include/syscall_stubs.h
-#ifdef mini_fchmod
+#ifdef mini_mknod
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_fsync
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sendmsg
+#ifdef mini__recvmsg
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__personality
+#ifdef mini__getuid
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__access
+#ifdef mini__pipe2
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__shmat
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_fdopen
-FILE *fdopen(int fd, const char* mode);
+#ifdef mini__syncfs
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__listxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vhangup
+#ifdef mini__setfsgid
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_fcntl
+#ifdef mini_reboot
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mkdir
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__symlink
+#ifdef mini__alarm
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getitimer
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__ftruncate
+#ifdef mini__pselect6
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setdomainname
+#ifdef mini__setpriority
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setreuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setregid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kill
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__memfd_create
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigprocmask
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setfsuid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mlockall
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__swapon
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup3
+#endif
+
+// minilib/include/math.h
+#ifdef mini_abs
+#ifndef mini_math_h
+#define mini_math_h
+// mathematical functions.
+//+ansi stdlib.h
+
+
+//+def
+static div_t div(int numerator, int denominator){
+		div_t ret;
+		ret.quot = numerator/denominator;
+		ret.rem = numerator-(ret.quot*denominator);
+		return(ret);
+}
+	
+//+def
+static ldiv_t ldiv(long int numerator, long int denominator){
+		ldiv_t ret;
+		ret.quot = numerator/denominator;
+		ret.rem = numerator-(ret.quot*denominator);
+		return(ret);
+}
+	
+
+//+def
+static int abs(int i){
+		  return( (i >= 0) ? i : -i);
+}
+
+//+def
+static long int labs(long int i){
+		  return( (i >= 0) ? i : -i);
+}
+
+#endif
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_readahead
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup3
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_kill
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__move_pages
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_clearerror
+#endif
+
+// minilib/include/math.h
+#ifdef mini_labs
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setparam
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_submit
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__poll
+#endif
+
+// minilib/src/hashes.c
+#ifdef mini_djb2_hash
+unsigned long djb2_hash(const unsigned char *str);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rename
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__vfork
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__get_robust_list
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_nanosleep
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_tgsigqueueinfo
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_gettime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__umount2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioctl
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fread
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semop
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fgetxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_getevents
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrusage
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_settime
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_stat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendmmsg
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fflush
+#endif
+
+// minilib/src/open.c
+#ifdef mini_creat
+int volatile creat( const char *s, int mode );
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strcmp
+int strcmp(const char*c1,const char*c2);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_gettimeofday
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+char *strncpy(char *dest, const char *src, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setgroups
+#endif
+
+// minilib/macros/getoptm.h
+#ifdef mini_def
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getppid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_cancel
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioperm
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ppoll
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini___sysctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__add_key
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mknodat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getgroups
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__syslog
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__modify_ldt
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mount
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getppid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_notify
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__read
 #endif
 
 // minilib/include/errstr.h
@@ -12706,998 +11922,24 @@ return(errstr[num]);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setrlimit
+#ifdef mini__set_robust_list
 #endif
 
-// minilib/src/sigaction.c
-#ifdef mini_sigemptyset
-static int sigemptyset(sigset_t *set);
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-char *strcat(char *dest, const char *src );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__statfs
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fsetxattr
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_readahead
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chown
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigdelset
-int sigdelset(sigset_t *set, int sig);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ustat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__waitid
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_utime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sigaltstack
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_get_priority_min
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__remap_file_pages
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigprocmask
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__creat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munmap
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__finit_module
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_create
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__read
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_settime
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_fopen
-FILE *fopen(const char* filename, const char* mode);
-#endif
-
-// minilib/src/sleep.c
-#ifdef mini_sleep
-unsigned int volatile sleep(unsigned int seconds);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lstat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munlock
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__unlinkat
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rt_sigaction
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__madvise
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mbind
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_pivot_root
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_kill
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__swapoff
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getxattr
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_fork
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__umask
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mprotect
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_getchar
-#define getchar() fgetc(0)
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_nanosleep
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lgetxattr
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_chmod
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munlockall
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__get_mempolicy
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__stat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getcpu
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigqueueinfo
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgget
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setattr
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itohex
-int itohex(int i,char* buf,int padding);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setpriority
-#endif
-
-// minilib/src/isspace.c
-#ifdef mini_isspace
-int isspace(int c);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_notify
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_vfprintf
-#define vfprintf(...) fprintf(__VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__dup3
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fsetpos
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__poll
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fsync
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_chroot
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchmod
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__exit
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mkdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getitimer
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sync_file_range
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-int atoi(const char *c);
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_rewind
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__recvmmsg
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_sendfile
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__flistxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readlinkat
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigprocmask
-int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ptrace
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchownat
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_reboot
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_dup2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getresuid
-#endif
-
-// minilib/src/hashes.c
-#ifdef mini_djb2_hash
-unsigned long djb2_hash(const unsigned char *str);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_gettime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__adjtimex
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utimensat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrandom
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mmap
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_create
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini___sysctl
-#endif
-
-// minilib/src/itobin.c
-#ifdef mini_itobin
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_clearerr
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setitimer
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__syncfs
-#endif
-
-// minilib/src/memmove.c
-#ifdef mini_memmove
-void* memmove(void *dest, const void *src, int n);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fdatasync
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getppid
-#endif
-
-// minilib/src/isatty.c
-#ifdef mini_isatty
-int isatty(int fd);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_dup3
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendfile
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_submit
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__splice
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__migrate_pages
-#endif
-
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-int dtodec(double d, char* buf, int precision);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__accept4
-#endif
-
-// minilib/src/dirent/opendir.c
-#ifdef mini_opendir
-DIR *opendir(const char *name);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_add_watch
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_grantpt
-int grantpt(int fd);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_umask
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mount
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_cancel
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_writes
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getdents64
-#endif
-
-// minilib/src/execvp.c
-#ifdef mini_execvpe
-static int execvpe(const char *file, char *const argv[], char *const envp[]);
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_setbuf
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getitimer
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strrchr
-char *strrchr(const char *s, int c);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__renameat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__acct
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_settime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_get_priority_max
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setaffinity
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fadvise64
-#endif
-
-// minilib/include/math.h
-#ifdef mini_labs
-#ifndef mini_math_h
-#define mini_math_h
-// mathematical functions.
-//+ansi stdlib.h
-
-
-//+def
-static div_t div(int numerator, int denominator){
-		div_t ret;
-		ret.quot = numerator/denominator;
-		ret.rem = numerator-(ret.quot*denominator);
-		return(ret);
-}
-	
-//+def
-static ldiv_t ldiv(long int numerator, long int denominator){
-		ldiv_t ret;
-		ret.quot = numerator/denominator;
-		ret.rem = numerator-(ret.quot*denominator);
-		return(ret);
-}
-	
-
-//+def
-static int abs(int i){
-		  return( (i >= 0) ? i : -i);
-}
-
-//+def
-static long int labs(long int i){
-		  return( (i >= 0) ? i : -i);
-}
-
-#endif
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mprotect
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_getoverrun
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rt_sigprocmask
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_open
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ppoll
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__times
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_destroy
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getsid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__alarm
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__listen
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__get_robust_list
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__signalfd4
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_setvbuf
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setpgid
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_getc
-#define getc(F) fgetc(F)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__wait4
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_wait
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getdents
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_realloc
-void* realloc(void *p, int size);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readv
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_chown
-#endif
-
-// minilib/src/open.c
-#ifdef mini_creat
-int volatile creat( const char *s, int mode );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fork
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_ctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpeername
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fremovexattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__request_key
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pwrite64
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lseek
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setgroups
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msync
-#endif
-
-// minilib/src/hashes.c
-#ifdef mini_sdbm_hash
-unsigned long sdbm_hash(const unsigned char *str);
-#endif
-
-// minilib/src/fgets.c
-#ifdef mini_gets
-#define gets(F) fgets(F,0xfffffff,stdin)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getresgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fanotify_mark
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fstatfs
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__memfd_create
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_dup
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgsnd
-#endif
-
-// minilib/include/isprint.h
-#ifdef mini_isprint
-#ifndef mini_isprint_h
-#define mini_isprint_h
-#define misprint(A) isprint(A)
-
-//+header ctype.h
-//+inc
-//+def
-static inline int __attribute__((always_inline)) isprint(const char c){
-		if ( (c>31) && ( c<127 ))
-				return(1);
-		return(0);
-}
-
-
-#endif
-
-#endif
-
 // minilib/include/syscalls_x64.h
-#ifdef mini__msgrcv
+#ifdef mini__restart_syscall
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioprio_set
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sync
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__link
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readahead
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_fprints
-#define fprints(F,str) write(fileno(F),str,strlen(str))
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_rand
-unsigned int rand();
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mincore
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pause
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_feof
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_create1
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chroot
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_unlink
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fanotify_init
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_umount2
-#endif
-
-// minilib/src/basename.c
-#ifdef mini_basename
-char *basename(char *path);
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_fsync
-#endif
-
-// minilib/macros/getoptm.h
-#ifdef mini_def
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mknodat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__modify_ldt
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rename
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_gettime
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_srand
-void srand( unsigned int i );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__iopl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__faccessat
+// minilib/src/wait.c
+#ifdef mini_wait
+pid_t wait(int *wstatus);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setxattr
+#ifdef mini__tee
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__nanosleep
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sethostname
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioprio_get
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__process_vm_readv
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__socket
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mknod
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mlock
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shutdown
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_clearerror
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getscheduler
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pselect6
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__prlimit64
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__set_mempolicy
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vfork
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_ferror
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fgetpos
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fallocate
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_printf
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__brk
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigaction
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pivot_root
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setparam
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rt_sigreturn
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpriority
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_todo_putenv
-int todo_putenv( char *s );
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strncasecmp
-int strncasecmp(const char*c1,const char*c2,int len);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__newfstatat
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itoHEX
-int itoHEX(int i,char* buf,int padding);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__llistxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lookup_dcookie
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_setup
-#endif
-
-// minilib/src/strdup.c
-#ifdef mini_strdup
-char *strdup(const char *source);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_mount
-#endif
-
-// minilib/include/math.h
-#ifdef mini_div
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getegid
-#endif
-
-// minilib/src/dirent/readdir.c
-#ifdef mini_readdir
-struct dirent *readdir(DIR *dir);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__futimesat
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_puts
-#define puts(msg) ( print(msg) + printl() )
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_getsetattr
 #endif
 
 // minilib/src/ltodec.c
@@ -13706,56 +11948,177 @@ int ltodec(long i, char *buf, int prec, char limiter );
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__eventfd
+#ifdef mini__mq_timedsend
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_chmod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__linkat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lgetxattr
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_setitimer
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pread64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__flock
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__personality
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__socket
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lseek
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__listxattr
+#endif
+
+// minilib/include/tcsetattr.h
+#ifdef mini_tcsetattr
+#ifndef tcsetattr_h
+#define tcsetattr_h
+
+//#include <termios.h>
+//#include "ioctl.h"
+int ioctl( int fd, unsigned long int request, ... );
+
+//#include <sys/ttycom.h>
+
+#ifndef TCSETS
+#warning TCSETS not defined. Applying ugly hack.
+#define TCSETS TIOCSETA
+#endif
+
+//+needs termios.h bits/ioctl.h
+//+header unistd.h
+//+include
+//+depends ioctl
+//+def
+static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
+	return(ioctl(fd, TCSETS +opt, io));
+	//return(ioctl(fd, 0x5402+opt, io));
+}
+
+
+
+#endif
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__accept
 #endif
 
 // minilib/src/strcmp.c
-#ifdef mini_strncmp
-int strncmp(const char*c1,const char*c2,int len);
+#ifdef mini_memcmp
+int memcmp(const void* c1,const void* c2,int len);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setfsuid
+#ifdef mini__listen
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sendmmsg
+#ifdef mini__kexec_load
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__set_tid_address
+#ifdef mini__rt_sigaction
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__move_pages
+#ifdef mini__writev
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getdents
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__kill
+#ifdef mini__timer_getoverrun
+#endif
+
+// minilib/src/dirent/opendir.c
+#ifdef mini_opendir
+DIR *opendir(const char *name);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_rt_sigaction
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__clock_adjtime
+#ifdef mini__removexattr
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__openat
+#ifdef mini__setitimer
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_puts
+#define puts(msg) ( print(msg) + printl() )
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchmod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_get_priority_min
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__exit
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__signalfd
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__bind
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pwritev
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__eventfd2
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__link
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__futimesat
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__fchmodat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_tgsigqueueinfo
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_getres
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__execve
 #endif
 
 // minilib/src/ltodec.c
@@ -13764,202 +12127,53 @@ int ultodec(unsigned long i, char *buf, int prec, char limiter );
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__lremovexattr
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strcmp
-int strcmp(const char*c1,const char*c2);
+#ifdef mini__sync
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mq_timedreceive
+#ifdef mini__getpriority
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mprotect
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup2
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__setuid
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__prctl
-#endif
-
-// minilib/src/system.c
-#ifdef mini_system
-int system( const char* command );
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putc
-#define putc(c,stream) fputc(c,stream)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__settimeofday
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_printsl
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getsockopt
-#endif
-
-// minilib/src/wait.c
-#ifdef mini_wait
-pid_t wait(int *wstatus);
-#endif
-
 // minilib/include/syscall_stubs.h
-#ifdef mini_link
+#ifdef mini_chroot
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__writev
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_getgid
+#ifdef mini__msync
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__inotify_init
+#ifdef mini__io_destroy
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__kexec_load
+#ifdef mini__set_mempolicy
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__getdents
-#endif
-
-// minilib/src/strstr.c
-#ifdef mini_strstr
-char* strstr(const char *big, const char *little);
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_perror
-void perror(const char *msg);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigsuspend
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_sync
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_rr_get_interval
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__bind
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kexec_file_load
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_timedsend
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setfsgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrlimit
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_errno_str
-const char *errno_str(int err);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__unlink
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__preadv
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getppid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sysfs
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__restart_syscall
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mkdir
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_rmdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setreuid
+// minilib/src/atoi.c
+#ifdef mini_atoi
+int atoi(const char *c);
 #endif
 
 // minilib/src/sigaction.c
-#ifdef mini_sigfillset
-static int sigfillset(sigset_t *set);
-#endif
-
-// minilib/src/execvp.c
-#ifdef mini_fexecveat
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+#ifdef mini_sigemptyset
+static int sigemptyset(sigset_t *set);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__accept
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__recvfrom
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__arch_prctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__exit_group
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lsetxattr
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigpending
-#endif
-
-// minilib/src/sleep.c
-#ifdef mini_usleep
-unsigned int volatile usleep(unsigned int useconds);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_time
+#ifdef mini__eventfd
 #endif
 
 // minilib/src/pty.c
@@ -13967,208 +12181,16 @@ unsigned int volatile usleep(unsigned int useconds);
 char *ptsname(int fd);
 #endif
 
-// minilib/include/math.h
-#ifdef mini_abs
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setsid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readlink
-#endif
-
 // minilib/include/syscall_stubs.h
-#ifdef mini_gettimeofday
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setpgid
+#ifdef mini_umount2
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__select
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fcntl
-#endif
-
-// minilib/src/signal.c
-#ifdef mini_signal
-sighandler_t signal(int sig, sighandler_t func );
+#ifdef mini__signalfd4
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__mkdirat
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setuid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utimes
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_posix_openpt
-int posix_openpt(int flags);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mremap
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_fstat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__set_robust_list
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pipe2
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_symlink
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_gettime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__time
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__connect
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__unshare
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_setsid
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fread
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__open
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__symlinkat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getgroups
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgctl
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__add_key
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mlockall
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__flock
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_getevents
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__eventfd2
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semop
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setresgid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__open_by_handle_at
-#endif
-
-// minilib/src/dirname.c
-#ifdef mini_dirname
-char *dirname(char *s);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_uname
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tee
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_freopen
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchown
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clone
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__geteuid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setregid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__umount2
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fflush
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpid
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vmsplice
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setitimer
 #endif
 
 // minilib/include/select.h
@@ -14227,88 +12249,229 @@ static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_s
 
 #endif
 
-// minilib/src/memset.c
-#ifdef mini_memset
-void *memset( void *s, int c, int n);
+// minilib/include/syscalls_x64.h
+#ifdef mini__vmsplice
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__tgkill
+#ifdef mini__statfs
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__capget
-#endif
-
-// minilib/src/execvp.c
-#ifdef mini_execvp
-static inline int execvp(const char *file, char *const argv[]);
+#ifdef mini__select
 #endif
 
 // minilib/include/syscall_stubs.h
 #ifdef mini_fchown
 #endif
 
-// minilib/src/strchr.c
-#ifdef mini_strchr
-char *strchr(const char *s, int c);
+// minilib/include/syscalls_x64.h
+#ifdef mini__recvfrom
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__epoll_pwait
+#ifdef mini__capset
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_printfs
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__semget
+#ifdef mini__name_to_handle_at
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fstat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__shmctl
+#ifdef mini__munmap
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__signalfd
+#ifdef mini__rt_sigtimedwait
+#endif
+
+// minilib/src/sleep.c
+#ifdef mini_usleep
+unsigned int volatile usleep(unsigned int useconds);
+#endif
+
+// minilib/src/hashes.c
+#ifdef mini_sdbm_hash
+unsigned long sdbm_hash(const unsigned char *str);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__keyctl
+#ifdef mini__mq_open
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__seccomp
+#ifdef mini__sync_file_range
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__dup2
+#ifdef mini__set_tid_address
 #endif
 
-// minilib/include/math.h
-#ifdef mini_ldiv
+// minilib/include/mini_fstream.h
+#ifdef mini_fprint
+#define fprint(...) fprintf(__VA_ARGS__)
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_create
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fgetxattr
+// minilib/include/syscall_stubs.h
+#ifdef mini_sync
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setresuid
+#ifdef mini__readlinkat
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__pipe
+#ifdef mini__shmdt
 #endif
 
-// minilib/src/sigaction.c
-#ifdef mini_sigismember
-int sigismember(sigset_t *set, int sig);
+// minilib/src/isspace.c
+#ifdef mini_isspace
+int isspace(int c);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semtimedop
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__adjtimex
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_setuid
+#endif
+
+// minilib/src/basename.c
+#ifdef mini_basename
+char *basename(char *path);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_add_watch
+#endif
+
+// minilib/src/dirname.c
+#ifdef mini_dirname
+char *dirname(char *s);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kexec_file_load
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fanotify_init
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getegid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioprio_get
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgsnd
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini_itobin
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__preadv
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_dup
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rmdir
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_writes
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsockname
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getcwd
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sethostname
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__getpgrp
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__utimensat
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_vhangup
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__gettid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getdents
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__wait4
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_todo_putenv
+int todo_putenv( char *s );
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_fprints
+#define fprints(F,str) write(fileno(F),str,strlen(str))
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_feof
+#endif
+
+// minilib/src/execvp.c
+#ifdef mini_execvpe
+static int execvpe(const char *file, char *const argv[], char *const envp[]);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fadvise64
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strncasecmp
+int strncasecmp(const char*c1,const char*c2,int len);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_mprotect
 #endif
 
 // minilib/include/mkfifo.h
@@ -14322,7 +12485,11 @@ static int mkfifo( const char* path, mode_t mode ){
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__quotactl
+#ifdef mini__readahead
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_gettime
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -14330,117 +12497,51 @@ static int mkfifo( const char* path, mode_t mode ){
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__futex
+#ifdef mini__pivot_root
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__clock_settime
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sysinfo
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_pipe
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strcasecmp
-int strcasecmp(const char*c1,const char*c2);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_printfs
-#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chmod
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_ungetc
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kcmp
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_vhangup
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setscheduler
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__reboot
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rmdir
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__init_module
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_unlockpt
-int unlockpt(int fd);
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putchar
-#define putchar(c) fputc(c,stdout)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fstat
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__recvmsg
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pread64
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__uname
+#ifdef mini__unshare
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__dup
 #endif
 
+// minilib/include/mini_fstream.h
+#ifdef mini_printf
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+#endif
+
+// minilib/src/strstr.c
+#ifdef mini_strstr
+char* strstr(const char *big, const char *little);
+#endif
+
 // minilib/include/syscalls_x64.h
-#ifdef mini__getsockname
+#ifdef mini__tgkill
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__stat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrandom
 #endif
 
 // minilib/src/sigaction.c
-#ifdef mini_raise
-static inline int raise(int signr);
-#endif
-
-// minilib/include/syscall_stubs.h
-#ifdef mini_stat
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strncpy
-char *strncpy(char *dest, const char *src, int n);
+#ifdef mini_sigdelset
+int sigdelset(sigset_t *set, int sig);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__swapon
+#ifdef mini__chroot
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__rename
+// minilib/include/fgetc.h
+#ifdef mini_getchar
+#define getchar() fgetc(0)
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -14448,23 +12549,24 @@ char *strncpy(char *dest, const char *src, int n);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__inotify_rm_watch
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigtimedwait
+#ifdef mini__chown
 #endif
 
 // minilib/include/syscall_stubs.h
 #ifdef mini_getuid
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_nanosleep
+// minilib/src/strcat.c
+#ifdef mini_strcat
+char *strcat(char *dest, const char *src );
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_fwrite
+// minilib/include/syscalls_x64.h
+#ifdef mini__get_mempolicy
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendfile
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -14472,11 +12574,196 @@ char *strncpy(char *dest, const char *src, int n);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mknod
+#ifdef mini__sched_getparam
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_umask
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__removexattr
+#ifdef mini__msgctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgget
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__brk
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpeername
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__delete_module
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__arch_prctl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__init_module
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_timedreceive
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_rewind
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unlinkat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_get_priority_max
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__tkill
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fcntl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__write
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fanotify_mark
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__open
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__faccessat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_rm_watch
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_posix_openpt
+int posix_openpt(int flags);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fallocate
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unlink
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__gettimeofday
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__futex
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fstat
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_getgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lookup_dcookie
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigpending
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mlock
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_setvbuf
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__creat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__capget
+#endif
+
+// minilib/src/strchr.c
+#ifdef mini_strrchr
+char *strrchr(const char *s, int c);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lsetxattr
+#endif
+
+// minilib/src/execvp.c
+#ifdef mini_execvp
+static inline int execvp(const char *file, char *const argv[]);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setdomainname
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigqueueinfo
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_fchmod
+#endif
+
+// minilib/src/rand.c
+#ifdef mini_srand
+void srand( unsigned int i );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__iopl
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsockopt
+#endif
+
+// minilib/src/system.c
+#ifdef mini_system
+int system( const char* command );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__munlock
 #endif
 
 // minilib/include/syscall_stubs.h
@@ -14484,16 +12771,168 @@ char *strncpy(char *dest, const char *src, int n);
 #endif
 
 // minilib/include/syscall_stubs.h
-#ifdef mini_unlink
+#ifdef mini_setsid
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strcasecmp
+int strcasecmp(const char*c1,const char*c2);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_utime
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_pwait
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__openat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getaffinity
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_delete
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_wait
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readv
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fsetpos
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lchown
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmat
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itoHEX
+int itoHEX(int i,char* buf,int padding);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pipe
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_symlink
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__utime
+#endif
+
+// minilib/src/rand.c
+#ifdef mini_rand
+unsigned int rand();
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioprio_set
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_link
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__process_vm_readv
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__request_key
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_vfprintf
+#define vfprintf(...) fprintf(__VA_ARGS__)
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fclose
+#endif
+
+// minilib/include/math.h
+#ifdef mini_ldiv
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_grantpt
+int grantpt(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fcntl
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_putc
+#define putc(c,stream) fputc(c,stream)
+#endif
+
+// minilib/src/isatty.c
+#ifdef mini_isatty
+int isatty(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__perf_event_open
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_printsl
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+#endif
+
+// minilib/src/fgets.c
+#ifdef mini_gets
+#define gets(F) fgets(F,0xfffffff,stdin)
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__close
 #endif
 
-// minilib/src/memfrob.c
-#ifdef mini_memfrob
-void* memfrob(void* s, unsigned int len);
+// minilib/include/syscalls_x64.h
+#ifdef mini__symlink
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_create
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_create
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_clearerr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_settime
 #endif
 
 // minilib/src/dirent/closedir.c
@@ -14501,28 +12940,181 @@ void* memfrob(void* s, unsigned int len);
 int closedir(DIR *dir);
 #endif
 
-// minilib/include/lseek.h
-#ifdef mini_ftruncate
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchown
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__capset
+#ifdef mini__utimes
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_getparam
+#ifdef mini__sched_setscheduler
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fgetpos
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_yield
+#ifdef mini__mmap
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__pwritev
+#ifdef mini__finit_module
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_pipe
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__syslog
+#ifdef mini__fchownat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_rr_get_interval
+#endif
+
+// minilib/include/math.h
+#ifdef mini_div
+#endif
+
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
+void* memfrob(void* s, unsigned int len);
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_unlockpt
+int unlockpt(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_getsetattr
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_setgid
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fsetxattr
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgrcv
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_errno_str
+const char *errno_str(int err);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_pivot_root
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mkdir
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rename
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_freopen
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chmod
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setsockopt
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__access
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__renameat
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_perror
+void perror(const char *msg);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_unlink
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigfillset
+static int sigfillset(sigset_t *set);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setns
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__time
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_time
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fdopen
+FILE *fdopen(int fd, const char* mode);
+#endif
+
+// minilib/include/syscall_stubs.h
+#ifdef mini_unlink
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__prlimit64
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_getres
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ustat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fork
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lstat
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__settimeofday
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fwrite
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fopen
+FILE *fopen(const char* filename, const char* mode);
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigprocmask
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 #endif
 #ifdef INCLUDESRC
 #ifndef included_minilib_c
@@ -15011,803 +13603,8 @@ int sysret;
 
 /* end templates/minilib.c.in */
 
-// minilib/src/strcmp.c
-#ifdef mini_memcmp
-#ifndef strcmp_c
-#define strcmp_c
-
-//+include
-//+header string.h
-//+needs ctype.h
-
-//TODO: not implemented correct. need to return also -1.
-
-// depend onto strncmp. Otherwise thias file will not be compiled.
-//+inc
-//+def
-int _strcmp(const char*c1,const char*c2,int len){
-		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				//write(1,&c1[a],1);
-				if ( c1[a] != c2[a] )
-						return(1);
-				a++;
-		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
-}
-
-//+inc
-///+depends tolower
-//+needs ctype.h
-//+def
-int _strcasecmp(const char*c1,const char*c2,int len){
-		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				if ( c1[a] != c2[a] ){
-						if ( tolower( c1[a] ) != tolower( c2[a] ) )
-								return(1);
-				}
-				a++;
-		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
-}
-
-
-//+inc
-//+depends _strcasecmp
-//+needs ctype.h
-//+def
-int strcasecmp(const char*c1,const char*c2){
-		return( _strcasecmp(c1,c2,-1) );
-}
-
-
-//+depends _strcasecmp
-//+inc
-//+def
-int strncasecmp(const char*c1,const char*c2,int len){
-		if ( len <=0 )
-				return(-1);
-		return(_strcasecmp(c1,c2,len) );
-}
-
-
-
-//+depends _strcmp
-//+inc
-//+def
-int strcmp(const char*c1,const char*c2){
-		return( _strcmp(c1,c2,-1) );
-}
-
-
-//+depends _strcmp
-//+inc
-//+def
-int strncmp(const char*c1,const char*c2,int len){
-		if ( len <=0 )
-				return(-1);
-		return(_strcmp(c1,c2,len) );
-}
-
-
-//+depends
-//+def
-int memcmp(const void* c1,const void* c2,int len){
-		const char* cc1 = c1;
-		const char* cc2 = c2;
-		if ( len <=0 )
-				return(-1);
-		int a = 0;
-		while ( a != len ){
-				//write(1,&c1[a],1);
-				if ( cc1[a] != cc2[a] )
-						return(1);
-				a++;
-		}
-	 return(0);
-}
-
-
-#endif
-#endif
-
-// minilib/src/itodec.c
-#ifdef mini_itodec
-#ifndef mini_itodec_c
-#define mini_itodec_c
-//+ansi stdio.h
-//
-// convert int to string.
-// prec: precision, e.g. 4=> 0087 
-//+def
-int uitodec(unsigned int i, char *buf, int prec, char limiter ){
-		int p = 0;
-		int a;
-		int t1,t2,t3,dec;
-		//unsigned int ut1,ut2,ut3;
-		char n;
-		prec = prec - 10; // Maximale Stellenanzahl 
-
-
-		if ( i==0 ){
-				buf[0] = '0';
-				//p++;
-				//return(
-		}
-
-		int trailing = 1;
-
-	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
-	
-	if ( i >= 1000000000){
-			//prints("hier.\n");
-			p=1;
-			prec=0;
-			if ( i>=2000000000 ){
-					i-=2000000000;
-				if ( i>=1000000000 ){
-						if ( i>=2000000000 ){
-								buf[0] = '4';
-								i-=2000000000;
-						} else {
-								buf[0] = '3';
-								i-=1000000000;
-						}
-					} else {
-						buf[0] = '2';
-						//i-=2000000000;
-					}
-			}	else {
-					buf[0] = '1'; 
-					i-=1000000000;
-			}
-	trailing = 0;
-	} else {
-			if ( prec == 0 ){
-					buf[0] = ' ';
-					p++;
-			} else
-					prec++;
-	}
-
-	
-
-					
-			
-
-	for (a=0;a<12;a++){
-			if ( div[a] == 0 ){
-					if ( (limiter != 0 ) && (prec==0) ){
-							buf[p] = limiter;
-							p++;
-					}
-			} else {
-			n = '0';
-
-			if ( (t1=(i - div[a])) >= 0 ){
-					prec = 0;
-					trailing = 0;
-					n = '1';
-					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
-							if ( (t3=t2-dec) >= 0 ){
-									n = '9';
-									i = t3;
-									goto write;
-							} else {
-									n = '5';
-									t1 = t2;
-							}
-					} 
-					if ( (t2=(t1-(div[a]<<1) ) ) >=0 ){
-							t1=t2;
-							n += 2;
-					}
-					if ( (t2=(t1-(div[a]) ) ) >=0 ){
-							t1=t2;
-							n += 1;
-					}
-					i = t1;
-			}
-
-			if ( prec == 0 ){
-			write:
-					if ( trailing )
-							buf[p] = ' ';
-					else
-							buf[p] = n;
-					p++;
-			} else
-					prec++;
-					//buf[p] = 'x';
-					//p++;
-
-			}
-	}
-	if ( p==0 )
-			p=1;
-	buf[p] = 0;
-
-	return(p);
-}
-
-	
-//+depends uitodec
-//+def
-int itodec(int i, char *buf, int prec, char limiter ){
-	if ( i < 0 ){
-			buf[0]='-';
-			i = -i;
-			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
-	}
-	return(uitodec((unsigned int)i,buf,prec,limiter) );
-}
-
-
-#endif
-#endif
-
-// minilib/src/execvp.c
-#ifdef mini_execv
-//+header unistd.h
-//+include
-
-
-//+depends environ execve
-//+def
-static inline int execv(const char *pathname, char *const argv[]){
-		return( execve( pathname, argv, environ ) );
-};
-
-//+def
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]){
-		return( execveat(fd,0,argv,envp,AT_EMPTY_PATH) );
-};
-
-//+depends environ execve getenv access
-//+doc When invoked with a filename, starting with "." or "/",
-// interprets this as absolute path. (calls execve with the pathname)
-// Looks for file in the PATH environment, othwerise.
-//+def
-static int execvpe(const char *file, char *const argv[], char *const envp[]){
-		if ( file[0] == 0 || file[0] == '.' || file[0] == '/' )
-				return( execve( file, argv, envp ) );
-
-		char *path = getenv("PATH");
-		if ( !path ){
-				//return(-1);
-				path = "/bin:/usr/bin";
-		}
-
-		char e[PATH_MAX];
-		char *p = e;
-		do {
-				*p = *path;
-				p++; path++;
-				if ( *path == ':' || *path == 0 ){
-						*p++ = '/';
-						char *c= (char*)file;
-						do {
-								*p++ = *c++;
-						} while ( *c );
-						*p = 0;
-						//printfs("access: %s\n", e );
-						if ( access( e, R_OK | X_OK ) == 0 ){
-								//printfs("exec: %s\n", e );
-								return( execve( e, argv, envp ) );
-						}
-						p=e;
-						if ( *path == 0 ){
-								return(-1);
-						}
-						path++;
-				}
-		} while (1);
-		//return(-1);
-};
-
-
-//+depends environ execve
-//+def
-static inline int execvp(const char *file, char *const argv[]){
-		return( execvpe( file, argv, environ ) );
-};
-
-
-
-
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigaddset
-#ifndef sigaction_c
-#define sigaction_c
-//+header signal.h
-//+include
-
-//+inline
-static int sigemptyset(sigset_t *set){
-#ifdef X64
-		set->sig=0;
-#else
-		set->sig[0]=0;
-		if ((8/sizeof(long)) > 1)
-				set->sig[1]=0;
-#endif
-		return 0;
-}
-
-#if 1
-//+inline
-static int sigfillset(sigset_t *set){
-#ifdef X64
-		set->sig=0x7FFFFFFF; // doesn't work. ?
-#else
-#error implemented only for X64
-//		set->sig[0]=0x1FFFFFFF;
-//		if ((8/sizeof(long)) > 1)
-//				set->sig[1]=0;
-#endif
-		return 0;
-}
-#endif
-
-//+def
-int sigaddset(sigset_t *set, int sig){
-		unsigned s = sig-1;
-		if (sig >= _NSIG-1 || sig <0 ) {
-#ifdef mini_errno
-				errno = EINVAL;
-#endif
-				return -1;
-		}
-#ifdef X64
-		set->sig |= (1<<s);
-#else
-#error implemented only for X64
-#endif
-		return(0);
-}
-
-
-//+def
-int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
-		return( rt_sigprocmask( how, (sigset_t*)set, oldset, sizeof(sigset_t) ) );
-}
-
-
-//+def
-int sigdelset(sigset_t *set, int sig){
-		unsigned s = sig-1;
-		if (sig >= _NSIG-1 || sig <0 ) {
-#ifdef mini_errno
-				errno = EINVAL;
-#endif
-				return -1;
-		}
-#ifdef X64
-		set->sig &= ~(1<<s);
-#else
-#error implemented only for X64
-#endif
-		return(0);
-}
-
-//+def
-int sigismember(sigset_t *set, int sig){
-		unsigned s = sig-1;
-		if (sig >= _NSIG-1 || sig <0 ) {
-#ifdef mini_errno
-				errno = EINVAL;
-#endif
-				return -1;
-		}
-#ifdef X64
-		return( set->sig & (1<<s) );
-#else
-#error implemented only for X64
-		return(-1);
-#endif
-}
-
-
-
-#ifdef mini_sigaction
-extern void _sigrestore();
-__asm__ ( "\
-.global _sigrestore\n\
-_sigrestore:\n\
-	mov $15,%rax\n\
-	syscall");
-#endif
-
-//+header signal.h
-//+include
-//+depends memcpy
-//+def
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
-		struct sigaction sa;
-		//memcpy(&sa,act,sizeof(sigaction));
-
-#ifdef X64
-		sa.sa_mask.sig=act->sa_mask.sig;
-#else
-		sa.sa_mask.sig[0]=act->sa_mask.sig[0];
-		if ((8/sizeof(long)) > 1)
-				sa.sa_mask.sig[1]=act->sa_mask.sig[1];
-#endif
-
-		sa.sa_handler=act->sa_handler;
-		sa.sa_flags = act->sa_flags | SA_RESTORER;
-    sa.restorer = &_sigrestore;
-				
-		return( rt_sigaction( sig, &sa, oact, sizeof(sigset_t) ) );
-}
-
-// memo: needs static definition, cause the +include
-// (meaning, including the definition into the header.
-// What is the right thing to do for a wrapper call.)
-
-
-//+depends getpid
-//+def
-static inline int raise(int signr){
-		return(kill(getpid(),signr));
-}
-
-
-#endif
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_fdopen
-#ifndef mini_fopen_c
-#define mini_fopen_c
-
-#ifndef mini_filemodes_h
-#define mini_filemodes_h
-
-#ifdef OSX
-
-/* open-only flags */
-#define	O_RDONLY	0x0000		/* open for reading only */
-#define	O_WRONLY	0x0001		/* open for writing only */
-#define	O_RDWR		0x0002		/* open for reading and writing */
-#define	O_ACCMODE	0x0003		/* mask for above modes */
-
-#define	FREAD		0x0001
-#define	FWRITE		0x0002
-#define	O_NONBLOCK	0x0004		/* no delay */
-#define	O_APPEND	0x0008		/* set append mode */
-
-#define	O_SHLOCK	0x0010		/* open with shared file lock */
-#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
-#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
-#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
-#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
-#define	O_CREAT		0x0200		/* create if nonexistant */
-#define	O_CREATE		0x0200		/* create if nonexistant */
-#define	O_TRUNC		0x0400		/* truncate to zero length */
-#define	O_EXCL		0x0800		/* error if already exists */
-
-#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
-
-#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
-#define O_DIRECTORY	0x100000
-#define O_SYMLINK	0x200000	/* allow open of a symlink */
-#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
-#define O_DP_GETRAWENCRYPTED	0x0001
-#define O_DP_GETRAWUNENCRYPTED	0x0002
-
-
-
-#else
-
-
-#define O_ACCMODE	00000003
-#define O_RDONLY	00000000
-#define O_WRONLY	00000001
-#define O_RDWR		00000002
-#define O_CREAT		00000100	/* not fcntl */
-#define O_EXCL		00000200	/* not fcntl */
-#define O_NOCTTY	00000400	/* not fcntl */
-#define O_TRUNC		00001000	/* not fcntl */
-#define O_APPEND	00002000
-#define O_NONBLOCK	00004000
-#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
-#define FASYNC		00020000	/* fcntl, for BSD compatibility */
-#define O_ASYNC      020000
-#define O_DIRECT	00040000	/* direct disk access hint */
-#define O_LARGEFILE	00100000
-#define O_DIRECTORY	00200000	/* must be a directory */
-#define O_NOFOLLOW	00400000	/* don't follow links */
-#define O_NOATIME	01000000
-#define O_CLOEXEC	02000000	/* set close_on_exec */
-#define O_PATH    010000000
-
-#define O_SYNC     04010000
-#define O_RSYNC    04010000
-
-
-
-#endif
-
-
-
-#endif
-
-int volatile open( const char *s, int flags, ... );
-
-//+header stdio.h
-//+depends open fileno close
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
-		int imode;
-
-		switch (mode[0]){
-				case 'r': imode = O_RDONLY;
-									break;
-				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
-									break;
-				case 'a': imode = O_APPEND | O_RDWR; // somehow only "a+" works. Not sure, why.
-									break;
-				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
-								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
-								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
-								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
-		}
-
-		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
- 				if ( mode[a] == '+' ){ 
-						imode = ( ( imode | O_RDWR ) & ~( O_WRONLY | O_RDONLY) );
-				} else {
-#if 0
-				//printf("XXX: %c", mode[a]);
-						switch (mode[0]){
-								case 'r': //imode = O_RDONLY;
-										break;
-								case 'w': if ( mode[a] == 'x' )
-															imode = imode & ( ~(O_CREAT | O_TRUNC) );
-													break;
-								case 'a': //imode = O_APPEND | O_RDWR; 
-													break;
-						}
-#endif
-				}
-		}
-
-		if ( f == 0 ){
-				int a;
-				if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
-						for ( a=3; ml.stream[a]>=0; a++ )
-								if ( a >= mini_FOPEN_MAX ) // 
-										return(0);
-				} else {
-						a = ml.pstream;
-						ml.pstream++;
-				}
-
-				//printf("a: %d\n",a);
-				f = &ml.stream[a];
-		} else { // freopen - error handling?
-				close(fileno(f));
-		}
-		if ( filename != 0 )
-			*f	 =  open( filename, imode, 0666 );
-		else 
-			*f = fd;
-
-		if ( *f == -1 )
-				return(0);
-
-		return ( f ); // 
-}
-
-
-//+header stdio.h
-//+depends open _fopen
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *fopen(const char* filename, const char* mode){
-		return(_fopen(0,filename, mode,0));
-}
-
-
-//+header stdio.h
-//+depends open _fopen
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *fdopen(int fd, const char* mode){
-		return(_fopen(fd,0, mode,0));
-}
-
-
-//+header stdio.h
-//+depends open _fopen
-//+needs lseek.h
-//+doc modes implemented: r, r+, w, w+, a, a+
-//+def
-FILE *freopen(const char* filename, const char* mode, FILE *F){
-		return(_fopen(0,filename, mode,F));
-}
-
-
-
-
-#endif
-#endif
-
-// minilib/src/open.c
-#ifdef mini_open
-#ifndef open_c
-#define open_c
-//+header fcntl.h
-//+include
-
-
-//#include "syscall.h"
-
-#ifndef stdarg_h
-#define stdarg_h
-// copied from musl
-// copy more - the builtin list..
-
-#if 1
-#if __GNUC__ >= 3
-//#warning here 1
-typedef __builtin_va_list va_list;
-#define va_start(v,l)   __builtin_va_start(v,l)
-#define va_end(v)       __builtin_va_end(v)
-#define va_arg(v,l)     __builtin_va_arg(v,l)
-#define va_copy(d,s)    __builtin_va_copy(d,s)
-#else
-//#warning here 2
-
-#ifdef __GNUC__
-//#warning here 3
-//TODO: this gets scrambled if in the same compiler unit as the caller.
-typedef __builtin_va_list va_list;
-#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-
-#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
-#define va_end(ap) ((void)0)
-#define va_copy(dest, src) ((dest) = (src))
-
-#define va_arg(ap, type) \
-	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
-	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
-
-
-#else
-
-//#warning here 4
-// copied from tcc
-#ifdef __x86_64__
-//#warning here 5
-#ifndef _WIN64
-//#warning here 6
-
-typedef void *va_list;
-
-va_list __va_start(void *fp);
-void *__va_arg(va_list ap, int arg_type, int size);
-va_list __va_copy(va_list src);
-void __va_end(va_list ap);
-
-#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
-#define va_arg(ap, type)                                                \
-		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
-#define va_copy(dest, src) ((dest) = __va_copy(src))
-#define va_end(ap) __va_end(ap)
-
-#else /* _WIN64 */
-typedef char *va_list;
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
-#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-#else /* __i386__ */
-typedef char *va_list;
-/* only correct for i386 */
-#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
-#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
-#define va_copy(dest, src) (dest) = (src)
-#define va_end(ap)
-#endif
-
-/* fix a buggy dependency on GCC in libio.h */
-typedef va_list __gnuc_va_list;
-#define _VA_LIST_DEFINED
-
-#endif
-#endif
-
-#endif
-
-#endif
-
-
-//+def
-int volatile open( const char *s, int flags, ... ){
-		int ret;
-		va_list args;
-		va_start(args,flags);
-		int mode = va_arg(args,int);
-		va_end(args);
-		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
-#ifdef mini_errno
-		if ( ret<0 )
-				errno = -ret;
-#endif
-		return(ret);
-}
-
-/// creat
-//+depends open
-//+def
-int volatile creat( const char *s, int mode ){
-		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
-}
-
-
-
-//FILE* volatile fopen( const char *s, const char *mode ){
-//		int m = 0;
-
-
-
-
-#endif
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigemptyset
-#endif
-
-// minilib/src/strcat.c
-#ifdef mini_strcat
-#ifndef strcat_c
-#define strcat_c
-
-//+ansi string.h
-//+depends strlen
-//+def
-char *strcat(char *dest, const char *src ){
-		size_t dest_len = strlen(dest);
-		size_t i;
-
-		for (i = 0 ; src[i] != '\0' ; i++)
-				dest[dest_len + i] = src[i];
-		dest[dest_len + i] = '\0';
-
-		return dest;
-}
-
-
-#endif
-
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigdelset
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini__fopen
-#endif
-
 // minilib/src/malloc.c
-#ifdef mini_malloc
+#ifdef mini_free
 #ifndef mini_malloc_c
 #define mini_malloc_c
 //+header stdlib.h
@@ -16293,8 +14090,839 @@ void volatile free(void* p){
 #endif
 #endif
 
+// minilib/src/itodec.c
+#ifdef mini_itodec
+#ifndef mini_itodec_c
+#define mini_itodec_c
+//+ansi stdio.h
+//
+// convert int to string.
+// prec: precision, e.g. 4=> 0087 
+//+def
+int uitodec(unsigned int i, char *buf, int prec, char limiter ){
+		int p = 0;
+		int a;
+		int t1,t2,t3,dec;
+		//unsigned int ut1,ut2,ut3;
+		char n;
+		prec = prec - 10; // Maximale Stellenanzahl 
+
+
+		if ( i==0 ){
+				buf[0] = '0';
+				//p++;
+				//return(
+		}
+
+		int trailing = 1;
+
+	const int div[13] = {0, 100000000, 10000000, 1000000, 0, 100000, 10000, 1000, 0, 100, 10, 1};
+	
+	if ( i >= 1000000000){
+			//prints("hier.\n");
+			p=1;
+			prec=0;
+			if ( i>=2000000000 ){
+					i-=2000000000;
+				if ( i>=1000000000 ){
+						if ( i>=2000000000 ){
+								buf[0] = '4';
+								i-=2000000000;
+						} else {
+								buf[0] = '3';
+								i-=1000000000;
+						}
+					} else {
+						buf[0] = '2';
+						//i-=2000000000;
+					}
+			}	else {
+					buf[0] = '1'; 
+					i-=1000000000;
+			}
+	trailing = 0;
+	} else {
+			if ( prec == 0 ){
+					buf[0] = ' ';
+					p++;
+			} else
+					prec++;
+	}
+
+	
+
+					
+			
+
+	for (a=0;a<12;a++){
+			if ( div[a] == 0 ){
+					if ( (limiter != 0 ) && (prec==0) ){
+							buf[p] = limiter;
+							p++;
+					}
+			} else {
+			n = '0';
+
+			if ( (t1=(i - div[a])) >= 0 ){
+					prec = 0;
+					trailing = 0;
+					n = '1';
+					if ( (t2=(t1-(dec=(div[a]<<2)))) >= 0){
+							if ( (t3=t2-dec) >= 0 ){
+									n = '9';
+									i = t3;
+									goto write;
+							} else {
+									n = '5';
+									t1 = t2;
+							}
+					} 
+					if ( (t2=(t1-(div[a]<<1) ) ) >=0 ){
+							t1=t2;
+							n += 2;
+					}
+					if ( (t2=(t1-(div[a]) ) ) >=0 ){
+							t1=t2;
+							n += 1;
+					}
+					i = t1;
+			}
+
+			if ( prec == 0 ){
+			write:
+					if ( trailing )
+							buf[p] = ' ';
+					else
+							buf[p] = n;
+					p++;
+			} else
+					prec++;
+					//buf[p] = 'x';
+					//p++;
+
+			}
+	}
+	if ( p==0 )
+			p=1;
+	buf[p] = 0;
+
+	return(p);
+}
+
+	
+//+depends uitodec
+//+def
+int itodec(int i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(uitodec((unsigned int)i,buf,prec,limiter) );
+}
+
+
+#endif
+#endif
+
+// minilib/src/ioctl.c
+#ifdef mini_ioctl
+#ifndef mini_ioctl_h
+#define mini_ioctl_h
+
+//#include "../include/syscall.h"
+//#include "/usr/diet/include/stdarg.h"
+
+//+header ioctl.h
+//+def
+int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... ){
+		va_list args;
+		va_start(args,request);
+
+		int ret;
+		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
+		va_end(args);
+		return(ret);
+}
+
+
+#endif
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_realloc
+#endif
+
+// minilib/src/sleep.c
+#ifdef mini_sleep
+#ifndef mini_sleep_c
+#define mini_sleep_c
+
+//+header unistd.h
+//+include
+//+needs nanosleep
+//+doc nonconformant sleep
+// TODO: ignore blocked signals, sigchld
+//+def
+unsigned int volatile sleep(unsigned int seconds){
+		unsigned int res;
+		struct timespec ts = { .tv_sec = (long int) seconds, .tv_nsec = 0 };
+		res = nanosleep(&ts, &ts);
+		if (res) res = (unsigned int) ts.tv_sec + (ts.tv_nsec >= 500000000L);
+		return res;
+}
+
+
+//+header unistd.h
+//+include
+//+needs nanosleep
+//+doc nonconformant usleep. 
+// Sleep useconds.
+// I just hope, noone relies on an exact sleep time.
+// which isn't possible without a real time os, anyways.
+// When for whatever reason you'd need nanoseconds exact times,
+// best shot might be a spinloop, and looking for cpu ticks.
+//
+// TODO: ignore blocked signals, sigchld
+//+def
+unsigned int volatile usleep(unsigned int useconds){
+		// do a bit shift. this results in a slightly longer sleep time,
+		// 1 micro has a duration of 1.024 microseconds now.
+		// I just hope, noone relies on an exact sleep time.
+		// which isn't possible without a real time os, anyways.
+		// When for whatever reason you'd need nanoseconds exact times,
+		// best shot might be a spinloop, and looking for cpu ticks.
+		struct timespec ts; 
+		//ts.tv_nsec = (long)((long)useconds<<10);// & (long)0xFFFFFFFF;
+		//ts.tv_sec = ((long)useconds>>20);
+		ts.tv_nsec = (long)((long)useconds*1000 % 1000000000 );// & (long)0xFFFFFFFF;
+		ts.tv_sec = 0;
+		if( useconds >= 1000000 )
+				ts.tv_sec = ((long)useconds/1000000);
+		return( nanosleep(&ts, &ts) );
+}
+
+
+#endif
+
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini__strcmp
+#ifndef strcmp_c
+#define strcmp_c
+
+//+include
+//+header string.h
+//+needs ctype.h
+
+//TODO: not implemented correct. need to return also -1.
+
+// depend onto strncmp. Otherwise thias file will not be compiled.
+//+inc
+//+def
+int _strcmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				//write(1,&c1[a],1);
+				if ( c1[a] != c2[a] )
+						return(1);
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+//+inc
+///+depends tolower
+//+needs ctype.h
+//+def
+int _strcasecmp(const char*c1,const char*c2,int len){
+		int a = 0;
+		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
+				if ( c1[a] != c2[a] ){
+						if ( tolower( c1[a] ) != tolower( c2[a] ) )
+								return(1);
+				}
+				a++;
+		}
+		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
+				return(0);
+		return (1);
+}
+
+
+//+inc
+//+depends _strcasecmp
+//+needs ctype.h
+//+def
+int strcasecmp(const char*c1,const char*c2){
+		return( _strcasecmp(c1,c2,-1) );
+}
+
+
+//+depends _strcasecmp
+//+inc
+//+def
+int strncasecmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcasecmp(c1,c2,len) );
+}
+
+
+
+//+depends _strcmp
+//+inc
+//+def
+int strcmp(const char*c1,const char*c2){
+		return( _strcmp(c1,c2,-1) );
+}
+
+
+//+depends _strcmp
+//+inc
+//+def
+int strncmp(const char*c1,const char*c2,int len){
+		if ( len <=0 )
+				return(-1);
+		return(_strcmp(c1,c2,len) );
+}
+
+
+//+depends
+//+def
+int memcmp(const void* c1,const void* c2,int len){
+		const char* cc1 = c1;
+		const char* cc2 = c2;
+		if ( len <=0 )
+				return(-1);
+		int a = 0;
+		while ( a != len ){
+				//write(1,&c1[a],1);
+				if ( cc1[a] != cc2[a] )
+						return(1);
+				a++;
+		}
+	 return(0);
+}
+
+
+#endif
+#endif
+
+// minilib/src/strdup.c
+#ifdef mini_strdup
+#ifndef strdup_c
+#define strdup_c
+
+//+header string.h
+//+depends malloc strcpy strlen
+//+def
+char *strdup(const char *source){
+	char *d =  malloc(strlen(source));
+	if ( !d ) return(0);
+	strcpy(d,source);
+	return(d);
+}
+
+
+
+#endif
+
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_strncmp
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigismember
+#ifndef sigaction_c
+#define sigaction_c
+//+header signal.h
+//+include
+
+//+inline
+static int sigemptyset(sigset_t *set){
+#ifdef X64
+		set->sig=0;
+#else
+		set->sig[0]=0;
+		if ((8/sizeof(long)) > 1)
+				set->sig[1]=0;
+#endif
+		return 0;
+}
+
+#if 1
+//+inline
+static int sigfillset(sigset_t *set){
+#ifdef X64
+		set->sig=0x7FFFFFFF; // doesn't work. ?
+#else
+#error implemented only for X64
+//		set->sig[0]=0x1FFFFFFF;
+//		if ((8/sizeof(long)) > 1)
+//				set->sig[1]=0;
+#endif
+		return 0;
+}
+#endif
+
+//+def
+int sigaddset(sigset_t *set, int sig){
+		unsigned s = sig-1;
+		if (sig >= _NSIG-1 || sig <0 ) {
+#ifdef mini_errno
+				errno = EINVAL;
+#endif
+				return -1;
+		}
+#ifdef X64
+		set->sig |= (1<<s);
+#else
+#error implemented only for X64
+#endif
+		return(0);
+}
+
+
+//+def
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
+		return( rt_sigprocmask( how, (sigset_t*)set, oldset, sizeof(sigset_t) ) );
+}
+
+
+//+def
+int sigdelset(sigset_t *set, int sig){
+		unsigned s = sig-1;
+		if (sig >= _NSIG-1 || sig <0 ) {
+#ifdef mini_errno
+				errno = EINVAL;
+#endif
+				return -1;
+		}
+#ifdef X64
+		set->sig &= ~(1<<s);
+#else
+#error implemented only for X64
+#endif
+		return(0);
+}
+
+//+def
+int sigismember(sigset_t *set, int sig){
+		unsigned s = sig-1;
+		if (sig >= _NSIG-1 || sig <0 ) {
+#ifdef mini_errno
+				errno = EINVAL;
+#endif
+				return -1;
+		}
+#ifdef X64
+		return( set->sig & (1<<s) );
+#else
+#error implemented only for X64
+		return(-1);
+#endif
+}
+
+
+
+#ifdef mini_sigaction
+extern void _sigrestore();
+__asm__ ( "\
+.global _sigrestore\n\
+_sigrestore:\n\
+	mov $15,%rax\n\
+	syscall");
+#endif
+
+//+header signal.h
+//+include
+//+depends memcpy
+//+def
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
+		struct sigaction sa;
+		//memcpy(&sa,act,sizeof(sigaction));
+
+#ifdef X64
+		sa.sa_mask.sig=act->sa_mask.sig;
+#else
+		sa.sa_mask.sig[0]=act->sa_mask.sig[0];
+		if ((8/sizeof(long)) > 1)
+				sa.sa_mask.sig[1]=act->sa_mask.sig[1];
+#endif
+
+		sa.sa_handler=act->sa_handler;
+		sa.sa_flags = act->sa_flags | SA_RESTORER;
+    sa.restorer = &_sigrestore;
+				
+		return( rt_sigaction( sig, &sa, oact, sizeof(sigset_t) ) );
+}
+
+// memo: needs static definition, cause the +include
+// (meaning, including the definition into the header.
+// What is the right thing to do for a wrapper call.)
+
+
+//+depends getpid
+//+def
+static inline int raise(int signr){
+		return(kill(getpid(),signr));
+}
+
+
+#endif
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_raise
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_strerror
+#ifndef strerror_r
+#define strerror_r
+
+
+char *errstr = "error: 000";
+
+//+header string.h
+//+def
+char* strerror( int errnum ){
+#ifndef mini_verbose_errstr
+		errstr[7] = '0';
+		while ( errnum>99 ){
+				errnum-=100;
+				errstr[7]++;
+		}
+		errstr[8] = '0';
+		while ( errnum>9 ){
+				errnum-=10;
+				errstr[8]++;
+		}
+		errstr[9] = 48+errnum; // 0+errnum..
+		return( errstr );
+#else
+		return((char*)verbose_errstr(errnum));
+#endif
+}
+
+//+header stdio.h
+//+depends fputs strerror strlen
+//+def
+void perror(const char *msg){
+		if ( msg !=0 && msg[0] != '\0' )
+				fputs( msg, stderr );
+
+		fputs( strerror( errno ), stderr );
+}
+
+
+//+doc convert errno to str, with 3 chars length
+// ending the string (located on the stack (!) 
+// with two \0\0, when errno<100
+//+def
+const char *errno_str(int err){
+		char *e="100\0";
+		char *p = e;
+		if ( err>99 ){
+				err-=100;
+		} else {
+				p++;
+		}
+		e[1]+=err/10;
+		e[2]+=err%10;
+
+		return(p);
+}
+
+
+
+#endif
+
+#endif
+
+// minilib/src/getenv.c
+#ifdef mini_getenv
+#ifndef getenv_c
+#define getenv_c
+
+//+header stdlib.h
+
+//+depends environ
+//+def
+char* getenv(const char* name){
+		int b;
+		for ( int a=0; environ[a]; a++ ){
+				for ( b = 0; environ[a][b] == name[b]; b++ ){}
+				if ( environ[a][b] == '=' ){
+						return( &environ[a][b+1] );
+				}
+		}
+		return(0);
+}
+
+
+//+depends environ getenv
+//+def
+int todo_putenv( char *s ){
+
+
+	return(0);
+}
+
+#endif
+#endif
+
+// minilib/src/dtodec.c
+#ifdef mini_dtodec
+//convert double to string
+//return number of bytes written to buf.
+//doesn't convert numbers > 2^31 (!!!)
+//doesn't round(!)
+//max. prec after the dot: 8 digits. (!!)
+
+//+ansi stdio.h
+//+depends itodec uitodec
+//+def
+int dtodec(double d, char* buf, int precision){
+		int i = (int) d;
+		unsigned int i2;
+		if ( d >= 0 )
+			 i2 = (unsigned int)((d-i)*1000000000+0.1);
+		else 
+			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
+
+
+		int p;
+		if ( (d<=-1) || (d>0) )
+				p = itodec(i,buf,0,0);
+		else {
+				buf[0] = '-';
+				buf[1] = '0';
+				p = 1;
+		}
+
+	
+		buf[p+1]='.';
+		int p2 = uitodec(i2,&buf[p+2],9,0);
+		return(p+p2+2-9+precision);
+}
+#endif
+
+// minilib/src/dirent/readdir.c
+#ifdef mini_readdir
+#ifndef readdir_c
+#define readdir_c
+
+#ifndef	_DIRENT_H
+#define	_DIRENT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#define __NEED_ino_t
+#define __NEED_off_t
+#if defined(_BSD_SOURCE) || defined(_GNU_SOURCE)
+#define __NEED_size_t
+#endif
+
+
+struct __dirstream
+{
+	off_t tell;
+	int fd;
+	int buf_pos;
+	int buf_end;
+	volatile int lock[1];
+	/* Any changes to this struct must preserve the property:
+	 * offsetof(struct __dirent, buf) % sizeof(off_t) == 0 */
+	char buf[2048];
+};
+typedef struct __dirstream DIR;
+
+#define _DIRENT_HAVE_D_RECLEN
+#define _DIRENT_HAVE_D_OFF
+#define _DIRENT_HAVE_D_TYPE
+
+struct dirent {
+	ino_t d_ino;
+	off_t d_off;
+	unsigned short d_reclen;
+	//unsigned char d_type;
+	char d_name[256];
+};
+
+#define d_fileno d_ino
+#if 0
+int            closedir(DIR *);
+DIR           *fdopendir(int);
+DIR           *opendir(const char *);
+struct dirent *readdir(DIR *);
+int            readdir_r(DIR *__restrict, struct dirent *__restrict, struct dirent **__restrict);
+void           rewinddir(DIR *);
+int            dirfd(DIR *);
+
+int alphasort(const struct dirent **, const struct dirent **);
+int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **));
+
+#if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+void           seekdir(DIR *, long);
+long           telldir(DIR *);
+#endif
+#endif
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#define DT_UNKNOWN 0
+#define DT_FIFO 1
+#define DT_CHR 2
+#define DT_DIR 4
+#define DT_BLK 6
+#define DT_REG 8
+#define DT_LNK 10
+#define DT_SOCK 12
+#define DT_WHT 14
+#define IFTODT(x) ((x)>>12 & 017)
+#define DTTOIF(x) ((x)<<12)
+//int getdents(int, struct dirent *, size_t);
+#endif
+
+#ifdef _GNU_SOURCE
+int versionsort(const struct dirent **, const struct dirent **);
+#endif
+
+#if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
+#define dirent64 dirent
+#define readdir64 readdir
+#define readdir64_r readdir_r
+#define scandir64 scandir
+#define alphasort64 alphasort
+#define versionsort64 versionsort
+#define off64_t off_t
+#define ino64_t ino_t
+#define getdents64 getdents
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+//typedef char dirstream_buf_alignment_check[1-2*(int)(
+//	offsetof(struct __dirstream, buf) % sizeof(off_t))];
+
+//+def
+struct dirent *readdir(DIR *dir){
+	struct dirent *de;
+	
+	if (dir->buf_pos >= dir->buf_end) {
+		int len = getdents( dir->fd, (struct dirent*) dir->buf, sizeof dir->buf);
+		if (len <= 0) {
+			if (len < 0 && len != -ENOENT) errno = -len;
+			return 0;
+		}
+		dir->buf_end = len;
+		dir->buf_pos = 0;
+	}
+	de = (void *)(dir->buf + dir->buf_pos);
+	dir->buf_pos += de->d_reclen;
+	dir->tell = de->d_off;
+	return de;
+}
+
+
+#endif
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini_itohex
+#ifndef itohex_c
+#define itohex_c
+//+header stdio.h
+//+include
+//+def
+int _itohex(int i,char* buf,int padding, int capitals){
+
+		if ( capitals>0 )
+				capitals = 55;
+		else
+				capitals = 87;
+
+		padding = padding - 8;
+		if ( padding < -7 )
+				padding = -7;
+
+		union { int n; char c[4]; } conv[2];
+		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
+		conv[1].n = ( i & 0x0f0f0f0f );
+		int p = 0;
+		int a,b;
+
+		for ( a=3; a>=0; a-- ){
+				for ( b=0; b <=1; b++ ){
+						if ( padding != 0 ){
+								if ( conv[b].c[a] != 0 ){
+										padding = 0;
+								}
+						}
+						if ( padding == 0 ){
+								char c = conv[b].c[a];
+								if ( c < 0xa )
+										c = c + 48;
+								else
+										c = c + capitals; // 55 for big abc ..
+								buf[p] = c;
+								p++;
+						} else
+								padding++;
+				}
+		}
+		buf[p] = 0 ;
+		return(p);
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itohex(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,0));
+}
+
+//+header stdio.h
+//+depends _itohex
+//+def
+int itoHEX(int i,char* buf,int padding){
+		return(_itohex(i,buf,padding,1));
+}
+
+
+
+
+#endif
+
+#endif
+
+// minilib/src/memset.c
+#ifdef mini_memset
+//+ansi string.h
+//+def
+void *memset( void *s, int c, int n){
+		int a;
+		char *sp = s;
+		for ( a=0; a<n; a++)
+				sp[a] = (char)c;
+		return(s);
+}
+#endif
+
 // minilib/src/sprintf.c
-#ifdef mini_fprintf
+#ifdef mini_vsnprintf
 #ifndef msprintf_c
 #define msprintf_c
 
@@ -16716,280 +15344,8 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 #endif
 #endif
 
-// minilib/src/fopen.c
-#ifdef mini_fopen
-#endif
-
-// minilib/src/sleep.c
-#ifdef mini_sleep
-#ifndef mini_sleep_c
-#define mini_sleep_c
-
-//+header unistd.h
-//+include
-//+needs nanosleep
-//+doc nonconformant sleep
-// TODO: ignore blocked signals, sigchld
-//+def
-unsigned int volatile sleep(unsigned int seconds){
-		unsigned int res;
-		struct timespec ts = { .tv_sec = (long int) seconds, .tv_nsec = 0 };
-		res = nanosleep(&ts, &ts);
-		if (res) res = (unsigned int) ts.tv_sec + (ts.tv_nsec >= 500000000L);
-		return res;
-}
-
-
-//+header unistd.h
-//+include
-//+needs nanosleep
-//+doc nonconformant usleep. 
-// Sleep useconds.
-// I just hope, noone relies on an exact sleep time.
-// which isn't possible without a real time os, anyways.
-// When for whatever reason you'd need nanoseconds exact times,
-// best shot might be a spinloop, and looking for cpu ticks.
-//
-// TODO: ignore blocked signals, sigchld
-//+def
-unsigned int volatile usleep(unsigned int useconds){
-		// do a bit shift. this results in a slightly longer sleep time,
-		// 1 micro has a duration of 1.024 microseconds now.
-		// I just hope, noone relies on an exact sleep time.
-		// which isn't possible without a real time os, anyways.
-		// When for whatever reason you'd need nanoseconds exact times,
-		// best shot might be a spinloop, and looking for cpu ticks.
-		struct timespec ts; 
-		//ts.tv_nsec = (long)((long)useconds<<10);// & (long)0xFFFFFFFF;
-		//ts.tv_sec = ((long)useconds>>20);
-		ts.tv_nsec = (long)((long)useconds*1000 % 1000000000 );// & (long)0xFFFFFFFF;
-		ts.tv_sec = 0;
-		if( useconds >= 1000000 )
-				ts.tv_sec = ((long)useconds/1000000);
-		return( nanosleep(&ts, &ts) );
-}
-
-
-#endif
-
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_memcpy
-#ifndef memcpy_c
-#define memcpy_c
-
-//+ansi string.h
-//+def
-void *memcpy( void *d, const void *s, int n ){
-		char *dp=d;
-		const char *sp = s;
-		int a;
-		for ( a=0; a<n; a++ )
-				dp[a] = sp[a];
-		return(d);
-}
-
-
-//+def
-char *strcpy(char *dest, const char *src){
-		int a;
-		for ( a=0; src[a] != 0; a++)
-				dest[a] = src[a];
-		dest[a] = 0;
-		return(dest);
-}
-
-//+depends memcpy
-//+def
-char *strncpy(char *dest, const char *src, int n){
-		return( memcpy( dest, src, n ) );
-}
-
-#endif
-
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itohex
-#ifndef itohex_c
-#define itohex_c
-//+header stdio.h
-//+include
-//+def
-int _itohex(int i,char* buf,int padding, int capitals){
-
-		if ( capitals>0 )
-				capitals = 55;
-		else
-				capitals = 87;
-
-		padding = padding - 8;
-		if ( padding < -7 )
-				padding = -7;
-
-		union { int n; char c[4]; } conv[2];
-		conv[0].n = (( i & 0xf0f0f0f0 ) >> 4);
-		conv[1].n = ( i & 0x0f0f0f0f );
-		int p = 0;
-		int a,b;
-
-		for ( a=3; a>=0; a-- ){
-				for ( b=0; b <=1; b++ ){
-						if ( padding != 0 ){
-								if ( conv[b].c[a] != 0 ){
-										padding = 0;
-								}
-						}
-						if ( padding == 0 ){
-								char c = conv[b].c[a];
-								if ( c < 0xa )
-										c = c + 48;
-								else
-										c = c + capitals; // 55 for big abc ..
-								buf[p] = c;
-								p++;
-						} else
-								padding++;
-				}
-		}
-		buf[p] = 0 ;
-		return(p);
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itohex(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,0));
-}
-
-//+header stdio.h
-//+depends _itohex
-//+def
-int itoHEX(int i,char* buf,int padding){
-		return(_itohex(i,buf,padding,1));
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/isspace.c
-#ifdef mini_isspace
-#ifndef isspace_c
-#define isspace_c
-
-//+ansi ctype.h
-//+def
-int isspace(int c){
-		switch (c){
-				case ' ':
-				case '\f':
-				case '\n':
-				case '\r':
-				case '\t':
-				case '\v':
-						return(1);
-		}
-		return(0);
-}
-
-
-
-
-#endif
-
-#endif
-
-// minilib/src/atoi.c
-#ifdef mini_atoi
-#ifndef atoi_c
-#define atoi_c
-
-//+ansi stdlib.h
-//+def
-int atoi(const char *c){
-		int t,a=0;
-	 	int ret=0;
-		int dez = 1;
-
-		while( c[a] != 0 ){ 
-				a++; 
-		}
-		while ( a>0 ){
-				a--;
-				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
-						t = c[a] - 48;
-						if ( t & 1 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 2 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 4 )
-								ret += dez;
-						dez <<= 1;
-						if ( t & 8 )
-								ret += dez;
-				} else {
-						dez <<= 3;
-				}
-				dez += (dez >> 2);
-		}
-		if ( c[0] == '-' )
-				ret = -ret;
-		return(ret);
-}
-
-
-#endif
-		
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigprocmask
-#endif
-
-// minilib/src/hashes.c
-#ifdef mini_djb2_hash
-//+doc hashes, from d.j.Bernstein
-// (http://www.cse.yorku.ca/~oz/hash.html)
-// I've tested djb2_hash, and it gives quite good results.
-// But I'm sure, Bernstein did think and test his algorithm sincerely.
-// When combining djb2_hash and sdbm_hash, the probability of collisions
-// might tend to zero.
-// Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
-//
-//+def
-unsigned long djb2_hash(const unsigned char *str){
-		unsigned long hash = 5381;
-		int c;
-
-		while ((c = *str++))
-				hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-
-		return hash;
-}
-
-//+def
-unsigned long sdbm_hash(const unsigned char *str){
-		unsigned long hash = 0;
-		int c;
-
-		while ((c = *str++))
-				hash = c + (hash << 6) + (hash << 16) - hash;
-
-		return hash;
-}
-
-#endif
-
 // minilib/src/itobin.c
-#ifdef mini_itobin
+#ifdef mini__itobin
 #ifndef mini_itobin_h
 #define mini_itobin_h
 
@@ -17053,191 +15409,200 @@ void* memmove(void *dest, const void *src, int n){
 
 #endif
 
-// minilib/src/isatty.c
-#ifdef mini_isatty
-#ifndef isatty_c
-#define isatty_c
+// minilib/src/strchr.c
+#ifdef mini_strchr
+#ifndef strchr_c
+#define strchr_c
+
+//+header string.h
+
+//+def
+char *strchrnul(const char *s, int c){
+
+		while ( *s != 0 ){
+				if ( *s==c ){
+						return((char*)s);
+				}
+				s++;
+		}
+		return((char*)s);
+}
+
+//+depends strchrnul
+//+def
+char *strchr(const char *s, int c){
+		
+		char *ret = strchrnul(s,c);
+
+		if ( c==0 )
+				return(ret);
+
+		if ( *ret==0 )
+				return(0);
+
+		return(ret);
+}
+
+
+//+depends strchrnul
+//+def
+char *strrchr(const char *s, int c){
+	char *ret = 0;
+	char *tmp = (char*)s-1;
+	while ( (tmp = strchrnul(tmp+1,c) ) && ( *tmp != 0 ) ){
+			ret=tmp;
+	}
+	return(ret);
+}
+
+#endif
+#endif
+
+// minilib/src/signal.c
+#ifdef mini_signal
+#ifndef signal_c
+#define signal_c
+
+
+//+header signal.h
+//+depends sigaction
+//+def
+sighandler_t signal(int sig, sighandler_t func ){
+		struct sigaction sa_old = { .sa_handler=0, .sa_flags=0 };
+		struct sigaction sa = { .sa_handler = func, .sa_flags = SA_RESTART };
+		if (sigaction(sig, &sa, &sa_old) < 0){
+				prints("SIGNAL - ERR\n");
+				return SIG_ERR;
+		}
+		return sa_old.sa_handler;
+}
+
+
+
+#endif
+#endif
+
+// minilib/src/execvp.c
+#ifdef mini_fexecveat
 //+header unistd.h
 //+include
-//+depends tcgetattr
+
+
+//+depends environ execve
 //+def
-int isatty(int fd){
-	struct termios term;
-	return( tcgetattr(fd, &term) == 0 );
-}
+static inline int execv(const char *pathname, char *const argv[]){
+		return( execve( pathname, argv, environ ) );
+};
 
-
-#endif
-
-#endif
-
-// minilib/src/dtodec.c
-#ifdef mini_dtodec
-//convert double to string
-//return number of bytes written to buf.
-//doesn't convert numbers > 2^31 (!!!)
-//doesn't round(!)
-//max. prec after the dot: 8 digits. (!!)
-
-//+ansi stdio.h
-//+depends itodec uitodec
 //+def
-int dtodec(double d, char* buf, int precision){
-		int i = (int) d;
-		unsigned int i2;
-		if ( d >= 0 )
-			 i2 = (unsigned int)((d-i)*1000000000+0.1);
-		else 
-			 i2 = (unsigned int)((double)(-d+i)*1000000000+0.1);
+static inline int fexecveat(int fd, char *const argv[], char *const envp[]){
+		return( execveat(fd,0,argv,envp,AT_EMPTY_PATH) );
+};
 
+//+depends environ execve getenv access
+//+doc When invoked with a filename, starting with "." or "/",
+// interprets this as absolute path. (calls execve with the pathname)
+// Looks for file in the PATH environment, othwerise.
+//+def
+static int execvpe(const char *file, char *const argv[], char *const envp[]){
+		if ( file[0] == 0 || file[0] == '.' || file[0] == '/' )
+				return( execve( file, argv, envp ) );
 
-		int p;
-		if ( (d<=-1) || (d>0) )
-				p = itodec(i,buf,0,0);
-		else {
-				buf[0] = '-';
-				buf[1] = '0';
-				p = 1;
+		char *path = getenv("PATH");
+		if ( !path ){
+				//return(-1);
+				path = "/bin:/usr/bin";
 		}
 
-	
-		buf[p+1]='.';
-		int p2 = uitodec(i2,&buf[p+2],9,0);
-		return(p+p2+2-9+precision);
-}
-#endif
-
-// minilib/src/dirent/opendir.c
-#ifdef mini_opendir
-#ifndef opendir_c
-#define opendir_c
-#ifndef	_DIRENT_H
-#define	_DIRENT_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-#define __NEED_ino_t
-#define __NEED_off_t
-#if defined(_BSD_SOURCE) || defined(_GNU_SOURCE)
-#define __NEED_size_t
-#endif
-
-
-struct __dirstream
-{
-	off_t tell;
-	int fd;
-	int buf_pos;
-	int buf_end;
-	volatile int lock[1];
-	/* Any changes to this struct must preserve the property:
-	 * offsetof(struct __dirent, buf) % sizeof(off_t) == 0 */
-	char buf[2048];
-};
-typedef struct __dirstream DIR;
-
-#define _DIRENT_HAVE_D_RECLEN
-#define _DIRENT_HAVE_D_OFF
-#define _DIRENT_HAVE_D_TYPE
-
-struct dirent {
-	ino_t d_ino;
-	off_t d_off;
-	unsigned short d_reclen;
-	//unsigned char d_type;
-	char d_name[256];
+		char e[PATH_MAX];
+		char *p = e;
+		do {
+				*p = *path;
+				p++; path++;
+				if ( *path == ':' || *path == 0 ){
+						*p++ = '/';
+						char *c= (char*)file;
+						do {
+								*p++ = *c++;
+						} while ( *c );
+						*p = 0;
+						//printfs("access: %s\n", e );
+						if ( access( e, R_OK | X_OK ) == 0 ){
+								//printfs("exec: %s\n", e );
+								return( execve( e, argv, envp ) );
+						}
+						p=e;
+						if ( *path == 0 ){
+								return(-1);
+						}
+						path++;
+				}
+		} while (1);
+		//return(-1);
 };
 
-#define d_fileno d_ino
-#if 0
-int            closedir(DIR *);
-DIR           *fdopendir(int);
-DIR           *opendir(const char *);
-struct dirent *readdir(DIR *);
-int            readdir_r(DIR *__restrict, struct dirent *__restrict, struct dirent **__restrict);
-void           rewinddir(DIR *);
-int            dirfd(DIR *);
 
-int alphasort(const struct dirent **, const struct dirent **);
-int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **));
-
-#if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-void           seekdir(DIR *, long);
-long           telldir(DIR *);
-#endif
-#endif
-
-#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-#define DT_UNKNOWN 0
-#define DT_FIFO 1
-#define DT_CHR 2
-#define DT_DIR 4
-#define DT_BLK 6
-#define DT_REG 8
-#define DT_LNK 10
-#define DT_SOCK 12
-#define DT_WHT 14
-#define IFTODT(x) ((x)>>12 & 017)
-#define DTTOIF(x) ((x)<<12)
-//int getdents(int, struct dirent *, size_t);
-#endif
-
-#ifdef _GNU_SOURCE
-int versionsort(const struct dirent **, const struct dirent **);
-#endif
-
-#if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
-#define dirent64 dirent
-#define readdir64 readdir
-#define readdir64_r readdir_r
-#define scandir64 scandir
-#define alphasort64 alphasort
-#define versionsort64 versionsort
-#define off64_t off_t
-#define ino64_t ino_t
-#define getdents64 getdents
-#endif
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
-
-
-
-//+depends open close malloc
-//+needs dirent.h
+//+depends environ execve
 //+def
-DIR *opendir(const char *name){
-	int fd;
-	DIR *dir;
+static inline int execvp(const char *file, char *const argv[]){
+		return( execvpe( file, argv, environ ) );
+};
 
-	if ((fd = open(name, O_RDONLY|O_DIRECTORY|O_CLOEXEC)) < 0)
-		return 0;
-	dir = malloc(sizeof(*dir));
-	if ( dir == 0 ){
-		//	fprintf("Got: %d\n", dir);
-		close( fd );
-		return 0;
-	}
 
-	dir->fd = fd;
-	dir->buf_pos=dir->buf_end=0;
-	return dir;
+
+
+#endif
+
+// minilib/src/execvp.c
+#ifdef mini_execv
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigaddset
+#endif
+
+// minilib/src/itohex.c
+#ifdef mini__itohex
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_memcpy
+#ifndef memcpy_c
+#define memcpy_c
+
+//+ansi string.h
+//+def
+void *memcpy( void *d, const void *s, int n ){
+		char *dp=d;
+		const char *sp = s;
+		int a;
+		for ( a=0; a<n; a++ )
+				dp[a] = sp[a];
+		return(d);
 }
 
 
+//+def
+char *strcpy(char *dest, const char *src){
+		int a;
+		for ( a=0; src[a] != 0; a++)
+				dest[a] = src[a];
+		dest[a] = 0;
+		return(dest);
+}
+
+//+depends memcpy
+//+def
+char *strncpy(char *dest, const char *src, int n){
+		return( memcpy( dest, src, n ) );
+}
 
 #endif
 
 #endif
 
 // minilib/src/pty.c
-#ifdef mini_grantpt
+#ifdef mini_ptsname_r
 #ifndef pty_c
 #define pty_c
 
@@ -17291,271 +15656,247 @@ char *ptsname(int fd){
 #endif
 #endif
 
-// minilib/src/strcmp.c
-#ifdef mini__strcmp
-#endif
-
-// minilib/src/strlen.c
-#ifdef mini_strlen
-#ifndef strlen_c
-#define strlen_c
-
-//+header string.h
-
+// minilib/src/hashes.c
+#ifdef mini_djb2_hash
+//+doc hashes, from d.j.Bernstein
+// (http://www.cse.yorku.ca/~oz/hash.html)
+// I've tested djb2_hash, and it gives quite good results.
+// But I'm sure, Bernstein did think and test his algorithm sincerely.
+// When combining djb2_hash and sdbm_hash, the probability of collisions
+// might tend to zero.
+// Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
+//
 //+def
-int strlen(const char*str){
-		int a = 0;
-		while ( str[a] != 0 ){
-				a++;
-		}
-		return (a);
+unsigned long djb2_hash(const unsigned char *str){
+		unsigned long hash = 5381;
+		int c;
+
+		while ((c = *str++))
+				hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+		return hash;
 }
 
-
-#endif
-#endif
-
-// minilib/src/execvp.c
-#ifdef mini_execvpe
-#endif
-
-// minilib/src/strchr.c
-#ifdef mini_strrchr
-#ifndef strchr_c
-#define strchr_c
-
-//+header string.h
-
 //+def
-char *strchrnul(const char *s, int c){
+unsigned long sdbm_hash(const unsigned char *str){
+		unsigned long hash = 0;
+		int c;
 
-		while ( *s != 0 ){
-				if ( *s==c ){
-						return((char*)s);
-				}
-				s++;
-		}
-		return((char*)s);
+		while ((c = *str++))
+				hash = c + (hash << 6) + (hash << 16) - hash;
+
+		return hash;
 }
 
-//+depends strchrnul
-//+def
-char *strchr(const char *s, int c){
-		
-		char *ret = strchrnul(s,c);
-
-		if ( c==0 )
-				return(ret);
-
-		if ( *ret==0 )
-				return(0);
-
-		return(ret);
-}
-
-
-//+depends strchrnul
-//+def
-char *strrchr(const char *s, int c){
-	char *ret = 0;
-	char *tmp = (char*)s-1;
-	while ( (tmp = strchrnul(tmp+1,c) ) && ( *tmp != 0 ) ){
-			ret=tmp;
-	}
-	return(ret);
-}
-
-#endif
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini__strcasecmp
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_ptsname_r
-#endif
-
-// minilib/src/ioctl.c
-#ifdef mini_ioctl
-#ifndef mini_ioctl_h
-#define mini_ioctl_h
-
-//#include "../include/syscall.h"
-//#include "/usr/diet/include/stdarg.h"
-
-//+header ioctl.h
-//+def
-int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... ){
-		va_list args;
-		va_start(args,request);
-
-		int ret;
-		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
-		va_end(args);
-		return(ret);
-}
-
-
-#endif
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_strerror
-#ifndef strerror_r
-#define strerror_r
-
-
-char *errstr = "error: 000";
-
-//+header string.h
-//+def
-char* strerror( int errnum ){
-#ifndef mini_verbose_errstr
-		errstr[7] = '0';
-		while ( errnum>99 ){
-				errnum-=100;
-				errstr[7]++;
-		}
-		errstr[8] = '0';
-		while ( errnum>9 ){
-				errnum-=10;
-				errstr[8]++;
-		}
-		errstr[9] = 48+errnum; // 0+errnum..
-		return( errstr );
-#else
-		return((char*)verbose_errstr(errnum));
-#endif
-}
-
-//+header stdio.h
-//+depends fputs strerror strlen
-//+def
-void perror(const char *msg){
-		if ( msg !=0 && msg[0] != '\0' )
-				fputs( msg, stderr );
-
-		fputs( strerror( errno ), stderr );
-}
-
-
-//+doc convert errno to str, with 3 chars length
-// ending the string (located on the stack (!) 
-// with two \0\0, when errno<100
-//+def
-const char *errno_str(int err){
-		char *e="100\0";
-		char *p = e;
-		if ( err>99 ){
-				err-=100;
-		} else {
-				p++;
-		}
-		e[1]+=err/10;
-		e[2]+=err%10;
-
-		return(p);
-}
-
-
-
-#endif
-
-#endif
-
-// minilib/src/malloc.c
-#ifdef mini_realloc
 #endif
 
 // minilib/src/open.c
 #ifdef mini_creat
+#ifndef open_c
+#define open_c
+//+header fcntl.h
+//+include
+
+
+//#include "syscall.h"
+#ifndef mini_filemodes_h
+#define mini_filemodes_h
+
+#ifdef OSX
+
+/* open-only flags */
+#define	O_RDONLY	0x0000		/* open for reading only */
+#define	O_WRONLY	0x0001		/* open for writing only */
+#define	O_RDWR		0x0002		/* open for reading and writing */
+#define	O_ACCMODE	0x0003		/* mask for above modes */
+
+#define	FREAD		0x0001
+#define	FWRITE		0x0002
+#define	O_NONBLOCK	0x0004		/* no delay */
+#define	O_APPEND	0x0008		/* set append mode */
+
+#define	O_SHLOCK	0x0010		/* open with shared file lock */
+#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
+#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+#define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
+#define O_NOFOLLOW  0x0100      /* don't follow symlinks */
+#define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_CREATE		0x0200		/* create if nonexistant */
+#define	O_TRUNC		0x0400		/* truncate to zero length */
+#define	O_EXCL		0x0800		/* error if already exists */
+
+#define	O_EVTONLY	0x8000		/* descriptor requested for event notifications only */
+
+#define	O_NOCTTY	0x20000		/* don't assign controlling terminal */
+#define O_DIRECTORY	0x100000
+#define O_SYMLINK	0x200000	/* allow open of a symlink */
+#define	O_CLOEXEC	0x1000000	/* implicitly set FD_CLOEXEC */
+#define O_DP_GETRAWENCRYPTED	0x0001
+#define O_DP_GETRAWUNENCRYPTED	0x0002
+
+
+
+#else
+
+
+#define O_ACCMODE	00000003
+#define O_RDONLY	00000000
+#define O_WRONLY	00000001
+#define O_RDWR		00000002
+#define O_CREAT		00000100	/* not fcntl */
+#define O_EXCL		00000200	/* not fcntl */
+#define O_NOCTTY	00000400	/* not fcntl */
+#define O_TRUNC		00001000	/* not fcntl */
+#define O_APPEND	00002000
+#define O_NONBLOCK	00004000
+#define O_DSYNC		00010000	/* used to be O_SYNC, see below */
+#define FASYNC		00020000	/* fcntl, for BSD compatibility */
+#define O_ASYNC      020000
+#define O_DIRECT	00040000	/* direct disk access hint */
+#define O_LARGEFILE	00100000
+#define O_DIRECTORY	00200000	/* must be a directory */
+#define O_NOFOLLOW	00400000	/* don't follow links */
+#define O_NOATIME	01000000
+#define O_CLOEXEC	02000000	/* set close_on_exec */
+#define O_PATH    010000000
+
+#define O_SYNC     04010000
+#define O_RSYNC    04010000
+
+
+
 #endif
 
-// minilib/src/hashes.c
-#ifdef mini_sdbm_hash
+
+
 #endif
 
-// minilib/src/fgets.c
-#ifdef mini_gets
-#ifndef fgets_c
-#define fgets_c
-//+header stdio.h
-//+depends fgetc
+
+#ifndef stdarg_h
+#define stdarg_h
+// copied from musl
+// copy more - the builtin list..
+
+#if 1
+#if __GNUC__ >= 3
+//#warning here 1
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)       __builtin_va_end(v)
+#define va_arg(v,l)     __builtin_va_arg(v,l)
+#define va_copy(d,s)    __builtin_va_copy(d,s)
+#else
+//#warning here 2
+
+#ifdef __GNUC__
+//#warning here 3
+//TODO: this gets scrambled if in the same compiler unit as the caller.
+typedef __builtin_va_list va_list;
+#define __VA_ALIGNED_SIZE(x) ((sizeof(x) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+#define va_start(ap, last) ((ap) = (void *)(((char *)&(last)) + __VA_ALIGNED_SIZE(last)))
+#define va_end(ap) ((void)0)
+#define va_copy(dest, src) ((dest) = (src))
+
+#define va_arg(ap, type) \
+	( ((ap) = (va_list)((char *)(ap) + __VA_ALIGNED_SIZE(type))), \
+	*(type *)(void *)((char *)(ap) - __VA_ALIGNED_SIZE(type)) )
+
+
+#else
+
+//#warning here 4
+// copied from tcc
+#ifdef __x86_64__
+//#warning here 5
+#ifndef _WIN64
+//#warning here 6
+
+typedef void *va_list;
+
+va_list __va_start(void *fp);
+void *__va_arg(va_list ap, int arg_type, int size);
+va_list __va_copy(va_list src);
+void __va_end(va_list ap);
+
+#define va_start(ap, last) ((ap) = __va_start(__builtin_frame_address(0)))
+#define va_arg(ap, type)                                                \
+		    (*(type *)(__va_arg(ap, __builtin_va_arg_types(type), sizeof(type))))
+#define va_copy(dest, src) ((dest) = __va_copy(src))
+#define va_end(ap) __va_end(ap)
+
+#else /* _WIN64 */
+typedef char *va_list;
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+7)&~7)
+#define va_arg(ap,type) (ap += (sizeof(type)+7)&~7, *(type *)(ap - ((sizeof(type)+7)&~7)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+#else /* __i386__ */
+typedef char *va_list;
+/* only correct for i386 */
+#define va_start(ap,last) ap = ((char *)&(last)) + ((sizeof(last)+3)&~3)
+#define va_arg(ap,type) (ap += (sizeof(type)+3)&~3, *(type *)(ap - ((sizeof(type)+3)&~3)))
+#define va_copy(dest, src) (dest) = (src)
+#define va_end(ap)
+#endif
+
+/* fix a buggy dependency on GCC in libio.h */
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
+#endif
+#endif
+
+#endif
+
+#endif
+
+
 //+def
-char* fgets(char *buf, int size, FILE* F){
-		char *ret = buf;
-
-		*buf = (char)fgetc(F);
-		if ( !*buf ) // EOF
-				return(0);
-		if ( *buf == '\n' )
-						size=0;
-
-		while( --size >0 ){
-				buf++;
-				*buf = (char)fgetc(F);
-				if ( *buf == 0 )
-						return(ret);
-				if ( *buf == '\n' )
-						size=0;
-		}
-		buf++;
-		*buf = 0;
+int volatile open( const char *s, int flags, ... ){
+		int ret;
+		va_list args;
+		va_start(args,flags);
+		int mode = va_arg(args,int);
+		va_end(args);
+		syscall3(ret,SCALL(open),(POINTER)s,flags,mode);
+#ifdef mini_errno
+		if ( ret<0 )
+				errno = -ret;
+#endif
 		return(ret);
 }
 
-//+depends fgets fgetc fileno read
-//+macro gets(F) fgets(F,0xfffffff,stdin)
-
-
-
-#endif
-#endif
-
-// minilib/src/rand.c
-#ifdef mini_rand
-#ifndef rand_c
-#define rand_c
-
-
-//+header stdlib.h
+/// creat
+//+depends open
 //+def
-void srand( unsigned int i ){
-		ml.srand = i;
-}
-	
-
-
-//+header stdlib.h
-//+def
-unsigned int rand(){
-		// xorshift, algorithm af marsaglia.
-		// second round added, it doesn't give more randomness,
-		// but isn't so expensive on the other hand.
-		if ( ml.srand==0 ){
-				ml.srand=1;
-		}
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		unsigned int t = ml.srand;
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		return(t-1);
+int volatile creat( const char *s, int mode ){
+		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
 }
 
 
 
-
-
+//FILE* volatile fopen( const char *s, const char *mode ){
+//		int m = 0;
 
 
 
 
 #endif
+#endif
 
+// minilib/src/strcmp.c
+#ifdef mini_strcmp
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strncpy
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigaction
 #endif
 
 // minilib/src/fprintfs.c
@@ -17600,8 +15941,327 @@ int fprintfs( FILE* F, char *fmt, ...){
 
 #endif
 
-// minilib/src/prints.c
-#ifdef mini__mprints
+// minilib/src/wait.c
+#ifdef mini_wait
+#ifndef wait_c
+#define wait_c
+//+header sys/wait.h
+
+//+depends wait4
+//+include
+//+def
+pid_t wait(int *wstatus){
+	return(wait4(-1,wstatus,0,0));
+}
+
+
+//+depends wait4
+//+include
+//+def
+pid_t waitpid(pid_t pid, int *wstatus, int options){
+	return(wait4(pid,wstatus,options,0));
+}
+
+
+#endif
+#endif
+
+// minilib/src/ltodec.c
+#ifdef mini_ltodec
+//+include
+//+def
+int ultodec(unsigned long i, char *buf, int prec, char limiter ){
+		int p = 0;
+		if ( i>2^16 ){
+				p=itodec((unsigned int)i-2^16, buf, prec, limiter);
+				strcpy(&buf[p], "*2^16+"); // rude hack. Correct, but..
+#todo: write ltodec
+				p+=7;
+		}
+		return(uitodec((uint)i, &buf[p], prec, limiter));
+}
+//+def
+int ltodec(long i, char *buf, int prec, char limiter ){
+	if ( i < 0 ){
+			buf[0]='-';
+			i = -i;
+			return(ultodec((unsigned long)i,&buf[1],prec,limiter) + 1 );
+	}
+	return(ultodec((unsigned long)i,buf,prec,limiter) );
+}
+
+#endif
+
+// minilib/src/strlen.c
+#ifdef mini_strlen
+#ifndef strlen_c
+#define strlen_c
+
+//+header string.h
+
+//+def
+int strlen(const char*str){
+		int a = 0;
+		while ( str[a] != 0 ){
+				a++;
+		}
+		return (a);
+}
+
+
+#endif
+#endif
+
+// minilib/src/memcpy.c
+#ifdef mini_strcpy
+#endif
+
+// minilib/src/strcmp.c
+#ifdef mini_memcmp
+#endif
+
+// minilib/src/dirent/opendir.c
+#ifdef mini_opendir
+#ifndef opendir_c
+#define opendir_c
+
+
+
+//+depends open close malloc
+//+needs dirent.h
+//+def
+DIR *opendir(const char *name){
+	int fd;
+	DIR *dir;
+
+	if ((fd = open(name, O_RDONLY|O_DIRECTORY|O_CLOEXEC)) < 0)
+		return 0;
+	dir = malloc(sizeof(*dir));
+	if ( dir == 0 ){
+		//	fprintf("Got: %d\n", dir);
+		close( fd );
+		return 0;
+	}
+
+	dir->fd = fd;
+	dir->buf_pos=dir->buf_end=0;
+	return dir;
+}
+
+
+
+#endif
+
+#endif
+
+// minilib/src/malloc.c
+#ifdef mini_malloc
+#endif
+
+// minilib/src/ltodec.c
+#ifdef mini_ultodec
+#endif
+
+// minilib/src/open.c
+#ifdef mini_open
+#endif
+
+// minilib/src/atoi.c
+#ifdef mini_atoi
+#ifndef atoi_c
+#define atoi_c
+
+//+ansi stdlib.h
+//+def
+int atoi(const char *c){
+		int t,a=0;
+	 	int ret=0;
+		int dez = 1;
+
+		while( c[a] != 0 ){ 
+				a++; 
+		}
+		while ( a>0 ){
+				a--;
+				if ( (c[a] > 48 ) && ( c[a] < 58 ) ){
+						t = c[a] - 48;
+						if ( t & 1 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 2 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 4 )
+								ret += dez;
+						dez <<= 1;
+						if ( t & 8 )
+								ret += dez;
+				} else {
+						dez <<= 3;
+				}
+				dez += (dez >> 2);
+		}
+		if ( c[0] == '-' )
+				ret = -ret;
+		return(ret);
+}
+
+
+#endif
+		
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigemptyset
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_ptsname
+#endif
+
+// minilib/src/sleep.c
+#ifdef mini_usleep
+#endif
+
+// minilib/src/hashes.c
+#ifdef mini_sdbm_hash
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini__fopen
+#ifndef mini_fopen_c
+#define mini_fopen_c
+
+int volatile open( const char *s, int flags, ... );
+
+//+header stdio.h
+//+depends open fileno close
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
+		int imode;
+
+		switch (mode[0]){
+				case 'r': imode = O_RDONLY;
+									break;
+				case 'w': imode = O_WRONLY | O_TRUNC | O_CREAT;
+									break;
+				case 'a': imode = O_APPEND | O_RDWR; // somehow only "a+" works. Not sure, why.
+									break;
+				default: return((FILE*)0); // hopefully a fd cannot be 0.? By reading the manual, 
+								 // I conclude only stdin has the fildes 0. So It MIGHT be ok.
+								  // Anyways, if someone's trying to open stdin via fopen and is wondering, what's going on..
+								 // Here's the answer. But, regarding the bsd manuals, one shouldn't open stdin with fopen at all. so..
+		}
+
+		for ( int a=1; (mode[a] != 0) && ( a<6 ); a++ ){
+ 				if ( mode[a] == '+' ){ 
+						imode = ( ( imode | O_RDWR ) & ~( O_WRONLY | O_RDONLY) );
+				} else {
+#if 0
+				//printf("XXX: %c", mode[a]);
+						switch (mode[0]){
+								case 'r': //imode = O_RDONLY;
+										break;
+								case 'w': if ( mode[a] == 'x' )
+															imode = imode & ( ~(O_CREAT | O_TRUNC) );
+													break;
+								case 'a': //imode = O_APPEND | O_RDWR; 
+													break;
+						}
+#endif
+				}
+		}
+
+		if ( f == 0 ){
+				int a;
+				if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
+						for ( a=3; ml.stream[a]>=0; a++ )
+								if ( a >= mini_FOPEN_MAX ) // 
+										return(0);
+				} else {
+						a = ml.pstream;
+						ml.pstream++;
+				}
+
+				//printf("a: %d\n",a);
+				f = &ml.stream[a];
+		} else { // freopen - error handling?
+				close(fileno(f));
+		}
+		if ( filename != 0 )
+			*f	 =  open( filename, imode, 0666 );
+		else 
+			*f = fd;
+
+		if ( *f == -1 )
+				return(0);
+
+		return ( f ); // 
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *fopen(const char* filename, const char* mode){
+		return(_fopen(0,filename, mode,0));
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *fdopen(int fd, const char* mode){
+		return(_fopen(fd,0, mode,0));
+}
+
+
+//+header stdio.h
+//+depends open _fopen
+//+needs lseek.h
+//+doc modes implemented: r, r+, w, w+, a, a+
+//+def
+FILE *freopen(const char* filename, const char* mode, FILE *F){
+		return(_fopen(0,filename, mode,F));
+}
+
+
+
+
+#endif
+#endif
+
+// minilib/src/isspace.c
+#ifdef mini_isspace
+#ifndef isspace_c
+#define isspace_c
+
+//+ansi ctype.h
+//+def
+int isspace(int c){
+		switch (c){
+				case ' ':
+				case '\f':
+				case '\n':
+				case '\r':
+				case '\t':
+				case '\v':
+						return(1);
+		}
+		return(0);
+}
+
+
+
+
+#endif
+
 #endif
 
 // minilib/src/basename.c
@@ -17657,200 +16317,50 @@ char *basename(char *path){
 }
 #endif
 
-// minilib/src/itodec.c
-#ifdef mini_uitodec
+// minilib/src/strchr.c
+#ifdef mini_strchrnul
 #endif
 
-// minilib/src/rand.c
-#ifdef mini_srand
+// minilib/src/dirname.c
+#ifdef mini_dirname
+// source musl
+// License MIT
+
+
+
+//+depends strlen
+//+def
+char *dirname(char *s){
+		size_t i;
+		if (!s || !*s) return ".";
+		i = strlen(s)-1;
+		for (; s[i]=='/'; i--) if (!i) return "/";
+		for (; s[i]!='/'; i--) if (!i) return ".";
+		for (; s[i]=='/'; i--) if (!i) return "/";
+		s[i+1] = 0;
+		return s;
+}
+
 #endif
 
-// minilib/src/malloc.c
-#ifdef mini_free
+// minilib/src/strcmp.c
+#ifdef mini__strcasecmp
+#endif
+
+// minilib/src/itobin.c
+#ifdef mini_itobin
 #endif
 
 // minilib/src/getenv.c
 #ifdef mini_todo_putenv
-#ifndef getenv_c
-#define getenv_c
-
-//+header stdlib.h
-
-//+depends environ
-//+def
-char* getenv(const char* name){
-		int b;
-		for ( int a=0; environ[a]; a++ ){
-				for ( b = 0; environ[a][b] == name[b]; b++ ){}
-				if ( environ[a][b] == '=' ){
-						return( &environ[a][b+1] );
-				}
-		}
-		return(0);
-}
-
-
-//+depends environ getenv
-//+def
-int todo_putenv( char *s ){
-
-
-	return(0);
-}
-
 #endif
+
+// minilib/src/execvp.c
+#ifdef mini_execvpe
 #endif
 
 // minilib/src/strcmp.c
 #ifdef mini_strncasecmp
-#endif
-
-// minilib/src/memcpy.c
-#ifdef mini_strcpy
-#endif
-
-// minilib/src/itohex.c
-#ifdef mini_itoHEX
-#endif
-
-// minilib/src/strdup.c
-#ifdef mini_strdup
-#ifndef strdup_c
-#define strdup_c
-
-//+header string.h
-//+depends malloc strcpy strlen
-//+def
-char *strdup(const char *source){
-	char *d =  malloc(strlen(source));
-	if ( !d ) return(0);
-	strcpy(d,source);
-	return(d);
-}
-
-
-
-#endif
-
-#endif
-
-// minilib/src/dirent/readdir.c
-#ifdef mini_readdir
-#ifndef readdir_c
-#define readdir_c
-
-//typedef char dirstream_buf_alignment_check[1-2*(int)(
-//	offsetof(struct __dirstream, buf) % sizeof(off_t))];
-
-//+def
-struct dirent *readdir(DIR *dir){
-	struct dirent *de;
-	
-	if (dir->buf_pos >= dir->buf_end) {
-		int len = getdents( dir->fd, (struct dirent*) dir->buf, sizeof dir->buf);
-		if (len <= 0) {
-			if (len < 0 && len != -ENOENT) errno = -len;
-			return 0;
-		}
-		dir->buf_end = len;
-		dir->buf_pos = 0;
-	}
-	de = (void *)(dir->buf + dir->buf_pos);
-	dir->buf_pos += de->d_reclen;
-	dir->tell = de->d_off;
-	return de;
-}
-
-
-#endif
-#endif
-
-// minilib/src/ltodec.c
-#ifdef mini_ltodec
-//+include
-//+def
-int ultodec(unsigned long i, char *buf, int prec, char limiter ){
-		int p = 0;
-		if ( i>2^16 ){
-				p=itodec((unsigned int)i-2^16, buf, prec, limiter);
-				strcpy(&buf[p], "*2^16+"); // rude hack. Correct, but..
-#todo: write ltodec
-				p+=7;
-		}
-		return(uitodec((uint)i, &buf[p], prec, limiter));
-}
-//+def
-int ltodec(long i, char *buf, int prec, char limiter ){
-	if ( i < 0 ){
-			buf[0]='-';
-			i = -i;
-			return(ultodec((unsigned long)i,&buf[1],prec,limiter) + 1 );
-	}
-	return(ultodec((unsigned long)i,buf,prec,limiter) );
-}
-
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strncmp
-#endif
-
-// minilib/src/ltodec.c
-#ifdef mini_ultodec
-#endif
-
-// minilib/src/strcmp.c
-#ifdef mini_strcmp
-#endif
-
-// minilib/src/system.c
-#ifdef mini_system
-//+header stdlib.h
-//+depends execve vfork environ fwrites waitpid
-//+def
-int system( const char* command ){
-	
-		int pid = vfork();
-
-		char* const arg[4] = { "sh", "-c", (char*)command, 0 };
-
-		if ( pid==0 ){
-				execve( "/bin/sh", arg, (char* const*)environ );
-				fwrites(fileno(stderr), "Error. Couldn't exec sh in system()\n");
-				exit(-1);
-		}
-		int ws;
-		do {
-				waitpid( pid, &ws, 0 );
-		} while ( !WIFEXITED(ws) );
-
-		return(WEXITSTATUS(ws));
-}
-#endif
-
-// minilib/src/wait.c
-#ifdef mini_wait
-#ifndef wait_c
-#define wait_c
-//+header sys/wait.h
-
-//+depends wait4
-//+include
-//+def
-pid_t wait(int *wstatus){
-	return(wait4(-1,wstatus,0,0));
-}
-
-
-//+depends wait4
-//+include
-//+def
-pid_t waitpid(pid_t pid, int *wstatus, int options){
-	return(wait4(pid,wstatus,options,0));
-}
-
-
-#endif
 #endif
 
 // minilib/src/strstr.c
@@ -17885,181 +16395,201 @@ char* strstr(const char *big, const char *little){
 }
 #endif
 
-// minilib/src/strerror.c
-#ifdef mini_perror
+// minilib/src/sigaction.c
+#ifdef mini_sigdelset
+#endif
+
+// minilib/src/strcat.c
+#ifdef mini_strcat
+#ifndef strcat_c
+#define strcat_c
+
+//+ansi string.h
+//+depends strlen
+//+def
+char *strcat(char *dest, const char *src ){
+		size_t dest_len = strlen(dest);
+		size_t i;
+
+		for (i = 0 ; src[i] != '\0' ; i++)
+				dest[dest_len + i] = src[i];
+		dest[dest_len + i] = '\0';
+
+		return dest;
+}
+
+
+#endif
+
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_fprintf
 #endif
 
 // minilib/src/sprintf.c
 #ifdef mini_snprintf
 #endif
 
-// minilib/src/itobin.c
-#ifdef mini__itobin
-#endif
-
-// minilib/src/strerror.c
-#ifdef mini_errno_str
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigfillset
-#endif
-
-// minilib/src/execvp.c
-#ifdef mini_fexecveat
-#endif
-
-// minilib/src/sigaction.c
-#ifdef mini_sigaction
-#endif
-
-// minilib/src/sleep.c
-#ifdef mini_usleep
-#endif
-
-// minilib/src/pty.c
-#ifdef mini_ptsname
-#endif
-
-// minilib/src/fgets.c
-#ifdef mini_fgets
-#endif
-
-// minilib/src/signal.c
-#ifdef mini_signal
-#ifndef signal_c
-#define signal_c
-
-
-//+header signal.h
-//+depends sigaction
-//+def
-sighandler_t signal(int sig, sighandler_t func ){
-		struct sigaction sa_old = { .sa_handler=0, .sa_flags=0 };
-		struct sigaction sa = { .sa_handler = func, .sa_flags = SA_RESTART };
-		if (sigaction(sig, &sa, &sa_old) < 0){
-				prints("SIGNAL - ERR\n");
-				return SIG_ERR;
-		}
-		return sa_old.sa_handler;
-}
-
-
-
-#endif
-#endif
-
 // minilib/src/pty.c
 #ifdef mini_posix_openpt
 #endif
 
-// minilib/src/wait.c
-#ifdef mini_waitpid
-#endif
-
 // minilib/src/strchr.c
-#ifdef mini_strchrnul
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_sprintf
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_dprintf
-#endif
-
-// minilib/src/dirname.c
-#ifdef mini_dirname
-// source musl
-// License MIT
-
-
-
-//+depends strlen
-//+def
-char *dirname(char *s){
-		size_t i;
-		if (!s || !*s) return ".";
-		i = strlen(s)-1;
-		for (; s[i]=='/'; i--) if (!i) return "/";
-		for (; s[i]!='/'; i--) if (!i) return ".";
-		for (; s[i]=='/'; i--) if (!i) return "/";
-		s[i+1] = 0;
-		return s;
-}
-
-#endif
-
-// minilib/src/fopen.c
-#ifdef mini_freopen
-#endif
-
-// minilib/src/getenv.c
-#ifdef mini_getenv
-#endif
-
-// minilib/src/sprintf.c
-#ifdef mini_vsnprintf
-#endif
-
-// minilib/src/memset.c
-#ifdef mini_memset
-//+ansi string.h
-//+def
-void *memset( void *s, int c, int n){
-		int a;
-		char *sp = s;
-		for ( a=0; a<n; a++)
-				sp[a] = (char)c;
-		return(s);
-}
+#ifdef mini_strrchr
 #endif
 
 // minilib/src/execvp.c
 #ifdef mini_execvp
 #endif
 
-// minilib/src/strchr.c
-#ifdef mini_strchr
+// minilib/src/rand.c
+#ifdef mini_srand
+#ifndef rand_c
+#define rand_c
+
+
+//+header stdlib.h
+//+def
+void srand( unsigned int i ){
+		ml.srand = i;
+}
+	
+
+
+//+header stdlib.h
+//+def
+unsigned int rand(){
+		// xorshift, algorithm af marsaglia.
+		// second round added, it doesn't give more randomness,
+		// but isn't so expensive on the other hand.
+		if ( ml.srand==0 ){
+				ml.srand=1;
+		}
+		ml.srand ^= ml.srand << 13;
+ 		ml.srand ^= ml.srand >> 17;
+ 		ml.srand ^= ml.srand << 5;
+		unsigned int t = ml.srand;
+		ml.srand ^= ml.srand << 13;
+ 		ml.srand ^= ml.srand >> 17;
+ 		ml.srand ^= ml.srand << 5;
+		return(t-1);
+}
+
+
+
+
+
+
+
+
+
 #endif
 
-// minilib/src/sigaction.c
-#ifdef mini_sigismember
 #endif
 
-// minilib/src/itohex.c
-#ifdef mini__itohex
+// minilib/src/fgets.c
+#ifdef mini_fgets
+#ifndef fgets_c
+#define fgets_c
+//+header stdio.h
+//+depends fgetc
+//+def
+char* fgets(char *buf, int size, FILE* F){
+		char *ret = buf;
+
+		*buf = (char)fgetc(F);
+		if ( !*buf ) // EOF
+				return(0);
+		if ( *buf == '\n' )
+						size=0;
+
+		while( --size >0 ){
+				buf++;
+				*buf = (char)fgetc(F);
+				if ( *buf == 0 )
+						return(ret);
+				if ( *buf == '\n' )
+						size=0;
+		}
+		buf++;
+		*buf = 0;
+		return(ret);
+}
+
+//+depends fgets fgetc fileno read
+//+macro gets(F) fgets(F,0xfffffff,stdin)
+
+
+
+#endif
+#endif
+
+// minilib/src/system.c
+#ifdef mini_system
+//+header stdlib.h
+//+depends execve vfork environ fwrites waitpid
+//+def
+int system( const char* command ){
+	
+		int pid = vfork();
+
+		char* const arg[4] = { "sh", "-c", (char*)command, 0 };
+
+		if ( pid==0 ){
+				execve( "/bin/sh", arg, (char* const*)environ );
+				fwrites(fileno(stderr), "Error. Couldn't exec sh in system()\n");
+				exit(-1);
+		}
+		int ws;
+		do {
+				waitpid( pid, &ws, 0 );
+		} while ( !WIFEXITED(ws) );
+
+		return(WEXITSTATUS(ws));
+}
 #endif
 
 // minilib/src/strcmp.c
 #ifdef mini_strcasecmp
 #endif
 
+// minilib/src/itohex.c
+#ifdef mini_itoHEX
+#endif
+
+// minilib/src/rand.c
+#ifdef mini_rand
+#endif
+
 // minilib/src/pty.c
-#ifdef mini_unlockpt
+#ifdef mini_grantpt
 #endif
 
-// minilib/src/sigaction.c
-#ifdef mini_raise
+// minilib/src/prints.c
+#ifdef mini__mprints
 #endif
 
-// minilib/src/memcpy.c
-#ifdef mini_strncpy
-#endif
-
-// minilib/src/memfrob.c
-#ifdef mini_memfrob
-//+ansi string.h
+// minilib/src/isatty.c
+#ifdef mini_isatty
+#ifndef isatty_c
+#define isatty_c
+//+header unistd.h
+//+include
+//+depends tcgetattr
 //+def
-void* memfrob(void* s, unsigned int len){
-		unsigned int a;
-		char *c = s;
-		for ( a=0; a<len;a++)
-				c[a] = 	c[a] ^ 42;
-		return ( s );
+int isatty(int fd){
+	struct termios term;
+	return( tcgetattr(fd, &term) == 0 );
 }
-		
+
+
+#endif
+
+#endif
+
+// minilib/src/fgets.c
+#ifdef mini_gets
 #endif
 
 // minilib/src/dirent/closedir.c
@@ -18078,6 +16608,68 @@ int closedir(DIR *dir){
 
 
 #endif
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_sprintf
+#endif
+
+// minilib/src/memfrob.c
+#ifdef mini_memfrob
+//+ansi string.h
+//+def
+void* memfrob(void* s, unsigned int len){
+		unsigned int a;
+		char *c = s;
+		for ( a=0; a<len;a++)
+				c[a] = 	c[a] ^ 42;
+		return ( s );
+}
+		
+#endif
+
+// minilib/src/pty.c
+#ifdef mini_unlockpt
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_errno_str
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_freopen
+#endif
+
+// minilib/src/wait.c
+#ifdef mini_waitpid
+#endif
+
+// minilib/src/sprintf.c
+#ifdef mini_dprintf
+#endif
+
+// minilib/src/strerror.c
+#ifdef mini_perror
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigfillset
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fdopen
+#endif
+
+// minilib/src/itodec.c
+#ifdef mini_uitodec
+#endif
+
+// minilib/src/fopen.c
+#ifdef mini_fopen
+#endif
+
+// minilib/src/sigaction.c
+#ifdef mini_sigprocmask
 #endif
 
 #endif

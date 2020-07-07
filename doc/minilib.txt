@@ -141,7 +141,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: close open malloc
+               Defines: open malloc close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -214,12 +214,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write fileno strlen
+               Defines: fileno write strlen
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno write strlen
+               Defines: write strlen fileno
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -978,7 +978,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: fileno open close
+               Defines: open close fileno
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1017,7 +1017,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1025,7 +1025,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 6)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
@@ -1038,7 +1038,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
@@ -1050,7 +1050,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: write fileno strlen
+               Defines: fileno write strlen
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1079,7 +1079,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
@@ -1087,7 +1087,7 @@ getchar        #define getchar() fgetc(0)
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 29)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -1099,7 +1099,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: write fileno strerror strlen
+               Defines: write strlen strerror fileno
                (src/strerror.c: 31)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1107,7 +1107,7 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -1188,7 +1188,7 @@ srand          void srand( unsigned int i );
                (src/rand.c: 7)
 
 system         int system( const char* command );
-               Defines: vfork environ wait4 write execve
+               Defines: wait4 environ vfork execve write
                (src/system.c: 4)
 
 todo_putenv    int todo_putenv( char *s );
@@ -1243,7 +1243,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strlen strcpy
+               Defines: strlen malloc strcpy
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1322,18 +1322,18 @@ dup2           dup2(int a1, int a2)
                (include/syscall_stubs.h: 111)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
-               Defines: environ execve
+               Defines: execve environ
                (src/execvp.c: 7)
 
 execve         execve( const char *filename,  char* const* argv, char* const* envp)
                (include/syscall_stubs.h: 121)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
-               Defines: environ execve
+               Defines: execve environ
                (src/execvp.c: 61)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: environ access execve
+               Defines: access execve environ
                (src/execvp.c: 21)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
@@ -1392,7 +1392,7 @@ rmdir          rmdir( const char *pathname)
                (include/syscall_stubs.h: 154)
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
-               (include/select.h: 10)
+               (include/select.h: 9)
 
 setgid         setgid( gid_t gid)
                (include/syscall_stubs.h: 141)
