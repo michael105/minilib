@@ -1,6 +1,7 @@
 #if 0
 mini_start
 mini_fprintf
+mini_itodec
 mini_perror
 mini_errno
 mini_strchr
@@ -194,20 +195,6 @@ int main(int argc, const char ** argv)
 		}
 	}
 
-	if (inFile == NULL)
-	{
-		fprintf(stderr, "No input file specified\n");
-
-		return 1;
-	}
-
-	if (outFile == NULL)
-	{
-		fprintf(stderr, "No output file specified\n");
-
-		return 1;
-	}
-
 	buf = localBuf;
 
 	if (blockSize > sizeof(localBuf))
@@ -227,7 +214,11 @@ int main(int argc, const char ** argv)
 	outFull = 0;
 	outPartial = 0;
 
-	inFd = open(inFile, 0);
+	if (inFile == NULL){
+			inFd=STDIN_FILENO;
+	} else {
+			inFd = open(inFile, 0);
+	}
 
 	if (inFd < 0)
 	{
@@ -239,7 +230,11 @@ int main(int argc, const char ** argv)
 		return 1;
 	}
 
-	outFd = creat(outFile, 0666);
+	if (outFile == NULL){
+			outFd=STDOUT_FILENO;
+	} else {
+			outFd = creat(outFile, 0666);
+	}
 
 	if (outFd < 0)
 	{

@@ -13,9 +13,24 @@ The commands here all shall dump there usage on invocation with -h, showing the 
 Just now I'm thinking about adding a tool "help" - which could be invoked by the other tools,
 also to dump the usage. 
 
+
+
 These tools are from other authors and modified by me:
 
 David Bell: dd 
+
+grep,mkdir (xv6)
+
+ammongit: uname,cat,basename
+
+minutils: tee,tail
+
+Andy Tannenbaum (minix): head
+
+
+
+All other tools are written by me and BSD Licensed.
+ 
 
 
 
