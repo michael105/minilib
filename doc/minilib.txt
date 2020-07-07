@@ -141,7 +141,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: open close malloc
+               Defines: open malloc close
                (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -166,7 +166,7 @@ mkfifo         static int mkfifo( const char* path, mode_t mode );
 ioctl.h
 ==========
 
-ioctl          int volatile ioctl( int fd, unsigned long int request, ... );
+ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
                (src/ioctl.c: 11)
 
 
@@ -214,12 +214,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno strlen write
+               Defines: strlen fileno write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno strlen write
+               Defines: fileno write strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -250,7 +250,7 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 29)
                write str to stdout. Needs strlen
 
@@ -978,7 +978,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: close open fileno
+               Defines: fileno close open
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1017,7 +1017,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1025,7 +1025,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 6)
 
 fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
@@ -1038,11 +1038,11 @@ fopen          FILE *fopen(const char* filename, const char* mode);
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
-               Defines: fileno write
+               Defines: write fileno
                (src/sprintf.c: 248)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
@@ -1079,11 +1079,11 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
@@ -1099,11 +1099,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: strerror write strlen fileno
+               Defines: write fileno strlen strerror
                (src/strerror.c: 31)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -1115,7 +1115,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 49)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1143,7 +1143,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 100)
 
 
@@ -1152,8 +1152,14 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 stdlib.h
 ==========
 
+abs            static int abs(int i);
+               (include/math.h: 25)
+
 atoi           int atoi(const char *c);
                (src/atoi.c: 6)
+
+div            static div_t div(int numerator, int denominator);
+               (include/math.h: 8)
 
 free           void volatile free(void* p);
                (src/malloc.c: 295)
@@ -1162,6 +1168,12 @@ getenv         char* getenv(const char* name);
                Defines: environ
                (src/getenv.c: 8)
 
+labs           static long int labs(long int i);
+               (include/math.h: 30)
+
+ldiv           static ldiv_t ldiv(long int numerator, long int denominator);
+               (include/math.h: 16)
+
 malloc         void* volatile malloc(int size);
                (src/malloc.c: 245)
 
@@ -1169,14 +1181,14 @@ rand           unsigned int rand();
                (src/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
-               Defines: free malloc
+               Defines: malloc free
                (src/malloc.c: 176)
 
 srand          void srand( unsigned int i );
                (src/rand.c: 7)
 
 system         int system( const char* command );
-               Defines: vfork execve environ write wait4
+               Defines: write vfork environ execve wait4
                (src/system.c: 4)
 
 todo_putenv    int todo_putenv( char *s );
@@ -1231,7 +1243,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: strlen strcpy malloc
+               Defines: strlen malloc strcpy
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1317,11 +1329,11 @@ execve         execve( const char *filename,  char* const* argv, char* const* en
                (include/syscall_stubs.h: 122)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
-               Defines: environ execve
+               Defines: execve environ
                (src/execvp.c: 61)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: environ access execve
+               Defines: execve access environ
                (src/execvp.c: 21)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
@@ -1394,7 +1406,7 @@ setsid         DEF_syscall(setsid,0 )
 setuid         setuid( uid_t uid)
                (include/syscall_stubs.h: 143)
 
-sleep          unsigned int sleep(unsigned int seconds);
+sleep          unsigned int volatile sleep(unsigned int seconds);
                (src/sleep.c: 10)
                nonconformant sleep
               TODO: ignore blocked signals, sigchld
@@ -1410,10 +1422,10 @@ tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd
 unlink         unlink( const char* a1)		
                (include/syscall_stubs.h: 102)
 
-usleep         unsigned int usleep(unsigned int useconds);
+usleep         unsigned int volatile usleep(unsigned int useconds);
                (src/sleep.c: 31)
                nonconformant usleep. 
-              Sleep useconds, one usecond equals 1.024 microseconds.
+              Sleep useconds.
               I just hope, noone relies on an exact sleep time.
               which isn't possible without a real time os, anyways.
               When for whatever reason you'd need nanoseconds exact times,

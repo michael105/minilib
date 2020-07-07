@@ -124,6 +124,18 @@ unsigned int rand();
 // file: minilib/src/system.c
 int system( const char* command );
 
+// file: minilib/include/math.h
+static div_t div(int numerator, int denominator);
+
+// file: minilib/include/math.h
+static ldiv_t ldiv(long int numerator, long int denominator);
+
+// file: minilib/include/math.h
+static int abs(int i);
+
+// file: minilib/include/math.h
+static long int labs(long int i);
+
 
 
 #include "include/minilib_global.h"
@@ -131,10 +143,11 @@ int system( const char* command );
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/system.c"
+#include "minilib/src/atoi.c"
 #include "minilib/src/rand.c"
 #include "minilib/src/getenv.c"
-#include "minilib/src/atoi.c"
+#include "minilib/src/system.c"
+#include "minilib/include/math.h"
 #include "minilib/src/malloc.c"
 
 // Need global included. Doesn't matter by which file.

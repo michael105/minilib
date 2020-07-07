@@ -317,7 +317,9 @@
 <tr valign="top"><td><small>ksys__waitid</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  469 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>ksys__write</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  7 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>ksys__writev</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  45 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  157 </small></td><td><small> access( const char *filename, int mode)
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  25 </small></td><td><small>  int abs(int i);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  157 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int atoi(const char *c);
 </small></td></tr>
@@ -349,7 +351,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  8 </small></td><td><small> char *dirname(char *s);
 </small></td></tr>
-<tr valign="top"><td><small>djb2_hash</small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  10 </small></td><td><small> unsigned long djb2_hash(const unsigned char *str);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/div.3.rst.html">div</a></small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  8 </small></td><td><small>  div_t div(int numerator, int denominator);
+</small></td></tr>
+<tr valign="top"><td><small>djb2_hash</small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  10 </small></td><td><small> unsigned long djb2_hash(const unsigned char *str);
 </small></td></tr><tr><td></td><td colspan="2"><small>hashes, from d.j.Bernstein
   (http://www.cse.yorku.ca/~oz/hash.html)
   I've tested djb2_hash, and it gives quite good results.
@@ -486,7 +490,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">grantpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  13 </small></td><td><small> int grantpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  11 </small></td><td><small> int  ioctl( int fd, unsigned long int request, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  11 </small></td><td><small> int   )) ioctl( int fd, unsigned long int request, ... );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/ioctl.c" target="right">../src/ioctl.c</a>  7 </small></td><td><small> int isatty(int fd);
 </small></td></tr>
@@ -504,7 +508,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/kill.2.rst.html">kill</a></small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  124 </small></td><td><small> kill( pid_t pid,  int sig)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/link.2.rst.html">link</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  117 </small></td><td><small> link( const char *oldname, const char *newname)
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/labs.3.rst.html">labs</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  30 </small></td><td><small>  long int labs(long int i);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/ldiv.3.rst.html">ldiv</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  16 </small></td><td><small>  ldiv_t ldiv(long int numerator, long int denominator);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/link.2.rst.html">link</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  117 </small></td><td><small> link( const char *oldname, const char *newname)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  17 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
 </small></td></tr>
@@ -640,7 +648,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/signal.c" target="right">../src/signal.c</a>  52 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  10 </small></td><td><small> unsigned int sleep(unsigned int seconds);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  10 </small></td><td><small> unsigned int  sleep(unsigned int seconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
@@ -713,9 +721,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> int unlockpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/usleep.3.rst.html">usleep</a></small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  31 </small></td><td><small> unsigned int usleep(unsigned int useconds);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/usleep.3.rst.html">usleep</a></small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  31 </small></td><td><small> unsigned int  usleep(unsigned int useconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant usleep. 
-  Sleep useconds, one usecond equals 1.024 microseconds.
+  Sleep useconds.
   I just hope, noone relies on an exact sleep time.
   which isn't possible without a real time os, anyways.
   When for whatever reason you'd need nanoseconds exact times,

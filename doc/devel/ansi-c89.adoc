@@ -112,7 +112,7 @@ ____
      x    SIGSEGV
      x    SIGTERM
      x    void (*signal(int sig, void (*func)(int)))(int);
-         int raise(int sig);
+     x    int raise(int sig);
 
 
 ==== VARIABLE ARGUMENTS <stdarg.h> x
@@ -213,7 +213,7 @@ ____
          void *calloc(size_t nmemb, size_t size);
      x    void free(void *ptr);
      x    void *malloc(size_t size);
-         void *realloc(void *ptr, size_t size);
+     x    void *realloc(void *ptr, size_t size);
          void abort(void);
          int atexit(void (*func)(void));
      x    void exit(int status);
@@ -225,9 +225,9 @@ ____
          void qsort(void *base, size_t nmemb, size_t size,
                   int (*compar)(const void *, const void *));
      x    int abs(int j);
-         div_t div(int numer, int denom);
-         long int labs(long int j);
-         ldiv_t ldiv(long int numer, long int denom);
+     x    div_t div(int numer, int denom);
+     x    long int labs(long int j);
+     x    ldiv_t ldiv(long int numer, long int denom);
          int mblen(const char *s, size_t n);
          int mbtowc(wchar_t *pwc, const char *s, size_t n);
          int wctomb(char *s, wchar_t wchar);

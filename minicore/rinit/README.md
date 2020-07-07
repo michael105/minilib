@@ -4,8 +4,11 @@ Work in progress, not finished.
 A minimal init. 
 
 The small size and using vfork might spare some resources.
+Especially, when considering context switches for reaping subprocesses.
 
-readahead has to be implemented by the stages.
+Readahead has to be implemented by the stages.
+
+
 
 
 (2020/06)
@@ -61,4 +64,18 @@ To be more exact, even stage 2 is not really needed.
 I leave this at it is for now.
 And upload this into the branch devel of minilib,
 since it is in development.
+
+
+
+
+notes
+
+Seems to me, a modular kernel would be advantegeous in matters of boottime.
+
+the modules can initialize the hardware in parallel to the boot process.
+
+(Now, the kernel needs about 1 second to initialize here)
+
+
+
 

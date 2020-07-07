@@ -67,7 +67,7 @@ return
 
 // After signalling the current stage with SIGTERM,
 // wait this time (in seconds). When the (running) stage still runs 
-// kill it with SIGTERM, when still not responding within WAITTIME seconds
+// kill it with SIGKILL, when still not responding within WAITTIME seconds
 // continue anyways
 #define WAITTIME 30
 
@@ -159,7 +159,7 @@ int vexec( const char* exec, char* const* argv, char* const* envp ){
 		int ws;
 		int pid;
 		do {
-				pid = waitpid( -1, &ws, 0 ); // wait for any child (reap zonbies)
+				pid = waitpid( -1, &ws, 0 ); // wait for any child (reap zombies)
 		} while ( !( ( (pid == stagepid) && (WIFEXITED(ws) || WIFSIGNALED(ws) ) ) || zombie ) );
 
 		return(0);

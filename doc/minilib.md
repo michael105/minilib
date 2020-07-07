@@ -56,7 +56,7 @@ mkfifo         static int mkfifo( const char* path, mode_t mode );
 ioctl.h
 ==========
 
-ioctl          int volatile ioctl( int fd, unsigned long int request, ... );
+ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
 
                (src/ioctl.c: 11)
 
@@ -764,9 +764,17 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 stdlib.h
 ==========
 
+abs            static int abs(int i);
+
+               (include/math.h: 25)
+
 atoi           int atoi(const char *c);
 
                (src/atoi.c: 6)
+
+div            static div_t div(int numerator, int denominator);
+
+               (include/math.h: 8)
 
 free           void volatile free(void* p);
 
@@ -775,6 +783,14 @@ free           void volatile free(void* p);
 getenv         char* getenv(const char* name);
 
                (src/getenv.c: 8)
+
+labs           static long int labs(long int i);
+
+               (include/math.h: 30)
+
+ldiv           static ldiv_t ldiv(long int numerator, long int denominator);
+
+               (include/math.h: 16)
 
 malloc         void* volatile malloc(int size);
 
@@ -943,7 +959,7 @@ select         static int volatile __attribute__((optimize("O0"))) select(int fd
 
                (include/select.h: 10)
 
-sleep          unsigned int sleep(unsigned int seconds);
+sleep          unsigned int volatile sleep(unsigned int seconds);
 
                nonconformant sleep
               TODO: ignore blocked signals, sigchld
@@ -957,10 +973,10 @@ tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd
 
                (include/tcsetattr.h: 20)
 
-usleep         unsigned int usleep(unsigned int useconds);
+usleep         unsigned int volatile usleep(unsigned int useconds);
 
                nonconformant usleep. 
-              Sleep useconds, one usecond equals 1.024 microseconds.
+              Sleep useconds.
               I just hope, noone relies on an exact sleep time.
               which isn't possible without a real time os, anyways.
               When for whatever reason you'd need nanoseconds exact times,
