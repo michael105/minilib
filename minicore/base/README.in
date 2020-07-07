@@ -13,11 +13,10 @@ The commands here all shall dump there usage on invocation with -h, showing the 
 Just now I'm thinking about adding a tool "help" - which could be invoked by the other tools,
 also to dump the usage. 
 
-Some sources in this directory are originally written by ammongit (github.com/ammongit/minutils) 
-and modified by me.
+These tools are from other authors and modified by me:
 
-I also reused some fragments of minix.
-I kept all copyright notices within the sources.
+David Bell: dd 
+
 
 
 ```
