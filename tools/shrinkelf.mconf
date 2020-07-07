@@ -34,5 +34,6 @@ mini_strcpy
 mini_strlen
 mini_unlink
 mini_write
+mini_errno
 
 mini_itodec

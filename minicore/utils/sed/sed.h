@@ -1,3 +1,6 @@
+#ifndef sed_h
+#define sed_h
+
 /* sed.h -- types and constants for the stream editor
    Copyright (C) 1995-2003 Eric S. Raymond
    Copyright (C) 2004-2005 Rene Rebe
@@ -83,3 +86,4 @@ sedcmd;		/* use this name for declarations */
 #define bits(b) (1 << (b))
 
 /* sed.h ends here */
+#endif

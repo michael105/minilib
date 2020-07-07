@@ -153,6 +153,21 @@ typedef void (*sighandler_t)(int);
 //int ioctl( int fd, unsigned long int request, ... );
 #endif
 
+
+#ifndef timevaldefined
+#define timevaldefined
+typedef long time_t;
+typedef long suseconds_t;
+typedef unsigned useconds_t;
+struct timeval { time_t tv_sec; suseconds_t tv_usec; };
+
+struct timezone {
+		int     tz_minuteswest; /*	minutes	west of	Greenwich */
+		int     tz_dsttime;     /*	type of	dst correction */
+};
+#endif
+
+
 // from musl
 #define FD_SETSIZE 1024
 

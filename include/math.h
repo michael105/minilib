@@ -1,7 +1,7 @@
 #ifndef mini_math_h
 #define mini_math_h
 // mathematical functions.
-//
+//+ansi stdlib.h
 
 
 //+def

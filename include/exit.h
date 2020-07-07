@@ -3,10 +3,6 @@
 //+header unistd.h
 //+inc
 
-//#include "syscall.h"
-//#undef write
-//#undef exit
-
 
 #ifdef X64
 #define exit(ret) asm("jmp _exit"::"D"(ret))

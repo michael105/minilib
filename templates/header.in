@@ -35,7 +35,6 @@
 
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/minilib_global.h"
-#include "minilib/include/timeval.h"
 #include "minilib/include/ctype.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
