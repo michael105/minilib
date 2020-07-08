@@ -6,9 +6,11 @@ PROG=hello
 
 PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
-MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static hashes sigaction realloc
+# ebedded config, mini-gcc, wildcard target
+MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static hashes sigaction realloc sendfile div
 
-MINIGCC=rand sleep execve strdup div
+MINIGCC=rand sleep execve strdup
+
 
 # where to build object files
 #BUILDDIR=.
@@ -58,7 +60,7 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM) $(MAKEPROGS)
+all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM) $(MAKEPROGS) 
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , (echo minilib/mini-gcc --config $(P).c -o $(P) $(P).c && minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) && ) true
 
