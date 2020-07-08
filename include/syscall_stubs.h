@@ -158,7 +158,10 @@ DEF_syscall(access,2, const char *filename, int mode)
 DEF_syscall(fcntl,3, unsigned int fd, unsigned int cmd, unsigned long arg)
 
 DEF_syscall(umount2,2, const char *mountpoint, int flags) 
+DEF_syscall(sendfile,4, int out_fd,  int in_fd,  off_t *offset,  size_t count)
+DEF_syscall(reboot,4, int magic1,  int magic2,  unsigned int cmd,  void *arg)
 
+DEF_syscall(mount,5, char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 
 //DEF_syscall(select,5, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
 //
@@ -173,10 +176,7 @@ DEF_syscall(setpgid,2, pid_t pid, pid_t pgid)
 DEF_syscall(getgid,0)
 DEF_syscall(getpgrp,0)
 DEF_syscall(brk,1, unsigned long brk)
-DEF_syscall(sendfile,4, int out_fd,  int in_fd,  off_t *offset,  size_t count)
-DEF_syscall(mount,5, char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 DEF_syscall(readahead,3, int fd,  loff_t offset,  size_t count)
-DEF_syscall(reboot,4, int magic1,  int magic2,  unsigned int cmd,  void *arg)
 DEF_syscall(getuid,0)
 DEF_syscall(mknod,3, const char *filename,  umode_t mode,  unsigned dev)
 

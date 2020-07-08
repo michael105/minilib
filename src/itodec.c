@@ -55,10 +55,6 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 					prec++;
 	}
 
-	
-
-					
-			
 
 	for (a=0;a<12;a++){
 			if ( div[a] == 0 ){
@@ -105,7 +101,6 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter ){
 					prec++;
 					//buf[p] = 'x';
 					//p++;
-
 			}
 	}
 	if ( p==0 )

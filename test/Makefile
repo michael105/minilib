@@ -7,7 +7,7 @@ PROG=hello
 PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
 # ebedded config, mini-gcc, wildcard target
-MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static hashes sigaction realloc sendfile div
+MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static hashes sigaction realloc sendfile div ltodec
 
 MINIGCC=rand sleep execve strdup
 
