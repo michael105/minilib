@@ -107,6 +107,32 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
                (src/dtodec.c: 10)
 
+eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
+
+               write str to stderr. Needs strlen
+               (include/prints.h: 33)
+
+eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
+
+               write str to stderr. 
+              only format %s is recognized
+               (include/prints.h: 81)
+
+eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
+
+               write a newline to stderr
+               (include/prints.h: 58)
+
+eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
+
+               write msg to stderr, append a newline. Needs strlen.
+               (include/prints.h: 68)
+
+ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+
+               write the constant str to stderr. Computes length with sizeof(str) at compile time.
+               (include/prints.h: 43)
+
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
@@ -119,8 +145,8 @@ fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
-               write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 39)
+               write the constant str to fd. Computes length with sizeof(str) at compile time.
+               (include/prints.h: 49)
 
 grantpt        int grantpt(int fd);
 
@@ -132,11 +158,11 @@ itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0),
 
 itodec         int itodec(int i, char *buf, int prec, char limiter );
 
-               (src/itodec.c: 121)
+               (src/itodec.c: 116)
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 14)
+               (src/ltodec.c: 49)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -155,12 +181,12 @@ printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write str to stdout. 
               only format %s is recognized
-               (include/prints.h: 55)
+               (include/prints.h: 75)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 44)
+               (include/prints.h: 54)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -192,9 +218,9 @@ uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
                (src/itodec.c: 8)
 
-ultodec        int ultodec(unsigned long i, char *buf, int prec, char limiter );
+ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 3)
+               (src/ltodec.c: 6)
 
 unlockpt       int unlockpt(int fd);
 
@@ -216,7 +242,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 34)
+               (include/prints.h: 39)
 
 
 
@@ -726,7 +752,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 49)
+               (include/prints.h: 64)
 
 rewind         static inline void rewind( FILE *f );
 
@@ -807,6 +833,10 @@ realloc        void* realloc(void *p, int size);
 srand          void srand( unsigned int i );
 
                (src/rand.c: 7)
+
+strtol         long int strtol(const char *c, char **endp, int base);
+
+               (src/strtol.c: 3)
 
 system         int system( const char* command );
 

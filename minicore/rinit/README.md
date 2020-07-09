@@ -1,4 +1,4 @@
-Work in progress, not finished.
+work in progress, not finished.
 
 
 A minimal init. 
@@ -61,7 +61,7 @@ The bootscripts aren't tidied, there are some instructions left,
 I fiddled around with syncronization.
 Showed up, no sync is needed.
 To be more exact, even stage 2 is not really needed.
-I leave this at it is for now.
+I leave this as it is for now.
 And upload this into the branch devel of minilib,
 since it is in development.
 
@@ -75,6 +75,15 @@ Seems to me, a modular kernel would be advantegeous in matters of boottime.
 the modules can initialize the hardware in parallel to the boot process.
 
 (Now, the kernel needs about 1 second to initialize here)
+
+
+
+scripts/process starters: async, delayed, lazy.
+
+Start(run)   Boot
+Service      Daemon
+Shutdown     Halt
+
 
 
 

@@ -154,7 +154,13 @@ typedef int FILE;
 #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
 // file: minilib/include/prints.h
+#define eprint(str) write(STDERR_FILENO,str,strlen(str))
+
+// file: minilib/include/prints.h
 #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+
+// file: minilib/include/prints.h
+#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
 // file: minilib/include/prints.h
 #define fwrites(fd,str) write(fd,str,sizeof(str))
@@ -163,7 +169,16 @@ typedef int FILE;
 #define printl() write(STDOUT_FILENO,"\n",1)
 
 // file: minilib/include/prints.h
+#define eprintl() write(STDERR_FILENO,"\n",1)
+
+// file: minilib/include/prints.h
+#define eputs(msg) ( eprint(msg) + eprintl() )
+
+// file: minilib/include/prints.h
 #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+
+// file: minilib/include/prints.h
+#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
 
 
@@ -172,16 +187,16 @@ typedef int FILE;
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itobin.c"
+#include "minilib/src/memfrob.c"
 #include "minilib/include/prints.h"
 #include "minilib/src/basename.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/hashes.c"
-#include "minilib/src/itodec.c"
+#include "minilib/src/itobin.c"
 #include "minilib/src/pty.c"
-#include "minilib/src/dtodec.c"
 #include "minilib/src/fprintfs.c"
 #include "minilib/src/dirname.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/dtodec.c"
 #include "minilib/include/globaldefs.h"
 
 // Need global included. Doesn't matter by which file.
