@@ -14,9 +14,17 @@ int ultodec(unsigned long ui, char *buf, int prec, char limiter ){
 			ui-=((unsigned long)1000000000000000000*10);
 			*buf='1';
 			buf++;
+	}  else {
+			if ( prec >=20 ){
+					a=1;
+					*buf='0';
+					buf++;
+			}
 	}
 
 	while ( p>0 ){
+			if ( p<=prec )
+					a=1;
 			if ( a || ( (long)(ui-l) > (long)0) ){
 					a=1;
 					int b=0;
@@ -24,6 +32,13 @@ int ultodec(unsigned long ui, char *buf, int prec, char limiter ){
 							b++;
 							ui-=l;
 					}
+					if ( limiter ){
+							if ( p%3 == 0 ){
+									*buf=limiter;
+									buf++;
+							}
+					}
+
 					*buf='0'+b;
 					buf++;
 			}
