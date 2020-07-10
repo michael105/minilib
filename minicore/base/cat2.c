@@ -16,6 +16,8 @@ SHRINKELF
 return
 #endif
 
+#define BLOCKSIZE 4096
+
 void usage(){
 		writes("cat2 infile [outfile]\n");
 		exit(1);
@@ -46,7 +48,7 @@ int main(int argc, char**argv){
 	 }
 
 	 
-		while ( sendfile(outfd,fd,0,4096) );
+		while ( sendfile(outfd,fd,0,BLOCKSIZE) );
 
 		if ( errno ){
 				eputs(strerror(errno));

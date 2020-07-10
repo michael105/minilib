@@ -662,7 +662,7 @@ fgets          char* fgets(char *buf, int size, FILE* F);
 
                (src/fgets.c: 6)
 
-fileno         static inline int __attribute__((always_inline)) fileno( FILE *f );
+fileno         static int fileno( FILE *f );
 
                Return the fd nummber of stdin,-out,-err. 
                (include/mini_fstream.h: 56)

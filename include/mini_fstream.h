@@ -35,8 +35,8 @@ static inline int __attribute__((always_inline)) fflush( FILE *F ){
 
 //+doc Return the fd nummber of stdin,-out,-err. 
 // this is a boilerplate, in case, no minibuf and no streams are compiled.
-//+inline
-static inline int __attribute__((always_inline)) fileno( FILE *F ){
+//+def
+static int fileno( FILE *F ){
 		if ( F==stdin )
 				return ( 0 );
 		if ( F==stdout )
@@ -52,8 +52,8 @@ static inline int __attribute__((always_inline)) fileno( FILE *F ){
 int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 //+doc Return the fd nummber of stdin,-out,-err. 
-//+inline
-static inline int __attribute__((always_inline)) fileno( FILE *f ){
+//+def
+static int fileno( FILE *f ){
 		return( (f==0) ? 0 : (*f & FD_MASK) );
 }
 

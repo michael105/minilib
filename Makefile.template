@@ -14,13 +14,13 @@
 
 
 ifndef PROG
-PROG=hello
+PROG=readkey
 endif
 
 # where to build object files (defaults to ./ )
 BUILDDIR=.
 
-# where should the binares go?
+# where should the binaries go?
 #BINDIR=./static_x64
 
 # Where minilib is installed, or should be installed to
@@ -32,11 +32,14 @@ SINGLERUN=1
 # Include everything yourself
 NOINCLUDE=1
 
-# include only the Text section in the resulting elf output
-#ONLYTEXT=1
+# which ldscript to use.
+# can be one of "default",
+# "onlytext": include only the Text section in the resulting elf output
+# "text_and_bss": text and bss sections,other sections are discarded/merged
+LDSCRIPT=default
 
 # Set the optimization flag (default: -O1)
-#OPTFLAG=-O1
+OPTFLAG=-Os
 
 # GCC
 #GCC=tcc

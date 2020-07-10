@@ -1,5 +1,5 @@
-#ifndef strcmp_c
-#define strcmp_c
+//#ifndef mini_strcmp_c
+//#define mini_strcmp_c
 
 //+include
 //+header string.h
@@ -24,7 +24,7 @@ int _strcmp(const char*c1,const char*c2,int len){
 }
 
 //+inc
-///+depends tolower
+//+depends tolower
 //+needs ctype.h
 //+def
 int _strcasecmp(const char*c1,const char*c2,int len){
@@ -98,4 +98,4 @@ int memcmp(const void* c1,const void* c2,int len){
 }
 
 
-#endif
+//#endif
