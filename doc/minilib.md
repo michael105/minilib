@@ -162,7 +162,7 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 49)
+               (src/ltodec.c: 57)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -797,6 +797,10 @@ abs            static int abs(int i);
 atoi           int atoi(const char *c);
 
                (src/atoi.c: 6)
+
+atol           long atol(const char *c);
+
+               (src/atoi.c: 43)
 
 div            static div_t div(int numerator, int denominator);
 

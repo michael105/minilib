@@ -4,18 +4,25 @@
 //+include
 //+def
 int ultodec(unsigned long ui, char *buf, int prec, char limiter ){
-	long i = ui;
-	unsigned long l;
-	l= (unsigned long)10000000000000000000;
-	int p = 20;
+	long l;
+	l= (long)1000000000000000000;
+	int p = 19;
 	int a = 0;
+	// getting compiler warnings, when defining the value direct.
+	if ( ui>=((unsigned long)1000000000000000000*10) ){
+			a=1;
+			ui-=((unsigned long)1000000000000000000*10);
+			*buf='1';
+			buf++;
+	}
+
 	while ( p>0 ){
-			if ( a || ( (long)i-l > (long)0) ){
+			if ( a || ( (long)(ui-l) > (long)0) ){
 					a=1;
 					int b=0;
-					while ( i>=l ){
+					while ( ui>=l ){
 							b++;
-							i=i-l;
+							ui-=l;
 					}
 					*buf='0'+b;
 					buf++;

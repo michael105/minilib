@@ -37,5 +37,19 @@ int atoi(const char *c){
 }
 
 
+
+//+ansi stdlib.h
+//+def
+long atol(const char *c){
+		long ret = 0;
+
+		while( (*c>='0') && (*c<='9') ){
+				ret*=10;
+				ret=ret+(*c-48);
+				c++;
+		}
+		return(ret);
+}
+	
 #endif
 		
