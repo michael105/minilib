@@ -214,12 +214,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 33)
                write str to stderr. Needs strlen
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-               Defines: fileno strlen write
+               Defines: fileno write strlen
                (include/prints.h: 81)
                write str to stderr. 
               only format %s is recognized
@@ -240,7 +240,7 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno write strlen
+               Defines: strlen fileno write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
@@ -266,7 +266,7 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
                (src/itodec.c: 116)
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
-               (src/ltodec.c: 57)
+               (src/ltodec.c: 71)
 
 memfrob        void* memfrob(void* s, unsigned int len);
                (src/memfrob.c: 3)
@@ -281,7 +281,7 @@ print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: fileno write strlen
+               Defines: write fileno strlen
                (include/prints.h: 75)
                write str to stdout. 
               only format %s is recognized
@@ -306,7 +306,7 @@ ptsname        char *ptsname(int fd);
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: write uitodec
+               Defines: uitodec write
                (src/pty.c: 27)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
@@ -1004,7 +1004,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: fileno open close
+               Defines: open fileno close
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1051,7 +1051,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 6)
 
 fileno         static int fileno( FILE *f );
@@ -1072,11 +1072,11 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(
                (src/sprintf.c: 248)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: fileno strlen write
+               Defines: strlen write fileno
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1125,11 +1125,11 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: write strlen fileno strerror
+               Defines: fileno write strlen strerror
                (src/strerror.c: 31)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -1137,11 +1137,11 @@ putc           #define putc(c,stream) fputc(c,stream)
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 64)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1169,7 +1169,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 100)
 
 
@@ -1220,7 +1220,7 @@ strtol         long int strtol(const char *c, char **endp, int base);
                (src/strtol.c: 3)
 
 system         int system( const char* command );
-               Defines: wait4 vfork environ execve write
+               Defines: wait4 vfork execve environ write
                (src/system.c: 4)
 
 todo_putenv    int todo_putenv( char *s );
@@ -1276,7 +1276,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strlen strcpy
+               Defines: strcpy strlen malloc
                (src/strdup.c: 7)
 
 strerror       char* strerror( int errnum );
@@ -1366,7 +1366,7 @@ execvp         static inline int execvp(const char *file, char *const argv[]);
                (src/execvp.c: 61)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: access execve environ
+               Defines: environ access execve
                (src/execvp.c: 21)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)

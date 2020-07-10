@@ -53,6 +53,9 @@ ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
 
+ifndef LDSCRIPT
+		LDSCRIPT=default
+endif
 
 
 UNAME := $(shell uname)
@@ -298,7 +301,7 @@ $(BUILDDIR)/minilib.o: minilib.c
 
 
 $(BUILDDIR)/ldscript: Makefile $(MLIBDIR)/Makefile.minilib $(MLIBDIR)/minilib.h
-	gcc -P -E $(MLIBDIR)/minilib.h -DLDSCRIPT -DLDSCRIPT_script > $(BUILDDIR)/ldscript
+	gcc -P -E $(MLIBDIR)/minilib.h -DLDSCRIPT -DLDSCRIPT_$(LDSCRIPT) > $(BUILDDIR)/ldscript
 
 
 rebuild:

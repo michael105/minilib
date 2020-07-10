@@ -162,7 +162,7 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 57)
+               (src/ltodec.c: 71)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 

@@ -714,7 +714,7 @@ foreach my $script ( qw/default onlytext text_and_bss/ ){
 		my $s = $script;
 		$s =~ s/\./_/g;
 		print $ml "#ifdef LDSCRIPT_$s\n\n";
-		print $ml `cat $mlibdir/ldscripts/ld.$script`;
+		print $ml `cat $mlibdir/ldscripts/ld.script.$script`;
 		print $ml "#endif\n\n";
 }
 
