@@ -3,10 +3,13 @@ work in progress, not finished.
 
 A minimal init. 
 
-The small size and using vfork might spare some resources.
+The small size (2.2kB) and using vfork might spare some resources.
 Especially, when considering context switches for reaping subprocesses.
+(Everytime, a child process exits, there's a process switch to init,
+in order to "reap" the children's process state.
+Having a tiny init (or another subreaper process) has real performance advantages)
 
-Readahead has to be implemented by the stages.
+Readahead should be implemented by the stages.
 
 
 

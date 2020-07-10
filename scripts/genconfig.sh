@@ -62,6 +62,12 @@ OPTFLAG(){
 		export OPTFLAG=$1
 }
 
+# The stripflag (defaults to -s)
+STRIPFLAG(){
+		export STRIPFLAG=$1
+}
+
+
 # Generate debug symbols - don't optimize, don't strip
 DEBUG(){
 		export OPTFLAG='-O0 -g'

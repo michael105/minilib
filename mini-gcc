@@ -224,7 +224,9 @@ if [ "$opt_config" != "" ]; then
 fi
 
 
-		eval echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
+echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $@"
+
+
 if [ "$debuglog" = "1" ]; then
 
 		let i=1;
@@ -309,6 +311,9 @@ OPTFLAG -Os
 # (with debug info)
 #OPTFLAG '-g -O0'
 
+# stripflag ( defaults to -s)
+#STRIPFLAG
+
 # Build minilib source
 INCLUDESRC
 
@@ -319,7 +324,7 @@ LDSCRIPT default
 # Shrink the compiled binary with shrinkelf
 #SHRINKELF
 
-# generate debug info (-O0 -g). Overwrites OPTFLAG and shrinkelf
+# generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
 #DEBUG
 
 
