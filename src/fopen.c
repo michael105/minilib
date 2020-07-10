@@ -46,17 +46,17 @@ FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
 
 		if ( f == 0 ){
 				int a;
-				if ( ml.pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
-						for ( a=3; ml.stream[a]>=0; a++ )
+				if ( mlgl->pstream >= mini_FOPEN_MAX){ // Too many opened streams. Look for an empty storage location
+						for ( a=3; mlgl->stream[a]>=0; a++ )
 								if ( a >= mini_FOPEN_MAX ) // 
 										return(0);
 				} else {
-						a = ml.pstream;
-						ml.pstream++;
+						a = mlgl->pstream;
+						mlgl->pstream++;
 				}
 
 				//printf("a: %d\n",a);
-				f = &ml.stream[a];
+				f = &mlgl->stream[a];
 		} else { // freopen - error handling?
 				close(fileno(f));
 		}

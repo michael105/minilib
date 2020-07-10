@@ -71,8 +71,8 @@
 //misc
 //
 // The memory layout looks like this:
-// ml.ibuf and ml.mbuf do point to the same address range.
-// ml.ibuf is provided for alignment and faster access to the int values.
+// mlgl->ibuf and mlgl->mbuf do point to the same address range.
+// mlgl->ibuf is provided for alignment and faster access to the int values.
 //
 // flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
 // (mbufsize)
@@ -95,15 +95,15 @@
 void* malloc(int size){
 		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer", 
 																//  size is in integers (4Bytes)
-		if( ml.mbufsize-(size<<2)<64 ){
+		if( mlgl->mbufsize-(size<<2)<64 ){
 				write( STDERR_FILENO, "Out of memory.\n",15 );
 				return((void*)0);
 		}
 
-		ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
-		ml.mbufsize -= (size<<2);
-		ml.ibuf[(ml.mbufsize>>2)] = size;
-		return( &ml.mbuf[ml.mbufsize+4] );
+		mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+		mlgl->mbufsize -= (size<<2);
+		mlgl->ibuf[(mlgl->mbufsize>>2)] = size;
+		return( &mlgl->mbuf[mlgl->mbufsize+4] );
 }
 
 
@@ -117,16 +117,16 @@ void free(void *p){
 		i--;
 		c-=4;
 		
-		if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack
-				ml.mbufsize += (i[0] & MBUF_V) <<2;
-				if ( ml.mbufsize == mini_buf )
+		if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack
+				mlgl->mbufsize += (i[0] & MBUF_V) <<2;
+				if ( mlgl->mbufsize == mini_buf )
 						return;
-				if ( ml.ibuf[ml.mbufsize>>2] & MBUF_FREE )
-						ml.mbufsize += ( ( ml.ibuf[ml.mbufsize>>2] & MBUF_V ) << 2 );
+				if ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_FREE )
+						mlgl->mbufsize += ( ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_V ) << 2 );
 				return;
 				/*do {
-						ml.mbufsize += mbuf[ml.mbufsize] +4;
-						} while ( (ml.mbufsize < mini_buf ) && ( mbuf[ml.mbufsize] & MBUF_FREE ) );*/ // next area also free'd
+						mlgl->mbufsize += mbuf[mlgl->mbufsize] +4;
+						} while ( (mlgl->mbufsize < mini_buf ) && ( mbuf[mlgl->mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { // Not at the bottom
 				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
 						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
@@ -196,19 +196,19 @@ void* realloc(void *p, int size){
 						return( p );
 
 				if ( size < oldsize ){ // shrink. But can't free. so do nothing.
-						//if ( &ml.mbuf[ml.mbufsize] == (char*)c ){ // at the bottom of the stack. 
+						//if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack. 
 
-		//ml.ibuf[(ml.mbufsize>>2)] = ml.ibuf[(ml.mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
-		//ml.mbufsize -= (size<<2);
-		//ml.mbufsize += oldsize-size; // can't free. would need to copy the contents. 
+		//mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+		//mlgl->mbufsize -= (size<<2);
+		//mlgl->mbufsize += oldsize-size; // can't free. would need to copy the contents. 
 		// I should rearrange to bottom to top layout.
-		//ml.ibuf[(ml.mbufsize>>2)] = size;
-		//return( &ml.mbuf[ml.mbufsize+4] ); 
+		//mlgl->ibuf[(mlgl->mbufsize>>2)] = size;
+		//return( &mlgl->mbuf[mlgl->mbufsize+4] ); 
 						return(p); 
 				} // if shrink.
 
 			// enlarge
-		if( ml.mbufsize-(size<<2)+(oldsize<<2)<64 ){
+		if( mlgl->mbufsize-(size<<2)+(oldsize<<2)<64 ){
 				write( STDERR_FILENO, "Out of memory.\n",15 );
 				free(p);
 				return((void*)0);

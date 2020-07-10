@@ -66,8 +66,8 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		int fd = fileno(f);
 		*f = -1;
 		// empty garbage; go back to first closed stream
-		if ( f[1] == ml.stream[ml.pstream] )
-				for ( ml.pstream--; ml.stream[ml.pstream-1] == -1; ml.pstream-- ); 
+		if ( f[1] == mlgl->stream[mlgl->pstream] )
+				for ( mlgl->pstream--; mlgl->stream[mlgl->pstream-1] == -1; mlgl->pstream-- ); 
 
 		return( close(fd) );
 }

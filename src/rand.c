@@ -5,7 +5,7 @@
 //+header stdlib.h
 //+def
 void srand( unsigned int i ){
-		ml.srand = i;
+		mlgl->srand = i;
 }
 	
 
@@ -16,16 +16,16 @@ unsigned int rand(){
 		// xorshift, algorithm af marsaglia.
 		// second round added, it doesn't give more randomness,
 		// but isn't so expensive on the other hand.
-		if ( ml.srand==0 ){
-				ml.srand=1;
+		if ( mlgl->srand==0 ){
+				mlgl->srand=1;
 		}
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
-		unsigned int t = ml.srand;
-		ml.srand ^= ml.srand << 13;
- 		ml.srand ^= ml.srand >> 17;
- 		ml.srand ^= ml.srand << 5;
+		mlgl->srand ^= mlgl->srand << 13;
+ 		mlgl->srand ^= mlgl->srand >> 17;
+ 		mlgl->srand ^= mlgl->srand << 5;
+		unsigned int t = mlgl->srand;
+		mlgl->srand ^= mlgl->srand << 13;
+ 		mlgl->srand ^= mlgl->srand >> 17;
+ 		mlgl->srand ^= mlgl->srand << 5;
 		return(t-1);
 }
 

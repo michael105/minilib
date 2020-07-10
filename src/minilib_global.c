@@ -8,28 +8,25 @@
 //#endif
 //
 #ifdef mini_buf
-minilib_globals ml;
-//
-//void minilib_global_init(){ // this is callen by startup.c
-//	ml.mbufsize = mini_buf;
-  //ibuf = (int*)mbuf;
-//}
-//
+minilib_globals __mlgl;
+minilib_globals *mlgl = &__mlgl;
+
 #else
-//
-//void minilib_global_init(){} // this is callen by startup.c
-//
+
 #endif
 
 
-#ifndef dumbsyntaxchecker
 // pointer to env**
 // gets assigned in asm/start-*.c
-#endif
 #ifdef mini_environ
 char **environ;
 #endif
 
+
+#ifdef mini_errno
+int sysret;
+int errno;
+#endif
 
 
 

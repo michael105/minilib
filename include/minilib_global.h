@@ -14,10 +14,13 @@
 
 
 typedef struct {
-		int align;
+		int errno;
+		int sysret;
 		int srand;	
 		int pstream;
 		int mbufsize;
+		int align[1];
+		char **environ;
 		int stream[mini_FOPEN_MAX];
 		union {
 				int ibuf[(mini_buf>>2)];
@@ -25,7 +28,7 @@ typedef struct {
 		};
 } minilib_globals;
 
-extern minilib_globals ml;
+extern minilib_globals *mlgl;
 #else
 
 //#warning no mini_buf
@@ -35,6 +38,11 @@ extern minilib_globals ml;
 #ifdef mini_environ
 //+doc pointer to env, when mini_getenv is defined.
 extern char **environ;
+#endif
+
+#ifdef mini_errno
+extern int sysret;
+extern int errno;
 #endif
 
 

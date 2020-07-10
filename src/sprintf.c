@@ -203,12 +203,12 @@ msprintfout:
 int dprintf( int fd, const char *fmt, ... ){
 		va_list args;
 		va_start(args,fmt);
-		int r = vsnprintf(ml.mbuf, ml.mbufsize, fmt, args);
+		int r = vsnprintf(mlgl->mbuf, mlgl->mbufsize, fmt, args);
 		if ( r<0 ){
 				write(2,"Buffer Overrun.\n",16);
 				exit(1);
 		}
-		write( fd, ml.mbuf, r );
+		write( fd, mlgl->mbuf, r );
 		va_end(args);
 		return(r);
 }
@@ -242,7 +242,7 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 //+depends write prints dprintf sprintf fileno
 //+needs mini_fstream.h 
 //+after itobin atoi itodec dtodec ltodec itohex
-//+macro fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+//+macro fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
 
 
@@ -287,7 +287,7 @@ int snprintf( char *buf, size_t size, const char *fmt, ... ){
 										case 'u':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + uitodec(va_arg(args,unsigned int),&ml.mbuf[b],padding,sep);
+												b = b + uitodec(va_arg(args,unsigned int),&mlgl->mbuf[b],padding,sep);
 #endif
 												end=1;
 												break;

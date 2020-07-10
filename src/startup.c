@@ -4,11 +4,11 @@
 // otherwise argv[] gets confused
 // Or we would have to add some further bloating bytes
 #ifdef mini_buf
-ml.mbufsize = mini_buf-4;
-ml.stream[0]=0;
-ml.stream[1]=1;
-ml.stream[2]=2;
-ml.pstream = 3;
+mlgl->mbufsize = mini_buf-4;
+mlgl->stream[0]=0;
+mlgl->stream[1]=1;
+mlgl->stream[2]=2;
+mlgl->pstream = 3;
 #endif
 
 #ifdef mini_errno

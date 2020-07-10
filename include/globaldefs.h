@@ -111,13 +111,13 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 
 #ifdef mini_buf
 #ifndef stdin
-#define stdin &ml.stream[0]
+#define stdin &mlgl->stream[0]
 #endif
 #ifndef stdout
-#define stdout &ml.stream[1]
+#define stdout &mlgl->stream[1]
 #endif
 #ifndef stderr
-#define stderr &ml.stream[2]
+#define stderr &mlgl->stream[2]
 #endif
 #else 
 // no minibuf -> no stream descriptors.
@@ -132,7 +132,7 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #endif
 #endif
 
-// TODO: ifdef mini_buf -> get ml.stream->fd
+// TODO: ifdef mini_buf -> get mlgl->stream->fd
 #ifndef STDIN_FILENO
 #define STDIN_FILENO 0
 #define STDOUT_FILENO 1

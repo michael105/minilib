@@ -677,7 +677,7 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
                (include/mini_fstream.h: 95)
 
-fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
+fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
                (src/sprintf.c: 245)
 

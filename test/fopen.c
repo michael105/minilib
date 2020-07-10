@@ -31,25 +31,25 @@ int main( int argc, char *argv[] ){
 
 		puts("ok open");
 		fprintf( f, "Hallo 23\n" );
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 
 		puts("ok written");
 		fclose(f);
 
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		f = fopen( "tl.test", "a+" );
 		fprintf( f, "  xxx Hallo 42\n" );
 
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		fclose(f);
 
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		f = fopen( "tl.test", "r" );
 	
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		FILE* f2 = fopen( "t2.test", "w" );
 
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		char buf[128];
 
 		int i = read( fileno(f), buf, 40 );
@@ -63,10 +63,10 @@ int main( int argc, char *argv[] ){
 	
 		fclose(f);
 
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		fclose(f2);
 
-		printf( "ml.pstream: %d\n", ml.pstream );
+		printf( "mlgl->pstream: %d\n", mlgl->pstream );
 		f = fopen( "fopen.c", "r" );
 		char bbuf[4096];
 		int r = read( fileno(f), bbuf, 2014 );
