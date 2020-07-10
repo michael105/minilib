@@ -101,7 +101,7 @@ djb2_hash      unsigned long djb2_hash(const unsigned char *str);
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
-               (src/sprintf.c: 206)
+               (src/sprintf.c: 203)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -212,7 +212,7 @@ sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
-               (src/sprintf.c: 223)
+               (src/sprintf.c: 220)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -236,8 +236,9 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 
                the function, translating the fmt of printf.
               warning - most possibly you'd like to define besides fprintf, or family,
-              mini_itodec as well. (%d conversion)
-               (src/sprintf.c: 40)
+              mini_itodec (%d conversion) 
+              mini_atoi is needed for grouping numbers
+               (src/sprintf.c: 41)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
@@ -678,7 +679,7 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),ml.mbuf,sprintf(ml.mbuf,__VA_ARGS__))
 
-               (src/sprintf.c: 248)
+               (src/sprintf.c: 245)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 

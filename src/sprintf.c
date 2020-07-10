@@ -35,7 +35,8 @@
 //+after itohex itoHEX
 //+doc the function, translating the fmt of printf.
 // warning - most possibly you'd like to define besides fprintf, or family,
-// mini_itodec as well. (%d conversion)
+// mini_itodec (%d conversion) 
+// mini_atoi is needed for grouping numbers
 //+def
 int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 
@@ -58,17 +59,13 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 						groups=0;
 						do {
 								a++;
-								if ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
-										c = 0;
-										do { 
-												tmp[c] = fmt[a]; 
+								padding = 0;
+								while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
+												//tmp[c] = fmt[a]; 
+												//c++;
+												padding*=10;
+												padding+=fmt[a]-48;
 												a++;
-												c++;
-										} while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) );
-										tmp[c] = 0;
-#ifdef mini_atoi
-										padding = atoi(tmp);
-#endif
 								}
 								switch (fmt[a]){
 										case '%': 	

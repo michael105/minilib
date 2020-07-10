@@ -1,5 +1,5 @@
-//#ifndef mini_strcmp_c
-//#define mini_strcmp_c
+#ifndef mini_strcmp_c
+#define mini_strcmp_c
 
 //+include
 //+header string.h
@@ -98,4 +98,4 @@ int memcmp(const void* c1,const void* c2,int len){
 }
 
 
-//#endif
+#endif
