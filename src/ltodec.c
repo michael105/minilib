@@ -8,17 +8,20 @@ int ultodec(unsigned long ui, char *buf, int prec, char limiter ){
 	l= (long)1000000000000000000;
 	int p = 19;
 	int a = 0;
+	int c = 0;
 	// getting compiler warnings, when defining the value direct.
 	if ( ui>=((unsigned long)1000000000000000000*10) ){
 			a=1;
 			ui-=((unsigned long)1000000000000000000*10);
 			*buf='1';
 			buf++;
+			c=1;
 	}  else {
 			if ( prec >=20 ){
 					a=1;
 					*buf='0';
 					buf++;
+					c=1;
 			}
 	}
 
@@ -36,17 +39,19 @@ int ultodec(unsigned long ui, char *buf, int prec, char limiter ){
 							if ( p%3 == 0 ){
 									*buf=limiter;
 									buf++;
+									c++;
 							}
 					}
 
 					*buf='0'+b;
 					buf++;
+					c++;
 			}
 			p--;
 			l=l/10;
 	}
 	*buf=0;
-	return(p);
+	return(c);
 }
 
 
