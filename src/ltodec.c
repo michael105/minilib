@@ -25,7 +25,7 @@ int ultodec(unsigned long ui, char *buf, int prec, char limiter ){
 	while ( p>0 ){
 			if ( p<=prec )
 					a=1;
-			if ( a || ( (long)(ui-l) > (long)0) ){
+			if ( a || ( (long)(ui-l) >= (long)0) ){
 					a=1;
 					int b=0;
 					while ( ui>=l ){
