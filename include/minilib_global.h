@@ -32,8 +32,7 @@ typedef struct {
 		};
 } minilib_globals;
 
-// +doc 
-// prevent optimizations.
+//+doc prevent optimizations.
 // cast a var to void*, and calling this,
 // leaves the compiler unknown on what he can strip.
 // (noipa) means the compiler doesn't know, what the function itself does.
@@ -53,7 +52,8 @@ typedef struct {
 // setting the optimization flag of _start to 0, 
 // having a volatile asm call with the globals as param, and so on,
 // have been useless. All after all, seems to me, ai has it's restrictions.
-static void __attribute__((noipa))optimization_fence(void*p){
+//+macro
+static void __attribute__((noipa)) optimization_fence(void*p){
 };
 
 // void __attribute__((noipa,naked))prevent_optimization(void*p){

@@ -9,6 +9,12 @@
 
 #include "include/stdarg.h"
 
+//+doc open or create a file.
+// warning: when using the flag O_CREAT,
+// file permission flags have to be given
+// as third argument. Otherwise file permission
+// flags will be random. (I still do not know, what 
+// the flag showing up as "-T" means..)
 //+def
 int volatile open( const char *s, int flags, ... ){
 		int ret;

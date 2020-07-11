@@ -536,7 +536,29 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  76 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  245 </small></td><td><small> void*  malloc(int size);
+<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  56 </small></td><td><small>  void ) optimization_fence(void*p){
+</small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
+  cast a var to void*, and calling this,
+  leaves the compiler unknown on what he can strip.
+  (noipa) means the compiler doesn't know, what the function itself does.
+  (the function does nothing, but don't tell that gcc, please..)
+  therefore, everything used as parameter to this function,
+  will be calculated, defined, and so on before.
+  It's used for the globals, 
+  shich are pushed within _start onto the stack.
+  since _start itself only provides a global pointer,
+  and initialitzes some of the globals,
+  but doesn't use them again,
+  this construction is needed.
+  more funnily, the function will never be called.
+  It's past the asm inline syscall to exit.
+  But again, luckily gcc doesn't know.
+  All other options, like having the globals volatile, 
+  setting the optimization flag of _start to 0, 
+  having a volatile asm call with the globals as param, and so on,
+  have been useless. All after all, seems to me, ai has it's restrictions.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  245 </small></td><td><small> void*  malloc(int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  85 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>

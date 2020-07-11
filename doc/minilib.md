@@ -164,6 +164,30 @@ ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 76)
 
+macro          static void __attribute__((noipa)) optimization_fence(void*p){
+
+               prevent optimizations.
+              cast a var to void*, and calling this,
+              leaves the compiler unknown on what he can strip.
+              (noipa) means the compiler doesn't know, what the function itself does.
+              (the function does nothing, but don't tell that gcc, please..)
+              therefore, everything used as parameter to this function,
+              will be calculated, defined, and so on before.
+              It's used for the globals, 
+              shich are pushed within _start onto the stack.
+              since _start itself only provides a global pointer,
+              and initialitzes some of the globals,
+              but doesn't use them again,
+              this construction is needed.
+              more funnily, the function will never be called.
+              It's past the asm inline syscall to exit.
+              But again, luckily gcc doesn't know.
+              All other options, like having the globals volatile, 
+              setting the optimization flag of _start to 0, 
+              having a volatile asm call with the globals as param, and so on,
+              have been useless. All after all, seems to me, ai has it's restrictions.
+               (include/minilib_global.h: 56)
+
 memfrob        void* memfrob(void* s, unsigned int len);
 
                (src/memfrob.c: 3)
