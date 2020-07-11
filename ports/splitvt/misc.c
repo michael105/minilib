@@ -45,6 +45,7 @@ int tty_reset(int fd);
 
 //extern char **environ;// = {0};
 
+#define O_TTY_INIT 0
 
 int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for lower */
 {
@@ -212,7 +213,7 @@ int get_master_pty()
 
 	char 	*ttyptr;
 
-	if ( (master_fd=open(DEV_CLONE, O_RDWR)) < 0 )
+	if ( (master_fd=open(DEV_CLONE, O_RDWR | O_TTY_INIT)) < 0 )
 		return(-1);
 
 	if ( grantpt(master_fd) < 0 )	/* grant access to slave */
@@ -257,7 +258,7 @@ int get_slave_pty()
 	//printf("ttyname XX: %s\n",tty_name);
 	slavename=tty_name;
 
-	if ( (slave_fd=open(slavename, O_RDWR)) < 0 )	/* open the slave */
+	if ( (slave_fd=open(slavename, O_RDWR | O_TTY_INIT)) < 0 )	/* open the slave */
 	{
 		close(master_fd);
 		return(-1);
@@ -428,7 +429,7 @@ void dropctty()
 	//setpgrp(0, 0);
 
 #ifndef CIBAUD   /* Sun/OS doesn't need to do TIOCNOTTY.  */
-	if ( (fd=open("/dev/tty", O_RDWR)) > (-1) ) 
+	if ( (fd=open("/dev/tty", O_RDWR | O_TTY_INIT)) > (-1) ) 
 	{
 		if (ioctl(fd, TIOCNOTTY, 0) < 0)
 		{

@@ -7,9 +7,9 @@
 
 int main();//int argc, char **argv, char **envp );
 
-int startup(int argc, char **argv, char **envp ){
-		write(1,argv[0],3);
-		write(1,envp[0],3);
+int _startup(int argc, char **argv, char **envp ){
+		//write(1,argv[0],3);
+		//write(1,envp[0],3);
 #ifdef mini_globals_on_stack
 minilib_globals __mlgl;
 //{ .errno = 0, .mbuf[0] = 0, .environ=envp };
@@ -35,7 +35,6 @@ sysret = 0;
 #endif
 
 #ifdef mini_environ
-// some trouble. guessing, the compiler does bad things with environ.
 environ = envp;
 #endif
 

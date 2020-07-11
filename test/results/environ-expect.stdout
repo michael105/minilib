@@ -1,4 +1,4 @@
-./eu=/getenv.
+getenv.
 ./environ
 u=/usbstick/prog/
 /home/micha

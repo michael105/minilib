@@ -14,7 +14,7 @@ __asm__ volatile("\
 #endif
 
 __asm__ volatile(
-	"call startup\n\
+	"call _startup\n\
 	movq %rax, %rdi\n\
 .global _exit\n\
 _exit:\n\
