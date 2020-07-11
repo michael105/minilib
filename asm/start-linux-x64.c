@@ -1,6 +1,6 @@
 #ifdef mini_start
 volatile void _start(){
-#include "src/startup.c"
+//#include "src/startup.c"
 __asm__ volatile("\
 #.global _start\n\
 #_start:\n\
@@ -12,7 +12,11 @@ __asm__ volatile("\
 #ifdef mini_environ
 	"movq %rdx, environ\n"
 #endif
+	);
 
+#include "src/startup.c"
+
+	__asm__ volatile(
 	"call main\n\
 	movq %rax, %rdi\n\
 .global _exit\n\
@@ -20,6 +24,13 @@ _exit:\n\
 	movq $60, %rax\n\
 	syscall\n"
 	);
+#ifdef mini_globals_on_stack
+	// forces gcc to assign the mlgl data structure, (in startup.c)
+	// and put the whole struct on the stack.
+	// albite this boilerplate is never reached
+	// at runtime. Didn't find a better solution.
+	optimization_fence((void*)mlgl);
+#endif
 };
 #endif
 

@@ -137,5 +137,8 @@
 #define EOWNERDEAD      130
 #define ENOTRECOVERABLE 131
 #define ERFKILL         132
+
+#ifndef mini_globals_on_stack
 extern int errno;
+#endif
 #endif

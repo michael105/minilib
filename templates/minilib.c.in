@@ -14,7 +14,9 @@
 #endif
 
 #ifdef mini_errno
+#ifndef mini_globals_on_stack
 int errno;
+#endif
 int sysret;
 #endif
 
