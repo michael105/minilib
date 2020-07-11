@@ -1,15 +1,10 @@
-// This is "callen" just before main,
-// it's included within _start.
+// This is "callen" from _start,
 // 
-// dbg("Startup -xx"); // no arguments allowed here. 
-// otherwise argv[] gets confused
-// Or we would have to add some further bloating bytes
 
 int main();//int argc, char **argv, char **envp );
 
 int _startup(int argc, char **argv, char **envp ){
-		//write(1,argv[0],3);
-		//write(1,envp[0],3);
+
 #ifdef mini_globals_on_stack
 minilib_globals __mlgl;
 //{ .errno = 0, .mbuf[0] = 0, .environ=envp };
@@ -18,15 +13,13 @@ mlgl=&__mlgl;
 #endif
 
 #ifdef mini_buf
-//mlgl=&__mlgl;
+mlgl=&__mlgl;
 mlgl->mbufsize = mini_buf-4;
 mlgl->stream[0]=0;
 mlgl->stream[1]=1;
 mlgl->stream[2]=2;
 mlgl->pstream = 3;
 
-// this is callen within _start (past exit)
-//optimization_fence((void*)mlgl);
 #endif
 
 #ifdef mini_errno
@@ -38,8 +31,10 @@ sysret = 0;
 environ = envp;
 #endif
 
+	// forces gcc to assign the mlgl data structure, 
+	// and put the whole struct on the stack.
+	// Or whatever is needed. 
 	optimization_fence((void*)mlgl);
-//	optimization_fence((void*)&__mlgl);
 	//asm volatile("jmp main");
 	return(main(argc,argv,envp));
 }
