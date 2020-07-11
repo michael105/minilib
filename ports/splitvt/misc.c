@@ -43,7 +43,7 @@ int tty_reset(int fd);
 #define UPPER	0		/* Upper window definition */
 #define LOWER	1		/* Lower window definition */
 
-extern char **environ;// = {0};
+//extern char **environ;// = {0};
 
 
 int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for lower */
@@ -137,7 +137,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
  */
 
 
-extern int errno;
+//extern int errno;
 int master_fd;
 
 char tty_name[64]={'\0'};

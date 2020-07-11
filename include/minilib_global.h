@@ -60,9 +60,8 @@ static void __attribute__((noipa)) optimization_fence(void*p){
 // strangely, naked results in a bigger binary. (+4 Bytes)
 // and will result in a runtime error. undefined opcode. so.
 
-#ifdef mini_buf
-
 extern minilib_globals *mlgl;
+#ifdef mini_buf
 
 
 #ifndef mini_globals_on_stack
@@ -87,7 +86,8 @@ extern int errno;
 
 #ifdef mini_environ
 //+doc pointer to env, when mini_getenv is defined.
-extern char **environ;
+//extern char **environ;
+#define environ mlgl->environ
 #endif
 
 #endif

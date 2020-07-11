@@ -108,7 +108,7 @@ int     dologin=0;		/* Do the shells run as login shells? */
 /* The command to run in each window */
 char *upper_args[MAX_ARGS+1]={NULL}, *lower_args[MAX_ARGS+1]={NULL};
 int upper_empty=1, lower_empty=1;
-extern char **environ;
+//extern char **environ;
 
 void print_usage(argv)
 char *argv;
@@ -134,7 +134,8 @@ char *argv;
 
  
 int main(int argc, char **argv, char **envp){
-	extern int errno, optind;
+	extern int  optind;
+	//extern int errno, optind;
 	extern char *optarg;
 	//environ = envp;
 
@@ -147,6 +148,13 @@ int main(int argc, char **argv, char **envp){
 
 	struct event X_event;
 	int on_separator=0;
+/*
+	printf("envp: \n");
+	printf(envp[0]);
+	prints(envp[1]);
+	printf("df: \n");
+	printf(" %s \n", getenv("HOME"));
+*/
 
 	/* Are we called sanely? */
 	if ( argv == NULL || argv[0] == NULL ) {

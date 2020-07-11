@@ -44,7 +44,7 @@ fcntl.h
 
 creat          int volatile creat( const char *s, int mode );
 
-               (src/open.c: 30)
+               (src/open.c: 36)
 
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
@@ -1012,7 +1012,13 @@ isatty         int isatty(int fd);
 
 open           int volatile open( const char *s, int flags, ... );
 
-               (src/open.c: 13)
+               open or create a file.
+              warning: when using the flag O_CREAT,
+              file permission flags have to be given
+              as third argument. Otherwise file permission
+              flags will be random. (I still do not know, what 
+              the flag showing up as "-T" means..)
+               (src/open.c: 19)
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 

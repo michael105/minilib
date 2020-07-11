@@ -7,7 +7,7 @@
 //#define mini_buf 1024
 //#endif
 //
-#ifdef mini_buf
+//#ifdef mini_buf
 
 #ifndef mini_globals_on_stack
 // goes into .data/.bss section
@@ -15,22 +15,22 @@
 // the structure is defined in startup.c
 // (which is included in _start)
 minilib_globals __mlgl;
-minilib_globals *mlgl;
+minilib_globals *mlgl = &__mlgl;
 #else
 
 register minilib_globals  __attribute__((used)) *mlgl asm("r15");
 
 #endif
 
-#else
+//#else
 
-#endif
+//#endif
 
 
 // pointer to env**
 // gets assigned in asm/start-*.c
 #ifdef mini_environ
-char **environ;
+//char __attribute__((used))**environ;
 #endif
 
 

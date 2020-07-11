@@ -1,22 +1,37 @@
 #if 0
 mini_buf 256
+#globals_on_stack
+mini_errno
 mini_start
-mini_printf
+#mini_printf
 mini_prints
-mini_itodec
-mini_atoi
+#mini_itodec
+#mini_atoi
 mini_getenv
+mini_environ
 mini_INCLUDESRC
+STRIPFLAG
 return
 #endif
 
 #include "minilib/minilib.h"
 
 
-int main( int argc, char *argv[] ){
-		printf("getenv.\n");
+int main( int argc, char *argv[], char *envp[] ){
+		prints("getenv.\n");
 
-		//prints(getenv("HOME"));
+				printsl( argv[0] );
+		if ( argc>1 ){
+				printsl( argv[1] );
+		}
+		printsl(envp[0]);
+
+		printsl(getenv("HOME"));
+
+		printsl(environ[0]);
+		printsl(envp[0]);
+		printsl(environ[1]);
+		printsl("Ok");
 
 		return(0);
 }

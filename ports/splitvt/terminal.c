@@ -268,11 +268,16 @@ char *terminal_type;
 int *rows;
 int *cols;
 {
-	extern char *getenv();
+//	extern char *getenv();
 	static char *termtype=NULL, *error=NULL;
 
-	if ( (termtype=getenv("TERM")) == NULL )
+/*	printf("home: \n");
+	prints(environ[0]);
+	printf(" %s \n", getenv("HOME"));*/
+
+	if ( (termtype=getenv("TERM")) == NULL ){
 		return("Terminal type must be set to vt100");
+	}
 #ifdef ORI
 	if ( strncmp(termtype, "vt10x", 4) != 0 &&
 	     strncmp(termtype, "xterm", 5) != 0 &&

@@ -345,7 +345,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  30 </small></td><td><small> int  creat( const char *s, int mode );
+<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  36 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
 <tr valign="top"><td><small>def</small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
@@ -469,11 +469,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">fstat</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  105 </small></td><td><small> fstat(int a1,struct stat* a2)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/fsync.2.rst.html">fsync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> fsync(int a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/fsync.2.rst.html">fsync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> fsync(int a1 )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">ftell</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  121 </small></td><td><small>   long ftell(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/truncate.2.rst.html">ftruncate</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  19 </small></td><td><small> ftruncate(unsigned int a1, unsigned int a2 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/truncate.2.rst.html">ftruncate</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  21 </small></td><td><small> ftruncate(unsigned int a1, unsigned int a2 )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fwrite</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  106 </small></td><td><small>   size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
@@ -532,7 +532,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/link.2.rst.html">link</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  118 </small></td><td><small> link( const char *oldname, const char *newname)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  17 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  19 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  76 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
@@ -582,8 +582,14 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  131 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  13 </small></td><td><small> int  open( const char *s, int flags, ... );
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  19 </small></td><td><small> int  open( const char *s, int flags, ... );
+</small></td></tr><tr><td></td><td colspan="2"><small>open or create a file.
+  warning: when using the flag O_CREAT,
+  file permission flags have to be given
+  as third argument. Otherwise file permission
+  flags will be random. (I still do not know, what 
+  the flag showing up as "-T" means..)
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small> DIR *opendir(const char *name);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  31 </small></td><td><small> void perror(const char *msg);

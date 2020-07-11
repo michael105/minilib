@@ -1,1 +1,8 @@
-getenv.
+./eu=/getenv.
+./environ
+u=/usbstick/prog/
+/home/micha
+u=/usbstick/prog/
+u=/usbstick/prog/
+LESSOPEN=|/usr/bin/lesspipe.sh %s
+Ok

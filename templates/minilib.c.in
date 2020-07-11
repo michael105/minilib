@@ -20,5 +20,6 @@ int errno;
 int sysret;
 #endif
 
+#include "src/startup.c"
 
 /* end templates/minilib.c.in */
