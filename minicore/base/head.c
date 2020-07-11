@@ -12,7 +12,10 @@ mini_printl
 mini_prints
 
 mini_buf 256
-LDSCRIPT default
+#LDSCRIPT onlytext
+LDSCRIPT text_and_bss
+globals_on_stack
+
 shrinkelf
 INCLUDESRC
 return

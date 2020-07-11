@@ -60,7 +60,7 @@ static void __attribute__((noipa)) optimization_fence(void*p){
 // strangely, naked results in a bigger binary. (+4 Bytes)
 // and will result in a runtime error. undefined opcode. so.
 
-extern minilib_globals *mlgl;
+extern minilib_globals*__restrict__ mlgl;
 #ifdef mini_buf
 
 

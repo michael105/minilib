@@ -4,6 +4,7 @@ OUTPUT_ARCH(i386)
 
 PHDRS {
 	text PT_LOAD FILEHDR PHDRS ;
+	stack PT_GNU_STACK FLAGS(0x6) ;
 	/*bss PT_LOAD;*/
 }
 
@@ -21,11 +22,11 @@ SECTIONS
 		{
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start .text._start.*)
+						*(.text._startup .text._startup.*)
 						*(.text.main .text.main.*)
 						*(.text.cexit)
 						*(.text._exit .text._exit.*)
 						*(.text.__exit .text.__exit.*)
-						*(.text.startup .text.startup.*)
 						*(.text.hot .text.hot.*)
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
@@ -53,6 +54,7 @@ misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 
 		/DISCARD/ : { 
 			*(.note.GNU-stack) 
+	  		*(.note*) 
 			*(.gnu_debuglink) 
 			*(.gnu.lto_*) 
 			*(.iplt*) 
@@ -63,7 +65,6 @@ misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 			*(.plt*)
 			*(.got.plt*)
 			*(.rel.*)
-			*(.note*)
 			*(*)
 			}
 }

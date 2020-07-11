@@ -81,7 +81,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		/* Under old UNIX, just opening the new tty after
 		   losing the controlling tty is good enough.
 		   Under newer Unices, it requires an ioctl().  */
-#if 0
+#if 1
 		(void) ioctl(0, TIOCSCTTY, 0);
 #endif
 
@@ -258,7 +258,7 @@ int get_slave_pty()
 	//printf("ttyname XX: %s\n",tty_name);
 	slavename=tty_name;
 
-	if ( (slave_fd=open(slavename, O_RDWR | O_TTY_INIT)) < 0 )	/* open the slave */
+	if ( (slave_fd=open(slavename, O_RDWR | O_NOCTTY)) < 0 )	/* open the slave */
 	{
 		close(master_fd);
 		return(-1);
