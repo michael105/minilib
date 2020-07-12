@@ -3,7 +3,14 @@ OUTPUT_ARCH(i386)*/
 
 
  PHDRS {
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x7);
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5);
 	bss PT_LOAD FLAGS(0x7); 
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }

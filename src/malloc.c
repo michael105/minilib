@@ -37,7 +37,7 @@
 //  rethink your design, increase mini_mbuf,
 //  or use a proper malloc implementation.
 //
-// Here we misuse mbuf from top to bottom as stack.
+// Here we use mbuf from top to bottom as stack.
 // 64 Bytes are left at the bottom as reserve.
 // Possibly we'd like to complain
 // about the lack of memory, before we exit..
@@ -49,15 +49,16 @@
 // this might be ok.
 // ;) but, as I told before - 
 // probably you should look out for a proper malloc implementation.
+// It depends on your needs.
 //
 // I'm not sure yet, 
-// whether a better implementation of free would be useful at all.
+// whether another implementation of free would be useful at all.
 // Overall, I'd really prefer keeping minilib tiny.
 //
-// Reusing also sparse freed memory areas leads 
+// Reusing sparse freed memory areas also leads 
 // to a whole bunch of complications.
 // cache misses, searching complexity,
-// storage overhead,
+// storage overhead, potentially page faults,
 // just to name a few.
 //
 // I'm not sure whether it's worth it.
@@ -67,8 +68,7 @@
 //
 // ;) It's sometimes smarter to stay special,
 // although in this case this means the opposite.
-//   ? I'm not sure what this sentence means XD
-//misc
+// /misc
 //
 // The memory layout looks like this:
 // mlgl->ibuf and mlgl->mbuf do point to the same address range.
@@ -76,7 +76,7 @@
 //
 // flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
 // (mbufsize)
-//      size  data          mini_buf size
+//      size  data  size    mini_buf size
 //      8008dataxxxx0004data8000|
 //      ----========----====----|
 //
@@ -86,10 +86,11 @@
 // ----====----________----====----|
 //
 // the free space is only freed, 
-// when all areas below (left) are free'd as well.
+// when all areas below (left) have been free'd as well.
 //
-// just now I'm wondering, why I did the layout growing from top to bottom.
-// Most possibly I should rearrange that, to grow from bottom to top.(todo)
+// Memory is allocated from right to left, 
+// meaning from top to down.
+//
 //
 //+def
 void* malloc(int size){
@@ -114,7 +115,7 @@ void free(void *p){
 
 		char *c = p;
 		int *i = p;
-		i--;
+		i--; // point to the size of the block
 		c-=4;
 		
 		if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack
@@ -124,9 +125,6 @@ void free(void *p){
 				if ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_FREE )
 						mlgl->mbufsize += ( ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_V ) << 2 );
 				return;
-				/*do {
-						mlgl->mbufsize += mbuf[mlgl->mbufsize] +4;
-						} while ( (mlgl->mbufsize < mini_buf ) && ( mbuf[mlgl->mbufsize] & MBUF_FREE ) );*/ // next area also free'd
 		} else { // Not at the bottom
 				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
 						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
@@ -147,21 +145,6 @@ void free(void *p){
 
 		} 
 
-							 /*	(int)c[ -(int)c[-4] ] = (int)c[ -(int)c[-4] ] + ( (int)c[0] & MBUF_V ) + ( (int)c[ ((int)c[0] & MBUF_V) ] & MBUF_V ); // add this and next area to prev area.
-								(int)c[(int)c[ ((int)c[0] & MBUF_V)]-4] = (int)c[ -(int)c[-4] ] -4; // write combined free areas
-								else { // next not free
-										(int)c[ -(int)c[-4] ] += ( (int)c[0] & MBUF_V ); // add this area to prev area.
-										(int)c[(int)c[0] & MBUF_V ] = (int)c[(int)c[0]&MBUF_V] | MBUF_PREVISFREE // mark next area 
-												(int)c[(int)c[0]-4] = (int)c[ -(int)c[-4] ]-4; //write len of combined free areas there 
-								}
-						} else { //prev not free
-								if ( (int)c[ (int)c[0] & MBUF_V ] & MBUF_FREE ){ // next free
-										//mbuf[ (int)c[0]
-								}
-						}
-
-				}*/
-		
 }
 
 // TODO
