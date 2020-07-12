@@ -6,3 +6,7 @@ u=/usbstick/prog/
 u=/usbstick/prog/
 LESSOPEN=|/usr/bin/lesspipe.sh %s
 Ok
+a: 0
+a: 1
+a: 2
+a out: 3

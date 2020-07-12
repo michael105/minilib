@@ -40,8 +40,9 @@ typedef struct {
 		int mbufsize;
 		int align[1];
 		char **environ;
-		int stream[mini_FOPEN_MAX];
+		unsigned long brk;
 		void *appdata; // can be used freely. 
+		int stream[mini_FOPEN_MAX];
 		// intended to be used for globals,
 		// which can be located on the stack.
 		// just define a struct on stack,

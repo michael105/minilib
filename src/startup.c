@@ -64,10 +64,12 @@ errno = 0;
 environ = envp;
 #endif
 
+
 	// forces gcc to assign the mlgl data structure, 
 	// and put the whole struct on the stack.
 	// Or whatever is needed. 
 #ifdef mini_globals
+	mlgl->brk=0;
 	optimization_fence((void*)mlgl);
 #endif
 	//asm volatile("jmp main");

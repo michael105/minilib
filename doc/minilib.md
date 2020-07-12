@@ -78,6 +78,14 @@ basename       char *basename(char *path);
 
                (src/basename.c: 29)
 
+brk            static int brk( const void* addr );
+
+               conformant brk, when mini_errno is defined
+              if no errno is available,
+              returns the negative errno value on error,
+              0 on success
+               (src/brk.c: 14)
+
 def            #define SETOPT_short( opts, option ) (;
 
                Set a option flag(s) (bit(s))  manually.
@@ -186,7 +194,7 @@ macro          static void __attribute__((noipa)) optimization_fence(void*p){
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 76)
+               (include/minilib_global.h: 77)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -194,7 +202,13 @@ memfrob        void* memfrob(void* s, unsigned int len);
 
 mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 
-               (src/mmap.c: 2)
+               mmap wrapper
+              address length is rounded up to a multiple of pagesize (4096 Bytes here)
+              for the description, please look up the according manpage
+              errno is only set, when mini_errno is defined
+              if not, on error the negative errno value is returned.
+              (e.g. -22 for "invalid argument")
+               (src/mmap.c: 8)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -234,6 +248,14 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
+sbrk           static void* sbrk(int incr);
+
+               conformant sbrk, when mini_errno is defined
+              if no errno is available,
+              returns the negative errno value on error,
+              or the new break on success. 
+               (src/brk.c: 35)
+
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
                (src/hashes.c: 21)
@@ -241,6 +263,11 @@ sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 220)
+
+sys_brk        static long sys_brk(unsigned long addr);
+
+               the kernel syscall brk.
+               (src/brk.c: 3)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 

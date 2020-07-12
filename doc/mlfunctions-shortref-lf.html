@@ -327,9 +327,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  29 </small></td><td><small> char *basename(char *path);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  179 </small></td><td><small> brk( unsigned long brk)
-</small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  107 </small></td><td><small> chdir(const char* path)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  14 </small></td><td><small>  int brk( const void* addr );
+</small></td></tr><tr><td></td><td colspan="2"><small>conformant brk, when mini_errno is defined
+  if no errno is available,
+  returns the negative errno value on error,
+  0 on success
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  107 </small></td><td><small> chdir(const char* path)		
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">chmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  172 </small></td><td><small> chmod( const char *filename, mode_t mode)
 </small></td></tr>
@@ -536,7 +540,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  76 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  76 </small></td><td><small>  void ) optimization_fence(void*p){
+<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  77 </small></td><td><small>  void ) optimization_fence(void*p){
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -576,8 +580,14 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mknod.2.rst.html">mknod</a></small></td><td><small>   <a href="../include/mkfifo.h" target="right">../include/mkfifo.h</a>  182 </small></td><td><small> mknod( const char *filename,  umode_t mode,  unsigned dev)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mmap.2.rst.html">mmap</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  2 </small></td><td><small>  void* )) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mmap.2.rst.html">mmap</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small>  void* )) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
+</small></td></tr><tr><td></td><td colspan="2"><small>mmap wrapper
+  address length is rounded up to a multiple of pagesize (4096 Bytes here)
+  for the description, please look up the according manpage
+  errno is only set, when mini_errno is defined
+  if not, on error the negative errno value is returned.
+  (e.g. -22 for "invalid argument")
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mount.2.rst.html">mount</a></small></td><td><small>   <a href="../src/mmap.c" target="right">../src/mmap.c</a>  165 </small></td><td><small> mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  147 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
@@ -657,7 +667,13 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigreturn</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  135 </small></td><td><small> rt_sigreturn( unsigned long __unused)
 </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  35 </small></td><td><small>  void* sbrk(int incr);
+</small></td></tr><tr><td></td><td colspan="2"><small>conformant sbrk, when mini_errno is defined
+  if no errno is available,
+  returns the negative errno value on error,
+  or the new break on success. 
+ </small></td></tr>
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  9 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
@@ -742,7 +758,10 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sync.2.rst.html">sync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  120 </small></td><td><small> DEF_syscall(sync,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> int system( const char* command );
+<tr valign="top"><td><small>sys_brk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small>  long sys_brk(unsigned long addr);
+</small></td></tr><tr><td></td><td colspan="2"><small>the kernel syscall brk.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  4 </small></td><td><small> int system( const char* command );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/system.c" target="right">../src/system.c</a>  21 </small></td><td><small>   int ) tcgetattr(int fd, struct termios *io);
 </small></td></tr>
