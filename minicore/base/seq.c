@@ -3,6 +3,7 @@ mini_start
 mini_exit
 mini_writes
 
+#LDSCRIPT onlytext
 LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC

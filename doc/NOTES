@@ -183,6 +183,11 @@ security at all:
 (also: comparison to, e.g, the xserver..)
 
 	
+tools for analzying elf files:
+	readelf
+	elfls (elfkickers)
+	dumpelf
+	objdump
 
 
 
@@ -218,6 +223,7 @@ jmp WITHIN another instruction.
 
 --only-text could get selected automatic: bss/data sections aren't needed, when no globals are defined..
  so: insert a bss section var into genconfig.sh 
+ done. ("LDSCRIPT textonly")
 
 
 headers (compat-headers): also possible to just define e.g. _STDIO_H

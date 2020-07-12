@@ -1,17 +1,32 @@
 #ifndef minilib_global_h
 #define minilib_global_h
 
-// Don't like this pattern.
-// Will most likely "bloat" minilib.
-// But other options do not seem sensible.
 
-//#ifndef mini_buf
-//#warning defining mini_buf
-//#define mini_buf 1024
-//#endif
+#ifdef mini_globals_on_stack
+#ifndef mini_globals
+#define mini_globals
+#endif
+#endif
+
+#ifdef mini_errno
+#ifndef mini_globals
+#define mini_globals
+#endif
+#endif
+
+
+#ifdef mini_environ
+#ifndef mini_globals
+#define mini_globals
+#endif
+#endif
+
 
 #ifdef mini_buf
 #define mini_bufsize mini_buf
+#ifndef mini_globals
+#define mini_globals
+#endif
 #else
 #define mini_bufsize 0
 #endif
@@ -26,6 +41,11 @@ typedef struct {
 		int align[1];
 		char **environ;
 		int stream[mini_FOPEN_MAX];
+		void *appdata; // can be used freely. 
+		// intended to be used for globals,
+		// which can be located on the stack.
+		// just define a struct on stack,
+		// and set this pointer to the struct.
 		union {
 				int ibuf[(mini_bufsize>>2)];
 				char mbuf[mini_bufsize];
@@ -60,34 +80,42 @@ static void __attribute__((noipa)) optimization_fence(void*p){
 // strangely, naked results in a bigger binary. (+4 Bytes)
 // and will result in a runtime error. undefined opcode. so.
 
+#ifdef mini_globals
+
 extern minilib_globals*__restrict__ mlgl;
-#ifdef mini_buf
+
 
 
 #ifndef mini_globals_on_stack
 extern minilib_globals __mlgl;
 #ifdef mini_errno
-extern int sysret;
+//extern int sysret;
 extern int errno;
+#endif
+#ifdef mini_environ
+//+doc pointer to env, when mini_getenv is defined.
+extern char **environ;
 #endif
 
 #else
 
 #define errno mlgl->errno
 //#define sysret mlgl->sysret
-
-#endif
-
-#else
-
-//#warning no mini_buf
-
-#endif
-
 #ifdef mini_environ
 //+doc pointer to env, when mini_getenv is defined.
 //extern char **environ;
 #define environ mlgl->environ
 #endif
 
+
+
+#endif //mini_globals_on_stack
+
+#else 
+
+//#warning no globals
+
 #endif
+
+#endif
+

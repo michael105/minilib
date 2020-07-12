@@ -3,7 +3,13 @@ OUTPUT_ARCH(i386)
 */
 
 PHDRS {
-	text PT_LOAD FILEHDR PHDRS ;
+	text PT_LOAD FILEHDR PHDRS;
+	// text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	// would set the text section read- and writable. somehow. 
+	// this spares one section, if globals are used.
+	// but seems to me a bit too nasty and dangerous.
+	// sametime, some bins are compiled with writable text.
+	// have to look for the source. strange, somehow.
 	stack PT_GNU_STACK FLAGS(0x6) ;
 	/*bss PT_LOAD;*/
 }
@@ -22,11 +28,11 @@ SECTIONS
 		{
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
 						*(.text._startup .text._startup.*)
 						*(.text.main .text.main.*)
 						*(.text.cexit)
-						*(.text._exit .text._exit.*)
-						*(.text.__exit .text.__exit.*)
 						*(.text.hot .text.hot.*)
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
@@ -44,6 +50,7 @@ saves 15 bytes. ( needs -N for linking )*/
 						*(.bss .bss.* .gnu.linkonce.b.*)
 						*(COMMON)
 						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
 						/* Align here to ensure that the .bss section occupies space up to
 							 _end.  Align after .bss to ensure correct alignment even if the
 							 .bss section disappears because there are no input sections.

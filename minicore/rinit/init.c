@@ -18,7 +18,7 @@ mini_raise
 #mini_itodec
 #mini_buf 256
 
-LDSCRIPT text_and_bss
+#LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
 return

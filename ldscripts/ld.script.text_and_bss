@@ -3,7 +3,8 @@ OUTPUT_ARCH(i386)*/
 
 
  PHDRS {
-	text PT_LOAD FILEHDR PHDRS ;
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7); 
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
 	/*bss PT_LOAD;*/
@@ -26,20 +27,23 @@ SECTIONS
 		.text           :
 		{
 				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
 						*(.text.exit .text.exit.*)
-						*(.text._startup .text._startup.*)
+						*(.text._startup)
+						*(.text.main)
 						*(.text.hot .text.hot.*)
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
 
-		 }
+		 } :text,
 		.bss            :
 		{ 
 
 						*(.dynbss)
 						*(.bss .bss.* .gnu.linkonce.b.*)
 						*(COMMON)
+						*(.data .data.*)
 						*(.rodata .rodata.* .gnu.linkonce.r.*)
 						/* Align here to ensure that the .bss section occupies space up to
 							 _end.  Align after .bss to ensure correct alignment even if the
@@ -47,7 +51,11 @@ SECTIONS
 							 FIXME: Why do we need it? When there is no .bss section, we dont
 							 pad the .data section.  
 misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :text
+		} :bss,
+		. = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .);
+
 
 		/DISCARD/ : { 
 			 *(.note.GNU-stack) 
