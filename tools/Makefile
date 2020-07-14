@@ -1,4 +1,4 @@
-PROGS=shrinkelf removeccomments stripblanklines
+PROGS=shrinkelf removeccomments stripblanks
 
 all: $(PROGS)
 
