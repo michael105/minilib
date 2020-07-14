@@ -11,7 +11,7 @@ return
 int main(){
 	volatile int ret=42;
   volatile  const char * a1="";
-  volatile   const char * a2="";
+  volatile  const char * a2="";
   link(a1,a2);
   return(ret);
 }

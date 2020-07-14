@@ -8,13 +8,15 @@ clean:
 
 %: %.c
 	echo $@ $<
-	../../mini-gcc --verbose --compile $<
+	( ../../mini-gcc --verbose --compile $< 2>&1 || mv $< ./fail/ ) | tee $@.log
 
 p:
 	perl -e 'print "Ok\n"'
 
 sizes: all
 	./writesizes.pl | sort -t : -k 2 -g > sizes.txt
+
+cs: createsources
 
 createsources:
 	sed -i '/DEF/d' functions.txt

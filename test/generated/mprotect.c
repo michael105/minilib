@@ -2,6 +2,7 @@
 mini_mprotect
 mini_buf 0
 mini_start
+mini_errno
 shrinkelf
 INCLUDESRC
 LDSCRIPT text_and_bss

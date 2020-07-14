@@ -2,7 +2,7 @@
 #define isatty_c
 //+header unistd.h
 //+include
-//+depends tcgetattr
+//+depends tcgetattr ioctl
 //+def
 int isatty(int fd){
 	struct termios term;

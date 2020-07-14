@@ -10,7 +10,7 @@ return
 #endif
 int main(){
 	volatile int ret=42;
-  volatile char * a1="";
+  volatile const char * a1="";
   perror(a1);
   return(ret);
 }

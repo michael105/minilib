@@ -11,8 +11,8 @@ return
 int main(){
 	volatile int ret=42;
   volatile  const char * a1="";
-  volatile   const char * a2="";
-  volatile   const char * a3="";
+  volatile   char* const* a2="";
+  volatile  char* const* a3="";
   execve(a1,a2,a3);
   return(ret);
 }

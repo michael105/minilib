@@ -11,7 +11,7 @@ return
 int main(){
 	volatile int ret=42;
   volatile  struct timespec * a1=0;
-  volatile   struct timespec * a2=0;
+  volatile  struct timespec * a2=0;
   nanosleep(a1,a2);
   return(ret);
 }

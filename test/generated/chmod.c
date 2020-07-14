@@ -11,7 +11,7 @@ return
 int main(){
 	volatile int ret=42;
   volatile  const char * a1="";
-  volatile   mode_t  a2=0;
+  volatile  mode_t  a2=0;
   chmod(a1,a2);
   return(ret);
 }

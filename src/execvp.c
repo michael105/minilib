@@ -1,16 +1,13 @@
+#ifndef mini_exevp_c
+#define mini_exevp_c
 //+header unistd.h
-//+include
+////+include
 
 
 //+depends environ execve
 //+def
 static inline int execv(const char *pathname, char *const argv[]){
 		return( execve( pathname, argv, environ ) );
-};
-
-//+def
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]){
-		return( execveat(fd,0,argv,envp,AT_EMPTY_PATH) );
 };
 
 //+depends environ execve getenv access
@@ -56,7 +53,7 @@ static int execvpe(const char *file, char *const argv[], char *const envp[]){
 };
 
 
-//+depends environ execve
+//+depends environ execvpe access getenv access
 //+def
 static inline int execvp(const char *file, char *const argv[]){
 		return( execvpe( file, argv, environ ) );
@@ -64,4 +61,4 @@ static inline int execvp(const char *file, char *const argv[]){
 
 
 
-
+#endif

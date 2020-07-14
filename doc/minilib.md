@@ -1,16 +1,6 @@
 
 
 ==========
-ctype.h
-==========
-
-isprint        static inline int __attribute__((always_inline)) isprint(const char c);
-
-               (include/isprint.h: 8)
-
-
-
-==========
 declarations.h
 ==========
 
@@ -30,7 +20,7 @@ opendir        DIR *opendir(const char *name);
 
 readdir        struct dirent *readdir(DIR *dir);
 
-               (src/dirent/readdir.c: 9)
+               (src/dirent/readdir.c: 10)
 
 
 
@@ -136,6 +126,10 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
                (include/prints.h: 45)
+
+fexecveat      static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+
+               (include/fexecveat.h: 3)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
@@ -616,11 +610,11 @@ signal.h
 
 raise          static inline int raise(int signr);
 
-               (src/sigaction.c: 132)
+               (src/sigaction.c: 135)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/sigaction.c: 106)
+               (src/sigaction.c: 107)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
@@ -1022,22 +1016,18 @@ unistd.h
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
 
-               (src/execvp.c: 7)
+               (src/execvp.c: 9)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
 
-               (src/execvp.c: 61)
+               (src/execvp.c: 58)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
 
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
               Looks for file in the PATH environment, othwerise.
-               (src/execvp.c: 21)
-
-fexecveat      static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
-
-               (src/execvp.c: 12)
+               (src/execvp.c: 18)
 
 isatty         int isatty(int fd);
 

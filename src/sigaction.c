@@ -90,14 +90,15 @@ int sigismember(sigset_t *set, int sig){
 
 
 
+
 #ifdef mini_sigaction
+
 extern void _sigrestore();
 __asm__ ( "\
 .global _sigrestore\n\
 _sigrestore:\n\
 	mov $15,%rax\n\
 	syscall");
-#endif
 
 //+header signal.h
 //+include
@@ -122,12 +123,14 @@ static int volatile sigaction(int sig, const struct sigaction *act, struct sigac
 		return( rt_sigaction( sig, &sa, oact, sizeof(sigset_t) ) );
 }
 
+#endif
+
 // memo: needs static definition, cause the +include
 // (meaning, including the definition into the header.
 // What is the right thing to do for a wrapper call.)
 
 
-//+depends getpid
+//+depends getpid 
 //+def
 static inline int raise(int signr){
 		return(kill(getpid(),signr));

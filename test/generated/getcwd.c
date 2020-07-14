@@ -10,8 +10,8 @@ return
 #endif
 int main(){
 	volatile int ret=42;
-  volatile char * a1="";
-  volatile long  a2=0;
+  volatile  char * a1="";
+  volatile   unsigned long  a2=0;
   getcwd(a1,a2);
   return(ret);
 }

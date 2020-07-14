@@ -1,7 +1,7 @@
 
 
 
-//+depends fputs write fileno
+//+depends fputs write fileno strlen
 //+after fputs
 //+doc prints formatted to the stream F.
 //+doc only %s is recognized.

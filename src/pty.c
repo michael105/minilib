@@ -22,7 +22,7 @@ int unlockpt(int fd){
 		return ioctl(fd, TIOCSPTLCK, &unlock);
 }
 
-//+depends snprintf itodec
+//+depends snprintf itodec ioctl open sprintf
 //+def
 int ptsname_r(int fd, char *buf, size_t len){
 		int pty, err;
@@ -35,13 +35,15 @@ int ptsname_r(int fd, char *buf, size_t len){
 		return 0;
 }
 
-//+depends ptsname_r 
+//+depends ptsname_r snprintf itodec ioctl sprintf
 //+def
 char *ptsname(int fd){
 		static char buf[9 + sizeof(int)*3 + 1];
 		int err = ptsname_r(fd, buf, sizeof buf);
 		if (err) {
+#ifdef mini_errno
 				errno = err;
+#endif
 				return 0;
 		}
 		return buf;

@@ -73,7 +73,7 @@ FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
 
 
 //+header stdio.h
-//+depends open _fopen
+//+depends open _fopen fileno close
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
@@ -83,7 +83,7 @@ FILE *fopen(const char* filename, const char* mode){
 
 
 //+header stdio.h
-//+depends open _fopen
+//+depends open _fopen fileno close
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
@@ -93,7 +93,7 @@ FILE *fdopen(int fd, const char* mode){
 
 
 //+header stdio.h
-//+depends open _fopen
+//+depends open _fopen fileno close
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def

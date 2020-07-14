@@ -1,5 +1,5 @@
 //+header stdlib.h
-//+depends execve vfork environ fwrites waitpid
+//+depends execve vfork environ ewrites waitpid
 //+def
 int system( const char* command ){
 	
@@ -9,7 +9,7 @@ int system( const char* command ){
 
 		if ( pid==0 ){
 				execve( "/bin/sh", arg, (char* const*)environ );
-				fwrites(fileno(stderr), "Error. Couldn't exec sh in system()\n");
+				ewrites("Error. Couldn't exec sh in system()\n");
 				exit(-1);
 		}
 		int ws;
