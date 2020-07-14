@@ -26,7 +26,7 @@ INCLUDESRC
 LDSCRIPT default
 
 # Shrink the compiled binary with shrinkelf
-#SHRINKELF
+SHRINKELF
 
 # generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
 #DEBUG

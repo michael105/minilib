@@ -6,6 +6,7 @@ mini_eprint
 mini_strlen
 mini_ewrites
 INCLUDESRC
+SHRINKELF
 
 return
 #endif
