@@ -36,19 +36,5 @@ static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_s
 #endif
 }
 
-/*
-		//return(syscall5(__NR_select,(long)fd,(long)readfd,(long)writefd,(long)exceptfd, (long)wait));
-		int ret;
-		syscall5(ret,__NR_select,&fd,readfd,writefd,exceptfd, wait);
-		return(ret);
-		//return(syscall5(__NR_select,fd,readfd,,0,0));
-}
-*/
-
-
-
-		//int pselect (int, fd_set *, fd_set *, fd_set *, const struct timespec *, const sigset_t *);
-
-
 #endif
 

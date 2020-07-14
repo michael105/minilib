@@ -25,17 +25,6 @@ char* strerror( int errnum ){
 #endif
 }
 
-//+header stdio.h
-//+depends fputs strerror strlen errno
-//+def
-void perror(const char *msg){
-		if ( msg !=0 && msg[0] != '\0' )
-				fputs( msg, stderr );
-
-		fputs( strerror( errno ), stderr );
-}
-
-
 //+doc convert errno to str, with 3 chars length
 // ending the string (located on the stack (!) 
 // with two \0\0, when errno<100

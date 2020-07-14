@@ -204,6 +204,10 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
               (e.g. -22 for "invalid argument")
                (src/mmap.c: 8)
 
+mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
+
+               (include/mremap.h: 4)
+
 posix_openpt   int posix_openpt(int flags);
 
                (src/pty.c: 8)
@@ -671,13 +675,6 @@ clearerror     static inline void clearerror(FILE *f);
 
                (include/mini_fstream.h: 203)
 
-errno_str      const char *errno_str(int err);
-
-               convert errno to str, with 3 chars length
-              ending the string (located on the stack (!) 
-              with two \0\0, when errno<100
-               (src/strerror.c: 43)
-
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
                (include/mini_fstream.h: 65)
@@ -785,7 +782,7 @@ itohex         int itohex(int i,char* buf,int padding);
 
 perror         void perror(const char *msg);
 
-               (src/strerror.c: 31)
+               (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -919,6 +916,13 @@ _strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
                (src/strcmp.c: 13)
+
+errno_str      const char *errno_str(int err);
+
+               convert errno to str, with 3 chars length
+              ending the string (located on the stack (!) 
+              with two \0\0, when errno<100
+               (src/strerror.c: 32)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
