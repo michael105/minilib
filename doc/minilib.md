@@ -166,7 +166,7 @@ ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 76)
 
-macro          static void __attribute__((noipa)) optimization_fence(void*p){
+macro          static void __attribute__((noipa)) optimization_fence(void*p){}
 
                prevent optimizations.
               cast a var to void*, and calling this,

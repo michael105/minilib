@@ -3,7 +3,7 @@ mini_start
 mini_sync
 mini_writes
 
-LDSCRIPT text_and_bss
+#LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
 return

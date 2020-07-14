@@ -7,8 +7,12 @@ __asm__ volatile("\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
 	leaq  8(%rsi,%rdi,8),%rdx\n"
-	"call _startup\n\
-	movq %rax, %rdi\n\
+#ifdef mini_globals
+	"call _startup\n"
+#else
+	"call main\n"
+#endif
+	"movq %rax, %rdi\n\
 .global _exit\n\
 _exit:\n\
 	movq $60, %rax\n\

@@ -74,8 +74,8 @@ typedef struct {
 // having a volatile asm call with the globals as param, and so on,
 // have been useless. All after all, seems to me, ai has it's restrictions.
 //+macro
-static void __attribute__((noipa)) optimization_fence(void*p){
-};
+static void __attribute__((noipa)) optimization_fence(void*p){}
+
 
 // void __attribute__((noipa,naked))prevent_optimization(void*p){
 // strangely, naked results in a bigger binary. (+4 Bytes)

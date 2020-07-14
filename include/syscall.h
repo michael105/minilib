@@ -220,15 +220,6 @@ extern int errno;
 
 #endif
 
-#else //ifndef gensyntaxcheck
-// Boilerplates, to get the syntaxchecking right (syntaxcheck.h)
-#define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
-
-#define SYSREAL_define_syscall( name, argcount, ... ) int volatile ksys##name( __VA_ARGS__ );
-
-
-#endif
-
 //return( (sysret<0) ? -1 : sysret ); (no errno) : ok. not added anything to the final size
 
 /*
@@ -265,6 +256,23 @@ extern int errno;
 
 #define DEF_syscall(...) 
 #define DEF_syscallret(...) 
+
+
+#else //ifndef gensyntaxcheck
+// Boilerplates, to get the syntaxchecking right (syntaxcheck.h)
+#define DEF_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
+#define DEF_syscallret( name, ret, argcount, ... ) int volatile name( __VA_ARGS__ );
+//#define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
+
+#define SYSDEF_syscall( name, argcount, ... ) int volatile ksys##name( __VA_ARGS__ );
+
+#define REAL_define_syscall(...) 
+#define REAL_define_syscall_noopt(...) 
+#define REAL_define_syscallret(...) 
+#define SYSREAL_define_syscall(...) 
+#define SYSREAL_define_syscall_noopt(...) 
+
+#endif
 
 
 

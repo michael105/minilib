@@ -1,6 +1,8 @@
 // This is "callen" from _start,
 // 
 
+#ifdef mini_globals
+
 int main();//int argc, char **argv, char **envp );
 
 int _startup(int argc, char **argv, char **envp ){
@@ -76,3 +78,4 @@ environ = envp;
 	return(main(argc,argv,envp));
 }
 
+#endif

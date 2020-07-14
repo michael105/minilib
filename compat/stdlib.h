@@ -152,11 +152,11 @@ static long int labs(long int i);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/malloc.c"
-#include "minilib/src/rand.c"
-#include "minilib/src/getenv.c"
 #include "minilib/src/abort.c"
+#include "minilib/src/malloc.c"
 #include "minilib/src/system.c"
+#include "minilib/src/getenv.c"
+#include "minilib/src/rand.c"
 #include "minilib/include/math.h"
 #include "minilib/src/strtol.c"
 #include "minilib/src/atoi.c"
