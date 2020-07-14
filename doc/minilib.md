@@ -8,10 +8,6 @@ isprint        static inline int __attribute__((always_inline)) isprint(const ch
 
                (include/isprint.h: 8)
 
-isspace        int isspace(int c);
-
-               (src/isspace.c: 6)
-
 
 
 ==========
@@ -118,28 +114,28 @@ dtodec         int dtodec(double d, char* buf, int precision);
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 33)
+               (include/prints.h: 35)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
                write str to stderr. 
               only format %s is recognized
-               (include/prints.h: 81)
+               (include/prints.h: 83)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 58)
+               (include/prints.h: 60)
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 68)
+               (include/prints.h: 70)
 
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 43)
+               (include/prints.h: 45)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
@@ -154,7 +150,7 @@ fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
                write the constant str to fd. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 49)
+               (include/prints.h: 51)
 
 grantpt        int grantpt(int fd);
 
@@ -217,18 +213,18 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 29)
+               (include/prints.h: 31)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write str to stdout. 
               only format %s is recognized
-               (include/prints.h: 75)
+               (include/prints.h: 77)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 54)
+               (include/prints.h: 56)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -298,7 +294,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 39)
+               (include/prints.h: 41)
 
 
 
@@ -808,7 +804,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 64)
+               (include/prints.h: 66)
 
 rewind         static inline void rewind( FILE *f );
 
@@ -845,6 +841,10 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 ==========
 stdlib.h
 ==========
+
+abort          void abort();
+
+               (src/abort.c: 3)
 
 abs            static int abs(int i);
 

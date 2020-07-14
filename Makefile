@@ -171,12 +171,15 @@ ldscript: ldscripts/ld.script*
 tools:
 	cd tools && make
 
-combined: 
+combined: tools
 	cp templates/LICENSE.tmpl minilibcompiled.tmp.h
 	echo -e "#ifndef minilibcompiled_h\n#define minilibcompiled_h\n" >> minilibcompiled.tmp.h && \
 			scripts/combinesources.pl minilib.h >> minilibcompiled.tmp.h && \
 			echo "#endif" >> minilibcompiled.tmp.h
-	gcc -fpreprocessed -P -dD -E minilibcompiled.tmp.h 2>/dev/null > minilibcompiled.h || true
+	cat minilibcompiled.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanklines | sed 's/^\s*//' | scripts/stripundefs.pl > minilibcompiled.h
+	#cat minilibcompiled.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanklines | sed -E '/^#if 0/,/^#endif/d;'s/^\s*//' > minilibcompiled.h
+#./tools/scc/scc minilibcompiled.tmp.h | sed '/^\s*$$/d' > minilibcompiled.h
+#	gcc -fpreprocessed -P -dD -E minilibcompiled.tmp.h 2>/dev/null > minilibcompiled.h || true
 #	cp templates/LICENSE.tmpl minilibcompiled.h
 #	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h
 #	gzip -c minilibcompiled.c > minilibcompiled.c.gz

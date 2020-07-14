@@ -24,6 +24,8 @@ extern int dprints(int fd, const char *msg,...);
 //+macro
 #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
+
+
 //+depends write strlen
 //+doc write str to stdout. Needs strlen
 //+macro print(str) write(STDOUT_FILENO,str,strlen(str))

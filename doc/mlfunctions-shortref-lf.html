@@ -317,7 +317,9 @@
 <tr valign="top"><td><small>ksys__waitid</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  469 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>ksys__write</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  7 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>ksys__writev</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  45 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  25 </small></td><td><small>  int abs(int i);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abort.3.rst.html">abort</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  3 </small></td><td><small> void abort();
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../src/abort.c" target="right">../src/abort.c</a>  25 </small></td><td><small>  int abs(int i);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  158 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
@@ -378,17 +380,17 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  114 </small></td><td><small> dup3(int a1, int a2, int a3)		
 </small></td></tr>
-<tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  33 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
+<tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  35 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. Needs strlen
  </small></td></tr>
-<tr valign="top"><td><small>eprintfs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  81 </small></td><td><small> #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
+<tr valign="top"><td><small>eprintfs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  83 </small></td><td><small> #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. 
   only format %s is recognized
  </small></td></tr>
-<tr valign="top"><td><small>eprintl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  58 </small></td><td><small> #define eprintl() write(STDERR_FILENO,"\n",1)
+<tr valign="top"><td><small>eprintl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  60 </small></td><td><small> #define eprintl() write(STDERR_FILENO,"\n",1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write a newline to stderr
  </small></td></tr>
-<tr valign="top"><td><small>eputs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  68 </small></td><td><small> #define eputs(msg) ( eprint(msg) + eprintl() )
+<tr valign="top"><td><small>eputs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  70 </small></td><td><small> #define eputs(msg) ( eprint(msg) + eprintl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stderr, append a newline. Needs strlen.
  </small></td></tr>
 <tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  43 </small></td><td><small> const char *errno_str(int err);
@@ -396,7 +398,7 @@
   ending the string (located on the stack (!) 
   with two \0\0, when errno<100
  </small></td></tr>
-<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  43 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  45 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execv</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  7 </small></td><td><small>   int execv(const char *pathname, char *const argv[]);
@@ -481,7 +483,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fwrite</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  106 </small></td><td><small>   size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  49 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
+<tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  51 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  26 </small></td><td><small> #define getc(F) fgetc(F)
@@ -518,9 +520,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/locale/isprint.3.rst.html">isprint</a></small></td><td><small>   <a href="../src/isatty.c" target="right">../src/isatty.c</a>  8 </small></td><td><small>   int ) isprint(const char c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/locale/isspace.3.rst.html">isspace</a></small></td><td><small>   <a href="../include/isprint.h" target="right">../include/isprint.h</a>  6 </small></td><td><small> int isspace(int c);
-</small></td></tr>
-<tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../src/isspace.c" target="right">../src/isspace.c</a>  56 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
+<tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../include/isprint.h" target="right">../include/isprint.h</a>  56 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
 </small></td></tr>
 <tr valign="top"><td><small>itobin</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  41 </small></td><td><small> #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 </small></td></tr>
@@ -614,16 +614,16 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/posix_openpt.2.rst.html">posix_openpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int posix_openpt(int flags);
 </small></td></tr>
-<tr valign="top"><td><small>print</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  29 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
+<tr valign="top"><td><small>print</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  31 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  91 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small>printfs</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  75 </small></td><td><small> #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+<tr valign="top"><td><small>printfs</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  77 </small></td><td><small> #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. 
   only format %s is recognized
  </small></td></tr>
-<tr valign="top"><td><small>printl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  54 </small></td><td><small> #define printl() write(STDOUT_FILENO,"\n",1)
+<tr valign="top"><td><small>printl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  56 </small></td><td><small> #define printl() write(STDOUT_FILENO,"\n",1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write a newline to stdout
  </small></td></tr>
 <tr valign="top"><td><small>prints</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  11 </small></td><td><small> #define prints(...) _mprints(__VA_ARGS__,0)
@@ -640,7 +640,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putchar</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  16 </small></td><td><small> #define putchar(c) fputc(c,stdout)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  64 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  66 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  132 </small></td><td><small>   int raise(int signr);
@@ -830,7 +830,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  98 </small></td><td><small> write(int fd,const void *buf, int len )
 </small></td></tr>
-<tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  39 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+<tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  41 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 </table></body></html>

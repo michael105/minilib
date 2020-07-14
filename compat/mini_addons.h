@@ -202,20 +202,20 @@ static void __attribute__((noipa)) optimization_fence(void*p){
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/itodec.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/hashes.c"
-#include "minilib/src/itobin.c"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/dirname.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/mmap.c"
-#include "minilib/src/fprintfs.c"
 #include "minilib/include/prints.h"
-#include "minilib/src/pty.c"
+#include "minilib/include/minilib_global.h"
 #include "minilib/src/brk.c"
-#include "minilib/src/memfrob.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/mmap.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/pty.c"
 #include "minilib/include/globaldefs.h"
+#include "minilib/src/itobin.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/memfrob.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

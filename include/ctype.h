@@ -24,7 +24,7 @@ static __inline int __isspace(int _c)
 //+nop 
 #define isgraph(a) (0 ? 1 : ((unsigned)(a)-0x21) < 0x5e)
 //+nop 
-#define isspace(a) (0?1: ((a==' ')||(a=='\t') ) )
+#define isspace(a) ((a==' ')||(a=='\t')||(a=='\n')||(a=='\f')||(a=='\r')||(a=='\v'))
 
 
 //+nop 

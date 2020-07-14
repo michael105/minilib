@@ -260,7 +260,7 @@ extern int errno;
 						errno = -sysret;\
 						return(-1);}\
 				return(ret);\
-		}\
+		}
 
 
 #define DEF_syscall(...) 

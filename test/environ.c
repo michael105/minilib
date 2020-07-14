@@ -11,6 +11,7 @@ mini_getenv
 mini_environ
 mini_INCLUDESRC
 STRIPFLAG
+LDSCRIPT text_and_bss
 return
 #endif
 
@@ -24,13 +25,13 @@ int main( int argc, char *argv[], char *envp[] ){
 		if ( argc>1 ){
 				printsl( argv[1] );
 		}
-		printsl(envp[0]);
+		//printsl(envp[0]);
 
 		printsl(getenv("HOME"));
 
-		printsl(environ[0]);
-		printsl(envp[0]);
-		printsl(environ[1]);
+		//printsl(environ[0]);
+		//printsl(envp[0]);
+		//printsl(environ[1]);
 		printsl("Ok");
 
 		int a=0;
