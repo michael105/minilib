@@ -127,6 +127,10 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
                (include/prints.h: 45)
 
+fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
+
+               (include/fexecve.h: 3)
+
 fexecveat      static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
 
                (include/fexecveat.h: 3)

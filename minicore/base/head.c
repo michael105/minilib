@@ -10,11 +10,12 @@ mini_getc
 mini_putc
 mini_printl
 mini_prints
+mini_globals
 
 mini_buf 256
 #LDSCRIPT onlytext
-LDSCRIPT text_and_bss
-globals_on_stack
+#LDSCRIPT text_and_bss
+#globals_on_stack
 
 shrinkelf
 INCLUDESRC

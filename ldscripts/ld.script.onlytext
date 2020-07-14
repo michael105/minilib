@@ -4,12 +4,12 @@ OUTPUT_ARCH(i386)
 
 PHDRS {
 	text PT_LOAD FILEHDR PHDRS;
-	// text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
-	// would set the text section read- and writable. somehow. 
-	// this spares one section, if globals are used.
-	// but seems to me a bit too nasty and dangerous.
-	// sametime, some bins are compiled with writable text.
-	// have to look for the source. strange, somehow.
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
 	stack PT_GNU_STACK FLAGS(0x6) ;
 	/*bss PT_LOAD;*/
 }

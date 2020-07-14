@@ -150,6 +150,9 @@ int ptsname_r(int fd, char *buf, size_t len);
 // file: minilib/src/pty.c
 char *ptsname(int fd);
 
+// file: minilib/include/fexecve.h
+static inline int fexecve(int fd, char *const argv[], char *const envp[]);
+
 // file: minilib/include/fexecveat.h
 static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
 
@@ -205,21 +208,22 @@ static void __attribute__((noipa)) optimization_fence(void*p){
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/itodec.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/brk.c"
-#include "minilib/src/dirname.c"
-#include "minilib/src/memfrob.c"
 #include "minilib/src/pty.c"
-#include "minilib/src/itobin.c"
 #include "minilib/src/mmap.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/include/fexecveat.h"
-#include "minilib/include/minilib_global.h"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/memfrob.c"
 #include "minilib/include/prints.h"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/itodec.c"
+#include "minilib/src/dirname.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/fexecve.h"
 #include "minilib/src/hashes.c"
+#include "minilib/src/brk.c"
+#include "minilib/include/globaldefs.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

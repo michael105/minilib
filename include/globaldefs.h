@@ -245,6 +245,9 @@ struct timezone {
 #define PROT_GROWSDOWN 0x01000000
 #define PROT_GROWSUP   0x02000000
 
+#define MREMAP_MAYMOVE 1
+#define MREMAP_FIXED 2
+
 
 
 
