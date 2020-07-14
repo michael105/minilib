@@ -462,7 +462,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  162 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  295 </small></td><td><small> void  free(void* p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  278 </small></td><td><small> void  free(void* p);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  100 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
@@ -562,7 +562,7 @@
   having a volatile asm call with the globals as param, and so on,
   have been useless. All after all, seems to me, ai has it's restrictions.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  245 </small></td><td><small> void*  malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  228 </small></td><td><small> void*  malloc(int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  85 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
@@ -653,7 +653,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  176 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  159 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  163 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -754,8 +754,10 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/strstr.c" target="right">../src/strstr.c</a>  3 </small></td><td><small> long int strtol(const char *c, char **endp, int base);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/strstr.c" target="right">../src/strstr.c</a>  5 </small></td><td><small> long int strtol(const char *c, const char **endp, int base);
+</small></td></tr><tr><td></td><td colspan="2"><small>conversion
+  doesn't check for overflow(!)
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/symlink.2.rst.html">symlink</a></small></td><td><small>   <a href="../src/strtol.c" target="right">../src/strtol.c</a>  119 </small></td><td><small> symlink( const char *oldname,  const char *newname)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sync.2.rst.html">sync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  120 </small></td><td><small> DEF_syscall(sync,0)

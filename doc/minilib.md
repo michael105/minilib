@@ -864,7 +864,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void volatile free(void* p);
 
-               (src/malloc.c: 295)
+               (src/malloc.c: 278)
 
 getenv         char* getenv(const char* name);
 
@@ -880,7 +880,7 @@ ldiv           static ldiv_t ldiv(long int numerator, long int denominator);
 
 malloc         void* volatile malloc(int size);
 
-               (src/malloc.c: 245)
+               (src/malloc.c: 228)
 
 rand           unsigned int rand();
 
@@ -888,15 +888,17 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 176)
+               (src/malloc.c: 159)
 
 srand          void srand( unsigned int i );
 
                (src/rand.c: 7)
 
-strtol         long int strtol(const char *c, char **endp, int base);
+strtol         long int strtol(const char *c, const char **endp, int base);
 
-               (src/strtol.c: 3)
+               conversion
+              doesn't check for overflow(!)
+               (src/strtol.c: 5)
 
 system         int system( const char* command );
 

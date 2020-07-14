@@ -98,7 +98,7 @@ extern int errno;
 extern char **environ;
 #endif
 
-#else
+#else //mini_globals_on_stack
 
 #define errno mlgl->errno
 //#define sysret mlgl->sysret
@@ -106,6 +106,8 @@ extern char **environ;
 //+doc pointer to env, when mini_getenv is defined.
 //extern char **environ;
 #define environ mlgl->environ
+register minilib_globals  __attribute__((used))*__restrict__ mlgl asm("r15");
+
 #endif
 
 

@@ -14,7 +14,6 @@ OUTPUT_ARCH(i386)*/
 	bss PT_LOAD FLAGS(0x7); 
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
-	/*bss PT_LOAD;*/
 
 ENTRY(_start)
 
@@ -25,11 +24,6 @@ SECTIONS
 		start = _start;
 		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
 		. = 0x08048000 + SIZEOF_HEADERS;
-
-/*		.stack : 
-		{ 
-		*(.note.GNU-stack) 
-		} */
 
 		.text           :
 		{
@@ -43,7 +37,7 @@ SECTIONS
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
 
-		 } :text,
+		 } :text
 		.bss            :
 		{ 
 
@@ -58,10 +52,10 @@ SECTIONS
 							 FIXME: Why do we need it? When there is no .bss section, we dont
 							 pad the .data section.  
 misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :bss,
-		. = ALIGN(64 / 8);
+		} :bss
+		/* . = ALIGN(64 / 8);
 	  _end = .; 
-		PROVIDE (_end = .);
+		PROVIDE (_end = .); */
 
 
 		/DISCARD/ : { 

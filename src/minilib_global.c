@@ -53,7 +53,8 @@ char **environ;
 
 #else // globals_on_stack
 
-register minilib_globals  __attribute__((used))*__restrict__ mlgl asm("r15");
+// is defined in the header. Must be defined for every source file.
+//register minilib_globals  __attribute__((used))*__restrict__ mlgl asm("r15");
 
 #endif
 
