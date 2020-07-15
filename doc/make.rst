@@ -1,4 +1,4 @@
-**make[1]: Entering directory '/home/micha/prog/minilib'**
+**make[1]: Entering directory '/hd/sda8/home/micha/prog/minilib'**
 
 **make targets:**
 
@@ -81,4 +81,4 @@ the includes sources of the plugin.
 For further documentation please have a look into README.asc, and the folder ./doc/
 
 Michael (misc) Myer, 2012-2020, BSD 3clause
-make[1]: Leaving directory '/home/micha/prog/minilib'
+make[1]: Leaving directory '/hd/sda8/home/micha/prog/minilib'

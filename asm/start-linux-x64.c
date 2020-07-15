@@ -1,5 +1,5 @@
 #ifdef mini_start
-volatile void _start(){
+void volatile _start(){
 __asm__ volatile("\
 #.global _start\n\
 #_start:\n\

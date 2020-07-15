@@ -782,7 +782,7 @@ itohex         int itohex(int i,char* buf,int padding);
 
 perror         void perror(const char *msg);
 
-               (src/perror.c: 4)
+               (src/perror.c: 5)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 

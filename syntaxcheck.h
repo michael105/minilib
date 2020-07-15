@@ -8,533 +8,533 @@
 #define LINUX 1
 #define X64 1
 #define GENSYNTAXCHECK 1
-// 1 "/dev/fd/63" 1
+// 1 "/dev/fd/60" 1
 #define mini_buf 4096
 #define mini_start 
 #define mini_exit 
 #define mini_ksyscalls 
-#define mini_waitpid generate
-#define mini_wait generate
-#define mini_execv generate
-#define mini_chdir generate
-#define mini_chroot generate
-#define mini_rename generate
-#define mini_fsync generate
-#define mini_tcsetattr generate
-#define mini_lseek generate
-#define mini_setpgid generate
-#define mini_chown generate
-#define mini_getuid generate
-#define mini_ftruncate generate
-#define mini_link generate
-#define mini_unlink generate
-#define mini_usleep generate
-#define mini_getgid generate
-#define mini_tcgetattr generate
-#define mini_getpgrp generate
-#define mini_setsid generate
 #define mini_execve generate
-#define mini_execvp generate
-#define mini_select generate
-#define mini_rmdir generate
-#define mini_setgid generate
-#define mini_getpid generate
+#define mini_close generate
+#define mini_mkdir generate
+#define mini_link generate
 #define mini_setuid generate
-#define mini_read generate
-#define mini_execvpe generate
-#define mini_isatty generate
 #define mini_dup generate
 #define mini_access generate
-#define mini_pipe generate
-#define mini_open generate
+#define mini_tcgetattr generate
+#define mini_getpid generate
+#define mini_lseek generate
+#define mini_getuid generate
+#define mini_execvpe generate
+#define mini_getpgrp generate
+#define mini_read generate
+#define mini_rename generate
+#define mini_chown generate
+#define mini_unlink generate
+#define mini_setsid generate
+#define mini_write generate
+#define mini_setpgid generate
+#define mini_chroot generate
+#define mini_chdir generate
+#define mini_select generate
 #define mini_fork generate
 #define mini_sleep generate
-#define mini_close generate
-#define mini_write generate
+#define mini_rmdir generate
+#define mini_ftruncate generate
+#define mini_open generate
+#define mini_isatty generate
+#define mini_execvp generate
+#define mini_tcsetattr generate
+#define mini_pipe generate
+#define mini_setgid generate
+#define mini_getgid generate
+#define mini_execv generate
+#define mini_fsync generate
+#define mini_usleep generate
 #define mini_dup2 generate
-#define mini_mkdir generate
-#define mini_realloc generate
-#define mini_labs generate
-#define mini_malloc generate
-#define mini_getenv generate
-#define mini_rand generate
-#define mini_free generate
-#define mini_atol generate
-#define mini_abort generate
-#define mini_system generate
-#define mini_div generate
-#define mini_todo_putenv generate
-#define mini_ldiv generate
-#define mini_atoi generate
-#define mini_abs generate
-#define mini_strtol generate
-#define mini_srand generate
-#define mini_sigaction generate
-#define mini_sigprocmask generate
-#define mini_raise generate
-#define mini_sigdelset generate
-#define mini_sigfillset generate
-#define mini_signal generate
-#define mini_sigismember generate
-#define mini_sigaddset generate
-#define mini_sigemptyset generate
-#define mini_strchrnul generate
-#define mini_strncasecmp generate
-#define mini_strncmp generate
-#define mini_strdup generate
-#define mini_strrchr generate
-#define mini__strcmp generate
-#define mini__strcasecmp generate
-#define mini_memcpy generate
-#define mini_strerror generate
-#define mini_strchr generate
-#define mini_memcmp generate
-#define mini_strncpy generate
-#define mini_strstr generate
-#define mini_memset generate
-#define mini_strcat generate
-#define mini_strcasecmp generate
-#define mini_memmove generate
-#define mini_strlen generate
-#define mini_strcmp generate
-#define mini_strcpy generate
-#define mini_time generate
+#define mini__bind generate
+#define mini__tgkill generate
+#define mini__kcmp generate
+#define mini__getsockname generate
+#define mini__kexec_file_load generate
+#define mini__io_setup generate
+#define mini__alarm generate
+#define mini__fchmodat generate
+#define mini__sched_setscheduler generate
+#define mini__socket generate
+#define mini__syncfs generate
+#define mini__ioprio_get generate
+#define mini__vhangup generate
+#define mini__fstatfs generate
+#define mini__mq_open generate
+#define mini__unlinkat generate
+#define mini__lstat generate
+#define mini__setns generate
+#define mini__openat generate
+#define mini__gettimeofday generate
+#define mini__sched_yield generate
+#define mini__open_by_handle_at generate
+#define mini__pselect6 generate
+#define mini__process_vm_writev generate
+#define mini__sched_getaffinity generate
+#define mini__setrlimit generate
+#define mini__sched_setattr generate
+#define mini__fanotify_mark generate
+#define mini__signalfd generate
+#define mini__creat generate
+#define mini__acct generate
+#define mini__timer_settime generate
+#define mini___sysctl generate
+#define mini__uname generate
+#define mini__seccomp generate
+#define mini__sched_rr_get_interval generate
+#define mini__msgctl generate
+#define mini__recvmmsg generate
+#define mini__gettid generate
+#define mini__sched_get_priority_max generate
+#define mini__rt_sigtimedwait generate
+#define mini__tkill generate
+#define mini__kill generate
+#define mini__timer_gettime generate
+#define mini__sched_get_priority_min generate
+#define mini__fgetxattr generate
+#define mini__eventfd generate
+#define mini__connect generate
+#define mini__getdents generate
+#define mini__sched_setaffinity generate
+#define mini__poll generate
+#define mini__sched_getattr generate
+#define mini__lsetxattr generate
+#define mini__setfsgid generate
+#define mini__dup3 generate
+#define mini__setreuid generate
+#define mini__mprotect generate
+#define mini__sendmsg generate
+#define mini__getpgrp generate
+#define mini__rename generate
+#define mini__getrlimit generate
+#define mini__select generate
+#define mini__fork generate
+#define mini__clock_nanosleep generate
+#define mini__brk generate
+#define mini__sched_getscheduler generate
+#define mini__settimeofday generate
+#define mini__linkat generate
+#define mini__readlinkat generate
+#define mini__lseek generate
+#define mini__remap_file_pages generate
+#define mini__pause generate
+#define mini__fanotify_init generate
+#define mini__llistxattr generate
+#define mini__sync_file_range generate
+#define mini__io_cancel generate
+#define mini__msync generate
+#define mini__symlinkat generate
+#define mini__fremovexattr generate
+#define mini__getresuid generate
+#define mini__prctl generate
+#define mini__get_robust_list generate
+#define mini__getxattr generate
+#define mini__ftruncate generate
+#define mini__arch_prctl generate
+#define mini__semop generate
+#define mini__fchownat generate
+#define mini__io_submit generate
+#define mini__inotify_add_watch generate
+#define mini__mq_notify generate
+#define mini__socketpair generate
+#define mini__sendfile generate
+#define mini__setfsuid generate
+#define mini__madvise generate
+#define mini__setregid generate
+#define mini__setsockopt generate
+#define mini__syslog generate
+#define mini__sysfs generate
+#define mini__fstat generate
+#define mini__getpid generate
+#define mini__shmget generate
+#define mini__migrate_pages generate
+#define mini__fchdir generate
+#define mini__time generate
+#define mini__getppid generate
+#define mini__getpriority generate
+#define mini__getrusage generate
+#define mini__munmap generate
+#define mini__clock_gettime generate
+#define mini__process_vm_readv generate
+#define mini__getgroups generate
+#define mini__listxattr generate
+#define mini__mkdir generate
+#define mini__getitimer generate
+#define mini__kexec_load generate
+#define mini__set_tid_address generate
+#define mini__fallocate generate
+#define mini__finit_module generate
+#define mini__clock_settime generate
+#define mini__semget generate
+#define mini__setgroups generate
+#define mini__setitimer generate
+#define mini__flistxattr generate
+#define mini__chown generate
+#define mini__pwritev generate
+#define mini__getpeername generate
+#define mini__flock generate
+#define mini__rt_sigsuspend generate
+#define mini__lremovexattr generate
+#define mini__setpriority generate
+#define mini__splice generate
+#define mini__epoll_ctl generate
+#define mini__mbind generate
+#define mini__clone generate
+#define mini__timer_create generate
+#define mini__mq_unlink generate
+#define mini__close generate
+#define mini__rt_sigpending generate
+#define mini__read generate
+#define mini__semtimedop generate
+#define mini__getcpu generate
+#define mini__clock_getres generate
+#define mini__ptrace generate
+#define mini__sync generate
+#define mini__getsockopt generate
+#define mini__nanosleep generate
+#define mini__modify_ldt generate
+#define mini__epoll_wait generate
+#define mini__iopl generate
+#define mini__munlockall generate
+#define mini__mkdirat generate
+#define mini__lgetxattr generate
+#define mini__readahead generate
+#define mini__fdatasync generate
+#define mini__pivot_root generate
+#define mini__setxattr generate
+#define mini__set_robust_list generate
+#define mini__tee generate
+#define mini__ppoll generate
+#define mini__setresuid generate
+#define mini__fsetxattr generate
+#define mini__sysinfo generate
+#define mini__futex generate
+#define mini__recvmsg generate
+#define mini__renameat2 generate
+#define mini__access generate
+#define mini__rmdir generate
+#define mini__pipe generate
+#define mini__statfs generate
+#define mini__mknod generate
+#define mini__writev generate
+#define mini__renameat generate
+#define mini__waitid generate
+#define mini__request_key generate
+#define mini__futimesat generate
+#define mini__shmat generate
+#define mini__vfork generate
+#define mini__delete_module generate
+#define mini__mremap generate
+#define mini__sched_setparam generate
+#define mini__io_getevents generate
+#define mini__prlimit64 generate
+#define mini__getrandom generate
+#define mini__umount2 generate
+#define mini__capset generate
+#define mini__perf_event_open generate
+#define mini__truncate generate
+#define mini__fchmod generate
+#define mini__sethostname generate
+#define mini__faccessat generate
+#define mini__pread64 generate
+#define mini__mq_timedsend generate
+#define mini__mlockall generate
+#define mini__getegid generate
+#define mini__sched_getparam generate
+#define mini__timerfd_create generate
+#define mini__dup generate
+#define mini__unlink generate
+#define mini__mlock generate
+#define mini__mincore generate
+#define mini__mknodat generate
+#define mini__personality generate
+#define mini__eventfd2 generate
+#define mini__mq_timedreceive generate
+#define mini__capget generate
+#define mini__adjtimex generate
+#define mini__restart_syscall generate
+#define mini__lchown generate
+#define mini__utime generate
+#define mini__timerfd_settime generate
+#define mini__msgget generate
+#define mini__times generate
+#define mini__ioctl generate
+#define mini__chroot generate
+#define mini__umask generate
+#define mini__sendmmsg generate
+#define mini__rt_sigreturn generate
+#define mini__keyctl generate
+#define mini__exit_group generate
+#define mini__accept generate
+#define mini__shmdt generate
+#define mini__setuid generate
+#define mini__rt_sigaction generate
+#define mini__recvfrom generate
+#define mini__fcntl generate
+#define mini__get_mempolicy generate
+#define mini__inotify_init1 generate
+#define mini__mq_getsetattr generate
+#define mini__ustat generate
+#define mini__unshare generate
+#define mini__fadvise64 generate
+#define mini__exit generate
+#define mini__getpgid generate
+#define mini__swapoff generate
+#define mini__signalfd4 generate
+#define mini__getcwd generate
+#define mini__setgid generate
+#define mini__link generate
+#define mini__semctl generate
+#define mini__mmap generate
+#define mini__getresgid generate
+#define mini__rt_sigprocmask generate
+#define mini__preadv generate
+#define mini__quotactl generate
+#define mini__inotify_init generate
+#define mini__clock_adjtime generate
+#define mini__memfd_create generate
+#define mini__vmsplice generate
+#define mini__timer_getoverrun generate
+#define mini__name_to_handle_at generate
+#define mini__setsid generate
+#define mini__utimensat generate
+#define mini__ioprio_set generate
+#define mini__sigaltstack generate
+#define mini__mount generate
+#define mini__readlink generate
+#define mini__shutdown generate
+#define mini__timer_delete generate
+#define mini__getdents64 generate
+#define mini__stat generate
+#define mini__inotify_rm_watch generate
+#define mini__symlink generate
+#define mini__munlock generate
+#define mini__io_destroy generate
+#define mini__geteuid generate
+#define mini__getsid generate
+#define mini__pipe2 generate
+#define mini__sendto generate
+#define mini__wait4 generate
+#define mini__setdomainname generate
+#define mini__utimes generate
+#define mini__write generate
+#define mini__execve generate
+#define mini__msgsnd generate
+#define mini__move_pages generate
+#define mini__pwrite64 generate
+#define mini__epoll_pwait generate
+#define mini__fchown generate
+#define mini__epoll_create1 generate
+#define mini__open generate
+#define mini__msgrcv generate
+#define mini__setresgid generate
+#define mini__fsync generate
+#define mini__dup2 generate
+#define mini__reboot generate
+#define mini__rt_tgsigqueueinfo generate
+#define mini__ioperm generate
+#define mini__newfstatat generate
+#define mini__lookup_dcookie generate
+#define mini__rt_sigqueueinfo generate
+#define mini__add_key generate
+#define mini__setpgid generate
+#define mini__getgid generate
+#define mini__readv generate
+#define mini__init_module generate
+#define mini__timerfd_gettime generate
+#define mini__swapon generate
+#define mini__chdir generate
+#define mini__chmod generate
+#define mini__set_mempolicy generate
+#define mini__removexattr generate
+#define mini__epoll_create generate
+#define mini__listen generate
+#define mini__getuid generate
+#define mini__shmctl generate
+#define mini__accept4 generate
+#define mini_fprintf generate
+#define mini_fileno generate
+#define mini_setbuf generate
+#define mini_getc generate
+#define mini_fsetpos generate
+#define mini_getchar generate
+#define mini__itohex generate
+#define mini_freopen generate
+#define mini_sprintf generate
+#define mini_fgets generate
+#define mini_fflush generate
+#define mini_vfprintf generate
+#define mini_fputs generate
+#define mini_clearerror generate
+#define mini_fseek generate
+#define mini_ungetc generate
+#define mini_itohex generate
+#define mini_fopen generate
+#define mini_gets generate
+#define mini_fputc generate
+#define mini_perror generate
+#define mini_putchar generate
+#define mini_fread generate
+#define mini_fclose generate
+#define mini_ftell generate
+#define mini_fwrite generate
+#define mini_printf generate
+#define mini_putc generate
+#define mini_feof generate
+#define mini_ferror generate
+#define mini__fopen generate
+#define mini_fdopen generate
+#define mini_itoHEX generate
+#define mini_puts generate
+#define mini_clearerr generate
+#define mini_setvbuf generate
+#define mini_rewind generate
+#define mini_fgetpos generate
+#define mini_fgetc generate
+#define mini_fprint generate
 #define mini_opendir generate
 #define mini_readdir generate
 #define mini_closedir generate
+#define mini_atol generate
+#define mini_ldiv generate
+#define mini_todo_putenv generate
+#define mini_labs generate
+#define mini_free generate
+#define mini_srand generate
+#define mini_getenv generate
+#define mini_rand generate
+#define mini_atoi generate
+#define mini_strtol generate
+#define mini_div generate
+#define mini_malloc generate
+#define mini_abort generate
+#define mini_abs generate
+#define mini_realloc generate
+#define mini_system generate
 #define mini_mkfifo generate
 #define mini_creat generate
-#define mini_vfork generate
-#define mini_mremap generate
-#define mini_mount generate
-#define mini_chmod generate
-#define mini_getcwd generate
-#define mini_getitimer generate
-#define mini_kill generate
-#define mini_umask generate
-#define mini_mknod generate
-#define mini_utime generate
-#define mini_rt_sigprocmask generate
-#define mini_vhangup generate
-#define mini_getppid generate
-#define mini_sync generate
-#define mini_rt_sigreturn generate
-#define mini_rt_sigaction generate
-#define mini_fchmod generate
-#define mini_mprotect generate
-#define mini_getdents generate
-#define mini_sendfile generate
-#define mini_uname generate
-#define mini_nanosleep generate
-#define mini_memfd_create generate
-#define mini_gettimeofday generate
-#define mini_splice generate
-#define mini_readahead generate
-#define mini_pivot_root generate
-#define mini_fchown generate
-#define mini_stat generate
-#define mini_umount2 generate
-#define mini_symlink generate
-#define mini_setitimer generate
-#define mini_dup3 generate
-#define mini_reboot generate
-#define mini_wait4 generate
-#define mini_munmap generate
-#define mini_fcntl generate
-#define mini_execveat generate
-#define mini_fstat generate
-#define mini_sys_brk generate
-#define mini_ewrites generate
-#define mini_djb2_hash generate
-#define mini_vsnprintf generate
-#define mini_itobin generate
-#define mini_eprint generate
-#define mini__mprints generate
-#define mini_fprints generate
-#define mini_dprintf generate
-#define mini_fwrites generate
-#define mini_printsl generate
+#define mini_printl generate
+#define mini_ptsname generate
+#define mini_def generate
+#define mini_itodec generate
+#define mini_basename generate
 #define mini_brk generate
-#define mini_printfs generate
-#define mini_macro generate
-#define mini_verbose_errstr generate
 #define mini_posix_openpt generate
-#define mini_uitodec generate
+#define mini_printsl generate
+#define mini_vsnprintf generate
+#define mini__itobin generate
+#define mini_snprintf generate
+#define mini_fexecve generate
+#define mini_macro generate
+#define mini_ewrites generate
+#define mini_dirname generate
 #define mini_ptsname_r generate
 #define mini_writes generate
-#define mini_snprintf generate
-#define mini_prints generate
-#define mini_sbrk generate
-#define mini_ltodec generate
-#define mini_def generate
-#define mini_dirname generate
-#define mini_itodec generate
 #define mini_memfrob generate
-#define mini_sdbm_hash generate
-#define mini_basename generate
-#define mini_print generate
+#define mini_itobin generate
+#define mini_uitodec generate
+#define mini_prints generate
+#define mini_fwrites generate
 #define mini_unlockpt generate
-#define mini_ultodec generate
-#define mini_fprintfs generate
-#define mini_dtodec generate
-#define mini_grantpt generate
-#define mini__itobin generate
-#define mini_fexecveat generate
-#define mini_mmap generate
-#define mini_eprintfs generate
-#define mini_ptsname generate
-#define mini_printl generate
-#define mini_eprintl generate
+#define mini_printfs generate
 #define mini_eputs generate
-#define mini_fexecve generate
-#define mini_fputs generate
-#define mini_itoHEX generate
-#define mini_printf generate
-#define mini_fileno generate
-#define mini_fdopen generate
-#define mini_fread generate
-#define mini_fputc generate
-#define mini_perror generate
-#define mini_ferror generate
-#define mini_fflush generate
-#define mini_setvbuf generate
-#define mini_fclose generate
-#define mini_clearerr generate
-#define mini_itohex generate
-#define mini_clearerror generate
-#define mini_fwrite generate
-#define mini_sprintf generate
+#define mini_eprintfs generate
+#define mini_ultodec generate
+#define mini_grantpt generate
+#define mini_eprintl generate
+#define mini_fexecveat generate
+#define mini_dprintf generate
+#define mini__mprints generate
+#define mini_dtodec generate
+#define mini_mremap generate
+#define mini_sdbm_hash generate
+#define mini_verbose_errstr generate
+#define mini_fprintfs generate
+#define mini_sbrk generate
+#define mini_fprints generate
+#define mini_print generate
+#define mini_eprint generate
+#define mini_djb2_hash generate
+#define mini_mmap generate
+#define mini_sys_brk generate
+#define mini_ltodec generate
+#define mini_vfork generate
+#define mini_rt_sigaction generate
+#define mini_uname generate
+#define mini_memfd_create generate
+#define mini_mprotect generate
+#define mini_sendfile generate
+#define mini_munmap generate
+#define mini_dup3 generate
+#define mini_getdents generate
+#define mini_chmod generate
+#define mini_readahead generate
+#define mini_setitimer generate
+#define mini_mknod generate
+#define mini_splice generate
+#define mini_umount2 generate
+#define mini_utime generate
+#define mini_fchown generate
+#define mini_reboot generate
+#define mini_kill generate
+#define mini_fstat generate
+#define mini_getitimer generate
+#define mini_getppid generate
+#define mini_stat generate
+#define mini_fchmod generate
+#define mini_sync generate
+#define mini_fcntl generate
+#define mini_mount generate
+#define mini_wait4 generate
+#define mini_pivot_root generate
+#define mini_umask generate
+#define mini_execveat generate
+#define mini_rt_sigprocmask generate
+#define mini_symlink generate
+#define mini_getcwd generate
+#define mini_vhangup generate
+#define mini_nanosleep generate
+#define mini_gettimeofday generate
+#define mini_rt_sigreturn generate
+#define mini_sigaction generate
+#define mini_sigismember generate
+#define mini_signal generate
+#define mini_sigaddset generate
+#define mini_sigprocmask generate
+#define mini_sigdelset generate
+#define mini_raise generate
+#define mini_sigemptyset generate
+#define mini_sigfillset generate
+#define mini_time generate
+#define mini_strerror generate
+#define mini_strchrnul generate
+#define mini__strcasecmp generate
+#define mini__strcmp generate
+#define mini_strrchr generate
+#define mini_memcmp generate
 #define mini_errno_str generate
-#define mini_vfprintf generate
-#define mini_fgets generate
-#define mini_fgetc generate
-#define mini_getc generate
-#define mini_getchar generate
-#define mini_freopen generate
-#define mini_ftell generate
-#define mini_puts generate
-#define mini__itohex generate
-#define mini_fsetpos generate
-#define mini_fopen generate
-#define mini_setbuf generate
-#define mini_fprint generate
-#define mini_fseek generate
-#define mini_fprintf generate
-#define mini_feof generate
-#define mini__fopen generate
-#define mini_ungetc generate
-#define mini_gets generate
-#define mini_fgetpos generate
-#define mini_putc generate
-#define mini_rewind generate
-#define mini_putchar generate
+#define mini_strcmp generate
+#define mini_strncasecmp generate
+#define mini_memset generate
+#define mini_strncmp generate
+#define mini_memcpy generate
+#define mini_strlen generate
+#define mini_strstr generate
+#define mini_strcpy generate
+#define mini_strncpy generate
+#define mini_strcasecmp generate
+#define mini_strcat generate
+#define mini_strchr generate
+#define mini_strdup generate
+#define mini_memmove generate
 #define mini_ioctl generate
-#define mini__mq_notify generate
-#define mini__seccomp generate
-#define mini__signalfd generate
-#define mini__utimensat generate
-#define mini__epoll_wait generate
-#define mini__setrlimit generate
-#define mini__sysfs generate
-#define mini__getegid generate
-#define mini__renameat generate
-#define mini__mincore generate
-#define mini__geteuid generate
-#define mini__mq_open generate
-#define mini__fchmod generate
-#define mini__pipe generate
-#define mini__setsid generate
-#define mini__mq_timedreceive generate
-#define mini__clock_adjtime generate
-#define mini__newfstatat generate
-#define mini__lchown generate
-#define mini__renameat2 generate
-#define mini__times generate
-#define mini__request_key generate
-#define mini__nanosleep generate
-#define mini__statfs generate
-#define mini__fstatfs generate
-#define mini__eventfd2 generate
-#define mini__getpgid generate
-#define mini__getcpu generate
-#define mini__readlinkat generate
-#define mini__timerfd_gettime generate
-#define mini__semctl generate
-#define mini__personality generate
-#define mini__preadv generate
-#define mini__fremovexattr generate
-#define mini__pause generate
-#define mini__mmap generate
-#define mini__mq_timedsend generate
-#define mini__wait4 generate
-#define mini__fadvise64 generate
-#define mini__munlockall generate
-#define mini__flock generate
-#define mini__capget generate
-#define mini__move_pages generate
-#define mini__set_robust_list generate
-#define mini__mknod generate
-#define mini__setns generate
-#define mini___sysctl generate
-#define mini__openat generate
-#define mini__umask generate
-#define mini__getpid generate
-#define mini__name_to_handle_at generate
-#define mini__lstat generate
-#define mini__llistxattr generate
-#define mini__timer_delete generate
-#define mini__open generate
-#define mini__swapoff generate
-#define mini__lsetxattr generate
-#define mini__stat generate
-#define mini__linkat generate
-#define mini__vmsplice generate
-#define mini__munmap generate
-#define mini__clock_nanosleep generate
-#define mini__getxattr generate
-#define mini__socketpair generate
-#define mini__restart_syscall generate
-#define mini__migrate_pages generate
-#define mini__setitimer generate
-#define mini__getrandom generate
-#define mini__alarm generate
-#define mini__setpriority generate
-#define mini__chroot generate
-#define mini__link generate
-#define mini__kexec_load generate
-#define mini__vfork generate
-#define mini__chmod generate
-#define mini__shutdown generate
-#define mini__pwritev generate
-#define mini__setgroups generate
-#define mini__sched_get_priority_max generate
-#define mini__epoll_create generate
-#define mini__uname generate
-#define mini__msgrcv generate
-#define mini__getsockname generate
-#define mini__clone generate
-#define mini__set_mempolicy generate
-#define mini__timer_create generate
-#define mini__fgetxattr generate
-#define mini__ptrace generate
-#define mini__settimeofday generate
-#define mini__fallocate generate
-#define mini__setreuid generate
-#define mini__getresgid generate
-#define mini__syncfs generate
-#define mini__rename generate
-#define mini__recvfrom generate
-#define mini__readahead generate
-#define mini__fchmodat generate
-#define mini__splice generate
-#define mini__quotactl generate
-#define mini__ioprio_get generate
-#define mini__sched_yield generate
-#define mini__waitid generate
-#define mini__fcntl generate
-#define mini__rt_sigsuspend generate
-#define mini__mq_getsetattr generate
-#define mini__tkill generate
-#define mini__fanotify_mark generate
-#define mini__clock_getres generate
-#define mini__getgid generate
-#define mini__getcwd generate
-#define mini__mknodat generate
-#define mini__remap_file_pages generate
-#define mini__kill generate
-#define mini__listen generate
-#define mini__recvmsg generate
-#define mini__sched_getaffinity generate
-#define mini__mbind generate
-#define mini__pselect6 generate
-#define mini__getdents generate
-#define mini__getpgrp generate
-#define mini__swapon generate
-#define mini__exit_group generate
-#define mini__syslog generate
-#define mini__pivot_root generate
-#define mini__utimes generate
-#define mini__unshare generate
-#define mini__recvmmsg generate
-#define mini__eventfd generate
-#define mini__dup3 generate
-#define mini__epoll_create1 generate
-#define mini__faccessat generate
-#define mini__sched_rr_get_interval generate
-#define mini__execve generate
-#define mini__rmdir generate
-#define mini__mlock generate
-#define mini__signalfd4 generate
-#define mini__setuid generate
-#define mini__io_getevents generate
-#define mini__ioperm generate
-#define mini__shmget generate
-#define mini__msgsnd generate
-#define mini__msgctl generate
-#define mini__mprotect generate
-#define mini__setfsuid generate
-#define mini__sync generate
-#define mini__sched_setaffinity generate
-#define mini__getsockopt generate
-#define mini__acct generate
-#define mini__sigaltstack generate
-#define mini__read generate
-#define mini__getresuid generate
-#define mini__finit_module generate
-#define mini__lgetxattr generate
-#define mini__accept generate
-#define mini__mount generate
-#define mini__sched_getscheduler generate
-#define mini__fchownat generate
-#define mini__setresgid generate
-#define mini__epoll_ctl generate
-#define mini__io_submit generate
-#define mini__rt_sigaction generate
-#define mini__rt_sigpending generate
-#define mini__writev generate
-#define mini__capset generate
-#define mini__gettimeofday generate
-#define mini__vhangup generate
-#define mini__iopl generate
-#define mini__get_mempolicy generate
-#define mini__ppoll generate
-#define mini__fsync generate
-#define mini__sysinfo generate
-#define mini__rt_tgsigqueueinfo generate
-#define mini__adjtimex generate
-#define mini__write generate
-#define mini__delete_module generate
-#define mini__tgkill generate
-#define mini__chdir generate
-#define mini__lookup_dcookie generate
-#define mini__sched_setparam generate
-#define mini__sync_file_range generate
-#define mini__io_destroy generate
-#define mini__gettid generate
-#define mini__clock_gettime generate
-#define mini__add_key generate
-#define mini__fchdir generate
-#define mini__lseek generate
-#define mini__truncate generate
-#define mini__timerfd_create generate
-#define mini__reboot generate
-#define mini__setgid generate
-#define mini__select generate
-#define mini__sched_setattr generate
-#define mini__timer_getoverrun generate
-#define mini__listxattr generate
-#define mini__accept4 generate
-#define mini__keyctl generate
-#define mini__tee generate
-#define mini__readv generate
-#define mini__inotify_rm_watch generate
-#define mini__prlimit64 generate
-#define mini__sched_setscheduler generate
-#define mini__mkdir generate
-#define mini__getppid generate
-#define mini__setresuid generate
-#define mini__shmat generate
-#define mini__clock_settime generate
-#define mini__sched_getattr generate
-#define mini__bind generate
-#define mini__pread64 generate
-#define mini__sendfile generate
-#define mini__setsockopt generate
-#define mini__semget generate
-#define mini__semop generate
-#define mini__io_cancel generate
-#define mini__unlink generate
-#define mini__kexec_file_load generate
-#define mini__utime generate
-#define mini__sched_getparam generate
-#define mini__futimesat generate
-#define mini__process_vm_writev generate
-#define mini__fork generate
-#define mini__sethostname generate
-#define mini__dup2 generate
-#define mini__symlink generate
-#define mini__getuid generate
-#define mini__process_vm_readv generate
-#define mini__mremap generate
-#define mini__rt_sigtimedwait generate
-#define mini__readlink generate
-#define mini__brk generate
-#define mini__timerfd_settime generate
-#define mini__chown generate
-#define mini__setdomainname generate
-#define mini__getsid generate
-#define mini__time generate
-#define mini__access generate
-#define mini__poll generate
-#define mini__fchown generate
-#define mini__io_setup generate
-#define mini__arch_prctl generate
-#define mini__epoll_pwait generate
-#define mini__mlockall generate
-#define mini__pipe2 generate
-#define mini__getrlimit generate
-#define mini__get_robust_list generate
-#define mini__lremovexattr generate
-#define mini__msgget generate
-#define mini__madvise generate
-#define mini__inotify_add_watch generate
-#define mini__init_module generate
-#define mini__rt_sigqueueinfo generate
-#define mini__munlock generate
-#define mini__shmctl generate
-#define mini__sendmsg generate
-#define mini__rt_sigprocmask generate
-#define mini__sendto generate
-#define mini__setregid generate
-#define mini__memfd_create generate
-#define mini__ftruncate generate
-#define mini__exit generate
-#define mini__timer_gettime generate
-#define mini__futex generate
-#define mini__inotify_init1 generate
-#define mini__close generate
-#define mini__mq_unlink generate
-#define mini__ioctl generate
-#define mini__setpgid generate
-#define mini__fanotify_init generate
-#define mini__open_by_handle_at generate
-#define mini__fstat generate
-#define mini__sched_get_priority_min generate
-#define mini__kcmp generate
-#define mini__ioprio_set generate
-#define mini__setfsgid generate
-#define mini__semtimedop generate
-#define mini__fdatasync generate
-#define mini__socket generate
-#define mini__mkdirat generate
-#define mini__sendmmsg generate
-#define mini__getrusage generate
-#define mini__umount2 generate
-#define mini__getdents64 generate
-#define mini__fsetxattr generate
-#define mini__shmdt generate
-#define mini__flistxattr generate
-#define mini__getgroups generate
-#define mini__inotify_init generate
-#define mini__unlinkat generate
-#define mini__modify_ldt generate
-#define mini__symlinkat generate
-#define mini__timer_settime generate
-#define mini__creat generate
-#define mini__perf_event_open generate
-#define mini__prctl generate
-#define mini__getpriority generate
-#define mini__rt_sigreturn generate
-#define mini__dup generate
-#define mini__pwrite64 generate
-#define mini__removexattr generate
-#define mini__connect generate
-#define mini__msync generate
-#define mini__getitimer generate
-#define mini__set_tid_address generate
-#define mini__getpeername generate
-#define mini__ustat generate
-#define mini__setxattr generate
+#define mini_wait generate
+#define mini_waitpid generate
 // 1 "./minilib.h" 1
 // 17 "./minilib.h"
 #define included_minilib_h 
@@ -669,40 +669,10 @@ struct stat {
 #define st_atime st_atim.tv_sec
 #define st_mtime st_mtim.tv_sec
 #define st_ctime st_ctim.tv_sec
-#define S_IFMT 0170000
-#define S_IFDIR 0040000
-#define S_IFCHR 0020000
-#define S_IFBLK 0060000
-#define S_IFREG 0100000
-#define S_IFIFO 0010000
-#define S_IFLNK 0120000
-#define S_IFSOCK 0140000
 #define S_TYPEISMQ(buf) 0
 #define S_TYPEISSEM(buf) 0
 #define S_TYPEISSHM(buf) 0
 #define S_TYPEISTMO(buf) 0
-#define S_ISDIR(mode) (((mode) & S_IFMT) == S_IFDIR)
-#define S_ISCHR(mode) (((mode) & S_IFMT) == S_IFCHR)
-#define S_ISBLK(mode) (((mode) & S_IFMT) == S_IFBLK)
-#define S_ISREG(mode) (((mode) & S_IFMT) == S_IFREG)
-#define S_ISFIFO(mode) (((mode) & S_IFMT) == S_IFIFO)
-#define S_ISLNK(mode) (((mode) & S_IFMT) == S_IFLNK)
-#define S_ISSOCK(mode) (((mode) & S_IFMT) == S_IFSOCK)
-#define S_ISUID 04000
-#define S_ISGID 02000
-#define S_ISVTX 01000
-#define S_IRUSR 0400
-#define S_IWUSR 0200
-#define S_IXUSR 0100
-#define S_IRWXU 0700
-#define S_IRGRP 0040
-#define S_IWGRP 0020
-#define S_IXGRP 0010
-#define S_IRWXG 0070
-#define S_IROTH 0004
-#define S_IWOTH 0002
-#define S_IXOTH 0001
-#define S_IRWXO 0007
 #define UTIME_NOW 0x3fffffff
 #define UTIME_OMIT 0x3ffffffe
 // 5 "./minilib/headers/common/allheaders.h" 2
@@ -3572,7 +3542,6 @@ int volatile setsid( );
 int volatile setgid( gid_t gid );
 int volatile setuid( uid_t uid );
 int volatile vhangup( );
-int volatile mprotect( unsigned long int *a1, unsigned long int a2, int a3 );
 int volatile uname( struct old_utsname *name );
 int volatile execveat( int dirfd, const char *filename, char* const* argv, char* const* envp, int flags );
 int volatile mkdir( const char *pathname, int mode );
@@ -3586,8 +3555,8 @@ int volatile reboot( int magic1, int magic2, unsigned int cmd, void *arg );
 int volatile mount( char *dev_name, char *dir_name, char *type, unsigned long flags, void *data );
 int volatile rt_sigprocmask( int how, sigset_t *nset, sigset_t *oset, long sigsetsize );
 int volatile memfd_create( const char *uname_ptr, unsigned int flags );
-int volatile mremap( unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags, unsigned long new_addr );
 int volatile splice( int fd_in, loff_t *off_in, int fd_out, loff_t *off_out, long len, unsigned int flags );
+int volatile mprotect( unsigned long int *a1, unsigned long int a2, int a3 );
 int volatile pipe( int *filedes );
 int volatile umask( int mask );
 int volatile chmod( const char *filename, mode_t mode );
@@ -3604,7 +3573,7 @@ int volatile munmap( unsigned long addr, long len );
 int volatile setitimer( int which, struct itimerval *value, struct itimerval *ovalue );
 int volatile getitimer( int which, struct itimerval *value );
 int volatile time( unsigned int *a1 );
-// 211 "./minilib/include/syscall_stubs.h"
+// 215 "./minilib/include/syscall_stubs.h"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-conversion"
 #pragma GCC diagnostic pop
@@ -3822,17 +3791,14 @@ struct udiv_t { unsigned int quot, rem; };
 #define ERFKILL 132
 extern int errno;
 // 115 "./minilib.h" 2
-// 202 "./minilib.h"
-#define mini_errno 
-// 235 "./minilib.h"
-#define mini_tolower 
-// 616 "./minilib.h"
-#define mini_dprints 
-// 828 "./minilib.h"
+// 314 "./minilib.h"
 #define mini_0 
+// 665 "./minilib.h"
+#define mini_tolower 
+#define mini_dprints 
+// 696 "./minilib.h"
+#define mini_errno 
 // 969 "./minilib.h"
-void *memcpy( void *d, const void *s, int n );
-int _strcasecmp(const char*c1,const char*c2,int len);
 int fprintfs( FILE* F, char *fmt, ...);
 // 1 "./include/mini_fstream.h" 1
 #define mini_fstream_h 
@@ -3864,63 +3830,57 @@ static inline void clearerr(FILE *f);
 static inline void clearerror(FILE *f);
 static void setbuf(FILE *stream, char *buf);
 static int setvbuf(FILE *stream, char *buf, int mode, long size);
-// 985 "./minilib.h" 2
-// 1 "./minilib/include/fputc.h" 1
-#define fputc_c 
-static inline int volatile fputc(int c, FILE* F);
-// 986 "./minilib.h" 2
-// 994 "./minilib.h"
-// 1 "./minilib/include/mini_fstream.h" 1
-// 995 "./minilib.h" 2
+// 975 "./minilib.h" 2
 // 1 "./minilib/include/fputs.h" 1
 #define fputs_h 
 // 11 "./minilib/include/fputs.h"
 int strlen(const char*str);
 static int fileno(FILE*);
 static inline int volatile fputs(const char *c, FILE *F);
-// 1001 "./minilib.h" 2
+// 976 "./minilib.h" 2
+// 985 "./minilib.h"
+// 1 "./minilib/include/tcgetattr.h" 1
+#define tcgetattr_h 
+// 13 "./minilib/include/tcgetattr.h"
+int ioctl( int fd, unsigned long int request, ... );
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
+// 986 "./minilib.h" 2
+#define eprint(str) write(STDERR_FILENO,str,strlen(str))
 #define print(str) write(STDOUT_FILENO,str,strlen(str))
+// 1005 "./minilib.h"
+// 1 "./minilib/include/mini_fstream.h" 1
+// 1006 "./minilib.h" 2
+// 1020 "./minilib.h"
+char* fgets(char *buf, int size, FILE* F);
+// 1030 "./minilib.h"
+#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
+// 1040 "./minilib.h"
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+static inline int raise(int signr);
+// 1058 "./minilib.h"
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
+int volatile open( const char *s, int flags, ... );
+#define eprintl() write(STDERR_FILENO,"\n",1)
 // 1 "./minilib/include/fgetc.h" 1
 #define fgetc_h 
 // 11 "./minilib/include/fgetc.h"
 static inline int fgetc(FILE *F);
 // 35 "./minilib/include/fgetc.h"
 static int ungetc(int c, FILE *F);
-// 1012 "./minilib.h" 2
-int itodec(int i, char *buf, int prec, char limiter );
-char* fgets(char *buf, int size, FILE* F);
-void* volatile malloc(int size);
-#define prints(...) _mprints(__VA_ARGS__,0)
-// 1045 "./minilib.h"
-#define eprintl() write(STDERR_FILENO,"\n",1)
-#define printl() write(STDOUT_FILENO,"\n",1)
-// 1064 "./minilib.h"
-int _itohex(int i,char* buf,int padding, int capitals);
-char *strchrnul(const char *s, int c);
-// 1089 "./minilib.h"
-int strlen(const char*str);
-void volatile free(void* p);
+// 1075 "./minilib.h" 2
 char *strcpy(char *dest, const char *src);
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-static int execvpe(const char *file, char *const argv[], char *const envp[]);
-// 1119 "./minilib.h"
-#define fprintf(stream,...) write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
-// 1128 "./minilib.h"
-int _itobin(int i, char*buf, int prec, int groups );
-// 1138 "./minilib.h"
+int strlen(const char*str);
+char* getenv(const char* name);
+void *memcpy( void *d, const void *s, int n );
+// 1113 "./minilib.h"
+// 1 "./minilib/include/fputc.h" 1
+#define fputc_c 
+static inline int volatile fputc(int c, FILE* F);
+// 1114 "./minilib.h" 2
 int _strcmp(const char*c1,const char*c2,int len);
-// 1 "./minilib/include/tcgetattr.h" 1
-#define tcgetattr_h 
-// 13 "./minilib/include/tcgetattr.h"
-int ioctl( int fd, unsigned long int request, ... );
-static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
-// 1144 "./minilib.h" 2
+int _strcasecmp(const char*c1,const char*c2,int len);
 int dprintf( int fd, const char *fmt, ... );
 #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-#define eprint(str) write(STDERR_FILENO,str,strlen(str))
-int vsnprintf(char *buf, long size, const char* fmt, va_list args );
-#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
-#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
 // 1 "./minilib/include/lseek.h" 1
 #define mini_lseek_h 
 // 15 "./minilib/include/lseek.h"
@@ -3929,22 +3889,29 @@ extern int errno;
 int volatile lseek( unsigned int a1, int a2, int a3 );
 int volatile ftruncate( unsigned int a1, unsigned int a2 );
 int volatile fsync( int a1 );
-// 1179 "./minilib.h" 2
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
-char* strerror( int errnum );
-int volatile open( const char *s, int flags, ... );
-int snprintf( char *buf, long size, const char *fmt, ... );
-// 1207 "./minilib.h"
-static inline int raise(int signr);
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-int ptsname_r(int fd, char *buf, long len);
-// 1227 "./minilib.h"
+// 1139 "./minilib.h" 2
+static int execvpe(const char *file, char *const argv[], char *const envp[]);
 int volatile __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
-// 1237 "./minilib.h"
-char* getenv(const char* name);
+int ptsname_r(int fd, char *buf, long len);
+// 1163 "./minilib.h"
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+#define prints(...) _mprints(__VA_ARGS__,0)
+#define fprintf(stream,...) write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+void* volatile malloc(int size);
+// 1193 "./minilib.h"
+int _itohex(int i,char* buf,int padding, int capitals);
+#define printl() write(STDOUT_FILENO,"\n",1)
+// 1207 "./minilib.h"
+int itodec(int i, char *buf, int prec, char limiter );
+void volatile free(void* p);
+int vsnprintf(char *buf, long size, const char* fmt, va_list args );
+#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+char *strchrnul(const char *s, int c);
+int snprintf( char *buf, long size, const char *fmt, ... );
+char* strerror( int errnum );
 // 1247 "./minilib.h"
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-// 1258 "./minilib.h"
+int _itobin(int i, char*buf, int prec, int groups );
 // 1 "./minilib/include/syscalls_x64.h" 1
 #define syscalls_x64_h 
 int volatile ksys_read( unsigned int fd, char *buf, long count );
@@ -4253,138 +4220,35 @@ int volatile ksys_seccomp( unsigned int op, unsigned int flags, const char *uarg
 int volatile ksys_getrandom( char *buf, long count, unsigned int flags );
 int volatile ksys_memfd_create( const char *uname_ptr, unsigned int flags );
 int volatile ksys_kexec_file_load( int kernel_fd, int initrd_fd, unsigned long cmdline_len, const char *cmdline_ptr, unsigned long flags );
-// 1259 "./minilib.h" 2
-// 1313 "./minilib.h"
-int volatile creat( const char *s, int mode );
-// 1323 "./minilib.h"
-int posix_openpt(int flags);
-// 1333 "./minilib.h"
-static int brk( const void* addr );
-// 1343 "./minilib.h"
-int isatty(int fd);
-// 1388 "./minilib.h"
-int dtodec(double d, char* buf, int precision);
-// 1433 "./minilib.h"
-void abort();
-void* memfrob(void* s, unsigned int len);
-// 1463 "./minilib.h"
-// 1 "./minilib/include/math.h" 1
-#define mini_math_h 
-static div_t div(int numerator, int denominator);
-static ldiv_t ldiv(long int numerator, long int denominator);
-static int abs(int i);
-static long int labs(long int i);
-// 1464 "./minilib.h" 2
-// 1493 "./minilib.h"
-static void* __attribute__((optimize("O0"))) mmap(void* addr, long len, int prot, int flags, int fd, off_t off);
-// 1513 "./minilib.h"
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-// 1528 "./minilib.h"
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-// 1538 "./minilib.h"
-void srand( unsigned int i );
-// 1608 "./minilib.h"
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-// 1708 "./minilib.h"
-const char *errno_str(int err);
-// 1723 "./minilib.h"
-long atol(const char *c);
-// 1748 "./minilib.h"
-char *dirname(char *s);
-#define puts(msg) ( print(msg) + printl() )
-// 1768 "./minilib.h"
-unsigned int volatile sleep(unsigned int seconds);
-// 1793 "./minilib.h"
-void* realloc(void *p, int size);
-// 1808 "./minilib.h"
-unsigned long djb2_hash(const unsigned char *str);
-// 1818 "./minilib.h"
-pid_t wait(int *wstatus);
-// 1828 "./minilib.h"
-unsigned int rand();
-// 1853 "./minilib.h"
-int strcmp(const char*c1,const char*c2);
-// 1878 "./minilib.h"
-#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-// 1893 "./minilib.h"
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-// 1943 "./minilib.h"
-static inline int execvp(const char *file, char *const argv[]);
-// 1978 "./minilib.h"
-int itoHEX(int i,char* buf,int padding);
-// 1988 "./minilib.h"
-int ultodec(unsigned long ui, char *buf, int prec, char limiter );
-// 2013 "./minilib.h"
-char *basename(char *path);
-// 2043 "./minilib.h"
-FILE *fopen(const char* filename, const char* mode);
-// 2098 "./minilib.h"
-// 1 "./minilib/include/fexecveat.h" 1
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
-// 2099 "./minilib.h" 2
-static int sigemptyset(sigset_t *set);
-// 2113 "./minilib.h"
-#define putc(c,stream) fputc(c,stream)
-// 2133 "./minilib.h"
-FILE *fdopen(int fd, const char* mode);
-// 2163 "./minilib.h"
-int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
-// 2178 "./minilib.h"
-char* strstr(const char *big, const char *little);
-// 2208 "./minilib.h"
-// 1 "./minilib/include/errstr.h" 1
-#define ERRNO_MAX 133
-const char* verbose_errstr(int num);
-// 2209 "./minilib.h" 2
-// 2218 "./minilib.h"
-static void __attribute__((noipa)) optimization_fence(void*p){}
-// 2268 "./minilib.h"
-#define putchar(c) fputc(c,stdout)
-// 1 "./minilib/include/select.h" 1
-#define select_h 
-static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
-// 2274 "./minilib.h" 2
-// 2333 "./minilib.h"
-int strcasecmp(const char*c1,const char*c2);
-// 2348 "./minilib.h"
-#define vfprintf(...) fprintf(__VA_ARGS__)
-// 2358 "./minilib.h"
-static inline int execv(const char *pathname, char *const argv[]);
-// 2388 "./minilib.h"
-// 1 "./minilib/include/fexecve.h" 1
-static inline int fexecve(int fd, char *const argv[], char *const envp[]);
-// 2389 "./minilib.h" 2
-#define eputs(msg) ( eprint(msg) + eprintl() )
-// 2418 "./minilib.h"
-int system( const char* command );
-// 2478 "./minilib.h"
-sighandler_t signal(int sig, sighandler_t func );
-// 2488 "./minilib.h"
-void* memmove(void *dest, const void *src, int n);
-int sigaddset(sigset_t *set, int sig);
-// 2568 "./minilib.h"
-#define fprint(...) fprintf(__VA_ARGS__)
-// 2578 "./minilib.h"
-char *strncpy(char *dest, const char *src, int n);
-// 2618 "./minilib.h"
-struct dirent *readdir(DIR *dir);
-// 2638 "./minilib.h"
-char *strchr(const char *s, int c);
-int itohex(int i,char* buf,int padding);
-// 2693 "./minilib.h"
-static int sigfillset(sigset_t *set);
-// 2713 "./minilib.h"
-void *memset( void *s, int c, int n);
-int grantpt(int fd);
-// 2738 "./minilib.h"
-int strncmp(const char*c1,const char*c2,int len);
-// 2903 "./minilib.h"
-#define gets(F) fgets(F,0xfffffff,stdin)
-// 2928 "./minilib.h"
+// 1254 "./minilib.h" 2
+// 1263 "./minilib.h"
 unsigned int volatile usleep(unsigned int useconds);
-// 2948 "./minilib.h"
-DIR *opendir(const char *name);
-// 2958 "./minilib.h"
+// 1323 "./minilib.h"
+pid_t wait(int *wstatus);
+#define getc(F) fgetc(F)
+// 1338 "./minilib.h"
+void* realloc(void *p, int size);
+// 1363 "./minilib.h"
+int unlockpt(int fd);
+char *dirname(char *s);
+// 1388 "./minilib.h"
+char *strdup(const char *source);
+// 1428 "./minilib.h"
+int sigaddset(sigset_t *set, int sig);
+// 1463 "./minilib.h"
+void abort();
+// 1473 "./minilib.h"
+unsigned long sdbm_hash(const unsigned char *str);
+// 1488 "./minilib.h"
+#define eputs(msg) ( eprint(msg) + eprintl() )
+// 1503 "./minilib.h"
+static inline int execvp(const char *file, char *const argv[]);
+// 1583 "./minilib.h"
+char *strrchr(const char *s, int c);
+// 1613 "./minilib.h"
+int posix_openpt(int flags);
+// 1653 "./minilib.h"
+char *ptsname(int fd);
 // 1 "./minilib/macros/getoptm.h" 1
 #define mini_getoptm_h 
 #define DEF_OPTIONS_ENUM_short enum MINI_OPTIONS_short { a=0x1,b=0x2,c=0x4,d=0x8,e=0x10,f=0x20,g=0x40,h=0x80,i=0x100,j=0x200, k=0x400,l=0x800,m=0x1000,n=0x2000,o=0x4000,p=0x8000,q=0x10000,r=0x20000,s=0x40000, t=0x80000,u=0x100000,v=0x200000,w=0x400000,x=0x800000,y=0x1000000,z=0x2000000 };
@@ -4393,64 +4257,165 @@ DIR *opendir(const char *name);
 // 44 "./minilib/macros/getoptm.h"
 #define GETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts & option; } )
 #define SETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts = (opts | option); } )
-// 2959 "./minilib.h" 2
-static void* sbrk(int incr);
-// 2993 "./minilib.h"
-char *ptsname(int fd);
-// 3043 "./minilib.h"
-int closedir(DIR *dir);
-// 3083 "./minilib.h"
-#define getc(F) fgetc(F)
-char *strdup(const char *source);
-// 3098 "./minilib.h"
-int sigismember(sigset_t *set, int sig);
-// 3123 "./minilib.h"
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-// 3143 "./minilib.h"
-int strncasecmp(const char*c1,const char*c2,int len);
-// 3158 "./minilib.h"
-int todo_putenv( char *s );
-// 3173 "./minilib.h"
+// 1659 "./minilib.h" 2
+// 1688 "./minilib.h"
+int volatile creat( const char *s, int mode );
+// 1758 "./minilib.h"
+// 1 "./minilib/include/math.h" 1
+#define mini_math_h 
+static div_t div(int numerator, int denominator);
+static ldiv_t ldiv(long int numerator, long int denominator);
+static int abs(int i);
+static long int labs(long int i);
+// 1759 "./minilib.h" 2
+// 1768 "./minilib.h"
+// 1 "./minilib/include/mremap.h" 1
+static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, long old_len, long new_len, int flags, void* new_addr);
+// 1769 "./minilib.h" 2
+long int strtol(const char *c, const char **endp, int base);
+// 1803 "./minilib.h"
+unsigned long djb2_hash(const unsigned char *str);
+const char *errno_str(int err);
+// 1818 "./minilib.h"
 int ltodec(long i, char *buf, int prec, char limiter );
-// 3208 "./minilib.h"
-unsigned long sdbm_hash(const unsigned char *str);
-// 3218 "./minilib.h"
+// 1828 "./minilib.h"
+static long sys_brk(unsigned long addr);
+// 1843 "./minilib.h"
+void* memmove(void *dest, const void *src, int n);
+int itohex(int i,char* buf,int padding);
+// 1868 "./minilib.h"
+#define putc(c,stream) fputc(c,stream)
+// 1953 "./minilib.h"
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+// 1983 "./minilib.h"
+void* memfrob(void* s, unsigned int len);
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+// 2008 "./minilib.h"
+int memcmp(const void* c1,const void* c2,int len);
+// 2023 "./minilib.h"
+int strncasecmp(const char*c1,const char*c2,int len);
+// 2033 "./minilib.h"
+static int sigemptyset(sigset_t *set);
+// 2063 "./minilib.h"
+int itoHEX(int i,char* buf,int padding);
+int ultodec(unsigned long ui, char *buf, int prec, char limiter );
+// 2103 "./minilib.h"
+static void* sbrk(int incr);
+// 2153 "./minilib.h"
+static void __attribute__((noipa)) optimization_fence(void*p){}
+// 2188 "./minilib.h"
+int todo_putenv( char *s );
+long atol(const char *c);
+// 2233 "./minilib.h"
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+// 2263 "./minilib.h"
+static inline int execv(const char *pathname, char *const argv[]);
+// 2293 "./minilib.h"
+int strcasecmp(const char*c1,const char*c2);
+int closedir(DIR *dir);
+// 2313 "./minilib.h"
+char *strchr(const char *s, int c);
+// 2328 "./minilib.h"
+void srand( unsigned int i );
+#define fprints(F,str) write(fileno(F),str,strlen(str))
+// 2373 "./minilib.h"
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+// 2433 "./minilib.h"
+static int sigfillset(sigset_t *set);
+char *basename(char *path);
+// 2453 "./minilib.h"
+char *strcat(char *dest, const char *src );
+// 2483 "./minilib.h"
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+// 2513 "./minilib.h"
+int dtodec(double d, char* buf, int precision);
+// 2528 "./minilib.h"
 #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-// 3263 "./minilib.h"
+// 2538 "./minilib.h"
+int isatty(int fd);
+// 2578 "./minilib.h"
+unsigned int volatile sleep(unsigned int seconds);
+// 2608 "./minilib.h"
+#define vfprintf(...) fprintf(__VA_ARGS__)
+int atoi(const char *c);
+// 2643 "./minilib.h"
+static int brk( const void* addr );
+// 2658 "./minilib.h"
+#define putchar(c) fputc(c,stdout)
+// 2713 "./minilib.h"
+int sigismember(sigset_t *set, int sig);
+char* strstr(const char *big, const char *little);
+// 2733 "./minilib.h"
+void *memset( void *s, int c, int n);
+// 2788 "./minilib.h"
+void perror(const char *msg);
+sighandler_t signal(int sig, sighandler_t func );
+// 2813 "./minilib.h"
+int strncmp(const char*c1,const char*c2,int len);
+struct dirent *readdir(DIR *dir);
+// 1 "./minilib/include/fexecveat.h" 1
+static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+// 2824 "./minilib.h" 2
+// 2843 "./minilib.h"
+// 1 "./minilib/include/errstr.h" 1
+#define ERRNO_MAX 133
+const char* verbose_errstr(int num);
+// 2844 "./minilib.h" 2
+// 2863 "./minilib.h"
 // 1 "./minilib/include/mkfifo.h" 1
 static int mkfifo( const char* path, mode_t mode );
-// 3264 "./minilib.h" 2
-// 3273 "./minilib.h"
-int atoi(const char *c);
-// 3288 "./minilib.h"
-#define fprints(F,str) write(fileno(F),str,strlen(str))
-// 3303 "./minilib.h"
-char *strcat(char *dest, const char *src );
-// 3318 "./minilib.h"
-static long sys_brk(unsigned long addr);
-// 3383 "./minilib.h"
-int memcmp(const void* c1,const void* c2,int len);
-// 3398 "./minilib.h"
+// 2864 "./minilib.h" 2
+// 2878 "./minilib.h"
+int grantpt(int fd);
+// 2973 "./minilib.h"
+#define gets(F) fgets(F,0xfffffff,stdin)
+// 3008 "./minilib.h"
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+// 3078 "./minilib.h"
 #define fwrites(fd,str) write(fd,str,sizeof(str))
-// 3448 "./minilib.h"
-int unlockpt(int fd);
-// 3463 "./minilib.h"
-int sigdelset(sigset_t *set, int sig);
-// 3473 "./minilib.h"
-void perror(const char *msg);
-// 3505 "./minilib.h"
+// 3180 "./minilib.h"
 // 1 "./minilib/include/tcsetattr.h" 1
 #define tcsetattr_h 
 int ioctl( int fd, unsigned long int request, ... );
 // 20 "./minilib/include/tcsetattr.h"
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
-// 3506 "./minilib.h" 2
-// 3545 "./minilib.h"
-char *strrchr(const char *s, int c);
+// 3181 "./minilib.h" 2
+// 3225 "./minilib.h"
+#define fprint(...) fprintf(__VA_ARGS__)
+// 3235 "./minilib.h"
+int system( const char* command );
+// 3245 "./minilib.h"
+// 1 "./minilib/include/select.h" 1
+#define select_h 
+static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+// 3246 "./minilib.h" 2
+// 3300 "./minilib.h"
+// 1 "./minilib/include/fexecve.h" 1
+static inline int fexecve(int fd, char *const argv[], char *const envp[]);
+// 3301 "./minilib.h" 2
+// 3320 "./minilib.h"
+unsigned int rand();
+// 3410 "./minilib.h"
 #define getchar() fgetc(0)
+// 3445 "./minilib.h"
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+// 3455 "./minilib.h"
+FILE *fopen(const char* filename, const char* mode);
+// 3490 "./minilib.h"
+int strcmp(const char*c1,const char*c2);
+// 3510 "./minilib.h"
+FILE *fdopen(int fd, const char* mode);
+// 3535 "./minilib.h"
+#define puts(msg) ( print(msg) + printl() )
+// 3550 "./minilib.h"
+char *strncpy(char *dest, const char *src, int n);
 // 3565 "./minilib.h"
-long int strtol(const char *c, const char **endp, int base);
-// 527 "/dev/fd/63" 2
+static void* __attribute__((optimize("O0"))) mmap(void* addr, long len, int prot, int flags, int fd, off_t off);
+// 3585 "./minilib.h"
+DIR *opendir(const char *name);
+// 3600 "./minilib.h"
+int sigdelset(sigset_t *set, int sig);
+// 527 "/dev/fd/60" 2
 // 1 "<command-line>" 2
 // 1 "minilib.h"
 #endif

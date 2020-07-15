@@ -3,11 +3,13 @@ mini_start
 mini_writes
 mini_fwrites
 mini_perror
+mini_strerror
 mini_read
 mini_write
 mini_fprintfs
+mini_open
 
-LDSCRIPT default
+LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
 return
