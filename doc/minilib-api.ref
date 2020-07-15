@@ -11,10 +11,9 @@ f:itobin|D:#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VAR
 f:itodec|D:int itodec(int i, char *buf, int prec, char limiter );|c:conversions|
 f:itohex|D:int itohex(int i,char* buf,int padding);|c:conversions|
 f:ltodec|D:int ltodec(long i, char *buf, int prec, char limiter );|c:conversions|
+f:strtol|D:long int strtol(const char *c, const char **endp, int base);|c:conversions|
 f:uitodec|D:int uitodec(unsigned int i, char *buf, int prec, char limiter );|c:conversions|
 f:ultodec|D:int ultodec(unsigned long ui, char *buf, int prec, char limiter );|c:conversions|
-
-f:strtol|D:long int strtol(const char *c, const char **endp, int base);|c:u|
 
 #directories
 
@@ -61,15 +60,13 @@ f:link|D:link( const char *oldname, const char *newname)|c:files|
 f:lseek|D:lseek(unsigned int a1, int a2, int a3 )|c:files|
 f:open|D:int volatile open( const char *s, int flags, ... );|c:files|
 f:readahead|D:readahead( int fd,  loff_t offset,  size_t count)|c:files|
-
-f:umask|D:umask( int mask)|c:u|
-f:unlink|D:unlink( const char* path)|c:u|
-f:rename|D:rename( const char* oldpath, const char* newpath )|c:u|
-f:select|D:static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);|c:u|
-f:sendfile|D:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:u|
-f:stat|D:stat(const char* filename,struct stat* statbuf)		|c:u|
-
-f:symlink|D:symlink( const char *oldname,  const char *newname)|c:u|
+f:rename|D:rename( const char* oldpath, const char* newpath )|c:files|
+f:select|D:static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);|c:files|
+f:sendfile|D:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:files|
+f:stat|D:stat(const char* filename,struct stat* statbuf)		|c:files|
+f:symlink|D:symlink( const char *oldname,  const char *newname)|c:files|
+f:umask|D:umask( int mask)|c:files|
+f:unlink|D:unlink( const char* path)|c:files|
 
 #input
 
@@ -84,6 +81,8 @@ f:ungetc|D:static int ungetc(int c, FILE *F);|c:input|
 #ipc
 
 f:kill|D:kill( pid_t pid,  int sig)|c:ipc|
+f:mkfifo|D:static int mkfifo( const char* path, mode_t mode );|c:ipc|
+f:pipe|D:pipe( int *filedes)|c:ipc|
 f:raise|D:static inline int raise(int signr);|c:ipc|
 f:rt_sigaction|D:rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)|c:ipc|
 f:rt_sigprocmask|D:rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)|c:ipc|
@@ -99,10 +98,6 @@ f:sigprocmask|D:int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 f:wait|D:pid_t wait(int *wstatus);|c:ipc|
 f:wait4|D:wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)|c:ipc|
 f:waitpid|D:pid_t waitpid(pid_t pid, int *wstatus, int options);|c:ipc|
-f:mkfifo|D:static int mkfifo( const char* path, mode_t mode );|c:u|
-f:pipe|D:pipe( int *filedes)|c:u|
-
-
 
 #math
 
@@ -232,40 +227,38 @@ f:chroot|D:chroot( const char *filename)|c:system|
 f:getgid|D:DEF_syscall(getgid,0)|c:system|
 f:getuid|D:DEF_syscall(getuid,0)|c:system|
 f:ioctl|D:int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );|c:system|
+f:mknod|D:mknod( const char *filename,  umode_t mode,  unsigned dev)|c:system|
+f:mount|D:mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:system|
+f:pivot_root|D:pivot_root( const char *new_root,  const char *put_old)|c:system|
+f:reboot|D:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:system|
+f:setgid|D:setgid( gid_t gid)|c:system|
 f:setuid|D:setuid( uid_t uid)|c:system|
-f:pivot_root|D:pivot_root( const char *new_root,  const char *put_old)|c:u|
-f:reboot|D:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:u|
-f:setgid|D:setgid( gid_t gid)|c:u|
-f:mknod|D:mknod( const char *filename,  umode_t mode,  unsigned dev)|c:u|
-f:mount|D:mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:u|
-
-f:umount2|D:umount2( const char *mountpoint, int flags) |c:u|
-f:uname|D:uname(struct old_utsname *name )|c:u|
-f:sync|D:DEF_syscall(sync,0)|c:u|
+f:sync|D:DEF_syscall(sync,0)|c:system|
+f:umount2|D:umount2( const char *mountpoint, int flags) |c:system|
+f:uname|D:uname(struct old_utsname *name )|c:system|
 
 #terminal
 
 f:grantpt|D:int grantpt(int fd);|c:terminal|
 f:isatty|D:int isatty(int fd);|c:terminal|
+f:nanosleep|D:nanosleep( struct timespec *rqtp, struct timespec *rmtp)|c:terminal|
+f:posix_openpt|D:int posix_openpt(int flags);|c:terminal|
+f:ptsname|D:char *ptsname(int fd);|c:terminal|
+f:ptsname_r|D:int ptsname_r(int fd, char *buf, size_t len);|c:terminal|
 f:tcgetattr|D:static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);|c:terminal|
 f:tcsetattr|D:static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);|c:terminal|
 f:unlockpt|D:int unlockpt(int fd);|c:terminal|
 f:vhangup|D:DEF_syscall(vhangup,0 )|c:terminal|
-f:posix_openpt|D:int posix_openpt(int flags);|c:u|
-f:ptsname|D:char *ptsname(int fd);|c:u|
-f:ptsname_r|D:int ptsname_r(int fd, char *buf, size_t len);|c:u|
-f:nanosleep|D:nanosleep( struct timespec *rqtp, struct timespec *rmtp)|c:u|
-
 
 #time
 
 f:getitimer|D:getitimer( int which,  struct itimerval *value)|c:time|
 f:gettimeofday|D:gettimeofday( struct timeval *a1, struct timezone *a2)|c:time|
+f:setitimer|D:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:time|
+f:sleep|D:unsigned int volatile sleep(unsigned int seconds);|c:time|
 f:time|D:time(unsigned int *a1 )|c:time|
 f:usleep|D:unsigned int volatile usleep(unsigned int useconds);|c:time|
 f:utime|D:utime( const char *filename, struct utimbuf *times)|c:time|
-f:sleep|D:unsigned int volatile sleep(unsigned int seconds);|c:u|
-f:setitimer|D:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:u|
 
 #u
 
@@ -579,4 +572,3 @@ f:ksys_writev|D:|c:u|
 f:macro|D:static void __attribute__((noipa)) optimization_fence(void*p){}|c:u|
 f:todo_abort|D:void todo_abort();|c:u|
 f:todo_putenv|D:int todo_putenv( char *s );|c:u|
-
