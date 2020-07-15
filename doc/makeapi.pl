@@ -20,7 +20,7 @@ foreach my $l ( <A> ){
 		my $h;
 		if ( $l =~ /^f:(.*?)\|/ ){
 				my $f = $1;
-				if ( ($l =~ /\|c:(.*?)\|/) && ( $1 ne "unsorted") ){
+				if ( ($l =~ /\|c:(.*?)\|/) && ( $1 ne "unsorted") && ( $1 ne "u" ) ){
 						$api->{$f}->{c} = $1;
 						$categorized->{$1}->{$f} = 1;
 				} else {
