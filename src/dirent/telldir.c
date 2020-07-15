@@ -1,7 +1,4 @@
-#include <dirent.h>
-#include "__dirent.h"
-
-long telldir(DIR *dir)
-{
-	return dir->tell;
+//+def
+long telldir(DIR *dir){
+	return(dir->tell);
 }

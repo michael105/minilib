@@ -16,11 +16,27 @@ closedir       int closedir(DIR *dir);
 
 opendir        DIR *opendir(const char *name);
 
-               (src/dirent/opendir.c: 10)
+               (src/dirent/opendir.c: 9)
 
 readdir        struct dirent *readdir(DIR *dir);
 
-               (src/dirent/readdir.c: 10)
+               read a directory.
+              return the next dirent, or 0, if the end is reached.
+              return -1 on error and set errno,
+              if mini_errno is not defined, return -errno
+               (src/dirent/readdir.c: 9)
+
+rewinddir      void rewinddir(DIR *dir);
+
+               (src/dirent/rewinddir.c: 2)
+
+seekdir        void seekdir(DIR *dir, long off);
+
+               (src/dirent/seekdir.c: 2)
+
+telldir        long telldir(DIR *dir);
+
+               (src/dirent/telldir.c: 2)
 
 
 
@@ -77,6 +93,10 @@ def            #define SETOPT_short( opts, option ) (;
                Set a option flag(s) (bit(s))  manually.
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
                (macros/getoptm.h: 52)
+
+dirfd          int dirfd(DIR *d);
+
+               (src/dirent/dirfd.c: 5)
 
 dirname        char *dirname(char *s);
 

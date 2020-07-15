@@ -1,6 +1,5 @@
 #ifndef opendir_c
 #define opendir_c
-#include "dirent.h"
 
 
 

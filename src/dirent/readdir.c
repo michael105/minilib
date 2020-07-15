@@ -1,28 +1,33 @@
 #ifndef readdir_c
 #define readdir_c
 
-#include <dirent.h>
-//typedef char dirstream_buf_alignment_check[1-2*(int)(
-//	offsetof(struct __dirstream, buf) % sizeof(off_t))];
-
-//+depends errno
+//+doc read a directory.
+// return the next dirent, or 0, if the end is reached.
+// return -1 on error and set errno,
+// if mini_errno is not defined, return -errno
 //+def
 struct dirent *readdir(DIR *dir){
-	struct dirent *de;
-	
-	if (dir->buf_pos >= dir->buf_end) {
-		int len = getdents( dir->fd, (struct dirent*) dir->buf, sizeof dir->buf);
-		if (len <= 0) {
-			if (len < 0 && len != -ENOENT) errno = -len;
-			return 0;
+		struct dirent *de;
+
+		if (dir->buf_pos >= dir->buf_end) {
+				int len = getdents( dir->fd, (struct dirent*) dir->buf, sizeof(dir->buf));
+				if (len <= 0) {
+#ifdef mini_errno
+						if (len < 0 && len != -ENOENT){
+								errno = -len;
+								len = -1;
+						}
+#endif
+						return(len);
+
+				}
+				dir->buf_end = len;
+				dir->buf_pos = 0;
 		}
-		dir->buf_end = len;
-		dir->buf_pos = 0;
-	}
-	de = (void *)(dir->buf + dir->buf_pos);
-	dir->buf_pos += de->d_reclen;
-	dir->tell = de->d_off;
-	return de;
+		de = (void *)(dir->buf + dir->buf_pos);
+		dir->buf_pos += de->d_reclen;
+		dir->tell = de->d_off;
+		return de;
 }
 
 

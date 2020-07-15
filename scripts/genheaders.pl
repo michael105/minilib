@@ -489,6 +489,7 @@ dbgdump( $bsdmanpage );
 
 # write doc
 open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref.asc" ) or die;
+open( API, ">", "$mlibdir/doc/minilib-api.in" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref.asc.top" );
@@ -505,38 +506,52 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
 				if ( exists($syscallsysdefs->{$f} ) ){
 						printf FDOC "ksys%s::\n\n ",$f;
+						printf API "f:ksys%s|",$f;
 				} else {
 						printf FDOC "%s::\n\n ",$f;
+						printf API "f:%s|",$f;
 				}
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
 				if ( exists($funchash->{$f}->{def}) ){
 								print FDOC " $funchash->{$f}->{def} +\n ";
+								my $s =$funchash->{$f}->{def};
+								chomp $s;
+								print API "D:$s|";
 						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
 						my $s = "$syscalldefs->{$f}->{def}";
 						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
 						print FDOC " $s +\n";
+						chomp $s;
+						print API "k|D:$s|";
 						print FDOC " Returns: $2 +\n" if ( $2 );
+						print API "R:$2|" if ( $2 );
 				}
 				if ( exists($depends->{$f}) ){  
 						print FDOC " Defines: ".join(" ",keys(%{$fulldepends->{$f}}))," +\n";
+						print API "d:".join(" ",keys(%{$fulldepends->{$f}})),"|";
 				}
 
 				print FDOC " (link:../"."$1"."[../$1]"." l.$funchash->{$f}->{line}) ";
+				print API "l:../"."$1"."[../$1]"." l.$funchash->{$f}->{line}|";
 				if ( exists($bsdmanpage{$f}) ){
 						print FDOC "manpage: link:manpages/$bsdmanpage{$f}.rst"."[$f] +\n";
+						print API "m:manpages/$bsdmanpage{$f}.rst"."[$f]|";
 				}	else {
 						print FDOC " +\n";
 				}
 				if ( exists($funchash->{$f}->{doc} ) ){
 						print FDOC "",join(" +\n ", split( "\n", $funchash->{$f}->{doc}) )," +\n ";
+						print API "o:",join(":+:", split( "\n", $funchash->{$f}->{doc}) ),"|";
 						#print FDOC "               $funchash->{$f}->{doc}\n";
 				}
 				print FDOC "\n\n";
+				print API "|#\n";
 		}
 }
 
+close API;
 close FDOC;
 
 # write doc

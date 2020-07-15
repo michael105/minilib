@@ -135,12 +135,24 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        DIR *opendir(const char *name);
-               Defines: malloc open close
-               (src/dirent/opendir.c: 10)
+               Defines: close open malloc
+               (src/dirent/opendir.c: 9)
 
 readdir        struct dirent *readdir(DIR *dir);
-               Defines: errno
-               (src/dirent/readdir.c: 10)
+               (src/dirent/readdir.c: 9)
+               read a directory.
+              return the next dirent, or 0, if the end is reached.
+              return -1 on error and set errno,
+              if mini_errno is not defined, return -errno
+
+rewinddir      void rewinddir(DIR *dir);
+               (src/dirent/rewinddir.c: 2)
+
+seekdir        void seekdir(DIR *dir, long off);
+               (src/dirent/seekdir.c: 2)
+
+telldir        long telldir(DIR *dir);
+               (src/dirent/telldir.c: 2)
 
 
 
@@ -193,6 +205,9 @@ def            #define SETOPT_short( opts, option ) (;
                Set a option flag(s) (bit(s))  manually.
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
 
+dirfd          int dirfd(DIR *d);
+               (src/dirent/dirfd.c: 5)
+
 dirname        char *dirname(char *s);
                Defines: strlen
                (src/dirname.c: 8)
@@ -221,7 +236,7 @@ eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
                write str to stderr. Needs strlen
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-               Defines: strlen fileno write
+               Defines: fileno strlen write
                (include/prints.h: 83)
                write str to stderr. 
               only format %s is recognized
@@ -253,7 +268,7 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
                prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: write fileno strlen
+               Defines: fileno write strlen
                (include/prints.h: 17)
                print the string(s) supplied as arg(s) to stream
 
@@ -319,12 +334,12 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 31)
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: fileno write strlen
+               Defines: write strlen fileno
                (include/prints.h: 77)
                write str to stdout. 
               only format %s is recognized
@@ -345,11 +360,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: open write ioctl uitodec
+               Defines: uitodec open ioctl write
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: open write ioctl uitodec
+               Defines: open uitodec ioctl write
                (src/pty.c: 27)
 
 sbrk           static void* sbrk(int incr);
@@ -1063,7 +1078,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: close open fileno
+               Defines: fileno close open
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1081,7 +1096,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: fileno open close
+               Defines: fileno close open
                (src/fopen.c: 90)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1096,7 +1111,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1104,7 +1119,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 6)
 
 fileno         static int fileno( FILE *f );
@@ -1112,12 +1127,12 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: close fileno open
+               Defines: open close fileno
                (src/fopen.c: 80)
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
@@ -1125,7 +1140,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
                (src/sprintf.c: 245)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
@@ -1137,7 +1152,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
                (include/mini_fstream.h: 162)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
-               Defines: close open fileno
+               Defines: close fileno open
                (src/fopen.c: 100)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1158,7 +1173,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
@@ -1166,7 +1181,7 @@ getchar        #define getchar() fgetc(0)
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 29)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -1178,7 +1193,7 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: strlen errno write strerror fileno
+               Defines: fileno strlen write errno strerror
                (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)

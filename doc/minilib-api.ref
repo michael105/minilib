@@ -4,37 +4,70 @@
 f:_fopen|D:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);|c:files|
 f:access|D:access( const char *filename, int mode)|c:files|
 f:close|D:close( int fd )|c:files|
-f:closedir|D:int closedir(DIR *dir);|c:files|
 f:creat|D:int volatile creat( const char *s, int mode );|c:files|
+f:chmod|D:chmod( const char *filename, mode_t mode)|c:unsorted|
+f:chown|D:chown( const char *filename, uid_t user, gid_t group)|c:unsorted|
+
+#directories
+f:closedir|D:int closedir(DIR *dir);|c:files|
 
 #memory
 
 f:brk|D:static int brk( const void* addr );|c:memory|
 
-#unsorted
+#streams
 
+f:clearerr|D:static inline void clearerr(FILE *f);|c:streams|
+f:clearerror|D:static inline void clearerror(FILE *f);|c:streams|
+f:fdopen|D:FILE *fdopen(int fd, const char* mode);|c:streams|
+f:feof|D:static inline int feof(FILE *f);|c:streams|
+f:ferror|D:static inline int ferror(FILE *f);|c:streams|
+f:fflush|D:static inline int __attribute__((always_inline)) fflush( FILE *F );|c:streams|
+f:fgetpos|D:static inline void fgetpos(FILE *f, long *pos );|c:streams|
+f:fileno|D:static int fileno( FILE *f );|c:streams|
+f:fopen|D:FILE *fopen(const char* filename, const char* mode);|c:streams|
+f:fputs|D:static inline int volatile fputs(const char *c, FILE *F);|c:streams|
+f:fread|D:static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);|c:streams|
+f:freopen|D:FILE *freopen(const char* filename, const char* mode, FILE *F);|c:streams|
+f:fseek|D:static inline int fseek(FILE *f, long offset, int whence );|c:streams|
+f:fsetpos|D:static inline int fsetpos(FILE *f, int pos );|c:streams|
+f:ftell|D:static inline long ftell(FILE *f);|c:streams|
+f:fwrite|D:static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);|c:streams|
+f:rewind|D:static inline void rewind( FILE *f );|c:streams|
+f:setbuf|D:static void setbuf(FILE *stream, char *buf);|c:streams|
+f:setvbuf|D:static int setvbuf(FILE *stream, char *buf, int mode, size_t size);|c:streams|
+
+#input
+f:ungetc|D:static int ungetc(int c, FILE *F);|c:streams|
+f:fgetc|D:static inline int fgetc(FILE *F);|c:streams|
+
+#conversions
+
+f:atoi|D:int atoi(const char *c);|c:unsorted|
+f:atol|D:long atol(const char *c);|c:unsorted|
 f:_itobin|D:int _itobin(int i, char*buf, int prec, int groups );|c:unsorted|
 f:_itohex|D:int _itohex(int i,char* buf,int padding, int capitals);|c:unsorted|
+
+f:dtodec|D:int dtodec(double d, char* buf, int precision);|c:unsorted|
+
+#math
+
+f:div|D:static div_t div(int numerator, int denominator);|c:unsorted|
+
+#u
+
 f:_mprints|D:#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)|c:unsorted|
 f:_strcasecmp|D:int _strcasecmp(const char*c1,const char*c2,int len);|c:unsorted|
 f:_strcmp|D:int _strcmp(const char*c1,const char*c2,int len);|c:unsorted|
 f:abs|D:static int abs(int i);|c:unsorted|
-f:atoi|D:int atoi(const char *c);|c:unsorted|
-f:atol|D:long atol(const char *c);|c:unsorted|
 f:basename|D:char *basename(char *path);|c:unsorted|
 f:chdir|D:chdir(const char* path)|c:unsorted|
-f:chmod|D:chmod( const char *filename, mode_t mode)|c:unsorted|
-f:chown|D:chown( const char *filename, uid_t user, gid_t group)|c:unsorted|
 f:chroot|D:chroot( const char *filename)|c:unsorted|
-f:clearerr|D:static inline void clearerr(FILE *f);|c:unsorted|
-f:clearerror|D:static inline void clearerror(FILE *f);|c:unsorted|
 f:def|D:#define SETOPT_short( opts, option ) (;|c:unsorted|
 f:dirfd|D:int dirfd(DIR *d);|c:unsorted|
 f:dirname|D:char *dirname(char *s);|c:unsorted|
-f:div|D:static div_t div(int numerator, int denominator);|c:unsorted|
 f:djb2_hash|D:unsigned long djb2_hash(const unsigned char *str);|c:unsorted|
 f:dprintf|D:int dprintf( int fd, const char *fmt, ... );|c:unsorted|
-f:dtodec|D:int dtodec(double d, char* buf, int precision);|c:unsorted|
 f:dup|D:dup(int fd)		|c:unsorted|
 f:dup2|D:dup2(int oldfd, int newfd)		|c:unsorted|
 f:dup3|D:dup3(int oldfd, int newfd, int flags)		|c:unsorted|
@@ -53,34 +86,19 @@ f:fchmod|D:fchmod( unsigned int fd, mode_t mode)|c:unsorted|
 f:fchown|D:fchown( unsigned int fd, uid_t user, gid_t group)|c:unsorted|
 f:fclose|D:static inline int __attribute__((always_inline)) fclose( FILE* f );|c:unsorted|
 f:fcntl|D:fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)|c:unsorted|
-f:fdopen|D:FILE *fdopen(int fd, const char* mode);|c:unsorted|
-f:feof|D:static inline int feof(FILE *f);|c:unsorted|
-f:ferror|D:static inline int ferror(FILE *f);|c:unsorted|
 f:fexecve|D:static inline int fexecve(int fd, char *const argv[], char *const envp[]);|c:unsorted|
 f:fexecveat|D:static inline int fexecveat(int fd, char *const argv[], char *const envp[]);|c:unsorted|
-f:fflush|D:static inline int __attribute__((always_inline)) fflush( FILE *F );|c:unsorted|
-f:fgetc|D:static inline int fgetc(FILE *F);|c:unsorted|
-f:fgetpos|D:static inline void fgetpos(FILE *f, long *pos );|c:unsorted|
 f:fgets|D:char* fgets(char *buf, int size, FILE* F);|c:unsorted|
-f:fileno|D:static int fileno( FILE *f );|c:unsorted|
-f:fopen|D:FILE *fopen(const char* filename, const char* mode);|c:unsorted|
 f:fork|D:DEF_syscall(fork,0)|c:unsorted|
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|c:unsorted|
 f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))|c:unsorted|
 f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...);|c:unsorted|
 f:fprints|D:#define fprints(F,str) write(fileno(F),str,strlen(str))|c:unsorted|
 f:fputc|D:static inline int volatile fputc(int c, FILE* F);|c:unsorted|
-f:fputs|D:static inline int volatile fputs(const char *c, FILE *F);|c:unsorted|
-f:fread|D:static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);|c:unsorted|
 f:free|D:void volatile free(void* p);|c:unsorted|
-f:freopen|D:FILE *freopen(const char* filename, const char* mode, FILE *F);|c:unsorted|
-f:fseek|D:static inline int fseek(FILE *f, long offset, int whence );|c:unsorted|
-f:fsetpos|D:static inline int fsetpos(FILE *f, int pos );|c:unsorted|
 f:fstat|D:fstat(int fd,struct stat* statbuf)|c:unsorted|
 f:fsync|D:fsync(int a1 )|c:unsorted|
-f:ftell|D:static inline long ftell(FILE *f);|c:unsorted|
 f:ftruncate|D:ftruncate(unsigned int a1, unsigned int a2 )|c:unsorted|
-f:fwrite|D:static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);|c:unsorted|
 f:fwrites|D:#define fwrites(fd,str) write(fd,str,sizeof(str))|c:unsorted|
 f:getc|D:#define getc(F) fgetc(F)|c:unsorted|
 f:getchar|D:#define getchar() fgetc(0)|c:unsorted|
@@ -456,7 +474,6 @@ f:readdir|D:struct dirent *readdir(DIR *dir);|c:unsorted|
 f:realloc|D:void* realloc(void *p, int size);|c:unsorted|
 f:reboot|D:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:unsorted|
 f:rename|D:rename( const char* oldpath, const char* newpath )|c:unsorted|
-f:rewind|D:static inline void rewind( FILE *f );|c:unsorted|
 f:rewinddir|D:void rewinddir(DIR *dir);|c:unsorted|
 f:rmdir|D:rmdir( const char *pathname)|c:unsorted|
 f:rt_sigaction|D:rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)|c:unsorted|
@@ -467,13 +484,11 @@ f:sdbm_hash|D:unsigned long sdbm_hash(const unsigned char *str);|c:unsorted|
 f:seekdir|D:void seekdir(DIR *dir, long off);|c:unsorted|
 f:select|D:static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);|c:unsorted|
 f:sendfile|D:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:unsorted|
-f:setbuf|D:static void setbuf(FILE *stream, char *buf);|c:unsorted|
 f:setgid|D:setgid( gid_t gid)|c:unsorted|
 f:setitimer|D:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:unsorted|
 f:setpgid|D:setpgid( pid_t pid, pid_t pgid)|c:unsorted|
 f:setsid|D:DEF_syscall(setsid,0 )|c:unsorted|
 f:setuid|D:setuid( uid_t uid)|c:unsorted|
-f:setvbuf|D:static int setvbuf(FILE *stream, char *buf, int mode, size_t size);|c:unsorted|
 f:sigaction|D:static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);|c:unsorted|
 f:sigaddset|D:int sigaddset(sigset_t *set, int sig);|c:unsorted|
 f:sigdelset|D:int sigdelset(sigset_t *set, int sig);|c:unsorted|
@@ -518,7 +533,6 @@ f:ultodec|D:int ultodec(unsigned long ui, char *buf, int prec, char limiter );|c
 f:umask|D:umask( int mask)|c:unsorted|
 f:umount2|D:umount2( const char *mountpoint, int flags) |c:unsorted|
 f:uname|D:uname(struct old_utsname *name )|c:unsorted|
-f:ungetc|D:static int ungetc(int c, FILE *F);|c:unsorted|
 f:unlink|D:unlink( const char* path)|c:unsorted|
 f:unlockpt|D:int unlockpt(int fd);|c:unsorted|
 f:usleep|D:unsigned int volatile usleep(unsigned int useconds);|c:unsorted|

@@ -99,6 +99,15 @@ DIR *opendir(const char *name);
 // file: minilib/src/dirent/readdir.c
 struct dirent *readdir(DIR *dir);
 
+// file: minilib/src/dirent/rewinddir.c
+void rewinddir(DIR *dir);
+
+// file: minilib/src/dirent/seekdir.c
+void seekdir(DIR *dir, long off);
+
+// file: minilib/src/dirent/telldir.c
+long telldir(DIR *dir);
+
 
 
 #include "include/minilib_global.h"
@@ -107,8 +116,11 @@ struct dirent *readdir(DIR *dir);
 #ifdef mini_INCLUDESRC
 
 #include "minilib/src/dirent/opendir.c"
-#include "minilib/src/dirent/closedir.c"
 #include "minilib/src/dirent/readdir.c"
+#include "minilib/src/dirent/telldir.c"
+#include "minilib/src/dirent/rewinddir.c"
+#include "minilib/src/dirent/closedir.c"
+#include "minilib/src/dirent/seekdir.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

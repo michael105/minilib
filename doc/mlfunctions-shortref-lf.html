@@ -355,7 +355,9 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
  		param options: e.g. just a, or ( a+h+l) to check for several flags at once
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  8 </small></td><td><small> char *dirname(char *s);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">dirfd</a></small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  5 </small></td><td><small> int dirfd(DIR *d);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../src/dirent/dirfd.c" target="right">../src/dirent/dirfd.c</a>  8 </small></td><td><small> char *dirname(char *s);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/div.3.rst.html">div</a></small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  8 </small></td><td><small>  div_t div(int numerator, int denominator);
 </small></td></tr>
@@ -606,7 +608,7 @@
   flags will be random. (I still do not know, what 
   the flag showing up as "-T" means..)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small> DIR *opendir(const char *name);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  9 </small></td><td><small> DIR *opendir(const char *name);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
@@ -653,8 +655,12 @@
 </small></td></tr>
 <tr valign="top"><td><small>readahead</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  191 </small></td><td><small> readahead( int fd,  loff_t offset,  size_t count)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> struct dirent *readdir(DIR *dir);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
+</small></td></tr><tr><td></td><td colspan="2"><small>read a directory.
+  return the next dirent, or 0, if the end is reached.
+  return -1 on error and set errno,
+  if mini_errno is not defined, return -errno
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  159 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
@@ -663,7 +669,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  156 </small></td><td><small>   void rewind( FILE *f );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/rmdir.2.rst.html">rmdir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  155 </small></td><td><small> rmdir( const char *pathname)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">rewinddir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  2 </small></td><td><small> void rewinddir(DIR *dir);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/rmdir.2.rst.html">rmdir</a></small></td><td><small>   <a href="../src/dirent/rewinddir.c" target="right">../src/dirent/rewinddir.c</a>  155 </small></td><td><small> rmdir( const char *pathname)
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigaction</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  134 </small></td><td><small> rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 </small></td></tr>
@@ -679,7 +687,9 @@
  </small></td></tr>
 <tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  9 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/dirent/seekdir.c" target="right">../src/dirent/seekdir.c</a>  9 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  161 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
@@ -775,7 +785,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../include/tcgetattr.h" target="right">../include/tcgetattr.h</a>  20 </small></td><td><small>   int ) tcsetattr(int fd, int opt, const struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  203 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  2 </small></td><td><small> long telldir(DIR *dir);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  203 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>todo_abort</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void todo_abort();
 </small></td></tr>
