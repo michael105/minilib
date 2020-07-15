@@ -27,9 +27,13 @@ foreach my $l ( <A> ){
 						$api->{$f}->{c} = $cat;
 						$categorized->{$cat}->{$f} = 1;
 				}
-				if ( $l =~ /\|D:(.*?)/ ){
+				if ( $l =~ /\|D:(.*?)\|/ ){
 						$api->{$f}->{D} = $1;
 				}
+				if ( $l =~ /\|x:(.*?)\|/ ){
+						$api->{$f}->{x} = $1;
+				}
+
 
 		}
 }
@@ -88,14 +92,21 @@ sub stripdesc{
 		 return $d;
  }
 
-open A,">","minilib-api.ref.2";
+open A,">","minilib-api.ref.3";
+system("cp minilib-api.rst.top minilib-api.rst");
+open B, ">>", "minilib-api.rst";
 
 foreach my $cat ( sort(keys(%{$categorized}))){
 		print A "\n#$cat\n\n";
+		print B "\n\n $cat\n";
+		print B "-" for ( 0.. length($cat)+1 );
+		print B "\n";
+
 		foreach my $f ( sort( keys(%{$categorized->{$cat}}) ) ) {
 				my $desc = "";
 				my $fn = $f;
 				$fn =~ s/^ksys_//;
+				if ( !exists( $api->{$f}->{x} ) ){
 				my $mp = `man -w 3p $fn`;
 				if ( $mp ){
 						chomp $mp;
@@ -119,13 +130,18 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 								}
 						}
 				}
+				} else {
+						$desc = $api->{$f}->{x};
+				}
 				chomp $desc;
 				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|x:$desc|\n";
+				$api->{$f}->{o} =~ s/:\+:/ +\n /g;
+				print B "\n\n$f"."::\n\n  _$api->{$f}->{D}_\n +\n  $desc +\n $api->{$f}->{o} +\n ";
 				print "f: $f  desc: $desc\n";
 		}
 }
 close A;
-
+close B;
 
 
 

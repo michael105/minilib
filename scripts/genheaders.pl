@@ -527,7 +527,18 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 						print API "k|D:$s|";
 						print FDOC " Returns: $2 +\n" if ( $2 );
 						print API "R:$2|" if ( $2 );
+				}elsif ( exists($syscallsysdefs->{$f} ) && exists($syscallsysdefs->{$f}->{def} ) ){
+						my $s = "$syscallsysdefs->{$f}->{def}";
+						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
+						$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
+						$s=~s/SYSDEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+						print FDOC " ksys$s +\n";
+						chomp $s;
+						print API "k|D:ksys$s|";
+						print FDOC " Returns: $2 +\n" if ( $2 );
+						print API "R:$2|" if ( $2 );
 				}
+
 				if ( exists($depends->{$f}) ){  
 						print FDOC " Defines: ".join(" ",keys(%{$fulldepends->{$f}}))," +\n";
 						print API "d:".join(" ",keys(%{$fulldepends->{$f}})),"|";
