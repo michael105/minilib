@@ -524,7 +524,7 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
 						print FDOC " $s +\n";
 						chomp $s;
-						print API "k|D:$s|";
+						print API "k|D:int $s|";
 						print FDOC " Returns: $2 +\n" if ( $2 );
 						print API "R:$2|" if ( $2 );
 				}elsif ( exists($syscallsysdefs->{$f} ) && exists($syscallsysdefs->{$f}->{def} ) ){

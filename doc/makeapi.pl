@@ -83,6 +83,16 @@ close F;
 print Dumper($api);
 print Dumper($categorized);
 
+my $tr = `cat ../test/generated/sizeoftrue.txt`;
+$tr -= 32;
+open A,"<","../test/generated/sizes.txt";
+my $sizes;
+foreach my $l( <A> ){
+		$l=~/(.*?):(\d*)/;
+		$sizes->{$1}=$2-$tr;
+}
+close A;
+
 sub stripdesc{
 		my $d = shift;
 		 $d=~s/.*\\- //; 
@@ -93,8 +103,8 @@ sub stripdesc{
  }
 
 open A,">","minilib-api.ref.3";
-system("cp minilib-api.rst.top minilib-api.rst");
-open B, ">>", "minilib-api.rst";
+system("cp minilib-api.asc.top minilib-api.asc");
+open B, ">>", "minilib-api.asc";
 
 foreach my $cat ( sort(keys(%{$categorized}))){
 		print A "\n#$cat\n\n";
@@ -134,9 +144,20 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 						$desc = $api->{$f}->{x};
 				}
 				chomp $desc;
+				$api->{$f}->{D} =~ s/\s*$//;
+				$api->{$f}->{D} =~ s/;$//;
+				$api->{$f}->{D} =~ s/static//;
+				$api->{$f}->{D} =~ s/inline//;
+				$api->{$f}->{D} =~ s/__attribute.*\)\)//;
+				$api->{$f}->{D} =~ s/^\s*//;
+
 				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|x:$desc|\n";
 				$api->{$f}->{o} =~ s/:\+:/ +\n /g;
-				print B "\n\n$f"."::\n\n  _$api->{$f}->{D}_\n +\n  $desc +\n $api->{$f}->{o} +\n ";
+				print B "\n\n$f"."::\n\n  _$api->{$f}->{D}_\n +\n ".($api->{$f}->{d}? " Defines: $api->{$f}->{d} +\n" :"").
+						" $desc +\n $api->{$f}->{o} +\n " . 
+						($sizes->{$f}? " Size: ~$sizes->{$f}B +\n":"").
+						($api->{$f}->{l}? " link:$api->{$f}->{l} +\n" :"").
+						($api->{$f}->{m}? " manpage: link:$api->{$f}->{m} +\n" :"");
 				print "f: $f  desc: $desc\n";
 		}
 }

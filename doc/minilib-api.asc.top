@@ -1,0 +1,83 @@
+ minilib api
+=============
+
+
+
+Only functions defined are going to be built.
+
+The given sizes are estimations, each functions added as single function within
+a binary that much bytes to the overall size.
+
+It is however not possible to give exact numbers, these depend on how much the compiler
+can optimize for each call. What is different each time, depending on the circumstances.
+
+To complicate things more, some functions will be inlined, others will be reused.
+
+And, the choosen linker script will have it's (sometimes surprising) influence.
+
+
+ Config
+--------
+
+
+In addition to the switches, which are built of the function's name and the prefix 'mini_'; +
+e.g. 'mini_fputs', these switches are defined for the configuration of minilib:
+
+
+mini_start:: 
+	Built the start routine, which is needed for startup of the binary.
+
+
+mini_buf 512::
+	the buf, which is used by minilib for input/output functions,
+	the globals and malloc/free. 
+
+
+globals_on_stack::
+  put the minibuf onto the stack
+	(this enables to omit all sections besides text and stack of the binary,
+	for aggressive size optimization)
+	
+
+OPTFLAG -Os::
+  optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
+
+
+   e.g. OPTFLAG '-g -O0'
+   (compile with debug info)
+
+
+STRIPFLAG::
+  stripflag ( defaults to -s)
+
+
+INCLUDESRC::
+  Build minilib source. 
+	Without this switch, only defines and declarations are built
+
+
+LDSCRIPT default::
+  
+	The ldscript to use +
+  Can be one of: default, onlytext, textandbss +
+  Defines, which executable sections are going to be built. +
+  Default: .text .data .rodata .bss (.stack) +
+  onlytext: .text (.stack) +
+  textandbss: .text .bss (.stack)
+
+
+SHRINKELF::
+  Shrink the compiled binary with shrinkelf. +
+	Aggressively strip the elf headers.
+
+
+DEBUG::
+  generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
+
+
+
+
+:toc:
+
+
+
