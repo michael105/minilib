@@ -5,7 +5,7 @@
 
 Only functions defined are going to be built.
 
-The given sizes are estimations, each functions added as single function within
+The given sizes are estimations, each function added as single function within
 a binary that much bytes to the overall size.
 
 It is however not possible to give exact numbers, these depend on how much the compiler
@@ -29,14 +29,17 @@ mini_start::
 
 
 mini_buf 512::
-	the buf, which is used by minilib for input/output functions,
+	the buf size in Bytes, which is used by minilib for input/output functions,
 	the globals and malloc/free. 
+	Uncomment this, if you do not need globals or functions,
+	depending on the buffer.
 
 
 globals_on_stack::
-  put the minibuf onto the stack
+  put the minibuf and all globals onto the stack
 	(this enables to omit all sections besides text and stack of the binary,
 	for aggressive size optimization)
+	The address of the globals is going to be stored within a fixed cpu register. (r15 at amd64)
 	
 
 OPTFLAG -Os::
@@ -49,11 +52,16 @@ OPTFLAG -Os::
 
 STRIPFLAG::
   stripflag ( defaults to -s)
+	Leaving 'STRIPFLAG' alone removes the flag parameter from gcc's commandline.
 
 
 INCLUDESRC::
-  Build minilib source. 
+  Build minilib with source. 
 	Without this switch, only defines and declarations are built
+	When building with several object files, most probably you should 
+	enable this flag only for one object file.
+	It's also possible to pass the switch via a define flag to gcc.
+	('-DINCLUDESRC')
 
 
 LDSCRIPT default::
@@ -61,9 +69,9 @@ LDSCRIPT default::
 	The ldscript to use +
   Can be one of: default, onlytext, textandbss +
   Defines, which executable sections are going to be built. +
-  Default: .text .data .rodata .bss (.stack) +
-  onlytext: .text (.stack) +
-  textandbss: .text .bss (.stack)
+  *default*: .text .data .rodata .bss (.stack) +
+  *onlytext*: .text (.stack) +
+  *textandbss*: .text .bss (.stack)
 
 
 SHRINKELF::
