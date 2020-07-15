@@ -10,8 +10,8 @@ OUTPUT_ARCH(i386)*/
 	 Would be better, separating that cleanly.
 	 */ 
 
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5);
-	bss PT_LOAD FLAGS(0x7); 
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
 
@@ -36,8 +36,8 @@ SECTIONS
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
-
 		 } :text
+
 		.bss            :
 		{ 
 
