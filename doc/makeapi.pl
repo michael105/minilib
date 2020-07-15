@@ -79,7 +79,13 @@ close F;
 print Dumper($api);
 print Dumper($categorized);
 
-
+sub stripdesc{
+		my $d = shift;
+		 $d=~s/.*\\- //; 
+		 $d=~s/\n.SH.*//;
+		 $d=~s/\\\n//g;
+		 return $d;
+ }
 
 open A,">","minilib-api.ref";
 
@@ -87,20 +93,26 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 		print A "\n#$cat\n\n";
 		foreach my $f ( sort( keys(%{$categorized->{$cat}}) ) ) {
 				my $desc = "";
-				my $mp = `man -w 3p $f`;
+				my $fn = $f;
+				$fn =~ s/^ksys_//;
+				my $mp = `man -w 3p $fn`;
 				if ( $mp ){
 						chomp $mp;
-						$desc = `bunzip2 -c $mp | grep NAME -A 2 | sed -E '1,2d; s/\\\(em\s*(.*)$/\1/'`;
+						my $tmp = "\\\(em";
+						$desc = `bunzip2 -c $mp | grep ' NAME' -A 3 | sed -E '/$tmp/!d'`;
+						$desc =~ s/.*\\\(em\s*//;
 				} else {
-						$mp = `man -w 3 $f`;
+						$mp = `man -w 3 $fn`;
 						if ( $mp ){
 								chomp $mp;
-								$desc = ` bunzip2 -c $mp | grep NAME -A 1 | sed -E '1d; s/.*-\s*(.*)$/\1/'`;
+								$desc = ` bunzip2 -c $mp | grep ' NAME' -A 3 | sed '1d'`;
+								$desc = stripdesc($desc);
 						} else {
-								$mp = `man -w 2 $f`;
+								$mp = `man -w 2 $fn`;
 								if ( $mp ){
 										chomp $mp;
-										$desc = ` bunzip2 -c $mp | grep NAME -A 1 | sed -E '1d; s/.*-\s*(.*)$/\1/'`;
+										$desc = ` bunzip2 -c $mp | grep ' NAME' -A 3 | sed '1d'`;
+										$desc = stripdesc($desc);
 								} else {
 										print "no manpage for $f\n";
 								}
