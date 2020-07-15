@@ -86,7 +86,29 @@ open A,">","minilib-api.ref";
 foreach my $cat ( sort(keys(%{$categorized}))){
 		print A "\n#$cat\n\n";
 		foreach my $f ( sort( keys(%{$categorized->{$cat}}) ) ) {
+				my $desc = "";
+				my $mp = `man -w 3p $f`;
+				if ( $mp ){
+						chomp $mp;
+						$desc = `bunzip2 -c $mp | grep NAME -A 2 | sed -E '1,2d; s/\\\(em\s*(.*)$/\1/'`;
+				} else {
+						$mp = `man -w 3 $f`;
+						if ( $mp ){
+								chomp $mp;
+								$desc = ` bunzip2 -c $mp | grep NAME -A 1 | sed -E '1d; s/.*-\s*(.*)$/\1/'`;
+						} else {
+								$mp = `man -w 2 $f`;
+								if ( $mp ){
+										chomp $mp;
+										$desc = ` bunzip2 -c $mp | grep NAME -A 1 | sed -E '1d; s/.*-\s*(.*)$/\1/'`;
+								} else {
+										print "no manpage for $f\n";
+								}
+						}
+				}
+
 				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|\n";
+				print "f: $f  desc: $desc\n";
 		}
 }
 close A;
