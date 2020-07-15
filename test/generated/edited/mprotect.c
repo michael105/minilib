@@ -1,6 +1,7 @@
 #if 0
 mini_mprotect
-mini_buf 0
+mini_buf 64
+globals_on_stack
 mini_start
 mini_errno
 shrinkelf

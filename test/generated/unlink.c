@@ -1,10 +1,11 @@
 #if 0
 mini_unlink
-mini_buf 0
+mini_buf 128
+globals_on_stack
 mini_start
 shrinkelf
 INCLUDESRC
-LDSCRIPT text_and_bss
+LDSCRIPT default
 OPTFLAG -Os
 return
 #endif
