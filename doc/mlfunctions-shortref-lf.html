@@ -317,9 +317,7 @@
 <tr valign="top"><td><small>ksys__waitid</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  469 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>ksys__write</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  7 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>ksys__writev</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  45 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abort.3.rst.html">abort</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  3 </small></td><td><small> void abort();
-</small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../src/abort.c" target="right">../src/abort.c</a>  25 </small></td><td><small>  int abs(int i);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  25 </small></td><td><small>  int abs(int i);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  157 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
@@ -538,7 +536,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  19 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
 </small></td></tr>
-<tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  76 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
 <tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  77 </small></td><td><small>  void ) optimization_fence(void*p){}
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
@@ -610,7 +608,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small> DIR *opendir(const char *name);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  5 </small></td><td><small> void perror(const char *msg);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/perror.c" target="right">../src/perror.c</a>  182 </small></td><td><small> pipe( int *filedes)
 </small></td></tr>
@@ -779,7 +777,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  203 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
-<tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> int todo_putenv( char *s );
+<tr valign="top"><td><small>todo_abort</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void todo_abort();
+</small></td></tr>
+<tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../src/abort.c" target="right">../src/abort.c</a>  22 </small></td><td><small> int todo_putenv( char *s );
 </small></td></tr>
 <tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  8 </small></td><td><small> int uitodec(unsigned int i, char *buf, int prec, char limiter );
 </small></td></tr>

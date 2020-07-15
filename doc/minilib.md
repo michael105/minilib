@@ -164,7 +164,7 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 76)
+               (src/ltodec.c: 75)
 
 macro          static void __attribute__((noipa)) optimization_fence(void*p){}
 
@@ -266,6 +266,10 @@ sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
                (src/brk.c: 3)
+
+todo_abort     void todo_abort();
+
+               (src/abort.c: 3)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -782,7 +786,7 @@ itohex         int itohex(int i,char* buf,int padding);
 
 perror         void perror(const char *msg);
 
-               (src/perror.c: 5)
+               (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -836,10 +840,6 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 ==========
 stdlib.h
 ==========
-
-abort          void abort();
-
-               (src/abort.c: 3)
 
 abs            static int abs(int i);
 
