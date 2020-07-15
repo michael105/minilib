@@ -84,10 +84,11 @@ sub stripdesc{
 		 $d=~s/.*\\- //; 
 		 $d=~s/\n.SH.*//;
 		 $d=~s/\\\n//g;
+		 $d=~s/\n.*//g;
 		 return $d;
  }
 
-open A,">","minilib-api.ref";
+open A,">","minilib-api.ref.2";
 
 foreach my $cat ( sort(keys(%{$categorized}))){
 		print A "\n#$cat\n\n";
@@ -99,27 +100,27 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 				if ( $mp ){
 						chomp $mp;
 						my $tmp = "\\\(em";
-						$desc = `bunzip2 -c $mp | grep ' NAME' -A 3 | sed -E '/$tmp/!d'`;
+						$desc = `bunzip2 -c $mp | grep 'SH NAME' -A 3 | sed -E '/$tmp/!d'`;
 						$desc =~ s/.*\\\(em\s*//;
 				} else {
 						$mp = `man -w 3 $fn`;
 						if ( $mp ){
 								chomp $mp;
-								$desc = ` bunzip2 -c $mp | grep ' NAME' -A 3 | sed '1d'`;
+								$desc = ` bunzip2 -c $mp | grep 'SH NAME' -A 3 | sed '1d'`;
 								$desc = stripdesc($desc);
 						} else {
 								$mp = `man -w 2 $fn`;
 								if ( $mp ){
 										chomp $mp;
-										$desc = ` bunzip2 -c $mp | grep ' NAME' -A 3 | sed '1d'`;
+										$desc = ` bunzip2 -c $mp | grep 'SH NAME' -A 3 | sed '1d'`;
 										$desc = stripdesc($desc);
 								} else {
 										print "no manpage for $f\n";
 								}
 						}
 				}
-
-				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|\n";
+				chomp $desc;
+				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|x:$desc|\n";
 				print "f: $f  desc: $desc\n";
 		}
 }
