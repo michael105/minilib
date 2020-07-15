@@ -10,10 +10,11 @@ f:itoHEX|D:int itoHEX(int i,char* buf,int padding);|c:conversions|
 f:itobin|D:#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )|c:conversions|
 f:itodec|D:int itodec(int i, char *buf, int prec, char limiter );|c:conversions|
 f:itohex|D:int itohex(int i,char* buf,int padding);|c:conversions|
+f:ltodec|D:int ltodec(long i, char *buf, int prec, char limiter );|c:conversions|
 f:uitodec|D:int uitodec(unsigned int i, char *buf, int prec, char limiter );|c:conversions|
 f:ultodec|D:int ultodec(unsigned long ui, char *buf, int prec, char limiter );|c:conversions|
 
-f:ltodec|D:int ltodec(long i, char *buf, int prec, char limiter );|c:u|
+f:strtol|D:long int strtol(const char *c, const char **endp, int base);|c:u|
 
 #directories
 
@@ -24,27 +25,22 @@ f:dirname|D:char *dirname(char *s);|c:directories|
 f:fstat|D:fstat(int fd,struct stat* statbuf)|c:directories|
 f:getcwd|D:getcwd( char *buf,  unsigned long size)|c:directories|
 f:getdents|D:getdents( unsigned int fd, struct dirent *direntry, unsigned int count )|c:directories|
-f:seekdir|D:void seekdir(DIR *dir, long off);|c:u|
-f:telldir|D:long telldir(DIR *dir);|c:u|
-f:rewinddir|D:void rewinddir(DIR *dir);|c:u|
-f:rmdir|D:rmdir( const char *pathname)|c:u|
-f:readdir|D:struct dirent *readdir(DIR *dir);|c:u|
-f:opendir|D:DIR *opendir(const char *name);|c:u|
-f:mkdir|D:mkdir( const char *pathname, int mode)|c:u|
+f:mkdir|D:mkdir( const char *pathname, int mode)|c:directories|
+f:opendir|D:DIR *opendir(const char *name);|c:directories|
+f:readdir|D:struct dirent *readdir(DIR *dir);|c:directories|
+f:rewinddir|D:void rewinddir(DIR *dir);|c:directories|
+f:rmdir|D:rmdir( const char *pathname)|c:directories|
+f:seekdir|D:void seekdir(DIR *dir, long off);|c:directories|
+f:telldir|D:long telldir(DIR *dir);|c:directories|
 
 #errno
 
 f:errno_str|D:const char *errno_str(int err);|c:errno|
-f:perror|D:void perror(const char *msg);|c:u|
-f:verbose_errstr|D:const char* verbose_errstr(int num);|c:u|
+f:perror|D:void perror(const char *msg);|c:errno|
+f:strerror|D:char* strerror( int errnum );|c:errno|
+f:verbose_errstr|D:const char* verbose_errstr(int num);|c:errno|
 
 #files
-
-
-f:readahead|D:readahead( int fd,  loff_t offset,  size_t count)|c:u|
-f:open|D:int volatile open( const char *s, int flags, ... );|c:u|
-f:link|D:link( const char *oldname, const char *newname)|c:u|
-f:lseek|D:lseek(unsigned int a1, int a2, int a3 )|c:u|
 
 f:_fopen|D:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);|c:files|
 f:access|D:access( const char *filename, int mode)|c:files|
@@ -61,6 +57,19 @@ f:fchown|D:fchown( unsigned int fd, uid_t user, gid_t group)|c:files|
 f:fcntl|D:fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)|c:files|
 f:fsync|D:fsync(int a1 )|c:files|
 f:ftruncate|D:ftruncate(unsigned int a1, unsigned int a2 )|c:files|
+f:link|D:link( const char *oldname, const char *newname)|c:files|
+f:lseek|D:lseek(unsigned int a1, int a2, int a3 )|c:files|
+f:open|D:int volatile open( const char *s, int flags, ... );|c:files|
+f:readahead|D:readahead( int fd,  loff_t offset,  size_t count)|c:files|
+
+f:umask|D:umask( int mask)|c:u|
+f:unlink|D:unlink( const char* path)|c:u|
+f:rename|D:rename( const char* oldpath, const char* newpath )|c:u|
+f:select|D:static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);|c:u|
+f:sendfile|D:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:u|
+f:stat|D:stat(const char* filename,struct stat* statbuf)		|c:u|
+
+f:symlink|D:symlink( const char *oldname,  const char *newname)|c:u|
 
 #input
 
@@ -69,13 +78,12 @@ f:fgets|D:char* fgets(char *buf, int size, FILE* F);|c:input|
 f:getc|D:#define getc(F) fgetc(F)|c:input|
 f:getchar|D:#define getchar() fgetc(0)|c:input|
 f:gets|D:#define gets(F) fgets(F,0xfffffff,stdin)|c:input|
+f:read|D:read( int fd, void *buf, int len )|c:input|
 f:ungetc|D:static int ungetc(int c, FILE *F);|c:input|
-
-f:read|D:read( int fd, void *buf, int len )|c:u|
 
 #ipc
 
-f:kill|D:kill( pid_t pid,  int sig)|c:u|
+f:kill|D:kill( pid_t pid,  int sig)|c:ipc|
 f:raise|D:static inline int raise(int signr);|c:ipc|
 f:rt_sigaction|D:rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)|c:ipc|
 f:rt_sigprocmask|D:rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)|c:ipc|
@@ -91,6 +99,10 @@ f:sigprocmask|D:int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 f:wait|D:pid_t wait(int *wstatus);|c:ipc|
 f:wait4|D:wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)|c:ipc|
 f:waitpid|D:pid_t waitpid(pid_t pid, int *wstatus, int options);|c:ipc|
+f:mkfifo|D:static int mkfifo( const char* path, mode_t mode );|c:u|
+f:pipe|D:pipe( int *filedes)|c:u|
+
+
 
 #math
 
@@ -120,9 +132,8 @@ f:mremap|D:static void* volatile __attribute__((optimize("O0"))) mremap(void* ad
 f:munmap|D:munmap( unsigned long addr,  size_t len)|c:memory|
 f:realloc|D:void* realloc(void *p, int size);|c:memory|
 f:sbrk|D:static void* sbrk(int incr);|c:memory|
+f:splice|D:splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:memory|
 f:sys_brk|D:static long sys_brk(unsigned long addr);|c:memory|
-
-f:splice|D:splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:u|
 
 #output
 
@@ -165,6 +176,7 @@ f:execvpe|D:static int execvpe(const char *file, char *const argv[], char *const
 f:fexecve|D:static inline int fexecve(int fd, char *const argv[], char *const envp[]);|c:process|
 f:fexecveat|D:static inline int fexecveat(int fd, char *const argv[], char *const envp[]);|c:process|
 f:fork|D:DEF_syscall(fork,0)|c:process|
+f:getenv|D:char* getenv(const char* name);|c:process|
 f:getpgrp|D:DEF_syscall(getpgrp,0)|c:process|
 f:getpid|D:DEF_syscall(getpid,0 )|c:process|
 f:getppid|D:DEF_syscall(getppid,0)|c:process|
@@ -172,7 +184,6 @@ f:setpgid|D:setpgid( pid_t pid, pid_t pgid)|c:process|
 f:setsid|D:DEF_syscall(setsid,0 )|c:process|
 f:system|D:int system( const char* command );|c:process|
 f:vfork|D:DEF_syscall(vfork,0)|c:process|
-f:getenv|D:char* getenv(const char* name);|c:u|
 
 #streams
 
@@ -208,7 +219,6 @@ f:strchrnul|D:char *strchrnul(const char *s, int c);|c:strings|
 f:strcmp|D:int strcmp(const char*c1,const char*c2);|c:strings|
 f:strcpy|D:char *strcpy(char *dest, const char *src);|c:strings|
 f:strdup|D:char *strdup(const char *source);|c:strings|
-f:strerror|D:char* strerror( int errnum );|c:errno|
 f:strlen|D:int strlen(const char*str);|c:strings|
 f:strncasecmp|D:int strncasecmp(const char*c1,const char*c2,int len);|c:strings|
 f:strncmp|D:int strncmp(const char*c1,const char*c2,int len);|c:strings|
@@ -223,6 +233,15 @@ f:getgid|D:DEF_syscall(getgid,0)|c:system|
 f:getuid|D:DEF_syscall(getuid,0)|c:system|
 f:ioctl|D:int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );|c:system|
 f:setuid|D:setuid( uid_t uid)|c:system|
+f:pivot_root|D:pivot_root( const char *new_root,  const char *put_old)|c:u|
+f:reboot|D:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:u|
+f:setgid|D:setgid( gid_t gid)|c:u|
+f:mknod|D:mknod( const char *filename,  umode_t mode,  unsigned dev)|c:u|
+f:mount|D:mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:u|
+
+f:umount2|D:umount2( const char *mountpoint, int flags) |c:u|
+f:uname|D:uname(struct old_utsname *name )|c:u|
+f:sync|D:DEF_syscall(sync,0)|c:u|
 
 #terminal
 
@@ -232,6 +251,11 @@ f:tcgetattr|D:static inline int __attribute__((always_inline)) tcgetattr(int fd,
 f:tcsetattr|D:static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);|c:terminal|
 f:unlockpt|D:int unlockpt(int fd);|c:terminal|
 f:vhangup|D:DEF_syscall(vhangup,0 )|c:terminal|
+f:posix_openpt|D:int posix_openpt(int flags);|c:u|
+f:ptsname|D:char *ptsname(int fd);|c:u|
+f:ptsname_r|D:int ptsname_r(int fd, char *buf, size_t len);|c:u|
+f:nanosleep|D:nanosleep( struct timespec *rqtp, struct timespec *rmtp)|c:u|
+
 
 #time
 
@@ -240,6 +264,8 @@ f:gettimeofday|D:gettimeofday( struct timeval *a1, struct timezone *a2)|c:time|
 f:time|D:time(unsigned int *a1 )|c:time|
 f:usleep|D:unsigned int volatile usleep(unsigned int useconds);|c:time|
 f:utime|D:utime( const char *filename, struct utimbuf *times)|c:time|
+f:sleep|D:unsigned int volatile sleep(unsigned int seconds);|c:u|
+f:setitimer|D:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:u|
 
 #u
 
@@ -551,30 +577,6 @@ f:ksys_waitid|D:|c:u|
 f:ksys_write|D:|c:u|
 f:ksys_writev|D:|c:u|
 f:macro|D:static void __attribute__((noipa)) optimization_fence(void*p){}|c:u|
-f:mkfifo|D:static int mkfifo( const char* path, mode_t mode );|c:u|
-f:mknod|D:mknod( const char *filename,  umode_t mode,  unsigned dev)|c:u|
-f:mount|D:mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:u|
-f:nanosleep|D:nanosleep( struct timespec *rqtp, struct timespec *rmtp)|c:u|
-f:pipe|D:pipe( int *filedes)|c:u|
-f:pivot_root|D:pivot_root( const char *new_root,  const char *put_old)|c:u|
-f:posix_openpt|D:int posix_openpt(int flags);|c:u|
-f:ptsname|D:char *ptsname(int fd);|c:u|
-f:ptsname_r|D:int ptsname_r(int fd, char *buf, size_t len);|c:u|
-f:reboot|D:reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:u|
-f:rename|D:rename( const char* oldpath, const char* newpath )|c:u|
-
-f:select|D:static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);|c:u|
-f:sendfile|D:sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:u|
-f:setgid|D:setgid( gid_t gid)|c:u|
-f:setitimer|D:setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:u|
-f:sleep|D:unsigned int volatile sleep(unsigned int seconds);|c:u|
-f:stat|D:stat(const char* filename,struct stat* statbuf)		|c:u|
-f:strtol|D:long int strtol(const char *c, const char **endp, int base);|c:u|
-f:symlink|D:symlink( const char *oldname,  const char *newname)|c:u|
-f:sync|D:DEF_syscall(sync,0)|c:u|
 f:todo_abort|D:void todo_abort();|c:u|
 f:todo_putenv|D:int todo_putenv( char *s );|c:u|
-f:umask|D:umask( int mask)|c:u|
-f:umount2|D:umount2( const char *mountpoint, int flags) |c:u|
-f:uname|D:uname(struct old_utsname *name )|c:u|
-f:unlink|D:unlink( const char* path)|c:u|
+
