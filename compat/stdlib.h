@@ -149,12 +149,12 @@ static long int labs(long int i);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/rand.c"
-#include "minilib/src/malloc.c"
-#include "minilib/src/atoi.c"
-#include "minilib/src/strtol.c"
 #include "minilib/src/getenv.c"
+#include "minilib/src/atoi.c"
+#include "minilib/src/rand.c"
 #include "minilib/src/system.c"
+#include "minilib/src/malloc.c"
+#include "minilib/src/strtol.c"
 #include "minilib/include/math.h"
 
 // Need global included. Doesn't matter by which file.

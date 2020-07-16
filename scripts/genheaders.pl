@@ -332,7 +332,8 @@ while ( my $file = shift ){
 								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
 										if ( exists( $syscallsysdefs->{$func} ) ){
-												$f->{header} = "mini_ksyscalls";
+# 												$f->{header} = "mini_ksyscalls";
+ 												$f->{header} = "mini_syscalls";
 										} else {
 												$f->{header} = "mini_addons.h";
 										}
@@ -425,7 +426,8 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
 				if ( exists($syscallsysdefs->{$f} ) ){
-						printf FDOC "ksys%-15s",$f;
+# 						printf FDOC "ksys%-15s",$f;
+ 						printf FDOC "sys%-15s",$f;
 				} else {
 						printf FDOC "%-15s",$f;
 				}
@@ -505,8 +507,10 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		#print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
 				if ( exists($syscallsysdefs->{$f} ) ){
-						printf FDOC "ksys%s::\n\n ",$f;
-						printf API "f:ksys%s|",$f;
+# 						printf FDOC "ksys%s::\n\n ",$f;
+ 						printf FDOC "sys%s::\n\n ",$f;
+# 						printf API "f:ksys%s|",$f;
+ 						printf API "f:sys%s|",$f;
 				} else {
 						printf FDOC "%s::\n\n ",$f;
 						printf API "f:%s|",$f;
@@ -532,9 +536,11 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/SYSDEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
-						print FDOC " ksys$s +\n";
+# 						print FDOC " ksys$s +\n";
+ 						print FDOC " sys$s +\n";
 						chomp $s;
-						print API "k|D:ksys$s|";
+# 						print API "k|D:ksys$s|";
+ 						print API "k|D:sys$s|";
 						print FDOC " Returns: $2 +\n" if ( $2 );
 						print API "R:$2|" if ( $2 );
 				}
@@ -579,7 +585,8 @@ foreach my $f ( sort( keys(%{$funchash} ) ) ){
 				printf FDOC "<a target=\"right\" href=\"manpages/$bsdmanpage{$f}.rst.html\">$f</a>";
 		} else {
 				if ( exists($syscallsysdefs->{$f} ) ){
-						printf FDOC "ksys_$f";
+# 						printf FDOC "ksys_$f";
+ 						printf FDOC "sys_$f";
 				} else {
 						printf FDOC "$f";
 				}
@@ -625,7 +632,8 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
 				if ( exists($syscallsysdefs->{$f} ) ){
-						printf FDOC "ksys%-15s\n",$f;
+# 						printf FDOC "ksys%-15s\n",$f;
+ 						printf FDOC "sys%-15s\n",$f;
 				};
 
 				if ( exists( $funchash->{$f}->{def} ) ){
@@ -902,7 +910,8 @@ sub syscalldefine{
 		}
 
 		if ( 1 ) { # syscalldefs (without wrapper) are written here.
-				print $fh "#ifdef mini_ksyscalls\n\n";
+# 				print $fh "#ifdef mini_ksyscalls\n\n";
+ 				print $fh "#ifdef mini_syscalls\n\n";
 		foreach my $k ( keys( %{$syscallsysdefs} ) ){
 				my $def = $syscallsysdefs->{$k}->{def};
 				my $a = 1;

@@ -46,6 +46,9 @@ extern int errno;
 // even with -O (lowest Optimization) gcc handles putting the parameters into the right registers fine.
 // so static inline even results often in smaller codesize than not inlining.
 //
+// when minilib is compiled without errno,
+// the syscalls return the negative value of errno on error.
+//
 
 //#define __callend : "rcx" )
 
@@ -165,26 +168,28 @@ extern int errno;
 				return(sysret);\
 		}
 
-#else
+#else //errno
 #define REAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
-				return( (sysret<0) ? -1 : sysret );\
+				return( sysret );\
 		}
 #define REAL_define_syscall_noopt( name, argcount, ... ) \
 		int volatile __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
-				return( (sysret<0) ? -1 : sysret );\
+				return( sysret );\
 		}
+
+//				return( (sysret<0) ? -1 : sysret );\
 
 #endif
 
 
 #ifdef mini_errno
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
-		int volatile __attribute__((always_inline)) ksys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -194,7 +199,7 @@ extern int errno;
 		}
 
 #define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile __attribute__((optimize("O0"))) ksys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((optimize("O0"))) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -205,17 +210,19 @@ extern int errno;
 
 #else
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
-		int volatile __attribute__((always_inline)) ksys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
-				return( (sysret<0) ? -1 : sysret );\
+				return( sysret );\
 		}
 
+				//return( (sysret<0) ? -1 : sysret );
+
 #define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile __attribute__((optimize("O0"))) ksys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((optimize("O0"))) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
-				return( (sysret<0) ? -1 : sysret );\
+				return( sysret );\
 		}
 
 #endif
@@ -244,14 +251,28 @@ extern int errno;
 
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
+#ifdef mini_errno
 #define REAL_define_syscallret( name, ret, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
+				int sysret;\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
 						errno = -sysret;\
 						return(-1);}\
 				return(ret);\
 		}
+
+#else
+#define REAL_define_syscallret( name, ret, argcount, ... ) inline \
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, SCALL(name));\
+				if ( sysret<0 ){\
+						return(sysret);}\
+				return(ret);\
+		}
+
+#endif
 
 
 #define DEF_syscall(...) 
@@ -264,7 +285,7 @@ extern int errno;
 #define DEF_syscallret( name, ret, argcount, ... ) int volatile name( __VA_ARGS__ );
 //#define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
 
-#define SYSDEF_syscall( name, argcount, ... ) int volatile ksys##name( __VA_ARGS__ );
+#define SYSDEF_syscall( name, argcount, ... ) int volatile sys##name( __VA_ARGS__ );
 
 #define REAL_define_syscall(...) 
 #define REAL_define_syscall_noopt(...) 

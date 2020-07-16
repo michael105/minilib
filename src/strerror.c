@@ -4,7 +4,7 @@
 
 //+header string.h
 //+def
-char* strerror( int errnum ){
+const char* strerror( int errnum ){
 #ifndef mini_verbose_errstr
 		char *errstr = "error: 000";
 		errstr[7] = '0';
