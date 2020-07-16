@@ -65,7 +65,8 @@ FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f){
 		else 
 			*f = fd;
 
-		if ( *f == -1 )
+		//if ( *f == -1 )
+		if ( *f < 0 )
 				return(0);
 
 		return ( f ); // 

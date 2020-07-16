@@ -14,7 +14,8 @@
 //+depends execve errno_str exit ewrites
 //+def
 void exit_errno( int errnum ){
-		errnum &= 0xFF;
+		if ( errnum < 0 )
+				errnum = -errnum;
 		char *args[3]; 
 		args[0] = "errno";
 		args[1] = (char*)errno_str( errnum );

@@ -1,4 +1,4 @@
-f:chmod|k|D:int chmod( const char *filename, mode_t mode)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.184|m:manpages/sys/chmod.2.rst[chmod]||#
+f:chmod|k|D:int chmod( const char *filename, mode_t mode)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.187|m:manpages/sys/chmod.2.rst[chmod]||#
 f:dup3|k|D:int dup3(int oldfd, int newfd, int flags)		|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.114|m:manpages/gen/dup3.3.rst[dup3]||#
 f:execveat|k|D:int execveat( int dirfd, const char *filename,  char* const* argv, char* const* envp, int flags)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.153||#
 f:fchmod|k|D:int fchmod( unsigned int fd, mode_t mode)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.110|m:manpages/sys/chmod.2.rst[fchmod]||#
@@ -7,37 +7,38 @@ f:fcntl|k|D:int fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)|l:.
 f:fstat|k|D:int fstat(int fd,struct stat* statbuf)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.105|m:manpages/sys/stat.2.rst[fstat]||#
 f:getcwd|k|D:int getcwd( char *buf,  unsigned long size)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.116|m:manpages/gen/getcwd.3.rst[getcwd]||#
 f:getdents|k|D:int getdents( unsigned int fd, struct dirent *direntry, unsigned int count )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.100|m:manpages/sys/getdirentries.2.rst[getdents]||#
-f:getitimer|k|D:int getitimer( int which,  struct itimerval *value)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.198|m:manpages/sys/getitimer.2.rst[getitimer]||#
-f:getppid|k|D:int DEF_syscall(getppid,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.187|m:manpages/sys/getpid.2.rst[getppid]||#
+f:getitimer|k|D:int getitimer( int which,  struct itimerval *value)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.201|m:manpages/sys/getitimer.2.rst[getitimer]||#
+f:getppid|k|D:int DEF_syscall(getppid,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.190|m:manpages/sys/getpid.2.rst[getppid]||#
 f:gettimeofday|k|D:int gettimeofday( struct timeval *a1, struct timezone *a2)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.132|m:manpages/sys/gettimeofday.2.rst[gettimeofday]||#
 f:kill|k|D:int kill( pid_t pid,  int sig)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.125|m:manpages/sys/kill.2.rst[kill]||#
 f:memfd_create|k|D:int memfd_create( const char  *uname_ptr,  unsigned int flags)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.170||#
-f:mknod|k|D:int mknod( const char *filename,  umode_t mode,  unsigned dev)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.193|m:manpages/sys/mknod.2.rst[mknod]||#
+f:mknod|k|D:int mknod( const char *filename,  umode_t mode,  unsigned dev)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.196|m:manpages/sys/mknod.2.rst[mknod]||#
 f:mount|k|D:int mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.164|m:manpages/sys/mount.2.rst[mount]||#
-f:mprotect|k|D:int mprotect( POINTER *a1, POINTER a2, int a3 )|R:*a1|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.180|m:manpages/sys/mprotect.2.rst[mprotect]||#
-f:munmap|k|D:int munmap( unsigned long addr,  size_t len)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.195|m:manpages/sys/munmap.2.rst[munmap]||#
+f:mprotect|k|D:int mprotect( POINTER *a1, POINTER a2, int a3 )|R:*a1|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.183|m:manpages/sys/mprotect.2.rst[mprotect]||#
+f:munmap|k|D:int munmap( unsigned long addr,  size_t len)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.198|m:manpages/sys/munmap.2.rst[munmap]||#
 f:nanosleep|k|D:int nanosleep( struct timespec *rqtp, struct timespec *rmtp)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.131|m:manpages/sys/nanosleep.2.rst[nanosleep]||#
 f:pivot_root|k|D:int pivot_root( const char *new_root,  const char *put_old)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.138||#
-f:readahead|k|D:int readahead( int fd,  loff_t offset,  size_t count)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.191||#
+f:readahead|k|D:int readahead( int fd,  loff_t offset,  size_t count)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.194||#
 f:reboot|k|D:int reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.162|m:manpages/sys/reboot.2.rst[reboot]||#
 f:rt_sigaction|k|D:int rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.134||#
 f:rt_sigprocmask|k|D:int rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.166||#
 f:rt_sigreturn|k|D:int rt_sigreturn( unsigned long __unused)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.135||#
 f:sendfile|k|D:int sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.161|m:manpages/sys/sendfile.2.rst[sendfile]||#
-f:setitimer|k|D:int setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.197|m:manpages/sys/getitimer.2.rst[setitimer]||#
+f:setgroups|k|D:int setgroups( int gidsetsize,  gid_t *grouplist)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.178|m:manpages/sys/setgroups.2.rst[setgroups]||#
+f:setitimer|k|D:int setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.200|m:manpages/sys/getitimer.2.rst[setitimer]||#
 f:splice|k|D:int splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.175||#
 f:stat|k|D:int stat(const char* filename,struct stat* statbuf)		|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.106|m:manpages/sys/stat.2.rst[stat]||#
 f:symlink|k|D:int symlink( const char *oldname,  const char *newname)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.119|m:manpages/sys/symlink.2.rst[symlink]||#
 f:sync|k|D:int DEF_syscall(sync,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.120|m:manpages/sys/sync.2.rst[sync]||#
-f:umask|k|D:int umask( int mask)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.183|m:manpages/sys/umask.2.rst[umask]||#
+f:umask|k|D:int umask( int mask)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.186|m:manpages/sys/umask.2.rst[umask]||#
 f:umount2|k|D:int umount2( const char *mountpoint, int flags) |l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.160||#
 f:uname|k|D:int uname(struct old_utsname *name )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.148|m:manpages/gen/uname.3.rst[uname]||#
-f:utime|k|D:int utime( const char *filename, struct utimbuf *times)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.186|m:manpages/gen/utime.3.rst[utime]||#
+f:utime|k|D:int utime( const char *filename, struct utimbuf *times)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.189|m:manpages/gen/utime.3.rst[utime]||#
 f:vfork|k|D:int DEF_syscall(vfork,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.128|m:manpages/sys/vfork.2.rst[vfork]||#
 f:vhangup|k|D:int DEF_syscall(vhangup,0 )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.146||#
 f:wait4|k|D:int wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.156|m:manpages/sys/wait.2.rst[wait4]||#
 f:closedir|D:int closedir(DIR *dir);|d:free|l:../src/dirent/closedir.c[../src/dirent/closedir.c] l.6|m:manpages/gen/directory.3.rst[closedir]||#
-f:opendir|D:DIR *opendir(const char *name);|d:close malloc open|l:../src/dirent/opendir.c[../src/dirent/opendir.c] l.9|m:manpages/gen/directory.3.rst[opendir]||#
+f:opendir|D:DIR *opendir(const char *name);|d:malloc open close|l:../src/dirent/opendir.c[../src/dirent/opendir.c] l.9|m:manpages/gen/directory.3.rst[opendir]||#
 f:readdir|D:struct dirent *readdir(DIR *dir);|l:../src/dirent/readdir.c[../src/dirent/readdir.c] l.9|m:manpages/gen/directory.3.rst[readdir]|o:read a directory.:+: return the next dirent, or 0, if the end is reached.:+: return -1 on error and set errno,:+: if mini_errno is not defined, return -errno||#
 f:rewinddir|D:void rewinddir(DIR *dir);|l:../src/dirent/rewinddir.c[../src/dirent/rewinddir.c] l.2|m:manpages/gen/directory.3.rst[rewinddir]||#
 f:seekdir|D:void seekdir(DIR *dir, long off);|l:../src/dirent/seekdir.c[../src/dirent/seekdir.c] l.2|m:manpages/gen/directory.3.rst[seekdir]||#
@@ -56,17 +57,17 @@ f:djb2_hash|D:unsigned long djb2_hash(const unsigned char *str);|l:../src/hashes
 f:dprintf|D:int dprintf( int fd, const char *fmt, ... );|d:write|l:../src/sprintf.c[../src/sprintf.c] l.203|m:manpages/stdio/printf.3.rst[dprintf]||#
 f:dprints|D:int dprints(int fd, const char *msg,...);|d:write|l:../src/prints.c[../src/prints.c] l.48||#
 f:dtodec|D:int dtodec(double d, char* buf, int precision);|d:uitodec|l:../src/dtodec.c[../src/dtodec.c] l.10||#
-f:eprint|D:#define eprint(str) write(STDERR_FILENO,str,strlen(str))|d:strlen write|l:../include/prints.h[../include/prints.h] l.42|o:write str to stderr. Needs strlen||#
-f:eprintfs|D:#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)|d:strlen fileno write|l:../include/prints.h[../include/prints.h] l.90|o:write str to stderr. :+: only format %s is recognized||#
+f:eprint|D:#define eprint(str) write(STDERR_FILENO,str,strlen(str))|d:write strlen|l:../include/prints.h[../include/prints.h] l.42|o:write str to stderr. Needs strlen||#
+f:eprintfs|D:#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)|d:strlen write fileno|l:../include/prints.h[../include/prints.h] l.90|o:write str to stderr. :+: only format %s is recognized||#
 f:eprintl|D:#define eprintl() write(STDERR_FILENO,"\n",1)|d:write|l:../include/prints.h[../include/prints.h] l.67|o:write a newline to stderr||#
 f:eprints|D:#define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)|d:write|l:../include/prints.h[../include/prints.h] l.17|o:print the string(s) supplied as arg(s) to stdout||#
-f:eputs|D:#define eputs(msg) ( eprint(msg) + eprintl() )|d:strlen write|l:../include/prints.h[../include/prints.h] l.77|o:write msg to stderr, append a newline. Needs strlen.||#
+f:eputs|D:#define eputs(msg) ( eprint(msg) + eprintl() )|d:write strlen|l:../include/prints.h[../include/prints.h] l.77|o:write msg to stderr, append a newline. Needs strlen.||#
 f:ewrites|D:#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))|d:write|l:../include/prints.h[../include/prints.h] l.52|o:write the constant str to stderr. Computes length with sizeof(str) at compile time.||#
-f:exit_errno|D:void exit_errno( int errnum );|d:exit write errno_str execve|l:../src/exit_errno.c[../src/exit_errno.c] l.16|o:exit, and execute /bin/errno:+: this is intended to give a error message for the :+: given errno num.:+: Instead of having the error messages compiled :+: into each binary, they can stay within one executable, "errno":+: This spares about 4kB, but needs errno installed to /bin/errno:+: It's the drawback of not having a hared library,:+: where all executables would share the same errno messages:+: in memory.:+: On the other hand, a shared library would need to be installed:+: as well.:+: The supplied errno can be negative,:+: the absolute value is supplied to errno.||#
+f:exit_errno|D:void exit_errno( int errnum );|d:exit execve write errno_str|l:../src/exit_errno.c[../src/exit_errno.c] l.16|o:exit, and execute /bin/errno:+: this is intended to give a error message for the :+: given errno num.:+: Instead of having the error messages compiled :+: into each binary, they can stay within one executable, "errno":+: This spares about 4kB, but needs errno installed to /bin/errno:+: It's the drawback of not having a hared library,:+: where all executables would share the same errno messages:+: in memory.:+: On the other hand, a shared library would need to be installed:+: as well.:+: The supplied errno can be negative,:+: the absolute value is supplied to errno.||#
 f:fexecve|D:static inline int fexecve(int fd, char *const argv[], char *const envp[]);|l:../include/fexecve.h[../include/fexecve.h] l.3|m:manpages/sys/execve.2.rst[fexecve]||#
 f:fexecveat|D:static inline int fexecveat(int fd, char *const argv[], char *const envp[]);|l:../include/fexecveat.h[../include/fexecveat.h] l.3||#
-f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...);|d:write fileno strlen|l:../src/fprintfs.c[../src/fprintfs.c] l.10|o:prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.||#
-f:fprints|D:#define fprints(F,str) write(fileno(F),str,strlen(str))|d:fileno write strlen|l:../include/prints.h[../include/prints.h] l.24|o:print the string(s) supplied as arg(s) to stream||#
+f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...);|d:fileno write strlen|l:../src/fprintfs.c[../src/fprintfs.c] l.10|o:prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.||#
+f:fprints|D:#define fprints(F,str) write(fileno(F),str,strlen(str))|d:strlen write fileno|l:../include/prints.h[../include/prints.h] l.24|o:print the string(s) supplied as arg(s) to stream||#
 f:fwrites|D:#define fwrites(fd,str) write(fd,str,sizeof(str))|d:write|l:../include/prints.h[../include/prints.h] l.58|o:write the constant str to fd. Computes length with sizeof(str) at compile time.||#
 f:grantpt|D:int grantpt(int fd);|l:../src/pty.c[../src/pty.c] l.13|m:manpages/stdlib/ptsname.3.rst[grantpt]||#
 f:itobin|D:#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )|d:|l:../src/itobin.c[../src/itobin.c] l.41||#
@@ -82,8 +83,8 @@ f:printfs|D:#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)|d:strlen
 f:printl|D:#define printl() write(STDOUT_FILENO,"\n",1)|d:write|l:../include/prints.h[../include/prints.h] l.63|o:write a newline to stdout||#
 f:prints|D:#define prints(...) _mprints(__VA_ARGS__,0)|d:|l:../include/prints.h[../include/prints.h] l.11|o:print the string(s) supplied as arg(s) to stdout||#
 f:printsl|D:#define printsl(...) _mprints(__VA_ARGS__,"\n",0)|d:|l:../include/prints.h[../include/prints.h] l.32|o:print the string(s) supplied as arg(s) and newline to stdout||#
-f:ptsname|D:char *ptsname(int fd);|d:open uitodec write ioctl|l:../src/pty.c[../src/pty.c] l.40|m:manpages/stdlib/ptsname.3.rst[ptsname]||#
-f:ptsname_r|D:int ptsname_r(int fd, char *buf, size_t len);|d:write ioctl open uitodec|l:../src/pty.c[../src/pty.c] l.27||#
+f:ptsname|D:char *ptsname(int fd);|d:uitodec open write ioctl|l:../src/pty.c[../src/pty.c] l.40|m:manpages/stdlib/ptsname.3.rst[ptsname]||#
+f:ptsname_r|D:int ptsname_r(int fd, char *buf, size_t len);|d:uitodec open write ioctl|l:../src/pty.c[../src/pty.c] l.27||#
 f:sbrk|D:static void* sbrk(int incr);|l:../src/brk.c[../src/brk.c] l.35|m:manpages/sys/brk.2.rst[sbrk]|o:conformant sbrk, when mini_errno is defined:+: if no errno is available,:+: returns the negative errno value on error,:+: or the new break on success. ||#
 f:sdbm_hash|D:unsigned long sdbm_hash(const unsigned char *str);|l:../src/hashes.c[../src/hashes.c] l.21||#
 f:snprintf|D:int snprintf( char *buf, size_t size, const char *fmt, ... );|d:write|l:../src/sprintf.c[../src/sprintf.c] l.220|m:manpages/stdio/printf.3.rst[snprintf]||#
@@ -410,26 +411,26 @@ f:sigfillset|D:static int sigfillset(sigset_t *set);|l:../src/sigaction.c[../src
 f:sigismember|D:int sigismember(sigset_t *set, int sig);|l:../src/sigaction.c[../src/sigaction.c] l.75|m:manpages/gen/sigsetops.3.rst[sigismember]||#
 f:signal|D:sighandler_t signal(int sig, sighandler_t func );|d:write memcpy|l:../src/signal.c[../src/signal.c] l.8|m:manpages/gen/signal.3.rst[signal]||#
 f:sigprocmask|D:int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);|l:../src/sigaction.c[../src/sigaction.c] l.52|m:manpages/sys/sigprocmask.2.rst[sigprocmask]||#
-f:_fopen|D:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);|d:fileno close open|l:../src/fopen.c[../src/fopen.c] l.12|o:modes implemented: r, r+, w, w+, a, a+||#
+f:_fopen|D:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);|d:close fileno open|l:../src/fopen.c[../src/fopen.c] l.12|o:modes implemented: r, r+, w, w+, a, a+||#
 f:_itohex|D:int _itohex(int i,char* buf,int padding, int capitals);|l:../src/itohex.c[../src/itohex.c] l.6||#
 f:clearerr|D:static inline void clearerr(FILE *f);|l:../include/mini_fstream.h[../include/mini_fstream.h] l.198|m:manpages/stdio/ferror.3.rst[clearerr]||#
 f:clearerror|D:static inline void clearerror(FILE *f);|l:../include/mini_fstream.h[../include/mini_fstream.h] l.203||#
 f:fclose|D:static inline int __attribute__((always_inline)) fclose( FILE* f );|d:close|l:../include/mini_fstream.h[../include/mini_fstream.h] l.65|m:manpages/stdio/fclose.3.rst[fclose]||#
-f:fdopen|D:FILE *fdopen(int fd, const char* mode);|d:close fileno open|l:../src/fopen.c[../src/fopen.c] l.90|m:manpages/stdio/fopen.3.rst[fdopen]|o:modes implemented: r, r+, w, w+, a, a+||#
+f:fdopen|D:FILE *fdopen(int fd, const char* mode);|d:fileno open close|l:../src/fopen.c[../src/fopen.c] l.91|m:manpages/stdio/fopen.3.rst[fdopen]|o:modes implemented: r, r+, w, w+, a, a+||#
 f:feof|D:static inline int feof(FILE *f);|l:../include/mini_fstream.h[../include/mini_fstream.h] l.184|m:manpages/stdio/ferror.3.rst[feof]||#
 f:ferror|D:static inline int ferror(FILE *f);|l:../include/mini_fstream.h[../include/mini_fstream.h] l.191|m:manpages/stdio/ferror.3.rst[ferror]||#
 f:fflush|D:static inline int __attribute__((always_inline)) fflush( FILE *F );|l:../include/mini_fstream.h[../include/mini_fstream.h] l.28|m:manpages/stdio/fflush.3.rst[fflush]|o:This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync||#
-f:fgetc|D:static inline int fgetc(FILE *F);|d:read fileno|l:../include/fgetc.h[../include/fgetc.h] l.11|m:manpages/stdio/getc.3.rst[fgetc]||#
+f:fgetc|D:static inline int fgetc(FILE *F);|d:fileno read|l:../include/fgetc.h[../include/fgetc.h] l.11|m:manpages/stdio/getc.3.rst[fgetc]||#
 f:fgetpos|D:static inline void fgetpos(FILE *f, long *pos );|d:lseek|l:../include/mini_fstream.h[../include/mini_fstream.h] l.127|m:manpages/stdio/fseek.3.rst[fgetpos]||#
-f:fgets|D:char* fgets(char *buf, int size, FILE* F);|d:read fileno|l:../src/fgets.c[../src/fgets.c] l.6|m:manpages/stdio/fgets.3.rst[fgets]||#
+f:fgets|D:char* fgets(char *buf, int size, FILE* F);|d:fileno read|l:../src/fgets.c[../src/fgets.c] l.6|m:manpages/stdio/fgets.3.rst[fgets]||#
 f:fileno|D:static int fileno( FILE *f );|l:../include/mini_fstream.h[../include/mini_fstream.h] l.56|m:manpages/stdio/ferror.3.rst[fileno]|o:Return the fd nummber of stdin,-out,-err. ||#
-f:fopen|D:FILE *fopen(const char* filename, const char* mode);|d:close fileno open|l:../src/fopen.c[../src/fopen.c] l.80|m:manpages/stdio/fopen.3.rst[fopen]|o:modes implemented: r, r+, w, w+, a, a+||#
+f:fopen|D:FILE *fopen(const char* filename, const char* mode);|d:fileno open close|l:../src/fopen.c[../src/fopen.c] l.81|m:manpages/stdio/fopen.3.rst[fopen]|o:modes implemented: r, r+, w, w+, a, a+||#
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|d:write fileno|l:../include/mini_fstream.h[../include/mini_fstream.h] l.95||#
-f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))|d:write fileno|l:../src/sprintf.c[../src/sprintf.c] l.245|m:manpages/stdio/printf.3.rst[fprintf]||#
-f:fputc|D:static inline int volatile fputc(int c, FILE* F);|d:fileno write|l:../include/fputc.h[../include/fputc.h] l.10|m:manpages/stdio/putc.3.rst[fputc]||#
+f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))|d:fileno write|l:../src/sprintf.c[../src/sprintf.c] l.245|m:manpages/stdio/printf.3.rst[fprintf]||#
+f:fputc|D:static inline int volatile fputc(int c, FILE* F);|d:write fileno|l:../include/fputc.h[../include/fputc.h] l.10|m:manpages/stdio/putc.3.rst[fputc]||#
 f:fputs|D:static inline int volatile fputs(const char *c, FILE *F);|d:strlen write fileno|l:../include/fputs.h[../include/fputs.h] l.20|m:manpages/stdio/fputs.3.rst[fputs]||#
 f:fread|D:static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);|d:read|l:../include/mini_fstream.h[../include/mini_fstream.h] l.162|m:manpages/stdio/fread.3.rst[fread]||#
-f:freopen|D:FILE *freopen(const char* filename, const char* mode, FILE *F);|d:open close fileno|l:../src/fopen.c[../src/fopen.c] l.100|m:manpages/stdio/fopen.3.rst[freopen]|o:modes implemented: r, r+, w, w+, a, a+||#
+f:freopen|D:FILE *freopen(const char* filename, const char* mode, FILE *F);|d:close open fileno|l:../src/fopen.c[../src/fopen.c] l.101|m:manpages/stdio/fopen.3.rst[freopen]|o:modes implemented: r, r+, w, w+, a, a+||#
 f:fseek|D:static inline int fseek(FILE *f, long offset, int whence );|d:lseek|l:../include/mini_fstream.h[../include/mini_fstream.h] l.146|m:manpages/stdio/fseek.3.rst[fseek]||#
 f:fsetpos|D:static inline int fsetpos(FILE *f, int pos );|d:lseek|l:../include/mini_fstream.h[../include/mini_fstream.h] l.133|m:manpages/stdio/fseek.3.rst[fsetpos]||#
 f:ftell|D:static inline long ftell(FILE *f);|d:lseek|l:../include/mini_fstream.h[../include/mini_fstream.h] l.121|m:manpages/stdio/fseek.3.rst[ftell]||#
@@ -439,17 +440,17 @@ f:getchar|D:#define getchar() fgetc(0)|d:fileno read|l:../include/fgetc.h[../inc
 f:gets|D:#define gets(F) fgets(F,0xfffffff,stdin)|d:read fileno|l:../src/fgets.c[../src/fgets.c] l.29|m:manpages/stdio/fgets.3.rst[gets]||#
 f:itoHEX|D:int itoHEX(int i,char* buf,int padding);|d:|l:../src/itohex.c[../src/itohex.c] l.56||#
 f:itohex|D:int itohex(int i,char* buf,int padding);|d:|l:../src/itohex.c[../src/itohex.c] l.49||#
-f:perror|D:void perror(const char *msg);|d:errno strerror fileno write strlen|l:../src/perror.c[../src/perror.c] l.4|m:manpages/string/strerror.3.rst[perror]||#
-f:printf|D:#define printf(...) fprintf(stdout,__VA_ARGS__)|d:fileno write|l:../include/mini_fstream.h[../include/mini_fstream.h] l.91|m:manpages/stdio/printf.3.rst[printf]||#
+f:perror|D:void perror(const char *msg);|d:strerror errno strlen write fileno|l:../src/perror.c[../src/perror.c] l.4|m:manpages/string/strerror.3.rst[perror]||#
+f:printf|D:#define printf(...) fprintf(stdout,__VA_ARGS__)|d:write fileno|l:../include/mini_fstream.h[../include/mini_fstream.h] l.91|m:manpages/stdio/printf.3.rst[printf]||#
 f:putc|D:#define putc(c,stream) fputc(c,stream)|d:write fileno|l:../include/fputc.h[../include/fputc.h] l.19|m:manpages/stdio/putc.3.rst[putc]||#
-f:putchar|D:#define putchar(c) fputc(c,stdout)|d:write fileno|l:../include/fputc.h[../include/fputc.h] l.16|m:manpages/stdio/putc.3.rst[putchar]||#
-f:puts|D:#define puts(msg) ( print(msg) + printl() )|d:write strlen|l:../include/prints.h[../include/prints.h] l.73|m:manpages/stdio/fputs.3.rst[puts]|o:write msg to stdout, append a newline. Needs strlen.||#
+f:putchar|D:#define putchar(c) fputc(c,stdout)|d:fileno write|l:../include/fputc.h[../include/fputc.h] l.16|m:manpages/stdio/putc.3.rst[putchar]||#
+f:puts|D:#define puts(msg) ( print(msg) + printl() )|d:strlen write|l:../include/prints.h[../include/prints.h] l.73|m:manpages/stdio/fputs.3.rst[puts]|o:write msg to stdout, append a newline. Needs strlen.||#
 f:rewind|D:static inline void rewind( FILE *f );|d:lseek|l:../include/mini_fstream.h[../include/mini_fstream.h] l.156|m:manpages/stdio/fseek.3.rst[rewind]||#
 f:setbuf|D:static void setbuf(FILE *stream, char *buf);|l:../include/mini_fstream.h[../include/mini_fstream.h] l.211|m:manpages/stdio/setbuf.3.rst[setbuf]|o:dummy function.:+: There is no buffering implemented for the streams yet.||#
 f:setvbuf|D:static int setvbuf(FILE *stream, char *buf, int mode, size_t size);|l:../include/mini_fstream.h[../include/mini_fstream.h] l.216|m:manpages/stdio/setbuf.3.rst[setvbuf]|o:dummy function||#
 f:sprintf|D:#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)|d:write|l:../src/sprintf.c[../src/sprintf.c] l.26|m:manpages/stdio/printf.3.rst[sprintf]||#
 f:ungetc|D:static int ungetc(int c, FILE *F);|l:../include/fgetc.h[../include/fgetc.h] l.35|m:manpages/stdio/ungetc.3.rst[ungetc]|o:pushes one char back to the stream.:+: Overwrites a previously pushed char:+: (conforming to the posix spec) ||#
-f:vfprintf|D:#define vfprintf(...) fprintf(__VA_ARGS__)|d:write fileno|l:../include/mini_fstream.h[../include/mini_fstream.h] l.100|m:manpages/stdio/printf.3.rst[vfprintf]||#
+f:vfprintf|D:#define vfprintf(...) fprintf(__VA_ARGS__)|d:fileno write|l:../include/mini_fstream.h[../include/mini_fstream.h] l.100|m:manpages/stdio/printf.3.rst[vfprintf]||#
 f:abs|D:static int abs(int i);|l:../include/math.h[../include/math.h] l.25|m:manpages/stdlib/abs.3.rst[abs]||#
 f:atoi|D:int atoi(const char *c);|l:../src/atoi.c[../src/atoi.c] l.6|m:manpages/stdlib/atoi.3.rst[atoi]||#
 f:atol|D:long atol(const char *c);|l:../src/atoi.c[../src/atoi.c] l.43|m:manpages/stdlib/atol.3.rst[atol]||#
@@ -460,14 +461,14 @@ f:labs|D:static long int labs(long int i);|l:../include/math.h[../include/math.h
 f:ldiv|D:static ldiv_t ldiv(long int numerator, long int denominator);|l:../include/math.h[../include/math.h] l.16|m:manpages/stdlib/ldiv.3.rst[ldiv]||#
 f:malloc|D:void* volatile malloc(int size);|l:../src/malloc.c[../src/malloc.c] l.228|m:manpages/stdlib/memory.3.rst[malloc]||#
 f:rand|D:unsigned int rand();|l:../src/rand.c[../src/rand.c] l.15|m:manpages/stdlib/rand.3.rst[rand]||#
-f:realloc|D:void* realloc(void *p, int size);|d:malloc free|l:../src/malloc.c[../src/malloc.c] l.159|m:manpages/stdlib/memory.3.rst[realloc]||#
+f:realloc|D:void* realloc(void *p, int size);|d:free malloc|l:../src/malloc.c[../src/malloc.c] l.159|m:manpages/stdlib/memory.3.rst[realloc]||#
 f:srand|D:void srand( unsigned int i );|l:../src/rand.c[../src/rand.c] l.7|m:manpages/stdlib/rand.3.rst[srand]||#
 f:strtol|D:long int strtol(const char *c, const char **endp, int base);|l:../src/strtol.c[../src/strtol.c] l.5|m:manpages/stdlib/strtol.3.rst[strtol]|o:conversion:+: doesn't check for overflow(!)||#
-f:system|D:int system( const char* command );|d:wait4 write vfork execve environ|l:../src/system.c[../src/system.c] l.4|m:manpages/stdlib/system.3.rst[system]||#
+f:system|D:int system( const char* command );|d:write vfork environ wait4 execve|l:../src/system.c[../src/system.c] l.4|m:manpages/stdlib/system.3.rst[system]||#
 f:todo_putenv|D:int todo_putenv( char *s );|d:environ|l:../src/getenv.c[../src/getenv.c] l.22||#
 f:_strcasecmp|D:int _strcasecmp(const char*c1,const char*c2,int len);|d:tolower|l:../src/strcmp.c[../src/strcmp.c] l.30||#
 f:_strcmp|D:int _strcmp(const char*c1,const char*c2,int len);|l:../src/strcmp.c[../src/strcmp.c] l.13||#
-f:errno_str|D:const char *errno_str(int err);|l:../src/strerror.c[../src/strerror.c] l.31|o:convert errno to str, with 3 chars length:+: ending the string (located in the bss section):+: with two \0\0, when errno<100||#
+f:errno_str|D:const char *errno_str(int err);|l:../src/strerror.c[../src/strerror.c] l.31|o:convert errno to str, with 3 chars length:+: ending the string (located in the bss section, and global):+: with two \0\0, when errno<100||#
 f:memcmp|D:int memcmp(const void* c1,const void* c2,int len);|d:0|l:../src/strcmp.c[../src/strcmp.c] l.85|m:manpages/string/memcmp.3.rst[memcmp]||#
 f:memcpy|D:void *memcpy( void *d, const void *s, int n );|l:../src/memcpy.c[../src/memcpy.c] l.6|m:manpages/string/memcpy.3.rst[memcpy]||#
 f:memmove|D:void* memmove(void *dest, const void *src, int n);|l:../src/memmove.c[../src/memmove.c] l.3|m:manpages/string/memmove.3.rst[memmove]||#
@@ -488,39 +489,38 @@ f:strrchr|D:char *strrchr(const char *s, int c);|d:strchrnul|l:../src/strchr.c[.
 f:strstr|D:char* strstr(const char *big, const char *little);|l:../src/strstr.c[../src/strstr.c] l.3|m:manpages/string/strstr.3.rst[strstr]||#
 f:wait|D:pid_t wait(int *wstatus);|d:wait4|l:../src/wait.c[../src/wait.c] l.8|m:manpages/sys/wait.2.rst[wait]||#
 f:waitpid|D:pid_t waitpid(pid_t pid, int *wstatus, int options);|d:wait4|l:../src/wait.c[../src/wait.c] l.16|m:manpages/sys/wait.2.rst[waitpid]||#
-f:time|k|D:int time(unsigned int *a1 )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.203|m:manpages/gen/time.3.rst[time]||#
+f:time|k|D:int time(unsigned int *a1 )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.206|m:manpages/gen/time.3.rst[time]||#
 f:access|k|D:int access( const char *filename, int mode)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.157|m:manpages/sys/access.2.rst[access]||#
 f:chdir|k|D:int chdir(const char* path)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.107|m:manpages/sys/chdir.2.rst[chdir]||#
-f:chown|k|D:int chown( const char *filename, uid_t user, gid_t group)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.185|m:manpages/sys/chown.2.rst[chown]||#
+f:chown|k|D:int chown( const char *filename, uid_t user, gid_t group)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.188|m:manpages/sys/chown.2.rst[chown]||#
 f:chroot|k|D:int chroot( const char *filename)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.137|m:manpages/sys/chroot.2.rst[chroot]||#
 f:close|k|D:int close( int fd )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.96|m:manpages/sys/close.2.rst[close]||#
 f:dup|k|D:int dup(int fd)		|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.112|m:manpages/sys/dup.2.rst[dup]||#
 f:dup2|k|D:int dup2(int oldfd, int newfd)		|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.113|m:manpages/sys/dup.2.rst[dup2]||#
 f:execl|D:static int execl(const char *pathname, const char* arg0,... );|d:execve environ|l:../src/execl.c[../src/execl.c] l.6|m:manpages/gen/exec.3.rst[execl]||#
-f:execle|D:static int execle(const char *pathname, const char* arg0,..., char* const envp[] );|d:execve|l:../src/execl.c[../src/execl.c] l.33|m:manpages/gen/exec.3.rst[execle]||#
 f:execv|D:static inline int execv(const char *pathname, char *const argv[]);|d:execve environ|l:../src/execvp.c[../src/execvp.c] l.9|m:manpages/gen/exec.3.rst[execv]||#
 f:execve|k|D:int execve( const char *filename,  char* const* argv, char* const* envp)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.123|m:manpages/sys/execve.2.rst[execve]||#
-f:execvp|D:static inline int execvp(const char *file, char *const argv[]);|d:execve environ access|l:../src/execvp.c[../src/execvp.c] l.58|m:manpages/gen/exec.3.rst[execvp]||#
-f:execvpe|D:static int execvpe(const char *file, char *const argv[], char *const envp[]);|d:access execve environ|l:../src/execvp.c[../src/execvp.c] l.18|o:When invoked with a filename, starting with "." or "/",:+: interprets this as absolute path. (calls execve with the pathname):+: Looks for file in the PATH environment, othwerise.||#
+f:execvp|D:static inline int execvp(const char *file, char *const argv[]);|d:environ execve access|l:../src/execvp.c[../src/execvp.c] l.58|m:manpages/gen/exec.3.rst[execvp]||#
+f:execvpe|D:static int execvpe(const char *file, char *const argv[], char *const envp[]);|d:environ access execve|l:../src/execvp.c[../src/execvp.c] l.18|o:When invoked with a filename, starting with "." or "/",:+: interprets this as absolute path. (calls execve with the pathname):+: Looks for file in the PATH environment, othwerise.||#
 f:fork|k|D:int DEF_syscall(fork,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.127|m:manpages/sys/fork.2.rst[fork]||#
 f:fsync|k|D:int fsync(int a1 )|l:../include/lseek.h[../include/lseek.h] l.22|m:manpages/sys/fsync.2.rst[fsync]||#
 f:ftruncate|k|D:int ftruncate(unsigned int a1, unsigned int a2 )|l:../include/lseek.h[../include/lseek.h] l.21|m:manpages/sys/truncate.2.rst[ftruncate]||#
-f:getgid|k|D:int DEF_syscall(getgid,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.189|m:manpages/sys/getgid.2.rst[getgid]||#
-f:getpgrp|k|D:int DEF_syscall(getpgrp,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.190|m:manpages/sys/getpgrp.2.rst[getpgrp]||#
+f:getgid|k|D:int DEF_syscall(getgid,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.192|m:manpages/sys/getgid.2.rst[getgid]||#
+f:getpgrp|k|D:int DEF_syscall(getpgrp,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.193|m:manpages/sys/getpgrp.2.rst[getpgrp]||#
 f:getpid|k|D:int DEF_syscall(getpid,0 )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.141|m:manpages/sys/getpid.2.rst[getpid]||#
-f:getuid|k|D:int DEF_syscall(getuid,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.192|m:manpages/sys/getuid.2.rst[getuid]||#
+f:getuid|k|D:int DEF_syscall(getuid,0)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.195|m:manpages/sys/getuid.2.rst[getuid]||#
 f:isatty|D:int isatty(int fd);|d:ioctl|l:../src/isatty.c[../src/isatty.c] l.7|m:manpages/gen/ttyname.3.rst[isatty]||#
 f:link|k|D:int link( const char *oldname, const char *newname)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.118|m:manpages/sys/link.2.rst[link]||#
 f:lseek|k|D:int lseek(unsigned int a1, int a2, int a3 )|l:../include/lseek.h[../include/lseek.h] l.19|m:manpages/sys/lseek.2.rst[lseek]||#
 f:mkdir|k|D:int mkdir( const char *pathname, int mode)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.154|m:manpages/sys/mkdir.2.rst[mkdir]||#
 f:open|D:int volatile open( const char *s, int flags, ... );|l:../src/open.c[../src/open.c] l.19|m:manpages/sys/open.2.rst[open]|o:open or create a file.:+: warning: when using the flag O_CREAT,:+: file permission flags have to be given:+: as third argument. Otherwise file permission:+: flags will be random. (I still do not know, what :+: the flag showing up as "-T" means..)||#
-f:pipe|k|D:int pipe( int *filedes)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.182|m:manpages/sys/pipe.2.rst[pipe]||#
+f:pipe|k|D:int pipe( int *filedes)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.185|m:manpages/sys/pipe.2.rst[pipe]||#
 f:read|k|D:int read( int fd, void *buf, int len )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.97|m:manpages/sys/read.2.rst[read]||#
 f:rename|k|D:int rename( const char* oldpath, const char* newpath )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.102|m:manpages/sys/rename.2.rst[rename]||#
 f:rmdir|k|D:int rmdir( const char *pathname)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.155|m:manpages/sys/rmdir.2.rst[rmdir]||#
 f:select|D:static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);|l:../include/select.h[../include/select.h] l.9|m:manpages/sys/select.2.rst[select]||#
 f:setgid|k|D:int setgid( gid_t gid)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.143|m:manpages/sys/setuid.2.rst[setgid]||#
-f:setpgid|k|D:int setpgid( pid_t pid, pid_t pgid)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.188|m:manpages/sys/setpgid.2.rst[setpgid]||#
+f:setpgid|k|D:int setpgid( pid_t pid, pid_t pgid)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.191|m:manpages/sys/setpgid.2.rst[setpgid]||#
 f:setsid|k|D:int DEF_syscall(setsid,0 )|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.142|m:manpages/sys/setsid.2.rst[setsid]||#
 f:setuid|k|D:int setuid( uid_t uid)|l:../include/syscall_stubs.h[../include/syscall_stubs.h] l.144|m:manpages/sys/setuid.2.rst[setuid]||#
 f:sleep|D:unsigned int volatile sleep(unsigned int seconds);|l:../src/sleep.c[../src/sleep.c] l.10|m:manpages/gen/sleep.3.rst[sleep]|o:nonconformant sleep:+: TODO: ignore blocked signals, sigchld||#

@@ -335,9 +335,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  107 </small></td><td><small> chdir(const char* path)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">chmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  184 </small></td><td><small> chmod( const char *filename, mode_t mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">chmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> chmod( const char *filename, mode_t mode)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">chown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  185 </small></td><td><small> chown( const char *filename, uid_t user, gid_t group)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">chown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  188 </small></td><td><small> chown( const char *filename, uid_t user, gid_t group)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chroot.2.rst.html">chroot</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  137 </small></td><td><small> chroot( const char *filename)
 </small></td></tr>
@@ -400,15 +400,13 @@
  </small></td></tr>
 <tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  31 </small></td><td><small> const char *errno_str(int err);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert errno to str, with 3 chars length
-  ending the string (located in the bss section)
+  ending the string (located in the bss section, and global)
   with two \0\0, when errno<100
  </small></td></tr>
 <tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  52 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execl</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  6 </small></td><td><small>  int execl(const char *pathname, const char* arg0,... );
-</small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execle</a></small></td><td><small>   <a href="../src/execl.c" target="right">../src/execl.c</a>  33 </small></td><td><small>  int execle(const char *pathname, const char* arg0,..., char* const envp[] );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execv</a></small></td><td><small>   <a href="../src/execl.c" target="right">../src/execl.c</a>  9 </small></td><td><small>   int execv(const char *pathname, char *const argv[]);
 </small></td></tr>
@@ -446,7 +444,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  158 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  90 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  91 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  184 </small></td><td><small>   int feof(FILE *f);
@@ -469,7 +467,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
 </small></td></tr><tr><td></td><td colspan="2"><small>Return the fd nummber of stdin,-out,-err. 
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  80 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  81 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  127 </small></td><td><small> DEF_syscall(fork,0)
@@ -492,7 +490,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  278 </small></td><td><small> void  free(void* p);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  100 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  101 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  146 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
@@ -522,21 +520,21 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">getenv</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> char* getenv(const char* name);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  189 </small></td><td><small> DEF_syscall(getgid,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  192 </small></td><td><small> DEF_syscall(getgid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  198 </small></td><td><small> getitimer( int which,  struct itimerval *value)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  201 </small></td><td><small> getitimer( int which,  struct itimerval *value)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  190 </small></td><td><small> DEF_syscall(getpgrp,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  193 </small></td><td><small> DEF_syscall(getpgrp,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getpid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  141 </small></td><td><small> DEF_syscall(getpid,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> DEF_syscall(getppid,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  190 </small></td><td><small> DEF_syscall(getppid,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  29 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  132 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getuid.2.rst.html">getuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  192 </small></td><td><small> DEF_syscall(getuid,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getuid.2.rst.html">getuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  195 </small></td><td><small> DEF_syscall(getuid,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">grantpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  13 </small></td><td><small> int grantpt(int fd);
 </small></td></tr>
@@ -604,7 +602,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mkfifo.2.rst.html">mkfifo</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  int mkfifo( const char* path, mode_t mode );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mknod.2.rst.html">mknod</a></small></td><td><small>   <a href="../include/mkfifo.h" target="right">../include/mkfifo.h</a>  193 </small></td><td><small> mknod( const char *filename,  umode_t mode,  unsigned dev)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mknod.2.rst.html">mknod</a></small></td><td><small>   <a href="../include/mkfifo.h" target="right">../include/mkfifo.h</a>  196 </small></td><td><small> mknod( const char *filename,  umode_t mode,  unsigned dev)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mmap.2.rst.html">mmap</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small>  void* )) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 </small></td></tr><tr><td></td><td colspan="2"><small>mmap wrapper
@@ -616,11 +614,11 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mount.2.rst.html">mount</a></small></td><td><small>   <a href="../src/mmap.c" target="right">../src/mmap.c</a>  164 </small></td><td><small> mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  180 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  183 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
 </small></td></tr>
 <tr valign="top"><td><small>mremap</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  void*  )) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/munmap.2.rst.html">munmap</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  195 </small></td><td><small> munmap( unsigned long addr,  size_t len)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/munmap.2.rst.html">munmap</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  198 </small></td><td><small> munmap( unsigned long addr,  size_t len)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  131 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
@@ -636,7 +634,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/perror.c" target="right">../src/perror.c</a>  182 </small></td><td><small> pipe( int *filedes)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/perror.c" target="right">../src/perror.c</a>  185 </small></td><td><small> pipe( int *filedes)
 </small></td></tr>
 <tr valign="top"><td><small>pivot_root</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  138 </small></td><td><small> pivot_root( const char *new_root,  const char *put_old)
 </small></td></tr>
@@ -677,7 +675,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  97 </small></td><td><small> read( int fd, void *buf, int len )
 </small></td></tr>
-<tr valign="top"><td><small>readahead</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  191 </small></td><td><small> readahead( int fd,  loff_t offset,  size_t count)
+<tr valign="top"><td><small>readahead</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  194 </small></td><td><small> readahead( int fd,  loff_t offset,  size_t count)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
 </small></td></tr><tr><td></td><td colspan="2"><small>read a directory.
@@ -723,9 +721,11 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setgid</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  143 </small></td><td><small> setgid( gid_t gid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">setitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  197 </small></td><td><small> setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setgroups.2.rst.html">setgroups</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  178 </small></td><td><small> setgroups( int gidsetsize,  gid_t *grouplist)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  188 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">setitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  200 </small></td><td><small> setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  191 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  142 </small></td><td><small> DEF_syscall(setsid,0 )
 </small></td></tr>
@@ -811,7 +811,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  2 </small></td><td><small> long telldir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  203 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  206 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>todo_abort</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void todo_abort();
 </small></td></tr>
@@ -821,7 +821,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  6 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  183 </small></td><td><small> umask( int mask)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  186 </small></td><td><small> umask( int mask)
 </small></td></tr>
 <tr valign="top"><td><small>umount2</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  160 </small></td><td><small> umount2( const char *mountpoint, int flags) 
 </small></td></tr>
@@ -846,7 +846,7 @@
  
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  186 </small></td><td><small> utime( const char *filename, struct utimbuf *times)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  189 </small></td><td><small> utime( const char *filename, struct utimbuf *times)
 </small></td></tr>
 <tr valign="top"><td><small>verbose_errstr</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> const char* verbose_errstr(int num);
 </small></td></tr><tr><td></td><td colspan="2"><small>verbose error (errno) string. 

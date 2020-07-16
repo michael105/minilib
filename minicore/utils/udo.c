@@ -1,11 +1,10 @@
 #if 0
 mini_start
-mini_atoi
-mini_execl
 mini_ewrites
+mini_writes
 mini_eprints
-mini_errno
 mini_exit_errno
+mini_syscalls
 
 
 INCLUDESRC
@@ -15,77 +14,89 @@ LDSCRIPT text_and_bss
 return
 #endif
 
+// sudo for root, to drop privileges
 
-// this isn't secure.
-// possibility for an user, to enter a setgid shell.
-// might be tolerable, when only privileged users
-// (being in the same group as this wrapper)
-// are allowed to execute the wrapper.
-// (chmod o-rx)
-// Finally, it might also be possible 
-// to start a gtk program, and fork then into a shell.
-//
-// And the reason for this wrapper is to drop privileges.
-// I'm not satisfied. But this damned gtk restriction
-// of not allowing setgid'd programs to run
-// forces to such a stupid wrapper.
-//
-// The gtk developers got a real misconception.
-// They seem to know only about suid root.
-// The concept of suid user_with_dropped_privileges
-// is sadly prevented, too.
-// Since this problem is known, and some other people
-// already pointed to it - without success -
-// I'm not going to try changing the gtk sources
-// and get this into upstream.
-//
-// There would be the possibility to do a sudo -g group.
-// but this would have other disadvantages.
-//
-// exec the wrapped binary directly would principially work,
-// but there are enviromental variables missing.
-// I'm just fed up.
-//
-// I leave this as it is for now.
-//
-// misc (2020)
+#define uid_nobody 65534
+#define gid_nobody 65534
 
 
-// the executable. should be an absolute path
-#define EXEC "/bin/ls -lh"
 
-#define GID 1002
+void usage(){
+		writes("usage: udo [-u uid] [-g gid] [-G supplementary gid1] [-G ...] [-G gid8] command [arguments]\n");
+		exit(1);
+}
 
-#define MAXARGLEN 1024
+int getint( const char *c ){
+		if ( !c )
+				usage();
+		int ret = 0;
+		while( (*c>='0') && (*c<='9') ){
+				ret*=10;
+				ret=ret+(*c-48);
+				c++;
+		}
+		if ( *c != 0 )
+				usage();
+
+		return(ret);
+}
 
 int main(int argc,	char **argv, char **envp ){
-//		setenv("HOME","/home/micha",1);
 
-		if(setgid(GID)){
-				ewrites("setgid() failed\n");
-				//exit(1);
-		};
-/*		if(setuid(UID)){
-				write(fileno(stderr),"setuid() failed\n",16);
-				exit(1);
-		};*/
+		int uid = uid_nobody;
+		int gid = gid_nobody;
+		static gid_t groups[8];
+		int groupcount = 0;
 
-		char arg[MAXARGLEN]=EXEC;
-		int p = sizeof(EXEC)-1;
-
-		for ( int c=1; argv[c] && ( p<MAXARGLEN-1 ); c++ ){
-				arg[p++]=' ';
-				int i = 0;
-				while( argv[c][i] && ( p<MAXARGLEN-1 ) ){
-					 arg[p++]=argv[c][i++];
-				}
+		if (argc < 2 ){
+				usage();
 		}
-		arg[p]=0;
 
-		//printf("arg: %s\n",arg);
+		for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
+				switch ( argv[0][1] ){
+						case 'h':
+						usage();
+						case 'u':
+								uid = getint(argv[1]);
+								break;
+						case 'g':
+								gid = getint(argv[1]);
+								break;
+						case 'G':
+								groups[groupcount] = getint(argv[1]);
+								groupcount++;
+				}
+				*argv++;
+		}
 
-		int ret = execl("/sbin/sh", "sh", "-c", arg, 0 );
+		if ( !*argv )
+				usage();
 
-		eprints("Couldn't execute ",argv[1],"\n");
-		exit_errno(errno);
+		if ( groupcount == 0){
+				groupcount = 1;
+				groups[0] = gid;
+		}
+
+		int ret;
+
+#define IFFAIL(a,str) if ( (ret=a) ){ewrites(str); goto failed;}
+
+		IFFAIL(sys_setgroups(groupcount,groups),"setgroups()");
+		IFFAIL(setgid(gid),"setgid()");
+		IFFAIL(setuid(uid),"setuid()");
+
+
+		for ( char *c = *argv; c<(*envp-1); c++ ){
+				if ( !*c )
+						*c = ' ';
+		}
+
+		char* arg[] = { "sh", "-c", *argv };
+
+		ret = execve("/bin/sh", arg, envp );
+
+		ewrites("Executing /bin/sh");
+failed:
+		ewrites(" failed\n");
+		exit_errno(ret);
 }

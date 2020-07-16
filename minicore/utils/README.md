@@ -8,13 +8,13 @@ Since I'm aiming at a 64kB (128kB max) base system, I've to separate them.
 
 
 ```
-conv            2020-07-14             2856
-errno           2020-06-21             6608
-kgetty          2020-07-03             3905
+conv            2020-07-16             2804
+errno           2020-07-16             6352
+kgetty          2020-07-16             4409
 sed/s           2020-07-07             18656
 sed/sed         2020-07-07             16748
 sed/sed.bak     2020-06-12             18320
-udo             2020-07-16             966
+udo             2020-07-16             1056
 ===============================================
-                          size: 68059 Bytes
+                          size: 68345 Bytes
 ```

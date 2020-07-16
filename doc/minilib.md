@@ -732,7 +732,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 90)
+               (src/fopen.c: 91)
 
 feof           static inline int feof(FILE *f);
 
@@ -767,7 +767,7 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 80)
+               (src/fopen.c: 81)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -792,7 +792,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 100)
+               (src/fopen.c: 101)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
@@ -966,7 +966,7 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 errno_str      const char *errno_str(int err);
 
                convert errno to str, with 3 chars length
-              ending the string (located in the bss section)
+              ending the string (located in the bss section, and global)
               with two \0\0, when errno<100
                (src/strerror.c: 31)
 
@@ -1071,10 +1071,6 @@ unistd.h
 execl          static int execl(const char *pathname, const char* arg0,... );
 
                (src/execl.c: 6)
-
-execle         static int execle(const char *pathname, const char* arg0,..., char* const envp[] );
-
-               (src/execl.c: 33)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
 

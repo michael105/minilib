@@ -182,7 +182,7 @@ extern int errno;
 				return( sysret );\
 		}
 
-//				return( (sysret<0) ? -1 : sysret );\
+//				return( (sysret<0) ? -1 : sysret );
 
 #endif
 
