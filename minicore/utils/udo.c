@@ -5,7 +5,7 @@ mini_execl
 mini_ewrites
 mini_eprints
 mini_errno
-mini_exec_errno
+mini_exit_errno
 
 
 INCLUDESRC
@@ -87,5 +87,5 @@ int main(int argc,	char **argv, char **envp ){
 		int ret = execl("/sbin/sh", "sh", "-c", arg, 0 );
 
 		eprints("Couldn't execute ",argv[1],"\n");
-		exec_errno(errno);
+		exit_errno(errno);
 }

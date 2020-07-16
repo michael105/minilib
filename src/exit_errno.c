@@ -13,7 +13,7 @@
 // the absolute value is supplied to errno.
 //+depends execve errno_str exit ewrites
 //+def
-void exec_errno( int errnum ){
+void exit_errno( int errnum ){
 		errnum &= 0xFF;
 		char *args[3]; 
 		args[0] = "errno";

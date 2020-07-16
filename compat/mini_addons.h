@@ -111,8 +111,8 @@ char *dirname(char *s);
 // file: minilib/src/dtodec.c
 int dtodec(double d, char* buf, int precision);
 
-// file: minilib/src/exec_errno.c
-void exec_errno( int errnum );
+// file: minilib/src/exit_errno.c
+void exit_errno( int errnum );
 
 // file: minilib/src/fprintfs.c
 int fprintfs( FILE* F, char *fmt, ...);
@@ -226,26 +226,26 @@ int dirfd(DIR *d);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/hashes.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/dirname.c"
-#include "minilib/src/mmap.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/itodec.c"
-#include "minilib/src/exec_errno.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/src/abort.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/prints.c"
 #include "minilib/src/pty.c"
-#include "minilib/src/brk.c"
-#include "minilib/include/fexecve.h"
-#include "minilib/include/prints.h"
+#include "minilib/include/fexecveat.h"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/mmap.c"
 #include "minilib/include/minilib_global.h"
+#include "minilib/include/prints.h"
+#include "minilib/src/prints.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/hashes.c"
 #include "minilib/src/itobin.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/exit_errno.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/brk.c"
+#include "minilib/src/abort.c"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/include/fexecve.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

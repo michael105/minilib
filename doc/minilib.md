@@ -74,7 +74,7 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
-               (src/prints.c: 70)
+               (src/prints.c: 69)
 
 basename       char *basename(char *path);
 
@@ -119,7 +119,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/prints.c: 49)
+               (src/prints.c: 48)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -156,7 +156,7 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
                (include/prints.h: 52)
 
-exec_errno     void exec_errno( int errnum );
+exit_errno     void exit_errno( int errnum );
 
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -171,7 +171,7 @@ exec_errno     void exec_errno( int errnum );
               as well.
               The supplied errno can be negative,
               the absolute value is supplied to errno.
-               (src/exec_errno.c: 16)
+               (src/exit_errno.c: 16)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
