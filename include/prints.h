@@ -11,6 +11,13 @@ extern int dprints(int fd, const char *msg,...);
 #define prints(...) _mprints(__VA_ARGS__,0)
 
 
+//+doc print the string(s) supplied as arg(s) to stdout
+//+depends dprints 
+//+macro
+#define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
+
+
+
 //+doc print the string(s) supplied as arg(s) to stream
 //+depends fileno write strlen
 //+macro
@@ -71,13 +78,13 @@ extern int dprints(int fd, const char *msg,...);
 
 
 
-//+depends fprintfs fputs
+//+depends fprintfs fputs strlen
 //+doc write str to stdout. 
 // only format %s is recognized
 //+macro printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
 
-//+depends fprintfs fputs
+//+depends fprintfs fputs strlen
 //+doc write str to stderr. 
 // only format %s is recognized
 //+macro eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)

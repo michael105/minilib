@@ -8,6 +8,9 @@ OUTPUT_ARCH(i386)*/
 	 as well as some need an executable bss section.
 	 Have to sort this out.
 	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
 	 */ 
 
 	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
@@ -38,7 +41,7 @@ SECTIONS
 						*(.gnu.warning)
 		 } :text
 
-		.bss            :
+		.bss           : 
 		{ 
 
 						*(.dynbss)
@@ -52,7 +55,7 @@ SECTIONS
 							 FIXME: Why do we need it? When there is no .bss section, we dont
 							 pad the .data section.  
 misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :bss
+		} :bss 
 		/* . = ALIGN(64 / 8);
 	  _end = .; 
 		PROVIDE (_end = .); */

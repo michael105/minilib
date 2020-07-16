@@ -6,7 +6,7 @@
 //+def
 char* strerror( int errnum ){
 #ifndef mini_verbose_errstr
-		static char *errstr = "error: 000";
+		char *errstr = "error: 000";
 		errstr[7] = '0';
 		while ( errnum>99 ){
 				errnum-=100;
@@ -29,7 +29,7 @@ char* strerror( int errnum ){
 // with two \0\0, when errno<100
 //+def
 const char *errno_str(int err){
-		static char *e="100\0";
+		char *e="100\0";
 		char *p = e;
 		if ( err>99 ){
 				err-=100;

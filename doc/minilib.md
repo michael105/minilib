@@ -74,7 +74,7 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
-               (src/prints.c: 69)
+               (src/prints.c: 70)
 
 basename       char *basename(char *path);
 
@@ -117,6 +117,10 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
                (src/sprintf.c: 203)
 
+dprints        int dprints(int fd, const char *msg,...);
+
+               (src/prints.c: 49)
+
 dtodec         int dtodec(double d, char* buf, int precision);
 
                (src/dtodec.c: 10)
@@ -124,28 +128,50 @@ dtodec         int dtodec(double d, char* buf, int precision);
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 35)
+               (include/prints.h: 42)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
                write str to stderr. 
               only format %s is recognized
-               (include/prints.h: 83)
+               (include/prints.h: 90)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 60)
+               (include/prints.h: 67)
+
+eprints        #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
+
+               print the string(s) supplied as arg(s) to stdout
+               (include/prints.h: 17)
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 70)
+               (include/prints.h: 77)
 
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 45)
+               (include/prints.h: 52)
+
+exec_errno     void exec_errno( int errnum );
+
+               exit, and execute /bin/errno
+              this is intended to give a error message for the 
+              given errno num.
+              Instead of having the error messages compiled 
+              into each binary, they can stay within one executable, "errno"
+              This spares about 4kB, but needs errno installed to /bin/errno
+              It's the drawback of not having a hared library,
+              where all executables would share the same errno messages
+              in memory.
+              On the other hand, a shared library would need to be installed
+              as well.
+              The supplied errno can be negative,
+              the absolute value is supplied to errno.
+               (src/exec_errno.c: 16)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -163,12 +189,12 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
 
                print the string(s) supplied as arg(s) to stream
-               (include/prints.h: 17)
+               (include/prints.h: 24)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
                write the constant str to fd. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 51)
+               (include/prints.h: 58)
 
 grantpt        int grantpt(int fd);
 
@@ -186,7 +212,7 @@ ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 75)
 
-macro          static void __attribute__((noipa)) optimization_fence(void*p){}
+macro          static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
                prevent optimizations.
               cast a var to void*, and calling this,
@@ -235,18 +261,18 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 31)
+               (include/prints.h: 38)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write str to stdout. 
               only format %s is recognized
-               (include/prints.h: 77)
+               (include/prints.h: 84)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 56)
+               (include/prints.h: 63)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -256,7 +282,7 @@ prints         #define prints(...) _mprints(__VA_ARGS__,0)
 printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
                print the string(s) supplied as arg(s) and newline to stdout
-               (include/prints.h: 25)
+               (include/prints.h: 32)
 
 ptsname        char *ptsname(int fd);
 
@@ -320,7 +346,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 41)
+               (include/prints.h: 48)
 
 
 
@@ -823,7 +849,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 66)
+               (include/prints.h: 73)
 
 rewind         static inline void rewind( FILE *f );
 
@@ -940,9 +966,9 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 errno_str      const char *errno_str(int err);
 
                convert errno to str, with 3 chars length
-              ending the string (located on the stack (!) 
+              ending the string (located in the bss section)
               with two \0\0, when errno<100
-               (src/strerror.c: 32)
+               (src/strerror.c: 31)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
@@ -990,7 +1016,7 @@ strdup         char *strdup(const char *source);
 
 strerror       char* strerror( int errnum );
 
-               (src/strerror.c: 9)
+               (src/strerror.c: 7)
 
 strlen         int strlen(const char*str);
 
@@ -1041,6 +1067,10 @@ time.h
 ==========
 unistd.h
 ==========
+
+execl          static int execl(const char *pathname, const char* arg0,... );
+
+               (src/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
 

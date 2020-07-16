@@ -9,6 +9,7 @@ mini_buf 256
 mini_verbose_errstr
 INCLUDESRC
 LDSCRIPT text_and_bss
+globals_on_stack
 HEADERGUARDS
 shrinkelf
 return
@@ -17,17 +18,23 @@ return
 
 
 int main(int argc, char *argv[]){
+		int e =0;
+
 		if ( argc == 1 ){
 				writes("Usage: errno [-l] [errno number]\n");
-				return(0);
+				exit(0);
 		}
-		if ( argv[1][0]=='-' && argv[1][1] == 'l' ){
+
+		if ( argv[1][0]=='-' && argv[1][1] == 'l' ){ // list all errno values
 				for ( int a=1; a <= ERRNO_MAX; a++ ){
 						printf("%d: %s\n", a, verbose_errstr(a));
 				}
 		} else {
-				int e = atoi( argv[1] );
-				puts(verbose_errstr(e));
+				e = atoi( argv[1] );
+				if ( e ){
+						puts(verbose_errstr(e));
+				}
 		}
-		return( 0 );
+		exit(e);
 }
+

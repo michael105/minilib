@@ -132,14 +132,14 @@ fileno:328
 close:347
 execv:596
 dirname:475
-ptsname:2064
+ptsname:2063
 fchmod:359
 ftruncate:359
 tcgetattr:596
 getuidfeof:328
 setitimer:352
 getpiduitodec:823
-getppidstrerror:496
+getppidstrerror:488
 sigemptyset:337
 gettimeofday:343
 strlen:328
@@ -148,7 +148,7 @@ basename:447
 vhangupsys_brk:349
 fprintfs:723
 strdup:554
-dirfdverbose_errstr:340
+dirfdverbose_errstr:4793
 rt_sigaction:428
 lseek:371
 perror:625

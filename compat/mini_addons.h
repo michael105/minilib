@@ -111,6 +111,9 @@ char *dirname(char *s);
 // file: minilib/src/dtodec.c
 int dtodec(double d, char* buf, int precision);
 
+// file: minilib/src/exec_errno.c
+void exec_errno( int errnum );
+
 // file: minilib/src/fprintfs.c
 int fprintfs( FILE* F, char *fmt, ...);
 
@@ -138,6 +141,12 @@ void* memfrob(void* s, unsigned int len);
 // file: minilib/src/mmap.c
 static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 
+// file: minilib/src/prints.c
+int dprints(int fd, const char *msg,...);
+
+// file: minilib/src/prints.c
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+
 // file: minilib/src/pty.c
 int posix_openpt(int flags);
 
@@ -163,10 +172,13 @@ static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
 typedef int FILE;
 
 // file: minilib/include/minilib_global.h
-static void __attribute__((noipa)) optimization_fence(void*p){}
+static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
 // file: minilib/include/prints.h
 #define prints(...) _mprints(__VA_ARGS__,0)
+
+// file: minilib/include/prints.h
+#define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
 // file: minilib/include/prints.h
 #define fprints(F,str) write(fileno(F),str,strlen(str))
@@ -214,23 +226,25 @@ int dirfd(DIR *d);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/pty.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/abort.c"
 #include "minilib/src/hashes.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/brk.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/src/itodec.c"
-#include "minilib/src/fprintfs.c"
 #include "minilib/src/dirname.c"
 #include "minilib/src/mmap.c"
-#include "minilib/include/prints.h"
 #include "minilib/src/dtodec.c"
-#include "minilib/include/fexecve.h"
-#include "minilib/include/minilib_global.h"
+#include "minilib/src/itodec.c"
+#include "minilib/src/exec_errno.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/abort.c"
 #include "minilib/src/basename.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/prints.c"
+#include "minilib/src/pty.c"
+#include "minilib/src/brk.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/include/prints.h"
+#include "minilib/include/minilib_global.h"
 #include "minilib/src/itobin.c"
 
 // Need global included. Doesn't matter by which file.

@@ -8,7 +8,6 @@
 #define mini_prints
 #endif
 
-//+include
 
 //TODO: Handle errors of write (ret == -1)
 
@@ -45,6 +44,7 @@ int _prints(char *msg,...){
 
 //+needs write.h prints.h stdarg.h
 //+depends write
+//+def
 int dprints(int fd, const char *msg,...){
 		va_list args;
 		va_start(args,msg);

@@ -1,24 +1,21 @@
-
-
-ifdef PROG
-
-$(PROG): $(PROG).c
-ifneq ("$(wildcard $(PROG).mconf)","")
-		../../mini-gcc --config  $(PROG).mconf -o $(PROG) $(PROG).c
-else
-		../../mini-gcc --config  $(PROG).c -o $(PROG) $(PROG).c
-endif
-
-endif
+MCC=../../mini-gcc
 
 
 src = $(patsubst %.c,%, $(wildcard *.c))
 
-all: README.md
-		$(foreach FILE,$(src),make PROG=$(FILE);)
+all: $(src) README.md
+
+%: %.c
+	$(eval OPT=--config $@.c)
+	$(if $(wildcard $@.mconf),$(eval OPT=--config $@.mconf),)
+	$(if $(wildcard $@.conf),$(eval OPT=--config $@.conf),)
+	@echo -e "\e[36m" $(MCC) $(OPT) -o $@ $@.c "\e[37m"
+	@$(MCC) $(OPT) -o $@ $@.c
+	@touch README.in 
 
 
-.PHONY: README.md
+
+#.PHONY: README.md
 
 README.md: 
 	cp README.in README.md

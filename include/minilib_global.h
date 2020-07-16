@@ -42,11 +42,11 @@ typedef struct {
 		char **environ;
 		unsigned long brk;
 		void *appdata; // can be used freely. 
-		int stream[mini_FOPEN_MAX];
 		// intended to be used for globals,
 		// which can be located on the stack.
 		// just define a struct on stack,
 		// and set this pointer to the struct.
+		int stream[mini_FOPEN_MAX];
 		union {
 				int ibuf[(mini_bufsize>>2)];
 				char mbuf[mini_bufsize];
@@ -74,7 +74,7 @@ typedef struct {
 // having a volatile asm call with the globals as param, and so on,
 // have been useless. All after all, seems to me, ai has it's restrictions.
 //+macro
-static void __attribute__((noipa)) optimization_fence(void*p){}
+static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
 
 // void __attribute__((noipa,naked))prevent_optimization(void*p){
