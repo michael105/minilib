@@ -214,8 +214,8 @@ ____
      x    void free(void *ptr);
      x    void *malloc(size_t size);
      x    void *realloc(void *ptr, size_t size);
-         void abort(void);
-         int atexit(void (*func)(void));
+     x    void abort(void);
+     x    int atexit(void (*func)(void));
      x    void exit(int status);
      x    char *getenv(const char *name);
      x    int system(const char *string);
