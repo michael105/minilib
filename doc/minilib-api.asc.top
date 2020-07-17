@@ -1,9 +1,8 @@
- minilib api
-=============
+ minilib reference
+===================
 
 
 
-Only functions defined are going to be built.
 
 The given sizes are estimations, each function added as single function within
 a binary that much bytes to the overall size.
@@ -16,20 +15,51 @@ To complicate things more, some functions will be inlined, others will be reused
 And, the choosen linker script will have it's (sometimes surprising) influence.
 
 
- Config
---------
+ Configuration
+---------------
+
+Before the include of minilib.h, the minilib has to be configured.
+
+The proposed way is to use the supplied script mini-gcc, 
+which translates config options to define flags.
+
+The config file is a bash script and can be a separate file, 
+or within one of the source files.
+
+An example is given below:
+
+```
+#if 0  // has to be the first line
+
+mini_start
+mini_puts
+
+INCLUDESRC
+# this is a comment.
+# INCLUDESRC has to be defined for one sourcefile.
+# without it only the defines, and no implementations are parsed.
+
+return  
+// return, and the #endif statement are the last lines of the config
+#endif
+
+int main(int argc, char *argv[] ){
+...
+```
+
+Only functions defined are going to be built.
 
 
 In addition to the switches, which are built of the function's name and the prefix 'mini_'; +
-e.g. 'mini_fputs', these switches are defined for the configuration of minilib:
+e.g. 'mini_puts', these switches are defined for the configuration of minilib:
 
 
 mini_start:: 
-	Built the start routine, which is needed for startup of the binary.
+	Built the start routine, which is needed for the execution of the binary.
 
 
 mini_buf 512::
-	the buf size in Bytes, which is used by minilib for input/output functions,
+	the buf size in Bytes (here 512Bytes), which is used by minilib for input/output functions,
 	the globals and malloc/free. 
 	Uncomment this, if you do not need globals or functions,
 	depending on the buffer.
@@ -38,6 +68,7 @@ mini_buf 512::
 globals_on_stack::
   put the minibuf and all globals onto the stack
 	(this enables to omit all sections besides text and stack of the binary,
+	when nowhere else globals (ans static variables) are used,
 	for aggressive size optimization)
 	The address of the globals is going to be stored within a fixed cpu register. (r15 at amd64)
 	
@@ -60,16 +91,16 @@ OPTFLAG -Os::
 
 
 STRIPFLAG::
-  stripflag ( defaults to -s)
+  stripflag ( defaults to -s) +
 	Leaving 'STRIPFLAG' alone removes the flag parameter from gcc's commandline.
 
 
 INCLUDESRC::
-  Build minilib with source. 
-	Without this switch, only defines and declarations are built
-	When building with several object files, most probably you should 
-	enable this flag only for one object file.
-	It's also possible to pass the switch via a define flag to gcc.
+  Build minilib with source. +
+	Without this switch, only defines and declarations are built +
+	When building with several object files, most probably you should +
+	enable this flag only for one object file. +
+	It's also possible to pass the switch via a define flag to gcc. +
 	('-DINCLUDESRC')
 
 
@@ -90,8 +121,6 @@ SHRINKELF::
 
 DEBUG::
   generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
-
-
 
 
 :toc:
