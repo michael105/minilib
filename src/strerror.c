@@ -3,21 +3,21 @@
 
 
 //+header string.h
-//+inline
+//+def
 static char* strerror( int errnum ){
 #ifndef mini_verbose_errstr
-		static char *errstr = "error: 000";
-		static errstr[7] = '0';
+		static char errstr[18];
+		char* msg = "Error, errno: 000";
+		for ( char *c = errstr; (*c=*msg); c++ && msg++ );
 		while ( errnum>99 ){
 				errnum-=100;
-				errstr[7]++;
+				errstr[14]++;
 		}
-		errstr[8] = '0';
 		while ( errnum>9 ){
 				errnum-=10;
-				errstr[8]++;
+				errstr[15]++;
 		}
-		errstr[9] = 48+errnum; // 0+errnum..
+		errstr[16] = 48+errnum; // 0+errnum..
 		return( errstr );
 #else
 		return((char*)verbose_errstr(errnum));
