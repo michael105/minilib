@@ -13,7 +13,7 @@
 #include "minilib/include/exit.h"
 #include "minilib/include/minilib_global.h"
 #include "minilib/include/filemodes.h"
-#include "minilib/include/errno_str.h"
+//#include "minilib/include/errno_str.h"
 
 //#include "minilib/headers/common/dirent.h"
 

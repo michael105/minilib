@@ -22,7 +22,7 @@ return
 
 
 void usage(){
-		writes("usage: udo [-u uid] [-g gid] [-G supplementary gid1] [-G ...] [-G gid8] command [arguments]\n");
+		writes("usage: udo [-u uid] [-g gid] [-G gid1,gid2,...] [-G ...] [-G gid32] command [arguments]\n");
 		exit(1);
 }
 
@@ -45,7 +45,7 @@ int main(int argc,	char **argv, char **envp ){
 
 		int uid = uid_nobody;
 		int gid = gid_nobody;
-		static gid_t groups[8];
+		static gid_t groups[32];
 		int groupcount = 0;
 
 		if (argc < 2 ){
@@ -62,9 +62,16 @@ int main(int argc,	char **argv, char **envp ){
 						case 'g':
 								gid = getint(argv[1]);
 								break;
-						case 'G':
-								groups[groupcount] = getint(argv[1]);
-								groupcount++;
+						case 'G': { 
+													char *c = argv[1];
+													do { 
+															groups[groupcount] = 0;
+															for( int i=0; (*c>='0') && (*c<='9'); c++ )
+																	groups[groupcount] = groups[groupcount]*10 + *c-'0';
+															groupcount++;
+													} while ( *c && *c==',' && c++ );
+											}
+										
 				}
 				*argv++;
 		}
