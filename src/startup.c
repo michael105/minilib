@@ -6,16 +6,6 @@
 int main();//int argc, char **argv, char **envp );
 
 int _startup(int argc, char **argv, char **envp ){
-
-#ifndef mini_globals
-		// no globals, no initialization needed.
-		// the jmp to main is possible,
-		// since everyhing is set up and unchanged.
-		// return from main will return directly to _start
-//	asm volatile("jmp main");
-//	seems to give trouble due to optimizations.
-#endif
-
 	// these init instructions
 	// I guess, it would be better 
 	// writing the assembly from hand,
@@ -24,10 +14,10 @@ int _startup(int argc, char **argv, char **envp ){
 	// Finally, this is unnecessary overhead.
 	// at the latest with the optimization fence,
 	// the jump to main isn't possible anymore.
+
+
 #ifdef mini_globals_on_stack
-#ifndef mini_globals
-#define mini_globals
-#endif
+		// put the globals onto the stack.
 minilib_globals __mlgl;
 //{ .errno = 0, .mbuf[0] = 0, .environ=envp };
 mlgl=&__mlgl;
@@ -35,9 +25,6 @@ mlgl=&__mlgl;
 #endif
 
 #ifdef mini_buf
-#ifndef mini_globals
-#define mini_globals
-#endif
 mlgl=&__mlgl;
 mlgl->mbufsize = mini_buf-4;
 int a = 0;
@@ -52,17 +39,11 @@ mlgl->pstream = a;
 #endif
 
 #ifdef mini_errno
-#ifndef mini_globals
-#define mini_globals
-#endif
 errno = 0;
 //sysret = 0;
 #endif
 
 #ifdef mini_environ
-#ifndef mini_globals
-#define mini_globals
-#endif
 environ = envp;
 #endif
 
@@ -73,10 +54,9 @@ mlgl->atexitp[0]=0;
 	// forces gcc to assign the mlgl data structure, 
 	// and put the whole struct on the stack.
 	// Or whatever is needed. 
-#ifdef mini_globals
 	mlgl->brk=0;
-#endif
-	//asm volatile("jmp main");
+	
+	// call main
 	int ret = main(argc,argv,envp);
 
 #ifdef mini_atexit
@@ -95,11 +75,18 @@ mlgl->atexitp[0]=0;
 	}
 #endif
 
-	_exit(ret);
+	_exit(ret); 
+	// exits here. 
+	// the next call prevents gcc from optimizing the assignments 
+	// to the globals out.
+	// gcc doesn't know, we exit before.
+	// all other options, like using the global struct within a asm volatile,
+	// and so on, have shown up to be unreliable.
 #ifdef mini_globals
 	optimization_fence((void*)mlgl);
 #endif
-
+	// silence compiler warning.
+	return(ret);
 }
 
 #endif

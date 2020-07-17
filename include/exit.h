@@ -16,8 +16,10 @@
 #else
 #ifdef X64
 #define exit(ret) asm("jmp __exit"::"D"(ret))
+#define _exit(ret) asm("jmp __exit"::"D"(ret))
 #else
 #define exit(ret) asm("jmp __exit"::"b"(ret))
+#define _exit(ret) asm("jmp __exit"::"b"(ret))
 #endif
 #endif
 
