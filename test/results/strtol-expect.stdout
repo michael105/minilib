@@ -1,0 +1,15 @@
+sizeof long: 8
+arg 0 :./strtol conv: 
+arg 1 :23 conv: 23
+arg 2 :100 conv: 100
+arg 3 :2988 conv: 2988
+sizeof long: 8
+arg 0 :./strtol conv: 
+arg 1 :0xff conv: 255
+arg 2 :0xfffff conv: 1048575
+arg 3 :42 conv: 42
+arg 4 :-23 conv: -23
+sizeof long: 8
+arg 0 :./strtol conv: 
+arg 1 :0545 conv: 357
+arg 2 :010 conv: 8
