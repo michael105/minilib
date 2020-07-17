@@ -323,8 +323,12 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  157 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atexit.3.rst.html">atexit</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small>  int atexit( functionp* func );
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atexit.3.rst.html">atexit</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small>  int atexit( functionp* func );
+</small></td></tr><tr><td></td><td colspan="2"><small>register functions, which are callen on exit in reverse order
+  the switch mini_atexit takes a optional number,
+  which defines the maximum numbers of functions to be registered.
+  (defaults to 8)
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../src/atexit.c" target="right">../src/atexit.c</a>  6 </small></td><td><small> int atoi(const char *c);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/atol.3.rst.html">atol</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  43 </small></td><td><small> long atol(const char *c);
@@ -567,7 +571,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  81 </small></td><td><small>  void ) optimization_fence(void*p){}
+<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  80 </small></td><td><small>  void ) optimization_fence(void*p){}
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
