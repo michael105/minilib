@@ -115,7 +115,7 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 		foreach my $f ( sort( keys(%{$categorized->{$cat}}) ) ) {
 				my $desc = "";
 				my $fn = $f;
-				$fn =~ s/^ksys_//;
+				$fn =~ s/^sys_//;
 				if ( !exists( $api->{$f}->{x} ) ){
 				my $mp = `man -w 3p $fn`;
 				if ( $mp ){

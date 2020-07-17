@@ -263,312 +263,312 @@ f:utime|D:utime( const char *filename, struct utimbuf *times)|c:time|x:set file 
 #u
 
 f:def|D:#define SETOPT_short( opts, option ) (;|c:u|x:|
-f:ksys__sysctl|D:|c:u|x:read/write system parameters|
-f:ksys_accept|D:|c:u|x:accept a new connection on a socket|
-f:ksys_accept4|D:|c:u|x:accept a connection on a socket|
-f:ksys_access|D:|c:u|x:determine accessibility of a file relative to directory file|
-f:ksys_acct|D:|c:u|x:switch process accounting on or off|
-f:ksys_add_key|D:|c:u|x:add a key to the kernel's key management facility|
-f:ksys_adjtimex|D:|c:u|x:tune kernel clock|
-f:ksys_alarm|D:|c:u|x:schedule an alarm signal|
-f:ksys_arch_prctl|D:|c:u|x:set architecture-specific thread state|
-f:ksys_bind|D:|c:u|x:bind a name to a socket|
-f:ksys_brk|D:|c:u|x:change data segment size|
-f:ksys_capget|D:|c:u|x:set/get capabilities of thread(s)|
-f:ksys_capset|D:|c:u|x:set/get capabilities of thread(s)|
-f:ksys_chdir|D:|c:u|x:change working directory|
-f:ksys_chmod|D:|c:u|x:change mode of a file relative to directory file descriptor|
-f:ksys_chown|D:|c:u|x:change owner and group of a file relative to directory|
-f:ksys_chroot|D:|c:u|x:change root directory|
-f:ksys_clock_adjtime|D:|c:u|x:|
-f:ksys_clock_getres|D:|c:u|x:|
-f:ksys_clock_gettime|D:|c:u|x:clock and time functions|
-f:ksys_clock_nanosleep|D:|c:u|x:high resolution sleep with specifiable clock|
-f:ksys_clock_settime|D:|c:u|x:clock and timer functions|
-f:ksys_clone|D:|c:u|x:create a child process|
-f:ksys_close|D:|c:u|x:close a file descriptor|
-f:ksys_connect|D:|c:u|x:connect a socket|
-f:ksys_creat|D:|c:u|x:create a new file or rewrite an existing one|
-f:ksys_delete_module|D:|c:u|x:unload a kernel module|
-f:ksys_dup|D:|c:u|x:duplicate an open file descriptor|
-f:ksys_dup2|D:|c:u|x:duplicate a file descriptor|
-f:ksys_dup3|D:|c:u|x:duplicate a file descriptor|
-f:ksys_epoll_create|D:|c:u|x:open an epoll file descriptor|
-f:ksys_epoll_create1|D:|c:u|x:open an epoll file descriptor|
-f:ksys_epoll_ctl|D:|c:u|x:control interface for an epoll file descriptor|
-f:ksys_epoll_pwait|D:|c:u|x:wait for an I/O event on an epoll file descriptor|
-f:ksys_epoll_wait|D:|c:u|x:wait for an I/O event on an epoll file descriptor|
-f:ksys_eventfd|D:|c:u|x:create a file descriptor for event notification|
-f:ksys_eventfd2|D:|c:u|x:create a file descriptor for event notification|
-f:ksys_execve|D:|c:u|x:execute program|
-f:ksys_exit|D:|c:u|x:terminate a process|
-f:ksys_exit_group|D:|c:u|x:exit all threads in a process|
-f:ksys_faccessat|D:|c:u|x:determine accessibility of a file relative to directory file|
-f:ksys_fadvise64|D:|c:u|x:predeclare an access pattern for file data|
-f:ksys_fallocate|D:|c:u|x:manipulate file space|
-f:ksys_fanotify_init|D:|c:u|x:create and initialize fanotify group|
-f:ksys_fanotify_mark|D:|c:u|x:add, remove, or modify an fanotify mark on a filesystem|
-f:ksys_fchdir|D:|c:u|x:change working directory|
-f:ksys_fchmod|D:|c:u|x:change mode of a file|
-f:ksys_fchmodat|D:|c:u|x:change mode of a file relative to directory file descriptor|
-f:ksys_fchown|D:|c:u|x:change owner and group of a file|
-f:ksys_fchownat|D:|c:u|x:change owner and group of a file relative to directory|
-f:ksys_fcntl|D:|c:u|x:file control|
-f:ksys_fdatasync|D:|c:u|x:synchronize the data of a file|
-f:ksys_fgetxattr|D:|c:u|x:retrieve an extended attribute value|
-f:ksys_finit_module|D:|c:u|x:load a kernel module|
-f:ksys_flistxattr|D:|c:u|x:list extended attribute names|
-f:ksys_flock|D:|c:u|x:apply or remove an advisory lock on an open file|
-f:ksys_fork|D:|c:u|x:create a new process|
-f:ksys_fremovexattr|D:|c:u|x:remove an extended attribute|
-f:ksys_fsetxattr|D:|c:u|x:set an extended attribute value|
-f:ksys_fstat|D:|c:u|x:get file status|
-f:ksys_fstatfs|D:|c:u|x:get filesystem statistics|
-f:ksys_fsync|D:|c:u|x:synchronize changes to a file|
-f:ksys_ftruncate|D:|c:u|x:truncate a file to a specified length|
-f:ksys_futex|D:|c:u|x:fast user-space locking|
-f:ksys_futimesat|D:|c:u|x:change timestamps of a file relative to a directory file descriptor|
-f:ksys_get_mempolicy|D:|c:u|x:retrieve NUMA memory policy for a thread|
-f:ksys_get_robust_list|D:|c:u|x:get/set list of robust futexes|
-f:ksys_getcpu|D:|c:u|x:determine CPU and NUMA node on which the calling thread is running|
-f:ksys_getcwd|D:|c:u|x:get the pathname of the current working directory|
-f:ksys_getdents|D:|c:u|x:get directory entries|
-f:ksys_getdents64|D:|c:u|x:get directory entries|
-f:ksys_getegid|D:|c:u|x:get the effective group ID|
-f:ksys_geteuid|D:|c:u|x:get the effective user ID|
-f:ksys_getgid|D:|c:u|x:get the real group ID|
-f:ksys_getgroups|D:|c:u|x:get supplementary group IDs|
-f:ksys_getitimer|D:|c:u|x:get and set value of interval timer|
-f:ksys_getpeername|D:|c:u|x:get the name of the peer socket|
-f:ksys_getpgid|D:|c:u|x:get the process group ID for a process|
-f:ksys_getpgrp|D:|c:u|x:get the process group ID of the calling process|
-f:ksys_getpid|D:|c:u|x:get the process ID|
-f:ksys_getppid|D:|c:u|x:get the parent process ID|
-f:ksys_getpriority|D:|c:u|x:get and set the nice value|
-f:ksys_getrandom|D:|c:u|x:obtain a series of random bytes|
-f:ksys_getresgid|D:|c:u|x:get real, effective and saved user/group IDs|
-f:ksys_getresuid|D:|c:u|x:get real, effective and saved user/group IDs|
-f:ksys_getrlimit|D:|c:u|x:control maximum resource consumption|
-f:ksys_getrusage|D:|c:u|x:get information about resource utilization|
-f:ksys_getsid|D:|c:u|x:get the process group ID of a session leader|
-f:ksys_getsockname|D:|c:u|x:get the socket name|
-f:ksys_getsockopt|D:|c:u|x:get the socket options|
-f:ksys_gettid|D:|c:u|x:get thread identification|
-f:ksys_gettimeofday|D:|c:u|x:get the date and time|
-f:ksys_getuid|D:|c:u|x:get a real user ID|
-f:ksys_getxattr|D:|c:u|x:retrieve an extended attribute value|
-f:ksys_init_module|D:|c:u|x:load a kernel module|
-f:ksys_inotify_add_watch|D:|c:u|x:add a watch to an initialized inotify instance|
-f:ksys_inotify_init|D:|c:u|x:initialize an inotify instance|
-f:ksys_inotify_init1|D:|c:u|x:initialize an inotify instance|
-f:ksys_inotify_rm_watch|D:|c:u|x:remove an existing watch from an inotify instance|
-f:ksys_io_cancel|D:|c:u|x:cancel an outstanding asynchronous I/O operation|
-f:ksys_io_destroy|D:|c:u|x:destroy an asynchronous I/O context|
-f:ksys_io_getevents|D:|c:u|x:read asynchronous I/O events from the completion queue|
-f:ksys_io_setup|D:|c:u|x:create an asynchronous I/O context|
-f:ksys_io_submit|D:|c:u|x:submit asynchronous I/O blocks for processing|
-f:ksys_ioctl|D:|c:u|x:control a STREAMS device (\fBSTREAMS\fP)|
-f:ksys_ioperm|D:|c:u|x:set port input/output permissions|
-f:ksys_iopl|D:|c:u|x:change I/O privilege level|
-f:ksys_ioprio_get|D:|c:u|x:get/set I/O scheduling class and priority|
-f:ksys_ioprio_set|D:|c:u|x:get/set I/O scheduling class and priority|
-f:ksys_kcmp|D:|c:u|x:compare two processes to determine if they share a kernel resource|
-f:ksys_kexec_file_load|D:|c:u|x:load a new kernel for later execution|
-f:ksys_kexec_load|D:|c:u|x:load a new kernel for later execution|
-f:ksys_keyctl|D:|c:u|x:key management function wrappers|
-f:ksys_kill|D:|c:u|x:send a signal to a process or a group of processes|
-f:ksys_lchown|D:|c:u|x:change the owner and group of a symbolic link|
-f:ksys_lgetxattr|D:|c:u|x:retrieve an extended attribute value|
-f:ksys_link|D:|c:u|x:link one file to another file relative to two directory|
-f:ksys_linkat|D:|c:u|x:make a new name for a file|
-f:ksys_listen|D:|c:u|x:listen for socket connections and limit the queue of incoming|
-f:ksys_listxattr|D:|c:u|x:list extended attribute names|
-f:ksys_llistxattr|D:|c:u|x:list extended attribute names|
-f:ksys_lookup_dcookie|D:|c:u|x:return a directory entry's path|
-f:ksys_lremovexattr|D:|c:u|x:remove an extended attribute|
-f:ksys_lseek|D:|c:u|x:move the read/write file offset|
-f:ksys_lsetxattr|D:|c:u|x:set an extended attribute value|
-f:ksys_lstat|D:|c:u|x:get file status|
-f:ksys_madvise|D:|c:u|x:give advice about use of memory|
-f:ksys_mbind|D:|c:u|x:set memory policy for a memory range|
-f:ksys_memfd_create|D:|c:u|x:create an anonymous file|
-f:ksys_migrate_pages|D:|c:u|x:move all pages in a process to another set of nodes|
-f:ksys_mincore|D:|c:u|x:determine whether pages are resident in memory|
-f:ksys_mkdir|D:|c:u|x:make a directory relative to directory file descriptor|
-f:ksys_mkdirat|D:|c:u|x:create a directory|
-f:ksys_mknod|D:|c:u|x:make directory, special file, or regular file|
-f:ksys_mknodat|D:|c:u|x:create a special or ordinary file|
-f:ksys_mlock|D:|c:u|x:lock or unlock a range of process address space|
-f:ksys_mlockall|D:|c:u|x:lock/unlock the address space of a process|
-f:ksys_mmap|D:|c:u|x:map pages of memory|
-f:ksys_modify_ldt|D:|c:u|x:get or set a per-process LDT entry|
-f:ksys_mount|D:|c:u|x:mount filesystem|
-f:ksys_move_pages|D:|c:u|x:move individual pages of a process to another node|
-f:ksys_mprotect|D:|c:u|x:set protection of memory mapping|
-f:ksys_mq_getsetattr|D:|c:u|x:get/set message queue attributes|
-f:ksys_mq_notify|D:|c:u|x:notify process that a message is available|
-f:ksys_mq_open|D:|c:u|x:open a message queue|
-f:ksys_mq_timedreceive|D:|c:u|x:receive a message from a message queue|
-f:ksys_mq_timedsend|D:|c:u|x:send a message to a message queue|
-f:ksys_mq_unlink|D:|c:u|x:remove a message queue|
-f:ksys_mremap|D:|c:u|x:remap a virtual memory address|
-f:ksys_msgctl|D:|c:u|x:XSI message control operations|
-f:ksys_msgget|D:|c:u|x:get the XSI message queue identifier|
-f:ksys_msgrcv|D:|c:u|x:XSI message receive operation|
-f:ksys_msgsnd|D:|c:u|x:XSI message send operation|
-f:ksys_msync|D:|c:u|x:synchronize memory with physical storage|
-f:ksys_munlock|D:|c:u|x:unlock a range of process address space|
-f:ksys_munlockall|D:|c:u|x:unlock the address space of a process|
-f:ksys_munmap|D:|c:u|x:unmap pages of memory|
-f:ksys_name_to_handle_at|D:|c:u|x:obtain handle|
-f:ksys_nanosleep|D:|c:u|x:high resolution sleep|
-f:ksys_newfstatat|D:|c:u|x:get file status|
-f:ksys_open|D:|c:u|x:open file relative to directory file descriptor|
-f:ksys_open_by_handle_at|D:|c:u|x:obtain handle|
-f:ksys_openat|D:|c:u|x:open file relative to directory file descriptor|
-f:ksys_pause|D:|c:u|x:suspend the thread until a signal is received|
-f:ksys_perf_event_open|D:|c:u|x:set up performance monitoring|
-f:ksys_personality|D:|c:u|x:set the process execution domain|
-f:ksys_pipe|D:|c:u|x:create an interprocess channel|
-f:ksys_pipe2|D:|c:u|x:create pipe|
-f:ksys_pivot_root|D:|c:u|x:change the root mount|
-f:ksys_poll|D:|c:u|x:input/output multiplexing|
-f:ksys_ppoll|D:|c:u|x:wait for some event on a file descriptor|
-f:ksys_prctl|D:|c:u|x:operations on a process|
-f:ksys_pread64|D:|c:u|x:read from or write to a file descriptor at a given offset|
-f:ksys_preadv|D:|c:u|x:read or write data into multiple buffers|
-f:ksys_prlimit64|D:|c:u|x:get/set resource limits|
-f:ksys_process_vm_readv|D:|c:u|x:transfer data between process address spaces|
-f:ksys_process_vm_writev|D:|c:u|x:transfer data between process address spaces|
-f:ksys_pselect6|D:|c:u|x:select, pselect, FD_CLR, FD_ISSET, FD_SET, FD_ZERO \-|
-f:ksys_ptrace|D:|c:u|x:process trace|
-f:ksys_pwrite64|D:|c:u|x:read from or write to a file descriptor at a given offset|
-f:ksys_pwritev|D:|c:u|x:read or write data into multiple buffers|
-f:ksys_quotactl|D:|c:u|x:manipulate disk quotas|
-f:ksys_read|D:|c:u|x:read from a file|
-f:ksys_readahead|D:|c:u|x:initiate file readahead into page cache|
-f:ksys_readlink|D:|c:u|x:read the contents of a symbolic link|
-f:ksys_readlinkat|D:|c:u|x:read value of a symbolic link|
-f:ksys_readv|D:|c:u|x:read a vector|
-f:ksys_reboot|D:|c:u|x:reboot or enable/disable Ctrl-Alt-Del|
-f:ksys_recvfrom|D:|c:u|x:receive a message from a socket|
-f:ksys_recvmmsg|D:|c:u|x:receive multiple messages on a socket|
-f:ksys_recvmsg|D:|c:u|x:receive a message from a socket|
-f:ksys_remap_file_pages|D:|c:u|x:create a nonlinear file mapping|
-f:ksys_removexattr|D:|c:u|x:remove an extended attribute|
-f:ksys_rename|D:|c:u|x:rename file relative to directory file descriptor|
-f:ksys_renameat|D:|c:u|x:change the name or location of a file|
-f:ksys_renameat2|D:|c:u|x:change the name or location of a file|
-f:ksys_request_key|D:|c:u|x:request a key from the kernel's key management facility|
-f:ksys_restart_syscall|D:|c:u|x:restart a system call after interruption by a stop signal|
-f:ksys_rmdir|D:|c:u|x:remove a directory|
-f:ksys_rt_sigaction|D:|c:u|x:examine and change a signal action|
-f:ksys_rt_sigpending|D:|c:u|x:examine pending signals|
-f:ksys_rt_sigprocmask|D:|c:u|x:examine and change blocked signals|
-f:ksys_rt_sigqueueinfo|D:|c:u|x:queue a signal and data|
-f:ksys_rt_sigreturn|D:|c:u|x:return from signal handler and cleanup stack frame|
-f:ksys_rt_sigsuspend|D:|c:u|x:wait for a signal|
-f:ksys_rt_sigtimedwait|D:|c:u|x:synchronously wait|
-f:ksys_rt_tgsigqueueinfo|D:|c:u|x:queue a signal and data|
-f:ksys_sched_get_priority_max|D:|c:u|x:get priority limits|
-f:ksys_sched_get_priority_min|D:|c:u|x:get static priority range|
-f:ksys_sched_getaffinity|D:|c:u|x:set and get a thread's CPU affinity mask|
-f:ksys_sched_getattr|D:|c:u|x:sched_setattr, sched_getattr \-|
-f:ksys_sched_getparam|D:|c:u|x:get scheduling parameters|
-f:ksys_sched_getscheduler|D:|c:u|x:get scheduling policy|
-f:ksys_sched_rr_get_interval|D:|c:u|x:get execution time limits|
-f:ksys_sched_setaffinity|D:|c:u|x:set and get a thread's CPU affinity mask|
-f:ksys_sched_setattr|D:|c:u|x:sched_setattr, sched_getattr \-|
-f:ksys_sched_setparam|D:|c:u|x:set scheduling parameters|
-f:ksys_sched_setscheduler|D:|c:u|x:set scheduling policy and parameters|
-f:ksys_sched_yield|D:|c:u|x:yield the processor|
-f:ksys_seccomp|D:|c:u|x:operate on Secure Computing state of the process|
-f:ksys_select|D:|c:u|x:synchronous I/O multiplexing|
-f:ksys_semctl|D:|c:u|x:XSI semaphore control operations|
-f:ksys_semget|D:|c:u|x:get set of XSI semaphores|
-f:ksys_semop|D:|c:u|x:XSI semaphore operations|
-f:ksys_semtimedop|D:|c:u|x:System V semaphore operations|
-f:ksys_sendfile|D:|c:u|x:transfer data between file descriptors|
-f:ksys_sendmmsg|D:|c:u|x:send multiple messages on a socket|
-f:ksys_sendmsg|D:|c:u|x:send a message on a socket using a message structure|
-f:ksys_sendto|D:|c:u|x:send a message on a socket|
-f:ksys_set_mempolicy|D:|c:u|x:set default NUMA memory policy for a thread and its children|
-f:ksys_set_robust_list|D:|c:u|x:get/set list of robust futexes|
-f:ksys_set_tid_address|D:|c:u|x:set pointer to thread ID|
-f:ksys_setdomainname|D:|c:u|x:get/set NIS domain name|
-f:ksys_setfsgid|D:|c:u|x:set group identity used for filesystem checks|
-f:ksys_setfsuid|D:|c:u|x:set user identity used for filesystem checks|
-f:ksys_setgid|D:|c:u|x:set-group-ID|
-f:ksys_setgroups|D:|c:u|x:get/set list of supplementary group IDs|
-f:ksys_sethostname|D:|c:u|x:get/set hostname|
-f:ksys_setitimer|D:|c:u|x:set the value of an interval timer|
-f:ksys_setns|D:|c:u|x:reassociate thread with a namespace|
-f:ksys_setpgid|D:|c:u|x:set process group ID for job control|
-f:ksys_setpriority|D:|c:u|x:set the nice value|
-f:ksys_setregid|D:|c:u|x:set real and effective group IDs|
-f:ksys_setresgid|D:|c:u|x:set real, effective and saved user or group ID|
-f:ksys_setresuid|D:|c:u|x:set real, effective and saved user or group ID|
-f:ksys_setreuid|D:|c:u|x:set real and effective user IDs|
-f:ksys_setrlimit|D:|c:u|x:control maximum resource consumption|
-f:ksys_setsid|D:|c:u|x:create session and set process group ID|
-f:ksys_setsockopt|D:|c:u|x:set the socket options|
-f:ksys_settimeofday|D:|c:u|x:get / set time|
-f:ksys_setuid|D:|c:u|x:set user ID|
-f:ksys_setxattr|D:|c:u|x:set an extended attribute value|
-f:ksys_shmat|D:|c:u|x:XSI shared memory attach operation|
-f:ksys_shmctl|D:|c:u|x:XSI shared memory control operations|
-f:ksys_shmdt|D:|c:u|x:XSI shared memory detach operation|
-f:ksys_shmget|D:|c:u|x:get an XSI shared memory segment|
-f:ksys_shutdown|D:|c:u|x:shut down socket send and receive operations|
-f:ksys_sigaltstack|D:|c:u|x:set and get signal alternate stack context|
-f:ksys_signalfd|D:|c:u|x:create a file descriptor for accepting signals|
-f:ksys_signalfd4|D:|c:u|x:create a file descriptor for accepting signals|
-f:ksys_socket|D:|c:u|x:create an endpoint for communication|
-f:ksys_socketpair|D:|c:u|x:create a pair of connected sockets|
-f:ksys_splice|D:|c:u|x:splice data to/from a pipe|
-f:ksys_stat|D:|c:u|x:get file status|
-f:ksys_statfs|D:|c:u|x:get filesystem statistics|
-f:ksys_swapoff|D:|c:u|x:start/stop swapping to file/device|
-f:ksys_swapon|D:|c:u|x:start/stop swapping to file/device|
-f:ksys_symlink|D:|c:u|x:make a symbolic link relative to directory file descriptor|
-f:ksys_symlinkat|D:|c:u|x:make a new name for a file|
-f:ksys_sync|D:|c:u|x:schedule file system updates|
-f:ksys_sync_file_range|D:|c:u|x:sync a file segment with disk|
-f:ksys_syncfs|D:|c:u|x:commit filesystem caches to disk|
-f:ksys_sysfs|D:|c:u|x:get filesystem type information|
-f:ksys_sysinfo|D:|c:u|x:return system information|
-f:ksys_syslog|D:|c:u|x:log a message|
-f:ksys_tee|D:|c:u|x:duplicating pipe content|
-f:ksys_tgkill|D:|c:u|x:send a signal to a thread|
-f:ksys_time|D:|c:u|x:get time|
-f:ksys_timer_create|D:|c:u|x:create a per-process timer|
-f:ksys_timer_delete|D:|c:u|x:delete a per-process timer|
-f:ksys_timer_getoverrun|D:|c:u|x:|
-f:ksys_timer_gettime|D:|c:u|x:arm/disarm and fetch|
-f:ksys_timer_settime|D:|c:u|x:arm/disarm and fetch|
-f:ksys_timerfd_create|D:|c:u|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
-f:ksys_timerfd_gettime|D:|c:u|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
-f:ksys_timerfd_settime|D:|c:u|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
-f:ksys_times|D:|c:u|x:get process and waited-for child process times|
-f:ksys_tkill|D:|c:u|x:send a signal to a thread|
-f:ksys_truncate|D:|c:u|x:truncate a file to a specified length|
-f:ksys_umask|D:|c:u|x:set and get the file mode creation mask|
-f:ksys_umount2|D:|c:u|x:unmount filesystem|
-f:ksys_uname|D:|c:u|x:get the name of the current system|
-f:ksys_unlink|D:|c:u|x:remove a directory entry relative to directory file descriptor|
-f:ksys_unlinkat|D:|c:u|x:delete a name and possibly the file it refers to|
-f:ksys_unshare|D:|c:u|x:disassociate parts of the process execution context|
-f:ksys_ustat|D:|c:u|x:get filesystem statistics|
-f:ksys_utime|D:|c:u|x:set file access and modification times|
-f:ksys_utimensat|D:|c:u|x:set file access and modification times relative to directory|
-f:ksys_utimes|D:|c:u|x:change file last access and modification times|
-f:ksys_vfork|D:|c:u|x:create a child process and block parent|
-f:ksys_vhangup|D:|c:u|x:virtually hangup the current terminal|
-f:ksys_vmsplice|D:|c:u|x:splice user pages to/from a pipe|
-f:ksys_wait4|D:|c:u|x:wait for process to change state, BSD style|
-f:ksys_waitid|D:|c:u|x:wait for a child process to change state|
-f:ksys_write|D:|c:u|x:write on a file|
-f:ksys_writev|D:|c:u|x:write a vector|
+f:sys__sysctl|D:|c:u|x:read/write system parameters|
+f:sys_accept|D:|c:u|x:accept a new connection on a socket|
+f:sys_accept4|D:|c:u|x:accept a connection on a socket|
+f:sys_access|D:|c:u|x:determine accessibility of a file relative to directory file|
+f:sys_acct|D:|c:u|x:switch process accounting on or off|
+f:sys_add_key|D:|c:u|x:add a key to the kernel's key management facility|
+f:sys_adjtimex|D:|c:u|x:tune kernel clock|
+f:sys_alarm|D:|c:u|x:schedule an alarm signal|
+f:sys_arch_prctl|D:|c:u|x:set architecture-specific thread state|
+f:sys_bind|D:|c:u|x:bind a name to a socket|
+f:sys_brk|D:|c:u|x:change data segment size|
+f:sys_capget|D:|c:u|x:set/get capabilities of thread(s)|
+f:sys_capset|D:|c:u|x:set/get capabilities of thread(s)|
+f:sys_chdir|D:|c:u|x:change working directory|
+f:sys_chmod|D:|c:u|x:change mode of a file relative to directory file descriptor|
+f:sys_chown|D:|c:u|x:change owner and group of a file relative to directory|
+f:sys_chroot|D:|c:u|x:change root directory|
+f:sys_clock_adjtime|D:|c:u|x:|
+f:sys_clock_getres|D:|c:u|x:|
+f:sys_clock_gettime|D:|c:u|x:clock and time functions|
+f:sys_clock_nanosleep|D:|c:u|x:high resolution sleep with specifiable clock|
+f:sys_clock_settime|D:|c:u|x:clock and timer functions|
+f:sys_clone|D:|c:u|x:create a child process|
+f:sys_close|D:|c:u|x:close a file descriptor|
+f:sys_connect|D:|c:u|x:connect a socket|
+f:sys_creat|D:|c:u|x:create a new file or rewrite an existing one|
+f:sys_delete_module|D:|c:u|x:unload a kernel module|
+f:sys_dup|D:|c:u|x:duplicate an open file descriptor|
+f:sys_dup2|D:|c:u|x:duplicate a file descriptor|
+f:sys_dup3|D:|c:u|x:duplicate a file descriptor|
+f:sys_epoll_create|D:|c:u|x:open an epoll file descriptor|
+f:sys_epoll_create1|D:|c:u|x:open an epoll file descriptor|
+f:sys_epoll_ctl|D:|c:u|x:control interface for an epoll file descriptor|
+f:sys_epoll_pwait|D:|c:u|x:wait for an I/O event on an epoll file descriptor|
+f:sys_epoll_wait|D:|c:u|x:wait for an I/O event on an epoll file descriptor|
+f:sys_eventfd|D:|c:u|x:create a file descriptor for event notification|
+f:sys_eventfd2|D:|c:u|x:create a file descriptor for event notification|
+f:sys_execve|D:|c:u|x:execute program|
+f:sys_exit|D:|c:u|x:terminate a process|
+f:sys_exit_group|D:|c:u|x:exit all threads in a process|
+f:sys_faccessat|D:|c:u|x:determine accessibility of a file relative to directory file|
+f:sys_fadvise64|D:|c:u|x:predeclare an access pattern for file data|
+f:sys_fallocate|D:|c:u|x:manipulate file space|
+f:sys_fanotify_init|D:|c:u|x:create and initialize fanotify group|
+f:sys_fanotify_mark|D:|c:u|x:add, remove, or modify an fanotify mark on a filesystem|
+f:sys_fchdir|D:|c:u|x:change working directory|
+f:sys_fchmod|D:|c:u|x:change mode of a file|
+f:sys_fchmodat|D:|c:u|x:change mode of a file relative to directory file descriptor|
+f:sys_fchown|D:|c:u|x:change owner and group of a file|
+f:sys_fchownat|D:|c:u|x:change owner and group of a file relative to directory|
+f:sys_fcntl|D:|c:u|x:file control|
+f:sys_fdatasync|D:|c:u|x:synchronize the data of a file|
+f:sys_fgetxattr|D:|c:u|x:retrieve an extended attribute value|
+f:sys_finit_module|D:|c:u|x:load a kernel module|
+f:sys_flistxattr|D:|c:u|x:list extended attribute names|
+f:sys_flock|D:|c:u|x:apply or remove an advisory lock on an open file|
+f:sys_fork|D:|c:u|x:create a new process|
+f:sys_fremovexattr|D:|c:u|x:remove an extended attribute|
+f:sys_fsetxattr|D:|c:u|x:set an extended attribute value|
+f:sys_fstat|D:|c:u|x:get file status|
+f:sys_fstatfs|D:|c:u|x:get filesystem statistics|
+f:sys_fsync|D:|c:u|x:synchronize changes to a file|
+f:sys_ftruncate|D:|c:u|x:truncate a file to a specified length|
+f:sys_futex|D:|c:u|x:fast user-space locking|
+f:sys_futimesat|D:|c:u|x:change timestamps of a file relative to a directory file descriptor|
+f:sys_get_mempolicy|D:|c:u|x:retrieve NUMA memory policy for a thread|
+f:sys_get_robust_list|D:|c:u|x:get/set list of robust futexes|
+f:sys_getcpu|D:|c:u|x:determine CPU and NUMA node on which the calling thread is running|
+f:sys_getcwd|D:|c:u|x:get the pathname of the current working directory|
+f:sys_getdents|D:|c:u|x:get directory entries|
+f:sys_getdents64|D:|c:u|x:get directory entries|
+f:sys_getegid|D:|c:u|x:get the effective group ID|
+f:sys_geteuid|D:|c:u|x:get the effective user ID|
+f:sys_getgid|D:|c:u|x:get the real group ID|
+f:sys_getgroups|D:|c:u|x:get supplementary group IDs|
+f:sys_getitimer|D:|c:u|x:get and set value of interval timer|
+f:sys_getpeername|D:|c:u|x:get the name of the peer socket|
+f:sys_getpgid|D:|c:u|x:get the process group ID for a process|
+f:sys_getpgrp|D:|c:u|x:get the process group ID of the calling process|
+f:sys_getpid|D:|c:u|x:get the process ID|
+f:sys_getppid|D:|c:u|x:get the parent process ID|
+f:sys_getpriority|D:|c:u|x:get and set the nice value|
+f:sys_getrandom|D:|c:u|x:obtain a series of random bytes|
+f:sys_getresgid|D:|c:u|x:get real, effective and saved user/group IDs|
+f:sys_getresuid|D:|c:u|x:get real, effective and saved user/group IDs|
+f:sys_getrlimit|D:|c:u|x:control maximum resource consumption|
+f:sys_getrusage|D:|c:u|x:get information about resource utilization|
+f:sys_getsid|D:|c:u|x:get the process group ID of a session leader|
+f:sys_getsockname|D:|c:u|x:get the socket name|
+f:sys_getsockopt|D:|c:u|x:get the socket options|
+f:sys_gettid|D:|c:u|x:get thread identification|
+f:sys_gettimeofday|D:|c:u|x:get the date and time|
+f:sys_getuid|D:|c:u|x:get a real user ID|
+f:sys_getxattr|D:|c:u|x:retrieve an extended attribute value|
+f:sys_init_module|D:|c:u|x:load a kernel module|
+f:sys_inotify_add_watch|D:|c:u|x:add a watch to an initialized inotify instance|
+f:sys_inotify_init|D:|c:u|x:initialize an inotify instance|
+f:sys_inotify_init1|D:|c:u|x:initialize an inotify instance|
+f:sys_inotify_rm_watch|D:|c:u|x:remove an existing watch from an inotify instance|
+f:sys_io_cancel|D:|c:u|x:cancel an outstanding asynchronous I/O operation|
+f:sys_io_destroy|D:|c:u|x:destroy an asynchronous I/O context|
+f:sys_io_getevents|D:|c:u|x:read asynchronous I/O events from the completion queue|
+f:sys_io_setup|D:|c:u|x:create an asynchronous I/O context|
+f:sys_io_submit|D:|c:u|x:submit asynchronous I/O blocks for processing|
+f:sys_ioctl|D:|c:u|x:control a STREAMS device (\fBSTREAMS\fP)|
+f:sys_ioperm|D:|c:u|x:set port input/output permissions|
+f:sys_iopl|D:|c:u|x:change I/O privilege level|
+f:sys_ioprio_get|D:|c:u|x:get/set I/O scheduling class and priority|
+f:sys_ioprio_set|D:|c:u|x:get/set I/O scheduling class and priority|
+f:sys_kcmp|D:|c:u|x:compare two processes to determine if they share a kernel resource|
+f:sys_kexec_file_load|D:|c:u|x:load a new kernel for later execution|
+f:sys_kexec_load|D:|c:u|x:load a new kernel for later execution|
+f:sys_keyctl|D:|c:u|x:key management function wrappers|
+f:sys_kill|D:|c:u|x:send a signal to a process or a group of processes|
+f:sys_lchown|D:|c:u|x:change the owner and group of a symbolic link|
+f:sys_lgetxattr|D:|c:u|x:retrieve an extended attribute value|
+f:sys_link|D:|c:u|x:link one file to another file relative to two directory|
+f:sys_linkat|D:|c:u|x:make a new name for a file|
+f:sys_listen|D:|c:u|x:listen for socket connections and limit the queue of incoming|
+f:sys_listxattr|D:|c:u|x:list extended attribute names|
+f:sys_llistxattr|D:|c:u|x:list extended attribute names|
+f:sys_lookup_dcookie|D:|c:u|x:return a directory entry's path|
+f:sys_lremovexattr|D:|c:u|x:remove an extended attribute|
+f:sys_lseek|D:|c:u|x:move the read/write file offset|
+f:sys_lsetxattr|D:|c:u|x:set an extended attribute value|
+f:sys_lstat|D:|c:u|x:get file status|
+f:sys_madvise|D:|c:u|x:give advice about use of memory|
+f:sys_mbind|D:|c:u|x:set memory policy for a memory range|
+f:sys_memfd_create|D:|c:u|x:create an anonymous file|
+f:sys_migrate_pages|D:|c:u|x:move all pages in a process to another set of nodes|
+f:sys_mincore|D:|c:u|x:determine whether pages are resident in memory|
+f:sys_mkdir|D:|c:u|x:make a directory relative to directory file descriptor|
+f:sys_mkdirat|D:|c:u|x:create a directory|
+f:sys_mknod|D:|c:u|x:make directory, special file, or regular file|
+f:sys_mknodat|D:|c:u|x:create a special or ordinary file|
+f:sys_mlock|D:|c:u|x:lock or unlock a range of process address space|
+f:sys_mlockall|D:|c:u|x:lock/unlock the address space of a process|
+f:sys_mmap|D:|c:u|x:map pages of memory|
+f:sys_modify_ldt|D:|c:u|x:get or set a per-process LDT entry|
+f:sys_mount|D:|c:u|x:mount filesystem|
+f:sys_move_pages|D:|c:u|x:move individual pages of a process to another node|
+f:sys_mprotect|D:|c:u|x:set protection of memory mapping|
+f:sys_mq_getsetattr|D:|c:u|x:get/set message queue attributes|
+f:sys_mq_notify|D:|c:u|x:notify process that a message is available|
+f:sys_mq_open|D:|c:u|x:open a message queue|
+f:sys_mq_timedreceive|D:|c:u|x:receive a message from a message queue|
+f:sys_mq_timedsend|D:|c:u|x:send a message to a message queue|
+f:sys_mq_unlink|D:|c:u|x:remove a message queue|
+f:sys_mremap|D:|c:u|x:remap a virtual memory address|
+f:sys_msgctl|D:|c:u|x:XSI message control operations|
+f:sys_msgget|D:|c:u|x:get the XSI message queue identifier|
+f:sys_msgrcv|D:|c:u|x:XSI message receive operation|
+f:sys_msgsnd|D:|c:u|x:XSI message send operation|
+f:sys_msync|D:|c:u|x:synchronize memory with physical storage|
+f:sys_munlock|D:|c:u|x:unlock a range of process address space|
+f:sys_munlockall|D:|c:u|x:unlock the address space of a process|
+f:sys_munmap|D:|c:u|x:unmap pages of memory|
+f:sys_name_to_handle_at|D:|c:u|x:obtain handle|
+f:sys_nanosleep|D:|c:u|x:high resolution sleep|
+f:sys_newfstatat|D:|c:u|x:get file status|
+f:sys_open|D:|c:u|x:open file relative to directory file descriptor|
+f:sys_open_by_handle_at|D:|c:u|x:obtain handle|
+f:sys_openat|D:|c:u|x:open file relative to directory file descriptor|
+f:sys_pause|D:|c:u|x:suspend the thread until a signal is received|
+f:sys_perf_event_open|D:|c:u|x:set up performance monitoring|
+f:sys_personality|D:|c:u|x:set the process execution domain|
+f:sys_pipe|D:|c:u|x:create an interprocess channel|
+f:sys_pipe2|D:|c:u|x:create pipe|
+f:sys_pivot_root|D:|c:u|x:change the root mount|
+f:sys_poll|D:|c:u|x:input/output multiplexing|
+f:sys_ppoll|D:|c:u|x:wait for some event on a file descriptor|
+f:sys_prctl|D:|c:u|x:operations on a process|
+f:sys_pread64|D:|c:u|x:read from or write to a file descriptor at a given offset|
+f:sys_preadv|D:|c:u|x:read or write data into multiple buffers|
+f:sys_prlimit64|D:|c:u|x:get/set resource limits|
+f:sys_process_vm_readv|D:|c:u|x:transfer data between process address spaces|
+f:sys_process_vm_writev|D:|c:u|x:transfer data between process address spaces|
+f:sys_pselect6|D:|c:u|x:select, pselect, FD_CLR, FD_ISSET, FD_SET, FD_ZERO \-|
+f:sys_ptrace|D:|c:u|x:process trace|
+f:sys_pwrite64|D:|c:u|x:read from or write to a file descriptor at a given offset|
+f:sys_pwritev|D:|c:u|x:read or write data into multiple buffers|
+f:sys_quotactl|D:|c:u|x:manipulate disk quotas|
+f:sys_read|D:|c:u|x:read from a file|
+f:sys_readahead|D:|c:u|x:initiate file readahead into page cache|
+f:sys_readlink|D:|c:u|x:read the contents of a symbolic link|
+f:sys_readlinkat|D:|c:u|x:read value of a symbolic link|
+f:sys_readv|D:|c:u|x:read a vector|
+f:sys_reboot|D:|c:u|x:reboot or enable/disable Ctrl-Alt-Del|
+f:sys_recvfrom|D:|c:u|x:receive a message from a socket|
+f:sys_recvmmsg|D:|c:u|x:receive multiple messages on a socket|
+f:sys_recvmsg|D:|c:u|x:receive a message from a socket|
+f:sys_remap_file_pages|D:|c:u|x:create a nonlinear file mapping|
+f:sys_removexattr|D:|c:u|x:remove an extended attribute|
+f:sys_rename|D:|c:u|x:rename file relative to directory file descriptor|
+f:sys_renameat|D:|c:u|x:change the name or location of a file|
+f:sys_renameat2|D:|c:u|x:change the name or location of a file|
+f:sys_request_key|D:|c:u|x:request a key from the kernel's key management facility|
+f:sys_restart_syscall|D:|c:u|x:restart a system call after interruption by a stop signal|
+f:sys_rmdir|D:|c:u|x:remove a directory|
+f:sys_rt_sigaction|D:|c:u|x:examine and change a signal action|
+f:sys_rt_sigpending|D:|c:u|x:examine pending signals|
+f:sys_rt_sigprocmask|D:|c:u|x:examine and change blocked signals|
+f:sys_rt_sigqueueinfo|D:|c:u|x:queue a signal and data|
+f:sys_rt_sigreturn|D:|c:u|x:return from signal handler and cleanup stack frame|
+f:sys_rt_sigsuspend|D:|c:u|x:wait for a signal|
+f:sys_rt_sigtimedwait|D:|c:u|x:synchronously wait|
+f:sys_rt_tgsigqueueinfo|D:|c:u|x:queue a signal and data|
+f:sys_sched_get_priority_max|D:|c:u|x:get priority limits|
+f:sys_sched_get_priority_min|D:|c:u|x:get static priority range|
+f:sys_sched_getaffinity|D:|c:u|x:set and get a thread's CPU affinity mask|
+f:sys_sched_getattr|D:|c:u|x:sched_setattr, sched_getattr \-|
+f:sys_sched_getparam|D:|c:u|x:get scheduling parameters|
+f:sys_sched_getscheduler|D:|c:u|x:get scheduling policy|
+f:sys_sched_rr_get_interval|D:|c:u|x:get execution time limits|
+f:sys_sched_setaffinity|D:|c:u|x:set and get a thread's CPU affinity mask|
+f:sys_sched_setattr|D:|c:u|x:sched_setattr, sched_getattr \-|
+f:sys_sched_setparam|D:|c:u|x:set scheduling parameters|
+f:sys_sched_setscheduler|D:|c:u|x:set scheduling policy and parameters|
+f:sys_sched_yield|D:|c:u|x:yield the processor|
+f:sys_seccomp|D:|c:u|x:operate on Secure Computing state of the process|
+f:sys_select|D:|c:u|x:synchronous I/O multiplexing|
+f:sys_semctl|D:|c:u|x:XSI semaphore control operations|
+f:sys_semget|D:|c:u|x:get set of XSI semaphores|
+f:sys_semop|D:|c:u|x:XSI semaphore operations|
+f:sys_semtimedop|D:|c:u|x:System V semaphore operations|
+f:sys_sendfile|D:|c:u|x:transfer data between file descriptors|
+f:sys_sendmmsg|D:|c:u|x:send multiple messages on a socket|
+f:sys_sendmsg|D:|c:u|x:send a message on a socket using a message structure|
+f:sys_sendto|D:|c:u|x:send a message on a socket|
+f:sys_set_mempolicy|D:|c:u|x:set default NUMA memory policy for a thread and its children|
+f:sys_set_robust_list|D:|c:u|x:get/set list of robust futexes|
+f:sys_set_tid_address|D:|c:u|x:set pointer to thread ID|
+f:sys_setdomainname|D:|c:u|x:get/set NIS domain name|
+f:sys_setfsgid|D:|c:u|x:set group identity used for filesystem checks|
+f:sys_setfsuid|D:|c:u|x:set user identity used for filesystem checks|
+f:sys_setgid|D:|c:u|x:set-group-ID|
+f:sys_setgroups|D:|c:u|x:get/set list of supplementary group IDs|
+f:sys_sethostname|D:|c:u|x:get/set hostname|
+f:sys_setitimer|D:|c:u|x:set the value of an interval timer|
+f:sys_setns|D:|c:u|x:reassociate thread with a namespace|
+f:sys_setpgid|D:|c:u|x:set process group ID for job control|
+f:sys_setpriority|D:|c:u|x:set the nice value|
+f:sys_setregid|D:|c:u|x:set real and effective group IDs|
+f:sys_setresgid|D:|c:u|x:set real, effective and saved user or group ID|
+f:sys_setresuid|D:|c:u|x:set real, effective and saved user or group ID|
+f:sys_setreuid|D:|c:u|x:set real and effective user IDs|
+f:sys_setrlimit|D:|c:u|x:control maximum resource consumption|
+f:sys_setsid|D:|c:u|x:create session and set process group ID|
+f:sys_setsockopt|D:|c:u|x:set the socket options|
+f:sys_settimeofday|D:|c:u|x:get / set time|
+f:sys_setuid|D:|c:u|x:set user ID|
+f:sys_setxattr|D:|c:u|x:set an extended attribute value|
+f:sys_shmat|D:|c:u|x:XSI shared memory attach operation|
+f:sys_shmctl|D:|c:u|x:XSI shared memory control operations|
+f:sys_shmdt|D:|c:u|x:XSI shared memory detach operation|
+f:sys_shmget|D:|c:u|x:get an XSI shared memory segment|
+f:sys_shutdown|D:|c:u|x:shut down socket send and receive operations|
+f:sys_sigaltstack|D:|c:u|x:set and get signal alternate stack context|
+f:sys_signalfd|D:|c:u|x:create a file descriptor for accepting signals|
+f:sys_signalfd4|D:|c:u|x:create a file descriptor for accepting signals|
+f:sys_socket|D:|c:u|x:create an endpoint for communication|
+f:sys_socketpair|D:|c:u|x:create a pair of connected sockets|
+f:sys_splice|D:|c:u|x:splice data to/from a pipe|
+f:sys_stat|D:|c:u|x:get file status|
+f:sys_statfs|D:|c:u|x:get filesystem statistics|
+f:sys_swapoff|D:|c:u|x:start/stop swapping to file/device|
+f:sys_swapon|D:|c:u|x:start/stop swapping to file/device|
+f:sys_symlink|D:|c:u|x:make a symbolic link relative to directory file descriptor|
+f:sys_symlinkat|D:|c:u|x:make a new name for a file|
+f:sys_sync|D:|c:u|x:schedule file system updates|
+f:sys_sync_file_range|D:|c:u|x:sync a file segment with disk|
+f:sys_syncfs|D:|c:u|x:commit filesystem caches to disk|
+f:sys_sysfs|D:|c:u|x:get filesystem type information|
+f:sys_sysinfo|D:|c:u|x:return system information|
+f:sys_syslog|D:|c:u|x:log a message|
+f:sys_tee|D:|c:u|x:duplicating pipe content|
+f:sys_tgkill|D:|c:u|x:send a signal to a thread|
+f:sys_time|D:|c:u|x:get time|
+f:sys_timer_create|D:|c:u|x:create a per-process timer|
+f:sys_timer_delete|D:|c:u|x:delete a per-process timer|
+f:sys_timer_getoverrun|D:|c:u|x:|
+f:sys_timer_gettime|D:|c:u|x:arm/disarm and fetch|
+f:sys_timer_settime|D:|c:u|x:arm/disarm and fetch|
+f:sys_timerfd_create|D:|c:u|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
+f:sys_timerfd_gettime|D:|c:u|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
+f:sys_timerfd_settime|D:|c:u|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
+f:sys_times|D:|c:u|x:get process and waited-for child process times|
+f:sys_tkill|D:|c:u|x:send a signal to a thread|
+f:sys_truncate|D:|c:u|x:truncate a file to a specified length|
+f:sys_umask|D:|c:u|x:set and get the file mode creation mask|
+f:sys_umount2|D:|c:u|x:unmount filesystem|
+f:sys_uname|D:|c:u|x:get the name of the current system|
+f:sys_unlink|D:|c:u|x:remove a directory entry relative to directory file descriptor|
+f:sys_unlinkat|D:|c:u|x:delete a name and possibly the file it refers to|
+f:sys_unshare|D:|c:u|x:disassociate parts of the process execution context|
+f:sys_ustat|D:|c:u|x:get filesystem statistics|
+f:sys_utime|D:|c:u|x:set file access and modification times|
+f:sys_utimensat|D:|c:u|x:set file access and modification times relative to directory|
+f:sys_utimes|D:|c:u|x:change file last access and modification times|
+f:sys_vfork|D:|c:u|x:create a child process and block parent|
+f:sys_vhangup|D:|c:u|x:virtually hangup the current terminal|
+f:sys_vmsplice|D:|c:u|x:splice user pages to/from a pipe|
+f:sys_wait4|D:|c:u|x:wait for process to change state, BSD style|
+f:sys_waitid|D:|c:u|x:wait for a child process to change state|
+f:sys_write|D:|c:u|x:write on a file|
+f:sys_writev|D:|c:u|x:write a vector|
 f:macro|D:static void __attribute__((noipa)) optimization_fence(void*p){}|c:u|x:|
 f:todo_abort|D:void todo_abort();|c:u|x:|
 f:todo_putenv|D:int todo_putenv( char *s );|c:u|x:|
