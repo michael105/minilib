@@ -321,10 +321,6 @@ sys_brk        static long sys_brk(unsigned long addr);
                the kernel syscall brk.
                (src/brk.c: 3)
 
-todo_abort     void todo_abort();
-
-               (src/abort.c: 3)
-
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
                (src/itodec.c: 8)
@@ -894,6 +890,10 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 ==========
 stdlib.h
 ==========
+
+abort          void abort();
+
+               (src/abort.c: 3)
 
 abs            static int abs(int i);
 
