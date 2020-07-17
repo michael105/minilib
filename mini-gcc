@@ -67,7 +67,7 @@ CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-
 #CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
 
 # (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
-LDSCRIPT="ld_script_default"
+LDSCRIPT="default"
 
 #LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
@@ -214,8 +214,12 @@ if [ "$useincludedminilib" = "1" ]; then
 		INCLUDEMINILIB='-include <(sed "0,/^#MINILIBGZ#$/d" $0 | gunzip -c)'
 fi
 
+if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
+		LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
+fi
+
 if [ "$LDSCRIPTFILE" == "" ]; then
-		LDSCRIPTFILE="<($0 --dump $LDSCRIPT)"
+		LDSCRIPTFILE="<($0 --dump ld_script_$LDSCRIPT)"
 fi
 
 INCLUDECONFIG=""
@@ -521,7 +525,7 @@ do
 						if [ -e "$MLIBDIR/ldscripts/ld.script.$1" ]; then
 								LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$1"
 						else
-								LDSCRIPT="ld_script_$1"
+								LDSCRIPT="$1"
 						fi
 						shift
 						opt=1

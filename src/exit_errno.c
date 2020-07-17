@@ -11,6 +11,7 @@
 // as well.
 // The supplied errno can be negative,
 // the absolute value is supplied to errno.
+//+needs errno_str
 //+depends execve errno_str exit ewrites
 //+def
 void exit_errno( int errnum ){
@@ -24,7 +25,7 @@ void exit_errno( int errnum ){
 		// /bin/errno couldn't be executed.
 		// print the error number,
 		// and exit
-		ewrites("Error: ");
+		ewrites("Error, errno: ");
 		write(STDERR_FILENO, args[1], 3 );
 		ewrites("\n");
 		exit(errnum);

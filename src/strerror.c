@@ -3,11 +3,11 @@
 
 
 //+header string.h
-//+def
-const char* strerror( int errnum ){
+//+inline
+static char* strerror( int errnum ){
 #ifndef mini_verbose_errstr
 		static char *errstr = "error: 000";
-		errstr[7] = '0';
+		static errstr[7] = '0';
 		while ( errnum>99 ){
 				errnum-=100;
 				errstr[7]++;
@@ -23,26 +23,6 @@ const char* strerror( int errnum ){
 		return((char*)verbose_errstr(errnum));
 #endif
 }
-
-//+doc convert errno to str, with 3 chars length
-// ending the string (located in the bss section, and global)
-// with two \0\0, when errno<100
-//+def
-const char *errno_str(int err){
-		static char *e="100\0";
-		char *p = e;
-		if ( err>99 ){
-				err-=100;
-		} else {
-				p++;
-		}
-		e[1]+=err/10;
-		e[2]+=err%10;
-
-		return(p);
-}
-
-
 
 #endif
 

@@ -42,6 +42,15 @@ globals_on_stack::
 	The address of the globals is going to be stored within a fixed cpu register. (r15 at amd64)
 	
 
+mini_syscalls::
+	define the syscall wrapper, starting with 'sys_'
+
+
+HEADERGUARDS::
+	define the headeguards, which hopefully prevent the inclusion
+	of the standard library headers.
+
+
 OPTFLAG -Os::
   optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
 

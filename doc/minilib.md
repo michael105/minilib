@@ -151,6 +151,14 @@ eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
                write msg to stderr, append a newline. Needs strlen.
                (include/prints.h: 77)
 
+errno_str      static char *errno_str(int err);
+
+               convert errno to str, with 3 chars length
+              ending the string (global) 
+              with two \0\0, when errno<100
+              errnum must be <200.
+               (src/errno_str.c: 7)
+
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
@@ -171,7 +179,7 @@ exit_errno     void exit_errno( int errnum );
               as well.
               The supplied errno can be negative,
               the absolute value is supplied to errno.
-               (src/exit_errno.c: 16)
+               (src/exit_errno.c: 17)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -963,13 +971,6 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
                (src/strcmp.c: 13)
 
-errno_str      const char *errno_str(int err);
-
-               convert errno to str, with 3 chars length
-              ending the string (located in the bss section, and global)
-              with two \0\0, when errno<100
-               (src/strerror.c: 31)
-
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
                (src/strcmp.c: 85)
@@ -1014,7 +1015,7 @@ strdup         char *strdup(const char *source);
 
                (src/strdup.c: 7)
 
-strerror       const char* strerror( int errnum );
+strerror       static char* strerror( int errnum );
 
                (src/strerror.c: 7)
 
