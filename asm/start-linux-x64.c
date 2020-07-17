@@ -13,8 +13,8 @@ __asm__ volatile("\
 	"call main\n"
 #endif
 	"movq %rax, %rdi\n\
-.global _exit\n\
-_exit:\n\
+.global __exit\n\
+__exit:\n\
 	movq $60, %rax\n\
 	syscall\n"
 	);

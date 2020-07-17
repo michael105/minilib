@@ -852,7 +852,7 @@ sub configscripthandler{
 		my $fh = shift;
 		foreach my $func ( keys(%{$funchash}) ){
 						printf $fh "mini_$func(){ 
-  echo \"#define mini_$func $1\" 
+  echo \"#define mini_$func \$1\" 
 }\n";
 				}
 		return(1);

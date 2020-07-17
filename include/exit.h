@@ -3,11 +3,22 @@
 //+header unistd.h
 //+inc
 
+#ifdef mini_atexit
 
 #ifdef X64
-#define exit(ret) asm("jmp _exit"::"D"(ret))
+#define exit(ret) asm("jmp _atexit"::"D"(ret))
+#define _exit(ret) asm("jmp __exit"::"D"(ret))
 #else
-#define exit(ret) asm("jmp _exit"::"b"(ret))
+#define exit(ret) asm("jmp _atexit"::"b"(ret))
+#define _exit(ret) asm("jmp __exit"::"b"(ret))
+#endif
+
+#else
+#ifdef X64
+#define exit(ret) asm("jmp __exit"::"D"(ret))
+#else
+#define exit(ret) asm("jmp __exit"::"b"(ret))
+#endif
 #endif
 
 

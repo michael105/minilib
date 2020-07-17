@@ -149,6 +149,15 @@ typedef struct { long int quot; long int rem; } ldiv_t;
 
 typedef void (*sighandler_t)(int);
 
+typedef void (functionp)(void);
+#ifdef mini_atexit
+#if (mini_atexit>0)
+#define ATEXIT_MAX mini_atexit
+#else
+#define ATEXIT_MAX 8
+#endif
+#endif
+
 #ifdef mini_ioctl
 //int ioctl( int fd, unsigned long int request, ... );
 #endif

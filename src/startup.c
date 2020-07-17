@@ -66,16 +66,40 @@ errno = 0;
 environ = envp;
 #endif
 
+#ifdef mini_atexit
+mlgl->atexitp[0]=0;
+#endif
 
 	// forces gcc to assign the mlgl data structure, 
 	// and put the whole struct on the stack.
 	// Or whatever is needed. 
 #ifdef mini_globals
 	mlgl->brk=0;
-	optimization_fence((void*)mlgl);
 #endif
 	//asm volatile("jmp main");
-	return(main(argc,argv,envp));
+	int ret = main(argc,argv,envp);
+
+#ifdef mini_atexit
+#ifdef X64
+	asm volatile(".global _atexit\n_atexit:":"=D"(ret));
+#else
+	asm volatile(".global _atexit\n_atexit:":"=d"(ret));
+#endif
+	if ( mlgl->atexitp[0] ){
+			int p;
+			for ( p=0; mlgl->atexitp[p]!=0 && p<=ATEXIT_MAX; p++ );
+			while ( p>0 ){
+					p--;
+					mlgl->atexitp[p]();
+			}
+	}
+#endif
+
+	_exit(ret);
+#ifdef mini_globals
+	optimization_fence((void*)mlgl);
+#endif
+
 }
 
 #endif

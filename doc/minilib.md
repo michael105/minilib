@@ -242,7 +242,7 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 77)
+               (include/minilib_global.h: 81)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -898,6 +898,10 @@ abort          void abort();
 abs            static int abs(int i);
 
                (include/math.h: 25)
+
+atexit         static int atexit( functionp* func );
+
+               (src/atexit.c: 3)
 
 atoi           int atoi(const char *c);
 

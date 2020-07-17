@@ -41,6 +41,9 @@ typedef struct {
 		int align[1];
 		char **environ;
 		unsigned long brk;
+#ifdef mini_atexit
+		functionp* atexitp[ATEXIT_MAX];
+#endif
 		void *appdata; // can be used freely. 
 		// intended to be used for globals,
 		// which can be located on the stack.
