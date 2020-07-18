@@ -394,7 +394,7 @@ opendir
 <p>
   <em>DIR *opendir(const char *name)</em>
 <br>
-  Defines: open malloc close<br>
+  Defines: malloc close open<br>
  open directory associated with file descriptor<br>
  Size: ~281B  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.9  manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -483,7 +483,7 @@ exit_errno
 <p>
   <em>void exit_errno( int errnum )</em>
 <br>
-  Defines: execve errno_str write exit<br>
+  Defines: errno_str exit write execve<br>
  exit, and execute /bin/errno<br>
   this is intended to give a error message for the <br>
   given errno num.<br>
@@ -507,7 +507,7 @@ perror
 <p>
   <em>void perror(const char *msg)</em>
 <br>
-  Defines: strerror write strlen fileno errno<br>
+  Defines: write errno strerror fileno strlen<br>
  write error messages to standard error<br>
  Size: ~329B  <a href="../src/perror.c">../src/perror.c</a> l.4  manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -545,7 +545,7 @@ _fopen
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE *f)</em>
 <br>
-  Defines: open fileno close<br>
+  Defines: close open fileno<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~316B  <a href="../src/fopen.c">../src/fopen.c</a> l.12
 </p>
@@ -844,7 +844,7 @@ fgetc
 <p>
   <em>int fgetc(FILE *F)</em>
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a byte from a stream<br>
  Size: ~57B  <a href="../include/fgetc.h">../include/fgetc.h</a> l.11  manpage: <a href="manpages/stdio/getc.3.rst">fgetc</a><br>
 </p>
@@ -856,7 +856,7 @@ fgets
 <p>
   <em>char* fgets(char <strong>buf, int size, FILE</strong> F)</em>
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a string from a stream<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.6  manpage: <a href="manpages/stdio/fgets.3.rst">fgets</a><br>
 </p>
@@ -868,7 +868,7 @@ getc
 <p>
   <em>#define getc(F) fgetc(F)</em>
 <br>
-  Defines: read fileno<br>
+  Defines: fileno read<br>
  get a byte from a stream<br>
  <a href="../include/fgetc.h">../include/fgetc.h</a> l.26  manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -892,7 +892,7 @@ gets
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em>
 <br>
-  Defines: read fileno<br>
+  Defines: fileno read<br>
  get a string from a<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.29  manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -1389,7 +1389,7 @@ realloc
 <p>
   <em>void* realloc(void *p, int size)</em>
 <br>
-  Defines: malloc free<br>
+  Defines: free malloc<br>
  memory reallocator<br>
  Size: ~636B  <a href="../src/malloc.c">../src/malloc.c</a> l.159  manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
@@ -1514,7 +1514,7 @@ eputs
 <p>
   <em>#define eputs(msg) ( eprint(msg) + eprintl() )</em>
 <br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  write msg to stderr, append a newline. Needs strlen.<br>
   <a href="../include/prints.h">../include/prints.h</a> l.77
 </p>
@@ -1549,7 +1549,7 @@ fprintf
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em>
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  <a href="../src/sprintf.c">../src/sprintf.c</a> l.245  manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br>
 </p>
 </dd>
@@ -1560,7 +1560,7 @@ fprintfs
 <p>
   <em>int fprintfs( FILE* F, char *fmt, &#8230;)</em>
 <br>
-  Defines: write fileno strlen<br>
+  Defines: write strlen fileno<br>
  prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
   Size: ~427B  <a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10
 </p>
@@ -1572,7 +1572,7 @@ fprints
 <p>
   <em>#define fprints(F,str) write(fileno(F),str,strlen(str))</em>
 <br>
-  Defines: strlen fileno write<br>
+  Defines: fileno strlen write<br>
  print the string(s) supplied as arg(s) to stream<br>
   <a href="../include/prints.h">../include/prints.h</a> l.24
 </p>
@@ -1584,7 +1584,7 @@ fputc
 <p>
   <em>int volatile fputc(int c, FILE* F)</em>
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  put a byte on a stream<br>
  Size: ~64B  <a href="../include/fputc.h">../include/fputc.h</a> l.10  manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -1644,7 +1644,7 @@ printfs
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em>
 <br>
-  Defines: write strlen fileno<br>
+  Defines: fileno strlen write<br>
  write str to stdout. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.84
@@ -1691,7 +1691,7 @@ putc
 <p>
   <em>#define putc(c,stream) fputc(c,stream)</em>
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  put a byte on a stream<br>
  <a href="../include/fputc.h">../include/fputc.h</a> l.19  manpage: <a href="manpages/stdio/putc.3.rst">putc</a><br>
 </p>
@@ -1877,7 +1877,7 @@ execvpe
 <p>
   <em>int execvpe(const char *file, char *const argv[], char *const envp[])</em>
 <br>
-  Defines: execve access environ<br>
+  Defines: access execve environ<br>
  execute a file<br>
  When invoked with a filename, starting with "." or "/",<br>
   interprets this as absolute path. (calls execve with the pathname)<br>
@@ -1991,7 +1991,7 @@ system
 <p>
   <em>int system( const char* command )</em>
 <br>
-  Defines: execve wait4 vfork environ write<br>
+  Defines: vfork environ write wait4 execve<br>
  issue a command<br>
  Size: ~326B  <a href="../src/system.c">../src/system.c</a> l.4  manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2051,7 +2051,7 @@ fdopen
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em>
 <br>
-  Defines: fileno open close<br>
+  Defines: fileno close open<br>
  associate a stream with a file descriptor<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~323B  <a href="../src/fopen.c">../src/fopen.c</a> l.91  manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br>
@@ -2122,7 +2122,7 @@ fopen
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em>
 <br>
-  Defines: open fileno close<br>
+  Defines: fileno open close<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~324B  <a href="../src/fopen.c">../src/fopen.c</a> l.81  manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br>
@@ -2135,7 +2135,7 @@ fputs
 <p>
   <em>int volatile fputs(const char *c, FILE *F)</em>
 <br>
-  Defines: fileno strlen write<br>
+  Defines: strlen fileno write<br>
  put a string on a stream<br>
  Size: ~90B  <a href="../include/fputs.h">../include/fputs.h</a> l.20  manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -2159,7 +2159,7 @@ freopen
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE *F)</em>
 <br>
-  Defines: open fileno close<br>
+  Defines: fileno open close<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~320B  <a href="../src/fopen.c">../src/fopen.c</a> l.101  manpage: <a href="manpages/stdio/fopen.3.rst">freopen</a><br>
@@ -2666,7 +2666,7 @@ ptsname
 <p>
   <em>char *ptsname(int fd)</em>
 <br>
-  Defines: write open uitodec ioctl<br>
+  Defines: open uitodec ioctl write<br>
  get name of the slave pseudo-terminal device<br>
  Size: ~1767B  <a href="../src/pty.c">../src/pty.c</a> l.40  manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -2678,7 +2678,7 @@ ptsname_r
 <p>
   <em>int ptsname_r(int fd, char *buf, size_t len)</em>
 <br>
-  Defines: write open uitodec ioctl<br>
+  Defines: open uitodec ioctl write<br>
  get the name of the slave pseudoterminal<br>
  Size: ~1748B  <a href="../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -6221,7 +6221,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-18 03:08:55 CEST
+ 2020-07-18 03:12:53 CEST
 </small></p>
 </body>
 </html>
