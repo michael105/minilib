@@ -28,7 +28,7 @@ or within one of the source files.
 
 An example is given below:
 
-```
+--------------------
 #if 0  // has to be the first line
 
 mini_start
@@ -45,7 +45,7 @@ return
 
 int main(int argc, char *argv[] ){
 ...
-```
+--------------------
 
 Only functions defined are going to be built.
 
@@ -74,16 +74,16 @@ globals_on_stack::
 	
 
 mini_syscalls::
-	define the syscall wrapper, starting with 'sys_'
+	define the syscall wrappers, starting with 'sys_'
 
 
 HEADERGUARDS::
-	define the headeguards, which hopefully prevent the inclusion
+	define the headerguards, which hopefully prevent the inclusion
 	of the standard library headers.
 
 
 OPTFLAG -Os::
-  optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
+  optimization Flag. Os,O1,O2 should be save. O3 causes sometimes troubles
 
 
    e.g. OPTFLAG '-g -O0'

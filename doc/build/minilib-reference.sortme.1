@@ -226,315 +226,6 @@ f:strncpy|D:char *strncpy(char *dest, const char *src, int n)|c:strings|x:copy f
 f:strrchr|D:char *strrchr(const char *s, int c)|c:strings|x:string scanning operation|
 f:strstr|D:char* strstr(const char *big, const char *little)|c:strings|x:find a substring|
 
-#z-syscalls
-
-f:sys__sysctl|D:sys__sysctl( struct __sysctl_args *args)|c:z-syscalls|x:read/write system parameters|
-f:sys_accept|D:sys_accept( int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)|c:z-syscalls|x:accept a new connection on a socket|
-f:sys_accept4|D:sys_accept4( int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)|c:z-syscalls|x:accept a connection on a socket|
-f:sys_access|D:sys_access( const char *filename,  int mode)|c:z-syscalls|x:determine accessibility of a file relative to directory file|
-f:sys_acct|D:sys_acct( const char *name)|c:z-syscalls|x:switch process accounting on or off|
-f:sys_add_key|D:sys_add_key( const char *_type,  const char *_description,  const void *_payload,  size_t plen)|c:z-syscalls|x:add a key to the kernel's key management facility|
-f:sys_adjtimex|D:sys_adjtimex( struct timex *txc_p)|c:z-syscalls|x:tune kernel clock|
-f:sys_alarm|D:sys_alarm( unsigned int seconds)|c:z-syscalls|x:schedule an alarm signal|
-f:sys_arch_prctl|D:sys_arch_prctl( struct task_struct *task,  int code,  unsigned long *addr)|c:z-syscalls|x:set architecture-specific thread state|
-f:sys_bind|D:sys_bind( int fd,  struct sockaddr *umyaddr,  int addrlen)|c:z-syscalls|x:bind a name to a socket|
-f:sys_brk|D:sys_brk( unsigned long brk)|c:z-syscalls|x:change data segment size|
-f:sys_capget|D:sys_capget( cap_user_header_t header,  cap_user_data_t dataptr)|c:z-syscalls|x:set/get capabilities of thread(s)|
-f:sys_capset|D:sys_capset( cap_user_header_t header,  const cap_user_data_t data)|c:z-syscalls|x:set/get capabilities of thread(s)|
-f:sys_chdir|D:sys_chdir( const char *filename)|c:z-syscalls|x:change working directory|
-f:sys_chmod|D:sys_chmod( const char *filename,  mode_t mode)|c:z-syscalls|x:change mode of a file relative to directory file descriptor|
-f:sys_chown|D:sys_chown( const char *filename,  uid_t user,  gid_t group)|c:z-syscalls|x:change owner and group of a file relative to directory|
-f:sys_chroot|D:sys_chroot( const char *filename)|c:z-syscalls|x:change root directory|
-f:sys_clock_adjtime|D:sys_clock_adjtime( clockid_t which_clock,  struct timex *tx)|c:z-syscalls|x:|
-f:sys_clock_getres|D:sys_clock_getres( const clockid_t which_clock,  struct timespec *tp)|c:z-syscalls|x:|
-f:sys_clock_gettime|D:sys_clock_gettime( const clockid_t which_clock,  struct timespec *tp)|c:z-syscalls|x:clock and time functions|
-f:sys_clock_nanosleep|D:sys_clock_nanosleep( const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)|c:z-syscalls|x:high resolution sleep with specifiable clock|
-f:sys_clock_settime|D:sys_clock_settime( const clockid_t which_clock,  const struct timespec *tp)|c:z-syscalls|x:clock and timer functions|
-f:sys_clone|D:sys_clone( unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)|c:z-syscalls|x:create a child process|
-f:sys_close|D:sys_close( unsigned int fd)|c:z-syscalls|x:close a file descriptor|
-f:sys_connect|D:sys_connect( int fd,  struct sockaddr *uservaddr,  int addrlen)|c:z-syscalls|x:connect a socket|
-f:sys_creat|D:sys_creat( const char *pathname,  int mode)|c:z-syscalls|x:create a new file or rewrite an existing one|
-f:sys_delete_module|D:sys_delete_module( const char *name_user,  unsigned int flags)|c:z-syscalls|x:unload a kernel module|
-f:sys_dup|D:sys_dup( unsigned int fildes)|c:z-syscalls|x:duplicate an open file descriptor|
-f:sys_dup2|D:sys_dup2( unsigned int oldfd,  unsigned int newfd)|c:z-syscalls|x:duplicate a file descriptor|
-f:sys_dup3|D:sys_dup3( unsigned int oldfd,  unsigned int newfd,  int flags)|c:z-syscalls|x:duplicate a file descriptor|
-f:sys_epoll_create|D:sys_epoll_create( int size)|c:z-syscalls|x:open an epoll file descriptor|
-f:sys_epoll_create1|D:sys_epoll_create1( int flags)|c:z-syscalls|x:open an epoll file descriptor|
-f:sys_epoll_ctl|D:sys_epoll_ctl( int epfd,  int op,  int fd,  struct epoll_event *event)|c:z-syscalls|x:control interface for an epoll file descriptor|
-f:sys_epoll_pwait|D:sys_epoll_pwait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)|c:z-syscalls|x:wait for an I/O event on an epoll file descriptor|
-f:sys_epoll_wait|D:sys_epoll_wait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout)|c:z-syscalls|x:wait for an I/O event on an epoll file descriptor|
-f:sys_eventfd|D:sys_eventfd( unsigned int count)|c:z-syscalls|x:create a file descriptor for event notification|
-f:sys_eventfd2|D:sys_eventfd2( unsigned int count,  int flags)|c:z-syscalls|x:create a file descriptor for event notification|
-f:sys_execve|D:sys_execve( const char *filename,  const char *const argv[],  const char *const envp[])|c:z-syscalls|x:execute program|
-f:sys_exit|D:sys_exit( int error_code)|c:z-syscalls|x:terminate a process|
-f:sys_exit_group|D:sys_exit_group( int error_code)|c:z-syscalls|x:exit all threads in a process|
-f:sys_faccessat|D:sys_faccessat( int dfd,  const char *filename,  int mode)|c:z-syscalls|x:determine accessibility of a file relative to directory file|
-f:sys_fadvise64|D:sys_fadvise64( int fd,  loff_t offset,  size_t len,  int advice)|c:z-syscalls|x:predeclare an access pattern for file data|
-f:sys_fallocate|D:sys_fallocate( long fd,  long mode,  loff_t offset,  loff_t len)|c:z-syscalls|x:manipulate file space|
-f:sys_fanotify_init|D:sys_fanotify_init( unsigned int flags,  unsigned int event_f_flags)|c:z-syscalls|x:create and initialize fanotify group|
-f:sys_fanotify_mark|D:sys_fanotify_mark( long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)|c:z-syscalls|x:add, remove, or modify an fanotify mark on a filesystem|
-f:sys_fchdir|D:sys_fchdir( unsigned int fd)|c:z-syscalls|x:change working directory|
-f:sys_fchmod|D:sys_fchmod( unsigned int fd,  mode_t mode)|c:z-syscalls|x:change mode of a file|
-f:sys_fchmodat|D:sys_fchmodat( int dfd,  const char *filename,  mode_t mode)|c:z-syscalls|x:change mode of a file relative to directory file descriptor|
-f:sys_fchown|D:sys_fchown( unsigned int fd,  uid_t user,  gid_t group)|c:z-syscalls|x:change owner and group of a file|
-f:sys_fchownat|D:sys_fchownat( int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)|c:z-syscalls|x:change owner and group of a file relative to directory|
-f:sys_fcntl|D:sys_fcntl( unsigned int fd,  unsigned int cmd,  unsigned long arg)|c:z-syscalls|x:file control|
-f:sys_fdatasync|D:sys_fdatasync( unsigned int fd)|c:z-syscalls|x:synchronize the data of a file|
-f:sys_fgetxattr|D:sys_fgetxattr( int fd,  const char *name,  void *value,  size_t size)|c:z-syscalls|x:retrieve an extended attribute value|
-f:sys_finit_module|D:sys_finit_module( int fd,  const char  *uargs,  int flags)|c:z-syscalls|x:load a kernel module|
-f:sys_flistxattr|D:sys_flistxattr( int fd,  char *list,  size_t size)|c:z-syscalls|x:list extended attribute names|
-f:sys_flock|D:sys_flock( unsigned int fd,  unsigned int cmd)|c:z-syscalls|x:apply or remove an advisory lock on an open file|
-f:sys_fork|D:sysSYSDEF_syscall(_fork,0)|c:z-syscalls|x:create a new process|
-f:sys_fremovexattr|D:sys_fremovexattr( int fd,  const char *name)|c:z-syscalls|x:remove an extended attribute|
-f:sys_fsetxattr|D:sys_fsetxattr( int fd,  const char *name,  const void *value,  size_t size, int flags)|c:z-syscalls|x:set an extended attribute value|
-f:sys_fstat|D:sys_fstat( unsigned int fd,  struct stat *statbuf)|c:z-syscalls|x:get file status|
-f:sys_fstatfs|D:sys_fstatfs( unsigned int fd,  struct statfs *buf)|c:z-syscalls|x:get filesystem statistics|
-f:sys_fsync|D:sys_fsync( unsigned int fd)|c:z-syscalls|x:synchronize changes to a file|
-f:sys_ftruncate|D:sys_ftruncate( unsigned int fd,  unsigned long length)|c:z-syscalls|x:truncate a file to a specified length|
-f:sys_futex|D:sys_futex( u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)|c:z-syscalls|x:fast user-space locking|
-f:sys_futimesat|D:sys_futimesat( int dfd,  const char *filename,  struct timeval *utimes)|c:z-syscalls|x:change timestamps of a file relative to a directory file descriptor|
-f:sys_get_mempolicy|D:sys_get_mempolicy( int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)|c:z-syscalls|x:retrieve NUMA memory policy for a thread|
-f:sys_get_robust_list|D:sys_get_robust_list( int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)|c:z-syscalls|x:get/set list of robust futexes|
-f:sys_getcpu|D:sys_getcpu( unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)|c:z-syscalls|x:determine CPU and NUMA node on which the calling thread is running|
-f:sys_getcwd|D:sys_getcwd( char *buf,  unsigned long size)|c:z-syscalls|x:get the pathname of the current working directory|
-f:sys_getdents|D:sys_getdents( unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)|c:z-syscalls|x:get directory entries|
-f:sys_getdents64|D:sys_getdents64( unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)|c:z-syscalls|x:get directory entries|
-f:sys_getegid|D:sysSYSDEF_syscall(_getegid,0)|c:z-syscalls|x:get the effective group ID|
-f:sys_geteuid|D:sysSYSDEF_syscall(_geteuid,0)|c:z-syscalls|x:get the effective user ID|
-f:sys_getgid|D:sysSYSDEF_syscall(_getgid,0)|c:z-syscalls|x:get the real group ID|
-f:sys_getgroups|D:sys_getgroups( int gidsetsize,  gid_t *grouplist)|c:z-syscalls|x:get supplementary group IDs|
-f:sys_getitimer|D:sys_getitimer( int which,  struct itimerval *value)|c:z-syscalls|x:get and set value of interval timer|
-f:sys_getpeername|D:sys_getpeername( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)|c:z-syscalls|x:get the name of the peer socket|
-f:sys_getpgid|D:sys_getpgid( pid_t pid)|c:z-syscalls|x:get the process group ID for a process|
-f:sys_getpgrp|D:sysSYSDEF_syscall(_getpgrp,0)|c:z-syscalls|x:get the process group ID of the calling process|
-f:sys_getpid|D:sysSYSDEF_syscall(_getpid,0)|c:z-syscalls|x:get the process ID|
-f:sys_getppid|D:sysSYSDEF_syscall(_getppid,0)|c:z-syscalls|x:get the parent process ID|
-f:sys_getpriority|D:sys_getpriority( int which,  int who)|c:z-syscalls|x:get and set the nice value|
-f:sys_getrandom|D:sys_getrandom( char  *buf,  size_t count,  unsigned int flags)|c:z-syscalls|x:obtain a series of random bytes|
-f:sys_getresgid|D:sys_getresgid( gid_t *rgid,  gid_t *egid,  gid_t *sgid)|c:z-syscalls|x:get real, effective and saved user/group IDs|
-f:sys_getresuid|D:sys_getresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)|c:z-syscalls|x:get real, effective and saved user/group IDs|
-f:sys_getrlimit|D:sys_getrlimit( unsigned int resource,  struct rlimit *rlim)|c:z-syscalls|x:control maximum resource consumption|
-f:sys_getrusage|D:sys_getrusage( int who,  struct rusage *ru)|c:z-syscalls|x:get information about resource utilization|
-f:sys_getsid|D:sys_getsid( pid_t pid)|c:z-syscalls|x:get the process group ID of a session leader|
-f:sys_getsockname|D:sys_getsockname( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)|c:z-syscalls|x:get the socket name|
-f:sys_getsockopt|D:sys_getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)|c:z-syscalls|x:get the socket options|
-f:sys_gettid|D:sysSYSDEF_syscall(_gettid,0)|c:z-syscalls|x:get thread identification|
-f:sys_gettimeofday|D:sys_gettimeofday( struct timeval *tv,  struct timezone *tz)|c:z-syscalls|x:get the date and time|
-f:sys_getuid|D:sysSYSDEF_syscall(_getuid,0)|c:z-syscalls|x:get a real user ID|
-f:sys_getxattr|D:sys_getxattr( const char *pathname,  const char *name,  void *value,  size_t size)|c:z-syscalls|x:retrieve an extended attribute value|
-f:sys_init_module|D:sys_init_module( void *umod,  unsigned long len,  const char *uargs)|c:z-syscalls|x:load a kernel module|
-f:sys_inotify_add_watch|D:sys_inotify_add_watch( int fd,  const char *pathname,  u32 mask)|c:z-syscalls|x:add a watch to an initialized inotify instance|
-f:sys_inotify_init|D:sysSYSDEF_syscall(_inotify_init,0)|c:z-syscalls|x:initialize an inotify instance|
-f:sys_inotify_init1|D:sys_inotify_init1( int flags)|c:z-syscalls|x:initialize an inotify instance|
-f:sys_inotify_rm_watch|D:sys_inotify_rm_watch( int fd,  __s32 wd)|c:z-syscalls|x:remove an existing watch from an inotify instance|
-f:sys_io_cancel|D:sys_io_cancel( aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)|c:z-syscalls|x:cancel an outstanding asynchronous I/O operation|
-f:sys_io_destroy|D:sys_io_destroy( aio_context_t ctx)|c:z-syscalls|x:destroy an asynchronous I/O context|
-f:sys_io_getevents|D:sys_io_getevents( aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)|c:z-syscalls|x:read asynchronous I/O events from the completion queue|
-f:sys_io_setup|D:sys_io_setup( unsigned nr_events,  aio_context_t *ctxp)|c:z-syscalls|x:create an asynchronous I/O context|
-f:sys_io_submit|D:sys_io_submit( aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)|c:z-syscalls|x:submit asynchronous I/O blocks for processing|
-f:sys_ioctl|D:sys_ioctl( unsigned int fd,  unsigned int cmd,  unsigned long arg)|c:z-syscalls|x:control a STREAMS device (\fBSTREAMS\fP)|
-f:sys_ioperm|D:sys_ioperm( unsigned long from,  unsigned long num,  int turn_on)|c:z-syscalls|x:set port input/output permissions|
-f:sys_iopl|D:sys_iopl( unsigned int level,  struct pt_regs *regs)|c:z-syscalls|x:change I/O privilege level|
-f:sys_ioprio_get|D:sys_ioprio_get( int which,  int who)|c:z-syscalls|x:get/set I/O scheduling class and priority|
-f:sys_ioprio_set|D:sys_ioprio_set( int which,  int who,  int ioprio)|c:z-syscalls|x:get/set I/O scheduling class and priority|
-f:sys_kcmp|D:sys_kcmp( pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)|c:z-syscalls|x:compare two processes to determine if they share a kernel resource|
-f:sys_kexec_file_load|D:sys_kexec_file_load( int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)|c:z-syscalls|x:load a new kernel for later execution|
-f:sys_kexec_load|D:sys_kexec_load( unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)|c:z-syscalls|x:load a new kernel for later execution|
-f:sys_keyctl|D:sys_keyctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)|c:z-syscalls|x:key management function wrappers|
-f:sys_kill|D:sys_kill( pid_t pid,  int sig)|c:z-syscalls|x:send a signal to a process or a group of processes|
-f:sys_lchown|D:sys_lchown( const char *filename,  uid_t user,  gid_t group)|c:z-syscalls|x:change the owner and group of a symbolic link|
-f:sys_lgetxattr|D:sys_lgetxattr( const char *pathname,  const char *name,  void *value,  size_t size)|c:z-syscalls|x:retrieve an extended attribute value|
-f:sys_link|D:sys_link( const char *oldname,  const char *newname)|c:z-syscalls|x:link one file to another file relative to two directory|
-f:sys_linkat|D:sys_linkat( int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)|c:z-syscalls|x:make a new name for a file|
-f:sys_listen|D:sys_listen( int fd,  int backlog)|c:z-syscalls|x:listen for socket connections and limit the queue of incoming|
-f:sys_listxattr|D:sys_listxattr( const char *pathname,  char *list,  size_t size)|c:z-syscalls|x:list extended attribute names|
-f:sys_llistxattr|D:sys_llistxattr( const char *pathname,  char *list,  size_t size)|c:z-syscalls|x:list extended attribute names|
-f:sys_lookup_dcookie|D:sys_lookup_dcookie( u64 cookie64,  long buf,  long len)|c:z-syscalls|x:return a directory entry's path|
-f:sys_lremovexattr|D:sys_lremovexattr( const char *pathname,  const char *name)|c:z-syscalls|x:remove an extended attribute|
-f:sys_lseek|D:sys_lseek( unsigned int fd,  off_t offset,  unsigned int origin)|c:z-syscalls|x:move the read/write file offset|
-f:sys_lsetxattr|D:sys_lsetxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)|c:z-syscalls|x:set an extended attribute value|
-f:sys_lstat|D:sys_lstat( const char *filename,  struct stat *statbuf)|c:z-syscalls|x:get file status|
-f:sys_madvise|D:sys_madvise( unsigned long start,  size_t len_in,  int behavior)|c:z-syscalls|x:give advice about use of memory|
-f:sys_mbind|D:sys_mbind( unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)|c:z-syscalls|x:set memory policy for a memory range|
-f:sys_memfd_create|D:sys_memfd_create( const char  *uname_ptr,  unsigned int flags)|c:z-syscalls|x:create an anonymous file|
-f:sys_migrate_pages|D:sys_migrate_pages( pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)|c:z-syscalls|x:move all pages in a process to another set of nodes|
-f:sys_mincore|D:sys_mincore( unsigned long start,  size_t len,  unsigned char *vec)|c:z-syscalls|x:determine whether pages are resident in memory|
-f:sys_mkdir|D:sys_mkdir( const char *pathname,  int mode)|c:z-syscalls|x:make a directory relative to directory file descriptor|
-f:sys_mkdirat|D:sys_mkdirat( int dfd,  const char *pathname,  int mode)|c:z-syscalls|x:create a directory|
-f:sys_mknod|D:sys_mknod( const char *filename,  umode_t mode,  unsigned dev)|c:z-syscalls|x:make directory, special file, or regular file|
-f:sys_mknodat|D:sys_mknodat( int dfd,  const char *filename,  int mode,  unsigned dev)|c:z-syscalls|x:create a special or ordinary file|
-f:sys_mlock|D:sys_mlock( unsigned long start,  size_t len)|c:z-syscalls|x:lock or unlock a range of process address space|
-f:sys_mlockall|D:sys_mlockall( int flags)|c:z-syscalls|x:lock/unlock the address space of a process|
-f:sys_mmap|D:sys_mmap( unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)|c:z-syscalls|x:map pages of memory|
-f:sys_modify_ldt|D:sys_modify_ldt( int func,  void *ptr,  unsigned long bytecount)|c:z-syscalls|x:get or set a per-process LDT entry|
-f:sys_mount|D:sys_mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:z-syscalls|x:mount filesystem|
-f:sys_move_pages|D:sys_move_pages( pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)|c:z-syscalls|x:move individual pages of a process to another node|
-f:sys_mprotect|D:sys_mprotect( unsigned long start,  size_t len,  unsigned long prot)|c:z-syscalls|x:set protection of memory mapping|
-f:sys_mq_getsetattr|D:sys_mq_getsetattr( mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)|c:z-syscalls|x:get/set message queue attributes|
-f:sys_mq_notify|D:sys_mq_notify( mqd_t mqdes,  const struct sigevent *u_notification)|c:z-syscalls|x:notify process that a message is available|
-f:sys_mq_open|D:sys_mq_open( const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)|c:z-syscalls|x:open a message queue|
-f:sys_mq_timedreceive|D:sys_mq_timedreceive( mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)|c:z-syscalls|x:receive a message from a message queue|
-f:sys_mq_timedsend|D:sys_mq_timedsend( mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)|c:z-syscalls|x:send a message to a message queue|
-f:sys_mq_unlink|D:sys_mq_unlink( const char *u_name)|c:z-syscalls|x:remove a message queue|
-f:sys_mremap|D:sys_mremap( unsigned long addr,  unsigned long old_len,  unsigned long new_len,  unsigned long flags,  unsigned long new_addr)|c:z-syscalls|x:remap a virtual memory address|
-f:sys_msgctl|D:sys_msgctl( int msqid,  int cmd,  struct msqid_ds *buf)|c:z-syscalls|x:XSI message control operations|
-f:sys_msgget|D:sys_msgget( key_t key,  int msgflg)|c:z-syscalls|x:get the XSI message queue identifier|
-f:sys_msgrcv|D:sys_msgrcv( int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)|c:z-syscalls|x:XSI message receive operation|
-f:sys_msgsnd|D:sys_msgsnd( int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)|c:z-syscalls|x:XSI message send operation|
-f:sys_msync|D:sys_msync( unsigned long start,  size_t len,  int flags)|c:z-syscalls|x:synchronize memory with physical storage|
-f:sys_munlock|D:sys_munlock( unsigned long start,  size_t len)|c:z-syscalls|x:unlock a range of process address space|
-f:sys_munlockall|D:sysSYSDEF_syscall(_munlockall,0)|c:z-syscalls|x:unlock the address space of a process|
-f:sys_munmap|D:sys_munmap( unsigned long addr,  size_t len)|c:z-syscalls|x:unmap pages of memory|
-f:sys_name_to_handle_at|D:sys_name_to_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)|c:z-syscalls|x:obtain handle|
-f:sys_nanosleep|D:sys_nanosleep( struct timespec *rqtp,  struct timespec *rmtp)|c:z-syscalls|x:high resolution sleep|
-f:sys_newfstatat|D:sys_newfstatat( int dfd,  const char *filename,  struct stat *statbuf,  int flag)|c:z-syscalls|x:get file status|
-f:sys_open|D:sys_open( const char *filename,  int flags,  int mode)|c:z-syscalls|x:open file relative to directory file descriptor|
-f:sys_open_by_handle_at|D:sys_open_by_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)|c:z-syscalls|x:obtain handle|
-f:sys_openat|D:sys_openat( int dfd,  const char *filename,  int flags,  int mode)|c:z-syscalls|x:open file relative to directory file descriptor|
-f:sys_pause|D:sysSYSDEF_syscall(_pause,0)|c:z-syscalls|x:suspend the thread until a signal is received|
-f:sys_perf_event_open|D:sys_perf_event_open( struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)|c:z-syscalls|x:set up performance monitoring|
-f:sys_personality|D:sys_personality( unsigned int personality)|c:z-syscalls|x:set the process execution domain|
-f:sys_pipe|D:sys_pipe( int *filedes)|c:z-syscalls|x:create an interprocess channel|
-f:sys_pipe2|D:sys_pipe2( int *filedes,  int flags)|c:z-syscalls|x:create pipe|
-f:sys_pivot_root|D:sys_pivot_root( const char *new_root,  const char *put_old)|c:z-syscalls|x:change the root mount|
-f:sys_poll|D:sys_poll( struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)|c:z-syscalls|x:input/output multiplexing|
-f:sys_ppoll|D:sys_ppoll( struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)|c:z-syscalls|x:wait for some event on a file descriptor|
-f:sys_prctl|D:sys_prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)|c:z-syscalls|x:operations on a process|
-f:sys_pread64|D:sys_pread64( unsigned long fd,  char *buf,  size_t count,  loff_t pos)|c:z-syscalls|x:read from or write to a file descriptor at a given offset|
-f:sys_preadv|D:sys_preadv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)|c:z-syscalls|x:read or write data into multiple buffers|
-f:sys_prlimit64|D:sys_prlimit64( pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)|c:z-syscalls|x:get/set resource limits|
-f:sys_process_vm_readv|D:sys_process_vm_readv( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)|c:z-syscalls|x:transfer data between process address spaces|
-f:sys_process_vm_writev|D:sys_process_vm_writev( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)|c:z-syscalls|x:transfer data between process address spaces|
-f:sys_pselect6|D:sys_pselect6( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)|c:z-syscalls|x:select, pselect, FD_CLR, FD_ISSET, FD_SET, FD_ZERO \-|
-f:sys_ptrace|D:sys_ptrace( long request,  long pid,  unsigned long addr,  unsigned long data)|c:z-syscalls|x:process trace|
-f:sys_pwrite64|D:sys_pwrite64( unsigned int fd,  const char *buf,  size_t count,  loff_t pos)|c:z-syscalls|x:read from or write to a file descriptor at a given offset|
-f:sys_pwritev|D:sys_pwritev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)|c:z-syscalls|x:read or write data into multiple buffers|
-f:sys_quotactl|D:sys_quotactl( unsigned int cmd,  const char *special,  qid_t id,  void *addr)|c:z-syscalls|x:manipulate disk quotas|
-f:sys_read|D:sys_read( unsigned int fd,  char *buf,  size_t count)|c:z-syscalls|x:read from a file|
-f:sys_readahead|D:sys_readahead( int fd,  loff_t offset,  size_t count)|c:z-syscalls|x:initiate file readahead into page cache|
-f:sys_readlink|D:sys_readlink( const char *path,  char *buf,  int bufsiz)|c:z-syscalls|x:read the contents of a symbolic link|
-f:sys_readlinkat|D:sys_readlinkat( int dfd,  const char *pathname,  char *buf,  int bufsiz)|c:z-syscalls|x:read value of a symbolic link|
-f:sys_readv|D:sys_readv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)|c:z-syscalls|x:read a vector|
-f:sys_reboot|D:sys_reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:z-syscalls|x:reboot or enable/disable Ctrl-Alt-Del|
-f:sys_recvfrom|D:sys_recvfrom( int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)|c:z-syscalls|x:receive a message from a socket|
-f:sys_recvmmsg|D:sys_recvmmsg( int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)|c:z-syscalls|x:receive multiple messages on a socket|
-f:sys_recvmsg|D:sys_recvmsg( int fd,  struct msghdr *msg,  unsigned int flags)|c:z-syscalls|x:receive a message from a socket|
-f:sys_remap_file_pages|D:sys_remap_file_pages( unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)|c:z-syscalls|x:create a nonlinear file mapping|
-f:sys_removexattr|D:sys_removexattr( const char *pathname,  const char *name)|c:z-syscalls|x:remove an extended attribute|
-f:sys_rename|D:sys_rename( const char *oldname,  const char *newname)|c:z-syscalls|x:rename file relative to directory file descriptor|
-f:sys_renameat|D:sys_renameat( int oldfd,  const char *oldname,  int newfd,  const char *newname)|c:z-syscalls|x:change the name or location of a file|
-f:sys_renameat2|D:sys_renameat2( int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)|c:z-syscalls|x:change the name or location of a file|
-f:sys_request_key|D:sys_request_key( const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)|c:z-syscalls|x:request a key from the kernel's key management facility|
-f:sys_restart_syscall|D:sysSYSDEF_syscall(_restart_syscall,0)|c:z-syscalls|x:restart a system call after interruption by a stop signal|
-f:sys_rmdir|D:sys_rmdir( const char *pathname)|c:z-syscalls|x:remove a directory|
-f:sys_rt_sigaction|D:sys_rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)|c:z-syscalls|x:examine and change a signal action|
-f:sys_rt_sigpending|D:sys_rt_sigpending( sigset_t *set,  size_t sigsetsize)|c:z-syscalls|x:examine pending signals|
-f:sys_rt_sigprocmask|D:sys_rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)|c:z-syscalls|x:examine and change blocked signals|
-f:sys_rt_sigqueueinfo|D:sys_rt_sigqueueinfo( pid_t pid,  int sig,  siginfo_t *uinfo)|c:z-syscalls|x:queue a signal and data|
-f:sys_rt_sigreturn|D:sys_rt_sigreturn( unsigned long __unused)|c:z-syscalls|x:return from signal handler and cleanup stack frame|
-f:sys_rt_sigsuspend|D:sys_rt_sigsuspend( sigset_t *unewset,  size_t sigsetsize)|c:z-syscalls|x:wait for a signal|
-f:sys_rt_sigtimedwait|D:sys_rt_sigtimedwait( const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)|c:z-syscalls|x:synchronously wait|
-f:sys_rt_tgsigqueueinfo|D:sys_rt_tgsigqueueinfo( pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)|c:z-syscalls|x:queue a signal and data|
-f:sys_sched_get_priority_max|D:sys_sched_get_priority_max( int policy)|c:z-syscalls|x:get priority limits|
-f:sys_sched_get_priority_min|D:sys_sched_get_priority_min( int policy)|c:z-syscalls|x:get static priority range|
-f:sys_sched_getaffinity|D:sys_sched_getaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)|c:z-syscalls|x:set and get a thread's CPU affinity mask|
-f:sys_sched_getattr|D:sys_sched_getattr( pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)|c:z-syscalls|x:sched_setattr, sched_getattr \-|
-f:sys_sched_getparam|D:sys_sched_getparam( pid_t pid,  struct sched_param *param)|c:z-syscalls|x:get scheduling parameters|
-f:sys_sched_getscheduler|D:sys_sched_getscheduler( pid_t pid)|c:z-syscalls|x:get scheduling policy|
-f:sys_sched_rr_get_interval|D:sys_sched_rr_get_interval( pid_t pid,  struct timespec *interval)|c:z-syscalls|x:get execution time limits|
-f:sys_sched_setaffinity|D:sys_sched_setaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)|c:z-syscalls|x:set and get a thread's CPU affinity mask|
-f:sys_sched_setattr|D:sys_sched_setattr( pid_t pid,  struct sched_attr  *attr,  unsigned int flags)|c:z-syscalls|x:sched_setattr, sched_getattr \-|
-f:sys_sched_setparam|D:sys_sched_setparam( pid_t pid,  struct sched_param *param)|c:z-syscalls|x:set scheduling parameters|
-f:sys_sched_setscheduler|D:sys_sched_setscheduler( pid_t pid,  int policy,  struct sched_param *param)|c:z-syscalls|x:set scheduling policy and parameters|
-f:sys_sched_yield|D:sysSYSDEF_syscall(_sched_yield,0)|c:z-syscalls|x:yield the processor|
-f:sys_seccomp|D:sys_seccomp( unsigned int op,  unsigned int flags,  const char  *uargs)|c:z-syscalls|x:operate on Secure Computing state of the process|
-f:sys_select|D:sys_select( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)|c:z-syscalls|x:synchronous I/O multiplexing|
-f:sys_semctl|D:sys_semctl( int semid,  int semnum,  int cmd,  semun_u arg)|c:z-syscalls|x:XSI semaphore control operations|
-f:sys_semget|D:sys_semget( key_t key,  int nsems,  int semflg)|c:z-syscalls|x:get set of XSI semaphores|
-f:sys_semop|D:sys_semop( int semid,  struct sembuf *tsops,  unsigned nsops)|c:z-syscalls|x:XSI semaphore operations|
-f:sys_semtimedop|D:sys_semtimedop( int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)|c:z-syscalls|x:System V semaphore operations|
-f:sys_sendfile|D:sys_sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:z-syscalls|x:transfer data between file descriptors|
-f:sys_sendmmsg|D:sys_sendmmsg( int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)|c:z-syscalls|x:send multiple messages on a socket|
-f:sys_sendmsg|D:sys_sendmsg( int fd,  struct msghdr *msg,  unsigned flags)|c:z-syscalls|x:send a message on a socket using a message structure|
-f:sys_sendto|D:sys_sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)|c:z-syscalls|x:send a message on a socket|
-f:sys_set_mempolicy|D:sys_set_mempolicy( int mode,  unsigned long *nmask,  unsigned long maxnode)|c:z-syscalls|x:set default NUMA memory policy for a thread and its children|
-f:sys_set_robust_list|D:sys_set_robust_list( struct robust_list_head *head,  size_t len)|c:z-syscalls|x:get/set list of robust futexes|
-f:sys_set_tid_address|D:sys_set_tid_address( int *tidptr)|c:z-syscalls|x:set pointer to thread ID|
-f:sys_setdomainname|D:sys_setdomainname( char *name,  int len)|c:z-syscalls|x:get/set NIS domain name|
-f:sys_setfsgid|D:sys_setfsgid( gid_t gid)|c:z-syscalls|x:set group identity used for filesystem checks|
-f:sys_setfsuid|D:sys_setfsuid( uid_t uid)|c:z-syscalls|x:set user identity used for filesystem checks|
-f:sys_setgid|D:sys_setgid( gid_t gid)|c:z-syscalls|x:set-group-ID|
-f:sys_setgroups|D:sys_setgroups( int gidsetsize,  gid_t *grouplist)|c:z-syscalls|x:get/set list of supplementary group IDs|
-f:sys_sethostname|D:sys_sethostname( char *name,  int len)|c:z-syscalls|x:get/set hostname|
-f:sys_setitimer|D:sys_setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:z-syscalls|x:set the value of an interval timer|
-f:sys_setns|D:sys_setns( int fd,  int nstype)|c:z-syscalls|x:reassociate thread with a namespace|
-f:sys_setpgid|D:sys_setpgid( pid_t pid,  pid_t pgid)|c:z-syscalls|x:set process group ID for job control|
-f:sys_setpriority|D:sys_setpriority( int which,  int who,  int niceval)|c:z-syscalls|x:set the nice value|
-f:sys_setregid|D:sys_setregid( gid_t rgid,  gid_t egid)|c:z-syscalls|x:set real and effective group IDs|
-f:sys_setresgid|D:sys_setresgid( gid_t rgid,  gid_t egid,  gid_t sgid)|c:z-syscalls|x:set real, effective and saved user or group ID|
-f:sys_setresuid|D:sys_setresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)|c:z-syscalls|x:set real, effective and saved user or group ID|
-f:sys_setreuid|D:sys_setreuid( uid_t ruid,  uid_t euid)|c:z-syscalls|x:set real and effective user IDs|
-f:sys_setrlimit|D:sys_setrlimit( unsigned int resource,  struct rlimit *rlim)|c:z-syscalls|x:control maximum resource consumption|
-f:sys_setsid|D:sysSYSDEF_syscall(_setsid,0)|c:z-syscalls|x:create session and set process group ID|
-f:sys_setsockopt|D:sys_setsockopt( int fd,  int level,  int optname,  char *optval,  int optlen)|c:z-syscalls|x:set the socket options|
-f:sys_settimeofday|D:sys_settimeofday( struct timeval *tv,  struct timezone *tz)|c:z-syscalls|x:get / set time|
-f:sys_setuid|D:sys_setuid( uid_t uid)|c:z-syscalls|x:set user ID|
-f:sys_setxattr|D:sys_setxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)|c:z-syscalls|x:set an extended attribute value|
-f:sys_shmat|D:sys_shmat( int shmid,  char *shmaddr,  int shmflg)|c:z-syscalls|x:XSI shared memory attach operation|
-f:sys_shmctl|D:sys_shmctl( int shmid,  int cmd,  struct shmid_ds *buf)|c:z-syscalls|x:XSI shared memory control operations|
-f:sys_shmdt|D:sys_shmdt( char *shmaddr)|c:z-syscalls|x:XSI shared memory detach operation|
-f:sys_shmget|D:sys_shmget( key_t key,  size_t size,  int shmflg)|c:z-syscalls|x:get an XSI shared memory segment|
-f:sys_shutdown|D:sys_shutdown( int fd,  int how)|c:z-syscalls|x:shut down socket send and receive operations|
-f:sys_sigaltstack|D:sys_sigaltstack( const stack_t *uss,  stack_t *uoss)|c:z-syscalls|x:set and get signal alternate stack context|
-f:sys_signalfd|D:sys_signalfd( int ufd,  sigset_t *user_mask,  size_t sizemask)|c:z-syscalls|x:create a file descriptor for accepting signals|
-f:sys_signalfd4|D:sys_signalfd4( int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)|c:z-syscalls|x:create a file descriptor for accepting signals|
-f:sys_socket|D:sys_socket( int family,  int type,  int protocol)|c:z-syscalls|x:create an endpoint for communication|
-f:sys_socketpair|D:sys_socketpair( int family,  int type,  int protocol,  int *usockvec)|c:z-syscalls|x:create a pair of connected sockets|
-f:sys_splice|D:sys_splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:z-syscalls|x:splice data to/from a pipe|
-f:sys_stat|D:sys_stat( const char *filename,  struct stat *statbuf)|c:z-syscalls|x:get file status|
-f:sys_statfs|D:sys_statfs( const char *pathname,  struct statfs *buf)|c:z-syscalls|x:get filesystem statistics|
-f:sys_swapoff|D:sys_swapoff( const char *specialfile)|c:z-syscalls|x:start/stop swapping to file/device|
-f:sys_swapon|D:sys_swapon( const char *specialfile,  int swap_flags)|c:z-syscalls|x:start/stop swapping to file/device|
-f:sys_symlink|D:sys_symlink( const char *oldname,  const char *newname)|c:z-syscalls|x:make a symbolic link relative to directory file descriptor|
-f:sys_symlinkat|D:sys_symlinkat( const char *oldname,  int newfd,  const char *newname)|c:z-syscalls|x:make a new name for a file|
-f:sys_sync|D:sysSYSDEF_syscall(_sync,0)|c:z-syscalls|x:schedule file system updates|
-f:sys_sync_file_range|D:sys_sync_file_range( long fd,  loff_t offset,  loff_t bytes,  long flags)|c:z-syscalls|x:sync a file segment with disk|
-f:sys_syncfs|D:sys_syncfs( int fd)|c:z-syscalls|x:commit filesystem caches to disk|
-f:sys_sysfs|D:sys_sysfs( int option,  unsigned long arg1,  unsigned long arg2)|c:z-syscalls|x:get filesystem type information|
-f:sys_sysinfo|D:sys_sysinfo( struct sysinfo *info)|c:z-syscalls|x:return system information|
-f:sys_syslog|D:sys_syslog( int type,  char *buf,  int len)|c:z-syscalls|x:log a message|
-f:sys_tee|D:sys_tee( int fdin,  int fdout,  size_t len,  unsigned int flags)|c:z-syscalls|x:duplicating pipe content|
-f:sys_tgkill|D:sys_tgkill( pid_t tgid,  pid_t pid,  int sig)|c:z-syscalls|x:send a signal to a thread|
-f:sys_time|D:sys_time( time_t *tloc)|c:z-syscalls|x:get time|
-f:sys_timer_create|D:sys_timer_create( const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)|c:z-syscalls|x:create a per-process timer|
-f:sys_timer_delete|D:sys_timer_delete( timer_t timer_id)|c:z-syscalls|x:delete a per-process timer|
-f:sys_timer_getoverrun|D:sys_timer_getoverrun( timer_t timer_id)|c:z-syscalls|x:|
-f:sys_timer_gettime|D:sys_timer_gettime( timer_t timer_id,  struct itimerspec *setting)|c:z-syscalls|x:arm/disarm and fetch|
-f:sys_timer_settime|D:sys_timer_settime( timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)|c:z-syscalls|x:arm/disarm and fetch|
-f:sys_timerfd_create|D:sys_timerfd_create( int clockid,  int flags)|c:z-syscalls|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
-f:sys_timerfd_gettime|D:sys_timerfd_gettime( int ufd,  struct itimerspec *otmr)|c:z-syscalls|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
-f:sys_timerfd_settime|D:sys_timerfd_settime( int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)|c:z-syscalls|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
-f:sys_times|D:sys_times( struct sysinfo *info)|c:z-syscalls|x:get process and waited-for child process times|
-f:sys_tkill|D:sys_tkill( pid_t pid,  int sig)|c:z-syscalls|x:send a signal to a thread|
-f:sys_truncate|D:sys_truncate( const char *path,  long length)|c:z-syscalls|x:truncate a file to a specified length|
-f:sys_umask|D:sys_umask( int mask)|c:z-syscalls|x:set and get the file mode creation mask|
-f:sys_umount2|D:sys_umount2( const char *target,  int flags)|c:z-syscalls|x:unmount filesystem|
-f:sys_uname|D:sys_uname( struct old_utsname *name)|c:z-syscalls|x:get the name of the current system|
-f:sys_unlink|D:sys_unlink( const char *pathname)|c:z-syscalls|x:remove a directory entry relative to directory file descriptor|
-f:sys_unlinkat|D:sys_unlinkat( int dfd,  const char *pathname,  int flag)|c:z-syscalls|x:delete a name and possibly the file it refers to|
-f:sys_unshare|D:sys_unshare( unsigned long unshare_flags)|c:z-syscalls|x:disassociate parts of the process execution context|
-f:sys_ustat|D:sys_ustat( unsigned dev,  struct ustat *ubuf)|c:z-syscalls|x:get filesystem statistics|
-f:sys_utime|D:sys_utime( char *filename,  struct utimbuf *times)|c:z-syscalls|x:set file access and modification times|
-f:sys_utimensat|D:sys_utimensat( int dfd,  const char *filename,  struct timespec *utimes, int flags)|c:z-syscalls|x:set file access and modification times relative to directory|
-f:sys_utimes|D:sys_utimes( char *filename,  struct timeval *utimes)|c:z-syscalls|x:change file last access and modification times|
-f:sys_vfork|D:sysSYSDEF_syscall(_vfork,0)|c:z-syscalls|x:create a child process and block parent|
-f:sys_vhangup|D:sysSYSDEF_syscall(_vhangup,0)|c:z-syscalls|x:virtually hangup the current terminal|
-f:sys_vmsplice|D:sys_vmsplice( int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)|c:z-syscalls|x:splice user pages to/from a pipe|
-f:sys_wait4|D:sys_wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)|c:z-syscalls|x:wait for process to change state, BSD style|
-f:sys_waitid|D:sys_waitid( int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)|c:z-syscalls|x:wait for a child process to change state|
-f:sys_write|D:sys_write( unsigned int fd,  const char *buf,  size_t count)|c:z-syscalls|x:write on a file|
-f:sys_writev|D:sys_writev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)|c:z-syscalls|x:write a vector|
-
 #system
 
 f:chroot|D:int chroot( const char *filename)|c:system|x:change root directory|
@@ -580,3 +271,312 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
 f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
+
+#x64-syscalls
+
+f:sys__sysctl|D:sys__sysctl( struct __sysctl_args *args)|c:x64-syscalls|x:read/write system parameters|
+f:sys_accept|D:sys_accept( int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)|c:x64-syscalls|x:accept a new connection on a socket|
+f:sys_accept4|D:sys_accept4( int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)|c:x64-syscalls|x:accept a connection on a socket|
+f:sys_access|D:sys_access( const char *filename,  int mode)|c:x64-syscalls|x:determine accessibility of a file relative to directory file|
+f:sys_acct|D:sys_acct( const char *name)|c:x64-syscalls|x:switch process accounting on or off|
+f:sys_add_key|D:sys_add_key( const char *_type,  const char *_description,  const void *_payload,  size_t plen)|c:x64-syscalls|x:add a key to the kernel's key management facility|
+f:sys_adjtimex|D:sys_adjtimex( struct timex *txc_p)|c:x64-syscalls|x:tune kernel clock|
+f:sys_alarm|D:sys_alarm( unsigned int seconds)|c:x64-syscalls|x:schedule an alarm signal|
+f:sys_arch_prctl|D:sys_arch_prctl( struct task_struct *task,  int code,  unsigned long *addr)|c:x64-syscalls|x:set architecture-specific thread state|
+f:sys_bind|D:sys_bind( int fd,  struct sockaddr *umyaddr,  int addrlen)|c:x64-syscalls|x:bind a name to a socket|
+f:sys_brk|D:sys_brk( unsigned long brk)|c:x64-syscalls|x:change data segment size|
+f:sys_capget|D:sys_capget( cap_user_header_t header,  cap_user_data_t dataptr)|c:x64-syscalls|x:set/get capabilities of thread(s)|
+f:sys_capset|D:sys_capset( cap_user_header_t header,  const cap_user_data_t data)|c:x64-syscalls|x:set/get capabilities of thread(s)|
+f:sys_chdir|D:sys_chdir( const char *filename)|c:x64-syscalls|x:change working directory|
+f:sys_chmod|D:sys_chmod( const char *filename,  mode_t mode)|c:x64-syscalls|x:change mode of a file relative to directory file descriptor|
+f:sys_chown|D:sys_chown( const char *filename,  uid_t user,  gid_t group)|c:x64-syscalls|x:change owner and group of a file relative to directory|
+f:sys_chroot|D:sys_chroot( const char *filename)|c:x64-syscalls|x:change root directory|
+f:sys_clock_adjtime|D:sys_clock_adjtime( clockid_t which_clock,  struct timex *tx)|c:x64-syscalls|x:|
+f:sys_clock_getres|D:sys_clock_getres( const clockid_t which_clock,  struct timespec *tp)|c:x64-syscalls|x:|
+f:sys_clock_gettime|D:sys_clock_gettime( const clockid_t which_clock,  struct timespec *tp)|c:x64-syscalls|x:clock and time functions|
+f:sys_clock_nanosleep|D:sys_clock_nanosleep( const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)|c:x64-syscalls|x:high resolution sleep with specifiable clock|
+f:sys_clock_settime|D:sys_clock_settime( const clockid_t which_clock,  const struct timespec *tp)|c:x64-syscalls|x:clock and timer functions|
+f:sys_clone|D:sys_clone( unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)|c:x64-syscalls|x:create a child process|
+f:sys_close|D:sys_close( unsigned int fd)|c:x64-syscalls|x:close a file descriptor|
+f:sys_connect|D:sys_connect( int fd,  struct sockaddr *uservaddr,  int addrlen)|c:x64-syscalls|x:connect a socket|
+f:sys_creat|D:sys_creat( const char *pathname,  int mode)|c:x64-syscalls|x:create a new file or rewrite an existing one|
+f:sys_delete_module|D:sys_delete_module( const char *name_user,  unsigned int flags)|c:x64-syscalls|x:unload a kernel module|
+f:sys_dup|D:sys_dup( unsigned int fildes)|c:x64-syscalls|x:duplicate an open file descriptor|
+f:sys_dup2|D:sys_dup2( unsigned int oldfd,  unsigned int newfd)|c:x64-syscalls|x:duplicate a file descriptor|
+f:sys_dup3|D:sys_dup3( unsigned int oldfd,  unsigned int newfd,  int flags)|c:x64-syscalls|x:duplicate a file descriptor|
+f:sys_epoll_create|D:sys_epoll_create( int size)|c:x64-syscalls|x:open an epoll file descriptor|
+f:sys_epoll_create1|D:sys_epoll_create1( int flags)|c:x64-syscalls|x:open an epoll file descriptor|
+f:sys_epoll_ctl|D:sys_epoll_ctl( int epfd,  int op,  int fd,  struct epoll_event *event)|c:x64-syscalls|x:control interface for an epoll file descriptor|
+f:sys_epoll_pwait|D:sys_epoll_pwait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)|c:x64-syscalls|x:wait for an I/O event on an epoll file descriptor|
+f:sys_epoll_wait|D:sys_epoll_wait( int epfd,  struct epoll_event *events,  int maxevents,  int timeout)|c:x64-syscalls|x:wait for an I/O event on an epoll file descriptor|
+f:sys_eventfd|D:sys_eventfd( unsigned int count)|c:x64-syscalls|x:create a file descriptor for event notification|
+f:sys_eventfd2|D:sys_eventfd2( unsigned int count,  int flags)|c:x64-syscalls|x:create a file descriptor for event notification|
+f:sys_execve|D:sys_execve( const char *filename,  const char *const argv[],  const char *const envp[])|c:x64-syscalls|x:execute program|
+f:sys_exit|D:sys_exit( int error_code)|c:x64-syscalls|x:terminate a process|
+f:sys_exit_group|D:sys_exit_group( int error_code)|c:x64-syscalls|x:exit all threads in a process|
+f:sys_faccessat|D:sys_faccessat( int dfd,  const char *filename,  int mode)|c:x64-syscalls|x:determine accessibility of a file relative to directory file|
+f:sys_fadvise64|D:sys_fadvise64( int fd,  loff_t offset,  size_t len,  int advice)|c:x64-syscalls|x:predeclare an access pattern for file data|
+f:sys_fallocate|D:sys_fallocate( long fd,  long mode,  loff_t offset,  loff_t len)|c:x64-syscalls|x:manipulate file space|
+f:sys_fanotify_init|D:sys_fanotify_init( unsigned int flags,  unsigned int event_f_flags)|c:x64-syscalls|x:create and initialize fanotify group|
+f:sys_fanotify_mark|D:sys_fanotify_mark( long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)|c:x64-syscalls|x:add, remove, or modify an fanotify mark on a filesystem|
+f:sys_fchdir|D:sys_fchdir( unsigned int fd)|c:x64-syscalls|x:change working directory|
+f:sys_fchmod|D:sys_fchmod( unsigned int fd,  mode_t mode)|c:x64-syscalls|x:change mode of a file|
+f:sys_fchmodat|D:sys_fchmodat( int dfd,  const char *filename,  mode_t mode)|c:x64-syscalls|x:change mode of a file relative to directory file descriptor|
+f:sys_fchown|D:sys_fchown( unsigned int fd,  uid_t user,  gid_t group)|c:x64-syscalls|x:change owner and group of a file|
+f:sys_fchownat|D:sys_fchownat( int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)|c:x64-syscalls|x:change owner and group of a file relative to directory|
+f:sys_fcntl|D:sys_fcntl( unsigned int fd,  unsigned int cmd,  unsigned long arg)|c:x64-syscalls|x:file control|
+f:sys_fdatasync|D:sys_fdatasync( unsigned int fd)|c:x64-syscalls|x:synchronize the data of a file|
+f:sys_fgetxattr|D:sys_fgetxattr( int fd,  const char *name,  void *value,  size_t size)|c:x64-syscalls|x:retrieve an extended attribute value|
+f:sys_finit_module|D:sys_finit_module( int fd,  const char  *uargs,  int flags)|c:x64-syscalls|x:load a kernel module|
+f:sys_flistxattr|D:sys_flistxattr( int fd,  char *list,  size_t size)|c:x64-syscalls|x:list extended attribute names|
+f:sys_flock|D:sys_flock( unsigned int fd,  unsigned int cmd)|c:x64-syscalls|x:apply or remove an advisory lock on an open file|
+f:sys_fork|D:sysSYSDEF_syscall(_fork,0)|c:x64-syscalls|x:create a new process|
+f:sys_fremovexattr|D:sys_fremovexattr( int fd,  const char *name)|c:x64-syscalls|x:remove an extended attribute|
+f:sys_fsetxattr|D:sys_fsetxattr( int fd,  const char *name,  const void *value,  size_t size, int flags)|c:x64-syscalls|x:set an extended attribute value|
+f:sys_fstat|D:sys_fstat( unsigned int fd,  struct stat *statbuf)|c:x64-syscalls|x:get file status|
+f:sys_fstatfs|D:sys_fstatfs( unsigned int fd,  struct statfs *buf)|c:x64-syscalls|x:get filesystem statistics|
+f:sys_fsync|D:sys_fsync( unsigned int fd)|c:x64-syscalls|x:synchronize changes to a file|
+f:sys_ftruncate|D:sys_ftruncate( unsigned int fd,  unsigned long length)|c:x64-syscalls|x:truncate a file to a specified length|
+f:sys_futex|D:sys_futex( u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)|c:x64-syscalls|x:fast user-space locking|
+f:sys_futimesat|D:sys_futimesat( int dfd,  const char *filename,  struct timeval *utimes)|c:x64-syscalls|x:change timestamps of a file relative to a directory file descriptor|
+f:sys_get_mempolicy|D:sys_get_mempolicy( int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)|c:x64-syscalls|x:retrieve NUMA memory policy for a thread|
+f:sys_get_robust_list|D:sys_get_robust_list( int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)|c:x64-syscalls|x:get/set list of robust futexes|
+f:sys_getcpu|D:sys_getcpu( unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)|c:x64-syscalls|x:determine CPU and NUMA node on which the calling thread is running|
+f:sys_getcwd|D:sys_getcwd( char *buf,  unsigned long size)|c:x64-syscalls|x:get the pathname of the current working directory|
+f:sys_getdents|D:sys_getdents( unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)|c:x64-syscalls|x:get directory entries|
+f:sys_getdents64|D:sys_getdents64( unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)|c:x64-syscalls|x:get directory entries|
+f:sys_getegid|D:sysSYSDEF_syscall(_getegid,0)|c:x64-syscalls|x:get the effective group ID|
+f:sys_geteuid|D:sysSYSDEF_syscall(_geteuid,0)|c:x64-syscalls|x:get the effective user ID|
+f:sys_getgid|D:sysSYSDEF_syscall(_getgid,0)|c:x64-syscalls|x:get the real group ID|
+f:sys_getgroups|D:sys_getgroups( int gidsetsize,  gid_t *grouplist)|c:x64-syscalls|x:get supplementary group IDs|
+f:sys_getitimer|D:sys_getitimer( int which,  struct itimerval *value)|c:x64-syscalls|x:get and set value of interval timer|
+f:sys_getpeername|D:sys_getpeername( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)|c:x64-syscalls|x:get the name of the peer socket|
+f:sys_getpgid|D:sys_getpgid( pid_t pid)|c:x64-syscalls|x:get the process group ID for a process|
+f:sys_getpgrp|D:sysSYSDEF_syscall(_getpgrp,0)|c:x64-syscalls|x:get the process group ID of the calling process|
+f:sys_getpid|D:sysSYSDEF_syscall(_getpid,0)|c:x64-syscalls|x:get the process ID|
+f:sys_getppid|D:sysSYSDEF_syscall(_getppid,0)|c:x64-syscalls|x:get the parent process ID|
+f:sys_getpriority|D:sys_getpriority( int which,  int who)|c:x64-syscalls|x:get and set the nice value|
+f:sys_getrandom|D:sys_getrandom( char  *buf,  size_t count,  unsigned int flags)|c:x64-syscalls|x:obtain a series of random bytes|
+f:sys_getresgid|D:sys_getresgid( gid_t *rgid,  gid_t *egid,  gid_t *sgid)|c:x64-syscalls|x:get real, effective and saved user/group IDs|
+f:sys_getresuid|D:sys_getresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)|c:x64-syscalls|x:get real, effective and saved user/group IDs|
+f:sys_getrlimit|D:sys_getrlimit( unsigned int resource,  struct rlimit *rlim)|c:x64-syscalls|x:control maximum resource consumption|
+f:sys_getrusage|D:sys_getrusage( int who,  struct rusage *ru)|c:x64-syscalls|x:get information about resource utilization|
+f:sys_getsid|D:sys_getsid( pid_t pid)|c:x64-syscalls|x:get the process group ID of a session leader|
+f:sys_getsockname|D:sys_getsockname( int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)|c:x64-syscalls|x:get the socket name|
+f:sys_getsockopt|D:sys_getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)|c:x64-syscalls|x:get the socket options|
+f:sys_gettid|D:sysSYSDEF_syscall(_gettid,0)|c:x64-syscalls|x:get thread identification|
+f:sys_gettimeofday|D:sys_gettimeofday( struct timeval *tv,  struct timezone *tz)|c:x64-syscalls|x:get the date and time|
+f:sys_getuid|D:sysSYSDEF_syscall(_getuid,0)|c:x64-syscalls|x:get a real user ID|
+f:sys_getxattr|D:sys_getxattr( const char *pathname,  const char *name,  void *value,  size_t size)|c:x64-syscalls|x:retrieve an extended attribute value|
+f:sys_init_module|D:sys_init_module( void *umod,  unsigned long len,  const char *uargs)|c:x64-syscalls|x:load a kernel module|
+f:sys_inotify_add_watch|D:sys_inotify_add_watch( int fd,  const char *pathname,  u32 mask)|c:x64-syscalls|x:add a watch to an initialized inotify instance|
+f:sys_inotify_init|D:sysSYSDEF_syscall(_inotify_init,0)|c:x64-syscalls|x:initialize an inotify instance|
+f:sys_inotify_init1|D:sys_inotify_init1( int flags)|c:x64-syscalls|x:initialize an inotify instance|
+f:sys_inotify_rm_watch|D:sys_inotify_rm_watch( int fd,  __s32 wd)|c:x64-syscalls|x:remove an existing watch from an inotify instance|
+f:sys_io_cancel|D:sys_io_cancel( aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)|c:x64-syscalls|x:cancel an outstanding asynchronous I/O operation|
+f:sys_io_destroy|D:sys_io_destroy( aio_context_t ctx)|c:x64-syscalls|x:destroy an asynchronous I/O context|
+f:sys_io_getevents|D:sys_io_getevents( aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)|c:x64-syscalls|x:read asynchronous I/O events from the completion queue|
+f:sys_io_setup|D:sys_io_setup( unsigned nr_events,  aio_context_t *ctxp)|c:x64-syscalls|x:create an asynchronous I/O context|
+f:sys_io_submit|D:sys_io_submit( aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)|c:x64-syscalls|x:submit asynchronous I/O blocks for processing|
+f:sys_ioctl|D:sys_ioctl( unsigned int fd,  unsigned int cmd,  unsigned long arg)|c:x64-syscalls|x:control a STREAMS device (\fBSTREAMS\fP)|
+f:sys_ioperm|D:sys_ioperm( unsigned long from,  unsigned long num,  int turn_on)|c:x64-syscalls|x:set port input/output permissions|
+f:sys_iopl|D:sys_iopl( unsigned int level,  struct pt_regs *regs)|c:x64-syscalls|x:change I/O privilege level|
+f:sys_ioprio_get|D:sys_ioprio_get( int which,  int who)|c:x64-syscalls|x:get/set I/O scheduling class and priority|
+f:sys_ioprio_set|D:sys_ioprio_set( int which,  int who,  int ioprio)|c:x64-syscalls|x:get/set I/O scheduling class and priority|
+f:sys_kcmp|D:sys_kcmp( pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)|c:x64-syscalls|x:compare two processes to determine if they share a kernel resource|
+f:sys_kexec_file_load|D:sys_kexec_file_load( int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)|c:x64-syscalls|x:load a new kernel for later execution|
+f:sys_kexec_load|D:sys_kexec_load( unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)|c:x64-syscalls|x:load a new kernel for later execution|
+f:sys_keyctl|D:sys_keyctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)|c:x64-syscalls|x:key management function wrappers|
+f:sys_kill|D:sys_kill( pid_t pid,  int sig)|c:x64-syscalls|x:send a signal to a process or a group of processes|
+f:sys_lchown|D:sys_lchown( const char *filename,  uid_t user,  gid_t group)|c:x64-syscalls|x:change the owner and group of a symbolic link|
+f:sys_lgetxattr|D:sys_lgetxattr( const char *pathname,  const char *name,  void *value,  size_t size)|c:x64-syscalls|x:retrieve an extended attribute value|
+f:sys_link|D:sys_link( const char *oldname,  const char *newname)|c:x64-syscalls|x:link one file to another file relative to two directory|
+f:sys_linkat|D:sys_linkat( int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)|c:x64-syscalls|x:make a new name for a file|
+f:sys_listen|D:sys_listen( int fd,  int backlog)|c:x64-syscalls|x:listen for socket connections and limit the queue of incoming|
+f:sys_listxattr|D:sys_listxattr( const char *pathname,  char *list,  size_t size)|c:x64-syscalls|x:list extended attribute names|
+f:sys_llistxattr|D:sys_llistxattr( const char *pathname,  char *list,  size_t size)|c:x64-syscalls|x:list extended attribute names|
+f:sys_lookup_dcookie|D:sys_lookup_dcookie( u64 cookie64,  long buf,  long len)|c:x64-syscalls|x:return a directory entry's path|
+f:sys_lremovexattr|D:sys_lremovexattr( const char *pathname,  const char *name)|c:x64-syscalls|x:remove an extended attribute|
+f:sys_lseek|D:sys_lseek( unsigned int fd,  off_t offset,  unsigned int origin)|c:x64-syscalls|x:move the read/write file offset|
+f:sys_lsetxattr|D:sys_lsetxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)|c:x64-syscalls|x:set an extended attribute value|
+f:sys_lstat|D:sys_lstat( const char *filename,  struct stat *statbuf)|c:x64-syscalls|x:get file status|
+f:sys_madvise|D:sys_madvise( unsigned long start,  size_t len_in,  int behavior)|c:x64-syscalls|x:give advice about use of memory|
+f:sys_mbind|D:sys_mbind( unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)|c:x64-syscalls|x:set memory policy for a memory range|
+f:sys_memfd_create|D:sys_memfd_create( const char  *uname_ptr,  unsigned int flags)|c:x64-syscalls|x:create an anonymous file|
+f:sys_migrate_pages|D:sys_migrate_pages( pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)|c:x64-syscalls|x:move all pages in a process to another set of nodes|
+f:sys_mincore|D:sys_mincore( unsigned long start,  size_t len,  unsigned char *vec)|c:x64-syscalls|x:determine whether pages are resident in memory|
+f:sys_mkdir|D:sys_mkdir( const char *pathname,  int mode)|c:x64-syscalls|x:make a directory relative to directory file descriptor|
+f:sys_mkdirat|D:sys_mkdirat( int dfd,  const char *pathname,  int mode)|c:x64-syscalls|x:create a directory|
+f:sys_mknod|D:sys_mknod( const char *filename,  umode_t mode,  unsigned dev)|c:x64-syscalls|x:make directory, special file, or regular file|
+f:sys_mknodat|D:sys_mknodat( int dfd,  const char *filename,  int mode,  unsigned dev)|c:x64-syscalls|x:create a special or ordinary file|
+f:sys_mlock|D:sys_mlock( unsigned long start,  size_t len)|c:x64-syscalls|x:lock or unlock a range of process address space|
+f:sys_mlockall|D:sys_mlockall( int flags)|c:x64-syscalls|x:lock/unlock the address space of a process|
+f:sys_mmap|D:sys_mmap( unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)|c:x64-syscalls|x:map pages of memory|
+f:sys_modify_ldt|D:sys_modify_ldt( int func,  void *ptr,  unsigned long bytecount)|c:x64-syscalls|x:get or set a per-process LDT entry|
+f:sys_mount|D:sys_mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:x64-syscalls|x:mount filesystem|
+f:sys_move_pages|D:sys_move_pages( pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)|c:x64-syscalls|x:move individual pages of a process to another node|
+f:sys_mprotect|D:sys_mprotect( unsigned long start,  size_t len,  unsigned long prot)|c:x64-syscalls|x:set protection of memory mapping|
+f:sys_mq_getsetattr|D:sys_mq_getsetattr( mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)|c:x64-syscalls|x:get/set message queue attributes|
+f:sys_mq_notify|D:sys_mq_notify( mqd_t mqdes,  const struct sigevent *u_notification)|c:x64-syscalls|x:notify process that a message is available|
+f:sys_mq_open|D:sys_mq_open( const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)|c:x64-syscalls|x:open a message queue|
+f:sys_mq_timedreceive|D:sys_mq_timedreceive( mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)|c:x64-syscalls|x:receive a message from a message queue|
+f:sys_mq_timedsend|D:sys_mq_timedsend( mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)|c:x64-syscalls|x:send a message to a message queue|
+f:sys_mq_unlink|D:sys_mq_unlink( const char *u_name)|c:x64-syscalls|x:remove a message queue|
+f:sys_mremap|D:sys_mremap( unsigned long addr,  unsigned long old_len,  unsigned long new_len,  unsigned long flags,  unsigned long new_addr)|c:x64-syscalls|x:remap a virtual memory address|
+f:sys_msgctl|D:sys_msgctl( int msqid,  int cmd,  struct msqid_ds *buf)|c:x64-syscalls|x:XSI message control operations|
+f:sys_msgget|D:sys_msgget( key_t key,  int msgflg)|c:x64-syscalls|x:get the XSI message queue identifier|
+f:sys_msgrcv|D:sys_msgrcv( int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)|c:x64-syscalls|x:XSI message receive operation|
+f:sys_msgsnd|D:sys_msgsnd( int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)|c:x64-syscalls|x:XSI message send operation|
+f:sys_msync|D:sys_msync( unsigned long start,  size_t len,  int flags)|c:x64-syscalls|x:synchronize memory with physical storage|
+f:sys_munlock|D:sys_munlock( unsigned long start,  size_t len)|c:x64-syscalls|x:unlock a range of process address space|
+f:sys_munlockall|D:sysSYSDEF_syscall(_munlockall,0)|c:x64-syscalls|x:unlock the address space of a process|
+f:sys_munmap|D:sys_munmap( unsigned long addr,  size_t len)|c:x64-syscalls|x:unmap pages of memory|
+f:sys_name_to_handle_at|D:sys_name_to_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)|c:x64-syscalls|x:obtain handle|
+f:sys_nanosleep|D:sys_nanosleep( struct timespec *rqtp,  struct timespec *rmtp)|c:x64-syscalls|x:high resolution sleep|
+f:sys_newfstatat|D:sys_newfstatat( int dfd,  const char *filename,  struct stat *statbuf,  int flag)|c:x64-syscalls|x:get file status|
+f:sys_open|D:sys_open( const char *filename,  int flags,  int mode)|c:x64-syscalls|x:open file relative to directory file descriptor|
+f:sys_open_by_handle_at|D:sys_open_by_handle_at( int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)|c:x64-syscalls|x:obtain handle|
+f:sys_openat|D:sys_openat( int dfd,  const char *filename,  int flags,  int mode)|c:x64-syscalls|x:open file relative to directory file descriptor|
+f:sys_pause|D:sysSYSDEF_syscall(_pause,0)|c:x64-syscalls|x:suspend the thread until a signal is received|
+f:sys_perf_event_open|D:sys_perf_event_open( struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)|c:x64-syscalls|x:set up performance monitoring|
+f:sys_personality|D:sys_personality( unsigned int personality)|c:x64-syscalls|x:set the process execution domain|
+f:sys_pipe|D:sys_pipe( int *filedes)|c:x64-syscalls|x:create an interprocess channel|
+f:sys_pipe2|D:sys_pipe2( int *filedes,  int flags)|c:x64-syscalls|x:create pipe|
+f:sys_pivot_root|D:sys_pivot_root( const char *new_root,  const char *put_old)|c:x64-syscalls|x:change the root mount|
+f:sys_poll|D:sys_poll( struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)|c:x64-syscalls|x:input/output multiplexing|
+f:sys_ppoll|D:sys_ppoll( struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)|c:x64-syscalls|x:wait for some event on a file descriptor|
+f:sys_prctl|D:sys_prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)|c:x64-syscalls|x:operations on a process|
+f:sys_pread64|D:sys_pread64( unsigned long fd,  char *buf,  size_t count,  loff_t pos)|c:x64-syscalls|x:read from or write to a file descriptor at a given offset|
+f:sys_preadv|D:sys_preadv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)|c:x64-syscalls|x:read or write data into multiple buffers|
+f:sys_prlimit64|D:sys_prlimit64( pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)|c:x64-syscalls|x:get/set resource limits|
+f:sys_process_vm_readv|D:sys_process_vm_readv( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)|c:x64-syscalls|x:transfer data between process address spaces|
+f:sys_process_vm_writev|D:sys_process_vm_writev( pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)|c:x64-syscalls|x:transfer data between process address spaces|
+f:sys_pselect6|D:sys_pselect6( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)|c:x64-syscalls|x:select, pselect, FD_CLR, FD_ISSET, FD_SET, FD_ZERO \-|
+f:sys_ptrace|D:sys_ptrace( long request,  long pid,  unsigned long addr,  unsigned long data)|c:x64-syscalls|x:process trace|
+f:sys_pwrite64|D:sys_pwrite64( unsigned int fd,  const char *buf,  size_t count,  loff_t pos)|c:x64-syscalls|x:read from or write to a file descriptor at a given offset|
+f:sys_pwritev|D:sys_pwritev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)|c:x64-syscalls|x:read or write data into multiple buffers|
+f:sys_quotactl|D:sys_quotactl( unsigned int cmd,  const char *special,  qid_t id,  void *addr)|c:x64-syscalls|x:manipulate disk quotas|
+f:sys_read|D:sys_read( unsigned int fd,  char *buf,  size_t count)|c:x64-syscalls|x:read from a file|
+f:sys_readahead|D:sys_readahead( int fd,  loff_t offset,  size_t count)|c:x64-syscalls|x:initiate file readahead into page cache|
+f:sys_readlink|D:sys_readlink( const char *path,  char *buf,  int bufsiz)|c:x64-syscalls|x:read the contents of a symbolic link|
+f:sys_readlinkat|D:sys_readlinkat( int dfd,  const char *pathname,  char *buf,  int bufsiz)|c:x64-syscalls|x:read value of a symbolic link|
+f:sys_readv|D:sys_readv( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)|c:x64-syscalls|x:read a vector|
+f:sys_reboot|D:sys_reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)|c:x64-syscalls|x:reboot or enable/disable Ctrl-Alt-Del|
+f:sys_recvfrom|D:sys_recvfrom( int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)|c:x64-syscalls|x:receive a message from a socket|
+f:sys_recvmmsg|D:sys_recvmmsg( int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)|c:x64-syscalls|x:receive multiple messages on a socket|
+f:sys_recvmsg|D:sys_recvmsg( int fd,  struct msghdr *msg,  unsigned int flags)|c:x64-syscalls|x:receive a message from a socket|
+f:sys_remap_file_pages|D:sys_remap_file_pages( unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)|c:x64-syscalls|x:create a nonlinear file mapping|
+f:sys_removexattr|D:sys_removexattr( const char *pathname,  const char *name)|c:x64-syscalls|x:remove an extended attribute|
+f:sys_rename|D:sys_rename( const char *oldname,  const char *newname)|c:x64-syscalls|x:rename file relative to directory file descriptor|
+f:sys_renameat|D:sys_renameat( int oldfd,  const char *oldname,  int newfd,  const char *newname)|c:x64-syscalls|x:change the name or location of a file|
+f:sys_renameat2|D:sys_renameat2( int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)|c:x64-syscalls|x:change the name or location of a file|
+f:sys_request_key|D:sys_request_key( const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)|c:x64-syscalls|x:request a key from the kernel's key management facility|
+f:sys_restart_syscall|D:sysSYSDEF_syscall(_restart_syscall,0)|c:x64-syscalls|x:restart a system call after interruption by a stop signal|
+f:sys_rmdir|D:sys_rmdir( const char *pathname)|c:x64-syscalls|x:remove a directory|
+f:sys_rt_sigaction|D:sys_rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)|c:x64-syscalls|x:examine and change a signal action|
+f:sys_rt_sigpending|D:sys_rt_sigpending( sigset_t *set,  size_t sigsetsize)|c:x64-syscalls|x:examine pending signals|
+f:sys_rt_sigprocmask|D:sys_rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)|c:x64-syscalls|x:examine and change blocked signals|
+f:sys_rt_sigqueueinfo|D:sys_rt_sigqueueinfo( pid_t pid,  int sig,  siginfo_t *uinfo)|c:x64-syscalls|x:queue a signal and data|
+f:sys_rt_sigreturn|D:sys_rt_sigreturn( unsigned long __unused)|c:x64-syscalls|x:return from signal handler and cleanup stack frame|
+f:sys_rt_sigsuspend|D:sys_rt_sigsuspend( sigset_t *unewset,  size_t sigsetsize)|c:x64-syscalls|x:wait for a signal|
+f:sys_rt_sigtimedwait|D:sys_rt_sigtimedwait( const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)|c:x64-syscalls|x:synchronously wait|
+f:sys_rt_tgsigqueueinfo|D:sys_rt_tgsigqueueinfo( pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)|c:x64-syscalls|x:queue a signal and data|
+f:sys_sched_get_priority_max|D:sys_sched_get_priority_max( int policy)|c:x64-syscalls|x:get priority limits|
+f:sys_sched_get_priority_min|D:sys_sched_get_priority_min( int policy)|c:x64-syscalls|x:get static priority range|
+f:sys_sched_getaffinity|D:sys_sched_getaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)|c:x64-syscalls|x:set and get a thread's CPU affinity mask|
+f:sys_sched_getattr|D:sys_sched_getattr( pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)|c:x64-syscalls|x:sched_setattr, sched_getattr \-|
+f:sys_sched_getparam|D:sys_sched_getparam( pid_t pid,  struct sched_param *param)|c:x64-syscalls|x:get scheduling parameters|
+f:sys_sched_getscheduler|D:sys_sched_getscheduler( pid_t pid)|c:x64-syscalls|x:get scheduling policy|
+f:sys_sched_rr_get_interval|D:sys_sched_rr_get_interval( pid_t pid,  struct timespec *interval)|c:x64-syscalls|x:get execution time limits|
+f:sys_sched_setaffinity|D:sys_sched_setaffinity( pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)|c:x64-syscalls|x:set and get a thread's CPU affinity mask|
+f:sys_sched_setattr|D:sys_sched_setattr( pid_t pid,  struct sched_attr  *attr,  unsigned int flags)|c:x64-syscalls|x:sched_setattr, sched_getattr \-|
+f:sys_sched_setparam|D:sys_sched_setparam( pid_t pid,  struct sched_param *param)|c:x64-syscalls|x:set scheduling parameters|
+f:sys_sched_setscheduler|D:sys_sched_setscheduler( pid_t pid,  int policy,  struct sched_param *param)|c:x64-syscalls|x:set scheduling policy and parameters|
+f:sys_sched_yield|D:sysSYSDEF_syscall(_sched_yield,0)|c:x64-syscalls|x:yield the processor|
+f:sys_seccomp|D:sys_seccomp( unsigned int op,  unsigned int flags,  const char  *uargs)|c:x64-syscalls|x:operate on Secure Computing state of the process|
+f:sys_select|D:sys_select( int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)|c:x64-syscalls|x:synchronous I/O multiplexing|
+f:sys_semctl|D:sys_semctl( int semid,  int semnum,  int cmd,  semun_u arg)|c:x64-syscalls|x:XSI semaphore control operations|
+f:sys_semget|D:sys_semget( key_t key,  int nsems,  int semflg)|c:x64-syscalls|x:get set of XSI semaphores|
+f:sys_semop|D:sys_semop( int semid,  struct sembuf *tsops,  unsigned nsops)|c:x64-syscalls|x:XSI semaphore operations|
+f:sys_semtimedop|D:sys_semtimedop( int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)|c:x64-syscalls|x:System V semaphore operations|
+f:sys_sendfile|D:sys_sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:x64-syscalls|x:transfer data between file descriptors|
+f:sys_sendmmsg|D:sys_sendmmsg( int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)|c:x64-syscalls|x:send multiple messages on a socket|
+f:sys_sendmsg|D:sys_sendmsg( int fd,  struct msghdr *msg,  unsigned flags)|c:x64-syscalls|x:send a message on a socket using a message structure|
+f:sys_sendto|D:sys_sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)|c:x64-syscalls|x:send a message on a socket|
+f:sys_set_mempolicy|D:sys_set_mempolicy( int mode,  unsigned long *nmask,  unsigned long maxnode)|c:x64-syscalls|x:set default NUMA memory policy for a thread and its children|
+f:sys_set_robust_list|D:sys_set_robust_list( struct robust_list_head *head,  size_t len)|c:x64-syscalls|x:get/set list of robust futexes|
+f:sys_set_tid_address|D:sys_set_tid_address( int *tidptr)|c:x64-syscalls|x:set pointer to thread ID|
+f:sys_setdomainname|D:sys_setdomainname( char *name,  int len)|c:x64-syscalls|x:get/set NIS domain name|
+f:sys_setfsgid|D:sys_setfsgid( gid_t gid)|c:x64-syscalls|x:set group identity used for filesystem checks|
+f:sys_setfsuid|D:sys_setfsuid( uid_t uid)|c:x64-syscalls|x:set user identity used for filesystem checks|
+f:sys_setgid|D:sys_setgid( gid_t gid)|c:x64-syscalls|x:set-group-ID|
+f:sys_setgroups|D:sys_setgroups( int gidsetsize,  gid_t *grouplist)|c:x64-syscalls|x:get/set list of supplementary group IDs|
+f:sys_sethostname|D:sys_sethostname( char *name,  int len)|c:x64-syscalls|x:get/set hostname|
+f:sys_setitimer|D:sys_setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)|c:x64-syscalls|x:set the value of an interval timer|
+f:sys_setns|D:sys_setns( int fd,  int nstype)|c:x64-syscalls|x:reassociate thread with a namespace|
+f:sys_setpgid|D:sys_setpgid( pid_t pid,  pid_t pgid)|c:x64-syscalls|x:set process group ID for job control|
+f:sys_setpriority|D:sys_setpriority( int which,  int who,  int niceval)|c:x64-syscalls|x:set the nice value|
+f:sys_setregid|D:sys_setregid( gid_t rgid,  gid_t egid)|c:x64-syscalls|x:set real and effective group IDs|
+f:sys_setresgid|D:sys_setresgid( gid_t rgid,  gid_t egid,  gid_t sgid)|c:x64-syscalls|x:set real, effective and saved user or group ID|
+f:sys_setresuid|D:sys_setresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)|c:x64-syscalls|x:set real, effective and saved user or group ID|
+f:sys_setreuid|D:sys_setreuid( uid_t ruid,  uid_t euid)|c:x64-syscalls|x:set real and effective user IDs|
+f:sys_setrlimit|D:sys_setrlimit( unsigned int resource,  struct rlimit *rlim)|c:x64-syscalls|x:control maximum resource consumption|
+f:sys_setsid|D:sysSYSDEF_syscall(_setsid,0)|c:x64-syscalls|x:create session and set process group ID|
+f:sys_setsockopt|D:sys_setsockopt( int fd,  int level,  int optname,  char *optval,  int optlen)|c:x64-syscalls|x:set the socket options|
+f:sys_settimeofday|D:sys_settimeofday( struct timeval *tv,  struct timezone *tz)|c:x64-syscalls|x:get / set time|
+f:sys_setuid|D:sys_setuid( uid_t uid)|c:x64-syscalls|x:set user ID|
+f:sys_setxattr|D:sys_setxattr( const char *pathname,  const char *name,  const void *value, size_t size,  int flags)|c:x64-syscalls|x:set an extended attribute value|
+f:sys_shmat|D:sys_shmat( int shmid,  char *shmaddr,  int shmflg)|c:x64-syscalls|x:XSI shared memory attach operation|
+f:sys_shmctl|D:sys_shmctl( int shmid,  int cmd,  struct shmid_ds *buf)|c:x64-syscalls|x:XSI shared memory control operations|
+f:sys_shmdt|D:sys_shmdt( char *shmaddr)|c:x64-syscalls|x:XSI shared memory detach operation|
+f:sys_shmget|D:sys_shmget( key_t key,  size_t size,  int shmflg)|c:x64-syscalls|x:get an XSI shared memory segment|
+f:sys_shutdown|D:sys_shutdown( int fd,  int how)|c:x64-syscalls|x:shut down socket send and receive operations|
+f:sys_sigaltstack|D:sys_sigaltstack( const stack_t *uss,  stack_t *uoss)|c:x64-syscalls|x:set and get signal alternate stack context|
+f:sys_signalfd|D:sys_signalfd( int ufd,  sigset_t *user_mask,  size_t sizemask)|c:x64-syscalls|x:create a file descriptor for accepting signals|
+f:sys_signalfd4|D:sys_signalfd4( int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)|c:x64-syscalls|x:create a file descriptor for accepting signals|
+f:sys_socket|D:sys_socket( int family,  int type,  int protocol)|c:x64-syscalls|x:create an endpoint for communication|
+f:sys_socketpair|D:sys_socketpair( int family,  int type,  int protocol,  int *usockvec)|c:x64-syscalls|x:create a pair of connected sockets|
+f:sys_splice|D:sys_splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:x64-syscalls|x:splice data to/from a pipe|
+f:sys_stat|D:sys_stat( const char *filename,  struct stat *statbuf)|c:x64-syscalls|x:get file status|
+f:sys_statfs|D:sys_statfs( const char *pathname,  struct statfs *buf)|c:x64-syscalls|x:get filesystem statistics|
+f:sys_swapoff|D:sys_swapoff( const char *specialfile)|c:x64-syscalls|x:start/stop swapping to file/device|
+f:sys_swapon|D:sys_swapon( const char *specialfile,  int swap_flags)|c:x64-syscalls|x:start/stop swapping to file/device|
+f:sys_symlink|D:sys_symlink( const char *oldname,  const char *newname)|c:x64-syscalls|x:make a symbolic link relative to directory file descriptor|
+f:sys_symlinkat|D:sys_symlinkat( const char *oldname,  int newfd,  const char *newname)|c:x64-syscalls|x:make a new name for a file|
+f:sys_sync|D:sysSYSDEF_syscall(_sync,0)|c:x64-syscalls|x:schedule file system updates|
+f:sys_sync_file_range|D:sys_sync_file_range( long fd,  loff_t offset,  loff_t bytes,  long flags)|c:x64-syscalls|x:sync a file segment with disk|
+f:sys_syncfs|D:sys_syncfs( int fd)|c:x64-syscalls|x:commit filesystem caches to disk|
+f:sys_sysfs|D:sys_sysfs( int option,  unsigned long arg1,  unsigned long arg2)|c:x64-syscalls|x:get filesystem type information|
+f:sys_sysinfo|D:sys_sysinfo( struct sysinfo *info)|c:x64-syscalls|x:return system information|
+f:sys_syslog|D:sys_syslog( int type,  char *buf,  int len)|c:x64-syscalls|x:log a message|
+f:sys_tee|D:sys_tee( int fdin,  int fdout,  size_t len,  unsigned int flags)|c:x64-syscalls|x:duplicating pipe content|
+f:sys_tgkill|D:sys_tgkill( pid_t tgid,  pid_t pid,  int sig)|c:x64-syscalls|x:send a signal to a thread|
+f:sys_time|D:sys_time( time_t *tloc)|c:x64-syscalls|x:get time|
+f:sys_timer_create|D:sys_timer_create( const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)|c:x64-syscalls|x:create a per-process timer|
+f:sys_timer_delete|D:sys_timer_delete( timer_t timer_id)|c:x64-syscalls|x:delete a per-process timer|
+f:sys_timer_getoverrun|D:sys_timer_getoverrun( timer_t timer_id)|c:x64-syscalls|x:|
+f:sys_timer_gettime|D:sys_timer_gettime( timer_t timer_id,  struct itimerspec *setting)|c:x64-syscalls|x:arm/disarm and fetch|
+f:sys_timer_settime|D:sys_timer_settime( timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)|c:x64-syscalls|x:arm/disarm and fetch|
+f:sys_timerfd_create|D:sys_timerfd_create( int clockid,  int flags)|c:x64-syscalls|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
+f:sys_timerfd_gettime|D:sys_timerfd_gettime( int ufd,  struct itimerspec *otmr)|c:x64-syscalls|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
+f:sys_timerfd_settime|D:sys_timerfd_settime( int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)|c:x64-syscalls|x:timerfd_create, timerfd_settime, timerfd_gettime \-|
+f:sys_times|D:sys_times( struct sysinfo *info)|c:x64-syscalls|x:get process and waited-for child process times|
+f:sys_tkill|D:sys_tkill( pid_t pid,  int sig)|c:x64-syscalls|x:send a signal to a thread|
+f:sys_truncate|D:sys_truncate( const char *path,  long length)|c:x64-syscalls|x:truncate a file to a specified length|
+f:sys_umask|D:sys_umask( int mask)|c:x64-syscalls|x:set and get the file mode creation mask|
+f:sys_umount2|D:sys_umount2( const char *target,  int flags)|c:x64-syscalls|x:unmount filesystem|
+f:sys_uname|D:sys_uname( struct old_utsname *name)|c:x64-syscalls|x:get the name of the current system|
+f:sys_unlink|D:sys_unlink( const char *pathname)|c:x64-syscalls|x:remove a directory entry relative to directory file descriptor|
+f:sys_unlinkat|D:sys_unlinkat( int dfd,  const char *pathname,  int flag)|c:x64-syscalls|x:delete a name and possibly the file it refers to|
+f:sys_unshare|D:sys_unshare( unsigned long unshare_flags)|c:x64-syscalls|x:disassociate parts of the process execution context|
+f:sys_ustat|D:sys_ustat( unsigned dev,  struct ustat *ubuf)|c:x64-syscalls|x:get filesystem statistics|
+f:sys_utime|D:sys_utime( char *filename,  struct utimbuf *times)|c:x64-syscalls|x:set file access and modification times|
+f:sys_utimensat|D:sys_utimensat( int dfd,  const char *filename,  struct timespec *utimes, int flags)|c:x64-syscalls|x:set file access and modification times relative to directory|
+f:sys_utimes|D:sys_utimes( char *filename,  struct timeval *utimes)|c:x64-syscalls|x:change file last access and modification times|
+f:sys_vfork|D:sysSYSDEF_syscall(_vfork,0)|c:x64-syscalls|x:create a child process and block parent|
+f:sys_vhangup|D:sysSYSDEF_syscall(_vhangup,0)|c:x64-syscalls|x:virtually hangup the current terminal|
+f:sys_vmsplice|D:sys_vmsplice( int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)|c:x64-syscalls|x:splice user pages to/from a pipe|
+f:sys_wait4|D:sys_wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)|c:x64-syscalls|x:wait for process to change state, BSD style|
+f:sys_waitid|D:sys_waitid( int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)|c:x64-syscalls|x:wait for a child process to change state|
+f:sys_write|D:sys_write( unsigned int fd,  const char *buf,  size_t count)|c:x64-syscalls|x:write on a file|
+f:sys_writev|D:sys_writev( unsigned long fd,  const struct iovec *vec,  unsigned long vlen)|c:x64-syscalls|x:write a vector|

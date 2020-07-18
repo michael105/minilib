@@ -24,20 +24,24 @@ which translates config options to define flags.</p>
 <p>The config file is a bash script and can be a separate file,
 or within one of the source files.</p>
 <p>An example is given below:</p>
-<p>```
-#if 0  // has to be the first line</p>
-<p>mini_start
-mini_puts</p>
-<p>INCLUDESRC
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>#if 0  // has to be the first line
+
+mini_start
+mini_puts
+
+INCLUDESRC
 # this is a comment.
 # INCLUDESRC has to be defined for one sourcefile.
-# without it only the defines, and no implementations are parsed.</p>
-<p>return
+# without it only the defines, and no implementations are parsed.
 
-#endif</p>
-<p>int main(int argc, char *argv[] ){
-&#8230;
-```</p>
+return
+// return, and the #endif statement are the last lines of the config
+#endif
+
+int main(int argc, char *argv[] ){
+...</code></pre>
+</td></tr></table>
 <p>Only functions defined are going to be built.</p>
 <p>In addition to the switches, which are built of the function&#8217;s name and the prefix <em>mini_</em>;<br>
 e.g. <em>mini_puts</em>, these switches are defined for the configuration of minilib:</p>
@@ -78,7 +82,7 @@ mini_syscalls
 </dt>
 <dd>
 <p>
-        define the syscall wrapper, starting with <em>sys_</em>
+        define the syscall wrappers, starting with <em>sys_</em>
 </p>
 </dd>
 <dt>
@@ -86,7 +90,7 @@ HEADERGUARDS
 </dt>
 <dd>
 <p>
-        define the headeguards, which hopefully prevent the inclusion
+        define the headerguards, which hopefully prevent the inclusion
         of the standard library headers.
 </p>
 </dd>
@@ -95,7 +99,7 @@ OPTFLAG -Os
 </dt>
 <dd>
 <p>
-  optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
+  optimization Flag. Os,O1,O2 should be save. O3 causes sometimes troubles
 </p>
 <pre><code>e.g. OPTFLAG '-g -O0'
 (compile with debug info)</code></pre>
@@ -2850,7 +2854,7 @@ todo_putenv
 </dd>
 </dl>
 <hr>
-<h2><a name="_z_syscalls"></a>18.  z-syscalls</h2>
+<h2><a name="_x64_syscalls"></a>18.  x64-syscalls</h2>
 <dl>
 <dt>
 sys__sysctl
@@ -6221,7 +6225,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-18 03:12:53 CEST
+ 2020-07-18 03:26:35 CEST
 </small></p>
 </body>
 </html>
