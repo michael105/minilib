@@ -7,8 +7,14 @@ In the subdirectories there is information on the implemented functions,
 namely the bsd manpages, and ansic / posixc function references.
 
 
+[minilib-reference.asc](minilib reference)
+short reference, all functions and config switches
+
 [mini-gcc](mini-gcc.rst)
 invocation and options
+
+[make.rst](make.rst)
+the main makefile targets, for building minlib itself, the examples, and tests 
 
 [minilib.txt](minilib.txt)
 minilib implemented functions short reference
