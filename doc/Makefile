@@ -1,7 +1,18 @@
 
 
 
-doc: mini-gcc.rst make.rst *.html
+doc: mini-gcc.rst make.rst *.html minilib-reference.html
+
+minilib-reference.asc: build/minilib-reference.asc.top build/minilib-reference.in build/minilib-reference.sortme.1
+	./makereference.pl
+
+minilib-reference.html: minilib-reference.asc
+	 asciidoc -b html4 -n minilib-reference.asc
+
+# copy after changes build/minilib-reference.in.2 to minilib-reference.sortme.1
+# minilib-reference.sortme.1 is for getting sorted into the categories by hand.
+# build/minilib-reference.in.2 is there for not overwriting the file sortme,
+# and possibly abort compilation.
 
 
 make.rst: ../Makefile
