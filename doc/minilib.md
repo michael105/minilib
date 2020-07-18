@@ -339,6 +339,13 @@ verbose_errstr const char* verbose_errstr(int num);
               this adds about 3.5kB to the compiled binary(!)
                (include/errstr.h: 8)
 
+verbose_errstr2static const char* verbose_errstr2(int num);
+
+               verbose error (errno) string. 
+              this adds about 3.5kB to the compiled binary(!)
+              Trying to shrink that here.
+               (include/errstr2.h: 11)
+
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
                the function, translating the fmt of printf.

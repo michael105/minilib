@@ -147,3 +147,6 @@ const char* verbose_errstr(int num){
 
 return(errstr[num]);
 }
+
+
+

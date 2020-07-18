@@ -38,6 +38,7 @@ All other tools are written by me and BSD Licensed.
 basename        2019-08-19             560
 cat             2020-07-14             1364
 cat2            2020-07-09             1272
+catc            2020-07-18             943
 chroot          2020-06-16             667
 dd              2020-07-07             4920
 echo            2020-06-13             355
@@ -69,5 +70,5 @@ uname           2020-06-21             1764
 usleep          2020-07-06             486
 yes             2019-08-19             371
 ===============================================
-                          size: 51794 Bytes
+                          size: 52737 Bytes
 ```

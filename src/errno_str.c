@@ -17,7 +17,7 @@ static char *errno_str(int err){
 		e[0] = '1';
 		e[1]=(err/10)+'0';
 		e[2]=(err%10)+'0';
-		e[3]='\n';
+		e[3]=0;
 		e[4]=0;
 
 		return(p);

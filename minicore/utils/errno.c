@@ -6,7 +6,7 @@ mini_fprintf
 mini_itodec
 mini_atoi
 mini_buf 256
-mini_verbose_errstr
+mini_verbose_errstr2
 INCLUDESRC
 LDSCRIPT text_and_bss
 globals_on_stack
@@ -27,12 +27,12 @@ int main(int argc, char *argv[]){
 
 		if ( argv[1][0]=='-' && argv[1][1] == 'l' ){ // list all errno values
 				for ( int a=1; a <= ERRNO_MAX; a++ ){
-						printf("%d: %s\n", a, verbose_errstr(a));
+						printf("%d: %s\n", a, verbose_errstr2(a));
 				}
 		} else {
 				e = atoi( argv[1] );
 				if ( e ){
-						puts(verbose_errstr(e));
+						puts(verbose_errstr2(e));
 				}
 		}
 		exit(e);

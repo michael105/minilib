@@ -128,8 +128,8 @@ static inline int execvp(const char *file, char *const argv[]);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/execvp.c"
 #include "minilib/src/execl.c"
+#include "minilib/src/execvp.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

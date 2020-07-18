@@ -859,7 +859,12 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>verbose error (errno) string. 
   this adds about 3.5kB to the compiled binary(!)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../include/errstr.h" target="right">../include/errstr.h</a>  128 </small></td><td><small> DEF_syscall(vfork,0)
+<tr valign="top"><td><small>verbose_errstr2</small></td><td><small>   <a href="../include/errstr.h" target="right">../include/errstr.h</a>  11 </small></td><td><small>  const char* verbose_errstr2(int num);
+</small></td></tr><tr><td></td><td colspan="2"><small>verbose error (errno) string. 
+  this adds about 3.5kB to the compiled binary(!)
+  Trying to shrink that here.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../include/errstr2.h" target="right">../include/errstr2.h</a>  128 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  100 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>
