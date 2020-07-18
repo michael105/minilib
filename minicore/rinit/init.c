@@ -240,12 +240,14 @@ STAGE1_START:
 		if ( shutdown == 1 ){
 				log("Power off");
 				sync();
+				sync();
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_POWER_OFF,0);
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_HALT,0);
 		}
 
 		if ( shutdown == 2 ){
 				log("Reboot");
+				sync();
 				sync();
 				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART,0);
 		}
