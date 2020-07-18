@@ -491,7 +491,7 @@ dbgdump( $bsdmanpage );
 
 # write doc
 open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref.asc" ) or die;
-open( API, ">", "$mlibdir/doc/minilib-api.in" ) or die;
+open( API, ">", "$mlibdir/doc/minilib-reference.in" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref.asc.top" );
