@@ -1,64 +1,11 @@
 #ifndef	_DIRENT_H
 #define	_DIRENT_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <features.h>
-
-#define __NEED_ino_t
-#define __NEED_off_t
-#if defined(_BSD_SOURCE) || defined(_GNU_SOURCE)
-#define __NEED_size_t
-#endif
-
-#include <bits/alltypes.h>
-
-struct __dirstream
-{
-	off_t tell;
-	int fd;
-	int buf_pos;
-	int buf_end;
-	volatile int lock[1];
-	/* Any changes to this struct must preserve the property:
-	 * offsetof(struct __dirent, buf) % sizeof(off_t) == 0 */
-	char buf[2048];
-};
-typedef struct __dirstream DIR;
-
 #define _DIRENT_HAVE_D_RECLEN
 #define _DIRENT_HAVE_D_OFF
 #define _DIRENT_HAVE_D_TYPE
 
-struct dirent {
-	ino_t d_ino;
-	off_t d_off;
-	unsigned short d_reclen;
-	//unsigned char d_type;
-	char d_name[256];
-};
-
 #define d_fileno d_ino
-#if 0
-int            closedir(DIR *);
-DIR           *fdopendir(int);
-DIR           *opendir(const char *);
-struct dirent *readdir(DIR *);
-int            readdir_r(DIR *__restrict, struct dirent *__restrict, struct dirent **__restrict);
-void           rewinddir(DIR *);
-int            dirfd(DIR *);
-
-int alphasort(const struct dirent **, const struct dirent **);
-int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **));
-
-#if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-void           seekdir(DIR *, long);
-long           telldir(DIR *);
-#endif
-#endif
-
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
 #define DT_UNKNOWN 0
 #define DT_FIFO 1
@@ -74,10 +21,6 @@ long           telldir(DIR *);
 //int getdents(int, struct dirent *, size_t);
 #endif
 
-#ifdef _GNU_SOURCE
-int versionsort(const struct dirent **, const struct dirent **);
-#endif
-
 #if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
 #define dirent64 dirent
 #define readdir64 readdir
@@ -90,8 +33,5 @@ int versionsort(const struct dirent **, const struct dirent **);
 #define getdents64 getdents
 #endif
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif

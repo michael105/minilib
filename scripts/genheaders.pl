@@ -254,18 +254,22 @@ while ( my $file = shift ){
 										} while ( !($l =~ /^}/ ) );
 										dbg( "dbg: $f->{def}" );
 										$f->{file} = '';
-										
+
 								}elsif ( $tag eq 'def' | $tag eq 'inline'){
-										#$f->{def} = <F>;
-										#$line++;
-										$f->{def} = $fa[$line+=1];
-										dbg("def: $f->{def} $file: $l");
-										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
-												$func = $2;
+										if ( length($c) > 1 ){
+												$f->{def} = $c;
+												dbg("def,sameline: $c");
+												$func = $c;
 										} else {
-												dbg("f-def: $f->{def}");
-												$f->{def} =~ /.* \**(\S*)\(.*?\)\{.*$/;
-												$func = $1;
+												$f->{def} = $fa[$line+=1];
+												dbg("def: $f->{def} $file: $l");
+												if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
+														$func = $2;
+												} else {
+														dbg("f-def: $f->{def}");
+														$f->{def} =~ /.* \**(\S*)\(.*?\)\{.*$/;
+														$func = $1;
+												}
 										}
 										dbg("func: $LR $func $N\n");
 										$f->{def} =~ s/\{.*$/;/;
@@ -852,7 +856,9 @@ sub configscripthandler{
 		my $fh = shift;
 		foreach my $func ( keys(%{$funchash}) ){
 						printf $fh "mini_$func(){ 
-  echo \"#define mini_$func \$1\" 
+  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
+	else echo  \"#define mini_$func $func\"
+	fi
 }\n";
 				}
 		return(1);

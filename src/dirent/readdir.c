@@ -3,8 +3,9 @@
 
 //+doc read a directory.
 // return the next dirent, or 0, if the end is reached.
-// return -1 on error and set errno,
-// if mini_errno is not defined, return -errno
+// return 0 on error and set errno,
+// if mini_errno is not defined, return -errno on error
+//+depends dirbuf getdents
 //+def
 struct dirent *readdir(DIR *dir){
 		struct dirent *de;
@@ -15,10 +16,10 @@ struct dirent *readdir(DIR *dir){
 #ifdef mini_errno
 						if (len < 0 && len != -ENOENT){
 								errno = -len;
-								len = -1;
+								//len = -1;
 						}
 #endif
-						return(len);
+						return(0);
 
 				}
 				dir->buf_end = len;

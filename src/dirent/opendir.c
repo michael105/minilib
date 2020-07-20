@@ -3,7 +3,7 @@
 
 
 
-//+depends open close malloc
+//+depends open close malloc dirbuf
 //+needs dirent.h
 //+def
 DIR *opendir(const char *name){

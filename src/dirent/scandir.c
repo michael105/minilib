@@ -1,23 +1,22 @@
-#include <dirent.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <errno.h>
-#include <stddef.h>
+//+doc list files and dirs in a directory
+// This implementation uses malloc_brk() for the dynamic allocation
+// of the listing.
+//+depends errno malloc realloc free memcpy
+//+def
+int scandir(const char *path, struct dirent ***listing,
+	int (*fp_select)(const struct dirent *),
+	int (*cmp)(const struct dirent **, const struct dirent **)){
 
-int scandir(const char *path, struct dirent ***res,
-	int (*sel)(const struct dirent *),
-	int (*cmp)(const struct dirent **, const struct dirent **))
-{
-	DIR *d = opendir(path);
 	struct dirent *de, **names=0, **tmp;
 	size_t cnt=0, len=0;
+
+	DIR *d = opendir(path);
 	int old_errno = errno;
 
 	if (!d) return -1;
 
 	while ((errno=0), (de = readdir(d))) {
-		if (sel && !sel(de)) continue;
+		if (fp_select && !fp_select(de)) continue;
 		if (cnt >= len) {
 			len = 2*len+1;
 			if (len > SIZE_MAX/sizeof *names) break;
@@ -39,9 +38,8 @@ int scandir(const char *path, struct dirent ***res,
 	}
 	errno = old_errno;
 
-	if (cmp) qsort(names, cnt, sizeof *names, (int (*)(const void *, const void *))cmp);
-	*res = names;
+	//if (cmp) qsort(names, cnt, sizeof *names, (int (*)(const void *, const void *))cmp);
+	*listing = names;
 	return cnt;
 }
 
-weak_alias(scandir, scandir64);

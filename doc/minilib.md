@@ -22,9 +22,9 @@ readdir        struct dirent *readdir(DIR *dir);
 
                read a directory.
               return the next dirent, or 0, if the end is reached.
-              return -1 on error and set errno,
-              if mini_errno is not defined, return -errno
-               (src/dirent/readdir.c: 9)
+              return 0 on error and set errno,
+              if mini_errno is not defined, return -errno on error
+               (src/dirent/readdir.c: 10)
 
 rewinddir      void rewinddir(DIR *dir);
 
@@ -94,9 +94,22 @@ def            #define SETOPT_short( opts, option ) (;
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
                (macros/getoptm.h: 52)
 
+dirbuf         dirbuf
+               the switch for defining the dirbuf.
+              used internally
+               (include/dirent.h: 6)
+
+dirbufsize     dirbufsize 
+               the dir stream bufsize
+              The size of the buffer can be changed by setting mini_dirbufsize
+              to it's size in Bytes. (default 2048)
+              The buffer is allocated via malloc,
+              therefore mini_buf must be set to a value greater than dirbufsize
+               (include/dirent.h: 21)
+
 dirfd          int dirfd(DIR *d);
 
-               (src/dirent/dirfd.c: 5)
+               (src/dirent/dirfd.c: 2)
 
 dirname        char *dirname(char *s);
 
@@ -172,7 +185,7 @@ exit_errno     void exit_errno( int errnum );
               Instead of having the error messages compiled 
               into each binary, they can stay within one executable, "errno"
               This spares about 4kB, but needs errno installed to /bin/errno
-              It's the drawback of not having a hared library,
+              It's the drawback of not having a shared library,
               where all executables would share the same errno messages
               in memory.
               On the other hand, a shared library would need to be installed

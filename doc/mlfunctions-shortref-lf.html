@@ -363,7 +363,16 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
  		param options: e.g. just a, or ( a+h+l) to check for several flags at once
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">dirfd</a></small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  5 </small></td><td><small> int dirfd(DIR *d);
+<tr valign="top"><td><small>dirbuf</small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  6 </small></td><td><small> dirbuf</small></td></tr><tr><td></td><td colspan="2"><small>the switch for defining the dirbuf.
+  used internally
+ </small></td></tr>
+<tr valign="top"><td><small>dirbufsize </small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  21 </small></td><td><small> dirbufsize </small></td></tr><tr><td></td><td colspan="2"><small>the dir stream bufsize
+  The size of the buffer can be changed by setting mini_dirbufsize
+  to it's size in Bytes. (default 2048)
+  The buffer is allocated via malloc,
+  therefore mini_buf must be set to a value greater than dirbufsize
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">dirfd</a></small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  2 </small></td><td><small> int dirfd(DIR *d);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../src/dirent/dirfd.c" target="right">../src/dirent/dirfd.c</a>  8 </small></td><td><small> char *dirname(char *s);
 </small></td></tr>
@@ -437,7 +446,7 @@
   Instead of having the error messages compiled 
   into each binary, they can stay within one executable, "errno"
   This spares about 4kB, but needs errno installed to /bin/errno
-  It's the drawback of not having a hared library,
+  It's the drawback of not having a shared library,
   where all executables would share the same errno messages
   in memory.
   On the other hand, a shared library would need to be installed
@@ -686,11 +695,11 @@
 </small></td></tr>
 <tr valign="top"><td><small>readahead</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  194 </small></td><td><small> readahead( int fd,  loff_t offset,  size_t count)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> struct dirent *readdir(DIR *dir);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">readdir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> struct dirent *readdir(DIR *dir);
 </small></td></tr><tr><td></td><td colspan="2"><small>read a directory.
   return the next dirent, or 0, if the end is reached.
-  return -1 on error and set errno,
-  if mini_errno is not defined, return -errno
+  return 0 on error and set errno,
+  if mini_errno is not defined, return -errno on error
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  159 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
