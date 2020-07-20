@@ -14,6 +14,13 @@ reboot: reboot.c
 halt: halt.c
 		$(CC) --shrinkelf -o halt halt.c
 
-install:
-	sudo mv /sbin/init /sbin/init.old
+install: init
+	sudo mv /sbin/init /sbin/init.bak
 	sudo cp init /sbin/init
+
+install-tools: halt reboot
+	@echo assuming the group wheel is existent
+	@echo and wheel is the group intended for users allowed to reboot/shutdown
+	sudo "cp halt /bin/halt && chown root:wheel /bin/halt && chmod ug+s /bin/halt"
+	sudo "cp reboot /bin/reboot && chown root:wheel /bin/reboot && chmod ug+s /bin/reboot"
+
