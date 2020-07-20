@@ -190,6 +190,7 @@
 #define _SYS_PROCFS_H
 #define _SYS_PTRACE_H
 #define _SYS_QUOTA_H
+#define _SYS_INOTIFY_H
 #define _SYS_RANDOM_H
 #define _SYS_RAW_H
 #define _SYS_REBOOT_H

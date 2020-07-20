@@ -10,13 +10,15 @@ mini_atoi
 mini_usleep
 mini_strtol
 
-#mini_syscalls
+mini_syscalls
 
 #mini_buf 256
 #mini_printf
 #mini_itodec
 #globals_on_stack
 
+HEADERGUARDS
+OPTFLAG -O0
 #LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
@@ -51,6 +53,7 @@ int main(int argc, char *argv[]){
 	for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
 			for ( char *c = argv[0]+1; *c != 0; c++ ){
 					switch ( *c ){
+							OPT('h',show usage)
 							OPT('r',clear old file (truncate it))
 												flags = O_TRUNC;
 												break;
@@ -82,27 +85,33 @@ int main(int argc, char *argv[]){
 			exit_errno(fd);
 	}
 
-	char b[2];
+	char b[1];
 
 	int r = 0;
 
 	r = read(fd,b,1);
+	int nfd; // inotifyfd
+	nfd = sys_inotify_init1(IN_NONBLOCK);
+	int ir = sys_inotify_add_watch(nfd, argv[0], IN_MODIFY | IN_OPEN );
+	fd_set rs;
+	FD_ZERO (&rs);
+	FD_SET(nfd,&rs); //
+
 
 	while ( r == 0 && ( t!=0 ) ){
+			r = poll(&rs,0,-1);
+			writes("loop\n");
 			usleep(100000); // 1/10 second
 			r = read(fd,b,1);
 			if ( t>0 )
 				t--;
 
-			//int notify; // inotifyfd
-	/*		fd_set rs;
-			FD_ZERO (&rs);
-			FD_SET(fd,&rs); // no ork
-			r = select(1,&rs,0,0,0); */
+
 	}
 	write(STDOUT_FILENO,b,1);
 	write(STDOUT_FILENO,"\n",1);
 
+	return(nfd);
 	return(r?0:11); // 0 on success, 11 on timeout (errno 'try again')
 }
 

@@ -4,7 +4,7 @@
 // Instead of having the error messages compiled 
 // into each binary, they can stay within one executable, "errno"
 // This spares about 4kB, but needs errno installed to /bin/errno
-// It's the drawback of not having a hared library,
+// It's the drawback of not having a shared library,
 // where all executables would share the same errno messages
 // in memory.
 // On the other hand, a shared library would need to be installed

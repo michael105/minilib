@@ -176,6 +176,7 @@
 #define _SYS_FSUID_H
 #define _SYS_GMON_OUT_H
 #define _SYS_IOCTL_H
+#define _SYS_INOTIFY_H
 #define _SYS_IPC_H
 #define _SYS_KD_H
 #define _SYS_MMAN_H

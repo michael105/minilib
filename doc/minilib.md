@@ -346,6 +346,12 @@ verbose_errstr2static const char* verbose_errstr2(int num);
               Trying to shrink that here.
                (include/errstr2.h: 11)
 
+vexec          int vexec( const char* path, char* const* argv, char* const* envp );
+
+               execute a path, wait until the executed file exits.
+              instead of system() an absolute pathname is taken.
+               (src/vexec.c: 4)
+
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
                the function, translating the fmt of printf.

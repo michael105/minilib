@@ -3,6 +3,7 @@
 #include "./sys/syscall.h"
 #include "./sys/signal.h"
 #include "./sys/utsname.h"
+#include "./bits/inotify.h"
 #include "./bits/stat.h"
 #include "./fcntl.h"
 #include "./mount.h"

@@ -162,6 +162,9 @@ int ptsname_r(int fd, char *buf, size_t len);
 // file: minilib/src/pty.c
 char *ptsname(int fd);
 
+// file: minilib/src/vexec.c
+int vexec( const char* path, char* const* argv, char* const* envp );
+
 // file: minilib/include/fexecve.h
 static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -226,26 +229,27 @@ int dirfd(DIR *d);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/hashes.c"
-#include "minilib/src/prints.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/itodec.c"
 #include "minilib/include/fexecve.h"
-#include "minilib/src/basename.c"
-#include "minilib/src/brk.c"
-#include "minilib/include/prints.h"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/pty.c"
 #include "minilib/src/dirent/dirfd.c"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/exit_errno.c"
 #include "minilib/src/fprintfs.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dtodec.c"
+#include "minilib/src/brk.c"
 #include "minilib/src/dirname.c"
+#include "minilib/include/prints.h"
+#include "minilib/include/minilib_global.h"
+#include "minilib/src/pty.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/basename.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/hashes.c"
+#include "minilib/src/itobin.c"
 #include "minilib/src/mmap.c"
+#include "minilib/src/exit_errno.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/prints.c"
+#include "minilib/src/vexec.c"
+#include "minilib/src/errno_str.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
