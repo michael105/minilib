@@ -17,14 +17,24 @@
 //#include "mbuf.c"
 
 #define MBUF_FREE 0x80000000
+#define MALLOC_FREE MBUF_FREE
 #define MBUF_FREEMASK 0x8FFFFFFF
 #define MBUF_OCC 0x40000000
+
+// at the end of the brk
+#define MALLOC_BRK_END MBUF_OCC
 // simple checksum whether a area is free or occupied.
 // If neither nor, most possibly there's a problem.
 #define MBUF_CHK 0xC0000000   
 
 #define MBUF_PREVISFREE 0x20000000
-#define MBUF_V 0x1FFFFFFF
+
+// has been allocated with brk
+#define MALLOC_BRK 0x10000000
+
+// The size mask. 
+// (maximum size is 268.435.455 Bytes.
+#define MBUF_V 0xFFFFFFF
 
 //+doc
 // Here we go.. with the .. well. 
@@ -147,6 +157,33 @@ void free(void *p){
 
 }
 
+
+//+doc allocate via setting the brk
+// free and realloc can be used normally.
+// The intention of malloc_brk is for subsequent calls to realloc.
+// The saved data has not to be copied,
+// instead realloc just writes the new size and sets 
+// the brk accordingly.
+//+depends sbrk
+//+def
+void* malloc_brk(int size){
+		if ( size<=0 )
+				return(0);
+		
+		void *mem = sbrk(size+4);
+		if ( mem <= 0 )
+				return(0);
+
+		int *i = mem;
+		*i=( MALLOC_BRK | (size+4);
+		//i = mem+size+4;
+		//*i = MALLOC_BRK_END; // at the end
+
+		return(mem+4);
+}
+
+
+
 // TODO
 // rewrite free and malloc.
 // need to do some benchmarking.
@@ -164,21 +201,34 @@ void* realloc(void *p, int size){
 		}
 
 		if ( p == 0 ){
-				return(malloc(size));
+				return(malloc(size)); // just alloc
 		}
+
 
 		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"(int)
 
-				char *c = p;
-				int *i = p;
-				i--;
-				c-=4;
-				int oldsize = (i[0] & MBUF_V); //<<2;
+		char *c = p;
+		int *i = p;
+		i--;
+		c-=4;
+		int oldsize = (i[0] & MBUF_V); //<<2;
 
-				if ( oldsize == size )
+		if ( oldsize == size )
 						return( p );
 
-				if ( size < oldsize ){ // shrink. But can't free. so do nothing.
+		if ( *i & MALLOC_BRK ){ // has been allocated with malloc_brk
+				if ( c+oldsize >= getbrk()  ){ // at the end of the data segment
+						int ret = brk(p+size+4);
+						if ( ret != 0 ){
+								return(0);
+						}
+						*i = MALLOC_BRK | size+4;
+						return(p);
+				}
+
+		}
+
+		if ( size < oldsize ){ // shrink. But can't free. so do nothing.
 						//if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack. 
 
 		//mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree

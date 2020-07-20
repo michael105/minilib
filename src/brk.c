@@ -6,10 +6,11 @@ static long sys_brk(unsigned long addr){
 		return(ret);
 }
 
-//+doc conformant brk, when mini_errno is defined
-// if no errno is available,
-// returns the negative errno value on error,
-// 0 on success
+//+doc set the brk to addr
+// return 0 on success.
+// conformant brk, when mini_errno is defined
+// if errno isn't available,
+// returns the negative errno value on error
 //+def
 static int brk( const void* addr ){
 		long newbrk = sys_brk((unsigned long)addr);
@@ -27,10 +28,28 @@ static int brk( const void* addr ){
 		return(ret);
 }
 
-//+doc conformant sbrk, when mini_errno is defined
+//+doc get the current brk
+// does either a syscall to brk,
+// or returns the globally saved var
+//+def
+static long getbrk(){
+#ifdef mini_globals
+		if ( mlgl->brk ){
+				return(mlgl->brk);
+		} else {
+				return(sys_brk(0)); // get the old brk
+		}
+#else
+		return(sys_brk(0));
+#endif
+}
+
+
+//+doc Set the new brk, increment/decrement by incr bytes.
+// return the old brk on success.
+// conformant sbrk, when mini_errno is defined
 // if no errno is available,
-// returns the negative errno value on error,
-// or the new break on success. 
+// returns the negative errno value on error
 //+def
 static void* sbrk(int incr){
 		long ret;
@@ -38,7 +57,7 @@ static void* sbrk(int incr){
 		if ( mlgl->brk ){
 				ret=mlgl->brk;
 		} else {
-				ret = sys_brk(0);
+				ret = sys_brk(0); // get the old brk
 		}
 #else
 		ret = sys_brk(0);
@@ -47,7 +66,7 @@ static void* sbrk(int incr){
 		long addr = ret + incr;
 
 		long newbrk = sys_brk(addr);
-		if ( newbrk >0 ){
+		if ( newbrk >0 ){ // success
 #ifdef mini_globals
 				mlgl->brk = newbrk;
 #endif
@@ -58,5 +77,6 @@ static void* sbrk(int incr){
 		errno = -newbrk;
 		newbrk = 0;
 #endif
+		// this is errno
 		return((void*)newbrk);
 }

@@ -82,11 +82,12 @@ basename       char *basename(char *path);
 
 brk            static int brk( const void* addr );
 
-               conformant brk, when mini_errno is defined
-              if no errno is available,
-              returns the negative errno value on error,
-              0 on success
-               (src/brk.c: 14)
+               set the brk to addr
+              return 0 on success.
+              conformant brk, when mini_errno is defined
+              if errno isn't available,
+              returns the negative errno value on error
+               (src/brk.c: 15)
 
 def            #define SETOPT_short( opts, option ) (;
 
@@ -217,6 +218,13 @@ fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
                write the constant str to fd. Computes length with sizeof(str) at compile time.
                (include/prints.h: 58)
 
+getbrk         static long getbrk();
+
+               get the current brk
+              does either a syscall to brk,
+              or returns the globally saved var
+               (src/brk.c: 35)
+
 grantpt        int grantpt(int fd);
 
                (src/pty.c: 13)
@@ -315,11 +323,12 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
 sbrk           static void* sbrk(int incr);
 
-               conformant sbrk, when mini_errno is defined
+               Set the new brk, increment/decrement by incr bytes.
+              return the old brk on success.
+              conformant sbrk, when mini_errno is defined
               if no errno is available,
-              returns the negative errno value on error,
-              or the new break on success. 
-               (src/brk.c: 35)
+              returns the negative errno value on error
+               (src/brk.c: 54)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -947,7 +956,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void volatile free(void* p);
 
-               (src/malloc.c: 278)
+               (src/malloc.c: 328)
 
 getenv         char* getenv(const char* name);
 
@@ -963,7 +972,17 @@ ldiv           static ldiv_t ldiv(long int numerator, long int denominator);
 
 malloc         void* volatile malloc(int size);
 
-               (src/malloc.c: 228)
+               (src/malloc.c: 278)
+
+malloc_brk     void* malloc_brk(int size);
+
+               allocate via setting the brk
+              free and realloc can be used normally.
+              The intention of malloc_brk is for subsequent calls to realloc.
+              The saved data has not to be copied,
+              instead realloc just writes the new size and sets 
+              the brk accordingly.
+               (src/malloc.c: 169)
 
 rand           unsigned int rand();
 
@@ -971,7 +990,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 159)
+               (src/malloc.c: 196)
 
 srand          void srand( unsigned int i );
 

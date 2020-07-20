@@ -100,6 +100,9 @@ static long sys_brk(unsigned long addr);
 static int brk( const void* addr );
 
 // file: minilib/src/brk.c
+static long getbrk();
+
+// file: minilib/src/brk.c
 static void* sbrk(int incr);
 
 // file: minilib/src/dirname.c
@@ -236,29 +239,29 @@ int scandir(const char *path, struct dirent ***listing,
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/dirent/dirfd.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/dirent/scandir.c"
-#include "minilib/src/vexec.c"
-#include "minilib/include/minilib_global.h"
-#include "minilib/include/dirent.h"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/pty.c"
-#include "minilib/include/fexecve.h"
 #include "minilib/src/mmap.c"
-#include "minilib/include/globaldefs.h"
 #include "minilib/src/prints.c"
 #include "minilib/src/dtodec.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/itodec.c"
+#include "minilib/src/errno_str.c"
 #include "minilib/src/hashes.c"
-#include "minilib/src/brk.c"
+#include "minilib/src/itodec.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/dirent/dirfd.c"
 #include "minilib/include/prints.h"
-#include "minilib/src/exit_errno.c"
+#include "minilib/src/brk.c"
+#include "minilib/src/vexec.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/globaldefs.h"
 #include "minilib/src/itobin.c"
-#include "minilib/src/fprintfs.c"
 #include "minilib/src/dirname.c"
+#include "minilib/src/exit_errno.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/pty.c"
 #include "minilib/src/basename.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/include/dirent.h"
+#include "minilib/src/dirent/scandir.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
