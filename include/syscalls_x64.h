@@ -27,7 +27,7 @@ SYSDEF_syscall(_mprotect,3, unsigned long start,  size_t len,  unsigned long pro
 
 SYSDEF_syscall(_munmap,2, unsigned long addr,  size_t len)
 
-SYSDEF_syscall(_brk,1, unsigned long brk)
+//SYSDEF_syscall(_brk,1, unsigned long brk)
 
 SYSDEF_syscall(_rt_sigaction,4, int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 

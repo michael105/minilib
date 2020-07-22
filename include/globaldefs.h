@@ -162,6 +162,12 @@ typedef void (functionp)(void);
 //int ioctl( int fd, unsigned long int request, ... );
 #endif
 
+// the current implementation of malloc has this max,
+// equal to 256MB
+// so better keep it save.
+// todo: reimplement malloc to 64bit
+#define SIZE_MAX 0xfffffff
+
 
 #ifndef timevaldefined
 #define timevaldefined

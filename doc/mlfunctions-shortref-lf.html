@@ -8,7 +8,6 @@
 <tr valign="top"><td><small>sys__alarm</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  79 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__arch_prctl</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  319 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__bind</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  103 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>sys__brk</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  29 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__capget</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  255 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__capset</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  257 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__chdir</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  165 </small></td><td><small></small></td></tr>
@@ -335,7 +334,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  29 </small></td><td><small> char *basename(char *path);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  15 </small></td><td><small>  int brk( const void* addr );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  19 </small></td><td><small>  int brk( const void* addr );
 </small></td></tr><tr><td></td><td colspan="2"><small>set the brk to addr
   return 0 on success.
   conformant brk, when mini_errno is defined
@@ -364,10 +363,12 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
  		param options: e.g. just a, or ( a+h+l) to check for several flags at once
  </small></td></tr>
-<tr valign="top"><td><small>dirbuf</small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  6 </small></td><td><small> dirbuf</small></td></tr><tr><td></td><td colspan="2"><small>the switch for defining the dirbuf.
+<tr valign="top"><td><small>dirbuf</small></td><td><small>   <a href="../macros/getoptm.h" target="right">../macros/getoptm.h</a>  7 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>the switch for defining the dirbuf.
   used internally
  </small></td></tr>
-<tr valign="top"><td><small>dirbufsize </small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  21 </small></td><td><small> dirbufsize </small></td></tr><tr><td></td><td colspan="2"><small>the dir stream bufsize
+<tr valign="top"><td><small>dirbufsize </small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  22 </small></td><td><small> #ifndef mini_dirbufsize
+</small></td></tr><tr><td></td><td colspan="2"><small>the dir stream bufsize
   The size of the buffer can be changed by setting mini_dirbufsize
   to it's size in Bytes. (default 2048)
   The buffer is allocated via malloc,
@@ -507,7 +508,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  162 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  328 </small></td><td><small> void  free(void* p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  134 </small></td><td><small> void free(void *p);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  101 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
@@ -529,7 +530,7 @@
 <tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  58 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>getbrk</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  35 </small></td><td><small>  long getbrk();
+<tr valign="top"><td><small>getbrk</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  39 </small></td><td><small>  long getbrk();
 </small></td></tr><tr><td></td><td colspan="2"><small>get the current brk
   does either a syscall to brk,
   or returns the globally saved var
@@ -586,7 +587,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  80 </small></td><td><small>  void ) optimization_fence(void*p){}
+<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  89 </small></td><td><small>  void ) optimization_fence(void*p){}
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -608,9 +609,73 @@
   having a volatile asm call with the globals as param, and so on,
   have been useless. All after all, seems to me, ai has it's restrictions.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  278 </small></td><td><small> void*  malloc(int size);
-</small></td></tr>
-<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  169 </small></td><td><small> void* malloc_brk(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  114 </small></td><td><small> void* malloc(int size);
+</small></td></tr><tr><td></td><td colspan="2"><small>0
+  Here we go.. with the .. well. 
+  Fastes and smallest malloc/free combi ever. 
+  Not the smartest.
+  Since it isn't exactly a memory allocation,
+  instead it (mis)uses the minilib buf.
+  ;) 1024 Bytes should be enough for everyone.
+   Ok. If you really do need more memory - 
+   rethink your design, increase mini_mbuf,
+   or use a proper malloc implementation.
+ 
+  Here we use mbuf from top to bottom as stack.
+  64 Bytes are left at the bottom as reserve.
+  Possibly we'd like to complain
+  about the lack of memory, before we exit..
+ 
+  ATM, the 'free' is really lazy. 
+  It free's memory, but a real 'free' is only commited,
+  when all memory below a freed area is also freed.
+  Since the target of minilib atm are tiny tools, 
+  this might be ok.
+  ;) but, as I told before - 
+  probably you should look out for a proper malloc implementation.
+  It depends on your needs.
+ 
+  I'm not sure yet, 
+  whether another implementation of free would be useful at all.
+  Overall, I'd really prefer keeping minilib tiny.
+ 
+  Reusing sparse freed memory areas also leads 
+  to a whole bunch of complications.
+  cache misses, searching complexity,
+  storage overhead, potentially page faults,
+  just to name a few.
+ 
+  I'm not sure whether it's worth it.
+ 
+  And the existing malloc implementations 
+  out there are countless.
+ 
+  ;) It's sometimes smarter to stay special,
+  although in this case this means the opposite.
+  /misc
+ 
+  The memory layout looks like this:
+  mlgl->ibuf and mlgl->mbuf do point to the same address range.
+  mlgl->ibuf is provided for alignment and faster access to the int values.
+ 
+  flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
+  (mbufsize)
+       size  data  size    mini_buf size
+       8008dataxxxx0004data8000|
+       ----========----====----|
+ 
+  also, when free space is in between two areas
+  
+  8004data8008  free  0004data8000|
+  ----====----________----====----|
+ 
+  the free space is only freed, 
+  when all areas below (left) have been free'd as well.
+ 
+  Memory is allocated from right to left, 
+  meaning from top to down.
+ </small></td></tr>
+<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  197 </small></td><td><small> void* malloc_brk(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate via setting the brk
   free and realloc can be used normally.
   The intention of malloc_brk is for subsequent calls to realloc.
@@ -662,7 +727,9 @@
   flags will be random. (I still do not know, what 
   the flag showing up as "-T" means..)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  9 </small></td><td><small> DIR *opendir(const char *name);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  24 </small></td><td><small>  DIR *opendir(const char *name );
+</small></td></tr>
+<tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  10 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
@@ -715,7 +782,7 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  196 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  228 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -733,14 +800,21 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigreturn</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  135 </small></td><td><small> rt_sigreturn( unsigned long __unused)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  54 </small></td><td><small>  void* sbrk(int incr);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  58 </small></td><td><small>  void* sbrk(long incr);
 </small></td></tr><tr><td></td><td colspan="2"><small>Set the new brk, increment/decrement by incr bytes.
   return the old brk on success.
   conformant sbrk, when mini_errno is defined
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  11 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+</small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
+  This implementation uses malloc_brk() for the dynamic allocation
+  of the listing, and tries to do as less copies as possible.
+  if the select callback is 0, meaning all etries should be returned,
+  There are no copies done at all, besides the copying .
+ </small></td></tr>
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>
@@ -833,7 +907,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sync.2.rst.html">sync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  120 </small></td><td><small> DEF_syscall(sync,0)
 </small></td></tr>
-<tr valign="top"><td><small>sys_brk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small>  long sys_brk(unsigned long addr);
+<tr valign="top"><td><small>sys_brk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small>  long sys_brk(unsigned long addr);
 </small></td></tr><tr><td></td><td colspan="2"><small>the kernel syscall brk.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  4 </small></td><td><small> int system( const char* command );

@@ -23,6 +23,15 @@
 
 
 #ifdef mini_buf
+#if mini_buf > 0
+#else
+#warning setting mini_buf to 256 Bytes
+#define mini_buf 256
+#endif 
+#endif
+
+
+#ifdef mini_buf
 #define mini_bufsize mini_buf
 #ifndef mini_globals
 #define mini_globals

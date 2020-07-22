@@ -1,3 +1,6 @@
+#ifndef mini_brk_c
+#define mini_brk_c
+
 //+doc the kernel syscall brk.
 //+def 
 static long sys_brk(unsigned long addr){
@@ -5,6 +8,7 @@ static long sys_brk(unsigned long addr){
 		syscall1( ret,( __SYSCALL(_brk) | NCONST ), addr );
 		return(ret);
 }
+#define _sys_brk sys_brk
 
 //+doc set the brk to addr
 // return 0 on success.
@@ -13,7 +17,7 @@ static long sys_brk(unsigned long addr){
 // returns the negative errno value on error
 //+def
 static int brk( const void* addr ){
-		long newbrk = sys_brk((unsigned long)addr);
+		long newbrk = _sys_brk((unsigned long)addr);
 		int ret = 0;
 		if ( newbrk >0 ){
 #ifdef mini_globals
@@ -37,10 +41,10 @@ static long getbrk(){
 		if ( mlgl->brk ){
 				return(mlgl->brk);
 		} else {
-				return(sys_brk(0)); // get the old brk
+				return(_sys_brk(0)); // get the old brk
 		}
 #else
-		return(sys_brk(0));
+		return(_sys_brk(0));
 #endif
 }
 
@@ -51,21 +55,12 @@ static long getbrk(){
 // if no errno is available,
 // returns the negative errno value on error
 //+def
-static void* sbrk(int incr){
-		long ret;
-#ifdef mini_globals
-		if ( mlgl->brk ){
-				ret=mlgl->brk;
-		} else {
-				ret = sys_brk(0); // get the old brk
-		}
-#else
-		ret = sys_brk(0);
-#endif
+static void* sbrk(long incr){
+		long ret = getbrk();
 
-		long addr = ret + incr;
+		long addr = ret + (long)incr;
 
-		long newbrk = sys_brk(addr);
+		long newbrk = _sys_brk(addr);
 		if ( newbrk >0 ){ // success
 #ifdef mini_globals
 				mlgl->brk = newbrk;
@@ -80,3 +75,6 @@ static void* sbrk(int incr){
 		// this is errno
 		return((void*)newbrk);
 }
+
+
+#endif

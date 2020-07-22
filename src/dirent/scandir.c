@@ -1,11 +1,14 @@
+
+
+
 //+doc list files and dirs in a directory
 // This implementation uses malloc_brk() for the dynamic allocation
-// of the listing.
-//+depends errno malloc realloc free memcpy
-//+def
-int scandir(const char *path, struct dirent ***listing,
-	int (*fp_select)(const struct dirent *),
-	int (*cmp)(const struct dirent **, const struct dirent **)){
+// of the listing, and tries to do as less copies as possible.
+// if the select callback is 0, meaning all etries should be returned,
+// There are no copies done at all, besides the copying .
+//+depends errno malloc_brk realloc free memcpy opendir readdir closedir
+//+def scandir
+int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **)){
 
 	struct dirent *de, **names=0, **tmp;
 	size_t cnt=0, len=0;
@@ -21,11 +24,21 @@ int scandir(const char *path, struct dirent ***listing,
 			len = 2*len+1;
 			if (len > SIZE_MAX/sizeof *names) break;
 			tmp = realloc(names, len * sizeof *names);
-			if (!tmp) break;
+			if (!tmp){
+#ifdef errno
+					errno = ENOMEM;
+#endif
+					break;
+			}
 			names = tmp;
 		}
-		names[cnt] = malloc(de->d_reclen);
-		if (!names[cnt]) break;
+		names[cnt] = malloc_brk(de->d_reclen);
+		if (!names[cnt]){ 
+#ifdef errno
+				errno = ENOMEM;
+#endif
+				break;
+		}
 		memcpy(names[cnt++], de, de->d_reclen);
 	}
 

@@ -40,6 +40,7 @@ struct __dirstream{
 	int fd;
 	int buf_pos;
 	int buf_end;
+	//int bufsize; // note needed
 	int align;
 	//volatile int lock[1];
 	/* Any changes to this struct must preserve the property:

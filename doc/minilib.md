@@ -14,9 +14,9 @@ closedir       int closedir(DIR *dir);
 
                (src/dirent/closedir.c: 6)
 
-opendir        DIR *opendir(const char *name);
+opendir        static DIR *opendir(const char *name );
 
-               (src/dirent/opendir.c: 9)
+               (src/dirent/opendir.c: 24)
 
 readdir        struct dirent *readdir(DIR *dir);
 
@@ -29,6 +29,15 @@ readdir        struct dirent *readdir(DIR *dir);
 rewinddir      void rewinddir(DIR *dir);
 
                (src/dirent/rewinddir.c: 2)
+
+scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+
+               list files and dirs in a directory
+              This implementation uses malloc_brk() for the dynamic allocation
+              of the listing, and tries to do as less copies as possible.
+              if the select callback is 0, meaning all etries should be returned,
+              There are no copies done at all, besides the copying .
+               (src/dirent/scandir.c: 11)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -87,7 +96,7 @@ brk            static int brk( const void* addr );
               conformant brk, when mini_errno is defined
               if errno isn't available,
               returns the negative errno value on error
-               (src/brk.c: 15)
+               (src/brk.c: 19)
 
 def            #define SETOPT_short( opts, option ) (;
 
@@ -95,18 +104,20 @@ def            #define SETOPT_short( opts, option ) (;
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
                (macros/getoptm.h: 52)
 
-dirbuf         dirbuf
+dirbuf         
+
                the switch for defining the dirbuf.
               used internally
-               (include/dirent.h: 6)
+               (include/dirent.h: 7)
 
-dirbufsize     dirbufsize 
+dirbufsize     #ifndef mini_dirbufsize
+
                the dir stream bufsize
               The size of the buffer can be changed by setting mini_dirbufsize
               to it's size in Bytes. (default 2048)
               The buffer is allocated via malloc,
               therefore mini_buf must be set to a value greater than dirbufsize
-               (include/dirent.h: 21)
+               (include/dirent.h: 22)
 
 dirfd          int dirfd(DIR *d);
 
@@ -223,7 +234,7 @@ getbrk         static long getbrk();
                get the current brk
               does either a syscall to brk,
               or returns the globally saved var
-               (src/brk.c: 35)
+               (src/brk.c: 39)
 
 grantpt        int grantpt(int fd);
 
@@ -263,7 +274,7 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 80)
+               (include/minilib_global.h: 89)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -282,6 +293,10 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
 mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 
                (include/mremap.h: 4)
+
+opendirp       static DIR *opendirp(const char *name, DIR *dir);
+
+               (src/dirent/opendir.c: 10)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -321,14 +336,14 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
-sbrk           static void* sbrk(int incr);
+sbrk           static void* sbrk(long incr);
 
                Set the new brk, increment/decrement by incr bytes.
               return the old brk on success.
               conformant sbrk, when mini_errno is defined
               if no errno is available,
               returns the negative errno value on error
-               (src/brk.c: 54)
+               (src/brk.c: 58)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -341,7 +356,7 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
-               (src/brk.c: 3)
+               (src/brk.c: 6)
 
 uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -403,7 +418,6 @@ sys_adjtimex
 sys_alarm         
 sys_arch_prctl    
 sys_bind          
-sys_brk           
 sys_capget        
 sys_capset        
 sys_chdir         
@@ -954,9 +968,9 @@ div            static div_t div(int numerator, int denominator);
 
                (include/math.h: 8)
 
-free           void volatile free(void* p);
+free           void free(void *p);
 
-               (src/malloc.c: 328)
+               (src/malloc.c: 134)
 
 getenv         char* getenv(const char* name);
 
@@ -970,9 +984,73 @@ ldiv           static ldiv_t ldiv(long int numerator, long int denominator);
 
                (include/math.h: 16)
 
-malloc         void* volatile malloc(int size);
+malloc         void* malloc(int size);
 
-               (src/malloc.c: 278)
+               0
+              Here we go.. with the .. well. 
+              Fastes and smallest malloc/free combi ever. 
+              Not the smartest.
+              Since it isn't exactly a memory allocation,
+              instead it (mis)uses the minilib buf.
+              ;) 1024 Bytes should be enough for everyone.
+               Ok. If you really do need more memory - 
+               rethink your design, increase mini_mbuf,
+               or use a proper malloc implementation.
+             
+              Here we use mbuf from top to bottom as stack.
+              64 Bytes are left at the bottom as reserve.
+              Possibly we'd like to complain
+              about the lack of memory, before we exit..
+             
+              ATM, the 'free' is really lazy. 
+              It free's memory, but a real 'free' is only commited,
+              when all memory below a freed area is also freed.
+              Since the target of minilib atm are tiny tools, 
+              this might be ok.
+              ;) but, as I told before - 
+              probably you should look out for a proper malloc implementation.
+              It depends on your needs.
+             
+              I'm not sure yet, 
+              whether another implementation of free would be useful at all.
+              Overall, I'd really prefer keeping minilib tiny.
+             
+              Reusing sparse freed memory areas also leads 
+              to a whole bunch of complications.
+              cache misses, searching complexity,
+              storage overhead, potentially page faults,
+              just to name a few.
+             
+              I'm not sure whether it's worth it.
+             
+              And the existing malloc implementations 
+              out there are countless.
+             
+              ;) It's sometimes smarter to stay special,
+              although in this case this means the opposite.
+              /misc
+             
+              The memory layout looks like this:
+              mlgl->ibuf and mlgl->mbuf do point to the same address range.
+              mlgl->ibuf is provided for alignment and faster access to the int values.
+             
+              flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
+              (mbufsize)
+                   size  data  size    mini_buf size
+                   8008dataxxxx0004data8000|
+                   ----========----====----|
+             
+              also, when free space is in between two areas
+              
+              8004data8008  free  0004data8000|
+              ----====----________----====----|
+             
+              the free space is only freed, 
+              when all areas below (left) have been free'd as well.
+             
+              Memory is allocated from right to left, 
+              meaning from top to down.
+               (src/malloc.c: 114)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -982,7 +1060,7 @@ malloc_brk     void* malloc_brk(int size);
               The saved data has not to be copied,
               instead realloc just writes the new size and sets 
               the brk accordingly.
-               (src/malloc.c: 169)
+               (src/malloc.c: 197)
 
 rand           unsigned int rand();
 
@@ -990,7 +1068,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 196)
+               (src/malloc.c: 228)
 
 srand          void srand( unsigned int i );
 

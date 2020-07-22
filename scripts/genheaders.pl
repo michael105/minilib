@@ -257,7 +257,8 @@ while ( my $file = shift ){
 
 								}elsif ( $tag eq 'def' | $tag eq 'inline'){
 										if ( length($c) > 1 ){
-												$f->{def} = $c;
+												$f->{def} = $fa[$line+=1];
+												#$f->{def} = $c;
 												dbg("def,sameline: $c");
 												$func = $c;
 										} else {

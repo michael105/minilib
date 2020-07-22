@@ -110,23 +110,7 @@ char* getenv(const char* name);
 int todo_putenv( char *s );
 
 // file: minilib/src/malloc.c
-void* malloc(int size);
-
-// file: minilib/src/malloc.c
-void free(void *p);
-
-// file: minilib/src/malloc.c
-void* malloc_brk(int size);
-
-// file: minilib/src/malloc.c
-void* realloc(void *p, int size);
-
-// file: minilib/src/malloc.c
-void* volatile malloc(int size);
-
-// file: minilib/src/malloc.c
-void volatile free(void* p);
-
+#include "minilib/src/malloc.c"
 // file: minilib/src/rand.c
 void srand( unsigned int i );
 
@@ -158,15 +142,14 @@ static long int labs(long int i);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/abort.c"
-#include "minilib/src/atexit.c"
 #include "minilib/include/math.h"
-#include "minilib/src/getenv.c"
 #include "minilib/src/strtol.c"
-#include "minilib/src/rand.c"
-#include "minilib/src/atoi.c"
-#include "minilib/src/malloc.c"
 #include "minilib/src/system.c"
+#include "minilib/src/abort.c"
+#include "minilib/src/atoi.c"
+#include "minilib/src/getenv.c"
+#include "minilib/src/rand.c"
+#include "minilib/src/atexit.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

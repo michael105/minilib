@@ -4,7 +4,7 @@
 //+depends fputs write fileno strlen
 //+after fputs
 //+doc prints formatted to the stream F.
-//+doc only %s is recognized.
+//+doc only %s and %c are recognized.
 //+doc no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 //+def
 int fprintfs( FILE* F, char *fmt, ...){
@@ -26,6 +26,13 @@ int fprintfs( FILE* F, char *fmt, ...){
 								msg = va_arg(args,char*);
 								ret += fputs( msg, F );
 						}
+						if (fmt[a] == 'c'){
+								ret += write(fd,&fmt[p],a-1-p);
+								p=a+1;
+								char c = va_arg(args,int);
+								ret += write( fd,&c,1 );
+						}
+
 				}
 				a++;
 		}

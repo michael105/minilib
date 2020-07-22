@@ -3,6 +3,8 @@
 //+header stdlib.h
 //#include "../include/syscall.h"
 
+//+include
+
 #ifdef __NR_brk
 #define BRK
 #else
@@ -28,6 +30,7 @@
 #define MBUF_CHK 0xC0000000   
 
 #define MBUF_PREVISFREE 0x20000000
+#define MALLOC_PREVISFREE MBUF_PREVISFREE
 
 // has been allocated with brk
 #define MALLOC_BRK 0x10000000
@@ -35,6 +38,12 @@
 // The size mask. 
 // (maximum size is 268.435.455 Bytes.
 #define MBUF_V 0xFFFFFFF
+#define MALLOC_SIZE MBUF_V
+
+
+//+todo alignment of malloc. ( align *p, and the bits at the beginning.)
+// now its aligned to 4 Bytes.
+
 
 //+doc
 // Here we go.. with the .. well. 
@@ -101,9 +110,11 @@
 // Memory is allocated from right to left, 
 // meaning from top to down.
 //
-//
 //+def
 void* malloc(int size){
+#ifndef mini_buf
+#error malloc needs a defined mini_buf
+#endif
 		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer", 
 																//  size is in integers (4Bytes)
 		if( mlgl->mbufsize-(size<<2)<64 ){
@@ -118,6 +129,7 @@ void* malloc(int size){
 }
 
 
+//+depends brk getbrk
 //+def
 void free(void *p){
 		if ( p == 0 )
@@ -128,6 +140,23 @@ void free(void *p){
 		i--; // point to the size of the block
 		c-=4;
 		
+#ifdef mini_malloc_brk
+		if ( i[0] & MALLOC_BRK ){
+
+				if ( (long)(p+(i[0]&MALLOC_SIZE)) >= getbrk()  ){ // at the end of the data segment
+						brk(i);
+				} else {
+				// not at the end
+					i[0]=(i[0]|MALLOC_FREE);
+					//i[ i[0]&MALLOC_SIZE // todo: free
+				}
+
+				return;
+		}
+
+#endif
+	
+
 		if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack
 				mlgl->mbufsize += (i[0] & MBUF_V) <<2;
 				if ( mlgl->mbufsize == mini_buf )
@@ -157,7 +186,6 @@ void free(void *p){
 
 }
 
-
 //+doc allocate via setting the brk
 // free and realloc can be used normally.
 // The intention of malloc_brk is for subsequent calls to realloc.
@@ -170,14 +198,18 @@ void* malloc_brk(int size){
 		if ( size<=0 )
 				return(0);
 		
-		void *mem = sbrk(size+4);
+		size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
+		void *mem = sbrk(size);
 		if ( mem <= 0 )
 				return(0);
 
+
 		int *i = mem;
-		*i=( MALLOC_BRK | (size+4);
+		
+		*i=( MALLOC_BRK | (size));
 		//i = mem+size+4;
 		//*i = MALLOC_BRK_END; // at the end
+		i++;
 
 		return(mem+4);
 }
@@ -205,28 +237,33 @@ void* realloc(void *p, int size){
 		}
 
 
-		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer"(int)
 
 		char *c = p;
 		int *i = p;
 		i--;
 		c-=4;
 		int oldsize = (i[0] & MBUF_V); //<<2;
+		
+		size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
 
 		if ( oldsize == size )
 						return( p );
 
+#ifdef mini_malloc_brk
 		if ( *i & MALLOC_BRK ){ // has been allocated with malloc_brk
-				if ( c+oldsize >= getbrk()  ){ // at the end of the data segment
-						int ret = brk(p+size+4);
+				//prints("hier\n");
+				if ( (long)(p+oldsize) >= getbrk()  ){ // at the end of the data segment
+				//prints("hier2\n");
+						int ret = brk(c+size);
 						if ( ret != 0 ){
 								return(0);
 						}
-						*i = MALLOC_BRK | size+4;
+						*i = MALLOC_BRK | (size);
 						return(p);
 				}
 
 		}
+#endif
 
 		if ( size < oldsize ){ // shrink. But can't free. so do nothing.
 						//if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack. 
@@ -241,14 +278,14 @@ void* realloc(void *p, int size){
 				} // if shrink.
 
 			// enlarge
-		if( mlgl->mbufsize-(size<<2)+(oldsize<<2)<64 ){
+		if( mlgl->mbufsize-(size)+(oldsize<<2)<64 ){
 				write( STDERR_FILENO, "Out of memory.\n",15 );
 				free(p);
 				return((void*)0);
 		}
 		free(p);
 		int *s = (int*)p;
-		void *n = malloc(size<<2);
+		void *n = malloc(size);
 		if ( p > n ){
 				//writes("p>n\n");
 				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize<<2)); d++ ){
@@ -274,7 +311,7 @@ void* realloc(void *p, int size){
 POINTER* ml_brk=0;
 extern POINTER _bssend;
 
-//+def
+////+def
 void* volatile malloc(int size){
 #ifdef undef
 #warning BRK def
@@ -324,7 +361,7 @@ void* volatile malloc(int size){
 
 }
 
-//+def
+////+def
 void volatile free(void* p){
 
 }
