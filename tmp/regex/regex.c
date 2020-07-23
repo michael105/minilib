@@ -23,6 +23,10 @@ return
 // \D - nondigit
 // \s - space
 // \S - nonspace
+//
+// When the regex ist defined as C string,
+// a backslash has to be defined as double backslash
+// in the source code.
 int match(char *text, char *re){
 		while ( *text!=0 ){
 				switch ( *re ){
