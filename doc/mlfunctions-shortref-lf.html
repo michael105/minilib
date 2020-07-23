@@ -459,7 +459,23 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  110 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  16 </small></td><td><small> int ext_match(const char *text, const char *re);
+</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
+  matches: * for every count of any char
+  ? for 1 char
+  backslash: escape *,?, and backslash itself.
+  \d - digit
+  \D - nondigit
+  \s - space
+  \S - nonspace
+  \w - word character ( defined as ascii 32-126,160-255 )
+  \W - nonword character ( defined as ascii 0-31,127-159 )
+ 
+  (memo) When the regex ist defined as C string,
+  a backslash has to be defined as double backslash
+  in the source code.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../src/ext_match.c" target="right">../src/ext_match.c</a>  110 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">fchown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  109 </small></td><td><small> fchown( unsigned int fd, uid_t user, gid_t group)
 </small></td></tr>
@@ -513,7 +529,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  134 </small></td><td><small> void free(void *p);
 </small></td></tr>
-<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  225 </small></td><td><small> int free_brk();
+<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  229 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
   which has been allocated with malloc_brk.
   Returns 0, if memory has been freed;
@@ -686,15 +702,29 @@
   Memory is allocated from right to left, 
   meaning from top to down.
  </small></td></tr>
-<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  197 </small></td><td><small> void* malloc_brk(int size);
+<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  201 </small></td><td><small> void* malloc_brk(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate via setting the brk
   free and realloc can be used normally.
   The intention of malloc_brk is for subsequent calls to realloc.
   The saved data has not to be copied,
   instead realloc just writes the new size and sets 
   the brk accordingly.
+  if the break is saved before one or more calls to malloc_brk,
+  the allocated memory can also be free'd by setting the brk to the saved value
+  with brk(saved_brk)
+  free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  85 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  10 </small></td><td><small> int match(const char *text, const char *re);
+</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
+  matches: * for every count of any char
+  ? for 1 char
+  backslash: escape *,?, and backslash itself.
+ 
+  (memo) When the regex ist defined as C string,
+  a backslash has to be defined as double backslash
+  in the source code.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  85 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  6 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
 </small></td></tr>
@@ -783,17 +813,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
-<tr valign="top"><td><small>re_match</small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  10 </small></td><td><small> int re_match(const char *text, const char *re);
-</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
-  matches: * for every count of any char
-  ? for 1 char
-  backslash: escape *,?, and backslash itself.
- 
-  (memo) When the regex ist defined as C string,
-  a backslash has to be defined as double backslash
-  in the source code.
- </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/re_match.c" target="right">../src/re_match.c</a>  97 </small></td><td><small> read( int fd, void *buf, int len )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  97 </small></td><td><small> read( int fd, void *buf, int len )
 </small></td></tr>
 <tr valign="top"><td><small>readahead</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  194 </small></td><td><small> readahead( int fd,  loff_t offset,  size_t count)
 </small></td></tr>
@@ -803,27 +823,11 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  243 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  247 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
-<tr valign="top"><td><small>reext_match</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  16 </small></td><td><small> int reext_match(const char *text, const char *re);
-</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
-  matches: * for every count of any char
-  ? for 1 char
-  backslash: escape *,?, and backslash itself.
-  \d - digit
-  \D - nondigit
-  \s - space
-  \S - nonspace
-  \w - word character ( defined as ascii 32-126,160-255 )
-  \W - nonword character ( defined as ascii 0-31,127-159 )
- 
-  (memo) When the regex ist defined as C string,
-  a backslash has to be defined as double backslash
-  in the source code.
- </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../src/reext_match.c" target="right">../src/reext_match.c</a>  102 </small></td><td><small> rename( const char* oldpath, const char* newpath )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  102 </small></td><td><small> rename( const char* oldpath, const char* newpath )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  156 </small></td><td><small>   void rewind( FILE *f );
 </small></td></tr>

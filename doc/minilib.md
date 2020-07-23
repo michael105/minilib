@@ -220,6 +220,24 @@ exit_errno     void exit_errno( int errnum );
               the absolute value is supplied to errno.
                (src/exit_errno.c: 17)
 
+ext_match      int ext_match(const char *text, const char *re);
+
+               simple regex engine.
+              matches: * for every count of any char
+              ? for 1 char
+              backslash: escape *,?, and backslash itself.
+              \d - digit
+              \D - nondigit
+              \s - space
+              \S - nonspace
+              \w - word character ( defined as ascii 32-126,160-255 )
+              \W - nonword character ( defined as ascii 0-31,127-159 )
+             
+              (memo) When the regex ist defined as C string,
+              a backslash has to be defined as double backslash
+              in the source code.
+               (src/ext_match.c: 16)
+
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
                (include/fexecve.h: 3)
@@ -290,6 +308,18 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               have been useless. All after all, seems to me, ai has it's restrictions.
                (include/minilib_global.h: 90)
 
+match          int match(const char *text, const char *re);
+
+               simple regex engine.
+              matches: * for every count of any char
+              ? for 1 char
+              backslash: escape *,?, and backslash itself.
+             
+              (memo) When the regex ist defined as C string,
+              a backslash has to be defined as double backslash
+              in the source code.
+               (src/match.c: 10)
+
 memfrob        void* memfrob(void* s, unsigned int len);
 
                (src/memfrob.c: 3)
@@ -349,36 +379,6 @@ ptsname        char *ptsname(int fd);
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
-
-re_match       int re_match(const char *text, const char *re);
-
-               simple regex engine.
-              matches: * for every count of any char
-              ? for 1 char
-              backslash: escape *,?, and backslash itself.
-             
-              (memo) When the regex ist defined as C string,
-              a backslash has to be defined as double backslash
-              in the source code.
-               (src/re_match.c: 10)
-
-reext_match    int reext_match(const char *text, const char *re);
-
-               simple regex engine.
-              matches: * for every count of any char
-              ? for 1 char
-              backslash: escape *,?, and backslash itself.
-              \d - digit
-              \D - nondigit
-              \s - space
-              \S - nonspace
-              \w - word character ( defined as ascii 32-126,160-255 )
-              \W - nonword character ( defined as ascii 0-31,127-159 )
-             
-              (memo) When the regex ist defined as C string,
-              a backslash has to be defined as double backslash
-              in the source code.
-               (src/reext_match.c: 16)
 
 sbrk           static void* sbrk(long incr);
 
@@ -1030,7 +1030,7 @@ free_brk       int free_brk();
               1, when there hasn't been any memory allocations with
               malloc_brk before.
               Then brk() gives an error, return the return value of brk
-               (src/malloc.c: 225)
+               (src/malloc.c: 229)
 
 getenv         char* getenv(const char* name);
 
@@ -1120,7 +1120,11 @@ malloc_brk     void* malloc_brk(int size);
               The saved data has not to be copied,
               instead realloc just writes the new size and sets 
               the brk accordingly.
-               (src/malloc.c: 197)
+              if the break is saved before one or more calls to malloc_brk,
+              the allocated memory can also be free'd by setting the brk to the saved value
+              with brk(saved_brk)
+              free_brk() free's all memory, which has been allocated with malloc_brk
+               (src/malloc.c: 201)
 
 rand           unsigned int rand();
 
@@ -1128,7 +1132,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 243)
+               (src/malloc.c: 247)
 
 srand          void srand( unsigned int i );
 

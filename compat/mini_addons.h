@@ -117,6 +117,9 @@ static char *errno_str(int err);
 // file: minilib/src/exit_errno.c
 void exit_errno( int errnum );
 
+// file: minilib/src/ext_match.c
+int ext_match(const char *text, const char *re);
+
 // file: minilib/src/fprintfs.c
 int fprintfs( FILE* F, char *fmt, ...);
 
@@ -137,6 +140,9 @@ int uitodec(unsigned int i, char *buf, int prec, char limiter );
 
 // file: minilib/src/itodec.c
 int itodec(int i, char *buf, int prec, char limiter );
+
+// file: minilib/src/match.c
+int match(const char *text, const char *re);
 
 // file: minilib/src/memfrob.c
 void* memfrob(void* s, unsigned int len);
@@ -164,12 +170,6 @@ int ptsname_r(int fd, char *buf, size_t len);
 
 // file: minilib/src/pty.c
 char *ptsname(int fd);
-
-// file: minilib/src/re_match.c
-int re_match(const char *text, const char *re);
-
-// file: minilib/src/reext_match.c
-int reext_match(const char *text, const char *re);
 
 // file: minilib/src/vexec.c
 int vexec( const char* path, char* const* argv, char* const* envp );
@@ -250,31 +250,31 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/dirent.h"
-#include "minilib/src/hashes.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/include/fexecve.h"
-#include "minilib/src/reext_match.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/prints.c"
-#include "minilib/src/dirent/scandir.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/mmap.c"
 #include "minilib/src/dtodec.c"
-#include "minilib/src/pty.c"
-#include "minilib/src/vexec.c"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/src/memfrob.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/dirent/opendir.c"
 #include "minilib/src/itobin.c"
 #include "minilib/src/exit_errno.c"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/src/re_match.c"
-#include "minilib/include/prints.h"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/dirname.c"
-#include "minilib/src/brk.c"
 #include "minilib/src/itodec.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/prints.h"
+#include "minilib/include/dirent.h"
+#include "minilib/src/vexec.c"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/pty.c"
+#include "minilib/src/match.c"
+#include "minilib/src/prints.c"
+#include "minilib/src/brk.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/ext_match.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/src/mmap.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/dirent/scandir.c"
+#include "minilib/src/dirname.c"
+#include "minilib/include/fexecveat.h"
 #include "minilib/src/errno_str.c"
 
 // Need global included. Doesn't matter by which file.

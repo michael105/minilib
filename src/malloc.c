@@ -192,6 +192,10 @@ void free(void *p){
 // The saved data has not to be copied,
 // instead realloc just writes the new size and sets 
 // the brk accordingly.
+// if the break is saved before one or more calls to malloc_brk,
+// the allocated memory can also be free'd by setting the brk to the saved value
+// with brk(saved_brk)
+// free_brk() free's all memory, which has been allocated with malloc_brk
 //+depends sbrk
 //+def
 void* malloc_brk(int size){
