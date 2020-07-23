@@ -54,6 +54,7 @@ int main(int argc, char *argv[]){
 			for ( char *c = argv[0]+1; *c != 0; c++ ){
 					switch ( *c ){
 							OPT('h',show usage)
+									usage();
 							OPT('r',clear old file (truncate it))
 												flags = O_TRUNC;
 												break;

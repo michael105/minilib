@@ -35,9 +35,12 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
                list files and dirs in a directory
               This implementation uses malloc_brk() for the dynamic allocation
               of the listing, and tries to do as less copies as possible.
-              if the select callback is 0, meaning all etries should be returned,
-              There are no copies done at all, besides the copying .
-               (src/dirent/scandir.c: 11)
+              if the select callback is 0, meaning all entries should be returned,
+              There are no copies done at all, 
+              besides the copying from kernelspace to userspace.
+              returns the number of the read entries,
+              or the negative errno on error.
+               (src/dirent/scandir.c: 14)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -46,6 +49,17 @@ seekdir        void seekdir(DIR *dir, long off);
 telldir        long telldir(DIR *dir);
 
                (src/dirent/telldir.c: 2)
+
+
+
+==========
+errno.h
+==========
+
+errno          #ifdef mini_errno
+
+               set errno, but only when errno is defined.
+               (include/seterrno.h: 3)
 
 
 
@@ -216,7 +230,7 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
-               prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
+               prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
                (src/fprintfs.c: 10)
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))

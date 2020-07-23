@@ -18,14 +18,14 @@ static DIR *opendirp(const char *name, DIR *dir){
 	return dir;
 }
 
-//+depends open close malloc dirbuf opendirp
+//+depends open close malloc dirbuf opendirp ewrites
 //+needs dirent.h
 //+def
 static DIR *opendir(const char *name ){
 		DIR *dir;
 	dir = malloc(sizeof(*dir));
 	if ( dir == 0 ){
-		//	fprintf("Got: %d\n", dir);
+			ewrites("No memory in opendir\n");
 		return 0;
 	}
 
