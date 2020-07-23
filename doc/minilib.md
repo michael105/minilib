@@ -372,11 +372,13 @@ reext_match    int reext_match(const char *text, const char *re);
               \D - nondigit
               \s - space
               \S - nonspace
+              \w - word character ( defined as ascii 32-126,160-255 )
+              \W - nonword character ( defined as ascii 0-31,127-159 )
              
               (memo) When the regex ist defined as C string,
               a backslash has to be defined as double backslash
               in the source code.
-               (src/reext_match.c: 14)
+               (src/reext_match.c: 16)
 
 sbrk           static void* sbrk(long incr);
 

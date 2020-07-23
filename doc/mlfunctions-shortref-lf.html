@@ -807,7 +807,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
-<tr valign="top"><td><small>reext_match</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  14 </small></td><td><small> int reext_match(const char *text, const char *re);
+<tr valign="top"><td><small>reext_match</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  16 </small></td><td><small> int reext_match(const char *text, const char *re);
 </small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
   matches: * for every count of any char
   ? for 1 char
@@ -816,6 +816,8 @@
   \D - nondigit
   \s - space
   \S - nonspace
+  \w - word character ( defined as ascii 32-126,160-255 )
+  \W - nonword character ( defined as ascii 0-31,127-159 )
  
   (memo) When the regex ist defined as C string,
   a backslash has to be defined as double backslash
