@@ -7,7 +7,7 @@
 // a backslash has to be defined as double backslash
 // in the source code.
 //+def
-int re_match(char *text, char *re){
+int re_match(const char *text, const char *re){
 		while ( *text!=0 ){
 				switch ( *re ){
 						case '?':

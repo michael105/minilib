@@ -1,14 +1,16 @@
 # A template for a makefile, which uses mini-gcc
 # The config is searched for, and can be either inlined in the 
-# sourcefile, 
-# or within one of the files sourcefile.conf, sourcefile.mconf, or minilib.conf
+# sourcefile, or be located within one of the files 
+# 'sourcefile'.conf, 'sourcefile'.mconf, or minilib.conf
 
-MCC=mini-gcc
+ifndef $(MCC)
+MCC=$(pm)/mini-gcc
+endif
 
 
 src = $(patsubst %.c,%, $(wildcard *.c))
 
-all: $(src) README.md
+all: $(src)
 
 %: %.c
 	$(eval OPT=--config $@.c)

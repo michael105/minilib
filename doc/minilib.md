@@ -350,7 +350,7 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
-re_match       int re_match(char *text, char *re);
+re_match       int re_match(const char *text, const char *re);
 
                simple regex engine.
               matches: * for every count of any char
@@ -362,7 +362,7 @@ re_match       int re_match(char *text, char *re);
               in the source code.
                (src/re_match.c: 10)
 
-reext_match    int reext_match(char *text, char *re);
+reext_match    int reext_match(const char *text, const char *re);
 
                simple regex engine.
               matches: * for every count of any char

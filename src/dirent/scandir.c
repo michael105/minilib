@@ -50,7 +50,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 					struct dirent *de = (void *)(buf+pos);
 					pos+=de->d_reclen;
 					// select here.
-					if ( de->d_name[0]=='x' ){ // not selected
+					if ( fp_select && !(fp_select(de)) ){ // not selected
 
 					} else { 
 							cp += de->d_reclen;

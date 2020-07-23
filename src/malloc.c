@@ -225,7 +225,7 @@ void* malloc_brk(int size){
 int free_brk(){
 		if ( mlgl->malloc_start && getbrk() > mlgl->malloc_start ){ 
 				// there has been some allocation before
-				return(brk(mlgl->malloc_start));
+				return(brk((void*)mlgl->malloc_start));
 		}
 		return(1);
 }

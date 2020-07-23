@@ -6,12 +6,14 @@
 // \D - nondigit
 // \s - space
 // \S - nonspace
+// \w - word character ( defined as ascii 32-126,160-255 )
+// \W - nonword character ( defined as ascii 0-31,127-159 )
 //
 // (memo) When the regex ist defined as C string,
 // a backslash has to be defined as double backslash
 // in the source code.
 //+def
-int reext_match(char *text, char *re){
+int reext_match(const char *text, const char *re){
 		while ( *text!=0 ){
 				switch ( *re ){
 						case '?':
@@ -41,6 +43,21 @@ int reext_match(char *text, char *re){
 										else
 												break;
 								}
+								if ( *re == 'w' ){
+										if ( (*text>=32 && *text <= 126 ) || ( *text>=160 ) )
+												break;
+										else
+												return(-1);
+								}
+
+								if ( *re == 'W' ){
+										if ( (*text>=127 && *text <= 159 ) || ( *text<32 ) )
+												break;
+										else
+												return(-1);
+								}
+
+
 								if ( *re == 's' ){
 										if ( isspace(*text) )
 												break;

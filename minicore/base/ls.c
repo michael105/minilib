@@ -9,6 +9,8 @@ mini_open
 mini_errno
 mini_readdir
 
+mini_re_match
+
 mini_eprintfs
 
 mini_buf 4096
@@ -33,6 +35,11 @@ void usage(){
 		exit(1);
 }
 
+int match(const struct dirent *de){
+		if ( re_match(de->d_name,"*x*") == 0 )
+				return(1);
+		return(0);
+}
 
 int main(int argc, char **argv){
 		
@@ -64,7 +71,7 @@ int main(int argc, char **argv){
 	}
 
 	for (;*argv; *argv++){
-				int r = scandir(*argv, list, 0,0);
+				int r = scandir(*argv, list,&match ,0);
 			printf("scandir: %d\n",r);
 			printf("errno: %d\n",errno);
 			while(r-->0){
