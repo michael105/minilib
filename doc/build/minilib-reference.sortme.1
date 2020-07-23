@@ -19,13 +19,15 @@ f:ultodec|D:int ultodec(unsigned long ui, char *buf, int prec, char limiter )|c:
 
 f:basename|D:char *basename(char *path)|c:directories|x:return the last component of a pathname|
 f:chdir|D:int chdir(const char* path)|c:directories|x:change working directory|
+f:dirbuf|D:|c:directories|x:|
+f:dirbufsize |D:#ifndef mini_dirbufsize|c:directories|x:|
 f:dirfd|D:int dirfd(DIR *d)|c:directories|x:extract the file descriptor used by a DIR stream|
 f:dirname|D:char *dirname(char *s)|c:directories|x:report the parent directory name of a file pathname|
 f:fstat|D:int fstat(int fd,struct stat* statbuf)|c:directories|x:get file status|
 f:getcwd|D:int getcwd( char *buf,  unsigned long size)|c:directories|x:get the pathname of the current working directory|
 f:getdents|D:int getdents( unsigned int fd, struct dirent *direntry, unsigned int count )|c:directories|x:get directory entries|
 f:mkdir|D:int mkdir( const char *pathname, int mode)|c:directories|x:make a directory relative to directory file descriptor|
-f:opendir|D:DIR *opendir(const char *name)|c:directories|x:open directory associated with file descriptor|
+f:opendir|D:DIR *opendir(const char *name )|c:directories|x:open directory associated with file descriptor|
 f:readdir|D:struct dirent *readdir(DIR *dir)|c:directories|x:read a directory|
 f:rewinddir|D:void rewinddir(DIR *dir)|c:directories|x:reset the position of a directory stream to the beginning|
 f:rmdir|D:int rmdir( const char *pathname)|c:directories|x:remove a directory|
@@ -114,8 +116,11 @@ f:srand|D:void srand( unsigned int i )|c:math|x:pseudo-random number generator|
 #memory
 
 f:brk|D:int brk( const void* addr )|c:memory|x:change data segment size|
-f:free|D:void volatile free(void* p)|c:memory|x:free allocated memory|
-f:malloc|D:void* volatile malloc(int size)|c:memory|x:a memory allocator|
+f:free|D:void free(void *p)|c:memory|x:free allocated memory|
+f:free_brk|D:int free_brk()|c:memory|x:|
+f:getbrk|D:long getbrk()|c:memory|x:|
+f:malloc|D:void* malloc(int size)|c:memory|x:a memory allocator|
+f:malloc_brk|D:void* malloc_brk(int size)|c:memory|x:|
 f:memcmp|D:int memcmp(const void* c1,const void* c2,int len)|c:memory|x:compare bytes in memory|
 f:memcpy|D:void *memcpy( void *d, const void *s, int n )|c:memory|x:copy bytes in memory|
 f:memfd_create|D:int memfd_create( const char  *uname_ptr,  unsigned int flags)|c:memory|x:create an anonymous file|
@@ -127,7 +132,7 @@ f:mprotect|D:int mprotect( POINTER *a1, POINTER a2, int a3 )|c:memory|x:set prot
 f:mremap|D:void* volatile  mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr)|c:memory|x:remap a virtual memory address|
 f:munmap|D:int munmap( unsigned long addr,  size_t len)|c:memory|x:unmap pages of memory|
 f:realloc|D:void* realloc(void *p, int size)|c:memory|x:memory reallocator|
-f:sbrk|D:void* sbrk(int incr)|c:memory|x:change data segment size|
+f:sbrk|D:void* sbrk(long incr)|c:memory|x:change data segment size|
 f:splice|D:int splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:memory|x:splice data to/from a pipe|
 
 #output
@@ -184,6 +189,10 @@ f:setpgid|D:int setpgid( pid_t pid, pid_t pgid)|c:process|x:set process group ID
 f:setsid|D:int DEF_syscall(setsid,0 )|c:process|x:create session and set process group ID|
 f:system|D:int system( const char* command )|c:process|x:issue a command|
 f:vfork|D:int DEF_syscall(vfork,0)|c:process|x:create a child process and block parent|
+
+#regex
+
+f:ext_match|D:int ext_match(const char *text, const char *re)|c:regex|x:|
 
 #streams
 
@@ -270,7 +279,14 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 #unsorted
 
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
+f:errno|D:#ifdef mini_errno|c:errno|x:error return value|
+f:match|D:int match(const char *text, const char *re)|c:unsorted|x:|
+f:opendirp|D:DIR *opendirp(const char *name, DIR *dir)|c:directories|x:|
+f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **))|c:directories|x:scan a directory|
+f:scandir_bufsize|D:|c:directories|x:|
 f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
+f:verbose_errstr2|D:const char* verbose_errstr2(int num)|c:errno|x:|
+f:vexec|D:int vexec( const char* path, char* const* argv, char* const* envp )|c:process|x:|
 
 #x64-syscalls
 
@@ -284,7 +300,7 @@ f:sys_adjtimex|D:sys_adjtimex( struct timex *txc_p)|c:x64-syscalls|x:tune kernel
 f:sys_alarm|D:sys_alarm( unsigned int seconds)|c:x64-syscalls|x:schedule an alarm signal|
 f:sys_arch_prctl|D:sys_arch_prctl( struct task_struct *task,  int code,  unsigned long *addr)|c:x64-syscalls|x:set architecture-specific thread state|
 f:sys_bind|D:sys_bind( int fd,  struct sockaddr *umyaddr,  int addrlen)|c:x64-syscalls|x:bind a name to a socket|
-f:sys_brk|D:sys_brk( unsigned long brk)|c:x64-syscalls|x:change data segment size|
+f:sys_brk|D:long sys_brk(unsigned long addr)|c:x64-syscalls|x:change data segment size|
 f:sys_capget|D:sys_capget( cap_user_header_t header,  cap_user_data_t dataptr)|c:x64-syscalls|x:set/get capabilities of thread(s)|
 f:sys_capset|D:sys_capset( cap_user_header_t header,  const cap_user_data_t data)|c:x64-syscalls|x:set/get capabilities of thread(s)|
 f:sys_chdir|D:sys_chdir( const char *filename)|c:x64-syscalls|x:change working directory|

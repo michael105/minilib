@@ -325,6 +325,33 @@ chdir
 </p>
 </dd>
 <dt>
+dirbuf
+</dt>
+<dd>
+<p>
+  __
+<br>
+  the switch for defining the dirbuf.<br>
+  used internally<br>
+  <a href="../include/dirent.h">../include/dirent.h</a> l.7
+</p>
+</dd>
+<dt>
+dirbufsize 
+</dt>
+<dd>
+<p>
+  <em>#ifndef mini_dirbufsize</em>
+<br>
+  the dir stream bufsize<br>
+  The size of the buffer can be changed by setting mini_dirbufsize<br>
+  to it&#8217;s size in Bytes. (default 2048)<br>
+  The buffer is allocated via malloc,<br>
+  therefore mini_buf must be set to a value greater than dirbufsize<br>
+  <a href="../include/dirent.h">../include/dirent.h</a> l.22
+</p>
+</dd>
+<dt>
 dirfd
 </dt>
 <dd>
@@ -332,7 +359,7 @@ dirfd
   <em>int dirfd(DIR *d)</em>
 <br>
   extract the file descriptor used by a DIR stream<br>
- <a href="../src/dirent/dirfd.c">../src/dirent/dirfd.c</a> l.5  manpage: <a href="manpages/gen/directory.3.rst">dirfd</a><br>
+ <a href="../src/dirent/dirfd.c">../src/dirent/dirfd.c</a> l.2  manpage: <a href="manpages/gen/directory.3.rst">dirfd</a><br>
 </p>
 </dd>
 <dt>
@@ -396,11 +423,11 @@ opendir
 </dt>
 <dd>
 <p>
-  <em>DIR *opendir(const char *name)</em>
+  <em>DIR *opendir(const char *name )</em>
 <br>
-  Defines: malloc close open<br>
+  Defines: write close open malloc dirbuf<br>
  open directory associated with file descriptor<br>
- Size: ~281B  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.9  manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
+ Size: ~281B  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24  manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
 </dd>
 <dt>
@@ -410,12 +437,13 @@ readdir
 <p>
   <em>struct dirent *readdir(DIR *dir)</em>
 <br>
-  read a directory<br>
+  Defines: dirbuf getdents<br>
+ read a directory<br>
  read a directory.<br>
   return the next dirent, or 0, if the end is reached.<br>
-  return -1 on error and set errno,<br>
-  if mini_errno is not defined, return -errno<br>
-  Size: ~133B  <a href="../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.9  manpage: <a href="manpages/gen/directory.3.rst">readdir</a><br>
+  return 0 on error and set errno,<br>
+  if mini_errno is not defined, return -errno on error<br>
+  Size: ~133B  <a href="../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.10  manpage: <a href="manpages/gen/directory.3.rst">readdir</a><br>
 </p>
 </dd>
 <dt>
@@ -487,14 +515,14 @@ exit_errno
 <p>
   <em>void exit_errno( int errnum )</em>
 <br>
-  Defines: errno_str exit write execve<br>
+  Defines: errno_str write exit execve<br>
  exit, and execute /bin/errno<br>
   this is intended to give a error message for the <br>
   given errno num.<br>
   Instead of having the error messages compiled <br>
   into each binary, they can stay within one executable, "errno"<br>
   This spares about 4kB, but needs errno installed to /bin/errno<br>
-  It&#8217;s the drawback of not having a hared library,<br>
+  It&#8217;s the drawback of not having a shared library,<br>
   where all executables would share the same errno messages<br>
   in memory.<br>
   On the other hand, a shared library would need to be installed<br>
@@ -511,7 +539,7 @@ perror
 <p>
   <em>void perror(const char *msg)</em>
 <br>
-  Defines: write errno strerror fileno strlen<br>
+  Defines: strerror fileno errno strlen write<br>
  write error messages to standard error<br>
  Size: ~329B  <a href="../src/perror.c">../src/perror.c</a> l.4  manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -549,7 +577,7 @@ _fopen
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE *f)</em>
 <br>
-  Defines: close open fileno<br>
+  Defines: fileno open close<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~316B  <a href="../src/fopen.c">../src/fopen.c</a> l.12
 </p>
@@ -605,7 +633,7 @@ closedir
 <p>
   <em>int closedir(DIR *dir)</em>
 <br>
-  Defines: free<br>
+  Defines: brk getbrk<br>
  close a directory stream<br>
  Size: ~323B  <a href="../src/dirent/closedir.c">../src/dirent/closedir.c</a> l.6  manpage: <a href="manpages/gen/directory.3.rst">closedir</a><br>
 </p>
@@ -860,7 +888,7 @@ fgets
 <p>
   <em>char* fgets(char <strong>buf, int size, FILE</strong> F)</em>
 <br>
-  Defines: read fileno<br>
+  Defines: fileno read<br>
  get a string from a stream<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.6  manpage: <a href="manpages/stdio/fgets.3.rst">fgets</a><br>
 </p>
@@ -872,7 +900,7 @@ getc
 <p>
   <em>#define getc(F) fgetc(F)</em>
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a byte from a stream<br>
  <a href="../include/fgetc.h">../include/fgetc.h</a> l.26  manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -884,7 +912,7 @@ getchar
 <p>
   <em>#define getchar() fgetc(0)</em>
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a byte from a<br>
  <a href="../include/fgetc.h">../include/fgetc.h</a> l.29  manpage: <a href="manpages/stdio/getc.3.rst">getchar</a><br>
 </p>
@@ -896,7 +924,7 @@ gets
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em>
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a string from a<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.29  manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -1082,7 +1110,7 @@ signal
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em>
 <br>
-  Defines: write memcpy<br>
+  Defines: memcpy write<br>
  signal management<br>
  Size: ~337B  <a href="../src/signal.c">../src/signal.c</a> l.8  manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
@@ -1241,11 +1269,12 @@ brk
   <em>int brk( const void* addr )</em>
 <br>
   change data segment size<br>
- conformant brk, when mini_errno is defined<br>
-  if no errno is available,<br>
-  returns the negative errno value on error,<br>
-  0 on success<br>
-  Size: ~66B  <a href="../src/brk.c">../src/brk.c</a> l.14  manpage: <a href="manpages/sys/brk.2.rst">brk</a><br>
+ set the brk to addr<br>
+  return 0 on success.<br>
+  conformant brk, when mini_errno is defined return -1 and set errno.<br>
+  if errno isn&#8217;t available,<br>
+  returns the negative errno value on error<br>
+  Size: ~66B  <a href="../src/brk.c">../src/brk.c</a> l.19  manpage: <a href="manpages/sys/brk.2.rst">brk</a><br>
 </p>
 </dd>
 <dt>
@@ -1253,10 +1282,40 @@ free
 </dt>
 <dd>
 <p>
-  <em>void volatile free(void* p)</em>
+  <em>void free(void *p)</em>
 <br>
-  free allocated memory<br>
- Size: ~32B  <a href="../src/malloc.c">../src/malloc.c</a> l.278  manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
+  Defines: brk getbrk<br>
+ free allocated memory<br>
+ Size: ~32B  <a href="../src/malloc.c">../src/malloc.c</a> l.134  manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
+</p>
+</dd>
+<dt>
+free_brk
+</dt>
+<dd>
+<p>
+  <em>int free_brk()</em>
+<br>
+  free all memory,<br>
+  which has been allocated with malloc_brk.<br>
+  Returns 0, if memory has been freed;<br>
+  1, when there hasn&#8217;t been any memory allocations with<br>
+  malloc_brk before.<br>
+  Then brk() gives an error, return the return value of brk<br>
+  <a href="../src/malloc.c">../src/malloc.c</a> l.229
+</p>
+</dd>
+<dt>
+getbrk
+</dt>
+<dd>
+<p>
+  <em>long getbrk()</em>
+<br>
+  get the current brk<br>
+  does either a syscall to brk,<br>
+  or returns the globally saved var<br>
+  <a href="../src/brk.c">../src/brk.c</a> l.39
 </p>
 </dd>
 <dt>
@@ -1264,10 +1323,83 @@ malloc
 </dt>
 <dd>
 <p>
-  <em>void* volatile malloc(int size)</em>
+  <em>void* malloc(int size)</em>
 <br>
   a memory allocator<br>
- Size: ~173B  <a href="../src/malloc.c">../src/malloc.c</a> l.228  manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br>
+ 0<br>
+  Here we go.. with the .. well. <br>
+  Fastes and smallest malloc/free combi ever. <br>
+  Not the smartest.<br>
+  Since it isn&#8217;t exactly a memory allocation,<br>
+  instead it (mis)uses the minilib buf.<br>
+  ;) 1024 Bytes should be enough for everyone.<br>
+   Ok. If you really do need more memory - <br>
+   rethink your design, increase mini_mbuf,<br>
+   or use a proper malloc implementation.<br>
+ <br>
+  Here we use mbuf from top to bottom as stack.<br>
+  64 Bytes are left at the bottom as reserve.<br>
+  Possibly we&#8217;d like to complain<br>
+  about the lack of memory, before we exit..<br>
+ <br>
+  ATM, the <em>free</em> is really lazy. <br>
+  It free&#8217;s memory, but a real <em>free</em> is only commited,<br>
+  when all memory below a freed area is also freed.<br>
+  Since the target of minilib atm are tiny tools, <br>
+  this might be ok.<br>
+  ;) but, as I told before - <br>
+  probably you should look out for a proper malloc implementation.<br>
+  It depends on your needs.<br>
+ <br>
+  I&#8217;m not sure yet, <br>
+  whether another implementation of free would be useful at all.<br>
+  Overall, I&#8217;d really prefer keeping minilib tiny.<br>
+ <br>
+  Reusing sparse freed memory areas also leads <br>
+  to a whole bunch of complications.<br>
+  cache misses, searching complexity,<br>
+  storage overhead, potentially page faults,<br>
+  just to name a few.<br>
+ <br>
+  I&#8217;m not sure whether it&#8217;s worth it.<br>
+ <br>
+  And the existing malloc implementations <br>
+  out there are countless.<br>
+ <br>
+  ;) It&#8217;s sometimes smarter to stay special,<br>
+  although in this case this means the opposite.<br>
+  /misc<br>
+ <br>
+  The memory layout looks like this:<br>
+  mlgl&#8594;ibuf and mlgl&#8594;mbuf do point to the same address range.<br>
+  mlgl&#8594;ibuf is provided for alignment and faster access to the int values.<br>
+ <br>
+  flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), <br>
+  (mbufsize)<br>
+       size  data  size    mini_buf size<br>
+       8008dataxxxx0004data8000<br>
+  Size: ~173B  <a href="../src/malloc.c">../src/malloc.c</a> l.114  manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br>
+</p>
+</dd>
+<dt>
+malloc_brk
+</dt>
+<dd>
+<p>
+  <em>void* malloc_brk(int size)</em>
+<br>
+  Defines: sbrk<br>
+ allocate via setting the brk<br>
+  free and realloc can be used normally.<br>
+  The intention of malloc_brk is for subsequent calls to realloc.<br>
+  The saved data has not to be copied,<br>
+  instead realloc just writes the new size and sets <br>
+  the brk accordingly.<br>
+  if the break is saved before one or more calls to malloc_brk,<br>
+  the allocated memory can also be free&#8217;d by setting the brk to the saved value<br>
+  with brk(saved_brk)<br>
+  free_brk() free&#8217;s all memory, which has been allocated with malloc_brk<br>
+  <a href="../src/malloc.c">../src/malloc.c</a> l.201
 </p>
 </dd>
 <dt>
@@ -1393,9 +1525,9 @@ realloc
 <p>
   <em>void* realloc(void *p, int size)</em>
 <br>
-  Defines: free malloc<br>
+  Defines: brk getbrk malloc<br>
  memory reallocator<br>
- Size: ~636B  <a href="../src/malloc.c">../src/malloc.c</a> l.159  manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
+ Size: ~636B  <a href="../src/malloc.c">../src/malloc.c</a> l.247  manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -1403,14 +1535,15 @@ sbrk
 </dt>
 <dd>
 <p>
-  <em>void* sbrk(int incr)</em>
+  <em>void* sbrk(long incr)</em>
 <br>
   change data segment size<br>
- conformant sbrk, when mini_errno is defined<br>
+ Set the new brk, increment/decrement by incr bytes.<br>
+  return the old brk on success.<br>
+  conformant sbrk, when mini_errno is defined<br>
   if no errno is available,<br>
-  returns the negative errno value on error,<br>
-  or the new break on success. <br>
-  Size: ~108B  <a href="../src/brk.c">../src/brk.c</a> l.35  manpage: <a href="manpages/sys/brk.2.rst">sbrk</a><br>
+  returns the negative errno value on error<br>
+  Size: ~108B  <a href="../src/brk.c">../src/brk.c</a> l.57  manpage: <a href="manpages/sys/brk.2.rst">sbrk</a><br>
 </p>
 </dd>
 <dt>
@@ -1481,7 +1614,7 @@ eprintfs
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em>
 <br>
-  Defines: strlen fileno write<br>
+  Defines: fileno strlen write<br>
  write str to stderr. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.90
@@ -1518,7 +1651,7 @@ eputs
 <p>
   <em>#define eputs(msg) ( eprint(msg) + eprintl() )</em>
 <br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  write msg to stderr, append a newline. Needs strlen.<br>
   <a href="../include/prints.h">../include/prints.h</a> l.77
 </p>
@@ -1542,7 +1675,7 @@ fprint
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em>
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95
 </p>
 </dd>
@@ -1564,8 +1697,8 @@ fprintfs
 <p>
   <em>int fprintfs( FILE* F, char *fmt, &#8230;)</em>
 <br>
-  Defines: write strlen fileno<br>
- prints formatted to the stream F.only %s is recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
+  Defines: fileno write strlen<br>
+ prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
   Size: ~427B  <a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10
 </p>
 </dd>
@@ -1576,7 +1709,7 @@ fprints
 <p>
   <em>#define fprints(F,str) write(fileno(F),str,strlen(str))</em>
 <br>
-  Defines: fileno strlen write<br>
+  Defines: write strlen fileno<br>
  print the string(s) supplied as arg(s) to stream<br>
   <a href="../include/prints.h">../include/prints.h</a> l.24
 </p>
@@ -1624,7 +1757,7 @@ print
 <p>
   <em>#define print(str) write(STDOUT_FILENO,str,strlen(str))</em>
 <br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  write str to stdout. Needs strlen<br>
   <a href="../include/prints.h">../include/prints.h</a> l.38
 </p>
@@ -1648,7 +1781,7 @@ printfs
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em>
 <br>
-  Defines: fileno strlen write<br>
+  Defines: write strlen fileno<br>
  write str to stdout. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.84
@@ -1707,7 +1840,7 @@ putchar
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em>
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  put a byte on a stdout stream<br>
  <a href="../include/fputc.h">../include/fputc.h</a> l.16  manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
 </p>
@@ -1719,7 +1852,7 @@ puts
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em>
 <br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  put a string on standard output<br>
  write msg to stdout, append a newline. Needs strlen.<br>
   <a href="../include/prints.h">../include/prints.h</a> l.73  manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br>
@@ -1798,7 +1931,7 @@ abort
 <p>
   <em>void abort()</em>
 <br>
-  Defines: getpid write memcpy<br>
+  Defines: memcpy write getpid<br>
  <a href="../src/abort.c">../src/abort.c</a> l.3  manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -1835,7 +1968,7 @@ execv
 <p>
   <em>int execv(const char *pathname, char *const argv[])</em>
 <br>
-  Defines: environ execve<br>
+  Defines: execve environ<br>
  execute a file<br>
  Size: ~300B  <a href="../src/execvp.c">../src/execvp.c</a> l.9  manpage: <a href="manpages/gen/exec.3.rst">execv</a><br>
 </p>
@@ -1869,7 +2002,7 @@ execvp
 <p>
   <em>int execvp(const char *file, char *const argv[])</em>
 <br>
-  Defines: execve access environ<br>
+  Defines: access environ execve<br>
  execute a file<br>
  Size: ~556B  <a href="../src/execvp.c">../src/execvp.c</a> l.58  manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -1881,7 +2014,7 @@ execvpe
 <p>
   <em>int execvpe(const char *file, char *const argv[], char *const envp[])</em>
 <br>
-  Defines: access execve environ<br>
+  Defines: execve access environ<br>
  execute a file<br>
  When invoked with a filename, starting with "." or "/",<br>
   interprets this as absolute path. (calls execve with the pathname)<br>
@@ -1995,7 +2128,7 @@ system
 <p>
   <em>int system( const char* command )</em>
 <br>
-  Defines: vfork environ write wait4 execve<br>
+  Defines: write vfork environ execve wait4<br>
  issue a command<br>
  Size: ~326B  <a href="../src/system.c">../src/system.c</a> l.4  manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2013,7 +2146,35 @@ vfork
 </dd>
 </dl>
 <hr>
-<h2><a name="_streams"></a>12.  streams</h2>
+<h2><a name="_regex"></a>12.  regex</h2>
+<dl>
+<dt>
+ext_match
+</dt>
+<dd>
+<p>
+  <em>int ext_match(const char *text, const char *re)</em>
+<br>
+  simple regex engine.<br>
+  matches: * for every count of any char<br>
+  ? for 1 char<br>
+  backslash: escape *,?, and backslash itself.<br>
+  \d - digit<br>
+  \D - nondigit<br>
+  \s - space<br>
+  \S - nonspace<br>
+  \w - word character ( defined as ascii 32-126,160-255 )<br>
+  \W - nonword character ( defined as ascii 0-31,127-159 )<br>
+ <br>
+  (memo) When the regex ist defined as C string,<br>
+  a backslash has to be defined as double backslash<br>
+  in the source code.<br>
+  <a href="../src/ext_match.c">../src/ext_match.c</a> l.16
+</p>
+</dd>
+</dl>
+<hr>
+<h2><a name="_streams"></a>13.  streams</h2>
 <dl>
 <dt>
 clearerr
@@ -2055,7 +2216,7 @@ fdopen
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em>
 <br>
-  Defines: fileno close open<br>
+  Defines: close open fileno<br>
  associate a stream with a file descriptor<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~323B  <a href="../src/fopen.c">../src/fopen.c</a> l.91  manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br>
@@ -2126,7 +2287,7 @@ fopen
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em>
 <br>
-  Defines: fileno open close<br>
+  Defines: close open fileno<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~324B  <a href="../src/fopen.c">../src/fopen.c</a> l.81  manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br>
@@ -2139,7 +2300,7 @@ fputs
 <p>
   <em>int volatile fputs(const char *c, FILE *F)</em>
 <br>
-  Defines: strlen fileno write<br>
+  Defines: write strlen fileno<br>
  put a string on a stream<br>
  Size: ~90B  <a href="../include/fputs.h">../include/fputs.h</a> l.20  manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -2163,7 +2324,7 @@ freopen
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE *F)</em>
 <br>
-  Defines: fileno open close<br>
+  Defines: fileno close open<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~320B  <a href="../src/fopen.c">../src/fopen.c</a> l.101  manpage: <a href="manpages/stdio/fopen.3.rst">freopen</a><br>
@@ -2244,7 +2405,7 @@ setvbuf
 </dd>
 </dl>
 <hr>
-<h2><a name="_strings"></a>13.  strings</h2>
+<h2><a name="_strings"></a>14.  strings</h2>
 <dl>
 <dt>
 _strcasecmp
@@ -2353,7 +2514,7 @@ strdup
 <p>
   <em>char *strdup(const char *source)</em>
 <br>
-  Defines: malloc strcpy strlen<br>
+  Defines: malloc strlen strcpy<br>
  duplicate a specific number of bytes from a string<br>
  Size: ~258B  <a href="../src/strdup.c">../src/strdup.c</a> l.7  manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -2428,7 +2589,7 @@ strstr
 </dd>
 </dl>
 <hr>
-<h2><a name="_system"></a>14.  system</h2>
+<h2><a name="_system"></a>15.  system</h2>
 <dl>
 <dt>
 chroot
@@ -2501,7 +2662,7 @@ macro
   setting the optimization flag of _start to 0, <br>
   having a volatile asm call with the globals as param, and so on,<br>
   have been useless. All after all, seems to me, ai has it&#8217;s restrictions.<br>
-  Size: ~32B  <a href="../include/minilib_global.h">../include/minilib_global.h</a> l.80
+  Size: ~32B  <a href="../include/minilib_global.h">../include/minilib_global.h</a> l.90
 </p>
 </dd>
 <dt>
@@ -2615,7 +2776,7 @@ uname
 </dd>
 </dl>
 <hr>
-<h2><a name="_terminal"></a>15.  terminal</h2>
+<h2><a name="_terminal"></a>16.  terminal</h2>
 <dl>
 <dt>
 grantpt
@@ -2670,7 +2831,7 @@ ptsname
 <p>
   <em>char *ptsname(int fd)</em>
 <br>
-  Defines: open uitodec ioctl write<br>
+  Defines: ioctl uitodec write open<br>
  get name of the slave pseudo-terminal device<br>
  Size: ~1767B  <a href="../src/pty.c">../src/pty.c</a> l.40  manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -2682,7 +2843,7 @@ ptsname_r
 <p>
   <em>int ptsname_r(int fd, char *buf, size_t len)</em>
 <br>
-  Defines: open uitodec ioctl write<br>
+  Defines: open write uitodec ioctl<br>
  get the name of the slave pseudoterminal<br>
  Size: ~1748B  <a href="../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -2736,7 +2897,7 @@ vhangup
 </dd>
 </dl>
 <hr>
-<h2><a name="_time"></a>16.  time</h2>
+<h2><a name="_time"></a>17.  time</h2>
 <dl>
 <dt>
 getitimer
@@ -2827,7 +2988,7 @@ utime
 </dd>
 </dl>
 <hr>
-<h2><a name="_unsorted"></a>17.  unsorted</h2>
+<h2><a name="_unsorted"></a>18.  unsorted</h2>
 <dl>
 <dt>
 def
@@ -2842,6 +3003,79 @@ def
 </p>
 </dd>
 <dt>
+errno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em>
+<br>
+  error return value<br>
+ set errno, but only when errno is defined.<br>
+  <a href="../include/seterrno.h">../include/seterrno.h</a> l.3
+</p>
+</dd>
+<dt>
+match
+</dt>
+<dd>
+<p>
+  <em>int match(const char *text, const char *re)</em>
+<br>
+  simple regex engine.<br>
+  matches: * for every count of any char<br>
+  ? for 1 char<br>
+  backslash: escape *,?, and backslash itself.<br>
+ <br>
+  (memo) When the regex ist defined as C string,<br>
+  a backslash has to be defined as double backslash<br>
+  in the source code.<br>
+  <a href="../src/match.c">../src/match.c</a> l.10
+</p>
+</dd>
+<dt>
+opendirp
+</dt>
+<dd>
+<p>
+  <em>DIR *opendirp(const char *name, DIR *dir)</em>
+<br>
+  Defines: malloc dirbuf close open<br>
+ <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
+</p>
+</dd>
+<dt>
+scandir
+</dt>
+<dd>
+<p>
+  <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em>
+<br>
+  Defines: errno seterrno brk getbrk memcpy dirbuf sbrk malloc<br>
+ scan a directory<br>
+ list files and dirs in a directory<br>
+  This implementation uses malloc_brk() for the dynamic allocation<br>
+  of the listing, and tries to do as less copies as possible.<br>
+  if the select callback is 0, meaning all entries should be returned,<br>
+  There are no copies done at all, <br>
+  besides the copying from kernelspace to userspace.<br>
+  returns the number of the read entries,<br>
+  or the negative errno on error.<br>
+  <a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.18  manpage: <a href="manpages/gen/scandir.3.rst">scandir</a><br>
+</p>
+</dd>
+<dt>
+scandir_bufsize
+</dt>
+<dd>
+<p>
+  __
+<br>
+  the increment of the buffer of scandir in bytes for memory allocations<br>
+  (default:4096)<br>
+  <a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.5
+</p>
+</dd>
+<dt>
 todo_putenv
 </dt>
 <dd>
@@ -2852,9 +3086,34 @@ todo_putenv
  Size: ~248B  <a href="../src/getenv.c">../src/getenv.c</a> l.22
 </p>
 </dd>
+<dt>
+verbose_errstr2
+</dt>
+<dd>
+<p>
+  <em>const char* verbose_errstr2(int num)</em>
+<br>
+  verbose error (errno) string. <br>
+  this adds about 3.5kB to the compiled binary(!)<br>
+  Trying to shrink that here.<br>
+  <a href="../include/errstr2.h">../include/errstr2.h</a> l.11
+</p>
+</dd>
+<dt>
+vexec
+</dt>
+<dd>
+<p>
+  <em>int vexec( const char* path, char* const* argv, char* const* envp )</em>
+<br>
+  execute a path, wait until the executed file exits.<br>
+  instead of system() an absolute pathname is taken.<br>
+  <a href="../src/vexec.c">../src/vexec.c</a> l.4
+</p>
+</dd>
 </dl>
 <hr>
-<h2><a name="_x64_syscalls"></a>18.  x64-syscalls</h2>
+<h2><a name="_x64_syscalls"></a>19.  x64-syscalls</h2>
 <dl>
 <dt>
 sys__sysctl
@@ -2971,11 +3230,11 @@ sys_brk
 </dt>
 <dd>
 <p>
-  <em>sys_brk( unsigned long brk)</em>
+  <em>long sys_brk(unsigned long addr)</em>
 <br>
   change data segment size<br>
  the kernel syscall brk.<br>
-  <a href="../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.29
+  <a href="../src/brk.c">../src/brk.c</a> l.6
 </p>
 </dd>
 <dt>
@@ -6225,7 +6484,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-18 03:26:35 CEST
+ 2020-07-23 18:26:32 CEST
 </small></p>
 </body>
 </html>

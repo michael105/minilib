@@ -5,8 +5,6 @@
 //+header string.h
 //+needs ctype.h
 
-//TODO: not implemented correct. need to return also -1.
-
 // depend onto strncmp. Otherwise thias file will not be compiled.
 //+inc
 //+def
@@ -14,8 +12,11 @@ int _strcmp(const char*c1,const char*c2,int len){
 		int a = 0;
 		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
 				//write(1,&c1[a],1);
-				if ( c1[a] != c2[a] )
+				if ( c1[a] > c2[a] )
 						return(1);
+				if ( c1[a] < c2[a] )
+						return(-1);
+
 				a++;
 		}
 		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
@@ -31,8 +32,10 @@ int _strcasecmp(const char*c1,const char*c2,int len){
 		int a = 0;
 		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
 				if ( c1[a] != c2[a] ){
-						if ( tolower( c1[a] ) != tolower( c2[a] ) )
+						if ( tolower( c1[a] ) > tolower( c2[a] ) )
 								return(1);
+						if ( tolower( c1[a] ) < tolower( c2[a] ) )
+								return(-1);
 				}
 				a++;
 		}
@@ -90,8 +93,11 @@ int memcmp(const void* c1,const void* c2,int len){
 		int a = 0;
 		while ( a != len ){
 				//write(1,&c1[a],1);
-				if ( cc1[a] != cc2[a] )
+				if ( cc1[a] > cc2[a] )
 						return(1);
+				if ( cc1[a] < cc2[a] )
+						return(-1);
+
 				a++;
 		}
 	 return(0);

@@ -40,7 +40,16 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
               besides the copying from kernelspace to userspace.
               returns the number of the read entries,
               or the negative errno on error.
-               (src/dirent/scandir.c: 18)
+              To free the space, allocated for thelisting and the dirents, 
+              either call free_brk(),
+              when no other allocations via malloc_brk took place.
+              Or save the brk before you call scandir,
+              and restore it after the call.
+              (e.g.)
+              long savebrk=getbrk();
+              int ret=scandir(...);
+              brk(savebrk);
+               (src/dirent/scandir.c: 27)
 
 seekdir        void seekdir(DIR *dir, long off);
 

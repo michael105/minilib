@@ -148,12 +148,12 @@ static const char* verbose_errstr2(int num){
 "Operation not possible due to RF-kill\0"
 "Memory page has hardware error";
 		char *c = errstr;
-		
-for ( ; num > 0; num-- ){
-		do {
-				c++;
-		} while ( *c != 0 );
-}
-c++;
-return(c);
+
+		for ( ; num > 0; num-- ){
+				do {
+						c++;
+				} while ( *c != 0 );
+		}
+		c++;
+		return(c);
 }

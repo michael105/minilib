@@ -848,7 +848,7 @@
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  18 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  27 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 </small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
   This implementation uses malloc_brk() for the dynamic allocation
   of the listing, and tries to do as less copies as possible.
@@ -857,6 +857,15 @@
   besides the copying from kernelspace to userspace.
   returns the number of the read entries,
   or the negative errno on error.
+  To free the space, allocated for thelisting and the dirents, 
+  either call free_brk(),
+  when no other allocations via malloc_brk took place.
+  Or save the brk before you call scandir,
+  and restore it after the call.
+  (e.g.)
+  long savebrk=getbrk();
+  int ret=scandir(...);
+  brk(savebrk);
  </small></td></tr>
 <tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  5 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
