@@ -350,6 +350,34 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
+re_match       int re_match(char *text, char *re);
+
+               simple regex engine.
+              matches: * for every count of any char
+              ? for 1 char
+              backslash: escape *,?, and backslash itself.
+             
+              (memo) When the regex ist defined as C string,
+              a backslash has to be defined as double backslash
+              in the source code.
+               (src/re_match.c: 10)
+
+reext_match    int reext_match(char *text, char *re);
+
+               simple regex engine.
+              matches: * for every count of any char
+              ? for 1 char
+              backslash: escape *,?, and backslash itself.
+              \d - digit
+              \D - nondigit
+              \s - space
+              \S - nonspace
+             
+              (memo) When the regex ist defined as C string,
+              a backslash has to be defined as double backslash
+              in the source code.
+               (src/reext_match.c: 14)
+
 sbrk           static void* sbrk(long incr);
 
                Set the new brk, increment/decrement by incr bytes.
