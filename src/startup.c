@@ -51,10 +51,8 @@ environ = envp;
 mlgl->atexitp[0]=0;
 #endif
 
-	// forces gcc to assign the mlgl data structure, 
-	// and put the whole struct on the stack.
-	// Or whatever is needed. 
 	mlgl->brk=0;
+	mlgl->malloc_start=0;
 	
 	// call main
 	int ret = main(argc,argv,envp);

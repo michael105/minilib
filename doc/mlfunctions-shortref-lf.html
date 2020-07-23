@@ -337,7 +337,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  19 </small></td><td><small>  int brk( const void* addr );
 </small></td></tr><tr><td></td><td colspan="2"><small>set the brk to addr
   return 0 on success.
-  conformant brk, when mini_errno is defined
+  conformant brk, when mini_errno is defined return -1 and set errno.
   if errno isn't available,
   returns the negative errno value on error
  </small></td></tr>
@@ -513,6 +513,14 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  134 </small></td><td><small> void free(void *p);
 </small></td></tr>
+<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  225 </small></td><td><small> int free_brk();
+</small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
+  which has been allocated with malloc_brk.
+  Returns 0, if memory has been freed;
+  1, when there hasn't been any memory allocations with
+  malloc_brk before.
+  Then brk() gives an error, return the return value of brk
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  101 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
@@ -590,7 +598,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  89 </small></td><td><small>  void ) optimization_fence(void*p){}
+<tr valign="top"><td><small>macro</small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  90 </small></td><td><small>  void ) optimization_fence(void*p){}
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -785,7 +793,7 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  228 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  243 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -803,14 +811,14 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigreturn</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  135 </small></td><td><small> rt_sigreturn( unsigned long __unused)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  58 </small></td><td><small>  void* sbrk(long incr);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  57 </small></td><td><small>  void* sbrk(long incr);
 </small></td></tr><tr><td></td><td colspan="2"><small>Set the new brk, increment/decrement by incr bytes.
   return the old brk on success.
   conformant sbrk, when mini_errno is defined
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  14 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  18 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 </small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
   This implementation uses malloc_brk() for the dynamic allocation
   of the listing, and tries to do as less copies as possible.
@@ -819,6 +827,10 @@
   besides the copying from kernelspace to userspace.
   returns the number of the read entries,
   or the negative errno on error.
+ </small></td></tr>
+<tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  5 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
+  (default:4096)
  </small></td></tr>
 <tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>

@@ -50,6 +50,7 @@ typedef struct {
 		int align[1];
 		char **environ;
 		unsigned long brk;
+		unsigned long malloc_start;
 #ifdef mini_atexit
 		functionp* atexitp[ATEXIT_MAX];
 #endif

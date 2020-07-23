@@ -40,7 +40,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
               besides the copying from kernelspace to userspace.
               returns the number of the read entries,
               or the negative errno on error.
-               (src/dirent/scandir.c: 14)
+               (src/dirent/scandir.c: 18)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -107,7 +107,7 @@ brk            static int brk( const void* addr );
 
                set the brk to addr
               return 0 on success.
-              conformant brk, when mini_errno is defined
+              conformant brk, when mini_errno is defined return -1 and set errno.
               if errno isn't available,
               returns the negative errno value on error
                (src/brk.c: 19)
@@ -288,7 +288,7 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 89)
+               (include/minilib_global.h: 90)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -357,7 +357,13 @@ sbrk           static void* sbrk(long incr);
               conformant sbrk, when mini_errno is defined
               if no errno is available,
               returns the negative errno value on error
-               (src/brk.c: 58)
+               (src/brk.c: 57)
+
+scandir_bufsize
+
+               the increment of the buffer of scandir in bytes for memory allocations
+              (default:4096)
+               (src/dirent/scandir.c: 5)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -986,6 +992,16 @@ free           void free(void *p);
 
                (src/malloc.c: 134)
 
+free_brk       int free_brk();
+
+               free all memory,
+              which has been allocated with malloc_brk.
+              Returns 0, if memory has been freed;
+              1, when there hasn't been any memory allocations with
+              malloc_brk before.
+              Then brk() gives an error, return the return value of brk
+               (src/malloc.c: 225)
+
 getenv         char* getenv(const char* name);
 
                (src/getenv.c: 8)
@@ -1082,7 +1098,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 228)
+               (src/malloc.c: 243)
 
 srand          void srand( unsigned int i );
 

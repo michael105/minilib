@@ -13,7 +13,10 @@ mini_eprintfs
 
 mini_buf 4096
 mini_printf
+mini_sprintf
 mini_itodec
+mini_ltodec
+mini_free_brk
 
 OPTFLAG -O0
 
@@ -68,7 +71,7 @@ int main(int argc, char **argv){
 					writes("z\n");
 			}
 
-		
+			free_brk();	
 	}
 	
 

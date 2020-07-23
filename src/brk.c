@@ -12,7 +12,7 @@ static long sys_brk(unsigned long addr){
 
 //+doc set the brk to addr
 // return 0 on success.
-// conformant brk, when mini_errno is defined
+// conformant brk, when mini_errno is defined return -1 and set errno.
 // if errno isn't available,
 // returns the negative errno value on error
 //+def
@@ -38,11 +38,10 @@ static int brk( const void* addr ){
 //+def
 static long getbrk(){
 #ifdef mini_globals
-		if ( mlgl->brk ){
-				return(mlgl->brk);
-		} else {
-				return(_sys_brk(0)); // get the old brk
+		if ( !mlgl->brk ){
+				mlgl->brk=_sys_brk(0); // get the old brk
 		}
+	return(mlgl->brk);
 #else
 		return(_sys_brk(0));
 #endif
