@@ -85,7 +85,7 @@ static void swap(void* a, void* b,int size){
 static void _qsort(void *base, int left, int right, int size, int(*cmp)(const void*,const void*)){
 		if(left >= right) return;
 		int i = left, j = right;
-		while(1) {
+		while(i<j) {
 				while( cmp(base+i, base+left) > 0 && (i<j) ) i+=size;
 				while( cmp(base+left, base+j) < 0 && (i<j) ) j-=size;
 				if(i >= j) break;
