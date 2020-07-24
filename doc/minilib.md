@@ -412,6 +412,12 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 220)
 
+swap           static inline void __attribute__((always_inline)) swap(void* a, void* b,int size);
+
+               swap a with b, with 'size' bytes
+              swaps integers and longs at once, when size eq sizeof(int/long)
+               (src/qsort.c: 21)
+
 sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
@@ -1138,7 +1144,7 @@ malloc_brk     void* malloc_brk(int size);
 qsort          void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
 
                qsort, implemented as recursive function
-               (src/qsort.c: 31)
+               (src/qsort.c: 79)
 
 rand           unsigned int rand();
 
