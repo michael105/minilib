@@ -5,6 +5,8 @@
 #ifndef included_minilib_h
 #define dirbufsize 2048
 #define scandir_bufsize 4096
+void optimization_fence(void*p);
+
 // 1 "minilib.h"
 #define MLIB 1
 #define LINUX 1
@@ -15,550 +17,552 @@
 #define mini_start 
 #define mini_exit exit
 #define mini_syscalls 
-#define mini_ioctl ioctl
 #define mini_time time
-#define mini_system system
-#define mini_malloc_brk malloc_brk
-#define mini_atexit atexit
-#define mini_abort abort
-#define mini_labs labs
-#define mini_malloc malloc
-#define mini_srand srand
-#define mini_rand rand
-#define mini_strtol strtol
-#define mini_todo_putenv todo_putenv
-#define mini_free_brk free_brk
-#define mini_atol atol
-#define mini_realloc realloc
-#define mini_abs abs
-#define mini_div div
-#define mini_free free
-#define mini_atoi atoi
-#define mini_getenv getenv
-#define mini_ldiv ldiv
-#define mini_sigaddset sigaddset
-#define mini_raise raise
-#define mini_sigemptyset sigemptyset
-#define mini_sigismember sigismember
-#define mini_sigprocmask sigprocmask
-#define mini_sigfillset sigfillset
-#define mini_signal signal
-#define mini_sigaction sigaction
-#define mini_sigdelset sigdelset
-#define mini_getchar getchar
-#define mini_perror perror
-#define mini_clearerror clearerror
-#define mini_fopen fopen
-#define mini_fputc fputc
-#define mini_fgets fgets
-#define mini_printf printf
-#define mini_feof feof
-#define mini__itohex _itohex
-#define mini_fread fread
-#define mini_fileno fileno
-#define mini_fprint fprint
-#define mini_fclose fclose
-#define mini_ungetc ungetc
-#define mini_freopen freopen
-#define mini_vfprintf vfprintf
-#define mini_fgetpos fgetpos
-#define mini__fopen _fopen
-#define mini_putc putc
-#define mini_gets gets
-#define mini_rewind rewind
-#define mini_setbuf setbuf
-#define mini_sprintf sprintf
-#define mini_fwrite fwrite
-#define mini_ftell ftell
-#define mini_itoHEX itoHEX
-#define mini_fsetpos fsetpos
 #define mini_fprintf fprintf
-#define mini_putchar putchar
-#define mini_fflush fflush
-#define mini_ferror ferror
 #define mini_itohex itohex
+#define mini_ftell ftell
+#define mini__itohex _itohex
+#define mini_putc putc
+#define mini_ferror ferror
+#define mini_printf printf
+#define mini_sprintf sprintf
 #define mini_clearerr clearerr
-#define mini_fdopen fdopen
-#define mini_fseek fseek
-#define mini_fputs fputs
-#define mini_setvbuf setvbuf
+#define mini_fgets fgets
+#define mini_fclose fclose
+#define mini_perror perror
+#define mini_fgetpos fgetpos
+#define mini_fprint fprint
+#define mini_fileno fileno
+#define mini_feof feof
 #define mini_puts puts
-#define mini_getc getc
+#define mini_fopen fopen
+#define mini_clearerror clearerror
+#define mini_putchar putchar
+#define mini_fdopen fdopen
 #define mini_fgetc fgetc
+#define mini_ungetc ungetc
+#define mini_vfprintf vfprintf
+#define mini_getc getc
+#define mini_fputc fputc
+#define mini_fwrite fwrite
+#define mini_fseek fseek
+#define mini_fsetpos fsetpos
+#define mini__fopen _fopen
+#define mini_fflush fflush
+#define mini_fputs fputs
+#define mini_fread fread
+#define mini_freopen freopen
+#define mini_setvbuf setvbuf
+#define mini_setbuf setbuf
+#define mini_getchar getchar
+#define mini_itoHEX itoHEX
+#define mini_rewind rewind
+#define mini_gets gets
 #define mini_wait wait
 #define mini_waitpid waitpid
-#define mini_mremap mremap
-#define mini_writes writes
-#define mini_dirbufsize dirbufsize
-#define mini_dtodec dtodec
-#define mini_eprintl eprintl
-#define mini_eprint eprint
-#define mini_errno_str errno_str
-#define mini_verbose_errstr verbose_errstr
-#define mini_fprints fprints
-#define mini_ultodec ultodec
-#define mini_unlockpt unlockpt
-#define mini_dprints dprints
-#define mini_printfs printfs
-#define mini_vsnprintf vsnprintf
-#define mini_fexecve fexecve
-#define mini_eprints eprints
-#define mini_ptsname_r ptsname_r
-#define mini_grantpt grantpt
-#define mini_eputs eputs
-#define mini_eprintfs eprintfs
-#define mini_brk brk
-#define mini_mmap mmap
-#define mini_vexec vexec
-#define mini_fprintfs fprintfs
-#define mini_print print
-#define mini_dirfd dirfd
-#define mini_fexecveat fexecveat
-#define mini_printl printl
-#define mini_ewrites ewrites
-#define mini_fwrites fwrites
-#define mini_snprintf snprintf
-#define mini_djb2_hash djb2_hash
-#define mini_itodec itodec
-#define mini_dirbuf dirbuf
-#define mini_basename basename
-#define mini_ext_match ext_match
-#define mini_dirname dirname
-#define mini__itobin _itobin
-#define mini_posix_openpt posix_openpt
-#define mini_sbrk sbrk
-#define mini_macro macro
-#define mini_opendirp opendirp
-#define mini_ltodec ltodec
-#define mini_memfrob memfrob
-#define mini_scandir_bufsize scandir_bufsize
-#define mini_sdbm_hash sdbm_hash
-#define mini__mprints _mprints
-#define mini_sys_brk sys_brk
-#define mini_match match
-#define mini_prints prints
-#define mini_printsl printsl
-#define mini_exit_errno exit_errno
-#define mini_def def
-#define mini_uitodec uitodec
-#define mini_ptsname ptsname
-#define mini_verbose_errstr2 verbose_errstr2
-#define mini_itobin itobin
-#define mini_dprintf dprintf
-#define mini_getbrk getbrk
-#define mini_munmap munmap
-#define mini_stat stat
-#define mini_rt_sigreturn rt_sigreturn
-#define mini_mount mount
-#define mini_vhangup vhangup
-#define mini_kill kill
-#define mini_pivot_root pivot_root
-#define mini_fchown fchown
-#define mini_getppid getppid
-#define mini_getdents getdents
-#define mini_wait4 wait4
-#define mini_fchmod fchmod
-#define mini_vfork vfork
-#define mini_sync sync
-#define mini_execveat execveat
-#define mini_splice splice
-#define mini_fcntl fcntl
-#define mini_getcwd getcwd
-#define mini_sendfile sendfile
-#define mini_readahead readahead
-#define mini_memfd_create memfd_create
-#define mini_umask umask
-#define mini_fstat fstat
-#define mini_symlink symlink
-#define mini_dup3 dup3
-#define mini_gettimeofday gettimeofday
-#define mini_getitimer getitimer
-#define mini_umount2 umount2
-#define mini_rt_sigaction rt_sigaction
-#define mini_nanosleep nanosleep
-#define mini_setitimer setitimer
-#define mini_mknod mknod
-#define mini_mprotect mprotect
-#define mini_setgroups setgroups
-#define mini_reboot reboot
-#define mini_chmod chmod
-#define mini_uname uname
-#define mini_rt_sigprocmask rt_sigprocmask
-#define mini_utime utime
-#define mini_dup dup
-#define mini_getuid getuid
-#define mini_select select
-#define mini_execvp execvp
-#define mini_open open
-#define mini_execve execve
-#define mini_fsync fsync
-#define mini_fork fork
-#define mini_pipe pipe
-#define mini_setuid setuid
-#define mini_rename rename
-#define mini_lseek lseek
-#define mini_isatty isatty
-#define mini_chroot chroot
-#define mini_ftruncate ftruncate
-#define mini_sleep sleep
-#define mini_getpgrp getpgrp
-#define mini_chown chown
-#define mini_write write
-#define mini_execv execv
-#define mini_mkdir mkdir
-#define mini_tcgetattr tcgetattr
-#define mini_getgid getgid
-#define mini_setsid setsid
-#define mini_read read
-#define mini_tcsetattr tcsetattr
-#define mini_chdir chdir
-#define mini_setgid setgid
-#define mini_setpgid setpgid
-#define mini_rmdir rmdir
-#define mini_close close
-#define mini_execvpe execvpe
-#define mini_usleep usleep
-#define mini_getpid getpid
-#define mini_dup2 dup2
-#define mini_unlink unlink
-#define mini_link link
-#define mini_access access
-#define mini_execl execl
-#define mini_strrchr strrchr
+#define mini_errno errno
 #define mini_strcat strcat
+#define mini_strdup strdup
+#define mini_strcasecmp strcasecmp
+#define mini_strcmp strcmp
+#define mini_strerror strerror
+#define mini_memmove memmove
+#define mini_strncpy strncpy
+#define mini_memcmp memcmp
+#define mini_strncmp strncmp
+#define mini_memset memset
+#define mini__strcasecmp _strcasecmp
+#define mini_strstr strstr
 #define mini_strcpy strcpy
 #define mini_strncasecmp strncasecmp
-#define mini_memset memset
-#define mini_strcasecmp strcasecmp
-#define mini_strncpy strncpy
-#define mini_strlen strlen
-#define mini_strcmp strcmp
+#define mini_strrchr strrchr
 #define mini__strcmp _strcmp
-#define mini__strcasecmp _strcasecmp
 #define mini_memcpy memcpy
-#define mini_strdup strdup
-#define mini_strchrnul strchrnul
-#define mini_memmove memmove
-#define mini_strncmp strncmp
-#define mini_memcmp memcmp
-#define mini_strerror strerror
-#define mini_strstr strstr
+#define mini_strlen strlen
 #define mini_strchr strchr
-#define mini__writev _writev
-#define mini__inotify_init1 _inotify_init1
-#define mini__getpriority _getpriority
-#define mini__shmdt _shmdt
-#define mini__truncate _truncate
-#define mini__clock_gettime _clock_gettime
-#define mini__fcntl _fcntl
-#define mini__dup _dup
-#define mini__sync _sync
-#define mini__select _select
-#define mini__mremap _mremap
-#define mini__chdir _chdir
-#define mini__msgctl _msgctl
-#define mini__alarm _alarm
-#define mini__getrandom _getrandom
-#define mini__creat _creat
-#define mini__removexattr _removexattr
-#define mini__ioctl _ioctl
-#define mini__clock_getres _clock_getres
-#define mini__fchmod _fchmod
-#define mini__setitimer _setitimer
-#define mini__sched_get_priority_max _sched_get_priority_max
-#define mini__get_robust_list _get_robust_list
-#define mini__process_vm_writev _process_vm_writev
-#define mini__rt_tgsigqueueinfo _rt_tgsigqueueinfo
-#define mini__capset _capset
-#define mini__mount _mount
-#define mini__clock_adjtime _clock_adjtime
-#define mini__pwritev _pwritev
-#define mini__set_robust_list _set_robust_list
-#define mini__setns _setns
-#define mini__lremovexattr _lremovexattr
-#define mini__getitimer _getitimer
-#define mini__lchown _lchown
-#define mini__setfsuid _setfsuid
-#define mini__accept4 _accept4
-#define mini__ustat _ustat
-#define mini__sched_getaffinity _sched_getaffinity
-#define mini__timer_create _timer_create
-#define mini__acct _acct
-#define mini__lgetxattr _lgetxattr
-#define mini__execve _execve
-#define mini__fdatasync _fdatasync
-#define mini__fgetxattr _fgetxattr
-#define mini__getpid _getpid
-#define mini__mmap _mmap
-#define mini__fchown _fchown
-#define mini__io_setup _io_setup
-#define mini__fremovexattr _fremovexattr
-#define mini__setpriority _setpriority
-#define mini__modify_ldt _modify_ldt
-#define mini__delete_module _delete_module
-#define mini__sysfs _sysfs
-#define mini__process_vm_readv _process_vm_readv
-#define mini__finit_module _finit_module
-#define mini__rmdir _rmdir
-#define mini__move_pages _move_pages
-#define mini__vmsplice _vmsplice
-#define mini__ftruncate _ftruncate
-#define mini__remap_file_pages _remap_file_pages
-#define mini__symlink _symlink
-#define mini__sched_rr_get_interval _sched_rr_get_interval
-#define mini__msgrcv _msgrcv
-#define mini__mq_notify _mq_notify
-#define mini__shmctl _shmctl
-#define mini__setregid _setregid
-#define mini__kexec_file_load _kexec_file_load
-#define mini__sched_yield _sched_yield
-#define mini__setxattr _setxattr
-#define mini__exit_group _exit_group
-#define mini__fstat _fstat
-#define mini___sysctl __sysctl
-#define mini__eventfd2 _eventfd2
-#define mini__getxattr _getxattr
-#define mini__umount2 _umount2
-#define mini__tgkill _tgkill
-#define mini__shmat _shmat
-#define mini__accept _accept
-#define mini__getdents64 _getdents64
-#define mini__ioperm _ioperm
-#define mini__utime _utime
-#define mini__dup3 _dup3
-#define mini__timer_settime _timer_settime
-#define mini__munlock _munlock
-#define mini__swapon _swapon
-#define mini__umask _umask
-#define mini__munlockall _munlockall
-#define mini__lstat _lstat
-#define mini__rt_sigpending _rt_sigpending
-#define mini__sendmsg _sendmsg
-#define mini__recvmsg _recvmsg
-#define mini__sendfile _sendfile
-#define mini__setreuid _setreuid
-#define mini__epoll_pwait _epoll_pwait
-#define mini__sched_getattr _sched_getattr
-#define mini__request_key _request_key
-#define mini__sched_getparam _sched_getparam
-#define mini__wait4 _wait4
-#define mini__mq_timedreceive _mq_timedreceive
-#define mini__open_by_handle_at _open_by_handle_at
-#define mini__fchownat _fchownat
-#define mini__mincore _mincore
-#define mini__capget _capget
-#define mini__sync_file_range _sync_file_range
-#define mini__listxattr _listxattr
-#define mini__getsockopt _getsockopt
-#define mini__shutdown _shutdown
-#define mini__pwrite64 _pwrite64
-#define mini__futex _futex
-#define mini__newfstatat _newfstatat
-#define mini__readlinkat _readlinkat
-#define mini__msync _msync
-#define mini__memfd_create _memfd_create
-#define mini__mlock _mlock
-#define mini__semop _semop
-#define mini__io_submit _io_submit
-#define mini__rt_sigqueueinfo _rt_sigqueueinfo
-#define mini__quotactl _quotactl
-#define mini__setsockopt _setsockopt
-#define mini__sched_get_priority_min _sched_get_priority_min
-#define mini__statfs _statfs
-#define mini__fchmodat _fchmodat
-#define mini__syslog _syslog
-#define mini__kexec_load _kexec_load
-#define mini__sched_setscheduler _sched_setscheduler
-#define mini__readlink _readlink
-#define mini__preadv _preadv
-#define mini__restart_syscall _restart_syscall
-#define mini__access _access
-#define mini__mkdirat _mkdirat
-#define mini__mbind _mbind
-#define mini__timer_delete _timer_delete
-#define mini__clock_nanosleep _clock_nanosleep
-#define mini__pread64 _pread64
-#define mini__symlinkat _symlinkat
-#define mini__perf_event_open _perf_event_open
-#define mini__fanotify_mark _fanotify_mark
-#define mini__poll _poll
-#define mini__semget _semget
-#define mini__ptrace _ptrace
-#define mini__madvise _madvise
-#define mini__nanosleep _nanosleep
-#define mini__sendmmsg _sendmmsg
-#define mini__kill _kill
-#define mini__lsetxattr _lsetxattr
-#define mini__migrate_pages _migrate_pages
-#define mini__recvmmsg _recvmmsg
-#define mini__chmod _chmod
-#define mini__rt_sigtimedwait _rt_sigtimedwait
-#define mini__socketpair _socketpair
-#define mini__getdents _getdents
-#define mini__seccomp _seccomp
-#define mini__timer_getoverrun _timer_getoverrun
-#define mini__getpeername _getpeername
-#define mini__inotify_init _inotify_init
-#define mini__tkill _tkill
-#define mini__signalfd _signalfd
-#define mini__fallocate _fallocate
-#define mini__mknodat _mknodat
-#define mini__sysinfo _sysinfo
-#define mini__listen _listen
-#define mini__sendto _sendto
-#define mini__setfsgid _setfsgid
-#define mini__vfork _vfork
-#define mini__fanotify_init _fanotify_init
-#define mini__fsetxattr _fsetxattr
-#define mini__reboot _reboot
-#define mini__readahead _readahead
-#define mini__msgsnd _msgsnd
-#define mini__getsockname _getsockname
-#define mini__semctl _semctl
-#define mini__rename _rename
-#define mini__mknod _mknod
-#define mini__clone _clone
-#define mini__adjtimex _adjtimex
-#define mini__get_mempolicy _get_mempolicy
-#define mini__uname _uname
-#define mini__mprotect _mprotect
-#define mini__waitid _waitid
-#define mini__sched_setaffinity _sched_setaffinity
-#define mini__unshare _unshare
-#define mini__setuid _setuid
-#define mini__unlinkat _unlinkat
-#define mini__chroot _chroot
-#define mini__epoll_ctl _epoll_ctl
-#define mini__set_tid_address _set_tid_address
-#define mini__getegid _getegid
-#define mini__settimeofday _settimeofday
-#define mini__kcmp _kcmp
-#define mini__openat _openat
-#define mini__inotify_add_watch _inotify_add_watch
-#define mini__tee _tee
-#define mini__read _read
-#define mini__getuid _getuid
-#define mini__rt_sigprocmask _rt_sigprocmask
-#define mini__times _times
-#define mini__pselect6 _pselect6
-#define mini__getcpu _getcpu
-#define mini__gettimeofday _gettimeofday
-#define mini__clock_settime _clock_settime
-#define mini__mlockall _mlockall
-#define mini__set_mempolicy _set_mempolicy
-#define mini__close _close
-#define mini__syncfs _syncfs
-#define mini__getpgrp _getpgrp
-#define mini__lseek _lseek
-#define mini__mkdir _mkdir
-#define mini__mq_open _mq_open
-#define mini__linkat _linkat
-#define mini__signalfd4 _signalfd4
-#define mini__ppoll _ppoll
-#define mini__fadvise64 _fadvise64
-#define mini__iopl _iopl
-#define mini__exit _exit
-#define mini__bind _bind
-#define mini__connect _connect
-#define mini__faccessat _faccessat
-#define mini__timer_gettime _timer_gettime
-#define mini__mq_timedsend _mq_timedsend
-#define mini__munmap _munmap
-#define mini__getrlimit _getrlimit
-#define mini__getsid _getsid
-#define mini__timerfd_gettime _timerfd_gettime
-#define mini__getrusage _getrusage
-#define mini__setrlimit _setrlimit
-#define mini__chown _chown
-#define mini__utimes _utimes
-#define mini__pause _pause
-#define mini__dup2 _dup2
-#define mini__setsid _setsid
-#define mini__io_cancel _io_cancel
-#define mini__personality _personality
-#define mini__sigaltstack _sigaltstack
-#define mini__mq_unlink _mq_unlink
-#define mini__io_destroy _io_destroy
-#define mini__keyctl _keyctl
-#define mini__utimensat _utimensat
-#define mini__pivot_root _pivot_root
-#define mini__socket _socket
-#define mini__splice _splice
-#define mini__epoll_create _epoll_create
-#define mini__gettid _gettid
-#define mini__renameat2 _renameat2
-#define mini__shmget _shmget
-#define mini__flistxattr _flistxattr
-#define mini__getgroups _getgroups
-#define mini__getpgid _getpgid
-#define mini__write _write
-#define mini__stat _stat
-#define mini__epoll_create1 _epoll_create1
-#define mini__io_getevents _io_getevents
-#define mini__prlimit64 _prlimit64
-#define mini__llistxattr _llistxattr
-#define mini__lookup_dcookie _lookup_dcookie
-#define mini__sched_getscheduler _sched_getscheduler
-#define mini__getcwd _getcwd
-#define mini__open _open
-#define mini__inotify_rm_watch _inotify_rm_watch
-#define mini__fork _fork
-#define mini__futimesat _futimesat
-#define mini__pipe _pipe
-#define mini__flock _flock
-#define mini__setdomainname _setdomainname
-#define mini__sched_setparam _sched_setparam
-#define mini__rt_sigaction _rt_sigaction
-#define mini__name_to_handle_at _name_to_handle_at
-#define mini__add_key _add_key
-#define mini__fsync _fsync
-#define mini__sched_setattr _sched_setattr
-#define mini__renameat _renameat
-#define mini__semtimedop _semtimedop
-#define mini__recvfrom _recvfrom
-#define mini__unlink _unlink
-#define mini__swapoff _swapoff
-#define mini__arch_prctl _arch_prctl
-#define mini__setpgid _setpgid
-#define mini__setgroups _setgroups
-#define mini__prctl _prctl
-#define mini__sethostname _sethostname
-#define mini__geteuid _geteuid
-#define mini__ioprio_set _ioprio_set
-#define mini__msgget _msgget
-#define mini__ioprio_get _ioprio_get
-#define mini__vhangup _vhangup
-#define mini__setresuid _setresuid
-#define mini__rt_sigsuspend _rt_sigsuspend
-#define mini__fchdir _fchdir
-#define mini__timerfd_settime _timerfd_settime
-#define mini__setgid _setgid
-#define mini__epoll_wait _epoll_wait
-#define mini__fstatfs _fstatfs
-#define mini__timerfd_create _timerfd_create
-#define mini__getppid _getppid
-#define mini__getresgid _getresgid
-#define mini__time _time
-#define mini__setresgid _setresgid
-#define mini__pipe2 _pipe2
-#define mini__readv _readv
-#define mini__getresuid _getresuid
-#define mini__init_module _init_module
-#define mini__getgid _getgid
-#define mini__rt_sigreturn _rt_sigreturn
-#define mini__mq_getsetattr _mq_getsetattr
-#define mini__eventfd _eventfd
-#define mini__link _link
-#define mini_errno errno
-#define mini_telldir telldir
-#define mini_opendir opendir
-#define mini_rewinddir rewinddir
-#define mini_scandir scandir
+#define mini_strchrnul strchrnul
+#define mini_creat creat
+#define mini_mkfifo mkfifo
+#define mini_ioctl ioctl
+#define mini_dup dup
+#define mini_ftruncate ftruncate
+#define mini_execv execv
+#define mini_select select
+#define mini_close close
+#define mini_fsync fsync
+#define mini_link link
+#define mini_read read
+#define mini_rename rename
+#define mini_getpgrp getpgrp
+#define mini_chroot chroot
+#define mini_getuid getuid
+#define mini_access access
+#define mini_isatty isatty
+#define mini_execl execl
+#define mini_getpid getpid
+#define mini_setuid setuid
+#define mini_tcgetattr tcgetattr
+#define mini_execve execve
+#define mini_write write
+#define mini_tcsetattr tcsetattr
+#define mini_usleep usleep
+#define mini_lseek lseek
+#define mini_open open
+#define mini_chdir chdir
+#define mini_pipe pipe
+#define mini_mkdir mkdir
+#define mini_sleep sleep
+#define mini_dup2 dup2
+#define mini_execvp execvp
+#define mini_chown chown
+#define mini_setpgid setpgid
+#define mini_setgid setgid
+#define mini_execvpe execvpe
+#define mini_rmdir rmdir
+#define mini_unlink unlink
+#define mini_getgid getgid
+#define mini_setsid setsid
+#define mini_fork fork
+#define mini_mknod mknod
+#define mini_fchown fchown
+#define mini_stat stat
+#define mini_pivot_root pivot_root
+#define mini_setitimer setitimer
+#define mini_wait4 wait4
+#define mini_getitimer getitimer
+#define mini_fcntl fcntl
+#define mini_mount mount
+#define mini_vhangup vhangup
+#define mini_gettimeofday gettimeofday
+#define mini_getdents getdents
+#define mini_fchmod fchmod
+#define mini_getppid getppid
+#define mini_setgroups setgroups
+#define mini_umask umask
+#define mini_sync sync
+#define mini_readahead readahead
+#define mini_reboot reboot
+#define mini_fstat fstat
+#define mini_rt_sigaction rt_sigaction
+#define mini_sendfile sendfile
+#define mini_umount2 umount2
+#define mini_uname uname
+#define mini_dup3 dup3
+#define mini_kill kill
+#define mini_utime utime
+#define mini_nanosleep nanosleep
+#define mini_munmap munmap
+#define mini_rt_sigprocmask rt_sigprocmask
+#define mini_chmod chmod
+#define mini_symlink symlink
+#define mini_splice splice
+#define mini_vfork vfork
+#define mini_execveat execveat
+#define mini_memfd_create memfd_create
+#define mini_rt_sigreturn rt_sigreturn
+#define mini_mprotect mprotect
+#define mini_getcwd getcwd
+#define mini_qsort qsort
+#define mini_strtol strtol
+#define mini_atol atol
+#define mini_atoi atoi
+#define mini_malloc_brk malloc_brk
+#define mini_abs abs
+#define mini_getenv getenv
+#define mini_free_brk free_brk
+#define mini_labs labs
+#define mini_div div
+#define mini_system system
+#define mini_srand srand
+#define mini_abort abort
+#define mini_realloc realloc
+#define mini_atexit atexit
+#define mini_malloc malloc
+#define mini_todo_putenv todo_putenv
+#define mini_free free
+#define mini_ldiv ldiv
+#define mini_rand rand
+#define mini_raise raise
+#define mini_sigprocmask sigprocmask
+#define mini_sigaddset sigaddset
+#define mini_sigfillset sigfillset
+#define mini_sigemptyset sigemptyset
+#define mini_sigaction sigaction
+#define mini_signal signal
+#define mini_sigismember sigismember
+#define mini_sigdelset sigdelset
 #define mini_closedir closedir
 #define mini_readdir readdir
 #define mini_seekdir seekdir
-#define mini_creat creat
-#define mini_mkfifo mkfifo
+#define mini_opendir opendir
+#define mini_scandir scandir
+#define mini_telldir telldir
+#define mini_rewinddir rewinddir
+#define mini__unlinkat _unlinkat
+#define mini__readv _readv
+#define mini__geteuid _geteuid
+#define mini__setpriority _setpriority
+#define mini__getpeername _getpeername
+#define mini__sched_getparam _sched_getparam
+#define mini__request_key _request_key
+#define mini__recvmsg _recvmsg
+#define mini__rt_tgsigqueueinfo _rt_tgsigqueueinfo
+#define mini__lookup_dcookie _lookup_dcookie
+#define mini__sync _sync
+#define mini__chdir _chdir
+#define mini__inotify_rm_watch _inotify_rm_watch
+#define mini__clock_gettime _clock_gettime
+#define mini__waitid _waitid
+#define mini__flistxattr _flistxattr
+#define mini__accept _accept
+#define mini__open _open
+#define mini__getsockname _getsockname
+#define mini__ustat _ustat
+#define mini__ioprio_get _ioprio_get
+#define mini__sysfs _sysfs
+#define mini__uname _uname
+#define mini__init_module _init_module
+#define mini__signalfd _signalfd
+#define mini__epoll_ctl _epoll_ctl
+#define mini__recvfrom _recvfrom
+#define mini__exit_group _exit_group
+#define mini__setsid _setsid
+#define mini__clock_getres _clock_getres
+#define mini__iopl _iopl
+#define mini__pwrite64 _pwrite64
+#define mini__getppid _getppid
+#define mini__vhangup _vhangup
+#define mini__fchdir _fchdir
+#define mini__lstat _lstat
+#define mini__getgid _getgid
+#define mini__writev _writev
+#define mini__io_submit _io_submit
+#define mini__timer_gettime _timer_gettime
+#define mini__vfork _vfork
+#define mini__munlockall _munlockall
+#define mini__get_mempolicy _get_mempolicy
+#define mini__ioperm _ioperm
+#define mini__mq_notify _mq_notify
+#define mini__syncfs _syncfs
+#define mini__mknodat _mknodat
+#define mini__inotify_init1 _inotify_init1
+#define mini__mq_getsetattr _mq_getsetattr
+#define mini__close _close
+#define mini__rt_sigsuspend _rt_sigsuspend
+#define mini__lgetxattr _lgetxattr
+#define mini__truncate _truncate
+#define mini__renameat _renameat
+#define mini__fsync _fsync
+#define mini__set_mempolicy _set_mempolicy
+#define mini__shutdown _shutdown
+#define mini__semtimedop _semtimedop
+#define mini__timer_settime _timer_settime
+#define mini__setgid _setgid
+#define mini__sync_file_range _sync_file_range
+#define mini__getsid _getsid
+#define mini__tee _tee
+#define mini__readahead _readahead
+#define mini__sendmsg _sendmsg
+#define mini__migrate_pages _migrate_pages
+#define mini__mincore _mincore
+#define mini__readlinkat _readlinkat
+#define mini__mknod _mknod
+#define mini__epoll_create _epoll_create
+#define mini__sched_setparam _sched_setparam
+#define mini__syslog _syslog
+#define mini__perf_event_open _perf_event_open
+#define mini__clock_settime _clock_settime
+#define mini__mq_timedsend _mq_timedsend
+#define mini__move_pages _move_pages
+#define mini__modify_ldt _modify_ldt
+#define mini__munmap _munmap
+#define mini__link _link
+#define mini__personality _personality
+#define mini__tgkill _tgkill
+#define mini__chown _chown
+#define mini__timerfd_create _timerfd_create
+#define mini__getpriority _getpriority
+#define mini__pipe2 _pipe2
+#define mini__read _read
+#define mini__removexattr _removexattr
+#define mini__semop _semop
+#define mini__futimesat _futimesat
+#define mini__llistxattr _llistxattr
+#define mini__sched_setscheduler _sched_setscheduler
+#define mini__preadv _preadv
+#define mini__execve _execve
+#define mini__kcmp _kcmp
+#define mini__epoll_create1 _epoll_create1
+#define mini__sendfile _sendfile
+#define mini__mq_open _mq_open
+#define mini__rename _rename
+#define mini__tkill _tkill
+#define mini__socket _socket
+#define mini__sched_get_priority_min _sched_get_priority_min
+#define mini__utime _utime
+#define mini__kexec_file_load _kexec_file_load
+#define mini__mremap _mremap
+#define mini__symlinkat _symlinkat
+#define mini__setpgid _setpgid
+#define mini__process_vm_readv _process_vm_readv
+#define mini__rt_sigprocmask _rt_sigprocmask
+#define mini__getuid _getuid
+#define mini__accept4 _accept4
+#define mini__sched_getattr _sched_getattr
+#define mini__acct _acct
+#define mini__chroot _chroot
+#define mini__sethostname _sethostname
+#define mini__flock _flock
+#define mini__inotify_init _inotify_init
+#define mini__timer_delete _timer_delete
+#define mini__setregid _setregid
+#define mini__capget _capget
+#define mini__delete_module _delete_module
+#define mini__sched_rr_get_interval _sched_rr_get_interval
+#define mini__name_to_handle_at _name_to_handle_at
+#define mini__dup _dup
+#define mini__fstatfs _fstatfs
+#define mini__madvise _madvise
+#define mini__ioctl _ioctl
+#define mini__mmap _mmap
+#define mini__timerfd_settime _timerfd_settime
+#define mini__fstat _fstat
+#define mini__getpid _getpid
+#define mini__sched_getaffinity _sched_getaffinity
+#define mini__unshare _unshare
+#define mini__clock_nanosleep _clock_nanosleep
+#define mini__sched_setattr _sched_setattr
+#define mini__creat _creat
+#define mini__epoll_wait _epoll_wait
+#define mini__mprotect _mprotect
+#define mini__capset _capset
+#define mini__finit_module _finit_module
+#define mini__restart_syscall _restart_syscall
+#define mini__rt_sigaction _rt_sigaction
+#define mini__newfstatat _newfstatat
+#define mini__connect _connect
+#define mini__fgetxattr _fgetxattr
+#define mini__unlink _unlink
+#define mini__sched_get_priority_max _sched_get_priority_max
+#define mini__setuid _setuid
+#define mini__setfsuid _setfsuid
+#define mini__sched_setaffinity _sched_setaffinity
+#define mini__timer_create _timer_create
+#define mini__signalfd4 _signalfd4
+#define mini__epoll_pwait _epoll_pwait
+#define mini__symlink _symlink
+#define mini__fcntl _fcntl
+#define mini__futex _futex
+#define mini__getpgid _getpgid
+#define mini__sched_getscheduler _sched_getscheduler
+#define mini__rmdir _rmdir
+#define mini__alarm _alarm
+#define mini__poll _poll
+#define mini__pselect6 _pselect6
+#define mini__open_by_handle_at _open_by_handle_at
+#define mini__pivot_root _pivot_root
+#define mini__fadvise64 _fadvise64
+#define mini__seccomp _seccomp
+#define mini__pipe _pipe
+#define mini__umask _umask
+#define mini__msgget _msgget
+#define mini__time _time
+#define mini__setgroups _setgroups
+#define mini__msync _msync
+#define mini__fanotify_init _fanotify_init
+#define mini__swapon _swapon
+#define mini__fork _fork
+#define mini__lchown _lchown
+#define mini__getrandom _getrandom
+#define mini__pause _pause
+#define mini__eventfd _eventfd
+#define mini__getxattr _getxattr
+#define mini__io_destroy _io_destroy
+#define mini__munlock _munlock
+#define mini__mbind _mbind
+#define mini__lremovexattr _lremovexattr
+#define mini__msgsnd _msgsnd
+#define mini__write _write
+#define mini__clone _clone
+#define mini__lseek _lseek
+#define mini__quotactl _quotactl
+#define mini__recvmmsg _recvmmsg
+#define mini__bind _bind
+#define mini__sysinfo _sysinfo
+#define mini__semctl _semctl
+#define mini__fdatasync _fdatasync
+#define mini__mlockall _mlockall
+#define mini__rt_sigreturn _rt_sigreturn
+#define mini__fanotify_mark _fanotify_mark
+#define mini__getrusage _getrusage
+#define mini__setsockopt _setsockopt
+#define mini__set_tid_address _set_tid_address
+#define mini__getresuid _getresuid
+#define mini__getdents64 _getdents64
+#define mini__select _select
+#define mini__getsockopt _getsockopt
+#define mini__ppoll _ppoll
+#define mini__setresuid _setresuid
+#define mini__shmat _shmat
+#define mini___sysctl __sysctl
+#define mini__fchownat _fchownat
+#define mini__utimes _utimes
+#define mini__utimensat _utimensat
+#define mini__fallocate _fallocate
+#define mini__add_key _add_key
+#define mini__pwritev _pwritev
+#define mini__splice _splice
+#define mini__reboot _reboot
+#define mini__mkdirat _mkdirat
+#define mini__shmget _shmget
+#define mini__clock_adjtime _clock_adjtime
+#define mini__ftruncate _ftruncate
+#define mini__mq_unlink _mq_unlink
+#define mini__setxattr _setxattr
+#define mini__io_cancel _io_cancel
+#define mini__kill _kill
+#define mini__sched_yield _sched_yield
+#define mini__getgroups _getgroups
+#define mini__fchmod _fchmod
+#define mini__rt_sigtimedwait _rt_sigtimedwait
+#define mini__umount2 _umount2
+#define mini__exit _exit
+#define mini__msgrcv _msgrcv
+#define mini__sendmmsg _sendmmsg
+#define mini__mkdir _mkdir
+#define mini__lsetxattr _lsetxattr
+#define mini__io_setup _io_setup
+#define mini__gettid _gettid
+#define mini__dup3 _dup3
+#define mini__rt_sigpending _rt_sigpending
+#define mini__mount _mount
+#define mini__msgctl _msgctl
+#define mini__process_vm_writev _process_vm_writev
+#define mini__mq_timedreceive _mq_timedreceive
+#define mini__shmdt _shmdt
+#define mini__setitimer _setitimer
+#define mini__swapoff _swapoff
+#define mini__arch_prctl _arch_prctl
+#define mini__openat _openat
+#define mini__times _times
+#define mini__io_getevents _io_getevents
+#define mini__get_robust_list _get_robust_list
+#define mini__fchown _fchown
+#define mini__faccessat _faccessat
+#define mini__setdomainname _setdomainname
+#define mini__fchmodat _fchmodat
+#define mini__getrlimit _getrlimit
+#define mini__dup2 _dup2
+#define mini__vmsplice _vmsplice
+#define mini__inotify_add_watch _inotify_add_watch
+#define mini__ptrace _ptrace
+#define mini__fremovexattr _fremovexattr
+#define mini__readlink _readlink
+#define mini__wait4 _wait4
+#define mini__prlimit64 _prlimit64
+#define mini__semget _semget
+#define mini__setfsgid _setfsgid
+#define mini__listen _listen
+#define mini__settimeofday _settimeofday
+#define mini__sendto _sendto
+#define mini__timerfd_gettime _timerfd_gettime
+#define mini__getresgid _getresgid
+#define mini__setns _setns
+#define mini__gettimeofday _gettimeofday
+#define mini__setresgid _setresgid
+#define mini__remap_file_pages _remap_file_pages
+#define mini__memfd_create _memfd_create
+#define mini__getpgrp _getpgrp
+#define mini__setreuid _setreuid
+#define mini__sigaltstack _sigaltstack
+#define mini__access _access
+#define mini__timer_getoverrun _timer_getoverrun
+#define mini__statfs _statfs
+#define mini__renameat2 _renameat2
+#define mini__eventfd2 _eventfd2
+#define mini__pread64 _pread64
+#define mini__shmctl _shmctl
+#define mini__getdents _getdents
+#define mini__setrlimit _setrlimit
+#define mini__set_robust_list _set_robust_list
+#define mini__getcpu _getcpu
+#define mini__adjtimex _adjtimex
+#define mini__ioprio_set _ioprio_set
+#define mini__socketpair _socketpair
+#define mini__stat _stat
+#define mini__keyctl _keyctl
+#define mini__chmod _chmod
+#define mini__mlock _mlock
+#define mini__kexec_load _kexec_load
+#define mini__fsetxattr _fsetxattr
+#define mini__listxattr _listxattr
+#define mini__getcwd _getcwd
+#define mini__nanosleep _nanosleep
+#define mini__prctl _prctl
+#define mini__getitimer _getitimer
+#define mini__rt_sigqueueinfo _rt_sigqueueinfo
+#define mini__getegid _getegid
+#define mini__linkat _linkat
+#define mini_mremap mremap
+#define mini_ultodec ultodec
+#define mini_dtodec dtodec
+#define mini_eprints eprints
+#define mini_fwrites fwrites
+#define mini_snprintf snprintf
+#define mini_itodec itodec
+#define mini_errno_str errno_str
+#define mini__mprints _mprints
+#define mini_verbose_errstr verbose_errstr
+#define mini_dirbufsize dirbufsize
+#define mini_ptsname_r ptsname_r
+#define mini_ewrites ewrites
+#define mini_fprints fprints
+#define mini__itobin _itobin
+#define mini_printl printl
+#define mini_scandir_bufsize scandir_bufsize
+#define mini_eputs eputs
+#define mini_verbose_errstr2 verbose_errstr2
+#define mini_vsnprintf vsnprintf
+#define mini_unlockpt unlockpt
+#define mini_fexecveat fexecveat
+#define mini_mmap mmap
+#define mini_dirfd dirfd
+#define mini_itobin itobin
+#define mini_sys_brk sys_brk
+#define mini_eprintfs eprintfs
+#define mini_eprintl eprintl
+#define mini_posix_openpt posix_openpt
+#define mini_memfrob memfrob
+#define mini_eprint eprint
+#define mini_ext_match ext_match
+#define mini_print print
+#define mini_exit_errno exit_errno
+#define mini_sbrk sbrk
+#define mini_writes writes
+#define mini_dirbuf dirbuf
+#define mini_ltodec ltodec
+#define mini_sdbm_hash sdbm_hash
+#define mini_brk brk
+#define mini_printsl printsl
+#define mini_match match
+#define mini_swap swap
+#define mini_vexec vexec
+#define mini_prints prints
+#define mini_macro macro
+#define mini_fexecve fexecve
+#define mini_opendirp opendirp
+#define mini_djb2_hash djb2_hash
+#define mini_dprintf dprintf
+#define mini_dprints dprints
+#define mini_getbrk getbrk
+#define mini_uitodec uitodec
+#define mini_basename basename
+#define mini_fprintfs fprintfs
+#define mini_def def
+#define mini_ptsname ptsname
+#define mini_grantpt grantpt
+#define mini_printfs printfs
+#define mini_dirname dirname
 // 1 "./minilib.h" 1
 // 17 "./minilib.h"
 #define included_minilib_h 
@@ -3874,21 +3878,16 @@ struct udiv_t { unsigned int quot, rem; };
 #define ERFKILL 132
 extern int errno;
 // 118 "./minilib.h" 2
-// 339 "./minilib.h"
-#define mini_0 
-// 364 "./minilib.h"
-#define mini_seterrno 
-// 732 "./minilib.h"
+// 175 "./minilib.h"
 #define mini_tolower 
-// 1098 "./minilib.h"
-sighandler_t signal(int sig, sighandler_t func );
-static void* sbrk(long incr);
-// 1112 "./minilib.h"
-char* getenv(const char* name);
-// 1122 "./minilib.h"
-static DIR *opendirp(const char *name, DIR *dir);
+// 258 "./minilib.h"
+#define mini_seterrno 
+// 577 "./minilib.h"
+#define mini_0 
+// 1127 "./minilib.h"
+int vsnprintf(char *buf, long size, const char* fmt, va_list args );
 int _strcmp(const char*c1,const char*c2,int len);
-int _itobin(int i, char*buf, int prec, int groups );
+// 1142 "./minilib.h"
 // 1 "./include/mini_fstream.h" 1
 #define mini_fstream_h 
 // 1 "./include/stdarg.h" 1
@@ -3919,85 +3918,91 @@ static inline void clearerr(FILE *f);
 static inline void clearerror(FILE *f);
 static void setbuf(FILE *stream, char *buf);
 static int setvbuf(FILE *stream, char *buf, int mode, long size);
-// 1138 "./minilib.h" 2
-// 1 "./minilib/include/fputc.h" 1
-#define fputc_c 
-static inline int volatile fputc(int c, FILE* F);
-// 1139 "./minilib.h" 2
-char* fgets(char *buf, int size, FILE* F);
-void* malloc(int size);
-static int execvpe(const char *file, char *const argv[], char *const envp[]);
-// 1163 "./minilib.h"
-#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
-// 1177 "./minilib.h"
-// 1 "./minilib/include/mini_fstream.h" 1
-// 1178 "./minilib.h" 2
-int uitodec(unsigned int i, char *buf, int prec, char limiter );
-#define prints(...) _mprints(__VA_ARGS__,0)
-int volatile open( const char *s, int flags, ... );
-int strlen(const char*str);
-// 1207 "./minilib.h"
-static long getbrk();
-// 1221 "./minilib.h"
-char *strchrnul(const char *s, int c);
-int volatile __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
-#define fprintf(stream,...) write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
-static char* strerror( int errnum );
-int dprintf( int fd, const char *fmt, ... );
-void* malloc_brk(int size);
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-char *strcpy(char *dest, const char *src);
-// 1 "./minilib/include/tcgetattr.h" 1
-#define tcgetattr_h 
-// 13 "./minilib/include/tcgetattr.h"
-int ioctl( int fd, unsigned long int request, ... );
-static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
-// 1262 "./minilib.h" 2
-// 1275 "./minilib.h"
-void* realloc(void *p, int size);
-static inline int raise(int signr);
-int vsnprintf(char *buf, long size, const char* fmt, va_list args );
-int ptsname_r(int fd, char *buf, long len);
-// 1300 "./minilib.h"
-int _itohex(int i,char* buf,int padding, int capitals);
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-// 1320 "./minilib.h"
-#define eprintl() write(STDERR_FILENO,"\n",1)
-#define eprint(str) write(STDERR_FILENO,str,strlen(str))
-static char *errno_str(int err);
-// 1345 "./minilib.h"
-int dprints(int fd, const char *msg,...);
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
-int fprintfs( FILE* F, char *fmt, ...);
-// 1 "./minilib/include/fputs.h" 1
-#define fputs_h 
-// 11 "./minilib/include/fputs.h"
-int strlen(const char*str);
-static int fileno(FILE*);
-static inline int volatile fputs(const char *c, FILE *F);
-// 1362 "./minilib.h" 2
-// 1370 "./minilib.h"
-#define print(str) write(STDOUT_FILENO,str,strlen(str))
+// 1143 "./minilib.h" 2
 // 1 "./minilib/include/fgetc.h" 1
 #define fgetc_h 
 // 11 "./minilib/include/fgetc.h"
 static inline int fgetc(FILE *F);
 // 35 "./minilib/include/fgetc.h"
 static int ungetc(int c, FILE *F);
-// 1377 "./minilib.h" 2
+// 1144 "./minilib.h" 2
+// 1 "./minilib/include/tcgetattr.h" 1
+#define tcgetattr_h 
+// 13 "./minilib/include/tcgetattr.h"
+int ioctl( int fd, unsigned long int request, ... );
+static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
+// 1149 "./minilib.h" 2
+void* realloc(void *p, int size);
+// 1 "./minilib/include/mini_fstream.h" 1
+// 1159 "./minilib.h" 2
+#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+// 1172 "./minilib.h"
+int ptsname_r(int fd, char *buf, long len);
+#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
+char* fgets(char *buf, int size, FILE* F);
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+#define fprintf(stream,...) write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+int _itobin(int i, char*buf, int prec, int groups );
+int _strcasecmp(const char*c1,const char*c2,int len);
+// 1211 "./minilib.h"
+#define printl() write(STDOUT_FILENO,"\n",1)
+int itodec(int i, char *buf, int prec, char limiter );
+// 1225 "./minilib.h"
+int snprintf( char *buf, long size, const char *fmt, ... );
+char *strchrnul(const char *s, int c);
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+// 1 "./minilib/include/fputs.h" 1
+#define fputs_h 
+// 11 "./minilib/include/fputs.h"
+int strlen(const char*str);
+static int fileno(FILE*);
+static inline int volatile fputs(const char *c, FILE *F);
+// 1242 "./minilib.h" 2
+static char *errno_str(int err);
+sighandler_t signal(int sig, sighandler_t func );
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
+char* getenv(const char* name);
+void* malloc_brk(int size);
+// 1 "./minilib/include/fputc.h" 1
+#define fputc_c 
+static inline int volatile fputc(int c, FILE* F);
+// 1273 "./minilib.h" 2
+static char* strerror( int errnum );
+int fprintfs( FILE* F, char *fmt, ...);
+char *strcpy(char *dest, const char *src);
+// 1302 "./minilib.h"
 // 1 "./minilib/include/seterrno.h" 1
 #define seterrno(e) { if ( e>0 ) errno = e; else errno=-e; }
-// 1382 "./minilib.h" 2
-static int brk( const void* addr );
+// 1303 "./minilib.h" 2
+int strlen(const char*str);
+// 1320 "./minilib.h"
+static DIR *opendirp(const char *name, DIR *dir);
+int dprintf( int fd, const char *fmt, ... );
+// 1335 "./minilib.h"
+int dprints(int fd, const char *msg,...);
+// 1350 "./minilib.h"
+int _itohex(int i,char* buf,int padding, int capitals);
+// 1359 "./minilib.h"
+int uitodec(unsigned int i, char *buf, int prec, char limiter );
+static long getbrk();
+int volatile __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
+// 1379 "./minilib.h"
+static inline void __attribute__((always_inline)) swap(void* a, void* b,int size);
 void free(void *p);
-// 1400 "./minilib.h"
-int _strcasecmp(const char*c1,const char*c2,int len);
-int snprintf( char *buf, long size, const char *fmt, ... );
+// 1394 "./minilib.h"
+static int brk( const void* addr );
+void* malloc(int size);
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+#define prints(...) _mprints(__VA_ARGS__,0)
+static int execvpe(const char *file, char *const argv[], char *const envp[]);
 void *memcpy( void *d, const void *s, int n );
-int itodec(int i, char *buf, int prec, char limiter );
-// 1425 "./minilib.h"
-#define sprintf(str,...) snprintf( str, 4096, __VA_ARGS__)
-#define printl() write(STDOUT_FILENO,"\n",1)
+// 1444 "./minilib.h"
+#define eprintl() write(STDERR_FILENO,"\n",1)
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
+#define eprint(str) write(STDERR_FILENO,str,strlen(str))
+static inline int raise(int signr);
+int volatile open( const char *s, int flags, ... );
+static void* sbrk(long incr);
 // 1 "./minilib/include/lseek.h" 1
 #define mini_lseek_h 
 // 15 "./minilib/include/lseek.h"
@@ -4006,8 +4011,7 @@ extern int errno;
 int volatile lseek( unsigned int a1, int a2, int a3 );
 int volatile ftruncate( unsigned int a1, unsigned int a2 );
 int volatile fsync( int a1 );
-// 1436 "./minilib.h" 2
-#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+// 1475 "./minilib.h" 2
 // 1 "./minilib/include/syscalls_x64.h" 1
 #define syscalls_x64_h 
 int volatile sys_read( unsigned int fd, char *buf, long count );
@@ -4315,78 +4319,112 @@ int volatile sys_seccomp( unsigned int op, unsigned int flags, const char *uargs
 int volatile sys_getrandom( char *buf, long count, unsigned int flags );
 int volatile sys_memfd_create( const char *uname_ptr, unsigned int flags );
 int volatile sys_kexec_file_load( int kernel_fd, int initrd_fd, unsigned long cmdline_len, const char *cmdline_ptr, unsigned long flags );
-// 1447 "./minilib.h" 2
-// 1466 "./minilib.h"
-#define putchar(c) fputc(c,stdout)
-// 1501 "./minilib.h"
-void *memset( void *s, int c, int n);
-// 1516 "./minilib.h"
-FILE *fopen(const char* filename, const char* mode);
-// 1601 "./minilib.h"
-struct dirent *readdir(DIR *dir);
-// 1621 "./minilib.h"
-int itoHEX(int i,char* buf,int padding);
-// 1636 "./minilib.h"
-#define puts(msg) ( print(msg) + printl() )
-// 1666 "./minilib.h"
-long atol(const char *c);
+// 1481 "./minilib.h" 2
+// 1510 "./minilib.h"
 long int strtol(const char *c, const char **endp, int base);
-// 1701 "./minilib.h"
-int memcmp(const void* c1,const void* c2,int len);
-// 1721 "./minilib.h"
-int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *), int (*cmp)(const struct dirent **, const struct dirent **));
-// 1746 "./minilib.h"
-long telldir(DIR *dir);
-// 1796 "./minilib.h"
-int vexec( const char* path, char* const* argv, char* const* envp );
-// 1821 "./minilib.h"
-#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-// 1866 "./minilib.h"
-static int atexit( functionp* func );
+// 1520 "./minilib.h"
+void *memset( void *s, int c, int n);
+int atoi(const char *c);
+#define gets(F) fgets(F,0xfffffff,stdin)
+// 1540 "./minilib.h"
+static inline int execvp(const char *file, char *const argv[]);
+pid_t wait(int *wstatus);
+struct dirent *readdir(DIR *dir);
+// 1565 "./minilib.h"
 #define fprints(F,str) write(fileno(F),str,strlen(str))
-// 1881 "./minilib.h"
-#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-// 1891 "./minilib.h"
-// 1 "./minilib/include/errstr.h" 1
-#define ERRNO_MAX 133
-const char* verbose_errstr(int num);
-// 1892 "./minilib.h" 2
-// 1931 "./minilib.h"
-int itohex(int i,char* buf,int padding);
-// 1971 "./minilib.h"
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-// 1981 "./minilib.h"
-void exit_errno( int errnum );
-// 1991 "./minilib.h"
-unsigned int rand();
-// 2001 "./minilib.h"
-static int execl(const char *pathname, const char* arg0,... );
-// 2046 "./minilib.h"
-char *strcat(char *dest, const char *src );
-// 2066 "./minilib.h"
-int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
-// 2141 "./minilib.h"
-char *strrchr(const char *s, int c);
-// 2186 "./minilib.h"
-static DIR *opendir(const char *name );
-char *strchr(const char *s, int c);
-// 2221 "./minilib.h"
+// 1630 "./minilib.h"
+#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
+int posix_openpt(int flags);
+// 1655 "./minilib.h"
+int volatile creat( const char *s, int mode );
+void* memmove(void *dest, const void *src, int n);
+// 1680 "./minilib.h"
 // 1 "./minilib/include/math.h" 1
 #define mini_math_h 
 static div_t div(int numerator, int denominator);
 static ldiv_t ldiv(long int numerator, long int denominator);
 static int abs(int i);
 static long int labs(long int i);
-// 2222 "./minilib.h" 2
-// 2231 "./minilib.h"
+// 1681 "./minilib.h" 2
+// 1710 "./minilib.h"
+int system( const char* command );
+unsigned long djb2_hash(const unsigned char *str);
+int free_brk();
+// 1730 "./minilib.h"
+void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+// 1755 "./minilib.h"
+char *ptsname(int fd);
+// 1800 "./minilib.h"
+void perror(const char *msg);
+// 1875 "./minilib.h"
+static inline int execv(const char *pathname, char *const argv[]);
+#define putc(c,stream) fputc(c,stream)
+// 1930 "./minilib.h"
+static int execl(const char *pathname, const char* arg0,... );
+// 1980 "./minilib.h"
+int strncasecmp(const char*c1,const char*c2,int len);
+// 1990 "./minilib.h"
+#define getchar() fgetc(0)
+// 2025 "./minilib.h"
+static DIR *opendir(const char *name );
+// 2095 "./minilib.h"
+long atol(const char *c);
+// 2105 "./minilib.h"
+#define fwrites(fd,str) write(fd,str,sizeof(str))
 int dtodec(double d, char* buf, int precision);
-// 2261 "./minilib.h"
+// 2120 "./minilib.h"
+// 1 "./minilib/include/errstr.h" 1
+#define ERRNO_MAX 133
+const char* verbose_errstr(int num);
+// 2121 "./minilib.h" 2
+// 2130 "./minilib.h"
+static int sigemptyset(sigset_t *set);
+// 2190 "./minilib.h"
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+// 2205 "./minilib.h"
+int ext_match(const char *text, const char *re);
+void exit_errno( int errnum );
+// 2220 "./minilib.h"
 #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-// 2276 "./minilib.h"
-int volatile creat( const char *s, int mode );
-// 2306 "./minilib.h"
+int ltodec(long i, char *buf, int prec, char limiter );
+unsigned long sdbm_hash(const unsigned char *str);
+// 2275 "./minilib.h"
+// 1 "./minilib/include/mkfifo.h" 1
+static int mkfifo( const char* path, mode_t mode );
+// 2276 "./minilib.h" 2
+static int atexit( functionp* func );
+int todo_putenv( char *s );
+// 2310 "./minilib.h"
+char *strcat(char *dest, const char *src );
+// 2325 "./minilib.h"
 int sigdelset(sigset_t *set, int sig);
-// 2336 "./minilib.h"
+// 2335 "./minilib.h"
+// 1 "./minilib/include/mremap.h" 1
+static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, long old_len, long new_len, int flags, void* new_addr);
+// 2336 "./minilib.h" 2
+// 2370 "./minilib.h"
+int sigismember(sigset_t *set, int sig);
+// 2380 "./minilib.h"
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+// 2425 "./minilib.h"
+#define eputs(msg) ( eprint(msg) + eprintl() )
+int sigaddset(sigset_t *set, int sig);
+// 1 "./minilib/include/select.h" 1
+#define select_h 
+static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+// 2436 "./minilib.h" 2
+// 2455 "./minilib.h"
+// 1 "./minilib/include/fexecveat.h" 1
+static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
+// 2456 "./minilib.h" 2
+// 2510 "./minilib.h"
+unsigned int volatile usleep(unsigned int useconds);
+// 2545 "./minilib.h"
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+// 2580 "./minilib.h"
+int strcmp(const char*c1,const char*c2);
+char *strncpy(char *dest, const char *src, int n);
+// 2610 "./minilib.h"
 // 1 "./minilib/macros/getoptm.h" 1
 #define mini_getoptm_h 
 #define DEF_OPTIONS_ENUM_short enum MINI_OPTIONS_short { a=0x1,b=0x2,c=0x4,d=0x8,e=0x10,f=0x20,g=0x40,h=0x80,i=0x100,j=0x200, k=0x400,l=0x800,m=0x1000,n=0x2000,o=0x4000,p=0x8000,q=0x10000,r=0x20000,s=0x40000, t=0x80000,u=0x100000,v=0x200000,w=0x400000,x=0x800000,y=0x1000000,z=0x2000000 };
@@ -4395,145 +4433,98 @@ int sigdelset(sigset_t *set, int sig);
 // 44 "./minilib/macros/getoptm.h"
 #define GETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts & option; } )
 #define SETOPT_short(opts,option) ({ DEF_OPTIONS_ENUM_short; opts = (opts | option); } )
-// 2337 "./minilib.h" 2
-FILE *fdopen(int fd, const char* mode);
-// 2366 "./minilib.h"
-static long sys_brk(unsigned long addr);
-// 2396 "./minilib.h"
-int sigaddset(sigset_t *set, int sig);
-// 2411 "./minilib.h"
-unsigned long djb2_hash(const unsigned char *str);
-// 2456 "./minilib.h"
-char *strncpy(char *dest, const char *src, int n);
-#define printf(...) fprintf(stdout,__VA_ARGS__)
-// 2471 "./minilib.h"
+// 2611 "./minilib.h" 2
+// 2630 "./minilib.h"
+FILE *fopen(const char* filename, const char* mode);
 #define fprint(...) fprintf(__VA_ARGS__)
-// 2486 "./minilib.h"
-// 1 "./minilib/include/fexecve.h" 1
-static inline int fexecve(int fd, char *const argv[], char *const envp[]);
-// 2487 "./minilib.h" 2
-// 2536 "./minilib.h"
-int atoi(const char *c);
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-// 2566 "./minilib.h"
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-// 2581 "./minilib.h"
-int isatty(int fd);
-// 2601 "./minilib.h"
-#define getc(F) fgetc(F)
-// 2656 "./minilib.h"
-void* memfrob(void* s, unsigned int len);
-// 2666 "./minilib.h"
-// 2686 "./minilib.h"
-int ext_match(const char *text, const char *re);
-// 2706 "./minilib.h"
-int sigismember(sigset_t *set, int sig);
-void rewinddir(DIR *dir);
-// 2726 "./minilib.h"
-int dirfd(DIR *d);
-// 2766 "./minilib.h"
-#define eputs(msg) ( eprint(msg) + eprintl() )
-#define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
-// 2836 "./minilib.h"
-int free_brk();
-// 2901 "./minilib.h"
 void srand( unsigned int i );
-// 2946 "./minilib.h"
-void seekdir(DIR *dir, long off);
-// 2961 "./minilib.h"
-static void* __attribute__((optimize("O0"))) mmap(void* addr, long len, int prot, int flags, int fd, off_t off);
-// 3006 "./minilib.h"
-int unlockpt(int fd);
-// 3016 "./minilib.h"
-void perror(const char *msg);
-// 3026 "./minilib.h"
-#define gets(F) fgets(F,0xfffffff,stdin)
-#define vfprintf(...) fprintf(__VA_ARGS__)
-// 3076 "./minilib.h"
-unsigned int volatile sleep(unsigned int seconds);
-// 1 "./minilib/include/errstr2.h" 1
-#define ERRNO_MAX 133
-static const char* verbose_errstr2(int num);
-// 3082 "./minilib.h" 2
-// 3101 "./minilib.h"
-char *ptsname(int fd);
-// 3111 "./minilib.h"
-int strcasecmp(const char*c1,const char*c2);
-// 3121 "./minilib.h"
-char *strdup(const char *source);
-// 3146 "./minilib.h"
-#define getchar() fgetc(0)
-// 3156 "./minilib.h"
-unsigned long sdbm_hash(const unsigned char *str);
-// 3166 "./minilib.h"
-static inline int execv(const char *pathname, char *const argv[]);
-pid_t wait(int *wstatus);
-// 3183 "./minilib.h"
+// 2650 "./minilib.h"
+int ultodec(unsigned long ui, char *buf, int prec, char limiter );
+// 2677 "./minilib.h"
 // 1 "./minilib/include/tcsetattr.h" 1
 #define tcsetattr_h 
 int ioctl( int fd, unsigned long int request, ... );
 // 20 "./minilib/include/tcsetattr.h"
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
-// 3184 "./minilib.h" 2
-// 3208 "./minilib.h"
-#define fwrites(fd,str) write(fd,str,sizeof(str))
-// 3228 "./minilib.h"
-// 1 "./minilib/include/fexecveat.h" 1
-static inline int fexecveat(int fd, char *const argv[], char *const envp[]);
-// 3229 "./minilib.h" 2
-// 3278 "./minilib.h"
-int grantpt(int fd);
-// 3288 "./minilib.h"
-int closedir(DIR *dir);
-// 3323 "./minilib.h"
-int ultodec(unsigned long ui, char *buf, int prec, char limiter );
-unsigned int volatile usleep(unsigned int useconds);
-// 3348 "./minilib.h"
-#define putc(c,stream) fputc(c,stream)
-// 3393 "./minilib.h"
-static int sigfillset(sigset_t *set);
+// 2678 "./minilib.h" 2
+// 2737 "./minilib.h"
+int itoHEX(int i,char* buf,int padding);
+// 2812 "./minilib.h"
+int unlockpt(int fd);
+// 2877 "./minilib.h"
 int strncmp(const char*c1,const char*c2,int len);
-// 3413 "./minilib.h"
-static inline int execvp(const char *file, char *const argv[]);
-// 3438 "./minilib.h"
-int strcmp(const char*c1,const char*c2);
-// 3453 "./minilib.h"
-// 1 "./minilib/include/mkfifo.h" 1
-static int mkfifo( const char* path, mode_t mode );
-// 3454 "./minilib.h" 2
-// 3503 "./minilib.h"
-int ltodec(long i, char *buf, int prec, char limiter );
-// 3518 "./minilib.h"
-void* memmove(void *dest, const void *src, int n);
-// 3538 "./minilib.h"
-char *dirname(char *s);
-// 3548 "./minilib.h"
-char *basename(char *path);
-// 3598 "./minilib.h"
-static int sigemptyset(sigset_t *set);
-// 3648 "./minilib.h"
-int strncasecmp(const char*c1,const char*c2,int len);
-// 3683 "./minilib.h"
-// 1 "./minilib/include/mremap.h" 1
-static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, long old_len, long new_len, int flags, void* new_addr);
-// 3684 "./minilib.h" 2
-// 3693 "./minilib.h"
-int todo_putenv( char *s );
-// 3708 "./minilib.h"
-void abort();
-// 3718 "./minilib.h"
-char* strstr(const char *big, const char *little);
-int system( const char* command );
-// 3753 "./minilib.h"
-// 1 "./minilib/include/select.h" 1
-#define select_h 
-static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
-// 3754 "./minilib.h" 2
-// 3823 "./minilib.h"
+// 2887 "./minilib.h"
+int memcmp(const void* c1,const void* c2,int len);
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+// 2902 "./minilib.h"
 int match(const char *text, const char *re);
-// 3838 "./minilib.h"
-int posix_openpt(int flags);
-// 549 "/dev/fd/63" 2
+// 2972 "./minilib.h"
+int itohex(int i,char* buf,int padding);
+// 2997 "./minilib.h"
+void abort();
+int grantpt(int fd);
+// 3027 "./minilib.h"
+int closedir(DIR *dir);
+// 3052 "./minilib.h"
+char* strstr(const char *big, const char *little);
+// 3072 "./minilib.h"
+static int sigfillset(sigset_t *set);
+// 3087 "./minilib.h"
+void rewinddir(DIR *dir);
+// 3102 "./minilib.h"
+long telldir(DIR *dir);
+// 3147 "./minilib.h"
+static void* __attribute__((optimize("O0"))) mmap(void* addr, long len, int prot, int flags, int fd, off_t off);
+// 1 "./minilib/include/errstr2.h" 1
+#define ERRNO_MAX 133
+static const char* verbose_errstr2(int num);
+// 3153 "./minilib.h" 2
+// 3217 "./minilib.h"
+int vexec( const char* path, char* const* argv, char* const* envp );
+// 3237 "./minilib.h"
+// 3282 "./minilib.h"
+char *basename(char *path);
+// 3297 "./minilib.h"
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+// 3307 "./minilib.h"
+int isatty(int fd);
+// 3317 "./minilib.h"
+int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *), int (*cmp)(const struct dirent **, const struct dirent **));
+// 3357 "./minilib.h"
+unsigned int volatile sleep(unsigned int seconds);
+// 3382 "./minilib.h"
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+int strcasecmp(const char*c1,const char*c2);
+// 3442 "./minilib.h"
+int dirfd(DIR *d);
+// 3542 "./minilib.h"
+// 1 "./minilib/include/fexecve.h" 1
+static inline int fexecve(int fd, char *const argv[], char *const envp[]);
+// 3543 "./minilib.h" 2
+// 3572 "./minilib.h"
+#define puts(msg) ( print(msg) + printl() )
+char *strchr(const char *s, int c);
+char *dirname(char *s);
+// 3627 "./minilib.h"
+char *strdup(const char *source);
+// 3642 "./minilib.h"
+unsigned int rand();
+void seekdir(DIR *dir, long off);
+#define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
+// 3707 "./minilib.h"
+#define putchar(c) fputc(c,stdout)
+FILE *fdopen(int fd, const char* mode);
+// 3732 "./minilib.h"
+static long sys_brk(unsigned long addr);
+// 3742 "./minilib.h"
+void* memfrob(void* s, unsigned int len);
+// 3767 "./minilib.h"
+#define getc(F) fgetc(F)
+// 3777 "./minilib.h"
+#define vfprintf(...) fprintf(__VA_ARGS__)
+// 3792 "./minilib.h"
+char *strrchr(const char *s, int c);
+// 551 "/dev/fd/63" 2
 // 1 "<command-line>" 2
 // 1 "minilib.h"
 #endif

@@ -109,7 +109,7 @@
 //
 // Memory is allocated from right to left, 
 // meaning from top to down.
-//
+//+depends brk
 //+def
 void* malloc(int size){
 #ifndef mini_buf

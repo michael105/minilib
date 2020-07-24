@@ -8,6 +8,7 @@ mini_writes
 mini_open
 mini_errno
 mini_readdir
+mini_qsort
 
 mini_match
 mini_strcmp

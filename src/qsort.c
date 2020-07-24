@@ -58,8 +58,7 @@ static inline void __attribute__((always_inline)) swap(void* a, void* b,int size
 // well. So. I leave this as compact as it is.
 // (besides the swap routine, which is vectorized.)
 
-void _qsort(void *base, int left, int right, int size, int(*cmp)(const void*,const voi
-						d*)) {
+void _qsort(void *base, int left, int right, int size, int(*cmp)(const void*,const void*)){
 		if(left >= right) return;
 		int i = left, j = right;
 		while(1) {

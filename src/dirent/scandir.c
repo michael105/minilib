@@ -22,7 +22,7 @@
 // long savebrk=getbrk();
 // int ret=scandir(...);
 // brk(savebrk);
-//+depends errno malloc_brk realloc free memcpy dirbuf seterrno
+//+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort
 //+def scandir
 int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **)){
 #ifndef mini_scandir_bufsize
@@ -109,28 +109,19 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			*list++;
 			de=(void*)de+de->d_reclen;
 	}
-	struct dirent *dse;
-	prints("01\n");
 	struct dirent **list2 = (void*)(buf+cp);
-	dse=list[0];
-	prints("1\n");
-	printf("e0: %s\n",list2[0]->d_name);
-	printf("e0: %s\n",list2[1]->d_name);
-	printf("e0: %s\n",list2[cnt-1]->d_name);
+	*listing = (void*)(buf+cp);
 
-	if (1||cmp){
+	prints("sort now.\n");
+	if (cmp){
 			struct dirent *tmp;
-			cnt--;
-#define LESS(a,b) strcmp(list2[a]->d_name,list2[b]->d_name)
-#define SWAP(a,b) printf("a: %d, b:%d\n",a,b),tmp=list2[a],list2[a]=list2[b],list2[b]=tmp
-			QSORT(30,LESS,SWAP);
-
-			//qsort(names, cnt, sizeof *names, (int (*)(const void *, const void *))cmp);
+			qsort(*list2, cnt-2, sizeof(void*) , (int (*)(const void *, const void *))cmp);
 	}
 	prints("sorted\n");
 	for(int a=0;a<cnt;a++){
 			printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,list2[a]->d_name);
 	}
+	printf("return\n");
 
 	return(cnt);
 }
