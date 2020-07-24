@@ -15,7 +15,10 @@ INCLUDESRC
 return
 #endif
 
-// finally. somehow, possibly this would have worked, without. well. 
+// finally. 
+// working.
+
+
 static inline void swap_p(POINTER*a,POINTER*b){
 		printf("SWAP_P %l x %l\n",a,b);
 		printf("SWAP_P r: %l x %l\n",&a,&b);
@@ -26,20 +29,20 @@ static inline void swap_p(POINTER*a,POINTER*b){
 }
 	
 
-void  _qsort_pp(void ***base, int left, int right, int size, int(*cmp)(void***,void***)) {
+void  _qsort_pp(void ***base, int left, int right, int(*cmp)(void*,void*)) {
 		void*p = **base;
 		printf("sort, addr: %l\n",p);
 		if(left >= right) return;
 		int i = left, j = right;
 		while(1) {
 				printf("s1\n");
-				while(cmp((base+i), (base+left)) >0){
+				while(cmp(**(base+i), **(base+left)) >0){
 						i++;
 						if ( i==j )
 								goto OUT;
 				}
 				printf("ss2\n");
-				while(cmp((base+left), (base+j))<0){
+				while(cmp(**(base+left), **(base+j))<0){
 						j--;
 						if ( i==j )
 								goto OUT;
@@ -72,16 +75,17 @@ void  _qsort_pp(void ***base, int left, int right, int size, int(*cmp)(void***,v
 				i++; j--;
 		}
 OUT:
-		_qsort_pp(base, left, i-1,size,cmp);
-		_qsort_pp(base, j+1, right,size,cmp);
+		_qsort_pp(base, left, i-1,cmp);
+		_qsort_pp(base, j+1, right,cmp);
 }
 
 
 
+//void  qsort_pp(void ***base, int count, int(*cmp)(void***,void***)) {
 
-int s_cmp(void *** a, void *** b){
-		char *c1=**a;
-		char *c2=**b;
+int s_cmp(void * a, void * b){
+		char *c1=a;
+		char *c2=b;
 		prints("CMP: ");
 		prints(c1);
 		prints(c2);
@@ -129,7 +133,7 @@ int main(){
 				write(1,"\n",1);
 		}
 	
-		_qsort_pp((void***)s_array, 0,(S-1),1, s_cmp);
+		_qsort_pp((void***)s_array, 0,(S-1), s_cmp);
 
 		prints("XXXX\n");
 
