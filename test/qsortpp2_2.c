@@ -30,11 +30,9 @@ static inline void swap_p(POINTER*a,POINTER*b){
 	
 
 void  _qsort_pp(void ***base, int left, int right, int(*cmp)(void*,void*)) {
-		void*p = **base;
-		printf("sort, addr: %l\n",p);
 		if(left >= right) return;
 		int i = left, j = right;
-		while(1) {
+		while(i<j) {
 
 				while(cmp(**(base+i), **(base+left)) >0)
 						if ( ++i==j )
@@ -44,29 +42,8 @@ void  _qsort_pp(void ***base, int left, int right, int(*cmp)(void*,void*)) {
 						if ( i==--j )
 								goto OUT;
 				
-#if 0
-				printf("swap, %l x %l\n",(POINTER*)(base+i),(POINTER*)(base+j));
-        asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
-								: "+r"((POINTER*)(base+i)),"+g"((POINTER*)(base+j)) );
-				printf("swap, %l x %l\n",(POINTER*)(base+i),(POINTER*)(base+j));
-
-				//swap_p((POINTER*)(base+i),(POINTER*)(base+j));
-#else
-				void **tmp = *(base+i);
-				void **tmp2 = *(base+j);
-				printf("sort2, addr: %l, i:%d, j:%d\n",**base,i,j);
-
-				printf("swap, %s x %s\n",**(base+i),**(base+j));
-				printf("swap, %l x %l\n",*(base+i),*(base+j));
 			   asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
 								: "+r"(*(void**)(base+i)),"+g"(*(void**)(base+j)) );
-
-				//*(base+i) = tmp2;
-				//*(base+j) = tmp;
-
-				printf("swapped, %l x %l\n",*(base+i),*(base+j));
-				printf("swapped, %s x %s\n",**(base+i),**(base+j));
-#endif
 
 				i++; j--;
 		}
