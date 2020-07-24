@@ -222,7 +222,7 @@ ____
          void *bsearch(const void *key, const void *base,
                   size_t nmemb, size_t size,
                   int (*compar)(const void *, const void *));
-         void qsort(void *base, size_t nmemb, size_t size,
+     x    void qsort(void *base, size_t nmemb, size_t size,
                   int (*compar)(const void *, const void *));
      x    int abs(int j);
      x    div_t div(int numer, int denom);

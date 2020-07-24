@@ -281,11 +281,6 @@ grantpt        int grantpt(int fd);
 
                (src/pty.c: 13)
 
-int(*cmp)      void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
-
-               qsort, implemented as recursive function
-               (src/qsort.c: 31)
-
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
                (src/itobin.c: 41)
@@ -1139,6 +1134,11 @@ malloc_brk     void* malloc_brk(int size);
               with brk(saved_brk)
               free_brk() free's all memory, which has been allocated with malloc_brk
                (src/malloc.c: 201)
+
+qsort          void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+
+               qsort, implemented as recursive function
+               (src/qsort.c: 31)
 
 rand           unsigned int rand();
 
