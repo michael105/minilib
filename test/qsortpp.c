@@ -7,7 +7,7 @@ mini_itodec
 mini_ltodec
 mini_strcmp
 
-OPTFLAG -O2
+OPTFLAG -O0
 STRIPFLAG
 
 INCLUDESRC
@@ -33,8 +33,8 @@ static inline void swap_p(POINTER*a,POINTER*b){
 }
 	
 
-void  _qsort_p(char **base, int left, int right, int size, int(*cmp)(char**,char**)) {
-		char*p = *base;
+void  _qsort_p(char ***base, int left, int right, int size, int(*cmp)(char***,char***)) {
+		char*p = **base;
 		printf("sort, addr: %l\n",p);
 		if(left >= right) return;
 		int i = left, j = right;
@@ -61,16 +61,17 @@ void  _qsort_p(char **base, int left, int right, int size, int(*cmp)(char**,char
 				//swap_p((POINTER*)(base+i),(POINTER*)(base+j));
 #else
 				char **tmp = *(base+i);
-				printf("sort2, addr: %l\n",**base);
+				char **tmp2 = *(base+j);
+				printf("sort2, addr: %l, i:%d, j:%d\n",**base,i,j);
 
-				printf("swap, %s x %s\n",*(char**)(base+i),*(char**)(base+j));
-				printf("swap, %l x %l\n",*(char*)(base+i),*(char*)(base+j));
+				printf("swap, %s x %s\n",**(base+i),**(base+j));
+				printf("swap, %l x %l\n",*(base+i),*(base+j));
 
-				*(base+i) = *(base+j);
+				*(base+i) = tmp2;
 				*(base+j) = tmp;
 
-				printf("swapped, %l x %l\n",*(char*)(base+i),*(char*)(base+j));
-				printf("swapped, %s x %s\n",*(char**)(base+i),*(char**)(base+j));
+				printf("swapped, %l x %l\n",*(base+i),*(base+j));
+				printf("swapped, %s x %s\n",**(base+i),**(base+j));
 #endif
 
 				i+=size; j-=size;
@@ -83,9 +84,9 @@ OUT:
 
 
 
-int s_cmp(char ** a, char ** b){
-		char *c1=*a;
-		char *c2=*b;
+int s_cmp(char *** a, char *** b){
+		char *c1=**a;
+		char *c2=**b;
 		prints("CMP: ");
 		prints(c1);
 		prints(c2);
@@ -133,7 +134,7 @@ int main(){
 				write(1,"\n",1);
 		}
 	
-		_qsort_p(*s_array, 0,(S-1),1, s_cmp);
+		_qsort_p(s_array, 0,(S-1),1, s_cmp);
 
 		prints("XXXX\n");
 
