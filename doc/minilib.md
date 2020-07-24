@@ -1157,7 +1157,7 @@ qsort          static void qsort(void *base, int count, int size, int(*cmp)(cons
               and leave this for now.
               The code might be correct. 
               But, sometimes it works, sometimes not. so.
-               (src/qsort.c: 116)
+               (src/qsort.c: 108)
 
 rand           unsigned int rand();
 
