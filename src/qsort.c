@@ -19,27 +19,19 @@
 // swaps integers and longs at once, when size eq sizeof(int/long)
 //+def
 static inline void swap(void* a, void* b,int size){
-/*		if ( size==1 ){
-				*(char*)a^=*(char*)b;
-				*(char*)b^=*(char*)a;
-				*(char*)a^=*(char*)b;
-				return;
-		} */ // commented this out. impossible to predict the individual cases.
-		// but better save some bytes.
-
 		if ( size==sizeof(int) ){
         asm ("xor %0,%1\nxor %1,%0\nxor %0,%1"
-								: "+r"(*(int*)a),"+r"(*(int*)b) );
+						:"+r"(*(int*)a),"+m"(*(int*)b) );
 				return;
 		}
 		if ( size==sizeof(long) ){
         asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
-								: "+r"(*(long*)a),"+r"(*(long*)b) );
+						:"+r"(*(long*)a),"+m"(*(long*)b) );
 				return;
 		}
 		for ( int n=size;n--;){
         asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
-								: "+r"(*(char*)a),"+r"(*(char*)b) );
+						:"+r"(*(char*)a),"+m"(*(char*)b) );
 				a++;b++;
 		}
 }
