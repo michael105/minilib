@@ -86,8 +86,8 @@ static void _qsort(void *base, int left, int right, int size, int(*cmp)(const vo
 		if(left >= right) return;
 		int i = left, j = right;
 		while(1) {
-				while( cmp(base+i, base+left) > 0 ) i+=size;
-				while( cmp(base+left, base+j) < 0 ) j-=size;
+				while( cmp(base+i, base+left) > 0 && (i<j) ) i+=size;
+				while( cmp(base+left, base+j) < 0 && (i<j) ) j-=size;
 				if(i >= j) break;
 				swap(base+i,base+j,size);
 				i+=size; j-=size;
