@@ -42,8 +42,8 @@ void  _qsort_pp(void ***base, int left, int right, int(*cmp)(void*,void*)) {
 						if ( i==--j )
 								goto OUT;
 				
-			   asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
-								: "+r"(*(void**)(base+i)),"+g"(*(void**)(base+j)) );
+				asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
+								: "+r"(*(base+i)),"+g"(*(base+j)) );
 
 				i++; j--;
 		}
@@ -52,9 +52,11 @@ OUT:
 		_qsort_pp(base, j+1, right,cmp);
 }
 
-
-
-//void  qsort_pp(void ***base, int count, int(*cmp)(void***,void***)) {
+// sort an array of pointers to pointers,
+// sort the pointers to the pointers 
+void  qsort_pp(void ***base, int count, int(*cmp)(void*,void*)) {
+		_qsort_pp(base,0,count-1,cmp);
+}
 
 int s_cmp(void * a, void * b){
 		char *c1=a;
@@ -85,6 +87,7 @@ int main(){
 		int i;
 #define S 4
 		// !!!!!! static. seems to be related to indirect addressing
+		// ok. finally. took me some time
 		char** s_array[S];
 		char *strings[S+1] = { "str3", "str1", "str2", "str0", "str9" };
 		for(i=0; i<S; i++){
@@ -106,7 +109,8 @@ int main(){
 				write(1,"\n",1);
 		}
 	
-		_qsort_pp((void***)s_array, 0,(S-1), s_cmp);
+		//_qsort_pp((void***)s_array, 0,(S-1), s_cmp);
+		qsort_pp((void***)s_array, S, s_cmp);
 
 		prints("XXXX\n");
 
