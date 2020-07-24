@@ -66,9 +66,11 @@ void  _qsort_p(char ***base, int left, int right, int size, int(*cmp)(char***,ch
 
 				printf("swap, %s x %s\n",**(base+i),**(base+j));
 				printf("swap, %l x %l\n",*(base+i),*(base+j));
+			   asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
+								: "+r"(*(char**)(base+i)),"+g"(*(char**)(base+j)) );
 
-				*(base+i) = tmp2;
-				*(base+j) = tmp;
+				//*(base+i) = tmp2;
+				//*(base+j) = tmp;
 
 				printf("swapped, %l x %l\n",*(base+i),*(base+j));
 				printf("swapped, %s x %s\n",**(base+i),**(base+j));
@@ -113,8 +115,8 @@ int main(){
 		int i;
 #define S 4
 		// !!!!!! static. seems to be related to indirect addressing
-		static char** s_array[S];
-		static char *strings[S+1] = { "str3", "str1", "str2", "str0", "str9" };
+		char** s_array[S];
+		char *strings[S+1] = { "str3", "str1", "str2", "str0", "str9" };
 		for(i=0; i<S; i++){
 				s_array[i] = &strings[i];
 				write(1, strings[i],4);
