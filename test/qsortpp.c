@@ -126,7 +126,7 @@ int main(){
 		}
 		printf("\n");
 
-		s_array[2]=s_array[0];
+		//s_array[2]=s_array[0];
 		for(i=0; i<S; i++){
 				//s_array[i] = &strings[i];
 				write(1, strings[i],4);
