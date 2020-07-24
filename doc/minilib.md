@@ -281,6 +281,11 @@ grantpt        int grantpt(int fd);
 
                (src/pty.c: 13)
 
+int(*cmp)      void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+
+               qsort, implemented as recursive function
+               (src/qsort.c: 31)
+
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
                (src/itobin.c: 41)
@@ -1169,15 +1174,15 @@ string.h
 
 _strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 30)
+               (src/strcmp.c: 31)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 13)
+               (src/strcmp.c: 11)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/strcmp.c: 85)
+               (src/strcmp.c: 88)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
 
@@ -1193,7 +1198,7 @@ memset         void *memset( void *s, int c, int n);
 
 strcasecmp     int strcasecmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 49)
+               (src/strcmp.c: 52)
 
 strcat         char *strcat(char *dest, const char *src );
 
@@ -1209,7 +1214,7 @@ strchrnul      char *strchrnul(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 68)
+               (src/strcmp.c: 71)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -1229,11 +1234,11 @@ strlen         int strlen(const char*str);
 
 strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 57)
+               (src/strcmp.c: 60)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 76)
+               (src/strcmp.c: 79)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 

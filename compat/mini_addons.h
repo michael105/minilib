@@ -171,6 +171,9 @@ int ptsname_r(int fd, char *buf, size_t len);
 // file: minilib/src/pty.c
 char *ptsname(int fd);
 
+// file: minilib/src/qsort.c
+void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+
 // file: minilib/src/vexec.c
 int vexec( const char* path, char* const* argv, char* const* envp );
 
@@ -250,32 +253,33 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/prints.h"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/vexec.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/match.c"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/include/dirent.h"
-#include "minilib/src/dirname.c"
-#include "minilib/src/hashes.c"
-#include "minilib/src/itobin.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/ext_match.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/include/minilib_global.h"
 #include "minilib/src/itodec.c"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/brk.c"
-#include "minilib/src/mmap.c"
-#include "minilib/src/exit_errno.c"
-#include "minilib/src/dirent/scandir.c"
 #include "minilib/include/fexecve.h"
-#include "minilib/src/basename.c"
-#include "minilib/src/pty.c"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/dirname.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/hashes.c"
 #include "minilib/src/prints.c"
+#include "minilib/src/basename.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/itobin.c"
+#include "minilib/include/dirent.h"
+#include "minilib/src/brk.c"
 #include "minilib/src/dtodec.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/mmap.c"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/dirent/scandir.c"
+#include "minilib/src/vexec.c"
+#include "minilib/src/qsort.c"
+#include "minilib/src/errno_str.c"
+#include "minilib/src/match.c"
+#include "minilib/src/ext_match.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/pty.c"
+#include "minilib/src/exit_errno.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

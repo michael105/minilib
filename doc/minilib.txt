@@ -134,11 +134,11 @@ dirent.h
 ==========
 
 closedir       int closedir(DIR *dir);
-               Defines: getbrk brk
+               Defines: brk getbrk
                (src/dirent/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
-               Defines: write dirbuf close malloc open
+               Defines: dirbuf malloc write close open
                (src/dirent/opendir.c: 24)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -153,7 +153,7 @@ rewinddir      void rewinddir(DIR *dir);
                (src/dirent/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-               Defines: sbrk dirbuf seterrno memcpy getbrk malloc brk errno
+               Defines: getbrk seterrno malloc dirbuf sbrk brk memcpy errno
                (src/dirent/scandir.c: 27)
                list files and dirs in a directory
               This implementation uses malloc_brk() for the dynamic allocation
@@ -284,12 +284,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 42)
                write str to stderr. Needs strlen
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-               Defines: fileno write strlen
+               Defines: write fileno strlen
                (include/prints.h: 90)
                write str to stderr. 
               only format %s is recognized
@@ -322,7 +322,7 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
 
 exit_errno     void exit_errno( int errnum );
-               Defines: errno_str exit execve write
+               Defines: exit write execve errno_str
                (src/exit_errno.c: 17)
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -362,12 +362,12 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
                (include/fexecveat.h: 3)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno write strlen
+               Defines: strlen fileno write
                (src/fprintfs.c: 10)
                prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
-               Defines: fileno write strlen
+               Defines: strlen write fileno
                (include/prints.h: 24)
                print the string(s) supplied as arg(s) to stream
 
@@ -384,6 +384,10 @@ getbrk         static long getbrk();
 
 grantpt        int grantpt(int fd);
                (src/pty.c: 13)
+
+int(*cmp)      void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+               (src/qsort.c: 31)
+               qsort, implemented as recursive function
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
                Defines: 
@@ -446,7 +450,7 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
                (include/mremap.h: 4)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
-               Defines: close dirbuf open malloc
+               Defines: open close malloc dirbuf
                (src/dirent/opendir.c: 10)
 
 posix_openpt   int posix_openpt(int flags);
@@ -454,12 +458,12 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 38)
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: strlen fileno write
+               Defines: write fileno strlen
                (include/prints.h: 84)
                write str to stdout. 
               only format %s is recognized
@@ -480,11 +484,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: write uitodec ioctl open
+               Defines: write ioctl open uitodec
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: write uitodec ioctl open
+               Defines: uitodec open write ioctl
                (src/pty.c: 27)
 
 sbrk           static void* sbrk(long incr);
@@ -1196,7 +1200,7 @@ sigismember    int sigismember(sigset_t *set, int sig);
                (src/sigaction.c: 75)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
-               Defines: write memcpy
+               Defines: memcpy write
                (src/signal.c: 8)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
@@ -1209,7 +1213,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: fileno close open
+               Defines: open close fileno
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1227,7 +1231,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: open fileno close
+               Defines: fileno close open
                (src/fopen.c: 91)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1242,7 +1246,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1258,7 +1262,7 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: fileno close open
+               Defines: open close fileno
                (src/fopen.c: 81)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1267,15 +1271,15 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
-               Defines: fileno write
+               Defines: write fileno
                (src/sprintf.c: 245)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: write fileno strlen
+               Defines: strlen write fileno
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1283,7 +1287,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
                (include/mini_fstream.h: 162)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
-               Defines: open fileno close
+               Defines: open close fileno
                (src/fopen.c: 101)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1308,7 +1312,7 @@ getc           #define getc(F) fgetc(F)
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
@@ -1324,15 +1328,15 @@ itohex         int itohex(int i,char* buf,int padding);
                (src/itohex.c: 49)
 
 perror         void perror(const char *msg);
-               Defines: strerror write fileno strlen errno
+               Defines: strlen strerror fileno errno write
                (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -1340,7 +1344,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 73)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1378,7 +1382,7 @@ stdlib.h
 ==========
 
 abort          void abort();
-               Defines: memcpy write getpid
+               Defines: getpid write memcpy
                (src/abort.c: 3)
 
 abs            static int abs(int i);
@@ -1402,7 +1406,7 @@ div            static div_t div(int numerator, int denominator);
                (include/math.h: 8)
 
 free           void free(void *p);
-               Defines: getbrk brk
+               Defines: brk getbrk
                (src/malloc.c: 134)
 
 free_brk       int free_brk();
@@ -1509,7 +1513,7 @@ rand           unsigned int rand();
                (src/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
-               Defines: malloc getbrk brk
+               Defines: brk getbrk malloc
                (src/malloc.c: 247)
 
 srand          void srand( unsigned int i );
@@ -1521,7 +1525,7 @@ strtol         long int strtol(const char *c, const char **endp, int base);
               doesn't check for overflow(!)
 
 system         int system( const char* command );
-               Defines: write wait4 execve vfork environ
+               Defines: execve write environ wait4 vfork
                (src/system.c: 4)
 
 todo_putenv    int todo_putenv( char *s );
@@ -1536,14 +1540,14 @@ string.h
 
 _strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
                Defines: tolower
-               (src/strcmp.c: 30)
+               (src/strcmp.c: 31)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
-               (src/strcmp.c: 13)
+               (src/strcmp.c: 11)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
                Defines: 0
-               (src/strcmp.c: 85)
+               (src/strcmp.c: 88)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
                (src/memcpy.c: 6)
@@ -1556,7 +1560,7 @@ memset         void *memset( void *s, int c, int n);
 
 strcasecmp     int strcasecmp(const char*c1,const char*c2);
                Defines: 
-               (src/strcmp.c: 49)
+               (src/strcmp.c: 52)
 
 strcat         char *strcat(char *dest, const char *src );
                Defines: strlen
@@ -1571,13 +1575,13 @@ strchrnul      char *strchrnul(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
                Defines: 
-               (src/strcmp.c: 68)
+               (src/strcmp.c: 71)
 
 strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: malloc strcpy strlen
+               Defines: strlen strcpy malloc
                (src/strdup.c: 7)
 
 strerror       static char* strerror( int errnum );
@@ -1588,11 +1592,11 @@ strlen         int strlen(const char*str);
 
 strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
                Defines: 
-               (src/strcmp.c: 57)
+               (src/strcmp.c: 60)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
                Defines: 
-               (src/strcmp.c: 76)
+               (src/strcmp.c: 79)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
                Defines: memcpy
@@ -1656,7 +1660,7 @@ dup2           dup2(int oldfd, int newfd)
                (include/syscall_stubs.h: 113)
 
 execl          static int execl(const char *pathname, const char* arg0,... );
-               Defines: environ execve
+               Defines: execve environ
                (src/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
@@ -1671,7 +1675,7 @@ execvp         static inline int execvp(const char *file, char *const argv[]);
                (src/execvp.c: 58)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: environ execve access
+               Defines: access execve environ
                (src/execvp.c: 18)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
