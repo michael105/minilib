@@ -18,7 +18,34 @@
 //+doc swap a with b, with 'size' bytes
 // swaps integers and longs at once, when size eq sizeof(int/long)
 //+def
-static inline void __attribute__((always_inline)) swap(void* a, void* b,int size){
+static inline void swap(void* a, void* b,int size){
+/*		if ( size==1 ){
+				*(char*)a^=*(char*)b;
+				*(char*)b^=*(char*)a;
+				*(char*)a^=*(char*)b;
+				return;
+		} */ // commented this out. impossible to predict the individual cases.
+		// but better save some bytes.
+
+		if ( size==sizeof(int) ){
+        asm ("xor %0,%1\nxor %1,%0\nxor %0,%1"
+								: "+r"(*(int*)a),"+r"(*(int*)b) );
+				return;
+		}
+		if ( size==sizeof(long) ){
+        asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
+								: "+r"(*(long*)a),"+r"(*(long*)b) );
+				return;
+		}
+		for ( int n=size;n--;){
+        asm ("xor %0,%1\nxor %1,%0\nxor %0,%1" 
+								: "+r"(*(char*)a),"+r"(*(char*)b) );
+				a++;b++;
+		}
+}
+
+#if 0
+static void swap(void* a, void* b,int size){
 /*		if ( size==1 ){
 				*(char*)a^=*(char*)b;
 				*(char*)b^=*(char*)a;
@@ -33,9 +60,13 @@ static inline void __attribute__((always_inline)) swap(void* a, void* b,int size
 				return;
 		}
 		if ( size==sizeof(long) ){
-				*(long*)a^=*(long*)b;
+			/*	*(long*)a^=*(long*)b;
 				*(long*)b^=*(long*)a;
-				*(long*)a^=*(long*)b;
+				*(long*)a^=*(long*)b; */
+				long t=*(long*)(a);
+				*(long*)(a)=*(long*)(b);
+				*(long*)(b)=*(long*)(a);
+				*(long*)(a)=t;
 				return;
 		} 
 		char *c1 = (char*)a;
@@ -48,6 +79,7 @@ static inline void __attribute__((always_inline)) swap(void* a, void* b,int size
 		}
 
 }
+#endif
 
 //possible: replace the recursion with loops.
 // would give some performance gain.
@@ -58,7 +90,7 @@ static inline void __attribute__((always_inline)) swap(void* a, void* b,int size
 // well. So. I leave this as compact as it is.
 // (besides the swap routine, which is vectorized.)
 
-void _qsort(void *base, int left, int right, int size, int(*cmp)(const void*,const void*)){
+static void _qsort(void *base, int left, int right, int size, int(*cmp)(const void*,const void*)){
 		if(left >= right) return;
 		int i = left, j = right;
 		while(1) {
@@ -73,9 +105,15 @@ void _qsort(void *base, int left, int right, int size, int(*cmp)(const void*,con
 }
 
 //+doc qsort, implemented as recursive function
+// there seems to be some trouble with gcc.
+// Got segfaults, depending on the optimization flag.
+// Going to file a bugreport,
+// and leave this for now.
+// The code might be correct. 
+// But, sometimes it works, sometimes not. so.
 //+depends swap
 //+def qsort
-void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*)){
+static void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*)){
 		_qsort(base,0,(count-1)*size,size,cmp);
 }
 

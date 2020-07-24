@@ -809,8 +809,14 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  79 </small></td><td><small> void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  116 </small></td><td><small>  void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
 </small></td></tr><tr><td></td><td colspan="2"><small>qsort, implemented as recursive function
+  there seems to be some trouble with gcc.
+  Got segfaults, depending on the optimization flag.
+  Going to file a bugreport,
+  and leave this for now.
+  The code might be correct. 
+  But, sometimes it works, sometimes not. so.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  135 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
@@ -851,8 +857,13 @@
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  27 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  32 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 </small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
+  !!! sorting doesn't ork. Seems to be a gcc bug, since
+  it is amongst others optimization flag dependent.
+  
+  I leave this for now.
+ 
   This implementation uses malloc_brk() for the dynamic allocation
   of the listing, and tries to do as less copies as possible.
   if the select callback is 0, meaning all entries should be returned,
@@ -963,7 +974,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion
   doesn't check for overflow(!)
  </small></td></tr>
-<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/strtol.c" target="right">../src/strtol.c</a>  21 </small></td><td><small>   void ) swap(void* a, void* b,int size);
+<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/strtol.c" target="right">../src/strtol.c</a>  21 </small></td><td><small>   void swap(void* a, void* b,int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>swap a with b, with 'size' bytes
   swaps integers and longs at once, when size eq sizeof(int/long)
  </small></td></tr>
@@ -986,8 +997,10 @@
 </small></td></tr>
 <tr valign="top"><td><small>todo_putenv</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> int todo_putenv( char *s );
 </small></td></tr>
-<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  8 </small></td><td><small> int uitodec(unsigned int i, char *buf, int prec, char limiter );
-</small></td></tr>
+<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  8 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter );
+</small></td></tr><tr><td></td><td colspan="2"><small>convert int to string.
+  prec: precision, e.g. 4=> 0087 
+ </small></td></tr>
 <tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  6 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  186 </small></td><td><small> umask( int mask)

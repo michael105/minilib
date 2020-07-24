@@ -2,10 +2,10 @@
 #define mini_itodec_c
 //+ansi stdio.h
 //
-// convert int to string.
+//+doc convert int to string.
 // prec: precision, e.g. 4=> 0087 
-//+def
-int uitodec(unsigned int i, char *buf, int prec, char limiter ){
+//+def uitodec
+int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter ){
 		int p = 0;
 		int a;
 		int t1,t2,t3,dec;

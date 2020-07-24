@@ -33,6 +33,11 @@ rewinddir      void rewinddir(DIR *dir);
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 
                list files and dirs in a directory
+              !!! sorting doesn't ork. Seems to be a gcc bug, since
+              it is amongst others optimization flag dependent.
+              
+              I leave this for now.
+             
               This implementation uses malloc_brk() for the dynamic allocation
               of the listing, and tries to do as less copies as possible.
               if the select callback is 0, meaning all entries should be returned,
@@ -49,7 +54,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
               long savebrk=getbrk();
               int ret=scandir(...);
               brk(savebrk);
-               (src/dirent/scandir.c: 27)
+               (src/dirent/scandir.c: 32)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -412,7 +417,7 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/sprintf.c: 220)
 
-swap           static inline void __attribute__((always_inline)) swap(void* a, void* b,int size);
+swap           static inline void swap(void* a, void* b,int size);
 
                swap a with b, with 'size' bytes
               swaps integers and longs at once, when size eq sizeof(int/long)
@@ -423,8 +428,10 @@ sys_brk        static long sys_brk(unsigned long addr);
                the kernel syscall brk.
                (src/brk.c: 6)
 
-uitodec        int uitodec(unsigned int i, char *buf, int prec, char limiter );
+uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter );
 
+               convert int to string.
+              prec: precision, e.g. 4=> 0087 
                (src/itodec.c: 8)
 
 ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter );
@@ -1141,10 +1148,16 @@ malloc_brk     void* malloc_brk(int size);
               free_brk() free's all memory, which has been allocated with malloc_brk
                (src/malloc.c: 201)
 
-qsort          void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+qsort          static void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
 
                qsort, implemented as recursive function
-               (src/qsort.c: 79)
+              there seems to be some trouble with gcc.
+              Got segfaults, depending on the optimization flag.
+              Going to file a bugreport,
+              and leave this for now.
+              The code might be correct. 
+              But, sometimes it works, sometimes not. so.
+               (src/qsort.c: 116)
 
 rand           unsigned int rand();
 

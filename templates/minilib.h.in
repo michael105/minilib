@@ -49,7 +49,7 @@ struct udiv_t { unsigned int quot, rem; };
 //#endif
 
 //#ifdef mini_errno / No reason to not define errno Macros by default
-#include "errno.h"
+#include "m_errno.h"
 //#endif
 //
 

@@ -6,6 +6,11 @@
 
 
 //+doc list files and dirs in a directory
+// !!! sorting doesn't ork. Seems to be a gcc bug, since
+// it is amongst others optimization flag dependent.
+// 
+// I leave this for now.
+//
 // This implementation uses malloc_brk() for the dynamic allocation
 // of the listing, and tries to do as less copies as possible.
 // if the select callback is 0, meaning all entries should be returned,
@@ -41,7 +46,8 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 		return(fd);
 	}
 
-	char *buf = malloc_brk(_BUFSIZE);
+	static char *buf;
+	buf= malloc_brk(_BUFSIZE);
 	if ( buf==0 ){
 			seterrno(ENOMEM);
 			return(-ENOMEM);
@@ -100,8 +106,10 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			}
 	}
 	
-	struct dirent *de = (void*)buf;
-	struct dirent **list = (void*)(buf+cp);
+	static struct dirent *de;
+	de = (void*)buf;
+	static struct dirent **list;
+	list= (void*)(buf+cp);
 	printf("build list, cnt: %d\n",cnt);
 	for(int a=0;a<cnt;a++){
 			printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,de->d_name);
@@ -109,17 +117,20 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			*list++;
 			de=(void*)de+de->d_reclen;
 	}
-	struct dirent **list2 = (void*)(buf+cp);
+	//struct dirent **list2 = (void*)(buf+cp);
+	list = (void*)(buf+cp);
 	*listing = (void*)(buf+cp);
 
-	prints("sort now.\n");
+	printf("sort now. %d, cnt: %d\n",sizeof(struct dirent**),cnt);
 	if (cmp){
 			struct dirent *tmp;
-			qsort(*list2, cnt-2, sizeof(void*) , (int (*)(const void *, const void *))cmp);
+			// somehow segfaults. seems to be a gcc bug. 
+			//_qsort(*list, 0, cnt-1, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
+			//qsort((*listing), cnt, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
 	}
 	prints("sorted\n");
 	for(int a=0;a<cnt;a++){
-			printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,list2[a]->d_name);
+			printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,(*listing)[a]->d_name);
 	}
 	printf("return\n");
 

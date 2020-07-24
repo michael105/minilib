@@ -285,7 +285,9 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 #unsorted
 
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
-f:match|D:int match(const char *text, const char *re)|c:regex|x:|
+f:match|D:int match(const char *text, const char *re)|c:unsorted|x:|
+f:qsort|D:void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*))|c:unsorted|x:|
+f:swap|D:void swap(void* a, void* b,int size)|c:unsorted|x:|
 f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
 
 #x64-syscalls
