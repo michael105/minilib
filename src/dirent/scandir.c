@@ -125,7 +125,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 	if (cmp){
 			struct dirent *tmp;
 			//_qsort(*list, 0, cnt-1, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
-			qsort_pp(*listing, cnt, (int (*)(const void **, const void **))cmp);
+		qsort_pp(*listing, cnt, (int (*)(const void **, const void **))cmp);
 	}
 	prints("sorted\n");
 	for(int a=0;a<cnt;a++){

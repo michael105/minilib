@@ -97,12 +97,13 @@ static void _qsort(void *base, int left, int right, int size, int(*cmp)(const vo
 }
 
 //+doc qsort, implemented as recursive function
-// there seems to be some trouble with gcc.
-// Got segfaults, depending on the optimization flag.
-// Going to file a bugreport,
-// and leave this for now.
-// The code might be correct. 
-// But, sometimes it works, sometimes not. so.
+// buggy. sometimes - I modified a existing implementation.
+// to find out, the algorithm has been wrong.
+// even worse - I looked up several other implementations -
+// say, half of them is simply wrong.
+// some of them might work, e.g., since java might not segfault on
+// an access to pointers pointing to -1.
+// however. darnit.
 //+depends swap
 //+def qsort
 static void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*)){
