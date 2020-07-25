@@ -16,6 +16,7 @@
 #include "include/minilib_global.h"
 #include "include/utils.h"
 
+static int brk( const void* addr );
 //#include "mbuf.c"
 
 #define MBUF_FREE 0x80000000
@@ -110,6 +111,7 @@
 // Memory is allocated from right to left, 
 // meaning from top to down.
 //+depends brk
+//+needs brk.c
 //+def
 void* malloc(int size){
 #ifndef mini_buf

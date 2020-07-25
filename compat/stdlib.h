@@ -111,7 +111,7 @@ int todo_putenv( char *s );
 // file: minilib/src/malloc.c
 #include "minilib/src/malloc.c"
 // file: minilib/src/qsort.c
-static void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
 // file: minilib/src/rand.c
 void srand( unsigned int i );
@@ -144,15 +144,15 @@ static long int labs(long int i);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/system.c"
 #include "minilib/include/math.h"
 #include "minilib/src/rand.c"
-#include "minilib/src/strtol.c"
-#include "minilib/src/system.c"
-#include "minilib/src/abort.c"
 #include "minilib/src/atexit.c"
-#include "minilib/src/qsort.c"
 #include "minilib/src/atoi.c"
+#include "minilib/src/strtol.c"
+#include "minilib/src/qsort.c"
 #include "minilib/src/getenv.c"
+#include "minilib/src/abort.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

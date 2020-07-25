@@ -60,9 +60,9 @@ void ssort(void  *base,
 int compare(const struct dirent** a, const struct dirent** b){
 		//printf("name: %s %s\n",(*a)->d_name,(*b)->d_name);
 		int ret;
-		//ret=-strcmp((*a)->d_name,(*b)->d_name);
+		ret=-strcmp((*a)->d_name,(*b)->d_name);
 		//printf("ret: %d\n",ret);
-		//return(ret);
+		return(ret);
 		int n = 0;
 		ret = 0;
 		while ( (*a)->d_name[n]!=0 && ((*a)->d_name[n]==(*b)->d_name[n]) )
@@ -92,19 +92,19 @@ int main(int argc, char **argv){
 						//getchar();
 						free_brk();
 				}
-		
-		} else {
-		n = scandir(".", &namelist, NULL, &compare );
-		if (n == -1) {
-				perror("scandir");
-				exit(EXIT_FAILURE);
-		}
 
-		while (n--) {
-				printf("%s\n", namelist[n]->d_name);
-				//free(namelist[n]);
-		}
-		//free(namelist);
+		} else {
+				n = scandir(".", &namelist, NULL, &compare );
+				if (n == -1) {
+						perror("scandir");
+						exit(EXIT_FAILURE);
+				}
+
+				while (n--) {
+						printf("%s\n", namelist[n]->d_name);
+						//free(namelist[n]);
+				}
+				//free(namelist);
 
 		}
 

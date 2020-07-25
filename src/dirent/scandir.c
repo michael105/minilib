@@ -3,8 +3,6 @@
 // (default:4096)
 //+def scandir_bufsize
 
-
-
 //+doc list files and dirs in a directory
 // !!! sorting doesn't ork. Seems to be a gcc bug, since
 // it is amongst others optimization flag dependent.
@@ -27,7 +25,7 @@
 // long savebrk=getbrk();
 // int ret=scandir(...);
 // brk(savebrk);
-//+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort_pp
+//+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort
 //+def scandir
 int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **)){
 #ifndef mini_scandir_bufsize
@@ -60,7 +58,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 	int bufpos=0;
 	int oldpos=0;
 	while ( (len = getdents( fd, (struct dirent*) (buf+bufpos), _BUFSIZE) )>0){
-			printf("Len: %d\n",len);
+			//printf("Len: %d\n",len);
 			while ( pos < len + bufpos ){
 					struct dirent *de = (void *)(buf+pos);
 					pos+=de->d_reclen;
@@ -68,11 +66,10 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 					if ( !(fp_select && !(fp_select(de))) ){ // selected
 							cnt++;
 							cp += de->d_reclen;
-							printf("%s\n", de->d_name );
+							//printf("%s\n", de->d_name );
 					}
 					if ( oldcp < oldpos ){
 							//copy
-							//prints("Copy\n");
 							memcpy(buf+oldcp,buf+oldpos,de->d_reclen);
 					}
 					oldcp=cp;
@@ -80,7 +77,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			}
 			bufpos=pos;
 			buf=realloc(buf,bufpos+_BUFSIZE);
-			printf("buf: %l, pos: %d, cp: %d\n",buf,pos,cp);
+			//printf("buf: %l, pos: %d, cp: %d\n",buf,pos,cp);
 			if ( !buf) {
 					seterrno(ENOMEM);
 					close(fd);
@@ -98,7 +95,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 
 	// alloc place for the pointer list, when needed
 	if ( cnt*sizeof(POINTER) > _BUFSIZE+(pos-cp) ){
-			prints("realloc\n");
+			//prints("realloc\n");
 			realloc(buf,cp+(cnt*sizeof(POINTER)));
 			if ( !buf ){
 					seterrno(ENOMEM);
@@ -110,28 +107,21 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 	de = (void*)buf;
 	struct dirent **list;
 	list= (void*)(buf+cp);
-	printf("build list, cnt: %d\n",cnt);
+	//printf("build list, cnt: %d\n",cnt);
 	for(int a=0;a<cnt;a++){
-			printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,de->d_name);
+			//printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,de->d_name);
 			*list = de;
 			*list++;
 			de=(void*)de+de->d_reclen;
 	}
-	//struct dirent **list2 = (void*)(buf+cp);
 	list = (void*)(buf+cp);
 	*listing = (void*)(buf+cp);
 
-	printf("sort now. %d, cnt: %d\n",sizeof(struct dirent**),cnt);
+	//printf("sort now. %d, cnt: %d\n",sizeof(struct dirent**),cnt);
 	if (cmp){
-			struct dirent *tmp;
-			//_qsort(*list, 0, cnt-1, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
-		qsort_pp(*listing, cnt, (int (*)(const void **, const void **))cmp);
+		//qsort_p(*listing,cnt,(int (*)(const void*,const void *))cmp);
+		qsort(*listing,cnt,sizeof(struct dirent*),(int (*)(const void*,const void *))cmp);
 	}
-	prints("sorted\n");
-	for(int a=0;a<cnt;a++){
-			printf("a: %d, cnt:%d, de->d_name: %s\n",a,cnt,(*listing)[a]->d_name);
-	}
-	printf("return\n");
 
 	return(cnt);
 }

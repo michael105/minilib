@@ -5,23 +5,19 @@
 //+header string.h
 //+needs ctype.h
 
-// depend onto strncmp. Otherwise thias file will not be compiled.
 //+inc
 //+def
 int _strcmp(const char*c1,const char*c2,int len){
 		int a = 0;
-		while ( (c1[a] != 0) && (c2[a]!=0 ) && a != len ){
-				//write(1,&c1[a],1);
-				if ( c1[a] > c2[a] )
-						return(1);
-				if ( c1[a] < c2[a] )
-						return(-1);
-
+		while ( (c1[a] != 0) && (c1[a]==c2[a] ) && a != len ){
 				a++;
 		}
-		if ( (c1[a] == 0 ) && ( c2[a] == 0 ) )
-				return(0);
-		return (1);
+		if ( c1[a] > c2[a] )
+				return(1);
+		if ( c1[a] < c2[a] )
+				return(-1);
+
+		return(0);
 }
 
 //+inc
@@ -91,15 +87,13 @@ int memcmp(const void* c1,const void* c2,int len){
 		if ( len <=0 )
 				return(-1);
 		int a = 0;
-		while ( a != len ){
-				//write(1,&c1[a],1);
-				if ( cc1[a] > cc2[a] )
-						return(1);
-				if ( cc1[a] < cc2[a] )
-						return(-1);
+		while ( (a != len) && (c1[a]==c2[a]) ) a++;
 
-				a++;
-		}
+		if ( cc1[a] > cc2[a] )
+				return(1);
+		if ( cc1[a] < cc2[a] )
+				return(-1);
+
 	 return(0);
 }
 

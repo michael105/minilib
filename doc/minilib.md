@@ -32,7 +32,8 @@ rewinddir      void rewinddir(DIR *dir);
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 
-               list files and dirs in a directory
+               the increment of the buffer of scandir in bytes for memory allocations
+              (default:4096)list files and dirs in a directory
               !!! sorting doesn't ork. Seems to be a gcc bug, since
               it is amongst others optimization flag dependent.
               
@@ -54,7 +55,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
               long savebrk=getbrk();
               int ret=scandir(...);
               brk(savebrk);
-               (src/dirent/scandir.c: 32)
+               (src/dirent/scandir.c: 30)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -394,18 +395,6 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
-qsort_p        void qsort_p(void **base, int count, int(*cmp)(void**,void**)) ;
-
-               sort an array of pointers,
-              sort the pointers itself 
-               (src/qsort_p.c: 29)
-
-qsort_pp       void qsort_pp(void ***base, int count, int(*cmp)(void***,void***)) ;
-
-               sort an array of pointers to pointers,
-              sort the pointers to the pointers 
-               (src/qsort_pp.c: 29)
-
 sbrk           static void* sbrk(long incr);
 
                Set the new brk, increment/decrement by incr bytes.
@@ -414,12 +403,6 @@ sbrk           static void* sbrk(long incr);
               if no errno is available,
               returns the negative errno value on error
                (src/brk.c: 57)
-
-scandir_bufsize
-
-               the increment of the buffer of scandir in bytes for memory allocations
-              (default:4096)
-               (src/dirent/scandir.c: 5)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -433,7 +416,7 @@ swap           static inline void swap(void* a, void* b,int size);
 
                swap a with b, with 'size' bytes
               swaps integers and longs at once, when size eq sizeof(int/long)
-               (src/qsort.c: 21)
+               (src/qsort.c: 31)
 
 sys_brk        static long sys_brk(unsigned long addr);
 
@@ -470,8 +453,15 @@ verbose_errstr2static const char* verbose_errstr2(int num);
 vexec          int vexec( const char* path, char* const* argv, char* const* envp );
 
                execute a path, wait until the executed file exits.
-              instead of system() an absolute pathname is taken.
+              Deviating of system() an absolute pathname is taken.
                (src/vexec.c: 4)
+
+vexec_q        int vexec_q( const char* path, char* const* argv, char* const* envp );
+
+               execute a path, wait until the executed file exits, 
+              do not write any output of the process. (close stdout)
+              Deviating of system() an absolute pathname is taken.
+               (src/vexec.c: 26)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -1054,7 +1044,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/malloc.c: 134)
+               (src/malloc.c: 136)
 
 free_brk       int free_brk();
 
@@ -1064,7 +1054,7 @@ free_brk       int free_brk();
               1, when there hasn't been any memory allocations with
               malloc_brk before.
               Then brk() gives an error, return the return value of brk
-               (src/malloc.c: 229)
+               (src/malloc.c: 231)
 
 getenv         char* getenv(const char* name);
 
@@ -1144,7 +1134,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/malloc.c: 114)
+               (src/malloc.c: 116)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -1158,18 +1148,15 @@ malloc_brk     void* malloc_brk(int size);
               the allocated memory can also be free'd by setting the brk to the saved value
               with brk(saved_brk)
               free_brk() free's all memory, which has been allocated with malloc_brk
-               (src/malloc.c: 201)
+               (src/malloc.c: 203)
 
-qsort          static void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
+qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
-               qsort, implemented as recursive function
-              there seems to be some trouble with gcc.
-              Got segfaults, depending on the optimization flag.
-              Going to file a bugreport,
-              and leave this for now.
-              The code might be correct. 
-              But, sometimes it works, sometimes not. so.
-               (src/qsort.c: 108)
+               (quick) shell sort routine
+              following the tradition, this isn't exactly a quicksort algorithm,
+              albite named quicksort.
+              It is a shell sort implementation, originally done by Ray Gardner, 5/90.
+               (src/qsort.c: 56)
 
 rand           unsigned int rand();
 
@@ -1177,7 +1164,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 247)
+               (src/malloc.c: 249)
 
 srand          void srand( unsigned int i );
 
@@ -1205,15 +1192,15 @@ string.h
 
 _strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 31)
+               (src/strcmp.c: 27)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 11)
+               (src/strcmp.c: 10)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/strcmp.c: 88)
+               (src/strcmp.c: 84)
 
 memcpy         void *memcpy( void *d, const void *s, int n );
 
@@ -1229,7 +1216,7 @@ memset         void *memset( void *s, int c, int n);
 
 strcasecmp     int strcasecmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 52)
+               (src/strcmp.c: 48)
 
 strcat         char *strcat(char *dest, const char *src );
 
@@ -1245,7 +1232,7 @@ strchrnul      char *strchrnul(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 71)
+               (src/strcmp.c: 67)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -1265,11 +1252,11 @@ strlen         int strlen(const char*str);
 
 strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 60)
+               (src/strcmp.c: 56)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 79)
+               (src/strcmp.c: 75)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 

@@ -271,9 +271,9 @@
 <tr valign="top"><td><small>sys__splice</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  525 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__stat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  13 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__statfs</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  277 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  31 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  27 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  11 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small>sys__swapoff</small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  339 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__swapon</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  337 </small></td><td><small></small></td></tr>
@@ -527,9 +527,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  162 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  134 </small></td><td><small> void free(void *p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  136 </small></td><td><small> void free(void *p);
 </small></td></tr>
-<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  229 </small></td><td><small> int free_brk();
+<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  231 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
   which has been allocated with malloc_brk.
   Returns 0, if memory has been freed;
@@ -636,7 +636,7 @@
   having a volatile asm call with the globals as param, and so on,
   have been useless. All after all, seems to me, ai has it's restrictions.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  114 </small></td><td><small> void* malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  116 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
   Here we go.. with the .. well. 
   Fastes and smallest malloc/free combi ever. 
@@ -702,7 +702,7 @@
   Memory is allocated from right to left, 
   meaning from top to down.
  </small></td></tr>
-<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  201 </small></td><td><small> void* malloc_brk(int size);
+<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  203 </small></td><td><small> void* malloc_brk(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate via setting the brk
   free and realloc can be used normally.
   The intention of malloc_brk is for subsequent calls to realloc.
@@ -724,7 +724,7 @@
   a backslash has to be defined as double backslash
   in the source code.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  88 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  6 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
 </small></td></tr>
@@ -809,24 +809,13 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  108 </small></td><td><small>  void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*));
-</small></td></tr><tr><td></td><td colspan="2"><small>qsort, implemented as recursive function
-  there seems to be some trouble with gcc.
-  Got segfaults, depending on the optimization flag.
-  Going to file a bugreport,
-  and leave this for now.
-  The code might be correct. 
-  But, sometimes it works, sometimes not. so.
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  56 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
+</small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine
+  following the tradition, this isn't exactly a quicksort algorithm,
+  albite named quicksort.
+  It is a shell sort implementation, originally done by Ray Gardner, 5/90.
  </small></td></tr>
-<tr valign="top"><td><small>qsort_p</small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  29 </small></td><td><small> void qsort_p(void **base, int count, int(*cmp)(void**,void**)) ;
-</small></td></tr><tr><td></td><td colspan="2"><small>sort an array of pointers,
-  sort the pointers itself 
- </small></td></tr>
-<tr valign="top"><td><small>qsort_pp</small></td><td><small>   <a href="../src/qsort_p.c" target="right">../src/qsort_p.c</a>  29 </small></td><td><small> void qsort_pp(void ***base, int count, int(*cmp)(void***,void***)) ;
-</small></td></tr><tr><td></td><td colspan="2"><small>sort an array of pointers to pointers,
-  sort the pointers to the pointers 
- </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort_pp.c" target="right">../src/qsort_pp.c</a>  135 </small></td><td><small>   int raise(int signr);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  135 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
@@ -840,7 +829,7 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  247 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  249 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -865,8 +854,9 @@
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  32 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-</small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  30 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+</small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
+  (default:4096)list files and dirs in a directory
   !!! sorting doesn't ork. Seems to be a gcc bug, since
   it is amongst others optimization flag dependent.
   
@@ -888,10 +878,6 @@
   long savebrk=getbrk();
   int ret=scandir(...);
   brk(savebrk);
- </small></td></tr>
-<tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  5 </small></td><td><small> 
-</small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
-  (default:4096)
  </small></td></tr>
 <tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
@@ -950,7 +936,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  106 </small></td><td><small> stat(const char* filename,struct stat* statbuf)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  52 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  48 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  7 </small></td><td><small> char *strcat(char *dest, const char *src );
 </small></td></tr>
@@ -958,7 +944,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  7 </small></td><td><small> char *strchrnul(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  71 </small></td><td><small> int strcmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  17 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
@@ -968,9 +954,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  7 </small></td><td><small> int strlen(const char*str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/strlen.c" target="right">../src/strlen.c</a>  60 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/strlen.c" target="right">../src/strlen.c</a>  56 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  79 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  75 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  27 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr>
@@ -982,7 +968,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion
   doesn't check for overflow(!)
  </small></td></tr>
-<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/strtol.c" target="right">../src/strtol.c</a>  21 </small></td><td><small>   void swap(void* a, void* b,int size);
+<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/strtol.c" target="right">../src/strtol.c</a>  31 </small></td><td><small>   void swap(void* a, void* b,int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>swap a with b, with 'size' bytes
   swaps integers and longs at once, when size eq sizeof(int/long)
  </small></td></tr>
@@ -1049,7 +1035,12 @@
  </small></td></tr>
 <tr valign="top"><td><small>vexec</small></td><td><small>   <a href="../include/errstr2.h" target="right">../include/errstr2.h</a>  4 </small></td><td><small> int vexec( const char* path, char* const* argv, char* const* envp );
 </small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits.
-  instead of system() an absolute pathname is taken.
+  Deviating of system() an absolute pathname is taken.
+ </small></td></tr>
+<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  26 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
+</small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits, 
+  do not write any output of the process. (close stdout)
+  Deviating of system() an absolute pathname is taken.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  128 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
