@@ -14,6 +14,16 @@
 // Would be better to leave the standard here,
 // and write a macro. What would give some advantages.
 // Anyways.
+//
+// Somehow - the quicksort implementations, I found in the net,
+// are buggy. or I'm doing something wrong.
+// I don't know. 
+// I did another sort algorithm some time before, but
+// albite my algorithm is good for integers or longs,
+// it's not as well suited for generic data.
+// So, finally, I'm copying the shellsort of Ray Gardner in here.
+// Found it within musl.
+// I replaced the swap routine.
 
 //+doc swap a with b, with 'size' bytes
 // swaps integers and longs at once, when size eq sizeof(int/long)
@@ -35,6 +45,51 @@ static inline void swap(void* a, void* b,int size){
 				a++;b++;
 		}
 }
+
+
+
+//+doc (quick) shell sort routine
+// following the tradition, this isn't exactly a quicksort algorithm,
+// albite named quicksort.
+// It is a shell sort implementation, originally done by Ray Gardner, 5/90.
+//+def qsort
+void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *)){
+/*
+ * **  ssort()  --  Fast, small, qsort()-compatible Shell sort
+ * **
+ * **  by Ray Gardner,  public domain   5/90
+ * 
+void ssort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *)){
+ * */
+		size_t wnel, gap, wgap, i, j, k;
+		char *a, *b, tmp;
+
+		wnel = width * nel;
+		for (gap = 0; ++gap < nel;)
+				gap *= 3;
+		while ((gap /= 3) != 0) {
+				wgap = width * gap;
+				for (i = wgap; i < wnel; i += width) {
+						for (j = i - wgap; ;j -= wgap) {
+								a = j + (char *)base;
+								b = a + wgap;
+								if ((*comp)(a, b) <= 0)
+										break;
+								swap(a,b,width);
+								/*k = width;
+								do {
+										tmp = *a;
+										*a++ = *b;
+										*b++ = tmp;
+								} while (--k);*/
+								if (j < wgap)
+										break;
+						}
+				}
+		}
+}
+
+
 
 #if 0
 static void swap(void* a, void* b,int size){
@@ -73,6 +128,8 @@ static void swap(void* a, void* b,int size){
 }
 #endif
 
+#if 0
+
 //possible: replace the recursion with loops.
 // would give some performance gain.
 // somehow my brain stucks now, 
@@ -96,7 +153,7 @@ static void _qsort(void *base, int left, int right, int size, int(*cmp)(const vo
 		_qsort(base, j+size, right,size,cmp);
 }
 
-//+doc qsort, implemented as recursive function
+////+doc qsort, implemented as recursive function
 // buggy. sometimes - I modified a existing implementation.
 // to find out, the algorithm has been wrong.
 // even worse - I looked up several other implementations -
@@ -104,11 +161,14 @@ static void _qsort(void *base, int left, int right, int size, int(*cmp)(const vo
 // some of them might work, e.g., since java might not segfault on
 // an access to pointers pointing to -1.
 // however. darnit.
-//+depends swap
-//+def qsort
+////+depends swap
+////+def qsort
 static void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*)){
 		_qsort(base,0,(count-1)*size,size,cmp);
 }
+
+
+#endif
 
 #endif
 
