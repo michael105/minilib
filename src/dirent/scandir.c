@@ -126,7 +126,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			struct dirent *tmp;
 			// somehow segfaults. seems to be a gcc bug. 
 			//_qsort(*list, 0, cnt-1, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
-			qsort_pp((void***)(buf+cp), cnt, (int (*)(const void **, const void **))cmp);
+			qsort_p((void**)(buf+cp), cnt, (int (*)(const void **, const void **))cmp);
 	}
 	prints("sorted\n");
 	for(int a=0;a<cnt;a++){

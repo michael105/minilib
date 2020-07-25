@@ -394,7 +394,13 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
-qsort_pp       void qsort_pp(void ***base, int count, int(*cmp)(void**,void**)) ;
+qsort_p        void qsort_p(void **base, int count, int(*cmp)(void**,void**)) ;
+
+               sort an array of pointers,
+              sort the pointers itself 
+               (src/qsort_p.c: 29)
+
+qsort_pp       void qsort_pp(void ***base, int count, int(*cmp)(void*,void*)) ;
 
                sort an array of pointers to pointers,
               sort the pointers to the pointers 
