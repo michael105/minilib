@@ -25,8 +25,8 @@ _qsppOUT:
 
 //+doc sort an array of pointers to pointers,
 // sort the pointers to the pointers 
-//+def
-void  qsort_pp(void ***base, int count, int(*cmp)(void*,void*)) {
+//+def qsort_pp
+void qsort_pp(void ***base, int count, int(*cmp)(void*,void*)) {
 		_qsort_pp(base,0,count-1,cmp);
 }
 

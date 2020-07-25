@@ -394,6 +394,12 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
+qsort_pp       void qsort_pp(void ***base, int count, int(*cmp)(void**,void**)) ;
+
+               sort an array of pointers to pointers,
+              sort the pointers to the pointers 
+               (src/qsort_pp.c: 29)
+
 sbrk           static void* sbrk(long incr);
 
                Set the new brk, increment/decrement by incr bytes.

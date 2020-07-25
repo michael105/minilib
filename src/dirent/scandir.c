@@ -27,7 +27,7 @@
 // long savebrk=getbrk();
 // int ret=scandir(...);
 // brk(savebrk);
-//+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort
+//+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort_pp
 //+def scandir
 int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **)){
 #ifndef mini_scandir_bufsize
@@ -46,7 +46,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 		return(fd);
 	}
 
-	static char *buf;
+	char *buf;
 	buf= malloc_brk(_BUFSIZE);
 	if ( buf==0 ){
 			seterrno(ENOMEM);
@@ -106,9 +106,9 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			}
 	}
 	
-	static struct dirent *de;
+	struct dirent *de;
 	de = (void*)buf;
-	static struct dirent **list;
+	struct dirent **list;
 	list= (void*)(buf+cp);
 	printf("build list, cnt: %d\n",cnt);
 	for(int a=0;a<cnt;a++){
@@ -126,7 +126,7 @@ int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const 
 			struct dirent *tmp;
 			// somehow segfaults. seems to be a gcc bug. 
 			//_qsort(*list, 0, cnt-1, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
-			qsort((*listing), cnt, sizeof(struct dirent*) , (int (*)(const void *, const void *))cmp);
+			qsort_pp((void***)(buf+cp), cnt, (int (*)(const void **, const void **))cmp);
 	}
 	prints("sorted\n");
 	for(int a=0;a<cnt;a++){

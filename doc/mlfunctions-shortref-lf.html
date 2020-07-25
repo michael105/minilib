@@ -818,7 +818,11 @@
   The code might be correct. 
   But, sometimes it works, sometimes not. so.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  135 </small></td><td><small>   int raise(int signr);
+<tr valign="top"><td><small>qsort_pp</small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  29 </small></td><td><small> void qsort_pp(void ***base, int count, int(*cmp)(void**,void**)) ;
+</small></td></tr><tr><td></td><td colspan="2"><small>sort an array of pointers to pointers,
+  sort the pointers to the pointers 
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort_pp.c" target="right">../src/qsort_pp.c</a>  135 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
