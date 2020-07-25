@@ -1,35 +1,40 @@
-
 //+doc the increment of the buffer of scandir in bytes for memory allocations
 // (default:4096)
 //+def scandir_bufsize
+//#define mini_scandir_bufsize 4096
+
 
 //+doc list files and dirs in a directory
-// !!! sorting doesn't ork. Seems to be a gcc bug, since
-// it is amongst others optimization flag dependent.
-// 
-// I leave this for now.
 //
 // This implementation uses malloc_brk() for the dynamic allocation
 // of the listing, and tries to do as less copies as possible.
+// The dynamically allocated space for the result list (**listing[])
+// is guaranteed to be at one continuous memory location.
+//
 // if the select callback is 0, meaning all entries should be returned,
 // There are no copies done at all, 
 // besides the copying from kernelspace to userspace.
-// returns the number of the read entries,
-// or the negative errno on error.
-// To free the space, allocated for thelisting and the dirents, 
+//
+// To free the space, allocated for the listing,
 // either call free_brk(),
 // when no other allocations via malloc_brk took place.
+//
 // Or save the brk before you call scandir,
 // and restore it after the call.
 // (e.g.)
 // long savebrk=getbrk();
 // int ret=scandir(...);
 // brk(savebrk);
+// Freeing single list entries might give unexpected results.
+//
+// returns the number of the read entries,
+// or the negative errno on error.
+//
 //+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort
 //+def scandir
 int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **)){
 #ifndef mini_scandir_bufsize
-#define _BUFSIZE 1024
+#define _BUFSIZE 4096
 #else
 #define _BUFSIZE mini_scandir_bufsize
 #endif

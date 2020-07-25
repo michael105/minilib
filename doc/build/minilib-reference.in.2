@@ -33,7 +33,7 @@ f:readdir|D:struct dirent *readdir(DIR *dir)|c:directories|x:read a directory|
 f:rewinddir|D:void rewinddir(DIR *dir)|c:directories|x:reset the position of a directory stream to the beginning|
 f:rmdir|D:int rmdir( const char *pathname)|c:directories|x:remove a directory|
 f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **))|c:directories|x:scan a directory|
-f:scandir_bufsize|D:|c:directories|x:|
+f:scandir_bufsize|D://#define mini_scandir_bufsize 4096|c:directories|x:|
 f:seekdir|D:void seekdir(DIR *dir, long off)|c:directories|x:set the position of a directory stream|
 f:telldir|D:long telldir(DIR *dir)|c:directories|x:current location of a named directory stream|
 
@@ -139,6 +139,7 @@ f:munmap|D:int munmap( unsigned long addr,  size_t len)|c:memory|x:unmap pages o
 f:realloc|D:void* realloc(void *p, int size)|c:memory|x:memory reallocator|
 f:sbrk|D:void* sbrk(long incr)|c:memory|x:change data segment size|
 f:splice|D:int splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:memory|x:splice data to/from a pipe|
+f:swap|D:void swap(void* a, void* b,int size)|c:memory|x:|
 
 #output
 
@@ -194,11 +195,13 @@ f:setpgid|D:int setpgid( pid_t pid, pid_t pgid)|c:process|x:set process group ID
 f:setsid|D:int DEF_syscall(setsid,0 )|c:process|x:create session and set process group ID|
 f:system|D:int system( const char* command )|c:process|x:issue a command|
 f:vexec|D:int vexec( const char* path, char* const* argv, char* const* envp )|c:process|x:|
+f:vexec_q|D:int vexec_q( const char* path, char* const* argv, char* const* envp )|c:process|x:|
 f:vfork|D:int DEF_syscall(vfork,0)|c:process|x:create a child process and block parent|
 
 #regex
 
 f:ext_match|D:int ext_match(const char *text, const char *re)|c:regex|x:|
+f:match|D:int match(const char *text, const char *re)|c:regex|x:|
 
 #streams
 
@@ -285,9 +288,7 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 #unsorted
 
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
-f:match|D:int match(const char *text, const char *re)|c:unsorted|x:|
-f:qsort|D:void qsort(void *base, int count, int size, int(*cmp)(const void*,const void*))|c:unsorted|x:|
-f:swap|D:void swap(void* a, void* b,int size)|c:unsorted|x:|
+f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
 f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
 
 #x64-syscalls

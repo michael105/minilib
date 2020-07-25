@@ -28,19 +28,24 @@ f:getcwd|D:int getcwd( char *buf,  unsigned long size)|c:directories|x:get the p
 f:getdents|D:int getdents( unsigned int fd, struct dirent *direntry, unsigned int count )|c:directories|x:get directory entries|
 f:mkdir|D:int mkdir( const char *pathname, int mode)|c:directories|x:make a directory relative to directory file descriptor|
 f:opendir|D:DIR *opendir(const char *name )|c:directories|x:open directory associated with file descriptor|
+f:opendirp|D:DIR *opendirp(const char *name, DIR *dir)|c:directories|x:|
 f:readdir|D:struct dirent *readdir(DIR *dir)|c:directories|x:read a directory|
 f:rewinddir|D:void rewinddir(DIR *dir)|c:directories|x:reset the position of a directory stream to the beginning|
 f:rmdir|D:int rmdir( const char *pathname)|c:directories|x:remove a directory|
+f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **))|c:directories|x:scan a directory|
+f:scandir_bufsize|D:|c:directories|x:|
 f:seekdir|D:void seekdir(DIR *dir, long off)|c:directories|x:set the position of a directory stream|
 f:telldir|D:long telldir(DIR *dir)|c:directories|x:current location of a named directory stream|
 
 #errno
 
+f:errno|D:#ifdef mini_errno|c:errno|x:error return value|
 f:errno_str|D:char *errno_str(int err)|c:errno|x:|
 f:exit_errno|D:void exit_errno( int errnum )|c:errno|x:|
 f:perror|D:void perror(const char *msg)|c:errno|x:write error messages to standard error|
 f:strerror|D:char* strerror( int errnum )|c:errno|x:|
 f:verbose_errstr|D:const char* verbose_errstr(int num)|c:errno|x:|
+f:verbose_errstr2|D:const char* verbose_errstr2(int num)|c:errno|x:|
 
 #files
 
@@ -188,6 +193,7 @@ f:getppid|D:int DEF_syscall(getppid,0)|c:process|x:get the parent process ID|
 f:setpgid|D:int setpgid( pid_t pid, pid_t pgid)|c:process|x:set process group ID for job control|
 f:setsid|D:int DEF_syscall(setsid,0 )|c:process|x:create session and set process group ID|
 f:system|D:int system( const char* command )|c:process|x:issue a command|
+f:vexec|D:int vexec( const char* path, char* const* argv, char* const* envp )|c:process|x:|
 f:vfork|D:int DEF_syscall(vfork,0)|c:process|x:create a child process and block parent|
 
 #regex
@@ -279,14 +285,11 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 #unsorted
 
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
-f:errno|D:#ifdef mini_errno|c:errno|x:error return value|
-f:match|D:int match(const char *text, const char *re)|c:unsorted|x:|
-f:opendirp|D:DIR *opendirp(const char *name, DIR *dir)|c:directories|x:|
-f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **))|c:directories|x:scan a directory|
-f:scandir_bufsize|D:|c:directories|x:|
+f:match|D:int match(const char *text, const char *re)|c:regex|x:|
+f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
+f:swap|D:void swap(void* a, void* b,int size)|c:memory|x:|
 f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
-f:verbose_errstr2|D:const char* verbose_errstr2(int num)|c:errno|x:|
-f:vexec|D:int vexec( const char* path, char* const* argv, char* const* envp )|c:process|x:|
+f:vexec_q|D:int vexec_q( const char* path, char* const* argv, char* const* envp )|c:process|x:|
 
 #x64-syscalls
 

@@ -32,30 +32,32 @@ rewinddir      void rewinddir(DIR *dir);
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 
-               the increment of the buffer of scandir in bytes for memory allocations
-              (default:4096)list files and dirs in a directory
-              !!! sorting doesn't ork. Seems to be a gcc bug, since
-              it is amongst others optimization flag dependent.
-              
-              I leave this for now.
+               list files and dirs in a directory
              
               This implementation uses malloc_brk() for the dynamic allocation
               of the listing, and tries to do as less copies as possible.
+              The dynamically allocated space for the result list (**listing[])
+              is guaranteed to be at one continuous memory location.
+             
               if the select callback is 0, meaning all entries should be returned,
               There are no copies done at all, 
               besides the copying from kernelspace to userspace.
-              returns the number of the read entries,
-              or the negative errno on error.
-              To free the space, allocated for thelisting and the dirents, 
+             
+              To free the space, allocated for the listing,
               either call free_brk(),
               when no other allocations via malloc_brk took place.
+             
               Or save the brk before you call scandir,
               and restore it after the call.
               (e.g.)
               long savebrk=getbrk();
               int ret=scandir(...);
               brk(savebrk);
-               (src/dirent/scandir.c: 30)
+              Freeing single list entries might give unexpected results.
+             
+              returns the number of the read entries,
+              or the negative errno on error.
+               (src/dirent/scandir.c: 35)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -403,6 +405,12 @@ sbrk           static void* sbrk(long incr);
               if no errno is available,
               returns the negative errno value on error
                (src/brk.c: 57)
+
+scandir_bufsize//#define mini_scandir_bufsize 4096
+
+               the increment of the buffer of scandir in bytes for memory allocations
+              (default:4096)
+               (src/dirent/scandir.c: 4)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -1044,7 +1052,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/malloc.c: 136)
+               (src/malloc.c: 137)
 
 free_brk       int free_brk();
 
@@ -1054,7 +1062,7 @@ free_brk       int free_brk();
               1, when there hasn't been any memory allocations with
               malloc_brk before.
               Then brk() gives an error, return the return value of brk
-               (src/malloc.c: 231)
+               (src/malloc.c: 232)
 
 getenv         char* getenv(const char* name);
 
@@ -1134,7 +1142,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/malloc.c: 116)
+               (src/malloc.c: 117)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -1148,7 +1156,7 @@ malloc_brk     void* malloc_brk(int size);
               the allocated memory can also be free'd by setting the brk to the saved value
               with brk(saved_brk)
               free_brk() free's all memory, which has been allocated with malloc_brk
-               (src/malloc.c: 203)
+               (src/malloc.c: 204)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -1164,7 +1172,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 249)
+               (src/malloc.c: 250)
 
 srand          void srand( unsigned int i );
 

@@ -17,6 +17,7 @@
 #include "include/utils.h"
 
 static int brk( const void* addr );
+static void* sbrk( long incr );
 //#include "mbuf.c"
 
 #define MBUF_FREE 0x80000000

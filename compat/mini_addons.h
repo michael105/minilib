@@ -245,6 +245,9 @@ int dirfd(DIR *d);
 // file: minilib/src/dirent/opendir.c
 static DIR *opendirp(const char *name, DIR *dir);
 
+// file: minilib/src/dirent/scandir.c
+//#define mini_scandir_bufsize 4096
+
 
 
 #include "include/minilib_global.h"
@@ -252,32 +255,33 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/hashes.c"
-#include "minilib/src/vexec.c"
-#include "minilib/include/fexecve.h"
-#include "minilib/src/brk.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/src/qsort.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/memfrob.c"
-#include "minilib/include/prints.h"
-#include "minilib/src/ext_match.c"
-#include "minilib/src/basename.c"
-#include "minilib/include/dirent.h"
 #include "minilib/src/errno_str.c"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/prints.c"
-#include "minilib/src/mmap.c"
-#include "minilib/src/itodec.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/match.c"
-#include "minilib/src/exit_errno.c"
-#include "minilib/src/dirname.c"
-#include "minilib/src/pty.c"
-#include "minilib/src/dtodec.c"
+#include "minilib/include/fexecveat.h"
 #include "minilib/src/fprintfs.c"
 #include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/vexec.c"
+#include "minilib/src/match.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/dirent.h"
+#include "minilib/src/dirent/scandir.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/prints.c"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/src/exit_errno.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/ext_match.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/mmap.c"
+#include "minilib/src/qsort.c"
+#include "minilib/src/pty.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/brk.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/itodec.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/memfrob.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
