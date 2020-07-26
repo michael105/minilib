@@ -389,9 +389,9 @@
   might tend to zero.
   Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  203 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  48 </small></td><td><small> int dprints(int fd, const char *msg,...);
+<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/dprintf.c" target="right">../src/dprintf.c</a>  48 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/prints.c" target="right">../src/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
@@ -510,7 +510,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  95 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  245 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  216 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 </small></td></tr>
 <tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  10 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
@@ -524,9 +524,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  162 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  137 </small></td><td><small> void free(void *p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  139 </small></td><td><small> void free(void *p);
 </small></td></tr>
-<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  232 </small></td><td><small> int free_brk();
+<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  234 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
   which has been allocated with malloc_brk.
   Returns 0, if memory has been freed;
@@ -633,7 +633,7 @@
   having a volatile asm call with the globals as param, and so on,
   have been useless. All after all, seems to me, ai has it's restrictions.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  117 </small></td><td><small> void* malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  119 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
   Here we go.. with the .. well. 
   Fastes and smallest malloc/free combi ever. 
@@ -684,6 +684,7 @@
  
   flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
   (mbufsize)
+  ```
        size  data  size    mini_buf size
        8008dataxxxx0004data8000|
        ----========----====----|
@@ -693,13 +694,14 @@
   8004data8008  free  0004data8000|
   ----====----________----====----|
  
+  ```
   the free space is only freed, 
   when all areas below (left) have been free'd as well.
  
   Memory is allocated from right to left, 
   meaning from top to down.
  </small></td></tr>
-<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  204 </small></td><td><small> void* malloc_brk(int size);
+<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  206 </small></td><td><small> void* malloc_brk(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate via setting the brk
   free and realloc can be used normally.
   The intention of malloc_brk is for subsequent calls to realloc.
@@ -803,7 +805,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putchar</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  16 </small></td><td><small> #define putchar(c) fputc(c,stdout)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">putenv</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  11 </small></td><td><small> int putenv( char *string );
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">putenv</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  10 </small></td><td><small> int putenv( char *string );
 </small></td></tr><tr><td></td><td colspan="2"><small>put a string into the environmental vars
   the supplied string's pointer is put into the environmental array of pointers.
   Subsequent changes of the string therefore will change the environment,
@@ -811,7 +813,6 @@
   Returns: 
   - 0 on success, 
   - EINVAL: string was 0, didn't contain a '=', some other error
-  - ENOMEM: no memory for allocating the pointer
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/putenv.c" target="right">../src/putenv.c</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
@@ -836,7 +837,7 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  250 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  252 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  162 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -947,9 +948,9 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">snprintf</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  220 </small></td><td><small> int snprintf( char *buf, size_t size, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">snprintf</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  5 </small></td><td><small> int snprintf( char *buf, size_t size, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>splice</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  175 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
+<tr valign="top"><td><small>splice</small></td><td><small>   <a href="../src/snprintf.c" target="right">../src/snprintf.c</a>  175 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  26 </small></td><td><small> #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 </small></td></tr>
@@ -1073,7 +1074,12 @@
   mini_itodec (%d conversion) 
   mini_atoi is needed for grouping numbers
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  9 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
+</small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments into buf
+  calls vsnprintf, 
+  the size is limited to 4096 by default.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/vsprintf.c" target="right">../src/vsprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait4</a></small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  156 </small></td><td><small> wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
 </small></td></tr>

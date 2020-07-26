@@ -160,7 +160,7 @@ djb2_hash      unsigned long djb2_hash(const unsigned char *str);
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
-               (src/sprintf.c: 203)
+               (src/dprintf.c: 5)
 
 dprints        int dprints(int fd, const char *msg,...);
 
@@ -395,8 +395,7 @@ putenv         int putenv( char *string );
               Returns: 
               - 0 on success, 
               - EINVAL: string was 0, didn't contain a '=', some other error
-              - ENOMEM: no memory for allocating the pointer
-               (src/putenv.c: 11)
+               (src/putenv.c: 10)
 
 ret_errno      #ifdef mini_errno
 
@@ -431,7 +430,7 @@ seterrno       #ifdef mini_errno
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
-               (src/sprintf.c: 220)
+               (src/snprintf.c: 5)
 
 swap           static inline void swap(void* a, void* b,int size);
 
@@ -923,7 +922,7 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
-               (src/sprintf.c: 245)
+               (src/sprintf.c: 216)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -1029,6 +1028,13 @@ vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
                (include/mini_fstream.h: 100)
 
+vsprintf       int vsprintf( char *buf, const char *fmt, ... );
+
+               write fmt and arguments into buf
+              calls vsnprintf, 
+              the size is limited to 4096 by default.
+               (src/vsprintf.c: 9)
+
 
 
 ==========
@@ -1065,7 +1071,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/malloc.c: 137)
+               (src/malloc.c: 139)
 
 free_brk       int free_brk();
 
@@ -1075,7 +1081,7 @@ free_brk       int free_brk();
               1, when there hasn't been any memory allocations with
               malloc_brk before.
               Then brk() gives an error, return the return value of brk
-               (src/malloc.c: 232)
+               (src/malloc.c: 234)
 
 getenv         char* getenv(const char* name);
 
@@ -1141,6 +1147,7 @@ malloc         void* malloc(int size);
              
               flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
               (mbufsize)
+              ```
                    size  data  size    mini_buf size
                    8008dataxxxx0004data8000|
                    ----========----====----|
@@ -1150,12 +1157,13 @@ malloc         void* malloc(int size);
               8004data8008  free  0004data8000|
               ----====----________----====----|
              
+              ```
               the free space is only freed, 
               when all areas below (left) have been free'd as well.
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/malloc.c: 117)
+               (src/malloc.c: 119)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -1169,7 +1177,7 @@ malloc_brk     void* malloc_brk(int size);
               the allocated memory can also be free'd by setting the brk to the saved value
               with brk(saved_brk)
               free_brk() free's all memory, which has been allocated with malloc_brk
-               (src/malloc.c: 204)
+               (src/malloc.c: 206)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -1185,7 +1193,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 250)
+               (src/malloc.c: 252)
 
 srand          void srand( unsigned int i );
 

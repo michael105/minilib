@@ -18,7 +18,7 @@
 
 static int brk( const void* addr );
 static void* sbrk( long incr );
-//#include "mbuf.c"
+static long getbrk();
 
 #define MBUF_FREE 0x80000000
 #define MALLOC_FREE MBUF_FREE
@@ -97,6 +97,7 @@ static void* sbrk( long incr );
 //
 // flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), 
 // (mbufsize)
+// ```
 //      size  data  size    mini_buf size
 //      8008dataxxxx0004data8000|
 //      ----========----====----|
@@ -106,6 +107,7 @@ static void* sbrk( long incr );
 // 8004data8008  free  0004data8000|
 // ----====----________----====----|
 //
+// ```
 // the free space is only freed, 
 // when all areas below (left) have been free'd as well.
 //

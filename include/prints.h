@@ -68,11 +68,11 @@ extern int dprints(int fd, const char *msg,...);
 
 
 
-//+depends printl print strlen
+//+depends printl print strlen write
 //+doc write msg to stdout, append a newline. Needs strlen.
 //+macro puts(msg) ( print(msg) + printl() )
 
-//+depends eprintl eprint strlen
+//+depends eprintl eprint strlen write
 //+doc write msg to stderr, append a newline. Needs strlen.
 //+macro eputs(msg) ( eprint(msg) + eprintl() )
 
