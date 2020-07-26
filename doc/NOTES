@@ -368,6 +368,12 @@ before merging changes, you can also preview them by using
 git diff <source_branch> <target_branch>
 
 
+
+push to devel (from devel-HEAD)
+
+git push github devel-HEAD:devel
+
+
 tagging
 
 git tag v1.4
