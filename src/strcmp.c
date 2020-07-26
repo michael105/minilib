@@ -87,7 +87,7 @@ int memcmp(const void* c1,const void* c2,int len){
 		if ( len <=0 )
 				return(-1);
 		int a = 0;
-		while ( (a != len) && (c1[a]==c2[a]) ) a++;
+		while ( (a != len) && (cc1[a]==cc2[a]) ) a++;
 
 		if ( cc1[a] > cc2[a] )
 				return(1);

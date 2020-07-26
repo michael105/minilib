@@ -70,17 +70,6 @@ telldir        long telldir(DIR *dir);
 
 
 ==========
-errno.h
-==========
-
-errno          #ifdef mini_errno
-
-               set errno, but only when errno is defined.
-               (include/seterrno.h: 3)
-
-
-
-==========
 fcntl.h
 ==========
 
@@ -397,6 +386,25 @@ ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
                (src/pty.c: 27)
 
+putenv         int putenv( char *string );
+
+               put a string into the environmental vars
+              the supplied string's pointer is put into the environmental array of pointers.
+              Subsequent changes of the string therefore will change the environment,
+              and the supplied string may not be deallocated.
+              Returns: 
+              - 0 on success, 
+              - EINVAL: string was 0, didn't contain a '=', some other error
+              - ENOMEM: no memory for allocating the pointer
+               (src/putenv.c: 11)
+
+ret_errno      #ifdef mini_errno
+
+               This macro expands to a return, and
+              (when mini_errno is defined) returns -1 and sets errno,
+              or returns the negative errno value.
+               (include/ret_errno.h: 5)
+
 sbrk           static void* sbrk(long incr);
 
                Set the new brk, increment/decrement by incr bytes.
@@ -415,6 +423,11 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
                (src/hashes.c: 21)
+
+seterrno       #ifdef mini_errno
+
+               set errno, but only when errno is defined.
+               (include/seterrno.h: 3)
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
@@ -1187,10 +1200,6 @@ strtol         long int strtol(const char *c, const char **endp, int base);
 system         int system( const char* command );
 
                (src/system.c: 4)
-
-todo_putenv    int todo_putenv( char *s );
-
-               (src/getenv.c: 22)
 
 
 

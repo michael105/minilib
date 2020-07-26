@@ -168,6 +168,14 @@ int functionname
     The following function depends onto other functions.
 		Therefore, when mini_function is defined,
 		mini_switch1, ... will be defined, too, at compilation time.
+		Sometimes it still is neccessary for the application, 
+		to define the according switches, too.
+		The problem is somewhere in sort of circular dependencies.
+		I looking for a solution.
+		Whenever there's a error message of gcc like: implicit definition of (e.g.)brk,
+		or ld complains about a missing function, 
+		add the according switch to the minilib configuration, please.
+		(in the example: 'mini_brk')
 
 //+include  (shortcut: //+inc  )
     Include the header.

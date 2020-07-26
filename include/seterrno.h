@@ -1,5 +1,5 @@
 //+doc set errno, but only when errno is defined.
-//+def errno
+//+def seterrno
 #ifdef mini_errno
 #define seterrno(e) { if ( e>0 ) errno = e; else errno=-e; }
 #else
