@@ -16,13 +16,4 @@ char* getenv(const char* name){
 		return(0);
 }
 
-
-//+depends environ getenv
-//+def
-int todo_putenv( char *s ){
-
-
-	return(0);
-}
-
 #endif
