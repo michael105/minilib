@@ -1,5 +1,5 @@
 #!/bin/perl -w
-# (modified) BSD 3-clause (c) 2019 Michael misc Myer misc.myer@zoho.com;
+# (modified) BSD 3-clause (c) 2019,2020 Michael misc Myer misc.myer@zoho.com;
 # www.github.com/michael105; BSD-Licensing terms attached
 #
 #
@@ -577,7 +577,7 @@ close API;
 close FDOC;
 
 # write doc
-open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref-lf.html" ) or die;
+open( FDOC, ">", "$mlibdir/doc/html/mlfunctions-shortref-lf.html" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref-lf.html.top" );
@@ -967,7 +967,7 @@ exit(0);
 #Licensing terms of this script.
 $LICENSE = << 'ENDLICENSE';
 
-Copyright (c) 2012-2019, Michael (Misc) Myer 
+Copyright (c) 2012-2020, Michael (Misc) Myer 
 (misc.myer@zoho.com, www.github.com/michael105)
 All rights reserved.
 

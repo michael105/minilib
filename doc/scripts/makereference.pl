@@ -1,7 +1,7 @@
 #!/bin/perl -w
 
 BEGIN {
-		$MLDIR="../..";
+		$MLDIR="..";
 		push @INC, "$MLDIR/scripts/perl";
 }
 use Data::Dumper::Simple;
