@@ -3,7 +3,11 @@
 
 CC=../../mini-gcc
 
-all: init reboot halt
+all: init reboot halt 1
+
+
+
+
 
 init: init.c
 		$(CC) --config init.c -o init init.c
@@ -23,4 +27,15 @@ install-tools: halt reboot
 	@echo and wheel is the group intended for users allowed to reboot/shutdown
 	sudo "cp halt /bin/halt && chown root:wheel /bin/halt && chmod ug+s /bin/halt"
 	sudo "cp reboot /bin/reboot && chown root:wheel /bin/reboot && chmod ug+s /bin/reboot"
+
+
+
+
+%: %.c common.c
+	$(eval OPT=--config $@.c)
+	#$(if $(wildcard $@.mconf),$(eval OPT=--config $@.mconf),)
+	#$(if $(wildcard $@.conf),$(eval OPT=--config $@.conf),)
+	@echo -e "\e[36m" $(CC) $(OPT) -o $@ $@.c "\e[37m"
+	@$(CC) $(OPT) -o $@ $@.c
+
 

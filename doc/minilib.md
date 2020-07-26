@@ -105,6 +105,58 @@ _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
                (src/prints.c: 69)
 
+alphasort      int alphasort( const struct dirent** de1, const struct dirent** de2 );
+
+               Sort dirents by name.
+              Deviating of the standard, 
+              the asciitables is used for the comparison
+              (using strcmp)
+               (src/dirent/alphasort.c: 7)
+
+ansicolors     
+
+               defines for ansicolors at the console, 16 color mode
+             the names are:
+              AC_NORM ( white text on black background)
+              AC_BLACK 
+              AC_RED 
+              AC_GREEN 
+              AC_BROWN 
+              AC_BLUE 
+              AC_MAGENTA 
+              AC_MARINE (= AC_CYAN)
+              AC_LGREY 
+              AC_WHITE 
+              AC_GREY 
+              AC_LRED 
+              AC_LGREEN 
+              AC_YELLOW 
+              AC_LBLUE 
+              AC_LMAGENTA 
+              AC_LMARINE (= AC_LCYAN)
+              AC_LWHITE 
+              AC_BGBLACK 
+              AC_BGRED 
+              AC_BGGREEN 
+              AC_BGBROWN 
+              AC_BGBLUE 
+              AC_BGMAGENTA 
+              AC_BGMARINE 
+              AC_BGLGREY 
+              AC_BGWHITE 
+             
+              AC_BOLD
+              AC_FAINT
+              AC_CURSIVE
+              AC_UNDERLINE
+              AC_LIGHTBG
+              AC_BLINK
+              AC_INVERTED
+              AC_INVERSE
+             
+              ( Faint to inverse are not available at every terminal )
+               (include/ansicolors.h: 45)
+
 basename       char *basename(char *path);
 
                (src/basename.c: 29)
@@ -439,6 +491,12 @@ seterrno       #ifdef mini_errno
                set errno, but only when errno is defined.
                (include/seterrno.h: 3)
 
+shortcolornames
+
+               short ansi color names
+              all colornames, without the praefix "AC_"
+               (include/ansicolors.h: 103)
+
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/snprintf.c: 5)
@@ -485,14 +543,14 @@ vexec          int vexec( const char* path, char* const* argv, char* const* envp
 
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
-               (src/vexec.c: 4)
+               (src/vexec.c: 5)
 
 vexec_q        int vexec_q( const char* path, char* const* argv, char* const* envp );
 
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
               Deviating of system() an absolute pathname is taken.
-               (src/vexec.c: 26)
+               (src/vexec.c: 28)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -1204,7 +1262,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
               following the tradition, this isn't exactly a quicksort algorithm,
               albite named quicksort.
               It is a shell sort implementation, originally done by Ray Gardner, 5/90;
-              which in turn I found within musl.
+              which in turn I did find within musl.
                (src/qsort.c: 57)
 
 rand           unsigned int rand();

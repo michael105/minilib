@@ -38,14 +38,13 @@ SECTIONS {
 
 		 .data :
 		 {
-						*(COMMON)
 						*(.data .data.*)
 			} : data
 
 
 		.bss           : 
 		{ 
-
+						*(COMMON)
 						*(.dynbss)
 						*(.bss .bss.* .gnu.linkonce.b.*)
 						/* Align here to ensure that the .bss section occupies space up to

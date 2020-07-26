@@ -45,7 +45,7 @@ verbose(){
 # gcc options
 # only linux x64 for now.
 
-COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -fno-pic\
 		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
 		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin\
 		-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \

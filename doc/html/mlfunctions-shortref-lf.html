@@ -322,7 +322,55 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  157 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atexit.3.rst.html">atexit</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small>  int atexit( functionp* func );
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">alphasort</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> int alphasort( const struct dirent** de1, const struct dirent** de2 );
+</small></td></tr><tr><td></td><td colspan="2"><small>Sort dirents by name.
+  Deviating of the standard, 
+  the asciitables is used for the comparison
+  (using strcmp)
+ </small></td></tr>
+<tr valign="top"><td><small>ansicolors</small></td><td><small>   <a href="../src/dirent/alphasort.c" target="right">../src/dirent/alphasort.c</a>  45 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>defines for ansicolors at the console, 16 color mode
+ the names are:
+  AC_NORM ( white text on black background)
+  AC_BLACK 
+  AC_RED 
+  AC_GREEN 
+  AC_BROWN 
+  AC_BLUE 
+  AC_MAGENTA 
+  AC_MARINE (= AC_CYAN)
+  AC_LGREY 
+  AC_WHITE 
+  AC_GREY 
+  AC_LRED 
+  AC_LGREEN 
+  AC_YELLOW 
+  AC_LBLUE 
+  AC_LMAGENTA 
+  AC_LMARINE (= AC_LCYAN)
+  AC_LWHITE 
+  AC_BGBLACK 
+  AC_BGRED 
+  AC_BGGREEN 
+  AC_BGBROWN 
+  AC_BGBLUE 
+  AC_BGMAGENTA 
+  AC_BGMARINE 
+  AC_BGLGREY 
+  AC_BGWHITE 
+ 
+  AC_BOLD
+  AC_FAINT
+  AC_CURSIVE
+  AC_UNDERLINE
+  AC_LIGHTBG
+  AC_BLINK
+  AC_INVERTED
+  AC_INVERSE
+ 
+  ( Faint to inverse are not available at every terminal )
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atexit.3.rst.html">atexit</a></small></td><td><small>   <a href="../include/ansicolors.h" target="right">../include/ansicolors.h</a>  7 </small></td><td><small>  int atexit( functionp* func );
 </small></td></tr><tr><td></td><td colspan="2"><small>register functions, which are callen on exit in reverse order
   the switch mini_atexit takes a optional number,
   which defines the maximum numbers of functions to be registered.
@@ -839,7 +887,7 @@
   following the tradition, this isn't exactly a quicksort algorithm,
   albite named quicksort.
   It is a shell sort implementation, originally done by Ray Gardner, 5/90;
-  which in turn I found within musl.
+  which in turn I did find within musl.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  135 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
@@ -946,7 +994,11 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  216 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  107 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+<tr valign="top"><td><small>shortcolornames</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  103 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>short ansi color names
+  all colornames, without the praefix "AC_"
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/ansicolors.h" target="right">../include/ansicolors.h</a>  107 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
 </small></td></tr>
@@ -1071,11 +1123,11 @@
   this adds about 3.5kB to the compiled binary(!)
   Trying to shrink that here.
  </small></td></tr>
-<tr valign="top"><td><small>vexec</small></td><td><small>   <a href="../include/errstr2.h" target="right">../include/errstr2.h</a>  4 </small></td><td><small> int vexec( const char* path, char* const* argv, char* const* envp );
+<tr valign="top"><td><small>vexec</small></td><td><small>   <a href="../include/errstr2.h" target="right">../include/errstr2.h</a>  5 </small></td><td><small> int vexec( const char* path, char* const* argv, char* const* envp );
 </small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits.
   Deviating of system() an absolute pathname is taken.
  </small></td></tr>
-<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  26 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
+<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  28 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
 </small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits, 
   do not write any output of the process. (close stdout)
   Deviating of system() an absolute pathname is taken.
