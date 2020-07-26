@@ -19,8 +19,9 @@ can optimize for each call. What is different each time, depending on the circum
 <hr>
 <h2><a name="_configuration"></a>1.  Configuration</h2>
 <p>Before the include of minilib.h, the minilib has to be configured.</p>
-<p>The proposed way is to use the supplied script mini-gcc,
-which translates config options to define flags.</p>
+<p>The proposed way is to use the supplied script mini-gcc,<br>
+which translates config options to define flags,<br>
+and pipes the minilib header to gcc.</p>
 <p>The config file is a bash script and can be a separate file,
 or within one of the source files.</p>
 <p>An example is given below:</p>
@@ -43,6 +44,20 @@ int main(int argc, char *argv[] ){
 ...</code></pre>
 </td></tr></table>
 <p>Only functions defined are going to be built.</p>
+<p>There are several examples given within the folder examples,+
+the files within the folder test are there for regression tests,+
+but might also be helpful.</p>
+<p>To compile a c source file with embedded configuration (as in the example above),+
+type <em>mini-gcc --config example.c -o example example.c</em>.<br>
+(Shortcut <em>mini-gcc -mlc example.c</em>)</p>
+<p>(mini-gcc needs to be in the standard search path)+
+If you&#8217;d like to "install" the mini-gcc, simply copy the script mini-gcc into /usr/local/bin,+
+or wherever your executables live and can be found.</p>
+<p>The minilib itself, as well as the supllied linker scripts are embedded into mini-gcc,+
+and extracted and piped to gcc on demand.</p>
+<p>(There are compatibility headers provided, e.g. stdio.h;+
+these are however not stable and will most probably not work.+
+I&#8217;m going to update them, as soon other and more important things are finished.)</p>
 <p>In addition to the switches, which are built of the function&#8217;s name and the prefix <em>mini_</em>;<br>
 e.g. <em>mini_puts</em>, these switches are defined for the configuration of minilib:</p>
 <dl>
@@ -427,7 +442,7 @@ opendir
 <p>
   <em>DIR *opendir(const char *name )</em>
 <br>
-  Defines: brk dirbuf open close write<br>
+  Defines: dirbuf open brk close write<br>
  open directory associated with file descriptor<br>
  Size: ~281B  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24  manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -439,7 +454,7 @@ opendirp
 <p>
   <em>DIR *opendirp(const char *name, DIR *dir)</em>
 <br>
-  Defines: dirbuf brk open close<br>
+  Defines: open brk dirbuf close<br>
  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -450,7 +465,7 @@ readdir
 <p>
   <em>struct dirent *readdir(DIR *dir)</em>
 <br>
-  Defines: dirbuf getdents<br>
+  Defines: getdents dirbuf<br>
  read a directory<br>
  read a directory.<br>
   return the next dirent, or 0, if the end is reached.<br>
@@ -488,7 +503,7 @@ scandir
 <p>
   <em>int scandir(const char *path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent <strong>))</em>
 <br>
-  Defines: qsort write brk getbrk open errno seterrno sbrk memcpy dirbuf<br>
+  Defines: write memcpy qsort seterrno getbrk sbrk brk open dirbuf errno<br>
  scan a directory<br>
  list files and dirs in a directory<br>
  <br>
@@ -589,7 +604,7 @@ exit_errno
 <p>
   <em>void exit_errno( int errnum )</em>
 <br>
-  Defines: write errno_str exit execve<br>
+  Defines: write errno_str execve exit<br>
  exit, and execute /bin/errno<br>
   this is intended to give a error message for the <br>
   given errno num.<br>
@@ -613,7 +628,7 @@ perror
 <p>
   <em>void perror(const char *msg)</em>
 <br>
-  Defines: errno strerror strlen write fileno<br>
+  Defines: write errno strerror fileno strlen<br>
  write error messages to standard error<br>
  Size: ~329B  <a href="../src/perror.c">../src/perror.c</a> l.4  manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -664,7 +679,7 @@ _fopen
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE *f)</em>
 <br>
-  Defines: open close fileno<br>
+  Defines: open fileno close<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~316B  <a href="../src/fopen.c">../src/fopen.c</a> l.12
 </p>
@@ -720,7 +735,7 @@ closedir
 <p>
   <em>int closedir(DIR *dir)</em>
 <br>
-  Defines: brk getbrk<br>
+  Defines: getbrk brk<br>
  close a directory stream<br>
  Size: ~323B  <a href="../src/dirent/closedir.c">../src/dirent/closedir.c</a> l.6  manpage: <a href="manpages/gen/directory.3.rst">closedir</a><br>
 </p>
@@ -975,7 +990,7 @@ fgets
 <p>
   <em>char* fgets(char <strong>buf, int size, FILE</strong> F)</em>
 <br>
-  Defines: read fileno<br>
+  Defines: fileno read<br>
  get a string from a stream<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.6  manpage: <a href="manpages/stdio/fgets.3.rst">fgets</a><br>
 </p>
@@ -1011,7 +1026,7 @@ gets
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em>
 <br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a string from a<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.29  manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -1613,7 +1628,7 @@ realloc
 <p>
   <em>void* realloc(void *p, int size)</em>
 <br>
-  Defines: brk getbrk<br>
+  Defines: getbrk brk<br>
  memory reallocator<br>
  Size: ~636B  <a href="../src/malloc.c">../src/malloc.c</a> l.250  manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
@@ -1702,7 +1717,7 @@ eprint
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em>
 <br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  write str to stderr. Needs strlen<br>
   <a href="../include/prints.h">../include/prints.h</a> l.42
 </p>
@@ -1714,7 +1729,7 @@ eprintfs
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em>
 <br>
-  Defines: fileno strlen write<br>
+  Defines: write fileno strlen<br>
  write str to stderr. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.90
@@ -1797,7 +1812,7 @@ fprintfs
 <p>
   <em>int fprintfs( FILE* F, char *fmt, &#8230;)</em>
 <br>
-  Defines: write strlen fileno<br>
+  Defines: strlen fileno write<br>
  prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
   Size: ~427B  <a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10
 </p>
@@ -1809,7 +1824,7 @@ fprints
 <p>
   <em>#define fprints(F,str) write(fileno(F),str,strlen(str))</em>
 <br>
-  Defines: write strlen fileno<br>
+  Defines: fileno strlen write<br>
  print the string(s) supplied as arg(s) to stream<br>
   <a href="../include/prints.h">../include/prints.h</a> l.24
 </p>
@@ -1869,7 +1884,7 @@ printf
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em>
 <br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  print formatted output<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.91  manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
@@ -1881,7 +1896,7 @@ printfs
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em>
 <br>
-  Defines: fileno strlen write<br>
+  Defines: write strlen fileno<br>
  write str to stdout. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.84
@@ -1952,7 +1967,7 @@ puts
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em>
 <br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  put a string on standard output<br>
  write msg to stdout, append a newline. Needs strlen.<br>
   <a href="../include/prints.h">../include/prints.h</a> l.73  manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br>
@@ -1977,7 +1992,7 @@ vfprintf
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em>
 <br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.100  manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
@@ -2031,7 +2046,7 @@ abort
 <p>
   <em>void abort()</em>
 <br>
-  Defines: write memcpy getpid<br>
+  Defines: getpid write memcpy<br>
  <a href="../src/abort.c">../src/abort.c</a> l.3  manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2057,7 +2072,7 @@ execl
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em>
 <br>
-  Defines: execve environ<br>
+  Defines: environ execve<br>
  <a href="../src/execl.c">../src/execl.c</a> l.6  manpage: <a href="manpages/gen/exec.3.rst">execl</a><br>
 </p>
 </dd>
@@ -2068,7 +2083,7 @@ execv
 <p>
   <em>int execv(const char *pathname, char *const argv[])</em>
 <br>
-  Defines: environ execve<br>
+  Defines: execve environ<br>
  execute a file<br>
  Size: ~300B  <a href="../src/execvp.c">../src/execvp.c</a> l.9  manpage: <a href="manpages/gen/exec.3.rst">execv</a><br>
 </p>
@@ -2102,7 +2117,7 @@ execvp
 <p>
   <em>int execvp(const char *file, char *const argv[])</em>
 <br>
-  Defines: access environ execve<br>
+  Defines: access execve environ<br>
  execute a file<br>
  Size: ~556B  <a href="../src/execvp.c">../src/execvp.c</a> l.58  manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -2114,7 +2129,7 @@ execvpe
 <p>
   <em>int execvpe(const char *file, char *const argv[], char *const envp[])</em>
 <br>
-  Defines: environ access execve<br>
+  Defines: execve environ access<br>
  execute a file<br>
  When invoked with a filename, starting with "." or "/",<br>
   interprets this as absolute path. (calls execve with the pathname)<br>
@@ -2228,7 +2243,7 @@ system
 <p>
   <em>int system( const char* command )</em>
 <br>
-  Defines: environ wait4 execve write vfork<br>
+  Defines: wait4 vfork execve write environ<br>
  issue a command<br>
  Size: ~326B  <a href="../src/system.c">../src/system.c</a> l.4  manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2430,7 +2445,7 @@ fopen
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em>
 <br>
-  Defines: close open fileno<br>
+  Defines: open fileno close<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~324B  <a href="../src/fopen.c">../src/fopen.c</a> l.81  manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br>
@@ -2443,7 +2458,7 @@ fputs
 <p>
   <em>int volatile fputs(const char *c, FILE *F)</em>
 <br>
-  Defines: fileno write strlen<br>
+  Defines: strlen fileno write<br>
  put a string on a stream<br>
  Size: ~90B  <a href="../include/fputs.h">../include/fputs.h</a> l.20  manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -2657,7 +2672,7 @@ strdup
 <p>
   <em>char *strdup(const char *source)</em>
 <br>
-  Defines: brk strcpy strlen<br>
+  Defines: brk strlen strcpy<br>
  duplicate a specific number of bytes from a string<br>
  Size: ~258B  <a href="../src/strdup.c">../src/strdup.c</a> l.7  manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -2974,7 +2989,7 @@ ptsname
 <p>
   <em>char *ptsname(int fd)</em>
 <br>
-  Defines: uitodec write ioctl open<br>
+  Defines: open ioctl uitodec write<br>
  get name of the slave pseudo-terminal device<br>
  Size: ~1767B  <a href="../src/pty.c">../src/pty.c</a> l.40  manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -2986,7 +3001,7 @@ ptsname_r
 <p>
   <em>int ptsname_r(int fd, char *buf, size_t len)</em>
 <br>
-  Defines: uitodec write ioctl open<br>
+  Defines: uitodec open ioctl write<br>
  get the name of the slave pseudoterminal<br>
  Size: ~1748B  <a href="../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -6543,7 +6558,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-26 01:25:55 CEST
+ 2020-07-26 02:21:32 CEST
 </small></p>
 </body>
 </html>
