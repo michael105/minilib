@@ -8,7 +8,7 @@ mini_print
 mini_itodec
 mini_execve
 mini_fork
-mini_nanosleep
+mini_usleep
 mini_buf 1024
 mini_INCLUDESRC
 
@@ -41,9 +41,10 @@ int main(int argc, char**argv, char** envp){
 				execve("/bin/echo", (char* const*)av, (char* const*)envp );
 		}
 
-		for ( int i=0; i<100000; i++ ){
-				pid++;
-		}
+		//for ( int i=0; i<100000; i++ ){
+		//		pid++;
+		//}
+		usleep(250000);
 		execve("/bin/echo", (char* const*)av2,  (char* const*)envp );
 
 

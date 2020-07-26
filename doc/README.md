@@ -1,7 +1,7 @@
 Contents
 ________
 
-In this directory documentation about minilib itself is stored.
+In this directory documentation on minilib is stored.
 
 In the subdirectories there is information on the implemented functions,
 namely the bsd manpages, ansic / posixc function references,

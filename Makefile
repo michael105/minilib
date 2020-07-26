@@ -193,6 +193,6 @@ gitlog:
 syntaxcheck: 
 	$(shell cp templates/syntaxcheck.h.top ./syntaxcheck.h) 
 	$(shell ( ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -DGENSYNTAXCHECK -dD | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
-			echo -e "#endif\n#endif" ) |\
+			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
 	

@@ -25,6 +25,8 @@ return
 // which is accounted as "stack" by the kernel.
 // strangely, the memory consumption doesn't show up
 // via free / ps ???
+// the allocated "stack" has to be available, 
+// the default setting (ulimit) is 8MB here.
 
 extern unsigned long _end;
 
@@ -36,12 +38,12 @@ int main(int argc, char **argv){
 
 		long int r=0;
 		unsigned long *memstart;
-		r = sbrk(0);
-		memstart = r;
+		r = (ulong)sbrk(0);
+		memstart = (ulong*)r;
 		printf("r: %l\n",r);
-		r = sbrk(32);
+		r = (ulong)sbrk(32);
 		printf("r: %l\n",r);
-		r = sbrk(0);
+		r = (ulong)sbrk(0);
 		printf("r: %l\n",r);
 
 
