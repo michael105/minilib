@@ -280,11 +280,16 @@ grantpt        int grantpt(int fd);
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
-               (src/itobin.c: 41)
+               convert a number to a binary representation.
+              the conversion assumes a size of 32bits for integers,
+              negative values are represented as they are stored internally.
+              ( -1 is 11111111111111111111111111111111,
+                -2    11111111111111111111111111111110, ...)
+               (src/itobin.c: 46)
 
 itodec         int itodec(int i, char *buf, int prec, char limiter );
 
-               (src/itodec.c: 116)
+               (src/itodec.c: 118)
 
 itooct         int itooct(int i, char *buf);
 
@@ -928,7 +933,7 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
-               (src/sprintf.c: 224)
+               (src/sprintf.c: 228)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -977,11 +982,19 @@ gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
-               (src/itohex.c: 56)
+               convert a number to hexadecimal representation with big capitals.
+              the conversion assumes a size of 32bits for integers,
+              negative values are represented as they are stored internally.
+              ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )
+               (src/itohex.c: 65)
 
 itohex         int itohex(int i,char* buf,int padding);
 
-               (src/itohex.c: 49)
+               convert a number to hexadecimal representation.
+              the conversion assumes a size of 32bits for integers,
+              negative values are represented as they are stored internally.
+              ( -1 is 0xffffffff, -2 0xfffffffe, ... )
+               (src/itohex.c: 53)
 
 perror         void perror(const char *msg);
 

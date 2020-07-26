@@ -86,7 +86,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 										case 'd':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + itodec(va_arg(args,int),&buf[b],(padding?padding:1),sep);
+												b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
 												//b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
 #endif
 												end=1;
@@ -97,7 +97,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												MINI_TEST_OVERRUN(b+27);
 												if ( padding==0 )
 														padding = 9;
-												b = b + dtodec(va_arg(args,double),&buf[b],(padding?padding:1);
+												b = b + dtodec(va_arg(args,double),&buf[b],(padding?padding:1));
 												//b = b + dtodec(va_arg(args,double),&buf[b],padding);
 #endif
 												end=1;

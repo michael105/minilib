@@ -510,7 +510,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  95 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  224 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  228 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 </small></td></tr>
 <tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  10 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
@@ -591,14 +591,27 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/ioctl.c" target="right">../src/ioctl.c</a>  7 </small></td><td><small> int isatty(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../src/isatty.c" target="right">../src/isatty.c</a>  56 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
+<tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../src/isatty.c" target="right">../src/isatty.c</a>  65 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
+</small></td></tr><tr><td></td><td colspan="2"><small>convert a number to hexadecimal representation with big capitals.
+  the conversion assumes a size of 32bits for integers,
+  negative values are represented as they are stored internally.
+  ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )
+ </small></td></tr>
+<tr valign="top"><td><small>itobin</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  46 </small></td><td><small> #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+</small></td></tr><tr><td></td><td colspan="2"><small>convert a number to a binary representation.
+  the conversion assumes a size of 32bits for integers,
+  negative values are represented as they are stored internally.
+  ( -1 is 11111111111111111111111111111111,
+    -2    11111111111111111111111111111110, ...)
+ </small></td></tr>
+<tr valign="top"><td><small>itodec</small></td><td><small>   <a href="../src/itobin.c" target="right">../src/itobin.c</a>  118 </small></td><td><small> int itodec(int i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small>itobin</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  41 </small></td><td><small> #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-</small></td></tr>
-<tr valign="top"><td><small>itodec</small></td><td><small>   <a href="../src/itobin.c" target="right">../src/itobin.c</a>  116 </small></td><td><small> int itodec(int i, char *buf, int prec, char limiter );
-</small></td></tr>
-<tr valign="top"><td><small>itohex</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  49 </small></td><td><small> int itohex(int i,char* buf,int padding);
-</small></td></tr>
+<tr valign="top"><td><small>itohex</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  53 </small></td><td><small> int itohex(int i,char* buf,int padding);
+</small></td></tr><tr><td></td><td colspan="2"><small>convert a number to hexadecimal representation.
+  the conversion assumes a size of 32bits for integers,
+  negative values are represented as they are stored internally.
+  ( -1 is 0xffffffff, -2 0xfffffffe, ... )
+ </small></td></tr>
 <tr valign="top"><td><small>itooct</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  4 </small></td><td><small> int itooct(int i, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert int to octal
   return the number of chars written.
