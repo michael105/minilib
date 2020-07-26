@@ -5,11 +5,12 @@ mini_writes
 mini_eprints
 mini_exit_errno
 mini_syscalls
+mini_strcpy
 
 
 INCLUDESRC
 SHRINKELF
-LDSCRIPT text_and_bss
+#LDSCRIPT text_and_bss
 
 return
 #endif
@@ -22,7 +23,7 @@ return
 
 
 void usage(){
-		writes("usage: udo [-u uid] [-g gid] [-G gid1,gid2,...] [-G ...] [-G gid32] command [arguments]\n");
+		writes("usage: udo [-h] [-u uid] [-g gid] [-G gid1,gid2,...] [-G ...] [-G gid32] command [arguments]\n");
 		exit(1);
 }
 
@@ -59,6 +60,10 @@ int main(int argc,	char **argv, char **envp ){
 						case 'u':
 								uid = getint(argv[1]);
 								break;
+						//case 'H': (todo: set HOME var)
+						// For now prepend udo with the setting 
+						// ( e.g. 'HOME=/tmp udo -u 1000 id' )
+						//		break;
 						case 'g':
 								gid = getint(argv[1]);
 								break;
