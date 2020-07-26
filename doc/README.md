@@ -24,15 +24,17 @@ minilib implemented functions short reference
  minilib implemented functions short reference
  Markup, links to sources and the according bsd manpages
 
-[mlfunctions-shortref-framed.html](mlfunctions-shortref-framed.html)
+[html/mlfunctions-shortref-framed.html](html/mlfunctions-shortref-framed.html)
  minilib implemented functions short reference
  Framed version, for "offline" reading
  links to sources and the according bsd manpages
 
-[syscalls.html](syscalls.html)
+[html/syscalls.html](html/syscalls.html)
 reference of the plain (mostly untested) syscall wrappers, linux x86-64.
 (Nearly) all syscalls, as provided by kernel #4.7.
 
+[minilib-devel.textile](minilib-devel.textile)
+About the development of minilib itself.
 
 
 [./manpages](./manpages)

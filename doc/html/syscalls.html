@@ -817,6 +817,8 @@ asciidoc.install();
 		;) When you tested one of the syscalls given below, it would be great you'd add the
 		working syscall to syscallstubs as 'DEF_syscall(name,argcount, args... ) and do a merge request..</p>
 		<p>errno is set to sysret, when compiled with the switch #mini_errno.<p>
+		<p>When errno is not defined, the syscalls return the negative errno 
+		value on error.</p>
 		<p>There is also the possibilty to invoke syscalls by the generic macros
 		syscall1 - syscall6. (TODO: document/syscall0)<p>
 
