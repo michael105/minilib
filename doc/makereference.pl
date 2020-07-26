@@ -108,7 +108,7 @@ open B, ">>", "minilib-reference.asc";
 
 foreach my $cat ( sort(keys(%{$categorized}))){
 		print A "\n#$cat\n\n";
-		print B "\n\n $cat\n";
+		print B "\n\n\n\n---\n\n== $cat\n";
 		print B "-" for ( 0.. length($cat)+1 );
 		print B "\n";
 
