@@ -43,6 +43,10 @@ int _itohex(int i,char* buf,int padding, int capitals){
 		return(p);
 }
 
+//+doc convert a number to hexadecimal representation.
+// the conversion assumes a size of 32bits for integers,
+// negative values are represented as they are stored internally.
+// ( -1 is 0xffffffff, -2 0xfffffffe, ... )
 //+header stdio.h
 //+depends _itohex
 //+def
@@ -50,6 +54,11 @@ int itohex(int i,char* buf,int padding){
 		return(_itohex(i,buf,padding,0));
 }
 
+
+//+doc convert a number to hexadecimal representation with big capitals.
+// the conversion assumes a size of 32bits for integers,
+// negative values are represented as they are stored internally.
+// ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )
 //+header stdio.h
 //+depends _itohex
 //+def

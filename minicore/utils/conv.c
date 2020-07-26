@@ -8,6 +8,7 @@ mini_itodec
 mini_ltodec
 mini_itoHEX
 mini_itobin
+mini_itooct
 mini_writes
 mini_strtol
 
@@ -32,7 +33,7 @@ int main(int argc, char** argv){
 				base = (int)strtol(argv[2],0,0);
 
 		long l = strtol(argv[1],0,base);
-		printf("%l\n0x%X\n%b\n", l,l,l);
+		printf("%l\n0x%X\n0%o\n%b\n", l,l,l,l);
 
 		return(0);
 }

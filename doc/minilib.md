@@ -286,6 +286,12 @@ itodec         int itodec(int i, char *buf, int prec, char limiter );
 
                (src/itodec.c: 116)
 
+itooct         int itooct(int i, char *buf);
+
+               convert int to octal
+              return the number of chars written.
+               (src/itooct.c: 4)
+
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 75)
@@ -922,7 +928,7 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
-               (src/sprintf.c: 216)
+               (src/sprintf.c: 224)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 

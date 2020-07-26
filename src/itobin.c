@@ -37,6 +37,11 @@ int _itobin(int i, char*buf, int prec, int groups ){
 		return(p);
 }
 
+//+doc convert a number to a binary representation.
+// the conversion assumes a size of 32bits for integers,
+// negative values are represented as they are stored internally.
+// ( -1 is 11111111111111111111111111111111,
+//   -2    11111111111111111111111111111110, ...)
 //+depends _itobin
 //+macro itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 

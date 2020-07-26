@@ -78,14 +78,16 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 										case 'u':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + uitodec(va_arg(args,unsigned int),&buf[b],padding,sep);
+												b = b + uitodec(va_arg(args,unsigned int),&buf[b],(padding?padding:1),sep);
+												//b = b + uitodec(va_arg(args,unsigned int),&buf[b],padding,sep);
 #endif
 												end=1;
 												break;
 										case 'd':
 #ifdef mini_itodec
 												MINI_TEST_OVERRUN(b+13);
-												b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
+												b = b + itodec(va_arg(args,int),&buf[b],(padding?padding:1),sep);
+												//b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
 #endif
 												end=1;
 												break;
@@ -95,14 +97,16 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												MINI_TEST_OVERRUN(b+27);
 												if ( padding==0 )
 														padding = 9;
-												b = b + dtodec(va_arg(args,double),&buf[b],padding);
+												b = b + dtodec(va_arg(args,double),&buf[b],(padding?padding:1);
+												//b = b + dtodec(va_arg(args,double),&buf[b],padding);
 #endif
 												end=1;
 												break;
 										case 'l':
 #ifdef mini_ltodec
 												MINI_TEST_OVERRUN(b+27);
-												b = b + ltodec(va_arg(args,long),&buf[b],padding,sep);
+												b = b + ltodec(va_arg(args,long),&buf[b],(padding?padding:1),sep);
+												//b = b + ltodec(va_arg(args,long),&buf[b],padding,sep);
 #endif
 												end=1;
 												break;
@@ -125,11 +129,19 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												end=1;
 												break;
 
+										case 'o':
+#ifdef mini_itooct
+												MINI_TEST_OVERRUN(b+16);
+												b = b + itooct(va_arg(args,int),&buf[b]);
+#endif
+												end=1;
+												break;
+
 										case 'b':
 #ifdef mini_itobin
 
 												MINI_TEST_OVERRUN(b+32);
-												b += itobin(va_arg(args,int),&buf[b],padding,groups);
+												b += itobin(va_arg(args,int),&buf[b],(padding?padding:1),groups);
 #endif
 												end=1;
 												break;

@@ -103,8 +103,10 @@ int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, 
 					//p++;
 			}
 	}
-	if ( p==0 )
+	if ( p==0 ){
+			buf[0]='0';
 			p=1;
+	}
 	buf[p] = 0;
 
 	return(p);
