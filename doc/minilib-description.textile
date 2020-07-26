@@ -1,0 +1,218 @@
+ About minilib itself
+======================
+
+
+
+
+Aiming at collecting informtion on minilib itself here.
+
+
+I'm starting with simple notes.
+
+As soon I've got enough, I'm going to write a adherent text.
+
+
+
+=== Target of minilib
+ 
+ Overall, minilib aims at being tiny.
+ It really is "interesting". But, despite the fact,
+ the whole minilib has to be compiled for every source file,
+ this 1. takes only fraction of a second here;
+ and 2.ly gives tiny binaries, albite linked statically.
+
+ I finally do not know exactly, what needs that much ressources
+ with the other system libc's.
+ 
+ There obviously is the lack of the need to
+ link shared libraries, and translate the symbols.
+ (possibly I'm going to add the needed code to
+ support shared libraris later, 
+ but it's out of the scope of minilib yet)
+
+ However - why, e.g., a simple 'hello world', 
+ linked with glibc is more than 100x times bigger than 
+ linked statically with minilibc. Is. Well.
+ Most possibly related to software development processes at all.
+
+ And, it is possible to configure the compilation of minilib fine grained.
+ E.g. to not use any globals, or to have a mlloc using
+ a statically defined buffer residing in the bss section.
+ (it even is possible to move this buffer onto the stack).
+
+ Obviously, this makes it possible to save some overhead.
+ As I written already somewhere else -
+ When I wrote a few assembler programs, I realized the overhead of 
+ glibc. Started to write my own startup routine. And. Well.
+ Wrote minilib.
+
+ Which finally is a product of the corona shutdown as well.
+ (Amongst other circumstances. Life is interesting..)
+
+
+
+=== headerguards.
+ 
+ Some source file have got header guards, others not
+ Whether headerguards are needed, is dependent on 
+ if there are more than one functions defined within one source file.
+
+ Every source file (.c, and .h) is included into the single headerfile
+ minilib.h
+ Whether it is compiled depends on the switches, enabled at compile time.
+
+ When there are several functions enabled, which are defined within the same source file,
+ the source file would be compiled several times.
+ Which obviously would be bad.
+ Therefore, when more than one switch would lead to the includement of the source file,
+ headerguards are needed.
+
+
+
+=== HEADERGUARDS
+
+ Furthermore, there's the switch HEADERGUARDS.
+ This switch enables definitions, which are normally the headerguards
+ of the according libc headers.
+
+ This aims at being able to compile sources with standard include directives,
+ e.g. 'include "stdio.h"', without changing the sources at all.
+
+
+
+=== Praepraeprocessing directives
+
+ I've written quite a monstrum, which parses the sourcefiles of minilib,
+ and generates the define switches, minilib.h, compat headers and documentation.
+ 
+ ;/ this script 'genheaders.pl' went the typical development process -
+ lets start with this, then that would be useful, oh, and while at it,
+ let's add this, too, ...
+ 
+ The whole minilib womehow started this way.
+ But I didn't have the time yet to cleanup genheaders.pl.
+
+ Therefore - well.
+
+ I'm just going to describe some of the praepraeprocessing options,
+ and the parsing process.
+
+ -> every sourcefile is parsed by 'make header',
+    which invokes genheaders.pl.
+
+ -> All definitions in c, which are preceeded b a line '//+def'
+    are recognized as minilib functions, or macros.
+		Functions are separated into the definement of the function,
+		and the sourcecode.
+		These are separated into the generated files 'minilib.h' 
+		and 'minilib.c'
+		(Which then are combined into the final file minilibcompiled.h)
+
+ -> there is a "switch" generated, which consists of the function's name 
+    and the praefix 'mini_'.
+		e.g. 
+		'''
+		//+def
+		int function(char *msg){
+		...
+		'''
+		gets to the switch 'mini_function',
+		the define of function is generated within miniib.h and
+		the sourcefile is included into the compile, when mini_funtion is set.
+		'''
+		// (miniib.h)
+		#ifdef mini_function
+		int function(char*msg);
+		#endif
+		...
+		// (minilib.c)
+		#ifdef mini_function
+		#include "src/function.c"
+		#endif
+		'''
+
+    This depends onto the definition of "function" being written exactly in this 
+		style ( the whole definition, inluding "{" in one line ).
+
+Furthermore, these dirctives are recognized:
+
+'''
+//+doc name
+// documentation
+// ....
+//+def
+int function(char*msg){
+...
+'''
+
+   Documentation. 
+	 The first line get's to the description of function.
+	 Following lines will be within the generated documentation.
+	 (minilib.md, minilib-reference.asc, andsoon)
+
+   It is important, that all lines starting with // are continuing
+	 without empty line until the line //+def, and the follwing definement.
+
+//+def functioname
+int functionname
+
+
+		Some function are problemativ to parse, cause of the arguments.
+		Then it is possible to submit the switchname as argument to '//+def'
+
+		It is possible as well, to define and document macros this way.
+
+//+depends switch1 switch2 ...
+//+def function
+
+    The following function depends onto other functions.
+		Therefore, when mini_function is defined,
+		mini_switch1, ... will be defined, too, at compilation time.
+
+//+include  (shortcut: //+inc  )
+    Include the header.
+		When one of the switches, defined in the header file(.h)
+		is defined, the whole header file will be included.
+		(normally, .h files are only parsed, and not included 
+		into minilib.h. This changes this behaviour. 
+		Most possibly there are headerguars needed as well.)
+
+//+needs file.h
+//+after file.h
+   The header needs definitions from another file.
+	 This is buggy now. (todo)
+
+//+header stdlib.h
+   generate the according compat header file,
+	 and write the definements there.
+	 (here "stdlib.h")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+ 
+
+
