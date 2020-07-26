@@ -5,7 +5,6 @@
 // Returns: 
 // - 0 on success, 
 // - EINVAL: string was 0, didn't contain a '=', some other error
-// - ENOMEM: no memory for allocating the pointer
 //+depends environ getenv strncmp ret_errno
 //+def
 int putenv( char *string ){
