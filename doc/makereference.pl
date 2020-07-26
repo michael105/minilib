@@ -152,8 +152,8 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 				$api->{$f}->{D} =~ s/^\s*//;
 
 				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|x:$desc|\n";
-				$api->{$f}->{o} =~ s/:\+:/ +\n /g;
-				print B "\n\n$f"."::\n\n  _$api->{$f}->{D}_\n +\n ".($api->{$f}->{d}? " Defines: $api->{$f}->{d} +\n" :"").
+				$api->{$f}->{o} =~ s/:\+:/ + \n /g;
+				print B "\n\n$f"."::\n\n  _$api->{$f}->{D}_\n + \n ".($api->{$f}->{d}? " Defines: $api->{$f}->{d} + \n" :"").
 						($desc?" $desc +\n":"").(  $api->{$f}->{o}?" $api->{$f}->{o} +\n ":"") . 
 						($sizes->{$f}? " Size: ~$sizes->{$f}B ":"").
 						($api->{$f}->{l}? " link:$api->{$f}->{l} " :"").
