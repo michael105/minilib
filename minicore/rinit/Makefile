@@ -9,14 +9,14 @@ all: init reboot halt 1
 
 
 
-init: init.c
-		$(CC) --config init.c -o init init.c
+init: src/init.c
+		$(CC) --config src/init.c -o init src/init.c
 
-reboot: reboot.c
-		$(CC) --shrinkelf -o reboot reboot.c
+reboot: src/reboot.c
+		$(CC) --shrinkelf -o reboot src/reboot.c
 
-halt: halt.c
-		$(CC) --shrinkelf -o halt halt.c
+halt: src/halt.c
+		$(CC) --shrinkelf -o halt src/halt.c
 
 install: init
 	sudo mv /sbin/init /sbin/init.bak
@@ -31,11 +31,11 @@ install-tools: halt reboot
 
 
 
-%: %.c common.c
-	$(eval OPT=--config $@.c)
+%: src/%.c src/common.c
+	$(eval OPT=--config $<)
 	#$(if $(wildcard $@.mconf),$(eval OPT=--config $@.mconf),)
 	#$(if $(wildcard $@.conf),$(eval OPT=--config $@.conf),)
 	@echo -e "\e[36m" $(CC) $(OPT) -o $@ $@.c "\e[37m"
-	@$(CC) $(OPT) -o $@ $@.c
+	@$(CC) $(OPT) -o $@ $<
 
 
