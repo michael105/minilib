@@ -230,7 +230,11 @@ itoHEX
 <dd>
 <p>
   <em>int itoHEX(int i,char* buf,int padding)</em><br>
-  Size: ~250B  <a href="../src/itohex.c">../src/itohex.c</a> l.56
+  convert a number to hexadecimal representation with big capitals.<br>
+  the conversion assumes a size of 32bits for integers,<br>
+  negative values are represented as they are stored internally.<br>
+  ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, &#8230; )<br>
+  Size: ~250B  <a href="../src/itohex.c">../src/itohex.c</a> l.65
 </p>
 </dd>
 <dt>
@@ -239,7 +243,12 @@ itobin
 <dd>
 <p>
   <em>#define itobin(A,B,&#8230;) _itobin(A,B,VARARG(SHIFT(<em>VA_ARGS</em>),0), VARARG(SHIFT(ARG( <em>VA_ARGS</em> )),32) )</em><br>
-  <a href="../src/itobin.c">../src/itobin.c</a> l.41
+  convert a number to a binary representation.<br>
+  the conversion assumes a size of 32bits for integers,<br>
+  negative values are represented as they are stored internally.<br>
+  ( -1 is 11111111111111111111111111111111,<br>
+    -2    11111111111111111111111111111110, &#8230;)<br>
+  <a href="../src/itobin.c">../src/itobin.c</a> l.46
 </p>
 </dd>
 <dt>
@@ -249,7 +258,7 @@ itodec
 <p>
   <em>int itodec(int i, char *buf, int prec, char limiter )</em><br>
   Defines: uitodec<br>
- Size: ~555B  <a href="../src/itodec.c">../src/itodec.c</a> l.116
+ Size: ~555B  <a href="../src/itodec.c">../src/itodec.c</a> l.118
 </p>
 </dd>
 <dt>
@@ -258,7 +267,11 @@ itohex
 <dd>
 <p>
   <em>int itohex(int i,char* buf,int padding)</em><br>
-  Size: ~247B  <a href="../src/itohex.c">../src/itohex.c</a> l.49
+  convert a number to hexadecimal representation.<br>
+  the conversion assumes a size of 32bits for integers,<br>
+  negative values are represented as they are stored internally.<br>
+  ( -1 is 0xffffffff, -2 0xfffffffe, &#8230; )<br>
+  Size: ~247B  <a href="../src/itohex.c">../src/itohex.c</a> l.53
 </p>
 </dd>
 <dt>
@@ -420,7 +433,7 @@ opendir
 <dd>
 <p>
   <em>DIR *opendir(const char *name )</em><br>
-  Defines: dirbuf open brk close write<br>
+  Defines: brk open dirbuf close write<br>
  open directory associated with file descriptor<br>
  Size: ~281B  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24  manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -431,7 +444,7 @@ opendirp
 <dd>
 <p>
   <em>DIR *opendirp(const char *name, DIR *dir)</em><br>
-  Defines: open brk dirbuf close<br>
+  Defines: close dirbuf open brk<br>
  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -441,7 +454,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent *readdir(DIR *dir)</em><br>
-  Defines: getdents dirbuf<br>
+  Defines: dirbuf getdents<br>
  read a directory<br>
  read a directory.<br>
   return the next dirent, or 0, if the end is reached.<br>
@@ -476,7 +489,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char *path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent <strong>))</em><br>
-  Defines: write memcpy qsort seterrno getbrk sbrk brk open dirbuf errno<br>
+  Defines: errno qsort dirbuf seterrno memcpy brk open sbrk getbrk write<br>
  scan a directory<br>
  list files and dirs in a directory<br>
  <br>
@@ -549,8 +562,6 @@ errno
 <p>
   <em>#ifdef mini_errno</em><br>
   error return value<br>
- set errno, but only when errno is defined.<br>
-  <a href="../include/seterrno.h">../include/seterrno.h</a> l.3
 </p>
 </dd>
 <dt>
@@ -572,7 +583,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
-  Defines: write errno_str execve exit<br>
+  Defines: errno_str exit write execve<br>
  exit, and execute /bin/errno<br>
   this is intended to give a error message for the <br>
   given errno num.<br>
@@ -595,7 +606,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char *msg)</em><br>
-  Defines: write errno strerror fileno strlen<br>
+  Defines: strlen write fileno errno strerror<br>
  write error messages to standard error<br>
  Size: ~329B  <a href="../src/perror.c">../src/perror.c</a> l.4  manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -939,7 +950,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a byte from a stream<br>
  <a href="../include/fgetc.h">../include/fgetc.h</a> l.26  manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -1132,7 +1143,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
-  Defines: write memcpy<br>
+  Defines: memcpy write<br>
  signal management<br>
  Size: ~337B  <a href="../src/signal.c">../src/signal.c</a> l.8  manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
@@ -1296,7 +1307,7 @@ free
   <em>void free(void *p)</em><br>
   Defines: brk getbrk<br>
  free allocated memory<br>
- Size: ~32B  <a href="../src/malloc.c">../src/malloc.c</a> l.137  manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
+ Size: ~32B  <a href="../src/malloc.c">../src/malloc.c</a> l.139  manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
 </dd>
 <dt>
@@ -1311,7 +1322,7 @@ free_brk
   1, when there hasn&#8217;t been any memory allocations with<br>
   malloc_brk before.<br>
   Then brk() gives an error, return the return value of brk<br>
-  <a href="../src/malloc.c">../src/malloc.c</a> l.232
+  <a href="../src/malloc.c">../src/malloc.c</a> l.234
 </p>
 </dd>
 <dt>
@@ -1384,9 +1395,10 @@ malloc
  <br>
   flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free), <br>
   (mbufsize)<br>
+  ```<br>
        size  data  size    mini_buf size<br>
        8008dataxxxx0004data8000<br>
-  Size: ~173B  <a href="../src/malloc.c">../src/malloc.c</a> l.117  manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br>
+  Size: ~173B  <a href="../src/malloc.c">../src/malloc.c</a> l.119  manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br>
 </p>
 </dd>
 <dt>
@@ -1406,7 +1418,7 @@ malloc_brk
   the allocated memory can also be free&#8217;d by setting the brk to the saved value<br>
   with brk(saved_brk)<br>
   free_brk() free&#8217;s all memory, which has been allocated with malloc_brk<br>
-  <a href="../src/malloc.c">../src/malloc.c</a> l.204
+  <a href="../src/malloc.c">../src/malloc.c</a> l.206
 </p>
 </dd>
 <dt>
@@ -1521,9 +1533,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void *p, int size)</em><br>
-  Defines: getbrk brk<br>
+  Defines: brk getbrk<br>
  memory reallocator<br>
- Size: ~636B  <a href="../src/malloc.c">../src/malloc.c</a> l.250  manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
+ Size: ~636B  <a href="../src/malloc.c">../src/malloc.c</a> l.252  manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -1585,7 +1597,7 @@ dprintf
   <em>int dprintf( int fd, const char *fmt, &#8230; )</em><br>
   Defines: write<br>
  print formatted output<br>
- Size: ~818B  <a href="../src/sprintf.c">../src/sprintf.c</a> l.203  manpage: <a href="manpages/stdio/printf.3.rst">dprintf</a><br>
+ Size: ~818B  <a href="../src/dprintf.c">../src/dprintf.c</a> l.5  manpage: <a href="manpages/stdio/printf.3.rst">dprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -1604,7 +1616,7 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  write str to stderr. Needs strlen<br>
   <a href="../include/prints.h">../include/prints.h</a> l.42
 </p>
@@ -1615,7 +1627,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
-  Defines: write fileno strlen<br>
+  Defines: fileno write strlen<br>
  write str to stderr. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.90
@@ -1671,7 +1683,7 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95
 </p>
 </dd>
@@ -1681,8 +1693,8 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
-  Defines: write fileno<br>
- <a href="../src/sprintf.c">../src/sprintf.c</a> l.245  manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br>
+  Defines: fileno write<br>
+ <a href="../src/sprintf.c">../src/sprintf.c</a> l.228  manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -1691,7 +1703,7 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char *fmt, &#8230;)</em><br>
-  Defines: strlen fileno write<br>
+  Defines: strlen write fileno<br>
  prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
   Size: ~427B  <a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10
 </p>
@@ -1702,7 +1714,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,str) write(fileno(F),str,strlen(str))</em><br>
-  Defines: fileno strlen write<br>
+  Defines: write strlen fileno<br>
  print the string(s) supplied as arg(s) to stream<br>
   <a href="../include/prints.h">../include/prints.h</a> l.24
 </p>
@@ -1713,7 +1725,7 @@ fputc
 <dd>
 <p>
   <em>int volatile fputc(int c, FILE* F)</em><br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  put a byte on a stream<br>
  Size: ~64B  <a href="../include/fputc.h">../include/fputc.h</a> l.10  manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -1746,7 +1758,7 @@ print
 <dd>
 <p>
   <em>#define print(str) write(STDOUT_FILENO,str,strlen(str))</em><br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  write str to stdout. Needs strlen<br>
   <a href="../include/prints.h">../include/prints.h</a> l.38
 </p>
@@ -1757,7 +1769,7 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  print formatted output<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.91  manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
@@ -1768,7 +1780,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
-  Defines: write strlen fileno<br>
+  Defines: strlen write fileno<br>
  write str to stdout. <br>
   only format %s is recognized<br>
   <a href="../include/prints.h">../include/prints.h</a> l.84
@@ -1811,7 +1823,7 @@ putc
 <dd>
 <p>
   <em>#define putc(c,stream) fputc(c,stream)</em><br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  put a byte on a stream<br>
  <a href="../include/fputc.h">../include/fputc.h</a> l.19  manpage: <a href="manpages/stdio/putc.3.rst">putc</a><br>
 </p>
@@ -1822,7 +1834,7 @@ putchar
 <dd>
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em><br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  put a byte on a stdout stream<br>
  <a href="../include/fputc.h">../include/fputc.h</a> l.16  manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
 </p>
@@ -1833,7 +1845,7 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  put a string on standard output<br>
  write msg to stdout, append a newline. Needs strlen.<br>
   <a href="../include/prints.h">../include/prints.h</a> l.73  manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br>
@@ -1847,7 +1859,7 @@ snprintf
   <em>int snprintf( char *buf, size_t size, const char *fmt, &#8230; )</em><br>
   Defines: write<br>
  print formatted output<br>
- Size: ~738B  <a href="../src/sprintf.c">../src/sprintf.c</a> l.220  manpage: <a href="manpages/stdio/printf.3.rst">snprintf</a><br>
+ Size: ~738B  <a href="../src/snprintf.c">../src/snprintf.c</a> l.5  manpage: <a href="manpages/stdio/printf.3.rst">snprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -1856,7 +1868,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.100  manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
@@ -1907,7 +1919,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
-  Defines: getpid write memcpy<br>
+  Defines: memcpy write getpid<br>
  <a href="../src/abort.c">../src/abort.c</a> l.3  manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -1931,7 +1943,7 @@ execl
 <dd>
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
-  Defines: environ execve<br>
+  Defines: execve environ<br>
  <a href="../src/execl.c">../src/execl.c</a> l.6  manpage: <a href="manpages/gen/exec.3.rst">execl</a><br>
 </p>
 </dd>
@@ -1972,7 +1984,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char *file, char *const argv[])</em><br>
-  Defines: access execve environ<br>
+  Defines: environ access execve<br>
  execute a file<br>
  Size: ~556B  <a href="../src/execvp.c">../src/execvp.c</a> l.58  manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -1983,7 +1995,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char *file, char *const argv[], char *const envp[])</em><br>
-  Defines: execve environ access<br>
+  Defines: environ execve access<br>
  execute a file<br>
  When invoked with a filename, starting with "." or "/",<br>
   interprets this as absolute path. (calls execve with the pathname)<br>
@@ -2087,7 +2099,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
-  Defines: wait4 vfork execve write environ<br>
+  Defines: environ execve write wait4 vfork<br>
  issue a command<br>
  Size: ~326B  <a href="../src/system.c">../src/system.c</a> l.4  manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2211,7 +2223,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
-  Defines: fileno open close<br>
+  Defines: close open fileno<br>
  associate a stream with a file descriptor<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~323B  <a href="../src/fopen.c">../src/fopen.c</a> l.91  manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br>
@@ -2276,7 +2288,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
-  Defines: open fileno close<br>
+  Defines: close open fileno<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~324B  <a href="../src/fopen.c">../src/fopen.c</a> l.81  manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br>
@@ -2288,7 +2300,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char *c, FILE *F)</em><br>
-  Defines: strlen fileno write<br>
+  Defines: fileno write strlen<br>
  put a string on a stream<br>
  Size: ~90B  <a href="../include/fputs.h">../include/fputs.h</a> l.20  manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -2310,7 +2322,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE *F)</em><br>
-  Defines: close open fileno<br>
+  Defines: close fileno open<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~320B  <a href="../src/fopen.c">../src/fopen.c</a> l.101  manpage: <a href="manpages/stdio/fopen.3.rst">freopen</a><br>
@@ -2485,7 +2497,7 @@ strdup
 <dd>
 <p>
   <em>char *strdup(const char *source)</em><br>
-  Defines: brk strlen strcpy<br>
+  Defines: brk strcpy strlen<br>
  duplicate a specific number of bytes from a string<br>
  Size: ~258B  <a href="../src/strdup.c">../src/strdup.c</a> l.7  manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -2778,7 +2790,7 @@ ptsname
 <dd>
 <p>
   <em>char *ptsname(int fd)</em><br>
-  Defines: open ioctl uitodec write<br>
+  Defines: uitodec write ioctl open<br>
  get name of the slave pseudo-terminal device<br>
  Size: ~1767B  <a href="../src/pty.c">../src/pty.c</a> l.40  manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -2789,7 +2801,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char *buf, size_t len)</em><br>
-  Defines: uitodec open ioctl write<br>
+  Defines: write uitodec open ioctl<br>
  get the name of the slave pseudoterminal<br>
  Size: ~1748B  <a href="../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -2939,6 +2951,44 @@ def
 </p>
 </dd>
 <dt>
+itooct
+</dt>
+<dd>
+<p>
+  <em>int itooct(int i, char *buf)</em><br>
+  convert int to octal<br>
+  return the number of chars written.<br>
+  <a href="../src/itooct.c">../src/itooct.c</a> l.4
+</p>
+</dd>
+<dt>
+putenv
+</dt>
+<dd>
+<p>
+  <em>int putenv( char *string )</em><br>
+  Defines: environ ret_errno<br>
+ put a string into the environmental vars<br>
+  the supplied string&#8217;s pointer is put into the environmental array of pointers.<br>
+  Subsequent changes of the string therefore will change the environment,<br>
+  and the supplied string may not be deallocated.<br>
+  Returns: <br>
+</p>
+<ul>
+<li>
+<p>
+0 on success, <br>
+</p>
+</li>
+<li>
+<p>
+EINVAL: string was 0, didn&#8217;t contain a <em>=</em>, some other error<br>
+  <a href="../src/putenv.c">../src/putenv.c</a> l.10  manpage: <a href="manpages/stdlib/getenv.3.rst">putenv</a><br>
+</p>
+</li>
+</ul>
+</dd>
+<dt>
 qsort
 </dt>
 <dd>
@@ -2947,8 +2997,31 @@ qsort
   (quick) shell sort routine<br>
   following the tradition, this isn&#8217;t exactly a quicksort algorithm,<br>
   albite named quicksort.<br>
-  It is a shell sort implementation, originally done by Ray Gardner, 5/90.<br>
-  <a href="../src/qsort.c">../src/qsort.c</a> l.56  manpage: <a href="manpages/stdlib/qsort.3.rst">qsort</a><br>
+  It is a shell sort implementation, originally done by Ray Gardner, 5/90;<br>
+  which in turn I found within musl.<br>
+  <a href="../src/qsort.c">../src/qsort.c</a> l.57  manpage: <a href="manpages/stdlib/qsort.3.rst">qsort</a><br>
+</p>
+</dd>
+<dt>
+ret_errno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+  This macro expands to a return, and<br>
+  (when mini_errno is defined) returns -1 and sets errno,<br>
+  or returns the negative errno value.<br>
+  <a href="../include/ret_errno.h">../include/ret_errno.h</a> l.5
+</p>
+</dd>
+<dt>
+seterrno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+  set errno, but only when errno is defined.<br>
+  <a href="../include/seterrno.h">../include/seterrno.h</a> l.3
 </p>
 </dd>
 <dt>
@@ -2957,8 +3030,19 @@ todo_putenv
 <dd>
 <p>
   <em>int todo_putenv( char *s )</em><br>
-  Defines: environ<br>
- Size: ~248B  <a href="../src/getenv.c">../src/getenv.c</a> l.22
+  Size: ~248B
+</p>
+</dd>
+<dt>
+vsprintf
+</dt>
+<dd>
+<p>
+  <em>int vsprintf( char *buf, const char *fmt, &#8230; )</em><br>
+  write fmt and arguments into buf<br>
+  calls vsnprintf, <br>
+  the size is limited to 4096 by default.<br>
+  <a href="../src/vsprintf.c">../src/vsprintf.c</a> l.9  manpage: <a href="manpages/stdio/printf.3.rst">vsprintf</a><br>
 </p>
 </dd>
 </dl>
@@ -6029,7 +6113,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-26 15:03:34 CEST
+ 2020-07-26 18:51:02 CEST
 </small></p>
 </body>
 </html>

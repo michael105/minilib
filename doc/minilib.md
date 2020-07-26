@@ -1203,8 +1203,9 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
                (quick) shell sort routine
               following the tradition, this isn't exactly a quicksort algorithm,
               albite named quicksort.
-              It is a shell sort implementation, originally done by Ray Gardner, 5/90.
-               (src/qsort.c: 56)
+              It is a shell sort implementation, originally done by Ray Gardner, 5/90;
+              which in turn I found within musl.
+               (src/qsort.c: 57)
 
 rand           unsigned int rand();
 

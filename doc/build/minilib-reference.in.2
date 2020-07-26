@@ -288,8 +288,13 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 #unsorted
 
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
+f:itooct|D:int itooct(int i, char *buf)|c:unsorted|x:|
+f:putenv|D:int putenv( char *string )|c:unsorted|x:|
 f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
+f:ret_errno|D:#ifdef mini_errno|c:unsorted|x:|
+f:seterrno|D:#ifdef mini_errno|c:unsorted|x:|
 f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
+f:vsprintf|D:int vsprintf( char *buf, const char *fmt, ... )|c:unsorted|x:|
 
 #x64-syscalls
 

@@ -51,7 +51,8 @@ static inline void swap(void* a, void* b,int size){
 //+doc (quick) shell sort routine
 // following the tradition, this isn't exactly a quicksort algorithm,
 // albite named quicksort.
-// It is a shell sort implementation, originally done by Ray Gardner, 5/90.
+// It is a shell sort implementation, originally done by Ray Gardner, 5/90;
+// which in turn I did find within musl.
 //+def qsort
 void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *)){
 /*
