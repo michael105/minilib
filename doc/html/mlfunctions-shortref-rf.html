@@ -1,0 +1,40 @@
+<html>
+		<body>
+<h1> implemented functions</h1>
+<p>
+</p>
+<a name="preamble"></a>
+<p>short ref, links to source files.</p>
+<p>Only functions defined are going to be built.</p>
+<p>To define them, either (for, e.g. puts) <code>#define mini_puts</code>
+before you include minilib.h</p>
+<p>Or, use the "scripting config".</p>
+<p>Some functions define other functions, these will be listed in the line,
+starting with <code>Define:</code></p>
+<p>An example, using the scripting config, is given below:
+(miniputs.c)</p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>#if 0
+mini_start
+mini_puts
+
+LDSCRIPT text_and_bss
+INCLUDESRC
+shrinkelf
+
+return
+#endif
+
+int main(){
+  puts("Hello, world!");
+  return(0);
+}</code></pre>
+</td></tr></table>
+<p>compile with ./mini-gcc --config miniputs.c -o miniputs miniputs.c</p>
+<p>(what compiles to an annoying size of 251 Bytes here. Something again bloats.
+replacing the puts with writes, there still are 208 Bytes. This used to
+be 151 Bytes. Have to sort this out.)</p>
+
+
+		</body>
+</html>
