@@ -3,7 +3,7 @@
 doc: mini-gcc.rst make.rst html/*.html html/minilib-reference.html
 
 minilib-reference.asc: build/minilib-reference.asc.top build/minilib-reference.in build/minilib-reference.sortme.1
-	./makereference.pl
+	./scripts/makereference.pl
 
 minilib-reference.html: minilib-reference.asc
 	 asciidoc -b html4 -n minilib-reference.asc && mv minilib-reference.html ./html/
