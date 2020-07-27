@@ -32,7 +32,7 @@ install-tools: halt reboot
 
 
 %: src/%.c src/common.c
-	$(eval OPT=--config $<)
+	$(eval OPT=--config src/minilib.conf) 
 	#$(if $(wildcard $@.mconf),$(eval OPT=--config $@.mconf),)
 	#$(if $(wildcard $@.conf),$(eval OPT=--config $@.conf),)
 	@echo -e "\e[36m" $(CC) $(OPT) -o $@ $@.c "\e[37m"

@@ -14,6 +14,7 @@ mini_malloc
 mini_free
 mini_itohex
 mini_INCLUDESRC
+mini_ansicolors
 
 globals_on_stack
 
