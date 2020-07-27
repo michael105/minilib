@@ -13,10 +13,8 @@
 // ? for 1 char
 //
 // backslash: escape *,?,%,$,!,+ and backslash itself.
-// !: invert the matching of the next literal character
-//   (no classe allowed)
-//  a '!' escapes a following *,%,$,?,!,+,[
-//  (not a backslash)
+// !: invert the matching of the next character or character class
+//  
 //
 // predefined character classes:
 // \d - digit
@@ -60,8 +58,9 @@
 // $[1] .. $[9]
 //  call p_match_char
 //  p_match_char has to return either RE_MATCH or RE_NOMATCH.
-//  Therefore it is possible to rule your own
-//  character classes, defined at runtime, and so on.
+//  Therefore it is possible to e.g. rule your own
+//  character classes, defined at runtime, 
+//  or do further tricks like changing the matched char.
 //  When returning RE_NOMATCH,
 //  it is possible, the p_match and p_match_char callbacks are callen several times,
 //  but with different pos or len parameters.
@@ -84,26 +83,45 @@
 // (memo) When the regex ist defined within C/cpp source code,
 // a backslash has to be defined as double backslash.
 //
+// (note) - be careful when negating a following *, or ?.
+//  somehow - it is logical, but seems to me I overshoot a bit.
+//  and tapped into a logical paradox.
+//  Negating EVERYTHING translates to true.
+//  However, since truth is negated, well. 
+//  (I'm not kidding here. Just don't do a regex with !* or !?..)
+//  A "!+" will translate into nongreedy matching of any char, however;
+//  "%!+" will match with % everything but the last char;
+//  while "%+" matches with % only the first char.
+//
 //+def match
 int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
 		int n_match=0;
 		char *matchpos = 0;
+		int neg = 0;
 		if ( st_match ) st_match->len=0;
 
 		while ( *text!=0 ){
-				int neg = 0;
 				int match_char = 0;
+				neg = 0;
+				if ( *re == '!' ){
+						re++;
+						neg=1;
+				}
 				switch ( *re ){
 						case '?':
+								if ( neg )
+										return(RE_NOMATCH);
 								break; // matches, but only if there's a char (not 0)
 						case '[':
 								for ( re++; *re && *re!=*text; re++ )
 										if ( *re==']' )
-												return(RE_NOMATCH);
+												return(neg ^ RE_NOMATCH);
 								while ( *re && *re != ']' )
 										re++;
 								if ( !*re )
 										return( RE_ERROR );
+								if ( neg )
+										return( RE_NOMATCH );
 								break;
 
 						case '$':
@@ -116,16 +134,20 @@ int match(char *text, const char *re, void(*p_match)(int number, char *pos,int l
 
 								if ( match_char ){
 										if ( p_match_char && (p_match_char(n_match,text)==RE_NOMATCH) )
-												return( RE_NOMATCH );
-										break; // matched, also for p_match_char == 0
+												if ( neg )
+														break;
+												else
+														return( RE_NOMATCH );
+										if ( neg )
+														return( RE_NOMATCH );
+										else
+												break; // matched, also for p_match_char == 0
 								}
 
 								matchpos=text;
 						case '+': // match one or more chars
-								//if ( *re=='+' ){ // well.
 										text++; 
-										if ( !*text ) return(RE_NOMATCH);// not well.
-							//	}
+										if ( !*text ) return(neg ^ RE_NOMATCH);//
 						case '*': // match 0 or more chars
 								re++;
 								if ( *re == 0){ // match. end of regex.
@@ -139,13 +161,13 @@ int match(char *text, const char *re, void(*p_match)(int number, char *pos,int l
 														st_match->len = text-matchpos;
 												}
 										}
-										return(RE_MATCH); // no chars anymore. so a match
+										return(neg ^ RE_MATCH); // no chars anymore. so a match
 								}
 
 								while ( !match(text,re,p_match,p_match_char,st_match) ){
 										text++;
 										if ( !*text )
-												return(RE_NOMATCH);
+												return(neg ^ RE_NOMATCH);
 								}
 
 								if ( matchpos ){
@@ -157,24 +179,20 @@ int match(char *text, const char *re, void(*p_match)(int number, char *pos,int l
 										}
 								}
 
-								return(RE_MATCH);
+								return(neg ^ RE_MATCH);
 
-						case '!':
-										neg=1;
 						case '\\': // match escaped *,?,backslashes, %
 								re++;
 #define _MATCH(a,condition) if ( *re == a ){\
-		if ( condition ) break;\
+		if ( neg ^ condition ) break;\
 		else return(RE_NOMATCH);}
 
-								if ( !neg ){
-										_MATCH('d',isdigit(*text));
-										_MATCH('D',!isdigit(*text));
-										_MATCH('s',isspace(*text));
-										_MATCH('S',!isspace(*text));
-										_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
-										_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
-								}
+								_MATCH('d',isdigit(*text));
+								_MATCH('D',!isdigit(*text));
+								_MATCH('s',isspace(*text));
+								_MATCH('S',!isspace(*text));
+								_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
+								_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
 						default:
 								if ( *re==0 ) //partial match ( could be spared )
 										return(RE_NOMATCH);
