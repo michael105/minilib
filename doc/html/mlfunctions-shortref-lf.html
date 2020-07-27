@@ -508,7 +508,7 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  16 </small></td><td><small> int ext_match(const char *text, const char *re);
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  20 </small></td><td><small> int ext_match(const char *text, const char *re);
 </small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
   matches: * for every count of any char
   ? for 1 char
@@ -520,9 +520,13 @@
   \w - word character ( defined as ascii 32-126,160-255 )
   \W - nonword character ( defined as ascii 0-31,127-159 )
  
+  returns: 1 on match, 0 on no match
+  ( RE_MATCH / RE_NOMATCH )
+ 
   (memo) When the regex ist defined as C string,
   a backslash has to be defined as double backslash
-  in the source code.
+  in the source code. 
+  ( so to define a backslashed backslash, 4 backslashes are needed..)
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../src/ext_match.c" target="right">../src/ext_match.c</a>  110 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
 </small></td></tr>
@@ -794,11 +798,26 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  10 </small></td><td><small> int match(const char *text, const char *re);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  25 </small></td><td><small> int match(char *text, const char *re,void(*p_matched)(int number, char *pos,int len));
 </small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
   matches: * for every count of any char
   ? for 1 char
   backslash: escape *,?, and backslash itself.
+  %1..%9: matches like a asterisk (*),
+   and calls the function, supplied as 3rd argument.
+   The matching is 'nongreedy'.
+   Please beware, the 'match' can have a length of 0 as well.
+   It is possible to rewrite the string to match
+   from within the p_matched callback.
+   This will not have an effect onto the current matching,
+   even if text is e.g. deleted by writing 0's.
+   The matched positions are called in reverse order.
+   (%9 first, %1 last)
+ 
+  supply 0 for p_matched, when you do not need to extract matches
+ 
+  returns: 1 on match, 0 on no match
+  ( RE_MATCH / RE_NOMATCH )
  
   (memo) When the regex ist defined as C string,
   a backslash has to be defined as double backslash

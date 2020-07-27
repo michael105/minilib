@@ -17,7 +17,7 @@ void error(const char *msg1, const char *msg2, int n_errno){
 
 
 int de_select(const struct dirent* de){
-		return(! match(de->d_name,re));
+		return(match(de->d_name,re));
 }
 
 // execute all executables within dir, matching regex (simple regex)

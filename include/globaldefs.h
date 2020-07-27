@@ -40,6 +40,11 @@
 #define SIG_UNBLOCK   1
 #define SIG_SETMASK   2
 
+#define RE_NOMATCH 0
+#define RE_ERROR 0
+#define RE_MATCH 1
+
+
 
 #define mini_FOPEN_MAX 16
 

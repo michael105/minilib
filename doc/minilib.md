@@ -297,10 +297,14 @@ ext_match      int ext_match(const char *text, const char *re);
               \w - word character ( defined as ascii 32-126,160-255 )
               \W - nonword character ( defined as ascii 0-31,127-159 )
              
+              returns: 1 on match, 0 on no match
+              ( RE_MATCH / RE_NOMATCH )
+             
               (memo) When the regex ist defined as C string,
               a backslash has to be defined as double backslash
-              in the source code.
-               (src/ext_match.c: 16)
+              in the source code. 
+              ( so to define a backslashed backslash, 4 backslashes are needed..)
+               (src/ext_match.c: 20)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -399,17 +403,32 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               have been useless. All after all, seems to me, ai has it's restrictions.
                (include/minilib_global.h: 90)
 
-match          int match(const char *text, const char *re);
+match          int match(char *text, const char *re,void(*p_matched)(int number, char *pos,int len));
 
                simple regex engine.
               matches: * for every count of any char
               ? for 1 char
               backslash: escape *,?, and backslash itself.
+              %1..%9: matches like a asterisk (*),
+               and calls the function, supplied as 3rd argument.
+               The matching is 'nongreedy'.
+               Please beware, the 'match' can have a length of 0 as well.
+               It is possible to rewrite the string to match
+               from within the p_matched callback.
+               This will not have an effect onto the current matching,
+               even if text is e.g. deleted by writing 0's.
+               The matched positions are called in reverse order.
+               (%9 first, %1 last)
+             
+              supply 0 for p_matched, when you do not need to extract matches
+             
+              returns: 1 on match, 0 on no match
+              ( RE_MATCH / RE_NOMATCH )
              
               (memo) When the regex ist defined as C string,
               a backslash has to be defined as double backslash
               in the source code.
-               (src/match.c: 10)
+               (src/match.c: 25)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
