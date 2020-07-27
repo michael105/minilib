@@ -798,31 +798,8 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  25 </small></td><td><small> int match(char *text, const char *re,void(*p_matched)(int number, char *pos,int len));
-</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
-  matches: * for every count of any char
-  ? for 1 char
-  backslash: escape *,?, and backslash itself.
-  %1..%9: matches like a asterisk (*),
-   and calls the function, supplied as 3rd argument.
-   The matching is 'nongreedy'.
-   Please beware, the 'match' can have a length of 0 as well.
-   It is possible to rewrite the string to match
-   from within the p_matched callback.
-   This will not have an effect onto the current matching,
-   even if text is e.g. deleted by writing 0's.
-   The matched positions are called in reverse order.
-   (%9 first, %1 last)
- 
-  supply 0 for p_matched, when you do not need to extract matches
- 
-  returns: 1 on match, 0 on no match
-  ( RE_MATCH / RE_NOMATCH )
- 
-  (memo) When the regex ist defined as C string,
-  a backslash has to be defined as double backslash
-  in the source code.
- </small></td></tr>
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  46 </small></td><td><small> int match(char *text, const char *re, void(*p_matched)(int number, char *pos,int len), int(*p_ismatch)(int number, char *pos,int len));
+</small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  6 </small></td><td><small> void *memcpy( void *d, const void *s, int n );

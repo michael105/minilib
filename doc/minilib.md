@@ -403,32 +403,9 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               have been useless. All after all, seems to me, ai has it's restrictions.
                (include/minilib_global.h: 90)
 
-match          int match(char *text, const char *re,void(*p_matched)(int number, char *pos,int len));
+match          int match(char *text, const char *re, void(*p_matched)(int number, char *pos,int len), int(*p_ismatch)(int number, char *pos,int len));
 
-               simple regex engine.
-              matches: * for every count of any char
-              ? for 1 char
-              backslash: escape *,?, and backslash itself.
-              %1..%9: matches like a asterisk (*),
-               and calls the function, supplied as 3rd argument.
-               The matching is 'nongreedy'.
-               Please beware, the 'match' can have a length of 0 as well.
-               It is possible to rewrite the string to match
-               from within the p_matched callback.
-               This will not have an effect onto the current matching,
-               even if text is e.g. deleted by writing 0's.
-               The matched positions are called in reverse order.
-               (%9 first, %1 last)
-             
-              supply 0 for p_matched, when you do not need to extract matches
-             
-              returns: 1 on match, 0 on no match
-              ( RE_MATCH / RE_NOMATCH )
-             
-              (memo) When the regex ist defined as C string,
-              a backslash has to be defined as double backslash
-              in the source code.
-               (src/match.c: 25)
+               (src/match.c: 46)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
