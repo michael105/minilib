@@ -403,27 +403,40 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               have been useless. All after all, seems to me, ai has it's restrictions.
                (include/minilib_global.h: 90)
 
-match          int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char));
+match          int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 
-               simple regex engine.
-              matches: * for every count of any char
-              ? for 1 char
-              backslash: escape *,?,%,$,! and backslash itself.
-              !: invert the matching of the next character
-               a '!' also escapes a following *,%,$,?,!
-               (not a backslash)
-               
+               regex engine
+              This is somewhere between a fully fledged expression machine,
+              and a simplicistic solution.
+              The engine matches from left to right,
+              so no backtracking is done.
+              It is a compromise between performance, size
+              and capabilities.
              
-              %[1]..%[9]: matches like a asterisk (*),
+              matches: 
+              
+              * for every count of any char
+              + for 1 or more chars
+              ? for 1 char
+             
+              backslash: escape *,?,%,$,!,+ and backslash itself.
+              !: invert the matching of the next character
+               a '!' also escapes a following *,%,$,?,!,+
+               (not a backslash)
+              [xyz]: character classes, here x,y or z 
+                the characters are matched literally, also \,*,?,+,..
+                it is not possible to match the closing bracket (])
+                within a character class
+             
+              %[1]..%[9]: matches like a '+',
                and calls the function, supplied as 3rd argument.
                the number past the %, e.g. %1, is optional,
                p_match will be callen with this number
                as first parameter.
                When not supplied, p_matched will be callen with 
-               the parameter number set to 0.
+               the parameter 'number' set to 0.
              
                The matching is 'nongreedy'.
-               Please beware, the 'match' can have a length of 0 as well.
                It is possible to rewrite the string to match
                from within the p_matched callback.
                This will not have an effect onto the current matching,
@@ -432,21 +445,24 @@ match          int match(char *text, const char *re, void(*p_match)(int number, 
                (The last matched % in the regex calls p_match first)
              
               supply 0 for p_matched, when you do not need to extract matches.
-              This will treat % like a *, a following digit (0..9) in the regex
-              is ignored
+              This will treat % in the regex like a *, 
+              a following digit (0..9) in the regex is ignored.
              
               $[1] .. $[9]
                call p_match_char
                p_match_char has to return either RE_MATCH or RE_NOMATCH.
                Therefore it is possible to rule your own
-               character classes, and so on.
+               character classes, defined at runtime, and so on.
                When returning RE_NOMATCH,
                it is possible, the p_match and p_match_char callbacks are callen several times,
                but with different pos or len parameters.
              
               supply 0 for p_match_char, when you don't need it.
-              This will treat $ like ?, and match a following digit (0..9)
-             
+              This will treat $ in the regex like ?, match a following digit (0..9),
+              a following digit (0..9) in the regex is ignored.
+              
+              if the argument st_match is nonnull,
+              st_match will be set to the first matching '%' location.
              
               returns: 1 on match, 0 on no match
               ( RE_MATCH / RE_NOMATCH )
@@ -455,7 +471,7 @@ match          int match(char *text, const char *re, void(*p_match)(int number, 
               (memo) When the regex ist defined as C string,
               a backslash has to be defined as double backslash
               in the source code.
-               (src/match.c: 52)
+               (src/match.c: 68)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 

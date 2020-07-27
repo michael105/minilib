@@ -44,7 +44,7 @@
 #define RE_ERROR 0
 #define RE_MATCH 1
 
-
+typedef struct _regex_match { char *pos; int len; } regex_match;
 
 #define mini_FOPEN_MAX 16
 
