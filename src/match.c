@@ -84,14 +84,17 @@
 // a backslash has to be defined as double backslash.
 //
 // (note) - be careful when negating a following *, or ?.
-//  somehow - it is logical, but seems to me I overshoot a bit.
+//  somehow - it is logical, but seems to me I overshoot a bit,
 //  and tapped into a logical paradox.
 //  Negating EVERYTHING translates to true.
-//  However, since truth is negated, well. 
+//  However, since truth is negated as well, there's a problem.
+//
 //  (I'm not kidding here. Just don't do a regex with !* or !?..)
+//
 //  A "!+" will translate into nongreedy matching of any char, however;
 //  "%!+" will match with % everything but the last char;
 //  while "%+" matches with % only the first char.
+//  !+ basically sets the greedyness of the left * or % higher.
 //
 //+def match
 int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
@@ -203,7 +206,8 @@ int match(char *text, const char *re, void(*p_match)(int number, char *pos,int l
 				re++; text++;
 		}
 
-		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ // * at the end. doesnt match **
+		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
+				// * at the end. doesnt match "**", or other pathological cases
 						return(RE_MATCH); //matched
 		}
 		
