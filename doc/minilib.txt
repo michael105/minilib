@@ -134,11 +134,11 @@ dirent.h
 ==========
 
 closedir       int closedir(DIR *dir);
-               Defines: brk getbrk
+               Defines: getbrk brk
                (src/dirent/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
-               Defines: brk close open write dirbuf
+               Defines: open brk write dirbuf close
                (src/dirent/opendir.c: 24)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -153,7 +153,7 @@ rewinddir      void rewinddir(DIR *dir);
                (src/dirent/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-               Defines: errno dirbuf write brk getbrk seterrno qsort sbrk memcpy open
+               Defines: memcpy write brk sbrk getbrk open seterrno errno dirbuf qsort
                (src/dirent/scandir.c: 35)
                list files and dirs in a directory
              
@@ -333,7 +333,7 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 52)
                write str to stderr. Needs strlen
 
@@ -360,7 +360,7 @@ eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stderr
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 71)
                write msg to stderr, append a newline. Needs strlen.
 
@@ -377,7 +377,7 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
 
 exit_errno     void exit_errno( int errnum );
-               Defines: exit execve write errno_str
+               Defines: exit execve errno_str write
                (src/exit_errno.c: 17)
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -393,12 +393,27 @@ exit_errno     void exit_errno( int errnum );
               The supplied errno can be negative,
               the absolute value is supplied to errno.
 
-ext_match      int ext_match(const char *text, const char *re);
-               (src/ext_match.c: 20)
-               simple regex engine.
-              matches: * for every count of any char
+ext_match      int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+               (src/ext_match.c: 100)
+               regex engine
+              This is somewhere between a fully fledged expression machine,
+              and a simplicistic solution.
+              The engine matches from left to right,
+              so no backtracking is done.
+              It is a compromise between performance, size
+              and capabilities.
+             
+              matches: 
+              
+              * for every count of any char
+              + for 1 or more chars
               ? for 1 char
-              backslash: escape *,?, and backslash itself.
+             
+              backslash: escape *,?,%,$,!,+ and backslash itself.
+              !: invert the matching of the next character or character class
+               
+             
+              predefined character classes:
               \d - digit
               \D - nondigit
               \s - space
@@ -406,13 +421,77 @@ ext_match      int ext_match(const char *text, const char *re);
               \w - word character ( defined as ascii 32-126,160-255 )
               \W - nonword character ( defined as ascii 0-31,127-159 )
              
+             
+              [xyz]: character classes, here x,y or z 
+                the characters are matched literally, also \,*,?,+,..
+                it is not possible to match the closing bracket (])
+                within a character class
+             
+             
+              %[1]..%[9]: matches like a '+',
+               and calls the callback supplied as 3rd argument (when not null).
+               the number past the %, e.g. %1, is optional,
+               p_match will be callen with this number
+               as first parameter.
+               When not supplied, p_matched will be callen with 
+               the parameter 'number' set to 0.
+             
+               The matching is 'nongreedy'.
+               It is possible to rewrite the string to match
+               from within the p_matched callback.
+               This will not have an effect onto the current matching,
+               even if text is e.g. deleted by writing 0's.
+               The matched positions are called in reverse order.
+               (The last matched % in the regex calls p_match first)
+             
+              supply 0 for p_matched, when you do not need to extract matches.
+              This will treat % in the regex like a *, 
+              a following digit (0..9) in the regex is ignored.
+              if the 5th argument, a pointer to a regex_match struct, 
+              is supplied, it will be filled with the first match.
+              (counting from left)
+             
+             
+              $[1] .. $[9]
+               call p_match_char
+               p_match_char has to return either RE_MATCH or RE_NOMATCH.
+               Therefore it is possible to e.g. rule your own
+               character classes, defined at runtime, 
+               or do further tricks like changing the matched char.
+               When returning RE_NOMATCH,
+               it is possible, the p_match and p_match_char callbacks are callen several times,
+               but with different pos or len parameters.
+             
+              supply 0 for p_match_char, when you don't need it.
+              This will treat $ in the regex like ?, match a following digit (0..9),
+              a following digit (0..9) in the regex is ignored.
+              
+             
               returns: 1 on match, 0 on no match
               ( RE_MATCH / RE_NOMATCH )
              
-              (memo) When the regex ist defined as C string,
-              a backslash has to be defined as double backslash
-              in the source code. 
-              ( so to define a backslashed backslash, 4 backslashes are needed..)
+              if the pointer (argument 5) st_match is nonnull,
+              the supplied struct regex_match will be set to the first matching '%' location;
+              if there is no match, regex_match.len will be set to 0.
+              The struct is defined as: 
+              typedef struct _regex_match { char* pos; int len; } regex_match;
+             
+             
+              (memo) When the regex ist defined within C/cpp source code,
+              a backslash has to be defined as double backslash.
+             
+              (note) - be careful when negating a following *, or ?.
+               somehow - it is logical, but seems to me I overshoot a bit,
+               and tapped into a logical paradox.
+               Negating EVERYTHING translates to true.
+               However, since truth is negated as well, there's a problem.
+             
+               (I'm not kidding here. Just don't do a regex with !* or !?..)
+             
+               A "!+" will translate into nongreedy matching of any char, however;
+               "%!+" will match with % everything but the last char;
+               while "%+" matches with % only the first char.
+               !+ basically sets the greedyness of the left * or % higher.
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
                (include/fexecve.h: 3)
@@ -421,7 +500,7 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
                (include/fexecveat.h: 3)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write strlen fileno
+               Defines: fileno strlen write
                (src/fprintfs.c: 10)
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
@@ -448,13 +527,13 @@ grantpt        int grantpt(int fd);
                (src/pty.c: 13)
 
 group_print    
-               Defines: write strlen fileno
+               Defines: write fileno strlen
                (macros/defgroups.h: 13)
                enable print and related functions
               This switch enables strlen;
               but neither globals nor the mini_buf are used.
 
-group_write                   Defines: ewrite write
+group_write                   Defines: write ewrite
                (macros/defgroups.h: 23)
                write, and related functions
               these functions do not depend on strlen, 
@@ -504,11 +583,10 @@ macro          static void __attribute__((noipa,cold)) optimization_fence(void*p
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
 
-match          int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
-               (src/match.c: 68)
+match          int match(char *text, const char *re, regex_match *st_match);
+               (src/match.c: 55)
                regex engine
-              This is somewhere between a fully fledged expression machine,
-              and a simplicistic solution.
+              little bit simpler version than ext_match.
               The engine matches from left to right,
               so no backtracking is done.
               It is a compromise between performance, size
@@ -520,58 +598,45 @@ match          int match(char *text, const char *re, void(*p_match)(int number, 
               + for 1 or more chars
               ? for 1 char
              
-              backslash: escape *,?,%,$,!,+ and backslash itself.
-              !: invert the matching of the next character
-               a '!' also escapes a following *,%,$,?,!,+
-               (not a backslash)
+              backslash: escape *,?,%,!,+ and backslash itself.
+              ! : invert the matching of the next character or character class
+               
               [xyz]: character classes, here x,y or z 
                 the characters are matched literally, also \,*,?,+,..
                 it is not possible to match the closing bracket (])
                 within a character class
              
-              %[1]..%[9]: matches like a '+',
-               and calls the function, supplied as 3rd argument.
-               the number past the %, e.g. %1, is optional,
-               p_match will be callen with this number
-               as first parameter.
-               When not supplied, p_matched will be callen with 
-               the parameter 'number' set to 0.
              
-               The matching is 'nongreedy'.
-               It is possible to rewrite the string to match
-               from within the p_matched callback.
-               This will not have an effect onto the current matching,
-               even if text is e.g. deleted by writing 0's.
-               The matched positions are called in reverse order.
-               (The last matched % in the regex calls p_match first)
+              % : matches like a '+', and fills in argument 3,
+              the regex_match struct, when the pointer is non null.
+              The matching is 'nongreedy'.
              
-              supply 0 for p_matched, when you do not need to extract matches.
-              This will treat % in the regex like a *, 
-              a following digit (0..9) in the regex is ignored.
-             
-              $[1] .. $[9]
-               call p_match_char
-               p_match_char has to return either RE_MATCH or RE_NOMATCH.
-               Therefore it is possible to rule your own
-               character classes, defined at runtime, and so on.
-               When returning RE_NOMATCH,
-               it is possible, the p_match and p_match_char callbacks are callen several times,
-               but with different pos or len parameters.
-             
-              supply 0 for p_match_char, when you don't need it.
-              This will treat $ in the regex like ?, match a following digit (0..9),
-              a following digit (0..9) in the regex is ignored.
-              
-              if the argument st_match is nonnull,
-              st_match will be set to the first matching '%' location.
              
               returns: 1 on match, 0 on no match
               ( RE_MATCH / RE_NOMATCH )
              
+              if the pointer (argument 3) st_match is nonnull,
+              the supplied struct regex_match will be set to the first matching '%' location;
+              if there is no match, regex_match.len will be set to 0.
+              The struct is defined as: 
+              typedef struct _regex_match { char* pos; int len; } regex_match;
              
-              (memo) When the regex ist defined as C string,
-              a backslash has to be defined as double backslash
-              in the source code.
+             
+              (memo) When the regex ist defined within C/cpp source code,
+              a backslash has to be defined as double backslash.
+             
+              (note) - be careful when negating a following *, or ?.
+               somehow - it is logical, but seems to me I overshoot a bit,
+               and tapped into a logical paradox.
+               Negating EVERYTHING translates to true.
+               However, since truth is negated as,... well, there's a problem.
+             
+               (I'm not kidding here. Just don't do a regex with !* or !?..)
+             
+               A "!+" will translate into nongreedy matching of any char, however;
+               "%!+" will match with % everything but the last char;
+               while "%+" matches with % only the first char.
+               !+ basically sets the greedyness of the left * or % higher.
 
 memfrob        void* memfrob(void* s, unsigned int len);
                (src/memfrob.c: 3)
@@ -589,7 +654,7 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
                (include/mremap.h: 4)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
-               Defines: dirbuf open brk close
+               Defines: brk dirbuf close open
                (src/dirent/opendir.c: 10)
 
 posix_openpt   int posix_openpt(int flags);
@@ -597,7 +662,7 @@ posix_openpt   int posix_openpt(int flags);
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 48)
                write str to stdout. Needs strlen
 
@@ -624,15 +689,15 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: ioctl write open uitodec
+               Defines: uitodec write open ioctl
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: open uitodec ioctl write
+               Defines: write uitodec open ioctl
                (src/pty.c: 27)
 
 putenv         int putenv( char *string );
-               Defines: ret_errno environ
+               Defines: environ ret_errno
                (src/putenv.c: 10)
                put a string into the environmental vars
               the supplied string's pointer is put into the environmental array of pointers.
@@ -710,7 +775,7 @@ verbose_errstr2static const char* verbose_errstr2(int num);
               Trying to shrink that here.
 
 vexec          int vexec( const char* path, char* const* argv, char* const* envp );
-               Defines: wait4 seterrno
+               Defines: seterrno wait4
                (src/vexec.c: 5)
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
@@ -1393,7 +1458,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: close open fileno
+               Defines: open close fileno
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1411,7 +1476,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: fileno close open
+               Defines: open fileno close
                (src/fopen.c: 91)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1426,7 +1491,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1434,7 +1499,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 127)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 6)
 
 fileno         static int fileno( FILE *f );
@@ -1442,7 +1507,7 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: open close fileno
+               Defines: fileno close open
                (src/fopen.c: 81)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1459,7 +1524,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: write strlen fileno
+               Defines: write fileno strlen
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1467,7 +1532,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
                (include/mini_fstream.h: 162)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
-               Defines: fileno open close
+               Defines: open fileno close
                (src/fopen.c: 101)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1516,11 +1581,11 @@ itohex         int itohex(int i,char* buf,int padding);
               ( -1 is 0xffffffff, -2 0xfffffffe, ... )
 
 perror         void perror(const char *msg);
-               Defines: write errno strerror strlen fileno
+               Defines: errno strerror fileno strlen write
                (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: fileno write
+               Defines: write fileno
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -1532,7 +1597,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 67)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -1560,7 +1625,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 100)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
@@ -1577,7 +1642,7 @@ stdlib.h
 ==========
 
 abort          void abort();
-               Defines: write getpid memcpy
+               Defines: write memcpy getpid
                (src/abort.c: 3)
 
 abs            static int abs(int i);
@@ -1601,7 +1666,7 @@ div            static div_t div(int numerator, int denominator);
                (include/math.h: 8)
 
 free           void free(void *p);
-               Defines: brk getbrk
+               Defines: getbrk brk
                (src/malloc.c: 139)
 
 free_brk       int free_brk();
@@ -1731,7 +1796,7 @@ strtol         long int strtol(const char *c, const char **endp, int base);
               doesn't check for overflow(!)
 
 system         int system( const char* command );
-               Defines: write wait4 execve environ vfork
+               Defines: environ execve wait4 vfork write
                (src/system.c: 4)
 
 
@@ -1783,7 +1848,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: strcpy brk strlen
+               Defines: strlen brk strcpy
                (src/strdup.c: 7)
 
 strerror       static char* strerror( int errnum );
@@ -1877,7 +1942,7 @@ execvp         static inline int execvp(const char *file, char *const argv[]);
                (src/execvp.c: 58)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: access execve environ
+               Defines: execve environ access
                (src/execvp.c: 18)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)

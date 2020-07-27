@@ -508,11 +508,26 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  20 </small></td><td><small> int ext_match(const char *text, const char *re);
-</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
-  matches: * for every count of any char
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  100 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+</small></td></tr><tr><td></td><td colspan="2"><small>regex engine
+  This is somewhere between a fully fledged expression machine,
+  and a simplicistic solution.
+  The engine matches from left to right,
+  so no backtracking is done.
+  It is a compromise between performance, size
+  and capabilities.
+ 
+  matches: 
+  
+  * for every count of any char
+  + for 1 or more chars
   ? for 1 char
-  backslash: escape *,?, and backslash itself.
+ 
+  backslash: escape *,?,%,$,!,+ and backslash itself.
+  !: invert the matching of the next character or character class
+   
+ 
+  predefined character classes:
   \d - digit
   \D - nondigit
   \s - space
@@ -520,13 +535,77 @@
   \w - word character ( defined as ascii 32-126,160-255 )
   \W - nonword character ( defined as ascii 0-31,127-159 )
  
+ 
+  [xyz]: character classes, here x,y or z 
+    the characters are matched literally, also \,*,?,+,..
+    it is not possible to match the closing bracket (])
+    within a character class
+ 
+ 
+  %[1]..%[9]: matches like a '+',
+   and calls the callback supplied as 3rd argument (when not null).
+   the number past the %, e.g. %1, is optional,
+   p_match will be callen with this number
+   as first parameter.
+   When not supplied, p_matched will be callen with 
+   the parameter 'number' set to 0.
+ 
+   The matching is 'nongreedy'.
+   It is possible to rewrite the string to match
+   from within the p_matched callback.
+   This will not have an effect onto the current matching,
+   even if text is e.g. deleted by writing 0's.
+   The matched positions are called in reverse order.
+   (The last matched % in the regex calls p_match first)
+ 
+  supply 0 for p_matched, when you do not need to extract matches.
+  This will treat % in the regex like a *, 
+  a following digit (0..9) in the regex is ignored.
+  if the 5th argument, a pointer to a regex_match struct, 
+  is supplied, it will be filled with the first match.
+  (counting from left)
+ 
+ 
+  $[1] .. $[9]
+   call p_match_char
+   p_match_char has to return either RE_MATCH or RE_NOMATCH.
+   Therefore it is possible to e.g. rule your own
+   character classes, defined at runtime, 
+   or do further tricks like changing the matched char.
+   When returning RE_NOMATCH,
+   it is possible, the p_match and p_match_char callbacks are callen several times,
+   but with different pos or len parameters.
+ 
+  supply 0 for p_match_char, when you don't need it.
+  This will treat $ in the regex like ?, match a following digit (0..9),
+  a following digit (0..9) in the regex is ignored.
+  
+ 
   returns: 1 on match, 0 on no match
   ( RE_MATCH / RE_NOMATCH )
  
-  (memo) When the regex ist defined as C string,
-  a backslash has to be defined as double backslash
-  in the source code. 
-  ( so to define a backslashed backslash, 4 backslashes are needed..)
+  if the pointer (argument 5) st_match is nonnull,
+  the supplied struct regex_match will be set to the first matching '%' location;
+  if there is no match, regex_match.len will be set to 0.
+  The struct is defined as: 
+  typedef struct _regex_match { char* pos; int len; } regex_match;
+ 
+ 
+  (memo) When the regex ist defined within C/cpp source code,
+  a backslash has to be defined as double backslash.
+ 
+  (note) - be careful when negating a following *, or ?.
+   somehow - it is logical, but seems to me I overshoot a bit,
+   and tapped into a logical paradox.
+   Negating EVERYTHING translates to true.
+   However, since truth is negated as well, there's a problem.
+ 
+   (I'm not kidding here. Just don't do a regex with !* or !?..)
+ 
+   A "!+" will translate into nongreedy matching of any char, however;
+   "%!+" will match with % everything but the last char;
+   while "%+" matches with % only the first char.
+   !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../src/ext_match.c" target="right">../src/ext_match.c</a>  110 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
 </small></td></tr>
@@ -798,10 +877,9 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  68 </small></td><td><small> int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  55 </small></td><td><small> int match(char *text, const char *re, regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
-  This is somewhere between a fully fledged expression machine,
-  and a simplicistic solution.
+  little bit simpler version than ext_match.
   The engine matches from left to right,
   so no backtracking is done.
   It is a compromise between performance, size
@@ -813,58 +891,45 @@
   + for 1 or more chars
   ? for 1 char
  
-  backslash: escape *,?,%,$,!,+ and backslash itself.
-  !: invert the matching of the next character
-   a '!' also escapes a following *,%,$,?,!,+
-   (not a backslash)
+  backslash: escape *,?,%,!,+ and backslash itself.
+  ! : invert the matching of the next character or character class
+   
   [xyz]: character classes, here x,y or z 
     the characters are matched literally, also \,*,?,+,..
     it is not possible to match the closing bracket (])
     within a character class
  
-  %[1]..%[9]: matches like a '+',
-   and calls the function, supplied as 3rd argument.
-   the number past the %, e.g. %1, is optional,
-   p_match will be callen with this number
-   as first parameter.
-   When not supplied, p_matched will be callen with 
-   the parameter 'number' set to 0.
  
-   The matching is 'nongreedy'.
-   It is possible to rewrite the string to match
-   from within the p_matched callback.
-   This will not have an effect onto the current matching,
-   even if text is e.g. deleted by writing 0's.
-   The matched positions are called in reverse order.
-   (The last matched % in the regex calls p_match first)
+  % : matches like a '+', and fills in argument 3,
+  the regex_match struct, when the pointer is non null.
+  The matching is 'nongreedy'.
  
-  supply 0 for p_matched, when you do not need to extract matches.
-  This will treat % in the regex like a *, 
-  a following digit (0..9) in the regex is ignored.
- 
-  $[1] .. $[9]
-   call p_match_char
-   p_match_char has to return either RE_MATCH or RE_NOMATCH.
-   Therefore it is possible to rule your own
-   character classes, defined at runtime, and so on.
-   When returning RE_NOMATCH,
-   it is possible, the p_match and p_match_char callbacks are callen several times,
-   but with different pos or len parameters.
- 
-  supply 0 for p_match_char, when you don't need it.
-  This will treat $ in the regex like ?, match a following digit (0..9),
-  a following digit (0..9) in the regex is ignored.
-  
-  if the argument st_match is nonnull,
-  st_match will be set to the first matching '%' location.
  
   returns: 1 on match, 0 on no match
   ( RE_MATCH / RE_NOMATCH )
  
+  if the pointer (argument 3) st_match is nonnull,
+  the supplied struct regex_match will be set to the first matching '%' location;
+  if there is no match, regex_match.len will be set to 0.
+  The struct is defined as: 
+  typedef struct _regex_match { char* pos; int len; } regex_match;
  
-  (memo) When the regex ist defined as C string,
-  a backslash has to be defined as double backslash
-  in the source code.
+ 
+  (memo) When the regex ist defined within C/cpp source code,
+  a backslash has to be defined as double backslash.
+ 
+  (note) - be careful when negating a following *, or ?.
+   somehow - it is logical, but seems to me I overshoot a bit,
+   and tapped into a logical paradox.
+   Negating EVERYTHING translates to true.
+   However, since truth is negated as,... well, there's a problem.
+ 
+   (I'm not kidding here. Just don't do a regex with !* or !?..)
+ 
+   A "!+" will translate into nongreedy matching of any char, however;
+   "%!+" will match with % everything but the last char;
+   while "%+" matches with % only the first char.
+   !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>

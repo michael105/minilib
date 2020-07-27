@@ -120,7 +120,7 @@ static char *errno_str(int err);
 void exit_errno( int errnum );
 
 // file: minilib/src/ext_match.c
-int ext_match(const char *text, const char *re);
+int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 
 // file: minilib/src/fprintfs.c
 int fprintfs( FILE* F, char *fmt, ...);
@@ -147,7 +147,7 @@ int itodec(int i, char *buf, int prec, char limiter );
 int itooct(int i, char *buf);
 
 // file: minilib/src/match.c
-int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+int match(char *text, const char *re, regex_match *st_match);
 
 // file: minilib/src/memfrob.c
 void* memfrob(void* s, unsigned int len);
@@ -282,41 +282,41 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/macros/defgroups.h"
-#include "minilib/src/match.c"
-#include "minilib/src/vexec.c"
-#include "minilib/include/seterrno.h"
-#include "minilib/src/pty.c"
-#include "minilib/src/dirname.c"
-#include "minilib/include/prints.h"
-#include "minilib/src/mmap.c"
-#include "minilib/src/dprintf.c"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/snprintf.c"
-#include "minilib/src/qsort.c"
-#include "minilib/src/dirent/scandir.c"
-#include "minilib/src/prints.c"
-#include "minilib/src/itooct.c"
-#include "minilib/src/exit_errno.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/include/ret_errno.h"
-#include "minilib/include/fexecve.h"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/hashes.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/brk.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/itodec.c"
-#include "minilib/src/ext_match.c"
 #include "minilib/src/putenv.c"
-#include "minilib/include/dirent.h"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/include/prints.h"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/fprintfs.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/dirent/scandir.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/ext_match.c"
+#include "minilib/src/dirent/dirfd.c"
 #include "minilib/src/dirent/alphasort.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/mmap.c"
+#include "minilib/macros/defgroups.h"
+#include "minilib/src/errno_str.c"
+#include "minilib/src/dprintf.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/seterrno.h"
+#include "minilib/src/match.c"
+#include "minilib/src/basename.c"
+#include "minilib/include/ret_errno.h"
+#include "minilib/src/vexec.c"
+#include "minilib/src/exit_errno.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/prints.c"
+#include "minilib/src/brk.c"
+#include "minilib/src/itooct.c"
+#include "minilib/src/qsort.c"
+#include "minilib/include/dirent.h"
+#include "minilib/src/itodec.c"
+#include "minilib/src/snprintf.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/pty.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

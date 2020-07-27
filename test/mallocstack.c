@@ -8,6 +8,7 @@ mini_puts
 mini_itodec
 mini_dtodec
 mini_printf
+mini_dprintf
 
 
 mini_malloc
