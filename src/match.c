@@ -24,27 +24,9 @@
 //  The matched positions are called in reverse order.
 //  (The last matched % in the regex calls p_match first)
 //
-//  The callback has to return either RE_MATCH or RE_NOMATCH.
-//
-//	Please be aware, returning RE_NOMATCH might lead to several 
-//	invocations for %'s and $'s with locations at the same
-//	pos in the text and different length's,
-//	or different positions in the text for the same location in the regex.
-//
-//	Since that's a bit complicated, I thought for a longer time
-//	about whether to leave this at it is.
-//	However, as long as you do not mix up text extraction and 
-//	matching, there are no difficulties, but many possibilities
-//	to make use of this.
-//
-//	When mixing up text extraction and matching by returning
-//	RE_NOMATCH, you have to keep track of the different matches on your own,
-//	and look for the match of the whole regex.
-//	(e.g. add all found matches to a static array within p_match,
-//	and work with the array, if the whole regex has matched.)
-//
 // supply 0 for p_matched, when you do not need to extract matches.
-// This will treat % like a * 
+// This will treat % in the regex like a *, 
+// a following digit (0..9) in the regex is ignored.
 //
 // $[1] .. $[9]
 //  call p_match_char
@@ -55,17 +37,20 @@
 //  it is possible, the p_match and p_match_char callbacks are callen several times,
 //  but with different pos or len parameters.
 //
+// supply 0 for p_match_char, when you don't need it.
+// This will treat $ in the regex like ?, match a following digit (0..9),
+// a following digit (0..9) in the regex is ignored.
+//
+//
 // returns: 1 on match, 0 on no match
 // ( RE_MATCH / RE_NOMATCH )
 //
-// supply 0 for p_match_char, when you don't need it.
-// This will treat $ like ? 
 //
 // (memo) When the regex ist defined as C string,
 // a backslash has to be defined as double backslash
 // in the source code.
 //+def match
-int match(char *text, const char *re, int(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char)){
+int match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char)){
 		int n_match=0;
 		char *matchpos = 0;
 
