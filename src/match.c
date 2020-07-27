@@ -97,7 +97,7 @@ int match(char *text, const char *re, int(*p_match)(int number, char *pos,int le
 										if ( p_match && matchpos ){
 												while ( *text )	// find end of text
 														text++;
-												return(p_match(n_match, matchpos,text-matchpos));
+												p_match(n_match, matchpos,text-matchpos);
 										}
 										return(RE_MATCH); // no chars anymore. so a match
 								}
@@ -109,7 +109,7 @@ int match(char *text, const char *re, int(*p_match)(int number, char *pos,int le
 								}
 
 								if ( p_match  && matchpos )
-										return( p_match(n_match,matchpos,text-matchpos) );
+										p_match(n_match,matchpos,text-matchpos);
 
 								return(RE_MATCH);
 

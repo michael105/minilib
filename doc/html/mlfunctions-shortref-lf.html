@@ -798,8 +798,74 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  46 </small></td><td><small> int match(char *text, const char *re, void(*p_matched)(int number, char *pos,int len), int(*p_ismatch)(int number, char *pos,int len));
-</small></td></tr>
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  68 </small></td><td><small> int match(char *text, const char *re, int(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char));
+</small></td></tr><tr><td></td><td colspan="2"><small>simple regex engine.
+  matches: * for every count of any char
+  ? for 1 char
+  backslash: escape *,?,%,$,! and backslash itself.
+  !: invert the matching of the next character
+   a '!' also escapes a following *,%,$,?,!
+   (not a backslash)
+   
+ 
+  %[1]..%[9]: matches like a asterisk (*),
+   and calls the function, supplied as 3rd argument.
+   the number past the %, e.g. %1, is optional,
+   p_match will be callen with this number
+   as first parameter.
+   When not supplied, p_matched will be callen with 
+   the parameter number set to 0.
+ 
+   The matching is 'nongreedy'.
+   Please beware, the 'match' can have a length of 0 as well.
+   It is possible to rewrite the string to match
+   from within the p_matched callback.
+   This will not have an effect onto the current matching,
+   even if text is e.g. deleted by writing 0's.
+   The matched positions are called in reverse order.
+   (The last matched % in the regex calls p_match first)
+ 
+   The callback has to return either RE_MATCH or RE_NOMATCH.
+ 
+ 	Please be aware, returning RE_NOMATCH might lead to several 
+ 	invocations for %'s and $'s with locations at the same
+ 	pos in the text and different length's,
+ 	or different positions in the text for the same location in the regex.
+ 
+ 	Since that's a bit complicated, I thought for a longer time
+ 	about whether to leave this at it is.
+ 	However, as long as you do not mix up text extraction and 
+ 	matching, there are no difficulties, but many possibilities
+ 	to make use of this.
+ 
+ 	When mixing up text extraction and matching by returning
+ 	RE_NOMATCH, you have to keep track of the different matches on your own,
+ 	and look for the match of the whole regex.
+ 	(e.g. add all found matches to a static array within p_match,
+ 	and work with the array, if the whole regex has matched.)
+ 
+  supply 0 for p_matched, when you do not need to extract matches.
+  This will treat % like a * 
+ 
+  $[1] .. $[9]
+   call p_match_char
+   p_match_char has to return either RE_MATCH or RE_NOMATCH.
+   Therefore it is possible to rule your own
+   character classes, and so on.
+   When returning RE_NOMATCH,
+   it is possible, the p_match and p_match_char callbacks are callen several times,
+   but with different pos or len parameters.
+ 
+  returns: 1 on match, 0 on no match
+  ( RE_MATCH / RE_NOMATCH )
+ 
+  supply 0 for p_match_char, when you don't need it.
+  This will treat $ like ? 
+ 
+  (memo) When the regex ist defined as C string,
+  a backslash has to be defined as double backslash
+  in the source code.
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  6 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
