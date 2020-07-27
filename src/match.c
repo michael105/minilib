@@ -161,26 +161,20 @@ int match(char *text, const char *re, void(*p_match)(int number, char *pos,int l
 
 						case '!':
 										neg=1;
-										re++;
-										if ( *re==0 )
-												return(RE_ERROR);
-										goto DEFAULT; // well. I know.
-
 						case '\\': // match escaped *,?,backslashes, %
-								*re++;
+								re++;
 #define _MATCH(a,condition) if ( *re == a ){\
 		if ( condition ) break;\
 		else return(RE_NOMATCH);}
 
-								_MATCH('d',isdigit(*text));
-								_MATCH('D',!isdigit(*text));
-								_MATCH('s',isspace(*text));
-								_MATCH('S',!isspace(*text));
-								_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
-								_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
-
-
-DEFAULT:
+								if ( !neg ){
+										_MATCH('d',isdigit(*text));
+										_MATCH('D',!isdigit(*text));
+										_MATCH('s',isspace(*text));
+										_MATCH('S',!isspace(*text));
+										_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
+										_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
+								}
 						default:
 								if ( *re==0 ) //partial match ( could be spared )
 										return(RE_NOMATCH);
