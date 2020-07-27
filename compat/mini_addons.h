@@ -216,25 +216,19 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
 // file: minilib/include/prints.h
-#define fprints(F,str) write(fileno(F),str,strlen(str))
+#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
 // file: minilib/include/prints.h
 #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
+
+// file: minilib/include/prints.h
+#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 
 // file: minilib/include/prints.h
 #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
 // file: minilib/include/prints.h
 #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-
-// file: minilib/include/prints.h
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-
-// file: minilib/include/prints.h
-#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
-
-// file: minilib/include/prints.h
-#define fwrites(fd,str) write(fd,str,sizeof(str))
 
 // file: minilib/include/prints.h
 #define printl() write(STDOUT_FILENO,"\n",1)
@@ -244,6 +238,15 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
 // file: minilib/include/prints.h
 #define eputs(msg) ( eprint(msg) + eprintl() )
+
+// file: minilib/include/prints.h
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+
+// file: minilib/include/prints.h
+#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+
+// file: minilib/include/prints.h
+#define fwrites(fd,str) write(fd,str,sizeof(str))
 
 // file: minilib/include/prints.h
 #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
@@ -269,6 +272,9 @@ static DIR *opendirp(const char *name, DIR *dir);
 // file: minilib/src/dirent/scandir.c
 //#define mini_scandir_bufsize 4096
 
+// file: minilib/macros/defgroups.h
+
+
 
 
 #include "include/minilib_global.h"
@@ -276,40 +282,41 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/prints.c"
-#include "minilib/include/ret_errno.h"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/src/mmap.c"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/dprintf.c"
-#include "minilib/src/snprintf.c"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/dirent/scandir.c"
 #include "minilib/src/memfrob.c"
-#include "minilib/src/vexec.c"
-#include "minilib/src/itodec.c"
-#include "minilib/include/seterrno.h"
-#include "minilib/src/hashes.c"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/dirname.c"
-#include "minilib/include/dirent.h"
-#include "minilib/src/putenv.c"
 #include "minilib/src/pty.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/brk.c"
-#include "minilib/src/ext_match.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/match.c"
+#include "minilib/src/errno_str.c"
 #include "minilib/src/dirent/alphasort.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/itooct.c"
-#include "minilib/src/qsort.c"
-#include "minilib/src/itobin.c"
-#include "minilib/include/fexecve.h"
+#include "minilib/src/mmap.c"
 #include "minilib/include/prints.h"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/include/ret_errno.h"
+#include "minilib/src/putenv.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/itooct.c"
+#include "minilib/macros/defgroups.h"
+#include "minilib/src/dirent/scandir.c"
+#include "minilib/src/basename.c"
+#include "minilib/include/dirent.h"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/dprintf.c"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/include/seterrno.h"
+#include "minilib/src/snprintf.c"
+#include "minilib/src/itobin.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/qsort.c"
+#include "minilib/src/prints.c"
 #include "minilib/src/exit_errno.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/vexec.c"
+#include "minilib/src/match.c"
+#include "minilib/src/ext_match.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/brk.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

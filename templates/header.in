@@ -30,6 +30,8 @@
 //#define mini_start
 //#define mini_exit
 
+#include "minilib/macros/defgroups.h"
+
 #include "minilib/headers/common/allheaders.h"
 #include "minilib/headers/linux_x64/allheaders.h"
 
@@ -39,6 +41,7 @@
 #include "minilib/include/dirent.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
+
 
 #ifdef mini_GETOPTS
 #include "minilib/macros/getoptm.h"

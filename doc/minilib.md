@@ -225,28 +225,34 @@ dtodec         int dtodec(double d, char* buf, int precision);
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 42)
+               (include/prints.h: 52)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
-               write str to stderr. 
-              only format %s is recognized
-               (include/prints.h: 90)
+               write fmt and arguments to stderr. 
+              only format %s and %c are recognized
+               (include/prints.h: 100)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 67)
+               (include/prints.h: 61)
 
 eprints        #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stdout
-               (include/prints.h: 17)
+              this macro has an variable argument count.
+               (include/prints.h: 19)
+
+eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
+
+               print the string(s) supplied as arg(s) and newline to stderr
+               (include/prints.h: 41)
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 77)
+               (include/prints.h: 71)
 
 errno_str      static char *errno_str(int err);
 
@@ -259,7 +265,7 @@ errno_str      static char *errno_str(int err);
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 52)
+               (include/prints.h: 82)
 
 exit_errno     void exit_errno( int errnum );
 
@@ -306,18 +312,21 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
-               prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
+               prints formatted and unbuffered output to the stream F.
+              only %s and %c are recognized.
+              no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
                (src/fprintfs.c: 10)
 
-fprints        #define fprints(F,str) write(fileno(F),str,strlen(str))
+fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stream
-               (include/prints.h: 24)
+              this macro has an variable argument count.
+               (include/prints.h: 27)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
                write the constant str to fd. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 58)
+               (include/prints.h: 88)
 
 getbrk         static long getbrk();
 
@@ -329,6 +338,19 @@ getbrk         static long getbrk();
 grantpt        int grantpt(int fd);
 
                (src/pty.c: 13)
+
+group_print    
+
+               enable print and related functions
+              This switch enables strlen;
+              but neither globals nor the mini_buf are used.
+               (macros/defgroups.h: 13)
+
+group_write    
+               write, and related functions
+              these functions do not depend on strlen, 
+              or any globals.
+               (macros/defgroups.h: 23)
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
@@ -418,28 +440,29 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 38)
+               (include/prints.h: 48)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
-               write str to stdout. 
-              only format %s is recognized
-               (include/prints.h: 84)
+               write fmt and arguments to stdout. 
+              only format %s and %c are recognized
+               (include/prints.h: 94)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 63)
+               (include/prints.h: 57)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
-               print the string(s) supplied as arg(s) to stdout
-               (include/prints.h: 11)
+               print the string(s) supplied as arg(s) to stdout,
+              this macro has an variable argument count.
+               (include/prints.h: 12)
 
 printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
                print the string(s) supplied as arg(s) and newline to stdout
-               (include/prints.h: 32)
+               (include/prints.h: 35)
 
 ptsname        char *ptsname(int fd);
 
@@ -563,7 +586,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 48)
+               (include/prints.h: 78)
 
 
 
@@ -1073,7 +1096,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 73)
+               (include/prints.h: 67)
 
 rewind         static inline void rewind( FILE *f );
 

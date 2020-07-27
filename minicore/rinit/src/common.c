@@ -28,6 +28,11 @@ int rundir(const char *dir, const char* regex,char **argv, char **envp){
 
 		strncpy(re,regex,16);
 		strncpy(path,dir,PATHMAX);
+
+		if ( path[len-1] != '/' ){
+				path[len] = '/';
+				path[++len] = 0;
+		}
 		
 		int count = scandir( dir, &list, de_select, alphasort );
 		int ret = 0;

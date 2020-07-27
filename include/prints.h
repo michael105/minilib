@@ -5,13 +5,15 @@ extern int dprints(int fd, const char *msg,...);
 //+header mini_addons.h
 
 
-//+doc print the string(s) supplied as arg(s) to stdout
+//+doc print the string(s) supplied as arg(s) to stdout,
+// this macro has an variable argument count.
 //+depends _mprints 
 //+macro
 #define prints(...) _mprints(__VA_ARGS__,0)
 
 
 //+doc print the string(s) supplied as arg(s) to stdout
+// this macro has an variable argument count.
 //+depends dprints 
 //+macro
 #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
@@ -19,9 +21,10 @@ extern int dprints(int fd, const char *msg,...);
 
 
 //+doc print the string(s) supplied as arg(s) to stream
+// this macro has an variable argument count.
 //+depends fileno write strlen
 //+macro
-#define fprints(F,str) write(fileno(F),str,strlen(str))
+#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
 
 
@@ -32,6 +35,13 @@ extern int dprints(int fd, const char *msg,...);
 #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
 
+//+doc print the string(s) supplied as arg(s) and newline to stderr
+//+depends dprints
+//+macro
+#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
+
+
+
 
 //+depends write strlen
 //+doc write str to stdout. Needs strlen
@@ -40,22 +50,6 @@ extern int dprints(int fd, const char *msg,...);
 //+depends write strlen
 //+doc write str to stderr. Needs strlen
 //+macro eprint(str) write(STDERR_FILENO,str,strlen(str))
-
-
-
-//+depends write 
-//+doc write the constant str to stdout. Computes length with sizeof(str) at compile time.
-//+macro writes(str) write(STDOUT_FILENO,str,sizeof(str))
-
-//+depends write 
-//+doc write the constant str to stderr. Computes length with sizeof(str) at compile time.
-//+macro ewrites(str) write(STDERR_FILENO,str,sizeof(str))
-
-
-
-//+depends write 
-//+doc write the constant str to fd. Computes length with sizeof(str) at compile time.
-//+macro fwrites(fd,str) write(fd,str,sizeof(str))
 
 
 //+depends write
@@ -78,15 +72,31 @@ extern int dprints(int fd, const char *msg,...);
 
 
 
+
+//+depends write 
+//+doc write the constant str to stdout. Computes length with sizeof(str) at compile time.
+//+macro writes(str) write(STDOUT_FILENO,str,sizeof(str))
+
+//+depends write 
+//+doc write the constant str to stderr. Computes length with sizeof(str) at compile time.
+//+macro ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+
+
+
+//+depends write 
+//+doc write the constant str to fd. Computes length with sizeof(str) at compile time.
+//+macro fwrites(fd,str) write(fd,str,sizeof(str))
+
+
 //+depends fprintfs fputs strlen
-//+doc write str to stdout. 
-// only format %s is recognized
+//+doc write fmt and arguments to stdout. 
+// only format %s and %c are recognized
 //+macro printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
 
 //+depends fprintfs fputs strlen
-//+doc write str to stderr. 
-// only format %s is recognized
+//+doc write fmt and arguments to stderr. 
+// only format %s and %c are recognized
 //+macro eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
 

@@ -3,6 +3,8 @@
 // ? for 1 char
 // backslash: escape *,?, and backslash itself.
 //
+// returns: 1 on match, 0 on no match
+//
 // (memo) When the regex ist defined as C string,
 // a backslash has to be defined as double backslash
 // in the source code.
@@ -16,10 +18,11 @@ int match(const char *text, const char *re){
 								re++;
 								if ( *re == 0)
 										return(0); // no chars anymore. so a match
-								for ( ; *text != *re; text++ ){
-										if ( *text==0 )
-												return(-2);
+								for ( ; !match(text,re); text++ ){
+										if ( !text )
+												return(-1);
 								}
+								return(0);
 								break;
 						case '\\': // match escaped *,?,backslashes
 								*re++;

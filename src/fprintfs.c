@@ -3,9 +3,9 @@
 
 //+depends fputs write fileno strlen
 //+after fputs
-//+doc prints formatted to the stream F.
-//+doc only %s and %c are recognized.
-//+doc no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.
+//+doc prints formatted and unbuffered output to the stream F.
+// only %s and %c are recognized.
+// no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
 //+def
 int fprintfs( FILE* F, char *fmt, ...){
 		va_list args;
