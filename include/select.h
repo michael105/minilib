@@ -25,8 +25,10 @@ static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_s
 		register long int r8 asm ("r8") = wait;
 		__SYSCALL_ASM(sysret,__NR_select) , "D" (sysret), "S" (readfd), "d" (writefd), "r" (r10), "r" (r8) __callend;
 
+
 #ifdef mini_errno
 		if ( sysret<0){
+				OPTFENCE(r10,r8);
 				errno = -sysret;
 				return(-1);}
 #endif

@@ -170,7 +170,7 @@ brk            static int brk( const void* addr );
               returns the negative errno value on error
                (src/brk.c: 19)
 
-clone_t        int clone_t(unsigned long flags);
+clone_t        int clone_t(int flags);
 
                (include/clone.h: 7)
 

@@ -14,6 +14,7 @@ int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int r
 
 		int ret;
 		syscall3(ret, SCALL(ioctl),fd,request,(long int)va_arg(args,void*));
+		OPTFENCE(&ret,&fd,&request,(void*)args);
 		va_end(args);
 		return(ret);
 }

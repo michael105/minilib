@@ -78,6 +78,7 @@
 //#define _ELF_H
 //#define _ENDIAN_H
 #define _ENVZ_H
+#define _ERRNO_H
 #define _ERROR_H
 #define _EXECINFO_H
 #define _FCNTL_H

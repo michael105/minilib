@@ -3,7 +3,6 @@ mini_start
 mini_writes
 mini_open
 mini_read
-mini_select
 mini_exit_errno
 mini_atoi
 
@@ -87,7 +86,7 @@ int main(int argc, char *argv[]){
 	}
 
 	char b[1];
-	char buf[256];
+	char buf[64];
 
 	int r = 0;
 
@@ -113,8 +112,8 @@ int main(int argc, char *argv[]){
 	while ( r == 0 && ( t!=0 ) ){
 			//r = poll(&rs,0,-1);
 			writes("loop\n");
-			//int a = select(fd+1, &rs,0,0,0);
-			int l = read(nfd,buf,256);
+			//int l = select(nfd+1, &rs,0,0,0);
+			int l = read(nfd,buf,64);
 			printf("l: %d\n",l);
 			
 			r = read(fd,b,1);

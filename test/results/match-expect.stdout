@@ -264,3 +264,13 @@ Match num: %0, len: 11
 --- col1 col2   ---
  Matched
 stmatch: col1 col2  
+=== text: arg        re: % *
+Match num: %0, len: 3
+--- arg ---
+ Matched
+stmatch: arg
+=== text:         re: % *
+Match num: %0, len: 1
+---   ---
+ Matched
+stmatch:  
