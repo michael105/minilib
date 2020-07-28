@@ -87,6 +87,42 @@ Start(run)   Boot
 Service      Daemon
 Shutdown     Halt
 
+---- 
+
+
+Executables within rinit/rc.boot are 
+executed first.
+
+Then follows rc.runlevel (default: rc.default)
+
+On Shutdown rc.shutdown is scanned.
+
+
+rinit.boot is there for rc.boot.
+
+
+
+rinit.run needs one argument, 
+empty spaces.
+
+On boot, rinit.run reads the kernel command line
+and looks for a parameter runlevel= 
+When found, or 
+when the runlevel is changed,
+ rinit.run writes into it's own argument the new runlevel.
+ (so the current runlevel shows up with ps)
+
+On SIGUSR1 the runlevel is read from the shared directory within the init ramdisk.
+ (/rd/run/runlevel)
+
+ For changing the runlevel, 
+ signal either init (1) or rinit.run with SIGUSR1
+
+
+
+
+
+rinit.shutdown scans and runs rc.shutdown.
 
 
 

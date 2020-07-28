@@ -213,5 +213,9 @@ int main(int argc, char **argv){
 		mt4("col1 col2  col3","%!\\W");
 		mt4("col1 col2  col3","%!?");
 		mt4("col1 col2  col3","%col!+");
+
+
+		mt4("arg      ","% *");
+		mt4("      ","% *");
 		return(0);
 }

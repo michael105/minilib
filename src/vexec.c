@@ -1,5 +1,6 @@
 //+doc execute a path, wait until the executed file exits.
 // Deviating of system() an absolute pathname is taken.
+// sets errno on error.
 //+depends seterrno waitpid
 //+def
 int vexec( const char* path, char* const* argv, char* const* envp ){

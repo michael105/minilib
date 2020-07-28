@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo script $0 started
-exit 0

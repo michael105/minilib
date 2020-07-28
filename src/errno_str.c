@@ -9,6 +9,8 @@ static char *errno_str(int err){
 		// = { '1','0','0','\n',0 }; blows up 4k. 
 		// needs another section.
 		char *p = e;
+		if ( err<0 )
+				err=-err;
 		if ( err>99 ){
 				err-=100;
 		} else {

@@ -60,8 +60,8 @@ return
 #define STAGE2 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test2.sh"
 #define STAGE3 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test3.sh"
 #else
-#define STAGE1 "/etc/rinit/1"
-#define STAGE2 "/etc/rinit/2"
+#define STAGE1 "/etc/rinit/rinit.boot"
+#define STAGE2 "/etc/rinit/rinit.run"
 #define STAGE3 "/etc/rinit/3"
 #endif
 
@@ -210,10 +210,11 @@ STAGE1_START:
 
 		int a = 0;
 
+		char *st2av[3] = { STAGE2, "                ",0 };
 		// stage 2
 		while (!shutdown){
 				log("Run " STAGE2);
-				if ( vexec(STAGE2, argv, envp) )
+				if ( vexec(STAGE2, st2av, envp) )
 						return(-1);
 				if ( (a++) > 1 ){ // prevent spinning 
 						warning("stage2 seems to die unexpectedly\nSleeping");

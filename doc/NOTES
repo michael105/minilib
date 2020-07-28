@@ -1,5 +1,32 @@
 ### assorted notes
 
+
+closures.
+When closures are used, 
+gcc has to generate trampoline code.
+For this, the stack has to be executable.
+There are notes within the ldscripts,
+in howto get an executable stack.
+
+Renmoving the PT_STACK program header is another possibilty,
+which also saves a few bytes.
+The kernel will make the stack executable,
+when the according program header isn't present.
+
+The general opinion, this would be a security risk,
+ is plain wrong. The risk is there, if user input
+ is unchecked pushed onto the stack, what could lead 
+ to a stack overflow. But that's not really a difference to having 
+ an overflow within the bss or data section, for example.
+
+ The problem is there cause of unchecked input,
+ what cannot be fixed by making the stack not executable.
+
+I leave the stack unexecutable, albite this needs a few bytes.
+Just cause I know, malware scanning software would alarm.
+But. it is close to nonsense.
+
+
 about the differences of scripts and c
 
 seems, there should be something in between.

@@ -3,7 +3,7 @@
 
 CC=../../mini-gcc
 
-all: init reboot halt 1
+all: init reboot halt rinit.boot rinit.run
 
 
 

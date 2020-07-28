@@ -3,7 +3,7 @@
 
 #define PATHMAX 256
 
-static char re[16];
+//static char re[16];
 
 // log a message
 void log(const char *msg){
@@ -16,17 +16,22 @@ void error(const char *msg1, const char *msg2, int n_errno){
 }
 
 
+char glname_start;
+
 int de_select(const struct dirent* de){
-		return(match(de->d_name,re));
+		return(de->d_name[0]==glname_start);
+		//return(match(de->d_name,re,0));
 }
 
+
 // execute all executables within dir, matching regex (simple regex)
-int rundir(const char *dir, const char* regex,char **argv, char **envp){
+int rundir(const char *dir, const char namestart,char **argv, char **envp){
 		struct dirent **list;
 		char path[PATHMAX];
 		int len = strlen(dir);
 
-		strncpy(re,regex,16);
+		glname_start=namestart;
+
 		strncpy(path,dir,PATHMAX);
 
 		if ( path[len-1] != '/' ){
@@ -55,6 +60,9 @@ int rundir(const char *dir, const char* regex,char **argv, char **envp){
 				*list++;
 		}
 		
+		// could in the curent usecases be spared.
+		// or should be replaced with getbrk before scandir,
+		// and brk(addr) here.
 		free_brk();
 
 		return(ret);
