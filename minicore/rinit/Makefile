@@ -29,12 +29,8 @@ install-tools: halt reboot
 	sudo "cp reboot /bin/reboot && chown root:wheel /bin/reboot && chmod ug+s /bin/reboot"
 
 
-
-
-%: src/%.c src/common.c
+%: src/%.c src/common.c src/config.h src/minilib.conf
 	$(eval OPT=--config src/minilib.conf) 
-	#$(if $(wildcard $@.mconf),$(eval OPT=--config $@.mconf),)
-	#$(if $(wildcard $@.conf),$(eval OPT=--config $@.conf),)
 	@echo -e "\e[36m" $(CC) $(OPT) -o $@ $@.c "\e[37m"
 	@$(CC) $(OPT) -o $@ $<
 
