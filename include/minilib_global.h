@@ -90,6 +90,7 @@ typedef struct {
 static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
 
+
 // void __attribute__((noipa,naked))prevent_optimization(void*p){
 // strangely, naked results in a bigger binary. (+4 Bytes)
 // and will result in a runtime error. undefined opcode. so.

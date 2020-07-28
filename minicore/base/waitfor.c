@@ -12,9 +12,9 @@ mini_strtol
 
 mini_syscalls
 
-#mini_buf 256
-#mini_printf
-#mini_itodec
+mini_buf 256
+mini_printf
+mini_itodec
 #globals_on_stack
 
 HEADERGUARDS
@@ -26,7 +26,7 @@ return
 #endif
 
 // misc 2020/06
-// BSD license
+// public domain / BSD 3clause
 
 void usage(){
 		writes("Usage: waitfor [-r] [-t timeout] file\n");
@@ -87,26 +87,41 @@ int main(int argc, char *argv[]){
 	}
 
 	char b[1];
+	char buf[256];
 
 	int r = 0;
 
 	r = read(fd,b,1);
 	int nfd; // inotifyfd
-	nfd = sys_inotify_init1(IN_NONBLOCK);
-	int ir = sys_inotify_add_watch(nfd, argv[0], IN_MODIFY | IN_OPEN );
-	fd_set rs;
-	FD_ZERO (&rs);
-	FD_SET(nfd,&rs); //
+	nfd = sys_inotify_init();
+	if ( nfd<0 ){
+			exit_errno(nfd);
+	}
+
+	int ir = sys_inotify_add_watch(nfd, argv[0], IN_MODIFY );
+	//int ir = sys_inotify_add_watch(nfd, argv[0], IN_MODIFY | IN_OPEN );
+	if ( ir<0 ){
+			exit_errno(ir);
+	}
+
+
+	//fd_set rs;
+	//FD_ZERO (&rs);
+	//FD_SET(nfd,&rs); //
 
 
 	while ( r == 0 && ( t!=0 ) ){
-			r = poll(&rs,0,-1);
+			//r = poll(&rs,0,-1);
 			writes("loop\n");
-			usleep(100000); // 1/10 second
+			//int a = select(fd+1, &rs,0,0,0);
+			int l = read(nfd,buf,256);
+			printf("l: %d\n",l);
+			
 			r = read(fd,b,1);
 			if ( t>0 )
 				t--;
-
+			
+			//usleep(100000); // 1/10 second
 
 	}
 	write(STDOUT_FILENO,b,1);

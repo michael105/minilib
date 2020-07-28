@@ -34,6 +34,18 @@ extern int errno;
 
 #endif
 
+#ifndef OPTFENCE
+//+doc prevent optimizing of registers
+// the macro OPTFENCE(...) can be invoked with any parameter.
+// The parameters will get calculated
+static void __attribute__((noipa,cold)) opt_fence(void*p,...){}
+#define _optjmp(a,b) asm( a "OPTFENCE_"#b )
+#define _optlabel(a) asm( "OPTFENCE_" #a ":" )
+#define __optfence(a,...) _optjmp("jmp ", a ); opt_fence(__VA_ARGS__); _optlabel(a)
+#define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
+#endif
+
+
 
 // syscall table at: /usr/src/linux/include/linux/syscalls.h. 
 // table, ordered: /usr/src/linux/arch/x86/syscalls/syscall_32.tbl
@@ -55,8 +67,16 @@ extern int errno;
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
 
+
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 #define __callend : "memory","rcx", "r11" )
+#define __callend0 : "memory","rcx", "r11" )
+#define __callend1 : "memory","rcx", "r11" )
+#define __callend2 : "memory","rcx", "r11" )
+#define __callend3 : "memory","rcx", "r11" )
+#define __callend4 : "memory","rcx", "r11" ); OPTFENCE(r10)
+#define __callend5 : "memory","rcx", "r11" ); OPTFENCE(r10,r8)
+#define __callend6 : "memory","rcx", "r11" ); OPTFENCE(r10,r8,r9)
 //(also osx)
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret)  : "a" ( (call | NCONST ) )
 #else
@@ -139,7 +159,7 @@ extern int errno;
 
 
 // args: count of parameters, syscall number, [parameters...]
-#define __DO_syscall(n,...) syscall##n##_ret( __VA_ARGS__ ) __callend
+#define __DO_syscall(n,...) syscall##n##_ret( __VA_ARGS__ ) __callend##n
 
 // args: name (e.g. getpid), count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...

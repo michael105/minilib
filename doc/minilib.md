@@ -170,6 +170,10 @@ brk            static int brk( const void* addr );
               returns the negative errno value on error
                (src/brk.c: 19)
 
+clone_t        int clone_t(unsigned long flags);
+
+               (include/clone.h: 7)
+
 def            #define SETOPT_short( opts, option ) (;
 
                Set a option flag(s) (bit(s))  manually.
@@ -693,14 +697,15 @@ vexec          int vexec( const char* path, char* const* argv, char* const* envp
 
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
-               (src/vexec.c: 5)
+              sets errno on error.
+               (src/vexec.c: 6)
 
 vexec_q        int vexec_q( const char* path, char* const* argv, char* const* envp );
 
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
               Deviating of system() an absolute pathname is taken.
-               (src/vexec.c: 28)
+               (src/vexec.c: 29)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
