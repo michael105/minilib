@@ -810,7 +810,7 @@ dbg("xx headerhash");
 dbg( $headerhash );
 dbg("zz headerhash");
 
-print $mc "\nvoid __attribute__((cold,naked)) opt_fence(void*p,...){}\n#endif\n";
+print $mc "\nvoid __attribute__((naked)) opt_fence(void*p,...){}\n#endif\n";
 
 close( $mc );
 
