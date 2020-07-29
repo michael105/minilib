@@ -34,15 +34,19 @@ extern int errno;
 
 #endif
 
+void opt_fence(void*p,...);
+
 #ifndef OPTFENCE
 //+doc prevent optimizing of registers
 // the macro OPTFENCE(...) can be invoked with any parameter.
 // The parameters will get calculated
-static void __attribute__((noipa,cold)) opt_fence(void*p,...){}
+//void __attribute__((cold)) opt_fence(void*p,...);
+//static void __attribute__((noipa,cold)) opt_fence(void*p,...){}
 #define _optjmp(a,b) asm( a "OPTFENCE_"#b )
 #define _optlabel(a) asm( "OPTFENCE_" #a ":" )
 #define __optfence(a,...) _optjmp("jmp ", a ); opt_fence(__VA_ARGS__); _optlabel(a)
-#define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
+//#define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
+#define OPTFENCE(...) opt_fence(__VA_ARGS__)
 #endif
 
 

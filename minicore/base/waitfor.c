@@ -92,30 +92,19 @@ int main(int argc, char *argv[]){
 
 	r = read(fd,b,1);
 	int nfd; // inotifyfd
-	nfd = sys_inotify_init();
+	nfd = inotify_init();
 	if ( nfd<0 ){
 			exit_errno(nfd);
 	}
 
-	int ir = sys_inotify_add_watch(nfd, argv[0], IN_MODIFY );
-	//int ir = sys_inotify_add_watch(nfd, argv[0], IN_MODIFY | IN_OPEN );
+	int ir = inotify_add_watch(nfd, argv[0], IN_MODIFY );
+
 	if ( ir<0 ){
 			exit_errno(ir);
 	}
 
-
-	//fd_set rs;
-	//FD_ZERO (&rs);
-	//FD_SET(nfd,&rs); //
-
-
 	while ( r == 0 && ( t!=0 ) ){
-			//r = poll(&rs,0,-1);
-			writes("loop\n");
-			//int l = select(nfd+1, &rs,0,0,0);
-			int l = read(nfd,buf,64);
-			printf("l: %d\n",l);
-			
+			read(nfd,buf,64);
 			r = read(fd,b,1);
 			if ( t>0 )
 				t--;
@@ -129,5 +118,14 @@ int main(int argc, char *argv[]){
 	return(nfd);
 	return(r?0:11); // 0 on success, 11 on timeout (errno 'try again')
 }
+
+// leaving this below. works. but using read onto the inotify fd
+// might be leaner.
+
+	//fd_set rs;
+	//FD_ZERO (&rs);
+	//FD_SET(nfd,&rs); //
+	//int l = select(nfd+1, &rs,0,0,0);
+
 
 
