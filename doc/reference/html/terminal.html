@@ -16,7 +16,7 @@ grantpt
 <p>
   <em>int grantpt(int fd)</em><br>
  <strong>grant access to the slave pseudo-terminal device</strong>
-Size: ~44B <a href="../src/pty.c">../src/pty.c</a> l.13 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">grantpt</a><br>
+Size: ~44B <a href="../../src/pty.c">../src/pty.c</a> l.13 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">grantpt</a><br>
 </p>
 </dd>
 <dt>
@@ -27,7 +27,7 @@ isatty
   <em>int isatty(int fd)</em><br>
  <strong>Defines:</strong> ioctl<br>
  <strong>test for a terminal device</strong>
-Size: ~325B <a href="../src/isatty.c">../src/isatty.c</a> l.7 manpage: <a href="manpages/gen/ttyname.3.rst.html">isatty</a><br>
+Size: ~325B <a href="../../src/isatty.c">../src/isatty.c</a> l.7 manpage: <a href="manpages/gen/ttyname.3.rst.html">isatty</a><br>
 </p>
 </dd>
 <dt>
@@ -37,7 +37,7 @@ nanosleep
 <p>
   <em>int nanosleep( struct timespec <strong>rqtp, struct timespec *rmtp)</em><br>
  *high resolution sleep</strong>
-Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.135 manpage: <a href="manpages/sys/nanosleep.2.rst.html">nanosleep</a><br>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.135 manpage: <a href="manpages/sys/nanosleep.2.rst.html">nanosleep</a><br>
 </p>
 </dd>
 <dt>
@@ -48,7 +48,7 @@ posix_openpt
   <em>int posix_openpt(int flags)</em><br>
  <strong>Defines:</strong> open<br>
  <strong>open a pseudo-terminal device</strong>
-Size: ~140B <a href="../src/pty.c">../src/pty.c</a> l.8 manpage: <a href="manpages/sys/posix_openpt.2.rst.html">posix_openpt</a><br>
+Size: ~140B <a href="../../src/pty.c">../src/pty.c</a> l.8 manpage: <a href="manpages/sys/posix_openpt.2.rst.html">posix_openpt</a><br>
 </p>
 </dd>
 <dt>
@@ -59,7 +59,7 @@ ptsname
   <em>char <strong>ptsname(int fd)</em><br>
  *Defines:</strong> open ioctl write uitodec<br>
  <strong>get name of the slave pseudo-terminal device</strong>
-Size: ~1767B <a href="../src/pty.c">../src/pty.c</a> l.40 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
+Size: ~1767B <a href="../../src/pty.c">../src/pty.c</a> l.40 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
 </p>
 </dd>
 <dt>
@@ -70,7 +70,7 @@ ptsname_r
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
  *Defines:</strong> uitodec write ioctl open<br>
  <strong>get the name of the slave pseudoterminal</strong>
-Size: ~1748B <a href="../src/pty.c">../src/pty.c</a> l.27
+Size: ~1748B <a href="../../src/pty.c">../src/pty.c</a> l.27
 </p>
 </dd>
 <dt>
@@ -81,7 +81,7 @@ tcgetattr
   <em>int  tcgetattr(int fd, struct termios <strong>io)</em><br>
  *Defines:</strong> ioctl<br>
  <strong>get the parameters associated with the terminal</strong>
-Size: ~300B <a href="../include/tcgetattr.h">../include/tcgetattr.h</a> l.21 manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
+Size: ~300B <a href="../../include/tcgetattr.h">../include/tcgetattr.h</a> l.21 manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
 </p>
 </dd>
 <dt>
@@ -92,7 +92,7 @@ tcsetattr
   <em>int  tcsetattr(int fd, int opt, const struct termios <strong>io)</em><br>
  *Defines:</strong> ioctl<br>
  <strong>set the parameters associated with the terminal</strong>
-Size: ~316B <a href="../include/tcsetattr.h">../include/tcsetattr.h</a> l.20 manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a><br>
+Size: ~316B <a href="../../include/tcsetattr.h">../include/tcsetattr.h</a> l.20 manpage: <a href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a><br>
 </p>
 </dd>
 <dt>
@@ -103,7 +103,7 @@ unlockpt
   <em>int unlockpt(int fd)</em><br>
  <strong>Defines:</strong> ioctl<br>
  <strong>unlock a pseudo-terminal master/slave pair</strong>
-Size: ~325B <a href="../src/pty.c">../src/pty.c</a> l.20 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a><br>
+Size: ~325B <a href="../../src/pty.c">../src/pty.c</a> l.20 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a><br>
 </p>
 </dd>
 <dt>
@@ -113,7 +113,7 @@ vhangup
 <p>
   <em>int DEF_syscall(vhangup,0 )</em><br>
  <strong>virtually hangup the current terminal</strong>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.150
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.150
 </p>
 </dd>
 </dl>
@@ -121,7 +121,7 @@ vhangup
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 14:14:06 UTC
+ 2020-07-29 14:37:47 UTC
 </small></p>
 </body>
 </html>
