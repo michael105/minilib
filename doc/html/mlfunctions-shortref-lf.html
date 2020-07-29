@@ -512,7 +512,7 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  100 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  110 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
   This is somewhere between a fully fledged expression machine,
   and a simplicistic solution.
@@ -526,8 +526,10 @@
   * for every count of any char
   + for 1 or more chars
   ? for 1 char
+  # for space or end of text (0)
+  $ match end of text
  
-  backslash: escape *,?,%,$,!,+ and backslash itself.
+  backslash: escape *,?,%,$,!,+,#,& and backslash itself.
   !: invert the matching of the next character or character class
    
  
@@ -570,7 +572,7 @@
   (counting from left)
  
  
-  $[1] .. $[9]
+  &[1] .. &[9]
    call p_match_char
    p_match_char has to return either RE_MATCH or RE_NOMATCH.
    Therefore it is possible to e.g. rule your own
@@ -581,7 +583,8 @@
    but with different pos or len parameters.
  
   supply 0 for p_match_char, when you don't need it.
-  This will treat $ in the regex like ?, match a following digit (0..9),
+  This will treat & in the regex like ?, 
+  and match a following digit (0..9) in the text,
   a following digit (0..9) in the regex is ignored.
   
  
@@ -600,11 +603,18 @@
  
   (note) - be careful when negating a following *, or ?.
    somehow - it is logical, but seems to me I overshoot a bit,
-   and tapped into a logical paradox.
-   Negating EVERYTHING translates to true.
-   However, since truth is negated as well, there's a problem.
+   tragically hit my own foot, and stumbled into a logical paradox.
  
-   (I'm not kidding here. Just don't do a regex with !* or !?..)
+   Negating EVERYTHING translates to true.
+   However, since truth is negated as well, there's a problem,
+   cause it's now 'false', but 'false' is true. This is very close
+   to proving 42 is the answer. What is the escape velocity
+   in km/s out of the solar system, btw..
+ 
+   (I'm not kidding here. Just don't do a regex with !* or !?..
+   And, please, do not ask me what is going to happen when the impossible
+   gets possibilized. I have to point at the according sentences of the BSD license;
+   there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
  
    A "!+" will translate into nongreedy matching of any char, however;
    "%!+" will match with % everything but the last char;
@@ -889,7 +899,7 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  55 </small></td><td><small> int match(char *text, const char *re, regex_match *st_match);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  57 </small></td><td><small> int match(char *text, const char *re, regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
   little bit simpler version than ext_match.
   The engine matches from left to right,
@@ -902,8 +912,10 @@
   * for every count of any char
   + for 1 or more chars
   ? for 1 char
+  # for space or end of text (0)
+  $ match end of text
  
-  backslash: escape *,?,%,!,+ and backslash itself.
+  backslash: escape *,?,%,!,+,#,$ and backslash itself.
   ! : invert the matching of the next character or character class
    
   [xyz]: character classes, here x,y or z 

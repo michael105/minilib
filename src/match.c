@@ -10,8 +10,10 @@
 // * for every count of any char
 // + for 1 or more chars
 // ? for 1 char
+// # for space or end of text (0)
+// $ match end of text
 //
-// backslash: escape *,?,%,!,+ and backslash itself.
+// backslash: escape *,?,%,!,+,#,$ and backslash itself.
 // ! : invert the matching of the next character or character class
 //  
 // [xyz]: character classes, here x,y or z 
@@ -81,6 +83,13 @@ int match(char *text, const char *re, regex_match *st_match){
 								if ( neg )
 										return( RE_NOMATCH );
 								break;
+						case '#': // match end of text, or a space; here a space
+								if ( isspace( *text )){
+										if ( neg ) return( RE_NOMATCH );
+										break;
+								}
+								if ( neg ) break;
+								return( RE_NOMATCH );
 
 						case '%':
 								matchpos=text;
@@ -127,12 +136,16 @@ int match(char *text, const char *re, regex_match *st_match){
 				}
 				re++; text++;
 		}
-
+		// *text == 0
+		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
+				re++;
+		}
+	
 		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
 				// * at the end. doesnt match "**", or other pathological cases
 						return(RE_MATCH); //matched
 		}
-		
+
 		return(RE_NOMATCH); 
 		// regex matched text, but the regex is longer than text
 		// also the case for text==0

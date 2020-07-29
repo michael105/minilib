@@ -303,8 +303,10 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
               * for every count of any char
               + for 1 or more chars
               ? for 1 char
+              # for space or end of text (0)
+              $ match end of text
              
-              backslash: escape *,?,%,$,!,+ and backslash itself.
+              backslash: escape *,?,%,$,!,+,#,& and backslash itself.
               !: invert the matching of the next character or character class
                
              
@@ -347,7 +349,7 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
               (counting from left)
              
              
-              $[1] .. $[9]
+              &[1] .. &[9]
                call p_match_char
                p_match_char has to return either RE_MATCH or RE_NOMATCH.
                Therefore it is possible to e.g. rule your own
@@ -358,7 +360,8 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                but with different pos or len parameters.
              
               supply 0 for p_match_char, when you don't need it.
-              This will treat $ in the regex like ?, match a following digit (0..9),
+              This will treat & in the regex like ?, 
+              and match a following digit (0..9) in the text,
               a following digit (0..9) in the regex is ignored.
               
              
@@ -377,17 +380,24 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
              
               (note) - be careful when negating a following *, or ?.
                somehow - it is logical, but seems to me I overshoot a bit,
-               and tapped into a logical paradox.
-               Negating EVERYTHING translates to true.
-               However, since truth is negated as well, there's a problem.
+               tragically hit my own foot, and stumbled into a logical paradox.
              
-               (I'm not kidding here. Just don't do a regex with !* or !?..)
+               Negating EVERYTHING translates to true.
+               However, since truth is negated as well, there's a problem,
+               cause it's now 'false', but 'false' is true. This is very close
+               to proving 42 is the answer. What is the escape velocity
+               in km/s out of the solar system, btw..
+             
+               (I'm not kidding here. Just don't do a regex with !* or !?..
+               And, please, do not ask me what is going to happen when the impossible
+               gets possibilized. I have to point at the according sentences of the BSD license;
+               there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
              
                A "!+" will translate into nongreedy matching of any char, however;
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/ext_match.c: 100)
+               (src/ext_match.c: 110)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -500,8 +510,10 @@ match          int match(char *text, const char *re, regex_match *st_match);
               * for every count of any char
               + for 1 or more chars
               ? for 1 char
+              # for space or end of text (0)
+              $ match end of text
              
-              backslash: escape *,?,%,!,+ and backslash itself.
+              backslash: escape *,?,%,!,+,#,$ and backslash itself.
               ! : invert the matching of the next character or character class
                
               [xyz]: character classes, here x,y or z 
@@ -540,7 +552,7 @@ match          int match(char *text, const char *re, regex_match *st_match);
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/match.c: 55)
+               (src/match.c: 57)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 

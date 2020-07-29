@@ -224,14 +224,15 @@ __MATCHEND:
 		}
 
 		// *text == 0 here.
+		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
+				re++;
+		}
+	
 		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
 				// * at the end. doesnt match "**", or other pathological cases
 						return(RE_MATCH); //matched
 		}
-		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
-				return( RE_MATCH );
-		}
-		
+	
 		return(RE_NOMATCH); 
 		// regex matched text, but the regex is longer than text
 		// also the case for text==0

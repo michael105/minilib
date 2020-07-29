@@ -102,7 +102,7 @@ Match num: %2, len: 4
 --- xtte ---
  Matched
 stmatch: xtte
-=== text: texttext2  re: te%2x%$
+=== text: texttext2  re: te%2x%&
 Match char : 2, num: 0
  Match
 Match num: %0, len: 1
@@ -119,11 +119,11 @@ Match num: %2, len: 4
 --- xtte ---
  Matched
 stmatch: xtte
-=== text: texttext2  re: te%2x%$
+=== text: texttext2  re: te%2x%&
 Match char : 2, num: 0
  No match
  No match
-=== text: n12n13x47t32...  re: *x%$*
+=== text: n12n13x47t32...  re: *x%&*
 Match char : 7, num: 0
  No match
 Match char : t, num: 0
@@ -132,7 +132,7 @@ Match num: %0, len: 2
 --- 47 ---
  Matched
 stmatch: 47
-=== text: n12n13x47t32...  re: *[tx]%$$1*
+=== text: n12n13x47t32...  re: *[tx]%&&1*
 Match char : 7, num: 0
  No match
 Match char : t, num: 0
@@ -150,7 +150,7 @@ Match num: %0, len: 6
 --- n12n13 ---
  Matched
 stmatch: n12n13
-=== text: n12n13x47t32...  re: %[tx]%$*
+=== text: n12n13x47t32...  re: %[tx]%&*
 Match char : 7, num: 0
  No match
 Match char : t, num: 0
@@ -274,3 +274,23 @@ Match num: %0, len: 1
 ---   ---
  Matched
 stmatch:  
+=== text: x=start vesa=0x300 runlevel=terminal mouse=13  re: *runlevel=%#*
+Match num: %0, len: 8
+--- terminal ---
+ Matched
+stmatch: terminal
+=== text: x=start vesa=0x300 runlevel=terminal  re: *runlevel=%#
+Match num: %0, len: 8
+--- terminal ---
+ Matched
+stmatch: terminal
+=== text: x=start vesa=0x300 runlevel=terminal mouse  re: *runlevel=%#
+Match num: %0, len: 14
+--- terminal mouse ---
+ Matched
+stmatch: terminal mouse
+=== text: x=start vesa=0x300 runlevel=terminal mouse  re: *runlevel=%#*
+Match num: %0, len: 8
+--- terminal ---
+ Matched
+stmatch: terminal
