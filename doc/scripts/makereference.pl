@@ -113,7 +113,9 @@ sub print2{
 
 # write docu
 open A,">","$MLDIR/doc/build/minilib-reference.in.2";
+system("cp $MLDIR/doc/templates/configuration.asc reference/configuration.asc");
 system("cp $MLDIR/doc/templates/minilib-reference.asc.top minilib-reference.asc");
+system("cat $MLDIR/doc/templates/configuration.asc >> minilib-reference.asc");
 system("cp $MLDIR/doc/templates/reference-index.asc.top reference/index.asc");
 open B, ">>", "$MLDIR/doc/minilib-reference.asc";
 

@@ -7,9 +7,11 @@ In the subdirectories there is information on the implemented functions,
 namely the bsd manpages, ansic / posixc function references,
 and some further collected materials on system programming.
 
+[reference/readme.asc](./reference)
+Reference of the api
 
 [minilib-reference.asc](minilib-reference.asc)
-short reference, all functions and config switches
+short reference, all functions and config switches in one page
 
 [mini-gcc](mini-gcc.rst)
 invocation and options
