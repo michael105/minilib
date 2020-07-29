@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.10">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_system"></a>system</h2>
+<dl>
+<dt>
+chroot
+</dt>
+<dd>
+<p>
+  <em>int chroot( const char <strong>filename)</em><br>
+ *change root directory</strong>
+Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.141 manpage: <a href="manpages/sys/chroot.2.rst.html">chroot</a><br>
+</p>
+</dd>
+<dt>
+getgid
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(getgid,0)</em><br>
+ <strong>get the real group ID</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.189 manpage: <a href="manpages/sys/getgid.2.rst.html">getgid</a><br>
+</p>
+</dd>
+<dt>
+getuid
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(getuid,0)</em><br>
+ <strong>get a real user ID</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.191 manpage: <a href="manpages/sys/getuid.2.rst.html">getuid</a><br>
+</p>
+</dd>
+<dt>
+ioctl
+</dt>
+<dd>
+<p>
+  <em>int volatile   ioctl( int fd, unsigned long int request, &#8230; )</em><br>
+ <strong>control a STREAMS device (\fBSTREAMS\fP)</strong>
+Size: ~319B <a href="../src/ioctl.c">../src/ioctl.c</a> l.11 manpage: <a href="manpages/sys/ioctl.2.rst.html">ioctl</a><br>
+</p>
+</dd>
+<dt>
+macro
+</dt>
+<dd>
+<p>
+  <em>void  optimization_fence(void*p){}</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>prevent optimizations.
+ cast a var to void*, and calling this,
+ leaves the compiler unknown on what he can strip.
+ (noipa) means the compiler doesn't know, what the function itself does.
+ (the function does nothing, but don't tell that gcc, please..)
+ therefore, everything used as parameter to this function,
+ will be calculated, defined, and so on before.
+ It's used for the globals,
+ shich are pushed within _start onto the stack.
+ since _start itself only provides a global pointer,
+ and initialitzes some of the globals,
+ but doesn't use them again,
+ this construction is needed.
+ more funnily, the function will never be called.
+ It's past the asm inline syscall to exit.
+ But again, luckily gcc doesn't know.
+ All other options, like having the globals volatile,
+ setting the optimization flag of _start to 0,
+ having a volatile asm call with the globals as param, and so on,
+ have been useless. All after all, seems to me, ai has it's restrictions.</code></pre>
+</td></tr></table>
+<p>Size: ~32B <a href="../include/minilib_global.h">../include/minilib_global.h</a> l.90</p>
+<dl>
+<dt>
+mknod
+</dt>
+<dd>
+<p>
+  <em>int mknod( const char <strong>filename,  umode_t mode,  unsigned dev)</em><br>
+ *make directory, special file, or regular file</strong>
+Size: ~73B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.211 manpage: <a href="manpages/sys/mknod.2.rst.html">mknod</a><br>
+</p>
+</dd>
+<dt>
+mount
+</dt>
+<dd>
+<p>
+  <em>int mount( char <strong>dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)</em><br>
+ *mount filesystem</strong>
+Size: ~151B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.168 manpage: <a href="manpages/sys/mount.2.rst.html">mount</a><br>
+</p>
+</dd>
+<dt>
+pivot_root
+</dt>
+<dd>
+<p>
+  <em>int pivot_root( const char <strong>new_root,  const char *put_old)</em><br>
+ *change the root mount</strong>
+Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142
+</p>
+</dd>
+<dt>
+reboot
+</dt>
+<dd>
+<p>
+  <em>int reboot( int magic1,  int magic2,  unsigned int cmd,  void <strong>arg)</em><br>
+ *reboot or enable/disable Ctrl-Alt-Del</strong>
+Size: ~139B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.166 manpage: <a href="manpages/sys/reboot.2.rst.html">reboot</a><br>
+</p>
+</dd>
+<dt>
+setgid
+</dt>
+<dd>
+<p>
+  <em>int setgid( gid_t gid)</em><br>
+ <strong>set-group-ID</strong>
+Size: ~51B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.147 manpage: <a href="manpages/sys/setuid.2.rst.html">setgid</a><br>
+</p>
+</dd>
+<dt>
+setgroups
+</dt>
+<dd>
+<p>
+  <em>int setgroups( int gidsetsize,  gid_t *grouplist)</em><br>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.182 manpage: <a href="manpages/sys/setgroups.2.rst.html">setgroups</a><br>
+</p>
+</dd>
+<dt>
+setuid
+</dt>
+<dd>
+<p>
+  <em>int setuid( uid_t uid)</em><br>
+ <strong>set user ID</strong>
+Size: ~51B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.148 manpage: <a href="manpages/sys/setuid.2.rst.html">setuid</a><br>
+</p>
+</dd>
+<dt>
+sync
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(sync,0)</em><br>
+ <strong>schedule file system updates</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.124 manpage: <a href="manpages/sys/sync.2.rst.html">sync</a><br>
+</p>
+</dd>
+<dt>
+umount2
+</dt>
+<dd>
+<p>
+  <em>int umount2( const char <strong>mountpoint, int flags)</em><br>
+ *unmount filesystem</strong>
+Size: ~59B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.164
+</p>
+</dd>
+<dt>
+uname
+</dt>
+<dd>
+<p>
+  <em>int uname(struct old_utsname <strong>name )</em><br>
+ *get the name of the current system</strong>
+Size: ~41B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.152 manpage: <a href="manpages/gen/uname.3.rst.html">uname</a><br>
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2020-07-29 15:35:25 CEST
+</small></p>
+</body>
+</html>

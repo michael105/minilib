@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.10">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_process"></a>process</h2>
+<dl>
+<dt>
+abort
+</dt>
+<dd>
+<p>
+  <em>void abort()</em><br>
+ <strong>Defines:</strong> write getpid memcpy<br>
+<a href="../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst.html">abort</a><br>
+</p>
+</dd>
+<dt>
+atexit
+</dt>
+<dd>
+<p>
+  <em>int atexit( functionp* func )</em><br>
+ <strong>Defines:</strong> globals<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>register functions, which are callen on exit in reverse order
+ the switch mini_atexit takes a optional number,
+ which defines the maximum numbers of functions to be registered.
+ (defaults to 8)</code></pre>
+</td></tr></table>
+<p><a href="../src/atexit.c">../src/atexit.c</a> l.7 manpage: <a href="manpages/stdlib/atexit.3.rst.html">atexit</a><br></p>
+<dl>
+<dt>
+execl
+</dt>
+<dd>
+<p>
+  <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
+ <strong>Defines:</strong> execve environ<br>
+<a href="../src/execl.c">../src/execl.c</a> l.6 manpage: <a href="manpages/gen/exec.3.rst.html">execl</a><br>
+</p>
+</dd>
+<dt>
+execv
+</dt>
+<dd>
+<p>
+  <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
+ *Defines:</strong> environ execve<br>
+ <strong>execute a file</strong>
+Size: ~300B <a href="../src/execvp.c">../src/execvp.c</a> l.9 manpage: <a href="manpages/gen/exec.3.rst.html">execv</a><br>
+</p>
+</dd>
+<dt>
+execve
+</dt>
+<dd>
+<p>
+  <em>int execve( const char <strong>filename,  char</strong> const* argv, char* const* envp)</em><br>
+ <strong>execute program</strong>
+Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127 manpage: <a href="manpages/sys/execve.2.rst.html">execve</a><br>
+</p>
+</dd>
+<dt>
+execveat
+</dt>
+<dd>
+<p>
+  <em>int execveat( int dirfd, const char <strong>filename,  char</strong> const* argv, char* const* envp, int flags)</em><br>
+ <strong>execute program relative to a directory file descriptor</strong>
+Size: ~158B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.157
+</p>
+</dd>
+<dt>
+execvp
+</dt>
+<dd>
+<p>
+  <em>int execvp(const char <strong>file, char *const argv[])</em><br>
+ *Defines:</strong> environ execve access<br>
+ <strong>execute a file</strong>
+Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst.html">execvp</a><br>
+</p>
+</dd>
+<dt>
+execvpe
+</dt>
+<dd>
+<p>
+  <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
+ *Defines:</strong> environ execve access<br>
+ <strong>execute a file</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>When invoked with a filename, starting with "." or "/",
+ interprets this as absolute path. (calls execve with the pathname)
+ Looks for file in the PATH environment, othwerise.</code></pre>
+</td></tr></table>
+<p>Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.18</p>
+<dl>
+<dt>
+fexecve
+</dt>
+<dd>
+<p>
+  <em>int fexecve(int fd, char <strong>const argv[], char *const envp[])</em><br>
+ *execute a file</strong>
+Size: ~151B <a href="../include/fexecve.h">../include/fexecve.h</a> l.3 manpage: <a href="manpages/sys/execve.2.rst.html">fexecve</a><br>
+</p>
+</dd>
+<dt>
+fexecveat
+</dt>
+<dd>
+<p>
+  <em>int fexecveat(int fd, char *const argv[], char *const envp[])</em><br>
+Size: ~151B <a href="../include/fexecveat.h">../include/fexecveat.h</a> l.3
+</p>
+</dd>
+<dt>
+fork
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(fork,0)</em><br>
+ <strong>create a new process</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.131 manpage: <a href="manpages/sys/fork.2.rst.html">fork</a><br>
+</p>
+</dd>
+<dt>
+getenv
+</dt>
+<dd>
+<p>
+  <em>char* getenv(const char* name)</em><br>
+ <strong>Defines:</strong> environ<br>
+ <strong>get value of an environment variable</strong>
+Size: ~106B <a href="../src/getenv.c">../src/getenv.c</a> l.8 manpage: <a href="manpages/stdlib/getenv.3.rst.html">getenv</a><br>
+</p>
+</dd>
+<dt>
+getpgrp
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(getpgrp,0)</em><br>
+ <strong>get the process group ID of the calling process</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.190 manpage: <a href="manpages/sys/getpgrp.2.rst.html">getpgrp</a><br>
+</p>
+</dd>
+<dt>
+getpid
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(getpid,0 )</em><br>
+ <strong>get the process ID</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145 manpage: <a href="manpages/sys/getpid.2.rst.html">getpid</a><br>
+</p>
+</dd>
+<dt>
+getppid
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(getppid,0)</em><br>
+ <strong>get the parent process ID</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187 manpage: <a href="manpages/sys/getpid.2.rst.html">getppid</a><br>
+</p>
+</dd>
+<dt>
+setpgid
+</dt>
+<dd>
+<p>
+  <em>int setpgid( pid_t pid, pid_t pgid)</em><br>
+ <strong>set process group ID for job control</strong>
+Size: ~63B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.188 manpage: <a href="manpages/sys/setpgid.2.rst.html">setpgid</a><br>
+</p>
+</dd>
+<dt>
+setsid
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(setsid,0 )</em><br>
+ <strong>create session and set process group ID</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146 manpage: <a href="manpages/sys/setsid.2.rst.html">setsid</a><br>
+</p>
+</dd>
+<dt>
+system
+</dt>
+<dd>
+<p>
+  <em>int system( const char* command )</em><br>
+ <strong>Defines:</strong> vfork wait4 execve environ write<br>
+ <strong>issue a command</strong>
+Size: ~326B <a href="../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst.html">system</a><br>
+</p>
+</dd>
+<dt>
+vexec
+</dt>
+<dd>
+<p>
+  <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
+ <strong>Defines:</strong> wait4 seterrno<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>execute a path, wait until the executed file exits.
+ Deviating of system() an absolute pathname is taken.
+ sets errno on error.</code></pre>
+</td></tr></table>
+<p><a href="../src/vexec.c">../src/vexec.c</a> l.6</p>
+<dl>
+<dt>
+vexec_q
+</dt>
+<dd>
+<p>
+  <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>execute a path, wait until the executed file exits,
+ do not write any output of the process. (close stdout)
+ Deviating of system() an absolute pathname is taken.</code></pre>
+</td></tr></table>
+<p><a href="../src/vexec.c">../src/vexec.c</a> l.29</p>
+<dl>
+<dt>
+vfork
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(vfork,0)</em><br>
+ <strong>create a child process and block parent</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.132 manpage: <a href="manpages/sys/vfork.2.rst.html">vfork</a><br>
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2020-07-29 15:35:25 CEST
+</small></p>
+</body>
+</html>

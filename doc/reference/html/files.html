@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.10">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_files"></a>files</h2>
+<dl>
+<dt>
+_fopen
+</dt>
+<dd>
+<p>
+  <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
+ *Defines:</strong> close open fileno<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
+</td></tr></table>
+<p>Size: ~316B <a href="../src/fopen.c">../src/fopen.c</a> l.12</p>
+<dl>
+<dt>
+access
+</dt>
+<dd>
+<p>
+  <em>int access( const char <strong>filename, int mode)</em><br>
+ *determine accessibility of a file relative to directory file</strong>
+Size: ~59B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.161 manpage: <a href="manpages/sys/access.2.rst.html">access</a><br>
+</p>
+</dd>
+<dt>
+chmod
+</dt>
+<dd>
+<p>
+  <em>int chmod( const char <strong>filename, mode_t mode)</em><br>
+ *change mode of a file relative to directory file descriptor</strong>
+Size: ~59B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.184 manpage: <a href="manpages/sys/chmod.2.rst.html">chmod</a><br>
+</p>
+</dd>
+<dt>
+chown
+</dt>
+<dd>
+<p>
+  <em>int chown( const char <strong>filename, uid_t user, gid_t group)</em><br>
+ *change owner and group of a file relative to directory</strong>
+Size: ~71B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.185 manpage: <a href="manpages/sys/chown.2.rst.html">chown</a><br>
+</p>
+</dd>
+<dt>
+close
+</dt>
+<dd>
+<p>
+  <em>int close( int fd )</em><br>
+ <strong>close a file descriptor</strong>
+Size: ~51B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.100 manpage: <a href="manpages/sys/close.2.rst.html">close</a><br>
+</p>
+</dd>
+<dt>
+closedir
+</dt>
+<dd>
+<p>
+  <em>int closedir(DIR <strong>dir)</em><br>
+ *Defines:</strong> brk getbrk<br>
+ <strong>close a directory stream</strong>
+Size: ~323B <a href="../src/dirent/closedir.c">../src/dirent/closedir.c</a> l.6 manpage: <a href="manpages/gen/directory.3.rst.html">closedir</a><br>
+</p>
+</dd>
+<dt>
+creat
+</dt>
+<dd>
+<p>
+  <em>int volatile creat( const char <strong>s, int mode )</em><br>
+ *Defines:</strong> open<br>
+ <strong>create a new file or rewrite an existing one</strong>
+Size: ~124B <a href="../src/open.c">../src/open.c</a> l.36 manpage: <a href="manpages/compat-43/creat.2.rst.html">creat</a><br>
+</p>
+</dd>
+<dt>
+dup
+</dt>
+<dd>
+<p>
+  <em>int dup(int fd)</em><br>
+ <strong>duplicate an open file descriptor</strong>
+Size: ~51B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.116 manpage: <a href="manpages/sys/dup.2.rst.html">dup</a><br>
+</p>
+</dd>
+<dt>
+dup2
+</dt>
+<dd>
+<p>
+  <em>int dup2(int oldfd, int newfd)</em><br>
+ <strong>duplicate a file descriptor</strong>
+Size: ~63B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.117 manpage: <a href="manpages/sys/dup.2.rst.html">dup2</a><br>
+</p>
+</dd>
+<dt>
+dup3
+</dt>
+<dd>
+<p>
+  <em>int dup3(int oldfd, int newfd, int flags)</em><br>
+ <strong>duplicate a file descriptor</strong>
+Size: ~75B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.118 manpage: <a href="manpages/gen/dup3.3.rst.html">dup3</a><br>
+</p>
+</dd>
+<dt>
+fchmod
+</dt>
+<dd>
+<p>
+  <em>int fchmod( unsigned int fd, mode_t mode)</em><br>
+ <strong>change mode of a file</strong>
+Size: ~63B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.114 manpage: <a href="manpages/sys/chmod.2.rst.html">fchmod</a><br>
+</p>
+</dd>
+<dt>
+fchown
+</dt>
+<dd>
+<p>
+  <em>int fchown( unsigned int fd, uid_t user, gid_t group)</em><br>
+ <strong>change owner and group of a file</strong>
+Size: ~75B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.113 manpage: <a href="manpages/sys/chown.2.rst.html">fchown</a><br>
+</p>
+</dd>
+<dt>
+fcntl
+</dt>
+<dd>
+<p>
+  <em>int fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)</em><br>
+ <strong>file control</strong>
+Size: ~77B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162 manpage: <a href="manpages/sys/fcntl.2.rst.html">fcntl</a><br>
+</p>
+</dd>
+<dt>
+fsync
+</dt>
+<dd>
+<p>
+  <em>int fsync(int a1 )</em><br>
+ <strong>synchronize changes to a file</strong>
+Size: ~51B <a href="../include/lseek.h">../include/lseek.h</a> l.22 manpage: <a href="manpages/sys/fsync.2.rst.html">fsync</a><br>
+</p>
+</dd>
+<dt>
+ftruncate
+</dt>
+<dd>
+<p>
+  <em>int ftruncate(unsigned int a1, unsigned int a2 )</em><br>
+ <strong>truncate a file to a specified length</strong>
+Size: ~63B <a href="../include/lseek.h">../include/lseek.h</a> l.21 manpage: <a href="manpages/sys/truncate.2.rst.html">ftruncate</a><br>
+</p>
+</dd>
+<dt>
+link
+</dt>
+<dd>
+<p>
+  <em>int link( const char <strong>oldname, const char *newname)</em><br>
+ *link one file to another file relative to two directory</strong>
+Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.122 manpage: <a href="manpages/sys/link.2.rst.html">link</a><br>
+</p>
+</dd>
+<dt>
+lseek
+</dt>
+<dd>
+<p>
+  <em>int lseek(unsigned int a1, int a2, int a3 )</em><br>
+ <strong>move the read/write file offset</strong>
+Size: ~75B <a href="../include/lseek.h">../include/lseek.h</a> l.19 manpage: <a href="manpages/sys/lseek.2.rst.html">lseek</a><br>
+</p>
+</dd>
+<dt>
+open
+</dt>
+<dd>
+<p>
+  <em>int volatile open( const char <strong>s, int flags, &#8230; )</em><br>
+ *open file relative to directory file descriptor</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>open or create a file.
+ warning: when using the flag O_CREAT,
+ file permission flags have to be given
+ as third argument. Otherwise file permission
+ flags will be random. (I still do not know, what
+ the flag showing up as "-T" means..)</code></pre>
+</td></tr></table>
+<p>Size: ~124B <a href="../src/open.c">../src/open.c</a> l.19 manpage: <a href="manpages/sys/open.2.rst.html">open</a><br></p>
+<dl>
+<dt>
+readahead
+</dt>
+<dd>
+<p>
+  <em>int readahead( int fd,  loff_t offset,  size_t count)</em><br>
+ <strong>initiate file readahead into page cache</strong>
+Size: ~79B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.210
+</p>
+</dd>
+<dt>
+rename
+</dt>
+<dd>
+<p>
+  <em>int rename( const char* oldpath, const char* newpath )</em><br>
+ <strong>rename file relative to directory file descriptor</strong>
+Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.106 manpage: <a href="manpages/sys/rename.2.rst.html">rename</a><br>
+</p>
+</dd>
+<dt>
+select
+</dt>
+<dd>
+<p>
+  <em>int volatile  select(int fd, volatile fd_set* readfd, volatile fd_set <strong>writefd, volatile fd_set *exceptfd, volatile struct timeval *wait)</em><br>
+ *synchronous I/O multiplexing</strong>
+Size: ~138B <a href="../include/select.h">../include/select.h</a> l.9 manpage: <a href="manpages/sys/select.2.rst.html">select</a><br>
+</p>
+</dd>
+<dt>
+sendfile
+</dt>
+<dd>
+<p>
+  <em>int sendfile( int out_fd,  int in_fd,  off_t <strong>offset,  size_t count)</em><br>
+ *transfer data between file descriptors</strong>
+Size: ~142B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.165 manpage: <a href="manpages/sys/sendfile.2.rst.html">sendfile</a><br>
+</p>
+</dd>
+<dt>
+stat
+</dt>
+<dd>
+<p>
+  <em>int stat(const char* filename,struct stat* statbuf)</em><br>
+ <strong>get file status</strong>
+Size: ~49B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.110 manpage: <a href="manpages/sys/stat.2.rst.html">stat</a><br>
+</p>
+</dd>
+<dt>
+symlink
+</dt>
+<dd>
+<p>
+  <em>int symlink( const char <strong>oldname,  const char *newname)</em><br>
+ *make a symbolic link relative to directory file descriptor</strong>
+Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.123 manpage: <a href="manpages/sys/symlink.2.rst.html">symlink</a><br>
+</p>
+</dd>
+<dt>
+umask
+</dt>
+<dd>
+<p>
+  <em>int umask( int mask)</em><br>
+ <strong>set and get the file mode creation mask</strong>
+Size: ~51B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.209 manpage: <a href="manpages/sys/umask.2.rst.html">umask</a><br>
+</p>
+</dd>
+<dt>
+unlink
+</dt>
+<dd>
+<p>
+  <em>int unlink( const char* path)</em><br>
+ <strong>remove a directory entry relative to directory file descriptor</strong>
+Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.107 manpage: <a href="manpages/sys/unlink.2.rst.html">unlink</a><br>
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2020-07-29 15:35:25 CEST
+</small></p>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.10">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_errno"></a>errno</h2>
+<dl>
+<dt>
+errno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+ <strong>error return value</strong>
+</p>
+</dd>
+<dt>
+errno_str
+</dt>
+<dd>
+<p>
+  <em>char *errno_str(int err)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>convert errno to str, with 3 chars length
+ ending the string (global)
+ with two \0\0, when errno&lt;100
+ errnum must be &lt;200.</code></pre>
+</td></tr></table>
+<p>Size: ~123B <a href="../src/errno_str.c">../src/errno_str.c</a> l.7</p>
+<dl>
+<dt>
+exit_errno
+</dt>
+<dd>
+<p>
+  <em>void exit_errno( int errnum )</em><br>
+ <strong>Defines:</strong> write exit errno_str execve<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>exit, and execute /bin/errno
+ this is intended to give a error message for the
+ given errno num.
+ Instead of having the error messages compiled
+ into each binary, they can stay within one executable, "errno"
+ This spares about 4kB, but needs errno installed to /bin/errno
+ It's the drawback of not having a shared library,
+ where all executables would share the same errno messages
+ in memory.
+ On the other hand, a shared library would need to be installed
+ as well.
+ The supplied errno can be negative,
+ the absolute value is supplied to errno.</code></pre>
+</td></tr></table>
+<p><a href="../src/exit_errno.c">../src/exit_errno.c</a> l.17</p>
+<dl>
+<dt>
+perror
+</dt>
+<dd>
+<p>
+  <em>void perror(const char <strong>msg)</em><br>
+ *Defines:</strong> strlen errno fileno write strerror<br>
+ <strong>write error messages to standard error</strong>
+Size: ~329B <a href="../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst.html">perror</a><br>
+</p>
+</dd>
+<dt>
+strerror
+</dt>
+<dd>
+<p>
+  <em>char* strerror( int errnum )</em><br>
+<a href="../src/strerror.c">../src/strerror.c</a> l.7 manpage: <a href="manpages/string/string.3.rst.html">strerror</a><br>
+</p>
+</dd>
+<dt>
+verbose_errstr
+</dt>
+<dd>
+<p>
+  <em>const char* verbose_errstr(int num)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>verbose error (errno) string.
+ this adds about 3.5kB to the compiled binary(!)</code></pre>
+</td></tr></table>
+<p><a href="../include/errstr.h">../include/errstr.h</a> l.8</p>
+<dl>
+<dt>
+verbose_errstr2
+</dt>
+<dd>
+<p>
+  <em>const char* verbose_errstr2(int num)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>verbose error (errno) string.
+ this adds about 3.5kB to the compiled binary(!)
+ Trying to shrink that here.</code></pre>
+</td></tr></table>
+<p><a href="../include/errstr2.h">../include/errstr2.h</a> l.11</p>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2020-07-29 15:35:25 CEST
+</small></p>
+</body>
+</html>

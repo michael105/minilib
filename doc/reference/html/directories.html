@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.10">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_directories"></a>directories</h2>
+<dl>
+<dt>
+basename
+</dt>
+<dd>
+<p>
+  <em>char <strong>basename(char *path)</em><br>
+ *Defines:</strong> strlen<br>
+ <strong>return the last component of a pathname</strong>
+Size: ~151B <a href="../src/basename.c">../src/basename.c</a> l.29 manpage: <a href="manpages/gen/basename.3.rst.html">basename</a><br>
+</p>
+</dd>
+<dt>
+chdir
+</dt>
+<dd>
+<p>
+  <em>int chdir(const char* path)</em><br>
+ <strong>change working directory</strong>
+Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.111 manpage: <a href="manpages/sys/chdir.2.rst.html">chdir</a><br>
+</p>
+</dd>
+<dt>
+dirbuf
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>the switch for defining the dirbuf.
+ used internally</code></pre>
+</td></tr></table>
+<p><a href="../include/dirent.h">../include/dirent.h</a> l.7</p>
+<dl>
+<dt>
+dirbufsize 
+</dt>
+<dd>
+<p>
+  <em>#ifndef mini_dirbufsize</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>the dir stream bufsize
+ The size of the buffer can be changed by setting mini_dirbufsize
+ to it's size in Bytes. (default 2048)
+ The buffer is allocated via malloc,
+ therefore mini_buf must be set to a value greater than dirbufsize</code></pre>
+</td></tr></table>
+<p><a href="../include/dirent.h">../include/dirent.h</a> l.22</p>
+<dl>
+<dt>
+dirfd
+</dt>
+<dd>
+<p>
+  <em>int dirfd(DIR <strong>d)</em><br>
+ *extract the file descriptor used by a DIR stream</strong>
+<a href="../src/dirent/dirfd.c">../src/dirent/dirfd.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">dirfd</a><br>
+</p>
+</dd>
+<dt>
+dirname
+</dt>
+<dd>
+<p>
+  <em>char <strong>dirname(char *s)</em><br>
+ *Defines:</strong> strlen<br>
+ <strong>report the parent directory name of a file pathname</strong>
+Size: ~179B <a href="../src/dirname.c">../src/dirname.c</a> l.8 manpage: <a href="manpages/gen/dirname.3.rst.html">dirname</a><br>
+</p>
+</dd>
+<dt>
+fstat
+</dt>
+<dd>
+<p>
+  <em>int fstat(int fd,struct stat* statbuf)</em><br>
+ <strong>get file status</strong>
+Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.109 manpage: <a href="manpages/sys/stat.2.rst.html">fstat</a><br>
+</p>
+</dd>
+<dt>
+getcwd
+</dt>
+<dd>
+<p>
+  <em>int getcwd( char <strong>buf,  unsigned long size)</em><br>
+ *get the pathname of the current working directory</strong>
+Size: ~61B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.120 manpage: <a href="manpages/gen/getcwd.3.rst.html">getcwd</a><br>
+</p>
+</dd>
+<dt>
+getdents
+</dt>
+<dd>
+<p>
+  <em>int getdents( unsigned int fd, struct dirent <strong>direntry, unsigned int count )</em><br>
+ *get directory entries</strong>
+Size: ~65B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.104 manpage: <a href="manpages/sys/getdirentries.2.rst.html">getdents</a><br>
+</p>
+</dd>
+<dt>
+mkdir
+</dt>
+<dd>
+<p>
+  <em>int mkdir( const char <strong>pathname, int mode)</em><br>
+ *make a directory relative to directory file descriptor</strong>
+Size: ~59B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.158 manpage: <a href="manpages/sys/mkdir.2.rst.html">mkdir</a><br>
+</p>
+</dd>
+<dt>
+opendir
+</dt>
+<dd>
+<p>
+  <em>DIR <strong>opendir(const char *name )</em><br>
+ *Defines:</strong> close write brk open dirbuf<br>
+ <strong>open directory associated with file descriptor</strong>
+Size: ~281B <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst.html">opendir</a><br>
+</p>
+</dd>
+<dt>
+opendirp
+</dt>
+<dd>
+<p>
+  <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
+ *Defines:</strong> brk open dirbuf close<br>
+<a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
+</p>
+</dd>
+<dt>
+readdir
+</dt>
+<dd>
+<p>
+  <em>struct dirent <strong>readdir(DIR *dir)</em><br>
+ *Defines:</strong> dirbuf getdents<br>
+ <strong>read a directory</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>read a directory.
+ return the next dirent, or 0, if the end is reached.
+ return 0 on error and set errno,
+ if mini_errno is not defined, return -errno on error</code></pre>
+</td></tr></table>
+<p>Size: ~133B <a href="../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.10 manpage: <a href="manpages/gen/directory.3.rst.html">readdir</a><br></p>
+<dl>
+<dt>
+rewinddir
+</dt>
+<dd>
+<p>
+  <em>void rewinddir(DIR <strong>dir)</em><br>
+ *reset the position of a directory stream to the beginning</strong>
+Size: ~80B <a href="../src/dirent/rewinddir.c">../src/dirent/rewinddir.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">rewinddir</a><br>
+</p>
+</dd>
+<dt>
+rmdir
+</dt>
+<dd>
+<p>
+  <em>int rmdir( const char <strong>pathname)</em><br>
+ *remove a directory</strong>
+Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.159 manpage: <a href="manpages/sys/rmdir.2.rst.html">rmdir</a><br>
+</p>
+</dd>
+<dt>
+scandir
+</dt>
+<dd>
+<p>
+  <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
+ <strong>Defines:</strong> memcpy brk sbrk errno dirbuf seterrno qsort open getbrk write<br>
+ <strong>scan a directory</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>list files and dirs in a directory
+
+ This implementation uses malloc_brk() for the dynamic allocation
+ of the listing, and tries to do as less copies as possible.
+ The dynamically allocated space for the result list (**listing[])
+ is guaranteed to be at one continuous memory location.
+
+ if the select callback is 0, meaning all entries should be returned,
+ There are no copies done at all,
+ besides the copying from kernelspace to userspace.
+
+ To free the space, allocated for the listing,
+ either call free_brk(),
+ when no other allocations via malloc_brk took place.
+
+ Or save the brk before you call scandir,
+ and restore it after the call.
+ (e.g.)
+ long savebrk=getbrk();
+ int ret=scandir(...);
+ brk(savebrk);
+ Freeing single list entries might give unexpected results.
+
+ returns the number of the read entries,
+ or the negative errno on error.</code></pre>
+</td></tr></table>
+<p><a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.35 manpage: <a href="manpages/gen/scandir.3.rst.html">scandir</a><br></p>
+<dl>
+<dt>
+scandir_bufsize
+</dt>
+<dd>
+<p>
+  <em>//#define mini_scandir_bufsize 4096</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>the increment of the buffer of scandir in bytes for memory allocations
+ (default:4096)</code></pre>
+</td></tr></table>
+<p><a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.4</p>
+<dl>
+<dt>
+seekdir
+</dt>
+<dd>
+<p>
+  <em>void seekdir(DIR <strong>dir, long off)</em><br>
+ *set the position of a directory stream</strong>
+Size: ~100B <a href="../src/dirent/seekdir.c">../src/dirent/seekdir.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">seekdir</a><br>
+</p>
+</dd>
+<dt>
+telldir
+</dt>
+<dd>
+<p>
+  <em>long telldir(DIR <strong>dir)</em><br>
+ *current location of a named directory stream</strong>
+Size: ~32B <a href="../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">telldir</a><br>
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2020-07-29 15:35:25 CEST
+</small></p>
+</body>
+</html>

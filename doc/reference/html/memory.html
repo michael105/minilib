@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.10">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_memory"></a>memory</h2>
+<dl>
+<dt>
+brk
+</dt>
+<dd>
+<p>
+  <em>int brk( const void* addr )</em><br>
+ <strong>change data segment size</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>set the brk to addr
+ return 0 on success.
+ conformant brk, when mini_errno is defined return -1 and set errno.
+ if errno isn't available,
+ returns the negative errno value on error</code></pre>
+</td></tr></table>
+<p>Size: ~66B <a href="../src/brk.c">../src/brk.c</a> l.19 manpage: <a href="manpages/sys/brk.2.rst.html">brk</a><br></p>
+<dl>
+<dt>
+free
+</dt>
+<dd>
+<p>
+  <em>void free(void <strong>p)</em><br>
+ *Defines:</strong> getbrk brk<br>
+ <strong>free allocated memory</strong>
+Size: ~32B <a href="../src/malloc.c">../src/malloc.c</a> l.139 manpage: <a href="manpages/stdlib/memory.3.rst.html">free</a><br>
+</p>
+</dd>
+<dt>
+free_brk
+</dt>
+<dd>
+<p>
+  <em>int free_brk()</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>free all memory,
+ which has been allocated with malloc_brk.
+ Returns 0, if memory has been freed;
+ 1, when there hasn't been any memory allocations with
+ malloc_brk before.
+ Then brk() gives an error, return the return value of brk</code></pre>
+</td></tr></table>
+<p><a href="../src/malloc.c">../src/malloc.c</a> l.234</p>
+<dl>
+<dt>
+getbrk
+</dt>
+<dd>
+<p>
+  <em>long getbrk()</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the current brk
+ does either a syscall to brk,
+ or returns the globally saved var</code></pre>
+</td></tr></table>
+<p><a href="../src/brk.c">../src/brk.c</a> l.39</p>
+<dl>
+<dt>
+malloc
+</dt>
+<dd>
+<p>
+  <em>void* malloc(int size)</em><br>
+ <strong>Defines:</strong> brk<br>
+ <strong>a memory allocator</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>0
+ Here we go.. with the .. well.
+ Fastes and smallest malloc/free combi ever.
+ Not the smartest.
+ Since it isn't exactly a memory allocation,
+ instead it (mis)uses the minilib buf.
+ ;) 1024 Bytes should be enough for everyone.
+  Ok. If you really do need more memory -
+  rethink your design, increase mini_mbuf,
+  or use a proper malloc implementation.
+
+ Here we use mbuf from top to bottom as stack.
+ 64 Bytes are left at the bottom as reserve.
+ Possibly we'd like to complain
+ about the lack of memory, before we exit..
+
+ ATM, the 'free' is really lazy.
+ It free's memory, but a real 'free' is only commited,
+ when all memory below a freed area is also freed.
+ Since the target of minilib atm are tiny tools,
+ this might be ok.
+ ;) but, as I told before -
+ probably you should look out for a proper malloc implementation.
+ It depends on your needs.
+
+ I'm not sure yet,
+ whether another implementation of free would be useful at all.
+ Overall, I'd really prefer keeping minilib tiny.
+
+ Reusing sparse freed memory areas also leads
+ to a whole bunch of complications.
+ cache misses, searching complexity,
+ storage overhead, potentially page faults,
+ just to name a few.
+
+ I'm not sure whether it's worth it.
+
+ And the existing malloc implementations
+ out there are countless.
+
+ ;) It's sometimes smarter to stay special,
+ although in this case this means the opposite.
+ /misc
+
+ The memory layout looks like this:
+ mlgl-&gt;ibuf and mlgl-&gt;mbuf do point to the same address range.
+ mlgl-&gt;ibuf is provided for alignment and faster access to the int values.
+
+ flag prev free is the first bit in size. (0x8000, eq 1000 0000 0000 0000 binary when free),
+ (mbufsize)
+ ```
+      size  data  size    mini_buf size
+      8008dataxxxx0004data8000</code></pre>
+</td></tr></table>
+<p>Size: ~173B <a href="../src/malloc.c">../src/malloc.c</a> l.119 manpage: <a href="manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
+<dl>
+<dt>
+malloc_brk
+</dt>
+<dd>
+<p>
+  <em>void* malloc_brk(int size)</em><br>
+ <strong>Defines:</strong> sbrk<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>allocate via setting the brk
+ free and realloc can be used normally.
+ The intention of malloc_brk is for subsequent calls to realloc.
+ The saved data has not to be copied,
+ instead realloc just writes the new size and sets
+ the brk accordingly.
+ if the break is saved before one or more calls to malloc_brk,
+ the allocated memory can also be free'd by setting the brk to the saved value
+ with brk(saved_brk)
+ free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
+</td></tr></table>
+<p><a href="../src/malloc.c">../src/malloc.c</a> l.206</p>
+<dl>
+<dt>
+memcmp
+</dt>
+<dd>
+<p>
+  <em>int memcmp(const void* c1,const void* c2,int len)</em><br>
+ <strong>compare bytes in memory</strong>
+Size: ~44B <a href="../src/strcmp.c">../src/strcmp.c</a> l.84 manpage: <a href="manpages/string/memcmp.3.rst.html">memcmp</a><br>
+</p>
+</dd>
+<dt>
+memcpy
+</dt>
+<dd>
+<p>
+  <em>void <strong>memcpy( void *d, const void *s, int n )</em><br>
+ *copy bytes in memory</strong>
+Size: ~84B <a href="../src/memcpy.c">../src/memcpy.c</a> l.6 manpage: <a href="manpages/string/memcpy.3.rst.html">memcpy</a><br>
+</p>
+</dd>
+<dt>
+memfd_create
+</dt>
+<dd>
+<p>
+  <em>int memfd_create( const char  <strong>uname_ptr,  unsigned int flags)</em><br>
+ *create an anonymous file</strong>
+Size: ~59B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.174
+</p>
+</dd>
+<dt>
+memfrob
+</dt>
+<dd>
+<p>
+  <em>void* memfrob(void* s, unsigned int len)</em><br>
+ <strong>frobnicate (encrypt) a memory area</strong>
+Size: ~78B <a href="../src/memfrob.c">../src/memfrob.c</a> l.3
+</p>
+</dd>
+<dt>
+memmove
+</dt>
+<dd>
+<p>
+  <em>void* memmove(void <strong>dest, const void *src, int n)</em><br>
+ *copy bytes in memory with overlapping areas</strong>
+Size: ~88B <a href="../src/memmove.c">../src/memmove.c</a> l.3 manpage: <a href="manpages/string/memmove.3.rst.html">memmove</a><br>
+</p>
+</dd>
+<dt>
+memset
+</dt>
+<dd>
+<p>
+  <em>void <strong>memset( void *s, int c, int n)</em><br>
+ *set bytes in memory</strong>
+Size: ~90B <a href="../src/memset.c">../src/memset.c</a> l.3 manpage: <a href="manpages/string/memset.3.rst.html">memset</a><br>
+</p>
+</dd>
+<dt>
+mmap
+</dt>
+<dd>
+<p>
+  <em>void*  mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off)</em><br>
+ <strong>map pages of memory</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>mmap wrapper
+ address length is rounded up to a multiple of pagesize (4096 Bytes here)
+ for the description, please look up the according manpage
+ errno is only set, when mini_errno is defined
+ if not, on error the negative errno value is returned.
+ (e.g. -22 for "invalid argument")</code></pre>
+</td></tr></table>
+<p>Size: ~197B <a href="../src/mmap.c">../src/mmap.c</a> l.8 manpage: <a href="manpages/sys/mmap.2.rst.html">mmap</a><br></p>
+<dl>
+<dt>
+mprotect
+</dt>
+<dd>
+<p>
+  <em>int mprotect( POINTER <strong>a1, POINTER a2, int a3 )</em><br>
+ *set protection of memory mapping</strong>
+Size: ~146B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.206 manpage: <a href="manpages/sys/mprotect.2.rst.html">mprotect</a><br>
+</p>
+</dd>
+<dt>
+mremap
+</dt>
+<dd>
+<p>
+  <em>void* volatile  mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr)</em><br>
+ <strong>remap a virtual memory address</strong>
+Size: ~162B <a href="../include/mremap.h">../include/mremap.h</a> l.4
+</p>
+</dd>
+<dt>
+munmap
+</dt>
+<dd>
+<p>
+  <em>int munmap( unsigned long addr,  size_t len)</em><br>
+ <strong>unmap pages of memory</strong>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.213 manpage: <a href="manpages/sys/munmap.2.rst.html">munmap</a><br>
+</p>
+</dd>
+<dt>
+realloc
+</dt>
+<dd>
+<p>
+  <em>void* realloc(void <strong>p, int size)</em><br>
+ *Defines:</strong> getbrk brk<br>
+ <strong>memory reallocator</strong>
+Size: ~636B <a href="../src/malloc.c">../src/malloc.c</a> l.252 manpage: <a href="manpages/stdlib/memory.3.rst.html">realloc</a><br>
+</p>
+</dd>
+<dt>
+sbrk
+</dt>
+<dd>
+<p>
+  <em>void* sbrk(long incr)</em><br>
+ <strong>change data segment size</strong>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>Set the new brk, increment/decrement by incr bytes.
+ return the old brk on success.
+ conformant sbrk, when mini_errno is defined
+ if no errno is available,
+ returns the negative errno value on error</code></pre>
+</td></tr></table>
+<p>Size: ~108B <a href="../src/brk.c">../src/brk.c</a> l.57 manpage: <a href="manpages/sys/brk.2.rst.html">sbrk</a><br></p>
+<dl>
+<dt>
+splice
+</dt>
+<dd>
+<p>
+  <em>int splice( int fd_in,  loff_t <strong>off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)</em><br>
+ *splice data to/from a pipe</strong>
+Size: ~178B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.179
+</p>
+</dd>
+<dt>
+swap
+</dt>
+<dd>
+<p>
+  <em>void swap(void* a, void* b,int size)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>swap a with b, with 'size' bytes
+ swaps integers and longs at once, when size eq sizeof(int/long)</code></pre>
+</td></tr></table>
+<p><a href="../src/qsort.c">../src/qsort.c</a> l.31</p>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2020-07-29 15:35:25 CEST
+</small></p>
+</body>
+</html>
