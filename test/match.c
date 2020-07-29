@@ -159,19 +159,19 @@ int main(int argc, char **argv){
 		printsl("---------------");
 
 		mt3("texttext2","te%2x%3");
-		mt3("texttext2","te%2x%$");
+		mt3("texttext2","te%2x%&");
 
 		printsl("---------------");
 
 		mt4("texttext2","te%2x%3");
-		mt4("texttext2","te%2x%$");
+		mt4("texttext2","te%2x%&");
 
-		mt4("n12n13x47t32...","*x%$*");
+		mt4("n12n13x47t32...","*x%&*");
 
 
-		mt4("n12n13x47t32...","*[tx]%$$1*");
+		mt4("n12n13x47t32...","*[tx]%&&1*");
 		mt4("n12n13x47t32...","%[tx]%.*");
-		mt4("n12n13x47t32...","%[tx]%$*");
+		mt4("n12n13x47t32...","%[tx]%&*");
 
 		mt4("n12n13x47t32...","*%x*");
 
@@ -217,5 +217,9 @@ int main(int argc, char **argv){
 
 		mt4("arg      ","% *");
 		mt4("      ","% *");
+		mt4("x=start vesa=0x300 runlevel=terminal mouse=13", "*runlevel=%#*");
+		mt4("x=start vesa=0x300 runlevel=terminal", "*runlevel=%#");
+		mt4("x=start vesa=0x300 runlevel=terminal mouse", "*runlevel=%#");
+		mt4("x=start vesa=0x300 runlevel=terminal mouse", "*runlevel=%#*");
 		return(0);
 }

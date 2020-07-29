@@ -11,8 +11,10 @@
 // * for every count of any char
 // + for 1 or more chars
 // ? for 1 char
+// # for space or end of text (0)
+// $ match end of text
 //
-// backslash: escape *,?,%,$,!,+ and backslash itself.
+// backslash: escape *,?,%,$,!,+,#,& and backslash itself.
 // !: invert the matching of the next character or character class
 //  
 //
@@ -55,7 +57,7 @@
 // (counting from left)
 //
 //
-// $[1] .. $[9]
+// &[1] .. &[9]
 //  call p_match_char
 //  p_match_char has to return either RE_MATCH or RE_NOMATCH.
 //  Therefore it is possible to e.g. rule your own
@@ -66,7 +68,8 @@
 //  but with different pos or len parameters.
 //
 // supply 0 for p_match_char, when you don't need it.
-// This will treat $ in the regex like ?, match a following digit (0..9),
+// This will treat & in the regex like ?, 
+// and match a following digit (0..9) in the text,
 // a following digit (0..9) in the regex is ignored.
 // 
 //
@@ -85,11 +88,18 @@
 //
 // (note) - be careful when negating a following *, or ?.
 //  somehow - it is logical, but seems to me I overshoot a bit,
-//  and tapped into a logical paradox.
-//  Negating EVERYTHING translates to true.
-//  However, since truth is negated as well, there's a problem.
+//  tragically hit my own foot, and stumbled into a logical paradox.
 //
-//  (I'm not kidding here. Just don't do a regex with !* or !?..)
+//  Negating EVERYTHING translates to true.
+//  However, since truth is negated as well, there's a problem,
+//  cause it's now 'false', but 'false' is true. This is very close
+//  to proving 42 is the answer. What is the escape velocity
+//  in km/s out of the solar system, btw..
+//
+//  (I'm not kidding here. Just don't do a regex with !* or !?..
+//  And, please, do not ask me what is going to happen when the impossible
+//  gets possibilized. I have to point at the according sentences of the BSD license;
+//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
 //
 //  A "!+" will translate into nongreedy matching of any char, however;
 //  "%!+" will match with % everything but the last char;
@@ -126,8 +136,15 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 								if ( neg )
 										return( RE_NOMATCH );
 								break;
+						case '#': // match end of text, or a space; here a space
+								if ( isspace( *text )){
+										if ( neg ) return( RE_NOMATCH );
+										break;
+								}
+								if ( neg ) break;
+								return( RE_NOMATCH );
 
-						case '$':
+						case '&':
 								match_char = 1;
 						case '%':
 								if ( re[1]!=0 && re[1] >='0' && re[1] <= '9' ){
@@ -136,15 +153,12 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 								}
 
 								if ( match_char ){
-										if ( p_match_char && (p_match_char(n_match,text)==RE_NOMATCH) )
-												if ( neg )
-														break;
-												else
-														return( RE_NOMATCH );
-										if ( neg )
-														return( RE_NOMATCH );
-										else
-												break; // matched, also for p_match_char == 0
+										if ( p_match_char && (p_match_char(n_match,text)==RE_NOMATCH) ){
+												if ( neg ) break;
+												return( RE_NOMATCH );
+										}
+										if ( neg ) return( RE_NOMATCH );
+										break; // matched, also for p_match_char == 0
 								}
 
 								matchpos=text;
@@ -169,10 +183,13 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 
 								while ( !ext_match(text,re,p_match,p_match_char,st_match) ){
 										text++;
-										if ( !*text )
+										if ( !*text ){
+												if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
+														goto __MATCHEND;
 												return(neg ^ RE_NOMATCH);
+										}
 								}
-
+__MATCHEND:
 								if ( matchpos ){
 										if ( p_match )
 												p_match(n_match,matchpos,text-matchpos);
@@ -206,9 +223,13 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 				re++; text++;
 		}
 
+		// *text == 0 here.
 		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
 				// * at the end. doesnt match "**", or other pathological cases
 						return(RE_MATCH); //matched
+		}
+		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
+				return( RE_MATCH );
 		}
 		
 		return(RE_NOMATCH); 
