@@ -81,7 +81,8 @@ mlgl->atexitp[0]=0;
 	// all other options, like using the global struct within a asm volatile,
 	// and so on, have shown up to be unreliable.
 #ifdef mini_globals
-	optimization_fence((void*)mlgl);
+	//optimization_fence((void*)mlgl);
+	OPTFENCE((void*)mlgl);
 #endif
 	// silence compiler warning.
 	return(ret);

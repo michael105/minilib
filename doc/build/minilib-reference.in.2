@@ -155,7 +155,7 @@ f:ewrites|D:#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))|c:output|x
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|c:output|x:|
 f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))|c:output|x:|
 f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...)|c:output|x:|
-f:fprints|D:#define fprints(F,str) write(fileno(F),str,strlen(str))|c:output|x:|
+f:fprints|D:#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)|c:output|x:|
 f:fputc|D:int volatile fputc(int c, FILE* F)|c:output|x:put a byte on a stream|
 f:fwrite|D:size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f)|c:output|x:binary output|
 f:fwrites|D:#define fwrites(fd,str) write(fd,str,sizeof(str))|c:output|x:|
@@ -200,8 +200,8 @@ f:vfork|D:int DEF_syscall(vfork,0)|c:process|x:create a child process and block 
 
 #regex
 
-f:ext_match|D:int ext_match(const char *text, const char *re)|c:regex|x:|
-f:match|D:int match(const char *text, const char *re)|c:regex|x:|
+f:ext_match|D:int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match)|c:regex|x:|
+f:match|D:int match(char *text, const char *re, regex_match *st_match)|c:regex|x:|
 
 #streams
 
@@ -289,7 +289,16 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 
 f:alphasort|D:int alphasort( const struct dirent** de1, const struct dirent** de2 )|c:unsorted|x:|
 f:ansicolors|D:|c:unsorted|x:|
+f:clone|D:int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)|c:unsorted|x:|
+f:clone_t|D:int clone_t(int flags)|c:unsorted|x:|
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
+f:eprintsl|D:#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)|c:unsorted|x:|
+f:group_print|D:|c:unsorted|x:|
+f:group_write|D:|c:unsorted|x:|
+f:inotify_add_watch|D:int inotify_add_watch( int fd,  const char *pathname,  u32 mask)|c:unsorted|x:|
+f:inotify_init|D:int DEF_syscall(inotify_init,0)|c:unsorted|x:|
+f:inotify_init1|D:int inotify_init1( int flags)|c:unsorted|x:|
+f:inotify_rm_watch|D:int inotify_rm_watch( int fd,  __s32 wd)|c:unsorted|x:|
 f:itooct|D:int itooct(int i, char *buf)|c:unsorted|x:|
 f:putenv|D:int putenv( char *string )|c:unsorted|x:|
 f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|

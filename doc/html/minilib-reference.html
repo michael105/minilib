@@ -338,7 +338,7 @@ chdir
 <p>
   <em>int chdir(const char* path)</em><br>
   change working directory<br>
- Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.107  manpage: <a href="manpages/sys/chdir.2.rst">chdir</a><br>
+ Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.111  manpage: <a href="manpages/sys/chdir.2.rst">chdir</a><br>
 </p>
 </dd>
 <dt>
@@ -394,7 +394,7 @@ fstat
 <p>
   <em>int fstat(int fd,struct stat* statbuf)</em><br>
   get file status<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.105  manpage: <a href="manpages/sys/stat.2.rst">fstat</a><br>
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.109  manpage: <a href="manpages/sys/stat.2.rst">fstat</a><br>
 </p>
 </dd>
 <dt>
@@ -404,7 +404,7 @@ getcwd
 <p>
   <em>int getcwd( char *buf,  unsigned long size)</em><br>
   get the pathname of the current working directory<br>
- Size: ~61B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.116  manpage: <a href="manpages/gen/getcwd.3.rst">getcwd</a><br>
+ Size: ~61B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.120  manpage: <a href="manpages/gen/getcwd.3.rst">getcwd</a><br>
 </p>
 </dd>
 <dt>
@@ -414,7 +414,7 @@ getdents
 <p>
   <em>int getdents( unsigned int fd, struct dirent *direntry, unsigned int count )</em><br>
   get directory entries<br>
- Size: ~65B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.100  manpage: <a href="manpages/sys/getdirentries.2.rst">getdents</a><br>
+ Size: ~65B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.104  manpage: <a href="manpages/sys/getdirentries.2.rst">getdents</a><br>
 </p>
 </dd>
 <dt>
@@ -424,7 +424,7 @@ mkdir
 <p>
   <em>int mkdir( const char *pathname, int mode)</em><br>
   make a directory relative to directory file descriptor<br>
- Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.154  manpage: <a href="manpages/sys/mkdir.2.rst">mkdir</a><br>
+ Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.158  manpage: <a href="manpages/sys/mkdir.2.rst">mkdir</a><br>
 </p>
 </dd>
 <dt>
@@ -433,7 +433,7 @@ opendir
 <dd>
 <p>
   <em>DIR *opendir(const char *name )</em><br>
-  Defines: open brk dirbuf close write<br>
+  Defines: write open brk close dirbuf<br>
  open directory associated with file descriptor<br>
  Size: ~281B  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24  manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -444,7 +444,7 @@ opendirp
 <dd>
 <p>
   <em>DIR *opendirp(const char *name, DIR *dir)</em><br>
-  Defines: close dirbuf brk open<br>
+  Defines: close dirbuf open brk<br>
  <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -480,7 +480,7 @@ rmdir
 <p>
   <em>int rmdir( const char *pathname)</em><br>
   remove a directory<br>
- Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.155  manpage: <a href="manpages/sys/rmdir.2.rst">rmdir</a><br>
+ Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.159  manpage: <a href="manpages/sys/rmdir.2.rst">rmdir</a><br>
 </p>
 </dd>
 <dt>
@@ -489,7 +489,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char *path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent <strong>))</em><br>
-  Defines: open getbrk sbrk brk memcpy qsort errno dirbuf seterrno write<br>
+  Defines: sbrk dirbuf seterrno brk write open memcpy getbrk qsort errno<br>
  scan a directory<br>
  list files and dirs in a directory<br>
  <br>
@@ -583,7 +583,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
-  Defines: write execve errno_str exit<br>
+  Defines: errno_str execve exit write<br>
  exit, and execute /bin/errno<br>
   this is intended to give a error message for the <br>
   given errno num.<br>
@@ -606,7 +606,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char *msg)</em><br>
-  Defines: fileno write strlen strerror errno<br>
+  Defines: write errno strlen strerror fileno<br>
  write error messages to standard error<br>
  Size: ~329B  <a href="../src/perror.c">../src/perror.c</a> l.4  manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -654,7 +654,7 @@ _fopen
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE *f)</em><br>
-  Defines: open fileno close<br>
+  Defines: fileno close open<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~316B  <a href="../src/fopen.c">../src/fopen.c</a> l.12
 </p>
@@ -666,7 +666,7 @@ access
 <p>
   <em>int access( const char *filename, int mode)</em><br>
   determine accessibility of a file relative to directory file<br>
- Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.157  manpage: <a href="manpages/sys/access.2.rst">access</a><br>
+ Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.161  manpage: <a href="manpages/sys/access.2.rst">access</a><br>
 </p>
 </dd>
 <dt>
@@ -676,7 +676,7 @@ chmod
 <p>
   <em>int chmod( const char *filename, mode_t mode)</em><br>
   change mode of a file relative to directory file descriptor<br>
- Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187  manpage: <a href="manpages/sys/chmod.2.rst">chmod</a><br>
+ Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.184  manpage: <a href="manpages/sys/chmod.2.rst">chmod</a><br>
 </p>
 </dd>
 <dt>
@@ -686,7 +686,7 @@ chown
 <p>
   <em>int chown( const char *filename, uid_t user, gid_t group)</em><br>
   change owner and group of a file relative to directory<br>
- Size: ~71B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.188  manpage: <a href="manpages/sys/chown.2.rst">chown</a><br>
+ Size: ~71B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.185  manpage: <a href="manpages/sys/chown.2.rst">chown</a><br>
 </p>
 </dd>
 <dt>
@@ -696,7 +696,7 @@ close
 <p>
   <em>int close( int fd )</em><br>
   close a file descriptor<br>
- Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.96  manpage: <a href="manpages/sys/close.2.rst">close</a><br>
+ Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.100  manpage: <a href="manpages/sys/close.2.rst">close</a><br>
 </p>
 </dd>
 <dt>
@@ -728,7 +728,7 @@ dup
 <p>
   <em>int dup(int fd)</em><br>
   duplicate an open file descriptor<br>
- Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.112  manpage: <a href="manpages/sys/dup.2.rst">dup</a><br>
+ Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.116  manpage: <a href="manpages/sys/dup.2.rst">dup</a><br>
 </p>
 </dd>
 <dt>
@@ -738,7 +738,7 @@ dup2
 <p>
   <em>int dup2(int oldfd, int newfd)</em><br>
   duplicate a file descriptor<br>
- Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.113  manpage: <a href="manpages/sys/dup.2.rst">dup2</a><br>
+ Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.117  manpage: <a href="manpages/sys/dup.2.rst">dup2</a><br>
 </p>
 </dd>
 <dt>
@@ -748,7 +748,7 @@ dup3
 <p>
   <em>int dup3(int oldfd, int newfd, int flags)</em><br>
   duplicate a file descriptor<br>
- Size: ~75B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.114  manpage: <a href="manpages/gen/dup3.3.rst">dup3</a><br>
+ Size: ~75B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.118  manpage: <a href="manpages/gen/dup3.3.rst">dup3</a><br>
 </p>
 </dd>
 <dt>
@@ -758,7 +758,7 @@ fchmod
 <p>
   <em>int fchmod( unsigned int fd, mode_t mode)</em><br>
   change mode of a file<br>
- Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.110  manpage: <a href="manpages/sys/chmod.2.rst">fchmod</a><br>
+ Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.114  manpage: <a href="manpages/sys/chmod.2.rst">fchmod</a><br>
 </p>
 </dd>
 <dt>
@@ -768,7 +768,7 @@ fchown
 <p>
   <em>int fchown( unsigned int fd, uid_t user, gid_t group)</em><br>
   change owner and group of a file<br>
- Size: ~75B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.109  manpage: <a href="manpages/sys/chown.2.rst">fchown</a><br>
+ Size: ~75B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.113  manpage: <a href="manpages/sys/chown.2.rst">fchown</a><br>
 </p>
 </dd>
 <dt>
@@ -778,7 +778,7 @@ fcntl
 <p>
   <em>int fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)</em><br>
   file control<br>
- Size: ~77B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.158  manpage: <a href="manpages/sys/fcntl.2.rst">fcntl</a><br>
+ Size: ~77B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162  manpage: <a href="manpages/sys/fcntl.2.rst">fcntl</a><br>
 </p>
 </dd>
 <dt>
@@ -808,7 +808,7 @@ link
 <p>
   <em>int link( const char *oldname, const char *newname)</em><br>
   link one file to another file relative to two directory<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.118  manpage: <a href="manpages/sys/link.2.rst">link</a><br>
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.122  manpage: <a href="manpages/sys/link.2.rst">link</a><br>
 </p>
 </dd>
 <dt>
@@ -844,7 +844,7 @@ readahead
 <p>
   <em>int readahead( int fd,  loff_t offset,  size_t count)</em><br>
   initiate file readahead into page cache<br>
- Size: ~79B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
+ Size: ~79B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.210
 </p>
 </dd>
 <dt>
@@ -854,7 +854,7 @@ rename
 <p>
   <em>int rename( const char* oldpath, const char* newpath )</em><br>
   rename file relative to directory file descriptor<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.102  manpage: <a href="manpages/sys/rename.2.rst">rename</a><br>
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.106  manpage: <a href="manpages/sys/rename.2.rst">rename</a><br>
 </p>
 </dd>
 <dt>
@@ -874,7 +874,7 @@ sendfile
 <p>
   <em>int sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)</em><br>
   transfer data between file descriptors<br>
- Size: ~142B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.161  manpage: <a href="manpages/sys/sendfile.2.rst">sendfile</a><br>
+ Size: ~142B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.165  manpage: <a href="manpages/sys/sendfile.2.rst">sendfile</a><br>
 </p>
 </dd>
 <dt>
@@ -884,7 +884,7 @@ stat
 <p>
   <em>int stat(const char* filename,struct stat* statbuf)</em><br>
   get file status<br>
- Size: ~49B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.106  manpage: <a href="manpages/sys/stat.2.rst">stat</a><br>
+ Size: ~49B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.110  manpage: <a href="manpages/sys/stat.2.rst">stat</a><br>
 </p>
 </dd>
 <dt>
@@ -894,7 +894,7 @@ symlink
 <p>
   <em>int symlink( const char *oldname,  const char *newname)</em><br>
   make a symbolic link relative to directory file descriptor<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.119  manpage: <a href="manpages/sys/symlink.2.rst">symlink</a><br>
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.123  manpage: <a href="manpages/sys/symlink.2.rst">symlink</a><br>
 </p>
 </dd>
 <dt>
@@ -904,7 +904,7 @@ umask
 <p>
   <em>int umask( int mask)</em><br>
   set and get the file mode creation mask<br>
- Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.186  manpage: <a href="manpages/sys/umask.2.rst">umask</a><br>
+ Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.209  manpage: <a href="manpages/sys/umask.2.rst">umask</a><br>
 </p>
 </dd>
 <dt>
@@ -914,7 +914,7 @@ unlink
 <p>
   <em>int unlink( const char* path)</em><br>
   remove a directory entry relative to directory file descriptor<br>
- Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.103  manpage: <a href="manpages/sys/unlink.2.rst">unlink</a><br>
+ Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.107  manpage: <a href="manpages/sys/unlink.2.rst">unlink</a><br>
 </p>
 </dd>
 </dl>
@@ -950,7 +950,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
-  Defines: read fileno<br>
+  Defines: fileno read<br>
  get a byte from a stream<br>
  <a href="../include/fgetc.h">../include/fgetc.h</a> l.26  manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -961,7 +961,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
-  Defines: read fileno<br>
+  Defines: fileno read<br>
  get a byte from a<br>
  <a href="../include/fgetc.h">../include/fgetc.h</a> l.29  manpage: <a href="manpages/stdio/getc.3.rst">getchar</a><br>
 </p>
@@ -972,7 +972,7 @@ gets
 <dd>
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
-  Defines: fileno read<br>
+  Defines: read fileno<br>
  get a string from a<br>
  <a href="../src/fgets.c">../src/fgets.c</a> l.29  manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -984,7 +984,7 @@ read
 <p>
   <em>int read( int fd, void *buf, int len )</em><br>
   read from a file<br>
- Size: ~62B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.97  manpage: <a href="manpages/sys/read.2.rst">read</a><br>
+ Size: ~62B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.101  manpage: <a href="manpages/sys/read.2.rst">read</a><br>
 </p>
 </dd>
 <dt>
@@ -1012,7 +1012,7 @@ kill
 <p>
   <em>int kill( pid_t pid,  int sig)</em><br>
   send a signal to a process or a group of processes<br>
- Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.125  manpage: <a href="manpages/sys/kill.2.rst">kill</a><br>
+ Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.129  manpage: <a href="manpages/sys/kill.2.rst">kill</a><br>
 </p>
 </dd>
 <dt>
@@ -1032,7 +1032,7 @@ pipe
 <p>
   <em>int pipe( int *filedes)</em><br>
   create an interprocess channel<br>
- Size: ~41B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.185  manpage: <a href="manpages/sys/pipe.2.rst">pipe</a><br>
+ Size: ~41B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.208  manpage: <a href="manpages/sys/pipe.2.rst">pipe</a><br>
 </p>
 </dd>
 <dt>
@@ -1053,7 +1053,7 @@ rt_sigaction
 <p>
   <em>int rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)</em><br>
   examine and change a signal action<br>
- Size: ~132B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.134
+ Size: ~132B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.138
 </p>
 </dd>
 <dt>
@@ -1063,7 +1063,7 @@ rt_sigprocmask
 <p>
   <em>int rt_sigprocmask( int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)</em><br>
   examine and change blocked signals<br>
- Size: ~132B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.166
+ Size: ~132B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.170
 </p>
 </dd>
 <dt>
@@ -1073,7 +1073,7 @@ rt_sigreturn
 <p>
   <em>int rt_sigreturn( unsigned long __unused)</em><br>
   return from signal handler and cleanup stack frame<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.135
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.139
 </p>
 </dd>
 <dt>
@@ -1176,7 +1176,7 @@ wait4
 <p>
   <em>int wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)</em><br>
   wait for process to change state, BSD style<br>
- Size: ~133B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.156  manpage: <a href="manpages/sys/wait.2.rst">wait4</a><br>
+ Size: ~133B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.160  manpage: <a href="manpages/sys/wait.2.rst">wait4</a><br>
 </p>
 </dd>
 <dt>
@@ -1305,7 +1305,7 @@ free
 <dd>
 <p>
   <em>void free(void *p)</em><br>
-  Defines: getbrk brk<br>
+  Defines: brk getbrk<br>
  free allocated memory<br>
  Size: ~32B  <a href="../src/malloc.c">../src/malloc.c</a> l.139  manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
@@ -1448,7 +1448,7 @@ memfd_create
 <p>
   <em>int memfd_create( const char  *uname_ptr,  unsigned int flags)</em><br>
   create an anonymous file<br>
- Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.170
+ Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.174
 </p>
 </dd>
 <dt>
@@ -1504,7 +1504,7 @@ mprotect
 <p>
   <em>int mprotect( POINTER *a1, POINTER a2, int a3 )</em><br>
   set protection of memory mapping<br>
- Size: ~146B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.183  manpage: <a href="manpages/sys/mprotect.2.rst">mprotect</a><br>
+ Size: ~146B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.206  manpage: <a href="manpages/sys/mprotect.2.rst">mprotect</a><br>
 </p>
 </dd>
 <dt>
@@ -1524,7 +1524,7 @@ munmap
 <p>
   <em>int munmap( unsigned long addr,  size_t len)</em><br>
   unmap pages of memory<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.198  manpage: <a href="manpages/sys/munmap.2.rst">munmap</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.213  manpage: <a href="manpages/sys/munmap.2.rst">munmap</a><br>
 </p>
 </dd>
 <dt>
@@ -1560,7 +1560,7 @@ splice
 <p>
   <em>int splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)</em><br>
   splice data to/from a pipe<br>
- Size: ~178B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.175
+ Size: ~178B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.179
 </p>
 </dd>
 <dt>
@@ -1616,9 +1616,9 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  write str to stderr. Needs strlen<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.42
+  <a href="../include/prints.h">../include/prints.h</a> l.52
 </p>
 </dd>
 <dt>
@@ -1627,10 +1627,10 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
-  Defines: write fileno strlen<br>
- write str to stderr. <br>
-  only format %s is recognized<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.90
+  Defines: fileno write strlen<br>
+ write fmt and arguments to stderr. <br>
+  only format %s and %c are recognized<br>
+  <a href="../include/prints.h">../include/prints.h</a> l.100
 </p>
 </dd>
 <dt>
@@ -1641,7 +1641,7 @@ eprintl
   <em>#define eprintl() write(STDERR_FILENO,"\n",1)</em><br>
   Defines: write<br>
  write a newline to stderr<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.67
+  <a href="../include/prints.h">../include/prints.h</a> l.61
 </p>
 </dd>
 <dt>
@@ -1652,7 +1652,8 @@ eprints
   <em>#define eprints(&#8230;) dprints(STDERR_FILENO,<em>VA_ARGS</em>,0)</em><br>
   Defines: write<br>
  print the string(s) supplied as arg(s) to stdout<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.17
+  this macro has an variable argument count.<br>
+  <a href="../include/prints.h">../include/prints.h</a> l.19
 </p>
 </dd>
 <dt>
@@ -1661,9 +1662,9 @@ eputs
 <dd>
 <p>
   <em>#define eputs(msg) ( eprint(msg) + eprintl() )</em><br>
-  Defines: strlen write<br>
+  Defines: write strlen<br>
  write msg to stderr, append a newline. Needs strlen.<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.77
+  <a href="../include/prints.h">../include/prints.h</a> l.71
 </p>
 </dd>
 <dt>
@@ -1674,7 +1675,7 @@ ewrites
   <em>#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))</em><br>
   Defines: write<br>
  write the constant str to stderr. Computes length with sizeof(str) at compile time.<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.52
+  <a href="../include/prints.h">../include/prints.h</a> l.82
 </p>
 </dd>
 <dt>
@@ -1683,7 +1684,7 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95
 </p>
 </dd>
@@ -1693,7 +1694,7 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
-  Defines: write fileno<br>
+  Defines: fileno write<br>
  <a href="../src/sprintf.c">../src/sprintf.c</a> l.228  manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br>
 </p>
 </dd>
@@ -1703,8 +1704,10 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char *fmt, &#8230;)</em><br>
-  Defines: strlen write fileno<br>
- prints formatted to the stream F.only %s and %c are recognized.no mini_buf needed, so using fprintfs instead of fprintf can save some sections / bytes.<br>
+  Defines: fileno write strlen<br>
+ prints formatted and unbuffered output to the stream F.<br>
+  only %s and %c are recognized.<br>
+  no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.<br>
   Size: ~427B  <a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10
 </p>
 </dd>
@@ -1713,10 +1716,11 @@ fprints
 </dt>
 <dd>
 <p>
-  <em>#define fprints(F,str) write(fileno(F),str,strlen(str))</em><br>
-  Defines: strlen write fileno<br>
+  <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
+  Defines: fileno strlen write<br>
  print the string(s) supplied as arg(s) to stream<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.24
+  this macro has an variable argument count.<br>
+  <a href="../include/prints.h">../include/prints.h</a> l.27
 </p>
 </dd>
 <dt>
@@ -1725,7 +1729,7 @@ fputc
 <dd>
 <p>
   <em>int volatile fputc(int c, FILE* F)</em><br>
-  Defines: fileno write<br>
+  Defines: write fileno<br>
  put a byte on a stream<br>
  Size: ~64B  <a href="../include/fputc.h">../include/fputc.h</a> l.10  manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -1749,7 +1753,7 @@ fwrites
   <em>#define fwrites(fd,str) write(fd,str,sizeof(str))</em><br>
   Defines: write<br>
  write the constant str to fd. Computes length with sizeof(str) at compile time.<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.58
+  <a href="../include/prints.h">../include/prints.h</a> l.88
 </p>
 </dd>
 <dt>
@@ -1758,9 +1762,9 @@ print
 <dd>
 <p>
   <em>#define print(str) write(STDOUT_FILENO,str,strlen(str))</em><br>
-  Defines: write strlen<br>
+  Defines: strlen write<br>
  write str to stdout. Needs strlen<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.38
+  <a href="../include/prints.h">../include/prints.h</a> l.48
 </p>
 </dd>
 <dt>
@@ -1780,10 +1784,10 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
-  Defines: strlen write fileno<br>
- write str to stdout. <br>
-  only format %s is recognized<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.84
+  Defines: fileno strlen write<br>
+ write fmt and arguments to stdout. <br>
+  only format %s and %c are recognized<br>
+  <a href="../include/prints.h">../include/prints.h</a> l.94
 </p>
 </dd>
 <dt>
@@ -1794,7 +1798,7 @@ printl
   <em>#define printl() write(STDOUT_FILENO,"\n",1)</em><br>
   Defines: write<br>
  write a newline to stdout<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.63
+  <a href="../include/prints.h">../include/prints.h</a> l.57
 </p>
 </dd>
 <dt>
@@ -1803,8 +1807,9 @@ prints
 <dd>
 <p>
   <em>#define prints(&#8230;) _mprints(<em>VA_ARGS</em>,0)</em><br>
-  print the string(s) supplied as arg(s) to stdout<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.11
+  print the string(s) supplied as arg(s) to stdout,<br>
+  this macro has an variable argument count.<br>
+  <a href="../include/prints.h">../include/prints.h</a> l.12
 </p>
 </dd>
 <dt>
@@ -1814,7 +1819,7 @@ printsl
 <p>
   <em>#define printsl(&#8230;) _mprints(<em>VA_ARGS</em>,"\n",0)</em><br>
   print the string(s) supplied as arg(s) and newline to stdout<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.32
+  <a href="../include/prints.h">../include/prints.h</a> l.35
 </p>
 </dd>
 <dt>
@@ -1848,7 +1853,7 @@ puts
   Defines: write strlen<br>
  put a string on standard output<br>
  write msg to stdout, append a newline. Needs strlen.<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.73  manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br>
+  <a href="../include/prints.h">../include/prints.h</a> l.67  manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br>
 </p>
 </dd>
 <dt>
@@ -1894,7 +1899,7 @@ write
 <p>
   <em>int write(int fd,const void *buf, int len )</em><br>
   write on a file<br>
- Size: ~65B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.98  manpage: <a href="manpages/sys/write.2.rst">write</a><br>
+ Size: ~65B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.102  manpage: <a href="manpages/sys/write.2.rst">write</a><br>
 </p>
 </dd>
 <dt>
@@ -1905,7 +1910,7 @@ writes
   <em>#define writes(str) write(STDOUT_FILENO,str,sizeof(str))</em><br>
   Defines: write<br>
  write the constant str to stdout. Computes length with sizeof(str) at compile time.<br>
-  <a href="../include/prints.h">../include/prints.h</a> l.48
+  <a href="../include/prints.h">../include/prints.h</a> l.78
 </p>
 </dd>
 </dl>
@@ -1943,7 +1948,7 @@ execl
 <dd>
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
-  Defines: environ execve<br>
+  Defines: execve environ<br>
  <a href="../src/execl.c">../src/execl.c</a> l.6  manpage: <a href="manpages/gen/exec.3.rst">execl</a><br>
 </p>
 </dd>
@@ -1965,7 +1970,7 @@ execve
 <p>
   <em>int execve( const char <strong>filename,  char</strong> const* argv, char* const* envp)</em><br>
   execute program<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.123  manpage: <a href="manpages/sys/execve.2.rst">execve</a><br>
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127  manpage: <a href="manpages/sys/execve.2.rst">execve</a><br>
 </p>
 </dd>
 <dt>
@@ -1975,7 +1980,7 @@ execveat
 <p>
   <em>int execveat( int dirfd, const char <strong>filename,  char</strong> const* argv, char* const* envp, int flags)</em><br>
   execute program relative to a directory file descriptor<br>
- Size: ~158B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.153
+ Size: ~158B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.157
 </p>
 </dd>
 <dt>
@@ -1984,7 +1989,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char *file, char *const argv[])</em><br>
-  Defines: environ execve access<br>
+  Defines: execve environ access<br>
  execute a file<br>
  Size: ~556B  <a href="../src/execvp.c">../src/execvp.c</a> l.58  manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -1995,7 +2000,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char *file, char *const argv[], char *const envp[])</em><br>
-  Defines: access environ execve<br>
+  Defines: environ access execve<br>
  execute a file<br>
  When invoked with a filename, starting with "." or "/",<br>
   interprets this as absolute path. (calls execve with the pathname)<br>
@@ -2029,7 +2034,7 @@ fork
 <p>
   <em>int DEF_syscall(fork,0)</em><br>
   create a new process<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127  manpage: <a href="manpages/sys/fork.2.rst">fork</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.131  manpage: <a href="manpages/sys/fork.2.rst">fork</a><br>
 </p>
 </dd>
 <dt>
@@ -2050,7 +2055,7 @@ getpgrp
 <p>
   <em>int DEF_syscall(getpgrp,0)</em><br>
   get the process group ID of the calling process<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.193  manpage: <a href="manpages/sys/getpgrp.2.rst">getpgrp</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.190  manpage: <a href="manpages/sys/getpgrp.2.rst">getpgrp</a><br>
 </p>
 </dd>
 <dt>
@@ -2060,7 +2065,7 @@ getpid
 <p>
   <em>int DEF_syscall(getpid,0 )</em><br>
   get the process ID<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.141  manpage: <a href="manpages/sys/getpid.2.rst">getpid</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145  manpage: <a href="manpages/sys/getpid.2.rst">getpid</a><br>
 </p>
 </dd>
 <dt>
@@ -2070,7 +2075,7 @@ getppid
 <p>
   <em>int DEF_syscall(getppid,0)</em><br>
   get the parent process ID<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.190  manpage: <a href="manpages/sys/getpid.2.rst">getppid</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187  manpage: <a href="manpages/sys/getpid.2.rst">getppid</a><br>
 </p>
 </dd>
 <dt>
@@ -2080,7 +2085,7 @@ setpgid
 <p>
   <em>int setpgid( pid_t pid, pid_t pgid)</em><br>
   set process group ID for job control<br>
- Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.191  manpage: <a href="manpages/sys/setpgid.2.rst">setpgid</a><br>
+ Size: ~63B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.188  manpage: <a href="manpages/sys/setpgid.2.rst">setpgid</a><br>
 </p>
 </dd>
 <dt>
@@ -2090,7 +2095,7 @@ setsid
 <p>
   <em>int DEF_syscall(setsid,0 )</em><br>
   create session and set process group ID<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142  manpage: <a href="manpages/sys/setsid.2.rst">setsid</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146  manpage: <a href="manpages/sys/setsid.2.rst">setsid</a><br>
 </p>
 </dd>
 <dt>
@@ -2099,7 +2104,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
-  Defines: vfork wait4 write environ execve<br>
+  Defines: write vfork execve wait4 environ<br>
  issue a command<br>
  Size: ~326B  <a href="../src/system.c">../src/system.c</a> l.4  manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2113,7 +2118,8 @@ vexec
   Defines: wait4 seterrno<br>
  execute a path, wait until the executed file exits.<br>
   Deviating of system() an absolute pathname is taken.<br>
-  <a href="../src/vexec.c">../src/vexec.c</a> l.5
+  sets errno on error.<br>
+  <a href="../src/vexec.c">../src/vexec.c</a> l.6
 </p>
 </dd>
 <dt>
@@ -2125,7 +2131,7 @@ vexec_q
   execute a path, wait until the executed file exits, <br>
   do not write any output of the process. (close stdout)<br>
   Deviating of system() an absolute pathname is taken.<br>
-  <a href="../src/vexec.c">../src/vexec.c</a> l.28
+  <a href="../src/vexec.c">../src/vexec.c</a> l.29
 </p>
 </dd>
 <dt>
@@ -2135,7 +2141,7 @@ vfork
 <p>
   <em>int DEF_syscall(vfork,0)</em><br>
   create a child process and block parent<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.128  manpage: <a href="manpages/sys/vfork.2.rst">vfork</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.132  manpage: <a href="manpages/sys/vfork.2.rst">vfork</a><br>
 </p>
 </dd>
 </dl>
@@ -2148,11 +2154,30 @@ ext_match
 </dt>
 <dd>
 <p>
-  <em>int ext_match(const char *text, const char *re)</em><br>
-  simple regex engine.<br>
-  matches: * for every count of any char<br>
+  <em>int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match)</em><br>
+  regex engine<br>
+  This is somewhere between a fully fledged expression machine,<br>
+  and a simplicistic solution.<br>
+  The engine matches from left to right,<br>
+  so no backtracking is done.<br>
+  It is a compromise between performance, size<br>
+  and capabilities.<br>
+ <br>
+  matches: <br>
+  <br>
+</p>
+<ul>
+<li>
+<p>
+for every count of any char<br>
+  + for 1 or more chars<br>
   ? for 1 char<br>
-  backslash: escape *,?, and backslash itself.<br>
+ <br>
+  backslash: escape <strong>,?,%,$,!,+ and backslash itself.<br>
+  !: invert the matching of the next character or character class<br>
+   <br>
+ <br>
+  predefined character classes:<br>
   \d - digit<br>
   \D - nondigit<br>
   \s - space<br>
@@ -2160,28 +2185,148 @@ ext_match
   \w - word character ( defined as ascii 32-126,160-255 )<br>
   \W - nonword character ( defined as ascii 0-31,127-159 )<br>
  <br>
-  (memo) When the regex ist defined as C string,<br>
-  a backslash has to be defined as double backslash<br>
-  in the source code.<br>
-  <a href="../src/ext_match.c">../src/ext_match.c</a> l.16
+ <br>
+  [xyz]: character classes, here x,y or z <br>
+    the characters are matched literally, also \,</strong>,?,<code>,..<br>
+    it is not possible to match the closing bracket (])<br>
+    within a character class<br>
+ <br>
+ <br>
+  %[1]..%[9]: matches like a <em></code></em>,<br>
+   and calls the callback supplied as 3rd argument (when not null).<br>
+   the number past the %, e.g. %1, is optional,<br>
+   p_match will be callen with this number<br>
+   as first parameter.<br>
+   When not supplied, p_matched will be callen with <br>
+   the parameter <em>number</em> set to 0.<br>
+ <br>
+   The matching is <em>nongreedy</em>.<br>
+   It is possible to rewrite the string to match<br>
+   from within the p_matched callback.<br>
+   This will not have an effect onto the current matching,<br>
+   even if text is e.g. deleted by writing 0&#8217;s.<br>
+   The matched positions are called in reverse order.<br>
+   (The last matched % in the regex calls p_match first)<br>
+ <br>
+  supply 0 for p_matched, when you do not need to extract matches.<br>
+  This will treat % in the regex like a <strong>, <br>
+  a following digit (0..9) in the regex is ignored.<br>
+  if the 5th argument, a pointer to a regex_match struct, <br>
+  is supplied, it will be filled with the first match.<br>
+  (counting from left)<br>
+ <br>
+ <br>
+  $[1] .. $[9]<br>
+   call p_match_char<br>
+   p_match_char has to return either RE_MATCH or RE_NOMATCH.<br>
+   Therefore it is possible to e.g. rule your own<br>
+   character classes, defined at runtime, <br>
+   or do further tricks like changing the matched char.<br>
+   When returning RE_NOMATCH,<br>
+   it is possible, the p_match and p_match_char callbacks are callen several times,<br>
+   but with different pos or len parameters.<br>
+ <br>
+  supply 0 for p_match_char, when you don&#8217;t need it.<br>
+  This will treat $ in the regex like ?, match a following digit (0..9),<br>
+  a following digit (0..9) in the regex is ignored.<br>
+  <br>
+ <br>
+  returns: 1 on match, 0 on no match<br>
+  ( RE_MATCH / RE_NOMATCH )<br>
+ <br>
+  if the pointer (argument 5) st_match is nonnull,<br>
+  the supplied struct regex_match will be set to the first matching <em>%</em> location;<br>
+  if there is no match, regex_match.len will be set to 0.<br>
+  The struct is defined as: <br>
+  typedef struct _regex_match { char</strong> pos; int len; } regex_match;<br>
+ <br>
+ <br>
+  (memo) When the regex ist defined within C/cpp source code,<br>
+  a backslash has to be defined as double backslash.<br>
+ <br>
+  (note) - be careful when negating a following <strong>, or ?.<br>
+   somehow - it is logical, but seems to me I overshoot a bit,<br>
+   and tapped into a logical paradox.<br>
+   Negating EVERYTHING translates to true.<br>
+   However, since truth is negated as well, there&#8217;s a problem.<br>
+ <br>
+   (I&#8217;m not kidding here. Just don&#8217;t do a regex with !</strong> or !?..)<br>
+ <br>
+   A "!<code>" will translate into nongreedy matching of any char, however;<br>
+   "%!</code>" will match with % everything but the last char;<br>
+   while "%<code>" matches with % only the first char.<br>
+   !</code> basically sets the greedyness of the left * or % higher.<br>
+  <a href="../src/ext_match.c">../src/ext_match.c</a> l.100
 </p>
+</li>
+</ul>
 </dd>
 <dt>
 match
 </dt>
 <dd>
 <p>
-  <em>int match(const char *text, const char *re)</em><br>
-  simple regex engine.<br>
-  matches: * for every count of any char<br>
-  ? for 1 char<br>
-  backslash: escape *,?, and backslash itself.<br>
+  <em>int match(char *text, const char *re, regex_match *st_match)</em><br>
+  regex engine<br>
+  little bit simpler version than ext_match.<br>
+  The engine matches from left to right,<br>
+  so no backtracking is done.<br>
+  It is a compromise between performance, size<br>
+  and capabilities.<br>
  <br>
-  (memo) When the regex ist defined as C string,<br>
-  a backslash has to be defined as double backslash<br>
-  in the source code.<br>
-  <a href="../src/match.c">../src/match.c</a> l.10
+  matches: <br>
+  <br>
 </p>
+<ul>
+<li>
+<p>
+for every count of any char<br>
+  + for 1 or more chars<br>
+  ? for 1 char<br>
+ <br>
+  backslash: escape <strong>,?,%,!,+ and backslash itself.<br>
+  ! : invert the matching of the next character or character class<br>
+   <br>
+  [xyz]: character classes, here x,y or z <br>
+    the characters are matched literally, also \,</strong>,?,<code>,..<br>
+    it is not possible to match the closing bracket (])<br>
+    within a character class<br>
+ <br>
+ <br>
+  % : matches like a <em></code></em>, and fills in argument 3,<br>
+  the regex_match struct, when the pointer is non null.<br>
+  The matching is <em>nongreedy</em>.<br>
+ <br>
+ <br>
+  returns: 1 on match, 0 on no match<br>
+  ( RE_MATCH / RE_NOMATCH )<br>
+ <br>
+  if the pointer (argument 3) st_match is nonnull,<br>
+  the supplied struct regex_match will be set to the first matching <em>%</em> location;<br>
+  if there is no match, regex_match.len will be set to 0.<br>
+  The struct is defined as: <br>
+  typedef struct _regex_match { char* pos; int len; } regex_match;<br>
+ <br>
+ <br>
+  (memo) When the regex ist defined within C/cpp source code,<br>
+  a backslash has to be defined as double backslash.<br>
+ <br>
+  (note) - be careful when negating a following <strong>, or ?.<br>
+   somehow - it is logical, but seems to me I overshoot a bit,<br>
+   and tapped into a logical paradox.<br>
+   Negating EVERYTHING translates to true.<br>
+   However, since truth is negated as,&#8230; well, there&#8217;s a problem.<br>
+ <br>
+   (I&#8217;m not kidding here. Just don&#8217;t do a regex with !</strong> or !?..)<br>
+ <br>
+   A "!<code>" will translate into nongreedy matching of any char, however;<br>
+   "%!</code>" will match with % everything but the last char;<br>
+   while "%<code>" matches with % only the first char.<br>
+   !</code> basically sets the greedyness of the left * or % higher.<br>
+  <a href="../src/match.c">../src/match.c</a> l.55
+</p>
+</li>
+</ul>
 </dd>
 </dl>
 <p>---</p>
@@ -2224,7 +2369,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
-  Defines: open fileno close<br>
+  Defines: open close fileno<br>
  associate a stream with a file descriptor<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~323B  <a href="../src/fopen.c">../src/fopen.c</a> l.91  manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br>
@@ -2289,7 +2434,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
-  Defines: open fileno close<br>
+  Defines: open close fileno<br>
  open a stream<br>
  modes implemented: r, r+, w, w+, a, a+<br>
   Size: ~324B  <a href="../src/fopen.c">../src/fopen.c</a> l.81  manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br>
@@ -2301,7 +2446,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char *c, FILE *F)</em><br>
-  Defines: fileno write strlen<br>
+  Defines: fileno strlen write<br>
  put a string on a stream<br>
  Size: ~90B  <a href="../include/fputs.h">../include/fputs.h</a> l.20  manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -2498,7 +2643,7 @@ strdup
 <dd>
 <p>
   <em>char *strdup(const char *source)</em><br>
-  Defines: brk strlen strcpy<br>
+  Defines: strlen strcpy brk<br>
  duplicate a specific number of bytes from a string<br>
  Size: ~258B  <a href="../src/strdup.c">../src/strdup.c</a> l.7  manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -2577,7 +2722,7 @@ chroot
 <p>
   <em>int chroot( const char *filename)</em><br>
   change root directory<br>
- Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.137  manpage: <a href="manpages/sys/chroot.2.rst">chroot</a><br>
+ Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.141  manpage: <a href="manpages/sys/chroot.2.rst">chroot</a><br>
 </p>
 </dd>
 <dt>
@@ -2587,7 +2732,7 @@ getgid
 <p>
   <em>int DEF_syscall(getgid,0)</em><br>
   get the real group ID<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.192  manpage: <a href="manpages/sys/getgid.2.rst">getgid</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.189  manpage: <a href="manpages/sys/getgid.2.rst">getgid</a><br>
 </p>
 </dd>
 <dt>
@@ -2597,7 +2742,7 @@ getuid
 <p>
   <em>int DEF_syscall(getuid,0)</em><br>
   get a real user ID<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195  manpage: <a href="manpages/sys/getuid.2.rst">getuid</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.191  manpage: <a href="manpages/sys/getuid.2.rst">getuid</a><br>
 </p>
 </dd>
 <dt>
@@ -2646,7 +2791,7 @@ mknod
 <p>
   <em>int mknod( const char *filename,  umode_t mode,  unsigned dev)</em><br>
   make directory, special file, or regular file<br>
- Size: ~73B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196  manpage: <a href="manpages/sys/mknod.2.rst">mknod</a><br>
+ Size: ~73B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.211  manpage: <a href="manpages/sys/mknod.2.rst">mknod</a><br>
 </p>
 </dd>
 <dt>
@@ -2656,7 +2801,7 @@ mount
 <p>
   <em>int mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)</em><br>
   mount filesystem<br>
- Size: ~151B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.164  manpage: <a href="manpages/sys/mount.2.rst">mount</a><br>
+ Size: ~151B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.168  manpage: <a href="manpages/sys/mount.2.rst">mount</a><br>
 </p>
 </dd>
 <dt>
@@ -2666,7 +2811,7 @@ pivot_root
 <p>
   <em>int pivot_root( const char *new_root,  const char *put_old)</em><br>
   change the root mount<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.138
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142
 </p>
 </dd>
 <dt>
@@ -2676,7 +2821,7 @@ reboot
 <p>
   <em>int reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)</em><br>
   reboot or enable/disable Ctrl-Alt-Del<br>
- Size: ~139B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162  manpage: <a href="manpages/sys/reboot.2.rst">reboot</a><br>
+ Size: ~139B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.166  manpage: <a href="manpages/sys/reboot.2.rst">reboot</a><br>
 </p>
 </dd>
 <dt>
@@ -2686,7 +2831,7 @@ setgid
 <p>
   <em>int setgid( gid_t gid)</em><br>
   set-group-ID<br>
- Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.143  manpage: <a href="manpages/sys/setuid.2.rst">setgid</a><br>
+ Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.147  manpage: <a href="manpages/sys/setuid.2.rst">setgid</a><br>
 </p>
 </dd>
 <dt>
@@ -2695,7 +2840,7 @@ setgroups
 <dd>
 <p>
   <em>int setgroups( int gidsetsize,  gid_t *grouplist)</em><br>
-  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.178  manpage: <a href="manpages/sys/setgroups.2.rst">setgroups</a><br>
+  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.182  manpage: <a href="manpages/sys/setgroups.2.rst">setgroups</a><br>
 </p>
 </dd>
 <dt>
@@ -2705,7 +2850,7 @@ setuid
 <p>
   <em>int setuid( uid_t uid)</em><br>
   set user ID<br>
- Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.144  manpage: <a href="manpages/sys/setuid.2.rst">setuid</a><br>
+ Size: ~51B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.148  manpage: <a href="manpages/sys/setuid.2.rst">setuid</a><br>
 </p>
 </dd>
 <dt>
@@ -2715,7 +2860,7 @@ sync
 <p>
   <em>int DEF_syscall(sync,0)</em><br>
   schedule file system updates<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.120  manpage: <a href="manpages/sys/sync.2.rst">sync</a><br>
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.124  manpage: <a href="manpages/sys/sync.2.rst">sync</a><br>
 </p>
 </dd>
 <dt>
@@ -2725,7 +2870,7 @@ umount2
 <p>
   <em>int umount2( const char *mountpoint, int flags)</em><br>
   unmount filesystem<br>
- Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.160
+ Size: ~59B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.164
 </p>
 </dd>
 <dt>
@@ -2735,7 +2880,7 @@ uname
 <p>
   <em>int uname(struct old_utsname *name )</em><br>
   get the name of the current system<br>
- Size: ~41B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.148  manpage: <a href="manpages/gen/uname.3.rst">uname</a><br>
+ Size: ~41B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.152  manpage: <a href="manpages/gen/uname.3.rst">uname</a><br>
 </p>
 </dd>
 </dl>
@@ -2771,7 +2916,7 @@ nanosleep
 <p>
   <em>int nanosleep( struct timespec *rqtp, struct timespec *rmtp)</em><br>
   high resolution sleep<br>
- Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.131  manpage: <a href="manpages/sys/nanosleep.2.rst">nanosleep</a><br>
+ Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.135  manpage: <a href="manpages/sys/nanosleep.2.rst">nanosleep</a><br>
 </p>
 </dd>
 <dt>
@@ -2791,7 +2936,7 @@ ptsname
 <dd>
 <p>
   <em>char *ptsname(int fd)</em><br>
-  Defines: ioctl open write uitodec<br>
+  Defines: open write ioctl uitodec<br>
  get name of the slave pseudo-terminal device<br>
  Size: ~1767B  <a href="../src/pty.c">../src/pty.c</a> l.40  manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -2802,7 +2947,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char *buf, size_t len)</em><br>
-  Defines: write uitodec ioctl open<br>
+  Defines: uitodec open write ioctl<br>
  get the name of the slave pseudoterminal<br>
  Size: ~1748B  <a href="../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -2847,7 +2992,7 @@ vhangup
 <p>
   <em>int DEF_syscall(vhangup,0 )</em><br>
   virtually hangup the current terminal<br>
- <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146
+ <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.150
 </p>
 </dd>
 </dl>
@@ -2862,7 +3007,7 @@ getitimer
 <p>
   <em>int getitimer( int which,  struct itimerval *value)</em><br>
   get and set value of interval timer<br>
- Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.201  manpage: <a href="manpages/sys/getitimer.2.rst">getitimer</a><br>
+ Size: ~53B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.216  manpage: <a href="manpages/sys/getitimer.2.rst">getitimer</a><br>
 </p>
 </dd>
 <dt>
@@ -2872,7 +3017,7 @@ gettimeofday
 <p>
   <em>int gettimeofday( struct timeval *a1, struct timezone *a2)</em><br>
   get the date and time<br>
- Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.132  manpage: <a href="manpages/sys/gettimeofday.2.rst">gettimeofday</a><br>
+ Size: ~47B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.136  manpage: <a href="manpages/sys/gettimeofday.2.rst">gettimeofday</a><br>
 </p>
 </dd>
 <dt>
@@ -2882,7 +3027,7 @@ setitimer
 <p>
   <em>int setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)</em><br>
   set the value of an interval timer<br>
- Size: ~56B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200  manpage: <a href="manpages/sys/getitimer.2.rst">setitimer</a><br>
+ Size: ~56B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.215  manpage: <a href="manpages/sys/getitimer.2.rst">setitimer</a><br>
 </p>
 </dd>
 <dt>
@@ -2904,7 +3049,7 @@ time
 <p>
   <em>int time(unsigned int *a1 )</em><br>
   get time<br>
- Size: ~41B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.206  manpage: <a href="manpages/gen/time.3.rst">time</a><br>
+ Size: ~41B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.221  manpage: <a href="manpages/gen/time.3.rst">time</a><br>
 </p>
 </dd>
 <dt>
@@ -2932,7 +3077,7 @@ utime
 <p>
   <em>int utime( const char *filename, struct utimbuf *times)</em><br>
   set file access and modification times<br>
- Size: ~49B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.189  manpage: <a href="manpages/gen/utime.3.rst">utime</a><br>
+ Size: ~49B  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.186  manpage: <a href="manpages/gen/utime.3.rst">utime</a><br>
 </p>
 </dd>
 </dl>
@@ -3003,6 +3148,24 @@ ansicolors
 </p>
 </dd>
 <dt>
+clone
+</dt>
+<dd>
+<p>
+  <em>int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)</em><br>
+  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
+</p>
+</dd>
+<dt>
+clone_t
+</dt>
+<dd>
+<p>
+  <em>int clone_t(int flags)</em><br>
+  <a href="../include/clone.h">../include/clone.h</a> l.7
+</p>
+</dd>
+<dt>
 def
 </dt>
 <dd>
@@ -3011,6 +3174,79 @@ def
   Set a option flag(s) (bit(s))  manually.<br>
                 param options: e.g. just a, or ( a+h+l) to check for several flags at once<br>
   <a href="../macros/getoptm.h">../macros/getoptm.h</a> l.52
+</p>
+</dd>
+<dt>
+eprintsl
+</dt>
+<dd>
+<p>
+  <em>#define eprintsl(&#8230;) dprints(STDERR_FILENO,<em>VA_ARGS</em>,"\n",0)</em><br>
+  Defines: write<br>
+ print the string(s) supplied as arg(s) and newline to stderr<br>
+  <a href="../include/prints.h">../include/prints.h</a> l.41
+</p>
+</dd>
+<dt>
+group_print
+</dt>
+<dd>
+<p>
+  __<br>
+  Defines: fileno strlen write<br>
+ enable print and related functions<br>
+  This switch enables strlen;<br>
+  but neither globals nor the mini_buf are used.<br>
+  <a href="../macros/defgroups.h">../macros/defgroups.h</a> l.13
+</p>
+</dd>
+<dt>
+group_write
+</dt>
+<dd>
+<p>
+  __<br>
+  Defines: write ewrite<br>
+ write, and related functions<br>
+  these functions do not depend on strlen, <br>
+  or any globals.<br>
+  <a href="../macros/defgroups.h">../macros/defgroups.h</a> l.23
+</p>
+</dd>
+<dt>
+inotify_add_watch
+</dt>
+<dd>
+<p>
+  <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
+  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195
+</p>
+</dd>
+<dt>
+inotify_init
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(inotify_init,0)</em><br>
+  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
+</p>
+</dd>
+<dt>
+inotify_init1
+</dt>
+<dd>
+<p>
+  <em>int inotify_init1( int flags)</em><br>
+  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197
+</p>
+</dd>
+<dt>
+inotify_rm_watch
+</dt>
+<dd>
+<p>
+  <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
+  <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
 </p>
 </dd>
 <dt>
@@ -3030,7 +3266,7 @@ putenv
 <dd>
 <p>
   <em>int putenv( char *string )</em><br>
-  Defines: environ ret_errno<br>
+  Defines: ret_errno environ<br>
  put a string into the environmental vars<br>
   the supplied string&#8217;s pointer is put into the environmental array of pointers.<br>
   Subsequent changes of the string therefore will change the environment,<br>
@@ -6187,7 +6423,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-27 02:20:37 CEST
+ 2020-07-29 02:26:53 CEST
 </small></p>
 </body>
 </html>
