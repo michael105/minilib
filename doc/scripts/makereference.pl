@@ -13,6 +13,7 @@ my $api;
 my $categorized;
 my $cat = 'unsorted';
 
+# read the infile(s)
 foreach my $l ( <A> ){
 		if ( $l =~ /^#(.*)$/ ){
 				$cat = $1;
@@ -103,15 +104,29 @@ sub stripdesc{
 		 return $d;
  }
 
+sub print2{
+		my $F =shift;
+		my $F2 =shift;
+		print $F @_;
+		print $F2 @_;
+}
+
+# write docu
 open A,">","$MLDIR/doc/build/minilib-reference.in.2";
-system("cp $MLDIR/doc/build/minilib-reference.asc.top minilib-reference.asc");
+system("cp $MLDIR/doc/templates/minilib-reference.asc.top minilib-reference.asc");
+system("cp $MLDIR/doc/templates/reference-index.asc.top reference/index.asc");
 open B, ">>", "$MLDIR/doc/minilib-reference.asc";
 
+open INDEX, ">>", "$MLDIR/doc/reference/index.asc";
+
 foreach my $cat ( sort(keys(%{$categorized}))){
+		print INDEX "\n\nlink:$cat.asc[$cat]\n\n";
+		open CAT, ">","$MLDIR/doc/reference/$cat.asc"; 
 		print A "\n#$cat\n\n";
-		print B "\n\n\n\n---\n\n== $cat\n";
+		print B "\n\n\n\n---\n\n== $cat\n\n";
+		print CAT "== $cat\n\n";
 		#print B "-" for ( 0.. length($cat)+1 );
-		print B "\n";
+		# print B "\n";
 
 		foreach my $f ( sort( keys(%{$categorized->{$cat}}) ) ) {
 				my $desc = "";
@@ -153,14 +168,27 @@ foreach my $cat ( sort(keys(%{$categorized}))){
 				$api->{$f}->{D} =~ s/^\s*//;
 
 				print A "f:$f|D:$api->{$f}->{D}|c:$api->{$f}->{c}|x:$desc|\n";
-				$api->{$f}->{o} =~ s/:\+:/ + \n /g;
-				print B "\n\n$f"."::\n\n  _$api->{$f}->{D}_ + \n ".($api->{$f}->{d}? " Defines: $api->{$f}->{d} + \n" :"").
+				if ( exists(  $api->{$f}->{o} ) ){
+						$api->{$f}->{o} =~ s/:\+:/\n/g;
+						#$api->{$f}->{o} =~ s/:\+:/ + \n /g;
+				}
+				print2( B,CAT, "\n\n$f"."::\n\n  _$api->{$f}->{D}_ + \n".
+						($api->{$f}->{d}? " *Defines:* $api->{$f}->{d} + \n" :"").
+						($desc?" *$desc*\n":"").(  $api->{$f}->{o}?"-----\n$api->{$f}->{o}\n-----\n":"") . 
+						($sizes->{$f}? "Size: ~$sizes->{$f}B ":"").
+						($api->{$f}->{l}? "link:$api->{$f}->{l} " :"").
+						($api->{$f}->{m}? "manpage: link:$api->{$f}->{m} +\n" :""));
+				if ( 0 ){
+					print2( B,CAT, "\n\n$f"."::\n\n  _$api->{$f}->{D}_ + \n ".($api->{$f}->{d}? " Defines: $api->{$f}->{d} + \n" :"").
 						($desc?" $desc +\n":"").(  $api->{$f}->{o}?" $api->{$f}->{o} +\n ":"") . 
-						($sizes->{$f}? " Size: ~$sizes->{$f}B ":"").
-						($api->{$f}->{l}? " link:$api->{$f}->{l} " :"").
-						($api->{$f}->{m}? " manpage: link:$api->{$f}->{m} +\n" :"");
+						($sizes->{$f}? "Size: ~$sizes->{$f}B ":"").
+						($api->{$f}->{l}? "link:$api->{$f}->{l} " :"").
+						($api->{$f}->{m}? "manpage: link:$api->{$f}->{m} +\n" :""));
+				}
+	
 				print "f: $f  desc: $desc\n";
 		}
+		close CAT;
 }
 close A;
 close B;
