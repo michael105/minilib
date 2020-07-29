@@ -112,10 +112,13 @@ int match(char *text, const char *re, regex_match *st_match){
 
 								while ( !match(text,re,st_match) ){
 										text++;
-										if ( !*text )
+										if ( !*text ){
+												if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
+														goto __MATCHEND2;
 												return(neg ^ RE_NOMATCH);
+										}
 								}
-
+__MATCHEND2:
 								if ( matchpos ){
 										if ( st_match ){
 												st_match->pos = matchpos;
