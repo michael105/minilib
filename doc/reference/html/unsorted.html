@@ -15,7 +15,6 @@ alphasort
 <dd>
 <p>
   <em>int alphasort( const struct dirent<strong> de1, const struct dirent</strong> de2 )</em><br>
- <strong>scan a directory</strong>
 </p>
 </dd>
 </dl>
@@ -85,8 +84,7 @@ clone
 </dt>
 <dd>
 <p>
-  <em>int clone( int clone_flags,  unsigned long stack,  void <strong>parent_tid,  void *child_tid)</em><br>
- *create a child process</strong>
+  <em>int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)</em><br>
 <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
 </p>
 </dd>
@@ -168,8 +166,7 @@ inotify_add_watch
 </dt>
 <dd>
 <p>
-  <em>int inotify_add_watch( int fd,  const char <strong>pathname,  u32 mask)</em><br>
- *add a watch to an initialized inotify instance</strong>
+  <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
 <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195
 </p>
 </dd>
@@ -179,7 +176,6 @@ inotify_init
 <dd>
 <p>
   <em>int DEF_syscall(inotify_init,0)</em><br>
- <strong>initialize an inotify instance</strong>
 <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
 </p>
 </dd>
@@ -189,7 +185,6 @@ inotify_init1
 <dd>
 <p>
   <em>int inotify_init1( int flags)</em><br>
- <strong>initialize an inotify instance</strong>
 <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197
 </p>
 </dd>
@@ -199,7 +194,6 @@ inotify_rm_watch
 <dd>
 <p>
   <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
- <strong>remove an existing watch from an inotify instance</strong>
 <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
 </p>
 </dd>
@@ -225,7 +219,6 @@ putenv
 <p>
   <em>int putenv( char <strong>string )</em><br>
  *Defines:</strong> ret_errno environ<br>
- <strong>change or add a value to an environment</strong>
 </p>
 </dd>
 </dl>
@@ -317,8 +310,7 @@ vsprintf
 </dt>
 <dd>
 <p>
-  <em>int vsprintf( char <strong>buf, const char *fmt, &#8230; )</em><br>
- *printf, fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf, vdprintf,</strong>
+  <em>int vsprintf( char *buf, const char *fmt, &#8230; )</em><br>
 </p>
 </dd>
 </dl>
@@ -332,7 +324,7 @@ vsprintf
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 14:37:53 UTC
+ 2020-07-29 16:51:36 CEST
 </small></p>
 </body>
 </html>

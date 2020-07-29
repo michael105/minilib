@@ -1,8 +1,11 @@
 
 
-doc: mini-gcc.rst make.rst html/*.html html/minilib-reference.html
+doc: mini-gcc.rst make.rst html/*.html html/minilib-reference.html reference
 
-minilib-reference.asc: build/minilib-reference.asc.top build/minilib-reference.in build/minilib-reference.sortme.1
+reference: minilib-reference.asc
+	cd reference && make once && make
+
+minilib-reference.asc: templates/minilib-reference.asc.top build/minilib-reference.in build/minilib-reference.sortme.1
 	./scripts/makereference.pl
 
 html/minilib-reference.html: minilib-reference.asc
