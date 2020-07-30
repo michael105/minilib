@@ -2,7 +2,7 @@
 mini_start
 mini_writes
 mini_puts
-mini_fprintf
+mini_printf
 mini_itodec
 mini_atoi
 mini_buf 256

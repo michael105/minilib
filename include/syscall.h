@@ -183,7 +183,7 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 // syscalls with more than 4 args may not be optimized nor inlined.
 // register assignment gets optimized out otherways.
 #define REAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile  __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
+		int volatile  name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -200,7 +200,7 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 				return( sysret );\
 		}
 #define REAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
+		int volatile name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( sysret );\
@@ -223,7 +223,7 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 		}
 
 #define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile __attribute__((optimize("O0"))) sys##name( __VA_ARGS__ ){\
+		int volatile sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -243,7 +243,7 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 				//return( (sysret<0) ? -1 : sysret );
 
 #define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile __attribute__((optimize("O0"))) sys##name( __VA_ARGS__ ){\
+		int volatile sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
 				return( sysret );\

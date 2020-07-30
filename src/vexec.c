@@ -25,6 +25,7 @@ int vexec( const char* path, char* const* argv, char* const* envp ){
 //+doc execute a path, wait until the executed file exits, 
 // do not write any output of the process. (close stdout)
 // Deviating of system() an absolute pathname is taken.
+//+depends seterrno
 //+def
 int vexec_q( const char* path, char* const* argv, char* const* envp ){
 		int pid = vfork();
@@ -32,7 +33,7 @@ int vexec_q( const char* path, char* const* argv, char* const* envp ){
 		if ( pid == 0 ){
 				close(1);
 				int ret = execve(path, argv, envp );
-				seterrno(ret)
+				seterrno(ret);
 				exit(ret); // exit with failure
 		}
 
