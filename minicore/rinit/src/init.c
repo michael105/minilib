@@ -60,8 +60,8 @@ return
 #define STAGE2 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test2.sh"
 #define STAGE3 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test3.sh"
 #else
-#define STAGE1 "/rd/rbin/rinit.boot"
-#define STAGE2 "/rd/rbin/rinit.run"
+#define STAGE1 "/etc/rinit/rinit.boot"
+#define STAGE2 "/etc/rinit/rinit.run"
 #define STAGE3 "/etc/rinit/3"
 #endif
 

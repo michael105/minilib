@@ -34,19 +34,19 @@ extern int errno;
 
 #endif
 
-void opt_fence(void*p,...);
+//void opt_fence(void*p,...);
 
 #ifndef OPTFENCE
 //+doc prevent optimizing of registers
 // the macro OPTFENCE(...) can be invoked with any parameter.
 // The parameters will get calculated
 //void __attribute__((cold)) opt_fence(void*p,...);
-//static void __attribute__((noipa,cold)) opt_fence(void*p,...){}
+static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 #define _optjmp(a,b) asm( a "OPTFENCE_"#b )
 #define _optlabel(a) asm( "OPTFENCE_" #a ":" )
 #define __optfence(a,...) _optjmp("jmp ", a ); opt_fence(__VA_ARGS__); _optlabel(a)
-//#define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
-#define OPTFENCE(...) opt_fence(__VA_ARGS__)
+#define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
+//#define OPTFENCE(...) opt_fence(__VA_ARGS__)
 #endif
 
 
@@ -183,7 +183,7 @@ void opt_fence(void*p,...);
 // syscalls with more than 4 args may not be optimized nor inlined.
 // register assignment gets optimized out otherways.
 #define REAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile  name( __VA_ARGS__ ){\
+		int volatile  __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -200,7 +200,7 @@ void opt_fence(void*p,...);
 				return( sysret );\
 		}
 #define REAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile  name( __VA_ARGS__ ){\
+		int volatile __attribute__((optimize("O0"))) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
 				return( sysret );\
@@ -223,7 +223,7 @@ void opt_fence(void*p,...);
 		}
 
 #define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile  sys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((optimize("O0"))) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
 				if ( sysret<0){\
@@ -243,7 +243,7 @@ void opt_fence(void*p,...);
 				//return( (sysret<0) ? -1 : sysret );
 
 #define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
-		int volatile  sys##name( __VA_ARGS__ ){\
+		int volatile __attribute__((optimize("O0"))) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
 				return( sysret );\

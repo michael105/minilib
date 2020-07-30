@@ -672,5 +672,5 @@ int sysret;
 #include "minilib/src/sigaction.c"
 #endif
 
-void __attribute__((naked)) opt_fence(void*p,...){}
+//void __attribute__((naked)) opt_fence(void*p,...){}
 #endif
