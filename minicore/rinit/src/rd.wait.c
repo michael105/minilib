@@ -10,7 +10,7 @@ mini_strncpy
 
 HEADERGUARDS
 OPTFLAG -Os
-LDSCRIPT text_and_bss
+#LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
 return

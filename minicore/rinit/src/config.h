@@ -16,7 +16,8 @@
 #define GETTY "/rd/bin/getty"
 
 
-#define PATH "/rd/rbin:/bin:/sbin:/usr/bin:/usr/sbin:/rd/bin"
+#define PATH "/bin:/sbin:/usr/bin:/usr/sbin:/rd/bin"
+//#define PATH "/rd/rbin:/bin:/sbin:/usr/bin:/usr/sbin:/rd/bin"
 
 
 #define SERVICEPATH "/rd/run/"

@@ -1,3 +1,8 @@
+#if 0
+source minilib.conf
+return
+#endif
+
 // run all executables within /etc/rinit/boot
 
 #include "config.h"

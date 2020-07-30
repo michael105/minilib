@@ -2,9 +2,17 @@
 // This is somewhere between a fully fledged expression machine,
 // and a simplicistic solution.
 // The engine matches from left to right,
-// so no backtracking is done.
+// no backtracking is done. (Besides the matching %'s,
+// which are callen right to left)
+//
 // It is a compromise between performance, size
 // and capabilities.
+// The logic is different of a "regular" regular expression
+// machine, but has advantages (and disadvantages).
+// I believe, the main advantage is the easiness of adding callbacks,
+// and write your own logic within these. 
+// Performance might be better as well overall,
+// but this depends also on the expressions.
 //
 // matches: 
 // 
@@ -47,7 +55,8 @@
 //  This will not have an effect onto the current matching,
 //  even if text is e.g. deleted by writing 0's.
 //  The matched positions are called in reverse order.
-//  (The last matched % in the regex calls p_match first)
+//  (The last matched % in the regex calls p_match first, 
+//  the first % in the regex from the left will be callen last)
 //
 // supply 0 for p_matched, when you do not need to extract matches.
 // This will treat % in the regex like a *, 
@@ -58,14 +67,25 @@
 //
 //
 // &[1] .. &[9]
-//  call p_match_char
+//  "match" like a '?' and call p_match_char
 //  p_match_char has to return either RE_MATCH or RE_NOMATCH.
 //  Therefore it is possible to e.g. rule your own
 //  character classes, defined at runtime, 
-//  or do further tricks like changing the matched char.
+//  or do further tricks like changing the matched char,
+//  match several chars, andsoon.
 //  When returning RE_NOMATCH,
 //  it is possible, the p_match and p_match_char callbacks are callen several times,
 //  but with different pos or len parameters.
+//
+//  The matching works straight from left to right.
+//  So, a "*&*" will call the callback & for the first char.
+//  When returning RE_NOMATCH, the second char will be matched.
+//  Until either RE_MATCH is returned from the callback,
+//  or the last char has been matched.
+//
+//  Matching several characters is also posssible from within the callback,
+//  but the position within the regex will be incremented by 1 only.
+//
 //
 // supply 0 for p_match_char, when you don't need it.
 // This will treat & in the regex like ?, 

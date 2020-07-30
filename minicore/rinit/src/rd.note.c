@@ -9,7 +9,7 @@ mini_strncpy
 
 HEADERGUARDS
 OPTFLAG -Os
-LDSCRIPT text_and_bss
+#LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
 return
@@ -34,7 +34,8 @@ int main(int argc, char *argv[]){
 		if (argc < 2) {
 				usage();
 		}
-	char fn[256] = SERVICEPATH;
+	char fn[256]; 
+	strcpy(fn,SERVICEPATH);
 	strncpy(fn+sizeof(SERVICEPATH)-1,argv[1],256-sizeof(SERVICEPATH));
 
 	int fd = open( fn, O_RDWR|O_CREAT, 0664 );
