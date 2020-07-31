@@ -7,9 +7,11 @@ html/%.html: %.html %.asc
 
 %.html: %.asc
 	asciidoc -b html4 $< 
-	sed -i -E 's/(href=.*)\.rst/\1.rst.html/' $@
-	sed -i -E 's/(href=.*)\.asc/\1.html/' $@
+	sed -i -E 's/(href=.*)\.rst/\1.rst.html/g' $@
+	sed -i -E 's/\.asc/.html/g' $@
+	#sed -i -E 's/(href=.*)\.asc/\1.html/g' $@
 	#rm $@e
 
 once: 
 	sed -i -E 's/(link:..\/)/\1..\//g' *.asc
+	#sed -i -E 's/(link:.*)\.asc/\1.html/g' *.asc

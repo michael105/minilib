@@ -8,7 +8,17 @@
 <body>
 <hr>
 <h2><a name="_x64_syscalls"></a>x64-syscalls</h2>
-<dl>
+<p>In order to enable the macros of the syscalls,<br>
+please enable the configuration switch <em>mini_syscalls</em>.</p>
+<p>Please note, most of the naked syscalls are not tested.<br>
+It might happen, amongst other problems,
+that some of the types of the arguments are
+just predeclared, and no definition is given.</p>
+<p>When errno is used (via the config switch mini_errno),
+the syscalls return -1 on error and set errno.</p>
+<p>If errno isn&#8217;t defined, the negative value of errno is returned
+on error.</p>
+<a name="sys__sysctl"></a><dl>
 <dt>
 sys__sysctl
 </dt>
@@ -119,11 +129,12 @@ sys_brk
 </p>
 </dd>
 </dl>
+<a name="sys_brk"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the kernel syscall brk.</code></pre>
 </td></tr></table>
 <p><a href="../../src/brk.c">../src/brk.c</a> l.6</p>
-<dl>
+<a name="sys_capget"></a><dl>
 <dt>
 sys_capget
 </dt>
@@ -3076,7 +3087,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

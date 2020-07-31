@@ -97,6 +97,34 @@ ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsi
 mini_addons.h
 ==========
 
+OPTFENCE       static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...);
+
+               prevent gcc to optimize away registers and variables
+              the macro OPTFENCE(...) can be invoked with any parameter.
+              The parameters will get calculated, even if gcc doesn't recognize
+              the use of the parameters, e.g. cause they are needed for an inlined asm syscall.
+             
+              The macro translates to an asm jmp and a function call to the function 
+              opt_fence, which is defined with the attribute "noipa" -
+              (the compiler "forgets" the function body, so gcc is forced
+              to generate all arguments for the function)
+              The generated asm jump hops over the call to the function,
+              but this gcc doesn't recognize.
+             
+              This generates some overhead, 
+              (a few (never reached) bytes for setting up the function call, and the jmp)
+              but I didn't find any other solution,
+              which gcc wouldn't cut for optimizations from time to time.
+              (volatile, volatile asm, optimize attributes, 
+              andsoon have all shown up to be unreliable - sometimes(!)).
+             
+              Had some fun debugging these bugs, which naturally showed up only sometimes.
+              (Many syscalls also work with scrambled arguments..)
+              And, I believe it IS a compiler bug. 
+              Volatile should be volatile for sure, not only sometimes.
+              I mean, why the heck do I write volatile?? 
+               (include/syscall.h: 65)
+
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
                (src/itobin.c: 8)
@@ -294,9 +322,17 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
-              so no backtracking is done.
+              no backtracking is done. (Besides the matching %'s,
+              which are callen right to left)
+             
               It is a compromise between performance, size
               and capabilities.
+              The logic is different of a "regular" regular expression
+              machine, but has advantages (and disadvantages).
+              I'd say, the main advantage is the easiness of adding callbacks,
+              and defining your own matching/logic within these. 
+              Performance might be better as well overall,
+              but this depends also on the expressions.
              
               matches: 
               
@@ -339,7 +375,8 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                This will not have an effect onto the current matching,
                even if text is e.g. deleted by writing 0's.
                The matched positions are called in reverse order.
-               (The last matched % in the regex calls p_match first)
+               (The last matched % in the regex calls p_match first, 
+               the first % in the regex from the left will be callen last)
              
               supply 0 for p_matched, when you do not need to extract matches.
               This will treat % in the regex like a *, 
@@ -350,20 +387,67 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
              
              
               &[1] .. &[9]
-               call p_match_char
-               p_match_char has to return either RE_MATCH or RE_NOMATCH.
+               "match" like a '?' and call p_match_char
+               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+               or a number of the count of chars, which have been matched.
+             
                Therefore it is possible to e.g. rule your own
                character classes, defined at runtime, 
-               or do further tricks like changing the matched char.
+               or do further tricks like changing the matched chars,
+               match several chars, andsoon.
                When returning RE_NOMATCH,
                it is possible, the p_match and p_match_char callbacks are callen several times,
                but with different pos or len parameters.
+             
+               The matching works straight from left to right.
+               So, a "*&*" will call the callback & for the first char.
+               When returning RE_NOMATCH, the second char will be matched.
+               Until either RE_MATCH is returned from the callback,
+               or the last char has been matched.
+             
+               Matching several characters is also posssible from within the callback,
+               the position within the text will be incremented by that number,
+               you return from the callback.
+             
+               When returning RE_MATCHEND from the callback, 
+               the whole regular expression is aborted, and returns with matched;
+               no matter, if there are chars left in the expression.
+             
+             
+               The difference between % and & is the logic.
+               % matches nongreedy, and has to check therefore the right side of the star
+               for its matching.
+               Possibly this has to be repeated, when following chars do not match.
+             
+               & is matched straight from left to right.
+               Whatever number you return, the textpointer will be incremented by that value.
+               However, a & isn't expanded on it's own. ( what a % is ).
+               e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
+               only, when you return '2' from the callback.
+             
+               Performancewise, matching with & is faster,
+               since the % has on its right side to be matched
+               with recursing calls of ext_match.
+             
+              When using closures for the callbacks, you will possibly have to
+              enable an executable stack for the trampoline code
+              of gcc. Here, gcc complains about that. 
+              For setting this bit, have a look into the ldscripts in the folder
+              with the same name.
              
               supply 0 for p_match_char, when you don't need it.
               This will treat & in the regex like ?, 
               and match a following digit (0..9) in the text,
               a following digit (0..9) in the regex is ignored.
               
+              -----
+              In general, you have to somehow invert the logic of regular expressions
+              when using ext_match.
+              e.g. when matching the parameter 'runlevel=default' at the kernel's
+              commandline, a working regular expression would be
+              "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+              For matching e.g. numbers, you'd most possibly best of
+              with writing your own & callback.
              
               returns: 1 on match, 0 on no match
               ( RE_MATCH / RE_NOMATCH )
@@ -386,18 +470,17 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                However, since truth is negated as well, there's a problem,
                cause it's now 'false', but 'false' is true. This is very close
                to proving 42 is the answer. What is the escape velocity
-               in km/s out of the solar system, btw..
+               in km/s out of the solar system, btw.
              
                (I'm not kidding here. Just don't do a regex with !* or !?..
                And, please, do not ask me what is going to happen when the impossible
-               gets possibilized. I have to point at the according sentences of the BSD license;
-               there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
+               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
              
                A "!+" will translate into nongreedy matching of any char, however;
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/ext_match.c: 110)
+               (src/ext_match.c: 165)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -443,7 +526,13 @@ group_print
               but neither globals nor the mini_buf are used.
                (macros/defgroups.h: 13)
 
+group_printf   //
+
+               printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
+               (macros/defgroups.h: 29)
+
 group_write    
+
                write, and related functions
               these functions do not depend on strlen, 
               or any globals.
@@ -471,30 +560,6 @@ itooct         int itooct(int i, char *buf);
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 75)
-
-macro          static void __attribute__((noipa,cold)) optimization_fence(void*p){}
-
-               prevent optimizations.
-              cast a var to void*, and calling this,
-              leaves the compiler unknown on what he can strip.
-              (noipa) means the compiler doesn't know, what the function itself does.
-              (the function does nothing, but don't tell that gcc, please..)
-              therefore, everything used as parameter to this function,
-              will be calculated, defined, and so on before.
-              It's used for the globals, 
-              shich are pushed within _start onto the stack.
-              since _start itself only provides a global pointer,
-              and initialitzes some of the globals,
-              but doesn't use them again,
-              this construction is needed.
-              more funnily, the function will never be called.
-              It's past the asm inline syscall to exit.
-              But again, luckily gcc doesn't know.
-              All other options, like having the globals volatile, 
-              setting the optimization flag of _start to 0, 
-              having a volatile asm call with the globals as param, and so on,
-              have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 90)
 
 match          int match(char *text, const char *re, regex_match *st_match);
 
@@ -575,6 +640,30 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
                (src/dirent/opendir.c: 10)
+
+optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
+
+               prevent optimizations.
+              cast a var to void*, and calling this,
+              leaves the compiler unknown on what he can strip.
+              (noipa) means the compiler doesn't know, what the function itself does.
+              (the function does nothing, but don't tell that gcc, please..)
+              therefore, everything used as parameter to this function,
+              will be calculated, defined, and so on before.
+              It's used for the globals, 
+              shich are pushed within _start onto the stack.
+              since _start itself only provides a global pointer,
+              and initialitzes some of the globals,
+              but doesn't use them again,
+              this construction is needed.
+              more funnily, the function will never be called.
+              It's past the asm inline syscall to exit.
+              But again, luckily gcc doesn't know.
+              All other options, like having the globals volatile, 
+              setting the optimization flag of _start to 0, 
+              having a volatile asm call with the globals as param, and so on,
+              have been useless. All after all, seems to me, ai has it's restrictions.
+               (include/minilib_global.h: 90)
 
 posix_openpt   int posix_openpt(int flags);
 

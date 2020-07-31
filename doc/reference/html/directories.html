@@ -8,7 +8,24 @@
 <body>
 <hr>
 <h2><a name="_directories"></a>directories</h2>
-<dl>
+<a name="alphasort"></a><dl>
+<dt>
+alphasort
+</dt>
+<dd>
+<p>
+  <em>int alphasort( const struct dirent<strong> de1, const struct dirent</strong> de2 )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>Sort dirents by name.
+ Deviating of the standard,
+ the asciitables is used for the comparison
+ (using strcmp)</code></pre>
+</td></tr></table>
+<p><a href="../../src/dirent/alphasort.c">../src/dirent/alphasort.c</a> l.7 manpage: <a href="manpages/gen/scandir.3.rst.html">alphasort</a><br></p>
+<a name="basename"></a><dl>
 <dt>
 basename
 </dt>
@@ -39,30 +56,21 @@ dirbuf
 </p>
 </dd>
 </dl>
+<a name="dirbuf"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the switch for defining the dirbuf.
  used internally</code></pre>
 </td></tr></table>
 <p><a href="../../include/dirent.h">../include/dirent.h</a> l.7</p>
-<dl>
+<a name="dirbufsize"></a><dl>
 <dt>
-dirbufsize 
+dirbufsize
 </dt>
 <dd>
 <p>
-  <em>#ifndef mini_dirbufsize</em><br>
+  __<br>
 </p>
 </dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>the dir stream bufsize
- The size of the buffer can be changed by setting mini_dirbufsize
- to it's size in Bytes. (default 2048)
- The buffer is allocated via malloc,
- therefore mini_buf must be set to a value greater than dirbufsize</code></pre>
-</td></tr></table>
-<p><a href="../../include/dirent.h">../include/dirent.h</a> l.22</p>
-<dl>
 <dt>
 dirfd
 </dt>
@@ -115,6 +123,42 @@ Size: ~65B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 </p>
 </dd>
 <dt>
+inotify_add_watch
+</dt>
+<dd>
+<p>
+  <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195
+</p>
+</dd>
+<dt>
+inotify_init
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(inotify_init,0)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
+</p>
+</dd>
+<dt>
+inotify_init1
+</dt>
+<dd>
+<p>
+  <em>int inotify_init1( int flags)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197
+</p>
+</dd>
+<dt>
+inotify_rm_watch
+</dt>
+<dd>
+<p>
+  <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
+</p>
+</dd>
+<dt>
 mkdir
 </dt>
 <dd>
@@ -130,7 +174,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> close write brk open dirbuf<br>
+ *Defines:</strong> close brk write dirbuf open<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
@@ -141,7 +185,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> brk open dirbuf close<br>
+ *Defines:</strong> dirbuf open close brk<br>
 <a href="../../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -151,11 +195,12 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> dirbuf getdents<br>
+ *Defines:</strong> getdents dirbuf<br>
  <strong>read a directory</strong>
 </p>
 </dd>
 </dl>
+<a name="readdir"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>read a directory.
  return the next dirent, or 0, if the end is reached.
@@ -163,7 +208,7 @@ readdir
  if mini_errno is not defined, return -errno on error</code></pre>
 </td></tr></table>
 <p>Size: ~133B <a href="../../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.10 manpage: <a href="manpages/gen/directory.3.rst.html">readdir</a><br></p>
-<dl>
+<a name="rewinddir"></a><dl>
 <dt>
 rewinddir
 </dt>
@@ -190,11 +235,12 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> memcpy brk sbrk errno dirbuf seterrno qsort open getbrk write<br>
+ <strong>Defines:</strong> sbrk seterrno qsort memcpy brk getbrk errno open write dirbuf<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
 </dl>
+<a name="scandir"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>list files and dirs in a directory
 
@@ -223,7 +269,7 @@ scandir
  or the negative errno on error.</code></pre>
 </td></tr></table>
 <p><a href="../../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.35 manpage: <a href="manpages/gen/scandir.3.rst.html">scandir</a><br></p>
-<dl>
+<a name="scandir_bufsize"></a><dl>
 <dt>
 scandir_bufsize
 </dt>
@@ -238,7 +284,7 @@ scandir_bufsize
  (default:4096)</code></pre>
 </td></tr></table>
 <p><a href="../../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.4</p>
-<dl>
+<a name="seekdir"></a><dl>
 <dt>
 seekdir
 </dt>
@@ -264,7 +310,7 @@ Size: ~32B <a href="../../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

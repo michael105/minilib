@@ -9,8 +9,8 @@
 // and capabilities.
 // The logic is different of a "regular" regular expression
 // machine, but has advantages (and disadvantages).
-// I believe, the main advantage is the easiness of adding callbacks,
-// and write your own logic within these. 
+// I'd say, the main advantage is the easiness of adding callbacks,
+// and defining your own matching/logic within these. 
 // Performance might be better as well overall,
 // but this depends also on the expressions.
 //
@@ -68,10 +68,12 @@
 //
 // &[1] .. &[9]
 //  "match" like a '?' and call p_match_char
-//  p_match_char has to return either RE_MATCH or RE_NOMATCH.
+//  p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+//  or a number of the count of chars, which have been matched.
+//
 //  Therefore it is possible to e.g. rule your own
 //  character classes, defined at runtime, 
-//  or do further tricks like changing the matched char,
+//  or do further tricks like changing the matched chars,
 //  match several chars, andsoon.
 //  When returning RE_NOMATCH,
 //  it is possible, the p_match and p_match_char callbacks are callen several times,
@@ -84,14 +86,48 @@
 //  or the last char has been matched.
 //
 //  Matching several characters is also posssible from within the callback,
-//  but the position within the regex will be incremented by 1 only.
+//  the position within the text will be incremented by that number,
+//  you return from the callback.
 //
+//  When returning RE_MATCHEND from the callback, 
+//  the whole regular expression is aborted, and returns with matched;
+//  no matter, if there are chars left in the expression.
+//
+//
+//  The difference between % and & is the logic.
+//  % matches nongreedy, and has to check therefore the right side of the star
+//  for its matching.
+//  Possibly this has to be repeated, when following chars do not match.
+//
+//  & is matched straight from left to right.
+//  Whatever number you return, the textpointer will be incremented by that value.
+//  However, a & isn't expanded on it's own. ( what a % is ).
+//  e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
+//  only, when you return '2' from the callback.
+//
+//  Performancewise, matching with & is faster,
+//  since the % has on its right side to be matched
+//  with recursing calls of ext_match.
+//
+// When using closures for the callbacks, you will possibly have to
+// enable an executable stack for the trampoline code
+// of gcc. Here, gcc complains about that. 
+// For setting this bit, have a look into the ldscripts in the folder
+// with the same name.
 //
 // supply 0 for p_match_char, when you don't need it.
 // This will treat & in the regex like ?, 
 // and match a following digit (0..9) in the text,
 // a following digit (0..9) in the regex is ignored.
 // 
+// -----
+// In general, you have to somehow invert the logic of regular expressions
+// when using ext_match.
+// e.g. when matching the parameter 'runlevel=default' at the kernel's
+// commandline, a working regular expression would be
+// "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+// For matching e.g. numbers, you'd most possibly best of
+// with writing your own & callback.
 //
 // returns: 1 on match, 0 on no match
 // ( RE_MATCH / RE_NOMATCH )
@@ -114,12 +150,11 @@
 //  However, since truth is negated as well, there's a problem,
 //  cause it's now 'false', but 'false' is true. This is very close
 //  to proving 42 is the answer. What is the escape velocity
-//  in km/s out of the solar system, btw..
+//  in km/s out of the solar system, btw.
 //
 //  (I'm not kidding here. Just don't do a regex with !* or !?..
 //  And, please, do not ask me what is going to happen when the impossible
-//  gets possibilized. I have to point at the according sentences of the BSD license;
-//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
+//  gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
 //
 //  A "!+" will translate into nongreedy matching of any char, however;
 //  "%!+" will match with % everything but the last char;
@@ -172,10 +207,19 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 										*re++;
 								}
 
-								if ( match_char ){
-										if ( p_match_char && (p_match_char(n_match,text)==RE_NOMATCH) ){
-												if ( neg ) break;
-												return( RE_NOMATCH );
+								if ( match_char ){ // match &
+										if ( p_match_char ){
+												int m = p_match_char(n_match,text);
+												if ( m==RE_NOMATCH ){
+														if ( neg ) break;
+														return( RE_NOMATCH );
+												}
+												if ( m==RE_MATCHEND ){
+														return(neg^RE_MATCH);
+												}
+												// m > 0 here. increment text 
+												text=text+m;
+												break;
 										}
 										if ( neg ) return( RE_NOMATCH );
 										break; // matched, also for p_match_char == 0

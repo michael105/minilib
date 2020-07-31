@@ -25,11 +25,16 @@ which translates config options to define flags,<br>
 and pipes the minilib header to gcc.</p>
 <p>The config file is a bash script and can be a separate file,
 or within one of the source files.</p>
-<p>An example is given below:</p>
+<p>Since it is a bash script, it is possible to e.g.<br>
+source other files from within the configuration.</p>
+<p>A simple example is given below:</p>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>#if 0  // has to be the first line
-
+# mini_start is the start routine.
+# Most possibly needed
 mini_start
+
+# define and compile puts
 mini_puts
 
 INCLUDESRC
@@ -37,12 +42,21 @@ INCLUDESRC
 # INCLUDESRC has to be defined for one sourcefile.
 # without it only the defines, and no implementations are parsed.
 
+# shrink the binary with tools/shrinkelf
+SHRINKELF
+
+# use the linker script onlytext
+# meaning, only text and stack sections are loaded
+LDSCRIPT onlytext
+
+# return, and the #endif statement are the last lines of the config
 return
-// return, and the #endif statement are the last lines of the config
 #endif
 
 int main(int argc, char *argv[] ){
-...</code></pre>
+    puts("Hello, world!");
+                return(0);
+}</code></pre>
 </td></tr></table>
 <p>Only functions defined are going to be built.</p>
 <p>There are several examples given within the folder examples,<br>
@@ -148,11 +162,14 @@ LDSCRIPT default
 <dd>
 <p>
         The ldscript to use<br>
-  Can be one of: default, onlytext, textandbss<br>
+  Can be one of: default, onlytext, onlytext.tiny, textandbss<br>
   Defines, which executable sections are going to be built.<br>
   <strong>default</strong>: .text .data .rodata .bss (.stack)<br>
+  <strong>textandbss</strong>: .text .bss (.stack)<br>
   <strong>onlytext</strong>: .text (.stack)<br>
-  <strong>textandbss</strong>: .text .bss (.stack)
+        <strong>onlytext.tiny</strong>: .text (the stack is defined by the kernel, and made executable)<br>
+           Despite general meaning, an executable stack isn&#8217;t harmful, and even widely used.
+     It just is important (as always), to check user input against e.g. overflows.
 </p>
 </dd>
 <dt>
@@ -176,7 +193,7 @@ DEBUG
 <p>---</p>
 <hr>
 <h2><a name="_conversions"></a>2. conversions</h2>
-<dl>
+<a name="_itobin"></a><dl>
 <dt>
 _itobin
 </dt>
@@ -234,6 +251,7 @@ itoHEX
 </p>
 </dd>
 </dl>
+<a name="itoHEX"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>convert a number to hexadecimal representation with big capitals.
  the conversion assumes a size of 32bits for integers,
@@ -241,7 +259,7 @@ itoHEX
  ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )</code></pre>
 </td></tr></table>
 <p>Size: ~250B <a href="../src/itohex.c">../src/itohex.c</a> l.65</p>
-<dl>
+<a name="itobin"></a><dl>
 <dt>
 itobin
 </dt>
@@ -259,7 +277,7 @@ itobin
    -2    11111111111111111111111111111110, ...)</code></pre>
 </td></tr></table>
 <p><a href="../src/itobin.c">../src/itobin.c</a> l.46</p>
-<dl>
+<a name="itodec"></a><dl>
 <dt>
 itodec
 </dt>
@@ -279,6 +297,7 @@ itohex
 </p>
 </dd>
 </dl>
+<a name="itohex"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>convert a number to hexadecimal representation.
  the conversion assumes a size of 32bits for integers,
@@ -286,7 +305,22 @@ itohex
  ( -1 is 0xffffffff, -2 0xfffffffe, ... )</code></pre>
 </td></tr></table>
 <p>Size: ~247B <a href="../src/itohex.c">../src/itohex.c</a> l.53</p>
-<dl>
+<a name="itooct"></a><dl>
+<dt>
+itooct
+</dt>
+<dd>
+<p>
+  <em>int itooct(int i, char *buf)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>convert int to octal
+ return the number of chars written.</code></pre>
+</td></tr></table>
+<p><a href="../src/itooct.c">../src/itooct.c</a> l.4</p>
+<a name="ltodec"></a><dl>
 <dt>
 ltodec
 </dt>
@@ -306,12 +340,13 @@ strtol
 </p>
 </dd>
 </dl>
+<a name="strtol"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>conversion
  doesn't check for overflow(!)</code></pre>
 </td></tr></table>
 <p>Size: ~252B <a href="../src/strtol.c">../src/strtol.c</a> l.5 manpage: <a href="manpages/stdlib/strtol.3.rst">strtol</a><br></p>
-<dl>
+<a name="uitodec"></a><dl>
 <dt>
 uitodec
 </dt>
@@ -326,7 +361,7 @@ uitodec
  prec: precision, e.g. 4=&gt; 0087</code></pre>
 </td></tr></table>
 <p><a href="../src/itodec.c">../src/itodec.c</a> l.8</p>
-<dl>
+<a name="ultodec"></a><dl>
 <dt>
 ultodec
 </dt>
@@ -340,7 +375,24 @@ Size: ~293B <a href="../src/ltodec.c">../src/ltodec.c</a> l.6
 <p>---</p>
 <hr>
 <h2><a name="_directories"></a>3. directories</h2>
-<dl>
+<a name="alphasort"></a><dl>
+<dt>
+alphasort
+</dt>
+<dd>
+<p>
+  <em>int alphasort( const struct dirent<strong> de1, const struct dirent</strong> de2 )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>Sort dirents by name.
+ Deviating of the standard,
+ the asciitables is used for the comparison
+ (using strcmp)</code></pre>
+</td></tr></table>
+<p><a href="../src/dirent/alphasort.c">../src/dirent/alphasort.c</a> l.7 manpage: <a href="manpages/gen/scandir.3.rst">alphasort</a><br></p>
+<a name="basename"></a><dl>
 <dt>
 basename
 </dt>
@@ -371,30 +423,21 @@ dirbuf
 </p>
 </dd>
 </dl>
+<a name="dirbuf"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the switch for defining the dirbuf.
  used internally</code></pre>
 </td></tr></table>
 <p><a href="../include/dirent.h">../include/dirent.h</a> l.7</p>
-<dl>
+<a name="dirbufsize"></a><dl>
 <dt>
-dirbufsize 
+dirbufsize
 </dt>
 <dd>
 <p>
-  <em>#ifndef mini_dirbufsize</em><br>
+  __<br>
 </p>
 </dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>the dir stream bufsize
- The size of the buffer can be changed by setting mini_dirbufsize
- to it's size in Bytes. (default 2048)
- The buffer is allocated via malloc,
- therefore mini_buf must be set to a value greater than dirbufsize</code></pre>
-</td></tr></table>
-<p><a href="../include/dirent.h">../include/dirent.h</a> l.22</p>
-<dl>
 <dt>
 dirfd
 </dt>
@@ -447,6 +490,42 @@ Size: ~65B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l
 </p>
 </dd>
 <dt>
+inotify_add_watch
+</dt>
+<dd>
+<p>
+  <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195
+</p>
+</dd>
+<dt>
+inotify_init
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(inotify_init,0)</em><br>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
+</p>
+</dd>
+<dt>
+inotify_init1
+</dt>
+<dd>
+<p>
+  <em>int inotify_init1( int flags)</em><br>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197
+</p>
+</dd>
+<dt>
+inotify_rm_watch
+</dt>
+<dd>
+<p>
+  <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
+</p>
+</dd>
+<dt>
 mkdir
 </dt>
 <dd>
@@ -462,7 +541,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> close write brk open dirbuf<br>
+ *Defines:</strong> close brk write dirbuf open<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -473,7 +552,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> brk open dirbuf close<br>
+ *Defines:</strong> dirbuf open close brk<br>
 <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -483,11 +562,12 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> dirbuf getdents<br>
+ *Defines:</strong> getdents dirbuf<br>
  <strong>read a directory</strong>
 </p>
 </dd>
 </dl>
+<a name="readdir"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>read a directory.
  return the next dirent, or 0, if the end is reached.
@@ -495,7 +575,7 @@ readdir
  if mini_errno is not defined, return -errno on error</code></pre>
 </td></tr></table>
 <p>Size: ~133B <a href="../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.10 manpage: <a href="manpages/gen/directory.3.rst">readdir</a><br></p>
-<dl>
+<a name="rewinddir"></a><dl>
 <dt>
 rewinddir
 </dt>
@@ -522,11 +602,12 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> memcpy brk sbrk errno dirbuf seterrno qsort open getbrk write<br>
+ <strong>Defines:</strong> sbrk seterrno qsort memcpy brk getbrk errno open write dirbuf<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
 </dl>
+<a name="scandir"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>list files and dirs in a directory
 
@@ -555,7 +636,7 @@ scandir
  or the negative errno on error.</code></pre>
 </td></tr></table>
 <p><a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.35 manpage: <a href="manpages/gen/scandir.3.rst">scandir</a><br></p>
-<dl>
+<a name="scandir_bufsize"></a><dl>
 <dt>
 scandir_bufsize
 </dt>
@@ -570,7 +651,7 @@ scandir_bufsize
  (default:4096)</code></pre>
 </td></tr></table>
 <p><a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.4</p>
-<dl>
+<a name="seekdir"></a><dl>
 <dt>
 seekdir
 </dt>
@@ -592,10 +673,10 @@ Size: ~32B <a href="../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 man
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="telldir"></a>---</p>
 <hr>
 <h2><a name="_errno"></a>4. errno</h2>
-<dl>
+<a name="errno"></a><dl>
 <dt>
 errno
 </dt>
@@ -614,6 +695,7 @@ errno_str
 </p>
 </dd>
 </dl>
+<a name="errno_str"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>convert errno to str, with 3 chars length
  ending the string (global)
@@ -621,14 +703,14 @@ errno_str
  errnum must be &lt;200.</code></pre>
 </td></tr></table>
 <p>Size: ~123B <a href="../src/errno_str.c">../src/errno_str.c</a> l.7</p>
-<dl>
+<a name="exit_errno"></a><dl>
 <dt>
 exit_errno
 </dt>
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> write exit errno_str execve<br>
+ <strong>Defines:</strong> write execve errno_str exit<br>
 </p>
 </dd>
 </dl>
@@ -648,18 +730,49 @@ exit_errno
  the absolute value is supplied to errno.</code></pre>
 </td></tr></table>
 <p><a href="../src/exit_errno.c">../src/exit_errno.c</a> l.17</p>
-<dl>
+<a name="perror"></a><dl>
 <dt>
 perror
 </dt>
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> strlen errno fileno write strerror<br>
+ *Defines:</strong> strerror errno fileno strlen write<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
 </dd>
+<dt>
+ret_errno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+</p>
+</dd>
+</dl>
+<a name="ret_errno"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>This macro expands to a return, and
+ (when mini_errno is defined) returns -1 and sets errno,
+ or returns the negative errno value.</code></pre>
+</td></tr></table>
+<p><a href="../include/ret_errno.h">../include/ret_errno.h</a> l.5</p>
+<a name="seterrno"></a><dl>
+<dt>
+seterrno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>set errno, but only when errno is defined.</code></pre>
+</td></tr></table>
+<p><a href="../include/seterrno.h">../include/seterrno.h</a> l.3</p>
+<a name="strerror"></a><dl>
 <dt>
 strerror
 </dt>
@@ -678,12 +791,13 @@ verbose_errstr
 </p>
 </dd>
 </dl>
+<a name="verbose_errstr"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>verbose error (errno) string.
  this adds about 3.5kB to the compiled binary(!)</code></pre>
 </td></tr></table>
 <p><a href="../include/errstr.h">../include/errstr.h</a> l.8</p>
-<dl>
+<a name="verbose_errstr2"></a><dl>
 <dt>
 verbose_errstr2
 </dt>
@@ -702,14 +816,14 @@ verbose_errstr2
 <p>---</p>
 <hr>
 <h2><a name="_files"></a>5. files</h2>
-<dl>
+<a name="_fopen"></a><dl>
 <dt>
 _fopen
 </dt>
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
- *Defines:</strong> close open fileno<br>
+ *Defines:</strong> fileno open close<br>
 </p>
 </dd>
 </dl>
@@ -717,7 +831,7 @@ _fopen
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~316B <a href="../src/fopen.c">../src/fopen.c</a> l.12</p>
-<dl>
+<a name="access"></a><dl>
 <dt>
 access
 </dt>
@@ -890,6 +1004,7 @@ open
 </p>
 </dd>
 </dl>
+<a name="open"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>open or create a file.
  warning: when using the flag O_CREAT,
@@ -899,7 +1014,7 @@ open
  the flag showing up as "-T" means..)</code></pre>
 </td></tr></table>
 <p>Size: ~124B <a href="../src/open.c">../src/open.c</a> l.19 manpage: <a href="manpages/sys/open.2.rst">open</a><br></p>
-<dl>
+<a name="readahead"></a><dl>
 <dt>
 readahead
 </dt>
@@ -981,17 +1096,17 @@ Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="unlink"></a>---</p>
 <hr>
 <h2><a name="_input"></a>6. input</h2>
-<dl>
+<a name="fgetc"></a><dl>
 <dt>
 fgetc
 </dt>
 <dd>
 <p>
   <em>int fgetc(FILE <strong>F)</em><br>
- *Defines:</strong> read fileno<br>
+ *Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 Size: ~57B <a href="../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="manpages/stdio/getc.3.rst">fgetc</a><br>
 </p>
@@ -1013,7 +1128,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 <a href="../include/fgetc.h">../include/fgetc.h</a> l.26 manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -1024,7 +1139,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a</strong>
 <a href="../include/fgetc.h">../include/fgetc.h</a> l.29 manpage: <a href="manpages/stdio/getc.3.rst">getchar</a><br>
 </p>
@@ -1060,6 +1175,7 @@ ungetc
 </p>
 </dd>
 </dl>
+<a name="ungetc"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>pushes one char back to the stream.
  Overwrites a previously pushed char
@@ -1069,7 +1185,7 @@ ungetc
 <p>---</p>
 <hr>
 <h2><a name="_ipc"></a>7. ipc</h2>
-<dl>
+<a name="kill"></a><dl>
 <dt>
 kill
 </dt>
@@ -1208,7 +1324,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> memcpy write<br>
+ <strong>Defines:</strong> write memcpy<br>
  <strong>signal management</strong>
 Size: ~337B <a href="../src/signal.c">../src/signal.c</a> l.8 manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
@@ -1256,10 +1372,10 @@ Size: ~138B <a href="../src/wait.c">../src/wait.c</a> l.16 manpage: <a href="man
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="waitpid"></a>---</p>
 <hr>
 <h2><a name="_math"></a>8. math</h2>
-<dl>
+<a name="abs"></a><dl>
 <dt>
 abs
 </dt>
@@ -1289,6 +1405,7 @@ djb2_hash
 </p>
 </dd>
 </dl>
+<a name="djb2_hash"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>hashes, from d.j.Bernstein
  (http://www.cse.yorku.ca/~oz/hash.html)
@@ -1299,7 +1416,7 @@ djb2_hash
  Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.</code></pre>
 </td></tr></table>
 <p>Size: ~86B <a href="../src/hashes.c">../src/hashes.c</a> l.10</p>
-<dl>
+<a name="labs"></a><dl>
 <dt>
 labs
 </dt>
@@ -1349,10 +1466,10 @@ Size: ~48B <a href="../src/rand.c">../src/rand.c</a> l.7 manpage: <a href="manpa
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="srand"></a>---</p>
 <hr>
 <h2><a name="_memory"></a>9. memory</h2>
-<dl>
+<a name="brk"></a><dl>
 <dt>
 brk
 </dt>
@@ -1371,7 +1488,7 @@ brk
  returns the negative errno value on error</code></pre>
 </td></tr></table>
 <p>Size: ~66B <a href="../src/brk.c">../src/brk.c</a> l.19 manpage: <a href="manpages/sys/brk.2.rst">brk</a><br></p>
-<dl>
+<a name="free"></a><dl>
 <dt>
 free
 </dt>
@@ -1392,6 +1509,7 @@ free_brk
 </p>
 </dd>
 </dl>
+<a name="free_brk"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>free all memory,
  which has been allocated with malloc_brk.
@@ -1401,7 +1519,7 @@ free_brk
  Then brk() gives an error, return the return value of brk</code></pre>
 </td></tr></table>
 <p><a href="../src/malloc.c">../src/malloc.c</a> l.234</p>
-<dl>
+<a name="getbrk"></a><dl>
 <dt>
 getbrk
 </dt>
@@ -1417,7 +1535,7 @@ getbrk
  or returns the globally saved var</code></pre>
 </td></tr></table>
 <p><a href="../src/brk.c">../src/brk.c</a> l.39</p>
-<dl>
+<a name="malloc"></a><dl>
 <dt>
 malloc
 </dt>
@@ -1485,7 +1603,7 @@ malloc
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
 <p>Size: ~173B <a href="../src/malloc.c">../src/malloc.c</a> l.119 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
-<dl>
+<a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
 </dt>
@@ -1509,7 +1627,7 @@ malloc_brk
  free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
 </td></tr></table>
 <p><a href="../src/malloc.c">../src/malloc.c</a> l.206</p>
-<dl>
+<a name="memcmp"></a><dl>
 <dt>
 memcmp
 </dt>
@@ -1580,6 +1698,7 @@ mmap
 </p>
 </dd>
 </dl>
+<a name="mmap"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>mmap wrapper
  address length is rounded up to a multiple of pagesize (4096 Bytes here)
@@ -1589,7 +1708,7 @@ mmap
  (e.g. -22 for "invalid argument")</code></pre>
 </td></tr></table>
 <p>Size: ~197B <a href="../src/mmap.c">../src/mmap.c</a> l.8 manpage: <a href="manpages/sys/mmap.2.rst">mmap</a><br></p>
-<dl>
+<a name="mprotect"></a><dl>
 <dt>
 mprotect
 </dt>
@@ -1641,6 +1760,7 @@ sbrk
 </p>
 </dd>
 </dl>
+<a name="sbrk"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>Set the new brk, increment/decrement by incr bytes.
  return the old brk on success.
@@ -1649,7 +1769,7 @@ sbrk
  returns the negative errno value on error</code></pre>
 </td></tr></table>
 <p>Size: ~108B <a href="../src/brk.c">../src/brk.c</a> l.57 manpage: <a href="manpages/sys/brk.2.rst">sbrk</a><br></p>
-<dl>
+<a name="splice"></a><dl>
 <dt>
 splice
 </dt>
@@ -1669,6 +1789,7 @@ swap
 </p>
 </dd>
 </dl>
+<a name="swap"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>swap a with b, with 'size' bytes
  swaps integers and longs at once, when size eq sizeof(int/long)</code></pre>
@@ -1677,7 +1798,7 @@ swap
 <p>---</p>
 <hr>
 <h2><a name="_output"></a>10. output</h2>
-<dl>
+<a name="_mprints"></a><dl>
 <dt>
 _mprints
 </dt>
@@ -1688,6 +1809,60 @@ _mprints
 <a href="../src/prints.c">../src/prints.c</a> l.69
 </p>
 </dd>
+<dt>
+ansicolors
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<a name="ansicolors"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>defines for ansicolors at the console, 16 color mode
+the names are:
+ AC_NORM ( white text on black background)
+ AC_BLACK
+ AC_RED
+ AC_GREEN
+ AC_BROWN
+ AC_BLUE
+ AC_MAGENTA
+ AC_MARINE (= AC_CYAN)
+ AC_LGREY
+ AC_WHITE
+ AC_GREY
+ AC_LRED
+ AC_LGREEN
+ AC_YELLOW
+ AC_LBLUE
+ AC_LMAGENTA
+ AC_LMARINE (= AC_LCYAN)
+ AC_LWHITE
+ AC_BGBLACK
+ AC_BGRED
+ AC_BGGREEN
+ AC_BGBROWN
+ AC_BGBLUE
+ AC_BGMAGENTA
+ AC_BGMARINE
+ AC_BGLGREY
+ AC_BGWHITE
+
+ AC_BOLD
+ AC_FAINT
+ AC_CURSIVE
+ AC_UNDERLINE
+ AC_LIGHTBG
+ AC_BLINK
+ AC_INVERTED
+ AC_INVERSE
+
+ ( Faint to inverse are not available at every terminal )</code></pre>
+</td></tr></table>
+<p><a href="../include/ansicolors.h">../include/ansicolors.h</a> l.45</p>
+<a name="dprintf"></a><dl>
 <dt>
 dprintf
 </dt>
@@ -1719,18 +1894,19 @@ eprint
 </p>
 </dd>
 </dl>
+<a name="eprint"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write str to stderr. Needs strlen</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.52</p>
-<dl>
+<a name="eprintfs"></a><dl>
 <dt>
 eprintfs
 </dt>
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> write fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -1739,7 +1915,7 @@ eprintfs
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.100</p>
-<dl>
+<a name="eprintl"></a><dl>
 <dt>
 eprintl
 </dt>
@@ -1754,7 +1930,7 @@ eprintl
 <pre><code>write a newline to stderr</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.61</p>
-<dl>
+<a name="eprints"></a><dl>
 <dt>
 eprints
 </dt>
@@ -1770,7 +1946,22 @@ eprints
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.19</p>
-<dl>
+<a name="eprintsl"></a><dl>
+<dt>
+eprintsl
+</dt>
+<dd>
+<p>
+  <em>#define eprintsl(&#8230;) dprints(STDERR_FILENO,<em>VA_ARGS</em>,"\n",0)</em><br>
+ <strong>Defines:</strong> write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>print the string(s) supplied as arg(s) and newline to stderr</code></pre>
+</td></tr></table>
+<p><a href="../include/prints.h">../include/prints.h</a> l.41</p>
+<a name="eputs"></a><dl>
 <dt>
 eputs
 </dt>
@@ -1785,7 +1976,7 @@ eputs
 <pre><code>write msg to stderr, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.71</p>
-<dl>
+<a name="ewrites"></a><dl>
 <dt>
 ewrites
 </dt>
@@ -1800,14 +1991,14 @@ ewrites
 <pre><code>write the constant str to stderr. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.82</p>
-<dl>
+<a name="fprint"></a><dl>
 <dt>
 fprint
 </dt>
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95
 </p>
 </dd>
@@ -1817,7 +2008,7 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../src/sprintf.c">../src/sprintf.c</a> l.228 manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br>
 </p>
 </dd>
@@ -1827,24 +2018,25 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> strlen fileno write<br>
+ *Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
+<a name="fprintfs"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>prints formatted and unbuffered output to the stream F.
  only %s and %c are recognized.
  no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.</code></pre>
 </td></tr></table>
 <p>Size: ~427B <a href="../src/fprintfs.c">../src/fprintfs.c</a> l.10</p>
-<dl>
+<a name="fprints"></a><dl>
 <dt>
 fprints
 </dt>
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -1853,7 +2045,7 @@ fprints
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.27</p>
-<dl>
+<a name="fputc"></a><dl>
 <dt>
 fputc
 </dt>
@@ -1886,11 +2078,46 @@ fwrites
 </p>
 </dd>
 </dl>
+<a name="fwrites"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to fd. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.88</p>
-<dl>
+<a name="group_print"></a><dl>
+<dt>
+group_print
+</dt>
+<dd>
+<p>
+  __<br>
+ <strong>Defines:</strong> strlen fileno write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>enable print and related functions
+ This switch enables strlen;
+ but neither globals nor the mini_buf are used.</code></pre>
+</td></tr></table>
+<p><a href="../macros/defgroups.h">../macros/defgroups.h</a> l.13</p>
+<a name="group_write"></a><dl>
+<dt>
+group_write
+</dt>
+<dd>
+<p>
+  __<br>
+ <strong>Defines:</strong> write ewrite<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write, and related functions
+ these functions do not depend on strlen,
+ or any globals.</code></pre>
+</td></tr></table>
+<p><a href="../macros/defgroups.h">../macros/defgroups.h</a> l.23</p>
+<a name="print"></a><dl>
 <dt>
 print
 </dt>
@@ -1905,7 +2132,7 @@ print
 <pre><code>write str to stdout. Needs strlen</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.48</p>
-<dl>
+<a name="printf"></a><dl>
 <dt>
 printf
 </dt>
@@ -1923,16 +2150,17 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
+<a name="printfs"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write fmt and arguments to stdout.
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.94</p>
-<dl>
+<a name="printl"></a><dl>
 <dt>
 printl
 </dt>
@@ -1947,7 +2175,7 @@ printl
 <pre><code>write a newline to stdout</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.57</p>
-<dl>
+<a name="prints"></a><dl>
 <dt>
 prints
 </dt>
@@ -1962,7 +2190,7 @@ prints
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.12</p>
-<dl>
+<a name="printsl"></a><dl>
 <dt>
 printsl
 </dt>
@@ -1976,14 +2204,14 @@ printsl
 <pre><code>print the string(s) supplied as arg(s) and newline to stdout</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.35</p>
-<dl>
+<a name="putc"></a><dl>
 <dt>
 putc
 </dt>
 <dd>
 <p>
   <em>#define putc(c,stream) fputc(c,stream)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stream</strong>
 <a href="../include/fputc.h">../include/fputc.h</a> l.19 manpage: <a href="manpages/stdio/putc.3.rst">putc</a><br>
 </p>
@@ -1994,7 +2222,7 @@ putchar
 <dd>
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stdout stream</strong>
 <a href="../include/fputc.h">../include/fputc.h</a> l.16 manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
 </p>
@@ -2005,16 +2233,32 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
 </dl>
+<a name="puts"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write msg to stdout, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
 <p><a href="../include/prints.h">../include/prints.h</a> l.67 manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br></p>
-<dl>
+<a name="shortcolornames"></a><dl>
+<dt>
+shortcolornames
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>short ansi color names
+ all colornames, without the praefix "AC_"</code></pre>
+</td></tr></table>
+<p><a href="../include/ansicolors.h">../include/ansicolors.h</a> l.103</p>
+<a name="snprintf"></a><dl>
 <dt>
 snprintf
 </dt>
@@ -2032,7 +2276,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.100 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
@@ -2047,6 +2291,7 @@ vsnprintf
 </p>
 </dd>
 </dl>
+<a name="vsnprintf"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the function, translating the fmt of printf.
  warning - most possibly you'd like to define besides fprintf, or family,
@@ -2054,7 +2299,23 @@ vsnprintf
  mini_atoi is needed for grouping numbers</code></pre>
 </td></tr></table>
 <p>Size: ~590B <a href="../src/sprintf.c">../src/sprintf.c</a> l.41 manpage: <a href="manpages/stdio/printf.3.rst">vsnprintf</a><br></p>
-<dl>
+<a name="vsprintf"></a><dl>
+<dt>
+vsprintf
+</dt>
+<dd>
+<p>
+  <em>int vsprintf( char *buf, const char *fmt, &#8230; )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write fmt and arguments into buf
+ calls vsnprintf,
+ the size is limited to 4096 by default.</code></pre>
+</td></tr></table>
+<p><a href="../src/vsprintf.c">../src/vsprintf.c</a> l.9 manpage: <a href="manpages/stdio/printf.3.rst">vsprintf</a><br></p>
+<a name="write"></a><dl>
 <dt>
 write
 </dt>
@@ -2075,6 +2336,7 @@ writes
 </p>
 </dd>
 </dl>
+<a name="writes"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to stdout. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
@@ -2082,14 +2344,14 @@ writes
 <p>---</p>
 <hr>
 <h2><a name="_process"></a>11. process</h2>
-<dl>
+<a name="abort"></a><dl>
 <dt>
 abort
 </dt>
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> write getpid memcpy<br>
+ <strong>Defines:</strong> write memcpy getpid<br>
 <a href="../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2103,6 +2365,7 @@ atexit
 </p>
 </dd>
 </dl>
+<a name="atexit"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>register functions, which are callen on exit in reverse order
  the switch mini_atexit takes a optional number,
@@ -2110,7 +2373,25 @@ atexit
  (defaults to 8)</code></pre>
 </td></tr></table>
 <p><a href="../src/atexit.c">../src/atexit.c</a> l.7 manpage: <a href="manpages/stdlib/atexit.3.rst">atexit</a><br></p>
-<dl>
+<a name="clone"></a><dl>
+<dt>
+clone
+</dt>
+<dd>
+<p>
+  <em>int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)</em><br>
+<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
+</p>
+</dd>
+<dt>
+clone_t
+</dt>
+<dd>
+<p>
+  <em>int clone_t(int flags)</em><br>
+<a href="../include/clone.h">../include/clone.h</a> l.7
+</p>
+</dd>
 <dt>
 execl
 </dt>
@@ -2158,7 +2439,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -2169,18 +2450,19 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> execve environ access<br>
  <strong>execute a file</strong>
 </p>
 </dd>
 </dl>
+<a name="execvpe"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>When invoked with a filename, starting with "." or "/",
  interprets this as absolute path. (calls execve with the pathname)
  Looks for file in the PATH environment, othwerise.</code></pre>
 </td></tr></table>
 <p>Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.18</p>
-<dl>
+<a name="fexecve"></a><dl>
 <dt>
 fexecve
 </dt>
@@ -2277,7 +2559,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> vfork wait4 execve environ write<br>
+ <strong>Defines:</strong> write wait4 environ vfork execve<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2288,23 +2570,25 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> wait4 seterrno<br>
+ <strong>Defines:</strong> seterrno wait4<br>
 </p>
 </dd>
 </dl>
+<a name="vexec"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>execute a path, wait until the executed file exits.
  Deviating of system() an absolute pathname is taken.
  sets errno on error.</code></pre>
 </td></tr></table>
 <p><a href="../src/vexec.c">../src/vexec.c</a> l.6</p>
-<dl>
+<a name="vexec_q"></a><dl>
 <dt>
 vexec_q
 </dt>
 <dd>
 <p>
   <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
+ <strong>Defines:</strong> seterrno<br>
 </p>
 </dd>
 </dl>
@@ -2313,8 +2597,8 @@ vexec_q
  do not write any output of the process. (close stdout)
  Deviating of system() an absolute pathname is taken.</code></pre>
 </td></tr></table>
-<p><a href="../src/vexec.c">../src/vexec.c</a> l.29</p>
-<dl>
+<p><a href="../src/vexec.c">../src/vexec.c</a> l.30</p>
+<a name="vfork"></a><dl>
 <dt>
 vfork
 </dt>
@@ -2329,7 +2613,7 @@ vfork
 <p>---</p>
 <hr>
 <h2><a name="_regex"></a>12. regex</h2>
-<dl>
+<a name="ext_match"></a><dl>
 <dt>
 ext_match
 </dt>
@@ -2344,9 +2628,17 @@ ext_match
  This is somewhere between a fully fledged expression machine,
  and a simplicistic solution.
  The engine matches from left to right,
- so no backtracking is done.
+ no backtracking is done. (Besides the matching %'s,
+ which are callen right to left)
+
  It is a compromise between performance, size
  and capabilities.
+ The logic is different of a "regular" regular expression
+ machine, but has advantages (and disadvantages).
+ I'd say, the main advantage is the easiness of adding callbacks,
+ and defining your own matching/logic within these.
+ Performance might be better as well overall,
+ but this depends also on the expressions.
 
  matches:
 
@@ -2389,7 +2681,8 @@ ext_match
   This will not have an effect onto the current matching,
   even if text is e.g. deleted by writing 0's.
   The matched positions are called in reverse order.
-  (The last matched % in the regex calls p_match first)
+  (The last matched % in the regex calls p_match first,
+  the first % in the regex from the left will be callen last)
 
  supply 0 for p_matched, when you do not need to extract matches.
  This will treat % in the regex like a *,
@@ -2400,20 +2693,67 @@ ext_match
 
 
  &amp;[1] .. &amp;[9]
-  call p_match_char
-  p_match_char has to return either RE_MATCH or RE_NOMATCH.
+  "match" like a '?' and call p_match_char
+  p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+  or a number of the count of chars, which have been matched.
+
   Therefore it is possible to e.g. rule your own
   character classes, defined at runtime,
-  or do further tricks like changing the matched char.
+  or do further tricks like changing the matched chars,
+  match several chars, andsoon.
   When returning RE_NOMATCH,
   it is possible, the p_match and p_match_char callbacks are callen several times,
   but with different pos or len parameters.
+
+  The matching works straight from left to right.
+  So, a "*&amp;*" will call the callback &amp; for the first char.
+  When returning RE_NOMATCH, the second char will be matched.
+  Until either RE_MATCH is returned from the callback,
+  or the last char has been matched.
+
+  Matching several characters is also posssible from within the callback,
+  the position within the text will be incremented by that number,
+  you return from the callback.
+
+  When returning RE_MATCHEND from the callback,
+  the whole regular expression is aborted, and returns with matched;
+  no matter, if there are chars left in the expression.
+
+
+  The difference between % and &amp; is the logic.
+  % matches nongreedy, and has to check therefore the right side of the star
+  for its matching.
+  Possibly this has to be repeated, when following chars do not match.
+
+  &amp; is matched straight from left to right.
+  Whatever number you return, the textpointer will be incremented by that value.
+  However, a &amp; isn't expanded on it's own. ( what a % is ).
+  e.g. "x%x" will match 'aa' in xaax, x&amp;x will match the whole expression
+  only, when you return '2' from the callback.
+
+  Performancewise, matching with &amp; is faster,
+  since the % has on its right side to be matched
+  with recursing calls of ext_match.
+
+ When using closures for the callbacks, you will possibly have to
+ enable an executable stack for the trampoline code
+ of gcc. Here, gcc complains about that.
+ For setting this bit, have a look into the ldscripts in the folder
+ with the same name.
 
  supply 0 for p_match_char, when you don't need it.
  This will treat &amp; in the regex like ?,
  and match a following digit (0..9) in the text,
  a following digit (0..9) in the regex is ignored.
 
+ -----
+ In general, you have to somehow invert the logic of regular expressions
+ when using ext_match.
+ e.g. when matching the parameter 'runlevel=default' at the kernel's
+ commandline, a working regular expression would be
+ "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+ For matching e.g. numbers, you'd most possibly best of
+ with writing your own &amp; callback.
 
  returns: 1 on match, 0 on no match
  ( RE_MATCH / RE_NOMATCH )
@@ -2436,20 +2776,19 @@ ext_match
   However, since truth is negated as well, there's a problem,
   cause it's now 'false', but 'false' is true. This is very close
   to proving 42 is the answer. What is the escape velocity
-  in km/s out of the solar system, btw..
+  in km/s out of the solar system, btw.
 
   (I'm not kidding here. Just don't do a regex with !* or !?..
   And, please, do not ask me what is going to happen when the impossible
-  gets possibilized. I have to point at the according sentences of the BSD license;
-  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
+  gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
 
   A "!+" will translate into nongreedy matching of any char, however;
   "%!+" will match with % everything but the last char;
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.110</p>
-<dl>
+<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.165</p>
+<a name="match"></a><dl>
 <dt>
 match
 </dt>
@@ -2519,7 +2858,7 @@ match
 <p>---</p>
 <hr>
 <h2><a name="_streams"></a>13. streams</h2>
-<dl>
+<a name="clearerr"></a><dl>
 <dt>
 clearerr
 </dt>
@@ -2561,11 +2900,12 @@ fdopen
 </p>
 </dd>
 </dl>
+<a name="fdopen"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~323B <a href="../src/fopen.c">../src/fopen.c</a> l.91 manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br></p>
-<dl>
+<a name="feof"></a><dl>
 <dt>
 feof
 </dt>
@@ -2596,11 +2936,12 @@ fflush
 </p>
 </dd>
 </dl>
+<a name="fflush"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync</code></pre>
 </td></tr></table>
 <p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.28 manpage: <a href="manpages/stdio/fflush.3.rst">fflush</a><br></p>
-<dl>
+<a name="fgetpos"></a><dl>
 <dt>
 fgetpos
 </dt>
@@ -2622,18 +2963,19 @@ fileno
 </p>
 </dd>
 </dl>
+<a name="fileno"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>Return the fd nummber of stdin,-out,-err.</code></pre>
 </td></tr></table>
 <p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.56 manpage: <a href="manpages/stdio/ferror.3.rst">fileno</a><br></p>
-<dl>
+<a name="fopen"></a><dl>
 <dt>
 fopen
 </dt>
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> open fileno close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -2642,7 +2984,7 @@ fopen
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~324B <a href="../src/fopen.c">../src/fopen.c</a> l.81 manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br></p>
-<dl>
+<a name="fputs"></a><dl>
 <dt>
 fputs
 </dt>
@@ -2671,16 +3013,17 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> close fileno open<br>
+ *Defines:</strong> fileno open close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
 </dl>
+<a name="freopen"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~320B <a href="../src/fopen.c">../src/fopen.c</a> l.101 manpage: <a href="manpages/stdio/fopen.3.rst">freopen</a><br></p>
-<dl>
+<a name="fseek"></a><dl>
 <dt>
 fseek
 </dt>
@@ -2735,12 +3078,13 @@ setbuf
 </p>
 </dd>
 </dl>
+<a name="setbuf"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>dummy function.
  There is no buffering implemented for the streams yet.</code></pre>
 </td></tr></table>
 <p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.211 manpage: <a href="manpages/stdio/setbuf.3.rst">setbuf</a><br></p>
-<dl>
+<a name="setvbuf"></a><dl>
 <dt>
 setvbuf
 </dt>
@@ -2758,7 +3102,7 @@ setvbuf
 <p>---</p>
 <hr>
 <h2><a name="_strings"></a>14. strings</h2>
-<dl>
+<a name="_strcasecmp"></a><dl>
 <dt>
 _strcasecmp
 </dt>
@@ -2856,7 +3200,7 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> strcpy strlen brk<br>
+ *Defines:</strong> brk strlen strcpy<br>
  <strong>duplicate a specific number of bytes from a string</strong>
 Size: ~258B <a href="../src/strdup.c">../src/strdup.c</a> l.7 manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -2924,10 +3268,10 @@ Size: ~104B <a href="../src/strstr.c">../src/strstr.c</a> l.3 manpage: <a href="
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="strstr"></a>---</p>
 <hr>
 <h2><a name="_system"></a>15. system</h2>
-<dl>
+<a name="chroot"></a><dl>
 <dt>
 chroot
 </dt>
@@ -2974,33 +3318,9 @@ macro
 <dd>
 <p>
   <em>void  optimization_fence(void*p){}</em><br>
+Size: ~32B
 </p>
 </dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>prevent optimizations.
- cast a var to void*, and calling this,
- leaves the compiler unknown on what he can strip.
- (noipa) means the compiler doesn't know, what the function itself does.
- (the function does nothing, but don't tell that gcc, please..)
- therefore, everything used as parameter to this function,
- will be calculated, defined, and so on before.
- It's used for the globals,
- shich are pushed within _start onto the stack.
- since _start itself only provides a global pointer,
- and initialitzes some of the globals,
- but doesn't use them again,
- this construction is needed.
- more funnily, the function will never be called.
- It's past the asm inline syscall to exit.
- But again, luckily gcc doesn't know.
- All other options, like having the globals volatile,
- setting the optimization flag of _start to 0,
- having a volatile asm call with the globals as param, and so on,
- have been useless. All after all, seems to me, ai has it's restrictions.</code></pre>
-</td></tr></table>
-<p>Size: ~32B <a href="../include/minilib_global.h">../include/minilib_global.h</a> l.90</p>
-<dl>
 <dt>
 mknod
 </dt>
@@ -3031,6 +3351,28 @@ pivot_root
 Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142
 </p>
 </dd>
+<dt>
+putenv
+</dt>
+<dd>
+<p>
+  <em>int putenv( char <strong>string )</em><br>
+ *Defines:</strong> environ ret_errno<br>
+</p>
+</dd>
+</dl>
+<a name="putenv"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>put a string into the environmental vars
+ the supplied string's pointer is put into the environmental array of pointers.
+ Subsequent changes of the string therefore will change the environment,
+ and the supplied string may not be deallocated.
+ Returns:
+ - 0 on success,
+ - EINVAL: string was 0, didn't contain a '=', some other error</code></pre>
+</td></tr></table>
+<p><a href="../src/putenv.c">../src/putenv.c</a> l.10 manpage: <a href="manpages/stdlib/getenv.3.rst">putenv</a><br></p>
+<a name="reboot"></a><dl>
 <dt>
 reboot
 </dt>
@@ -3101,10 +3443,10 @@ Size: ~41B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="uname"></a>---</p>
 <hr>
 <h2><a name="_terminal"></a>16. terminal</h2>
-<dl>
+<a name="grantpt"></a><dl>
 <dt>
 grantpt
 </dt>
@@ -3153,7 +3495,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> open ioctl write uitodec<br>
+ *Defines:</strong> uitodec write open ioctl<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../src/pty.c">../src/pty.c</a> l.40 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -3164,7 +3506,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> uitodec write ioctl open<br>
+ *Defines:</strong> uitodec write open ioctl<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -3213,10 +3555,10 @@ vhangup
 </p>
 </dd>
 </dl>
-<p>---</p>
+<p><a name="vhangup"></a>---</p>
 <hr>
 <h2><a name="_time"></a>17. time</h2>
-<dl>
+<a name="getitimer"></a><dl>
 <dt>
 getitimer
 </dt>
@@ -3257,12 +3599,13 @@ sleep
 </p>
 </dd>
 </dl>
+<a name="sleep"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>nonconformant sleep
  TODO: ignore blocked signals, sigchld</code></pre>
 </td></tr></table>
 <p>Size: ~123B <a href="../src/sleep.c">../src/sleep.c</a> l.10 manpage: <a href="manpages/gen/sleep.3.rst">sleep</a><br></p>
-<dl>
+<a name="time"></a><dl>
 <dt>
 time
 </dt>
@@ -3283,6 +3626,7 @@ usleep
 </p>
 </dd>
 </dl>
+<a name="usleep"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>nonconformant usleep.
  Sleep useconds.
@@ -3294,7 +3638,7 @@ usleep
  TODO: ignore blocked signals, sigchld</code></pre>
 </td></tr></table>
 <p>Size: ~147B <a href="../src/sleep.c">../src/sleep.c</a> l.31 manpage: <a href="manpages/gen/usleep.3.rst">usleep</a><br></p>
-<dl>
+<a name="utime"></a><dl>
 <dt>
 utime
 </dt>
@@ -3309,95 +3653,44 @@ Size: ~49B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l
 <p>---</p>
 <hr>
 <h2><a name="_unsorted"></a>18. unsorted</h2>
-<dl>
+<a name="OPTFENCE"></a><dl>
 <dt>
-alphasort
+OPTFENCE
 </dt>
 <dd>
 <p>
-  <em>int alphasort( const struct dirent<strong> de1, const struct dirent</strong> de2 )</em><br>
+  <em>void  opt_fence(void*p,&#8230;)</em><br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>Sort dirents by name.
- Deviating of the standard,
- the asciitables is used for the comparison
- (using strcmp)</code></pre>
-</td></tr></table>
-<p><a href="../src/dirent/alphasort.c">../src/dirent/alphasort.c</a> l.7 manpage: <a href="manpages/gen/scandir.3.rst">alphasort</a><br></p>
-<dl>
-<dt>
-ansicolors
-</dt>
-<dd>
-<p>
-  __<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>defines for ansicolors at the console, 16 color mode
-the names are:
- AC_NORM ( white text on black background)
- AC_BLACK
- AC_RED
- AC_GREEN
- AC_BROWN
- AC_BLUE
- AC_MAGENTA
- AC_MARINE (= AC_CYAN)
- AC_LGREY
- AC_WHITE
- AC_GREY
- AC_LRED
- AC_LGREEN
- AC_YELLOW
- AC_LBLUE
- AC_LMAGENTA
- AC_LMARINE (= AC_LCYAN)
- AC_LWHITE
- AC_BGBLACK
- AC_BGRED
- AC_BGGREEN
- AC_BGBROWN
- AC_BGBLUE
- AC_BGMAGENTA
- AC_BGMARINE
- AC_BGLGREY
- AC_BGWHITE
+<pre><code>prevent gcc to optimize away registers and variables
+ the macro OPTFENCE(...) can be invoked with any parameter.
+ The parameters will get calculated, even if gcc doesn't recognize
+ the use of the parameters, e.g. cause they are needed for an inlined asm syscall.
 
- AC_BOLD
- AC_FAINT
- AC_CURSIVE
- AC_UNDERLINE
- AC_LIGHTBG
- AC_BLINK
- AC_INVERTED
- AC_INVERSE
+ The macro translates to an asm jmp and a function call to the function
+ opt_fence, which is defined with the attribute "noipa" -
+ (the compiler "forgets" the function body, so gcc is forced
+ to generate all arguments for the function)
+ The generated asm jump hops over the call to the function,
+ but this gcc doesn't recognize.
 
- ( Faint to inverse are not available at every terminal )</code></pre>
+ This generates some overhead,
+ (a few (never reached) bytes for setting up the function call, and the jmp)
+ but I didn't find any other solution,
+ which gcc wouldn't cut for optimizations from time to time.
+ (volatile, volatile asm, optimize attributes,
+ andsoon have all shown up to be unreliable - sometimes(!)).
+
+ Had some fun debugging these bugs, which naturally showed up only sometimes.
+ (Many syscalls also work with scrambled arguments..)
+ And, I believe it IS a compiler bug.
+ Volatile should be volatile for sure, not only sometimes.
+ I mean, why the heck do I write volatile??</code></pre>
 </td></tr></table>
-<p><a href="../include/ansicolors.h">../include/ansicolors.h</a> l.45</p>
-<dl>
-<dt>
-clone
-</dt>
-<dd>
-<p>
-  <em>int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
-</p>
-</dd>
-<dt>
-clone_t
-</dt>
-<dd>
-<p>
-  <em>int clone_t(int flags)</em><br>
-<a href="../include/clone.h">../include/clone.h</a> l.7
-</p>
-</dd>
+<p><a href="../include/syscall.h">../include/syscall.h</a> l.65</p>
+<a name="def"></a><dl>
 <dt>
 def
 </dt>
@@ -3412,128 +3705,55 @@ def
                 param options: e.g. just a, or ( a+h+l) to check for several flags at once</code></pre>
 </td></tr></table>
 <p><a href="../macros/getoptm.h">../macros/getoptm.h</a> l.52</p>
-<dl>
+<a name="group_printf"></a><dl>
 <dt>
-eprintsl
+group_printf
 </dt>
 <dd>
 <p>
-  <em>#define eprintsl(&#8230;) dprints(STDERR_FILENO,<em>VA_ARGS</em>,"\n",0)</em><br>
- <strong>Defines:</strong> write<br>
+  <em>//</em><br>
+ <strong>Defines:</strong> eprintf ltodec uitodec write fileno<br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>print the string(s) supplied as arg(s) and newline to stderr</code></pre>
+<pre><code>printf, eprintf, fprintf, itodec and ltodec (conversions %d %l),</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.41</p>
-<dl>
+<p><a href="../macros/defgroups.h">../macros/defgroups.h</a> l.29</p>
+<a name="optimization_fence"></a><dl>
 <dt>
-group_print
+optimization_fence
 </dt>
 <dd>
 <p>
-  __<br>
- <strong>Defines:</strong> fileno strlen write<br>
+  <em>void  optimization_fence(void*p)</em><br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>enable print and related functions
- This switch enables strlen;
- but neither globals nor the mini_buf are used.</code></pre>
+<pre><code>prevent optimizations.
+ cast a var to void*, and calling this,
+ leaves the compiler unknown on what he can strip.
+ (noipa) means the compiler doesn't know, what the function itself does.
+ (the function does nothing, but don't tell that gcc, please..)
+ therefore, everything used as parameter to this function,
+ will be calculated, defined, and so on before.
+ It's used for the globals,
+ shich are pushed within _start onto the stack.
+ since _start itself only provides a global pointer,
+ and initialitzes some of the globals,
+ but doesn't use them again,
+ this construction is needed.
+ more funnily, the function will never be called.
+ It's past the asm inline syscall to exit.
+ But again, luckily gcc doesn't know.
+ All other options, like having the globals volatile,
+ setting the optimization flag of _start to 0,
+ having a volatile asm call with the globals as param, and so on,
+ have been useless. All after all, seems to me, ai has it's restrictions.</code></pre>
 </td></tr></table>
-<p><a href="../macros/defgroups.h">../macros/defgroups.h</a> l.13</p>
-<dl>
-<dt>
-group_write
-</dt>
-<dd>
-<p>
-  __<br>
- <strong>Defines:</strong> write ewrite<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>write, and related functions
- these functions do not depend on strlen,
- or any globals.</code></pre>
-</td></tr></table>
-<p><a href="../macros/defgroups.h">../macros/defgroups.h</a> l.23</p>
-<dl>
-<dt>
-inotify_add_watch
-</dt>
-<dd>
-<p>
-  <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195
-</p>
-</dd>
-<dt>
-inotify_init
-</dt>
-<dd>
-<p>
-  <em>int DEF_syscall(inotify_init,0)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
-</p>
-</dd>
-<dt>
-inotify_init1
-</dt>
-<dd>
-<p>
-  <em>int inotify_init1( int flags)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197
-</p>
-</dd>
-<dt>
-inotify_rm_watch
-</dt>
-<dd>
-<p>
-  <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
-</p>
-</dd>
-<dt>
-itooct
-</dt>
-<dd>
-<p>
-  <em>int itooct(int i, char *buf)</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>convert int to octal
- return the number of chars written.</code></pre>
-</td></tr></table>
-<p><a href="../src/itooct.c">../src/itooct.c</a> l.4</p>
-<dl>
-<dt>
-putenv
-</dt>
-<dd>
-<p>
-  <em>int putenv( char <strong>string )</em><br>
- *Defines:</strong> ret_errno environ<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>put a string into the environmental vars
- the supplied string's pointer is put into the environmental array of pointers.
- Subsequent changes of the string therefore will change the environment,
- and the supplied string may not be deallocated.
- Returns:
- - 0 on success,
- - EINVAL: string was 0, didn't contain a '=', some other error</code></pre>
-</td></tr></table>
-<p><a href="../src/putenv.c">../src/putenv.c</a> l.10 manpage: <a href="manpages/stdlib/getenv.3.rst">putenv</a><br></p>
-<dl>
+<p><a href="../include/minilib_global.h">../include/minilib_global.h</a> l.90</p>
+<a name="qsort"></a><dl>
 <dt>
 qsort
 </dt>
@@ -3551,80 +3771,10 @@ qsort
  which in turn I did find within musl.</code></pre>
 </td></tr></table>
 <p><a href="../src/qsort.c">../src/qsort.c</a> l.57 manpage: <a href="manpages/stdlib/qsort.3.rst">qsort</a><br></p>
-<dl>
-<dt>
-ret_errno
-</dt>
-<dd>
-<p>
-  <em>#ifdef mini_errno</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>This macro expands to a return, and
- (when mini_errno is defined) returns -1 and sets errno,
- or returns the negative errno value.</code></pre>
-</td></tr></table>
-<p><a href="../include/ret_errno.h">../include/ret_errno.h</a> l.5</p>
-<dl>
-<dt>
-seterrno
-</dt>
-<dd>
-<p>
-  <em>#ifdef mini_errno</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>set errno, but only when errno is defined.</code></pre>
-</td></tr></table>
-<p><a href="../include/seterrno.h">../include/seterrno.h</a> l.3</p>
-<dl>
-<dt>
-shortcolornames
-</dt>
-<dd>
-<p>
-  __<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>short ansi color names
- all colornames, without the praefix "AC_"</code></pre>
-</td></tr></table>
-<p><a href="../include/ansicolors.h">../include/ansicolors.h</a> l.103</p>
-<dl>
-<dt>
-todo_putenv
-</dt>
-<dd>
-<p>
-  <em>int todo_putenv( char *s )</em><br>
-Size: ~248B
-</p>
-</dd>
-<dt>
-vsprintf
-</dt>
-<dd>
-<p>
-  <em>int vsprintf( char *buf, const char *fmt, &#8230; )</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>write fmt and arguments into buf
- calls vsnprintf,
- the size is limited to 4096 by default.</code></pre>
-</td></tr></table>
-<p><a href="../src/vsprintf.c">../src/vsprintf.c</a> l.9 manpage: <a href="manpages/stdio/printf.3.rst">vsprintf</a><br></p>
 <p>---</p>
 <hr>
 <h2><a name="_x64_syscalls"></a>19. x64-syscalls</h2>
-<dl>
+<a name="sys__sysctl"></a><dl>
 <dt>
 sys__sysctl
 </dt>
@@ -3735,11 +3885,12 @@ sys_brk
 </p>
 </dd>
 </dl>
+<a name="sys_brk"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the kernel syscall brk.</code></pre>
 </td></tr></table>
 <p><a href="../src/brk.c">../src/brk.c</a> l.6</p>
-<dl>
+<a name="sys_capget"></a><dl>
 <dt>
 sys_capget
 </dt>
@@ -6692,7 +6843,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:22 CEST
+ 2020-07-31 13:42:53 CEST
 </small></p>
 </body>
 </html>

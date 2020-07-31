@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_memory"></a>memory</h2>
-<dl>
+<a name="brk"></a><dl>
 <dt>
 brk
 </dt>
@@ -27,7 +27,7 @@ brk
  returns the negative errno value on error</code></pre>
 </td></tr></table>
 <p>Size: ~66B <a href="../../src/brk.c">../src/brk.c</a> l.19 manpage: <a href="manpages/sys/brk.2.rst.html">brk</a><br></p>
-<dl>
+<a name="free"></a><dl>
 <dt>
 free
 </dt>
@@ -48,6 +48,7 @@ free_brk
 </p>
 </dd>
 </dl>
+<a name="free_brk"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>free all memory,
  which has been allocated with malloc_brk.
@@ -57,7 +58,7 @@ free_brk
  Then brk() gives an error, return the return value of brk</code></pre>
 </td></tr></table>
 <p><a href="../../src/malloc.c">../src/malloc.c</a> l.234</p>
-<dl>
+<a name="getbrk"></a><dl>
 <dt>
 getbrk
 </dt>
@@ -73,7 +74,7 @@ getbrk
  or returns the globally saved var</code></pre>
 </td></tr></table>
 <p><a href="../../src/brk.c">../src/brk.c</a> l.39</p>
-<dl>
+<a name="malloc"></a><dl>
 <dt>
 malloc
 </dt>
@@ -141,7 +142,7 @@ malloc
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
 <p>Size: ~173B <a href="../../src/malloc.c">../src/malloc.c</a> l.119 manpage: <a href="manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
-<dl>
+<a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
 </dt>
@@ -165,7 +166,7 @@ malloc_brk
  free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
 </td></tr></table>
 <p><a href="../../src/malloc.c">../src/malloc.c</a> l.206</p>
-<dl>
+<a name="memcmp"></a><dl>
 <dt>
 memcmp
 </dt>
@@ -236,6 +237,7 @@ mmap
 </p>
 </dd>
 </dl>
+<a name="mmap"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>mmap wrapper
  address length is rounded up to a multiple of pagesize (4096 Bytes here)
@@ -245,7 +247,7 @@ mmap
  (e.g. -22 for "invalid argument")</code></pre>
 </td></tr></table>
 <p>Size: ~197B <a href="../../src/mmap.c">../src/mmap.c</a> l.8 manpage: <a href="manpages/sys/mmap.2.rst.html">mmap</a><br></p>
-<dl>
+<a name="mprotect"></a><dl>
 <dt>
 mprotect
 </dt>
@@ -297,6 +299,7 @@ sbrk
 </p>
 </dd>
 </dl>
+<a name="sbrk"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>Set the new brk, increment/decrement by incr bytes.
  return the old brk on success.
@@ -305,7 +308,7 @@ sbrk
  returns the negative errno value on error</code></pre>
 </td></tr></table>
 <p>Size: ~108B <a href="../../src/brk.c">../src/brk.c</a> l.57 manpage: <a href="manpages/sys/brk.2.rst.html">sbrk</a><br></p>
-<dl>
+<a name="splice"></a><dl>
 <dt>
 splice
 </dt>
@@ -325,6 +328,7 @@ swap
 </p>
 </dd>
 </dl>
+<a name="swap"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>swap a with b, with 'size' bytes
  swaps integers and longs at once, when size eq sizeof(int/long)</code></pre>
@@ -334,7 +338,7 @@ swap
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

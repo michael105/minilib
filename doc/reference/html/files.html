@@ -8,14 +8,14 @@
 <body>
 <hr>
 <h2><a name="_files"></a>files</h2>
-<dl>
+<a name="_fopen"></a><dl>
 <dt>
 _fopen
 </dt>
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
- *Defines:</strong> close open fileno<br>
+ *Defines:</strong> fileno open close<br>
 </p>
 </dd>
 </dl>
@@ -23,7 +23,7 @@ _fopen
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~316B <a href="../../src/fopen.c">../src/fopen.c</a> l.12</p>
-<dl>
+<a name="access"></a><dl>
 <dt>
 access
 </dt>
@@ -196,6 +196,7 @@ open
 </p>
 </dd>
 </dl>
+<a name="open"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>open or create a file.
  warning: when using the flag O_CREAT,
@@ -205,7 +206,7 @@ open
  the flag showing up as "-T" means..)</code></pre>
 </td></tr></table>
 <p>Size: ~124B <a href="../../src/open.c">../src/open.c</a> l.19 manpage: <a href="manpages/sys/open.2.rst.html">open</a><br></p>
-<dl>
+<a name="readahead"></a><dl>
 <dt>
 readahead
 </dt>
@@ -291,7 +292,7 @@ Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

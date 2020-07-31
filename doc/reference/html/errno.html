@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_errno"></a>errno</h2>
-<dl>
+<a name="errno"></a><dl>
 <dt>
 errno
 </dt>
@@ -27,6 +27,7 @@ errno_str
 </p>
 </dd>
 </dl>
+<a name="errno_str"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>convert errno to str, with 3 chars length
  ending the string (global)
@@ -34,14 +35,14 @@ errno_str
  errnum must be &lt;200.</code></pre>
 </td></tr></table>
 <p>Size: ~123B <a href="../../src/errno_str.c">../src/errno_str.c</a> l.7</p>
-<dl>
+<a name="exit_errno"></a><dl>
 <dt>
 exit_errno
 </dt>
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> write exit errno_str execve<br>
+ <strong>Defines:</strong> write execve errno_str exit<br>
 </p>
 </dd>
 </dl>
@@ -61,18 +62,49 @@ exit_errno
  the absolute value is supplied to errno.</code></pre>
 </td></tr></table>
 <p><a href="../../src/exit_errno.c">../src/exit_errno.c</a> l.17</p>
-<dl>
+<a name="perror"></a><dl>
 <dt>
 perror
 </dt>
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> strlen errno fileno write strerror<br>
+ *Defines:</strong> strerror errno fileno strlen write<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst.html">perror</a><br>
 </p>
 </dd>
+<dt>
+ret_errno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+</p>
+</dd>
+</dl>
+<a name="ret_errno"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>This macro expands to a return, and
+ (when mini_errno is defined) returns -1 and sets errno,
+ or returns the negative errno value.</code></pre>
+</td></tr></table>
+<p><a href="../../include/ret_errno.h">../include/ret_errno.h</a> l.5</p>
+<a name="seterrno"></a><dl>
+<dt>
+seterrno
+</dt>
+<dd>
+<p>
+  <em>#ifdef mini_errno</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>set errno, but only when errno is defined.</code></pre>
+</td></tr></table>
+<p><a href="../../include/seterrno.h">../include/seterrno.h</a> l.3</p>
+<a name="strerror"></a><dl>
 <dt>
 strerror
 </dt>
@@ -91,12 +123,13 @@ verbose_errstr
 </p>
 </dd>
 </dl>
+<a name="verbose_errstr"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>verbose error (errno) string.
  this adds about 3.5kB to the compiled binary(!)</code></pre>
 </td></tr></table>
 <p><a href="../../include/errstr.h">../include/errstr.h</a> l.8</p>
-<dl>
+<a name="verbose_errstr2"></a><dl>
 <dt>
 verbose_errstr2
 </dt>
@@ -116,7 +149,7 @@ verbose_errstr2
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

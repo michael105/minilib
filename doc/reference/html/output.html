@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_output"></a>output</h2>
-<dl>
+<a name="_mprints"></a><dl>
 <dt>
 _mprints
 </dt>
@@ -19,6 +19,60 @@ _mprints
 <a href="../../src/prints.c">../src/prints.c</a> l.69
 </p>
 </dd>
+<dt>
+ansicolors
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<a name="ansicolors"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>defines for ansicolors at the console, 16 color mode
+the names are:
+ AC_NORM ( white text on black background)
+ AC_BLACK
+ AC_RED
+ AC_GREEN
+ AC_BROWN
+ AC_BLUE
+ AC_MAGENTA
+ AC_MARINE (= AC_CYAN)
+ AC_LGREY
+ AC_WHITE
+ AC_GREY
+ AC_LRED
+ AC_LGREEN
+ AC_YELLOW
+ AC_LBLUE
+ AC_LMAGENTA
+ AC_LMARINE (= AC_LCYAN)
+ AC_LWHITE
+ AC_BGBLACK
+ AC_BGRED
+ AC_BGGREEN
+ AC_BGBROWN
+ AC_BGBLUE
+ AC_BGMAGENTA
+ AC_BGMARINE
+ AC_BGLGREY
+ AC_BGWHITE
+
+ AC_BOLD
+ AC_FAINT
+ AC_CURSIVE
+ AC_UNDERLINE
+ AC_LIGHTBG
+ AC_BLINK
+ AC_INVERTED
+ AC_INVERSE
+
+ ( Faint to inverse are not available at every terminal )</code></pre>
+</td></tr></table>
+<p><a href="../../include/ansicolors.h">../include/ansicolors.h</a> l.45</p>
+<a name="dprintf"></a><dl>
 <dt>
 dprintf
 </dt>
@@ -50,18 +104,19 @@ eprint
 </p>
 </dd>
 </dl>
+<a name="eprint"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write str to stderr. Needs strlen</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.52</p>
-<dl>
+<a name="eprintfs"></a><dl>
 <dt>
 eprintfs
 </dt>
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> write fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -70,7 +125,7 @@ eprintfs
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.100</p>
-<dl>
+<a name="eprintl"></a><dl>
 <dt>
 eprintl
 </dt>
@@ -85,7 +140,7 @@ eprintl
 <pre><code>write a newline to stderr</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.61</p>
-<dl>
+<a name="eprints"></a><dl>
 <dt>
 eprints
 </dt>
@@ -101,7 +156,22 @@ eprints
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.19</p>
-<dl>
+<a name="eprintsl"></a><dl>
+<dt>
+eprintsl
+</dt>
+<dd>
+<p>
+  <em>#define eprintsl(&#8230;) dprints(STDERR_FILENO,<em>VA_ARGS</em>,"\n",0)</em><br>
+ <strong>Defines:</strong> write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>print the string(s) supplied as arg(s) and newline to stderr</code></pre>
+</td></tr></table>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.41</p>
+<a name="eputs"></a><dl>
 <dt>
 eputs
 </dt>
@@ -116,7 +186,7 @@ eputs
 <pre><code>write msg to stderr, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.71</p>
-<dl>
+<a name="ewrites"></a><dl>
 <dt>
 ewrites
 </dt>
@@ -131,14 +201,14 @@ ewrites
 <pre><code>write the constant str to stderr. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.82</p>
-<dl>
+<a name="fprint"></a><dl>
 <dt>
 fprint
 </dt>
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.95
 </p>
 </dd>
@@ -148,7 +218,7 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../../src/sprintf.c">../src/sprintf.c</a> l.228 manpage: <a href="manpages/stdio/printf.3.rst.html">fprintf</a><br>
 </p>
 </dd>
@@ -158,24 +228,25 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> strlen fileno write<br>
+ *Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
+<a name="fprintfs"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>prints formatted and unbuffered output to the stream F.
  only %s and %c are recognized.
  no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.</code></pre>
 </td></tr></table>
 <p>Size: ~427B <a href="../../src/fprintfs.c">../src/fprintfs.c</a> l.10</p>
-<dl>
+<a name="fprints"></a><dl>
 <dt>
 fprints
 </dt>
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -184,7 +255,7 @@ fprints
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.27</p>
-<dl>
+<a name="fputc"></a><dl>
 <dt>
 fputc
 </dt>
@@ -217,11 +288,46 @@ fwrites
 </p>
 </dd>
 </dl>
+<a name="fwrites"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to fd. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.88</p>
-<dl>
+<a name="group_print"></a><dl>
+<dt>
+group_print
+</dt>
+<dd>
+<p>
+  __<br>
+ <strong>Defines:</strong> strlen fileno write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>enable print and related functions
+ This switch enables strlen;
+ but neither globals nor the mini_buf are used.</code></pre>
+</td></tr></table>
+<p><a href="../../macros/defgroups.h">../macros/defgroups.h</a> l.13</p>
+<a name="group_write"></a><dl>
+<dt>
+group_write
+</dt>
+<dd>
+<p>
+  __<br>
+ <strong>Defines:</strong> write ewrite<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write, and related functions
+ these functions do not depend on strlen,
+ or any globals.</code></pre>
+</td></tr></table>
+<p><a href="../../macros/defgroups.h">../macros/defgroups.h</a> l.23</p>
+<a name="print"></a><dl>
 <dt>
 print
 </dt>
@@ -236,7 +342,7 @@ print
 <pre><code>write str to stdout. Needs strlen</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.48</p>
-<dl>
+<a name="printf"></a><dl>
 <dt>
 printf
 </dt>
@@ -254,16 +360,17 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
+<a name="printfs"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write fmt and arguments to stdout.
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.94</p>
-<dl>
+<a name="printl"></a><dl>
 <dt>
 printl
 </dt>
@@ -278,7 +385,7 @@ printl
 <pre><code>write a newline to stdout</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.57</p>
-<dl>
+<a name="prints"></a><dl>
 <dt>
 prints
 </dt>
@@ -293,7 +400,7 @@ prints
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.12</p>
-<dl>
+<a name="printsl"></a><dl>
 <dt>
 printsl
 </dt>
@@ -307,14 +414,14 @@ printsl
 <pre><code>print the string(s) supplied as arg(s) and newline to stdout</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.35</p>
-<dl>
+<a name="putc"></a><dl>
 <dt>
 putc
 </dt>
 <dd>
 <p>
   <em>#define putc(c,stream) fputc(c,stream)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stream</strong>
 <a href="../../include/fputc.h">../include/fputc.h</a> l.19 manpage: <a href="manpages/stdio/putc.3.rst.html">putc</a><br>
 </p>
@@ -325,7 +432,7 @@ putchar
 <dd>
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stdout stream</strong>
 <a href="../../include/fputc.h">../include/fputc.h</a> l.16 manpage: <a href="manpages/stdio/putc.3.rst.html">putchar</a><br>
 </p>
@@ -336,16 +443,32 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
 </dl>
+<a name="puts"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write msg to stdout, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
 <p><a href="../../include/prints.h">../include/prints.h</a> l.67 manpage: <a href="manpages/stdio/fputs.3.rst.html">puts</a><br></p>
-<dl>
+<a name="shortcolornames"></a><dl>
+<dt>
+shortcolornames
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>short ansi color names
+ all colornames, without the praefix "AC_"</code></pre>
+</td></tr></table>
+<p><a href="../../include/ansicolors.h">../include/ansicolors.h</a> l.103</p>
+<a name="snprintf"></a><dl>
 <dt>
 snprintf
 </dt>
@@ -363,7 +486,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.100 manpage: <a href="manpages/stdio/printf.3.rst.html">vfprintf</a><br>
 </p>
 </dd>
@@ -378,6 +501,7 @@ vsnprintf
 </p>
 </dd>
 </dl>
+<a name="vsnprintf"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the function, translating the fmt of printf.
  warning - most possibly you'd like to define besides fprintf, or family,
@@ -385,7 +509,23 @@ vsnprintf
  mini_atoi is needed for grouping numbers</code></pre>
 </td></tr></table>
 <p>Size: ~590B <a href="../../src/sprintf.c">../src/sprintf.c</a> l.41 manpage: <a href="manpages/stdio/printf.3.rst.html">vsnprintf</a><br></p>
-<dl>
+<a name="vsprintf"></a><dl>
+<dt>
+vsprintf
+</dt>
+<dd>
+<p>
+  <em>int vsprintf( char *buf, const char *fmt, &#8230; )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write fmt and arguments into buf
+ calls vsnprintf,
+ the size is limited to 4096 by default.</code></pre>
+</td></tr></table>
+<p><a href="../../src/vsprintf.c">../src/vsprintf.c</a> l.9 manpage: <a href="manpages/stdio/printf.3.rst.html">vsprintf</a><br></p>
+<a name="write"></a><dl>
 <dt>
 write
 </dt>
@@ -406,6 +546,7 @@ writes
 </p>
 </dd>
 </dl>
+<a name="writes"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to stdout. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
@@ -414,7 +555,7 @@ writes
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

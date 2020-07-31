@@ -105,12 +105,7 @@ stmatch: xtte
 === text: texttext2  re: te%2x%&
 Match char : 2, num: 0
  Match
-Match num: %0, len: 1
---- t ---
-Match num: %2, len: 4
---- xtte ---
- Matched
-stmatch: xtte
+ No match
 ---------------
 === text: texttext2  re: te%2x%3
 Match num: %3, len: 2
@@ -137,7 +132,7 @@ Match char : 7, num: 0
  No match
 Match char : t, num: 0
  Match
-Match char : 3, num: 1
+Match char : 2, num: 1
  Match
 Match num: %0, len: 2
 --- 47 ---
@@ -294,3 +289,5 @@ Match num: %0, len: 8
 --- terminal ---
  Matched
 stmatch: terminal
+=== text: sd asdf dcsd567sdfsdf  re: *![567]%\D*
+ Matched

@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_streams"></a>streams</h2>
-<dl>
+<a name="clearerr"></a><dl>
 <dt>
 clearerr
 </dt>
@@ -50,11 +50,12 @@ fdopen
 </p>
 </dd>
 </dl>
+<a name="fdopen"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~323B <a href="../../src/fopen.c">../src/fopen.c</a> l.91 manpage: <a href="manpages/stdio/fopen.3.rst.html">fdopen</a><br></p>
-<dl>
+<a name="feof"></a><dl>
 <dt>
 feof
 </dt>
@@ -85,11 +86,12 @@ fflush
 </p>
 </dd>
 </dl>
+<a name="fflush"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync</code></pre>
 </td></tr></table>
 <p>Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.28 manpage: <a href="manpages/stdio/fflush.3.rst.html">fflush</a><br></p>
-<dl>
+<a name="fgetpos"></a><dl>
 <dt>
 fgetpos
 </dt>
@@ -111,18 +113,19 @@ fileno
 </p>
 </dd>
 </dl>
+<a name="fileno"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>Return the fd nummber of stdin,-out,-err.</code></pre>
 </td></tr></table>
 <p>Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.56 manpage: <a href="manpages/stdio/ferror.3.rst.html">fileno</a><br></p>
-<dl>
+<a name="fopen"></a><dl>
 <dt>
 fopen
 </dt>
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> open fileno close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -131,7 +134,7 @@ fopen
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~324B <a href="../../src/fopen.c">../src/fopen.c</a> l.81 manpage: <a href="manpages/stdio/fopen.3.rst.html">fopen</a><br></p>
-<dl>
+<a name="fputs"></a><dl>
 <dt>
 fputs
 </dt>
@@ -160,16 +163,17 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> close fileno open<br>
+ *Defines:</strong> fileno open close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
 </dl>
+<a name="freopen"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
 <p>Size: ~320B <a href="../../src/fopen.c">../src/fopen.c</a> l.101 manpage: <a href="manpages/stdio/fopen.3.rst.html">freopen</a><br></p>
-<dl>
+<a name="fseek"></a><dl>
 <dt>
 fseek
 </dt>
@@ -224,12 +228,13 @@ setbuf
 </p>
 </dd>
 </dl>
+<a name="setbuf"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>dummy function.
  There is no buffering implemented for the streams yet.</code></pre>
 </td></tr></table>
 <p>Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.211 manpage: <a href="manpages/stdio/setbuf.3.rst.html">setbuf</a><br></p>
-<dl>
+<a name="setvbuf"></a><dl>
 <dt>
 setvbuf
 </dt>
@@ -248,7 +253,7 @@ setvbuf
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

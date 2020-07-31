@@ -20,3 +20,12 @@
 // or any globals.
 //+depends write ewrite writes ewrites fwrites 
 //+def group_write
+
+
+
+//+doc printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
+//+depends printf eprintf fprintf itodec ltodec uitodec
+//+def group_printf
+//
+
+

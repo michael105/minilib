@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_system"></a>system</h2>
-<dl>
+<a name="chroot"></a><dl>
 <dt>
 chroot
 </dt>
@@ -55,33 +55,9 @@ macro
 <dd>
 <p>
   <em>void  optimization_fence(void*p){}</em><br>
+Size: ~32B
 </p>
 </dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>prevent optimizations.
- cast a var to void*, and calling this,
- leaves the compiler unknown on what he can strip.
- (noipa) means the compiler doesn't know, what the function itself does.
- (the function does nothing, but don't tell that gcc, please..)
- therefore, everything used as parameter to this function,
- will be calculated, defined, and so on before.
- It's used for the globals,
- shich are pushed within _start onto the stack.
- since _start itself only provides a global pointer,
- and initialitzes some of the globals,
- but doesn't use them again,
- this construction is needed.
- more funnily, the function will never be called.
- It's past the asm inline syscall to exit.
- But again, luckily gcc doesn't know.
- All other options, like having the globals volatile,
- setting the optimization flag of _start to 0,
- having a volatile asm call with the globals as param, and so on,
- have been useless. All after all, seems to me, ai has it's restrictions.</code></pre>
-</td></tr></table>
-<p>Size: ~32B <a href="../../include/minilib_global.h">../include/minilib_global.h</a> l.90</p>
-<dl>
 <dt>
 mknod
 </dt>
@@ -112,6 +88,28 @@ pivot_root
 Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142
 </p>
 </dd>
+<dt>
+putenv
+</dt>
+<dd>
+<p>
+  <em>int putenv( char <strong>string )</em><br>
+ *Defines:</strong> environ ret_errno<br>
+</p>
+</dd>
+</dl>
+<a name="putenv"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>put a string into the environmental vars
+ the supplied string's pointer is put into the environmental array of pointers.
+ Subsequent changes of the string therefore will change the environment,
+ and the supplied string may not be deallocated.
+ Returns:
+ - 0 on success,
+ - EINVAL: string was 0, didn't contain a '=', some other error</code></pre>
+</td></tr></table>
+<p><a href="../../src/putenv.c">../src/putenv.c</a> l.10 manpage: <a href="manpages/stdlib/getenv.3.rst.html">putenv</a><br></p>
+<a name="reboot"></a><dl>
 <dt>
 reboot
 </dt>
@@ -186,7 +184,7 @@ Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

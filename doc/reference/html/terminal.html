@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_terminal"></a>terminal</h2>
-<dl>
+<a name="grantpt"></a><dl>
 <dt>
 grantpt
 </dt>
@@ -57,7 +57,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> open ioctl write uitodec<br>
+ *Defines:</strong> uitodec write open ioctl<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../../src/pty.c">../src/pty.c</a> l.40 manpage: <a href="manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
 </p>
@@ -68,7 +68,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> uitodec write ioctl open<br>
+ *Defines:</strong> uitodec write open ioctl<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../../src/pty.c">../src/pty.c</a> l.27
 </p>
@@ -121,7 +121,7 @@ vhangup
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

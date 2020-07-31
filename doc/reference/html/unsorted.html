@@ -8,95 +8,44 @@
 <body>
 <hr>
 <h2><a name="_unsorted"></a>unsorted</h2>
-<dl>
+<a name="OPTFENCE"></a><dl>
 <dt>
-alphasort
+OPTFENCE
 </dt>
 <dd>
 <p>
-  <em>int alphasort( const struct dirent<strong> de1, const struct dirent</strong> de2 )</em><br>
+  <em>void  opt_fence(void*p,&#8230;)</em><br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>Sort dirents by name.
- Deviating of the standard,
- the asciitables is used for the comparison
- (using strcmp)</code></pre>
-</td></tr></table>
-<p><a href="../../src/dirent/alphasort.c">../src/dirent/alphasort.c</a> l.7 manpage: <a href="manpages/gen/scandir.3.rst.html">alphasort</a><br></p>
-<dl>
-<dt>
-ansicolors
-</dt>
-<dd>
-<p>
-  __<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>defines for ansicolors at the console, 16 color mode
-the names are:
- AC_NORM ( white text on black background)
- AC_BLACK
- AC_RED
- AC_GREEN
- AC_BROWN
- AC_BLUE
- AC_MAGENTA
- AC_MARINE (= AC_CYAN)
- AC_LGREY
- AC_WHITE
- AC_GREY
- AC_LRED
- AC_LGREEN
- AC_YELLOW
- AC_LBLUE
- AC_LMAGENTA
- AC_LMARINE (= AC_LCYAN)
- AC_LWHITE
- AC_BGBLACK
- AC_BGRED
- AC_BGGREEN
- AC_BGBROWN
- AC_BGBLUE
- AC_BGMAGENTA
- AC_BGMARINE
- AC_BGLGREY
- AC_BGWHITE
+<pre><code>prevent gcc to optimize away registers and variables
+ the macro OPTFENCE(...) can be invoked with any parameter.
+ The parameters will get calculated, even if gcc doesn't recognize
+ the use of the parameters, e.g. cause they are needed for an inlined asm syscall.
 
- AC_BOLD
- AC_FAINT
- AC_CURSIVE
- AC_UNDERLINE
- AC_LIGHTBG
- AC_BLINK
- AC_INVERTED
- AC_INVERSE
+ The macro translates to an asm jmp and a function call to the function
+ opt_fence, which is defined with the attribute "noipa" -
+ (the compiler "forgets" the function body, so gcc is forced
+ to generate all arguments for the function)
+ The generated asm jump hops over the call to the function,
+ but this gcc doesn't recognize.
 
- ( Faint to inverse are not available at every terminal )</code></pre>
+ This generates some overhead,
+ (a few (never reached) bytes for setting up the function call, and the jmp)
+ but I didn't find any other solution,
+ which gcc wouldn't cut for optimizations from time to time.
+ (volatile, volatile asm, optimize attributes,
+ andsoon have all shown up to be unreliable - sometimes(!)).
+
+ Had some fun debugging these bugs, which naturally showed up only sometimes.
+ (Many syscalls also work with scrambled arguments..)
+ And, I believe it IS a compiler bug.
+ Volatile should be volatile for sure, not only sometimes.
+ I mean, why the heck do I write volatile??</code></pre>
 </td></tr></table>
-<p><a href="../../include/ansicolors.h">../include/ansicolors.h</a> l.45</p>
-<dl>
-<dt>
-clone
-</dt>
-<dd>
-<p>
-  <em>int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
-</p>
-</dd>
-<dt>
-clone_t
-</dt>
-<dd>
-<p>
-  <em>int clone_t(int flags)</em><br>
-<a href="../../include/clone.h">../include/clone.h</a> l.7
-</p>
-</dd>
+<p><a href="../../include/syscall.h">../include/syscall.h</a> l.65</p>
+<a name="def"></a><dl>
 <dt>
 def
 </dt>
@@ -111,128 +60,55 @@ def
                 param options: e.g. just a, or ( a+h+l) to check for several flags at once</code></pre>
 </td></tr></table>
 <p><a href="../../macros/getoptm.h">../macros/getoptm.h</a> l.52</p>
-<dl>
+<a name="group_printf"></a><dl>
 <dt>
-eprintsl
+group_printf
 </dt>
 <dd>
 <p>
-  <em>#define eprintsl(&#8230;) dprints(STDERR_FILENO,<em>VA_ARGS</em>,"\n",0)</em><br>
- <strong>Defines:</strong> write<br>
+  <em>//</em><br>
+ <strong>Defines:</strong> eprintf ltodec uitodec write fileno<br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>print the string(s) supplied as arg(s) and newline to stderr</code></pre>
+<pre><code>printf, eprintf, fprintf, itodec and ltodec (conversions %d %l),</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.41</p>
-<dl>
+<p><a href="../../macros/defgroups.h">../macros/defgroups.h</a> l.29</p>
+<a name="optimization_fence"></a><dl>
 <dt>
-group_print
+optimization_fence
 </dt>
 <dd>
 <p>
-  __<br>
- <strong>Defines:</strong> fileno strlen write<br>
+  <em>void  optimization_fence(void*p)</em><br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>enable print and related functions
- This switch enables strlen;
- but neither globals nor the mini_buf are used.</code></pre>
+<pre><code>prevent optimizations.
+ cast a var to void*, and calling this,
+ leaves the compiler unknown on what he can strip.
+ (noipa) means the compiler doesn't know, what the function itself does.
+ (the function does nothing, but don't tell that gcc, please..)
+ therefore, everything used as parameter to this function,
+ will be calculated, defined, and so on before.
+ It's used for the globals,
+ shich are pushed within _start onto the stack.
+ since _start itself only provides a global pointer,
+ and initialitzes some of the globals,
+ but doesn't use them again,
+ this construction is needed.
+ more funnily, the function will never be called.
+ It's past the asm inline syscall to exit.
+ But again, luckily gcc doesn't know.
+ All other options, like having the globals volatile,
+ setting the optimization flag of _start to 0,
+ having a volatile asm call with the globals as param, and so on,
+ have been useless. All after all, seems to me, ai has it's restrictions.</code></pre>
 </td></tr></table>
-<p><a href="../../macros/defgroups.h">../macros/defgroups.h</a> l.13</p>
-<dl>
-<dt>
-group_write
-</dt>
-<dd>
-<p>
-  __<br>
- <strong>Defines:</strong> write ewrite<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>write, and related functions
- these functions do not depend on strlen,
- or any globals.</code></pre>
-</td></tr></table>
-<p><a href="../../macros/defgroups.h">../macros/defgroups.h</a> l.23</p>
-<dl>
-<dt>
-inotify_add_watch
-</dt>
-<dd>
-<p>
-  <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.195
-</p>
-</dd>
-<dt>
-inotify_init
-</dt>
-<dd>
-<p>
-  <em>int DEF_syscall(inotify_init,0)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.194
-</p>
-</dd>
-<dt>
-inotify_init1
-</dt>
-<dd>
-<p>
-  <em>int inotify_init1( int flags)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197
-</p>
-</dd>
-<dt>
-inotify_rm_watch
-</dt>
-<dd>
-<p>
-  <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
-</p>
-</dd>
-<dt>
-itooct
-</dt>
-<dd>
-<p>
-  <em>int itooct(int i, char *buf)</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>convert int to octal
- return the number of chars written.</code></pre>
-</td></tr></table>
-<p><a href="../../src/itooct.c">../src/itooct.c</a> l.4</p>
-<dl>
-<dt>
-putenv
-</dt>
-<dd>
-<p>
-  <em>int putenv( char <strong>string )</em><br>
- *Defines:</strong> ret_errno environ<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>put a string into the environmental vars
- the supplied string's pointer is put into the environmental array of pointers.
- Subsequent changes of the string therefore will change the environment,
- and the supplied string may not be deallocated.
- Returns:
- - 0 on success,
- - EINVAL: string was 0, didn't contain a '=', some other error</code></pre>
-</td></tr></table>
-<p><a href="../../src/putenv.c">../src/putenv.c</a> l.10 manpage: <a href="manpages/stdlib/getenv.3.rst.html">putenv</a><br></p>
-<dl>
+<p><a href="../../include/minilib_global.h">../include/minilib_global.h</a> l.90</p>
+<a name="qsort"></a><dl>
 <dt>
 qsort
 </dt>
@@ -250,81 +126,11 @@ qsort
  which in turn I did find within musl.</code></pre>
 </td></tr></table>
 <p><a href="../../src/qsort.c">../src/qsort.c</a> l.57 manpage: <a href="manpages/stdlib/qsort.3.rst.html">qsort</a><br></p>
-<dl>
-<dt>
-ret_errno
-</dt>
-<dd>
-<p>
-  <em>#ifdef mini_errno</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>This macro expands to a return, and
- (when mini_errno is defined) returns -1 and sets errno,
- or returns the negative errno value.</code></pre>
-</td></tr></table>
-<p><a href="../../include/ret_errno.h">../include/ret_errno.h</a> l.5</p>
-<dl>
-<dt>
-seterrno
-</dt>
-<dd>
-<p>
-  <em>#ifdef mini_errno</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>set errno, but only when errno is defined.</code></pre>
-</td></tr></table>
-<p><a href="../../include/seterrno.h">../include/seterrno.h</a> l.3</p>
-<dl>
-<dt>
-shortcolornames
-</dt>
-<dd>
-<p>
-  __<br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>short ansi color names
- all colornames, without the praefix "AC_"</code></pre>
-</td></tr></table>
-<p><a href="../../include/ansicolors.h">../include/ansicolors.h</a> l.103</p>
-<dl>
-<dt>
-todo_putenv
-</dt>
-<dd>
-<p>
-  <em>int todo_putenv( char *s )</em><br>
-Size: ~248B
-</p>
-</dd>
-<dt>
-vsprintf
-</dt>
-<dd>
-<p>
-  <em>int vsprintf( char *buf, const char *fmt, &#8230; )</em><br>
-</p>
-</dd>
-</dl>
-<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>write fmt and arguments into buf
- calls vsnprintf,
- the size is limited to 4096 by default.</code></pre>
-</td></tr></table>
-<p><a href="../../src/vsprintf.c">../src/vsprintf.c</a> l.9 manpage: <a href="manpages/stdio/printf.3.rst.html">vsprintf</a><br></p>
 <p></p>
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

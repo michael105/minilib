@@ -14,11 +14,16 @@ which translates config options to define flags,<br>
 and pipes the minilib header to gcc.</p>
 <p>The config file is a bash script and can be a separate file,
 or within one of the source files.</p>
-<p>An example is given below:</p>
+<p>Since it is a bash script, it is possible to e.g.<br>
+source other files from within the configuration.</p>
+<p>A simple example is given below:</p>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>#if 0  // has to be the first line
-
+# mini_start is the start routine.
+# Most possibly needed
 mini_start
+
+# define and compile puts
 mini_puts
 
 INCLUDESRC
@@ -26,12 +31,21 @@ INCLUDESRC
 # INCLUDESRC has to be defined for one sourcefile.
 # without it only the defines, and no implementations are parsed.
 
+# shrink the binary with tools/shrinkelf
+SHRINKELF
+
+# use the linker script onlytext
+# meaning, only text and stack sections are loaded
+LDSCRIPT onlytext
+
+# return, and the #endif statement are the last lines of the config
 return
-// return, and the #endif statement are the last lines of the config
 #endif
 
 int main(int argc, char *argv[] ){
-...</code></pre>
+    puts("Hello, world!");
+                return(0);
+}</code></pre>
 </td></tr></table>
 <p>Only functions defined are going to be built.</p>
 <p>There are several examples given within the folder examples,<br>
@@ -137,11 +151,14 @@ LDSCRIPT default
 <dd>
 <p>
         The ldscript to use<br>
-  Can be one of: default, onlytext, textandbss<br>
+  Can be one of: default, onlytext, onlytext.tiny, textandbss<br>
   Defines, which executable sections are going to be built.<br>
   <strong>default</strong>: .text .data .rodata .bss (.stack)<br>
+  <strong>textandbss</strong>: .text .bss (.stack)<br>
   <strong>onlytext</strong>: .text (.stack)<br>
-  <strong>textandbss</strong>: .text .bss (.stack)
+        <strong>onlytext.tiny</strong>: .text (the stack is defined by the kernel, and made executable)<br>
+           Despite general meaning, an executable stack isn&#8217;t harmful, and even widely used.
+     It just is important (as always), to check user input against e.g. overflows.
 </p>
 </dd>
 <dt>
@@ -166,7 +183,7 @@ DEBUG
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

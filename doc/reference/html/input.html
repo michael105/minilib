@@ -8,14 +8,14 @@
 <body>
 <hr>
 <h2><a name="_input"></a>input</h2>
-<dl>
+<a name="fgetc"></a><dl>
 <dt>
 fgetc
 </dt>
 <dd>
 <p>
   <em>int fgetc(FILE <strong>F)</em><br>
- *Defines:</strong> read fileno<br>
+ *Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 Size: ~57B <a href="../../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="manpages/stdio/getc.3.rst.html">fgetc</a><br>
 </p>
@@ -37,7 +37,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 <a href="../../include/fgetc.h">../include/fgetc.h</a> l.26 manpage: <a href="manpages/stdio/getc.3.rst.html">getc</a><br>
 </p>
@@ -48,7 +48,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a</strong>
 <a href="../../include/fgetc.h">../include/fgetc.h</a> l.29 manpage: <a href="manpages/stdio/getc.3.rst.html">getchar</a><br>
 </p>
@@ -84,6 +84,7 @@ ungetc
 </p>
 </dd>
 </dl>
+<a name="ungetc"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>pushes one char back to the stream.
  Overwrites a previously pushed char
@@ -94,7 +95,7 @@ ungetc
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

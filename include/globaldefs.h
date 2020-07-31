@@ -43,6 +43,7 @@
 #define RE_NOMATCH 0
 #define RE_ERROR 0
 #define RE_MATCH 1
+#define RE_MATCHEND -1
 
 typedef struct _regex_match { char *pos; int len; } regex_match;
 

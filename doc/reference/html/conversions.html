@@ -8,7 +8,7 @@
 <body>
 <hr>
 <h2><a name="_conversions"></a>conversions</h2>
-<dl>
+<a name="_itobin"></a><dl>
 <dt>
 _itobin
 </dt>
@@ -66,6 +66,7 @@ itoHEX
 </p>
 </dd>
 </dl>
+<a name="itoHEX"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>convert a number to hexadecimal representation with big capitals.
  the conversion assumes a size of 32bits for integers,
@@ -73,7 +74,7 @@ itoHEX
  ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )</code></pre>
 </td></tr></table>
 <p>Size: ~250B <a href="../../src/itohex.c">../src/itohex.c</a> l.65</p>
-<dl>
+<a name="itobin"></a><dl>
 <dt>
 itobin
 </dt>
@@ -91,7 +92,7 @@ itobin
    -2    11111111111111111111111111111110, ...)</code></pre>
 </td></tr></table>
 <p><a href="../../src/itobin.c">../src/itobin.c</a> l.46</p>
-<dl>
+<a name="itodec"></a><dl>
 <dt>
 itodec
 </dt>
@@ -111,6 +112,7 @@ itohex
 </p>
 </dd>
 </dl>
+<a name="itohex"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>convert a number to hexadecimal representation.
  the conversion assumes a size of 32bits for integers,
@@ -118,7 +120,22 @@ itohex
  ( -1 is 0xffffffff, -2 0xfffffffe, ... )</code></pre>
 </td></tr></table>
 <p>Size: ~247B <a href="../../src/itohex.c">../src/itohex.c</a> l.53</p>
-<dl>
+<a name="itooct"></a><dl>
+<dt>
+itooct
+</dt>
+<dd>
+<p>
+  <em>int itooct(int i, char *buf)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>convert int to octal
+ return the number of chars written.</code></pre>
+</td></tr></table>
+<p><a href="../../src/itooct.c">../src/itooct.c</a> l.4</p>
+<a name="ltodec"></a><dl>
 <dt>
 ltodec
 </dt>
@@ -138,12 +155,13 @@ strtol
 </p>
 </dd>
 </dl>
+<a name="strtol"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>conversion
  doesn't check for overflow(!)</code></pre>
 </td></tr></table>
 <p>Size: ~252B <a href="../../src/strtol.c">../src/strtol.c</a> l.5 manpage: <a href="manpages/stdlib/strtol.3.rst.html">strtol</a><br></p>
-<dl>
+<a name="uitodec"></a><dl>
 <dt>
 uitodec
 </dt>
@@ -158,7 +176,7 @@ uitodec
  prec: precision, e.g. 4=&gt; 0087</code></pre>
 </td></tr></table>
 <p><a href="../../src/itodec.c">../src/itodec.c</a> l.8</p>
-<dl>
+<a name="ultodec"></a><dl>
 <dt>
 ultodec
 </dt>
@@ -173,7 +191,7 @@ Size: ~293B <a href="../../src/ltodec.c">../src/ltodec.c</a> l.6
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

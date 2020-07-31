@@ -153,7 +153,7 @@ closedir       int closedir(DIR *dir);
                (src/dirent/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
-               Defines: dirbuf close write brk open
+               Defines: close brk write dirbuf open
                (src/dirent/opendir.c: 24)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -168,7 +168,7 @@ rewinddir      void rewinddir(DIR *dir);
                (src/dirent/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-               Defines: qsort brk open memcpy errno dirbuf write getbrk sbrk seterrno
+               Defines: sbrk seterrno qsort memcpy brk getbrk errno open write dirbuf
                (src/dirent/scandir.c: 35)
                list files and dirs in a directory
              
@@ -229,6 +229,33 @@ ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsi
 ==========
 mini_addons.h
 ==========
+
+OPTFENCE       static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...);
+               (include/syscall.h: 65)
+               prevent gcc to optimize away registers and variables
+              the macro OPTFENCE(...) can be invoked with any parameter.
+              The parameters will get calculated, even if gcc doesn't recognize
+              the use of the parameters, e.g. cause they are needed for an inlined asm syscall.
+             
+              The macro translates to an asm jmp and a function call to the function 
+              opt_fence, which is defined with the attribute "noipa" -
+              (the compiler "forgets" the function body, so gcc is forced
+              to generate all arguments for the function)
+              The generated asm jump hops over the call to the function,
+              but this gcc doesn't recognize.
+             
+              This generates some overhead, 
+              (a few (never reached) bytes for setting up the function call, and the jmp)
+              but I didn't find any other solution,
+              which gcc wouldn't cut for optimizations from time to time.
+              (volatile, volatile asm, optimize attributes, 
+              andsoon have all shown up to be unreliable - sometimes(!)).
+             
+              Had some fun debugging these bugs, which naturally showed up only sometimes.
+              (Many syscalls also work with scrambled arguments..)
+              And, I believe it IS a compiler bug. 
+              Volatile should be volatile for sure, not only sometimes.
+              I mean, why the heck do I write volatile?? 
 
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
                (src/itobin.c: 8)
@@ -351,7 +378,7 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 52)
                write str to stderr. Needs strlen
 
@@ -395,7 +422,7 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
 
 exit_errno     void exit_errno( int errnum );
-               Defines: execve write errno_str exit
+               Defines: write execve errno_str exit
                (src/exit_errno.c: 17)
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -412,14 +439,22 @@ exit_errno     void exit_errno( int errnum );
               the absolute value is supplied to errno.
 
 ext_match      int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
-               (src/ext_match.c: 110)
+               (src/ext_match.c: 165)
                regex engine
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
-              so no backtracking is done.
+              no backtracking is done. (Besides the matching %'s,
+              which are callen right to left)
+             
               It is a compromise between performance, size
               and capabilities.
+              The logic is different of a "regular" regular expression
+              machine, but has advantages (and disadvantages).
+              I'd say, the main advantage is the easiness of adding callbacks,
+              and defining your own matching/logic within these. 
+              Performance might be better as well overall,
+              but this depends also on the expressions.
              
               matches: 
               
@@ -462,7 +497,8 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                This will not have an effect onto the current matching,
                even if text is e.g. deleted by writing 0's.
                The matched positions are called in reverse order.
-               (The last matched % in the regex calls p_match first)
+               (The last matched % in the regex calls p_match first, 
+               the first % in the regex from the left will be callen last)
              
               supply 0 for p_matched, when you do not need to extract matches.
               This will treat % in the regex like a *, 
@@ -473,20 +509,67 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
              
              
               &[1] .. &[9]
-               call p_match_char
-               p_match_char has to return either RE_MATCH or RE_NOMATCH.
+               "match" like a '?' and call p_match_char
+               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+               or a number of the count of chars, which have been matched.
+             
                Therefore it is possible to e.g. rule your own
                character classes, defined at runtime, 
-               or do further tricks like changing the matched char.
+               or do further tricks like changing the matched chars,
+               match several chars, andsoon.
                When returning RE_NOMATCH,
                it is possible, the p_match and p_match_char callbacks are callen several times,
                but with different pos or len parameters.
+             
+               The matching works straight from left to right.
+               So, a "*&*" will call the callback & for the first char.
+               When returning RE_NOMATCH, the second char will be matched.
+               Until either RE_MATCH is returned from the callback,
+               or the last char has been matched.
+             
+               Matching several characters is also posssible from within the callback,
+               the position within the text will be incremented by that number,
+               you return from the callback.
+             
+               When returning RE_MATCHEND from the callback, 
+               the whole regular expression is aborted, and returns with matched;
+               no matter, if there are chars left in the expression.
+             
+             
+               The difference between % and & is the logic.
+               % matches nongreedy, and has to check therefore the right side of the star
+               for its matching.
+               Possibly this has to be repeated, when following chars do not match.
+             
+               & is matched straight from left to right.
+               Whatever number you return, the textpointer will be incremented by that value.
+               However, a & isn't expanded on it's own. ( what a % is ).
+               e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
+               only, when you return '2' from the callback.
+             
+               Performancewise, matching with & is faster,
+               since the % has on its right side to be matched
+               with recursing calls of ext_match.
+             
+              When using closures for the callbacks, you will possibly have to
+              enable an executable stack for the trampoline code
+              of gcc. Here, gcc complains about that. 
+              For setting this bit, have a look into the ldscripts in the folder
+              with the same name.
              
               supply 0 for p_match_char, when you don't need it.
               This will treat & in the regex like ?, 
               and match a following digit (0..9) in the text,
               a following digit (0..9) in the regex is ignored.
               
+              -----
+              In general, you have to somehow invert the logic of regular expressions
+              when using ext_match.
+              e.g. when matching the parameter 'runlevel=default' at the kernel's
+              commandline, a working regular expression would be
+              "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+              For matching e.g. numbers, you'd most possibly best of
+              with writing your own & callback.
              
               returns: 1 on match, 0 on no match
               ( RE_MATCH / RE_NOMATCH )
@@ -509,12 +592,11 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                However, since truth is negated as well, there's a problem,
                cause it's now 'false', but 'false' is true. This is very close
                to proving 42 is the answer. What is the escape velocity
-               in km/s out of the solar system, btw..
+               in km/s out of the solar system, btw.
              
                (I'm not kidding here. Just don't do a regex with !* or !?..
                And, please, do not ask me what is going to happen when the impossible
-               gets possibilized. I have to point at the according sentences of the BSD license;
-               there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc p..)
+               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
              
                A "!+" will translate into nongreedy matching of any char, however;
                "%!+" will match with % everything but the last char;
@@ -528,14 +610,14 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
                (include/fexecveat.h: 3)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write fileno strlen
+               Defines: write strlen fileno
                (src/fprintfs.c: 10)
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
               no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
-               Defines: strlen write fileno
+               Defines: write strlen fileno
                (include/prints.h: 27)
                print the string(s) supplied as arg(s) to stream
               this macro has an variable argument count.
@@ -555,13 +637,19 @@ grantpt        int grantpt(int fd);
                (src/pty.c: 13)
 
 group_print    
-               Defines: strlen write fileno
+               Defines: strlen fileno write
                (macros/defgroups.h: 13)
                enable print and related functions
               This switch enables strlen;
               but neither globals nor the mini_buf are used.
 
-group_write                   Defines: ewrite write
+group_printf   //
+               Defines: eprintf ltodec uitodec write fileno
+               (macros/defgroups.h: 29)
+               printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
+
+group_write    
+               Defines: write ewrite
                (macros/defgroups.h: 23)
                write, and related functions
               these functions do not depend on strlen, 
@@ -587,29 +675,6 @@ itooct         int itooct(int i, char *buf);
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
                (src/ltodec.c: 75)
-
-macro          static void __attribute__((noipa,cold)) optimization_fence(void*p){}
-               (include/minilib_global.h: 90)
-               prevent optimizations.
-              cast a var to void*, and calling this,
-              leaves the compiler unknown on what he can strip.
-              (noipa) means the compiler doesn't know, what the function itself does.
-              (the function does nothing, but don't tell that gcc, please..)
-              therefore, everything used as parameter to this function,
-              will be calculated, defined, and so on before.
-              It's used for the globals, 
-              shich are pushed within _start onto the stack.
-              since _start itself only provides a global pointer,
-              and initialitzes some of the globals,
-              but doesn't use them again,
-              this construction is needed.
-              more funnily, the function will never be called.
-              It's past the asm inline syscall to exit.
-              But again, luckily gcc doesn't know.
-              All other options, like having the globals volatile, 
-              setting the optimization flag of _start to 0, 
-              having a volatile asm call with the globals as param, and so on,
-              have been useless. All after all, seems to me, ai has it's restrictions.
 
 match          int match(char *text, const char *re, regex_match *st_match);
                (src/match.c: 57)
@@ -684,20 +749,43 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
                (include/mremap.h: 4)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
-               Defines: close dirbuf brk open
+               Defines: dirbuf open close brk
                (src/dirent/opendir.c: 10)
+
+optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
+               (include/minilib_global.h: 90)
+               prevent optimizations.
+              cast a var to void*, and calling this,
+              leaves the compiler unknown on what he can strip.
+              (noipa) means the compiler doesn't know, what the function itself does.
+              (the function does nothing, but don't tell that gcc, please..)
+              therefore, everything used as parameter to this function,
+              will be calculated, defined, and so on before.
+              It's used for the globals, 
+              shich are pushed within _start onto the stack.
+              since _start itself only provides a global pointer,
+              and initialitzes some of the globals,
+              but doesn't use them again,
+              this construction is needed.
+              more funnily, the function will never be called.
+              It's past the asm inline syscall to exit.
+              But again, luckily gcc doesn't know.
+              All other options, like having the globals volatile, 
+              setting the optimization flag of _start to 0, 
+              having a volatile asm call with the globals as param, and so on,
+              have been useless. All after all, seems to me, ai has it's restrictions.
 
 posix_openpt   int posix_openpt(int flags);
                Defines: open
                (src/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 48)
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: strlen fileno write
+               Defines: fileno strlen write
                (include/prints.h: 94)
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
@@ -719,11 +807,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: uitodec write ioctl open
+               Defines: uitodec write open ioctl
                (src/pty.c: 40)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: uitodec open write ioctl
+               Defines: uitodec write open ioctl
                (src/pty.c: 27)
 
 putenv         int putenv( char *string );
@@ -805,7 +893,7 @@ verbose_errstr2static const char* verbose_errstr2(int num);
               Trying to shrink that here.
 
 vexec          int vexec( const char* path, char* const* argv, char* const* envp );
-               Defines: wait4 seterrno
+               Defines: seterrno wait4
                (src/vexec.c: 6)
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
@@ -1477,7 +1565,7 @@ sigismember    int sigismember(sigset_t *set, int sig);
                (src/sigaction.c: 75)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
-               Defines: memcpy write
+               Defines: write memcpy
                (src/signal.c: 8)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
@@ -1490,7 +1578,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: open fileno close
+               Defines: fileno open close
                (src/fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1508,7 +1596,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: close fileno open
+               Defines: close open fileno
                (src/fopen.c: 91)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1539,12 +1627,12 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: fileno open close
+               Defines: open fileno close
                (src/fopen.c: 81)
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 95)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
@@ -1552,11 +1640,11 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
                (src/sprintf.c: 228)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: strlen fileno write
+               Defines: write strlen fileno
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1564,7 +1652,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
                (include/mini_fstream.h: 162)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
-               Defines: open fileno close
+               Defines: fileno open close
                (src/fopen.c: 101)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1585,7 +1673,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 106)
 
 getc           #define getc(F) fgetc(F)
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
@@ -1613,7 +1701,7 @@ itohex         int itohex(int i,char* buf,int padding);
               ( -1 is 0xffffffff, -2 0xfffffffe, ... )
 
 perror         void perror(const char *msg);
-               Defines: errno strerror strlen fileno write
+               Defines: strerror errno fileno strlen write
                (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1621,7 +1709,7 @@ printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
                (include/mini_fstream.h: 91)
 
 putc           #define putc(c,stream) fputc(c,stream)
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
@@ -1674,7 +1762,7 @@ stdlib.h
 ==========
 
 abort          void abort();
-               Defines: memcpy getpid write
+               Defines: write memcpy getpid
                (src/abort.c: 3)
 
 abs            static int abs(int i);
@@ -1698,7 +1786,7 @@ div            static div_t div(int numerator, int denominator);
                (include/math.h: 8)
 
 free           void free(void *p);
-               Defines: brk getbrk
+               Defines: getbrk brk
                (src/malloc.c: 139)
 
 free_brk       int free_brk();
@@ -1828,7 +1916,7 @@ strtol         long int strtol(const char *c, const char **endp, int base);
               doesn't check for overflow(!)
 
 system         int system( const char* command );
-               Defines: vfork environ execve write wait4
+               Defines: write wait4 environ vfork execve
                (src/system.c: 4)
 
 
@@ -1880,7 +1968,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/memcpy.c: 17)
 
 strdup         char *strdup(const char *source);
-               Defines: strlen strcpy brk
+               Defines: brk strlen strcpy
                (src/strdup.c: 7)
 
 strerror       static char* strerror( int errnum );
@@ -1959,7 +2047,7 @@ dup2           dup2(int oldfd, int newfd)
                (include/syscall_stubs.h: 117)
 
 execl          static int execl(const char *pathname, const char* arg0,... );
-               Defines: environ execve
+               Defines: execve environ
                (src/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
@@ -1974,7 +2062,7 @@ execvp         static inline int execvp(const char *file, char *const argv[]);
                (src/execvp.c: 58)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: environ access execve
+               Defines: execve environ access
                (src/execvp.c: 18)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)

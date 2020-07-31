@@ -33,7 +33,7 @@ f:readdir|D:struct dirent *readdir(DIR *dir)|c:directories|x:read a directory|
 f:rewinddir|D:void rewinddir(DIR *dir)|c:directories|x:reset the position of a directory stream to the beginning|
 f:rmdir|D:int rmdir( const char *pathname)|c:directories|x:remove a directory|
 f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **))|c:directories|x:scan a directory|
-f:scandir_bufsize|D:|c:directories|x:|
+f:scandir_bufsize|D://#define mini_scandir_bufsize 4096|c:directories|x:|
 f:seekdir|D:void seekdir(DIR *dir, long off)|c:directories|x:set the position of a directory stream|
 f:telldir|D:long telldir(DIR *dir)|c:directories|x:current location of a named directory stream|
 
@@ -139,6 +139,7 @@ f:munmap|D:int munmap( unsigned long addr,  size_t len)|c:memory|x:unmap pages o
 f:realloc|D:void* realloc(void *p, int size)|c:memory|x:memory reallocator|
 f:sbrk|D:void* sbrk(long incr)|c:memory|x:change data segment size|
 f:splice|D:int splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)|c:memory|x:splice data to/from a pipe|
+f:swap|D:void swap(void* a, void* b,int size)|c:memory|x:|
 
 #output
 
@@ -154,7 +155,7 @@ f:ewrites|D:#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))|c:output|x
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|c:output|x:|
 f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))|c:output|x:|
 f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...)|c:output|x:|
-f:fprints|D:#define fprints(F,str) write(fileno(F),str,strlen(str))|c:output|x:|
+f:fprints|D:#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)|c:output|x:|
 f:fputc|D:int volatile fputc(int c, FILE* F)|c:output|x:put a byte on a stream|
 f:fwrite|D:size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f)|c:output|x:binary output|
 f:fwrites|D:#define fwrites(fd,str) write(fd,str,sizeof(str))|c:output|x:|
@@ -194,11 +195,13 @@ f:setpgid|D:int setpgid( pid_t pid, pid_t pgid)|c:process|x:set process group ID
 f:setsid|D:int DEF_syscall(setsid,0 )|c:process|x:create session and set process group ID|
 f:system|D:int system( const char* command )|c:process|x:issue a command|
 f:vexec|D:int vexec( const char* path, char* const* argv, char* const* envp )|c:process|x:|
+f:vexec_q|D:int vexec_q( const char* path, char* const* argv, char* const* envp )|c:process|x:|
 f:vfork|D:int DEF_syscall(vfork,0)|c:process|x:create a child process and block parent|
 
 #regex
 
-f:ext_match|D:int ext_match(const char *text, const char *re)|c:regex|x:|
+f:ext_match|D:int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match)|c:regex|x:|
+f:match|D:int match(char *text, const char *re, regex_match *st_match)|c:regex|x:|
 
 #streams
 
@@ -284,12 +287,25 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 
 #unsorted
 
+f:alphasort|D:int alphasort( const struct dirent** de1, const struct dirent** de2 )|c:directories|x:|
+f:ansicolors|D:|c:output|x:|
+f:clone|D:int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)|c:process|x:|
+f:clone_t|D:int clone_t(int flags)|c:process|x:|
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
-f:match|D:int match(const char *text, const char *re)|c:regex|x:|
+f:eprintsl|D:#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)|c:output|x:|
+f:group_print|D:|c:output|x:|
+f:group_write|D:|c:output|x:|
+f:inotify_add_watch|D:int inotify_add_watch( int fd,  const char *pathname,  u32 mask)|c:directories|x:|
+f:inotify_init|D:int DEF_syscall(inotify_init,0)|c:directories|x:|
+f:inotify_init1|D:int inotify_init1( int flags)|c:directories|x:|
+f:inotify_rm_watch|D:int inotify_rm_watch( int fd,  __s32 wd)|c:directories|x:|
+f:itooct|D:int itooct(int i, char *buf)|c:conversions|x:|
+f:putenv|D:int putenv( char *string )|c:system|x:|
 f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
-f:swap|D:void swap(void* a, void* b,int size)|c:memory|x:|
-f:todo_putenv|D:int todo_putenv( char *s )|c:unsorted|x:|
-f:vexec_q|D:int vexec_q( const char* path, char* const* argv, char* const* envp )|c:process|x:|
+f:ret_errno|D:#ifdef mini_errno|c:errno|x:|
+f:seterrno|D:#ifdef mini_errno|c:errno|x:|
+f:shortcolornames|D:|c:output|x:|
+f:vsprintf|D:int vsprintf( char *buf, const char *fmt, ... )|c:output|x:|
 
 #x64-syscalls
 

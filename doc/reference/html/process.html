@@ -8,14 +8,14 @@
 <body>
 <hr>
 <h2><a name="_process"></a>process</h2>
-<dl>
+<a name="abort"></a><dl>
 <dt>
 abort
 </dt>
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> write getpid memcpy<br>
+ <strong>Defines:</strong> write memcpy getpid<br>
 <a href="../../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst.html">abort</a><br>
 </p>
 </dd>
@@ -29,6 +29,7 @@ atexit
 </p>
 </dd>
 </dl>
+<a name="atexit"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>register functions, which are callen on exit in reverse order
  the switch mini_atexit takes a optional number,
@@ -36,7 +37,25 @@ atexit
  (defaults to 8)</code></pre>
 </td></tr></table>
 <p><a href="../../src/atexit.c">../src/atexit.c</a> l.7 manpage: <a href="manpages/stdlib/atexit.3.rst.html">atexit</a><br></p>
-<dl>
+<a name="clone"></a><dl>
+<dt>
+clone
+</dt>
+<dd>
+<p>
+  <em>int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
+</p>
+</dd>
+<dt>
+clone_t
+</dt>
+<dd>
+<p>
+  <em>int clone_t(int flags)</em><br>
+<a href="../../include/clone.h">../include/clone.h</a> l.7
+</p>
+</dd>
 <dt>
 execl
 </dt>
@@ -84,7 +103,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst.html">execvp</a><br>
 </p>
@@ -95,18 +114,19 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> execve environ access<br>
  <strong>execute a file</strong>
 </p>
 </dd>
 </dl>
+<a name="execvpe"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>When invoked with a filename, starting with "." or "/",
  interprets this as absolute path. (calls execve with the pathname)
  Looks for file in the PATH environment, othwerise.</code></pre>
 </td></tr></table>
 <p>Size: ~556B <a href="../../src/execvp.c">../src/execvp.c</a> l.18</p>
-<dl>
+<a name="fexecve"></a><dl>
 <dt>
 fexecve
 </dt>
@@ -203,7 +223,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> vfork wait4 execve environ write<br>
+ <strong>Defines:</strong> write wait4 environ vfork execve<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst.html">system</a><br>
 </p>
@@ -214,23 +234,25 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> wait4 seterrno<br>
+ <strong>Defines:</strong> seterrno wait4<br>
 </p>
 </dd>
 </dl>
+<a name="vexec"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>execute a path, wait until the executed file exits.
  Deviating of system() an absolute pathname is taken.
  sets errno on error.</code></pre>
 </td></tr></table>
 <p><a href="../../src/vexec.c">../src/vexec.c</a> l.6</p>
-<dl>
+<a name="vexec_q"></a><dl>
 <dt>
 vexec_q
 </dt>
 <dd>
 <p>
   <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
+ <strong>Defines:</strong> seterrno<br>
 </p>
 </dd>
 </dl>
@@ -239,8 +261,8 @@ vexec_q
  do not write any output of the process. (close stdout)
  Deviating of system() an absolute pathname is taken.</code></pre>
 </td></tr></table>
-<p><a href="../../src/vexec.c">../src/vexec.c</a> l.29</p>
-<dl>
+<p><a href="../../src/vexec.c">../src/vexec.c</a> l.30</p>
+<a name="vfork"></a><dl>
 <dt>
 vfork
 </dt>
@@ -256,7 +278,7 @@ vfork
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-29 16:51:36 CEST
+ 2020-07-31 13:43:07 CEST
 </small></p>
 </body>
 </html>

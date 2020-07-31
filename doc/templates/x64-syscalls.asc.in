@@ -1,0 +1,14 @@
+In order to enable the macros of the syscalls, +
+please enable the configuration switch 'mini_syscalls'.
+
+Please note, most of the naked syscalls are not tested. +
+It might happen, amongst other problems,
+that some of the types of the arguments are 
+just predeclared, and no definition is given.
+
+When errno is used (via the config switch mini_errno),
+the syscalls return -1 on error and set errno.
+
+If errno isn't defined, the negative value of errno is returned 
+on error.
+

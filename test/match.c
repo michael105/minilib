@@ -221,5 +221,9 @@ int main(int argc, char **argv){
 		mt4("x=start vesa=0x300 runlevel=terminal", "*runlevel=%#");
 		mt4("x=start vesa=0x300 runlevel=terminal mouse", "*runlevel=%#");
 		mt4("x=start vesa=0x300 runlevel=terminal mouse", "*runlevel=%#*");
+
+		mt4("sd asdf dcsd567sdfsdf", "*![567]%\\D*");
+
+
 		return(0);
 }
