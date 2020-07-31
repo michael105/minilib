@@ -1,6 +1,7 @@
 
 
 all: $(patsubst %.asc,html/%.html,$(wildcard *.asc))
+	cp index.asc readme.asc
 
 html/%.html: %.html %.asc
 	mv $< ./html/
