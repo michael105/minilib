@@ -3,15 +3,28 @@ work in progress, not finished.
 
 A minimal init. 
 
-The small size (2.2kB) and using vfork might spare some resources.
+The small size (2.2kB) and using vfork do spare some resources.
 Especially, when considering context switches for reaping subprocesses.
-(Everytime, a child process exits, there's a process switch to init,
+(Everytime, a child process exits, there's a task switch to init,
 in order to "reap" the children's process state.
 Having a tiny init (or another subreaper process) has real performance advantages)
 
 Readahead should be implemented by the stages.
 
+I'm about to convert the init scripts to C files,
+and I'm heavily tempted to rule an init language.
+Atm the kernel's init phase takes most time.
+However, I'd like to have the system ready within <1 second.
+(Ready in the meaning of, the X server is started and ready for input)
 
+Yet this might be around 3 seconds, maybe five.
+
+Harddisk mounts, and module loads are done in the background,
+after X and the desktop manager(i3) has been started.
+
+As soon as this get's closer to 1 second, it will be possible 
+to measure the script's parsing overhead.
+Atm, it is neglectible.
 
 
 (2020/06)
@@ -77,8 +90,10 @@ Seems to me, a modular kernel would be advantegeous in matters of boottime.
 
 the modules can initialize the hardware in parallel to the boot process.
 
-(Now, the kernel needs about 1 second to initialize here)
+(Now, the kernel needs about x seconds to initialize here)
 
+Ok. Mdularizing the kernel, and loading
+all modules in parallel saves a lot of time.
 
 
 scripts/process starters: async, delayed, lazy.
@@ -96,6 +111,7 @@ executed first.
 Then follows rc.runlevel (default: rc.default)
 
 On Shutdown rc.shutdown is scanned.
+ / rc.default/S\* (S for shutdown)
 
 
 rinit.boot is there for rc.boot.
@@ -112,7 +128,8 @@ when the runlevel is changed,
  rinit.run writes into it's own argument the new runlevel.
  (so the current runlevel shows up with ps)
 
-On SIGUSR1 the runlevel is read from the shared directory within the init ramdisk.
+On SIGUSR1 the runlevel should be read from the shared directory within the init ramdisk,
+and changed to, when needed.
  (/rd/run/runlevel)
 
  For changing the runlevel, 
@@ -122,7 +139,12 @@ On SIGUSR1 the runlevel is read from the shared directory within the init ramdis
 
 
 
-rinit.shutdown scans and runs rc.shutdown.
+rinit.shutdown scans and runs rc.shutdown,
+as well as rc.runlevel/S\*
+
+
+
+
 
 
 
