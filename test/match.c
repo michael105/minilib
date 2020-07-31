@@ -224,6 +224,8 @@ int main(int argc, char **argv){
 
 		mt4("sd asdf dcsd567sdfsdf", "*![567]%\\D*");
 
+		mt4("abc11111sxfg", "*{2\\d}%" );
+		mt4("abc11111sxfg", "*{4\\d}%" );
 
 		return(0);
 }

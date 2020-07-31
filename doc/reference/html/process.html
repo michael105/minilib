@@ -15,8 +15,8 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> write memcpy getpid<br>
-<a href="../../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst.html">abort</a><br>
+ <strong>Defines:</strong> memcpy getpid write<br>
+<a href="../../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="../manpages/stdlib/abort.3.rst.html">abort</a><br>
 </p>
 </dd>
 <dt>
@@ -36,7 +36,7 @@ atexit
  which defines the maximum numbers of functions to be registered.
  (defaults to 8)</code></pre>
 </td></tr></table>
-<p><a href="../../src/atexit.c">../src/atexit.c</a> l.7 manpage: <a href="manpages/stdlib/atexit.3.rst.html">atexit</a><br></p>
+<p><a href="../../src/atexit.c">../src/atexit.c</a> l.7 manpage: <a href="../manpages/stdlib/atexit.3.rst.html">atexit</a><br></p>
 <a name="clone"></a><dl>
 <dt>
 clone
@@ -62,8 +62,8 @@ execl
 <dd>
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
- <strong>Defines:</strong> execve environ<br>
-<a href="../../src/execl.c">../src/execl.c</a> l.6 manpage: <a href="manpages/gen/exec.3.rst.html">execl</a><br>
+ <strong>Defines:</strong> environ execve<br>
+<a href="../../src/execl.c">../src/execl.c</a> l.6 manpage: <a href="../manpages/gen/exec.3.rst.html">execl</a><br>
 </p>
 </dd>
 <dt>
@@ -74,7 +74,7 @@ execv
   <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
  *Defines:</strong> environ execve<br>
  <strong>execute a file</strong>
-Size: ~300B <a href="../../src/execvp.c">../src/execvp.c</a> l.9 manpage: <a href="manpages/gen/exec.3.rst.html">execv</a><br>
+Size: ~300B <a href="../../src/execvp.c">../src/execvp.c</a> l.9 manpage: <a href="../manpages/gen/exec.3.rst.html">execv</a><br>
 </p>
 </dd>
 <dt>
@@ -84,7 +84,7 @@ execve
 <p>
   <em>int execve( const char <strong>filename,  char</strong> const* argv, char* const* envp)</em><br>
  <strong>execute program</strong>
-Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127 manpage: <a href="manpages/sys/execve.2.rst.html">execve</a><br>
+Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127 manpage: <a href="../manpages/sys/execve.2.rst.html">execve</a><br>
 </p>
 </dd>
 <dt>
@@ -103,9 +103,9 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> execve access environ<br>
+ *Defines:</strong> access environ execve<br>
  <strong>execute a file</strong>
-Size: ~556B <a href="../../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst.html">execvp</a><br>
+Size: ~556B <a href="../../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="../manpages/gen/exec.3.rst.html">execvp</a><br>
 </p>
 </dd>
 <dt>
@@ -114,7 +114,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> execve environ access<br>
+ *Defines:</strong> access environ execve<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -134,7 +134,7 @@ fexecve
 <p>
   <em>int fexecve(int fd, char <strong>const argv[], char *const envp[])</em><br>
  *execute a file</strong>
-Size: ~151B <a href="../../include/fexecve.h">../include/fexecve.h</a> l.3 manpage: <a href="manpages/sys/execve.2.rst.html">fexecve</a><br>
+Size: ~151B <a href="../../include/fexecve.h">../include/fexecve.h</a> l.3 manpage: <a href="../manpages/sys/execve.2.rst.html">fexecve</a><br>
 </p>
 </dd>
 <dt>
@@ -153,7 +153,7 @@ fork
 <p>
   <em>int DEF_syscall(fork,0)</em><br>
  <strong>create a new process</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.131 manpage: <a href="manpages/sys/fork.2.rst.html">fork</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.131 manpage: <a href="../manpages/sys/fork.2.rst.html">fork</a><br>
 </p>
 </dd>
 <dt>
@@ -164,7 +164,7 @@ getenv
   <em>char* getenv(const char* name)</em><br>
  <strong>Defines:</strong> environ<br>
  <strong>get value of an environment variable</strong>
-Size: ~106B <a href="../../src/getenv.c">../src/getenv.c</a> l.8 manpage: <a href="manpages/stdlib/getenv.3.rst.html">getenv</a><br>
+Size: ~106B <a href="../../src/getenv.c">../src/getenv.c</a> l.8 manpage: <a href="../manpages/stdlib/getenv.3.rst.html">getenv</a><br>
 </p>
 </dd>
 <dt>
@@ -174,7 +174,7 @@ getpgrp
 <p>
   <em>int DEF_syscall(getpgrp,0)</em><br>
  <strong>get the process group ID of the calling process</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.190 manpage: <a href="manpages/sys/getpgrp.2.rst.html">getpgrp</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.190 manpage: <a href="../manpages/sys/getpgrp.2.rst.html">getpgrp</a><br>
 </p>
 </dd>
 <dt>
@@ -184,7 +184,7 @@ getpid
 <p>
   <em>int DEF_syscall(getpid,0 )</em><br>
  <strong>get the process ID</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145 manpage: <a href="manpages/sys/getpid.2.rst.html">getpid</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145 manpage: <a href="../manpages/sys/getpid.2.rst.html">getpid</a><br>
 </p>
 </dd>
 <dt>
@@ -194,7 +194,7 @@ getppid
 <p>
   <em>int DEF_syscall(getppid,0)</em><br>
  <strong>get the parent process ID</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187 manpage: <a href="manpages/sys/getpid.2.rst.html">getppid</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187 manpage: <a href="../manpages/sys/getpid.2.rst.html">getppid</a><br>
 </p>
 </dd>
 <dt>
@@ -204,7 +204,7 @@ setpgid
 <p>
   <em>int setpgid( pid_t pid, pid_t pgid)</em><br>
  <strong>set process group ID for job control</strong>
-Size: ~63B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.188 manpage: <a href="manpages/sys/setpgid.2.rst.html">setpgid</a><br>
+Size: ~63B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.188 manpage: <a href="../manpages/sys/setpgid.2.rst.html">setpgid</a><br>
 </p>
 </dd>
 <dt>
@@ -214,7 +214,7 @@ setsid
 <p>
   <em>int DEF_syscall(setsid,0 )</em><br>
  <strong>create session and set process group ID</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146 manpage: <a href="manpages/sys/setsid.2.rst.html">setsid</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.146 manpage: <a href="../manpages/sys/setsid.2.rst.html">setsid</a><br>
 </p>
 </dd>
 <dt>
@@ -223,9 +223,9 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> write wait4 environ vfork execve<br>
+ <strong>Defines:</strong> write execve wait4 environ vfork<br>
  <strong>issue a command</strong>
-Size: ~326B <a href="../../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst.html">system</a><br>
+Size: ~326B <a href="../../src/system.c">../src/system.c</a> l.4 manpage: <a href="../manpages/stdlib/system.3.rst.html">system</a><br>
 </p>
 </dd>
 <dt>
@@ -234,7 +234,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> seterrno wait4<br>
+ <strong>Defines:</strong> wait4 seterrno<br>
 </p>
 </dd>
 </dl>
@@ -270,7 +270,7 @@ vfork
 <p>
   <em>int DEF_syscall(vfork,0)</em><br>
  <strong>create a child process and block parent</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.132 manpage: <a href="manpages/sys/vfork.2.rst.html">vfork</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.132 manpage: <a href="../manpages/sys/vfork.2.rst.html">vfork</a><br>
 </p>
 </dd>
 </dl>
@@ -278,7 +278,7 @@ vfork
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 13:43:07 CEST
+ 2020-07-31 15:02:40 UTC
 </small></p>
 </body>
 </html>

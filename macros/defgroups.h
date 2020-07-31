@@ -24,7 +24,7 @@
 
 
 //+doc printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
-//+depends printf eprintf fprintf itodec ltodec uitodec
+//+depends printf eprintf fprintf itodec ltodec uitodec snprintf
 //+def group_printf
 //
 

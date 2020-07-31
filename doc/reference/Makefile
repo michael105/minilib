@@ -15,4 +15,5 @@ html/%.html: %.html %.asc
 
 once: 
 	sed -i -E 's/(link:..\/)/\1..\//g' *.asc
+	sed -i -E 's/link:manpages/link:..\/manpages/g' *.asc
 	#sed -i -E 's/(link:.*)\.asc/\1.html/g' *.asc

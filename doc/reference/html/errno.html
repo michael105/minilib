@@ -42,7 +42,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> write execve errno_str exit<br>
+ <strong>Defines:</strong> exit execve write errno_str<br>
 </p>
 </dd>
 </dl>
@@ -69,9 +69,9 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> strerror errno fileno strlen write<br>
+ *Defines:</strong> errno strlen write strerror fileno<br>
  <strong>write error messages to standard error</strong>
-Size: ~329B <a href="../../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst.html">perror</a><br>
+Size: ~329B <a href="../../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="../manpages/string/strerror.3.rst.html">perror</a><br>
 </p>
 </dd>
 <dt>
@@ -111,7 +111,7 @@ strerror
 <dd>
 <p>
   <em>char* strerror( int errnum )</em><br>
-<a href="../../src/strerror.c">../src/strerror.c</a> l.7 manpage: <a href="manpages/string/string.3.rst.html">strerror</a><br>
+<a href="../../src/strerror.c">../src/strerror.c</a> l.7 manpage: <a href="../manpages/string/string.3.rst.html">strerror</a><br>
 </p>
 </dd>
 <dt>
@@ -149,7 +149,7 @@ verbose_errstr2
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 13:43:07 CEST
+ 2020-07-31 15:02:40 UTC
 </small></p>
 </body>
 </html>

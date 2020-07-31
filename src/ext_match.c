@@ -14,6 +14,15 @@
 // Performance might be better as well overall,
 // but this depends also on the expressions.
 //
+// A few nonextensive benchmarks show,
+// this engine is a bit faster than perl's regular expression machine,
+// slower than gnu grep (around factor2), and has the same speed as sed.
+// This might however vary with each usecase.
+// In favor of codesize I'm not going to optimize ext_match,
+// but there would be several possibilities, if you'd need a faster engine.
+// (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+// About 10 times faster than most expression engines.)
+//
 // matches: 
 // 
 // * for every count of any char
@@ -40,6 +49,9 @@
 //   it is not possible to match the closing bracket (])
 //   within a character class
 //
+// {nX}: counted match
+//  Match n times X.
+//  For X, all expressions are allowed.
 //
 // %[1]..%[9]: matches like a '+',
 //  and calls the callback supplied as 3rd argument (when not null).
@@ -175,116 +187,142 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 						re++;
 						neg=1;
 				}
-				switch ( *re ){
-						case '?':
-								if ( neg )
-										return(RE_NOMATCH);
-								break; // matches, but only if there's a char (not 0)
-						case '[':
-								for ( re++; *re && *re!=*text; re++ )
-										if ( *re==']' )
-												return(neg ^ RE_NOMATCH);
-								while ( *re && *re != ']' )
-										re++;
-								if ( !*re )
-										return( RE_ERROR );
-								if ( neg )
-										return( RE_NOMATCH );
-								break;
-						case '#': // match end of text, or a space; here a space
-								if ( isspace( *text )){
-										if ( neg ) return( RE_NOMATCH );
+				int count = 0;
+				if ( *re == '}' )
+						re++;
+				if ( *re == '{' ){
+						while ( re++ && isdigit(*re) ){
+								count += (count*10) + (*re-'0');
+						}
+				} else {
+						count = 1;
+				}
+				const char *pos = re;
+				while ( count --> 0 ){
+						re=pos;
+						switch ( *re ){
+								case '?':
+										if ( neg )
+												return(RE_NOMATCH);
+										break; // matches, but only if there's a char (not 0)
+								case '[':
+										for ( re++; *re && *re!=*text; re++ )
+												if ( *re==']' )
+														return(neg ^ RE_NOMATCH);
+										while ( *re && *re != ']' )
+												re++;
+										if ( !*re )
+												return( RE_ERROR );
+										if ( neg )
+												return( RE_NOMATCH );
 										break;
-								}
-								if ( neg ) break;
-								return( RE_NOMATCH );
+						/*		case '(':
+										re++;
+										const char *pos = re;
+										while ( *re && *re!=')' )
+												re++;*/ // this would depend on returning the current textpos
+										// from ext_match for a match. not today
 
-						case '&':
-								match_char = 1;
-						case '%':
-								if ( re[1]!=0 && re[1] >='0' && re[1] <= '9' ){
-										n_match = re[1]-'0';
-										*re++;
-								}
-
-								if ( match_char ){ // match &
-										if ( p_match_char ){
-												int m = p_match_char(n_match,text);
-												if ( m==RE_NOMATCH ){
-														if ( neg ) break;
-														return( RE_NOMATCH );
-												}
-												if ( m==RE_MATCHEND ){
-														return(neg^RE_MATCH);
-												}
-												// m > 0 here. increment text 
-												text=text+m;
+								case '#': // match end of text, or a space; here a space
+										if ( isspace( *text )){
+												if ( neg ) return( RE_NOMATCH );
 												break;
 										}
-										if ( neg ) return( RE_NOMATCH );
-										break; // matched, also for p_match_char == 0
-								}
+										if ( neg ) break;
+										return( RE_NOMATCH );
 
-								matchpos=text;
-						case '+': // match one or more chars
+								case '&':
+										match_char = 1;
+								case '%':
+										if ( re[1]!=0 && re[1] >='0' && re[1] <= '9' ){
+												n_match = re[1]-'0';
+												*re++;
+										}
+
+										if ( match_char ){ // match &
+												// if ( *re== d ) match char classes: &d, &D, ..
+												// match e.g. %d: several digits, &d: one digit.
+												if ( p_match_char ){
+														int m = p_match_char(n_match,text);
+														if ( m==RE_NOMATCH ){
+																if ( neg ) break;
+																return( RE_NOMATCH );
+														}
+														if ( m==RE_MATCHEND ){
+																	// fill  st_match here
+																return(neg^RE_MATCH);
+														}
+														// m > 0 here. increment text 
+														text=text+m;
+														//break;
+												}
+												// fill  st_match here
+												if ( neg ) return( RE_NOMATCH );
+												break; // matched, also for p_match_char == 0
+										}
+
+										matchpos=text;
+								case '+': // match one or more chars
 										text++; 
 										if ( !*text ) return(neg ^ RE_NOMATCH);//
-						case '*': // match 0 or more chars
-								re++;
-								if ( *re == 0){ // match. end of regex.
-										if ( matchpos && ( p_match || st_match ) ){
-												while ( *text )	// find end of text
-														text++;
+								case '*': // match 0 or more chars
+										re++;
+										if ( *re == 0){ // match. end of regex.
+												if ( matchpos && ( p_match || st_match ) ){
+														while ( *text )	// find end of text
+																text++;
+														if ( p_match )
+																p_match(n_match, matchpos,text-matchpos);
+														if ( st_match ){
+																st_match->pos = matchpos;
+																st_match->len = text-matchpos;
+														}
+												}
+												return(neg ^ RE_MATCH); // no chars anymore. so a match
+										}
+
+										while ( !ext_match(text,re,p_match,p_match_char,st_match) ){
+												text++;
+												if ( !*text ){
+														if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
+																goto __MATCHEND;
+														return(neg ^ RE_NOMATCH);
+												}
+										}
+__MATCHEND:
+										if ( matchpos ){
 												if ( p_match )
-														p_match(n_match, matchpos,text-matchpos);
+														p_match(n_match,matchpos,text-matchpos);
 												if ( st_match ){
 														st_match->pos = matchpos;
 														st_match->len = text-matchpos;
 												}
 										}
-										return(neg ^ RE_MATCH); // no chars anymore. so a match
-								}
 
-								while ( !ext_match(text,re,p_match,p_match_char,st_match) ){
-										text++;
-										if ( !*text ){
-												if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
-														goto __MATCHEND;
-												return(neg ^ RE_NOMATCH);
-										}
-								}
-__MATCHEND:
-								if ( matchpos ){
-										if ( p_match )
-												p_match(n_match,matchpos,text-matchpos);
-										if ( st_match ){
-												st_match->pos = matchpos;
-												st_match->len = text-matchpos;
-										}
-								}
+										return(neg ^ RE_MATCH);
 
-								return(neg ^ RE_MATCH);
-
-						case '\\': // match escaped *,?,backslashes, %
-								re++;
+								case '\\': // match escaped *,?,backslashes, %
+										re++;
 #define _MATCH(a,condition) if ( *re == a ){\
 		if ( neg ^ condition ) break;\
 		else return(RE_NOMATCH);}
 
-								_MATCH('d',isdigit(*text));
-								_MATCH('D',!isdigit(*text));
-								_MATCH('s',isspace(*text));
-								_MATCH('S',!isspace(*text));
-								_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
-								_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
-						default:
-								if ( *re==0 ) //partial match ( could be spared )
-										return(RE_NOMATCH);
-								if ( neg ^ (*re!=*text) ){
-										return(RE_NOMATCH);
-								}
+										_MATCH('d',isdigit(*text));
+										_MATCH('D',!isdigit(*text));
+										_MATCH('s',isspace(*text));
+										_MATCH('S',!isspace(*text));
+										_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
+										_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
+								default:
+										if ( *re==0 ) //partial match ( could be spared )
+												return(RE_NOMATCH);
+										if ( neg ^ (*re!=*text) ){
+												return(RE_NOMATCH);
+										}
+						}
+						text++;
 				}
-				re++; text++;
+				re++; 		
 		}
 
 		// *text == 0 here.
