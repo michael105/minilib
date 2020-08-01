@@ -54,6 +54,8 @@
 // {nX}: counted match
 //  Match n times X.
 //  For X, all expressions are allowed.
+//  If you need to match a number at the first char of 'X',
+//  separate X by a commata. E.g. {5,0} matches 5 times '0'.
 //
 // %[1]..%[9]: matches like a '+',
 //  and calls the callback supplied as 3rd argument (when not null).
