@@ -5,7 +5,8 @@
 Documentation of minilib.
 
 
-link:configuration.asc[Configuration]
+== link:configuration.asc[Configuration]
+
 
 Description of howto use and configure minilib
 

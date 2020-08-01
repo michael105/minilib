@@ -208,7 +208,7 @@ close A;
 close B;
 close INDEX;
 
-system("cat $MLDIR/doc/templates/minilib-reference.asc.bottom >> minilib-reference.asc");
+system("cat $MLDIR/doc/templates/reference-index.asc.bottom >> reference/index.asc");
 
 
 

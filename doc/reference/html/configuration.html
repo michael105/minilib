@@ -151,15 +151,39 @@ LDSCRIPT default
 <dd>
 <p>
         The ldscript to use<br>
-  Can be one of: default, onlytext, onlytext.tiny, textandbss<br>
   Defines, which executable sections are going to be built.<br>
-  <strong>default</strong>: .text .data .rodata .bss (.stack)<br>
-  <strong>textandbss</strong>: .text .bss (.stack)<br>
-  <strong>onlytext</strong>: .text (.stack)<br>
-        <strong>onlytext.tiny</strong>: .text (the stack is defined by the kernel, and made executable)<br>
-           Despite general meaning, an executable stack isn&#8217;t harmful, and even widely used.
+        Can be one of:<br>
+</p>
+<ul>
+<li>
+<p>
+<strong>default</strong>: .text .data .rodata .bss (.stack)<br>
+</p>
+</li>
+<li>
+<p>
+<strong>default_execstack</strong>: .text .data .rodata .bss (.stack)<br>
+      The stack is executable, what is needed for e.g. closures+
+</p>
+</li>
+<li>
+<p>
+<strong>textandbss</strong>: .text .bss (.stack)<br>
+</p>
+</li>
+<li>
+<p>
+<strong>onlytext</strong>: .text (.stack)<br>
+</p>
+</li>
+<li>
+<p>
+<strong>onlytext_tiny</strong>: .text (the stack is defined by the kernel, and made executable)<br>
+           Despite general meaning, an executable stack isn&#8217;t harmful on its own,and even widely used.
      It just is important (as always), to check user input against e.g. overflows.
 </p>
+</li>
+</ul>
 </dd>
 <dt>
 SHRINKELF
@@ -183,7 +207,7 @@ DEBUG
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-01 14:57:00 CEST
+ 2020-08-01 13:53:21 UTC
 </small></p>
 </body>
 </html>
