@@ -291,3 +291,13 @@ Match num: %0, len: 8
 stmatch: terminal
 === text: sd asdf dcsd567sdfsdf  re: *![567]%\D*
  Matched
+=== text: abc11111sxfg  re: *{2\d}%
+Match num: %0, len: 7
+--- 111sxfg ---
+ Matched
+stmatch: 111sxfg
+=== text: abc11111sxfg  re: *{4\d}%
+Match num: %0, len: 5
+--- 1sxfg ---
+ Matched
+stmatch: 1sxfg

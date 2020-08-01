@@ -187,7 +187,7 @@ ansicolors
 
 basename       char *basename(char *path);
 
-               (src/basename.c: 29)
+               (src/basename.c: 2)
 
 brk            static int brk( const void* addr );
 
@@ -334,6 +334,15 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
               Performance might be better as well overall,
               but this depends also on the expressions.
              
+              A few nonextensive benchmarks show,
+              this engine is a bit faster than perl's regular expression machine,
+              slower than gnu grep (around factor2), and has the same speed as sed.
+              This might however vary with each usecase.
+              In favor of codesize I'm not going to optimize ext_match,
+              but there would be several possibilities, if you'd need a faster engine.
+              (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+              About 10 times faster than most expression engines.)
+             
               matches: 
               
               * for every count of any char
@@ -360,6 +369,9 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                 it is not possible to match the closing bracket (])
                 within a character class
              
+              {nX}: counted match
+               Match n times X.
+               For X, all expressions are allowed.
              
               %[1]..%[9]: matches like a '+',
                and calls the callback supplied as 3rd argument (when not null).
@@ -480,7 +492,7 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/ext_match.c: 165)
+               (src/ext_match.c: 177)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -1183,7 +1195,7 @@ stdio.h
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 12)
+               (src/_fopen.c: 12)
 
 _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
@@ -1191,11 +1203,11 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerr       static inline void clearerr(FILE *f);
 
-               (include/mini_fstream.h: 198)
+               (include/mini_fstream.h: 184)
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 203)
+               (include/mini_fstream.h: 189)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
@@ -1204,15 +1216,15 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 91)
+               (src/fopen.c: 20)
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 184)
+               (include/mini_fstream.h: 170)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 191)
+               (include/mini_fstream.h: 177)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
@@ -1225,11 +1237,11 @@ fgetc          static inline int fgetc(FILE *F);
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 127)
+               (include/mini_fstream.h: 113)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
-               (src/fgets.c: 6)
+               (src/fgets.c: 4)
 
 fileno         static int fileno( FILE *f );
 
@@ -1239,11 +1251,11 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 81)
+               (src/fopen.c: 10)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 95)
+               (include/mini_fstream.h: 81)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
@@ -1259,28 +1271,28 @@ fputs          static inline int volatile fputs(const char *c, FILE *F);
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 162)
+               (include/mini_fstream.h: 148)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 101)
+               (src/fopen.c: 30)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 146)
+               (include/mini_fstream.h: 132)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 133)
+               (include/mini_fstream.h: 119)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 121)
+               (include/mini_fstream.h: 107)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 106)
+               (include/mini_fstream.h: 92)
 
 getc           #define getc(F) fgetc(F)
 
@@ -1292,7 +1304,7 @@ getchar        #define getchar() fgetc(0)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
-               (src/fgets.c: 29)
+               (src/fgets.c: 27)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -1316,7 +1328,7 @@ perror         void perror(const char *msg);
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-               (include/mini_fstream.h: 91)
+               (include/mini_fstream.h: 77)
 
 putc           #define putc(c,stream) fputc(c,stream)
 
@@ -1333,18 +1345,18 @@ puts           #define puts(msg) ( print(msg) + printl() )
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 156)
+               (include/mini_fstream.h: 142)
 
 setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy function.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 211)
+               (include/mini_fstream.h: 197)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy function
-               (include/mini_fstream.h: 216)
+               (include/mini_fstream.h: 202)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -1359,7 +1371,7 @@ ungetc         static int ungetc(int c, FILE *F);
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 100)
+               (include/mini_fstream.h: 86)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
 
@@ -1392,11 +1404,11 @@ atexit         static int atexit( functionp* func );
 
 atoi           int atoi(const char *c);
 
-               (src/atoi.c: 6)
+               (src/atoi.c: 3)
 
 atol           long atol(const char *c);
 
-               (src/atoi.c: 43)
+               (src/atol.c: 3)
 
 div            static div_t div(int numerator, int denominator);
 
@@ -1676,7 +1688,7 @@ execvpe        static int execvpe(const char *file, char *const argv[], char *co
 
 isatty         int isatty(int fd);
 
-               (src/isatty.c: 7)
+               (src/isatty.c: 5)
 
 open           int volatile open( const char *s, int flags, ... );
 

@@ -72,30 +72,16 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		return( close(fd) );
 }
 
-#if 0
-#ifndef fprintf
-#ifndef mini_sprintf
-#define mini_sprintf
-
-///+depends dprintf fileno sprintf
-///+def
-//#define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
-
-#endif
-#endif 
-
-#endif
-
 //+depends fprintf fileno snprintf
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-//+depends fprintf fileno
+//+depends fprintf fileno snprintf
 //+macro
 #define fprint(...) fprintf(__VA_ARGS__)
 
 
-//+depends fprintf
+//+depends fprintf fileno snprintf
 //+macro
 #define vfprintf(...) fprintf(__VA_ARGS__)
 

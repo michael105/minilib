@@ -82,7 +82,7 @@
 <tr valign="top"><td><small>_fopen</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  12 </small></td><td><small> FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small>sys__fork</small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  119 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>sys__fork</small></td><td><small>   <a href="../src/_fopen.c" target="right">../src/_fopen.c</a>  119 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__fremovexattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  383 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__fsetxattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  365 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__fstat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  15 </small></td><td><small></small></td></tr>
@@ -402,11 +402,11 @@
   which defines the maximum numbers of functions to be registered.
   (defaults to 8)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../src/atexit.c" target="right">../src/atexit.c</a>  6 </small></td><td><small> int atoi(const char *c);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../src/atexit.c" target="right">../src/atexit.c</a>  3 </small></td><td><small> int atoi(const char *c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atol.3.rst.html">atol</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  43 </small></td><td><small> long atol(const char *c);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atol.3.rst.html">atol</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  3 </small></td><td><small> long atol(const char *c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  29 </small></td><td><small> char *basename(char *path);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/atol.c" target="right">../src/atol.c</a>  2 </small></td><td><small> char *basename(char *path);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  19 </small></td><td><small>  int brk( const void* addr );
 </small></td></tr><tr><td></td><td colspan="2"><small>set the brk to addr
@@ -423,9 +423,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chroot.2.rst.html">chroot</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  141 </small></td><td><small> chroot( const char *filename)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">clearerr</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  198 </small></td><td><small>   void clearerr(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">clearerr</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  184 </small></td><td><small>   void clearerr(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  203 </small></td><td><small>   void clearerror(FILE *f);
+<tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  189 </small></td><td><small>   void clearerror(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small>clone</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  200 </small></td><td><small> clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)
 </small></td></tr>
@@ -538,7 +538,7 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  165 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  177 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
   This is somewhere between a fully fledged expression machine,
   and a simplicistic solution.
@@ -554,6 +554,15 @@
   and defining your own matching/logic within these. 
   Performance might be better as well overall,
   but this depends also on the expressions.
+ 
+  A few nonextensive benchmarks show,
+  this engine is a bit faster than perl's regular expression machine,
+  slower than gnu grep (around factor2), and has the same speed as sed.
+  This might however vary with each usecase.
+  In favor of codesize I'm not going to optimize ext_match,
+  but there would be several possibilities, if you'd need a faster engine.
+  (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+  About 10 times faster than most expression engines.)
  
   matches: 
   
@@ -581,6 +590,9 @@
     it is not possible to match the closing bracket (])
     within a character class
  
+  {nX}: counted match
+   Match n times X.
+   For X, all expressions are allowed.
  
   %[1]..%[9]: matches like a '+',
    and calls the callback supplied as 3rd argument (when not null).
@@ -710,12 +722,12 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  162 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  91 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  184 </small></td><td><small>   int feof(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  170 </small></td><td><small>   int feof(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  191 </small></td><td><small>   int ferror(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  177 </small></td><td><small>   int ferror(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">fexecve</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  3 </small></td><td><small>   int fexecve(int fd, char *const argv[], char *const envp[]);
 </small></td></tr>
@@ -726,19 +738,19 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">fgetc</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  11 </small></td><td><small>   int fgetc(FILE *F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  127 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  113 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">fgets</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  6 </small></td><td><small> char* fgets(char *buf, int size, FILE* F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">fgets</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  4 </small></td><td><small> char* fgets(char *buf, int size, FILE* F);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
 </small></td></tr><tr><td></td><td colspan="2"><small>Return the fd nummber of stdin,-out,-err. 
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  81 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  10 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  131 </small></td><td><small> DEF_syscall(fork,0)
 </small></td></tr>
-<tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  95 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
+<tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  81 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  228 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 </small></td></tr>
@@ -755,7 +767,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">fputs</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  20 </small></td><td><small>   int  fputs(const char *c, FILE *F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  162 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  148 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  139 </small></td><td><small> void free(void *p);
 </small></td></tr>
@@ -767,22 +779,22 @@
   malloc_brk before.
   Then brk() gives an error, return the return value of brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  101 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  146 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  132 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  133 </small></td><td><small>   int fsetpos(FILE *f, int pos );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  119 </small></td><td><small>   int fsetpos(FILE *f, int pos );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">fstat</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  109 </small></td><td><small> fstat(int fd,struct stat* statbuf)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fsync.2.rst.html">fsync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> fsync(int a1 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">ftell</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  121 </small></td><td><small>   long ftell(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">ftell</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  107 </small></td><td><small>   long ftell(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/truncate.2.rst.html">ftruncate</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  21 </small></td><td><small> ftruncate(unsigned int a1, unsigned int a2 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fwrite</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  106 </small></td><td><small>   size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fwrite</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  92 </small></td><td><small>   size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  88 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd. Computes length with sizeof(str) at compile time.
@@ -812,7 +824,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> DEF_syscall(getppid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  29 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  27 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  136 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
 </small></td></tr>
@@ -843,7 +855,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> int   )) ioctl( int fd, unsigned long int request, ... );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/ioctl.c" target="right">../src/ioctl.c</a>  7 </small></td><td><small> int isatty(int fd);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/ioctl.c" target="right">../src/ioctl.c</a>  5 </small></td><td><small> int isatty(int fd);
 </small></td></tr>
 <tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../src/isatty.c" target="right">../src/isatty.c</a>  65 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a number to hexadecimal representation with big capitals.
@@ -1099,7 +1111,7 @@
 <tr valign="top"><td><small>print</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  48 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  91 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  77 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
 </small></td></tr>
 <tr valign="top"><td><small>printfs</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  94 </small></td><td><small> #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments to stdout. 
@@ -1167,7 +1179,7 @@
   (when mini_errno is defined) returns -1 and sets errno,
   or returns the negative errno value.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/ret_errno.h" target="right">../include/ret_errno.h</a>  156 </small></td><td><small>   void rewind( FILE *f );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/ret_errno.h" target="right">../include/ret_errno.h</a>  142 </small></td><td><small>   void rewind( FILE *f );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">rewinddir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  2 </small></td><td><small> void rewinddir(DIR *dir);
 </small></td></tr>
@@ -1225,7 +1237,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  165 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  211 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  197 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
@@ -1244,7 +1256,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  148 </small></td><td><small> setuid( uid_t uid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  216 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  202 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function
  </small></td></tr>
 <tr valign="top"><td><small>shortcolornames</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  103 </small></td><td><small> 
@@ -1388,7 +1400,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  132 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  100 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  86 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>
 <tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  150 </small></td><td><small> DEF_syscall(vhangup,0 )
 </small></td></tr>
