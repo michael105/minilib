@@ -219,7 +219,7 @@ atoi
 <p>
   <em>int atoi(const char <strong>c)</em><br>
  *convert a string to an integer</strong>
-Size: ~32B <a href="../src/atoi.c">../src/atoi.c</a> l.6 manpage: <a href="manpages/stdlib/atoi.3.rst">atoi</a><br>
+Size: ~32B <a href="../src/atoi.c">../src/atoi.c</a> l.3 manpage: <a href="manpages/stdlib/atoi.3.rst">atoi</a><br>
 </p>
 </dd>
 <dt>
@@ -229,7 +229,7 @@ atol
 <p>
   <em>long atol(const char <strong>c)</em><br>
  *convert a string to a long integer</strong>
-Size: ~108B <a href="../src/atoi.c">../src/atoi.c</a> l.43 manpage: <a href="manpages/stdlib/atol.3.rst">atol</a><br>
+Size: ~108B <a href="../src/atol.c">../src/atol.c</a> l.3 manpage: <a href="manpages/stdlib/atol.3.rst">atol</a><br>
 </p>
 </dd>
 <dt>
@@ -399,9 +399,8 @@ basename
 <dd>
 <p>
   <em>char <strong>basename(char *path)</em><br>
- *Defines:</strong> strlen<br>
- <strong>return the last component of a pathname</strong>
-Size: ~151B <a href="../src/basename.c">../src/basename.c</a> l.29 manpage: <a href="manpages/gen/basename.3.rst">basename</a><br>
+ *return the last component of a pathname</strong>
+Size: ~151B <a href="../src/basename.c">../src/basename.c</a> l.2 manpage: <a href="manpages/gen/basename.3.rst">basename</a><br>
 </p>
 </dd>
 <dt>
@@ -541,7 +540,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> close brk write dirbuf open<br>
+ *Defines:</strong> open brk write close dirbuf<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -552,7 +551,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> dirbuf open close brk<br>
+ *Defines:</strong> close dirbuf open brk<br>
 <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -562,7 +561,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> getdents dirbuf<br>
+ *Defines:</strong> dirbuf getdents<br>
  <strong>read a directory</strong>
 </p>
 </dd>
@@ -602,7 +601,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> sbrk seterrno qsort memcpy brk getbrk errno open write dirbuf<br>
+ <strong>Defines:</strong> qsort seterrno brk open getbrk sbrk dirbuf errno write memcpy<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -710,7 +709,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> write execve errno_str exit<br>
+ <strong>Defines:</strong> write exit errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -737,7 +736,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> strerror errno fileno strlen write<br>
+ *Defines:</strong> strlen write fileno errno strerror<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -830,7 +829,7 @@ _fopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~316B <a href="../src/fopen.c">../src/fopen.c</a> l.12</p>
+<p>Size: ~316B <a href="../src/_fopen.c">../src/_fopen.c</a> l.12</p>
 <a name="access"></a><dl>
 <dt>
 access
@@ -878,7 +877,7 @@ closedir
 <dd>
 <p>
   <em>int closedir(DIR <strong>dir)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> getbrk brk<br>
  <strong>close a directory stream</strong>
 Size: ~323B <a href="../src/dirent/closedir.c">../src/dirent/closedir.c</a> l.6 manpage: <a href="manpages/gen/directory.3.rst">closedir</a><br>
 </p>
@@ -1119,7 +1118,7 @@ fgets
   <em>char* fgets(char <strong>buf, int size, FILE</strong> F)</em><br>
  <strong>Defines:</strong> read fileno<br>
  <strong>get a string from a stream</strong>
-<a href="../src/fgets.c">../src/fgets.c</a> l.6 manpage: <a href="manpages/stdio/fgets.3.rst">fgets</a><br>
+<a href="../src/fgets.c">../src/fgets.c</a> l.4 manpage: <a href="manpages/stdio/fgets.3.rst">fgets</a><br>
 </p>
 </dd>
 <dt>
@@ -1150,9 +1149,9 @@ gets
 <dd>
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a string from a</strong>
-<a href="../src/fgets.c">../src/fgets.c</a> l.29 manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
+<a href="../src/fgets.c">../src/fgets.c</a> l.27 manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
 </dd>
 <dt>
@@ -1324,9 +1323,9 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> write memcpy<br>
+ <strong>Defines:</strong> memcpy write<br>
  <strong>signal management</strong>
-Size: ~337B <a href="../src/signal.c">../src/signal.c</a> l.8 manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
+Size: ~337B <a href="../src/signal.c">../src/signal.c</a> l.5 manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
 </dd>
 <dt>
@@ -1495,7 +1494,7 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> getbrk brk<br>
+ *Defines:</strong> brk getbrk<br>
  <strong>free allocated memory</strong>
 Size: ~32B <a href="../src/malloc.c">../src/malloc.c</a> l.139 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
@@ -1745,7 +1744,7 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> getbrk brk<br>
+ *Defines:</strong> brk getbrk<br>
  <strong>memory reallocator</strong>
 Size: ~636B <a href="../src/malloc.c">../src/malloc.c</a> l.252 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
@@ -1998,8 +1997,8 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95
+ <strong>Defines:</strong> write fileno<br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.81
 </p>
 </dd>
 <dt>
@@ -2008,21 +2007,39 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> write fileno<br>
-<a href="../src/sprintf.c">../src/sprintf.c</a> l.228 manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br>
+ <strong>Defines:</strong> fileno write<br>
 </p>
 </dd>
+</dl>
+<a name="fprintf"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>fprintf, formatted output
+ conversions implemented:
+ %d: signed int
+ %u: unsigned int
+ %f: double (max precision 8 digits, highest possible number: 2^31
+ %l (modify a following d,u to long)
+ %s: string
+ %c: char
+ %b : binary output
+ %x/X : hex output (small/big capitals)
+ %(: grouping
+
+ For squeezing a few more bytes, and saving some checking;
+ writes(constant string) and print (variable string) are provided.</code></pre>
+</td></tr></table>
+<p><a href="../src/sprintf.c">../src/sprintf.c</a> l.249 manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br></p>
+<a name="fprintfs"></a><dl>
 <dt>
 fprintfs
 </dt>
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> write strlen fileno<br>
+ *Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
-<a name="fprintfs"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>prints formatted and unbuffered output to the stream F.
  only %s and %c are recognized.
@@ -2036,7 +2053,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> write fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -2052,7 +2069,7 @@ fputc
 <dd>
 <p>
   <em>int volatile fputc(int c, FILE* F)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stream</strong>
 Size: ~64B <a href="../include/fputc.h">../include/fputc.h</a> l.10 manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -2065,7 +2082,7 @@ fwrite
   <em>size_t fwrite(const void <strong>ptr, size_t size, size_t nmemb, FILE *f)</em><br>
  *Defines:</strong> write<br>
  <strong>binary output</strong>
-Size: ~117B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.106 manpage: <a href="manpages/stdio/fread.3.rst">fwrite</a><br>
+Size: ~117B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.92 manpage: <a href="manpages/stdio/fread.3.rst">fwrite</a><br>
 </p>
 </dd>
 <dt>
@@ -2090,7 +2107,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> write fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -2139,9 +2156,9 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>print formatted output</strong>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.91 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.77 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
 </dd>
 <dt>
@@ -2150,7 +2167,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno strlen write<br>
+ <strong>Defines:</strong> strlen fileno write<br>
 </p>
 </dd>
 </dl>
@@ -2233,7 +2250,7 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> write strlen<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
@@ -2276,8 +2293,8 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.100 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
+ <strong>Defines:</strong> fileno write<br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.86 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -2298,7 +2315,7 @@ vsnprintf
  mini_itodec (%d conversion)
  mini_atoi is needed for grouping numbers</code></pre>
 </td></tr></table>
-<p>Size: ~590B <a href="../src/sprintf.c">../src/sprintf.c</a> l.41 manpage: <a href="manpages/stdio/printf.3.rst">vsnprintf</a><br></p>
+<p>Size: ~590B <a href="../src/sprintf.c">../src/sprintf.c</a> l.43 manpage: <a href="manpages/stdio/printf.3.rst">vsnprintf</a><br></p>
 <a name="vsprintf"></a><dl>
 <dt>
 vsprintf
@@ -2351,7 +2368,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> write memcpy getpid<br>
+ <strong>Defines:</strong> getpid write memcpy<br>
 <a href="../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2408,7 +2425,7 @@ execv
 <dd>
 <p>
   <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
- *Defines:</strong> environ execve<br>
+ *Defines:</strong> execve environ<br>
  <strong>execute a file</strong>
 Size: ~300B <a href="../src/execvp.c">../src/execvp.c</a> l.9 manpage: <a href="manpages/gen/exec.3.rst">execv</a><br>
 </p>
@@ -2439,7 +2456,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> execve access environ<br>
+ *Defines:</strong> access execve environ<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -2559,7 +2576,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> write wait4 environ vfork execve<br>
+ <strong>Defines:</strong> wait4 write execve vfork environ<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2570,7 +2587,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> seterrno wait4<br>
+ <strong>Defines:</strong> wait4 seterrno<br>
 </p>
 </dd>
 </dl>
@@ -2640,6 +2657,15 @@ ext_match
  Performance might be better as well overall,
  but this depends also on the expressions.
 
+ A few nonextensive benchmarks show,
+ this engine is a bit faster than perl's regular expression machine,
+ slower than gnu grep (around factor2), and has the same speed as sed.
+ This might however vary with each usecase.
+ In favor of codesize I'm not going to optimize ext_match,
+ but there would be several possibilities, if you'd need a faster engine.
+ (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+ About 10 times faster than most expression engines.)
+
  matches:
 
  * for every count of any char
@@ -2666,6 +2692,9 @@ ext_match
    it is not possible to match the closing bracket (])
    within a character class
 
+ {nX}: counted match
+  Match n times X.
+  For X, all expressions are allowed.
 
  %[1]..%[9]: matches like a '+',
   and calls the callback supplied as 3rd argument (when not null).
@@ -2787,7 +2816,7 @@ ext_match
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.165</p>
+<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.177</p>
 <a name="match"></a><dl>
 <dt>
 match
@@ -2866,7 +2895,7 @@ clearerr
 <p>
   <em>void clearerr(FILE <strong>f)</em><br>
  *clear indicators on a stream</strong>
-Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.198 manpage: <a href="manpages/stdio/ferror.3.rst">clearerr</a><br>
+Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.184 manpage: <a href="manpages/stdio/ferror.3.rst">clearerr</a><br>
 </p>
 </dd>
 <dt>
@@ -2875,7 +2904,7 @@ clearerror
 <dd>
 <p>
   <em>void clearerror(FILE *f)</em><br>
-Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.203
+Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.189
 </p>
 </dd>
 <dt>
@@ -2895,7 +2924,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> close fileno open<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -2904,7 +2933,7 @@ fdopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~323B <a href="../src/fopen.c">../src/fopen.c</a> l.91 manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br></p>
+<p>Size: ~323B <a href="../src/fopen.c">../src/fopen.c</a> l.20 manpage: <a href="manpages/stdio/fopen.3.rst">fdopen</a><br></p>
 <a name="feof"></a><dl>
 <dt>
 feof
@@ -2913,7 +2942,7 @@ feof
 <p>
   <em>int feof(FILE <strong>f)</em><br>
  *test end-of-file indicator on a stream</strong>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.184 manpage: <a href="manpages/stdio/ferror.3.rst">feof</a><br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.170 manpage: <a href="manpages/stdio/ferror.3.rst">feof</a><br>
 </p>
 </dd>
 <dt>
@@ -2923,7 +2952,7 @@ ferror
 <p>
   <em>int ferror(FILE <strong>f)</em><br>
  *test error indicator on a stream</strong>
-Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.191 manpage: <a href="manpages/stdio/ferror.3.rst">ferror</a><br>
+Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.177 manpage: <a href="manpages/stdio/ferror.3.rst">ferror</a><br>
 </p>
 </dd>
 <dt>
@@ -2950,7 +2979,7 @@ fgetpos
   <em>void fgetpos(FILE <strong>f, long *pos )</em><br>
  *Defines:</strong> lseek<br>
  <strong>get current file position information</strong>
-Size: ~62B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.127 manpage: <a href="manpages/stdio/fseek.3.rst">fgetpos</a><br>
+Size: ~62B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.113 manpage: <a href="manpages/stdio/fseek.3.rst">fgetpos</a><br>
 </p>
 </dd>
 <dt>
@@ -2975,7 +3004,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> open fileno close<br>
+ <strong>Defines:</strong> close open fileno<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -2983,7 +3012,7 @@ fopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~324B <a href="../src/fopen.c">../src/fopen.c</a> l.81 manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br></p>
+<p>Size: ~324B <a href="../src/fopen.c">../src/fopen.c</a> l.10 manpage: <a href="manpages/stdio/fopen.3.rst">fopen</a><br></p>
 <a name="fputs"></a><dl>
 <dt>
 fputs
@@ -2991,7 +3020,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> write strlen fileno<br>
+ *Defines:</strong> strlen write fileno<br>
  <strong>put a string on a stream</strong>
 Size: ~90B <a href="../include/fputs.h">../include/fputs.h</a> l.20 manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -3004,7 +3033,7 @@ fread
   <em>size_t fread(void <strong>ptr, size_t size, size_t nmemb, FILE *f)</em><br>
  *Defines:</strong> read<br>
  <strong>binary input</strong>
-Size: ~110B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.162 manpage: <a href="manpages/stdio/fread.3.rst">fread</a><br>
+Size: ~110B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.148 manpage: <a href="manpages/stdio/fread.3.rst">fread</a><br>
 </p>
 </dd>
 <dt>
@@ -3013,7 +3042,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> close fileno open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3022,7 +3051,7 @@ freopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~320B <a href="../src/fopen.c">../src/fopen.c</a> l.101 manpage: <a href="manpages/stdio/fopen.3.rst">freopen</a><br></p>
+<p>Size: ~320B <a href="../src/fopen.c">../src/fopen.c</a> l.30 manpage: <a href="manpages/stdio/fopen.3.rst">freopen</a><br></p>
 <a name="fseek"></a><dl>
 <dt>
 fseek
@@ -3032,7 +3061,7 @@ fseek
   <em>int fseek(FILE <strong>f, long offset, int whence )</em><br>
  *Defines:</strong> lseek<br>
  <strong>reposition a file-position indicator in a stream</strong>
-Size: ~80B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.146 manpage: <a href="manpages/stdio/fseek.3.rst">fseek</a><br>
+Size: ~80B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.132 manpage: <a href="manpages/stdio/fseek.3.rst">fseek</a><br>
 </p>
 </dd>
 <dt>
@@ -3043,7 +3072,7 @@ fsetpos
   <em>int fsetpos(FILE <strong>f, int pos )</em><br>
  *Defines:</strong> lseek<br>
  <strong>set current file position</strong>
-Size: ~78B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.133 manpage: <a href="manpages/stdio/fseek.3.rst">fsetpos</a><br>
+Size: ~78B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.119 manpage: <a href="manpages/stdio/fseek.3.rst">fsetpos</a><br>
 </p>
 </dd>
 <dt>
@@ -3054,7 +3083,7 @@ ftell
   <em>long ftell(FILE <strong>f)</em><br>
  *Defines:</strong> lseek<br>
  <strong>return a file offset in a stream</strong>
-Size: ~53B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.121 manpage: <a href="manpages/stdio/fseek.3.rst">ftell</a><br>
+Size: ~53B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.107 manpage: <a href="manpages/stdio/fseek.3.rst">ftell</a><br>
 </p>
 </dd>
 <dt>
@@ -3065,7 +3094,7 @@ rewind
   <em>void rewind( FILE <strong>f )</em><br>
  *Defines:</strong> lseek<br>
  <strong>reset the file position indicator in a stream</strong>
-Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.156 manpage: <a href="manpages/stdio/fseek.3.rst">rewind</a><br>
+Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.142 manpage: <a href="manpages/stdio/fseek.3.rst">rewind</a><br>
 </p>
 </dd>
 <dt>
@@ -3083,7 +3112,7 @@ setbuf
 <pre><code>dummy function.
  There is no buffering implemented for the streams yet.</code></pre>
 </td></tr></table>
-<p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.211 manpage: <a href="manpages/stdio/setbuf.3.rst">setbuf</a><br></p>
+<p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.197 manpage: <a href="manpages/stdio/setbuf.3.rst">setbuf</a><br></p>
 <a name="setvbuf"></a><dl>
 <dt>
 setvbuf
@@ -3098,7 +3127,7 @@ setvbuf
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>dummy function</code></pre>
 </td></tr></table>
-<p>Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.216 manpage: <a href="manpages/stdio/setbuf.3.rst">setvbuf</a><br></p>
+<p>Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.202 manpage: <a href="manpages/stdio/setbuf.3.rst">setvbuf</a><br></p>
 <p>---</p>
 <hr>
 <h2><a name="_strings"></a>14. strings</h2>
@@ -3150,7 +3179,7 @@ strcat
   <em>char <strong>strcat(char *dest, const char *src )</em><br>
  *Defines:</strong> strlen<br>
  <strong>concatenate two strings</strong>
-Size: ~126B <a href="../src/strcat.c">../src/strcat.c</a> l.7 manpage: <a href="manpages/string/string.3.rst">strcat</a><br>
+Size: ~126B <a href="../src/strcat.c">../src/strcat.c</a> l.5 manpage: <a href="manpages/string/string.3.rst">strcat</a><br>
 </p>
 </dd>
 <dt>
@@ -3200,7 +3229,7 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> brk strlen strcpy<br>
+ *Defines:</strong> strlen strcpy brk<br>
  <strong>duplicate a specific number of bytes from a string</strong>
 Size: ~258B <a href="../src/strdup.c">../src/strdup.c</a> l.7 manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -3212,7 +3241,7 @@ strlen
 <p>
   <em>int strlen(const char*str)</em><br>
  <strong>get length of fixed size string</strong>
-Size: ~32B <a href="../src/strlen.c">../src/strlen.c</a> l.7 manpage: <a href="manpages/string/strlen.3.rst">strlen</a><br>
+Size: ~32B <a href="../src/strlen.c">../src/strlen.c</a> l.4 manpage: <a href="manpages/string/strlen.3.rst">strlen</a><br>
 </p>
 </dd>
 <dt>
@@ -3465,7 +3494,7 @@ isatty
   <em>int isatty(int fd)</em><br>
  <strong>Defines:</strong> ioctl<br>
  <strong>test for a terminal device</strong>
-Size: ~325B <a href="../src/isatty.c">../src/isatty.c</a> l.7 manpage: <a href="manpages/gen/ttyname.3.rst">isatty</a><br>
+Size: ~325B <a href="../src/isatty.c">../src/isatty.c</a> l.5 manpage: <a href="manpages/gen/ttyname.3.rst">isatty</a><br>
 </p>
 </dd>
 <dt>
@@ -3497,7 +3526,7 @@ ptsname
   <em>char <strong>ptsname(int fd)</em><br>
  *Defines:</strong> uitodec write open ioctl<br>
  <strong>get name of the slave pseudo-terminal device</strong>
-Size: ~1767B <a href="../src/pty.c">../src/pty.c</a> l.40 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
+Size: ~1767B <a href="../src/pty.c">../src/pty.c</a> l.43 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
 </dd>
 <dt>
@@ -3506,9 +3535,9 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> uitodec write open ioctl<br>
+ *Defines:</strong> uitodec ioctl open write<br>
  <strong>get the name of the slave pseudoterminal</strong>
-Size: ~1748B <a href="../src/pty.c">../src/pty.c</a> l.27
+Size: ~1748B <a href="../src/pty.c">../src/pty.c</a> l.30
 </p>
 </dd>
 <dt>
@@ -3541,7 +3570,7 @@ unlockpt
   <em>int unlockpt(int fd)</em><br>
  <strong>Defines:</strong> ioctl<br>
  <strong>unlock a pseudo-terminal master/slave pair</strong>
-Size: ~325B <a href="../src/pty.c">../src/pty.c</a> l.20 manpage: <a href="manpages/stdlib/ptsname.3.rst">unlockpt</a><br>
+Size: ~325B <a href="../src/pty.c">../src/pty.c</a> l.23 manpage: <a href="manpages/stdlib/ptsname.3.rst">unlockpt</a><br>
 </p>
 </dd>
 <dt>
@@ -3712,7 +3741,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> eprintf ltodec uitodec write fileno<br>
+ <strong>Defines:</strong> uitodec eprintf fileno write ltodec<br>
 </p>
 </dd>
 </dl>
@@ -6843,7 +6872,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 13:42:53 CEST
+ 2020-08-01 14:56:44 CEST
 </small></p>
 </body>
 </html>

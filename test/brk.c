@@ -24,18 +24,18 @@ int main(int argc, char **argv){
 		
 
 		printf("Ok\n");
-		printf("to end: %l\n",_end);
+		printf("to end: %ld\n",_end);
 		printf("hmm end: %x\n",134517936);
 
 		long int r=0;
 		unsigned long *memstart;
 		r = sbrk(0);
 		memstart = r;
-		printf("r: %l\n",r);
+		printf("r: %ld\n",r);
 		r = sbrk(32);
-		printf("r: %l\n",r);
+		printf("r: %ld\n",r);
 		r = sbrk(0);
-		printf("r: %l\n",r);
+		printf("r: %ld\n",r);
 
 
 		for( int a=0; a<8; a++ ){
@@ -46,15 +46,15 @@ int main(int argc, char **argv){
 
 		void* m = mmap(0,0, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
 
-		printf("m: %l\n",m);
+		printf("m: %ld\n",m);
 
 
 		m = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
-		printf("m: %l\n",m);
+		printf("m: %ld\n",m);
 
 		void* m2 = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
-		printf("m: %l\n",m2);
-		printf("m-m2: %l\n",m-m2);
+		printf("m: %ld\n",m2);
+		printf("m-m2: %ld\n",m-m2);
 		char *c = m2;
 		
 		for ( int a = 0; a<50000; a+=256 ){

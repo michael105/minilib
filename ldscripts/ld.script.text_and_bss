@@ -56,9 +56,9 @@ SECTIONS
 							 pad the .data section.  
 misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 		} :bss 
-		/* . = ALIGN(64 / 8);
+		 . = ALIGN(64 / 8);
 	  _end = .; 
-		PROVIDE (_end = .); */
+		PROVIDE (_end = .); 
 
 
 		/DISCARD/ : { 

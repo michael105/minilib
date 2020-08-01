@@ -27,7 +27,7 @@ isatty
   <em>int isatty(int fd)</em><br>
  <strong>Defines:</strong> ioctl<br>
  <strong>test for a terminal device</strong>
-Size: ~325B <a href="../../src/isatty.c">../src/isatty.c</a> l.7 manpage: <a href="../manpages/gen/ttyname.3.rst.html">isatty</a><br>
+Size: ~325B <a href="../../src/isatty.c">../src/isatty.c</a> l.5 manpage: <a href="../manpages/gen/ttyname.3.rst.html">isatty</a><br>
 </p>
 </dd>
 <dt>
@@ -57,9 +57,9 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> ioctl open uitodec write<br>
+ *Defines:</strong> uitodec write open ioctl<br>
  <strong>get name of the slave pseudo-terminal device</strong>
-Size: ~1767B <a href="../../src/pty.c">../src/pty.c</a> l.40 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
+Size: ~1767B <a href="../../src/pty.c">../src/pty.c</a> l.43 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
 </p>
 </dd>
 <dt>
@@ -68,9 +68,9 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> open write uitodec ioctl<br>
+ *Defines:</strong> uitodec ioctl open write<br>
  <strong>get the name of the slave pseudoterminal</strong>
-Size: ~1748B <a href="../../src/pty.c">../src/pty.c</a> l.27
+Size: ~1748B <a href="../../src/pty.c">../src/pty.c</a> l.30
 </p>
 </dd>
 <dt>
@@ -103,7 +103,7 @@ unlockpt
   <em>int unlockpt(int fd)</em><br>
  <strong>Defines:</strong> ioctl<br>
  <strong>unlock a pseudo-terminal master/slave pair</strong>
-Size: ~325B <a href="../../src/pty.c">../src/pty.c</a> l.20 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">unlockpt</a><br>
+Size: ~325B <a href="../../src/pty.c">../src/pty.c</a> l.23 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">unlockpt</a><br>
 </p>
 </dd>
 <dt>
@@ -121,7 +121,7 @@ vhangup
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 19:05:32 CEST
+ 2020-08-01 14:57:00 CEST
 </small></p>
 </body>
 </html>

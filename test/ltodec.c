@@ -31,9 +31,9 @@ int main(int argc, char **argv){
 		printf("argc: %s\n",buf);
 
 		printf("fmt, 9001: %d\n",(long)9001);
-		printf("fmt, 9001: %l\n",(long)9001);
-		printf("fmt, 9001: %1l\n",(long)9001);
-		printf("fmt, 9001: %7l\n",(long)9001);
+		printf("fmt, 9001: %ld\n",(long)9001);
+		printf("fmt, 9001: %1ld\n",(long)9001);
+		printf("fmt, 9001: %7ld\n",(long)9001);
 
 		if ( argc>1 ){
 		long l = atol(argv[1]);

@@ -28,6 +28,8 @@
 // I'm really uncertain about the size arg here, amongst others
 // these are just misdefined functions, inhaerent insecure. :/
 // If possible, do not use sprintf. Use snprintf instead. 
+//
+// todo: add attribute printf (gcc format checking)
 
 //+ansi stdio.h
 //+depends write
@@ -49,6 +51,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 		char sep;
 		char tmp[16];
 		char *s;
+		int mod;  // modifier. : 0==int, 1==long
 
 #if 1
 		while ( fmt[a] != 0){
@@ -57,9 +60,10 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 						padding = 0;
 						sep = 0;
 						groups=0;
+						mod = 0;
+						padding = 0;
 						do {
 								a++;
-								padding = 0;
 								while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
 												//tmp[c] = fmt[a]; 
 												//c++;
@@ -77,18 +81,40 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 #if 1
 										case 'u':
 #ifdef mini_itodec
+
+												if ( mod == 0 ){
 												MINI_TEST_OVERRUN(b+13);
 												b = b + uitodec(va_arg(args,unsigned int),&buf[b],(padding?padding:1),sep);
 												//b = b + uitodec(va_arg(args,unsigned int),&buf[b],padding,sep);
+												}
 #endif
+#ifdef mini_ultodec
+												if ( mod == 1 ){
+													MINI_TEST_OVERRUN(b+27);
+													b = b + ultodec(va_arg(args,long),&buf[b],(padding?padding:1),sep);
+													//b = b + ltodec(va_arg(args,long),&buf[b],padding,sep);
+												}
+#endif
+
+
 												end=1;
 												break;
 										case 'd':
 #ifdef mini_itodec
-												MINI_TEST_OVERRUN(b+13);
-												b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
-												//b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
+												if ( mod == 0 ){
+													MINI_TEST_OVERRUN(b+13);
+													b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
+													//b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
+												} 
 #endif
+#ifdef mini_ltodec
+												if ( mod == 1 ){
+													MINI_TEST_OVERRUN(b+27);
+													b = b + ltodec(va_arg(args,long),&buf[b],(padding?padding:1),sep);
+													//b = b + ltodec(va_arg(args,long),&buf[b],padding,sep);
+												}
+#endif
+
 												end=1;
 												break;
 #endif
@@ -103,12 +129,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												end=1;
 												break;
 										case 'l':
-#ifdef mini_ltodec
-												MINI_TEST_OVERRUN(b+27);
-												b = b + ltodec(va_arg(args,long),&buf[b],(padding?padding:1),sep);
-												//b = b + ltodec(va_arg(args,long),&buf[b],padding,sep);
-#endif
-												end=1;
+												mod = 1;
 												break;
 
 										case 39:
@@ -178,11 +199,6 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												end=1;
 												MINI_TEST_OVERRUN(b);
 												break;
-												
-
-
-
-
 
 								}
 
@@ -210,17 +226,22 @@ msprintfout:
 
 
 
-/// fprintf
-/// conversions implemented:
-/// %d  
-/// %u
-/// %f (max precision 8 digits, highest possible number: 2^31
-/// %s
-/// %c
-/// %b : binary output
-/// %x/X : hex output
-/// %(
-/// 
+//+doc fprintf, formatted output
+// conversions implemented:
+// %d: signed int
+// %u: unsigned int
+// %f: double (max precision 8 digits, highest possible number: 2^31
+// %l (modify a following d,u to long)
+// %s: string
+// %c: char
+// %b : binary output
+// %x/X : hex output (small/big capitals)
+// %(: grouping
+//
+// For squeezing a few more bytes, and saving some checking;
+// writes(constant string) and print (variable string) are provided.
+//
+// 
 //+header stdio.h
 //+depends write prints dprintf sprintf fileno
 //+needs mini_fstream.h 

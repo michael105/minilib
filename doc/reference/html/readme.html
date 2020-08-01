@@ -10,11 +10,26 @@
 <p>
 </p>
 <a name="preamble"></a>
-<p>Reference of minilib.</p>
+<p>Documentation of minilib.</p>
 <p><a href="configuration.html">Configuration</a></p>
 <p>Description of howto use and configure minilib</p>
+<p><a href="license.rst.html">License</a></p>
+<p>minilib is licensed under BSD 3-clause.</p>
+<p>Some files in the folder header have different licensing terms,
+they define the kernel interface(s) and are either from linux itself (SPDX licensed),
+or from musl.</p>
 <hr>
 <h2><a name="_api"></a> API</h2>
+<p>Please note, the number after "Size:" is an estimation.
+Each function added as a function, with all dependent functions,
+within a binary that much bytes to the overall size.</p>
+<p>It is however not possible to give exact numbers, these depend on how much the compiler
+can optimize for each call. What is different each time, depending on the circumstances.</p>
+<p>To complicate things more, some functions will be inlined, others will be reused.</p>
+<p>And, the choosen linker script will have it&#8217;s (sometimes surprising) influence.</p>
+<p>The linked manpages are from the freeBSD project and there for convenience.
+The description of the manpage does not neccessarily match the implementation,
+here the description at the reference precedes.</p>
 <h3><a name="_a_href_conversions_asc_conversions_a"></a><a href="conversions.html">conversions</a></h3>
 <p><a href="conversions.html#_itobin">_itobin</a> <a href="conversions.html#_itohex">_itohex</a> <a href="conversions.html#atoi">atoi</a> <a href="conversions.html#atol">atol</a> <a href="conversions.html#dtodec">dtodec</a> <a href="conversions.html#itoHEX">itoHEX</a> <a href="conversions.html#itobin">itobin</a> <a href="conversions.html#itodec">itodec</a> <a href="conversions.html#itohex">itohex</a> <a href="conversions.html#itooct">itooct</a> <a href="conversions.html#ltodec">ltodec</a> <a href="conversions.html#strtol">strtol</a> <a href="conversions.html#uitodec">uitodec</a> <a href="conversions.html#ultodec">ultodec</a></p>
 <h3><a name="_a_href_directories_asc_directories_a"></a><a href="directories.html">directories</a></h3>
@@ -55,7 +70,7 @@
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 19:05:32 CEST
+ 2020-08-01 14:57:00 CEST
 </small></p>
 </body>
 </html>

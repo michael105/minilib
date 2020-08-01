@@ -749,11 +749,17 @@ TMPL_END
 # minilib.h ends here.
 # ldscripts
 
-foreach my $script ( qw/default onlytext text_and_bss/ ){
+#foreach my $script ( qw/default onlytext text_and_bss/ ){
+print "foreach my $script ( system(ls $mlibdir/ldscripts/ld.script*) ){";
+foreach my $script (`ls $mlibdir/ldscripts/ld.script*` ){
+		print("Script: $script");
 		my $s = $script;
+		chomp $s;
+		$s =~ s/^.*ld.script.//;
+		$s =~ s/ld.script.//;
 		$s =~ s/\./_/g;
 		print $ml "#ifdef LDSCRIPT_$s\n\n";
-		print $ml `cat $mlibdir/ldscripts/ld.script.$script`;
+		print $ml `cat $script`;
 		print $ml "#endif\n\n";
 }
 

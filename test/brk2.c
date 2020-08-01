@@ -34,17 +34,17 @@ int main(int argc, char **argv){
 		
 
 		printf("Ok\n");
-		printf("to end: %l\n",_end);
+		printf("to end: %ld\n",_end);
 
 		long int r=0;
 		unsigned long *memstart;
 		r = (ulong)sbrk(0);
 		memstart = (ulong*)r;
-		printf("r: %l\n",r);
+		printf("r: %ld\n",r);
 		r = (ulong)sbrk(32);
-		printf("r: %l\n",r);
+		printf("r: %ld\n",r);
 		r = (ulong)sbrk(0);
-		printf("r: %l\n",r);
+		printf("r: %ld\n",r);
 
 
 		for( int a=0; a<8; a++ ){
@@ -55,19 +55,19 @@ int main(int argc, char **argv){
 
 		void* m = mmap(0,0, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
 
-		printf("m: %l\n",m);
+		printf("m: %ld\n",m);
 
 
 		m = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
-		printf("m: %l\n",m);
+		printf("m: %ld\n",m);
 
 		void* m2 = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
-		printf("m2: %l\n",m2);
-		printf("m-m2: %l\n",m-m2);
+		printf("m2: %ld\n",m2);
+		printf("m-m2: %ld\n",m-m2);
 		char *c = m2;
 		
 		for ( int a = 0; a<8; a++ ){
-				printf("a: %d, addr: %l\n",a,c);
+				printf("a: %d, addr: %ld\n",a,c);
 				*c=a;
 				c+=1024;
 				//m2+=4;
@@ -75,15 +75,15 @@ int main(int argc, char **argv){
 		getchar();
 
 		void* m3 = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE | MAP_GROWSDOWN, 0, 0 );
-		printf("m3: %l\n",m3);
-		printf("m2-m3: %l\n",m2-m3);
+		printf("m3: %ld\n",m3);
+		printf("m2-m3: %ld\n",m2-m3);
 		c = m2;
 			
 
 		getchar();
 
 		for ( int a = 0; a<16; a++ ){
-				printf("a: %d, addr: %l\n",a,c);
+				printf("a: %d, addr: %ld\n",a,c);
 				*c=a;
 				c-=1024;
 				//m2+=4;
@@ -94,7 +94,7 @@ int main(int argc, char **argv){
 		getchar();
 
 		for ( int a = 0; a<256; a++ ){
-				printf("a: %d, addr: %l\n",a,c);
+				printf("a: %d, addr: %ld\n",a,c);
 				*c=a;
 				c-=(1<<21); // 2MB
 				//m2+=4;
@@ -103,7 +103,7 @@ int main(int argc, char **argv){
 
 		for ( int a = 0; a<256; a++ ){
 				c+=(1<<21); // 2MB
-				printf("a: %d, *c: %d, addr: %l\n",a,*(int*)c,c);
+				printf("a: %d, *c: %d, addr: %ld\n",a,*(int*)c,c);
 				//m2+=4;
 		}
 

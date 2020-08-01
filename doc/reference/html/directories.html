@@ -32,9 +32,8 @@ basename
 <dd>
 <p>
   <em>char <strong>basename(char *path)</em><br>
- *Defines:</strong> strlen<br>
- <strong>return the last component of a pathname</strong>
-Size: ~151B <a href="../../src/basename.c">../src/basename.c</a> l.29 manpage: <a href="../manpages/gen/basename.3.rst.html">basename</a><br>
+ *return the last component of a pathname</strong>
+Size: ~151B <a href="../../src/basename.c">../src/basename.c</a> l.2 manpage: <a href="../manpages/gen/basename.3.rst.html">basename</a><br>
 </p>
 </dd>
 <dt>
@@ -174,7 +173,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> open write close brk dirbuf<br>
+ *Defines:</strong> open brk write close dirbuf<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="../manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
@@ -185,7 +184,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> dirbuf close brk open<br>
+ *Defines:</strong> close dirbuf open brk<br>
 <a href="../../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -235,7 +234,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> open qsort brk errno getbrk dirbuf write sbrk memcpy seterrno<br>
+ <strong>Defines:</strong> qsort seterrno brk open getbrk sbrk dirbuf errno write memcpy<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -310,7 +309,7 @@ Size: ~32B <a href="../../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 19:05:32 CEST
+ 2020-08-01 14:57:00 CEST
 </small></p>
 </body>
 </html>

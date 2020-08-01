@@ -710,11 +710,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
 ptsname        char *ptsname(int fd);
 
-               (src/pty.c: 40)
+               (src/pty.c: 43)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
-               (src/pty.c: 27)
+               (src/pty.c: 30)
 
 putenv         int putenv( char *string );
 
@@ -791,7 +791,7 @@ ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter )
 
 unlockpt       int unlockpt(int fd);
 
-               (src/pty.c: 20)
+               (src/pty.c: 23)
 
 verbose_errstr const char* verbose_errstr(int num);
 
@@ -826,7 +826,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               warning - most possibly you'd like to define besides fprintf, or family,
               mini_itodec (%d conversion) 
               mini_atoi is needed for grouping numbers
-               (src/sprintf.c: 41)
+               (src/sprintf.c: 43)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
@@ -1180,7 +1180,7 @@ sigismember    int sigismember(sigset_t *set, int sig);
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
-               (src/signal.c: 8)
+               (src/signal.c: 5)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
@@ -1259,7 +1259,23 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
-               (src/sprintf.c: 228)
+               fprintf, formatted output
+              conversions implemented:
+              %d: signed int
+              %u: unsigned int
+              %f: double (max precision 8 digits, highest possible number: 2^31
+              %l (modify a following d,u to long)
+              %s: string
+              %c: char
+              %b : binary output
+              %x/X : hex output (small/big capitals)
+              %(: grouping
+             
+              For squeezing a few more bytes, and saving some checking;
+              writes(constant string) and print (variable string) are provided.
+             
+              
+               (src/sprintf.c: 249)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -1591,7 +1607,7 @@ strcasecmp     int strcasecmp(const char*c1,const char*c2);
 
 strcat         char *strcat(char *dest, const char *src );
 
-               (src/strcat.c: 7)
+               (src/strcat.c: 5)
 
 strchr         char *strchr(const char *s, int c);
 
@@ -1619,7 +1635,7 @@ strerror       static char* strerror( int errnum );
 
 strlen         int strlen(const char*str);
 
-               (src/strlen.c: 7)
+               (src/strlen.c: 4)
 
 strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
 

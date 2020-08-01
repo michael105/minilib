@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 		for ( int a=0; a<argc; a++ ){
 				printf("arg %d :",a);
 				printf("%s ",argv[a]);
-				printf("conv: %l\n",strtol(argv[a],0,0));
+				printf("conv: %ld\n",strtol(argv[a],0,0));
 		}
 
 		return(0);

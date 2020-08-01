@@ -28,7 +28,7 @@ fgets
   <em>char* fgets(char <strong>buf, int size, FILE</strong> F)</em><br>
  <strong>Defines:</strong> read fileno<br>
  <strong>get a string from a stream</strong>
-<a href="../../src/fgets.c">../src/fgets.c</a> l.6 manpage: <a href="../manpages/stdio/fgets.3.rst.html">fgets</a><br>
+<a href="../../src/fgets.c">../src/fgets.c</a> l.4 manpage: <a href="../manpages/stdio/fgets.3.rst.html">fgets</a><br>
 </p>
 </dd>
 <dt>
@@ -37,7 +37,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 <a href="../../include/fgetc.h">../include/fgetc.h</a> l.26 manpage: <a href="../manpages/stdio/getc.3.rst.html">getc</a><br>
 </p>
@@ -48,7 +48,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a</strong>
 <a href="../../include/fgetc.h">../include/fgetc.h</a> l.29 manpage: <a href="../manpages/stdio/getc.3.rst.html">getchar</a><br>
 </p>
@@ -61,7 +61,7 @@ gets
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
  <strong>Defines:</strong> read fileno<br>
  <strong>get a string from a</strong>
-<a href="../../src/fgets.c">../src/fgets.c</a> l.29 manpage: <a href="../manpages/stdio/fgets.3.rst.html">gets</a><br>
+<a href="../../src/fgets.c">../src/fgets.c</a> l.27 manpage: <a href="../manpages/stdio/fgets.3.rst.html">gets</a><br>
 </p>
 </dd>
 <dt>
@@ -95,7 +95,7 @@ ungetc
 <p></p>
 <hr><p><small>
 Last updated
- 2020-07-31 19:05:32 CEST
+ 2020-08-01 14:57:00 CEST
 </small></p>
 </body>
 </html>
