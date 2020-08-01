@@ -438,7 +438,7 @@ static void process_file ()
 
 int main (int argc, char const *const *argv)
 {
-  if (argc < 2) err("Usage: %s\n",USAGE);
+  if (argc < 2) err("Usage: \n",USAGE);
   oldname = argv[1] ;
 
   {

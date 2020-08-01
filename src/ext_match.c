@@ -262,7 +262,7 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 										}
 
 										matchpos=text;
-								case '+': // match one or more chars
+								case '+': // match one or more chars . not needed. no gain. (can be written as ?*)
 										text++; 
 										if ( !*text ) return(neg ^ RE_NOMATCH);//
 								case '*': // match 0 or more chars
@@ -280,6 +280,10 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 												}
 												return(neg ^ RE_MATCH); // no chars anymore. so a match
 										}
+										//if ( *re=='d' || *re=='D' || *re=='w' || *re=='W' ){ // match %d, and sort of
+										// match nongreedy. (has more possibilities, e.g. match %d\D, or %d\d\D
+										//}
+										//switch ( *re ){
 
 										while ( !ext_match(text,re,p_match,p_match_char,st_match) ){
 												text++;
