@@ -33,6 +33,8 @@
 //
 // backslash: escape *,?,%,$,!,+,#,& and backslash itself.
 // !: invert the matching of the next character or character class
+// ,: separator. e.g. %,1 matches like ?*1. 
+//   ( without the commata, the '1' would be part of the % match)
 //  
 //
 // predefined character classes:
@@ -197,6 +199,8 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 				} else {
 						count = 1;
 				}
+				if ( *re == ',' ) // separate e.g. %,1
+						re++;
 				const char *pos = re;
 				while ( count --> 0 ){
 						re=pos;
