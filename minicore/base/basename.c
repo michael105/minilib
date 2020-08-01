@@ -4,7 +4,7 @@ mini_strlen
 mini_strcmp
 mini_basename
 mini_puts
-mini_fputs
+mini_ewrites
 LDSCRIPT onlytext
 INCLUDESRC
 shrinkelf
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 		suffix = argv[2];
 		break;
 	default:
-		fputs("basename: missing operand",stderr );
+		ewrites("basename: missing operand\n" );
 		return 1;
 	}
 	base = basename(argv[1]);
