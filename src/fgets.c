@@ -1,5 +1,3 @@
-#ifndef fgets_c
-#define fgets_c
 //+header stdio.h
 //+depends fgetc
 //+def
@@ -28,6 +26,3 @@ char* fgets(char *buf, int size, FILE* F){
 //+depends fgets fgetc fileno read
 //+macro gets(F) fgets(F,0xfffffff,stdin)
 
-
-
-#endif
