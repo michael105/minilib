@@ -11,6 +11,9 @@ int posix_openpt(int flags){
 
 //+def
 int grantpt(int fd){
+		// might be ok, when a pseudo fs is mounted.
+		// however. not in each case.
+#warning todo: implement grantpt
 		return 0;
 }
 

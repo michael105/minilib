@@ -1,5 +1,3 @@
-#ifndef strcat_c
-#define strcat_c
 
 //+ansi string.h
 //+depends strlen
@@ -16,5 +14,4 @@ char *strcat(char *dest, const char *src ){
 }
 
 
-#endif
 

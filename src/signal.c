@@ -1,6 +1,3 @@
-#ifndef signal_c
-#define signal_c
-
 
 //+header signal.h
 //+depends sigaction ewrites
@@ -16,5 +13,3 @@ sighandler_t signal(int sig, sighandler_t func ){
 }
 
 
-
-#endif

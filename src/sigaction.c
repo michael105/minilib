@@ -1,5 +1,5 @@
-#ifndef sigaction_c
-#define sigaction_c
+#ifndef mini_sigaction_c
+#define mini_sigaction_c
 //+header signal.h
 //+include
 
