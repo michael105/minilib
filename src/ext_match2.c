@@ -244,7 +244,7 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 										prints("bracket match: ");
 										write(1,mpos,text-mpos);
 										printl();
-										break;
+										return(text); // MATCH
 
 								case '#': // match end of text, or a space; here a space
 										if ( isspace( *text )){
