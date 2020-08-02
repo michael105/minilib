@@ -3,7 +3,7 @@
 // and a simplicistic solution.
 // The engine matches from left to right,
 // no backtracking is done. (Besides the matching %'s,
-// which are callen right to left)
+// which are callen right to left, after the matching is done)
 //
 // It is a compromise between performance, size
 // and capabilities.
@@ -14,10 +14,28 @@
 // Performance might be better as well overall,
 // but this depends also on the expressions.
 //
+// Yet I for myself have to get a grip of the possibilities of this engine.
+// However, I have the feeling, the logic is much more natural.
+// With regular regexes you always have to think kind of 'backwards',
+// e.g., match ".*" -> match "." (any char) x times. 
+// gets to a simple "*"
+// or, to match all group and user id's of /etc/passwd,
+// a regular expression would be: "(\d*):(\d*)"
+// This is here: "*(\d*):(\d*)*"
+// The content in the brackets looks the same,
+// but it's matched quite different.
+// The regular expression (the first) matches x times \d, for x>=0.
+// In the second expressin, the ext_match expression,
+// the first digit is matched, and then nongreedy any chars, until
+// the first occurence of ':'. 
+// It is another logic. Whether it suits you, you have to decide.
+//
 // A few nonextensive benchmarks show,
 // this engine is a bit faster than perl's regular expression machine,
 // slower than gnu grep (around factor2), and has the same speed as sed.
-// This might however vary with each usecase.
+// This might vary with each usecase, but the callbacks for extracting matches
+// have some advantage, as well as the strict left to right and nongreedy parsing.
+//
 // In favor of codesize I'm not going to optimize ext_match,
 // but there would be several possibilities, if you'd need a faster engine.
 // (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
@@ -191,11 +209,14 @@
 //
 // (todo)
 // bracket matching () and {} needs debugging. (test/extmatch2 for testing)
-// Add a callback for backet matches, and add a matchlist
+// Add a callback for bracket matches, and add a matchlist
 // (linked list, allocated with malloc_brk)
 // Trouble: e.g. *:(*) doesn't match, albite it should
 //  .. better. Now: # matches the end, after a bracket. Like it should
 //   $ doesn't. But should as well.
+// change '+' to greedy matching of any char
+// for {n,X} let n be * or + as well.
+//  (this would be closer to regular regulars again.?.)
 //
 //+def ext_match2
 char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
@@ -259,9 +280,11 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 												return(RE_NOMATCH);
 										// fill bracket matches here, from bpos to text
 										prints("bracket match: ");
-										write(1,mpos,text-mpos+1);
+										write(1,mpos,text-mpos);
 										printl();
+										if ( ! count )
 										return(text); // MATCH
+										break;
 
 								case '#': // match end of text, space, linebreak, tab; 
 										if ( isspace( *text )){
@@ -326,7 +349,9 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 																st_match->len = text-matchpos;
 														}
 												}
-												return(text); //rpl
+												if ( !count )
+														return(text); //rpl
+												else break;
 												//return(neg?RE_NOMATCH:text); // no chars anymore. so a match
 										}
 										//if ( *re=='d' || *re=='D' || *re=='w' || *re=='W' ){ // match %d, and sort of
@@ -354,7 +379,9 @@ __MATCHEND:
 												}
 										}
 
-										return(text); //rpl
+										if ( !count )
+												return(text); //rpl
+										else break;
 										return(neg?RE_NOMATCH:text);
 
 								case '\\': // match escaped *,?,backslashes, %
@@ -395,6 +422,7 @@ __MATCHEND:
 		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
 				// * at the end. doesnt match "**", or other pathological cases
 						return(text); //matched
+						// if ! count has to match here as well. :/
 		}
 	
 		return(RE_NOMATCH); 
