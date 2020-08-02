@@ -28,8 +28,8 @@
 // * for every count of any char
 // + for 1 or more chars
 // ? for 1 char
-// # for space or end of text (0)
-// $ match end of text
+// # for space, end of text (\0), linebreak, tab
+// $ match end of text (\0) or linebreak
 //
 // backslash: escape *,?,%,$,!,+,#,& and backslash itself.
 // !: invert the matching of the next character or character class
@@ -75,6 +75,11 @@
 //  The matched positions are called in reverse order.
 //  (The last matched % in the regex calls p_match first, 
 //  the first % in the regex from the left will be callen last)
+//  / The regex is first matched; when the regex has matched,
+//  the %'s are filled/ the callbacks executed.
+//  (x) bracketed patterns are matched the same way.
+//
+//  (Not like &, which callbacks are invoked, while matching)
 //
 // supply 0 for p_matched, when you do not need to extract matches.
 // This will treat % in the regex like a *, 
@@ -201,6 +206,7 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 		if ( st_match ) st_match->len=0;
 
 		while ( *text!=0 ){
+				printsl("text != 0");
 				int match_char = 0;
 				neg = 0;
 				if ( *re == '!' ){
@@ -253,17 +259,25 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 												return(RE_NOMATCH);
 										// fill bracket matches here, from bpos to text
 										prints("bracket match: ");
-										write(1,mpos,text-mpos);
+										write(1,mpos,text-mpos+1);
 										printl();
 										return(text); // MATCH
 
-								case '#': // match end of text, or a space; here a space
+								case '#': // match end of text, space, linebreak, tab; 
 										if ( isspace( *text )){
 												if ( neg ) return( RE_NOMATCH );
 												break;
 										}
 										if ( neg ) break;
 										return( RE_NOMATCH );
+								case '$': // match end of text, linebreak
+										if ( *text=='\n'){
+												if ( neg ) return( RE_NOMATCH );
+												break;
+										}
+										if ( neg ) break;
+										return( RE_NOMATCH );
+
 
 								case '&':
 										match_char = 1;
@@ -367,10 +381,14 @@ __MATCHEND:
 				}
 				re++; 		
 		}
+		printsl("loop out");
 
 		// *text == 0 here.
+		if ( *re == ',' )
+				re++;
 		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
 				//re++;
+				printsl("re_match end");
 				return(text);
 		}
 	
