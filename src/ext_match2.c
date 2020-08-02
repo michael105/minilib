@@ -232,23 +232,64 @@
 // for {n,X} let n be * or + as well.
 //  (this would be closer to regular regulars again.?.)
 //
+//
+// note. About a tokenizer:
+// matching quoted string is really easy with the callback structure:
+//  just match with &. When a quote is matched, look forward to the next quote,
+//  and return that many chars. Same time, the quoted string is matched.
+//  That's so easy, it is hard to believe.
+//  When using closures for that, it is same time easy to collect all tokens.
+//
+//  It is even easier. just a "*("*")*" is enough.
+//
+//  ->There is something needed for partial matching. Possibly spare the last *, and return,
+//  as soon the pattern is at it's end (and not the text?)
+//  Already works this way. 
+//
+//  Should start to define the language for the init scripts.
+//  Or better, start thinking abut that, but follow my other obligations the next time.
+//
+//  Have to think thouroughly about what points would make such a language useful.
+//  The reason to think about that is clear - performance squeezing, faster startup time.
+//  And writing the startup scripts in C is. Well. little bit painful.
+//  However, together with minilib, there is nearly no difference between having a C program compiled
+//  and run, or working with scripts. To not have the overhead of linking the external libraries in,
+//  is of quite some advance.
+//  The only difference, the compiled binaries are "cached".
+//  have just to sort something sensible out for the systematic.
+//  Implement an own loader? possibly easy. Since the loading address is fixed.
+//  This could possibly also be the solution for the yet unclear question of the line between parsing
+//  arguments and calling the main function of the small core tools, andsoon.
+//  
+//  gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
+//
+//
+//
 //+def ext_match2
 char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
 		int n_match=0;
 		char *matchpos = 0;
 		int neg = 0;
 		printsl("ext_match2, text: ", text, " re: ", re );
-		if ( st_match ) st_match->len=0;
+		if ( st_match ) 
+				st_match->len=0;
+
+		char *matchstarpos = 0; // set up a loop for a star, instead of recursion.
+		// have to do benchmarking, how much this saves.
+		// use a goto, when matchstarpos != 0, and the expression doesn't match.
+		// increment text/matchstarpos. 
+		// on match, it can be returned as usual. (are recursives needed at all for stars??)
 
 		while ( *text!=0 ){
 				printsl("text != 0");
 				int match_char = 0;
 				neg = 0;
+				int count = 0;
+
 				if ( *re == '!' ){
 						re++;
 						neg=1;
 				}
-				int count = 0;
 				if ( *re == '}' )
 						re++;
 				if ( *re == '{' ){
