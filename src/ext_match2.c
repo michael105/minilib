@@ -188,6 +188,9 @@
 // bracket matching () and {} needs debugging. (test/extmatch2 for testing)
 // Add a callback for backet matches, and add a matchlist
 // (linked list, allocated with malloc_brk)
+// Trouble: e.g. *:(*) doesn't match, albite it should
+//  .. better. Now: # matches the end, after a bracket. Like it should
+//   $ doesn't. But should as well.
 //
 //+def ext_match2
 char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
@@ -317,10 +320,11 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 										//}
 										//switch ( *re ){
 
-										while ( !ext_match2(text,re,p_match,p_match_char,st_match) ){
+										while ( ext_match2(text,re,p_match,p_match_char,st_match) == RE_NOMATCH ){
 												text++;
 												if ( !*text ){
-														if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
+														//if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
+														if ( (*re == '#' || *re == '$')  )
 																goto __MATCHEND;
 														return(RE_NOMATCH); //rpl
 														return(neg?text:RE_NOMATCH);
@@ -366,7 +370,8 @@ __MATCHEND:
 
 		// *text == 0 here.
 		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
-				re++;
+				//re++;
+				return(text);
 		}
 	
 		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
