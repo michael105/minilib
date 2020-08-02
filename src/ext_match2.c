@@ -57,7 +57,7 @@
 //  If you need to match a number at the first char of 'X',
 //  separate X by a commata. E.g. {5,0} matches 5 times '0'.
 //
-//  (X) match the subexpression X. atm, no nesting of brackets allowed
+// (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
 //
 // %[1]..%[9]: matches like a '+',
 //  and calls the callback supplied as 3rd argument (when not null).
@@ -180,7 +180,15 @@
 //  !+ basically sets the greedyness of the left * or % higher.
 //
 // (work in progress here) please use ext_match
-// return 0 for nomatch, the current textpos for a match
+// return 0 for nomatch, the current textpos ( >0 ) for a match
+// With the exception of an empty text, matched by e.g. "*".
+// This will return 0, albite the regex formally matches, with 0 chars.
+//
+// (todo)
+// bracket matching () and {} needs debugging. (test/extmatch2 for testing)
+// Add a callback for backet matches, and add a matchlist
+// (linked list, allocated with malloc_brk)
+//
 //+def ext_match2
 char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
 		int n_match=0;
