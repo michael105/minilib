@@ -2,8 +2,18 @@
 // This is somewhere between a fully fledged expression machine,
 // and a simplicistic solution.
 // The engine matches from left to right,
-// no backtracking is done. (Besides the matching %'s,
-// which are callen right to left, after the matching is done)
+// backtracking is done as less as possible.
+// Since the matching is nongreedy in general,
+// many tries can be spared. Opposed to another route,
+// where most patterns are per default greedy, and therfore
+// not the first matching next char is seeked for, but the first
+// solution while matching the most chars.
+// (I do not want to make this a hard statement, and it 
+// depends onto each pattern. But it is the way, the solution
+// of the pattern is searched for, in most patterns.)
+// This shows up in the logic of the patterns, which is more natural to me.
+// Your mileage might vary.
+//
 //
 // It is a compromise between performance, size
 // and capabilities.
@@ -12,7 +22,7 @@
 // I'd say, the main advantage is the easiness of adding callbacks,
 // and defining your own matching/logic within these. 
 // Performance might be better as well overall,
-// but this depends also on the expressions.
+// but this depends on the expressions and usecases as well.
 //
 // Yet I for myself have to get a grip of the possibilities of this engine.
 // However, I have the feeling, the logic is much more natural.
@@ -30,6 +40,10 @@
 // the first occurence of ':'. 
 // It is another logic. Whether it suits you, you have to decide.
 //
+// The callbacks have shown up to be a mighty tool, while
+// at the same time having a good performance. 
+// 
+//
 // A few nonextensive benchmarks show,
 // this engine is a bit faster than perl's regular expression machine,
 // slower than gnu grep (around factor2), and has the same speed as sed.
@@ -39,7 +53,7 @@
 // In favor of codesize I'm not going to optimize ext_match,
 // but there would be several possibilities, if you'd need a faster engine.
 // (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
-// About 10 times faster than most expression engines.)
+// About 5 to 10 times faster than most expression engines.)
 //
 // matches: 
 // 
@@ -122,9 +136,9 @@
 //
 //  The matching works straight from left to right.
 //  So, a "*&*" will call the callback & for the first char.
-//  When returning RE_NOMATCH, the second char will be matched.
+//  When returning RE_NOMATCH, the second char will be tried to match.
 //  Until either RE_MATCH is returned from the callback,
-//  or the last char has been matched.
+//  or the last char of the text has been tried to match.
 //
 //  Matching several characters is also posssible from within the callback,
 //  the position within the text will be incremented by that number,
@@ -153,7 +167,7 @@
 // When using closures for the callbacks, you will possibly have to
 // enable an executable stack for the trampoline code
 // of gcc. Here, gcc complains about that. 
-// For setting this bit, have a look into the ldscripts in the folder
+// For setting this bit, please have a look into the ldscripts in the folder
 // with the same name.
 //
 // supply 0 for p_match_char, when you don't need it.
