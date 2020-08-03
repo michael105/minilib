@@ -17,7 +17,7 @@ return
 int main(int argc, char **argv){
 
 		
-		char *buf = malloc_safebuf(1024);
+		char *buf = malloc_safebuf(7000);
 
 
 		int a = 0;

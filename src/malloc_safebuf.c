@@ -6,8 +6,11 @@
 // what results in a segfault.
 // The size is always a mutliple of the systems pagesize, 4kB here.
 // The len of the mapped memory area is rounded up to the next pagesize.
-// The mapped area can only be freed by calls to munmap,
+// The mapped area can only be freed by call(s) to munmap,
 // neither realloc nor free are allowed.
+// There is one page before, and one page after the mapped area
+// protected with PROT_NONE, and len rounded up to the next
+// pagebreak. So this is the overhead. 
 //+depends mmap mprotect
 //+def
 void* malloc_safebuf(int len){
