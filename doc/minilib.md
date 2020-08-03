@@ -845,7 +845,7 @@ ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 75)
 
-malloc_safebuf void* malloc_safebuf(int len);
+map_protected  void* map_protected(int len);
 
                allocate a buffer, which is surrounded by protected pages. 
               mprotect(PROT_NONE)
@@ -855,9 +855,14 @@ malloc_safebuf void* malloc_safebuf(int len);
               what results in a segfault.
               The size is always a mutliple of the systems pagesize, 4kB here.
               The len of the mapped memory area is rounded up to the next pagesize.
-              The mapped area can only be freed by calls to munmap,
+              The mapped area can only be freed by call(s) to munmap,
               neither realloc nor free are allowed.
-               (src/malloc_safebuf.c: 13)
+              There is one page before, and one page after the mapped area
+              protected with PROT_NONE, and len rounded up to the next
+              pagebreak. So this is the overhead. 
+              If an error occures, errno is set (when defined), 
+              and -1 returned, or the negative errno value, when errno isn't defined.
+               (src/map_protected.c: 18)
 
 match          int match(char *text, const char *re, regex_match *st_match);
 
@@ -1078,6 +1083,10 @@ ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter )
 unlockpt       int unlockpt(int fd);
 
                (src/pty.c: 23)
+
+unmap_protectedint unmap_protected(void *p, int len);
+
+               (src/map_protected.c: 39)
 
 verbose_errstr const char* verbose_errstr(int num);
 

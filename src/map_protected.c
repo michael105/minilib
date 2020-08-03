@@ -11,18 +11,40 @@
 // There is one page before, and one page after the mapped area
 // protected with PROT_NONE, and len rounded up to the next
 // pagebreak. So this is the overhead. 
+// If an error occures, errno is set (when defined), 
+// and -1 returned, or the negative errno value, when errno isn't defined.
 //+depends mmap mprotect
 //+def
-void* malloc_safebuf(int len){
+void* map_protected(int len){
+		// round up, and reserve space for the protected pages
 		len=len+(PAGESIZE-len%PAGESIZE) + 2*PAGESIZE;
 
 		void *p = mmap(0, len, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE,-1,0 );
+		if ( p<=0 ) 
+				return(p);
+
 		mprotect(p,1,PROT_NONE);
 		mprotect(p+len-PAGESIZE,1,PROT_NONE);
 
 		return( p+PAGESIZE );
 }
 
+//+free an area, malloced before with malloc_safebuf
+// (len must be the same, when at the invocation of malloc_safebuf)
+// returns the value of munmap, when an error occures.
+// errno is set, when defined.
+// return 0 on success.
+//+depends munmap mprotect
+//+def
+int unmap_protected(void *p, int len){
+		len=len+(PAGESIZE-len%PAGESIZE);
+
+		int ret = munmap((long)p-PAGESIZE,len+2*PAGESIZE);
+		if ( ret )
+				return(ret);
+
+		return(ret);
+}
 
 
 
