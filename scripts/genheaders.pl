@@ -282,6 +282,8 @@ while ( my $file = shift ){
 								} elsif ( $tag eq 'depends' ){
 										$f->{dep} = $c;
 										dbg("$LG depends: $f->{dep} $N\n");
+								} elsif ( $tag eq 'cat' ){
+										$f->{cat} = $c;
 								} elsif ( $tag eq 'after' ){
 										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
 								} elsif ( $tag eq 'doc' ){
@@ -569,6 +571,9 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 						#print FDOC "               $funchash->{$f}->{doc}\n";
 				}
 				print FDOC "\n\n";
+				if ( exists($funchash->{$f}->{cat} ) ){
+						print API "c:$funchash->{$f}->{cat}|";
+				}
 				print API "|#\n";
 		}
 }

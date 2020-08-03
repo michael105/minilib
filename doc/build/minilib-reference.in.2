@@ -134,6 +134,7 @@ f:free_brk|D:int free_brk()|c:memory|x:|
 f:getbrk|D:long getbrk()|c:memory|x:|
 f:malloc|D:void* malloc(int size)|c:memory|x:a memory allocator|
 f:malloc_brk|D:void* malloc_brk(int size)|c:memory|x:|
+f:map_protected|D:void* map_protected(int len)|c:memory|x:|
 f:memcmp|D:int memcmp(const void* c1,const void* c2,int len)|c:memory|x:compare bytes in memory|
 f:memcpy|D:void *memcpy( void *d, const void *s, int n )|c:memory|x:copy bytes in memory|
 f:memfd_create|D:int memfd_create( const char  *uname_ptr,  unsigned int flags)|c:memory|x:create an anonymous file|
@@ -306,9 +307,11 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 
 f:OPTFENCE|D:void  opt_fence(void*p,...)|c:unsorted|x:|
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
+f:ext_match2|D:char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match)|c:unsorted|x:|
 f:group_printf|D://|c:unsorted|x:|
 f:optimization_fence|D:void  optimization_fence(void*p)|c:unsorted|x:|
 f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
+f:unmap_protected|D:int unmap_protected(void *p, int len)|c:unsorted|x:|
 
 #x64-syscalls
 

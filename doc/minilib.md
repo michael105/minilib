@@ -862,7 +862,7 @@ map_protected  void* map_protected(int len);
               pagebreak. So this is the overhead. 
               If an error occures, errno is set (when defined), 
               and -1 returned, or the negative errno value, when errno isn't defined.
-               (src/map_protected.c: 18)
+               (src/map_protected.c: 19)
 
 match          int match(char *text, const char *re, regex_match *st_match);
 
@@ -1086,7 +1086,7 @@ unlockpt       int unlockpt(int fd);
 
 unmap_protectedint unmap_protected(void *p, int len);
 
-               (src/map_protected.c: 39)
+               (src/map_protected.c: 41)
 
 verbose_errstr const char* verbose_errstr(int num);
 

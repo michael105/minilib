@@ -1,3 +1,4 @@
+//+cat memory
 //+doc allocate a buffer, which is surrounded by protected pages. 
 // mprotect(PROT_NONE)
 // When there is a buffer overflow,
@@ -29,6 +30,7 @@ void* map_protected(int len){
 		return( p+PAGESIZE );
 }
 
+//+cat memory
 //+free an area, malloced before with malloc_safebuf
 // (len must be the same, when at the invocation of malloc_safebuf)
 // returns the value of munmap, when an error occures.

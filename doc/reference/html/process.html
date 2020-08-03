@@ -15,7 +15,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> getpid memcpy write<br>
+ <strong>Defines:</strong> memcpy write getpid<br>
 <a href="../../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="../manpages/stdlib/abort.3.rst.html">abort</a><br>
 </p>
 </dd>
@@ -103,7 +103,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> environ access execve<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="../manpages/gen/exec.3.rst.html">execvp</a><br>
 </p>
@@ -114,7 +114,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> environ access execve<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -223,7 +223,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> wait4 environ vfork execve write<br>
+ <strong>Defines:</strong> vfork write wait4 environ execve<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../../src/system.c">../src/system.c</a> l.4 manpage: <a href="../manpages/stdlib/system.3.rst.html">system</a><br>
 </p>
@@ -278,7 +278,7 @@ vfork
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-01 13:53:21 UTC
+ 2020-08-03 04:53:57 UTC
 </small></p>
 </body>
 </html>

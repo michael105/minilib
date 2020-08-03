@@ -166,6 +166,35 @@ malloc_brk
  free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
 </td></tr></table>
 <p><a href="../../src/malloc.c">../src/malloc.c</a> l.206</p>
+<a name="map_protected"></a><dl>
+<dt>
+map_protected
+</dt>
+<dd>
+<p>
+  <em>void* map_protected(int len)</em><br>
+ <strong>Defines:</strong> mprotect mmap<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>allocate a buffer, which is surrounded by protected pages.
+ mprotect(PROT_NONE)
+ When there is a buffer overflow,
+ neither the stack, nor other structures can be overwritten.
+ Instead the overflow (or underflow) touches the next protected page,
+ what results in a segfault.
+ The size is always a mutliple of the systems pagesize, 4kB here.
+ The len of the mapped memory area is rounded up to the next pagesize.
+ The mapped area can only be freed by call(s) to munmap,
+ neither realloc nor free are allowed.
+ There is one page before, and one page after the mapped area
+ protected with PROT_NONE, and len rounded up to the next
+ pagebreak. So this is the overhead.
+ If an error occures, errno is set (when defined),
+ and -1 returned, or the negative errno value, when errno isn't defined.</code></pre>
+</td></tr></table>
+<p><a href="../../src/map_protected.c">../src/map_protected.c</a> l.19</p>
 <a name="memcmp"></a><dl>
 <dt>
 memcmp
@@ -338,7 +367,7 @@ swap
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-01 13:53:21 UTC
+ 2020-08-03 04:53:57 UTC
 </small></p>
 </body>
 </html>

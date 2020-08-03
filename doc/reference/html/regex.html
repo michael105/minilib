@@ -54,6 +54,8 @@ ext_match
 
  backslash: escape *,?,%,$,!,+,#,&amp; and backslash itself.
  !: invert the matching of the next character or character class
+ ,: separator. e.g. %,1 matches like ?*1.
+   ( without the commata, the '1' would be part of the % match)
 
 
  predefined character classes:
@@ -73,6 +75,8 @@ ext_match
  {nX}: counted match
   Match n times X.
   For X, all expressions are allowed.
+  If you need to match a number at the first char of 'X',
+  separate X by a commata. E.g. {5,0} matches 5 times '0'.
 
  %[1]..%[9]: matches like a '+',
   and calls the callback supplied as 3rd argument (when not null).
@@ -194,7 +198,7 @@ ext_match
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../../src/ext_match.c">../src/ext_match.c</a> l.177</p>
+<p><a href="../../src/ext_match.c">../src/ext_match.c</a> l.181</p>
 <a name="match"></a><dl>
 <dt>
 match
@@ -266,7 +270,7 @@ match
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-01 13:53:21 UTC
+ 2020-08-03 04:53:57 UTC
 </small></p>
 </body>
 </html>
