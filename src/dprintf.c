@@ -1,5 +1,5 @@
 
-//+depends write vsnprintf
+//+depends write vsnprintf snprintf
 //+needs stdarg.h
 //+def
 int dprintf( int fd, const char *fmt, ... ){

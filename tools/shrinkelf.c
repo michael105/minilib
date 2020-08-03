@@ -176,8 +176,11 @@ static void read_hdrs ()
   if (read(0, (char *)&ehdr, sizeof(ehdr)) < sizeof(ehdr))
     err( "read ELF header in %s", oldname);
 
-  if (memcmp(ehdr.e_ident, ELFMAG,SELFMAG))
-    prints("%s doesn't look like an ELF file. Continuing.", oldname) ;
+  if (memcmp(ehdr.e_ident, ELFMAG,SELFMAG)){
+   // prints("%s doesn't look like an ELF file. Continuing.", oldname) ;
+	 // somehow the e_ident doesn't match anymore. I abandon the warning 
+	 // for now. Need to check that later.
+	}
   if (ehdr.e_ident[EI_CLASS] != ELFCLASS64){ // misc still need to add elf32 support again.
     err("%s: ELF class %d not supported", oldname, ehdr.e_ident[EI_CLASS]);
   }
