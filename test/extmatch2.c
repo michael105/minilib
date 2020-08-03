@@ -28,6 +28,7 @@ int main(int argc, char **argv){
 				writes("no match\n");
 		} else { //argc=2 
 				 while ( fgets(buf, 1024, stdin) ){
+						 prints("\n==== ",buf);
 						 matched = ext_match2(buf,argv[1],p_match,0,0);
 						 if ( matched )
 								 writes("match\n");

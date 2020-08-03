@@ -504,8 +504,18 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
-              no backtracking is done. (Besides the matching %'s,
-              which are callen right to left)
+              backtracking is done as less as possible.
+              Since the matching is nongreedy in general,
+              many tries can be spared. Opposed to another route,
+              where most patterns are per default greedy, and therfore
+              not the first matching next char is seeked for, but the first
+              solution while matching the most chars.
+              (I do not want to make this a hard statement, and it 
+              depends onto each pattern. But it is the way, the solution
+              of the pattern is searched for, in most patterns.)
+              This shows up in the logic of the patterns, which is more natural to me.
+              Your mileage might vary.
+             
              
               It is a compromise between performance, size
               and capabilities.
@@ -514,24 +524,46 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
               I'd say, the main advantage is the easiness of adding callbacks,
               and defining your own matching/logic within these. 
               Performance might be better as well overall,
-              but this depends also on the expressions.
+              but this depends on the expressions and usecases as well.
+             
+              Yet I for myself have to get a grip of the possibilities of this engine.
+              However, I have the feeling, the logic is much more natural.
+              With regular regexes you always have to think kind of 'backwards',
+              e.g., match ".*" -> match "." (any char) x times. 
+              gets to a simple "*"
+              or, to match all group and user id's of /etc/passwd,
+              a regular expression would be: "(\d*):(\d*)"
+              This is here: "*(\d*):(\d*)*"
+              The content in the brackets looks the same,
+              but it's matched quite different.
+              The regular expression (the first) matches x times \d, for x>=0.
+              In the second expressin, the ext_match expression,
+              the first digit is matched, and then nongreedy any chars, until
+              the first occurence of ':'. 
+              It is another logic. Whether it suits you, you have to decide.
+             
+              The callbacks have shown up to be a mighty tool, while
+              at the same time having a good performance. 
+              
              
               A few nonextensive benchmarks show,
               this engine is a bit faster than perl's regular expression machine,
               slower than gnu grep (around factor2), and has the same speed as sed.
-              This might however vary with each usecase.
+              This might vary with each usecase, but the callbacks for extracting matches
+              have some advantage, as well as the strict left to right and nongreedy parsing.
+             
               In favor of codesize I'm not going to optimize ext_match,
               but there would be several possibilities, if you'd need a faster engine.
               (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
-              About 10 times faster than most expression engines.)
+              About 5 to 10 times faster than most expression engines.)
              
               matches: 
               
               * for every count of any char
               + for 1 or more chars
               ? for 1 char
-              # for space or end of text (0)
-              $ match end of text
+              # for space, end of text (\0), linebreak, tab
+              $ match end of text (\0) or linebreak
              
               backslash: escape *,?,%,$,!,+,#,& and backslash itself.
               !: invert the matching of the next character or character class
@@ -559,6 +591,8 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
                If you need to match a number at the first char of 'X',
                separate X by a commata. E.g. {5,0} matches 5 times '0'.
              
+              (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
+             
               %[1]..%[9]: matches like a '+',
                and calls the callback supplied as 3rd argument (when not null).
                the number past the %, e.g. %1, is optional,
@@ -575,6 +609,11 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
                The matched positions are called in reverse order.
                (The last matched % in the regex calls p_match first, 
                the first % in the regex from the left will be callen last)
+               / The regex is first matched; when the regex has matched,
+               the %'s are filled/ the callbacks executed.
+               (x) bracketed patterns are matched the same way.
+             
+               (Not like &, which callbacks are invoked, while matching)
              
               supply 0 for p_matched, when you do not need to extract matches.
               This will treat % in the regex like a *, 
@@ -599,9 +638,9 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
              
                The matching works straight from left to right.
                So, a "*&*" will call the callback & for the first char.
-               When returning RE_NOMATCH, the second char will be matched.
+               When returning RE_NOMATCH, the second char will be tried to match.
                Until either RE_MATCH is returned from the callback,
-               or the last char has been matched.
+               or the last char of the text has been tried to match.
              
                Matching several characters is also posssible from within the callback,
                the position within the text will be incremented by that number,
@@ -630,7 +669,7 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
               When using closures for the callbacks, you will possibly have to
               enable an executable stack for the trampoline code
               of gcc. Here, gcc complains about that. 
-              For setting this bit, have a look into the ldscripts in the folder
+              For setting this bit, please have a look into the ldscripts in the folder
               with the same name.
              
               supply 0 for p_match_char, when you don't need it.
@@ -680,8 +719,52 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
                !+ basically sets the greedyness of the left * or % higher.
              
               (work in progress here) please use ext_match
-              return 0 for nomatch, the current textpos for a match
-               (src/ext_match2.c: 183)
+              return 0 for nomatch, the current textpos ( >0 ) for a match
+              With the exception of an empty text, matched by e.g. "*".
+              This will return 0, albite the regex formally matches, with 0 chars.
+             
+              (todo)
+              bracket matching () and {} needs debugging. (test/extmatch2 for testing)
+              Add a callback for bracket matches, and add a matchlist
+              (linked list, allocated with malloc_brk)
+              Trouble: e.g. *:(*) doesn't match, albite it should
+               .. better. Now: # matches the end, after a bracket. Like it should
+                $ doesn't. But should as well.
+              change '+' to greedy matching of any char
+              for {n,X} let n be * or + as well.
+               (this would be closer to regular regulars again.?.)
+             
+             
+              note. About a tokenizer:
+              matching quoted string is really easy with the callback structure:
+               just match with &. When a quote is matched, look forward to the next quote,
+               and return that many chars. Same time, the quoted string is matched.
+               That's so easy, it is hard to believe.
+               When using closures for that, it is same time easy to collect all tokens.
+             
+               It is even easier. just a "*("*")*" is enough.
+             
+               ->There is something needed for partial matching. Possibly spare the last *, and return,
+               as soon the pattern is at it's end (and not the text?)
+               Already works this way. 
+             
+               Should start to define the language for the init scripts.
+               Or better, start thinking abut that, but follow my other obligations the next time.
+             
+               Have to think thouroughly about what points would make such a language useful.
+               The reason to think about that is clear - performance squeezing, faster startup time.
+               And writing the startup scripts in C is. Well. little bit painful.
+               However, together with minilib, there is nearly no difference between having a C program compiled
+               and run, or working with scripts. To not have the overhead of linking the external libraries in,
+               is of quite some advance.
+               The only difference, the compiled binaries are "cached".
+               have just to sort something sensible out for the systematic.
+               Implement an own loader? possibly easy. Since the loading address is fixed.
+               This could possibly also be the solution for the yet unclear question of the line between parsing
+               arguments and calling the main function of the small core tools, andsoon.
+               
+               gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
+               (src/ext_match2.c: 269)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -761,6 +844,20 @@ itooct         int itooct(int i, char *buf);
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 75)
+
+malloc_safebuf void* malloc_safebuf(int len);
+
+               allocate a buffer, which is surrounded by protected pages. 
+              mprotect(PROT_NONE)
+              When there is a buffer overflow,
+              neither the stack, nor other structures can be overwritten.
+              Instead the overflow (or underflow) touches the next protected page,
+              what results in a segfault.
+              The size is always a mutliple of the systems pagesize, 4kB here.
+              The len of the mapped memory area is rounded up to the next pagesize.
+              The mapped area can only be freed by calls to munmap,
+              neither realloc nor free are allowed.
+               (src/malloc_safebuf.c: 13)
 
 match          int match(char *text, const char *re, regex_match *st_match);
 

@@ -87,7 +87,7 @@ SOFTWARE.
  * still lurking. */
 
 
-
+/*
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -95,12 +95,12 @@ SOFTWARE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <string.h>
+#include <string.h> */
 
 //#include "include/open.h"
 
 //#include "elfconv.h"
-#include "elf.h"
+#include "elf11.h"
 
 #define DBG
 
@@ -177,7 +177,7 @@ static void read_hdrs ()
     err( "read ELF header in %s", oldname);
 
   if (memcmp(ehdr.e_ident, ELFMAG,SELFMAG))
-    err("%s is not an ELF file", oldname) ;
+    prints("%s doesn't look like an ELF file. Continuing.", oldname) ;
   if (ehdr.e_ident[EI_CLASS] != ELFCLASS64){ // misc still need to add elf32 support again.
     err("%s: ELF class %d not supported", oldname, ehdr.e_ident[EI_CLASS]);
   }

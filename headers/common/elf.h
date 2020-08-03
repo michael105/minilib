@@ -1,9 +1,5 @@
-#ifndef _ELF_H
-#define _ELF_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef mini_ELF_H
+#define mini_ELF_H
 
 #include <stdint.h>
 

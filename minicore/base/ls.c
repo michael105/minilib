@@ -24,6 +24,7 @@ mini_free_brk
 
 OPTFLAG -O0
 
+LDSCRIPT exec
 INCLUDESRC
 HEADERGUARDS
 
@@ -38,9 +39,9 @@ void usage(){
 }
 
 int de_match(const struct dirent *de){
-		if ( match(de->d_name,"*.c") == 0 )
-				return(1);
-		return(0);
+		//if ( match(de->d_name,"*.c",0) == 0 )
+		//		return(1);
+		return(1);
 }
 
 int main(int argc, char **argv){
@@ -51,6 +52,7 @@ int main(int argc, char **argv){
 #define OPT(flag,desc) case flag:
 #endif
 
+	struct dirent **list;
 	for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
 			for ( char *c = argv[0]+1; *c != 0; c++ ){
 					switch ( *c ){
@@ -60,30 +62,32 @@ int main(int argc, char **argv){
 			}
 	}
 	
-	struct dirent ***list;
 	if ( *argv == 0 ){
-			int r = scandir("/", list, 0,0);
+			printf("Here.");
+			int r = scandir("/", &list, 0,0);
 			printf("scandir: %d\n",r);
 			printf("errno: %d\n",errno);
 			while(r-->0){
-					writes("z\n");
+					printsl(list[r]->d_name);
 			}
 
 
 	}
 
 	for (;*argv; *argv++){
-				int r = scandir(*argv, list,&de_match ,0);
+				int r = scandir(*argv, &list,&de_match ,0);
 			printf("scandir: %d\n",r);
 			printf("errno: %d\n",errno);
 			while(r-->0){
-					writes("z\n");
+					printsl(list[r]->d_name);
 			}
 
 			free_brk();	
 	}
 	
 
+					writes("yy\n");
+//	optimization_fence(*list);
 
 		return(0);
 }

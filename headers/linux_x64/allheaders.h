@@ -6,6 +6,7 @@
 #include "./sys/prctl.h"
 #include "./bits/inotify.h"
 #include "./bits/stat.h"
+#include "./bits/limits.h"
 #include "./fcntl.h"
 #include "./mount.h"
 #include "./reboot.h"

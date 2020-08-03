@@ -16,6 +16,7 @@ mini_group_printf
 mini_buf 256
 
 INCLUDESRC
+SHRINKELF
 
 return
 #endif

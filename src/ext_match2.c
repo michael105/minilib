@@ -270,7 +270,7 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 		int n_match=0;
 		char *matchpos = 0;
 		int neg = 0;
-		printsl("ext_match2, text: ", text, " re: ", re );
+		//printsl("ext_match2, text: ", text, " re: ", re );
 		if ( st_match ) 
 				st_match->len=0;
 
@@ -281,7 +281,7 @@ char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int 
 		// on match, it can be returned as usual. (are recursives needed at all for stars??)
 
 		while ( *text!=0 ){
-				printsl("text != 0");
+				//printsl("text != 0");
 				int match_char = 0;
 				neg = 0;
 				int count = 0;
