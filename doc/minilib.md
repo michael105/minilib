@@ -200,7 +200,7 @@ brk            static int brk( const void* addr );
 
 clone_t        int clone_t(int flags);
 
-               (include/clone.h: 7)
+               (src/clone.c: 7)
 
 def            #define SETOPT_short( opts, option ) (;
 
