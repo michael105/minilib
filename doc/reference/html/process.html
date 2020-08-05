@@ -15,7 +15,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> memcpy write getpid<br>
+ <strong>Defines:</strong> memcpy getpid write<br>
 <a href="../../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="../manpages/stdlib/abort.3.rst.html">abort</a><br>
 </p>
 </dd>
@@ -72,7 +72,7 @@ execv
 <dd>
 <p>
   <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
- *Defines:</strong> environ execve<br>
+ *Defines:</strong> execve environ<br>
  <strong>execute a file</strong>
 Size: ~300B <a href="../../src/execvp.c">../src/execvp.c</a> l.9 manpage: <a href="../manpages/gen/exec.3.rst.html">execv</a><br>
 </p>
@@ -103,7 +103,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> execve access environ<br>
+ *Defines:</strong> environ access execve<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="../manpages/gen/exec.3.rst.html">execvp</a><br>
 </p>
@@ -114,7 +114,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -223,7 +223,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> write wait4 vfork environ execve<br>
+ <strong>Defines:</strong> execve vfork environ wait4 write<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../../src/system.c">../src/system.c</a> l.4 manpage: <a href="../manpages/stdlib/system.3.rst.html">system</a><br>
 </p>
@@ -278,7 +278,7 @@ vfork
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 11:07:32 UTC
+ 2020-08-05 16:47:26 CEST
 </small></p>
 </body>
 </html>

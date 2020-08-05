@@ -162,15 +162,39 @@ LDSCRIPT default
 <dd>
 <p>
         The ldscript to use<br>
-  Can be one of: default, onlytext, onlytext.tiny, textandbss<br>
   Defines, which executable sections are going to be built.<br>
-  <strong>default</strong>: .text .data .rodata .bss (.stack)<br>
-  <strong>textandbss</strong>: .text .bss (.stack)<br>
-  <strong>onlytext</strong>: .text (.stack)<br>
-        <strong>onlytext.tiny</strong>: .text (the stack is defined by the kernel, and made executable)<br>
-           Despite general meaning, an executable stack isn&#8217;t harmful, and even widely used.
+        Can be one of:<br>
+</p>
+<ul>
+<li>
+<p>
+<strong>default</strong>: .text .data .rodata .bss (.stack)<br>
+</p>
+</li>
+<li>
+<p>
+<strong>default_execstack</strong>: .text .data .rodata .bss (.stack)<br>
+      The stack is executable, what is needed for e.g. closures+
+</p>
+</li>
+<li>
+<p>
+<strong>textandbss</strong>: .text .bss (.stack)<br>
+</p>
+</li>
+<li>
+<p>
+<strong>onlytext</strong>: .text (.stack)<br>
+</p>
+</li>
+<li>
+<p>
+<strong>onlytext_tiny</strong>: .text (the stack is defined by the kernel, and made executable)<br>
+           Despite general meaning, an executable stack isn&#8217;t harmful on its own,and even widely used.
      It just is important (as always), to check user input against e.g. overflows.
 </p>
+</li>
+</ul>
 </dd>
 <dt>
 SHRINKELF
@@ -540,7 +564,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> open brk write close dirbuf<br>
+ *Defines:</strong> dirbuf write close open 0<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -551,7 +575,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> close dirbuf open brk<br>
+ *Defines:</strong> close open dirbuf 0<br>
 <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -561,7 +585,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> dirbuf getdents<br>
+ *Defines:</strong> getdents dirbuf<br>
  <strong>read a directory</strong>
 </p>
 </dd>
@@ -601,7 +625,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> qsort seterrno brk open getbrk sbrk dirbuf errno write memcpy<br>
+ <strong>Defines:</strong> write getbrk memcpy sbrk errno 0 open brk dirbuf qsort seterrno<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -709,7 +733,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> write exit errno_str execve<br>
+ <strong>Defines:</strong> errno_str exit execve write<br>
 </p>
 </dd>
 </dl>
@@ -736,7 +760,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> strlen write fileno errno strerror<br>
+ *Defines:</strong> errno fileno strerror write strlen<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -822,7 +846,7 @@ _fopen
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> fileno close open<br>
 </p>
 </dd>
 </dl>
@@ -877,7 +901,7 @@ closedir
 <dd>
 <p>
   <em>int closedir(DIR <strong>dir)</em><br>
- *Defines:</strong> getbrk brk<br>
+ *Defines:</strong> brk getbrk<br>
  <strong>close a directory stream</strong>
 Size: ~323B <a href="../src/dirent/closedir.c">../src/dirent/closedir.c</a> l.6 manpage: <a href="manpages/gen/directory.3.rst">closedir</a><br>
 </p>
@@ -1105,7 +1129,7 @@ fgetc
 <dd>
 <p>
   <em>int fgetc(FILE <strong>F)</em><br>
- *Defines:</strong> fileno read<br>
+ *Defines:</strong> read fileno<br>
  <strong>get a byte from a stream</strong>
 Size: ~57B <a href="../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="manpages/stdio/getc.3.rst">fgetc</a><br>
 </p>
@@ -1127,7 +1151,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a byte from a stream</strong>
 <a href="../include/fgetc.h">../include/fgetc.h</a> l.26 manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -1149,7 +1173,7 @@ gets
 <dd>
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a string from a</strong>
 <a href="../src/fgets.c">../src/fgets.c</a> l.27 manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -1323,7 +1347,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> memcpy write<br>
+ <strong>Defines:</strong> write memcpy<br>
  <strong>signal management</strong>
 Size: ~337B <a href="../src/signal.c">../src/signal.c</a> l.5 manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
@@ -1496,7 +1520,7 @@ free
   <em>void free(void <strong>p)</em><br>
  *Defines:</strong> brk getbrk<br>
  <strong>free allocated memory</strong>
-Size: ~32B <a href="../src/malloc.c">../src/malloc.c</a> l.139 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
+Size: ~32B <a href="../src/malloc.c">../src/malloc.c</a> l.146 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
 </dd>
 <dt>
@@ -1517,7 +1541,7 @@ free_brk
  malloc_brk before.
  Then brk() gives an error, return the return value of brk</code></pre>
 </td></tr></table>
-<p><a href="../src/malloc.c">../src/malloc.c</a> l.234</p>
+<p><a href="../src/freebrk.c">../src/freebrk.c</a> l.9</p>
 <a name="getbrk"></a><dl>
 <dt>
 getbrk
@@ -1541,7 +1565,6 @@ malloc
 <dd>
 <p>
   <em>void* malloc(int size)</em><br>
- <strong>Defines:</strong> brk<br>
  <strong>a memory allocator</strong>
 </p>
 </dd>
@@ -1553,15 +1576,23 @@ malloc
  Not the smartest.
  Since it isn't exactly a memory allocation,
  instead it (mis)uses the minilib buf.
- ;) 1024 Bytes should be enough for everyone.
-  Ok. If you really do need more memory -
-  rethink your design, increase mini_mbuf,
-  or use a proper malloc implementation.
+ Which is allocated by the kernel, and uses
+ either the bss section, or is allocated on the stack.
+ (option "globals_on_stack")
+
+ This is basically a linked list,
+ optimized for fast access, allocation of new elements,
+ and small memory overhead.
+ Albite the list structure might be hard to recognize.
+ It is not the right malloc, if you expect
+ many de- or reallocations.
+ And it obviously is not the right choose, when
+ expecting medium to big sized allocations. (&gt; 1 page, here 4kB, as medium sized)
 
  Here we use mbuf from top to bottom as stack.
  64 Bytes are left at the bottom as reserve.
  Possibly we'd like to complain
- about the lack of memory, before we exit..
+ about the lack of memory, before we exit.
 
  ATM, the 'free' is really lazy.
  It free's memory, but a real 'free' is only commited,
@@ -1588,7 +1619,7 @@ malloc
  out there are countless.
 
  ;) It's sometimes smarter to stay special,
- although in this case this means the opposite.
+ albite in this case this means the opposite.
  /misc
 
  The memory layout looks like this:
@@ -1601,7 +1632,7 @@ malloc
       size  data  size    mini_buf size
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
-<p>Size: ~173B <a href="../src/malloc.c">../src/malloc.c</a> l.119 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
+<p>Size: ~173B <a href="../src/malloc.c">../src/malloc.c</a> l.126 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
 <a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
@@ -1625,7 +1656,36 @@ malloc_brk
  with brk(saved_brk)
  free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
 </td></tr></table>
-<p><a href="../src/malloc.c">../src/malloc.c</a> l.206</p>
+<p><a href="../src/malloc_brk.c">../src/malloc_brk.c</a> l.16</p>
+<a name="map_protected"></a><dl>
+<dt>
+map_protected
+</dt>
+<dd>
+<p>
+  <em>void* map_protected(int len)</em><br>
+ <strong>Defines:</strong> mprotect mmap<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>allocate a buffer, which is surrounded by protected pages.
+ mprotect(PROT_NONE)
+ When there is a buffer overflow,
+ neither the stack, nor other structures can be overwritten.
+ Instead the overflow (or underflow) touches the next protected page,
+ what results in a segfault.
+ The size is always a mutliple of the systems pagesize, 4kB here.
+ The len of the mapped memory area is rounded up to the next pagesize.
+ The mapped area can only be freed by call(s) to munmap,
+ neither realloc nor free are allowed.
+ There is one page before, and one page after the mapped area
+ protected with PROT_NONE, and len rounded up to the next
+ pagebreak. So this is the overhead.
+ If an error occures, errno is set (when defined),
+ and -1 returned, or the negative errno value, when errno isn't defined.</code></pre>
+</td></tr></table>
+<p><a href="../src/map_protected.c">../src/map_protected.c</a> l.19</p>
 <a name="memcmp"></a><dl>
 <dt>
 memcmp
@@ -1644,7 +1704,7 @@ memcpy
 <p>
   <em>void <strong>memcpy( void *d, const void *s, int n )</em><br>
  *copy bytes in memory</strong>
-Size: ~84B <a href="../src/memcpy.c">../src/memcpy.c</a> l.6 manpage: <a href="manpages/string/memcpy.3.rst">memcpy</a><br>
+Size: ~84B <a href="../src/memcpy.c">../src/memcpy.c</a> l.4 manpage: <a href="manpages/string/memcpy.3.rst">memcpy</a><br>
 </p>
 </dd>
 <dt>
@@ -1744,9 +1804,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> 0 brk getbrk<br>
  <strong>memory reallocator</strong>
-Size: ~636B <a href="../src/malloc.c">../src/malloc.c</a> l.252 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
+Size: ~636B <a href="../src/malloc.c">../src/malloc.c</a> l.210 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -1805,7 +1865,7 @@ _mprints
 <p>
   <em>#define _mprints(&#8230;) dprints(STDOUT_FILENO, <em>VA_ARGS</em>)</em><br>
  <strong>Defines:</strong> write<br>
-<a href="../src/prints.c">../src/prints.c</a> l.69
+<a href="../include/prints.h">../include/prints.h</a> l.10
 </p>
 </dd>
 <dt>
@@ -1880,7 +1940,7 @@ dprints
 <p>
   <em>int dprints(int fd, const char <strong>msg,&#8230;)</em><br>
  *Defines:</strong> write<br>
-<a href="../src/prints.c">../src/prints.c</a> l.48
+<a href="../src/prints.c">../src/prints.c</a> l.17
 </p>
 </dd>
 <dt>
@@ -1897,7 +1957,7 @@ eprint
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write str to stderr. Needs strlen</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.52</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.58</p>
 <a name="eprintfs"></a><dl>
 <dt>
 eprintfs
@@ -1905,7 +1965,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> fileno write strlen<br>
 </p>
 </dd>
 </dl>
@@ -1913,7 +1973,7 @@ eprintfs
 <pre><code>write fmt and arguments to stderr.
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.100</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.106</p>
 <a name="eprintl"></a><dl>
 <dt>
 eprintl
@@ -1928,7 +1988,7 @@ eprintl
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write a newline to stderr</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.61</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.67</p>
 <a name="eprints"></a><dl>
 <dt>
 eprints
@@ -1944,7 +2004,7 @@ eprints
 <pre><code>print the string(s) supplied as arg(s) to stdout
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.19</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.25</p>
 <a name="eprintsl"></a><dl>
 <dt>
 eprintsl
@@ -1959,7 +2019,7 @@ eprintsl
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>print the string(s) supplied as arg(s) and newline to stderr</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.41</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.47</p>
 <a name="eputs"></a><dl>
 <dt>
 eputs
@@ -1974,7 +2034,7 @@ eputs
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write msg to stderr, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.71</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.77</p>
 <a name="ewrites"></a><dl>
 <dt>
 ewrites
@@ -1989,7 +2049,7 @@ ewrites
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to stderr. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.82</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.88</p>
 <a name="fprint"></a><dl>
 <dt>
 fprint
@@ -2007,7 +2067,7 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 </p>
 </dd>
 </dl>
@@ -2036,7 +2096,7 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> strlen write fileno<br>
+ *Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -2053,7 +2113,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -2061,7 +2121,7 @@ fprints
 <pre><code>print the string(s) supplied as arg(s) to stream
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.27</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.33</p>
 <a name="fputc"></a><dl>
 <dt>
 fputc
@@ -2069,7 +2129,7 @@ fputc
 <dd>
 <p>
   <em>int volatile fputc(int c, FILE* F)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stream</strong>
 Size: ~64B <a href="../include/fputc.h">../include/fputc.h</a> l.10 manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -2099,7 +2159,7 @@ fwrites
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to fd. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.88</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.94</p>
 <a name="group_print"></a><dl>
 <dt>
 group_print
@@ -2107,7 +2167,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -2148,7 +2208,7 @@ print
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write str to stdout. Needs strlen</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.48</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.54</p>
 <a name="printf"></a><dl>
 <dt>
 printf
@@ -2156,7 +2216,7 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
  <strong>print formatted output</strong>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.77 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
@@ -2167,7 +2227,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -2176,7 +2236,7 @@ printfs
 <pre><code>write fmt and arguments to stdout.
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.94</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.100</p>
 <a name="printl"></a><dl>
 <dt>
 printl
@@ -2191,7 +2251,7 @@ printl
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write a newline to stdout</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.57</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.63</p>
 <a name="prints"></a><dl>
 <dt>
 prints
@@ -2199,6 +2259,7 @@ prints
 <dd>
 <p>
   <em>#define prints(&#8230;) _mprints(<em>VA_ARGS</em>,0)</em><br>
+ <strong>Defines:</strong> write<br>
 </p>
 </dd>
 </dl>
@@ -2206,7 +2267,7 @@ prints
 <pre><code>print the string(s) supplied as arg(s) to stdout,
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.12</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.18</p>
 <a name="printsl"></a><dl>
 <dt>
 printsl
@@ -2214,13 +2275,14 @@ printsl
 <dd>
 <p>
   <em>#define printsl(&#8230;) _mprints(<em>VA_ARGS</em>,"\n",0)</em><br>
+ <strong>Defines:</strong> write<br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>print the string(s) supplied as arg(s) and newline to stdout</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.35</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.41</p>
 <a name="putc"></a><dl>
 <dt>
 putc
@@ -2228,7 +2290,7 @@ putc
 <dd>
 <p>
   <em>#define putc(c,stream) fputc(c,stream)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stream</strong>
 <a href="../include/fputc.h">../include/fputc.h</a> l.19 manpage: <a href="manpages/stdio/putc.3.rst">putc</a><br>
 </p>
@@ -2239,7 +2301,7 @@ putchar
 <dd>
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stdout stream</strong>
 <a href="../include/fputc.h">../include/fputc.h</a> l.16 manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
 </p>
@@ -2259,7 +2321,7 @@ puts
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write msg to stdout, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.67 manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br></p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.73 manpage: <a href="manpages/stdio/fputs.3.rst">puts</a><br></p>
 <a name="shortcolornames"></a><dl>
 <dt>
 shortcolornames
@@ -2293,7 +2355,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.86 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
@@ -2357,7 +2419,7 @@ writes
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to stdout. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
-<p><a href="../include/prints.h">../include/prints.h</a> l.78</p>
+<p><a href="../include/prints.h">../include/prints.h</a> l.84</p>
 <p>---</p>
 <hr>
 <h2><a name="_process"></a>11. process</h2>
@@ -2368,7 +2430,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> getpid write memcpy<br>
+ <strong>Defines:</strong> memcpy getpid write<br>
 <a href="../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2406,7 +2468,7 @@ clone_t
 <dd>
 <p>
   <em>int clone_t(int flags)</em><br>
-<a href="../include/clone.h">../include/clone.h</a> l.7
+<a href="../src/clone.c">../src/clone.c</a> l.7
 </p>
 </dd>
 <dt>
@@ -2415,7 +2477,7 @@ execl
 <dd>
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
- <strong>Defines:</strong> execve environ<br>
+ <strong>Defines:</strong> environ execve<br>
 <a href="../src/execl.c">../src/execl.c</a> l.6 manpage: <a href="manpages/gen/exec.3.rst">execl</a><br>
 </p>
 </dd>
@@ -2456,7 +2518,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> access execve environ<br>
+ *Defines:</strong> environ access execve<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -2467,7 +2529,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> execve environ access<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -2576,7 +2638,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> wait4 write execve vfork environ<br>
+ <strong>Defines:</strong> execve vfork environ wait4 write<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2587,7 +2649,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> wait4 seterrno<br>
+ <strong>Defines:</strong> seterrno wait4<br>
 </p>
 </dd>
 </dl>
@@ -2676,6 +2738,8 @@ ext_match
 
  backslash: escape *,?,%,$,!,+,#,&amp; and backslash itself.
  !: invert the matching of the next character or character class
+ ,: separator. e.g. %,1 matches like ?*1.
+   ( without the commata, the '1' would be part of the % match)
 
 
  predefined character classes:
@@ -2695,6 +2759,8 @@ ext_match
  {nX}: counted match
   Match n times X.
   For X, all expressions are allowed.
+  If you need to match a number at the first char of 'X',
+  separate X by a commata. E.g. {5,0} matches 5 times '0'.
 
  %[1]..%[9]: matches like a '+',
   and calls the callback supplied as 3rd argument (when not null).
@@ -2816,7 +2882,7 @@ ext_match
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.177</p>
+<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.181</p>
 <a name="match"></a><dl>
 <dt>
 match
@@ -2924,7 +2990,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> close fileno open<br>
+ <strong>Defines:</strong> fileno open close<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -3004,7 +3070,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> fileno open close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3042,7 +3108,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> close fileno open<br>
+ *Defines:</strong> fileno open close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3220,7 +3286,7 @@ strcpy
 <p>
   <em>char <strong>strcpy(char *dest, const char *src)</em><br>
  *copy a string and return a pointer to the end of the result</strong>
-Size: ~84B <a href="../src/memcpy.c">../src/memcpy.c</a> l.17 manpage: <a href="manpages/string/string.3.rst">strcpy</a><br>
+Size: ~84B <a href="../src/strcpy.c">../src/strcpy.c</a> l.3 manpage: <a href="manpages/string/string.3.rst">strcpy</a><br>
 </p>
 </dd>
 <dt>
@@ -3229,7 +3295,7 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> strlen strcpy brk<br>
+ *Defines:</strong> 0 strcpy strlen<br>
  <strong>duplicate a specific number of bytes from a string</strong>
 Size: ~258B <a href="../src/strdup.c">../src/strdup.c</a> l.7 manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -3272,7 +3338,7 @@ strncpy
   <em>char <strong>strncpy(char *dest, const char *src, int n)</em><br>
  *Defines:</strong> memcpy<br>
  <strong>copy fixed length string, returning a pointer to the array end</strong>
-Size: ~96B <a href="../src/memcpy.c">../src/memcpy.c</a> l.27 manpage: <a href="manpages/string/string.3.rst">strncpy</a><br>
+Size: ~96B <a href="../src/strncpy.c">../src/strncpy.c</a> l.4 manpage: <a href="manpages/string/string.3.rst">strncpy</a><br>
 </p>
 </dd>
 <dt>
@@ -3386,7 +3452,7 @@ putenv
 <dd>
 <p>
   <em>int putenv( char <strong>string )</em><br>
- *Defines:</strong> environ ret_errno<br>
+ *Defines:</strong> ret_errno environ<br>
 </p>
 </dd>
 </dl>
@@ -3524,7 +3590,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> uitodec write open ioctl<br>
+ *Defines:</strong> open write uitodec ioctl<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../src/pty.c">../src/pty.c</a> l.43 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -3535,7 +3601,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> uitodec ioctl open write<br>
+ *Defines:</strong> ioctl write uitodec open<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../src/pty.c">../src/pty.c</a> l.30
 </p>
@@ -3734,6 +3800,283 @@ def
                 param options: e.g. just a, or ( a+h+l) to check for several flags at once</code></pre>
 </td></tr></table>
 <p><a href="../macros/getoptm.h">../macros/getoptm.h</a> l.52</p>
+<a name="ext_match2"></a><dl>
+<dt>
+ext_match2
+</dt>
+<dd>
+<p>
+  <em>char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>regex engine
+ This is somewhere between a fully fledged expression machine,
+ and a simplicistic solution.
+ The engine matches from left to right,
+ backtracking is done as less as possible.
+ Since the matching is nongreedy in general,
+ many tries can be spared. Opposed to another route,
+ where most patterns are per default greedy, and therfore
+ not the first matching next char is seeked for, but the first
+ solution while matching the most chars.
+ (I do not want to make this a hard statement, and it
+ depends onto each pattern. But it is the way, the solution
+ of the pattern is searched for, in most patterns.)
+ This shows up in the logic of the patterns, which is more natural to me.
+ Your mileage might vary.
+
+
+ It is a compromise between performance, size
+ and capabilities.
+ The logic is different of a "regular" regular expression
+ machine, but has advantages (and disadvantages).
+ I'd say, the main advantage is the easiness of adding callbacks,
+ and defining your own matching/logic within these.
+ Performance might be better as well overall,
+ but this depends on the expressions and usecases as well.
+
+ Yet I for myself have to get a grip of the possibilities of this engine.
+ However, I have the feeling, the logic is much more natural.
+ With regular regexes you always have to think kind of 'backwards',
+ e.g., match ".*" -&gt; match "." (any char) x times.
+ gets to a simple "*"
+ or, to match all group and user id's of /etc/passwd,
+ a regular expression would be: "(\d*):(\d*)"
+ This is here: "*(\d*):(\d*)*"
+ The content in the brackets looks the same,
+ but it's matched quite different.
+ The regular expression (the first) matches x times \d, for x&gt;=0.
+ In the second expressin, the ext_match expression,
+ the first digit is matched, and then nongreedy any chars, until
+ the first occurence of ':'.
+ It is another logic. Whether it suits you, you have to decide.
+
+ The callbacks have shown up to be a mighty tool, while
+ at the same time having a good performance.
+
+
+ A few nonextensive benchmarks show,
+ this engine is a bit faster than perl's regular expression machine,
+ slower than gnu grep (around factor2), and has the same speed as sed.
+ This might vary with each usecase, but the callbacks for extracting matches
+ have some advantage, as well as the strict left to right and nongreedy parsing.
+
+ In favor of codesize I'm not going to optimize ext_match,
+ but there would be several possibilities, if you'd need a faster engine.
+ (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+ About 5 to 10 times faster than most expression engines.)
+
+ matches:
+
+ * for every count of any char
+ + for 1 or more chars
+ ? for 1 char
+ # for space, end of text (\0), linebreak, tab
+ $ match end of text (\0) or linebreak
+
+ backslash: escape *,?,%,$,!,+,#,&amp; and backslash itself.
+ !: invert the matching of the next character or character class
+ ,: separator. e.g. %,1 matches like ?*1.
+   ( without the commata, the '1' would be part of the % match)
+
+
+ predefined character classes:
+ \d - digit
+ \D - nondigit
+ \s - space
+ \S - nonspace
+ \w - word character ( defined as ascii 32-126,160-255 )
+ \W - nonword character ( defined as ascii 0-31,127-159 )
+
+
+ [xyz]: character classes, here x,y or z
+   the characters are matched literally, also \,*,?,+,..
+   it is not possible to match the closing bracket (])
+   within a character class
+
+ {nX}: counted match
+  Match n times X.
+  For X, all expressions are allowed.
+  If you need to match a number at the first char of 'X',
+  separate X by a commata. E.g. {5,0} matches 5 times '0'.
+
+ (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
+
+ %[1]..%[9]: matches like a '+',
+  and calls the callback supplied as 3rd argument (when not null).
+  the number past the %, e.g. %1, is optional,
+  p_match will be callen with this number
+  as first parameter.
+  When not supplied, p_matched will be callen with
+  the parameter 'number' set to 0.
+
+  The matching is 'nongreedy'.
+  It is possible to rewrite the string to match
+  from within the p_matched callback.
+  This will not have an effect onto the current matching,
+  even if text is e.g. deleted by writing 0's.
+  The matched positions are called in reverse order.
+  (The last matched % in the regex calls p_match first,
+  the first % in the regex from the left will be callen last)
+  / The regex is first matched; when the regex has matched,
+  the %'s are filled/ the callbacks executed.
+  (x) bracketed patterns are matched the same way.
+
+  (Not like &amp;, which callbacks are invoked, while matching)
+
+ supply 0 for p_matched, when you do not need to extract matches.
+ This will treat % in the regex like a *,
+ a following digit (0..9) in the regex is ignored.
+ if the 5th argument, a pointer to a regex_match struct,
+ is supplied, it will be filled with the first match.
+ (counting from left)
+
+
+ &amp;[1] .. &amp;[9]
+  "match" like a '?' and call p_match_char
+  p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+  or a number of the count of chars, which have been matched.
+
+  Therefore it is possible to e.g. rule your own
+  character classes, defined at runtime,
+  or do further tricks like changing the matched chars,
+  match several chars, andsoon.
+  When returning RE_NOMATCH,
+  it is possible, the p_match and p_match_char callbacks are callen several times,
+  but with different pos or len parameters.
+
+  The matching works straight from left to right.
+  So, a "*&amp;*" will call the callback &amp; for the first char.
+  When returning RE_NOMATCH, the second char will be tried to match.
+  Until either RE_MATCH is returned from the callback,
+  or the last char of the text has been tried to match.
+
+  Matching several characters is also posssible from within the callback,
+  the position within the text will be incremented by that number,
+  you return from the callback.
+
+  When returning RE_MATCHEND from the callback,
+  the whole regular expression is aborted, and returns with matched;
+  no matter, if there are chars left in the expression.
+
+
+  The difference between % and &amp; is the logic.
+  % matches nongreedy, and has to check therefore the right side of the star
+  for its matching.
+  Possibly this has to be repeated, when following chars do not match.
+
+  &amp; is matched straight from left to right.
+  Whatever number you return, the textpointer will be incremented by that value.
+  However, a &amp; isn't expanded on it's own. ( what a % is ).
+  e.g. "x%x" will match 'aa' in xaax, x&amp;x will match the whole expression
+  only, when you return '2' from the callback.
+
+  Performancewise, matching with &amp; is faster,
+  since the % has on its right side to be matched
+  with recursing calls of ext_match.
+
+ When using closures for the callbacks, you will possibly have to
+ enable an executable stack for the trampoline code
+ of gcc. Here, gcc complains about that.
+ For setting this bit, please have a look into the ldscripts in the folder
+ with the same name.
+
+ supply 0 for p_match_char, when you don't need it.
+ This will treat &amp; in the regex like ?,
+ and match a following digit (0..9) in the text,
+ a following digit (0..9) in the regex is ignored.
+
+ -----
+ In general, you have to somehow invert the logic of regular expressions
+ when using ext_match.
+ e.g. when matching the parameter 'runlevel=default' at the kernel's
+ commandline, a working regular expression would be
+ "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+ For matching e.g. numbers, you'd most possibly best of
+ with writing your own &amp; callback.
+
+ returns: 1 on match, 0 on no match
+ ( RE_MATCH / RE_NOMATCH )
+
+ if the pointer (argument 5) st_match is nonnull,
+ the supplied struct regex_match will be set to the first matching '%' location;
+ if there is no match, regex_match.len will be set to 0.
+ The struct is defined as:
+ typedef struct _regex_match { char* pos; int len; } regex_match;
+
+
+ (memo) When the regex ist defined within C/cpp source code,
+ a backslash has to be defined as double backslash.
+
+ (note) - be careful when negating a following *, or ?.
+  somehow - it is logical, but seems to me I overshoot a bit,
+  tragically hit my own foot, and stumbled into a logical paradox.
+
+  Negating EVERYTHING translates to true.
+  However, since truth is negated as well, there's a problem,
+  cause it's now 'false', but 'false' is true. This is very close
+  to proving 42 is the answer. What is the escape velocity
+  in km/s out of the solar system, btw.
+
+  (I'm not kidding here. Just don't do a regex with !* or !?..
+  And, please, do not ask me what is going to happen when the impossible
+  gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+
+  A "!+" will translate into nongreedy matching of any char, however;
+  "%!+" will match with % everything but the last char;
+  while "%+" matches with % only the first char.
+  !+ basically sets the greedyness of the left * or % higher.
+
+ (work in progress here) please use ext_match
+ return 0 for nomatch, the current textpos ( &gt;0 ) for a match
+ With the exception of an empty text, matched by e.g. "*".
+ This will return 0, albite the regex formally matches, with 0 chars.
+
+ (todo)
+ bracket matching () and {} needs debugging. (test/extmatch2 for testing)
+ Add a callback for bracket matches, and add a matchlist
+ (linked list, allocated with malloc_brk)
+ Trouble: e.g. *:(*) doesn't match, albite it should
+  .. better. Now: # matches the end, after a bracket. Like it should
+   $ doesn't. But should as well.
+ change '+' to greedy matching of any char
+ for {n,X} let n be * or + as well.
+  (this would be closer to regular regulars again.?.)
+
+
+ note. About a tokenizer:
+ matching quoted string is really easy with the callback structure:
+  just match with &amp;. When a quote is matched, look forward to the next quote,
+  and return that many chars. Same time, the quoted string is matched.
+  That's so easy, it is hard to believe.
+  When using closures for that, it is same time easy to collect all tokens.
+
+  It is even easier. just a "*("*")*" is enough.
+
+  -&gt;There is something needed for partial matching. Possibly spare the last *, and return,
+  as soon the pattern is at it's end (and not the text?)
+  Already works this way.
+
+  Should start to define the language for the init scripts.
+  Or better, start thinking abut that, but follow my other obligations the next time.
+
+  Have to think thouroughly about what points would make such a language useful.
+  The reason to think about that is clear - performance squeezing, faster startup time.
+  And writing the startup scripts in C is. Well. little bit painful.
+  However, together with minilib, there is nearly no difference between having a C program compiled
+  and run, or working with scripts. To not have the overhead of linking the external libraries in,
+  is of quite some advance.
+  The only difference, the compiled binaries are "cached".
+  have just to sort something sensible out for the systematic.
+  Implement an own loader? possibly easy. Since the loading address is fixed.
+  This could possibly also be the solution for the yet unclear question of the line between parsing
+  arguments and calling the main function of the small core tools, andsoon.
+
+  gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.</code></pre>
+</td></tr></table>
+<p><a href="../src/ext_match2.c">../src/ext_match2.c</a> l.269</p>
 <a name="group_printf"></a><dl>
 <dt>
 group_printf
@@ -3741,7 +4084,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> uitodec eprintf fileno write ltodec<br>
+ <strong>Defines:</strong> fileno eprintf ltodec uitodec write<br>
 </p>
 </dd>
 </dl>
@@ -3800,6 +4143,18 @@ qsort
  which in turn I did find within musl.</code></pre>
 </td></tr></table>
 <p><a href="../src/qsort.c">../src/qsort.c</a> l.57 manpage: <a href="manpages/stdlib/qsort.3.rst">qsort</a><br></p>
+<a name="unmap_protected"></a><dl>
+<dt>
+unmap_protected
+</dt>
+<dd>
+<p>
+  <em>int unmap_protected(void <strong>p, int len)</em><br>
+ *Defines:</strong> mprotect munmap<br>
+<a href="../src/map_protected.c">../src/map_protected.c</a> l.41
+</p>
+</dd>
+</dl>
 <p>---</p>
 <hr>
 <h2><a name="_x64_syscalls"></a>19. x64-syscalls</h2>
@@ -6872,7 +7227,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-01 14:56:44 CEST
+ 2020-08-05 16:47:10 CEST
 </small></p>
 </body>
 </html>

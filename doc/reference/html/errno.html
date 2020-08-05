@@ -42,7 +42,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> execve errno_str exit write<br>
+ <strong>Defines:</strong> errno_str exit execve write<br>
 </p>
 </dd>
 </dl>
@@ -69,7 +69,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> write strlen strerror errno fileno<br>
+ *Defines:</strong> errno fileno strerror write strlen<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="../manpages/string/strerror.3.rst.html">perror</a><br>
 </p>
@@ -149,7 +149,7 @@ verbose_errstr2
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 11:07:32 UTC
+ 2020-08-05 16:47:26 CEST
 </small></p>
 </body>
 </html>

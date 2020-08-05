@@ -248,7 +248,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/prints.c: 15)
+               (src/prints.c: 17)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -787,6 +787,16 @@ fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
               this macro has an variable argument count.
                (include/prints.h: 33)
 
+free_brk       int free_brk();
+
+               free all memory,
+              which has been allocated with malloc_brk.
+              Returns 0, if memory has been freed;
+              1, when there hasn't been any memory allocations with
+              malloc_brk before.
+              Then brk() gives an error, return the return value of brk
+               (src/freebrk.c: 9)
+
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
                write the constant str to fd. Computes length with sizeof(str) at compile time.
@@ -844,6 +854,20 @@ itooct         int itooct(int i, char *buf);
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
                (src/ltodec.c: 75)
+
+malloc_brk     void* malloc_brk(int size);
+
+               allocate via setting the brk
+              free and realloc can be used normally.
+              The intention of malloc_brk is for subsequent calls to realloc.
+              The saved data has not to be copied,
+              instead realloc just writes the new size and sets 
+              the brk accordingly.
+              if the break is saved before one or more calls to malloc_brk,
+              the allocated memory can also be free'd by setting the brk to the saved value
+              with brk(saved_brk)
+              free_brk() free's all memory, which has been allocated with malloc_brk
+               (src/malloc_brk.c: 16)
 
 map_protected  void* map_protected(int len);
 
@@ -1727,17 +1751,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/malloc.c: 147)
-
-free_brk       int free_brk();
-
-               free all memory,
-              which has been allocated with malloc_brk.
-              Returns 0, if memory has been freed;
-              1, when there hasn't been any memory allocations with
-              malloc_brk before.
-              Then brk() gives an error, return the return value of brk
-               (src/malloc.c: 242)
+               (src/malloc.c: 146)
 
 getenv         char* getenv(const char* name);
 
@@ -1763,7 +1777,7 @@ malloc         void* malloc(int size);
               either the bss section, or is allocated on the stack.
               (option "globals_on_stack")
              
-              This is basically a double linked list,
+              This is basically a linked list,
               optimized for fast access, allocation of new elements, 
               and small memory overhead.
               Albite the list structure might be hard to recognize.
@@ -1802,7 +1816,7 @@ malloc         void* malloc(int size);
               out there are countless.
              
               ;) It's sometimes smarter to stay special,
-              although in this case this means the opposite.
+              albite in this case this means the opposite.
               /misc
              
               The memory layout looks like this:
@@ -1827,21 +1841,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/malloc.c: 127)
-
-malloc_brk     void* malloc_brk(int size);
-
-               allocate via setting the brk
-              free and realloc can be used normally.
-              The intention of malloc_brk is for subsequent calls to realloc.
-              The saved data has not to be copied,
-              instead realloc just writes the new size and sets 
-              the brk accordingly.
-              if the break is saved before one or more calls to malloc_brk,
-              the allocated memory can also be free'd by setting the brk to the saved value
-              with brk(saved_brk)
-              free_brk() free's all memory, which has been allocated with malloc_brk
-               (src/malloc.c: 214)
+               (src/malloc.c: 126)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -1858,7 +1858,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 260)
+               (src/malloc.c: 210)
 
 srand          void srand( unsigned int i );
 

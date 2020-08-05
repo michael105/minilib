@@ -16,7 +16,7 @@ _mprints
 <p>
   <em>#define _mprints(&#8230;) dprints(STDOUT_FILENO, <em>VA_ARGS</em>)</em><br>
  <strong>Defines:</strong> write<br>
-<a href="../../src/prints.c">../src/prints.c</a> l.69
+<a href="../../include/prints.h">../include/prints.h</a> l.10
 </p>
 </dd>
 <dt>
@@ -91,7 +91,7 @@ dprints
 <p>
   <em>int dprints(int fd, const char <strong>msg,&#8230;)</em><br>
  *Defines:</strong> write<br>
-<a href="../../src/prints.c">../src/prints.c</a> l.48
+<a href="../../src/prints.c">../src/prints.c</a> l.17
 </p>
 </dd>
 <dt>
@@ -100,7 +100,7 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> write strlen<br>
 </p>
 </dd>
 </dl>
@@ -108,7 +108,7 @@ eprint
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write str to stderr. Needs strlen</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.52</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.58</p>
 <a name="eprintfs"></a><dl>
 <dt>
 eprintfs
@@ -116,7 +116,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen write fileno<br>
+ <strong>Defines:</strong> fileno write strlen<br>
 </p>
 </dd>
 </dl>
@@ -124,7 +124,7 @@ eprintfs
 <pre><code>write fmt and arguments to stderr.
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.100</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.106</p>
 <a name="eprintl"></a><dl>
 <dt>
 eprintl
@@ -139,7 +139,7 @@ eprintl
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write a newline to stderr</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.61</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.67</p>
 <a name="eprints"></a><dl>
 <dt>
 eprints
@@ -155,7 +155,7 @@ eprints
 <pre><code>print the string(s) supplied as arg(s) to stdout
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.19</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.25</p>
 <a name="eprintsl"></a><dl>
 <dt>
 eprintsl
@@ -170,7 +170,7 @@ eprintsl
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>print the string(s) supplied as arg(s) and newline to stderr</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.41</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.47</p>
 <a name="eputs"></a><dl>
 <dt>
 eputs
@@ -185,7 +185,7 @@ eputs
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write msg to stderr, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.71</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.77</p>
 <a name="ewrites"></a><dl>
 <dt>
 ewrites
@@ -200,7 +200,7 @@ ewrites
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to stderr. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.82</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.88</p>
 <a name="fprint"></a><dl>
 <dt>
 fprint
@@ -264,7 +264,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -272,7 +272,7 @@ fprints
 <pre><code>print the string(s) supplied as arg(s) to stream
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.27</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.33</p>
 <a name="fputc"></a><dl>
 <dt>
 fputc
@@ -310,7 +310,7 @@ fwrites
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to fd. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.88</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.94</p>
 <a name="group_print"></a><dl>
 <dt>
 group_print
@@ -318,7 +318,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -335,7 +335,7 @@ group_write
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> ewrite write<br>
+ <strong>Defines:</strong> write ewrite<br>
 </p>
 </dd>
 </dl>
@@ -359,7 +359,7 @@ print
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write str to stdout. Needs strlen</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.48</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.54</p>
 <a name="printf"></a><dl>
 <dt>
 printf
@@ -378,7 +378,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno strlen write<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -387,7 +387,7 @@ printfs
 <pre><code>write fmt and arguments to stdout.
  only format %s and %c are recognized</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.94</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.100</p>
 <a name="printl"></a><dl>
 <dt>
 printl
@@ -402,7 +402,7 @@ printl
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write a newline to stdout</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.57</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.63</p>
 <a name="prints"></a><dl>
 <dt>
 prints
@@ -410,6 +410,7 @@ prints
 <dd>
 <p>
   <em>#define prints(&#8230;) _mprints(<em>VA_ARGS</em>,0)</em><br>
+ <strong>Defines:</strong> write<br>
 </p>
 </dd>
 </dl>
@@ -417,7 +418,7 @@ prints
 <pre><code>print the string(s) supplied as arg(s) to stdout,
  this macro has an variable argument count.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.12</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.18</p>
 <a name="printsl"></a><dl>
 <dt>
 printsl
@@ -425,13 +426,14 @@ printsl
 <dd>
 <p>
   <em>#define printsl(&#8230;) _mprints(<em>VA_ARGS</em>,"\n",0)</em><br>
+ <strong>Defines:</strong> write<br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>print the string(s) supplied as arg(s) and newline to stdout</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.35</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.41</p>
 <a name="putc"></a><dl>
 <dt>
 putc
@@ -461,7 +463,7 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> write strlen<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
@@ -470,7 +472,7 @@ puts
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write msg to stdout, append a newline. Needs strlen.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.67 manpage: <a href="../manpages/stdio/fputs.3.rst.html">puts</a><br></p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.73 manpage: <a href="../manpages/stdio/fputs.3.rst.html">puts</a><br></p>
 <a name="shortcolornames"></a><dl>
 <dt>
 shortcolornames
@@ -504,7 +506,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.86 manpage: <a href="../manpages/stdio/printf.3.rst.html">vfprintf</a><br>
 </p>
 </dd>
@@ -568,12 +570,12 @@ writes
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write the constant str to stdout. Computes length with sizeof(str) at compile time.</code></pre>
 </td></tr></table>
-<p><a href="../../include/prints.h">../include/prints.h</a> l.78</p>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.84</p>
 <p></p>
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 11:07:32 UTC
+ 2020-08-05 16:47:26 CEST
 </small></p>
 </body>
 </html>

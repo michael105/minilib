@@ -93,6 +93,7 @@ However, the usage isn't known in advance. Not for a system library.
 (Or use mmap for yourself).</code></pre>
 <pre><code>As I said, usage of a existing malloc will not interfere with minilib,
 so long you don't use malloc_brk, map_protected, mmap, brk, or scandir.</code></pre>
+<p>---</p>
 <a name="brk"></a><dl>
 <dt>
 brk
@@ -121,7 +122,7 @@ free
   <em>void free(void <strong>p)</em><br>
  *Defines:</strong> brk getbrk<br>
  <strong>free allocated memory</strong>
-Size: ~32B <a href="../../src/malloc.c">../src/malloc.c</a> l.139 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
+Size: ~32B <a href="../../src/malloc.c">../src/malloc.c</a> l.146 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
 </dd>
 <dt>
@@ -142,7 +143,7 @@ free_brk
  malloc_brk before.
  Then brk() gives an error, return the return value of brk</code></pre>
 </td></tr></table>
-<p><a href="../../src/malloc.c">../src/malloc.c</a> l.234</p>
+<p><a href="../../src/freebrk.c">../src/freebrk.c</a> l.9</p>
 <a name="getbrk"></a><dl>
 <dt>
 getbrk
@@ -166,7 +167,6 @@ malloc
 <dd>
 <p>
   <em>void* malloc(int size)</em><br>
- <strong>Defines:</strong> brk<br>
  <strong>a memory allocator</strong>
 </p>
 </dd>
@@ -178,15 +178,23 @@ malloc
  Not the smartest.
  Since it isn't exactly a memory allocation,
  instead it (mis)uses the minilib buf.
- ;) 1024 Bytes should be enough for everyone.
-  Ok. If you really do need more memory -
-  rethink your design, increase mini_mbuf,
-  or use a proper malloc implementation.
+ Which is allocated by the kernel, and uses
+ either the bss section, or is allocated on the stack.
+ (option "globals_on_stack")
+
+ This is basically a linked list,
+ optimized for fast access, allocation of new elements,
+ and small memory overhead.
+ Albite the list structure might be hard to recognize.
+ It is not the right malloc, if you expect
+ many de- or reallocations.
+ And it obviously is not the right choose, when
+ expecting medium to big sized allocations. (&gt; 1 page, here 4kB, as medium sized)
 
  Here we use mbuf from top to bottom as stack.
  64 Bytes are left at the bottom as reserve.
  Possibly we'd like to complain
- about the lack of memory, before we exit..
+ about the lack of memory, before we exit.
 
  ATM, the 'free' is really lazy.
  It free's memory, but a real 'free' is only commited,
@@ -213,7 +221,7 @@ malloc
  out there are countless.
 
  ;) It's sometimes smarter to stay special,
- although in this case this means the opposite.
+ albite in this case this means the opposite.
  /misc
 
  The memory layout looks like this:
@@ -226,7 +234,7 @@ malloc
       size  data  size    mini_buf size
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
-<p>Size: ~173B <a href="../../src/malloc.c">../src/malloc.c</a> l.119 manpage: <a href="../manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
+<p>Size: ~173B <a href="../../src/malloc.c">../src/malloc.c</a> l.126 manpage: <a href="../manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
 <a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
@@ -250,7 +258,7 @@ malloc_brk
  with brk(saved_brk)
  free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
 </td></tr></table>
-<p><a href="../../src/malloc.c">../src/malloc.c</a> l.206</p>
+<p><a href="../../src/malloc_brk.c">../src/malloc_brk.c</a> l.16</p>
 <a name="map_protected"></a><dl>
 <dt>
 map_protected
@@ -258,7 +266,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mmap mprotect<br>
+ <strong>Defines:</strong> mprotect mmap<br>
 </p>
 </dd>
 </dl>
@@ -298,7 +306,7 @@ memcpy
 <p>
   <em>void <strong>memcpy( void *d, const void *s, int n )</em><br>
  *copy bytes in memory</strong>
-Size: ~84B <a href="../../src/memcpy.c">../src/memcpy.c</a> l.6 manpage: <a href="../manpages/string/memcpy.3.rst.html">memcpy</a><br>
+Size: ~84B <a href="../../src/memcpy.c">../src/memcpy.c</a> l.4 manpage: <a href="../manpages/string/memcpy.3.rst.html">memcpy</a><br>
 </p>
 </dd>
 <dt>
@@ -398,9 +406,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> 0 brk getbrk<br>
  <strong>memory reallocator</strong>
-Size: ~636B <a href="../../src/malloc.c">../src/malloc.c</a> l.252 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
+Size: ~636B <a href="../../src/malloc.c">../src/malloc.c</a> l.210 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -452,7 +460,7 @@ swap
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 11:07:32 UTC
+ 2020-08-05 16:47:26 CEST
 </small></p>
 </body>
 </html>

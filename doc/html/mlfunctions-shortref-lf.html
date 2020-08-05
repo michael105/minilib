@@ -469,7 +469,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/dprintf.c" target="right">../src/dprintf.c</a>  15 </small></td><td><small> int dprints(int fd, const char *msg,...);
+<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/dprintf.c" target="right">../src/dprintf.c</a>  17 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/prints.c" target="right">../src/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
@@ -1055,9 +1055,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  148 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  147 </small></td><td><small> void free(void *p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  146 </small></td><td><small> void free(void *p);
 </small></td></tr>
-<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  242 </small></td><td><small> int free_brk();
+<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  9 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
   which has been allocated with malloc_brk.
   Returns 0, if memory has been freed;
@@ -1065,7 +1065,7 @@
   malloc_brk before.
   Then brk() gives an error, return the return value of brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/freebrk.c" target="right">../src/freebrk.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  132 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
@@ -1180,7 +1180,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  127 </small></td><td><small> void* malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  126 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
   Here we go.. with the .. well. 
   Fastes and smallest malloc/free combi ever. 
@@ -1191,7 +1191,7 @@
   either the bss section, or is allocated on the stack.
   (option "globals_on_stack")
  
-  This is basically a double linked list,
+  This is basically a linked list,
   optimized for fast access, allocation of new elements, 
   and small memory overhead.
   Albite the list structure might be hard to recognize.
@@ -1230,7 +1230,7 @@
   out there are countless.
  
   ;) It's sometimes smarter to stay special,
-  although in this case this means the opposite.
+  albite in this case this means the opposite.
   /misc
  
   The memory layout looks like this:
@@ -1256,7 +1256,7 @@
   Memory is allocated from right to left, 
   meaning from top to down.
  </small></td></tr>
-<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  214 </small></td><td><small> void* malloc_brk(int size);
+<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  16 </small></td><td><small> void* malloc_brk(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate via setting the brk
   free and realloc can be used normally.
   The intention of malloc_brk is for subsequent calls to realloc.
@@ -1268,7 +1268,7 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  19 </small></td><td><small> void* map_protected(int len);
+<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/malloc_brk.c" target="right">../src/malloc_brk.c</a>  19 </small></td><td><small> void* map_protected(int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate a buffer, which is surrounded by protected pages. 
   mprotect(PROT_NONE)
   When there is a buffer overflow,
@@ -1479,7 +1479,7 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  260 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  210 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  166 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
