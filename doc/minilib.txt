@@ -149,15 +149,15 @@ dirent.h
 ==========
 
 closedir       int closedir(DIR *dir);
-               Defines: brk getbrk
+               Defines: getbrk brk
                (src/dirent/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
-               Defines: dirbuf write close open 0
+               Defines: open 0 dirbuf close write
                (src/dirent/opendir.c: 24)
 
 readdir        struct dirent *readdir(DIR *dir);
-               Defines: getdents dirbuf
+               Defines: dirbuf getdents
                (src/dirent/readdir.c: 10)
                read a directory.
               return the next dirent, or 0, if the end is reached.
@@ -168,7 +168,7 @@ rewinddir      void rewinddir(DIR *dir);
                (src/dirent/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-               Defines: write getbrk memcpy sbrk errno 0 open brk dirbuf qsort seterrno
+               Defines: sbrk memcpy getbrk qsort seterrno 0 brk errno dirbuf open write
                (src/dirent/scandir.c: 35)
                list files and dirs in a directory
              
@@ -377,12 +377,12 @@ dtodec         int dtodec(double d, char* buf, int precision);
                (src/dtodec.c: 10)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 58)
                write str to stderr. Needs strlen
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-               Defines: fileno write strlen
+               Defines: write strlen fileno
                (include/prints.h: 106)
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
@@ -404,7 +404,7 @@ eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stderr
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
-               Defines: strlen write
+               Defines: write strlen
                (include/prints.h: 77)
                write msg to stderr, append a newline. Needs strlen.
 
@@ -421,7 +421,7 @@ ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
 
 exit_errno     void exit_errno( int errnum );
-               Defines: errno_str exit execve write
+               Defines: errno_str exit write execve
                (src/exit_errno.c: 17)
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -438,13 +438,21 @@ exit_errno     void exit_errno( int errnum );
               the absolute value is supplied to errno.
 
 ext_match      int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
-               (src/ext_match.c: 181)
+               (src/ext_match.c: 189)
                regex engine
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
-              no backtracking is done. (Besides the matching %'s,
-              which are callen right to left)
+              backtracking is done as less as possible.
+              Since the matching is nongreedy in general,
+              many tries can be spared. Opposed to another route,
+              where most patterns are per default greedy, and therfore
+              not the first matching next char is seeked for, but the first
+              solution while matching the most chars.
+              (I do not want to make this a hard statement, and it 
+              depends onto each pattern. But it is the way, the solution
+              of the pattern is searched for, in most patterns.)
+              This shows up in the logic of the patterns, which is more natural to me.
              
               It is a compromise between performance, size
               and capabilities.
@@ -619,8 +627,10 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                !+ basically sets the greedyness of the left * or % higher.
 
 ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
-               (src/ext_match2.c: 269)
+               (src/ext_match2.c: 271)
                regex engine
+              WORK IN PROGRESS, please use ext_match
+             
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
@@ -892,14 +902,14 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
                (include/fexecveat.h: 3)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: fileno strlen write
+               Defines: write strlen fileno
                (src/fprintfs.c: 10)
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
               no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
-               Defines: strlen write fileno
+               Defines: write fileno strlen
                (include/prints.h: 33)
                print the string(s) supplied as arg(s) to stream
               this macro has an variable argument count.
@@ -928,19 +938,19 @@ grantpt        int grantpt(int fd);
                (src/pty.c: 13)
 
 group_print    
-               Defines: fileno strlen write
+               Defines: strlen fileno write
                (macros/defgroups.h: 13)
                enable print and related functions
               This switch enables strlen;
               but neither globals nor the mini_buf are used.
 
 group_printf   //
-               Defines: fileno eprintf ltodec uitodec write
+               Defines: fileno ltodec uitodec write eprintf
                (macros/defgroups.h: 29)
                printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
 
 group_write    
-               Defines: write ewrite
+               Defines: ewrite write
                (macros/defgroups.h: 23)
                write, and related functions
               these functions do not depend on strlen, 
@@ -982,7 +992,7 @@ malloc_brk     void* malloc_brk(int size);
               free_brk() free's all memory, which has been allocated with malloc_brk
 
 map_protected  void* map_protected(int len);
-               Defines: mprotect mmap
+               Defines: mmap mprotect
                (src/map_protected.c: 19)
                allocate a buffer, which is surrounded by protected pages. 
               mprotect(PROT_NONE)
@@ -1001,11 +1011,11 @@ map_protected  void* map_protected(int len);
               and -1 returned, or the negative errno value, when errno isn't defined.
 
 match          int match(char *text, const char *re, regex_match *st_match);
-               (src/match.c: 57)
+               (src/match.c: 59)
                regex engine
               little bit simpler version than ext_match.
-              The engine matches from left to right,
-              so no backtracking is done.
+              The engine matches nongreedy straight from left to right,
+              so backtracking is minimized.
               It is a compromise between performance, size
               and capabilities.
              
@@ -1050,7 +1060,9 @@ match          int match(char *text, const char *re, regex_match *st_match);
                Negating EVERYTHING translates to true.
                However, since truth is negated as,... well, there's a problem.
              
-               (I'm not kidding here. Just don't do a regex with !* or !?..)
+               (I'm not kidding here. Just don't do a regex with !* or !?.,
+               or you might experience the meaning of full featured. 
+               Maybe I should say, it's not allowed?)
              
                A "!+" will translate into nongreedy matching of any char, however;
                "%!+" will match with % everything but the last char;
@@ -1073,7 +1085,7 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
                (include/mremap.h: 4)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
-               Defines: close open dirbuf 0
+               Defines: dirbuf 0 open close
                (src/dirent/opendir.c: 10)
 
 optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
@@ -1109,7 +1121,7 @@ print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: write strlen fileno
+               Defines: fileno strlen write
                (include/prints.h: 100)
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
@@ -1131,15 +1143,15 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: open write uitodec ioctl
+               Defines: ioctl open uitodec write
                (src/pty.c: 43)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: ioctl write uitodec open
+               Defines: uitodec write ioctl open
                (src/pty.c: 30)
 
 putenv         int putenv( char *string );
-               Defines: ret_errno environ
+               Defines: environ ret_errno
                (src/putenv.c: 10)
                put a string into the environmental vars
               the supplied string's pointer is put into the environmental array of pointers.
@@ -1906,7 +1918,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: fileno close open
+               Defines: close fileno open
                (src/_fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1924,7 +1936,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: fileno open close
+               Defines: close open fileno
                (src/fopen.c: 20)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1939,7 +1951,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (include/fgetc.h: 11)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -1947,7 +1959,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 113)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 4)
 
 fileno         static int fileno( FILE *f );
@@ -1955,7 +1967,7 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: fileno open close
+               Defines: close fileno open
                (src/fopen.c: 10)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -1984,11 +1996,11 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
               
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: write fileno
+               Defines: fileno write
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: strlen write fileno
+               Defines: fileno strlen write
                (include/fputs.h: 20)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -1996,7 +2008,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
                (include/mini_fstream.h: 148)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
-               Defines: fileno open close
+               Defines: close fileno open
                (src/fopen.c: 30)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -2025,7 +2037,7 @@ getchar        #define getchar() fgetc(0)
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: fileno read
+               Defines: read fileno
                (src/fgets.c: 27)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -2045,11 +2057,11 @@ itohex         int itohex(int i,char* buf,int padding);
               ( -1 is 0xffffffff, -2 0xfffffffe, ... )
 
 perror         void perror(const char *msg);
-               Defines: errno fileno strerror write strlen
+               Defines: errno strerror write strlen fileno
                (src/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 77)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -2057,7 +2069,7 @@ putc           #define putc(c,stream) fputc(c,stream)
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
@@ -2089,7 +2101,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: write fileno
+               Defines: fileno write
                (include/mini_fstream.h: 86)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
@@ -2106,7 +2118,7 @@ stdlib.h
 ==========
 
 abort          void abort();
-               Defines: memcpy getpid write
+               Defines: write getpid memcpy
                (src/abort.c: 3)
 
 abs            static int abs(int i);
@@ -2130,7 +2142,7 @@ div            static div_t div(int numerator, int denominator);
                (include/math.h: 8)
 
 free           void free(void *p);
-               Defines: brk getbrk
+               Defines: getbrk brk
                (src/malloc.c: 146)
 
 getenv         char* getenv(const char* name);
@@ -2233,7 +2245,7 @@ rand           unsigned int rand();
                (src/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
-               Defines: 0 brk getbrk
+               Defines: getbrk 0 brk
                (src/malloc.c: 210)
 
 srand          void srand( unsigned int i );
@@ -2245,7 +2257,7 @@ strtol         long int strtol(const char *c, const char **endp, int base);
               doesn't check for overflow(!)
 
 system         int system( const char* command );
-               Defines: execve vfork environ wait4 write
+               Defines: vfork wait4 write execve environ
                (src/system.c: 4)
 
 
@@ -2297,7 +2309,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/strcpy.c: 3)
 
 strdup         char *strdup(const char *source);
-               Defines: 0 strcpy strlen
+               Defines: strcpy 0 strlen
                (src/strdup.c: 7)
 
 strerror       static char* strerror( int errnum );
@@ -2376,7 +2388,7 @@ dup2           dup2(int oldfd, int newfd)
                (include/syscall_stubs.h: 117)
 
 execl          static int execl(const char *pathname, const char* arg0,... );
-               Defines: environ execve
+               Defines: execve environ
                (src/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
@@ -2387,11 +2399,11 @@ execve         execve( const char *filename,  char* const* argv, char* const* en
                (include/syscall_stubs.h: 127)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
-               Defines: environ access execve
+               Defines: environ execve access
                (src/execvp.c: 58)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: execve access environ
+               Defines: environ execve access
                (src/execvp.c: 18)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)

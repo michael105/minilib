@@ -45,7 +45,9 @@ static inline void swap(void* a, void* b,int size){
 				a++;b++;
 		}
 }
-
+// todo: test for last3 bits -> eq modulo 8
+// last 2 bits-> eq modulo 4.
+// loopfor swappinglongs/integers.
 
 
 //+doc (quick) shell sort routine

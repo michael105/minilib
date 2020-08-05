@@ -538,13 +538,21 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  181 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  189 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
   This is somewhere between a fully fledged expression machine,
   and a simplicistic solution.
   The engine matches from left to right,
-  no backtracking is done. (Besides the matching %'s,
-  which are callen right to left)
+  backtracking is done as less as possible.
+  Since the matching is nongreedy in general,
+  many tries can be spared. Opposed to another route,
+  where most patterns are per default greedy, and therfore
+  not the first matching next char is seeked for, but the first
+  solution while matching the most chars.
+  (I do not want to make this a hard statement, and it 
+  depends onto each pattern. But it is the way, the solution
+  of the pattern is searched for, in most patterns.)
+  This shows up in the logic of the patterns, which is more natural to me.
  
   It is a compromise between performance, size
   and capabilities.
@@ -718,8 +726,10 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match2</small></td><td><small>   <a href="../src/ext_match.c" target="right">../src/ext_match.c</a>  269 </small></td><td><small> char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+<tr valign="top"><td><small>ext_match2</small></td><td><small>   <a href="../src/ext_match.c" target="right">../src/ext_match.c</a>  271 </small></td><td><small> char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
+  WORK IN PROGRESS, please use ext_match
+ 
   This is somewhere between a fully fledged expression machine,
   and a simplicistic solution.
   The engine matches from left to right,
@@ -1285,11 +1295,11 @@
   If an error occures, errno is set (when defined), 
   and -1 returned, or the negative errno value, when errno isn't defined.
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  57 </small></td><td><small> int match(char *text, const char *re, regex_match *st_match);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  59 </small></td><td><small> int match(char *text, const char *re, regex_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
   little bit simpler version than ext_match.
-  The engine matches from left to right,
-  so no backtracking is done.
+  The engine matches nongreedy straight from left to right,
+  so backtracking is minimized.
   It is a compromise between performance, size
   and capabilities.
  
@@ -1334,7 +1344,9 @@
    Negating EVERYTHING translates to true.
    However, since truth is negated as,... well, there's a problem.
  
-   (I'm not kidding here. Just don't do a regex with !* or !?..)
+   (I'm not kidding here. Just don't do a regex with !* or !?.,
+   or you might experience the meaning of full featured. 
+   Maybe I should say, it's not allowed?)
  
    A "!+" will translate into nongreedy matching of any char, however;
    "%!+" will match with % everything but the last char;

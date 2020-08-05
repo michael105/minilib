@@ -564,7 +564,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> dirbuf write close open 0<br>
+ *Defines:</strong> open 0 dirbuf close write<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -575,7 +575,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> close open dirbuf 0<br>
+ *Defines:</strong> dirbuf 0 open close<br>
 <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
@@ -585,7 +585,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> getdents dirbuf<br>
+ *Defines:</strong> dirbuf getdents<br>
  <strong>read a directory</strong>
 </p>
 </dd>
@@ -625,7 +625,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> write getbrk memcpy sbrk errno 0 open brk dirbuf qsort seterrno<br>
+ <strong>Defines:</strong> sbrk memcpy getbrk qsort seterrno 0 brk errno dirbuf open write<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -733,7 +733,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> errno_str exit execve write<br>
+ <strong>Defines:</strong> errno_str exit write execve<br>
 </p>
 </dd>
 </dl>
@@ -760,7 +760,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> errno fileno strerror write strlen<br>
+ *Defines:</strong> errno strerror write strlen fileno<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -846,7 +846,7 @@ _fopen
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
- *Defines:</strong> fileno close open<br>
+ *Defines:</strong> close fileno open<br>
 </p>
 </dd>
 </dl>
@@ -901,7 +901,7 @@ closedir
 <dd>
 <p>
   <em>int closedir(DIR <strong>dir)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> getbrk brk<br>
  <strong>close a directory stream</strong>
 Size: ~323B <a href="../src/dirent/closedir.c">../src/dirent/closedir.c</a> l.6 manpage: <a href="manpages/gen/directory.3.rst">closedir</a><br>
 </p>
@@ -1129,7 +1129,7 @@ fgetc
 <dd>
 <p>
   <em>int fgetc(FILE <strong>F)</em><br>
- *Defines:</strong> read fileno<br>
+ *Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 Size: ~57B <a href="../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="manpages/stdio/getc.3.rst">fgetc</a><br>
 </p>
@@ -1140,7 +1140,7 @@ fgets
 <dd>
 <p>
   <em>char* fgets(char <strong>buf, int size, FILE</strong> F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a string from a stream</strong>
 <a href="../src/fgets.c">../src/fgets.c</a> l.4 manpage: <a href="manpages/stdio/fgets.3.rst">fgets</a><br>
 </p>
@@ -1173,7 +1173,7 @@ gets
 <dd>
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a string from a</strong>
 <a href="../src/fgets.c">../src/fgets.c</a> l.27 manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -1518,7 +1518,7 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> getbrk brk<br>
  <strong>free allocated memory</strong>
 Size: ~32B <a href="../src/malloc.c">../src/malloc.c</a> l.146 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
@@ -1664,7 +1664,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mprotect mmap<br>
+ <strong>Defines:</strong> mmap mprotect<br>
 </p>
 </dd>
 </dl>
@@ -1804,7 +1804,7 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> 0 brk getbrk<br>
+ *Defines:</strong> getbrk 0 brk<br>
  <strong>memory reallocator</strong>
 Size: ~636B <a href="../src/malloc.c">../src/malloc.c</a> l.210 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
@@ -1949,7 +1949,7 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
 </p>
 </dd>
 </dl>
@@ -1965,7 +1965,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write strlen<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -2027,7 +2027,7 @@ eputs
 <dd>
 <p>
   <em>#define eputs(msg) ( eprint(msg) + eprintl() )</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> write strlen<br>
 </p>
 </dd>
 </dl>
@@ -2096,7 +2096,7 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> fileno strlen write<br>
+ *Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -2113,7 +2113,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> strlen write fileno<br>
+ <strong>Defines:</strong> write fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -2129,7 +2129,7 @@ fputc
 <dd>
 <p>
   <em>int volatile fputc(int c, FILE* F)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stream</strong>
 Size: ~64B <a href="../include/fputc.h">../include/fputc.h</a> l.10 manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -2167,7 +2167,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> fileno strlen write<br>
+ <strong>Defines:</strong> strlen fileno write<br>
 </p>
 </dd>
 </dl>
@@ -2184,7 +2184,7 @@ group_write
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> write ewrite<br>
+ <strong>Defines:</strong> ewrite write<br>
 </p>
 </dd>
 </dl>
@@ -2216,7 +2216,7 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>print formatted output</strong>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.77 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
@@ -2227,7 +2227,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -2301,7 +2301,7 @@ putchar
 <dd>
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stdout stream</strong>
 <a href="../include/fputc.h">../include/fputc.h</a> l.16 manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
 </p>
@@ -2355,7 +2355,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.86 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
@@ -2430,7 +2430,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> memcpy getpid write<br>
+ <strong>Defines:</strong> write getpid memcpy<br>
 <a href="../src/abort.c">../src/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2477,7 +2477,7 @@ execl
 <dd>
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
- <strong>Defines:</strong> environ execve<br>
+ <strong>Defines:</strong> execve environ<br>
 <a href="../src/execl.c">../src/execl.c</a> l.6 manpage: <a href="manpages/gen/exec.3.rst">execl</a><br>
 </p>
 </dd>
@@ -2518,7 +2518,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> environ access execve<br>
+ *Defines:</strong> environ execve access<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../src/execvp.c">../src/execvp.c</a> l.58 manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -2529,7 +2529,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> execve access environ<br>
+ *Defines:</strong> environ execve access<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -2638,7 +2638,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> execve vfork environ wait4 write<br>
+ <strong>Defines:</strong> vfork wait4 write execve environ<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../src/system.c">../src/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2707,8 +2707,16 @@ ext_match
  This is somewhere between a fully fledged expression machine,
  and a simplicistic solution.
  The engine matches from left to right,
- no backtracking is done. (Besides the matching %'s,
- which are callen right to left)
+ backtracking is done as less as possible.
+ Since the matching is nongreedy in general,
+ many tries can be spared. Opposed to another route,
+ where most patterns are per default greedy, and therfore
+ not the first matching next char is seeked for, but the first
+ solution while matching the most chars.
+ (I do not want to make this a hard statement, and it
+ depends onto each pattern. But it is the way, the solution
+ of the pattern is searched for, in most patterns.)
+ This shows up in the logic of the patterns, which is more natural to me.
 
  It is a compromise between performance, size
  and capabilities.
@@ -2882,7 +2890,7 @@ ext_match
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.181</p>
+<p><a href="../src/ext_match.c">../src/ext_match.c</a> l.189</p>
 <a name="match"></a><dl>
 <dt>
 match
@@ -2896,8 +2904,8 @@ match
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>regex engine
  little bit simpler version than ext_match.
- The engine matches from left to right,
- so no backtracking is done.
+ The engine matches nongreedy straight from left to right,
+ so backtracking is minimized.
  It is a compromise between performance, size
  and capabilities.
 
@@ -2942,14 +2950,16 @@ match
   Negating EVERYTHING translates to true.
   However, since truth is negated as,... well, there's a problem.
 
-  (I'm not kidding here. Just don't do a regex with !* or !?..)
+  (I'm not kidding here. Just don't do a regex with !* or !?.,
+  or you might experience the meaning of full featured.
+  Maybe I should say, it's not allowed?)
 
   A "!+" will translate into nongreedy matching of any char, however;
   "%!+" will match with % everything but the last char;
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../src/match.c">../src/match.c</a> l.57</p>
+<p><a href="../src/match.c">../src/match.c</a> l.59</p>
 <p>---</p>
 <hr>
 <h2><a name="_streams"></a>13. streams</h2>
@@ -2990,7 +3000,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> fileno open close<br>
+ <strong>Defines:</strong> close open fileno<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -3070,7 +3080,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> fileno open close<br>
+ <strong>Defines:</strong> close fileno open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3086,7 +3096,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> strlen write fileno<br>
+ *Defines:</strong> fileno strlen write<br>
  <strong>put a string on a stream</strong>
 Size: ~90B <a href="../include/fputs.h">../include/fputs.h</a> l.20 manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -3108,7 +3118,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> close fileno open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3295,7 +3305,7 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> 0 strcpy strlen<br>
+ *Defines:</strong> strcpy 0 strlen<br>
  <strong>duplicate a specific number of bytes from a string</strong>
 Size: ~258B <a href="../src/strdup.c">../src/strdup.c</a> l.7 manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -3452,7 +3462,7 @@ putenv
 <dd>
 <p>
   <em>int putenv( char <strong>string )</em><br>
- *Defines:</strong> ret_errno environ<br>
+ *Defines:</strong> environ ret_errno<br>
 </p>
 </dd>
 </dl>
@@ -3590,7 +3600,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> open write uitodec ioctl<br>
+ *Defines:</strong> ioctl open uitodec write<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../src/pty.c">../src/pty.c</a> l.43 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -3601,7 +3611,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> ioctl write uitodec open<br>
+ *Defines:</strong> uitodec write ioctl open<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../src/pty.c">../src/pty.c</a> l.30
 </p>
@@ -3812,6 +3822,8 @@ ext_match2
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>regex engine
+ WORK IN PROGRESS, please use ext_match
+
  This is somewhere between a fully fledged expression machine,
  and a simplicistic solution.
  The engine matches from left to right,
@@ -4076,7 +4088,7 @@ ext_match2
 
   gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.</code></pre>
 </td></tr></table>
-<p><a href="../src/ext_match2.c">../src/ext_match2.c</a> l.269</p>
+<p><a href="../src/ext_match2.c">../src/ext_match2.c</a> l.271</p>
 <a name="group_printf"></a><dl>
 <dt>
 group_printf
@@ -4084,7 +4096,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> fileno eprintf ltodec uitodec write<br>
+ <strong>Defines:</strong> fileno ltodec uitodec write eprintf<br>
 </p>
 </dd>
 </dl>
@@ -7227,7 +7239,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 16:47:10 CEST
+ 2020-08-05 19:01:02 CEST
 </small></p>
 </body>
 </html>

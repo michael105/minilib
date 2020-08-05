@@ -322,8 +322,16 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
-              no backtracking is done. (Besides the matching %'s,
-              which are callen right to left)
+              backtracking is done as less as possible.
+              Since the matching is nongreedy in general,
+              many tries can be spared. Opposed to another route,
+              where most patterns are per default greedy, and therfore
+              not the first matching next char is seeked for, but the first
+              solution while matching the most chars.
+              (I do not want to make this a hard statement, and it 
+              depends onto each pattern. But it is the way, the solution
+              of the pattern is searched for, in most patterns.)
+              This shows up in the logic of the patterns, which is more natural to me.
              
               It is a compromise between performance, size
               and capabilities.
@@ -496,11 +504,13 @@ ext_match      int ext_match(char *text, const char *re, void(*p_match)(int numb
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/ext_match.c: 181)
+               (src/ext_match.c: 189)
 
 ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
 
                regex engine
+              WORK IN PROGRESS, please use ext_match
+             
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               The engine matches from left to right,
@@ -764,7 +774,7 @@ ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number,
                arguments and calling the main function of the small core tools, andsoon.
                
                gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
-               (src/ext_match2.c: 269)
+               (src/ext_match2.c: 271)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -892,8 +902,8 @@ match          int match(char *text, const char *re, regex_match *st_match);
 
                regex engine
               little bit simpler version than ext_match.
-              The engine matches from left to right,
-              so no backtracking is done.
+              The engine matches nongreedy straight from left to right,
+              so backtracking is minimized.
               It is a compromise between performance, size
               and capabilities.
              
@@ -938,13 +948,15 @@ match          int match(char *text, const char *re, regex_match *st_match);
                Negating EVERYTHING translates to true.
                However, since truth is negated as,... well, there's a problem.
              
-               (I'm not kidding here. Just don't do a regex with !* or !?..)
+               (I'm not kidding here. Just don't do a regex with !* or !?.,
+               or you might experience the meaning of full featured. 
+               Maybe I should say, it's not allowed?)
              
                A "!+" will translate into nongreedy matching of any char, however;
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/match.c: 57)
+               (src/match.c: 59)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 

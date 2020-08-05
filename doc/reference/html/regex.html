@@ -23,8 +23,16 @@ ext_match
  This is somewhere between a fully fledged expression machine,
  and a simplicistic solution.
  The engine matches from left to right,
- no backtracking is done. (Besides the matching %'s,
- which are callen right to left)
+ backtracking is done as less as possible.
+ Since the matching is nongreedy in general,
+ many tries can be spared. Opposed to another route,
+ where most patterns are per default greedy, and therfore
+ not the first matching next char is seeked for, but the first
+ solution while matching the most chars.
+ (I do not want to make this a hard statement, and it
+ depends onto each pattern. But it is the way, the solution
+ of the pattern is searched for, in most patterns.)
+ This shows up in the logic of the patterns, which is more natural to me.
 
  It is a compromise between performance, size
  and capabilities.
@@ -198,7 +206,7 @@ ext_match
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../../src/ext_match.c">../src/ext_match.c</a> l.181</p>
+<p><a href="../../src/ext_match.c">../src/ext_match.c</a> l.189</p>
 <a name="match"></a><dl>
 <dt>
 match
@@ -212,8 +220,8 @@ match
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>regex engine
  little bit simpler version than ext_match.
- The engine matches from left to right,
- so no backtracking is done.
+ The engine matches nongreedy straight from left to right,
+ so backtracking is minimized.
  It is a compromise between performance, size
  and capabilities.
 
@@ -258,19 +266,21 @@ match
   Negating EVERYTHING translates to true.
   However, since truth is negated as,... well, there's a problem.
 
-  (I'm not kidding here. Just don't do a regex with !* or !?..)
+  (I'm not kidding here. Just don't do a regex with !* or !?.,
+  or you might experience the meaning of full featured.
+  Maybe I should say, it's not allowed?)
 
   A "!+" will translate into nongreedy matching of any char, however;
   "%!+" will match with % everything but the last char;
   while "%+" matches with % only the first char.
   !+ basically sets the greedyness of the left * or % higher.</code></pre>
 </td></tr></table>
-<p><a href="../../src/match.c">../src/match.c</a> l.57</p>
+<p><a href="../../src/match.c">../src/match.c</a> l.59</p>
 <p></p>
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 16:47:26 CEST
+ 2020-08-05 19:01:16 CEST
 </small></p>
 </body>
 </html>

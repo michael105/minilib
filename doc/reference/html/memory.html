@@ -120,7 +120,7 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> getbrk brk<br>
  <strong>free allocated memory</strong>
 Size: ~32B <a href="../../src/malloc.c">../src/malloc.c</a> l.146 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
@@ -266,7 +266,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mprotect mmap<br>
+ <strong>Defines:</strong> mmap mprotect<br>
 </p>
 </dd>
 </dl>
@@ -406,7 +406,7 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> 0 brk getbrk<br>
+ *Defines:</strong> getbrk 0 brk<br>
  <strong>memory reallocator</strong>
 Size: ~636B <a href="../../src/malloc.c">../src/malloc.c</a> l.210 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
 </p>
@@ -460,7 +460,7 @@ swap
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 16:47:26 CEST
+ 2020-08-05 19:01:16 CEST
 </small></p>
 </body>
 </html>
