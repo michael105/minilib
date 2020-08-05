@@ -1,11 +1,11 @@
 /* templates/header.in */
 
 
-#ifndef mini_INCLUDESRC
-#ifdef INCLUDESRC
-#define mini_INCLUDESRC
-#endif
-#endif
+//#ifndef mini_INCLUDESRC
+//#ifdef INCLUDESRC
+//#define mini_INCLUDESRC
+//#endif
+//#endif
 
 
 #ifdef HEADERGUARDS

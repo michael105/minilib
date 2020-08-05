@@ -8,16 +8,15 @@
 <body>
 <hr>
 <h2><a name="_x64_syscalls"></a>x64-syscalls</h2>
-<p>In order to enable the macros of the syscalls,<br>
-please enable the configuration switch <em>mini_syscalls</em>.</p>
-<p>Please note, most of the naked syscalls are not tested.<br>
-It might happen, amongst other problems,
-that some of the types of the arguments are
-just predeclared, and no definition is given.</p>
-<p>When errno is used (via the config switch mini_errno),
-the syscalls return -1 on error and set errno.</p>
-<p>If errno isn&#8217;t defined, the negative value of errno is returned
-on error.</p>
+<pre><code>Syscalls, available at linux 64bit.</code></pre>
+<pre><code>In order to use them, you have to define 'mini_syscalls".</code></pre>
+<pre><code>This will define all the syscalls, prefixed with 'sys_'.</code></pre>
+<pre><code>It is however not guaranteed, that the used stuctures and datatypes are implemented,
+some of them might be only predeclared.</code></pre>
+<pre><code>When 'mini_errno' is defined, all syscalls do return on error -1, and set errno.</code></pre>
+<pre><code>When errno is not defined, the syscalls return on error the negative value of errno.
+Not using the global errno spares some bytes and ressources, and eventually
+global variables at all. (Important when using threads)</code></pre>
 <a name="sys__sysctl"></a><dl>
 <dt>
 sys__sysctl
@@ -3087,7 +3086,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-03 04:53:57 UTC
+ 2020-08-05 11:07:32 UTC
 </small></p>
 </body>
 </html>

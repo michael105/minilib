@@ -8,7 +8,7 @@
 //+doc enable print and related functions
 // This switch enables strlen;
 // but neither globals nor the mini_buf are used.
-//+depends print prints printsl printl eprint eprintl eprintsl eprints printfs eprintfs puts eputs strlen
+//+depends print prints printsl printl eprint eprintl eprintsl eprints printfs eprintfs puts eputs strlen _mprints dprints
 //+def group_print
 
 

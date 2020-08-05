@@ -199,6 +199,25 @@ sub headerfh{
 		return( $fhhash->{fh}->{$header} );
 }
 
+# copy templates of minilib.c
+sub minilibcfh{
+		my $header = shift;
+		my $path = shift;
+		dbg ("Header: $header\n");
+		if ( ! exists($fhhash->{fh}->{$header}) ){
+				open( $fhhash->{fh}->{$header}, ">", "$path/$header" ) or die;
+				copytemplates( $fhhash->{fh}->{$header}, "$mlibdir", "header.tmpl.top", "$header.top" );			
+				my $h = $header;
+				$h =~ s/\./_/g;
+				$h =~ s/\//_/g;
+				print {$fhhash->{fh}->{$header}} "#ifndef included_$h\n#define included_$h\n\n";
+				copytemplates( $fhhash->{fh}->{$header}, $path, "minilib.c.in", "$header.in" );			
+		}
+		return( $fhhash->{fh}->{$header} );
+}
+
+
+
 # iterate over commandline args
 while ( my $file = shift ){
 		open (F, "<", $file) or die;
@@ -779,7 +798,7 @@ $debug=0;
 
 
 # write minilib.c
-my $mc = headerfh( "minilib.c", $mlibdir );
+my $mc = minilibcfh( "minilib.c", $mlibdir );
 
 
 sub sourceinclude{

@@ -33,13 +33,84 @@
 // (transparent in the view of the array.)
 
 typedef struct __array {
+	int pfree; 
+	// when elements have been deleted, point to the last removed free pos
+	// when the removed element has been inserted again, make the value negative
+	int last;
+	int elementsize;
 	struct	__array* parent; // next. alle zirkulaer verbunden. obwohl.
 	// schlecht beim suchen nach einem bestimmten element.
+	void* start; // where the entries start. between: bitfield. used/free
+	// (important when moving the array metadata to somewhere else.)
 	int size;
-	int elementsize;
 	int count;
-	int start; // where the entries start. between: bitfield. used/free
-	// here: bitfield
+	void* bitfield;
 } array;
+
+// ok. should always preallocate 1 page. 
+// -> get the metadata: bitshift one element, read the pointer "parent"
+
+// allocate a new array. uses mmap.
+//
+// preallocate: the number of pages to preallocate,
+// for data and the internal structure.
+// (1 page is 4kB here). when 0, one page is preallocated.
+//
+// The metadata has this size: 
+// sizeof(pointer)*2 + 4*sizeof(int) + 
+// (size-sizeof(pointer)*2+4*sizeof(int)) /elementsize/8
+// In words, the overhead is one bit per element, 
+// plus the storage of 2 pointers and 4 integers for the whole array.
+//
+array** newarray( int preallocate ){
+		if ( preallocate == 0 )
+				preallocate = PAGESIZE;
+		array *a = mmap(0,preallocate,PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANONYMOUS,-1,0);
+		if ( a<=0 )
+				return(0); // errno already set by mmap
+
+		memset(a,0,sizeof(array));
+		a->size=preallocate*PAGESIZE;
+		//a->parent = a;
+
+		a->start = a + (sizeof(array)) + ( a->size/sizeof(char)/8 ); 
+		memset(a->bitfield,0xFF,(a->start - a->bitfield)); // todo: set longs
+
+
+		return(&a->parent);
+}
+
+
+char* insert(array *a, char* e){
+		if ( a->pfree == 0 )
+				return(0);
+		long *b;
+		for ( b=(long*)a->bitfield; b<(long*)a->start; b++ ){
+				if ( *b>0 ){
+
+				}
+		}
+		// no empty place left
+		// create parent, and a new array.
+}
+
+char* first(array *a){
+		return(
+
+char* append(array *a, char*e){
+		if ( a->last < a->size ){
+				*(char*)(a+a->last) = *e;
+				return((char*)(a+a->last));
+		} 
+		// array is full. (possibly sparse) 
+		// create new array
+
+}
+
+
+
+
+
+
 
 

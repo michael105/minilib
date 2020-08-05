@@ -131,7 +131,7 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
-               (src/prints.c: 69)
+               (include/prints.h: 10)
 
 alphasort      int alphasort( const struct dirent** de1, const struct dirent** de2 );
 
@@ -248,7 +248,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/prints.c: 48)
+               (src/prints.c: 15)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -257,34 +257,34 @@ dtodec         int dtodec(double d, char* buf, int precision);
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 52)
+               (include/prints.h: 58)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
-               (include/prints.h: 100)
+               (include/prints.h: 106)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 61)
+               (include/prints.h: 67)
 
 eprints        #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stdout
               this macro has an variable argument count.
-               (include/prints.h: 19)
+               (include/prints.h: 25)
 
 eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 
                print the string(s) supplied as arg(s) and newline to stderr
-               (include/prints.h: 41)
+               (include/prints.h: 47)
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 71)
+               (include/prints.h: 77)
 
 errno_str      static char *errno_str(int err);
 
@@ -297,7 +297,7 @@ errno_str      static char *errno_str(int err);
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 82)
+               (include/prints.h: 88)
 
 exit_errno     void exit_errno( int errnum );
 
@@ -785,12 +785,12 @@ fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stream
               this macro has an variable argument count.
-               (include/prints.h: 27)
+               (include/prints.h: 33)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
                write the constant str to fd. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 88)
+               (include/prints.h: 94)
 
 getbrk         static long getbrk();
 
@@ -975,29 +975,29 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 48)
+               (include/prints.h: 54)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
-               (include/prints.h: 94)
+               (include/prints.h: 100)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 57)
+               (include/prints.h: 63)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stdout,
               this macro has an variable argument count.
-               (include/prints.h: 12)
+               (include/prints.h: 18)
 
 printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
                print the string(s) supplied as arg(s) and newline to stdout
-               (include/prints.h: 35)
+               (include/prints.h: 41)
 
 ptsname        char *ptsname(int fd);
 
@@ -1126,7 +1126,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 78)
+               (include/prints.h: 84)
 
 
 
@@ -1652,7 +1652,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 67)
+               (include/prints.h: 73)
 
 rewind         static inline void rewind( FILE *f );
 
@@ -1727,7 +1727,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/malloc.c: 139)
+               (src/malloc.c: 147)
 
 free_brk       int free_brk();
 
@@ -1737,7 +1737,7 @@ free_brk       int free_brk();
               1, when there hasn't been any memory allocations with
               malloc_brk before.
               Then brk() gives an error, return the return value of brk
-               (src/malloc.c: 234)
+               (src/malloc.c: 242)
 
 getenv         char* getenv(const char* name);
 
@@ -1759,15 +1759,23 @@ malloc         void* malloc(int size);
               Not the smartest.
               Since it isn't exactly a memory allocation,
               instead it (mis)uses the minilib buf.
-              ;) 1024 Bytes should be enough for everyone.
-               Ok. If you really do need more memory - 
-               rethink your design, increase mini_mbuf,
-               or use a proper malloc implementation.
+              Which is allocated by the kernel, and uses
+              either the bss section, or is allocated on the stack.
+              (option "globals_on_stack")
              
+              This is basically a double linked list,
+              optimized for fast access, allocation of new elements, 
+              and small memory overhead.
+              Albite the list structure might be hard to recognize.
+              It is not the right malloc, if you expect
+              many de- or reallocations.
+              And it obviously is not the right choose, when
+              expecting medium to big sized allocations. (> 1 page, here 4kB, as medium sized)
+              
               Here we use mbuf from top to bottom as stack.
               64 Bytes are left at the bottom as reserve.
               Possibly we'd like to complain
-              about the lack of memory, before we exit..
+              about the lack of memory, before we exit.
              
               ATM, the 'free' is really lazy. 
               It free's memory, but a real 'free' is only commited,
@@ -1819,7 +1827,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/malloc.c: 119)
+               (src/malloc.c: 127)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -1833,7 +1841,7 @@ malloc_brk     void* malloc_brk(int size);
               the allocated memory can also be free'd by setting the brk to the saved value
               with brk(saved_brk)
               free_brk() free's all memory, which has been allocated with malloc_brk
-               (src/malloc.c: 206)
+               (src/malloc.c: 214)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -1850,7 +1858,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 252)
+               (src/malloc.c: 260)
 
 srand          void srand( unsigned int i );
 
@@ -1886,7 +1894,7 @@ memcmp         int memcmp(const void* c1,const void* c2,int len);
 
 memcpy         void *memcpy( void *d, const void *s, int n );
 
-               (src/memcpy.c: 6)
+               (src/memcpy.c: 4)
 
 memmove        void* memmove(void *dest, const void *src, int n);
 
@@ -1918,7 +1926,7 @@ strcmp         int strcmp(const char*c1,const char*c2);
 
 strcpy         char *strcpy(char *dest, const char *src);
 
-               (src/memcpy.c: 17)
+               (src/strcpy.c: 3)
 
 strdup         char *strdup(const char *source);
 
@@ -1942,7 +1950,7 @@ strncmp        int strncmp(const char*c1,const char*c2,int len);
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
-               (src/memcpy.c: 27)
+               (src/strncpy.c: 4)
 
 strrchr        char *strrchr(const char *s, int c);
 

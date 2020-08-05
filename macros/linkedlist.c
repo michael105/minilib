@@ -2,6 +2,27 @@
 //#ifdef X64
 #define ISFREE 0x8000000000000000
 
+// about malloc:
+// setupmalloc: setup the ecpected usage of malloc,
+// so the structures can be preallocated, 
+// and the backing functions can get selected.
+// setup the meta-usage. (wich counts of allocations
+// of which sizes are to be expected)
+//
+// Assume malloc_minibuf per default.
+// (Static allocation of the minibuf in the bss section,
+// use one page for all dynamic data per default)
+//
+// If minibuf is used, but not defined, size it so it fits
+// the bss section. (use 64Bytes + the empty space up to the next pagebreak)
+// and issue a compiler warning about the selected size.
+//
+//
+//
+
+
+
+
 
 typedef struct __node {
 		struct __node* next;
@@ -44,9 +65,17 @@ list* newlist(int preallocate){
 }
 
 #define DEFINE_LIST(type) \
-		inline int __attribute__((always_inline))append_##type( list *l, type *element, int len ){ return(_append(l,(void*)element,len)); } \
-		inline type* __attribute__((always_inline))first_##type(list *l){return((type*)_first(l));} \
-		inline type* __attribute__((always_inline))next_##type(type *current){return((type*)_next((node*)(current)));}
+	inline int __attribute__((always_inline))Lappend_##type( list *l, \
+		type *element, int len ){ \
+				type* tmp =(type*)_append(l,(void*)element,len); \
+				*tmp = 0; \
+	} \
+\
+	inline type* __attribute__((always_inline))Lfirst_##type(list *l){ \
+				return((type*)_first(l));} \
+\
+	inline type* __attribute__((always_inline))Lnext_##type(type *current){ \
+				return((type*)_next((node*)(current)));}
 
 // doesn't look for free nodes within list
 // return the nodecount on success, 0 on error (nomem)
@@ -57,16 +86,16 @@ list* newlist(int preallocate){
 // (store the metadata, and the link to the "main" metadatas there) 
 // store len(and pos) of elements also there? better not.
 // when iterating, the area would need to be loaded every time.
-int _append( list* l, void* e, int len ){
+void* _append( list* l, void* e, int len ){
 		if ( l->last + len + sizeof(node) > (node*)l->memend ){
 				// alloc, set l->last and memend
 		}
 		l->last->next = (node*)(len+(sizeof(node)*2));
 		memcpy(l->last+sizeof(node*),e,len);
 		l->last = l->last->next;
+		memset(l->last, 0, sizeof(node) );
 		l->nodecount++;
-		l->last->next = 0;
-		return( l->nodecount );
+		return( l->last+sizeof(node)  );
 }
 
 // internal. cast in the derived wrappers.

@@ -53,15 +53,23 @@ static long getbrk();
 // Not the smartest.
 // Since it isn't exactly a memory allocation,
 // instead it (mis)uses the minilib buf.
-// ;) 1024 Bytes should be enough for everyone.
-//  Ok. If you really do need more memory - 
-//  rethink your design, increase mini_mbuf,
-//  or use a proper malloc implementation.
+// Which is allocated by the kernel, and uses
+// either the bss section, or is allocated on the stack.
+// (option "globals_on_stack")
 //
+// This is basically a double linked list,
+// optimized for fast access, allocation of new elements, 
+// and small memory overhead.
+// Albite the list structure might be hard to recognize.
+// It is not the right malloc, if you expect
+// many de- or reallocations.
+// And it obviously is not the right choose, when
+// expecting medium to big sized allocations. (> 1 page, here 4kB, as medium sized)
+// 
 // Here we use mbuf from top to bottom as stack.
 // 64 Bytes are left at the bottom as reserve.
 // Possibly we'd like to complain
-// about the lack of memory, before we exit..
+// about the lack of memory, before we exit.
 //
 // ATM, the 'free' is really lazy. 
 // It free's memory, but a real 'free' is only commited,

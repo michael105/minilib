@@ -100,7 +100,7 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
 </p>
 </dd>
 </dl>
@@ -116,7 +116,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno strlen write<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -208,7 +208,7 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write<br>
+ <strong>Defines:</strong> write fileno<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.81
 </p>
 </dd>
@@ -247,7 +247,7 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> write strlen fileno<br>
+ *Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -264,7 +264,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> strlen write fileno<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -318,7 +318,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> fileno strlen write<br>
+ <strong>Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -335,7 +335,7 @@ group_write
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> write ewrite<br>
+ <strong>Defines:</strong> ewrite write<br>
 </p>
 </dd>
 </dl>
@@ -352,7 +352,7 @@ print
 <dd>
 <p>
   <em>#define print(str) write(STDOUT_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
 </p>
 </dd>
 </dl>
@@ -378,7 +378,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -450,7 +450,7 @@ putchar
 <dd>
 <p>
   <em>#define putchar(c) fputc(c,stdout)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stdout stream</strong>
 <a href="../../include/fputc.h">../include/fputc.h</a> l.16 manpage: <a href="../manpages/stdio/putc.3.rst.html">putchar</a><br>
 </p>
@@ -504,7 +504,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.86 manpage: <a href="../manpages/stdio/printf.3.rst.html">vfprintf</a><br>
 </p>
 </dd>
@@ -573,7 +573,7 @@ writes
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-03 04:53:57 UTC
+ 2020-08-05 11:07:32 UTC
 </small></p>
 </body>
 </html>

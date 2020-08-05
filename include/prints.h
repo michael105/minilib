@@ -4,10 +4,16 @@
 extern int dprints(int fd, const char *msg,...);
 //+header mini_addons.h
 
+//+needs write.h prints.h stdarg.h
+//+depends dprints
+//+macro
+#define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
+
+
 
 //+doc print the string(s) supplied as arg(s) to stdout,
 // this macro has an variable argument count.
-//+depends _mprints 
+//+depends _mprints dprints
 //+macro
 #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -30,7 +36,7 @@ extern int dprints(int fd, const char *msg,...);
 
 
 //+doc print the string(s) supplied as arg(s) and newline to stdout
-//+depends _mprints 
+//+depends _mprints dprints
 //+macro
 #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
