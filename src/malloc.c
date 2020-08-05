@@ -57,7 +57,7 @@ static long getbrk();
 // either the bss section, or is allocated on the stack.
 // (option "globals_on_stack")
 //
-// This is basically a double linked list,
+// This is basically a linked list,
 // optimized for fast access, allocation of new elements, 
 // and small memory overhead.
 // Albite the list structure might be hard to recognize.
@@ -96,7 +96,7 @@ static long getbrk();
 // out there are countless.
 //
 // ;) It's sometimes smarter to stay special,
-// although in this case this means the opposite.
+// albite in this case this means the opposite.
 // /misc
 //
 // The memory layout looks like this:
@@ -121,8 +121,7 @@ static long getbrk();
 //
 // Memory is allocated from right to left, 
 // meaning from top to down.
-//+depends brk
-//+needs brk.c
+//+depends
 //+def
 void* malloc(int size){
 #ifndef mini_buf
@@ -198,55 +197,6 @@ void free(void *p){
 		} 
 
 }
-
-//+doc allocate via setting the brk
-// free and realloc can be used normally.
-// The intention of malloc_brk is for subsequent calls to realloc.
-// The saved data has not to be copied,
-// instead realloc just writes the new size and sets 
-// the brk accordingly.
-// if the break is saved before one or more calls to malloc_brk,
-// the allocated memory can also be free'd by setting the brk to the saved value
-// with brk(saved_brk)
-// free_brk() free's all memory, which has been allocated with malloc_brk
-//+depends sbrk
-//+def
-void* malloc_brk(int size){
-		if ( size<=0 )
-				return(0);
-		
-		size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
-		void *mem = sbrk(size);
-		if ( mem <= 0 )
-				return(0);
-		if ( !mlgl->malloc_start)
-				mlgl->malloc_start = (long)mem;
-
-		int *i = mem;
-		
-		*i=( MALLOC_BRK | (size));
-		//i = mem+size+4;
-		//*i = MALLOC_BRK_END; // at the end
-		i++;
-
-		return(mem+4);
-}
-
-//+doc free all memory,
-// which has been allocated with malloc_brk.
-// Returns 0, if memory has been freed;
-// 1, when there hasn't been any memory allocations with
-// malloc_brk before.
-// Then brk() gives an error, return the return value of brk
-//+def
-int free_brk(){
-		if ( mlgl->malloc_start && getbrk() > mlgl->malloc_start ){ 
-				// there has been some allocation before
-				return(brk((void*)mlgl->malloc_start));
-		}
-		return(1);
-}
-
 
 // TODO
 // rewrite free and malloc.
