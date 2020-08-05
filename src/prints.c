@@ -1,3 +1,5 @@
+#ifndef mini_dprints_c
+#define mini_dprints_c
 //#include "../include/write.h"
 //#include "../include/prints.h"
 #include "../include/stdarg.h"
@@ -30,4 +32,4 @@ int dprints(int fd, const char *msg,...){
 		return(ret);
 }
 
-
+#endif

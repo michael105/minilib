@@ -4,8 +4,8 @@
 extern int dprints(int fd, const char *msg,...);
 //+header mini_addons.h
 
-//+needs write.h prints.h stdarg.h
-//+depends dprints
+//+needs prints.h stdarg.h
+//+depends dprints write
 //+macro
 #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 

@@ -1,3 +1,5 @@
+#ifndef mini_startup_c
+#define mini_startup_c
 // This is "callen" from _start,
 // 
 
@@ -87,5 +89,7 @@ mlgl->atexitp[0]=0;
 	// silence compiler warning.
 	return(ret);
 }
+
+#endif
 
 #endif
