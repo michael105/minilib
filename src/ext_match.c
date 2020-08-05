@@ -2,8 +2,16 @@
 // This is somewhere between a fully fledged expression machine,
 // and a simplicistic solution.
 // The engine matches from left to right,
-// no backtracking is done. (Besides the matching %'s,
-// which are callen right to left)
+// backtracking is done as less as possible.
+// Since the matching is nongreedy in general,
+// many tries can be spared. Opposed to another route,
+// where most patterns are per default greedy, and therfore
+// not the first matching next char is seeked for, but the first
+// solution while matching the most chars.
+// (I do not want to make this a hard statement, and it 
+// depends onto each pattern. But it is the way, the solution
+// of the pattern is searched for, in most patterns.)
+// This shows up in the logic of the patterns, which is more natural to me.
 //
 // It is a compromise between performance, size
 // and capabilities.

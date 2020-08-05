@@ -1,7 +1,7 @@
 //+doc regex engine
 // little bit simpler version than ext_match.
-// The engine matches from left to right,
-// so no backtracking is done.
+// The engine matches nongreedy straight from left to right,
+// so backtracking is minimized.
 // It is a compromise between performance, size
 // and capabilities.
 //
@@ -46,7 +46,9 @@
 //  Negating EVERYTHING translates to true.
 //  However, since truth is negated as,... well, there's a problem.
 //
-//  (I'm not kidding here. Just don't do a regex with !* or !?..)
+//  (I'm not kidding here. Just don't do a regex with !* or !?.,
+//  or you might experience the meaning of full featured. 
+//  Maybe I should say, it's not allowed?)
 //
 //  A "!+" will translate into nongreedy matching of any char, however;
 //  "%!+" will match with % everything but the last char;
