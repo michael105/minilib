@@ -1,4 +1,6 @@
 //+doc regex engine
+// WORK IN PROGRESS, please use ext_match
+//
 // This is somewhere between a fully fledged expression machine,
 // and a simplicistic solution.
 // The engine matches from left to right,
