@@ -1,27 +1,14 @@
 // A variable length array.
+// Performant for: append, remove last, iterating, 
+// access per index.
+// 
+// Insertion and removement of elements within the array is not possible.
+// (You could define a empty element for yourself, e.g. 0=empty, or one bit set euqals empty.
+// Defining this within the array would either mean to have restrictions
+// on the data, or to have some overhead)
 //
-// Allocate a page (or several, but this size is fixed, and
-// has to be > PAGESIZE and must have a base of 2 ( 1<<x ) 
-// In the first bytes of each area, metadata and a bitfield is stored.
-// The bitfield show used and unused elements, for each element one
-// bit is set ( or 0 ).
-// -> free elements can be seeked for via vectorized operations;
-// the count can be calculated via bitcnt (__builtin _bitcnt)
-// For looking for an empty place, for each 8 Bytes (64bit)
-// = the bits are set to 0 for used areas.
-// For free areas, they are deleted. -> 
-// look for a free area: if bitfield[0]>0 -> there's a free place.
-// then, b split; andsoon. ( for exactly these ops there are also simd mmx
-// instructions.)
-// (would also work: if b < 0xffffffff then ...
-// but needs at least one op more. (set the value 0xffffffff).
-// 0: xor rax;rax. -> neg.
-//
-// To get from one element to the metadata, a simple bit shift is enough.
-// There is the drawback of having to load the bitfield into the cacheline.
-// When many elements are set/deleted; possibly cache the bitfield.
-// would need benchmarking. This depends. Don't know
-// how expensive the loading from the L2 (or L3?) Cache is exactly.
+// For the allocation of the memory either the submitted callback is used,
+// or malloc.
 //
 // The metadata: link to other areas. counter of free elements.
 // As soon one page is full, use one whole page for the metadata. ?
@@ -33,36 +20,25 @@
 // (transparent in the view of the array.)
 
 typedef struct __array {
-	int pfree; 
-	// when elements have been deleted, point to the last removed free pos
-	// when the removed element has been inserted again, make the value negative
-	int last;
-	int elementsize;
-	struct	__array* parent; // next. alle zirkulaer verbunden. obwohl.
-	// schlecht beim suchen nach einem bestimmten element.
-	void* start; // where the entries start. between: bitfield. used/free
-	// (important when moving the array metadata to somewhere else.)
-	int size;
-	int count;
-	void* bitfield;
+	struct __array* current;
+	struct __array* first;
+  struct __array* next;	
+  struct __array* previous;
+	char* last; // index of the last element
+	char* areaend;
+	int preallocate;
+	int align;
+	char* data;
 } array;
+//typedef _array* array;
 
-// ok. should always preallocate 1 page. 
-// -> get the metadata: bitshift one element, read the pointer "parent"
+typedef struct __iter {
+		struct __array* current;
+		char* index;
+		char* last;
+} iter;
 
-// allocate a new array. uses mmap.
-//
-// preallocate: the number of pages to preallocate,
-// for data and the internal structure.
-// (1 page is 4kB here). when 0, one page is preallocated.
-//
-// The metadata has this size: 
-// sizeof(pointer)*2 + 4*sizeof(int) + 
-// (size-sizeof(pointer)*2+4*sizeof(int)) /elementsize/8
-// In words, the overhead is one bit per element, 
-// plus the storage of 2 pointers and 4 integers for the whole array.
-//
-array** newarray( int preallocate ){
+array* newarray( int preallocate ){
 		if ( preallocate == 0 )
 				preallocate = PAGESIZE;
 		array *a = mmap(0,preallocate,PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANONYMOUS,-1,0);
@@ -70,41 +46,65 @@ array** newarray( int preallocate ){
 				return(0); // errno already set by mmap
 
 		memset(a,0,sizeof(array));
-		a->size=preallocate*PAGESIZE;
+		a->preallocate = preallocate;
 		//a->parent = a;
+		a->first = a;
+		a->current = a;
+		a->last = (char*)a+sizeof(array);
+		a->areaend = (char*)a+preallocate;
 
-		a->start = a + (sizeof(array)) + ( a->size/sizeof(char)/8 ); 
-		memset(a->bitfield,0xFF,(a->start - a->bitfield)); // todo: set longs
-
-
-		return(&a->parent);
+		return(a);
 }
 
+iter getiter(array *a){
+		iter i;
+		i.current = a->first;
+		i.index = (char*)(a->first)+sizeof(array);
+		i.last =  (char*)(i.current->last); // or areaend, when there's another array appended
 
-char* insert(array *a, char* e){
-		if ( a->pfree == 0 )
+		return(i);
+}
+
+// set iterator to the first element,
+// and return
+char* first(iter *i){
+		i->current = i->current->first;
+		i->index = (char*)(i->current)+sizeof(array);
+		return(i->index);
+}
+
+char* current(iter *i){
+		if ( i->index >= i->last )
 				return(0);
-		long *b;
-		for ( b=(long*)a->bitfield; b<(long*)a->start; b++ ){
-				if ( *b>0 ){
-
-				}
-		}
-		// no empty place left
-		// create parent, and a new array.
+		return(i->index);
 }
 
-char* first(array *a){
-		return(
 
-char* append(array *a, char*e){
-		if ( a->last < a->size ){
-				*(char*)(a+a->last) = *e;
-				return((char*)(a+a->last));
-		} 
-		// array is full. (possibly sparse) 
-		// create new array
+char* next(iter *i){
+		i->index ++;
+		if ( i->index < i->last )
+				return( i->index );
+		prints("last\n");
+		// current array is at it's last element.
+		// get the next array in line 
 
+		return(0);
+}
+
+// append an element
+// copies the data
+char* push(array *a, char*e){
+		if ( a->last < a->areaend ){
+				*(char*)(a->last) = *e;
+				a->last++;
+				return((char*)(a->last));
+		}
+		prints("Full\n");
+		// array is full.
+		// append another memory area, when possible.
+		// if not, create a new array, link it and update the "current" pointer.
+
+		return(0);
 }
 
 
