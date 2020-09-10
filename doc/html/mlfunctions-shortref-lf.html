@@ -1470,7 +1470,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/putenv.c" target="right">../src/putenv.c</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  57 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 </small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine
   following the tradition, this isn't exactly a quicksort algorithm,
   albite named quicksort.
@@ -1632,14 +1632,24 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strerror</a></small></td><td><small>   <a href="../src/strdup.c" target="right">../src/strdup.c</a>  7 </small></td><td><small>  char* strerror( int errnum );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  4 </small></td><td><small> int strlen(const char*str);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strlcpy.3.rst.html">strlcpy</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  5 </small></td><td><small> char *strlcpy(char *dest, const char *src, int n);
+</small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
+  when src is longer than dest, 
+  end dest[n-1] with '\0'.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/strlcpy.c" target="right">../src/strlcpy.c</a>  4 </small></td><td><small> int strlen(const char*str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/strlen.c" target="right">../src/strlen.c</a>  56 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  75 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  4 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
+</small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
+  write 0's up to src[n] when len of dest < n
+  Please note strlcpy (borrowed from freebsd), 
+  which does the same,
+  but doesn't pad src with 0's.
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/strncpy.c" target="right">../src/strncpy.c</a>  36 </small></td><td><small> char *strrchr(const char *s, int c);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
@@ -1704,7 +1714,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  186 </small></td><td><small> utime( const char *filename, struct utimbuf *times)
 </small></td></tr>
-<tr valign="top"><td><small>verbose_errstr</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> const char* verbose_errstr(int num);
+<tr valign="top"><td><small>verbose_errstr</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> const char* verbose_errstr(int num);
 </small></td></tr><tr><td></td><td colspan="2"><small>verbose error (errno) string. 
   this adds about 3.5kB to the compiled binary(!)
  </small></td></tr>

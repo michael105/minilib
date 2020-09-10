@@ -1,6 +1,8 @@
 //+include
 
+#ifndef ERRNO_MAX
 #define ERRNO_MAX 133
+#endif
 
 //+doc verbose error (errno) string. 
 // this adds about 3.5kB to the compiled binary(!)

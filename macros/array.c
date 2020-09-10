@@ -24,10 +24,10 @@ typedef struct __array {
 	struct __array* first;
   struct __array* next;	
   struct __array* previous;
-	char* last; // index of the last element
-	char* areaend;
 	int preallocate;
 	int align;
+	char* last; // index of the last element
+	char* areaend;
 	char* data;
 } array;
 //typedef _array* array;
