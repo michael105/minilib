@@ -1095,6 +1095,13 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/snprintf.c: 5)
 
+strlcpy        char *strlcpy(char *dest, const char *src, int n);
+
+               copy max n chars from src to dest, 
+              when src is longer than dest, 
+              end dest[n-1] with '\0'.
+               (src/strlcpy.c: 5)
+
 swap           static inline void swap(void* a, void* b,int size);
 
                swap a with b, with 'size' bytes
@@ -1128,7 +1135,7 @@ verbose_errstr const char* verbose_errstr(int num);
 
                verbose error (errno) string. 
               this adds about 3.5kB to the compiled binary(!)
-               (include/errstr.h: 8)
+               (include/errstr.h: 10)
 
 verbose_errstr2static const char* verbose_errstr2(int num);
 
@@ -1862,7 +1869,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
               albite named quicksort.
               It is a shell sort implementation, originally done by Ray Gardner, 5/90;
               which in turn I did find within musl.
-               (src/qsort.c: 57)
+               (src/qsort.c: 59)
 
 rand           unsigned int rand();
 
@@ -1962,7 +1969,12 @@ strncmp        int strncmp(const char*c1,const char*c2,int len);
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
-               (src/strncpy.c: 4)
+               copy max n chars from src to dest, 
+              write 0's up to src[n] when len of dest < n
+              Please note strlcpy (borrowed from freebsd), 
+              which does the same,
+              but doesn't pad src with 0's.
+               (src/strncpy.c: 7)
 
 strrchr        char *strrchr(const char *s, int c);
 

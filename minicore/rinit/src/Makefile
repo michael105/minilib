@@ -1,7 +1,7 @@
 MCC=../../../mini-gcc
 
 
-src = rinit.run rinit.boot reboot halt init rd.note
+src = rinit.run rinit.boot reboot halt init rd.note rd.wait
 OPT=--config minilib.conf
 
 all: $(src) 
