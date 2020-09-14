@@ -36,16 +36,11 @@ int main(int argc, char *argv[]){
 		}
 	char fn[256]; 
 	strcpy(fn,SERVICEPATH);
-	writes("dbg rd.w 1\n");
 	strlcpy(fn+sizeof(SERVICEPATH)-1,argv[1],256-sizeof(SERVICEPATH));
-	//strcpy(fn+sizeof(SERVICEPATH)-1,argv[1]);
-	writes("dbg rd.w 2\n");
 
 	int fd = open( fn, O_RDWR|O_CREAT, 0664 );
 
-	writes("dbg rd.w 2\n");
 	if ( fd<0 ){
-			writes("Error rd.wait 0\n");
 			exit_errno(fd);
 	}
 
@@ -55,23 +50,18 @@ int main(int argc, char *argv[]){
 	int r = 0;
 
 	r = read(fd,b,1);
-	writes("dbg rd.w 3\n");
 	if ( r > 0 )
 			return(0);
 
 	int nfd; // inotifyfd
 	nfd = inotify_init();
-	writes("dbg rd.w 4\n");
 	if ( nfd<0 ){
-			writes("Error rd.wait 1\n");
 			exit_errno(nfd);
 	}
 
 	int ir = inotify_add_watch(nfd, fn, IN_MODIFY );
-	writes("dbg rd.w 55555\n");
 
 	if ( ir<0 ){
-			writes("Error rd.wait 2\n");
 			exit_errno(ir);
 	}
 

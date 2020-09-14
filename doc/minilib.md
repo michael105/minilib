@@ -817,7 +817,7 @@ getbrk         static long getbrk();
                get the current brk
               does either a syscall to brk,
               or returns the globally saved var
-               (src/brk.c: 39)
+               (src/brk.c: 48)
 
 grantpt        int grantpt(int fd);
 
@@ -1068,7 +1068,7 @@ sbrk           static void* sbrk(long incr);
               conformant sbrk, when mini_errno is defined
               if no errno is available,
               returns the negative errno value on error
-               (src/brk.c: 57)
+               (src/brk.c: 66)
 
 scandir_bufsize//#define mini_scandir_bufsize 4096
 
@@ -1079,6 +1079,12 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
                (src/hashes.c: 21)
+
+setbrk         static int setbrk(long addr);
+
+               set the current brk
+              wrapper for brk(), with type of brk changed to long
+               (src/brk.c: 39)
 
 seterrno       #ifdef mini_errno
 
@@ -1112,6 +1118,14 @@ sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
                (src/brk.c: 6)
+
+term_width     int term_width();
+
+               get the terminal width
+              reads the environmental var COLS,
+              if not present, returns 80.
+              Doesn't check for the existence of a terminal.
+               (src/term_width.c: 7)
 
 uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter );
 

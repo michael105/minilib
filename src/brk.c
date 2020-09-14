@@ -32,6 +32,15 @@ static int brk( const void* addr ){
 		return(ret);
 }
 
+//+doc set the current brk
+// wrapper for brk(), with type of brk changed to long
+//+depends brk
+//+def
+static int setbrk(long addr){
+		return(brk((void*)addr));
+}
+
+
 //+doc get the current brk
 // does either a syscall to brk,
 // or returns the globally saved var

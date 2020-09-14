@@ -1,6 +1,3 @@
-#ifndef getenv_c
-#define getenv_c
-
 //+header stdlib.h
 
 //+depends environ
@@ -16,4 +13,3 @@ char* getenv(const char* name){
 		return(0);
 }
 
-#endif

@@ -1095,7 +1095,7 @@
 <tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  94 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>getbrk</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  39 </small></td><td><small>  long getbrk();
+<tr valign="top"><td><small>getbrk</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  48 </small></td><td><small>  long getbrk();
 </small></td></tr><tr><td></td><td colspan="2"><small>get the current brk
   does either a syscall to brk,
   or returns the globally saved var
@@ -1514,7 +1514,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigreturn</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  139 </small></td><td><small> rt_sigreturn( unsigned long __unused)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  57 </small></td><td><small>  void* sbrk(long incr);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  66 </small></td><td><small>  void* sbrk(long incr);
 </small></td></tr><tr><td></td><td colspan="2"><small>Set the new brk, increment/decrement by incr bytes.
   return the old brk on success.
   conformant sbrk, when mini_errno is defined
@@ -1560,7 +1560,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  165 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  197 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
+<tr valign="top"><td><small>setbrk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  39 </small></td><td><small>  int setbrk(long addr);
+</small></td></tr><tr><td></td><td colspan="2"><small>set the current brk
+  wrapper for brk(), with type of brk changed to long
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  197 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
@@ -1677,7 +1681,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  2 </small></td><td><small> long telldir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  221 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small>term_width</small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  7 </small></td><td><small> int term_width();
+</small></td></tr><tr><td></td><td colspan="2"><small>get the terminal width
+  reads the environmental var COLS,
+  if not present, returns 80.
+  Doesn't check for the existence of a terminal.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/term_width.c" target="right">../src/term_width.c</a>  221 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter );
 </small></td></tr><tr><td></td><td colspan="2"><small>convert int to string.

@@ -3,11 +3,29 @@ work in progress, not finished.
 
 A minimal init. 
 
+progress: boottime is around 2seconds from grub to the fully up and running system,
+running Xorg, i3, http proxy server, ssh server, dns proxy, separation into several containers,
+and kerberos. (kerberos for gaining root/sudo, the default user is 'autologged' in)
+
+(15 year old notebook, amd turion 2GHz, ssd)
+
+Albite most of the startup time is needed by the bios (maybe 3seconds here),
+I'm still aiming at 1 second from grub to a running Xserver including the desktop environment.
+
+
+shutdown maybe 1/10 seconds. 
+(terminating a list of programs like vi, to save data to disk,
+and umnmounting mounts)
+
+
+
+
 The small size (2.2kB) and using vfork do spare some resources.
 Especially, when considering context switches for reaping subprocesses.
 (Everytime, a child process exits, there's a task switch to init,
 in order to "reap" the children's process state.
-Having a tiny init (or another subreaper process) has real performance advantages)
+Having a tiny init (or another subreaper process) has real and enduring performance advantages,
+also energy savings)
 
 Readahead should be implemented by the stages.
 
@@ -101,6 +119,17 @@ scripts/process starters: async, delayed, lazy.
 Start(run)   Boot
 Service      Daemon
 Shutdown     Halt
+
+this might change, atm I do see the need for these class properties on boot:
+
+immediate execution,
+parallel execution,
+needed for X,
+can be delayed after X up and running,
+lazy (not needed for user input),
+daemonized.
+
+
 
 ---- 
 
