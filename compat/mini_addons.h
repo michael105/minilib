@@ -99,6 +99,9 @@ static long sys_brk(unsigned long addr);
 static int brk( const void* addr );
 
 // file: minilib/src/brk.c
+static int setbrk(long addr);
+
+// file: minilib/src/brk.c
 static long getbrk();
 
 // file: minilib/src/brk.c
@@ -202,6 +205,9 @@ int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 // file: minilib/src/strlcpy.c
 char *strlcpy(char *dest, const char *src, int n);
+
+// file: minilib/src/term_width.c
+int term_width();
 
 // file: minilib/src/vexec.c
 int vexec( const char* path, char* const* argv, char* const* envp );
@@ -312,48 +318,49 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/include/fexecve.h"
+#include "minilib/src/dtodec.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/src/qsort.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/itodec.c"
+#include "minilib/src/ext_match2.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/vexec.c"
+#include "minilib/src/malloc_brk.c"
+#include "minilib/src/dirent/alphasort.c"
+#include "minilib/src/pty.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/map_protected.c"
+#include "minilib/include/seterrno.h"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/itobin.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/mmap.c"
 #include "minilib/src/strlcpy.c"
-#include "minilib/src/exit_errno.c"
+#include "minilib/include/ret_errno.h"
+#include "minilib/include/dirent.h"
+#include "minilib/src/clone.c"
 #include "minilib/src/prints.c"
+#include "minilib/src/freebrk.c"
+#include "minilib/src/itooct.c"
+#include "minilib/include/syscall.h"
+#include "minilib/include/fexecveat.h"
+#include "minilib/macros/defgroups.h"
+#include "minilib/src/basename.c"
+#include "minilib/src/errno_str.c"
+#include "minilib/src/match.c"
+#include "minilib/src/snprintf.c"
+#include "minilib/src/brk.c"
 #include "minilib/src/ext_match.c"
 #include "minilib/src/dirname.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/dprintf.c"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/match.c"
-#include "minilib/src/freebrk.c"
-#include "minilib/src/pty.c"
-#include "minilib/src/itodec.c"
-#include "minilib/include/seterrno.h"
-#include "minilib/src/map_protected.c"
-#include "minilib/src/mmap.c"
-#include "minilib/include/syscall.h"
 #include "minilib/src/hashes.c"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/brk.c"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/include/fexecve.h"
-#include "minilib/src/fprintfs.c"
-#include "minilib/macros/defgroups.h"
-#include "minilib/include/prints.h"
-#include "minilib/src/ext_match2.c"
-#include "minilib/src/putenv.c"
-#include "minilib/src/snprintf.c"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/src/clone.c"
+#include "minilib/src/term_width.c"
 #include "minilib/src/dirent/scandir.c"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/vexec.c"
-#include "minilib/src/dtodec.c"
-#include "minilib/include/dirent.h"
-#include "minilib/include/minilib_global.h"
-#include "minilib/src/qsort.c"
-#include "minilib/src/dirent/alphasort.c"
-#include "minilib/src/itobin.c"
-#include "minilib/include/ret_errno.h"
-#include "minilib/src/basename.c"
-#include "minilib/src/itooct.c"
-#include "minilib/src/malloc_brk.c"
+#include "minilib/src/putenv.c"
+#include "minilib/src/dprintf.c"
+#include "minilib/src/exit_errno.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
