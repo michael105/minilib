@@ -23,6 +23,8 @@ mini_itodec
 mini_ltodec
 mini_free_brk
 
+mini_ansicolors
+
 OPTFLAG -Os
 
 #LDSCRIPT 
@@ -75,11 +77,62 @@ int de_match(const struct dirent *de){
 		return(1);
 }
 
-void printlist(struct dirent **list,int count,long opts){
+void printlist(const char* path,struct dirent **list,int count,long opts){
+	chdir(path);
+
 	struct stat st;
+	char *perms = "rwx";
+	char *pp = perms;
+	char permstring[12];
+	permstring[11]=0;
+
 	for ( int a=0; a<count; a++ ){
+		int b = 1;
+
 		stat(list[a]->d_name,&st);
-		printf("%s %d\n",list[a]->d_name,st.st_size);
+
+		permstring[0]='-';
+
+		for ( int perm = 0400; perm; perm >>= 1 ){
+			if ( st.st_mode & perm )
+				permstring[b] = *pp;
+			else 
+				permstring[b] = '-';
+			b++;pp++;
+			if ( *pp==0 ) pp = perms;
+		}
+
+		if ( st.st_mode & S_ISUID )
+			permstring[3] = 'S';
+		if ( st.st_mode & S_ISGID )
+			permstring[6] = 'S';
+
+		char *color="";
+
+		if ( st.st_mode & 0111 ) //executable
+			color = AC_LGREEN;
+
+#define FTYPE( type, colorname, c ) case type:	\
+		color = colorname; permstring[0]=c;\
+		break;
+
+		switch ( st.st_mode & S_IFMT ){
+			case S_IFDIR:
+				color = AC_BLUE;
+				permstring[0]='d';
+				break;
+			case S_IFIFO: //fifo
+				color = AC_YELLOW;
+				permstring[0]='p';
+				break;
+
+		}
+
+
+
+
+		prints(permstring);
+		printf(" %s%s%s %d\n",color,list[a]->d_name,AC_NORM,st.st_size);
 	}
 }
 
@@ -115,7 +168,7 @@ int listdir(const char* dir,long opts){
 	}
 	qsort( list, r, sizeof(POINTER), cmp );
 
-	printlist(list,r,opts);
+	printlist(dir,list,r,opts);
 
 	// free heap
 	setbrk(addr);	

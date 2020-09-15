@@ -55,7 +55,7 @@
 #define AC_NORM "\033[0;38;40m"
 #define AC_BLACK "\033[0;30m"
 #define AC_RED "\033[0;31m"
-#define AC_GREEN "\033[32;0m"
+#define AC_GREEN "\033[0;32m"
 #define AC_BROWN "\033[0;33m"
 #define AC_BLUE "\033[0;34m"
 #define AC_MAGENTA "\033[0;35m"
