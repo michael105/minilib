@@ -199,6 +199,22 @@ struct timezone {
 				  unsigned long fds_bits[FD_SETSIZE / 8 / sizeof(long)];
 		} fd_set;
 
+// switch pwent
+//+def pwent
+
+typedef struct passwd {
+	char   *pw_name;       /* username */
+	char   *pw_passwd;     /* user password */
+	uid_t   pw_uid;        /* user ID */
+	gid_t   pw_gid;        /* group ID */
+	char   *pw_gecos;      /* user information */
+	char   *pw_dir;        /* home directory */
+	char   *pw_shell;      /* shell program */
+} _passwd;
+
+#define PASSWDFILE "/etc/passwd"
+
+
 
 #define FD_ZERO(s) do { int __i; unsigned long *__b=(s)->fds_bits; for(__i=sizeof (fd_set)/sizeof (long); __i; __i--) *__b++=0; } while(0)
 #define FD_SET(d, s)   ((s)->fds_bits[(d)/(8*sizeof(long))] |= (1UL<<((d)%(8*sizeof(long)))))

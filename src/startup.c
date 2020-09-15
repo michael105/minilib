@@ -53,6 +53,10 @@ environ = envp;
 mlgl->atexitp[0]=0;
 #endif
 
+#ifdef mini_pwent
+mlgl->passwdfile = 0;
+#endif
+
 	mlgl->brk=0;
 	mlgl->malloc_start=0;
 	
