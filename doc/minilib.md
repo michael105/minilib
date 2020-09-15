@@ -819,6 +819,10 @@ getbrk         static long getbrk();
               or returns the globally saved var
                (src/brk.c: 48)
 
+getpwuid       struct passwd *getpwuid(uid_t uid);
+
+               (src/getpwuid.c: 3)
+
 grantpt        int grantpt(int fd);
 
                (src/pty.c: 13)
@@ -1002,7 +1006,11 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 90)
+               (include/minilib_global.h: 97)
+
+passwdfile_openint passwdfile_open();
+
+               (src/passwdfile_open.c: 3)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -1053,6 +1061,10 @@ putenv         int putenv( char *string );
               - 0 on success, 
               - EINVAL: string was 0, didn't contain a '=', some other error
                (src/putenv.c: 10)
+
+pwent          
+
+               (include/globaldefs.h: 204)
 
 ret_errno      #ifdef mini_errno
 
@@ -1788,7 +1800,7 @@ free           void free(void *p);
 
 getenv         char* getenv(const char* name);
 
-               (src/getenv.c: 8)
+               (src/getenv.c: 5)
 
 labs           static long int labs(long int i);
 

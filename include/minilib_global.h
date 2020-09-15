@@ -60,6 +60,13 @@ typedef struct {
 		// just define a struct on stack,
 		// and set this pointer to the struct.
 		int stream[mini_FOPEN_MAX];
+#ifdef mini_pwent
+		char* passwdfile;
+		struct passwd pwent; // quite some overhead. But needed for threadsafety.
+		// leaving it here for now. possibly todo: make pwent a switch,
+		// either with or without threadsafety of getpwuid and family.
+		// (keeping this struct within the globals, or not)
+#endif
 		union {
 				int ibuf[(mini_bufsize>>2)];
 				char mbuf[mini_bufsize];
