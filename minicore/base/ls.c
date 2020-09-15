@@ -77,6 +77,21 @@ int de_match(const struct dirent *de){
 		return(1);
 }
 
+typedef struct listcolor{
+	int mode;
+	char* color;
+	char c;
+} _listcolor;
+
+struct listcolor colors[] = {
+	{S_IFDIR,AC_BLUE,'d'},
+	{0111,AC_LGREEN,'-'}, // executable
+	{S_IFIFO,AC_BROWN,'p'},
+	{S_IFBLK,AC_YELLOW,'b'},
+	{S_IFCHR,AC_YELLOW,'c'},
+	{0},
+};
+
 void printlist(const char* path,struct dirent **list,int count,long opts){
 	chdir(path);
 
@@ -109,25 +124,25 @@ void printlist(const char* path,struct dirent **list,int count,long opts){
 
 		char *color="";
 
-		if ( st.st_mode & 0111 ) //executable
-			color = AC_LGREEN;
+//		if ( st.st_mode & 0111 ) //executable
+//			color = AC_LGREEN;
 
 #define FTYPE( type, colorname, c ) case type:	\
-		color = colorname; permstring[0]=c;\
-		break;
-
+		color = colorname; permstring[0]=c;break
+/*
 		switch ( st.st_mode & S_IFMT ){
-			case S_IFDIR:
-				color = AC_BLUE;
-				permstring[0]='d';
-				break;
-			case S_IFIFO: //fifo
-				color = AC_YELLOW;
-				permstring[0]='p';
-				break;
-
+			FTYPE(S_IFDIR,AC_BLUE,'d');
+			FTYPE(S_IFIFO,AC_BROWN,'p');
+			FTYPE(S_IFBLK,AC_YELLOW,'b');
+			FTYPE(S_IFCHR,AC_YELLOW,'c');
 		}
-
+*/
+		for ( _listcolor *lc = colors; lc->mode!=0; lc++ ){
+			if ( lc->mode & st.st_mode ){
+				color = lc->color; permstring[0]=lc->c;
+				break;
+			}
+		}
 
 
 
