@@ -16,6 +16,7 @@ mini_pwent
 
 mini_INCLUDESRC
 STRIPFLAG
+OPTFLAG -O2
 LDSCRIPT text_and_bss
 return
 #endif
@@ -23,7 +24,22 @@ return
 int main( int argc, char *argv[], char *envp[] ){
 		printsl(argv[0]);
 
-		struct passwd* pwent = getpwuid(1000);
+		struct passwd* pwent = getpwuid(394);
+
+		printsl("found: ", pwent->pw_name," - gec: ",pwent->pw_gecos," - ",pwent->pw_dir, " - ", pwent->pw_shell);
+
+pwent = getpwuid(1000);
+		printsl("found: ", pwent->pw_name," - gec: ",pwent->pw_gecos," - ",pwent->pw_dir, " - ", pwent->pw_shell);
+pwent = getpwuid(30000);
+if ( pwent )
+		printsl("found: ", pwent->pw_name," - gec: ",pwent->pw_gecos," - ",pwent->pw_dir, " - ", pwent->pw_shell);
+
+
+		struct passwd* p;
+		while( (p = getpwent()) ){
+			printsl("> ",p->pw_name," - ",p->pw_shell);
+		}
+
 
 		return(0);
 }

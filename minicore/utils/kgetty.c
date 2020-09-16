@@ -55,7 +55,7 @@ return
 
 
 
-//#define TEST
+#define TEST
 
 static char *tty = "/dev/tty1";
 static char *defaultterm = "linux";
