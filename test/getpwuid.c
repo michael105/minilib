@@ -17,7 +17,7 @@ mini_pwent
 
 mini_INCLUDESRC
 STRIPFLAG
-OPTFLAG -O2
+OPTFLAG -Os
 LDSCRIPT text_and_bss
 return
 #endif
@@ -55,6 +55,7 @@ if ( pwent )
 if ( pwent )
 		printf("found: %s - %d:%d - gec: %s - shell: %s\n", pwent->pw_name,pwent->pw_uid,pwent->pw_gid,pwent->pw_gecos,pwent->pw_shell);
 
+		pwent = getpwnam("privoxy");
 		pwent = getpwnam("privoxy");
 if ( pwent )
 		printf("found: %s - %d:%d - gec: %s - shell: %s\n", pwent->pw_name,pwent->pw_uid,pwent->pw_gid,pwent->pw_gecos,pwent->pw_shell);

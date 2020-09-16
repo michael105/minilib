@@ -17,9 +17,6 @@ int passwdfile_open(){
 			MAP_PRIVATE, fd, 0 );
 
 	close(fd);
-	// append a 0, so two 00's are at the end
-//	mlgl->passwdfile[ststat.st_size] = 0;
-//	mlgl->passwdfile[ststat.st_size+1] = 0;
 
 	mlgl->passwdfilesize = ststat.st_size;
 	mlgl->passwd_p = mlgl->passwdfile;
