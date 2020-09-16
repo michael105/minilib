@@ -11,6 +11,7 @@ mini_getenv
 mini_writes
 mini_environ
 mini_getpwuid
+mini_getpwnam
 
 mini_pwent
 
@@ -39,6 +40,25 @@ if ( pwent )
 		while( (p = getpwent()) ){
 			printsl("> ",p->pw_name," - ",p->pw_shell);
 		}
+		setpwent();
+		while( (p = getpwent()) ){
+			printsl("> ",p->pw_name," - ",p->pw_shell);
+		}
+
+		endpwent();
+
+		pwent = getpwnam("micha");
+if ( pwent )
+		printf("found: %s - %d:%d - gec: %s - shell: %s\n", pwent->pw_name,pwent->pw_uid,pwent->pw_gid,pwent->pw_gecos,pwent->pw_shell);
+
+		pwent = getpwnam("priv");
+if ( pwent )
+		printf("found: %s - %d:%d - gec: %s - shell: %s\n", pwent->pw_name,pwent->pw_uid,pwent->pw_gid,pwent->pw_gecos,pwent->pw_shell);
+
+		pwent = getpwnam("privoxy");
+if ( pwent )
+		printf("found: %s - %d:%d - gec: %s - shell: %s\n", pwent->pw_name,pwent->pw_uid,pwent->pw_gid,pwent->pw_gecos,pwent->pw_shell);
+
 
 
 		return(0);

@@ -254,6 +254,10 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
                (src/dtodec.c: 10)
 
+endpwent       void endpwent();
+
+               (src/getpwuid.c: 57)
+
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
@@ -819,9 +823,17 @@ getbrk         static long getbrk();
               or returns the globally saved var
                (src/brk.c: 48)
 
+getpwent       struct passwd* getpwent();
+
+               (src/getpwuid.c: 33)
+
+getpwnam       struct passwd *getpwnam(const char* name);
+
+               (src/getpwuid.c: 102)
+
 getpwuid       struct passwd *getpwuid(uid_t uid);
 
-               (src/getpwuid.c: 3)
+               (src/getpwuid.c: 65)
 
 grantpt        int grantpt(int fd);
 
@@ -1006,7 +1018,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 97)
+               (include/minilib_global.h: 99)
 
 passwdfile_openint passwdfile_open();
 
@@ -1102,6 +1114,10 @@ seterrno       #ifdef mini_errno
 
                set errno, but only when errno is defined.
                (include/seterrno.h: 3)
+
+setpwent       void setpwent();
+
+               (src/getpwuid.c: 28)
 
 shortcolornames
 
