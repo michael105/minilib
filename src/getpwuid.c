@@ -2,36 +2,13 @@
 #define mini_getpwuid_d
 
 //+include
-char *token_s( char **p ){
-	char *ptmp = *p;
-	while ( (*p<mlgl->passwdfile+mlgl->passwdfilesize) &&  **p) { 
-		if ( **p == ':' || **p == '\n' ){
-			**p = 0;
-		} else {
-			(*p)++; 
-		}
-	};// while (**p);
-	(*p)++;
-	return(ptmp);
-}
-
-int token_i( char **p ){
-	int i = 0;
-
-	while ( (*p<mlgl->passwdfile+mlgl->passwdfilesize) && **p>='0' && **p <= '9' ){
-		//euid = euid*10 + (*puid-'0');
-		i += i + (i<<3) + (**p-'0');
-		(*p)++;
-	}
-	(*p)++;
-	return(i);
-}
 
 //+def
 void setpwent(){
 	mlgl->passwd_p = mlgl->passwdfile;
 }
 
+//+depends open userdb
 //+def
 struct passwd* getpwent(){
 	if ( !mlgl->passwdfile ){
@@ -62,13 +39,19 @@ void endpwent(){
 	mlgl->passwdfile = 0;
 }
 
-
-//+depends pwent mmap passwdfile_open ewrites open
+//+doc get the passwd entry of the user with uid.
+// the last result is cached, multiple calls with the same
+// uid will return the cached result.
+//+depends pwent mmap passwdfile_open ewrites open userdb
 //+def
 struct passwd *getpwuid(uid_t uid){
 	if ( !mlgl->passwdfile ){
 		if ( !passwdfile_open() ) 
 			return(0);
+	} else {
+		// return "cached" entry 
+	if ( ( mlgl->pwent.pw_name != 0 ) && (uid == mlgl->pwent.pw_uid ) )
+		return( &mlgl->pwent );
 	}
 
 	char *p = mlgl->passwdfile;
@@ -90,22 +73,28 @@ struct passwd *getpwuid(uid_t uid){
 			mlgl->pwent.pw_shell = token_s(&p);
 			return(&mlgl->pwent);
 		}
+
 		for ( int a = 0; a<4; a++ )
 			token_s(&p);
-		//for ( ; *p && *(p)!='\n'; p++ );
-	//} while ( *p );
+
 	} while ( p < (mlgl->passwdfile+mlgl->passwdfilesize) );
 
 	return(0); // not found
 }
 
-
-//+depends pwent mmap passwdfile_open ewrites open strcmp
+//+doc get the passwd entry of the user "name".
+// the last result is cached, multiple calls with the same
+// name will return the cached result.
+//+depends pwent mmap passwdfile_open ewrites open strcmp userdb
 //+def
 struct passwd *getpwnam(const char* name){
 	if ( !mlgl->passwdfile ){
 		if ( !passwdfile_open() ) 
 			return(0);
+	} else {
+		// return "cached" entry 
+	if ( strcmp( mlgl->pwent.pw_name, name) == 0 )
+		return( &mlgl->pwent );
 	}
 
 	char *p = mlgl->passwdfile;
@@ -124,16 +113,14 @@ struct passwd *getpwnam(const char* name){
 			mlgl->pwent.pw_shell = token_s(&p);
 			return(&mlgl->pwent);
 		}
+
 		for ( int a = 0; a<6; a++ )
 			token_s(&p);
-		//for ( ; *p && *(p)!='\n'; p++ );
-	//} while ( *p );
+
 	} while ( p < (mlgl->passwdfile+mlgl->passwdfilesize) );
 
 	return(0); // not found
 }
-
-
 
 
 /*
