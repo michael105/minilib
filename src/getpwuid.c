@@ -42,7 +42,7 @@ void endpwent(){
 //+doc get the passwd entry of the user with uid.
 // the last result is cached, multiple calls with the same
 // uid will return the cached result.
-//+depends pwent mmap passwdfile_open ewrites open userdb
+//+depends pwent mmap passwdfile_open ewrites open token_s token_i
 //+def
 struct passwd *getpwuid(uid_t uid){
 	if ( !mlgl->passwdfile ){
@@ -85,7 +85,7 @@ struct passwd *getpwuid(uid_t uid){
 //+doc get the passwd entry of the user "name".
 // the last result is cached, multiple calls with the same
 // name will return the cached result.
-//+depends pwent mmap passwdfile_open ewrites open strcmp userdb
+//+depends pwent mmap passwdfile_open ewrites open strcmp token_s token_i
 //+def
 struct passwd *getpwnam(const char* name){
 	if ( !mlgl->passwdfile ){

@@ -256,7 +256,7 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
 endpwent       void endpwent();
 
-               (src/getpwuid.c: 57)
+               (src/getpwuid.c: 37)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
@@ -823,17 +823,31 @@ getbrk         static long getbrk();
               or returns the globally saved var
                (src/brk.c: 48)
 
+getgrgid       struct group* getgrgid( int gid);
+
+               (src/getgrgid.c: 7)
+
+getgrnam       struct group* getgrnam(const char* name);
+
+               (src/getgrgid.c: 15)
+
 getpwent       struct passwd* getpwent();
 
-               (src/getpwuid.c: 33)
+               (src/getpwuid.c: 13)
 
 getpwnam       struct passwd *getpwnam(const char* name);
 
-               (src/getpwuid.c: 102)
+               get the passwd entry of the user "name".
+              the last result is cached, multiple calls with the same
+              name will return the cached result.
+               (src/getpwuid.c: 90)
 
 getpwuid       struct passwd *getpwuid(uid_t uid);
 
-               (src/getpwuid.c: 65)
+               get the passwd entry of the user with uid.
+              the last result is cached, multiple calls with the same
+              uid will return the cached result.
+               (src/getpwuid.c: 47)
 
 grantpt        int grantpt(int fd);
 
@@ -1018,7 +1032,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 99)
+               (include/minilib_global.h: 104)
 
 passwdfile_openint passwdfile_open();
 
@@ -1117,7 +1131,7 @@ seterrno       #ifdef mini_errno
 
 setpwent       void setpwent();
 
-               (src/getpwuid.c: 28)
+               (src/getpwuid.c: 7)
 
 shortcolornames
 
@@ -1154,6 +1168,16 @@ term_width     int term_width();
               if not present, returns 80.
               Doesn't check for the existence of a terminal.
                (src/term_width.c: 7)
+
+token_i        int token_i( char **p );
+
+               (src/userdb.c: 22)
+
+token_s        char *token_s( char **p );
+
+               tokenizer for the passwd/group files.
+              used by the group/user pwentry access functions.
+               (src/userdb.c: 8)
 
 uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter );
 

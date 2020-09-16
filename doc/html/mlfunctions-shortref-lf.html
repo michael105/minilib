@@ -479,7 +479,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  118 </small></td><td><small> dup3(int oldfd, int newfd, int flags)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  57 </small></td><td><small> void endpwent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  37 </small></td><td><small> void endpwent();
 </small></td></tr>
 <tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  58 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. Needs strlen
@@ -1114,7 +1114,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  189 </small></td><td><small> DEF_syscall(getgid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> struct group* getgrgid( int gid);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrnam</a></small></td><td><small>   <a href="../src/getgrgid.c" target="right">../src/getgrgid.c</a>  15 </small></td><td><small> struct group* getgrnam(const char* name);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/getgrgid.c" target="right">../src/getgrgid.c</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  190 </small></td><td><small> DEF_syscall(getpgrp,0)
 </small></td></tr>
@@ -1122,12 +1126,18 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> DEF_syscall(getppid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  33 </small></td><td><small> struct passwd* getpwent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  13 </small></td><td><small> struct passwd* getpwent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwnam</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  102 </small></td><td><small> struct passwd *getpwnam(const char* name);
-</small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwuid</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  65 </small></td><td><small> struct passwd *getpwuid(uid_t uid);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwnam</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  90 </small></td><td><small> struct passwd *getpwnam(const char* name);
+</small></td></tr><tr><td></td><td colspan="2"><small>get the passwd entry of the user "name".
+  the last result is cached, multiple calls with the same
+  name will return the cached result.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwuid</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  47 </small></td><td><small> struct passwd *getpwuid(uid_t uid);
+</small></td></tr><tr><td></td><td colspan="2"><small>get the passwd entry of the user with uid.
+  the last result is cached, multiple calls with the same
+  uid will return the cached result.
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  27 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  136 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
@@ -1409,7 +1419,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  10 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  99 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  104 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -1591,7 +1601,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  188 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">setpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  28 </small></td><td><small> void setpwent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">setpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> void setpwent();
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  146 </small></td><td><small> DEF_syscall(setsid,0 )
 </small></td></tr>
@@ -1703,7 +1713,13 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/term_width.c" target="right">../src/term_width.c</a>  221 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
-<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>token_i</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> int token_i( char **p );
+</small></td></tr>
+<tr valign="top"><td><small>token_s</small></td><td><small>   <a href="../src/userdb.c" target="right">../src/userdb.c</a>  8 </small></td><td><small> char *token_s( char **p );
+</small></td></tr><tr><td></td><td colspan="2"><small>tokenizer for the passwd/group files.
+  used by the group/user pwentry access functions.
+ </small></td></tr>
+<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/userdb.c" target="right">../src/userdb.c</a>  8 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter );
 </small></td></tr><tr><td></td><td colspan="2"><small>convert int to string.
   prec: precision, e.g. 4=> 0087 
  </small></td></tr>
