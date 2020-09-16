@@ -1,4 +1,8 @@
 #!/bin/perl -w
+# DOCU: genheaders.pl
+# generate minilib.conf; genconf.sh; minilib.h; compat/*.h
+# callen by make header, make devel
+#
 # (modified) BSD 3-clause (c) 2019,2020 Michael misc Myer misc.myer@zoho.com;
 # www.github.com/michael105; BSD-Licensing terms attached
 #
@@ -23,6 +27,7 @@
 #  (or whatever else name is supplied via --config )
 #  compat/*.h contains the ansi-c/posix-c (sort of "subsetcompatible") headers.
 #
+#
 # This script scans for "tags":
 # each tag consists (for the moment, this should also get more generic)
 # of this pattern: (linestart)"//+tag"
@@ -38,29 +43,54 @@
 #
 # "tag" can be one of:
 #
-# - def: the next line keeps a definition (function definition)
+# - def [switchname]
+# 				the next line keeps a definition (function definition),
 #
-# - macro: either in the same line, or in the next line is a macro defined.
-# 	the macros are collected and go into the corresponding header files;
-# 	as well as the definitions (+def)
-# 	Either into the headers, defined by the posic-c /ansi-c standard, or 
-# 	into the header file, supplied via the tag header
+# - inline
+# 				put all following lines, until the function is ended by
+# 				a line starting with '}', into the according header.
+# 				(minilib.h, and possibly compat/xxx.h)
 #
-# - header "name": the definitions and macros defined in this header file go into 
-#  								the header file "name". "header" can be defined several times within 
-#  								one file, each time the definitions below are put into name, until the 
-#  								next "header" tag is read
+# - macro 
+# 				either in the same line, or in the next line a macro is defined.
+#				 	the macros are collected and go into the corresponding header files;
+#				 	as well as the definitions (+def) and inlines (+inline).
+#				 	Either into the headers, defined by the posic-c /ansi-c standard, or 
+#				 	into the header file, supplied via the tag header
 #
-#	- depends "name1" "name2" .. :	the following definitions are selected automatically, when the following def or macro 
-#						is selected via the #define in the configfile. TODO example.
+# - header "name" 
+# 				the definitions and macros defined in this header file go into 
+# 				the header file "name". "header" can be defined several times within 
+#  				one file, each time the definitions below are put into name, until the 
+#  				next "header" tag is read
 #
-#	- needs "name1" "name2" .. : the headerfiles "name1", .. are included before the current header file.
+#	- depends/dep "name1" "name2" .. 
+#					the following definitions are selected automatically,
+#					when the following def or macro 
+#					is selected via the #define in the configfile. TODO example.
 #
-#	- doc: TODO needs implementing
-# - test: TODO (testing framework) -> most possibly best to define just a few calls to the implemented functions;
-# 																		and just compare the output to stdout/stderr. (Framework already implemented in /test)
-# 																		little hard to catch e.g. filecreation. But possible. ALso possibly
-# 																		just put some inline perl scripts into a "test" tag.
+#	- needs "name1" "name2" .. 
+#					the headerfiles "name1", .. are included 
+#					before the current header file.
+#
+#	- include/inc
+#	- after
+#
+#	- doc
+#					The tag's line an all following lines, until the next tag,
+#					are used for the generated documentation
+#
+#	- cat catname
+#					catname is used for the documentation. (chapter of the api reference)
+#
+#
+#(ideas)
+# - test: TODO (testing framework) -> most possibly best to define just a few calls 
+# 				to the implemented functions;
+# 				and just compare the output to stdout/stderr. 
+# 				(Framework already implemented in /test)
+# 				little hard to catch e.g. filecreation. But possible. ALso possibly
+# 				just put some inline perl scripts into a "test" tag.
 #
 
 
@@ -231,7 +261,7 @@ while ( my $file = shift ){
 		my $header = 0;
 		my $line = 0;
 		my $included = 0;
-		while ( my $l= $fa[$line]){
+		while ( my $l= $fa[$line]){ # iterate lines
 				my $f;
 				my $tag = 0;
 				my $func = 0;
@@ -732,9 +762,8 @@ sub headerinclude{
 		print $fh "#endif\n";
 }
 
+# MINILIB.H =========================================
 # Writing minilib.h starts here
-
-
 my $ml = headerfh( "minilib.h", $mlibdir );
 
 
@@ -797,6 +826,7 @@ dbg("$C"."==================$N");
 $debug=0;
 
 
+# MINILIB.C ==================================================
 # write minilib.c
 my $mc = minilibcfh( "minilib.c", $mlibdir );
 

@@ -34,10 +34,28 @@ HEADERGUARDS
 return
 #endif
 
+/*
+enum shortopts { 
+	opt_A,opt_B,opt_C,opt_D,opt_E,opt_F,opt_G,opt_H,opt_I,opt_J,opt_K,opt_L,opt_M,
+	opt_N,opt_O,opt_P,opt_Q,opt_R,opt_S,opt_T,opt_U,opt_V,opt_W,opt_X,opt_Y,opt_Z,
+	opt_a,opt_b,opt_c,opt_d,opt_e,opt_f,opt_g,opt_h,opt_i,opt_j,opt_k,opt_l,opt_m,
+	opt_n,opt_o,opt_p,opt_q,opt_r,opt_s,opt_t,opt_u,opt_v,opt_w,opt_x,opt_y,opt_z
+};*/
 
-//enum shortopts { 
-//A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
-//a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z };
+enum shortopts { 
+	opt_A=01,opt_B=02,opt_C=04,opt_D=010,opt_E=020,opt_F=040,opt_G=0100,opt_H=0200,
+	opt_I=0400,opt_J=01000,opt_K=02000,opt_L=04000,opt_M=010000,opt_N=020000,
+	opt_O=040000,opt_P=0100000,opt_Q=0200000,opt_R=0400000,opt_S=01000000,
+	opt_T=02000000,opt_U=04000000,opt_V=010000000,opt_W=020000000,opt_X=040000000,
+	opt_Y=0100000000,opt_Z=0200000000,opt_a=0400000000,opt_b=01000000000,
+	opt_c=02000000000,opt_d=04000000000,opt_e=010000000000,opt_f=020000000000,
+	opt_g=040000000000,opt_h=0100000000000,opt_i=0200000000000,opt_j=0400000000000,
+	opt_k=01000000000000,opt_l=02000000000000,opt_m=04000000000000,
+	opt_n=010000000000000,opt_o=020000000000000,opt_p=040000000000000,
+	opt_q=0100000000000000,opt_r=0200000000000000,opt_s=0400000000000000,
+	opt_t=01000000000000000,opt_u=02000000000000000,opt_v=04000000000000000,
+	opt_w=010000000000000000,opt_x=020000000000000000,opt_y=040000000000000000,
+	opt_z=0100000000000000000 };
 
 void setopt( char c, long *opts ){
 	if ( c>= 'A' && c <= 'X' )
@@ -177,7 +195,9 @@ int listdir(const char* dir,long opts){
 
 	}
 
-	int (*cmp)(const void*,const void*)= (int(*)(const void*,const void*))alphasort;
+	int (*cmp)(const void*,const void*)= 
+		(int(*)(const void*,const void*))alphasort;
+
 	if ( opt( 'r', opts ) != 0 ){
 		cmp=alphasort_r;
 	}

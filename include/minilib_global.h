@@ -40,6 +40,11 @@
 #define mini_bufsize 0
 #endif
 
+typedef struct {
+	char* file;
+	char* p;
+	int filesize;
+} userdb;
 
 typedef struct {
 		int errno;
