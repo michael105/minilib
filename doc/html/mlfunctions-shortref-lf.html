@@ -479,7 +479,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  118 </small></td><td><small> dup3(int oldfd, int newfd, int flags)		
 </small></td></tr>
-<tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  58 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  57 </small></td><td><small> void endpwent();
+</small></td></tr>
+<tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  58 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. Needs strlen
  </small></td></tr>
 <tr valign="top"><td><small>eprintfs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  106 </small></td><td><small> #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
@@ -1120,7 +1122,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpid.2.rst.html">getppid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> DEF_syscall(getppid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> struct passwd *getpwuid(uid_t uid);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  33 </small></td><td><small> struct passwd* getpwent();
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwnam</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  102 </small></td><td><small> struct passwd *getpwnam(const char* name);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">getpwuid</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  65 </small></td><td><small> struct passwd *getpwuid(uid_t uid);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  27 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
 </small></td></tr>
@@ -1387,7 +1393,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>mremap</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  void*  )) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/munmap.2.rst.html">munmap</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  213 </small></td><td><small> munmap( unsigned long addr,  size_t len)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/munmap.2.rst.html">munmap</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  213 </small></td><td><small> munmap( void* addr,  size_t len)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  135 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
@@ -1403,7 +1409,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  10 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  97 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  99 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -1585,7 +1591,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  188 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  146 </small></td><td><small> DEF_syscall(setsid,0 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">setpwent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  28 </small></td><td><small> void setpwent();
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../src/getpwuid.c" target="right">../src/getpwuid.c</a>  146 </small></td><td><small> DEF_syscall(setsid,0 )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  148 </small></td><td><small> setuid( uid_t uid)
 </small></td></tr>
