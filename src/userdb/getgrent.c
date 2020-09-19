@@ -11,14 +11,22 @@ struct group* getgrent(){
 		return(0);
 
 	char *p = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
+	if ( *mlgl->groupfile.p2 == 0 ){
+		printsl("dgb");
+		mlgl->groupfile.p2 = p;
+	} else printsl("no - dbg");
+	mlgl->groupfile.p2++;
+
 	if ( *p == 0 )
 		return(0); //error or end.
+
 	mlgl->groupent.gr_name = p;
 	mlgl->groupent.gr_passwd = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
 	mlgl->groupent.gr_gid = token_i( &mlgl->groupfile,&mlgl->groupfile.p);
 	char* members =  token_s( &mlgl->groupfile,&mlgl->groupfile.p);
 	char *mbr = members;
 	int count = 0;
+	if ( mlgl->groupfile.p2==0){
 	while ( members < mlgl->groupfile.p ){
 		if ( *members == ',' ){
 			*members = 0; 
@@ -33,6 +41,7 @@ struct group* getgrent(){
 			}
 		}
 		members++;
+	}
 	}
 	mlgl->groupent.gr_mem[count] = 0;
 	return(&mlgl->groupent);
