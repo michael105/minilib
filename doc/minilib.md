@@ -829,15 +829,15 @@ getbrk         static long getbrk();
 
 getgrent       struct group* getgrent();
 
-               (src/userdb/getgrgid.c: 15)
+               (src/userdb/getgrent.c: 4)
 
 getgrgid       struct group* getgrgid( int gid);
 
-               (src/userdb/getgrgid.c: 21)
+               (src/userdb/getgrgid.c: 15)
 
 getgrnam       struct group* getgrnam(const char* name);
 
-               (src/userdb/getgrgid.c: 29)
+               (src/userdb/getgrnam.c: 3)
 
 getpwent       struct passwd* getpwent();
 
@@ -996,6 +996,14 @@ match          int match(char *text, const char *re, regex_match *st_match);
                !+ basically sets the greedyness of the left * or % higher.
                (src/match.c: 59)
 
+max_groupmembers#ifndef mini_max_groupmembers
+
+               The maximum number of users, 
+              which are within a group.
+              used for the allocation of the array gr_mem.
+              default: 64
+               (include/globaldefs.h: 85)
+
 memfrob        void* memfrob(void* s, unsigned int len);
 
                (src/memfrob.c: 3)
@@ -1040,7 +1048,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 107)
+               (include/minilib_global.h: 123)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -1094,7 +1102,7 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 204)
+               (include/globaldefs.h: 215)
 
 ret_errno      #ifdef mini_errno
 
@@ -1135,7 +1143,7 @@ seterrno       #ifdef mini_errno
 
 setgrent       void setgrent();
 
-               (src/userdb/getgrgid.c: 7)
+               (src/userdb/setgrent.c: 3)
 
 setpwent       void setpwent();
 

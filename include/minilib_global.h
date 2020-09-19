@@ -27,6 +27,15 @@
 #endif
 #endif
 
+
+#ifdef mini_getgrent
+#ifndef mini_grent
+#define mini_grent
+#endif
+#endif
+
+
+
 #ifdef mini_buf
 #if mini_buf > 0
 #else
@@ -48,6 +57,7 @@
 typedef struct {
 	char* file;
 	char* p;
+	char* cache;
 	int size;
 } userdb;
 
@@ -77,6 +87,13 @@ typedef struct {
 		// either with or without threadsafety of getpwuid and family.
 		// (keeping this struct within the globals, or not)
 #endif
+#ifdef mini_grent
+		userdb groupfile;
+		//int groupnamecount; TODO: enlarge the array to the groupname pointers,
+		// when needed. (shrinking the minibuf) ->getgrent
+		struct group groupent;
+#endif
+
 		union {
 				int ibuf[(mini_bufsize>>2)];
 				char mbuf[mini_bufsize];

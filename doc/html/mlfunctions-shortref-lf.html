@@ -1116,13 +1116,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getgid.2.rst.html">getgid</a></small></td><td><small>   <a href="../src/getenv.c" target="right">../src/getenv.c</a>  189 </small></td><td><small> DEF_syscall(getgid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  15 </small></td><td><small> struct group* getgrent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> struct group* getgrent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  21 </small></td><td><small> struct group* getgrgid( int gid);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../src/userdb/getgrent.c" target="right">../src/userdb/getgrent.c</a>  15 </small></td><td><small> struct group* getgrgid( int gid);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrnam</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  29 </small></td><td><small> struct group* getgrnam(const char* name);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrnam</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  3 </small></td><td><small> struct group* getgrnam(const char* name);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  190 </small></td><td><small> DEF_syscall(getpgrp,0)
 </small></td></tr>
@@ -1375,7 +1375,13 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
+<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  85 </small></td><td><small> #ifndef mini_max_groupmembers
+</small></td></tr><tr><td></td><td colspan="2"><small>The maximum number of users, 
+  which are within a group.
+  used for the allocation of the array gr_mem.
+  default: 64
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  4 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
 </small></td></tr>
@@ -1423,7 +1429,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  10 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  107 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  123 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -1492,7 +1498,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/putenv.c" target="right">../src/putenv.c</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  204 </small></td><td><small> 
+<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  215 </small></td><td><small> 
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 </small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine
@@ -1597,9 +1603,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setgid</a></small></td><td><small>   <a href="../include/seterrno.h" target="right">../include/seterrno.h</a>  147 </small></td><td><small> setgid( gid_t gid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">setgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> void setgrent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">setgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void setgrent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/setgroups.2.rst.html">setgroups</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  182 </small></td><td><small> setgroups( int gidsetsize,  gid_t *grouplist)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/setgroups.2.rst.html">setgroups</a></small></td><td><small>   <a href="../src/userdb/setgrent.c" target="right">../src/userdb/setgrent.c</a>  182 </small></td><td><small> setgroups( int gidsetsize,  gid_t *grouplist)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">setitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  215 </small></td><td><small> setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
 </small></td></tr>
