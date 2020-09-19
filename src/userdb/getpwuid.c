@@ -1,48 +1,8 @@
-#ifndef mini_getpwuid_d
-#define mini_getpwuid_d
-
-//+include
-
-//+def
-void setpwent(){
-	mlgl->passwd_p = mlgl->passwdfile;
-}
-
-//+depends open userdb
-//+def
-struct passwd* getpwent(){
-	if ( !mlgl->passwdfile ){
-		if ( !passwdfile_open() ) 
-			return(0);
-	}
-	// end of file
-	if ( mlgl->passwd_p >= (mlgl->passwdfile+mlgl->passwdfilesize) )
-		return(0);
-
-	char *p = token_s(&mlgl->passwd_p);
-	if ( *p == 0 )
-		return(0);
-	mlgl->pwent.pw_name = p;
-	mlgl->pwent.pw_passwd = token_s(&mlgl->passwd_p);
-	mlgl->pwent.pw_uid = token_i(&mlgl->passwd_p);
-	mlgl->pwent.pw_gid = token_i(&mlgl->passwd_p);
-	mlgl->pwent.pw_gecos = token_s(&mlgl->passwd_p);
-	mlgl->pwent.pw_dir = token_s(&mlgl->passwd_p);
-	mlgl->pwent.pw_shell = token_s(&mlgl->passwd_p);
-
-	return(&mlgl->pwent);
-}
-
-//+def
-void endpwent(){
-	munmap( (void*)mlgl->passwdfile, mlgl->passwdfilesize );
-	mlgl->passwdfile = 0;
-}
-
 //+doc get the passwd entry of the user with uid.
 // the last result is cached, multiple calls with the same
 // uid will return the cached result.
-//+depends pwent mmap passwdfile_open ewrites open token_s token_i
+//+cat userdb
+//+depends pwent mmap passwdfile_open ewrites open token_s token_i setpwent
 //+def
 struct passwd *getpwuid(uid_t uid){
 	if ( !mlgl->passwdfile ){
@@ -81,47 +41,6 @@ struct passwd *getpwuid(uid_t uid){
 
 	return(0); // not found
 }
-
-//+doc get the passwd entry of the user "name".
-// the last result is cached, multiple calls with the same
-// name will return the cached result.
-//+depends pwent mmap passwdfile_open ewrites open strcmp token_s token_i
-//+def
-struct passwd *getpwnam(const char* name){
-	if ( !mlgl->passwdfile ){
-		if ( !passwdfile_open() ) 
-			return(0);
-	} else {
-		// return "cached" entry 
-	if ( strcmp( mlgl->pwent.pw_name, name) == 0 )
-		return( &mlgl->pwent );
-	}
-
-	char *p = mlgl->passwdfile;
-
-	do {
-		char *pw_name = token_s(&p);
-
-		//printf("euid: %d\n",euid);
-		if ( strcmp( name, pw_name ) == 0 ){ // found
-			mlgl->pwent.pw_name = pw_name;
-			mlgl->pwent.pw_passwd = token_s(&p);
-			mlgl->pwent.pw_uid = token_i(&p);
-			mlgl->pwent.pw_gid = token_i(&p);
-			mlgl->pwent.pw_gecos = token_s(&p);
-			mlgl->pwent.pw_dir = token_s(&p);
-			mlgl->pwent.pw_shell = token_s(&p);
-			return(&mlgl->pwent);
-		}
-
-		for ( int a = 0; a<6; a++ )
-			token_s(&p);
-
-	} while ( p < (mlgl->passwdfile+mlgl->passwdfilesize) );
-
-	return(0); // not found
-}
-
 
 /*
 	 asm("loopin:");
@@ -192,4 +111,3 @@ euid = (euid<<3) + (euid<<1) + (*puid-'0');
 
 */
 
-#endif

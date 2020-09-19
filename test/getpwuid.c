@@ -13,7 +13,8 @@ mini_environ
 mini_getpwuid
 mini_getpwnam
 
-mini_pwent
+mini_getpwent
+mini_endpwent
 
 mini_INCLUDESRC
 STRIPFLAG

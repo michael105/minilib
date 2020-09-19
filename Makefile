@@ -125,7 +125,7 @@ retest:
 
 header:
 	cd headers && make
-	scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h minilib/src/dirent/*.c minilib/macros/*.h
+	scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h minilib/src/dirent/*.c minilib/src/userdb/*.c minilib/macros/*.h 
 			rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 
 # ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\

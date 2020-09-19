@@ -21,6 +21,11 @@
 #endif
 #endif
 
+#ifdef mini_getpwent
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
 
 #ifdef mini_buf
 #if mini_buf > 0
