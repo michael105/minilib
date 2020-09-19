@@ -1040,11 +1040,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 109)
-
-passwdfile_openint passwdfile_open();
-
-               (src/userdb/passwdfile_open.c: 3)
+               (include/minilib_global.h: 107)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -1181,11 +1177,11 @@ term_width     int term_width();
               Doesn't check for the existence of a terminal.
                (src/term_width.c: 7)
 
-token_i        int token_i( char **p );
+token_i        int token_i( userdb* udb, char **p );
 
-               (src/userdb.c: 33)
+               (src/userdb/userdb.c: 33)
 
-token_s        char *token_s( char **p );
+token_s        char *token_s( userdb *udb, char **p );
 
                tokenizer for the passwd/group files.
               used by the group/user pwentry access functions.
@@ -1200,7 +1196,7 @@ token_s        char *token_s( char **p );
               So I'm leaving this for now, as it is.
               And most possibly it would be better to implement bsd's cached versions 
               of the user db access functions instead. 
-               (src/userdb.c: 19)
+               (src/userdb/userdb.c: 19)
 
 uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter );
 
@@ -1219,6 +1215,10 @@ unlockpt       int unlockpt(int fd);
 unmap_protectedint unmap_protected(void *p, int len);
 
                (src/map_protected.c: 41)
+
+userdb_open    int userdb_open(userdb *udb, const char* file);
+
+               (src/userdb/passwdfile_open.c: 3)
 
 verbose_errstr const char* verbose_errstr(int num);
 
