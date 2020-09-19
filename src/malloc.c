@@ -269,7 +269,7 @@ void* realloc(void *p, int size){
 		int *s = (int*)p;
 		void *n = malloc(size);
 		if ( p > n ){
-				//writes("p>n\n");
+				//writes("p>n\n"); // todo: replace with memcpy / copy longs
 				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize<<2)); d++ ){
 						*d = *s;
 						s++;

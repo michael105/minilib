@@ -22,6 +22,7 @@ mini_sprintf
 mini_itodec
 mini_ltodec
 mini_free_brk
+mini_brk
 
 mini_ansicolors
 
@@ -56,6 +57,116 @@ enum shortopts {
 	opt_t=01000000000000000,opt_u=02000000000000000,opt_v=04000000000000000,
 	opt_w=010000000000000000,opt_x=020000000000000000,opt_y=040000000000000000,
 	opt_z=0100000000000000000 };
+
+// better let the praeprocessor do the work, than at runtime..
+#define _LIT_A 'A'
+#define _LIT_B 'B'
+#define _LIT_C 'C'
+#define _LIT_D 'D'
+#define _LIT_E 'E'
+#define _LIT_F 'F'
+#define _LIT_G 'G'
+#define _LIT_H 'H'
+#define _LIT_I 'I'
+#define _LIT_J 'J'
+#define _LIT_K 'K'
+#define _LIT_L 'L'
+#define _LIT_M 'M'
+#define _LIT_N 'N'
+#define _LIT_O 'O'
+#define _LIT_P 'P'
+#define _LIT_Q 'Q'
+#define _LIT_R 'R'
+#define _LIT_S 'S'
+#define _LIT_T 'T'
+#define _LIT_U 'U'
+#define _LIT_V 'V'
+#define _LIT_W 'W'
+#define _LIT_X 'X'
+#define _LIT_Y 'Y'
+#define _LIT_Z 'Z'
+#define _LIT_a 'a'
+#define _LIT_b 'b'
+#define _LIT_c 'c'
+#define _LIT_d 'd'
+#define _LIT_e 'e'
+#define _LIT_f 'f'
+#define _LIT_g 'g'
+#define _LIT_h 'h'
+#define _LIT_i 'i'
+#define _LIT_j 'j'
+#define _LIT_k 'k'
+#define _LIT_l 'l'
+#define _LIT_m 'm'
+#define _LIT_n 'n'
+#define _LIT_o 'o'
+#define _LIT_p 'p'
+#define _LIT_q 'q'
+#define _LIT_r 'r'
+#define _LIT_s 's'
+#define _LIT_t 't'
+#define _LIT_u 'u'
+#define _LIT_v 'v'
+#define _LIT_w 'w'
+#define _LIT_x 'x'
+#define _LIT_y 'y'
+#define _LIT_z 'z'
+
+//  QUOTE(x) gets 'x'
+#define QUOTE(a) _LIT_##a
+
+#define OPT_A 01
+#define OPT_B 02
+#define OPT_C 04
+#define OPT_D 010
+#define OPT_E 020
+#define OPT_F 040
+#define OPT_G 0100
+#define OPT_H 0200
+#define OPT_I 0400
+#define OPT_J 01000
+#define OPT_K 02000
+#define OPT_L 04000
+#define OPT_M 010000
+#define OPT_N 020000
+#define OPT_O 040000
+#define OPT_P 0100000
+#define OPT_Q 0200000
+#define OPT_R 0400000
+#define OPT_S 01000000
+#define OPT_T 02000000
+#define OPT_U 04000000
+#define OPT_V 010000000
+#define OPT_W 020000000
+#define OPT_X 040000000
+#define OPT_Y 0100000000
+#define OPT_Z 0200000000
+#define OPT_a 0400000000
+#define OPT_b 01000000000
+#define OPT_c 02000000000
+#define OPT_d 04000000000
+#define OPT_e 010000000000
+#define OPT_f 020000000000
+#define OPT_g 040000000000
+#define OPT_h 0100000000000
+#define OPT_i 0200000000000
+#define OPT_j 0400000000000
+#define OPT_k 01000000000000
+#define OPT_l 02000000000000
+#define OPT_m 04000000000000
+#define OPT_n 010000000000000
+#define OPT_o 020000000000000
+#define OPT_p 040000000000000
+#define OPT_q 0100000000000000
+#define OPT_r 0200000000000000
+#define OPT_s 0400000000000000
+#define OPT_t 01000000000000000
+#define OPT_u 02000000000000000
+#define OPT_v 04000000000000000
+#define OPT_w 010000000000000000
+#define OPT_x 020000000000000000
+#define OPT_y 040000000000000000
+#define OPT_z 0100000000000000000
 
 void setopt( char c, long *opts ){
 	if ( c>= 'A' && c <= 'X' )
@@ -97,16 +208,17 @@ int de_match(const struct dirent *de){
 
 typedef struct listcolor{
 	int mode;
-	char* color;
 	char c;
+	//char align;
+	char* color;
 } _listcolor;
 
 struct listcolor colors[] = {
-	{S_IFDIR,AC_BLUE,'d'},
-	{0111,AC_LGREEN,'-'}, // executable
-	{S_IFIFO,AC_BROWN,'p'},
-	{S_IFBLK,AC_YELLOW,'b'},
-	{S_IFCHR,AC_YELLOW,'c'},
+	{S_IFDIR,'d',AC_BLUE},
+	{0111,'-'   ,AC_LGREEN}, // executable
+	{S_IFIFO,'p',AC_BROWN},
+	{S_IFBLK,'b',AC_YELLOW},
+	{S_IFCHR,'c',AC_YELLOW},
 	{0},
 };
 
@@ -164,8 +276,8 @@ void printlist(const char* path,struct dirent **list,int count,long opts){
 
 
 
-		prints(permstring);
-		printf(" %s%s%s %d\n",color,list[a]->d_name,AC_NORM,st.st_size);
+		//prints(permstring);
+		printf("%s %s%s%s %d\n",permstring,color,list[a]->d_name,AC_NORM,st.st_size);
 	}
 }
 
@@ -198,7 +310,7 @@ int listdir(const char* dir,long opts){
 	int (*cmp)(const void*,const void*)= 
 		(int(*)(const void*,const void*))alphasort;
 
-	if ( opt( 'r', opts ) != 0 ){
+	if ( opts & OPT_r ){
 		cmp=alphasort_r;
 	}
 	qsort( list, r, sizeof(POINTER), cmp );
@@ -214,18 +326,19 @@ int listdir(const char* dir,long opts){
 int main(int argc, char **argv){
 
 	long opts = 0;
-	// define to something other for parsing the docu
+	// define to something other for parsing docu
 #ifndef OPT
-#define OPT(flag,desc,code) case flag: setopt(flag,&opts); code; break;
+#define OPT(flag,desc,code) case QUOTE(flag): opts |= OPT_##flag; code; break;
+//#define OPT(flag,desc,code) case flag: setopt(flag,&opts); code; break;
 #endif
 
 	for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
 		for ( char *c = argv[0]+1; *c != 0; c++ ){
 			switch ( *c ){
-				OPT('h',"Show usage",usage());
-				OPT('r',"reverse order",);
-				OPT('S',"Sort by size",);
-				OPT('l',"Show extended info",);
+				OPT(h,"Show usage",usage());
+				OPT(r,"reverse order",);
+				OPT(S,"Sort by size",);
+				OPT(l,"Show extended info",);
 				default:
 					usage();
 			} 

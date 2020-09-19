@@ -254,9 +254,13 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
                (src/dtodec.c: 10)
 
+endgrent       void endgrent();
+
+               (src/userdb/getgrgid.c: 11)
+
 endpwent       void endpwent();
 
-               (src/getpwuid.c: 37)
+               (src/userdb/endpwent.c: 3)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
@@ -823,31 +827,35 @@ getbrk         static long getbrk();
               or returns the globally saved var
                (src/brk.c: 48)
 
+getgrent       struct group* getgrent();
+
+               (src/userdb/getgrgid.c: 15)
+
 getgrgid       struct group* getgrgid( int gid);
 
-               (src/getgrgid.c: 7)
+               (src/userdb/getgrgid.c: 21)
 
 getgrnam       struct group* getgrnam(const char* name);
 
-               (src/getgrgid.c: 15)
+               (src/userdb/getgrgid.c: 29)
 
 getpwent       struct passwd* getpwent();
 
-               (src/getpwuid.c: 13)
+               (src/userdb/getpwent.c: 4)
 
 getpwnam       struct passwd *getpwnam(const char* name);
 
                get the passwd entry of the user "name".
               the last result is cached, multiple calls with the same
               name will return the cached result.
-               (src/getpwuid.c: 90)
+               (src/userdb/getpwnam.c: 7)
 
 getpwuid       struct passwd *getpwuid(uid_t uid);
 
                get the passwd entry of the user with uid.
               the last result is cached, multiple calls with the same
               uid will return the cached result.
-               (src/getpwuid.c: 47)
+               (src/userdb/getpwuid.c: 7)
 
 grantpt        int grantpt(int fd);
 
@@ -1032,11 +1040,11 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 104)
+               (include/minilib_global.h: 109)
 
 passwdfile_openint passwdfile_open();
 
-               (src/passwdfile_open.c: 3)
+               (src/userdb/passwdfile_open.c: 3)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -1129,9 +1137,13 @@ seterrno       #ifdef mini_errno
                set errno, but only when errno is defined.
                (include/seterrno.h: 3)
 
+setgrent       void setgrent();
+
+               (src/userdb/getgrgid.c: 7)
+
 setpwent       void setpwent();
 
-               (src/getpwuid.c: 7)
+               (src/userdb/setpwent.c: 3)
 
 shortcolornames
 
@@ -1171,13 +1183,24 @@ term_width     int term_width();
 
 token_i        int token_i( char **p );
 
-               (src/userdb.c: 22)
+               (src/userdb.c: 33)
 
 token_s        char *token_s( char **p );
 
                tokenizer for the passwd/group files.
               used by the group/user pwentry access functions.
-               (src/userdb.c: 8)
+              performance of subsequent calls could be improved by replacing all ':' and '\n'
+              by 0's when loading the db file.
+              it would be possible as well, testing not only single bytes, but
+              integers of longs at once. However, in most cases, e.g.
+              for big directories with many small files, in most cases 
+              all files do have the same owner and group. Since the last result to calls
+              of the access functions is cached,
+              there wouldn't be an improvement by optimizing the tokenizing functions.
+              So I'm leaving this for now, as it is.
+              And most possibly it would be better to implement bsd's cached versions 
+              of the user db access functions instead. 
+               (src/userdb.c: 19)
 
 uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter );
 
