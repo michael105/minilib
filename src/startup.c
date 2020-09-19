@@ -54,7 +54,7 @@ mlgl->atexitp[0]=0;
 #endif
 
 #ifdef mini_pwent
-mlgl->passwdfile = 0;
+mlgl->passwdfile.file = 0;
 mlgl->pwent.pw_name = 0;
 #endif
 

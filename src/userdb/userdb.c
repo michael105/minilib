@@ -16,9 +16,9 @@
 // And most possibly it would be better to implement bsd's cached versions 
 // of the user db access functions instead. 
 //+def 
-char *token_s( char **p ){
+char *token_s( userdb *udb, char **p ){
 	char *ptmp = *p;
-	while ( (*p < mlgl->passwdfile+mlgl->passwdfilesize) &&  **p) { 
+	while ( (*p < udb->file+udb->size) &&  **p) { 
 		if ( **p == ':' || **p == '\n' ){
 			**p = 0;
 		} else {
@@ -30,10 +30,10 @@ char *token_s( char **p ){
 }
 
 //+def
-int token_i( char **p ){
+int token_i( userdb* udb, char **p ){
 	int i = 0;
 
-	while ( (*p < mlgl->passwdfile+mlgl->passwdfilesize) && **p>='0' && **p <= '9' ){
+	while ( (*p < udb->file+udb->size) && **p>='0' && **p <= '9' ){
 		//euid = euid*10 + (*puid-'0');
 		i += i + (i<<3) + (**p-'0');
 		(*p)++;

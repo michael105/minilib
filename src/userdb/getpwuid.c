@@ -2,11 +2,11 @@
 // the last result is cached, multiple calls with the same
 // uid will return the cached result.
 //+cat userdb
-//+depends pwent mmap passwdfile_open ewrites open token_s token_i setpwent
+//+depends pwent mmap passwdfile_open ewrites open token_s  token_i setpwent
 //+def
 struct passwd *getpwuid(uid_t uid){
-	if ( !mlgl->passwdfile ){
-		if ( !passwdfile_open() ) 
+	if ( !mlgl->passwdfile.file ){
+		if ( !userdb_open(&mlgl->passwdfile,PASSWDFILE) ) 
 			return(0);
 	} else {
 		// return "cached" entry 
@@ -14,30 +14,30 @@ struct passwd *getpwuid(uid_t uid){
 		return( &mlgl->pwent );
 	}
 
-	char *p = mlgl->passwdfile;
+	char *p = mlgl->passwdfile.file;
 
 	do {
-		char *pw_name = token_s(&p);
-		char *pw_passwd = token_s(&p);
+		char *pw_name = token_s( &mlgl->passwdfile,&p);
+		char *pw_passwd = token_s( &mlgl->passwdfile,&p);
 
-		int euid = token_i(&p);
+		int euid = token_i( &mlgl->passwdfile,&p);
 
 		//printf("euid: %d\n",euid);
 		if ( euid == uid ){ // found
 			mlgl->pwent.pw_name = pw_name;
 			mlgl->pwent.pw_passwd = pw_passwd;
 			mlgl->pwent.pw_uid = euid;
-			mlgl->pwent.pw_gid = token_i(&p);
-			mlgl->pwent.pw_gecos = token_s(&p);
-			mlgl->pwent.pw_dir = token_s(&p);
-			mlgl->pwent.pw_shell = token_s(&p);
+			mlgl->pwent.pw_gid = token_i( &mlgl->passwdfile,&p);
+			mlgl->pwent.pw_gecos = token_s( &mlgl->passwdfile,&p);
+			mlgl->pwent.pw_dir = token_s( &mlgl->passwdfile,&p);
+			mlgl->pwent.pw_shell = token_s( &mlgl->passwdfile,&p);
 			return(&mlgl->pwent);
 		}
 
 		for ( int a = 0; a<4; a++ )
-			token_s(&p);
+			token_s( &mlgl->passwdfile,&p);
 
-	} while ( p < (mlgl->passwdfile+mlgl->passwdfilesize) );
+	} while ( p < (mlgl->passwdfile.file+mlgl->passwdfile.size) );
 
 	return(0); // not found
 }

@@ -1,25 +1,25 @@
 //+depends globals pwent ewrites
 //+def
-int passwdfile_open(){
+int userdb_open(userdb *udb, const char* file){
 
-	if ( mlgl->passwdfile )
+	if ( udb->file )
 		return(1);
 
-	int fd = open( PASSWDFILE, O_RDONLY );
+	int fd = open( file, O_RDONLY );
 	if ( fd<=0 ){
-		ewrites("Couldn't access " PASSWDFILE "\n" );
+		ewrites("Error opening passwdfile/group" );
 		return(0);
 	}
 	struct stat ststat;
 	fstat(fd, &ststat );
 	// map to memory, copy on write
-	mlgl->passwdfile = mmap( 0, ststat.st_size, PROT_READ | PROT_WRITE, 
+	udb->file = mmap( 0, ststat.st_size, PROT_READ | PROT_WRITE, 
 			MAP_PRIVATE, fd, 0 );
 
 	close(fd);
 
-	mlgl->passwdfilesize = ststat.st_size;
-	mlgl->passwd_p = mlgl->passwdfile;
+	udb->size = ststat.st_size;
+	udb->p = udb->file;
 
 	return(1);
 }
