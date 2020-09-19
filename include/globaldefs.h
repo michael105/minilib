@@ -228,7 +228,7 @@ typedef struct passwd {
 typedef struct group {
 	char   *gr_name;        /* group name */
 	char   *gr_passwd;      /* group password */
-	sgid_t   gr_gid;         /* group ID */
+	igid_t   gr_gid;         /* group ID */
 	char  *gr_mem[MAX_GROUPMEMBERS];         /* NULL-terminated array of pointers
 														 to names of group members */
 }_group;

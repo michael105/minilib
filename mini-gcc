@@ -202,7 +202,7 @@ before options and parameters for gcc.
 		exit
 }
 
-colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}"'
+colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
 
 exec_gcc(){
 		opt_args='$@'
