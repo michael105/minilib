@@ -76,6 +76,17 @@ struct utimbuf{
 
 #define BUFSIZ 1024
 
+//+cat userdb
+//+doc The maximum number of users, 
+// which are within a group.
+// used for the allocation of the array gr_mem.
+// default: 64
+//+def max_groupmembers
+#ifndef mini_max_groupmembers
+#define mini_max_groupmembers 64
+#endif
+
+#define MAX_GROUPMEMBERS mini_max_groupmembers
 
 //+def
 typedef int FILE;
@@ -218,7 +229,7 @@ typedef struct group {
 	char   *gr_name;        /* group name */
 	char   *gr_passwd;      /* group password */
 	gid_t   gr_gid;         /* group ID */
-	char  **gr_mem;         /* NULL-terminated array of pointers
+	char  *gr_mem[MAX_GROUPMEMBERS];         /* NULL-terminated array of pointers
 														 to names of group members */
 }_group;
 

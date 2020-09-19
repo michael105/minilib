@@ -58,6 +58,12 @@ mlgl->passwdfile.file = 0;
 mlgl->pwent.pw_name = 0;
 #endif
 
+#ifdef mini_groupfile
+mlgl->groupfile.file = 0;
+mlgl->pwent.pw_name = 0;
+#endif
+
+
 	mlgl->brk=0;
 	mlgl->malloc_start=0;
 	

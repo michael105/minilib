@@ -13,13 +13,14 @@ int userdb_open(userdb *udb, const char* file){
 	struct stat ststat;
 	fstat(fd, &ststat );
 	// map to memory, copy on write
-	udb->file = mmap( 0, ststat.st_size, PROT_READ | PROT_WRITE, 
+	udb->file = mmap( 0, ststat.st_size * 2, PROT_READ | PROT_WRITE, 
 			MAP_PRIVATE, fd, 0 );
 
 	close(fd);
 
-	udb->size = ststat.st_size;
 	udb->p = udb->file;
+	udb->size = ststat.st_size;
+	udb->cache = udb->file+ststat.st_size;
 
 	return(1);
 }
