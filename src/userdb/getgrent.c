@@ -12,6 +12,7 @@ struct group* getgrent(){
 
 		//printsl("dgb");
 	char *p = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
+	//if ( *mlgl->groupfile.p2 < p ){ TODO
 	if ( *mlgl->groupfile.p2 == 0 ){
 		//printsl("dgb");
 		//printsl(p);
