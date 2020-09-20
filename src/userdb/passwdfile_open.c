@@ -20,10 +20,12 @@ int userdb_open(userdb *udb, const char* file){
 
 	udb->p = udb->file;
 	udb->size = ststat.st_size;
+	printsl("1");
 	udb->p2 = udb->file+ststat.st_size;
-	for ( char *p = udb->p2; p<udb->file+ ststat.st_size*2; p++ ){
-		*p=0;
-	}
+	printsl("1");
+//	for ( char *p = udb->p2; p<udb->file+ ststat.st_size*2; p++ ){
+//		*p=0;
+//	}
 
 	return(1);
 }
