@@ -54,7 +54,7 @@ struct group* getgrent(){
 	} else {
 		do {
 			mlgl->groupent.gr_mem[count] = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
-			printsl( "member: ",mlgl->groupent.gr_mem[count] );
+			//printsl( "member: ",mlgl->groupent.gr_mem[count] );
 			count++;
 			if ( count >= MAX_GROUPMEMBERS ){
 				ewrites("Error: too many groupmembers. 2\n");
