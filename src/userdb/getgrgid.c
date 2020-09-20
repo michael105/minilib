@@ -2,15 +2,6 @@
 #define mini_getgrgid_d
 
 //TODO
-
-//+def
-void setgrent(){
-}
-
-//+def
-void endgrent(){
-}
-
 //+def
 struct group* getgrgid( int gid){
 

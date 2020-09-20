@@ -256,7 +256,7 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
 endgrent       void endgrent();
 
-               (src/userdb/getgrgid.c: 11)
+               (src/userdb/endgrent.c: 3)
 
 endpwent       void endpwent();
 
@@ -833,7 +833,7 @@ getgrent       struct group* getgrent();
 
 getgrgid       struct group* getgrgid( int gid);
 
-               (src/userdb/getgrgid.c: 15)
+               (src/userdb/getgrgid.c: 6)
 
 getgrnam       struct group *getgrnam(const char* name);
 

@@ -479,9 +479,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  118 </small></td><td><small> dup3(int oldfd, int newfd, int flags)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">endgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> void endgrent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">endgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void endgrent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  3 </small></td><td><small> void endpwent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../src/userdb/endgrent.c" target="right">../src/userdb/endgrent.c</a>  3 </small></td><td><small> void endpwent();
 </small></td></tr>
 <tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../src/userdb/endpwent.c" target="right">../src/userdb/endpwent.c</a>  58 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. Needs strlen
@@ -1118,7 +1118,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> struct group* getgrent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../src/userdb/getgrent.c" target="right">../src/userdb/getgrent.c</a>  15 </small></td><td><small> struct group* getgrgid( int gid);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../src/userdb/getgrent.c" target="right">../src/userdb/getgrent.c</a>  6 </small></td><td><small> struct group* getgrgid( int gid);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrnam</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  7 </small></td><td><small> struct group *getgrnam(const char* name);
 </small></td></tr><tr><td></td><td colspan="2"><small>get the group entry of the group "name".

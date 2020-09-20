@@ -15,7 +15,7 @@ mini_setgrent
 mini_getgrnam
 
 mini_getpwent
-mini_endpwent
+mini_endgrent
 
 mini_INCLUDESRC
 STRIPFLAG
@@ -55,6 +55,25 @@ int main( int argc, char *argv[], char *envp[] ){
 		dumpgr(gr);
 
 		gr=getgrnam("micha");
+		dumpgr(gr);
+
+		gr=getgrnam("bin");
+		dumpgr(gr);
+
+		endgrent();
+
+		gr=getgrnam("bin");
+		dumpgr(gr);
+		gr=getgrnam("bin");
+		dumpgr(gr);
+
+		gr=getgrnam("root");
+		dumpgr(gr);
+
+		gr=getgrnam("micha");
+		dumpgr(gr);
+
+		gr=getgrnam("bin");
 		dumpgr(gr);
 
 
