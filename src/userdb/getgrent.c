@@ -17,7 +17,7 @@ struct group* getgrent(){
 		//printsl(p);
 		*mlgl->groupfile.p2 = p;
 		*mlgl->groupfile.p2++;
-		*mlgl->groupfile.p2 = 0;
+		//*mlgl->groupfile.p2 = 0; mmap sets to 0. according to the manpage
 	} else {
 		//printsl("no - dbg");
 		*mlgl->groupfile.p2++;

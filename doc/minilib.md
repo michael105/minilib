@@ -835,9 +835,12 @@ getgrgid       struct group* getgrgid( int gid);
 
                (src/userdb/getgrgid.c: 15)
 
-getgrnam       struct group* getgrnam(const char* name);
+getgrnam       struct group *getgrnam(const char* name);
 
-               (src/userdb/getgrnam.c: 3)
+               get the group entry of the group "name".
+              the last result is cached, multiple calls with the same
+              name will return the cached result.
+               (src/userdb/getgrnam.c: 7)
 
 getpwent       struct passwd* getpwent();
 
@@ -1048,7 +1051,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 123)
+               (include/minilib_global.h: 124)
 
 posix_openpt   int posix_openpt(int flags);
 
