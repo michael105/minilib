@@ -57,7 +57,7 @@
 typedef struct {
 	char* file;
 	char* p;
-	char* p2;
+	char** p2;
 	int size;
 } userdb;
 
