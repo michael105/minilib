@@ -13,13 +13,13 @@ struct group* getgrent(){
 		//printsl("dgb");
 	char *p = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
 	if ( *mlgl->groupfile.p2 == 0 ){
-		printsl("dgb");
+		//printsl("dgb");
 		//printsl(p);
 		*mlgl->groupfile.p2 = p;
 		*mlgl->groupfile.p2++;
 		*mlgl->groupfile.p2 = 0;
 	} else {
-		printsl("no - dbg");
+		//printsl("no - dbg");
 		*mlgl->groupfile.p2++;
 	}
 
