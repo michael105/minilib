@@ -76,6 +76,18 @@ int main( int argc, char *argv[], char *envp[] ){
 		gr=getgrnam("bin");
 		dumpgr(gr);
 
+printsl("================");
+
+		gr=getgrnam("micha");
+		dumpgr(gr);
+
+printsl("================");
+
+		mlgl->groupfile.p2 = mlgl->groupfile.file+mlgl->groupfile.size;
+
+		for ( char *p = *mlgl->groupfile.p2; p; p=*(++mlgl->groupfile.p2)){
+			printsl(p);
+		}
 
 
 		return(0);
