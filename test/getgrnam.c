@@ -83,7 +83,7 @@ printsl("================");
 
 printsl("================");
 
-		mlgl->groupfile.p2 = mlgl->groupfile.file+mlgl->groupfile.size;
+		mlgl->groupfile.p2 = (char**)(mlgl->groupfile.file+mlgl->groupfile.size);
 
 		for ( char *p = *mlgl->groupfile.p2; p; p=*(++mlgl->groupfile.p2)){
 			printsl(p);
@@ -92,6 +92,12 @@ printsl("================");
 printsl("================");
 
 		gr=getgrnam("bin");
+		dumpgr(gr);
+
+			gr=getgrnam("wheel");
+		dumpgr(gr);
+
+	gr=getgrnam("portage");
 		dumpgr(gr);
 
 
