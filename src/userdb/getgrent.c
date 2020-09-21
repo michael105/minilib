@@ -10,17 +10,19 @@ struct group* getgrent(){
 	if ( mlgl->groupfile.p >= (mlgl->groupfile.file+mlgl->groupfile.size) )
 		return(0);
 
+	int b = 0;
 		//printsl("dgb");
 	char *p = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
 	//if ( *mlgl->groupfile.p2 < p ){ TODO
-	if ( *mlgl->groupfile.p2 == 0 ){
-		//printsl("dgb");
+	if ( 0 && *mlgl->groupfile.p2 == 0 ){
+		printsl("dgb1");
 		//printsl(p);
 		*mlgl->groupfile.p2 = p;
 		*mlgl->groupfile.p2++;
+		b = 1;
 		//*mlgl->groupfile.p2 = 0; mmap sets to 0. according to the manpage
 	} else {
-		//printsl("no - dbg");
+		printsl("no - dbg");
 		*mlgl->groupfile.p2++;
 	}
 
@@ -33,7 +35,7 @@ struct group* getgrent(){
 
 	int count = 0;
 
-	if ( *mlgl->groupfile.p2==0){
+	if ( *mlgl->groupfile.p2 == 0 ){
 		char* members =  token_s( &mlgl->groupfile,&mlgl->groupfile.p);
 		char *mbr = members;
 
@@ -52,7 +54,11 @@ struct group* getgrent(){
 			}
 			members++;
 		}
+		*mlgl->groupfile.p2 = p;
+		*mlgl->groupfile.p2++;
 	} else {
+
+		*mlgl->groupfile.p2++;
 		do {
 			mlgl->groupent.gr_mem[count] = token_s( &mlgl->groupfile,&mlgl->groupfile.p);
 			//printsl( "member: ",mlgl->groupent.gr_mem[count] );
@@ -61,6 +67,7 @@ struct group* getgrent(){
 				ewrites("Error: too many groupmembers. 2\n");
 				return(0);
 			}
+			printsl("group l ",mlgl->groupfile.p,"  ",*mlgl->groupfile.p2 );
 
 		} while ( mlgl->groupfile.p < *mlgl->groupfile.p2 );
 	}
