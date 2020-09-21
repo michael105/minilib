@@ -1238,7 +1238,7 @@ unmap_protectedint unmap_protected(void *p, int len);
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
 
-               (src/userdb/passwdfile_open.c: 3)
+               (src/userdb/userdb_open.c: 3)
 
 verbose_errstr const char* verbose_errstr(int num);
 
