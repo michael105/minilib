@@ -89,6 +89,12 @@ printsl("================");
 			printsl(p);
 		}
 
+printsl("================");
+
+		gr=getgrnam("bin");
+		dumpgr(gr);
+
+
 
 		return(0);
 }
