@@ -435,7 +435,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  36 </small></td><td><small> int  creat( const char *s, int mode );
+<tr valign="top"><td><small>config</small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  4 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>configuration,
+  paths, maximums, etc go here.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  36 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
 <tr valign="top"><td><small>def</small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
@@ -1381,7 +1385,7 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  85 </small></td><td><small> #ifndef mini_max_groupmembers
+<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  83 </small></td><td><small> #ifndef mini_max_groupmembers
 </small></td></tr><tr><td></td><td colspan="2"><small>The maximum number of users, 
   which are within a group.
   used for the allocation of the array gr_mem.
@@ -1504,7 +1508,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/putenv.c" target="right">../src/putenv.c</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  215 </small></td><td><small> 
+<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  213 </small></td><td><small> 
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 </small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine

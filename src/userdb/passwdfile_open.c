@@ -1,4 +1,4 @@
-//+depends globals pwent ewrites
+//+depends globals ewrites
 //+def
 int userdb_open(userdb *udb, const char* file){
 

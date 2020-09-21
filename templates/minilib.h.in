@@ -1,5 +1,6 @@
 /* templates/minilib.h.in */
 
+#include "minilib/include/config.h"
 
 #include "minilib/include//utils.h"
 

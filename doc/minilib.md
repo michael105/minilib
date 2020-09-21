@@ -202,6 +202,12 @@ clone_t        int clone_t(int flags);
 
                (src/clone.c: 7)
 
+config         
+
+               configuration,
+              paths, maximums, etc go here.
+               (include/config.h: 4)
+
 def            #define SETOPT_short( opts, option ) (;
 
                Set a option flag(s) (bit(s))  manually.
@@ -1008,7 +1014,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 85)
+               (include/globaldefs.h: 83)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1108,7 +1114,7 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 215)
+               (include/globaldefs.h: 213)
 
 ret_errno      #ifdef mini_errno
 
