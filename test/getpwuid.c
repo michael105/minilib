@@ -16,6 +16,8 @@ mini_getpwnam
 mini_getpwent
 mini_endpwent
 
+define PASSWDFILE \"./data/passwd\"
+
 mini_INCLUDESRC
 STRIPFLAG
 OPTFLAG -Os
