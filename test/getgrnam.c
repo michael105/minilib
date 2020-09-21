@@ -85,9 +85,9 @@ printsl("================");
 
 		mlgl->groupfile.p2 = (char**)(mlgl->groupfile.file+mlgl->groupfile.size);
 
-		for ( char *p = *mlgl->groupfile.p2; p; p=*(++mlgl->groupfile.p2)){
-			printsl(p);
-		}
+		//for ( char *p = *mlgl->groupfile.p2; p; p=*(++mlgl->groupfile.p2)){
+		//	printsl(p);
+		//}
 
 printsl("================");
 

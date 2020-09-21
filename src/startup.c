@@ -60,7 +60,7 @@ mlgl->pwent.pw_name = 0;
 
 #ifdef mini_groupfile
 mlgl->groupfile.file = 0;
-mlgl->pwent.pw_name = 0;
+mlgl->grent.gr_name = 0;
 #endif
 
 

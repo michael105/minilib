@@ -21,9 +21,7 @@
 #define size_t long
 #endif
 
-#define PATH_MAX 4096
 
-#define FOPEN_MAX 16
 
 #ifndef SEEK_SET
 #define SEEK_SET        0       /* seek relative to beginning of file */
@@ -223,7 +221,6 @@ typedef struct passwd {
 	char   *pw_shell;      /* shell program */
 } _passwd;
 
-#define PASSWDFILE "/etc/passwd"
 
 typedef struct group {
 	char   *gr_name;        /* group name */
@@ -233,7 +230,6 @@ typedef struct group {
 														 to names of group members */
 }_group;
 
-#define GROUPFILE "/etc/group"
 
 #define FD_ZERO(s) do { int __i; unsigned long *__b=(s)->fds_bits; for(__i=sizeof (fd_set)/sizeof (long); __i; __i--) *__b++=0; } while(0)
 #define FD_SET(d, s)   ((s)->fds_bits[(d)/(8*sizeof(long))] |= (1UL<<((d)%(8*sizeof(long)))))
@@ -241,10 +237,6 @@ typedef struct group {
 #define FD_ISSET(d, s) !!((s)->fds_bits[(d)/(8*sizeof(long))] & (1UL<<((d)%(8*sizeof(long)))))
 
 // end of musl 
-
-#define LOGIN_NAME_MAX 256
-#define HOST_NAME_MAX 64
-
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
 
