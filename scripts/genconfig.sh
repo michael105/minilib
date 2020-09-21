@@ -97,6 +97,9 @@ mini_globals(){
 		echo "#define mini_globals"
 }
 
+define(){
+	echo "#define" $1 $2
+}
 
 # Everything below will be silently overwritten,
 # when make header ist invoked
