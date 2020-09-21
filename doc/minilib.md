@@ -831,9 +831,12 @@ getgrent       struct group* getgrent();
 
                (src/userdb/getgrent.c: 4)
 
-getgrgid       struct group* getgrgid( int gid);
+getgrgid       struct group *getgrgid(gid_t gid);
 
-               (src/userdb/getgrgid.c: 6)
+               get the group entry of the group "gid".
+              the last result is cached, multiple calls with the same
+              name will return the cached result.
+               (src/userdb/getgrgid.c: 7)
 
 getgrnam       struct group *getgrnam(const char* name);
 
