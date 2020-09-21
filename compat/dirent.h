@@ -117,11 +117,11 @@ long telldir(DIR *dir);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/dirent/scandir.c"
+#include "minilib/src/dirent/closedir.c"
 #include "minilib/src/dirent/opendir.c"
 #include "minilib/src/dirent/telldir.c"
 #include "minilib/src/dirent/readdir.c"
-#include "minilib/src/dirent/closedir.c"
+#include "minilib/src/dirent/scandir.c"
 #include "minilib/src/dirent/rewinddir.c"
 #include "minilib/src/dirent/seekdir.c"
 

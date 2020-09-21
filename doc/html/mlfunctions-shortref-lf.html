@@ -1118,8 +1118,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> struct group* getgrent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../src/userdb/getgrent.c" target="right">../src/userdb/getgrent.c</a>  6 </small></td><td><small> struct group* getgrgid( int gid);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrgid</a></small></td><td><small>   <a href="../src/userdb/getgrent.c" target="right">../src/userdb/getgrent.c</a>  7 </small></td><td><small> struct group *getgrgid(gid_t gid);
+</small></td></tr><tr><td></td><td colspan="2"><small>get the group entry of the group "gid".
+  the last result is cached, multiple calls with the same
+  name will return the cached result.
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">getgrnam</a></small></td><td><small>   <a href="../src/userdb/getgrgid.c" target="right">../src/userdb/getgrgid.c</a>  7 </small></td><td><small> struct group *getgrnam(const char* name);
 </small></td></tr><tr><td></td><td colspan="2"><small>get the group entry of the group "name".
   the last result is cached, multiple calls with the same
