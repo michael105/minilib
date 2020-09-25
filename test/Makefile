@@ -10,7 +10,7 @@ PROGCUSTOM=fopen malloc fprintf select fputs fgets
 MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 					hashes sigaction realloc sendfile div ltodec globals atexit \
 					strerror mallocstack strtol abort putenv strcmp match substmatch \
-					getpwuid getgrgid getgrnam
+					getpwuid getgrgid getgrnam getgroups
 
 MINIGCC=rand sleep execve strdup
 

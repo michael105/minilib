@@ -1,5 +1,5 @@
 //+doc get the groups of the calling process
-//+depends getpwuid setgrent strcmp
+//+depends getpwuid setgrent strcmp grent pwent
 //+def
 int getgroups(int maxgroups, int *list){
 	int uid = getuid();
@@ -18,7 +18,7 @@ int getgroups(int maxgroups, int *list){
 			return(groups);
 		int a=0;
 		for ( char* u=*gr->gr_mem;u;u=gr->gr_mem[++a] ){
-			printsl( "u ",u );
+			//printsl( "u ",u );
 			if ( strcmp( u,user->pw_name ) == 0 ){
 				*list=gr->gr_gid;
 				list++;

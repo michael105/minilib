@@ -18,8 +18,8 @@ cdrom:x:19:
 dialout:x:20:
 tape:x:26:root
 video:x:27:root
-cdrw:x:80:
-usb:x:85:
+cdrw:x:80:micha
+usb:x:85:micha
 input:x:97:micha
 users:x:100:
 portage:x:250:portage
