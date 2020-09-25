@@ -120,6 +120,9 @@ static inline int execvp(const char *file, char *const argv[]);
 #include "minilib/include/tcgetattr.h"
 // file: minilib/include/tcsetattr.h
 #include "minilib/include/tcsetattr.h"
+// file: minilib/src/userdb/getgroups.c
+int getgroups(int maxgroups, int *list);
+
 
 
 #include "include/minilib_global.h"
@@ -127,8 +130,9 @@ static inline int execvp(const char *file, char *const argv[]);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/execvp.c"
 #include "minilib/src/execl.c"
+#include "minilib/src/execvp.c"
+#include "minilib/src/userdb/getgroups.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

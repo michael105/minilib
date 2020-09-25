@@ -1132,7 +1132,10 @@
   the last result is cached, multiple calls with the same
   name will return the cached result.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getgroups.2.rst.html">getgroups</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  4 </small></td><td><small> int getgroups(int maxgroups, int *list);
+</small></td></tr><tr><td></td><td colspan="2"><small>get the groups of the calling process
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgroups.c" target="right">../src/userdb/getgroups.c</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  190 </small></td><td><small> DEF_syscall(getpgrp,0)
 </small></td></tr>

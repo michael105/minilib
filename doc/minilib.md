@@ -2138,6 +2138,11 @@ execvpe        static int execvpe(const char *file, char *const argv[], char *co
               Looks for file in the PATH environment, othwerise.
                (src/execvp.c: 18)
 
+getgroups      int getgroups(int maxgroups, int *list);
+
+               get the groups of the calling process
+               (src/userdb/getgroups.c: 4)
+
 isatty         int isatty(int fd);
 
                (src/isatty.c: 5)
