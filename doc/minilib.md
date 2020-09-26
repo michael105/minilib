@@ -273,34 +273,34 @@ endpwent       void endpwent();
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 58)
+               (include/prints.h: 59)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
-               (include/prints.h: 106)
+               (include/prints.h: 127)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 67)
+               (include/prints.h: 68)
 
 eprints        #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stdout
               this macro has an variable argument count.
-               (include/prints.h: 25)
+               (include/prints.h: 26)
 
 eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 
                print the string(s) supplied as arg(s) and newline to stderr
-               (include/prints.h: 47)
+               (include/prints.h: 48)
 
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 77)
+               (include/prints.h: 78)
 
 errno_str      static char *errno_str(int err);
 
@@ -313,7 +313,13 @@ errno_str      static char *errno_str(int err);
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 88)
+               (include/prints.h: 89)
+
+ewritesl       #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
+
+               write the constant str to stderr, followed by a newline. 
+              Computes length with sizeof(str) at compile time.
+               (include/prints.h: 101)
 
 exit_errno     void exit_errno( int errnum );
 
@@ -811,7 +817,7 @@ fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
                print the string(s) supplied as arg(s) to stream
               this macro has an variable argument count.
-               (include/prints.h: 33)
+               (include/prints.h: 34)
 
 free_brk       int free_brk();
 
@@ -826,7 +832,13 @@ free_brk       int free_brk();
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
                write the constant str to fd. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 94)
+               (include/prints.h: 107)
+
+fwritesl       #define fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
+
+               write the constant str to fd,followed by a newline. 
+              Computes length with sizeof(str) at compile time.
+               (include/prints.h: 114)
 
 getbrk         static long getbrk();
 
@@ -1076,18 +1088,18 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 54)
+               (include/prints.h: 55)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
-               (include/prints.h: 100)
+               (include/prints.h: 121)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 63)
+               (include/prints.h: 64)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -1098,7 +1110,7 @@ prints         #define prints(...) _mprints(__VA_ARGS__,0)
 printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
                print the string(s) supplied as arg(s) and newline to stdout
-               (include/prints.h: 41)
+               (include/prints.h: 42)
 
 ptsname        char *ptsname(int fd);
 
@@ -1285,7 +1297,13 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 84)
+               (include/prints.h: 85)
+
+writesl        #define writesl(str) write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1)
+
+               write the constant str to stdout, followed by a newline. 
+              Computes length with sizeof(str) at compile time.
+               (include/prints.h: 95)
 
 
 
@@ -1721,15 +1739,21 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
               %l (modify a following d,u to long)
               %s: string
               %c: char
+              binary and hex output print the numbers, 
+              as they are internally stored(!).
+              Negative numbers are represented with the first sign bit set.
+              (e.g. -1 = 0xFFFFFFFF at x64)
               %b : binary output
+              %o : octal output
               %x/X : hex output (small/big capitals)
               %(: grouping
              
               For squeezing a few more bytes, and saving some checking;
-              writes(constant string) and print (variable string) are provided.
+              writes(constant string) and print (variable string), 
+              prints (formatted output of one or several strings) are provided.
              
               
-               (src/sprintf.c: 249)
+               (src/sprintf.c: 255)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -1811,7 +1835,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 73)
+               (include/prints.h: 74)
 
 rewind         static inline void rewind( FILE *f );
 

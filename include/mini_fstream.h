@@ -72,16 +72,16 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		return( close(fd) );
 }
 
-//+depends fprintf fileno snprintf
+//+depends fprintf fileno snprintf vsnprintf
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-//+depends fprintf fileno snprintf
+//+depends fprintf fileno snprintf vsnprintf
 //+macro
 #define fprint(...) fprintf(__VA_ARGS__)
 
 
-//+depends fprintf fileno snprintf
+//+depends fprintf fileno snprintf vsnprintf
 //+macro
 #define vfprintf(...) fprintf(__VA_ARGS__)
 
