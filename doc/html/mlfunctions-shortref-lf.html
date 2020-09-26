@@ -435,9 +435,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>config</small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  4 </small></td><td><small> 
-</small></td></tr><tr><td></td><td colspan="2"><small>configuration,
-  paths, maximums, etc go here.
+<tr valign="top"><td><small>config</small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  6 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>configuration to be compiled statically.
+  System specific paths, maximums, etc go here.
+  Other values are within globaldefs.h;
+  architecture specific values are within the folder headers.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  36 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
@@ -1132,8 +1134,12 @@
   the last result is cached, multiple calls with the same
   name will return the cached result.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getgroups.2.rst.html">getgroups</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  4 </small></td><td><small> int getgroups(int maxgroups, int *list);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getgroups.2.rst.html">getgroups</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  8 </small></td><td><small> int getgroups(int maxgroups, int *list);
 </small></td></tr><tr><td></td><td colspan="2"><small>get the groups of the calling process
+  does not necessarily contain the primary group,
+  which is given in the passwd entry.
+  This function calls internally setgrent() and getgrent();
+  therefore any iteration with getgrent will be resetted.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgroups.c" target="right">../src/userdb/getgroups.c</a>  216 </small></td><td><small> getitimer( int which,  struct itimerval *value)
 </small></td></tr>
@@ -1388,7 +1394,7 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  83 </small></td><td><small> #ifndef mini_max_groupmembers
+<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  82 </small></td><td><small> #ifndef mini_max_groupmembers
 </small></td></tr><tr><td></td><td colspan="2"><small>The maximum number of users, 
   which are within a group.
   used for the allocation of the array gr_mem.
@@ -1442,11 +1448,12 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  10 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  124 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  151 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
-  (noipa) means the compiler doesn't know, what the function itself does.
+  The function attribute noipa means,
+  the compiler doesn't know, what the function itself does.
   (the function does nothing, but don't tell that gcc, please..)
   therefore, everything used as parameter to this function,
   will be calculated, defined, and so on before.
@@ -1463,6 +1470,10 @@
   setting the optimization flag of _start to 0, 
   having a volatile asm call with the globals as param, and so on,
   have been useless. All after all, seems to me, ai has it's restrictions.
+ 
+  With less overhead the macro OPTFENCE(...) goes.
+  There the call to the "ipa" function is jumped over,
+  via asm inline instructions. 
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
@@ -1511,7 +1522,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/putenv.c" target="right">../src/putenv.c</a>  73 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  213 </small></td><td><small> 
+<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  212 </small></td><td><small> 
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 </small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine

@@ -30,6 +30,8 @@
 //#define mini_start
 //#define mini_exit
 
+#include "minilib/include/config.h"
+
 #include "minilib/macros/defgroups.h"
 
 #include "minilib/headers/common/allheaders.h"

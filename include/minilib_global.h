@@ -21,17 +21,36 @@
 #endif
 #endif
 
-#ifdef mini_getpwent
 #ifndef mini_pwent
+#ifdef mini_getpwent
+#define mini_pwent
+#endif
+#ifdef mini_getpwuid
+#define mini_pwent
+#endif
+#ifdef mini_getpwnam
+#define mini_pwent
+#endif
+#ifdef mini_setpwent
 #define mini_pwent
 #endif
 #endif
 
 
-#ifdef mini_getgrent
 #ifndef mini_grent
+#ifdef mini_getgrent
 #define mini_grent
 #endif
+#ifdef mini_getgrnam
+#define mini_grent
+#endif
+#ifdef mini_getgroups
+#define mini_grent
+#endif
+#ifdef mini_getgrgid
+#define mini_grent
+#endif
+
 #endif
 
 

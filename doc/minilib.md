@@ -204,9 +204,11 @@ clone_t        int clone_t(int flags);
 
 config         
 
-               configuration,
-              paths, maximums, etc go here.
-               (include/config.h: 4)
+               configuration to be compiled statically.
+              System specific paths, maximums, etc go here.
+              Other values are within globaldefs.h;
+              architecture specific values are within the folder headers.
+               (include/config.h: 6)
 
 def            #define SETOPT_short( opts, option ) (;
 
@@ -1014,7 +1016,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 83)
+               (include/globaldefs.h: 82)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1043,7 +1045,8 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
                prevent optimizations.
               cast a var to void*, and calling this,
               leaves the compiler unknown on what he can strip.
-              (noipa) means the compiler doesn't know, what the function itself does.
+              The function attribute noipa means,
+              the compiler doesn't know, what the function itself does.
               (the function does nothing, but don't tell that gcc, please..)
               therefore, everything used as parameter to this function,
               will be calculated, defined, and so on before.
@@ -1060,7 +1063,11 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               setting the optimization flag of _start to 0, 
               having a volatile asm call with the globals as param, and so on,
               have been useless. All after all, seems to me, ai has it's restrictions.
-               (include/minilib_global.h: 124)
+             
+              With less overhead the macro OPTFENCE(...) goes.
+              There the call to the "ipa" function is jumped over,
+              via asm inline instructions. 
+               (include/minilib_global.h: 151)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -1114,7 +1121,7 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 213)
+               (include/globaldefs.h: 212)
 
 ret_errno      #ifdef mini_errno
 
@@ -2141,7 +2148,11 @@ execvpe        static int execvpe(const char *file, char *const argv[], char *co
 getgroups      int getgroups(int maxgroups, int *list);
 
                get the groups of the calling process
-               (src/userdb/getgroups.c: 4)
+              does not necessarily contain the primary group,
+              which is given in the passwd entry.
+              This function calls internally setgrent() and getgrent();
+              therefore any iteration with getgrent will be resetted.
+               (src/userdb/getgroups.c: 8)
 
 isatty         int isatty(int fd);
 
