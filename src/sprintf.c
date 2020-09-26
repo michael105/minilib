@@ -234,12 +234,18 @@ msprintfout:
 // %l (modify a following d,u to long)
 // %s: string
 // %c: char
+// binary and hex output print the numbers, 
+// as they are internally stored(!).
+// Negative numbers are represented with the first sign bit set.
+// (e.g. -1 = 0xFFFFFFFF at x64)
 // %b : binary output
+// %o : octal output
 // %x/X : hex output (small/big capitals)
 // %(: grouping
 //
 // For squeezing a few more bytes, and saving some checking;
-// writes(constant string) and print (variable string) are provided.
+// writes(constant string) and print (variable string), 
+// prints (formatted output of one or several strings) are provided.
 //
 // 
 //+header stdio.h

@@ -18,6 +18,7 @@ extern int dprints(int fd, const char *msg,...);
 #define prints(...) _mprints(__VA_ARGS__,0)
 
 
+
 //+doc print the string(s) supplied as arg(s) to stdout
 // this macro has an variable argument count.
 //+depends dprints 
@@ -88,10 +89,30 @@ extern int dprints(int fd, const char *msg,...);
 //+macro ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
 
+//+depends write 
+//+doc write the constant str to stdout, followed by a newline. 
+// Computes length with sizeof(str) at compile time.
+//+macro writesl(str) write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1)
+
+
+//+depends write 
+//+doc write the constant str to stderr, followed by a newline. 
+// Computes length with sizeof(str) at compile time.
+//+macro ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
+
+
 
 //+depends write 
 //+doc write the constant str to fd. Computes length with sizeof(str) at compile time.
 //+macro fwrites(fd,str) write(fd,str,sizeof(str))
+
+
+
+//+depends write 
+//+doc write the constant str to fd,followed by a newline. 
+// Computes length with sizeof(str) at compile time.
+//+macro fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
+
 
 
 //+depends fprintfs fputs strlen
