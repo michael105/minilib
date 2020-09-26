@@ -129,7 +129,8 @@ OPTIMIZATIONS
 
                enable some optimizations,
               with a slitghtly bigger memory footprint.
-               (include/config.h: 28)
+              defaults to off
+               (include/config.h: 29)
 
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 

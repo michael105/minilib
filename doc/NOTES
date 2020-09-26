@@ -2,11 +2,9 @@
 
 
 OPTIMIZE
-adding comments, where optimzations would be useful.
-marked with OPTIMIZE
-In favour of size I'm leaving this for now.
-Add a compile switch mini_optimize ?
+added compile switch optimize.
 Add a compile switch for sse/mmx instructions?
+(todo: write optimized versions of memcpy, memset, et al)
 
 
 
@@ -107,7 +105,10 @@ next idea.
 way better. and stupidly simple.
 
 so boot, run and shutdown can be compiled.
-on the otherside. 
+ - better compile them separeted.
+ ->put them into the according folders
+
+needs a clean src/bin/runlevel structure
 
 
 
@@ -123,10 +124,11 @@ Most possibly the globals.
 
 Test: the stack address is known, 
 it's set by the ldscripts.
+(no. not known. stack randomization might
+be enabled on nearly all kernels)
 possibly drop the globals, instead 
 "push" the vars on the stack.
-
-I'm quite sure, either gcc or ld messes this up yet.
+(done)
 
 
 
@@ -153,6 +155,10 @@ Stackguard:
  Possibly I shouldn't add one at all.
 
  I already have some headache with fgets sort.
+ Security coniderations.
+
+ -> add a 'secured' buffer. 
+ (map protected, surrounded by guarded pages)
 
 
 Config system:
@@ -192,7 +198,7 @@ needed functions not.
 :/
 
 same with the config file generation for multiple source files.
-I do have to check that.
+have to check that.
 
 
 
