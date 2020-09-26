@@ -16,7 +16,7 @@ mini_getpwnam
 mini_getpwent
 mini_endpwent
 
-define PASSWDFILE \"./data/passwd\"
+source common.conf
 
 mini_INCLUDESRC
 STRIPFLAG

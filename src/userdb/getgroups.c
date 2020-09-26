@@ -1,4 +1,8 @@
 //+doc get the groups of the calling process
+// does not necessarily contain the primary group,
+// which is given in the passwd entry.
+// This function calls internally setgrent() and getgrent();
+// therefore any iteration with getgrent will be resetted.
 //+depends getpwuid setgrent strcmp grent pwent
 //+def
 int getgroups(int maxgroups, int *list){
