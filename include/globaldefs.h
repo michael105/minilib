@@ -45,7 +45,6 @@
 
 typedef struct _regex_match { char *pos; int len; } regex_match;
 
-#define mini_FOPEN_MAX 16
 
 #ifndef NULL
 #define NULL 0

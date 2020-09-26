@@ -39,7 +39,7 @@
 #ifdef mini_buf
 #if mini_buf > 0
 #else
-#warning setting mini_buf to 2048 Bytes
+#warning mini_buf defaults to 2048 Bytes
 #define mini_buf 2048
 #endif 
 #endif
