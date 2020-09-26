@@ -1,4 +1,4 @@
-//+doc configuration to be compiled statically.
+//+doc configuration settings, to be compiled statically.
 // System specific paths, maximums, etc go here.
 // Other values are within globaldefs.h;
 // architecture specific values are within the folder headers.
@@ -21,4 +21,8 @@
 
 // max open streams
 #define mini_FOPEN_MAX 16
+
+//+doc enable some optimizations,
+// with a slitghtly bigger memory footprint.
+//+def OPTIMIZATIONS
 
