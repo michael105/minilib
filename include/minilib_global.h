@@ -54,6 +54,8 @@
 #define mini_bufsize 0
 #endif
 
+// the structure keeping the files
+// passwd and group
 typedef struct {
 	char* file;
 	char* p;
@@ -78,6 +80,7 @@ typedef struct {
 		// intended to be used for globals,
 		// which can be located on the stack.
 		// just define a struct on stack,
+		// (e.g. within main),
 		// and set this pointer to the struct.
 		int stream[mini_FOPEN_MAX];
 #ifdef mini_pwent
@@ -103,7 +106,8 @@ typedef struct {
 //+doc prevent optimizations.
 // cast a var to void*, and calling this,
 // leaves the compiler unknown on what he can strip.
-// (noipa) means the compiler doesn't know, what the function itself does.
+// The function attribute noipa means,
+// the compiler doesn't know, what the function itself does.
 // (the function does nothing, but don't tell that gcc, please..)
 // therefore, everything used as parameter to this function,
 // will be calculated, defined, and so on before.
@@ -120,6 +124,10 @@ typedef struct {
 // setting the optimization flag of _start to 0, 
 // having a volatile asm call with the globals as param, and so on,
 // have been useless. All after all, seems to me, ai has it's restrictions.
+//
+// With less overhead the macro OPTFENCE(...) goes.
+// There the call to the "ipa" function is jumped over,
+// via asm inline instructions. 
 //+def optimization_fence
 static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
@@ -166,6 +174,11 @@ extern char **environ;
 
 #endif
 
+// when the global are located on the stack, 
+// (globals_on_stack), the position needs to be saved.
+// Using r15 for the position.
+// Locating all globals on the stack might only in some special cases
+// give advantages. (sparing the .data and .bss segments, for example)
 register minilib_globals __attribute__((used))*__restrict__ mlgl asm("r15");
 
 
