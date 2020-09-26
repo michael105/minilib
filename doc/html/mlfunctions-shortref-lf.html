@@ -24,7 +24,11 @@
   Volatile should be volatile for sure, not only sometimes.
   I mean, why the heck do I write volatile?? 
  </small></td></tr>
-<tr valign="top"><td><small>sys___sysctl</small></td><td><small>   <a href="../include/syscall.h" target="right">../include/syscall.h</a>  315 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>OPTIMIZATIONS</small></td><td><small>   <a href="../include/syscall.h" target="right">../include/syscall.h</a>  28 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>enable some optimizations,
+  with a slitghtly bigger memory footprint.
+ </small></td></tr>
+<tr valign="top"><td><small>sys___sysctl</small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  315 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__accept</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  91 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__accept4</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  551 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__access</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  47 </small></td><td><small></small></td></tr>
@@ -438,7 +442,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
 <tr valign="top"><td><small>config</small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  6 </small></td><td><small> 
-</small></td></tr><tr><td></td><td colspan="2"><small>configuration to be compiled statically.
+</small></td></tr><tr><td></td><td colspan="2"><small>configuration settings, to be compiled statically.
   System specific paths, maximums, etc go here.
   Other values are within globaldefs.h;
   architecture specific values are within the folder headers.

@@ -125,6 +125,12 @@ OPTFENCE       static void __attribute__((noipa,cold,naked)) opt_fence(void*p,..
               I mean, why the heck do I write volatile?? 
                (include/syscall.h: 65)
 
+OPTIMIZATIONS  
+
+               enable some optimizations,
+              with a slitghtly bigger memory footprint.
+               (include/config.h: 28)
+
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
                (src/itobin.c: 8)
@@ -204,7 +210,7 @@ clone_t        int clone_t(int flags);
 
 config         
 
-               configuration to be compiled statically.
+               configuration settings, to be compiled statically.
               System specific paths, maximums, etc go here.
               Other values are within globaldefs.h;
               architecture specific values are within the folder headers.
