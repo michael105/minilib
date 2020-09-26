@@ -24,5 +24,6 @@
 
 //+doc enable some optimizations,
 // with a slitghtly bigger memory footprint.
+// defaults to off
 //+def OPTIMIZATIONS
 
