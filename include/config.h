@@ -1,5 +1,7 @@
-//+doc configuration,
-// paths, maximums, etc go here.
+//+doc configuration to be compiled statically.
+// System specific paths, maximums, etc go here.
+// Other values are within globaldefs.h;
+// architecture specific values are within the folder headers.
 //+def config
 
 #define PATH_MAX 4096
@@ -17,4 +19,6 @@
 #define LOGIN_NAME_MAX 256
 #define HOST_NAME_MAX 64
 
+// max open streams
+#define mini_FOPEN_MAX 16
 
