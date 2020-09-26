@@ -210,7 +210,7 @@ ____
                   int base);
      x    int rand(void);
      x    void srand(unsigned int seed);
-         void *calloc(size_t nmemb, size_t size);
+     x    void *calloc(size_t nmemb, size_t size);
      x    void free(void *ptr);
      x    void *malloc(size_t size);
      x    void *realloc(void *ptr, size_t size);
