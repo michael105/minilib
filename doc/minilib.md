@@ -1904,6 +1904,10 @@ atol           long atol(const char *c);
 
                (src/atol.c: 3)
 
+calloc         void* calloc(int size);
+
+               (src/calloc.c: 2)
+
 div            static div_t div(int numerator, int denominator);
 
                (include/math.h: 8)

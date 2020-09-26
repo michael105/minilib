@@ -163,7 +163,7 @@ ____
          int sscanf(const char *s, const char *format, ...);
      x    int vfprintf(FILE *stream, const char *format, va_list arg);
      x    int vprintf(const char *format, va_list arg);
-         int vsprintf(char *s, const char *format, va_list arg);
+     x    int vsprintf(char *s, const char *format, va_list arg);
      x    int fgetc(FILE *stream);
      x    char *fgets(char *s, int n, FILE *stream);
      x    int fputc(int c, FILE *stream);

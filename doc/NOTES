@@ -1,6 +1,14 @@
 ### assorted notes
 
 
+OPTIMIZE
+adding comments, where optimzations would be useful.
+marked with OPTIMIZE
+In favour of size I'm leaving this for now.
+Add a compile switch mini_optimize ?
+
+
+
 closures.
 When closures are used, 
 gcc has to generate trampoline code.
