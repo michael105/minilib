@@ -1,5 +1,6 @@
 //+def
 void* calloc(int size){
+
 	char* p = malloc(size);
 	if ( !p )
 		return(0);
