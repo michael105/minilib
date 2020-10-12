@@ -24,10 +24,11 @@
   Volatile should be volatile for sure, not only sometimes.
   I mean, why the heck do I write volatile?? 
  </small></td></tr>
-<tr valign="top"><td><small>OPTIMIZATIONS</small></td><td><small>   <a href="../include/syscall.h" target="right">../include/syscall.h</a>  29 </small></td><td><small> 
+<tr valign="top"><td><small>OPTIMIZATIONS</small></td><td><small>   <a href="../include/syscall.h" target="right">../include/syscall.h</a>  33 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>enable some optimizations,
   with a slitghtly bigger memory footprint.
   defaults to off
+  (yet only calloc is optimized. todo)
  </small></td></tr>
 <tr valign="top"><td><small>sys___sysctl</small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  315 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__accept</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  91 </small></td><td><small></small></td></tr>
@@ -420,7 +421,14 @@
   if errno isn't available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">calloc</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  2 </small></td><td><small> void* calloc(int size);
+<tr valign="top"><td><small>bsd_cksum</small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  31 </small></td><td><small> unsigned int bsd_cksum( const char* p, unsigned int len );
+</small></td></tr><tr><td></td><td colspan="2"><small>bsd checksum
+ </small></td></tr>
+<tr valign="top"><td><small>bsd_cksumblock</small></td><td><small>   <a href="../src/cksum.c" target="right">../src/cksum.c</a>  20 </small></td><td><small> unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
+</small></td></tr><tr><td></td><td colspan="2"><small>bsd checksum, called by bsd_cksum,
+  with initial hash value
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">calloc</a></small></td><td><small>   <a href="../src/cksum.c" target="right">../src/cksum.c</a>  2 </small></td><td><small> void* calloc(int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/calloc.c" target="right">../src/calloc.c</a>  111 </small></td><td><small> chdir(const char* path)
 </small></td></tr>
@@ -471,16 +479,24 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/div.3.rst.html">div</a></small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  8 </small></td><td><small>  div_t div(int numerator, int denominator);
 </small></td></tr>
-<tr valign="top"><td><small>djb2_hash</small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  10 </small></td><td><small> unsigned long djb2_hash(const unsigned char *str);
+<tr valign="top"><td><small>djb2_hash</small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  12 </small></td><td><small> unsigned long djb2_hash(const unsigned char *str);
 </small></td></tr><tr><td></td><td colspan="2"><small>hashes, from d.j.Bernstein
   (http://www.cse.yorku.ca/~oz/hash.html)
   I've tested djb2_hash, and it gives quite good results.
-  But I'm sure, Bernstein did think and test his algorithm sincerely.
+  I'm sure, Bernstein did think and test his algorithm sincerely.
   When combining djb2_hash and sdbm_hash, the probability of collisions
   might tend to zero.
   Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
+  The hash functions compute the hashes of a c string with a 0 at the end.
+  The cksum functions do work with a pointer and a given len.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
+<tr valign="top"><td><small>djb_cksum</small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  8 </small></td><td><small> unsigned int djb_cksum( const char* p, unsigned int len );
+</small></td></tr><tr><td></td><td colspan="2"><small>checksum algorithm by d.j.bernstein.
+  Didn't do any benchmarks, but the computation 
+  might be quite performant. 
+  It is a bitshift and two additions per byte.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/cksum.c" target="right">../src/cksum.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
 <tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/dprintf.c" target="right">../src/dprintf.c</a>  17 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
@@ -1155,7 +1171,11 @@
   the last result is cached, multiple calls with the same
   name will return the cached result.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getgroups.2.rst.html">getgroups</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  8 </small></td><td><small> int getgroups(int maxgroups, int *list);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrouplist.3.rst.html">getgrouplist</a></small></td><td><small>   <a href="../src/userdb/getgrnam.c" target="right">../src/userdb/getgrnam.c</a>  5 </small></td><td><small> int getgrouplist(const char* user, gid_t group, gid_t *groups, int *ngroups);
+</small></td></tr><tr><td></td><td colspan="2"><small>needs rewrite.
+  now nonstandard.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getgroups.2.rst.html">getgroups</a></small></td><td><small>   <a href="../src/userdb/getgrouplist.c" target="right">../src/userdb/getgrouplist.c</a>  8 </small></td><td><small> int getgroups(int maxgroups, int *list);
 </small></td></tr><tr><td></td><td colspan="2"><small>get the groups of the calling process
   does not necessarily contain the primary group,
   which is given in the passwd entry.
@@ -1188,7 +1208,14 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getuid.2.rst.html">getuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  191 </small></td><td><small> DEF_syscall(getuid,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">grantpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  13 </small></td><td><small> int grantpt(int fd);
+<tr valign="top"><td><small>getusergroups</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int getusergroups(const char* user, int maxgroups, int *list);
+</small></td></tr><tr><td></td><td colspan="2"><small>get the supplementary groups for the user uid.
+  does not necessarily contain the primary group,
+  which is given in the passwd entry.
+  This function calls internally setgrent() and getgrent();
+  therefore any iteration with getgrent will be resetted.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">grantpt</a></small></td><td><small>   <a href="../src/userdb/getusergroups.c" target="right">../src/userdb/getusergroups.c</a>  13 </small></td><td><small> int grantpt(int fd);
 </small></td></tr>
 <tr valign="top"><td><small>group_print</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  13 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>enable print and related functions
@@ -1203,7 +1230,9 @@
   these functions do not depend on strlen, 
   or any globals.
  </small></td></tr>
-<tr valign="top"><td><small>inotify_add_watch</small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  195 </small></td><td><small> inotify_add_watch( int fd,  const char *pathname,  u32 mask)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/initgroups.3.rst.html">initgroups</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  2 </small></td><td><small> int initgroups(const char* user, gid_t group);
+</small></td></tr>
+<tr valign="top"><td><small>inotify_add_watch</small></td><td><small>   <a href="../src/userdb/initgroups.c" target="right">../src/userdb/initgroups.c</a>  195 </small></td><td><small> inotify_add_watch( int fd,  const char *pathname,  u32 mask)
 </small></td></tr>
 <tr valign="top"><td><small>inotify_init</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  194 </small></td><td><small> DEF_syscall(inotify_init,0)
 </small></td></tr>
@@ -1627,7 +1656,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
   (default:4096)
  </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  21 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  23 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>

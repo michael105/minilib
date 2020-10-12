@@ -19,6 +19,9 @@
 #define LOGIN_NAME_MAX 256
 #define HOST_NAME_MAX 64
 
+// max number of grups a user can be in.
+#define MAXGROUPS 128
+
 // max open streams
 #define mini_FOPEN_MAX 16
 

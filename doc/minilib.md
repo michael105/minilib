@@ -130,7 +130,8 @@ OPTIMIZATIONS
                enable some optimizations,
               with a slitghtly bigger memory footprint.
               defaults to off
-               (include/config.h: 29)
+              (yet only calloc is optimized. todo)
+               (include/config.h: 33)
 
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
@@ -205,6 +206,17 @@ brk            static int brk( const void* addr );
               returns the negative errno value on error
                (src/brk.c: 19)
 
+bsd_cksum      unsigned int bsd_cksum( const char* p, unsigned int len );
+
+               bsd checksum
+               (src/cksum.c: 31)
+
+bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
+
+               bsd checksum, called by bsd_cksum,
+              with initial hash value
+               (src/cksum.c: 20)
+
 clone_t        int clone_t(int flags);
 
                (src/clone.c: 7)
@@ -251,11 +263,21 @@ djb2_hash      unsigned long djb2_hash(const unsigned char *str);
                hashes, from d.j.Bernstein
               (http://www.cse.yorku.ca/~oz/hash.html)
               I've tested djb2_hash, and it gives quite good results.
-              But I'm sure, Bernstein did think and test his algorithm sincerely.
+              I'm sure, Bernstein did think and test his algorithm sincerely.
               When combining djb2_hash and sdbm_hash, the probability of collisions
               might tend to zero.
               Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
-               (src/hashes.c: 10)
+              The hash functions compute the hashes of a c string with a 0 at the end.
+              The cksum functions do work with a pointer and a given len.
+               (src/hashes.c: 12)
+
+djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
+
+               checksum algorithm by d.j.bernstein.
+              Didn't do any benchmarks, but the computation 
+              might be quite performant. 
+              It is a bitshift and two additions per byte.
+               (src/cksum.c: 8)
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
@@ -872,6 +894,12 @@ getgrnam       struct group *getgrnam(const char* name);
               name will return the cached result.
                (src/userdb/getgrnam.c: 7)
 
+getgrouplist   int getgrouplist(const char* user, gid_t group, gid_t *groups, int *ngroups);
+
+               needs rewrite.
+              now nonstandard.
+               (src/userdb/getgrouplist.c: 5)
+
 getpwent       struct passwd* getpwent();
 
                (src/userdb/getpwent.c: 4)
@@ -889,6 +917,15 @@ getpwuid       struct passwd *getpwuid(uid_t uid);
               the last result is cached, multiple calls with the same
               uid will return the cached result.
                (src/userdb/getpwuid.c: 7)
+
+getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
+
+               get the supplementary groups for the user uid.
+              does not necessarily contain the primary group,
+              which is given in the passwd entry.
+              This function calls internally setgrent() and getgrent();
+              therefore any iteration with getgrent will be resetted.
+               (src/userdb/getusergroups.c: 8)
 
 grantpt        int grantpt(int fd);
 
@@ -912,6 +949,10 @@ group_write
               these functions do not depend on strlen, 
               or any globals.
                (macros/defgroups.h: 23)
+
+initgroups     int initgroups(const char* user, gid_t group);
+
+               (src/userdb/initgroups.c: 2)
 
 itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 
@@ -1166,7 +1207,7 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
-               (src/hashes.c: 21)
+               (src/hashes.c: 23)
 
 setbrk         static int setbrk(long addr);
 
