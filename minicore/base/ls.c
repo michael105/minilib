@@ -336,8 +336,6 @@ int main(int argc, char **argv){
 		for ( char *c = argv[0]+1; *c != 0; c++ ){
 			switch ( *c ){
 				OPT(h,"Show usage",usage());
-				OPT(r,"reverse order",);
-				OPT(S,"Sort by size",);
 				OPT(l,"Show extended info",);
 				default:
 					usage();
@@ -346,12 +344,12 @@ int main(int argc, char **argv){
 	}
 
 	if ( *argv == 0 ){
-		return(listdir(".",opts));
+		usage();
 	}
 
 	for (;*argv; *argv++){
 		prints("\n",*argv,":\n");
-		listdir(*argv,opts);
+		cksum(*argv,opts);
 	}
 
 
