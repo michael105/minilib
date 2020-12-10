@@ -16,6 +16,9 @@ OPTFLAG -Os
 return
 #endif
 
+// append, extract or replace data.
+// read from stdin;
+// write to stdout.
 
 void writefile(int fd){
 	char buf[4096];
@@ -56,7 +59,7 @@ int main(int argc, char **argv){
 		if ( GETOPT_short(opts,h) ){
 				writes("Usage: ap [-h] [-r] [-a] [-e] file\n\
 -a append / -r replace / -e extract stdin to file / to stdout\n");
-				return 1;
+				return 0;
 		} 
 
 
@@ -92,10 +95,12 @@ int main(int argc, char **argv){
 
 				int l;
 				do {
+					l=len;
+
 					if ( len > 4096 )
-						l=read(fd,buf,4096);
-					else
-						l=read(fd,buf,len);
+						l=4096;
+
+					l=read(fd,buf,l);
 
 					len-=l;
 					write(1,buf,l);
