@@ -9,15 +9,6 @@ int posix_openpt(int flags){
 		return open("/dev/ptmx", flags);
 }
 
-//+def
-int grantpt(int fd){
-		// might be ok, when a pseudo fs is mounted.
-		// however. not in each case.
-#warning todo: implement grantpt
-		return 0;
-}
-
-
 //+depends ioctl
 //+def
 int unlockpt(int fd){
@@ -50,6 +41,17 @@ char *ptsname(int fd){
 				return 0;
 		}
 		return buf;
+}
+
+
+//+depends fstat ptsname
+//+def
+int grantpt(int fd){
+	struct stat st;
+  if ((fstat(fd, &st))<0) return -1;
+  if ((chmod((char*)ptsname(fd), st.st_mode | S_IRUSR | S_IWUSR | S_IWGRP))<0)
+    return -1;
+  return 0;
 }
 
 

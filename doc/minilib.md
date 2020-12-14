@@ -929,7 +929,7 @@ getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
 
 grantpt        int grantpt(int fd);
 
-               (src/pty.c: 13)
+               (src/pty.c: 49)
 
 group_print    
 
@@ -1162,11 +1162,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
 ptsname        char *ptsname(int fd);
 
-               (src/pty.c: 43)
+               (src/pty.c: 34)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
-               (src/pty.c: 30)
+               (src/pty.c: 21)
 
 putenv         int putenv( char *string );
 
@@ -1227,6 +1227,12 @@ setgrent       void setgrent();
 setpwent       void setpwent();
 
                (src/userdb/setpwent.c: 3)
+
+short_errstr   const char* short_errstr(int num);
+
+               verbose error (errno) string. 
+              this adds about 3.5kB to the compiled binary(!)
+               (include/errstrshort.h: 10)
 
 shortcolornames
 
@@ -1297,7 +1303,7 @@ ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter )
 
 unlockpt       int unlockpt(int fd);
 
-               (src/pty.c: 23)
+               (src/pty.c: 14)
 
 unmap_protectedint unmap_protected(void *p, int len);
 
@@ -1781,27 +1787,30 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
 
                fprintf, formatted output
               conversions implemented:
-              %d: signed int
-              %u: unsigned int
+              %d: signed int (mini_itodec)
+              %u: unsigned int (mini_uitodec)
               %f: double (max precision 8 digits, highest possible number: 2^31
-              %l (modify a following d,u to long)
+              %l (modify a following d,u to long) (mini_ltodec,mini_ultodec)
               %s: string
               %c: char
               binary and hex output print the numbers, 
               as they are internally stored(!).
               Negative numbers are represented with the first sign bit set.
               (e.g. -1 = 0xFFFFFFFF at x64)
-              %b : binary output
-              %o : octal output
-              %x/X : hex output (small/big capitals)
-              %(: grouping
+              %b : binary output  (mini_itobin)
+              %o : octal output (mini_itooct)
+              %x/X : hex output (small/big capitals) (mini_itohex,mini_itoHEX
+              %(: grouping (mini_atoi)
              
+              warning - most possibly you'd like to define besides fprintf, or family,
+              mini_itodec (%d conversion) 
+              
               For squeezing a few more bytes, and saving some checking;
               writes(constant string) and print (variable string), 
               prints (formatted output of one or several strings) are provided.
              
               
-               (src/sprintf.c: 255)
+               (src/sprintf.c: 268)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 

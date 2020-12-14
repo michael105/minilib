@@ -10,8 +10,12 @@ mini_itohex
 mini_fileno
 mini_puts
 mini_read
+mini_strlen
 mini_buf 1024
-mini_INCLUDESRC
+
+INCLUDESRC
+BINARY testprintf
+SOURCES $1 
 
 return
 #endif
@@ -28,7 +32,10 @@ int main( int argc, char *argv[] ){
 
 		printf("sizeof long: %d\n", sizeof(long));
 
+		printf("padded string:%10s","end\n");
+		printf("padded string:%3s","e\n");
 
+		printf("padded num: -%3d-\n",12);
 
 
 	return(0);

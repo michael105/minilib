@@ -7,6 +7,7 @@ mini_itodec
 mini_atoi
 mini_buf 256
 mini_verbose_errstr2
+mini_short_errstr
 INCLUDESRC
 LDSCRIPT text_and_bss
 globals_on_stack

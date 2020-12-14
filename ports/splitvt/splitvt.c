@@ -51,13 +51,14 @@ static char *version=
 // default shell
 #define SHELL "/bin/ash"
 
-#define ew(stream,string) fwrites(fileno(stream),string)
+#define ew(stream,string) ewrites(string)
+//#define ew(stream,string) fwrites(fileno(stream),string)
 
 /* With xterm support, cut and paste is disabled and the title bar is
    reset to the string "xterm" after splitvt quits.  Not desirable in
    some cases.. ;^)
 */
-#define X_SUPPORT	/* Define X_SUPPORT if you want xterm support */
+//#define X_SUPPORT	/* Define X_SUPPORT if you want xterm support */
 //#define XTITLE		/* Define this for an xterm title bar */
 
 #ifdef NEED_SELECT_H
