@@ -109,6 +109,10 @@ define(){
 	echo "#define" $1 $2
 }
 
+DEFINE(){
+	echo "#define" $1 $2
+}
+
 # Everything below will be silently overwritten,
 # when make header ist invoked
 

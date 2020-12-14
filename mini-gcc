@@ -333,6 +333,13 @@ HEADERGUARDS
 # Startup function
 mini_start
 
+# put the globals on stack.
+# reserves a fixed register as pointer to the globals
+# globals_on_stack
+
+# define var (#define var arg)
+# DEFINE var arg
+
 # optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
 OPTFLAG -Os
 
@@ -355,6 +362,12 @@ LDSCRIPT default
 # generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
 #DEBUG
 
+# list of source files, supplied to gcc
+# $1 expands to the current filename 
+#SOURCES $1 file1.c file2.c
+
+# the binary to be compiled ( -o $BINARY )
+#BINARY a.out
 
 # function switches. Only functions named below will be compiled
 '
