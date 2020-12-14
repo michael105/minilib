@@ -40,7 +40,7 @@ int seekfile(int fd,int trunc){
 
 	//fprintf(stderr,"len: %d\n",len);
 	if ( r!=4 || ( len > fsize ) ){
-		ewrites("Error. Wrong len.\n");
+		ewrites("Error. Nothing appended.\n");
 		exit(5);
 	}
 

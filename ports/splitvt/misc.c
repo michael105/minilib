@@ -233,7 +233,8 @@ int get_master_pty()
 
 	ttyptr=ptsname(master_fd);
 
-	//printf("ttyname: %s\n",tty_name);
+	//printf("ttyname: %s\n",ttyptr);
+	//sleep(1);
 
 	if ( ttyptr == NULL || strlen(ttyptr)+1 > sizeof(tty_name) )
 	{

@@ -931,7 +931,7 @@ char *init_vt100()
 		(void) free(upper.videomem);
 		(void) free(upper.tabstops);
 	}
-	if ( (upper.tabstops=(int *)malloc(newcols*sizeof(int))) == NULL )
+	if ( (upper.tabstops=(int *)malloc_brk(newcols*sizeof(int))) == NULL )
 		return("Out of memory");
 	for ( i=0; i<newcols; ++i ) {
 		if ( (i%TABSTOP) == 0 )
@@ -961,7 +961,7 @@ char *init_vt100()
 		(void) free(lower.videomem);
 		(void) free(lower.tabstops);
 	}
-	if ( (lower.tabstops=(int *)malloc(newcols*sizeof(int))) == NULL )
+	if ( (lower.tabstops=(int *)malloc_brk(newcols*sizeof(int))) == NULL )
 		return("Out of memory");
 	for ( i=0; i<newcols; ++i ) {
 		if ( (i%TABSTOP) == 0 )
@@ -984,7 +984,7 @@ char *init_vt100()
 	/* Set up the separator (cols-1) */
 	if ( setup_vt100 )
 		(void) free(sep);
-	if ( (sep=(char *)malloc(physical.cols+1)) == NULL )
+	if ( (sep=(char *)malloc_brk(physical.cols+1)) == NULL )
 		return("Out of memory");
 	for ( i=0; i<(physical.cols-1); ++i )
 		sep[i]=SEP_CHAR;

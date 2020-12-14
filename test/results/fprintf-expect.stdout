@@ -2,3 +2,6 @@ stdio.
 Check d 12345 12345
 Check d 12345 12345
 sizeof long: 8
+padded string:      end
+padded string: e
+padded num: - 12-

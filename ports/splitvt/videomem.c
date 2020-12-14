@@ -20,12 +20,12 @@ int cols;
 	int i, j;
 
 	/* Allocate row pointers */
-	if ( (videomem=(int **)malloc(rows*sizeof(int *))) == NULL )
+	if ( (videomem=(int **)malloc_brk(rows*sizeof(int *))) == NULL )
 		return(NULL);
 
 	/* Allocate the columns for each row */
 	for ( i=0; i<rows; ++i ) {
-		if ( (videomem[i]=(int *)malloc(cols*sizeof(int))) == NULL )
+		if ( (videomem[i]=(int *)malloc_brk(cols*sizeof(int))) == NULL )
 			return(NULL);
 		for ( j=0; j<cols; ++j )
 			videomem[i][j]=0;

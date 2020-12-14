@@ -32,7 +32,7 @@
 // todo: add attribute printf (gcc format checking)
 
 //+ansi stdio.h
-//+depends write
+//+depends write strlen
 //+needs exit.h stdarg.h overrun.h
 //+after itohex itoHEX
 //+doc the function, translating the fmt of printf.
@@ -48,7 +48,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 		int b = 0;
 		int overflow = 0;
 		int end, padding, c,groups=0;
-		char sep;
+		char sep,pad;
 		char tmp[16];
 		char *s;
 		int mod;  // modifier. : 0==int, 1==long
@@ -61,12 +61,15 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 						sep = 0;
 						groups=0;
 						mod = 0;
-						padding = 0;
+						pad = ' ';
 						do {
 								a++;
+								if ( fmt[a] == '0' ){
+									a++;
+									pad = '0';
+								}
+
 								while ( (fmt[a] > 47 ) && (fmt[a] < 58 ) ){
-												//tmp[c] = fmt[a]; 
-												//c++;
 												padding*=10;
 												padding+=fmt[a]-48;
 												a++;
@@ -184,6 +187,13 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 												break;
 										case 's':
 												s = va_arg(args,char*);
+												if ( padding ){
+													int l=strlen(s);
+													while ( padding > l ){
+														buf[b] = ' ';
+														b++;l++;
+													}
+												}
 												c=0;
 												while(s[c] != 0){
 														buf[b] = s[c];
