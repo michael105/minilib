@@ -4,9 +4,9 @@
 #include <sys/termios.h>
 //#include "ioctl.h"
 #ifdef OSX
-#include <sys/ttycom.h>
+//#include <sys/ttycom.h>
 #else
-#include <sys/ioctl.h>
+//#include <sys/ioctl.h>
 #endif
 
 //#ifndef TCGETS
@@ -14,10 +14,9 @@
 //#define TCGETS TIOCGETA
 //#endif
 
-
-
-int tcgetattr(int fd, struct termios *io)
-{
+//+depends ioctl
+//+def
+int tcgetattr(int fd, struct termios *io){
 	//return(ioctl(fd, 0x5401, io));
 	return(ioctl(fd, TCGETA, io));
 

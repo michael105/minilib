@@ -14,6 +14,7 @@
 #include "./sys/stat.h"
 #include "./sys/types.h"
 #include "./sys/termios.h"
+#include "./sys/kbd.h"
 #include "./dirent.h"
 #include "./signal.h"
 #endif

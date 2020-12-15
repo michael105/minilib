@@ -217,6 +217,10 @@ bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, un
               with initial hash value
                (src/cksum.c: 20)
 
+cfmakeraw      void cfmakeraw(struct termios *tp);
+
+               (src/cfmakeraw.c: 3)
+
 clone_t        int clone_t(int flags);
 
                (src/clone.c: 7)
@@ -1261,6 +1265,14 @@ sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
                (src/brk.c: 6)
+
+tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
+
+               (include/tcgetattr.h: 21)
+
+tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
+
+               (include/tcsetattr.h: 20)
 
 term_width     int term_width();
 

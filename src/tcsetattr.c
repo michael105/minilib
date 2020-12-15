@@ -6,7 +6,7 @@
 #ifdef OSX
 //#include <sys/ttycom.h>
 #else
-#include <sys/ioctl.h>
+//#include <sys/ioctl.h>
 #endif
 
 
@@ -16,8 +16,10 @@
 //#define TCSETS TIOCSETA
 //#endif
 
-int tcsetattr(int fd, int opt, const struct termios *io)
-{
+
+//+depends ioctl
+//+def
+int tcsetattr(int fd, int opt, const struct termios *io){
 	return(ioctl(fd, TCSETA +opt, io));
 	//return(ioctl(fd, 0x5402+opt, io));
 }
