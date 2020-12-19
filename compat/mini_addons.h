@@ -107,9 +107,6 @@ static long getbrk();
 // file: minilib/src/brk.c
 static void* sbrk(long incr);
 
-// file: minilib/src/cfmakeraw.c
-void cfmakeraw(struct termios *tp);
-
 // file: minilib/src/cksum.c
 unsigned int djb_cksum( const char* p, unsigned int len );
 
@@ -182,29 +179,8 @@ int unmap_protected(void *p, int len);
 // file: minilib/src/match.c
 int match(char *text, const char *re, regex_match *st_match);
 
-// file: minilib/src/memfrob.c
-void* memfrob(void* s, unsigned int len);
-
-// file: minilib/src/mmap.c
-static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
-
 // file: minilib/src/prints.c
 int dprints(int fd, const char *msg,...);
-
-// file: minilib/src/pty.c
-int posix_openpt(int flags);
-
-// file: minilib/src/pty.c
-int unlockpt(int fd);
-
-// file: minilib/src/pty.c
-int ptsname_r(int fd, char *buf, size_t len);
-
-// file: minilib/src/pty.c
-char *ptsname(int fd);
-
-// file: minilib/src/pty.c
-int grantpt(int fd);
 
 // file: minilib/src/putenv.c
 int putenv( char *string );
@@ -214,24 +190,6 @@ static inline void swap(void* a, void* b,int size);
 
 // file: minilib/src/snprintf.c
 int snprintf( char *buf, size_t size, const char *fmt, ... );
-
-// file: minilib/src/strlcpy.c
-char *strlcpy(char *dest, const char *src, int n);
-
-// file: minilib/src/tcgetattr.c
-int tcgetattr(int fd, struct termios *io);
-
-// file: minilib/src/tcsetattr.c
-int tcsetattr(int fd, int opt, const struct termios *io);
-
-// file: minilib/src/term_width.c
-int term_width();
-
-// file: minilib/src/vexec.c
-int vexec( const char* path, char* const* argv, char* const* envp );
-
-// file: minilib/src/vexec.c
-int vexec_q( const char* path, char* const* argv, char* const* envp );
 
 // file: minilib/include/config.h
 
@@ -320,6 +278,9 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p);
 // file: minilib/include/prints.h
 #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
+// file: minilib/include/prints.h
+#define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+
 // file: minilib/include/ret_errno.h
 #ifdef mini_errno
 
@@ -328,6 +289,15 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p);
 
 // file: minilib/include/syscall.h
 static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...);
+
+// file: minilib/macros/defgroups.h
+
+
+// file: minilib/macros/defgroups.h
+
+
+// file: minilib/macros/defgroups.h
+//
 
 // file: minilib/src/dirent/alphasort.c
 int alphasort( const struct dirent** de1, const struct dirent** de2 );
@@ -340,6 +310,48 @@ static DIR *opendirp(const char *name, DIR *dir);
 
 // file: minilib/src/dirent/scandir.c
 //#define mini_scandir_bufsize 4096
+
+// file: minilib/src/exec/vexec.c
+int vexec( const char* path, char* const* argv, char* const* envp );
+
+// file: minilib/src/exec/vexec.c
+int vexec_q( const char* path, char* const* argv, char* const* envp );
+
+// file: minilib/src/mem/memfrob.c
+void* memfrob(void* s, unsigned int len);
+
+// file: minilib/src/mem/mmap.c
+static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
+
+// file: minilib/src/string/strlcpy.c
+char *strlcpy(char *dest, const char *src, int n);
+
+// file: minilib/src/termios/cfmakeraw.c
+void cfmakeraw(struct termios *tp);
+
+// file: minilib/src/termios/pty.c
+int posix_openpt(int flags);
+
+// file: minilib/src/termios/pty.c
+int unlockpt(int fd);
+
+// file: minilib/src/termios/pty.c
+int ptsname_r(int fd, char *buf, size_t len);
+
+// file: minilib/src/termios/pty.c
+char *ptsname(int fd);
+
+// file: minilib/src/termios/pty.c
+int grantpt(int fd);
+
+// file: minilib/src/termios/tcgetattr.c
+int tcgetattr(int fd, struct termios *io);
+
+// file: minilib/src/termios/tcsetattr.c
+int tcsetattr(int fd, int opt, const struct termios *io);
+
+// file: minilib/src/termios/term_width.c
+int term_width();
 
 // file: minilib/src/userdb/endgrent.c
 void endgrent();
@@ -383,15 +395,6 @@ void setpwent();
 // file: minilib/src/userdb/userdb_open.c
 int userdb_open(userdb *udb, const char* file);
 
-// file: minilib/macros/defgroups.h
-
-
-// file: minilib/macros/defgroups.h
-
-
-// file: minilib/macros/defgroups.h
-//
-
 
 
 #include "include/minilib_global.h"
@@ -399,68 +402,68 @@ int userdb_open(userdb *udb, const char* file);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/userdb/setgrent.c"
-#include "minilib/src/putenv.c"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/src/ext_match.c"
-#include "minilib/src/malloc_brk.c"
-#include "minilib/src/basename.c"
-#include "minilib/src/vexec.c"
-#include "minilib/src/dirent/scandir.c"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/itooct.c"
-#include "minilib/src/userdb/getgrent.c"
-#include "minilib/src/cksum.c"
-#include "minilib/src/pty.c"
-#include "minilib/src/hashes.c"
-#include "minilib/include/dirent.h"
-#include "minilib/src/userdb/getgrgid.c"
-#include "minilib/src/qsort.c"
-#include "minilib/src/userdb/userdb_open.c"
-#include "minilib/include/minilib_global.h"
-#include "minilib/include/ret_errno.h"
-#include "minilib/src/brk.c"
-#include "minilib/src/userdb/getpwuid.c"
-#include "minilib/src/userdb/endgrent.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/snprintf.c"
-#include "minilib/src/clone.c"
-#include "minilib/src/itobin.c"
-#include "minilib/src/map_protected.c"
-#include "minilib/src/strlcpy.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/prints.c"
-#include "minilib/src/userdb/initgroups.c"
-#include "minilib/src/dprintf.c"
-#include "minilib/src/tcgetattr.c"
-#include "minilib/src/userdb/getpwnam.c"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/include/fexecve.h"
-#include "minilib/src/memfrob.c"
-#include "minilib/src/freebrk.c"
-#include "minilib/include/seterrno.h"
-#include "minilib/src/userdb/setpwent.c"
-#include "minilib/src/cfmakeraw.c"
-#include "minilib/src/userdb/getgrnam.c"
 #include "minilib/include/prints.h"
-#include "minilib/src/userdb/getpwent.c"
-#include "minilib/macros/defgroups.h"
-#include "minilib/src/match.c"
 #include "minilib/include/config.h"
-#include "minilib/src/mmap.c"
+#include "minilib/src/hashes.c"
+#include "minilib/src/map_protected.c"
 #include "minilib/include/syscall.h"
-#include "minilib/src/dirent/alphasort.c"
-#include "minilib/src/term_width.c"
-#include "minilib/src/userdb/getgrouplist.c"
+#include "minilib/src/mem/memfrob.c"
+#include "minilib/src/dirent/scandir.c"
+#include "minilib/src/exec/vexec.c"
+#include "minilib/src/snprintf.c"
 #include "minilib/src/dtodec.c"
+#include "minilib/src/termios/term_width.c"
+#include "minilib/src/userdb/getpwuid.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/cksum.c"
+#include "minilib/src/userdb/getpwnam.c"
+#include "minilib/src/dprintf.c"
+#include "minilib/macros/defgroups.h"
+#include "minilib/src/dirent/alphasort.c"
+#include "minilib/src/malloc_brk.c"
+#include "minilib/src/termios/tcsetattr.c"
+#include "minilib/src/userdb/getgrent.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/src/ext_match.c"
+#include "minilib/src/termios/pty.c"
+#include "minilib/src/userdb/getgrnam.c"
+#include "minilib/src/termios/cfmakeraw.c"
+#include "minilib/src/userdb/getpwent.c"
+#include "minilib/src/mem/mmap.c"
+#include "minilib/include/dirent.h"
+#include "minilib/src/dirent/opendir.c"
 #include "minilib/src/userdb/getusergroups.c"
-#include "minilib/src/userdb/endpwent.c"
-#include "minilib/src/ext_match2.c"
-#include "minilib/src/tcsetattr.c"
+#include "minilib/src/itooct.c"
+#include "minilib/src/putenv.c"
+#include "minilib/src/freebrk.c"
+#include "minilib/src/match.c"
+#include "minilib/src/userdb/setgrent.c"
+#include "minilib/src/errno_str.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/userdb/endgrent.c"
+#include "minilib/src/termios/tcgetattr.c"
 #include "minilib/src/itodec.c"
-#include "minilib/src/exit_errno.c"
-#include "minilib/include/fexecveat.h"
 #include "minilib/src/dirname.c"
+#include "minilib/src/qsort.c"
+#include "minilib/src/userdb/getgrouplist.c"
+#include "minilib/src/prints.c"
+#include "minilib/src/userdb/userdb_open.c"
+#include "minilib/src/userdb/initgroups.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/userdb/getgrgid.c"
+#include "minilib/src/ext_match2.c"
+#include "minilib/src/userdb/endpwent.c"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/clone.c"
+#include "minilib/src/string/strlcpy.c"
+#include "minilib/include/seterrno.h"
+#include "minilib/include/ret_errno.h"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/userdb/setpwent.c"
+#include "minilib/src/itobin.c"
+#include "minilib/src/brk.c"
+#include "minilib/src/fprintfs.c"
+#include "minilib/src/exit_errno.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

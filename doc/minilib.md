@@ -219,7 +219,7 @@ bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, un
 
 cfmakeraw      void cfmakeraw(struct termios *tp);
 
-               (src/cfmakeraw.c: 3)
+               (src/termios/cfmakeraw.c: 3)
 
 clone_t        int clone_t(int flags);
 
@@ -307,6 +307,11 @@ eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
                (include/prints.h: 59)
+
+eprintf        #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+
+               write fmt and arguments to stderr. 
+               (include/prints.h: 132)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
@@ -933,7 +938,7 @@ getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
 
 grantpt        int grantpt(int fd);
 
-               (src/pty.c: 49)
+               (src/termios/pty.c: 49)
 
 group_print    
 
@@ -944,7 +949,7 @@ group_print
 
 group_printf   //
 
-               printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
+               printf, eprintf, fprintf, itodec, ltodec, itohex, anprintf, sprintf (conversions %d %l %x %ud %ul %ux ), 
                (macros/defgroups.h: 29)
 
 group_write    
@@ -1084,7 +1089,7 @@ max_groupmembers#ifndef mini_max_groupmembers
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
-               (src/memfrob.c: 3)
+               (src/mem/memfrob.c: 3)
 
 mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 
@@ -1094,7 +1099,7 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
               errno is only set, when mini_errno is defined
               if not, on error the negative errno value is returned.
               (e.g. -22 for "invalid argument")
-               (src/mmap.c: 8)
+               (src/mem/mmap.c: 8)
 
 mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 
@@ -1135,7 +1140,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
 
 posix_openpt   int posix_openpt(int flags);
 
-               (src/pty.c: 8)
+               (src/termios/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
@@ -1166,11 +1171,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 
 ptsname        char *ptsname(int fd);
 
-               (src/pty.c: 34)
+               (src/termios/pty.c: 34)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
 
-               (src/pty.c: 21)
+               (src/termios/pty.c: 21)
 
 putenv         int putenv( char *string );
 
@@ -1253,7 +1258,7 @@ strlcpy        char *strlcpy(char *dest, const char *src, int n);
                copy max n chars from src to dest, 
               when src is longer than dest, 
               end dest[n-1] with '\0'.
-               (src/strlcpy.c: 5)
+               (src/string/strlcpy.c: 5)
 
 swap           static inline void swap(void* a, void* b,int size);
 
@@ -1266,13 +1271,13 @@ sys_brk        static long sys_brk(unsigned long addr);
                the kernel syscall brk.
                (src/brk.c: 6)
 
-tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
+tcgetattr      int tcgetattr(int fd, struct termios *io);
 
-               (include/tcgetattr.h: 21)
+               (src/termios/tcgetattr.c: 19)
 
-tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
+tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (include/tcsetattr.h: 20)
+               (src/termios/tcsetattr.c: 22)
 
 term_width     int term_width();
 
@@ -1280,7 +1285,7 @@ term_width     int term_width();
               reads the environmental var COLS,
               if not present, returns 80.
               Doesn't check for the existence of a terminal.
-               (src/term_width.c: 7)
+               (src/termios/term_width.c: 7)
 
 token_i        int token_i( userdb* udb, char **p );
 
@@ -1315,7 +1320,7 @@ ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter )
 
 unlockpt       int unlockpt(int fd);
 
-               (src/pty.c: 14)
+               (src/termios/pty.c: 14)
 
 unmap_protectedint unmap_protected(void *p, int len);
 
@@ -1343,14 +1348,14 @@ vexec          int vexec( const char* path, char* const* argv, char* const* envp
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
               sets errno on error.
-               (src/vexec.c: 6)
+               (src/exec/vexec.c: 6)
 
 vexec_q        int vexec_q( const char* path, char* const* argv, char* const* envp );
 
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
               Deviating of system() an absolute pathname is taken.
-               (src/vexec.c: 30)
+               (src/exec/vexec.c: 30)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -1690,39 +1695,39 @@ signal.h
 
 raise          static inline int raise(int signr);
 
-               (src/sigaction.c: 135)
+               (src/signal/sigaction.c: 135)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/sigaction.c: 107)
+               (src/signal/sigaction.c: 107)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
-               (src/sigaction.c: 34)
+               (src/signal/sigaction.c: 34)
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
 
-               (src/sigaction.c: 58)
+               (src/signal/sigaction.c: 58)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
-               (src/sigaction.c: 7)
+               (src/signal/sigaction.c: 7)
 
 sigfillset     static int sigfillset(sigset_t *set);
 
-               (src/sigaction.c: 20)
+               (src/signal/sigaction.c: 20)
 
 sigismember    int sigismember(sigset_t *set, int sig);
 
-               (src/sigaction.c: 75)
+               (src/signal/sigaction.c: 75)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
-               (src/signal.c: 5)
+               (src/signal/signal.c: 5)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
-               (src/sigaction.c: 52)
+               (src/signal/sigaction.c: 52)
 
 
 
@@ -2100,11 +2105,11 @@ strtol         long int strtol(const char *c, const char **endp, int base);
 
                conversion
               doesn't check for overflow(!)
-               (src/strtol.c: 5)
+               (src/string/strtol.c: 5)
 
 system         int system( const char* command );
 
-               (src/system.c: 4)
+               (src/exec/system.c: 4)
 
 
 
@@ -2114,71 +2119,71 @@ string.h
 
 _strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 27)
+               (src/string/strcmp.c: 27)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 10)
+               (src/string/strcmp.c: 10)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/strcmp.c: 84)
+               (src/string/strcmp.c: 84)
 
-memcpy         void *memcpy( void *d, const void *s, int n );
+memcpy         void* memcpy( void*d, const void *s, int n );
 
-               (src/memcpy.c: 4)
+               (src/mem/memcpy.c: 4)
 
 memmove        void* memmove(void *dest, const void *src, int n);
 
-               (src/memmove.c: 3)
+               (src/mem/memmove.c: 3)
 
 memset         void *memset( void *s, int c, int n);
 
-               (src/memset.c: 3)
+               (src/mem/memset.c: 3)
 
 strcasecmp     int strcasecmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 48)
+               (src/string/strcmp.c: 48)
 
 strcat         char *strcat(char *dest, const char *src );
 
-               (src/strcat.c: 5)
+               (src/string/strcat.c: 5)
 
 strchr         char *strchr(const char *s, int c);
 
-               (src/strchr.c: 20)
+               (src/string/strchr.c: 20)
 
 strchrnul      char *strchrnul(const char *s, int c);
 
-               (src/strchr.c: 7)
+               (src/string/strchr.c: 7)
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/strcmp.c: 67)
+               (src/string/strcmp.c: 67)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
-               (src/strcpy.c: 3)
+               (src/string/strcpy.c: 3)
 
 strdup         char *strdup(const char *source);
 
-               (src/strdup.c: 7)
+               (src/string/strdup.c: 7)
 
 strerror       static char* strerror( int errnum );
 
-               (src/strerror.c: 7)
+               (src/string/strerror.c: 7)
 
 strlen         int strlen(const char*str);
 
-               (src/strlen.c: 4)
+               (src/string/strlen.c: 4)
 
 strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 56)
+               (src/string/strcmp.c: 56)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/strcmp.c: 75)
+               (src/string/strcmp.c: 75)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
@@ -2187,15 +2192,15 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               Please note strlcpy (borrowed from freebsd), 
               which does the same,
               but doesn't pad src with 0's.
-               (src/strncpy.c: 7)
+               (src/string/strncpy.c: 7)
 
 strrchr        char *strrchr(const char *s, int c);
 
-               (src/strchr.c: 36)
+               (src/string/strchr.c: 36)
 
 strstr         char* strstr(const char *big, const char *little);
 
-               (src/strstr.c: 3)
+               (src/string/strstr.c: 3)
 
 
 
@@ -2225,22 +2230,22 @@ unistd.h
 
 execl          static int execl(const char *pathname, const char* arg0,... );
 
-               (src/execl.c: 6)
+               (src/exec/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
 
-               (src/execvp.c: 9)
+               (src/exec/_execv.c: 4)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
 
-               (src/execvp.c: 58)
+               (src/exec/_execvp.c: 4)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
 
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
               Looks for file in the PATH environment, othwerise.
-               (src/execvp.c: 18)
+               (src/exec/execvp.c: 11)
 
 getgroups      int getgroups(int maxgroups, int *list);
 
@@ -2275,13 +2280,13 @@ sleep          unsigned int volatile sleep(unsigned int seconds);
               TODO: ignore blocked signals, sigchld
                (src/sleep.c: 10)
 
-tcgetattr      static inline int __attribute__((always_inline)) tcgetattr(int fd, struct termios *io);
+tcgetattr      int tcgetattr(int fd, struct termios *io);
 
-               (include/tcgetattr.h: 21)
+               (src/termios/tcgetattr.c: 19)
 
-tcsetattr      static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io);
+tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (include/tcsetattr.h: 20)
+               (src/termios/tcsetattr.c: 22)
 
 usleep         unsigned int volatile usleep(unsigned int useconds);
 

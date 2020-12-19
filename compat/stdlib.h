@@ -119,12 +119,6 @@ void srand( unsigned int i );
 // file: minilib/src/rand.c
 unsigned int rand();
 
-// file: minilib/src/strtol.c
-long int strtol(const char *c, const char **endp, int base);
-
-// file: minilib/src/system.c
-int system( const char* command );
-
 // file: minilib/include/math.h
 static div_t div(int numerator, int denominator);
 
@@ -137,6 +131,12 @@ static int abs(int i);
 // file: minilib/include/math.h
 static long int labs(long int i);
 
+// file: minilib/src/exec/system.c
+int system( const char* command );
+
+// file: minilib/src/string/strtol.c
+long int strtol(const char *c, const char **endp, int base);
+
 
 
 #include "include/minilib_global.h"
@@ -144,17 +144,17 @@ static long int labs(long int i);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/atoi.c"
-#include "minilib/include/math.h"
 #include "minilib/src/rand.c"
-#include "minilib/src/getenv.c"
-#include "minilib/src/system.c"
+#include "minilib/src/string/strtol.c"
+#include "minilib/src/atoi.c"
 #include "minilib/src/qsort.c"
-#include "minilib/src/strtol.c"
-#include "minilib/src/calloc.c"
+#include "minilib/src/getenv.c"
+#include "minilib/src/atexit.c"
 #include "minilib/src/abort.c"
 #include "minilib/src/atol.c"
-#include "minilib/src/atexit.c"
+#include "minilib/include/math.h"
+#include "minilib/src/exec/system.c"
+#include "minilib/src/calloc.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

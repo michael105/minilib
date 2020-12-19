@@ -305,9 +305,9 @@
 <tr valign="top"><td><small>sys__statfs</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  277 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  27 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>sys__swapoff</small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  339 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>sys__swapoff</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  339 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__swapon</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  337 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__symlink</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  181 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__symlinkat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  507 </small></td><td><small></small></td></tr>
@@ -432,7 +432,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">cfmakeraw</a></small></td><td><small>   <a href="../src/calloc.c" target="right">../src/calloc.c</a>  3 </small></td><td><small> void cfmakeraw(struct termios *tp);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/cfmakeraw.c" target="right">../src/cfmakeraw.c</a>  111 </small></td><td><small> chdir(const char* path)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/termios/cfmakeraw.c" target="right">../src/termios/cfmakeraw.c</a>  111 </small></td><td><small> chdir(const char* path)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">chmod</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  184 </small></td><td><small> chmod( const char *filename, mode_t mode)
 </small></td></tr>
@@ -517,6 +517,9 @@
 <tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../src/userdb/endpwent.c" target="right">../src/userdb/endpwent.c</a>  59 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. Needs strlen
  </small></td></tr>
+<tr valign="top"><td><small>eprintf</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  132 </small></td><td><small> #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+</small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments to stderr. 
+ </small></td></tr>
 <tr valign="top"><td><small>eprintfs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  127 </small></td><td><small> #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments to stderr. 
   only format %s and %c are recognized
@@ -549,20 +552,20 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execl</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  6 </small></td><td><small>  int execl(const char *pathname, const char* arg0,... );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execv</a></small></td><td><small>   <a href="../src/execl.c" target="right">../src/execl.c</a>  9 </small></td><td><small>   int execv(const char *pathname, char *const argv[]);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execv</a></small></td><td><small>   <a href="../src/exec/execl.c" target="right">../src/exec/execl.c</a>  4 </small></td><td><small>   int execv(const char *pathname, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../src/execvp.c" target="right">../src/execvp.c</a>  127 </small></td><td><small> execve( const char *filename,  char* const* argv, char* const* envp)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">execve</a></small></td><td><small>   <a href="../src/exec/_execv.c" target="right">../src/exec/_execv.c</a>  127 </small></td><td><small> execve( const char *filename,  char* const* argv, char* const* envp)
 </small></td></tr>
 <tr valign="top"><td><small>execveat</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  157 </small></td><td><small> execveat( int dirfd, const char *filename,  char* const* argv, char* const* envp, int flags)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  58 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/execvp.c" target="right">../src/execvp.c</a>  18 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
+<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  11 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
 </small></td></tr><tr><td></td><td colspan="2"><small>When invoked with a filename, starting with "." or "/",
   interprets this as absolute path. (calls execve with the pathname)
   Looks for file in the PATH environment, othwerise.
  </small></td></tr>
-<tr valign="top"><td><small>exit_errno</small></td><td><small>   <a href="../src/execvp.c" target="right">../src/execvp.c</a>  17 </small></td><td><small> void exit_errno( int errnum );
+<tr valign="top"><td><small>exit_errno</small></td><td><small>   <a href="../src/exec/execvp.c" target="right">../src/exec/execvp.c</a>  17 </small></td><td><small> void exit_errno( int errnum );
 </small></td></tr><tr><td></td><td colspan="2"><small>exit, and execute /bin/errno
   this is intended to give a error message for the 
   given errno num.
@@ -1222,13 +1225,13 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">grantpt</a></small></td><td><small>   <a href="../src/userdb/getusergroups.c" target="right">../src/userdb/getusergroups.c</a>  49 </small></td><td><small> int grantpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>group_print</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  13 </small></td><td><small> 
+<tr valign="top"><td><small>group_print</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  13 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>enable print and related functions
   This switch enables strlen;
   but neither globals nor the mini_buf are used.
  </small></td></tr>
 <tr valign="top"><td><small>group_printf</small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  29 </small></td><td><small> //
-</small></td></tr><tr><td></td><td colspan="2"><small>printf, eprintf, fprintf, itodec and ltodec (conversions %d %l), 
+</small></td></tr><tr><td></td><td colspan="2"><small>printf, eprintf, fprintf, itodec, ltodec, itohex, anprintf, sprintf (conversions %d %l %x %ud %ul %ux ), 
  </small></td></tr>
 <tr valign="top"><td><small>group_write</small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  23 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>write, and related functions
@@ -1457,17 +1460,17 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  4 </small></td><td><small> void *memcpy( void *d, const void *s, int n );
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  4 </small></td><td><small> void* memcpy( void*d, const void *s, int n );
 </small></td></tr>
-<tr valign="top"><td><small>memfd_create</small></td><td><small>   <a href="../src/memcpy.c" target="right">../src/memcpy.c</a>  174 </small></td><td><small> memfd_create( const char  *uname_ptr,  unsigned int flags)
+<tr valign="top"><td><small>memfd_create</small></td><td><small>   <a href="../src/mem/memcpy.c" target="right">../src/mem/memcpy.c</a>  174 </small></td><td><small> memfd_create( const char  *uname_ptr,  unsigned int flags)
 </small></td></tr>
 <tr valign="top"><td><small>memfrob</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void* memfrob(void* s, unsigned int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memmove.3.rst.html">memmove</a></small></td><td><small>   <a href="../src/memfrob.c" target="right">../src/memfrob.c</a>  3 </small></td><td><small> void* memmove(void *dest, const void *src, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memmove.3.rst.html">memmove</a></small></td><td><small>   <a href="../src/mem/memfrob.c" target="right">../src/mem/memfrob.c</a>  3 </small></td><td><small> void* memmove(void *dest, const void *src, int n);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/memmove.c" target="right">../src/memmove.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/mem/memmove.c" target="right">../src/mem/memmove.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/memset.c" target="right">../src/memset.c</a>  158 </small></td><td><small> mkdir( const char *pathname, int mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/mem/memset.c" target="right">../src/mem/memset.c</a>  158 </small></td><td><small> mkdir( const char *pathname, int mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mkfifo.2.rst.html">mkfifo</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  int mkfifo( const char* path, mode_t mode );
 </small></td></tr>
@@ -1481,7 +1484,7 @@
   if not, on error the negative errno value is returned.
   (e.g. -22 for "invalid argument")
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mount.2.rst.html">mount</a></small></td><td><small>   <a href="../src/mmap.c" target="right">../src/mmap.c</a>  168 </small></td><td><small> mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mount.2.rst.html">mount</a></small></td><td><small>   <a href="../src/mem/mmap.c" target="right">../src/mem/mmap.c</a>  168 </small></td><td><small> mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  206 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
 </small></td></tr>
@@ -1538,7 +1541,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/posix_openpt.2.rst.html">posix_openpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int posix_openpt(int flags);
 </small></td></tr>
-<tr valign="top"><td><small>print</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  55 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
+<tr valign="top"><td><small>print</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  55 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  77 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1559,9 +1562,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">ptsname</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  34 </small></td><td><small> char *ptsname(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>ptsname_r</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  21 </small></td><td><small> int ptsname_r(int fd, char *buf, size_t len);
+<tr valign="top"><td><small>ptsname_r</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  21 </small></td><td><small> int ptsname_r(int fd, char *buf, size_t len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putc</a></small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  19 </small></td><td><small> #define putc(c,stream) fputc(c,stream)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putc</a></small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  19 </small></td><td><small> #define putc(c,stream) fputc(c,stream)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putchar</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  16 </small></td><td><small> #define putchar(c) fputc(c,stdout)
 </small></td></tr>
@@ -1588,7 +1591,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  135 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  101 </small></td><td><small> read( int fd, void *buf, int len )
 </small></td></tr>
@@ -1709,21 +1712,21 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/ansicolors.h" target="right">../include/ansicolors.h</a>  107 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  58 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  58 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigfillset</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  20 </small></td><td><small>  int sigfillset(sigset_t *set);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigfillset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  20 </small></td><td><small>  int sigfillset(sigset_t *set);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  75 </small></td><td><small> int sigismember(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  75 </small></td><td><small> int sigismember(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  5 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
+<tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  5 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/signal.c" target="right">../src/signal.c</a>  52 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/signal/signal.c" target="right">../src/signal/signal.c</a>  52 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/sigaction.c" target="right">../src/sigaction.c</a>  10 </small></td><td><small> unsigned int  sleep(unsigned int seconds);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  10 </small></td><td><small> unsigned int  sleep(unsigned int seconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
@@ -1739,47 +1742,47 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  48 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strchr</a></small></td><td><small>   <a href="../src/strcat.c" target="right">../src/strcat.c</a>  20 </small></td><td><small> char *strchr(const char *s, int c);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strchr</a></small></td><td><small>   <a href="../src/string/strcat.c" target="right">../src/string/strcat.c</a>  20 </small></td><td><small> char *strchr(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  7 </small></td><td><small> char *strchrnul(const char *s, int c);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  7 </small></td><td><small> char *strchrnul(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strdup.3.rst.html">strdup</a></small></td><td><small>   <a href="../src/strcpy.c" target="right">../src/strcpy.c</a>  7 </small></td><td><small> char *strdup(const char *source);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strdup.3.rst.html">strdup</a></small></td><td><small>   <a href="../src/string/strcpy.c" target="right">../src/string/strcpy.c</a>  7 </small></td><td><small> char *strdup(const char *source);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strerror</a></small></td><td><small>   <a href="../src/strdup.c" target="right">../src/strdup.c</a>  7 </small></td><td><small>  char* strerror( int errnum );
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strerror</a></small></td><td><small>   <a href="../src/string/strdup.c" target="right">../src/string/strdup.c</a>  7 </small></td><td><small>  char* strerror( int errnum );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strlcpy.3.rst.html">strlcpy</a></small></td><td><small>   <a href="../src/strerror.c" target="right">../src/strerror.c</a>  5 </small></td><td><small> char *strlcpy(char *dest, const char *src, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strlcpy.3.rst.html">strlcpy</a></small></td><td><small>   <a href="../src/string/strerror.c" target="right">../src/string/strerror.c</a>  5 </small></td><td><small> char *strlcpy(char *dest, const char *src, int n);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
   when src is longer than dest, 
   end dest[n-1] with '\0'.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/strlcpy.c" target="right">../src/strlcpy.c</a>  4 </small></td><td><small> int strlen(const char*str);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/string/strlcpy.c" target="right">../src/string/strlcpy.c</a>  4 </small></td><td><small> int strlen(const char*str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/strlen.c" target="right">../src/strlen.c</a>  56 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/string/strlen.c" target="right">../src/string/strlen.c</a>  56 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  75 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  75 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/strcmp.c" target="right">../src/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
   write 0's up to src[n] when len of dest < n
   Please note strlcpy (borrowed from freebsd), 
   which does the same,
   but doesn't pad src with 0's.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/strncpy.c" target="right">../src/strncpy.c</a>  36 </small></td><td><small> char *strrchr(const char *s, int c);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/string/strncpy.c" target="right">../src/string/strncpy.c</a>  36 </small></td><td><small> char *strrchr(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/strchr.c" target="right">../src/strchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/strstr.c" target="right">../src/strstr.c</a>  5 </small></td><td><small> long int strtol(const char *c, const char **endp, int base);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/string/strstr.c" target="right">../src/string/strstr.c</a>  5 </small></td><td><small> long int strtol(const char *c, const char **endp, int base);
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion
   doesn't check for overflow(!)
  </small></td></tr>
-<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/strtol.c" target="right">../src/strtol.c</a>  31 </small></td><td><small>   void swap(void* a, void* b,int size);
+<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/string/strtol.c" target="right">../src/string/strtol.c</a>  31 </small></td><td><small>   void swap(void* a, void* b,int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>swap a with b, with 'size' bytes
   swaps integers and longs at once, when size eq sizeof(int/long)
  </small></td></tr>
@@ -1792,11 +1795,11 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  4 </small></td><td><small> int system( const char* command );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/system.c" target="right">../src/system.c</a>  21 </small></td><td><small>   int ) tcgetattr(int fd, struct termios *io);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/exec/system.c" target="right">../src/exec/system.c</a>  19 </small></td><td><small> int tcgetattr(int fd, struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../include/tcgetattr.h" target="right">../include/tcgetattr.h</a>  20 </small></td><td><small>   int ) tcsetattr(int fd, int opt, const struct termios *io);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../src/termios/tcgetattr.c" target="right">../src/termios/tcgetattr.c</a>  22 </small></td><td><small> int tcsetattr(int fd, int opt, const struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../include/tcsetattr.h" target="right">../include/tcsetattr.h</a>  2 </small></td><td><small> long telldir(DIR *dir);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../src/termios/tcsetattr.c" target="right">../src/termios/tcsetattr.c</a>  2 </small></td><td><small> long telldir(DIR *dir);
 </small></td></tr>
 <tr valign="top"><td><small>term_width</small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  7 </small></td><td><small> int term_width();
 </small></td></tr><tr><td></td><td colspan="2"><small>get the terminal width
@@ -1804,7 +1807,7 @@
   if not present, returns 80.
   Doesn't check for the existence of a terminal.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/term_width.c" target="right">../src/term_width.c</a>  221 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  221 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>token_i</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  33 </small></td><td><small> int token_i( userdb* udb, char **p );
 </small></td></tr>
@@ -1844,7 +1847,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  14 </small></td><td><small> int unlockpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/pty.c" target="right">../src/pty.c</a>  41 </small></td><td><small> int unmap_protected(void *p, int len);
+<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  41 </small></td><td><small> int unmap_protected(void *p, int len);
 </small></td></tr>
 <tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
 </small></td></tr>
@@ -1874,12 +1877,12 @@
   Deviating of system() an absolute pathname is taken.
   sets errno on error.
  </small></td></tr>
-<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  30 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
+<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  30 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
 </small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits, 
   do not write any output of the process. (close stdout)
   Deviating of system() an absolute pathname is taken.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/vexec.c" target="right">../src/vexec.c</a>  132 </small></td><td><small> DEF_syscall(vfork,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  132 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  86 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>
