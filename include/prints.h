@@ -69,7 +69,7 @@ extern int dprints(int fd, const char *msg,...);
 
 
 
-//+depends printl print strlen write
+//+depends printl print strlen write printf
 //+doc write msg to stdout, append a newline. Needs strlen.
 //+macro puts(msg) ( print(msg) + printl() )
 
@@ -125,6 +125,12 @@ extern int dprints(int fd, const char *msg,...);
 //+doc write fmt and arguments to stderr. 
 // only format %s and %c are recognized
 //+macro eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
+
+
+//+depends fprintfs fputs strlen
+//+doc write fmt and arguments to stderr. 
+//+macro eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+
 
 
 

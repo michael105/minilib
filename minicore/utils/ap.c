@@ -6,8 +6,8 @@ mini_write
 mini_writes
 mini_ewrites
 mini_read
-#mini_group_printf
-#mini_buf 1024
+mini_group_printf
+mini_buf 1024
 mini_GETOPTS
 #LDSCRIPT text_and_bss
 shrinkelf
@@ -29,24 +29,25 @@ void writefile(int fd){
 	}
 	//fprintf(stderr,"wrote: %d\n",len);
 	write(fd,(char*)&len,4);
+	write(fd,"AP\0\0",4);
 	close(fd);
 }
 
 int seekfile(int fd,int trunc){
 	int size = lseek( fd, 0, SEEK_END );
-	int fsize = lseek( fd, size-4, SEEK_SET );
-	int len;
-	int r = read(fd,(char*)&len,4);
+	int fsize = lseek( fd, size-8, SEEK_SET );
+	int len,c;
+	read(fd,(char*)&len,4);
+	int r = read(fd,(char*)&c,4);
 
 	//fprintf(stderr,"len: %d\n",len);
-	if ( r!=4 || ( len > fsize ) ){
-		ewrites("Error. Nothing appended.\n");
-		exit(5);
+	if ( r!=4 || ( len > fsize ) || c!=0x5041 ){
+		return(-1);
 	}
 
-	lseek( fd, size-4-len, SEEK_SET );
+	lseek( fd, size-8-len, SEEK_SET );
 	if ( trunc )
-		ftruncate( fd,size-4-len );
+		ftruncate( fd,size-8-len );
 	return(len);
 }
 
@@ -92,6 +93,10 @@ int main(int argc, char **argv){
 					return ( 1 );
 
 				int len = seekfile(fd,0);
+				if ( len<0 ){
+						ewrites("Error. Nothing appended.\n");
+						exit(-1);
+				}
 
 				int l;
 				do {
