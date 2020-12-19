@@ -3,13 +3,6 @@
 //+header unistd.h
 ////+include
 
-
-//+depends environ execve
-//+def
-static inline int execv(const char *pathname, char *const argv[]){
-		return( execve( pathname, argv, environ ) );
-};
-
 //+depends environ execve getenv access
 //+doc When invoked with a filename, starting with "." or "/",
 // interprets this as absolute path. (calls execve with the pathname)
@@ -51,14 +44,6 @@ static int execvpe(const char *file, char *const argv[], char *const envp[]){
 		} while (1);
 		//return(-1);
 };
-
-
-//+depends environ execvpe access getenv access
-//+def
-static inline int execvp(const char *file, char *const argv[]){
-		return( execvpe( file, argv, environ ) );
-};
-
 
 
 #endif
