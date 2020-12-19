@@ -30,7 +30,9 @@ int main( int argc, char *argv[] ){
 	dprintf( 1, "Check d 12345 %d\n",12345 );
 	fprintf( stdout, "Check d 12345 %d\n",12345 );
 
+		printf("sizeof int: %d\n", sizeof(int));
 		printf("sizeof long: %d\n", sizeof(long));
+		printf("sizeof long long: %d\n", sizeof(long long int));
 
 		printf("padded string:%10s","end\n");
 		printf("padded string:%3s","e\n");
