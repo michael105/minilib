@@ -56,6 +56,8 @@ int main( int argc, char **argv, char **envp ){
 		dir[pos+sizeof(RC_BASE_PATH)-1] = '/';
 		dir[pos+sizeof(RC_BASE_PATH)] = 0;
 
+		// run runlevel
+
 		printsl( "Starting ",dir );
 
 		int r = rundir(dir, 'B', argv, envp);

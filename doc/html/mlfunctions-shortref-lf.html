@@ -1248,7 +1248,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>inotify_rm_watch</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  196 </small></td><td><small> inotify_rm_watch( int fd,  __s32 wd)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> int   )) ioctl( int fd, unsigned long int request, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> int   )) ioctl( int fd, unsigned long int request, ... );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/ioctl.c" target="right">../src/ioctl.c</a>  5 </small></td><td><small> int isatty(int fd);
 </small></td></tr>
@@ -1680,7 +1680,21 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
-<tr valign="top"><td><small>seterrno</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  3 </small></td><td><small> #ifdef mini_errno
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">setenv</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  15 </small></td><td><small> int setenv( const char *name, const char *value, int overwrite );
+</small></td></tr><tr><td></td><td colspan="2"><small>put a string into the environmental vars
+  UNTESTED (!) TODO
+  the supplied string's pointer is put into the environmental array of pointers.
+  The supplied strings are copied into memory.
+  If overwrite is zero, an existing environmental variable is not overritten.
+  If overwrite is 1, the environmental variable is overwritten,
+  but not(!) freed from memory.
+  The supplied value is not checked for e.g. an '='
+ 
+  Returns: 
+  - 0 on success
+  - EINVAL on error
+ </small></td></tr>
+<tr valign="top"><td><small>seterrno</small></td><td><small>   <a href="../src/setenv.c" target="right">../src/setenv.c</a>  3 </small></td><td><small> #ifdef mini_errno
 </small></td></tr><tr><td></td><td colspan="2"><small>set errno, but only when errno is defined.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setgid</a></small></td><td><small>   <a href="../include/seterrno.h" target="right">../include/seterrno.h</a>  147 </small></td><td><small> setgid( gid_t gid)

@@ -1,3 +1,5 @@
+#ifndef vtmouse_h
+#define vtmouse_h
 
 #ifdef SPLITVT_SOURCE
 #include "vt100.h"
@@ -38,3 +40,6 @@ extern int terminal_input;	/* Set true if event_getc() can read input */
 extern int  event_init();
 extern int  event_getc();
 extern void event_quit();
+
+#endif
+
