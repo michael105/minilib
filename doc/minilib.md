@@ -89,7 +89,7 @@ ioctl.h
 
 ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
 
-               (src/ioctl.c: 11)
+               (src/ioctl.c: 9)
 
 
 
@@ -1223,6 +1223,22 @@ setbrk         static int setbrk(long addr);
                set the current brk
               wrapper for brk(), with type of brk changed to long
                (src/brk.c: 39)
+
+setenv         int setenv( const char *name, const char *value, int overwrite );
+
+               put a string into the environmental vars
+              UNTESTED (!) TODO
+              the supplied string's pointer is put into the environmental array of pointers.
+              The supplied strings are copied into memory.
+              If overwrite is zero, an existing environmental variable is not overritten.
+              If overwrite is 1, the environmental variable is overwritten,
+              but not(!) freed from memory.
+              The supplied value is not checked for e.g. an '='
+             
+              Returns: 
+              - 0 on success
+              - EINVAL on error
+               (src/setenv.c: 15)
 
 seterrno       #ifdef mini_errno
 
