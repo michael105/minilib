@@ -123,7 +123,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		//printf("exec..> %s\n",argv[0]);
 		execve(((*argv[0] == '-') ? argv[0]+1 : argv[0]), (char* const*)argv,(char* const*)environ);
 
-		printf("ERROR: exec..> %s\n",argv[0]);
+		printfs("ERROR: exec..> %s\n",argv[0]);
 		perror(argv[0]);
 		exit(255);
 	}
@@ -264,7 +264,7 @@ int fd;
 		return(0);
 
 #ifdef OLDDEBUG
-	fprintf(stderr, "Getting tty modes for tty_mode.\r\n");
+	ewrites("Getting tty modes for tty_mode.\r\n");
 #endif
 
 	if (ioctl(fd, TCGETA, (char *) &tty_mode) < 0)
@@ -558,7 +558,7 @@ char *type;
 			argv[3]=NULL;
 			//fprintf(stderr,"execing\n");
 			execve(argv[0], (char* const*)argv,(char* const*)environ);
-			fprintf(stderr, "Can't execute %s: ", argv[0]);
+			fprintfs(stderr, "Can't execute %s: ", argv[0]);
 			perror("");
 			exit(255);
 
