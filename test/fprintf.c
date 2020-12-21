@@ -38,6 +38,8 @@ int main( int argc, char *argv[] ){
 		printf("padded string:%3s","e\n");
 
 		printf("padded num: -%3d-\n",12);
+		printf("padded num: -%03d-\n",12);
+		printf("padded num 3301: -%010d-\n",3301);
 
 
 	return(0);

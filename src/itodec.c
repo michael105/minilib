@@ -4,13 +4,18 @@
 //
 //+doc convert int to string.
 // prec: precision, e.g. 4=> 0087 
+// pad: 0 (pad with spaces), or the char to pad
 //+def uitodec
-int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter ){
+int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter, char pad ){
 		int p = 0;
 		int a;
 		int t1,t2,t3,dec;
 		//unsigned int ut1,ut2,ut3;
 		char n;
+		char trail=' ';
+		if ( pad )
+			trail = pad;
+
 		prec = prec - 10; // Maximale Stellenanzahl 
 
 
@@ -93,7 +98,7 @@ int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, 
 			if ( prec == 0 ){
 			write:
 					if ( trailing )
-							buf[p] = ' ';
+							buf[p] = trail;
 					else
 							buf[p] = n;
 					p++;
@@ -115,13 +120,13 @@ int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, 
 	
 //+depends uitodec
 //+def
-int itodec(int i, char *buf, int prec, char limiter ){
+int itodec(int i, char *buf, int prec, char limiter, char pad ){
 	if ( i < 0 ){
 			buf[0]='-';
 			i = -i;
-			return(uitodec((unsigned int)i,&buf[1],prec,limiter) + 1 );
+			return(uitodec((unsigned int)i,&buf[1],prec,limiter,pad) + 1);
 	}
-	return(uitodec((unsigned int)i,buf,prec,limiter) );
+	return(uitodec((unsigned int)i,buf,prec,limiter,pad) );
 }
 
 

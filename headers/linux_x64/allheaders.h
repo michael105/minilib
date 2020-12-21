@@ -8,6 +8,8 @@
 #include "./bits/stat.h"
 #include "./bits/inotify.h"
 #include "./bits/limits.h"
+#include "./bits/types.h"
 #include "./mount.h"
 #include "./fcntl.h"
+#include "./seccomp.h"
 #endif

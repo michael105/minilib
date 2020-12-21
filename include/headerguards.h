@@ -109,6 +109,7 @@
 #define _LINUX_LIST_H
 #define _LINUX_LOOP_H
 #define _LINUX_TYPES_H
+#define _LINUX_SECCOMP_H
 #define _MALLOC_H
 #define _MATH_H
 #define _MCHECK_H
