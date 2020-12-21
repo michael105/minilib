@@ -1265,7 +1265,7 @@
   ( -1 is 11111111111111111111111111111111,
     -2    11111111111111111111111111111110, ...)
  </small></td></tr>
-<tr valign="top"><td><small>itodec</small></td><td><small>   <a href="../src/itobin.c" target="right">../src/itobin.c</a>  118 </small></td><td><small> int itodec(int i, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>itodec</small></td><td><small>   <a href="../src/itobin.c" target="right">../src/itobin.c</a>  123 </small></td><td><small> int itodec(int i, char *buf, int prec, char limiter, char pad );
 </small></td></tr>
 <tr valign="top"><td><small>itohex</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  53 </small></td><td><small> int itohex(int i,char* buf,int padding);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a number to hexadecimal representation.
@@ -1541,7 +1541,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/posix_openpt.2.rst.html">posix_openpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int posix_openpt(int flags);
 </small></td></tr>
-<tr valign="top"><td><small>print</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  55 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
+<tr valign="top"><td><small>prctl</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  219 </small></td><td><small> prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+</small></td></tr>
+<tr valign="top"><td><small>print</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  55 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  77 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
@@ -1796,7 +1798,13 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion
   doesn't check for overflow(!)
  </small></td></tr>
-<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/string/strtol.c" target="right">../src/string/strtol.c</a>  31 </small></td><td><small>   void swap(void* a, void* b,int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtoll</a></small></td><td><small>   <a href="../src/string/strtol.c" target="right">../src/string/strtol.c</a>  7 </small></td><td><small> long long int strtoll(const char *c, const char **endp, int base);
+</small></td></tr><tr><td></td><td colspan="2"><small>conversion
+  doesn't check for overflow(!)
+  For linux x64, long long and long both have 64 bit.
+  Therefore, strtoll just calls strtol
+ </small></td></tr>
+<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/string/strtoll.c" target="right">../src/string/strtoll.c</a>  31 </small></td><td><small>   void swap(void* a, void* b,int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>swap a with b, with 'size' bytes
   swaps integers and longs at once, when size eq sizeof(int/long)
  </small></td></tr>
@@ -1821,7 +1829,7 @@
   if not present, returns 80.
   Doesn't check for the existence of a terminal.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  221 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  222 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>token_i</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  33 </small></td><td><small> int token_i( userdb* udb, char **p );
 </small></td></tr>
@@ -1840,9 +1848,10 @@
   And most possibly it would be better to implement bsd's cached versions 
   of the user db access functions instead. 
  </small></td></tr>
-<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/userdb/userdb.c" target="right">../src/userdb/userdb.c</a>  8 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/userdb/userdb.c" target="right">../src/userdb/userdb.c</a>  9 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
 </small></td></tr><tr><td></td><td colspan="2"><small>convert int to string.
   prec: precision, e.g. 4=> 0087 
+  pad: 0 (pad with spaces), or the char to pad
  </small></td></tr>
 <tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  6 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 </small></td></tr>

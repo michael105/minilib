@@ -20,7 +20,7 @@
 static char *version=
 "@(#)Splitvt 1.6.6  3/11/2006  -Sam Lantinga   (slouken@devolution.com)\n0.7 (stripped) misc 2020\n";
 
-
+#ifndef MLIB
 #include	<sys/types.h>
 #include	<sys/time.h>
 #include	<sys/wait.h>
@@ -34,11 +34,11 @@ static char *version=
 #ifdef HAVE_UNISTD_H
 #include	<unistd.h>
 #endif
+#endif
 
 
 #include	"splitvt.h"
 #include	"vt100.h"
-#include	"vtmouse.h"
 
 // include sources.
 // results in more possiblities to optize
@@ -46,7 +46,6 @@ static char *version=
 #include "vt100.c"
 //#include "videomem.c" 
 //#include "terminal.c" 
-//#include "vtmouse.c"
 
 // default shell
 #define SHELL "/bin/ash"
@@ -147,7 +146,6 @@ int main(int argc, char **argv, char **envp){
 	fd_set read_mask;
 	//static struct passwd pwdata;	/* Our passwd entry */
 
-	struct event X_event;
 	int on_separator=0;
 /*
 	printf("envp: \n");
@@ -273,18 +271,6 @@ int main(int argc, char **argv, char **envp){
 		fprintfs(stderr, "\rCan't initialize screen: %s\n", ptr);
 		exit(3);
 	}
-#ifdef X_SUPPORT
-#ifdef XTITLE
-	/* Make the title bar the version string, strip extraneous info. */
-	if ( xterm_title == NULL ) {
-		strcpy(buffer, version+4);
-		buffer[39]='\0';
-		xterm_title=buffer;
-	}
-#endif
-	/* This must be called before pty_open() */
-	(void) event_init(stdin, stdout, xterm_title);
-#endif /* X_SUPPORT */
 	selection[0]='\0';
 
 	if ( argv[1] ) {
@@ -436,7 +422,7 @@ int main(int argc, char **argv, char **envp){
 			//if ( (numready=select(maxfds, &read_mask, NULL, NULL, tvptr)) <= 0 ){
 			if ( (numready=select(16, &read_mask, 0, 0, 0 )) <= 0 ){
 					//printf("Err. errno %d maxfd %d fd's: %d, %d\n", errno, maxfds, topfd, bottomfd );
-					sleep(1);
+					//sleep(1);
 					tvptr=0;
 					if ( (numready=select(maxfds, &read_mask, NULL, NULL, tvptr)) <= 0 )
 					{
@@ -467,56 +453,12 @@ int main(int argc, char **argv, char **envp){
 
 			if ( FD_ISSET(ttyfd, &read_mask) )
 			{
-					do {
 							int c;
 
-							if ( (c=event_getc(&X_event)) == EOF )
+							if ( (c=getc(stdin)) == EOF )
 									finish(0);
-#ifdef VTMOUSE
-
-							if ( X_event.happening ) {
-									/* Work only on button press */
-									if ( ! BUTTON_ISSET(X_event, RELEASE) ) {
-											/* Mouse click in which winow? */
-											if ( X_event.x <= WU_lines )
-											{ 
-													if ( topok )
-															thisfd=topfd;
-													SET_WIN();
-											} else 
-													if ( X_event.x > (WU_lines+1) )
-													{ 
-															if ( bottomok )
-																	thisfd=bottomfd;
-															SET_WIN();
-													} else
-															on_separator=X_event.x;
-
-											if ( BUTTON_ISSET(X_event, BUTTON_2) ) {
-													strcpy(selection, vt_getselbuf());
-													write(thisfd, selection, strlen(selection));
-											}
-									} else if ( on_separator ) {
-											move_bar(X_event.x-on_separator);
-											on_separator=0;
-									}
-#ifdef REPORT_SELECTION
-#ifdef ORI
-									if ( (X_event.button_state&SELECTED) == SELECTED ) {
-											vt_setsel(selection, BUFSIZ-1,
-															X_event.selection.begin_row, 
-															X_event.selection.end_row, 
-															X_event.selection.begin_col, 
-															X_event.selection.end_col); 
-											vt_setselbuf(selection);
-									}
-#endif
-#endif
-							} else 
-#endif
-									if ( c )
+							if ( c )
 											do_input(c);
-					} while (terminal_input);
 			}
 
 			if  ( FD_ISSET(bottomfd, &read_mask) )
@@ -766,7 +708,6 @@ int sig;
 
 	/* Reset the vt100 window */
 	end_vt100();
-	event_quit();
 
 #ifdef ORI
 	/* Reset our utmp entries */

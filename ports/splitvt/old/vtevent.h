@@ -1,5 +1,5 @@
-#ifndef vtmouse_h
-#define vtmouse_h
+#ifndef vtevent_h
+#define vtevent_h
 
 #ifdef SPLITVT_SOURCE
 #include "vt100.h"

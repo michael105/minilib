@@ -11,7 +11,7 @@ PTYOPTS = -DPTYCHAR=$(PTYCHAR) -DHEXDIGIT=$(HEXDIGIT)
 CFLAGS =  -DHAVE_UTHOST -DHAVE_TERMIO_H -DHAVE_UNISTD_H -DNEED_SELECT_H -DHAVE_WAIT4 $(PTYOPTS) -static 
 LIBS = 
 #OBJS = videomem.o terminal.o vtmouse.o 
-OBJS = splitvt.o videomem.o terminal.o vtmouse.o 
+OBJS = splitvt.o videomem.o terminal.o 
 #OBJS = splitvt.o misc.o vt100.o videomem.o terminal.o vtmouse.o
       # cut-paste.o
 

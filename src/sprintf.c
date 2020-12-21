@@ -87,7 +87,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 
 												if ( mod == 0 ){
 												MINI_TEST_OVERRUN(b+13);
-												b = b + uitodec(va_arg(args,unsigned int),&buf[b],(padding?padding:1),sep);
+												b = b + uitodec(va_arg(args,unsigned int),&buf[b],(padding?padding:1),sep,pad);
 												//b = b + uitodec(va_arg(args,unsigned int),&buf[b],padding,sep);
 												}
 #endif
@@ -106,7 +106,7 @@ int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 #ifdef mini_itodec
 												if ( mod == 0 ){
 													MINI_TEST_OVERRUN(b+13);
-													b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
+													b = b + itodec(va_arg(args,int),&buf[b],padding,sep,pad);
 													//b = b + itodec(va_arg(args,int),&buf[b],padding,sep);
 												} 
 #endif

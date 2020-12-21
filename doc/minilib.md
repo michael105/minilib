@@ -972,9 +972,9 @@ itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0),
                 -2    11111111111111111111111111111110, ...)
                (src/itobin.c: 46)
 
-itodec         int itodec(int i, char *buf, int prec, char limiter );
+itodec         int itodec(int i, char *buf, int prec, char limiter, char pad );
 
-               (src/itodec.c: 118)
+               (src/itodec.c: 123)
 
 itooct         int itooct(int i, char *buf);
 
@@ -1276,6 +1276,14 @@ strlcpy        char *strlcpy(char *dest, const char *src, int n);
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
 
+strtoll        long long int strtoll(const char *c, const char **endp, int base);
+
+               conversion
+              doesn't check for overflow(!)
+              For linux x64, long long and long both have 64 bit.
+              Therefore, strtoll just calls strtol
+               (src/string/strtoll.c: 7)
+
 swap           static inline void swap(void* a, void* b,int size);
 
                swap a with b, with 'size' bytes
@@ -1324,11 +1332,12 @@ token_s        char *token_s( userdb *udb, char **p );
               of the user db access functions instead. 
                (src/userdb/userdb.c: 19)
 
-uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter );
+uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
 
                convert int to string.
               prec: precision, e.g. 4=> 0087 
-               (src/itodec.c: 8)
+              pad: 0 (pad with spaces), or the char to pad
+               (src/itodec.c: 9)
 
 ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 

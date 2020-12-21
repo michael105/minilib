@@ -27,6 +27,6 @@ int dtodec(double d, char* buf, int precision){
 
 	
 		buf[p+1]='.';
-		int p2 = uitodec(i2,&buf[p+2],9,0);
+		int p2 = uitodec(i2,&buf[p+2],9,0,0);
 		return(p+p2+2-9+precision);
 }

@@ -81,9 +81,8 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		/* Under old UNIX, just opening the new tty after
 		   losing the controlling tty is good enough.
 		   Under newer Unices, it requires an ioctl().  */
-#if 1
 		(void) ioctl(0, TIOCSCTTY, 0);
-#endif
+
 
 		/* Set the lines and columns on the new tty */
 //#ifdef TIOCGWINSZ	/* We don't want to set the environment if possible */
@@ -124,7 +123,7 @@ int pty_open( char *argv[], int *childpid, int win )		/* win :0 for upper, 1 for
 		//printf("exec..> %s\n",argv[0]);
 		execve(((*argv[0] == '-') ? argv[0]+1 : argv[0]), (char* const*)argv,(char* const*)environ);
 
-		printf("ERROR: exec..> %s\n",argv[0]);
+		printfs("ERROR: exec..> %s\n",argv[0]);
 		perror(argv[0]);
 		exit(255);
 	}
@@ -150,59 +149,6 @@ char *get_ttyname()
 		return(tty_name);
 	return(NULL);
 }
-
-#if 0	/* IRIX System V for SGI machines */
-//#ifdef IRIX	/* IRIX System V for SGI machines */
-
-extern char *_getpty();
-
-int get_master_pty()
-{
-
-	char 	*ttyptr;
-
-	ttyptr=_getpty(&master_fd, O_RDWR, 0600, 0);
-	if ( ttyptr == NULL || strlen(ttyptr)+1 > sizeof(tty_name) )
-		return(-1);
-	else
-		strcpy(tty_name, ttyptr);
-
-	return(master_fd);
-}
-
-/*
- * Open the slave half of a pseudo-terminal.
- */
-
-int get_slave_pty()
-{
-	int	slave_fd;
-	char	*slavename;
-
-	slavename=tty_name;
-
-	if (slavename == NULL) {
-		close(master_fd);
-		return(-1);
-	}
-
-	if ( (slave_fd=open(slavename, O_RDWR)) < 0 )	/* open the slave */
-	{
-		close(master_fd);
-		return(-1);
-	}
-
-	return(slave_fd);
-}
-#else /* ! IRIX */
-
-
-//#if defined(SOLARIS) || defined(linux)		/* System V.4 pty routines from W. Richard Stevens */
-#if 1
-
-#ifdef SOLARIS
-#include <stropts.h>
-#endif
 
 #define DEV_CLONE	"/dev/ptmx"
 
@@ -264,132 +210,8 @@ int get_slave_pty()
 		close(master_fd);
 		return(-1);
 	}
-
-//#ifdef SOLARIS
-#if 0
-	if ( ioctl(slave_fd, I_PUSH, "ptem") < 0 )
-	{
-		close(master_fd);
-		close(slave_fd);
-		return(-1);
-	}
-
-	if ( ioctl(slave_fd, I_PUSH, "ldterm") < 0 )
-	{
-		close(master_fd);
-		close(slave_fd);
-		return(-1);
-	}
-
-	if ( ioctl(slave_fd, I_PUSH, "ttcompat") < 0 )
-	{
-		close(master_fd);
-		close(slave_fd);
-		return(-1);
-	}
-#endif
-
 	return(slave_fd);
 }
-
-#else	/* BSD, Sun/OS, AIX, ULTRIX, HP-UX, AT&T SYSV */
-
-#include	<setjmp.h>
-
-#ifndef X_OK
-#define	R_OK	4	/* Test for Read permission */
-#define	W_OK	2	/* Test for Write permission */
-#define	X_OK	1	/* Test for eXecute permission */
-#endif  /* X_OK */
-
-jmp_buf next;
-
-void trynext()
-{
-	longjmp(next, 2);
-}
-
-
-int get_master_pty()
-{
-	int i, master_fd;
-	char *ptr;
-	struct stat statbuff;
-#ifdef PTYCHAR
-	static char ptychar[]=PTYCHAR;			/* X */ 
-	static char hexdigit[]=HEXDIGIT;		/* Y */
-#else
-	static char ptychar[]="pqrstuvwxyzPQRST";	/* X */ 
-	static char hexdigit[]="0123456789abcdef";	/* Y */
-#endif
-
-	for (ptr=ptychar; *ptr != 0; ptr++)
-	{
-		strcpy(pty_name, "/dev/ptyXY");
-		pty_name[8]=(*ptr);  /* X */
-		pty_name[9]='0';   /* Y */
-
-		if ( stat(pty_name, &statbuff) < 0 )
-			break;
-#ifdef OLDDEBUG
-		fprintf(stderr, "statted.\n");
-#endif
-		i=(-1);		/* Initialize i */
-
-		/* Set a time limit for the open */
-		if ( setjmp(next) == -1 )
-			return(-1);
-		signal(SIGALRM, trynext);
-
-		for ( ++i; hexdigit[i]; ++i)
-		{
-			pty_name[5]='p';
-			pty_name[9]=hexdigit[i];
-
-			alarm(2);	/* Set an open timeout */
-
-			if ( (master_fd=open(pty_name, O_RDWR)) >= 0 )
-			{
-				alarm(0); 	/* Reset the alarm */
-
-				pty_name[5]='t';
-				sprintf(tty_name, "%s", pty_name);
-#ifdef OLDDEBUG
-				fprintf(stderr, "tty: %s\n", tty_name);
-#endif
-				if ( access(tty_name, R_OK|W_OK) == 0 ) {
-					signal(SIGALRM, SIG_DFL);
-					return (master_fd);
-				} else {
-					pty_name[5]='p';
-					(void) close(master_fd);
-				}
-			}
-			/* reset the alarm */
-			alarm(0);
-		}
-	}
-	return(-1);
-}
-
-
-/* Open the slave half of a pseudo-terminal. */
-
-int get_slave_pty()
-{
-	int slave_fd;
-
-	//printf("ttyname Xi2: %s\n",tty_name);
-	if ( (slave_fd=open(tty_name, O_RDWR)) < 0 )
-	{
-		close(master_fd);
-		return(-1);
-	}
-	return(slave_fd);
-}
-
-#endif  /* if linux or SOLARIS */
-#endif  /* if IRIX */
 
 
 /* These are the binary data functions that I am using instead of 
@@ -420,35 +242,11 @@ void d_zero(dst, len)
 
 void dropctty()
 {
-	int fd;
-
-#if defined(_POSIX_SOURCE) || defined(SOLARIS) || \
-				defined(__386BSD__) || defined(__FreeBSD__)
 	setsid();		/* The POSIX solution is simple. :) */
-#else
-#ifdef TIOCNOTTY  /* We want to get HP-UX, BSD, and Sun/OS here */
-	//setpgrp(0, 0);
 
-#ifndef CIBAUD   /* Sun/OS doesn't need to do TIOCNOTTY.  */
-	if ( (fd=open("/dev/tty", O_RDWR | O_TTY_INIT)) > (-1) ) 
-	{
-		if (ioctl(fd, TIOCNOTTY, 0) < 0)
-		{
-			perror("ioctl TIOCNOTTY error");
-			fprintf(stderr, "\r");
-		}
-		close(fd);
-	}
-#endif /* CIBAUD */
-#else /*  SYSV 	*/
-	//setpgrp();
-#endif /* TIOCNOTTY */
-#endif /* _POSIX_SOURCE */
 }
 
 
-#if 1
-//#ifdef HAVE_TERMIO_H
 
 /* Get the modes of the controlling tty and save them.  Saves
    ttymodes in tty_mode and returns -1 if ioctl fails. */
@@ -466,7 +264,7 @@ int fd;
 		return(0);
 
 #ifdef OLDDEBUG
-	fprintf(stderr, "Getting tty modes for tty_mode.\r\n");
+	ewrites("Getting tty modes for tty_mode.\r\n");
 #endif
 
 	if (ioctl(fd, TCGETA, (char *) &tty_mode) < 0)
@@ -577,93 +375,6 @@ int fd;
 	return(0);
 }
 
-#else  /* no /usr/include/termio.h */
-#ifdef NEED_COMPAT_H		/* FreeBSD needs this */
-#include <sys/ioctl_compat.h>
-#endif /* NEED_COMPAT_H */
-
-/* Set a tty to a sane mode */
-
-int tty_sane(fd)
-int fd;
-{
-	struct sgttyb temp_mode;
-
-	if ( ! isatty(fd) )
-		return(0);
-
-	if (ioctl(fd, TIOCGETP, (char *) &temp_mode) < 0)
-		return(-1);
-
-	temp_mode.sg_flags|=ECHO;
-	
-	if (ioctl(fd, TIOCSETP, (char *) &temp_mode) < 0)
-		return(-1);
-
-	return(0);
-}
-
-
-
-/* Get the modes of the controlling tty and save them.  Saves
-   ttymodes in tty_mode and returns 1 if ioctl fails. */
-
-static struct sgttyb	tty_mode;	/* save tty mode here */
-
-int tty_getmode(fd)
-int fd;
-{
-	if ( ! isatty(fd) )
-		return(0);
-
-	if (ioctl(fd, TIOCGETP, (char *) &tty_mode) < 0)
-		return(-1);
-
-	return(0);
-}
-
-/*
- * Put a terminal device into RAW mode with ECHO off.
- * Before doing so we first save the terminal's current mode,
- * assuming the caller will call the tty_reset() function
- * (also in this file) when it's done with raw mode.
- */
-
-int tty_raw(fd)
-int	fd;		/* of terminal device */
-{
-	struct sgttyb	temp_mode;
-
-	if ( ! isatty(fd) )
-		return(0);
-
-	temp_mode = tty_mode;
-
-	temp_mode.sg_flags |= RAW;	/* turn RAW mode on */
-	temp_mode.sg_flags &= ~ECHO;	/* turn ECHO off */
-	if (ioctl(fd, TIOCSETP, (char *) &temp_mode) < 0)
-		return(-1);
-
-	return(0);
-}
-
-/*
- * Restore a terminal's mode to whatever it was on the most
- * recent call to the tty_getmode() function above.
- */
-
-int tty_reset(fd)
-int	fd;		/* of terminal device */
-{
-	if ( ! isatty(fd) )
-		return(0);
-
-	if (ioctl(fd, TIOCSETP, (char *) &tty_mode) < 0)
-		return(-1);
-
-	return(0);
-}
-#endif /* HAVE_TERMIO_H */
 
 
 /* Set the pty window size to the size of the virtual window */
@@ -804,67 +515,6 @@ char *tokens;
 	array[i]=NULL;
 }
 
-
-/* Return the pathname of the command, or NULL if it's not in our PATH */
-/* Warning: We use a static buffer that is overwritten at each invocation. */
-
-char *pathsearch(command, secure)
-char *command;
-int secure;
-{
-#ifndef S_IFREG
-#define S_IFREG 0100000
-#endif
-	char *path, *newpath, *paths[256];
-	static char buffer[1024];
-	int i;
-	struct stat sb;
-
-	if ( (path=(char *)getenv("PATH")) == NULL )
-		return(NULL);
-	if ( (newpath=(char *)malloc(strlen(path)+1)) == NULL )
-		return(NULL);
-	strcpy(newpath, path);
-
-	tokenize(paths, 256, newpath, ":");
-	for ( i=0; paths[i]; ++i ) {
-		if ( secure && paths[i][0] != '/' ) {
-			/* Only allow full pathnames */
-			continue;
-		}
-
-		/* Make sure the file exists */
-		sprintf(buffer, "%s/%s", paths[i], command);
-		if ( stat(buffer, &sb) != 0 )
-			continue;
-
-		/* Make sure it's a regular file */
-		if ( (sb.st_mode & S_IFREG) != S_IFREG )
-			continue;
-
-		/* Now make sure we can execute it */
-		if ( sb.st_uid == getuid() ) {
-			/* User execute permission? */
-			if ( sb.st_mode & 0100 )
-				break;
-		} else if ( sb.st_gid == getgid() ) {
-			/* Group execute permission? */
-			if ( sb.st_mode & 0010 )
-				break;
-		} else {
-			/* Other execute permission? */
-			if ( sb.st_mode & 0001 )
-				break;
-		}
-	}
-	(void) free(newpath);
-
-	if ( paths[i] == NULL )
-		return(NULL);
-	else
-		return(buffer);
-}
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ 
 
 /* Safe version of popen() and pclose(), they reset the uid and gid. */
@@ -908,7 +558,7 @@ char *type;
 			argv[3]=NULL;
 			//fprintf(stderr,"execing\n");
 			execve(argv[0], (char* const*)argv,(char* const*)environ);
-			fprintf(stderr, "Can't execute %s: ", argv[0]);
+			fprintfs(stderr, "Can't execute %s: ", argv[0]);
 			perror("");
 			exit(255);
 
