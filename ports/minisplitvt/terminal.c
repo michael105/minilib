@@ -150,7 +150,7 @@ int on;
 	if ( on && capabilities[md].value ) 
 		tputs(capabilities[md].value, 1, outc);
 	else
-		printf("\033[%sm", (on ? "1" : "22"));
+		printfs("\033[%sm", (on ? "1" : "22"));
 }
 void vt_underline(on)
 int on;
@@ -158,7 +158,7 @@ int on;
 	if ( capabilities[on ? us : ue].value ) 
 		tputs(capabilities[on ? us : ue].value, 1, outc);
 	else
-		printf("\033[%sm", on ? "4" : "24");
+		printfs("\033[%sm", on ? "4" : "24");
 }
 void vt_blink(on)
 int on;
@@ -166,7 +166,7 @@ int on;
 	if ( on && capabilities[mb].value ) 
 		tputs(capabilities[mb].value, 1, outc);
 	else
-		printf("\033[%sm", on ? "5" : "25");
+		printfs("\033[%sm", on ? "5" : "25");
 }
 void vt_reverse(on)
 int on;
@@ -174,14 +174,14 @@ int on;
 	if ( on && capabilities[mr].value ) 
 		tputs(capabilities[mr].value, 1, outc);
 	else
-		printf("\033[%sm", on ? "7" : "27");
+		printfs("\033[%sm", on ? "7" : "27");
 }
 void vt_resetattr()
 {
 	if ( capabilities[me].value ) 
 		tputs(capabilities[me].value, 1, outc);
 	else
-		printf("\033[m");
+		prints("\033[m");
 }
 void vt_widemode(on)
 int on;
@@ -189,21 +189,21 @@ int on;
 	if ( on && capabilities[ZF].value ) 
 		tputs(capabilities[ZF].value, 1, outc);
 	else
-		printf("\033[?3%c", on ? 'h' : 'l');
+		printfs("\033[?3%c", on ? 'h' : 'l');
 }
 void vt_savecursor()
 {
 	if ( capabilities[sc].value )
 		tputs(capabilities[sc].value, 1, outc);
 	else
-		printf("\0337");
+		prints("\0337");
 }
 void vt_restcursor()
 {
 	if ( capabilities[rc].value )
 		tputs(capabilities[rc].value, 1, outc);
 	else
-		printf("\0338");
+		prints("\0338");
 }
 #else
 char *termcap_init(termtype)
@@ -229,39 +229,39 @@ int *cols;
 void vt_bold(on)
 int on;
 {
-	printf("\033[%sm", (on ? "1" : "22"));
+	printfs("\033[%sm", (on ? "1" : "22"));
 }
 void vt_underline(on)
 int on;
 {
-	printf("\033[%sm", on ? "4" : "24");
+	printfs("\033[%sm", on ? "4" : "24");
 }
 void vt_blink(on)
 int on;
 {
-	printf("\033[%sm", on ? "5" : "25");
+	printfs("\033[%sm", on ? "5" : "25");
 }
 void vt_reverse(on)
 int on;
 {
-	printf("\033[%sm", on ? "7" : "27");
+	printfs("\033[%sm", on ? "7" : "27");
 }
 void vt_resetattr()
 {
-	printf("\033[m");
+	prints("\033[m");
 }
 void vt_widemode(on)
 int on;
 {
-	printf("\033[?3%c", on ? 'h' : 'l');
+	printfs("\033[?3%c", on ? 'h' : 'l');
 }
 void vt_savecursor()
 {
-	printf("\0337");
+	prints("\0337");
 }
 void vt_restcursor()
 {
-	printf("\0338");
+	prints("\0338");
 }
 #endif
 		/* vt100 compatible versions of the screen update routines */
@@ -300,7 +300,7 @@ int *cols;
 }
 void vt_bell()
 {
-	printf("\007");
+	prints("\007");
 }
 void vt_goto(row, col)
 int row, col;
@@ -329,27 +329,27 @@ int numcols;
 }
 void vt_clrscr()
 {
-	printf("\033[2J");
+	prints("\033[2J");
 }
 void vt_clreos()
 {
-	printf("\033[J");
+	prints("\033[J");
 }
 void vt_clrbgs()
 {
-	printf("\033[1J");
+	prints("\033[1J");
 }
 void vt_clrline()
 {
-	printf("\033[2K");
+	prints("\033[2K");
 }
 void vt_clreol()
 {
-	printf("\033[K");
+	prints("\033[K");
 }
 void vt_clrbgl()
 {
-	printf("\033[1K");
+	prints("\033[1K");
 }
 void vt_delunder(num)
 int num;
@@ -396,13 +396,13 @@ int type;
 {
 	switch (type) {
 		case UK_CHARSET:
-				printf("\033%cA", (charset == G0 ? '(' : ')'));
+				printfs("\033%cA", (charset == G0 ? '(' : ')'));
 				break;
 		case US_CHARSET:
-				printf("\033%cB", (charset == G0 ? '(' : ')'));
+				printfs("\033%cB", (charset == G0 ? '(' : ')'));
 				break;
 		case GRAPHICS:	
-				printf("\033%c0", (charset == G0 ? '(' : ')'));
+				printfs("\033%c0", (charset == G0 ? '(' : ')'));
 				break;
 		default:	break;
 	}
@@ -411,23 +411,23 @@ void vt_setscroll(upper, lower)
 int upper, lower;
 {
 	if ( !upper && !lower ) {
-		printf("\033[r");
+		prints("\033[r");
 	} else {
 		printf("\033[%d;%dr", upper, lower);
 	}
 }
 void vt_revscroll()
 {
-	printf("\033M");
+	prints("\033M");
 }
 void vt_keystate(application)
 int application;
 {
 	/* Set and reset the numeric keypad and arrowkeys */
 	if ( application )
-		printf("\033=\033[?1h");
+		prints("\033=\033[?1h");
 	else
-		printf("\033>\033[?1l");
+		prints("\033>\033[?1l");
 }
 void vt_insertchar(int numcols)
 {
@@ -435,7 +435,7 @@ void vt_insertchar(int numcols)
 }
 void vt_reset()
 {
-	printf("\033c");
+	prints("\033c");
 }
 void vt_update()
 {
