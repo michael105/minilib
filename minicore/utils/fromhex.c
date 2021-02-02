@@ -1,6 +1,7 @@
 #if 0
 mini_start
 mini_write 
+mini_writes
 mini_read
 
 INCLUDESRC
@@ -8,10 +9,23 @@ INCLUDESRC
 return
 #endif
 
+// misc 2020
+
 #define BUF 4096
 
 
-int main(){
+void usage(){
+	writes("fromhex. convert hexadecimal input to ascii.\n\
+Doesn't check for errors.(0x, linebreaks,..)\n");
+	exit(0);
+}
+
+
+int main(int argc, char **argv){
+
+		if ( argc>1 )
+				usage();
+
 		char c[BUF];
 		char o[BUF/2];
 		int r = 0;

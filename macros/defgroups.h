@@ -24,7 +24,7 @@
 
 
 //+doc printf, eprintf, fprintf, itodec, ltodec, itohex, anprintf, sprintf (conversions %d %l %x %ud %ul %ux ), 
-//+depends printf eprintf fprintf itodec ltodec uitodec snprintf atoi itohex uitohex itoHEX uitoHEX
+//+depends printf eprintf fprintf itodec ltodec uitodec snprintf atoi itohex uitohex itoHEX uitoHEX strlen globals fileno vsnprintf
 //+def group_printf
 //
 

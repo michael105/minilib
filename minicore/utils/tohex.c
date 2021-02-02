@@ -1,6 +1,7 @@
 #if 0
 mini_start
 mini_write 
+mini_writes
 mini_read
 
 INCLUDESRC
@@ -10,10 +11,19 @@ return
 
 #define BUF 4096
 
+void usage(){
+	writes("tohex. convert stdin to hexadecimal output.\n");
+	exit(0);
+}
 
 
 char *table = "0123456789abcdef";
-int main(){
+
+int main(int argc, char **argv){
+
+		if ( argc>1 )
+				usage();
+
 		char c[BUF/2];
 		char o[BUF];
 		int r = 0;
