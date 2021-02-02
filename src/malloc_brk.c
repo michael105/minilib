@@ -14,10 +14,14 @@
 //+depends sbrk
 //+def
 void* malloc_brk(int size){
-		if ( size<=0 )
+		if ( size<0 )
 				return(0);
-		
-		size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
+
+		if ( size == 0 )
+			size = 4;
+		else
+			size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
+
 		void *mem = sbrk(size);
 		if ( mem <= 0 )
 				return(0);
