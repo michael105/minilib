@@ -133,6 +133,11 @@ OPTIMIZATIONS
               (yet only calloc is optimized. todo)
                (include/config.h: 33)
 
+_die           void _die();
+
+               internal implementation of die
+               (src/die.c: 25)
+
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
                (src/itobin.c: 8)
@@ -238,6 +243,46 @@ def            #define SETOPT_short( opts, option ) (;
                Set a option flag(s) (bit(s))  manually.
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
                (macros/getoptm.h: 52)
+
+die            #define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
+
+               write msg to stderr and exit with failure
+              if errno is defined and set, /bin/errno is executed to give a verbose error 
+              message
+              if errno is either not defined or not set,
+              exit with -1
+              
+               (src/die.c: 11)
+
+die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
+
+               when arg1 is true, write msg to stderr and exit with failure
+              if errno is defined and set, /bin/errno is executed to give a verbose error 
+              message
+              if errno is either not defined or not set,
+              exit with -1
+              
+               (src/die.c: 48)
+
+dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
+
+               write fmt andargs via fprintf to stderr and exit with failure
+              if errno is defined and set, /bin/errno is executed to give a verbose error 
+              message
+              if errno is either not defined or not set,
+              exit with -1
+              
+               (src/die.c: 20)
+
+dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+
+               when arg1 is true, vall dief(errnum,fmt)
+              if errno is defined and set, /bin/errno is executed to give a verbose error 
+              message
+              if errno is either not defined or not set,
+              exit with -1
+              
+               (src/die.c: 58)
 
 dirbuf         
 

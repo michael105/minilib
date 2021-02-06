@@ -4,7 +4,7 @@
 
 // opendir with predefined DIR handler. (dirbuf)
 
-//+depends open close malloc dirbuf
+//+depends open close malloc dirbuf free
 //+needs dirent.h
 //+def
 static DIR *opendirp(const char *name, DIR *dir){
@@ -18,7 +18,7 @@ static DIR *opendirp(const char *name, DIR *dir){
 	return dir;
 }
 
-//+depends open close malloc dirbuf opendirp ewrites
+//+depends open close malloc dirbuf opendirp ewrites free
 //+needs dirent.h
 //+def
 static DIR *opendir(const char *name ){
