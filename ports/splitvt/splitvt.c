@@ -48,7 +48,7 @@ static char *version=
 //#include "terminal.c" 
 
 // default shell
-#define SHELL "/bin/ash"
+#define SHELL "/bin/mksh"
 
 #define ew(stream,string) ewrites(string)
 //#define ew(stream,string) fwrites(fileno(stream),string)

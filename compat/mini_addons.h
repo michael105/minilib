@@ -119,6 +119,21 @@ unsigned int bsd_cksum( const char* p, unsigned int len );
 // file: minilib/src/clone.c
 int clone_t(int flags);
 
+// file: minilib/src/die.c
+#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
+
+// file: minilib/src/die.c
+#define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
+
+// file: minilib/src/die.c
+void _die();
+
+// file: minilib/src/die.c
+#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
+
+// file: minilib/src/die.c
+#define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+
 // file: minilib/src/dirname.c
 char *dirname(char *s);
 
@@ -178,6 +193,9 @@ int unmap_protected(void *p, int len);
 
 // file: minilib/src/match.c
 int match(char *text, const char *re, regex_match *st_match);
+
+// file: minilib/src/memfrob.c
+void* memfrob( void* s, int len );
 
 // file: minilib/src/prints.c
 int dprints(int fd, const char *msg,...);
@@ -408,70 +426,72 @@ int userdb_open(userdb *udb, const char* file);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/cksum.c"
-#include "minilib/src/fprintfs.c"
-#include "minilib/src/dirent/dirfd.c"
-#include "minilib/src/dirent/alphasort.c"
-#include "minilib/src/userdb/getusergroups.c"
-#include "minilib/src/termios/tcgetattr.c"
-#include "minilib/src/dirent/opendir.c"
-#include "minilib/src/match.c"
 #include "minilib/include/seterrno.h"
-#include "minilib/include/fexecveat.h"
-#include "minilib/src/userdb/endpwent.c"
-#include "minilib/src/hashes.c"
-#include "minilib/src/string/strlcpy.c"
+#include "minilib/src/putenv.c"
+#include "minilib/src/userdb/getpwnam.c"
+#include "minilib/src/termios/cfmakeraw.c"
+#include "minilib/src/userdb/getpwuid.c"
+#include "minilib/src/cksum.c"
+#include "minilib/include/fexecve.h"
+#include "minilib/src/userdb/endgrent.c"
 #include "minilib/src/dirent/scandir.c"
-#include "minilib/src/userdb/initgroups.c"
-#include "minilib/src/basename.c"
-#include "minilib/include/minilib_global.h"
 #include "minilib/src/itobin.c"
 #include "minilib/src/userdb/getgrent.c"
-#include "minilib/src/termios/tcsetattr.c"
-#include "minilib/include/syscall.h"
-#include "minilib/src/ext_match2.c"
-#include "minilib/src/mem/mmap.c"
-#include "minilib/src/putenv.c"
 #include "minilib/src/userdb/setpwent.c"
-#include "minilib/src/qsort.c"
-#include "minilib/include/config.h"
-#include "minilib/src/prints.c"
-#include "minilib/include/prints.h"
-#include "minilib/include/ret_errno.h"
-#include "minilib/src/dtodec.c"
-#include "minilib/src/userdb/getpwent.c"
-#include "minilib/include/globaldefs.h"
-#include "minilib/src/termios/term_width.c"
-#include "minilib/src/snprintf.c"
-#include "minilib/src/setenv.c"
-#include "minilib/src/malloc_brk.c"
-#include "minilib/src/userdb/getpwnam.c"
-#include "minilib/src/userdb/setgrent.c"
-#include "minilib/src/map_protected.c"
-#include "minilib/src/string/strtoll.c"
-#include "minilib/src/exit_errno.c"
-#include "minilib/src/dprintf.c"
-#include "minilib/src/userdb/getgrgid.c"
-#include "minilib/src/dirname.c"
-#include "minilib/src/userdb/getgrnam.c"
-#include "minilib/src/exec/vexec.c"
-#include "minilib/include/dirent.h"
-#include "minilib/src/clone.c"
-#include "minilib/src/itooct.c"
-#include "minilib/src/ext_match.c"
-#include "minilib/include/fexecve.h"
-#include "minilib/src/itodec.c"
-#include "minilib/src/userdb/endgrent.c"
-#include "minilib/src/userdb/getpwuid.c"
-#include "minilib/src/errno_str.c"
-#include "minilib/src/userdb/userdb_open.c"
-#include "minilib/macros/defgroups.h"
-#include "minilib/src/brk.c"
-#include "minilib/src/mem/memfrob.c"
-#include "minilib/src/freebrk.c"
 #include "minilib/src/userdb/getgrouplist.c"
-#include "minilib/src/termios/cfmakeraw.c"
+#include "minilib/src/termios/tcgetattr.c"
+#include "minilib/src/malloc_brk.c"
+#include "minilib/include/globaldefs.h"
+#include "minilib/src/setenv.c"
+#include "minilib/src/freebrk.c"
+#include "minilib/src/itodec.c"
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/dirent.h"
+#include "minilib/include/prints.h"
+#include "minilib/src/hashes.c"
+#include "minilib/src/string/strlcpy.c"
+#include "minilib/src/userdb/setgrent.c"
+#include "minilib/src/dprintf.c"
+#include "minilib/src/string/strtoll.c"
+#include "minilib/src/dtodec.c"
+#include "minilib/src/userdb/getusergroups.c"
+#include "minilib/src/userdb/endpwent.c"
+#include "minilib/src/exit_errno.c"
+#include "minilib/src/userdb/getgrnam.c"
+#include "minilib/src/dirent/opendir.c"
+#include "minilib/src/die.c"
+#include "minilib/src/errno_str.c"
+#include "minilib/src/memfrob.c"
+#include "minilib/src/userdb/getpwent.c"
+#include "minilib/src/prints.c"
+#include "minilib/src/basename.c"
+#include "minilib/src/dirname.c"
+#include "minilib/src/exec/vexec.c"
 #include "minilib/src/termios/pty.c"
+#include "minilib/src/map_protected.c"
+#include "minilib/src/termios/term_width.c"
+#include "minilib/src/mem/mmap.c"
+#include "minilib/src/qsort.c"
+#include "minilib/src/dirent/dirfd.c"
+#include "minilib/src/brk.c"
+#include "minilib/include/fexecveat.h"
+#include "minilib/src/fprintfs.c"
+#include "minilib/include/ret_errno.h"
+#include "minilib/src/termios/tcsetattr.c"
+#include "minilib/src/ext_match2.c"
+#include "minilib/src/userdb/userdb_open.c"
+#include "minilib/src/dirent/alphasort.c"
+#include "minilib/include/syscall.h"
+#include "minilib/src/ext_match.c"
+#include "minilib/src/userdb/getgrgid.c"
+#include "minilib/src/userdb/initgroups.c"
+#include "minilib/src/mem/memfrob.c"
+#include "minilib/include/config.h"
+#include "minilib/src/snprintf.c"
+#include "minilib/src/match.c"
+#include "minilib/macros/defgroups.h"
+#include "minilib/src/itooct.c"
+#include "minilib/src/clone.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

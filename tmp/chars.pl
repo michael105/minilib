@@ -58,8 +58,8 @@ for my $a ( 0..(length($s)-$len )){
 my $bytes = 0;
 my $saved = 0;
 my $tablecount = 0;
-my $a = 65;
-my $b = 65;
+my $aa = 65;
+my $ba = 65;
 
 print "length s: ",length($s),"\n";
 map { 
@@ -72,10 +72,10 @@ map {
 				$tablecount++;
 		
 		#		print "$k\n";
-	my $c = chr($a).chr($b++);
-	if ( $b>125 ){
-			$a++;
-			$b=65;
+	my $c = chr($aa).chr($ba++);
+	if ( $ba>125 ){
+			$aa++;
+			$ba=65;
 	}
 	$k=~s/(\W)/\\$1/g;
 
