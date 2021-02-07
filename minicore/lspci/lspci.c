@@ -138,7 +138,8 @@ char* grepalias(const char* mappedalias, const char* alias){
 	udata.mappedalias = mappedalias;
 	udata.module = 0;
 	int len = strlen(alias);
-	strcpy(udata.alias,alias);
+	strppy(udata.alias,alias);
+
 	write(1,"1\n",2);
 
 	int ret = ext_match( mappedalias, "*alias pci:&",0,cb2,&stmatch,(void*)&udata );	

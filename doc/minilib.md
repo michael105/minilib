@@ -1321,6 +1321,10 @@ strlcpy        char *strlcpy(char *dest, const char *src, int n);
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
 
+strpcpy        char *strpcpy(char *dest, const char *src);
+
+               (src/string/strpcpy.c: 3)
+
 strtoll        long long int strtoll(const char *c, const char **endp, int base);
 
                conversion
