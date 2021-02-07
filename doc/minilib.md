@@ -1314,16 +1314,16 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/snprintf.c: 5)
 
+stpcpy         char *stpcpy(char *dest, const char *src);
+
+               (src/string/stpcpy.c: 3)
+
 strlcpy        char *strlcpy(char *dest, const char *src, int n);
 
                copy max n chars from src to dest, 
               when src is longer than dest, 
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
-
-strpcpy        char *strpcpy(char *dest, const char *src);
-
-               (src/string/strpcpy.c: 3)
 
 strtoll        long long int strtoll(const char *c, const char **endp, int base);
 

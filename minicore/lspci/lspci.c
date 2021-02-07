@@ -29,6 +29,9 @@ mini_match
 mini_ext_match
 mini_ext_match2
 
+mini_ansicolors
+mini_shortcolornames
+
 mini_buf 4096
 mini_GETOPTS
 #LDSCRIPT text_and_bss
@@ -94,7 +97,7 @@ static char* stalias;
 static char* stmodule;
 typedef struct data {
 	char* module;
-	char alias[64];
+	char* alias;
 	char* mappedalias;
 };
 
@@ -117,9 +120,15 @@ int cb2(int n, char *c, void* udata ){
 		*p=' ';
 		p++;
 		regex_match stmatch;
-		match(p,"%\n",&stmatch);
+		match(p,"%\n*",&stmatch);
+		prints(" module: ");
+		//printf("len: %d\n",stmatch.len);
+		writes(GREEN);
+		write(1,stmatch.pos, stmatch.len );
+		writes("\n"NORM);
 		
 		
+		//return(RE_NOMATCH);
 		return(RE_MATCHEND);
 	}
 	
@@ -132,18 +141,14 @@ int cb2(int n, char *c, void* udata ){
 
 
 char* grepalias(const char* mappedalias, const char* alias){
-	write(1,mappedalias,20);
+//	write(1,mappedalias,20);
 	regex_match stmatch;
   struct data udata;
 	udata.mappedalias = mappedalias;
 	udata.module = 0;
-	int len = strlen(alias);
-	strppy(udata.alias,alias);
-
-	write(1,"1\n",2);
+	udata.alias = alias;
 
 	int ret = ext_match( mappedalias, "*alias pci:&",0,cb2,&stmatch,(void*)&udata );	
-
 	
 	//int ret = ext_match( mappedalias, "alias *:",cb,0,&stmatch );	
 
@@ -223,7 +228,7 @@ int main(int argc, char **argv){
 
 			char *alias = getalias( PCIBUSDIRECTORY "/", de );
 
-			//char *module = grepalias( mappedalias, alias );
+			char *module = grepalias( mappedalias, alias );
 
 
 			free(alias);
