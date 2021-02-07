@@ -1,6 +1,6 @@
 
 //+def
-char *strpcpy(char *dest, const char *src){
+char *stpcpy(char *dest, const char *src){
 	char *d = dest;
 		while ( *src ){
 			*d=*src;
