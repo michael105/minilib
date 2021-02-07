@@ -47,6 +47,10 @@ int sigaddset(sigset_t *set, int sig){
 		return(0);
 }
 
+//+def
+int sigsuspend( const sigset_t *mask ){
+	return( rt_sigsuspend( mask, sizeof(sigset_t) ) );
+}
 
 //+def
 int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
