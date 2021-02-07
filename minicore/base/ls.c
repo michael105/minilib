@@ -349,7 +349,8 @@ int main(int argc, char **argv){
 
 	for (;*argv; *argv++){
 		prints("\n",*argv,":\n");
-		cksum(*argv,opts);
+		//cksum(*argv,opts);
+		listdir(*argv,opts);
 	}
 
 

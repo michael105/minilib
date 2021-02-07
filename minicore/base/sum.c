@@ -30,7 +30,9 @@ void usage(){
 #define BUFSIZE 1024
 
 void sum(const char* file,long opts){
-	int fd = open(file,O_RDONLY);
+	int fd = 0;
+	if ( file[0] != '-' )
+		fd = open(file,O_RDONLY);
 	if (fd<0){
 		eprintsl("Couldn't open ",file);
 		exit(1);
@@ -70,7 +72,10 @@ int main(int argc, const char *argv[]){
 	}
 
 	if ( *argv == 0 ){
-		usage();
+		//usage();
+		sum("-",opts);
+		writes("\n");
+		return(0);
 	}
 
 	for (;*argv; *argv++){
