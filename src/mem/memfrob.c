@@ -1,10 +1,9 @@
+//+doc frob string; xor every char with 42
 //+ansi string.h
 //+def
 void* memfrob(void* s, unsigned int len){
-		unsigned int a;
-		char *c = s;
-		for ( a=0; a<len;a++)
-				c[a] = 	c[a] ^ 42;
-		return ( s );
+	while (len-->0)
+		*s^=42;
+	return(s);
 }
 		
