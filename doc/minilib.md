@@ -1134,7 +1134,8 @@ max_groupmembers#ifndef mini_max_groupmembers
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
-               (src/mem/memfrob.c: 3)
+               frob string; xor every char with 42
+               (src/mem/memfrob.c: 4)
 
 mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 
@@ -1316,6 +1317,7 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 stpcpy         char *stpcpy(char *dest, const char *src);
 
+               copy src to dest, return a pointer to the last char +1 ( ending '0' )
                (src/string/stpcpy.c: 3)
 
 strlcpy        char *strlcpy(char *dest, const char *src, int n);
@@ -1769,11 +1771,11 @@ signal.h
 
 raise          static inline int raise(int signr);
 
-               (src/signal/sigaction.c: 135)
+               (src/signal/sigaction.c: 139)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/signal/sigaction.c: 107)
+               (src/signal/sigaction.c: 111)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
@@ -1781,7 +1783,7 @@ sigaddset      int sigaddset(sigset_t *set, int sig);
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
 
-               (src/signal/sigaction.c: 58)
+               (src/signal/sigaction.c: 62)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
@@ -1793,7 +1795,7 @@ sigfillset     static int sigfillset(sigset_t *set);
 
 sigismember    int sigismember(sigset_t *set, int sig);
 
-               (src/signal/sigaction.c: 75)
+               (src/signal/sigaction.c: 79)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
@@ -1801,7 +1803,11 @@ signal         sighandler_t signal(int sig, sighandler_t func );
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
-               (src/signal/sigaction.c: 52)
+               (src/signal/sigaction.c: 56)
+
+sigsuspend     int sigsuspend( const sigset_t *mask );
+
+               (src/signal/sigaction.c: 51)
 
 
 
