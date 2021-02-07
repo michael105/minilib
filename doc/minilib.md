@@ -421,7 +421,7 @@ exit_errno     void exit_errno( int errnum );
               the absolute value is supplied to errno.
                (src/exit_errno.c: 17)
 
-ext_match      int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+ext_match      int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), regex_match *st_match, void *userdata);
 
                regex engine
               This is somewhere between a fully fledged expression machine,

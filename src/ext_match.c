@@ -186,7 +186,7 @@
 //  !+ basically sets the greedyness of the left * or % higher.
 //
 //+def ext_match
-int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match){
+int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), regex_match *st_match, void *userdata){
 		int n_match=0;
 		char *matchpos = 0;
 		int neg = 0;
@@ -257,7 +257,7 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 												// if ( *re== d ) match char classes: &d, &D, ..
 												// match e.g. %d: several digits, &d: one digit.
 												if ( p_match_char ){
-														int m = p_match_char(n_match,text);
+														int m = p_match_char(n_match,text,userdata);
 														if ( m==RE_NOMATCH ){
 																if ( neg ) break;
 																return( RE_NOMATCH );
@@ -286,7 +286,7 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 														while ( *text )	// find end of text
 																text++;
 														if ( p_match )
-																p_match(n_match, matchpos,text-matchpos);
+																p_match(n_match, matchpos,text-matchpos,userdata);
 														if ( st_match ){
 																st_match->pos = matchpos;
 																st_match->len = text-matchpos;
@@ -299,7 +299,7 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 										//}
 										//switch ( *re ){
 
-										while ( !ext_match(text,re,p_match,p_match_char,st_match) ){
+										while ( !ext_match(text,re,p_match,p_match_char,st_match,userdata) ){
 												text++;
 												if ( !*text ){
 														if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
@@ -310,7 +310,7 @@ int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,i
 __MATCHEND:
 										if ( matchpos ){
 												if ( p_match )
-														p_match(n_match,matchpos,text-matchpos);
+														p_match(n_match,matchpos,text-matchpos,userdata);
 												if ( st_match ){
 														st_match->pos = matchpos;
 														st_match->len = text-matchpos;

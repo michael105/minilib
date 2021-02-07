@@ -83,7 +83,7 @@ char* mapmodalias(const char* fn){
 	fstat(fd,&ststat);
 
 	dief_if(fd<=0,errno,"Couldn't open %s\n",fn);
-	char *ret = mmap(0,ststat.st_size, PROT_READ, MAP_PRIVATE, fd,0);
+	char *ret = mmap(0,ststat.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd,0);
 	return(ret);
 }
 
@@ -92,17 +92,40 @@ char* mapmodalias(const char* fn){
 // and the trampoline code by gcc.
 static char* stalias;
 static char* stmodule;
+typedef struct data {
+	char* module;
+	char alias[64];
+	char* mappedalias;
+};
 
 void cb(int n, char *pos, int len){
 	write(1,"cb\n",3);
 	write(1,pos,len);
 }
 
-int cb2(int n, char *c ){
-	write(1,"cbw\n",3);
-
-	write(1,c,10);
-	return(10);
+int cb2(int n, char *c, void* udata ){
+	struct data* ud = udata;
+	char *p=c;
+	int len=0;
+	while ( *p != ' ' ){
+		len++;p++;
+	}
+	*p=0;
+	int r = match( ud->alias,(c-4),0);
+	if ( r==RE_MATCH ){
+		write(1,c,len);
+		*p=' ';
+		p++;
+		regex_match stmatch;
+		match(p,"%\n",&stmatch);
+		
+		
+		return(RE_MATCHEND);
+	}
+	
+	*p=' ';
+	//write(1,c,len);
+	return(len+1);
 	return(RE_NOMATCH);
 }
 
@@ -111,7 +134,16 @@ int cb2(int n, char *c ){
 char* grepalias(const char* mappedalias, const char* alias){
 	write(1,mappedalias,20);
 	regex_match stmatch;
-	int ret = ext_match( mappedalias, "*alias pci:&$",0,cb2,&stmatch );	
+  struct data udata;
+	udata.mappedalias = mappedalias;
+	udata.module = 0;
+	int len = strlen(alias);
+	strcpy(udata.alias,alias);
+	write(1,"1\n",2);
+
+	int ret = ext_match( mappedalias, "*alias pci:&",0,cb2,&stmatch,(void*)&udata );	
+
+	
 	//int ret = ext_match( mappedalias, "alias *:",cb,0,&stmatch );	
 
 	return(0);
