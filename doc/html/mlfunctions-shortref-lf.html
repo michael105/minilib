@@ -615,7 +615,7 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  189 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
+<tr valign="top"><td><small>ext_match</small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  189 </small></td><td><small> int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), regex_match *st_match, void *userdata);
 </small></td></tr><tr><td></td><td colspan="2"><small>regex engine
   This is somewhere between a fully fledged expression machine,
   and a simplicistic solution.
