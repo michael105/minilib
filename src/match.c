@@ -19,11 +19,12 @@
 // + for 1 or more chars
 // % for 1 or more chars, and fills in arg 3 (text_match)
 // ? for 1 char
+// @ matches the beginning of the text or endofline (\n) 
+//   -> beginning of a line
 // # for space, endofline, \t, \n, \f, \r, \v  or end of text (0)
 // $ match end of text
 // backslash: escape *,?,%,!,+,#,$ and backslash itself.
 // ! : invert the matching of the next character or character class
-// @ matches the beginning of the text or of a line.
 //  
 // [xyz]: character classes, here x,y or z 
 //   the characters are matched literally, also \,*,?,+,..
@@ -52,6 +53,11 @@
 // "word"    matches none of the above two texts (!)
 // "*words%" extracts with % " are true" and " are rare"
 //           into text_match
+// 
+// "Some\ntext\nwith\nlinebreaks\n\n"
+// "*@%#*" matches with % "Some"
+// "*@line%#*" matches % = "breaks"
+// "*text\n%"  % = "with linebreaks\n\n"
 //
 //
 // (memo) When the regex ist defined within C/cpp source code,
