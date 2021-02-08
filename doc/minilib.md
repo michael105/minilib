@@ -142,6 +142,10 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
                (src/itobin.c: 8)
 
+_match         int _match(char *text, const char *re, text_match *st_match);
+
+               (src/match.c: 94)
+
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
                (include/prints.h: 10)
@@ -421,466 +425,6 @@ exit_errno     void exit_errno( int errnum );
               the absolute value is supplied to errno.
                (src/exit_errno.c: 17)
 
-ext_match      int ext_match(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), regex_match *st_match, void *userdata);
-
-               regex engine
-              This is somewhere between a fully fledged expression machine,
-              and a simplicistic solution.
-              The engine matches from left to right,
-              backtracking is done as less as possible.
-              Since the matching is nongreedy in general,
-              many tries can be spared. Opposed to another route,
-              where most patterns are per default greedy, and therfore
-              not the first matching next char is seeked for, but the first
-              solution while matching the most chars.
-              (I do not want to make this a hard statement, and it 
-              depends onto each pattern. But it is the way, the solution
-              of the pattern is searched for, in most patterns.)
-              This shows up in the logic of the patterns, which is more natural to me.
-             
-              It is a compromise between performance, size
-              and capabilities.
-              The logic is different of a "regular" regular expression
-              machine, but has advantages (and disadvantages).
-              I'd say, the main advantage is the easiness of adding callbacks,
-              and defining your own matching/logic within these. 
-              Performance might be better as well overall,
-              but this depends also on the expressions.
-             
-              A few nonextensive benchmarks show,
-              this engine is a bit faster than perl's regular expression machine,
-              slower than gnu grep (around factor2), and has the same speed as sed.
-              This might however vary with each usecase.
-              In favor of codesize I'm not going to optimize ext_match,
-              but there would be several possibilities, if you'd need a faster engine.
-              (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
-              About 10 times faster than most expression engines.)
-             
-              matches: 
-              
-              * for every count of any char
-              + for 1 or more chars
-              ? for 1 char
-              # for space or end of text (0)
-              $ match end of text
-             
-              backslash: escape *,?,%,$,!,+,#,& and backslash itself.
-              !: invert the matching of the next character or character class
-              ,: separator. e.g. %,1 matches like ?*1. 
-                ( without the commata, the '1' would be part of the % match)
-               
-             
-              predefined character classes:
-              \d - digit
-              \D - nondigit
-              \s - space
-              \S - nonspace
-              \w - word character ( defined as ascii 32-126,160-255 )
-              \W - nonword character ( defined as ascii 0-31,127-159 )
-             
-             
-              [xyz]: character classes, here x,y or z 
-                the characters are matched literally, also \,*,?,+,..
-                it is not possible to match the closing bracket (])
-                within a character class
-             
-              {nX}: counted match
-               Match n times X.
-               For X, all expressions are allowed.
-               If you need to match a number at the first char of 'X',
-               separate X by a commata. E.g. {5,0} matches 5 times '0'.
-             
-              %[1]..%[9]: matches like a '+',
-               and calls the callback supplied as 3rd argument (when not null).
-               the number past the %, e.g. %1, is optional,
-               p_match will be callen with this number
-               as first parameter.
-               When not supplied, p_matched will be callen with 
-               the parameter 'number' set to 0.
-             
-               The matching is 'nongreedy'.
-               It is possible to rewrite the string to match
-               from within the p_matched callback.
-               This will not have an effect onto the current matching,
-               even if text is e.g. deleted by writing 0's.
-               The matched positions are called in reverse order.
-               (The last matched % in the regex calls p_match first, 
-               the first % in the regex from the left will be callen last)
-             
-              supply 0 for p_matched, when you do not need to extract matches.
-              This will treat % in the regex like a *, 
-              a following digit (0..9) in the regex is ignored.
-              if the 5th argument, a pointer to a regex_match struct, 
-              is supplied, it will be filled with the first match.
-              (counting from left)
-             
-             
-              &[1] .. &[9]
-               "match" like a '?' and call p_match_char
-               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
-               or a number of the count of chars, which have been matched.
-             
-               Therefore it is possible to e.g. rule your own
-               character classes, defined at runtime, 
-               or do further tricks like changing the matched chars,
-               match several chars, andsoon.
-               When returning RE_NOMATCH,
-               it is possible, the p_match and p_match_char callbacks are callen several times,
-               but with different pos or len parameters.
-             
-               The matching works straight from left to right.
-               So, a "*&*" will call the callback & for the first char.
-               When returning RE_NOMATCH, the second char will be matched.
-               Until either RE_MATCH is returned from the callback,
-               or the last char has been matched.
-             
-               Matching several characters is also posssible from within the callback,
-               the position within the text will be incremented by that number,
-               you return from the callback.
-             
-               When returning RE_MATCHEND from the callback, 
-               the whole regular expression is aborted, and returns with matched;
-               no matter, if there are chars left in the expression.
-             
-             
-               The difference between % and & is the logic.
-               % matches nongreedy, and has to check therefore the right side of the star
-               for its matching.
-               Possibly this has to be repeated, when following chars do not match.
-             
-               & is matched straight from left to right.
-               Whatever number you return, the textpointer will be incremented by that value.
-               However, a & isn't expanded on it's own. ( what a % is ).
-               e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
-               only, when you return '2' from the callback.
-             
-               Performancewise, matching with & is faster,
-               since the % has on its right side to be matched
-               with recursing calls of ext_match.
-             
-              When using closures for the callbacks, you will possibly have to
-              enable an executable stack for the trampoline code
-              of gcc. Here, gcc complains about that. 
-              For setting this bit, have a look into the ldscripts in the folder
-              with the same name.
-             
-              supply 0 for p_match_char, when you don't need it.
-              This will treat & in the regex like ?, 
-              and match a following digit (0..9) in the text,
-              a following digit (0..9) in the regex is ignored.
-              
-              -----
-              In general, you have to somehow invert the logic of regular expressions
-              when using ext_match.
-              e.g. when matching the parameter 'runlevel=default' at the kernel's
-              commandline, a working regular expression would be
-              "runlevel=(\S*)". This could be written here as "*runlevel=%#".
-              For matching e.g. numbers, you'd most possibly best of
-              with writing your own & callback.
-             
-              returns: 1 on match, 0 on no match
-              ( RE_MATCH / RE_NOMATCH )
-             
-              if the pointer (argument 5) st_match is nonnull,
-              the supplied struct regex_match will be set to the first matching '%' location;
-              if there is no match, regex_match.len will be set to 0.
-              The struct is defined as: 
-              typedef struct _regex_match { char* pos; int len; } regex_match;
-             
-             
-              (memo) When the regex ist defined within C/cpp source code,
-              a backslash has to be defined as double backslash.
-             
-              (note) - be careful when negating a following *, or ?.
-               somehow - it is logical, but seems to me I overshoot a bit,
-               tragically hit my own foot, and stumbled into a logical paradox.
-             
-               Negating EVERYTHING translates to true.
-               However, since truth is negated as well, there's a problem,
-               cause it's now 'false', but 'false' is true. This is very close
-               to proving 42 is the answer. What is the escape velocity
-               in km/s out of the solar system, btw.
-             
-               (I'm not kidding here. Just don't do a regex with !* or !?..
-               And, please, do not ask me what is going to happen when the impossible
-               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
-             
-               A "!+" will translate into nongreedy matching of any char, however;
-               "%!+" will match with % everything but the last char;
-               while "%+" matches with % only the first char.
-               !+ basically sets the greedyness of the left * or % higher.
-               (src/ext_match.c: 189)
-
-ext_match2     char* ext_match2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), regex_match *st_match);
-
-               regex engine
-              WORK IN PROGRESS, please use ext_match
-             
-              This is somewhere between a fully fledged expression machine,
-              and a simplicistic solution.
-              The engine matches from left to right,
-              backtracking is done as less as possible.
-              Since the matching is nongreedy in general,
-              many tries can be spared. Opposed to another route,
-              where most patterns are per default greedy, and therfore
-              not the first matching next char is seeked for, but the first
-              solution while matching the most chars.
-              (I do not want to make this a hard statement, and it 
-              depends onto each pattern. But it is the way, the solution
-              of the pattern is searched for, in most patterns.)
-              This shows up in the logic of the patterns, which is more natural to me.
-              Your mileage might vary.
-             
-             
-              It is a compromise between performance, size
-              and capabilities.
-              The logic is different of a "regular" regular expression
-              machine, but has advantages (and disadvantages).
-              I'd say, the main advantage is the easiness of adding callbacks,
-              and defining your own matching/logic within these. 
-              Performance might be better as well overall,
-              but this depends on the expressions and usecases as well.
-             
-              Yet I for myself have to get a grip of the possibilities of this engine.
-              However, I have the feeling, the logic is much more natural.
-              With regular regexes you always have to think kind of 'backwards',
-              e.g., match ".*" -> match "." (any char) x times. 
-              gets to a simple "*"
-              or, to match all group and user id's of /etc/passwd,
-              a regular expression would be: "(\d*):(\d*)"
-              This is here: "*(\d*):(\d*)*"
-              The content in the brackets looks the same,
-              but it's matched quite different.
-              The regular expression (the first) matches x times \d, for x>=0.
-              In the second expressin, the ext_match expression,
-              the first digit is matched, and then nongreedy any chars, until
-              the first occurence of ':'. 
-              It is another logic. Whether it suits you, you have to decide.
-             
-              The callbacks have shown up to be a mighty tool, while
-              at the same time having a good performance. 
-              
-             
-              A few nonextensive benchmarks show,
-              this engine is a bit faster than perl's regular expression machine,
-              slower than gnu grep (around factor2), and has the same speed as sed.
-              This might vary with each usecase, but the callbacks for extracting matches
-              have some advantage, as well as the strict left to right and nongreedy parsing.
-             
-              In favor of codesize I'm not going to optimize ext_match,
-              but there would be several possibilities, if you'd need a faster engine.
-              (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
-              About 5 to 10 times faster than most expression engines.)
-             
-              matches: 
-              
-              * for every count of any char
-              + for 1 or more chars
-              ? for 1 char
-              # for space, end of text (\0), linebreak, tab
-              $ match end of text (\0) or linebreak
-             
-              backslash: escape *,?,%,$,!,+,#,& and backslash itself.
-              !: invert the matching of the next character or character class
-              ,: separator. e.g. %,1 matches like ?*1. 
-                ( without the commata, the '1' would be part of the % match)
-               
-             
-              predefined character classes:
-              \d - digit
-              \D - nondigit
-              \s - space
-              \S - nonspace
-              \w - word character ( defined as ascii 32-126,160-255 )
-              \W - nonword character ( defined as ascii 0-31,127-159 )
-             
-             
-              [xyz]: character classes, here x,y or z 
-                the characters are matched literally, also \,*,?,+,..
-                it is not possible to match the closing bracket (])
-                within a character class
-             
-              {nX}: counted match
-               Match n times X.
-               For X, all expressions are allowed.
-               If you need to match a number at the first char of 'X',
-               separate X by a commata. E.g. {5,0} matches 5 times '0'.
-             
-              (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
-             
-              %[1]..%[9]: matches like a '+',
-               and calls the callback supplied as 3rd argument (when not null).
-               the number past the %, e.g. %1, is optional,
-               p_match will be callen with this number
-               as first parameter.
-               When not supplied, p_matched will be callen with 
-               the parameter 'number' set to 0.
-             
-               The matching is 'nongreedy'.
-               It is possible to rewrite the string to match
-               from within the p_matched callback.
-               This will not have an effect onto the current matching,
-               even if text is e.g. deleted by writing 0's.
-               The matched positions are called in reverse order.
-               (The last matched % in the regex calls p_match first, 
-               the first % in the regex from the left will be callen last)
-               / The regex is first matched; when the regex has matched,
-               the %'s are filled/ the callbacks executed.
-               (x) bracketed patterns are matched the same way.
-             
-               (Not like &, which callbacks are invoked, while matching)
-             
-              supply 0 for p_matched, when you do not need to extract matches.
-              This will treat % in the regex like a *, 
-              a following digit (0..9) in the regex is ignored.
-              if the 5th argument, a pointer to a regex_match struct, 
-              is supplied, it will be filled with the first match.
-              (counting from left)
-             
-             
-              &[1] .. &[9]
-               "match" like a '?' and call p_match_char
-               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
-               or a number of the count of chars, which have been matched.
-             
-               Therefore it is possible to e.g. rule your own
-               character classes, defined at runtime, 
-               or do further tricks like changing the matched chars,
-               match several chars, andsoon.
-               When returning RE_NOMATCH,
-               it is possible, the p_match and p_match_char callbacks are callen several times,
-               but with different pos or len parameters.
-             
-               The matching works straight from left to right.
-               So, a "*&*" will call the callback & for the first char.
-               When returning RE_NOMATCH, the second char will be tried to match.
-               Until either RE_MATCH is returned from the callback,
-               or the last char of the text has been tried to match.
-             
-               Matching several characters is also posssible from within the callback,
-               the position within the text will be incremented by that number,
-               you return from the callback.
-             
-               When returning RE_MATCHEND from the callback, 
-               the whole regular expression is aborted, and returns with matched;
-               no matter, if there are chars left in the expression.
-             
-             
-               The difference between % and & is the logic.
-               % matches nongreedy, and has to check therefore the right side of the star
-               for its matching.
-               Possibly this has to be repeated, when following chars do not match.
-             
-               & is matched straight from left to right.
-               Whatever number you return, the textpointer will be incremented by that value.
-               However, a & isn't expanded on it's own. ( what a % is ).
-               e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
-               only, when you return '2' from the callback.
-             
-               Performancewise, matching with & is faster,
-               since the % has on its right side to be matched
-               with recursing calls of ext_match.
-             
-              When using closures for the callbacks, you will possibly have to
-              enable an executable stack for the trampoline code
-              of gcc. Here, gcc complains about that. 
-              For setting this bit, please have a look into the ldscripts in the folder
-              with the same name.
-             
-              supply 0 for p_match_char, when you don't need it.
-              This will treat & in the regex like ?, 
-              and match a following digit (0..9) in the text,
-              a following digit (0..9) in the regex is ignored.
-              
-              -----
-              In general, you have to somehow invert the logic of regular expressions
-              when using ext_match.
-              e.g. when matching the parameter 'runlevel=default' at the kernel's
-              commandline, a working regular expression would be
-              "runlevel=(\S*)". This could be written here as "*runlevel=%#".
-              For matching e.g. numbers, you'd most possibly best of
-              with writing your own & callback.
-             
-              returns: 1 on match, 0 on no match
-              ( RE_MATCH / RE_NOMATCH )
-             
-              if the pointer (argument 5) st_match is nonnull,
-              the supplied struct regex_match will be set to the first matching '%' location;
-              if there is no match, regex_match.len will be set to 0.
-              The struct is defined as: 
-              typedef struct _regex_match { char* pos; int len; } regex_match;
-             
-             
-              (memo) When the regex ist defined within C/cpp source code,
-              a backslash has to be defined as double backslash.
-             
-              (note) - be careful when negating a following *, or ?.
-               somehow - it is logical, but seems to me I overshoot a bit,
-               tragically hit my own foot, and stumbled into a logical paradox.
-             
-               Negating EVERYTHING translates to true.
-               However, since truth is negated as well, there's a problem,
-               cause it's now 'false', but 'false' is true. This is very close
-               to proving 42 is the answer. What is the escape velocity
-               in km/s out of the solar system, btw.
-             
-               (I'm not kidding here. Just don't do a regex with !* or !?..
-               And, please, do not ask me what is going to happen when the impossible
-               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
-             
-               A "!+" will translate into nongreedy matching of any char, however;
-               "%!+" will match with % everything but the last char;
-               while "%+" matches with % only the first char.
-               !+ basically sets the greedyness of the left * or % higher.
-             
-              (work in progress here) please use ext_match
-              return 0 for nomatch, the current textpos ( >0 ) for a match
-              With the exception of an empty text, matched by e.g. "*".
-              This will return 0, albite the regex formally matches, with 0 chars.
-             
-              (todo)
-              bracket matching () and {} needs debugging. (test/extmatch2 for testing)
-              Add a callback for bracket matches, and add a matchlist
-              (linked list, allocated with malloc_brk)
-              Trouble: e.g. *:(*) doesn't match, albite it should
-               .. better. Now: # matches the end, after a bracket. Like it should
-                $ doesn't. But should as well.
-              change '+' to greedy matching of any char
-              for {n,X} let n be * or + as well.
-               (this would be closer to regular regulars again.?.)
-             
-             
-              note. About a tokenizer:
-              matching quoted string is really easy with the callback structure:
-               just match with &. When a quote is matched, look forward to the next quote,
-               and return that many chars. Same time, the quoted string is matched.
-               That's so easy, it is hard to believe.
-               When using closures for that, it is same time easy to collect all tokens.
-             
-               It is even easier. just a "*("*")*" is enough.
-             
-               ->There is something needed for partial matching. Possibly spare the last *, and return,
-               as soon the pattern is at it's end (and not the text?)
-               Already works this way. 
-             
-               Should start to define the language for the init scripts.
-               Or better, start thinking abut that, but follow my other obligations the next time.
-             
-               Have to think thouroughly about what points would make such a language useful.
-               The reason to think about that is clear - performance squeezing, faster startup time.
-               And writing the startup scripts in C is. Well. little bit painful.
-               However, together with minilib, there is nearly no difference between having a C program compiled
-               and run, or working with scripts. To not have the overhead of linking the external libraries in,
-               is of quite some advance.
-               The only difference, the compiled binaries are "cached".
-               have just to sort something sensible out for the systematic.
-               Implement an own loader? possibly easy. Since the loading address is fixed.
-               This could possibly also be the solution for the yet unclear question of the line between parsing
-               arguments and calling the main function of the small core tools, andsoon.
-               
-               gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
-               (src/ext_match2.c: 271)
-
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
                (include/fexecve.h: 3)
@@ -1064,25 +608,33 @@ map_protected  void* map_protected(int len);
               and -1 returned, or the negative errno value, when errno isn't defined.
                (src/map_protected.c: 19)
 
-match          int match(char *text, const char *re, regex_match *st_match);
+match          int match(char *text, const char *re, text_match *st_match);
 
-               regex engine
-              little bit simpler version than ext_match.
+               text matching engine
+             
+              little bit simpler version than match_ext.
+              Consciusly named 'text matching', since the inherent logic
+              is quite different to a regular expression machine.
+             
               The engine matches nongreedy straight from left to right,
               so backtracking is minimized.
               It is a compromise between performance, size
               and capabilities.
              
+             
               matches: 
               
-              * for every count of any char
+              * for every count of any char (nongreedy(!))
               + for 1 or more chars
+              % for 1 or more chars, and fills in arg 3 (text_match)
               ? for 1 char
-              # for space or end of text (0)
+              # for space, endofline, \t, \n, \f, \r, \v  or end of text (0)
               $ match end of text
-             
               backslash: escape *,?,%,!,+,#,$ and backslash itself.
               ! : invert the matching of the next character or character class
+              @ matches the beginning of the text or of a line.
+                When the re starts with a @, the re is going to
+                be matched with the beginning of every line of the text.
                
               [xyz]: character classes, here x,y or z 
                 the characters are matched literally, also \,*,?,+,..
@@ -1091,7 +643,7 @@ match          int match(char *text, const char *re, regex_match *st_match);
              
              
               % : matches like a '+', and fills in argument 3,
-              the regex_match struct, when the pointer is non null.
+              the text_match struct, when the pointer is non null.
               The matching is 'nongreedy'.
              
              
@@ -1099,10 +651,18 @@ match          int match(char *text, const char *re, regex_match *st_match);
               ( RE_MATCH / RE_NOMATCH )
              
               if the pointer (argument 3) st_match is nonnull,
-              the supplied struct regex_match will be set to the first matching '%' location;
-              if there is no match, regex_match.len will be set to 0.
+              the supplied struct text_match will be set to the first matching '%' location;
+              if there is no match, text_match.len will be set to 0.
+             
               The struct is defined as: 
-              typedef struct _regex_match { char* pos; int len; } regex_match;
+              typedef struct _text_match { char* pos; int len; } text_match;
+             
+              examples: 
+              "*word*"  matches "words are true" or "true words are rare"
+              "word*"   matches "words are true" and not "true words are rare"
+              "word"    matches none of the above two texts (!)
+              "*words%" extracts with % " are true" and " are rare"
+                        into text_match
              
              
               (memo) When the regex ist defined within C/cpp source code,
@@ -1122,7 +682,474 @@ match          int match(char *text, const char *re, regex_match *st_match);
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/match.c: 59)
+               (src/match.c: 76)
+
+match_ext      int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
+
+               text matching engine
+             
+              This is somewhere between a fully fledged expression machine,
+              and a simplicistic solution.
+              Consciusly named 'text matching', since the inherent logic
+              is quite different to a regular expression machine.
+             
+              The engine matches from left to right,
+              backtracking is done as less as possible.
+              Since the matching is nongreedy in general,
+              many tries can be spared. Opposed to another route,
+              where most patterns are per default greedy, and therfore
+              not the first matching next char is seeked for, but the first
+              solution while matching the most chars.
+              (I do not want to make this a hard statement, and it 
+              depends onto each pattern. But it is the way, the solution
+              of the pattern is searched for, in most patterns.)
+              This shows up in the logic of the patterns, which is more natural to me.
+             
+              It is a compromise between performance, size
+              and capabilities.
+              The logic is different of a "regular" regular expression
+              machine, but has advantages (and disadvantages).
+              I'd say, the main advantage is the easiness of adding callbacks,
+              and defining your own matching/logic within these. 
+              Performance might be better as well overall,
+              but this depends also on the expressions.
+             
+              A few nonextensive benchmarks show,
+              this engine is a bit faster than perl's regular expression machine,
+              slower than gnu grep (around factor2), and has the same speed as sed.
+              This might however vary with each usecase.
+              In favor of codesize I'm not going to optimize match_ext,
+              but there would be several possibilities, if you'd need a faster engine.
+              (Albite I'd like to emphasise, sed (and match_ext), also perl, are quite fast.
+              About 10 times faster than most expression engines.)
+             
+              matches: 
+              
+              * for every count of any char
+              + for 1 or more chars
+              ? for 1 char
+              # for space or end of text (0)
+              $ match end of text
+             
+              backslash: escape *,?,%,$,!,+,#,& and backslash itself.
+              !: invert the matching of the next character or character class
+              ,: separator. e.g. %,1 matches like ?*1. 
+                ( without the commata, the '1' would be part of the % match)
+               
+             
+              predefined character classes:
+              \d - digit
+              \D - nondigit
+              \s - space
+              \S - nonspace
+              \w - word character ( defined as ascii 32-126,160-255 )
+              \W - nonword character ( defined as ascii 0-31,127-159 )
+             
+             
+              [xyz]: character classes, here x,y or z 
+                the characters are matched literally, also \,*,?,+,..
+                it is not possible to match the closing bracket (])
+                within a character class
+             
+              {nX}: counted match
+               Match n times X.
+               For X, all expressions are allowed.
+               If you need to match a number at the first char of 'X',
+               separate X by a commata. E.g. {5,0} matches 5 times '0'.
+             
+              %[1]..%[9]: matches like a '+',
+               and calls the callback supplied as 3rd argument (when not null).
+               the number past the %, e.g. %1, is optional,
+               p_match will be callen with this number
+               as first parameter.
+               When not supplied, p_matched will be callen with 
+               the parameter 'number' set to 0.
+             
+               The matching is 'nongreedy'.
+               It is possible to rewrite the string to match
+               from within the p_matched callback.
+               This will not have an effect onto the current matching,
+               even if text is e.g. deleted by writing 0's.
+               The matched positions are called in reverse order.
+               (The last matched % in the regex calls p_match first, 
+               the first % in the regex from the left will be callen last)
+             
+              supply 0 for p_matched, when you do not need to extract matches.
+              This will treat % in the regex like a *, 
+              a following digit (0..9) in the regex is ignored.
+              if the 5th argument, a pointer to a tmatch_ext struct, 
+              is supplied, it will be filled with the first match.
+              (counting from left)
+             
+             
+              &[1] .. &[9]
+               "match" like a '?' and call p_match_char
+               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+               or a number of the count of chars, which have been matched.
+             
+               Therefore it is possible to e.g. rule your own
+               character classes, defined at runtime, 
+               or do further tricks like changing the matched chars,
+               match several chars, andsoon.
+               When returning RE_NOMATCH,
+               it is possible, the p_match and p_match_char callbacks are callen several times,
+               but with different pos or len parameters.
+             
+               The matching works straight from left to right.
+               So, a "*&*" will call the callback & for the first char.
+               When returning RE_NOMATCH, the second char will be matched.
+               Until either RE_MATCH is returned from the callback,
+               or the last char has been matched.
+             
+               Matching several characters is also posssible from within the callback,
+               the position within the text will be incremented by that number,
+               you return from the callback.
+             
+               When returning RE_MATCHEND from the callback, 
+               the whole regular expression is aborted, and returns with matched;
+               no matter, if there are chars left in the expression.
+             
+             
+               The difference between % and & is the logic.
+               % matches nongreedy, and has to check therefore the right side of the star
+               for its matching.
+               Possibly this has to be repeated, when following chars do not match.
+             
+               & is matched straight from left to right.
+               Whatever number you return, the textpointer will be incremented by that value.
+               However, a & isn't expanded on it's own. ( what a % is ).
+               e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
+               only, when you return '2' from the callback.
+             
+               Performancewise, matching with & is faster,
+               since the % has on its right side to be matched
+               with recursing calls of match_ext.
+             
+              When using closures for the callbacks, you will possibly have to
+              enable an executable stack for the trampoline code
+              of gcc. Here, gcc complains about that. 
+              For setting this bit, have a look into the ldscripts in the folder
+              with the same name.
+             
+              supply 0 for p_match_char, when you don't need it.
+              This will treat & in the regex like ?, 
+              and match a following digit (0..9) in the text,
+              a following digit (0..9) in the regex is ignored.
+              
+              -----
+              In general, you have to somehow invert the logic of regular expressions
+              when using match_ext.
+              e.g. when matching the parameter 'runlevel=default' at the kernel's
+              commandline, a working regular expression would be
+              "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+              For matching e.g. numbers, you'd most possibly best of
+              with writing your own & callback.
+             
+              returns: 1 on match, 0 on no match
+              ( RE_MATCH / RE_NOMATCH )
+             
+              if the pointer (argument 5) st_match is nonnull,
+              the supplied struct tmatch_ext will be set to the first matching '%' location;
+              if there is no match, tmatch_ext.len will be set to 0.
+              The struct is defined as: 
+              typedef struct _tmatch_ext { char* pos; int len; } tmatch_ext;
+             
+             
+              (memo) When the regex ist defined within C/cpp source code,
+              a backslash has to be defined as double backslash.
+             
+              (note) - be careful when negating a following *, or ?.
+               somehow - it is logical, but seems to me I overshoot a bit,
+               tragically hit my own foot, and stumbled into a logical paradox.
+             
+               Negating EVERYTHING translates to true.
+               However, since truth is negated as well, there's a problem,
+               cause it's now 'false', but 'false' is true. This is very close
+               to proving 42 is the answer. What is the escape velocity
+               in km/s out of the solar system, btw.
+             
+               (I'm not kidding here. Just don't do a regex with !* or !?..
+               And, please, do not ask me what is going to happen when the impossible
+               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+             
+               A "!+" will translate into nongreedy matching of any char, however;
+               "%!+" will match with % everything but the last char;
+               while "%+" matches with % only the first char.
+               !+ basically sets the greedyness of the left * or % higher.
+               (src/match_ext.c: 193)
+
+match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
+
+               text matching engine
+              WORK IN PROGRESS, please use ext_match
+             
+              This is somewhere between a fully fledged expression machine,
+              and a simplicistic solution.
+              Consciusly named 'text matching', since the inherent logic
+              is quite different to a regular expression machine.
+             
+              The engine matches from left to right,
+              backtracking is done as less as possible.
+              Since the matching is nongreedy in general,
+              many tries can be spared. Opposed to another route,
+              where most patterns are per default greedy, and therfore
+              not the first matching next char is seeked for, but the first
+              solution while matching the most chars.
+              (I do not want to make this a hard statement, and it 
+              depends onto each pattern. But it is the way, the solution
+              of the pattern is searched for, in most patterns.)
+              This shows up in the logic of the patterns, which is more natural to me.
+              Your mileage might vary.
+             
+             
+              It is a compromise between performance, size
+              and capabilities.
+              The logic is different of a "regular" regular expression
+              machine, but has advantages (and disadvantages).
+              I'd say, the main advantage is the easiness of adding callbacks,
+              and defining your own matching/logic within these. 
+              Performance might be better as well overall,
+              but this depends on the expressions and usecases as well.
+             
+              Yet I for myself have to get a grip of the possibilities of this engine.
+              However, I have the feeling, the logic is much more natural.
+              With regular regexes you always have to think kind of 'backwards',
+              e.g., match ".*" -> match "." (any char) x times. 
+              gets to a simple "*"
+              or, to match all group and user id's of /etc/passwd,
+              a regular expression would be: "(\d*):(\d*)"
+              This is here: "*(\d*):(\d*)*"
+              The content in the brackets looks the same,
+              but it's matched quite different.
+              The regular expression (the first) matches x times \d, for x>=0.
+              In the second expressin, the ext_match expression,
+              the first digit is matched, and then nongreedy any chars, until
+              the first occurence of ':'. 
+              It is another logic. Whether it suits you, you have to decide.
+             
+              The callbacks have shown up to be a mighty tool, while
+              at the same time having a good performance. 
+              
+             
+              A few nonextensive benchmarks show,
+              this engine is a bit faster than perl's regular expression machine,
+              slower than gnu grep (around factor2), and has the same speed as sed.
+              This might vary with each usecase, but the callbacks for extracting matches
+              have some advantage, as well as the strict left to right and nongreedy parsing.
+             
+              In favor of codesize I'm not going to optimize ext_match,
+              but there would be several possibilities, if you'd need a faster engine.
+              (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+              About 5 to 10 times faster than most expression engines.)
+             
+              matches: 
+              
+              * for every count of any char
+              + for 1 or more chars
+              ? for 1 char
+              # for space, end of text (\0), linebreak, tab ( \t \n \f \r \v )
+              $ match end of text (\0) or linebreak
+             
+              backslash: escape *,?,%,$,!,+,#,& and backslash itself.
+              !: invert the matching of the next character or character class
+              ,: separator. e.g. %,1 matches like ?*1. 
+                ( without the commata, the '1' would be part of the % match)
+               
+             
+              predefined character classes:
+              \d - digit
+              \D - nondigit
+              \s - space
+              \S - nonspace
+              \w - word character ( defined as ascii 32-126,160-255 )
+              \W - nonword character ( defined as ascii 0-31,127-159 )
+             
+             
+              [xyz]: character classes, here x,y or z 
+                the characters are matched literally, also \,*,?,+,..
+                it is not possible to match the closing bracket (])
+                within a character class
+             
+              {nX}: counted match
+               Match n times X.
+               For X, all expressions are allowed.
+               If you need to match a number at the first char of 'X',
+               separate X by a commata. E.g. {5,0} matches 5 times '0'.
+             
+              (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
+             
+              %[1]..%[9]: matches like a '+',
+               and calls the callback supplied as 3rd argument (when not null).
+               the number past the %, e.g. %1, is optional,
+               p_match will be callen with this number
+               as first parameter.
+               When not supplied, p_matched will be callen with 
+               the parameter 'number' set to 0.
+             
+               The matching is 'nongreedy'.
+               It is possible to rewrite the string to match
+               from within the p_matched callback.
+               This will not have an effect onto the current matching,
+               even if text is e.g. deleted by writing 0's.
+               The matched positions are called in reverse order.
+               (The last matched % in the regex calls p_match first, 
+               the first % in the regex from the left will be callen last)
+               / The regex is first matched; when the regex has matched,
+               the %'s are filled/ the callbacks executed.
+               (x) bracketed patterns are matched the same way.
+             
+               (Not like &, which callbacks are invoked, while matching)
+             
+              supply 0 for p_matched, when you do not need to extract matches.
+              This will treat % in the regex like a *, 
+              a following digit (0..9) in the regex is ignored.
+              if the 5th argument, a pointer to a text_match struct, 
+              is supplied, it will be filled with the first match.
+              (counting from left)
+             
+             
+              &[1] .. &[9]
+               "match" like a '?' and call p_match_char
+               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+               or a number of the count of chars, which have been matched.
+             
+               Therefore it is possible to e.g. rule your own
+               character classes, defined at runtime, 
+               or do further tricks like changing the matched chars,
+               match several chars, andsoon.
+               When returning RE_NOMATCH,
+               it is possible, the p_match and p_match_char callbacks are callen several times,
+               but with different pos or len parameters.
+             
+               The matching works straight from left to right.
+               So, a "*&*" will call the callback & for the first char.
+               When returning RE_NOMATCH, the second char will be tried to match.
+               Until either RE_MATCH is returned from the callback,
+               or the last char of the text has been tried to match.
+             
+               Matching several characters is also posssible from within the callback,
+               the position within the text will be incremented by that number,
+               you return from the callback.
+             
+               When returning RE_MATCHEND from the callback, 
+               the whole regular expression is aborted, and returns with matched;
+               no matter, if there are chars left in the expression.
+             
+             
+               The difference between % and & is the logic.
+               % matches nongreedy, and has to check therefore the right side of the star
+               for its matching.
+               Possibly this has to be repeated, when following chars do not match.
+             
+               & is matched straight from left to right.
+               Whatever number you return, the textpointer will be incremented by that value.
+               However, a & isn't expanded on it's own. ( what a % is ).
+               e.g. "x%x" will match 'aa' in xaax, x&x will match the whole expression
+               only, when you return '2' from the callback.
+             
+               Performancewise, matching with & is faster,
+               since the % has on its right side to be matched
+               with recursing calls of ext_match.
+             
+              When using closures for the callbacks, you will possibly have to
+              enable an executable stack for the trampoline code
+              of gcc. Here, gcc complains about that. 
+              For setting this bit, please have a look into the ldscripts in the folder
+              with the same name.
+             
+              supply 0 for p_match_char, when you don't need it.
+              This will treat & in the regex like ?, 
+              and match a following digit (0..9) in the text,
+              a following digit (0..9) in the regex is ignored.
+              
+              -----
+              In general, you have to somehow invert the logic of regular expressions
+              when using ext_match.
+              e.g. when matching the parameter 'runlevel=default' at the kernel's
+              commandline, a working regular expression would be
+              "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+              For matching e.g. numbers, you'd most possibly best of
+              with writing your own & callback.
+             
+              returns: 1 on match, 0 on no match
+              ( RE_MATCH / RE_NOMATCH )
+             
+              if the pointer (argument 5) st_match is nonnull,
+              the supplied struct text_match will be set to the first matching '%' location;
+              if there is no match, text_match.len will be set to 0.
+              The struct is defined as: 
+              typedef struct _text_match { char* pos; int len; } text_match;
+             
+             
+              (memo) When the regex ist defined within C/cpp source code,
+              a backslash has to be defined as double backslash.
+             
+              (note) - be careful when negating a following *, or ?.
+               somehow - it is logical, but seems to me I overshoot a bit,
+               tragically hit my own foot, and stumbled into a logical paradox.
+             
+               Negating EVERYTHING translates to true.
+               However, since truth is negated as well, there's a problem,
+               cause it's now 'false', but 'false' is true. This is very close
+               to proving 42 is the answer. What is the escape velocity
+               in km/s out of the solar system, btw.
+             
+               (I'm not kidding here. Just don't do a regex with !* or !?..
+               And, please, do not ask me what is going to happen when the impossible
+               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+             
+               A "!+" will translate into nongreedy matching of any char, however;
+               "%!+" will match with % everything but the last char;
+               while "%+" matches with % only the first char.
+               !+ basically sets the greedyness of the left * or % higher.
+             
+              (work in progress here) please use ext_match
+              return 0 for nomatch, the current textpos ( >0 ) for a match
+              With the exception of an empty text, matched by e.g. "*".
+              This will return 0, albite the regex formally matches, with 0 chars.
+             
+              (todo)
+              bracket matching () and {} needs debugging. (test/extmatch2 for testing)
+              Add a callback for bracket matches, and add a matchlist
+              (linked list, allocated with malloc_brk)
+              Trouble: e.g. *:(*) doesn't match, albite it should
+               .. better. Now: # matches the end, after a bracket. Like it should
+                $ doesn't. But should as well.
+              change '+' to greedy matching of any char
+              for {n,X} let n be * or + as well.
+               (this would be closer to regular regulars again.?.)
+             
+             
+              note. About a tokenizer:
+              matching quoted string is really easy with the callback structure:
+               just match with &. When a quote is matched, look forward to the next quote,
+               and return that many chars. Same time, the quoted string is matched.
+               That's so easy, it is hard to believe.
+               When using closures for that, it is same time easy to collect all tokens.
+             
+               It is even easier. just a "*("*")*" is enough.
+             
+               ->There is something needed for partial matching. Possibly spare the last *, and return,
+               as soon the pattern is at it's end (and not the text?)
+               Already works this way. 
+             
+               Should start to define the language for the init scripts.
+               Or better, start thinking abut that, but follow my other obligations the next time.
+             
+               Have to think thouroughly about what points would make such a language useful.
+               The reason to think about that is clear - performance squeezing, faster startup time.
+               And writing the startup scripts in C is. Well. little bit painful.
+               However, together with minilib, there is nearly no difference between having a C program compiled
+               and run, or working with scripts. To not have the overhead of linking the external libraries in,
+               is of quite some advance.
+               The only difference, the compiled binaries are "cached".
+               have just to sort something sensible out for the systematic.
+               Implement an own loader? possibly easy. Since the loading address is fixed.
+               This could possibly also be the solution for the yet unclear question of the line between parsing
+               arguments and calling the main function of the small core tools, andsoon.
+               
+               gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
+               (src/match_ext2.c: 274)
 
 max_groupmembers#ifndef mini_max_groupmembers
 

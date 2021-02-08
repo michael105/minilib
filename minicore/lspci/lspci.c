@@ -26,8 +26,8 @@ mini_errno
 
 mini_mmap
 mini_match
-mini_ext_match
-mini_ext_match2
+mini_match_ext
+mini_match_ext2
 
 mini_ansicolors
 mini_shortcolornames
@@ -119,7 +119,7 @@ int cb2(int n, char *c, void* udata ){
 		write(1,c,len);
 		*p=' ';
 		p++;
-		regex_match stmatch;
+		text_match stmatch;
 		match(p,"%\n*",&stmatch);
 		prints(" module: ");
 		//printf("len: %d\n",stmatch.len);
@@ -142,7 +142,7 @@ int cb2(int n, char *c, void* udata ){
 
 char* grepalias(const char* mappedalias, const char* alias){
 //	write(1,mappedalias,20);
-	regex_match stmatch;
+	text_match stmatch;
   struct data udata;
 	udata.mappedalias = mappedalias;
 	udata.module = 0;
