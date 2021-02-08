@@ -1,20 +1,29 @@
-//+doc regex engine
-// little bit simpler version than ext_match.
+#ifndef mini_match_c
+#define mini_match_c
+
+//+doc text matching engine
+//
+// little bit simpler version than match_ext.
+// Consciusly named 'text matching', since the inherent logic
+// is quite different to a regular expression machine.
+//
 // The engine matches nongreedy straight from left to right,
 // so backtracking is minimized.
 // It is a compromise between performance, size
 // and capabilities.
 //
+//
 // matches: 
 // 
-// * for every count of any char
+// * for every count of any char (nongreedy(!))
 // + for 1 or more chars
+// % for 1 or more chars, and fills in arg 3 (text_match)
 // ? for 1 char
-// # for space or end of text (0)
+// # for space, endofline, \t, \n, \f, \r, \v  or end of text (0)
 // $ match end of text
-//
 // backslash: escape *,?,%,!,+,#,$ and backslash itself.
 // ! : invert the matching of the next character or character class
+// @ matches the beginning of the text or of a line.
 //  
 // [xyz]: character classes, here x,y or z 
 //   the characters are matched literally, also \,*,?,+,..
@@ -23,7 +32,7 @@
 //
 //
 // % : matches like a '+', and fills in argument 3,
-// the regex_match struct, when the pointer is non null.
+// the text_match struct, when the pointer is non null.
 // The matching is 'nongreedy'.
 //
 //
@@ -31,10 +40,18 @@
 // ( RE_MATCH / RE_NOMATCH )
 //
 // if the pointer (argument 3) st_match is nonnull,
-// the supplied struct regex_match will be set to the first matching '%' location;
-// if there is no match, regex_match.len will be set to 0.
+// the supplied struct text_match will be set to the first matching '%' location;
+// if there is no match, text_match.len will be set to 0.
+//
 // The struct is defined as: 
-// typedef struct _regex_match { char* pos; int len; } regex_match;
+// typedef struct _text_match { char* pos; int len; } text_match;
+//
+// examples: 
+// "*word*"  matches "words are true" or "true words are rare"
+// "word*"   matches "words are true" and not "true words are rare"
+// "word"    matches none of the above two texts (!)
+// "*words%" extracts with % " are true" and " are rare"
+//           into text_match
 //
 //
 // (memo) When the regex ist defined within C/cpp source code,
@@ -55,11 +72,27 @@
 //  while "%+" matches with % only the first char.
 //  !+ basically sets the greedyness of the left * or % higher.
 //
+//+depends _match
 //+def match
-int match(char *text, const char *re, regex_match *st_match){
+int match(char *text, const char *re, text_match *st_match){
+
+	int r = 1;
+	if ( ( *re == '*' && *(re+1)=='@' && ( r=2 ) ) ||
+			 ( *re=='@' ) ){ // beginning of text or line, here of the text
+		if ( _match( text, (re+r), st_match ) == RE_MATCH )
+			return( RE_MATCH );
+	}
+
+	return( _match( text, re, st_match ) );
+}
+
+//+def
+int _match(char *text, const char *re, text_match *st_match){
 		int n_match=0;
 		char *matchpos = 0;
 		int neg = 0;
+
+
 		if ( st_match ) st_match->len=0;
 
 		while ( *text!=0 ){
@@ -85,8 +118,15 @@ int match(char *text, const char *re, regex_match *st_match){
 								if ( neg )
 										return( RE_NOMATCH );
 								break;
-						case '#': // match end of text, or a space; here a space
+						case '#': // match end of text, or space chars; here a space
 								if ( isspace( *text )){
+										if ( neg ) return( RE_NOMATCH );
+										break;
+								}
+								if ( neg ) break;
+								return( RE_NOMATCH );
+						case '@': // match beginning of text or endofline - here endofline
+								if ( *text == '\n' ){
 										if ( neg ) return( RE_NOMATCH );
 										break;
 								}
@@ -112,7 +152,7 @@ int match(char *text, const char *re, regex_match *st_match){
 										return(neg ^ RE_MATCH); // no chars anymore. so a match
 								}
 
-								while ( !match(text,re,st_match) ){
+								while ( !_match(text,re,st_match) ){
 										text++;
 										if ( !*text ){
 												if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
@@ -156,4 +196,5 @@ __MATCHEND2:
 		// also the case for text==0
 }
 
+#endif
 
