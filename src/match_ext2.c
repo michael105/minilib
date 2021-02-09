@@ -325,10 +325,13 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				if ( *re == 0x1E ){
 						writesl("rematch");
 						write(1,text,10);
-						printf("\n%lx\n===\n",text);
-						rematch=text; // return position of the closing bracket,
-						// substituded with0x1E
+						printf("\ntext: %lx\n===\n",text);
 						re++;
+						if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
+								return( RE_NOMATCH );
+						return( text );
+						// return position of the closing bracket,
+						// substituded with0x1E
 				}
 				char *pos = re;
 				while ( count --> 0 ){
@@ -460,7 +463,8 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 										// match nongreedy. (has more possibilities, e.g. match %d\D, or %d\d\D
 										//}
 										//switch ( *re ){
-
+										printf("starmatch out. rematch: %lx\n",rematch);
+										char *pos;
 										while ( (rematch=_match_ext2(text,re,p_match,p_match_char,st_match)) == RE_NOMATCH ){
 												text++;
 												if ( !*text ){
@@ -472,6 +476,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 												}
 										}
 __MATCHEND:
+										printf("matchend, rematch: %lx\n",rematch);
 										if ( matchpos ){
 												if ( p_match )
 														p_match(n_match,matchpos,text-matchpos);
@@ -488,7 +493,7 @@ __MATCHEND:
 
 								case '\\': // match escaped *,?,backslashes, %
 										re++;
-										printsl("match \\, re: ",re, " text: ",text);
+										printsl("match \\, re: ",re);
 #define _MATCH(a,condition) if ( *re == a ){\
 		if ( neg ^ (condition) ) break;\
 		else return(RE_NOMATCH);}
