@@ -132,6 +132,7 @@ int _match(char *text, const char *re, text_match *st_match){
 								if ( neg ) break;
 								return( RE_NOMATCH );
 						case '@': // match beginning of text or endofline - here endofline
+								// ( -> beginning of new line )
 								if ( *text == '\n' ){
 										if ( neg ) return( RE_NOMATCH );
 										break;

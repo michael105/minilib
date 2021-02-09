@@ -15,8 +15,12 @@ return
 #endif
 #include "minilib.h"
 
-// Simple grep.  Only supports ^ . * $ operators.
-// source: xv6
+/** 
+* Simple grep.  Supports only ^ . * $ operators.
+= Usage: grep pattern file[...]
+
+	source: xv6
+**/
 
 int match(char*, char*);
 
