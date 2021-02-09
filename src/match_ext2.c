@@ -307,18 +307,27 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				neg = 0;
 				int count = 1;
 
+
 				if ( *re == '!' ){
 						re++;
 						neg=1;
-				}
+				}				
+				if ( *re == ',' ) // separate e.g. %,1
+						re++;
 				
 				if ( *re == '}' ){
-						//re++;
-				//		return(_match_ext2(text,re,p_match,p_match_char,st_match ));
-						//if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
-						//		return( RE_NOMATCH );
 						return( text ); // match
 				}
+
+				if ( *re == ')' ){
+						//printf("\ntext: %lx\n===\n",text);
+						re++;
+						if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
+								return( RE_NOMATCH );
+						return( text );
+						// return position of the closing bracket
+				}
+
 
 				if ( *re == '{' ){
 						re++;
@@ -361,20 +370,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				} 
 
 				
-				if ( *re == ',' ) // separate e.g. %,1
-						re++;
-				//if ( *re == 0x1E ){
-				if ( *re == ')' ){
-						//writesl("rematch");
-						//write(1,text,10);
-						//printf("\ntext: %lx\n===\n",text);
-						re++;
-						if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
-								return( RE_NOMATCH );
-						return( text );
-						// return position of the closing bracket,
-						// substituded with0x1E
-				}
+
 				char *pos = re;
 				while ( count --> 0 ){
 						re=pos;
