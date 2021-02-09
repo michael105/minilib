@@ -144,7 +144,12 @@ _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
 _match         int _match(char *text, const char *re, text_match *st_match);
 
-               (src/match.c: 94)
+               (src/match.c: 96)
+
+_match_ext2    char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
+
+               internal implementation of match_ext
+               (src/match_ext2.c: 289)
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
@@ -628,13 +633,12 @@ match          int match(char *text, const char *re, text_match *st_match);
               + for 1 or more chars
               % for 1 or more chars, and fills in arg 3 (text_match)
               ? for 1 char
+              @ matches the beginning of the text or endofline (\n) 
+                -> beginning of a line
               # for space, endofline, \t, \n, \f, \r, \v  or end of text (0)
               $ match end of text
               backslash: escape *,?,%,!,+,#,$ and backslash itself.
               ! : invert the matching of the next character or character class
-              @ matches the beginning of the text or of a line.
-                When the re starts with a @, the re is going to
-                be matched with the beginning of every line of the text.
                
               [xyz]: character classes, here x,y or z 
                 the characters are matched literally, also \,*,?,+,..
@@ -663,6 +667,11 @@ match          int match(char *text, const char *re, text_match *st_match);
               "word"    matches none of the above two texts (!)
               "*words%" extracts with % " are true" and " are rare"
                         into text_match
+              
+              "Some\ntext\nwith\nlinebreaks\n\n"
+              "*@%#*" matches with % "Some"
+              "*@line%#*" matches % = "breaks"
+              "*text\n%"  % = "with linebreaks\n\n"
              
              
               (memo) When the regex ist defined within C/cpp source code,
@@ -682,7 +691,7 @@ match          int match(char *text, const char *re, text_match *st_match);
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/match.c: 76)
+               (src/match.c: 83)
 
 match_ext      int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
 
@@ -1149,7 +1158,7 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
                arguments and calling the main function of the small core tools, andsoon.
                
                gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
-               (src/match_ext2.c: 274)
+               (src/match_ext2.c: 275)
 
 max_groupmembers#ifndef mini_max_groupmembers
 
@@ -2352,7 +2361,7 @@ execvpe        static int execvpe(const char *file, char *const argv[], char *co
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
               Looks for file in the PATH environment, othwerise.
-               (src/exec/execvp.c: 11)
+               (src/exec/execvp.c: 40)
 
 getgroups      int getgroups(int maxgroups, int *list);
 
@@ -2406,4 +2415,9 @@ usleep         unsigned int volatile usleep(unsigned int useconds);
              
               TODO: ignore blocked signals, sigchld
                (src/sleep.c: 31)
+
+where          int where(const char *file,char *buf);
+
+               locate an executable in PATH
+               (src/exec/execvp.c: 8)
 

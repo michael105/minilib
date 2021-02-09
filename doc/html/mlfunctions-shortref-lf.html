@@ -166,9 +166,12 @@
 <tr valign="top"><td><small>sys__lsetxattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  363 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__lstat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  17 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__madvise</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  61 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>_match</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  94 </small></td><td><small> int _match(char *text, const char *re, text_match *st_match);
+<tr valign="top"><td><small>_match</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  96 </small></td><td><small> int _match(char *text, const char *re, text_match *st_match);
 </small></td></tr>
-<tr valign="top"><td><small>sys__mbind</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  449 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>_match_ext2</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  289 </small></td><td><small> char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
+</small></td></tr><tr><td></td><td colspan="2"><small>internal implementation of match_ext
+ </small></td></tr>
+<tr valign="top"><td><small>sys__mbind</small></td><td><small>   <a href="../src/match_ext2.c" target="right">../src/match_ext2.c</a>  449 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__memfd_create</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  613 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__migrate_pages</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  487 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__mincore</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  59 </small></td><td><small></small></td></tr>
@@ -597,7 +600,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  11 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
+<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  40 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
 </small></td></tr><tr><td></td><td colspan="2"><small>When invoked with a filename, starting with "." or "/",
   interprets this as absolute path. (calls execve with the pathname)
   Looks for file in the PATH environment, othwerise.
@@ -975,7 +978,7 @@
   If an error occures, errno is set (when defined), 
   and -1 returned, or the negative errno value, when errno isn't defined.
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  76 </small></td><td><small> int match(char *text, const char *re, text_match *st_match);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  83 </small></td><td><small> int match(char *text, const char *re, text_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>text matching engine
  
   little bit simpler version than match_ext.
@@ -994,13 +997,12 @@
   + for 1 or more chars
   % for 1 or more chars, and fills in arg 3 (text_match)
   ? for 1 char
+  @ matches the beginning of the text or endofline (\n) 
+    -> beginning of a line
   # for space, endofline, \t, \n, \f, \r, \v  or end of text (0)
   $ match end of text
   backslash: escape *,?,%,!,+,#,$ and backslash itself.
   ! : invert the matching of the next character or character class
-  @ matches the beginning of the text or of a line.
-    When the re starts with a @, the re is going to
-    be matched with the beginning of every line of the text.
    
   [xyz]: character classes, here x,y or z 
     the characters are matched literally, also \,*,?,+,..
@@ -1029,6 +1031,11 @@
   "word"    matches none of the above two texts (!)
   "*words%" extracts with % " are true" and " are rare"
             into text_match
+  
+  "Some\ntext\nwith\nlinebreaks\n\n"
+  "*@%#*" matches with % "Some"
+  "*@line%#*" matches % = "breaks"
+  "*text\n%"  % = "with linebreaks\n\n"
  
  
   (memo) When the regex ist defined within C/cpp source code,
@@ -1241,7 +1248,7 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small>match_ext2</small></td><td><small>   <a href="../src/match_ext.c" target="right">../src/match_ext.c</a>  274 </small></td><td><small> char* match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
+<tr valign="top"><td><small>match_ext2</small></td><td><small>   <a href="../src/match_ext.c" target="right">../src/match_ext.c</a>  275 </small></td><td><small> char* match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>text matching engine
   WORK IN PROGRESS, please use ext_match
  
@@ -1996,7 +2003,10 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">waitpid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  16 </small></td><td><small> pid_t waitpid(pid_t pid, int *wstatus, int options);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  102 </small></td><td><small> write(int fd,const void *buf, int len )
+<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  8 </small></td><td><small> int where(const char *file,char *buf);
+</small></td></tr><tr><td></td><td colspan="2"><small>locate an executable in PATH
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/execvp.c" target="right">../src/exec/execvp.c</a>  102 </small></td><td><small> write(int fd,const void *buf, int len )
 </small></td></tr>
 <tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  85 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.
