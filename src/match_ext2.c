@@ -322,7 +322,8 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				}
 				if ( *re == ',' ) // separate e.g. %,1
 						re++;
-				if ( *re == 0x1E ){
+				//if ( *re == 0x1E ){
+				if ( *re == ')' ){
 						writesl("rematch");
 						write(1,text,10);
 						printf("\ntext: %lx\n===\n",text);
@@ -368,12 +369,12 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 												re++;
 										if ( !*re )
 												return(RE_ERROR);
-										*re = 0x1E; // end subregex at the closing bracket
-										printf("match bracket %lx\n",text);
+										//*re = 0x1E; // end subregex at the closing bracket
+										//printf("match bracket %lx\n",text);
 										text=_match_ext2(text,bpos,p_match,p_match_char,st_match);
-										*re=')'; // needed for several count's: e.g. '*{3(a%1a)}*'
+										//*re=')'; // needed for several count's: e.g. '*{3(a%1a)}*'
 										if ( text<=(long)0 ){
-												printf(" nomatch, rematch: %lx\n",text);
+												//printf(" nomatch, rematch: %lx\n",text);
 												return(RE_NOMATCH);
 										}
 										// fill bracket matches here, from bpos to text
