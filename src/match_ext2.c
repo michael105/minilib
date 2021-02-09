@@ -313,8 +313,11 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				}
 				
 				if ( *re == '}' ){
-						re++;
-						return(_match_ext2(text,re,p_match,p_match_char,st_match ));
+						//re++;
+				//		return(_match_ext2(text,re,p_match,p_match_char,st_match ));
+						//if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
+						//		return( RE_NOMATCH );
+						return( text ); // match
 				}
 
 				if ( *re == '{' ){
@@ -330,6 +333,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 												return(RE_NOMATCH);
 								case '*':
 										c = -1;
+										re++;
 										break;
 								default:
 										while ( isdigit(*re) ){
@@ -340,14 +344,19 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 
 
 						r2 = ret;
-						while ( c!=0  && (r2=_match_ext2(ret,re,
-														p_match,p_match_char,st_match ) ) <=0 ){
+						while ( c!=0  && ((r2=_match_ext2(ret,re,
+														p_match,p_match_char,st_match ) ) >0 ) ){
 								ret=r2;
 								c--;
 						}
 						if ( c > 0 )
 								return(RE_NOMATCH);
-						return(text);
+						for ( ;*re != '}'; re++ )
+								if ( !*re )
+										return( RE_ERROR ); // bracket error
+						re++;
+						return(_match_ext2(ret,re,p_match,p_match_char,st_match ));
+						//return(text);
 
 				} 
 
@@ -496,7 +505,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 										// match nongreedy. (has more possibilities, e.g. match %d\D, or %d\d\D
 										//}
 										//switch ( *re ){
-										printf("starmatch out. rematch: %lx\n",rematch);
+										//printf("starmatch out. rematch: %lx\n",rematch);
 										char *pos;
 										while ( (rematch=_match_ext2(text,re,p_match,p_match_char,st_match)) == RE_NOMATCH ){
 												text++;
@@ -509,7 +518,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 												}
 										}
 __MATCHEND:
-										printf("matchend, rematch: %lx\n",rematch);
+										//printf("matchend, rematch: %lx\n",rematch);
 										if ( matchpos ){
 												if ( p_match )
 														p_match(n_match,matchpos,text-matchpos);
@@ -526,7 +535,7 @@ __MATCHEND:
 
 								case '\\': // match escaped *,?,backslashes, %
 										re++;
-										printsl("match \\, re: ",re);
+										//printsl("match \\, re: ",re);
 #define _MATCH(a,condition) if ( *re == a ){\
 		if ( neg ^ (condition) ) break;\
 		else return(RE_NOMATCH);}
@@ -551,8 +560,8 @@ __MATCHEND:
 				}
 				re++; 		
 		}
-		printsl("loop out");
-		printf("rematch: %lx\n",rematch);
+		//printsl("loop out");
+		//printf("rematch: %lx\n",rematch);
 
 		// *text == 0 here.
 		if ( *re == ',' )
