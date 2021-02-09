@@ -305,28 +305,60 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				//printsl("text != 0");
 				int match_char = 0;
 				neg = 0;
-				int count = 0;
+				int count = 1;
 
 				if ( *re == '!' ){
 						re++;
 						neg=1;
 				}
-				if ( *re == '}' )
+				
+				if ( *re == '}' ){
 						re++;
-				if ( *re == '{' ){
-						while ( re++ && isdigit(*re) ){
-								count += (count*10) + (*re-'0');
-						}
-				} else {
-						count = 1;
+						return(_match_ext2(text,re,p_match,p_match_char,st_match ));
 				}
+
+				if ( *re == '{' ){
+						re++;
+						char *ret = text;
+						char *r2;
+						int c = 0;
+
+						switch ( *re ){
+								case '+':
+										if ( (ret = _match_ext2(text,re,
+																		p_match,p_match_char,st_match ) ) <=0 )
+												return(RE_NOMATCH);
+								case '*':
+										c = -1;
+										break;
+								default:
+										while ( isdigit(*re) ){
+												c += (c*10) + (*re-'0');
+												re++;
+										}
+						}
+
+
+						r2 = ret;
+						while ( c!=0  && (r2=_match_ext2(ret,re,
+														p_match,p_match_char,st_match ) ) <=0 ){
+								ret=r2;
+								c--;
+						}
+						if ( c > 0 )
+								return(RE_NOMATCH);
+						return(text);
+
+				} 
+
+				
 				if ( *re == ',' ) // separate e.g. %,1
 						re++;
 				//if ( *re == 0x1E ){
 				if ( *re == ')' ){
-						writesl("rematch");
-						write(1,text,10);
-						printf("\ntext: %lx\n===\n",text);
+						//writesl("rematch");
+						//write(1,text,10);
+						//printf("\ntext: %lx\n===\n",text);
 						re++;
 						if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
 								return( RE_NOMATCH );
