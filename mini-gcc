@@ -391,6 +391,11 @@ LDSCRIPT default
 # generate debug info (-Og -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
 #DEBUG
 
+# generate debug info, including the source of minilib itself. (-Og -g). 
+# Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
+#FULLDEBUG
+
+
 # list of source files, supplied to gcc
 # $1 expands to the current filename 
 #SOURCES $1 file1.c file2.c

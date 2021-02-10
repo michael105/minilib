@@ -83,7 +83,6 @@ STRIPFLAG(){
 # Generate debug symbols - don't optimize, don't strip
 DEBUG(){
 		export OPTFLAG='-Og -g -E'
-<<<<<<< HEAD
 		export STRIPFLAG=""
 		export opt_shrinkelf=0
 }
@@ -92,16 +91,12 @@ DEBUG(){
 # Generate debug symbols, including minilib's source.
 FULLDEBUG(){
 		export OPTFLAG='-Og -g -E'
-=======
->>>>>>> af0aafacf4171544ef57ef6d1b7458ae492db42b
 		export STRIPFLAG=""
 		export opt_shrinkelf=0
 		export fulldebug=1
 }
 
 
-<<<<<<< HEAD
-=======
 # Generate debug symbols, including minilib's source.
 FULLDEBUG(){
 		export opt_shrinkelf=0
@@ -109,7 +104,6 @@ FULLDEBUG(){
 }
 
 
->>>>>>> af0aafacf4171544ef57ef6d1b7458ae492db42b
 # Generate debug symbols, including minilib itself
 # A new outputfile ( sourcefilename.dbg.c ) containing the 
 # used parts of the minilib source is generated
