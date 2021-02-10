@@ -15,11 +15,7 @@ mini_printl
 mini_group_printf
 
 #DEBUG
-<<<<<<< HEAD
-FULLDEBUG
-=======
 #FULLDEBUG
->>>>>>> af0aafacf4171544ef57ef6d1b7458ae492db42b
 #STRIPFLAG
 #OPTFLAG -O0
 mini_INCLUDESRC
