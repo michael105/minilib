@@ -412,8 +412,15 @@ opt_exec=0
 opt_execname=""
 outputfile="a.out"
 
+# Handle only one argument.
+# use either the embedded config ( first line #if 0 )
+# or one of ( in this order ): file.conf, file.mconf, minilib.conf,
+# minilib.mconf
 if [ "$2" == "" ]; then
 	config=$1
+	if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+			usage
+	fi
 	if [ ! -f $config ]; then
 		fail "No such file: $config"
 	fi
@@ -448,6 +455,7 @@ if [ "$2" == "" ]; then
 	shift
 fi
 
+# get the ouput file's name
 a=0
 for i in "$@"
 do

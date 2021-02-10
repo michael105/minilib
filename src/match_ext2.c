@@ -6,7 +6,8 @@
 // This is somewhere between a fully fledged expression machine,
 // and a simplicistic solution.
 // Consciusly named 'text matching', since the inherent logic
-// is quite different to a regular expression machine.
+// is quite different to a regular expression machine;
+// "natural expressions" might fit better for the name.
 //
 // The engine matches from left to right,
 // backtracking is done as less as possible.
@@ -68,9 +69,10 @@
 // + for 1 or more chars
 // ? for 1 char
 // # for space, end of text (\0), linebreak, tab ( \t \n \f \r \v )
+// @ matches the beginning of the text or endofline (\n) 
 // $ match end of text (\0) or linebreak
 //
-// backslash: escape *,?,%,$,!,+,#,& and backslash itself.
+// backslash: escape *,?,%,@,$,!,+,#,& and backslash itself.
 // !: invert the matching of the next character or character class
 // ,: separator. e.g. %,1 matches like ?*1. 
 //   ( without the commata, the '1' would be part of the % match)
@@ -83,6 +85,7 @@
 // \S - nonspace
 // \w - word character ( defined as ascii 32-126,160-255 )
 // \W - nonword character ( defined as ascii 0-31,127-159 )
+// \x - hexadecimal digit (0-9,a-f,A-F)
 //
 //
 // [xyz]: character classes, here x,y or z 
@@ -101,18 +104,18 @@
 // %[1]..%[9]: matches like a '+',
 //  and calls the callback supplied as 3rd argument (when not null).
 //  the number past the %, e.g. %1, is optional,
-//  p_match will be callen with this number
+//  p_matched_cb will be callen with this number
 //  as first parameter.
-//  When not supplied, p_matched will be callen with 
+//  When not supplied, p_matched_cbed will be callen with 
 //  the parameter 'number' set to 0.
 //
 //  The matching is 'nongreedy'.
 //  It is possible to rewrite the string to match
-//  from within the p_matched callback.
+//  from within the p_matched_cb callback.
 //  This will not have an effect onto the current matching,
 //  even if text is e.g. deleted by writing 0's.
 //  The matched positions are called in reverse order.
-//  (The last matched % in the regex calls p_match first, 
+//  (The last matched % in the regex calls p_matched_cb first, 
 //  the first % in the regex from the left will be callen last)
 //  / The regex is first matched; when the regex has matched,
 //  the %'s are filled/ the callbacks executed.
@@ -120,7 +123,7 @@
 //
 //  (Not like &, which callbacks are invoked, while matching)
 //
-// supply 0 for p_matched, when you do not need to extract matches.
+// supply 0 for p_matched_cbed, when you do not need to extract matches.
 // This will treat % in the regex like a *, 
 // a following digit (0..9) in the regex is ignored.
 // if the 5th argument, a pointer to a text_match struct, 
@@ -129,17 +132,18 @@
 //
 //
 // &[1] .. &[9]
-//  "match" like a '?' and call p_match_char
-//  p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
-//  or a number of the count of chars, which have been matched.
+//  "match" like a '?' and call p_wildcard_cb
+//  p_wildcard_cb has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+//  or the number of the count of chars, which have been matched.
 //
 //  Therefore it is possible to e.g. rule your own
 //  character classes, defined at runtime, 
 //  or do further tricks like changing the matched chars,
 //  match several chars, andsoon.
 //  When returning RE_NOMATCH,
-//  it is possible, the p_match and p_match_char callbacks are callen several times,
-//  but with different pos or len parameters.
+//  it is possible, the p_wildcard_cb callback is callen several times,
+//  but with different pos or len parameters, since p_wildcard_cb is
+//  invoked while matching.
 //
 //  The matching works straight from left to right.
 //  So, a "*&*" will call the callback & for the first char.
@@ -152,7 +156,7 @@
 //  you return from the callback.
 //
 //  When returning RE_MATCHEND from the callback, 
-//  the whole regular expression is aborted, and returns with matched;
+//  the whole expression is aborted, and returns with matched;
 //  no matter, if there are chars left in the expression.
 //
 //
@@ -177,7 +181,7 @@
 // For setting this bit, please have a look into the ldscripts in the folder
 // with the same name.
 //
-// supply 0 for p_match_char, when you don't need it.
+// supply 0 for p_wildcard_cb, when you don't need it.
 // This will treat & in the regex like ?, 
 // and match a following digit (0..9) in the text,
 // a following digit (0..9) in the regex is ignored.
@@ -185,6 +189,14 @@
 // -----
 // In general, you have to somehow invert the logic of regular expressions
 // when using ext_match.
+// Regular expressions could be regarded as "polish rpn notation",
+// first the char to be matched, then the count.
+// This expression machine could be described as "natural expression" machine.
+// First you define the number, then the chars or expression to be matched.
+// 
+// Furthermore, *,% and + match as less as possible.
+// You have to think about what needs to follow the wildcards.
+//
 // e.g. when matching the parameter 'runlevel=default' at the kernel's
 // commandline, a working regular expression would be
 // "runlevel=(\S*)". This could be written here as "*runlevel=%#".
@@ -216,7 +228,8 @@
 //
 //  (I'm not kidding here. Just don't do a regex with !* or !?..
 //  And, please, do not ask me what is going to happen when the impossible
-//  gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+//  gets possibilized. I have to point at the according sentences of the BSD license;
+//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
 //
 //  A "!+" will translate into nongreedy matching of any char, however;
 //  "%!+" will match with % everything but the last char;
@@ -268,25 +281,26 @@
 //  This could possibly also be the solution for the yet unclear question of the line between parsing
 //  arguments and calling the main function of the small core tools, andsoon.
 //  
-//  gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
+// ..yet I've to fiddle out the possibilities (and quirks) of this machine.
+// seems, this expression language did overpower it's creator.
 //
 //+depends _match_ext2
 //+def match_ext2
-char* match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match){
+char* match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match){
+//char* match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), void(*p_bracket_cb)(int number, char*pos, int len),text_match *st_match){
 
-	int r = 1;
-	if ( ( *re == '*' && *(re+1)=='@' && ( r=2 ) ) ||
-			 ( *re=='@' ) ){ // beginning of text or line, here of the text
-		if ( _match_ext2( text, (re+r), p_match, p_match_char, st_match ) > (long)0 )
-			return( RE_MATCH );
-	}
-
-		return ( _match_ext2( text, re, p_match, p_match_char, st_match ) );
+		int r = 1;
+		if ( ( *re == '*' && *(re+1)=='@' && ( r=2 ) ) ||
+						( *re=='@' ) ){ // beginning of text or line, here of the text
+				if ( _match_ext2( text, (re+r), p_matched_cb, p_wildcard_cb, st_match ) > (long)0 )
+						return( RE_MATCH );
+		}
+		return ( _match_ext2( text, re, p_matched_cb, p_wildcard_cb, st_match ) );
 }
 
 //+doc internal implementation of match_ext
 //+def _match_ext2
-char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match){
+char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match){
 		int n_match=0;
 		char *matchpos = 0;
 		int neg = 0;
@@ -307,27 +321,25 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 				neg = 0;
 				int count = 1;
 
-
-				if ( *re == '!' ){
-						re++;
+				switch (*re){
+						case '!':
 						neg=1;
-				}				
-				if ( *re == ',' ) // separate e.g. %,1
+						case ',': // separate e.g. %,1
 						re++;
-				
-				if ( *re == '}' ){
-						return( text ); // match
 				}
 
 				if ( *re == ')' ){
 						//printf("\ntext: %lx\n===\n",text);
 						re++;
-						if ( _match_ext2(text,re,p_match,p_match_char,st_match ) <=0 )
+						if ( _match_ext2(text,re,p_matched_cb,p_wildcard_cb,st_match ) <=0 )
 								return( RE_NOMATCH );
 						return( text );
 						// return position of the closing bracket
 				}
 
+				if ( *re == '}' ){
+						return( text ); // match
+				}
 
 				if ( *re == '{' ){
 						re++;
@@ -338,7 +350,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 						switch ( *re ){
 								case '+':
 										if ( (ret = _match_ext2(text,re,
-																		p_match,p_match_char,st_match ) ) <=0 )
+																		p_matched_cb,p_wildcard_cb,st_match ) ) <=0 )
 												return(RE_NOMATCH);
 								case '*':
 										c = -1;
@@ -351,10 +363,9 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 										}
 						}
 
-
 						r2 = ret;
 						while ( c!=0  && ((r2=_match_ext2(ret,re,
-														p_match,p_match_char,st_match ) ) >0 ) ){
+														p_matched_cb,p_wildcard_cb,st_match ) ) >0 ) ){
 								ret=r2;
 								c--;
 						}
@@ -364,12 +375,9 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 								if ( !*re )
 										return( RE_ERROR ); // bracket error
 						re++;
-						return(_match_ext2(ret,re,p_match,p_match_char,st_match ));
-						//return(text);
-
+						// match the right side of the bracket
+						return(_match_ext2(ret,re,p_matched_cb,p_wildcard_cb,st_match ));
 				} 
-
-				
 
 				char *pos = re;
 				while ( count --> 0 ){
@@ -406,14 +414,12 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 												re++;
 										if ( !*re )
 												return(RE_ERROR);
-										//*re = 0x1E; // end subregex at the closing bracket
 										//printf("match bracket %lx\n",text);
-										text=_match_ext2(text,bpos,p_match,p_match_char,st_match);
-										//*re=')'; // needed for several count's: e.g. '*{3(a%1a)}*'
-										if ( text<=(long)0 ){
-												//printf(" nomatch, rematch: %lx\n",text);
+										text=_match_ext2(text,bpos,p_matched_cb,p_wildcard_cb,st_match);
+
+										if ( text<=(long)0 )
 												return(RE_NOMATCH);
-										}
+
 										// fill bracket matches here, from bpos to text
 										printf("bracket match: %lx - %lx - rematch: %lx\n",mpos,text,rematch);
 										write(1,mpos,text-mpos);
@@ -451,8 +457,8 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 										if ( match_char ){ // match &
 												// if ( *re== d ) match char classes: &d, &D, ..
 												// match e.g. %d: several digits, &d: one digit.
-												if ( p_match_char ){
-														int m = p_match_char(n_match,text);
+												if ( p_wildcard_cb ){
+														int m = p_wildcard_cb(n_match,text);
 														if ( m==RE_NOMATCH ){
 																if ( neg ) break;
 																return( RE_NOMATCH );
@@ -467,7 +473,7 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 												}
 												// fill  st_match here
 												if ( neg ) return( RE_NOMATCH );
-												break; // matched, also for p_match_char == 0
+												break; // matched, also for p_wildcard_cb == 0
 										}
 
 										matchpos=text;
@@ -477,33 +483,26 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 								case '*': // match 0 or more chars
 										re++;
 										if ( *re == 0){ // match. end of regex.
-												if ( matchpos && ( p_match || st_match ) ){
+												if ( matchpos && ( p_matched_cb || st_match ) ){
 														while ( *text )	// find end of text
 																text++;
-														if ( p_match )
-																p_match(n_match, matchpos,text-matchpos);
+														if ( p_matched_cb )
+																p_matched_cb(n_match, matchpos,text-matchpos);
 														if ( st_match ){
 																st_match->pos = matchpos;
 																st_match->len = text-matchpos;
 														}
 												}
-												printf("starmatch, count: %d rematch: %lx\n",count,rematch);
 												if ( !count ){
-
 														printf("starmatch, count: %d rematch: %lx\n",count,rematch);
-														writes("ret starmatch\n");
 														return(rematch); //rpl
 												}
 												else break;
 												//return(neg?RE_NOMATCH:text); // no chars anymore. so a match
 										}
-										//if ( *re=='d' || *re=='D' || *re=='w' || *re=='W' ){ // match %d, and sort of
-										// match nongreedy. (has more possibilities, e.g. match %d\D, or %d\d\D
-										//}
-										//switch ( *re ){
 										//printf("starmatch out. rematch: %lx\n",rematch);
 										char *pos;
-										while ( (rematch=_match_ext2(text,re,p_match,p_match_char,st_match)) == RE_NOMATCH ){
+										while ( (rematch=_match_ext2(text,re,p_matched_cb,p_wildcard_cb,st_match)) == RE_NOMATCH ){
 												text++;
 												if ( !*text ){
 														//if ( (*re == '#' || *re == '$') && ( re[1]==0 ) )
@@ -516,8 +515,8 @@ char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int
 __MATCHEND:
 										//printf("matchend, rematch: %lx\n",rematch);
 										if ( matchpos ){
-												if ( p_match )
-														p_match(n_match,matchpos,text-matchpos);
+												if ( p_matched_cb )
+														p_matched_cb(n_match,matchpos,text-matchpos);
 												if ( st_match ){
 														st_match->pos = matchpos;
 														st_match->len = text-matchpos;
@@ -545,6 +544,9 @@ __MATCHEND:
 										_MATCH('S',!isspace(*text));
 										_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
 										_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
+										_MATCH('x',isdigit(*text) ||
+														('a'<=*text && *text<='f') ||
+														('A'<=*text && *text<='F') );
 								default:
 										if ( *re==0 ) //partial match ( could be spared )
 												return(RE_NOMATCH);
