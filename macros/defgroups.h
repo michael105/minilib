@@ -18,7 +18,7 @@
 //+doc write, and related functions
 // these functions do not depend on strlen, 
 // or any globals.
-//+depends write ewrite writes ewrites fwrites 
+//+depends write ewrite writes ewrites fwrites ewritesl writesl
 //+def group_write
 
 

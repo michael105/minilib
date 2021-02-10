@@ -286,16 +286,22 @@
 //
 //+depends _match_ext2
 //+def match_ext2
-char* match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match){
-//char* match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), void(*p_bracket_cb)(int number, char*pos, int len),text_match *st_match){
+int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match){
+//char* match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *pos), void(*p_bracket_cb)(int number, char *pos, int len)){
 
 		int r = 1;
+		char *ret = 0;
+
 		if ( ( *re == '*' && *(re+1)=='@' && ( r=2 ) ) ||
 						( *re=='@' ) ){ // beginning of text or line, here of the text
 				if ( _match_ext2( text, (re+r), p_matched_cb, p_wildcard_cb, st_match ) > (long)0 )
 						return( RE_MATCH );
 		}
-		return ( _match_ext2( text, re, p_matched_cb, p_wildcard_cb, st_match ) );
+		if ( (ret = _match_ext2( text, re, p_matched_cb, p_wildcard_cb, st_match )) > 0 )
+				return( RE_MATCH );
+
+		return ( (int)(long)ret ); // needs a double cast to prevent compiler warnings
+		// returns RE_NOMATCH or RE_ERROR
 }
 
 //+doc internal implementation of match_ext
