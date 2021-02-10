@@ -155,11 +155,11 @@ dirent.h
 ==========
 
 closedir       int closedir(DIR *dir);
-               Defines: getbrk brk
+               Defines: brk getbrk
                (src/dirent/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
-               Defines: close dirbuf getbrk open write 0 brk
+               Defines: brk dirbuf 0 open getbrk close write
                (src/dirent/opendir.c: 24)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -174,7 +174,7 @@ rewinddir      void rewinddir(DIR *dir);
                (src/dirent/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-               Defines: errno seterrno dirbuf getbrk open sbrk brk 0 memcpy qsort write strlen
+               Defines: open seterrno memcpy getbrk brk strlen write 0 dirbuf qsort sbrk errno
                (src/dirent/scandir.c: 35)
                list files and dirs in a directory
              
@@ -281,7 +281,7 @@ _match         int _match(char *text, const char *re, text_match *st_match);
                (src/match.c: 96)
 
 _match_ext2    char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
-               (src/match_ext2.c: 308)
+               (src/match_ext2.c: 326)
                internal implementation of match_ext
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
@@ -379,7 +379,7 @@ def            #define SETOPT_short( opts, option ) (;
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
 
 die            #define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
-               Defines: exit execve write errno_str
+               Defines: write exit execve errno_str
                (src/die.c: 11)
                write msg to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -389,7 +389,7 @@ die            #define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
               
 
 die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
-               Defines: execve exit errno_str write
+               Defines: errno_str execve exit write
                (src/die.c: 48)
                when arg1 is true, write msg to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -399,7 +399,7 @@ die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
               
 
 dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
-               Defines: fileno execve write errno_str strlen exit
+               Defines: errno_str fileno write strlen exit execve
                (src/die.c: 20)
                write fmt andargs via fprintf to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -409,7 +409,7 @@ dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exi
               
 
 dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
-               Defines: write errno_str execve exit
+               Defines: exit execve errno_str write
                (src/die.c: 58)
                when arg1 is true, vall dief(errnum,fmt)
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -458,7 +458,7 @@ djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
               It is a bitshift and two additions per byte.
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
-               Defines: write strlen
+               Defines: strlen write
                (src/dprintf.c: 5)
 
 dprints        int dprints(int fd, const char *msg,...);
@@ -476,17 +476,17 @@ endpwent       void endpwent();
                (src/userdb/endpwent.c: 3)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
-               Defines: write strlen
+               Defines: strlen write
                (include/prints.h: 59)
                write str to stderr. Needs strlen
 
 eprintf        #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
-               Defines: strlen fileno write
+               Defines: fileno strlen write
                (include/prints.h: 132)
                write fmt and arguments to stderr. 
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-               Defines: write fileno strlen
+               Defines: fileno strlen write
                (include/prints.h: 127)
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
@@ -531,7 +531,7 @@ ewritesl       #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(
               Computes length with sizeof(str) at compile time.
 
 exit_errno     void exit_errno( int errnum );
-               Defines: exit execve errno_str write
+               Defines: write errno_str exit execve
                (src/exit_errno.c: 17)
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -554,14 +554,14 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
                (include/fexecveat.h: 3)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write fileno strlen
+               Defines: strlen write fileno
                (src/fprintfs.c: 10)
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
               no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
-               Defines: strlen fileno write
+               Defines: strlen write fileno
                (include/prints.h: 34)
                print the string(s) supplied as arg(s) to stream
               this macro has an variable argument count.
@@ -597,21 +597,21 @@ getgrent       struct group* getgrent();
                (src/userdb/getgrent.c: 4)
 
 getgrgid       struct group *getgrgid(gid_t gid);
-               Defines: grent write userdb globals token_i token_s setgrent mmap open
+               Defines: globals open userdb mmap write token_s token_i grent setgrent
                (src/userdb/getgrgid.c: 7)
                get the group entry of the group "gid".
               the last result is cached, multiple calls with the same
               name will return the cached result.
 
 getgrnam       struct group *getgrnam(const char* name);
-               Defines: globals userdb write setgrent token_s mmap open token_i grent
+               Defines: token_s token_i grent setgrent globals userdb open mmap write
                (src/userdb/getgrnam.c: 7)
                get the group entry of the group "name".
               the last result is cached, multiple calls with the same
               name will return the cached result.
 
 getgrouplist   int getgrouplist(const char* user, gid_t group, gid_t *groups, int *ngroups);
-               Defines: pwent grent setpwent write token_i passwdfile_open token_s setgrent open mmap
+               Defines: setgrent grent token_i token_s pwent write mmap open setpwent passwdfile_open
                (src/userdb/getgrouplist.c: 5)
                needs rewrite.
               now nonstandard.
@@ -621,21 +621,21 @@ getpwent       struct passwd* getpwent();
                (src/userdb/getpwent.c: 4)
 
 getpwnam       struct passwd *getpwnam(const char* name);
-               Defines: pwent token_s open mmap token_i globals write
+               Defines: mmap write globals open token_i pwent token_s
                (src/userdb/getpwnam.c: 7)
                get the passwd entry of the user "name".
               the last result is cached, multiple calls with the same
               name will return the cached result.
 
 getpwuid       struct passwd *getpwuid(uid_t uid);
-               Defines: write setpwent mmap open token_s passwdfile_open token_i pwent
+               Defines: token_i token_s pwent write mmap open setpwent passwdfile_open
                (src/userdb/getpwuid.c: 7)
                get the passwd entry of the user with uid.
               the last result is cached, multiple calls with the same
               uid will return the cached result.
 
 getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
-               Defines: pwent grent write setpwent token_i passwdfile_open open mmap setgrent token_s
+               Defines: setgrent grent token_i token_s pwent write mmap setpwent open passwdfile_open
                (src/userdb/getusergroups.c: 8)
                get the supplementary groups for the user uid.
               does not necessarily contain the primary group,
@@ -644,23 +644,23 @@ getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
               therefore any iteration with getgrent will be resetted.
 
 grantpt        int grantpt(int fd);
-               Defines: open ioctl fstat strlen uitodec write
+               Defines: strlen write ioctl open fstat uitodec
                (src/termios/pty.c: 49)
 
 group_print    
-               Defines: write fileno strlen
+               Defines: write strlen fileno
                (macros/defgroups.h: 13)
                enable print and related functions
               This switch enables strlen;
               but neither globals nor the mini_buf are used.
 
 group_printf   //
-               Defines: atoi fileno globals write uitohex strlen ltodec uitoHEX uitodec
+               Defines: ltodec strlen write uitohex uitodec globals fileno atoi uitoHEX
                (macros/defgroups.h: 29)
                printf, eprintf, fprintf, itodec, ltodec, itohex, anprintf, sprintf (conversions %d %l %x %ud %ul %ux ), 
 
 group_write    
-               Defines: write ewrite
+               Defines: ewrite write
                (macros/defgroups.h: 23)
                write, and related functions
               these functions do not depend on strlen, 
@@ -705,7 +705,7 @@ malloc_brk     void* malloc_brk(int size);
               free_brk() free's all memory, which has been allocated with malloc_brk
 
 map_protected  void* map_protected(int len);
-               Defines: mprotect mmap
+               Defines: mmap mprotect
                (src/map_protected.c: 19)
                allocate a buffer, which is surrounded by protected pages. 
               mprotect(PROT_NONE)
@@ -998,9 +998,17 @@ match_ext      int match_ext(char *text, const char *re, void(*p_match)(int numb
 
 match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
                Defines: 
-               (src/match_ext2.c: 289)
+               (src/match_ext2.c: 306)
                text matching engine
+             
               WORK IN PROGRESS, please use ext_match
+              Atm, please nested brackets are featureful.
+              nesting {} within () seems to work.
+              Nesting round brackets within {} gives sometimes
+              trouble, when wildcards are used within the brackets.
+              I'm leaving this at it is for now. 
+              Possibly I'm going to hardcode an error message for nested brackets,
+              or nested brackets with wildcards.
              
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
@@ -1097,6 +1105,8 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                For X, all expressions are allowed.
                If you need to match a number at the first char of 'X',
                separate X by a commata. E.g. {5,0} matches 5 times '0'.
+               n can be a number, * or +. 
+               ('*' matches 0 or more, '+' 1 or more times)
              
               (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
              
@@ -1105,7 +1115,7 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                the number past the %, e.g. %1, is optional,
                p_matched_cb will be callen with this number
                as first parameter.
-               When not supplied, p_matched_cbed will be callen with 
+               When not supplied, p_matched_cb will be callen with 
                the parameter 'number' set to 0.
              
                The matching is 'nongreedy'.
@@ -1113,7 +1123,9 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                from within the p_matched_cb callback.
                This will not have an effect onto the current matching,
                even if text is e.g. deleted by writing 0's.
+             
                The matched positions are called in reverse order.
+             
                (The last matched % in the regex calls p_matched_cb first, 
                the first % in the regex from the left will be callen last)
                / The regex is first matched; when the regex has matched,
@@ -1122,7 +1134,7 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
              
                (Not like &, which callbacks are invoked, while matching)
              
-              supply 0 for p_matched_cbed, when you do not need to extract matches.
+              supply 0 for p_matched_cb, when you do not need to extract matches.
               This will treat % in the regex like a *, 
               a following digit (0..9) in the regex is ignored.
               if the 5th argument, a pointer to a text_match struct, 
@@ -1282,6 +1294,11 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                
               ..yet I've to fiddle out the possibilities (and quirks) of this machine.
               seems, this expression language did overpower it's creator.
+             
+              Bugs (features): 
+              matching e.g. *matches*@*doesn't match*
+              potentiates the *@* to many possibilities.
+              One for every linebreak following 'matches'.
 
 max_groupmembers#ifndef mini_max_groupmembers
                (include/globaldefs.h: 82)
@@ -1307,7 +1324,7 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
                (include/mremap.h: 4)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
-               Defines: close open dirbuf getbrk 0 brk
+               Defines: dirbuf brk getbrk open 0 close
                (src/dirent/opendir.c: 10)
 
 optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
@@ -1348,7 +1365,7 @@ print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: write strlen fileno
+               Defines: fileno write strlen
                (include/prints.h: 121)
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
@@ -1370,15 +1387,15 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: open ioctl strlen uitodec write
+               Defines: open uitodec strlen write ioctl
                (src/termios/pty.c: 34)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: write uitodec strlen ioctl open
+               Defines: open uitodec strlen write ioctl
                (src/termios/pty.c: 21)
 
 putenv         int putenv( char *string );
-               Defines: environ ret_errno
+               Defines: ret_errno environ
                (src/putenv.c: 10)
                put a string into the environmental vars
               the supplied string's pointer is put into the environmental array of pointers.
@@ -1420,7 +1437,7 @@ setbrk         static int setbrk(long addr);
               wrapper for brk(), with type of brk changed to long
 
 setenv         int setenv( const char *name, const char *value, int overwrite );
-               Defines: ret_errno strcpy environ 0
+               Defines: 0 strcpy environ ret_errno
                (src/setenv.c: 15)
                put a string into the environmental vars
               UNTESTED (!) TODO
@@ -1534,7 +1551,7 @@ unlockpt       int unlockpt(int fd);
                (src/termios/pty.c: 14)
 
 unmap_protectedint unmap_protected(void *p, int len);
-               Defines: mprotect munmap
+               Defines: munmap mprotect
                (src/map_protected.c: 41)
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
@@ -1553,14 +1570,14 @@ verbose_errstr2static const char* verbose_errstr2(int num);
               Trying to shrink that here.
 
 vexec          int vexec( const char* path, char* const* argv, char* const* envp );
-               Defines: wait4 seterrno
+               Defines: seterrno wait4
                (src/exec/vexec.c: 6)
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
               sets errno on error.
 
 vexec_q        int vexec_q( const char* path, char* const* argv, char* const* envp );
-               Defines: wait4 seterrno
+               Defines: seterrno wait4
                (src/exec/vexec.c: 30)
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
@@ -2231,7 +2248,7 @@ sigismember    int sigismember(sigset_t *set, int sig);
                (src/signal/sigaction.c: 79)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
-               Defines: memcpy write
+               Defines: write memcpy
                (src/signal/signal.c: 5)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
@@ -2247,7 +2264,7 @@ stdio.h
 ==========
 
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-               Defines: open fileno close
+               Defines: fileno close open
                (src/_fopen.c: 12)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -2265,7 +2282,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 65)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: fileno close open
+               Defines: close fileno open
                (src/fopen.c: 20)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -2288,7 +2305,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
                (include/mini_fstream.h: 113)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 4)
 
 fileno         static int fileno( FILE *f );
@@ -2296,12 +2313,12 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: fileno close open
+               Defines: open close fileno
                (src/fopen.c: 10)
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: write strlen fileno
+               Defines: strlen write fileno
                (include/mini_fstream.h: 81)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
@@ -2334,7 +2351,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
               
 
 fputc          static inline int volatile fputc(int c, FILE* F);
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 10)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
@@ -2367,7 +2384,7 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 92)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 26)
 
 getchar        #define getchar() fgetc(0)
@@ -2375,7 +2392,7 @@ getchar        #define getchar() fgetc(0)
                (include/fgetc.h: 29)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: read fileno
+               Defines: fileno read
                (src/fgets.c: 27)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -2407,11 +2424,11 @@ putc           #define putc(c,stream) fputc(c,stream)
                (include/fputc.h: 19)
 
 putchar        #define putchar(c) fputc(c,stdout)
-               Defines: fileno write
+               Defines: write fileno
                (include/fputc.h: 16)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: fileno strlen write
+               Defines: strlen write fileno
                (include/prints.h: 74)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -2439,7 +2456,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: fileno strlen write
+               Defines: strlen write fileno
                (include/mini_fstream.h: 86)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
@@ -2456,7 +2473,7 @@ stdlib.h
 ==========
 
 abort          void abort();
-               Defines: memcpy getpid write
+               Defines: write getpid memcpy
                (src/abort.c: 3)
 
 abs            static int abs(int i);
@@ -2586,7 +2603,7 @@ rand           unsigned int rand();
                (src/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
-               Defines: getbrk brk 0
+               Defines: brk 0 getbrk
                (src/malloc.c: 210)
 
 srand          void srand( unsigned int i );
@@ -2598,7 +2615,7 @@ strtol         long int strtol(const char *c, const char **endp, int base);
               doesn't check for overflow(!)
 
 system         int system( const char* command );
-               Defines: wait4 execve vfork environ write
+               Defines: wait4 vfork write execve environ
                (src/exec/system.c: 4)
 
 
@@ -2650,7 +2667,7 @@ strcpy         char *strcpy(char *dest, const char *src);
                (src/string/strcpy.c: 3)
 
 strdup         char *strdup(const char *source);
-               Defines: strlen strcpy 0
+               Defines: 0 strcpy strlen
                (src/string/strdup.c: 7)
 
 strerror       static char* strerror( int errnum );
@@ -2733,22 +2750,22 @@ dup2           dup2(int oldfd, int newfd)
                (include/syscall_stubs.h: 117)
 
 execl          static int execl(const char *pathname, const char* arg0,... );
-               Defines: execve environ
+               Defines: environ execve
                (src/exec/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
-               Defines: execve environ
+               Defines: environ execve
                (src/exec/_execv.c: 4)
 
 execve         execve( const char *filename,  char* const* argv, char* const* envp)
                (include/syscall_stubs.h: 127)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
-               Defines: environ execve access
+               Defines: access execve environ
                (src/exec/_execvp.c: 4)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: environ execve access
+               Defines: execve access environ
                (src/exec/execvp.c: 40)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
@@ -2767,7 +2784,7 @@ getgid         DEF_syscall(getgid,0)
                (include/syscall_stubs.h: 190)
 
 getgroups      int getgroups(int maxgroups, int *list);
-               Defines: pwent getuid setpwent mmap grent write token_i passwdfile_open setgrent token_s open
+               Defines: token_i grent token_s mmap getuid open setpwent setgrent pwent write passwdfile_open
                (src/userdb/getgroups.c: 8)
                get the groups of the calling process
               does not necessarily contain the primary group,

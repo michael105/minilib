@@ -149,7 +149,7 @@ _match         int _match(char *text, const char *re, text_match *st_match);
 _match_ext2    char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
 
                internal implementation of match_ext
-               (src/match_ext2.c: 308)
+               (src/match_ext2.c: 326)
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
@@ -890,7 +890,15 @@ match_ext      int match_ext(char *text, const char *re, void(*p_match)(int numb
 match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
 
                text matching engine
+             
               WORK IN PROGRESS, please use ext_match
+              Atm, please nested brackets are featureful.
+              nesting {} within () seems to work.
+              Nesting round brackets within {} gives sometimes
+              trouble, when wildcards are used within the brackets.
+              I'm leaving this at it is for now. 
+              Possibly I'm going to hardcode an error message for nested brackets,
+              or nested brackets with wildcards.
              
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
@@ -987,6 +995,8 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                For X, all expressions are allowed.
                If you need to match a number at the first char of 'X',
                separate X by a commata. E.g. {5,0} matches 5 times '0'.
+               n can be a number, * or +. 
+               ('*' matches 0 or more, '+' 1 or more times)
              
               (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
              
@@ -995,7 +1005,7 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                the number past the %, e.g. %1, is optional,
                p_matched_cb will be callen with this number
                as first parameter.
-               When not supplied, p_matched_cbed will be callen with 
+               When not supplied, p_matched_cb will be callen with 
                the parameter 'number' set to 0.
              
                The matching is 'nongreedy'.
@@ -1003,7 +1013,9 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                from within the p_matched_cb callback.
                This will not have an effect onto the current matching,
                even if text is e.g. deleted by writing 0's.
+             
                The matched positions are called in reverse order.
+             
                (The last matched % in the regex calls p_matched_cb first, 
                the first % in the regex from the left will be callen last)
                / The regex is first matched; when the regex has matched,
@@ -1012,7 +1024,7 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
              
                (Not like &, which callbacks are invoked, while matching)
              
-              supply 0 for p_matched_cbed, when you do not need to extract matches.
+              supply 0 for p_matched_cb, when you do not need to extract matches.
               This will treat % in the regex like a *, 
               a following digit (0..9) in the regex is ignored.
               if the 5th argument, a pointer to a text_match struct, 
@@ -1172,7 +1184,12 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
                
               ..yet I've to fiddle out the possibilities (and quirks) of this machine.
               seems, this expression language did overpower it's creator.
-               (src/match_ext2.c: 289)
+             
+              Bugs (features): 
+              matching e.g. *matches*@*doesn't match*
+              potentiates the *@* to many possibilities.
+              One for every linebreak following 'matches'.
+               (src/match_ext2.c: 306)
 
 max_groupmembers#ifndef mini_max_groupmembers
 
