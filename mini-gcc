@@ -270,14 +270,11 @@ echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $O
 
 
 if [ "$debuglog" = "1" ]; then
-
 		let i=1;
-
 		while [ -e "debuglog.$i" ] 
 		do 
 				let i++
 		done
-
 		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E > debuglog.$i
 fi
 
@@ -294,6 +291,7 @@ if [ "$fulldebug" == 1 ]; then
 
 		eval $REAL_CC $CFLAGS,-T$LDSCRIPTFILE -Og -g2 -o $dbgfile $dbgfile.c $colorize
 else
+		# execute gcc
 		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		#$REAL_CC $CFLAGS$LDSCRIPT $@
 fi
@@ -660,6 +658,11 @@ do
 						echo "$LICENSE"
 						echo
 						exit
+						;;
+				--fulldebug )
+						shift
+						opt=1
+						fulldebug=1
 						;;
 
 		esac

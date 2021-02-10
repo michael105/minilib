@@ -15,7 +15,7 @@ mini_printl
 mini_group_printf
 
 #DEBUG
-FULLDEBUG
+#FULLDEBUG
 #STRIPFLAG
 #OPTFLAG -O0
 mini_INCLUDESRC
