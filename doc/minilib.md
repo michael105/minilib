@@ -146,10 +146,10 @@ _match         int _match(char *text, const char *re, text_match *st_match);
 
                (src/match.c: 96)
 
-_match_ext2    char* _match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
+_match_ext2    char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
 
                internal implementation of match_ext
-               (src/match_ext2.c: 289)
+               (src/match_ext2.c: 308)
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
@@ -887,7 +887,7 @@ match_ext      int match_ext(char *text, const char *re, void(*p_match)(int numb
                !+ basically sets the greedyness of the left * or % higher.
                (src/match_ext.c: 193)
 
-match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number, char *pos,int len), int(*p_match_char)(int number, char *match_char), text_match *st_match);
+match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
 
                text matching engine
               WORK IN PROGRESS, please use ext_match
@@ -895,7 +895,8 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
               This is somewhere between a fully fledged expression machine,
               and a simplicistic solution.
               Consciusly named 'text matching', since the inherent logic
-              is quite different to a regular expression machine.
+              is quite different to a regular expression machine;
+              "natural expressions" might fit better for the name.
              
               The engine matches from left to right,
               backtracking is done as less as possible.
@@ -957,9 +958,10 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
               + for 1 or more chars
               ? for 1 char
               # for space, end of text (\0), linebreak, tab ( \t \n \f \r \v )
+              @ matches the beginning of the text or endofline (\n) 
               $ match end of text (\0) or linebreak
              
-              backslash: escape *,?,%,$,!,+,#,& and backslash itself.
+              backslash: escape *,?,%,@,$,!,+,#,& and backslash itself.
               !: invert the matching of the next character or character class
               ,: separator. e.g. %,1 matches like ?*1. 
                 ( without the commata, the '1' would be part of the % match)
@@ -972,6 +974,7 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
               \S - nonspace
               \w - word character ( defined as ascii 32-126,160-255 )
               \W - nonword character ( defined as ascii 0-31,127-159 )
+              \x - hexadecimal digit (0-9,a-f,A-F)
              
              
               [xyz]: character classes, here x,y or z 
@@ -990,18 +993,18 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
               %[1]..%[9]: matches like a '+',
                and calls the callback supplied as 3rd argument (when not null).
                the number past the %, e.g. %1, is optional,
-               p_match will be callen with this number
+               p_matched_cb will be callen with this number
                as first parameter.
-               When not supplied, p_matched will be callen with 
+               When not supplied, p_matched_cbed will be callen with 
                the parameter 'number' set to 0.
              
                The matching is 'nongreedy'.
                It is possible to rewrite the string to match
-               from within the p_matched callback.
+               from within the p_matched_cb callback.
                This will not have an effect onto the current matching,
                even if text is e.g. deleted by writing 0's.
                The matched positions are called in reverse order.
-               (The last matched % in the regex calls p_match first, 
+               (The last matched % in the regex calls p_matched_cb first, 
                the first % in the regex from the left will be callen last)
                / The regex is first matched; when the regex has matched,
                the %'s are filled/ the callbacks executed.
@@ -1009,7 +1012,7 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
              
                (Not like &, which callbacks are invoked, while matching)
              
-              supply 0 for p_matched, when you do not need to extract matches.
+              supply 0 for p_matched_cbed, when you do not need to extract matches.
               This will treat % in the regex like a *, 
               a following digit (0..9) in the regex is ignored.
               if the 5th argument, a pointer to a text_match struct, 
@@ -1018,17 +1021,18 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
              
              
               &[1] .. &[9]
-               "match" like a '?' and call p_match_char
-               p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
-               or a number of the count of chars, which have been matched.
+               "match" like a '?' and call p_wildcard_cb
+               p_wildcard_cb has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+               or the number of the count of chars, which have been matched.
              
                Therefore it is possible to e.g. rule your own
                character classes, defined at runtime, 
                or do further tricks like changing the matched chars,
                match several chars, andsoon.
                When returning RE_NOMATCH,
-               it is possible, the p_match and p_match_char callbacks are callen several times,
-               but with different pos or len parameters.
+               it is possible, the p_wildcard_cb callback is callen several times,
+               but with different pos or len parameters, since p_wildcard_cb is
+               invoked while matching.
              
                The matching works straight from left to right.
                So, a "*&*" will call the callback & for the first char.
@@ -1041,7 +1045,7 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
                you return from the callback.
              
                When returning RE_MATCHEND from the callback, 
-               the whole regular expression is aborted, and returns with matched;
+               the whole expression is aborted, and returns with matched;
                no matter, if there are chars left in the expression.
              
              
@@ -1066,7 +1070,7 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
               For setting this bit, please have a look into the ldscripts in the folder
               with the same name.
              
-              supply 0 for p_match_char, when you don't need it.
+              supply 0 for p_wildcard_cb, when you don't need it.
               This will treat & in the regex like ?, 
               and match a following digit (0..9) in the text,
               a following digit (0..9) in the regex is ignored.
@@ -1074,6 +1078,14 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
               -----
               In general, you have to somehow invert the logic of regular expressions
               when using ext_match.
+              Regular expressions could be regarded as "polish rpn notation",
+              first the char to be matched, then the count.
+              This expression machine could be described as "natural expression" machine.
+              First you define the number, then the chars or expression to be matched.
+              
+              Furthermore, *,% and + match as less as possible.
+              You have to think about what needs to follow the wildcards.
+             
               e.g. when matching the parameter 'runlevel=default' at the kernel's
               commandline, a working regular expression would be
               "runlevel=(\S*)". This could be written here as "*runlevel=%#".
@@ -1105,7 +1117,8 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
              
                (I'm not kidding here. Just don't do a regex with !* or !?..
                And, please, do not ask me what is going to happen when the impossible
-               gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+               gets possibilized. I have to point at the according sentences of the BSD license;
+               there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
              
                A "!+" will translate into nongreedy matching of any char, however;
                "%!+" will match with % everything but the last char;
@@ -1157,8 +1170,9 @@ match_ext2     char* match_ext2(char *text, char *re, void(*p_match)(int number,
                This could possibly also be the solution for the yet unclear question of the line between parsing
                arguments and calling the main function of the small core tools, andsoon.
                
-               gerad faellt mir "rings" ein. Ist ein idealer Aufreisser, als bootup animation.
-               (src/match_ext2.c: 275)
+              ..yet I've to fiddle out the possibilities (and quirks) of this machine.
+              seems, this expression language did overpower it's creator.
+               (src/match_ext2.c: 289)
 
 max_groupmembers#ifndef mini_max_groupmembers
 
