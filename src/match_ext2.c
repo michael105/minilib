@@ -372,6 +372,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 										if ( (ret = _match_ext2(text,re,
 																		p_matched_cb,p_wildcard_cb,st_match ) ) <=0 )
 												return(RE_NOMATCH);
+										c = -1;
 										break;
 								case '*':
 										c = -1;
