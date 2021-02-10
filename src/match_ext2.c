@@ -284,6 +284,11 @@
 // ..yet I've to fiddle out the possibilities (and quirks) of this machine.
 // seems, this expression language did overpower it's creator.
 //
+// Bugs (features): 
+// matching e.g. *matches*@*doesn't match*
+// potentiates the *@* to many possibilities.
+// One for every linebreak following 'matches'.
+//
 //+depends _match_ext2
 //+def match_ext2
 int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match){
