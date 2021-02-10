@@ -316,6 +316,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 		char *matchpos = 0;
 		int neg = 0;
 		char *rematch = (char*)RE_MATCH;
+#define REMATCH text
 		//printsl("match_ext2, text: ", text, " re: ", re );
 		if ( st_match ) 
 				st_match->len=0;
@@ -437,7 +438,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 										writesl("\n==========");
 										if ( ! count ){
 												writesl("retc");
-											return(rematch); // MATCH
+											return(text); // MATCH
 										}
 										break;
 
