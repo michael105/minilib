@@ -283,7 +283,15 @@ fi
 
 
 if [ "$fulldebug" == 1 ]; then
+		echo -e "\n   $LRED switching to fulldebug mode.$NORM\n"
+
+		echo $CYAN eval "$REAL_CC $INCLUDECONFIG $CYAN$INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $opt_args -E" 
+		echo
+
 		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $opt_args -E | sed '/^#/d' > $dbgfile.c
+
+		echo $CYAN "eval $REAL_CC $CFLAGS,-T$LDSCRIPTFILE -Og -g2 -o $dbgfile $dbgfile.c"$NORM
+
 		eval $REAL_CC $CFLAGS,-T$LDSCRIPTFILE -Og -g2 -o $dbgfile $dbgfile.c $colorize
 else
 		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
