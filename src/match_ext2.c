@@ -1,10 +1,12 @@
 #ifndef mini_match_ext2_c
 #define mini_match_ext2_c
 //+doc text matching engine
+//
 // WORK IN PROGRESS, please use ext_match
-// Atm, please do not use nested brackets. ( and {.
-// Wildcards ( %,+,* ) within nested brackets yet give
-// sometimes unexpected results.
+// Atm, please nested brackets are featureful.
+// nesting {} within () seems to work.
+// Nesting round brackets within {} gives sometimes
+// trouble, when wildcards are used within the brackets.
 // I'm leaving this at it is for now. 
 // Possibly I'm going to hardcode an error message for nested brackets,
 // or nested brackets with wildcards.
@@ -104,6 +106,8 @@
 //  For X, all expressions are allowed.
 //  If you need to match a number at the first char of 'X',
 //  separate X by a commata. E.g. {5,0} matches 5 times '0'.
+//  n can be a number, * or +. 
+//  ('*' matches 0 or more, '+' 1 or more times)
 //
 // (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
 //
@@ -112,7 +116,7 @@
 //  the number past the %, e.g. %1, is optional,
 //  p_matched_cb will be callen with this number
 //  as first parameter.
-//  When not supplied, p_matched_cbed will be callen with 
+//  When not supplied, p_matched_cb will be callen with 
 //  the parameter 'number' set to 0.
 //
 //  The matching is 'nongreedy'.
@@ -120,7 +124,9 @@
 //  from within the p_matched_cb callback.
 //  This will not have an effect onto the current matching,
 //  even if text is e.g. deleted by writing 0's.
+//
 //  The matched positions are called in reverse order.
+//
 //  (The last matched % in the regex calls p_matched_cb first, 
 //  the first % in the regex from the left will be callen last)
 //  / The regex is first matched; when the regex has matched,
@@ -129,7 +135,7 @@
 //
 //  (Not like &, which callbacks are invoked, while matching)
 //
-// supply 0 for p_matched_cbed, when you do not need to extract matches.
+// supply 0 for p_matched_cb, when you do not need to extract matches.
 // This will treat % in the regex like a *, 
 // a following digit (0..9) in the regex is ignored.
 // if the 5th argument, a pointer to a text_match struct, 

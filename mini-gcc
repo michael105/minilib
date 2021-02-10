@@ -207,9 +207,10 @@ before options and parameters for gcc.
 --debug generate an outputfile (sourcefile.dbg.c) including the used parts
         of minilib, and compile this file to sourcefile.dbg with the options
         -g2 -Og set.
+				( mini-gcc -E | sed '/^#/d' > dbg.c, gcc -g2 -Og -o dbg dbg.c )
 
-(c) 2019-2020 Michael misc Myer - BSD 3-clause
- ('mini-gcc --license' shows the terms)
+(c) 2019-2021 Michael misc Myer. All rights reserved.
+ ('mini-gcc --license' shows the license)
 
 "
 		exit
@@ -250,6 +251,10 @@ fi
 if [ "$LDSCRIPTFILE" == "" ]; then
 		LDSCRIPTFILE="<($0 --dump ld_script_$LDSCRIPT)"
 fi
+if [ "$fulldebug" == 1 ]; then
+		dbgfile=`echo -n $opt_args | sed -E 's/.*-o (\S*).*/\1.dbg/'`
+		opt_args=`echo -n $opt_args | sed -E 's/-o \S*//'`
+fi
 
 INCLUDECONFIG=""
 if [ "$opt_config" != "" ]; then
@@ -276,8 +281,14 @@ if [ "$debuglog" = "1" ]; then
 		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E > debuglog.$i
 fi
 
-eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
+
+if [ "$fulldebug" == 1 ]; then
+		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $opt_args -E | sed '/^#/d' > $dbgfile.c
+		eval $REAL_CC $CFLAGS,-T$LDSCRIPTFILE -Og -g2 -o $dbgfile $dbgfile.c $colorize
+else
+		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		#$REAL_CC $CFLAGS$LDSCRIPT $@
+fi
 return ${PIPESTATUS[1]}
 }
 
@@ -372,7 +383,7 @@ LDSCRIPT default
 # Shrink the compiled binary with shrinkelf
 #SHRINKELF
 
-# generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
+# generate debug info (-Og -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
 #DEBUG
 
 # list of source files, supplied to gcc
