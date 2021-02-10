@@ -90,15 +90,6 @@ DEBUG(){
 
 # Generate debug symbols, including minilib's source.
 FULLDEBUG(){
-		export OPTFLAG='-Og -g -E'
-		export STRIPFLAG=""
-		export opt_shrinkelf=0
-		export fulldebug=1
-}
-
-
-# Generate debug symbols, including minilib's source.
-FULLDEBUG(){
 		export opt_shrinkelf=0
 		export fulldebug=1
 }
