@@ -203,6 +203,11 @@ before options and parameters for gcc.
 				into the include search path.
 				Using them is not recommended, they are not stable.
 
+(todo)
+--debug generate an outputfile (sourcefile.dbg.c) including the used parts
+        of minilib, and compile this file to sourcefile.dbg with the options
+        -g2 -Og set.
+
 (c) 2019-2020 Michael misc Myer - BSD 3-clause
  ('mini-gcc --license' shows the terms)
 
@@ -210,8 +215,10 @@ before options and parameters for gcc.
 		exit
 }
 
+# colorize the output of gcc
 colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
 
+# compile gcc options and execute gcc
 exec_gcc(){
 		opt_args="$@"
 

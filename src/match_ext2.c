@@ -2,6 +2,12 @@
 #define mini_match_ext2_c
 //+doc text matching engine
 // WORK IN PROGRESS, please use ext_match
+// Atm, please do not use nested brackets. ( and {.
+// Wildcards ( %,+,* ) within nested brackets yet give
+// sometimes unexpected results.
+// I'm leaving this at it is for now. 
+// Possibly I'm going to hardcode an error message for nested brackets,
+// or nested brackets with wildcards.
 //
 // This is somewhere between a fully fledged expression machine,
 // and a simplicistic solution.
@@ -343,13 +349,14 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 				if ( *re == ')' ){
 						//printf("\ntext: %lx\n===\n",text);
 						re++;
-						if ( _match_ext2(text,re,p_matched_cb,p_wildcard_cb,st_match ) <=0 )
+						if ( ( text =_match_ext2(text,re,p_matched_cb,p_wildcard_cb,st_match ) ) <=0 )
 								return( RE_NOMATCH );
 						return( text );
 						// return position of the closing bracket
 				}
 
 				if ( *re == '}' ){
+						writesl("  == closing }");
 						return( text ); // match
 				}
 
@@ -361,9 +368,11 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 
 						switch ( *re ){
 								case '+':
+										re++;
 										if ( (ret = _match_ext2(text,re,
 																		p_matched_cb,p_wildcard_cb,st_match ) ) <=0 )
 												return(RE_NOMATCH);
+										break;
 								case '*':
 										c = -1;
 										re++;
@@ -378,11 +387,16 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 						r2 = ret;
 						while ( c!=0  && ((r2=_match_ext2(ret,re,
 														p_matched_cb,p_wildcard_cb,st_match ) ) >0 ) ){
+								write(1,r2,10);
+								write(1,"\n",1);
+								write(1,re,4);
 								ret=r2;
 								c--;
+								printf(" -- while, c: %d\n",c);
 						}
 						if ( c > 0 )
 								return(RE_NOMATCH);
+						//printf("c: %d\n",c);
 						for ( ;*re != '}'; re++ )
 								if ( !*re )
 										return( RE_ERROR ); // bracket error
@@ -410,7 +424,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 								case '[':
 										for ( re++; *re && *re!=*text; re++ )
 												if ( *re==']' )
-														return(neg?rematch:RE_NOMATCH);
+														return(neg?REMATCH:RE_NOMATCH);
 										while ( *re && *re != ']' )
 												re++;
 										if ( !*re )
@@ -477,7 +491,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 														}
 														if ( m==RE_MATCHEND ){
 																	// fill  st_match here
-																return(neg?RE_NOMATCH:rematch);
+																return(neg?RE_NOMATCH:REMATCH);
 														}
 														// m > 0 here. increment text 
 														text=text+m;
@@ -491,7 +505,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 										matchpos=text;
 								case '+': // match one or more chars . not needed. no gain. (can be written as ?*)
 										text++; 
-										if ( !*text ) return(neg?rematch:RE_NOMATCH);//
+										if ( !*text ) return(neg?REMATCH:RE_NOMATCH);//
 								case '*': // match 0 or more chars
 										re++;
 										if ( *re == 0){ // match. end of regex.
@@ -507,7 +521,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 												}
 												if ( !count ){
 														printf("starmatch, count: %d rematch: %lx\n",count,rematch);
-														return(rematch); //rpl
+														return(REMATCH); //rpl
 												}
 												else break;
 												//return(neg?RE_NOMATCH:text); // no chars anymore. so a match
@@ -521,7 +535,6 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 														if ( (*re == '#' || *re == '$')  )
 																goto __MATCHEND;
 														return(RE_NOMATCH); //rpl
-														return(neg?rematch:RE_NOMATCH);
 												}
 										}
 __MATCHEND:
@@ -538,7 +551,7 @@ __MATCHEND:
 										if ( !count )
 												return(rematch); //rpl
 										else break;
-										return(neg?RE_NOMATCH:rematch);
+										return(neg?RE_NOMATCH:REMATCH);
 
 								case '\\': // match escaped *,?,backslashes, %
 										re++;
@@ -579,12 +592,12 @@ __MATCHEND:
 		if ( ( *re=='#' ) || ( *re=='$') ){ // match end of text 
 				//re++;
 				printsl("re_match end");
-				return(rematch);
+				return(REMATCH);
 		}
 	
 		if ( *re==0 || ( *re=='*' && re[1]==0 ) ){ 
 				// * at the end. doesnt match "**", or other pathological cases
-						return(rematch); //matched
+						return(REMATCH); //matched
 						// if ! count has to match here as well. :/
 		}
 	
