@@ -15,7 +15,9 @@ mini_fgets
 mini_fgetd
 mini_fgetsn
 mini_fgetsp
+mini_feof
 
+mini_buf 1024
 INCLUDESRC
 
 return
@@ -71,10 +73,17 @@ int main(int argc, char **argv){
 		}
 
 		char *p = 0;
-		pi++; // skip p_next
 
-		while ( ( *pi = fgetd(stdin) ) ){
-				for ( int a = DEV_INTEGERS-1; (a-->0);){
+		while ( ( ( *pi = fgetd(stdin) ) != 0xff ) && ( *pi ) ){
+
+				if ( fsize-flen < 1024 ){
+						// enlarge file
+						fsize += PAGESIZE;
+						ftruncate(fd,fsize);
+				}
+
+				pi++; // skip p_next
+				for ( int a = DEV_INTEGERS; (a-->0);){
 						*pi = fgetd(stdin);
 						pi++;
 				}
@@ -93,13 +102,23 @@ int main(int argc, char **argv){
 				flen += device->p_next;
 				device = (dev*)p;
 				pi=(int*)p;
-				pi++; // skip p_next
+		}
+
+		if ( *pi != 0xff ){
+				ewrites("Error reading stdin.\n");
+				exit(1);
 		}
 
 		// mark end of file
 		*p=0; // ending with p_next = 0
 		flen++;
-		printf("flen: %d\n",flen);
+
+		printf("Wrote %d Bytes.\n",flen);
+
+		device = (dev*) (mapping+sizeof(conf)+sizeof(MAGICBYTES));
+
+		printsl( "device->p_match: ", ( (char*)&device->p_match + device->p_match ) );
+		printsl( "device->p_logmsg ", ( (char*)&device->p_logmsg + device->p_logmsg ) );
 
 
 		msync(mapping,flen,MS_SYNC);
@@ -107,13 +126,6 @@ int main(int argc, char **argv){
 
 		ftruncate(fd,flen);
 		close(fd);
-
-
-
-
-
-
-
 
 
 

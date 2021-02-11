@@ -12,7 +12,7 @@ typedef struct _conf {
 
 #define DEV_INTEGERS 8
 #define DEV_STRINGS 4
-// struct containing the configuraion for a device link.
+// struct containing the configuration for a device link.
 typedef struct _dev {
 		// relative pointer, 0 for end of list
 		int p_next;
