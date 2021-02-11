@@ -660,11 +660,23 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">fgetc</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  11 </small></td><td><small>   int fgetc(FILE *F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  113 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
+<tr valign="top"><td><small>fgetd</small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  5 </small></td><td><small> int fgetd(FILE* F);
+</small></td></tr><tr><td></td><td colspan="2"><small>read a number from the stream F
+  reads all digits until a nondigit is read.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../src/fgetd.c" target="right">../src/fgetd.c</a>  113 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">fgets</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  4 </small></td><td><small> char* fgets(char *buf, int size, FILE* F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
+<tr valign="top"><td><small>fgetsn</small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  4 </small></td><td><small> int fgetsn(char *buf, int size, FILE* F);
+</small></td></tr><tr><td></td><td colspan="2"><small>get a line like fgets, but return the len of the read string.
+ </small></td></tr>
+<tr valign="top"><td><small>fgetsp</small></td><td><small>   <a href="../src/fgetsn.c" target="right">../src/fgetsn.c</a>  7 </small></td><td><small> char* fgetsp(char *buf, int size, FILE* F);
+</small></td></tr><tr><td></td><td colspan="2"><small>read a line from F into buf with max chars size.
+  Return a pointer to the terminating '0' byte.
+  A terminating linebreak is not written to buf.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgetsp.c" target="right">../src/fgetsp.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
 </small></td></tr><tr><td></td><td colspan="2"><small>Return the fd nummber of stdin,-out,-err. 
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  10 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
@@ -790,7 +802,7 @@
   This function calls internally setgrent() and getgrent();
   therefore any iteration with getgrent will be resetted.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgroups.c" target="right">../src/userdb/getgroups.c</a>  217 </small></td><td><small> getitimer( int which,  struct itimerval *value)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/userdb/getgroups.c" target="right">../src/userdb/getgroups.c</a>  218 </small></td><td><small> getitimer( int which,  struct itimerval *value)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getpgrp.2.rst.html">getpgrp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  191 </small></td><td><small> DEF_syscall(getpgrp,0)
 </small></td></tr>
@@ -1605,7 +1617,9 @@
 </small></td></tr>
 <tr valign="top"><td><small>mremap</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  void*  )) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/munmap.2.rst.html">munmap</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  214 </small></td><td><small> munmap( void* addr,  size_t len)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/msync.2.rst.html">msync</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  215 </small></td><td><small> msync( void* addr,  size_t len, int flags)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/munmap.2.rst.html">munmap</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  214 </small></td><td><small> munmap( void* addr,  size_t len)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  135 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
@@ -1656,7 +1670,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/posix_openpt.2.rst.html">posix_openpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> int posix_openpt(int flags);
 </small></td></tr>
-<tr valign="top"><td><small>prctl</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  220 </small></td><td><small> prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+<tr valign="top"><td><small>prctl</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  221 </small></td><td><small> prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
 </small></td></tr>
 <tr valign="top"><td><small>print</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  55 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
@@ -1822,7 +1836,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setgroups.2.rst.html">setgroups</a></small></td><td><small>   <a href="../src/userdb/setgrent.c" target="right">../src/userdb/setgrent.c</a>  183 </small></td><td><small> setgroups( int gidsetsize,  gid_t *grouplist)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">setitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  216 </small></td><td><small> setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">setitimer</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  217 </small></td><td><small> setitimer( int which,  struct itimerval *value,  struct itimerval *ovalue)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setpgid.2.rst.html">setpgid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  189 </small></td><td><small> setpgid( pid_t pid, pid_t pgid)
 </small></td></tr>
@@ -1951,7 +1965,7 @@
   if not present, returns 80.
   Doesn't check for the existence of a terminal.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  223 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  224 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>token_i</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  33 </small></td><td><small> int token_i( userdb* udb, char **p );
 </small></td></tr>

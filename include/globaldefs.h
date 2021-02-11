@@ -295,6 +295,11 @@ typedef struct group {
 #define MREMAP_MAYMOVE 1
 #define MREMAP_FIXED 2
 
+#define MS_ASYNC  1   /* Sync memory asynchron  */
+#define MS_INVALIDATE 2   /* Invalidate the cache  */
+#define MS_SYNC   4   /* Wait for sync  */
+
+
 
 #define CLONE_VM  0x00000100
 #define CLONE_FS  0x00000200

@@ -458,6 +458,24 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
 
                (include/fexecveat.h: 3)
 
+fgetd          int fgetd(FILE* F);
+
+               read a number from the stream F
+              reads all digits until a nondigit is read.
+               (src/fgetd.c: 5)
+
+fgetsn         int fgetsn(char *buf, int size, FILE* F);
+
+               get a line like fgets, but return the len of the read string.
+               (src/fgetsn.c: 4)
+
+fgetsp         char* fgetsp(char *buf, int size, FILE* F);
+
+               read a line from F into buf with max chars size.
+              Return a pointer to the terminating '0' byte.
+              A terminating linebreak is not written to buf.
+               (src/fgetsp.c: 7)
+
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
                prints formatted and unbuffered output to the stream F.
