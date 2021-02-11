@@ -14,7 +14,7 @@ int main(int argc, char**argv){
 		int fd = open( "hello.c", O_RDONLY );
 		long int offset = 20;
 		sendfile(STDOUT_FILENO,fd,&offset,19);
-		while ( sendfile(STDOUT_FILENO,fd,0,16) );
+		while ( sendfile(STDOUT_FILENO,fd,0,16) > 0 );
 
 		return(0);
 }
