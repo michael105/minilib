@@ -56,7 +56,7 @@
 <tr valign="top"><td><small>sys__connect</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  89 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__creat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  175 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__delete_module</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  353 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>_die</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  25 </small></td><td><small> void _die();
+<tr valign="top"><td><small>_die</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  36 </small></td><td><small> void _die();
 </small></td></tr><tr><td></td><td colspan="2"><small>internal implementation of die
  </small></td></tr>
 <tr valign="top"><td><small>sys__dup</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  69 </small></td><td><small></small></td></tr>
@@ -480,7 +480,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>die_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  48 </small></td><td><small> #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
+<tr valign="top"><td><small>die_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  59 </small></td><td><small> #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
 </small></td></tr><tr><td></td><td colspan="2"><small>when arg1 is true, write msg to stderr and exit with failure
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
@@ -496,8 +496,24 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>dief_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  58 </small></td><td><small> #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+<tr valign="top"><td><small>dief_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  69 </small></td><td><small> #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
 </small></td></tr><tr><td></td><td colspan="2"><small>when arg1 is true, vall dief(errnum,fmt)
+  if errno is defined and set, /bin/errno is executed to give a verbose error 
+  message
+  if errno is either not defined or not set,
+  exit with -1
+  
+ </small></td></tr>
+<tr valign="top"><td><small>dies</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  30 </small></td><td><small> #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
+</small></td></tr><tr><td></td><td colspan="2"><small>write variable string list to stderr and exit with failure
+  if errno is defined and set, /bin/errno is executed to give a verbose error 
+  message
+  if errno is either not defined or not set,
+  exit with -1
+  
+ </small></td></tr>
+<tr valign="top"><td><small>dies_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  80 </small></td><td><small> #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
+</small></td></tr><tr><td></td><td colspan="2"><small>when arg1 is true, vall dies(errnum, ... )
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
   if errno is either not defined or not set,

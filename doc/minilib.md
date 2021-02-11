@@ -136,7 +136,7 @@ OPTIMIZATIONS
 _die           void _die();
 
                internal implementation of die
-               (src/die.c: 25)
+               (src/die.c: 36)
 
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
@@ -271,7 +271,7 @@ die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 48)
+               (src/die.c: 59)
 
 dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
 
@@ -291,7 +291,27 @@ dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum,
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 58)
+               (src/die.c: 69)
+
+dies           #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
+
+               write variable string list to stderr and exit with failure
+              if errno is defined and set, /bin/errno is executed to give a verbose error 
+              message
+              if errno is either not defined or not set,
+              exit with -1
+              
+               (src/die.c: 30)
+
+dies_if        #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
+
+               when arg1 is true, vall dies(errnum, ... )
+              if errno is defined and set, /bin/errno is executed to give a verbose error 
+              message
+              if errno is either not defined or not set,
+              exit with -1
+              
+               (src/die.c: 80)
 
 dirbuf         
 

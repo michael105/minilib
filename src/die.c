@@ -20,6 +20,17 @@
 //+macro dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
 
 
+//+doc write variable string list to stderr and exit with failure
+// if errno is defined and set, /bin/errno is executed to give a verbose error 
+// message
+// if errno is either not defined or not set,
+// exit with -1
+// 
+//+depends execve errno_str exit exit_errno _die eprintsl dprints
+//+macro dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
+
+
+
 //+doc internal implementation of die
 //+def
 void _die(){
@@ -56,6 +67,18 @@ void _die(){
 // 
 //+depends execve errno_str exit ewritesl exit_errno die
 //+macro dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+
+
+
+//+doc when arg1 is true, vall dies(errnum, ... )
+// if errno is defined and set, /bin/errno is executed to give a verbose error 
+// message
+// if errno is either not defined or not set,
+// exit with -1
+// 
+//+depends execve errno_str exit exit_errno dies
+//+macro dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
+
 
 
 #endif
