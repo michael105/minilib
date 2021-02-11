@@ -355,7 +355,7 @@ char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *po
 				if ( *re == ')' ){
 						//printf("\ntext: %lx\n===\n",text);
 						re++;
-						if ( ( text =_match_ext2(text,re,p_matched_cb,p_wildcard_cb,st_match ) ) <=0 )
+						if ( ( _match_ext2(text,re,p_matched_cb,p_wildcard_cb,st_match ) ) <=0 )
 								return( RE_NOMATCH );
 						return( text );
 						// return position of the closing bracket

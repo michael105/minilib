@@ -6,6 +6,7 @@ __asm__ volatile("\
  xorl %ebp, %ebp\n\
 	popq %rdi\n\
 	movq %rsp,%rsi\n\
+	movq %rdi,%rax\n\
 	leaq  8(%rsi,%rdi,8),%rdx\n"
 #ifdef mini_globals
 	"call _startup\n"

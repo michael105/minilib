@@ -22,7 +22,7 @@ return
 		// public domain / BSD 3clause
 		//
 
-#define SERVICEPATH "/rd/run/"
+#include "config.h"
 
 void usage(){
 		writes("Usage: rd.wait service\n");

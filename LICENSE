@@ -27,17 +27,18 @@ which I`d like to name "Fair use with attribution".
 License
 
    The terms `minilib`, `source code`, `redistribution` or `linked with`
-   apply to the minilib in full as well as to parts of minilib
+   apply to the minilib in full as well as to parts of minilib.
   
-   All files belonging to this project are subject to this license,
-   besides files, where within the header explicitely other licensing terms are noted
+   All files belonging to this project are subject to this license, besides 
+	 files, where within the header explicitely other licensing terms are noted.
     
-   Michael (misc) Myer is a Pseudonym. When your local laws don`t permit usage of pseudonyms,
-   one of the conditions below would be not legal, or you do not comply to this license,
-   you may neither use minilib nor parts of this project.
-   The author is under this condition still the owner of this software.
-   Please contact me for differing licensing terms in this case,
-   and explain your situation
+   Michael (misc) Myer is a Pseudonym. 
+	 When your local laws don`t permit usage of pseudonyms, this license 
+	 or one of its sentences would be not legal, or you do not comply
+	 to this license, you may neither use minilib nor parts of this project.
+   The author is under this condition still the owner and copyright holder 
+	 of this software. Please contact me for different licensing terms 
+	 in this case, and explain your situation.
   
 
 Redistribution, use and derived works in source and binary forms, with or without
