@@ -28,6 +28,9 @@ mini_free
 
 mini_match
 
+mini_sigaction
+
+
 # needed that "big" for the notifyfd/pathname array. fix it.
 mini_buf 4096
 
@@ -65,10 +68,16 @@ typedef struct _globals {
 		dev* devices;
 		conf *config;
 		notify_dirs *ino_dirs;
-		configfile *cfgpath;
+		char *configfile;
 		char *mapping;
+		int mappingsize;
+		int configfd;
 		int nfd;
 } globals;
+
+globals *global;
+
+
 
 // returns 0 on error
 int apply_dev_rule( const char* path, struct stat *st, dev *device, globals *data ){
@@ -186,27 +195,80 @@ int traverse_dir( const char* path, int maxdepth,
 		return(1);
 }
 
-
-
-int main( int argc, char **argv ){
-		
-		// read configuration
-		char *configfile = CONFIGFILE;
+// return 0 on success
+int load_config( const char* configfile, globals *gl ){
 
 		int fd = open( configfile, O_RDONLY, 0 );
-		dies_if( fd<0, fd, "Couldn't open ", configfile );
+		if( fd<0 ){
+				eprintsl( "Couldn't open ", configfile );
+				return(fd);
+		}
 
 		struct stat ststat;
 		fstat(fd, &ststat );
 		printf("Size: %d\n", ststat.st_size);
 	
 		char* mapping = mmap(0,ststat.st_size, PROT_READ, MAP_PRIVATE|MAP_POPULATE, fd, 0 );
-		die_if( mapping<=(POINTER)0, (int)(POINTER)mapping, "Couldn't map into memory");
+		if ( mapping<=(POINTER)0 ){
+				ewrites( "Couldn't map into memory" );
+				close(fd);
+				return( (int)(POINTER)mapping );
+		}
 
 		printf( "mgc: %x\n", *(int*)mapping );
-		die_if ( *(int*)mapping != 0x76656475, -14, "The configuration file doesn't look correct." );
+		if ( *(int*)mapping != 0x76656475 ){
+				munmap(mapping, ststat.st_size);
+				close(fd);
+				eprintsl( "The configuration file doesn't look correct.\n", configfile );
+				return(-14);
+		}
+
+		gl->devices = firstdev(mapping);
+		gl->config = getconfig(mapping);
+		gl->configfd = fd;
+		gl->mapping = mapping;
+		gl->mappingsize = ststat.st_size;
 
 		writesl("ok\n");
+		return(0);
+}
+
+// return 1, when reloading the config gives an error
+int reload_config(){
+
+		globals tmp;
+		memcpy(&tmp,global,sizeof(globals));
+		if ( load_config( global->configfile, &tmp ) ){
+				ewritesl("Couldn't update the config");
+				return(1);
+		}
+
+		munmap(global->mapping,global->mappingsize);
+		close(global->configfd);
+
+		memcpy(global,&tmp,sizeof(globals));
+		return(0);
+}
+
+
+// handle SIGUSR1
+// reload config
+void sigusr1( int signal ){
+		writesl("sigusr1");
+		reload_config();
+}
+
+
+int main( int argc, char **argv ){
+		
+		// read configuration
+		char *configfile = CONFIGFILE;
+	
+		globals data;
+		global = &data;
+		int r;
+	
+		die_if( (r = load_config(configfile, &data) ) != 0, r, "Error. exit" );
 
 		// initiate inotify
 		int nfd; // inotifyfd
@@ -214,33 +276,43 @@ int main( int argc, char **argv ){
 		die_if ( nfd<0,nfd,"Couldn't initiate inotify. No kernel support?" );
 
 		// init globals
-		conf* config = getconfig(mapping); 
-		dev* device = firstdev(mapping);
-		
-		globals data;
-		data.devices = device;
-		data.config = config;
 		data.nfd = nfd;
+		data.configfile = configfile;
 		notify_dirs nod;
 		nod.max = NOTIFY_DIRS;
 		nod.next = 0;
 		data.ino_dirs = &nod;
 
+
 		// watch devpath
-		watch_dir( getstr(config->p_devpath), &data );
+		watch_dir( getstr(data.config->p_devpath), &data );
 
 		// traverse the entire dev hierarchy and apply matching rules
-		traverse_dir( getstr(config->p_devpath),10,&dev_cb,&watch_dir, &data );
+		traverse_dir( getstr(data.config->p_devpath),10,&dev_cb,&watch_dir, &data );
+
+		// setup signal handler
+		struct sigaction sa;
+
+		sigfillset(&sa.sa_mask);
+		sa.sa_flags = 0;
+		sa.sa_handler = sigusr1;
+
+		if ( sigaction (SIGUSR1, &sa, 0) )
+				ewrites("Couldn't install signal handler");
+		// continue anyways.
+		//
 
 #define BUFLEN 1024
 		char buf[BUFLEN];
 		writesl("Ok");
-		int r;
 		const struct inotify_event *e;
 		char path[PATH_MAX];
 
-		while ( (r=read(nfd,buf,BUFLEN)) > 0 ){
-				printf("r: %d\n",r);
+		while ( 1 ){
+				while ( (r=read(nfd,buf,BUFLEN)) <= 0 ){
+						//printf("r: %d\n",r);
+						usleep(10000); // ~ 1/100 second delay.
+				}
 
 				// loop over events
 				for ( char *p = buf; p < buf+r;	p += sizeof(struct inotify_event) + e->len) {
@@ -263,13 +335,9 @@ int main( int argc, char **argv ){
 						}
 				}
 
-				
-
-				usleep(1000); // ~ 1/1000 second delay.
 		}
 
 		// shouldn't get here.
 		die( r, "error reading inotify events" );
-
 }
 

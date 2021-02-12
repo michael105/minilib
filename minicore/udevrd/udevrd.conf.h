@@ -54,6 +54,10 @@ static inline char* _getstr( p_rel *i, p_rel addr ){
 // get a relative addr (analog to getstr)
 #define getaddr( addr ) _getstr( &addr, addr )
 
+static inline conf* getconfig(char* mapping){
+		return((conf*) (mapping+sizeof(MAGICBYTES)));
+}
+
 static inline dev* nextdev( const dev* current ){ 
 		return(  ((dev*)((char*)&current->p_next + current->p_next))->p_next ? 
 						(dev*)((char*)&current->p_next + current->p_next) : 0 ); 
@@ -63,9 +67,6 @@ static inline dev* firstdev(char* mapping){
 		return( (dev*) getaddr(getconfig(mapping)->p_devices) );
 }
 
-static inline conf* getconfig(char* mapping){
-		return((conf*) (mapping+sizeof(MAGICBYTES)));
-}
 //#define nextdev( current ) 
 
 
