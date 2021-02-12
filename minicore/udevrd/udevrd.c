@@ -64,8 +64,10 @@ typedef struct _notify_dirs{
 typedef struct _globals {
 		dev* devices;
 		conf *config;
-		int nfd;
 		notify_dirs *ino_dirs;
+		configfile *cfgpath;
+		char *mapping;
+		int nfd;
 } globals;
 
 // returns 0 on error
@@ -166,7 +168,7 @@ int traverse_dir( const char* path, int maxdepth,
 				strcpy( p, de->d_name );
 				if ( stat( pathname, &st ) != 0 )
 						continue;
-				if ( !(st.st_mode & S_IFDIR) ){ // node or file
+				if ( !(st.st_mode & S_IFDIR) ){ // node, file or link
 						if ( callback )
 								callback(pathname, &st, data);
 						continue;
