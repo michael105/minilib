@@ -8,6 +8,7 @@ mini_exit_errno
 mini_usleep
 mini_strlcpy
 mini_strcpy
+mini_strdup
 mini_stpcpy
 
 mini_group_write
@@ -40,18 +41,28 @@ return
 
 #include "udevrd.conf.h"
 
-typedef struct _cbdata {
+// contains the nfd / directory keys
+#define NOTIFY_DIRS 64
+typedef struct _notify_dirs{
+		char* path[NOTIFY_DIRS];
+		char* next;
+		int max;
+} notify_dirs;
+
+
+typedef struct _globals {
 		dev* devices;
 		conf *config;
 		int nfd;
-} cbdata;
+		notify_dirs *ino_dirs;
+} globals;
 
-
-int apply_dev_rule( const char* path, struct stat *st, dev *devices ){
+// returns the matched device rule
+dev* apply_dev_rule( const char* path, struct stat *st, globals *data ){
 		
 		struct stat ststat;
 
-		for ( dev* device = devices; device; device=nextdev(device) ){
+		for ( dev* device = data->devices; device; device=nextdev(device) ){
 				if ( match( path, getstr(device->p_match),0) ){
 						printsl("matched: ",path);
 						if ( !st ){
@@ -69,27 +80,41 @@ int apply_dev_rule( const char* path, struct stat *st, dev *devices ){
 						}
 
 
-						return(1);
+						return(device);
 				}
 
 		}
 
 
+		return(0);
+}
+
+
+int dev_cb(const char* path, struct stat *st, globals *data){
+		printsl(" cb: ",path);
+		apply_dev_rule( path, st, data );
 		return(1);
 }
 
 
-int dev_cb(const char* path, struct stat *st, void *data){
-		printsl(" cb: ",path);
-		cbdata *d = (cbdata*)data;
-		return( apply_dev_rule( path, st, d->devices ) );
+int watch_dir(const char* path, globals *data){
+
+		printsl("Add watch to ",path);
+		int ir = inotify_add_watch(data->nfd, path, IN_CREATE );
+		if ( ir<0 ){ 
+				eprintsl("Couldn't add an inotify watch for ", path );
+		}
+		data->ino_dirs->path[ir] = strdup( path );
+		printf("inotify fd: %d\n", ir );
+		return( ir );
 }
 
 
+
 int traverse_dir( const char* path, int maxdepth, 
-				int(*callback)(const char* path,struct stat *st,void *userdata), 
-				int(*dir_callback)(const char* path,struct stat *st,void *userdata), 
-				void *userdata){
+				int(*callback)(const char* path,struct stat *st,globals *data), 
+				int(*dir_callback)(const char* path,globals *data), 
+				globals *data){
 		
 		if ( maxdepth-1 == 0 )
 				return(0);
@@ -116,15 +141,15 @@ int traverse_dir( const char* path, int maxdepth,
 						continue;
 				if ( !(st.st_mode & S_IFDIR) ){
 						if ( callback )
-								callback(pathname, &st, userdata);
+								callback(pathname, &st, data);
 						continue;
 				}
 
 				printsl("Directory: ",de->d_name);
 				if ( dir_callback )
-						dir_callback(pathname, &st, userdata);
+						dir_callback(pathname, data);
 
-				traverse_dir( pathname, maxdepth-1, callback, dir_callback, userdata );
+				traverse_dir( pathname, maxdepth-1, callback, dir_callback, data );
 
 		}
 		
@@ -161,20 +186,26 @@ int main( int argc, char **argv ){
 		int nfd; // inotifyfd
 		nfd = inotify_init();
 		die_if ( nfd<0,nfd,"Couldn't initiate inotify. No kernel support?" );
-		int ir = inotify_add_watch(nfd, DEVPATH, IN_CREATE );
-		die_if ( ir<0, ir, "Couldn't add an inotify watch for "DEVPATH );
-
-		cbdata data;
+		
+		globals data;
 		data.devices = device;
+		data.config = config;
 		data.nfd = nfd;
-		traverse_dir( getstr(config->p_devpath),10,&dev_cb,0, &data );
+		notify_dirs nod;
+		nod.max = NOTIFY_DIRS;
+		nod.next = 0;
+		data.ino_dirs = &nod;
+
+		watch_dir( getstr(config->p_devpath), &data );
+
+		traverse_dir( getstr(config->p_devpath),10,&dev_cb,&watch_dir, &data );
 
 #define BUFLEN 512
 		char buf[BUFLEN];
 		writesl("Ok");
-		printf("ir: %d\n",ir);
 		int r;
 		const struct inotify_event *e;
+		char path[PATH_MAX];
 
 		while ( (r=read(nfd,buf,BUFLEN)) > 0 ){
 				printf("r: %d\n",r);
@@ -183,10 +214,18 @@ int main( int argc, char **argv ){
 				for ( char *p = buf; p < buf+r;	p += sizeof(struct inotify_event) + e->len) {
 						e = (const struct inotify_event *) p;
 						printsl( "event: ", e->name );
-						if ( e->mask & IN_ISDIR )
-								writesl("  directory")
-						else
+						char *c = stpcpy( path, nod.path[e->wd] );
+						*c = '/';
+						c++;
+						strcpy( c, e->name );
+						if ( e->mask & IN_ISDIR ){
+								writesl("  directory");
+								watch_dir( path, &data );
+						} else {
 								writesl("  file");
+								dev* d = apply_dev_rule( path, 0, &data );
+								dev_action( path, d, &data );
+						}
 				}
 
 				
