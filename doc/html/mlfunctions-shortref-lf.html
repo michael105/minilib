@@ -524,6 +524,12 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>the switch for defining the dirbuf.
   used internally
  </small></td></tr>
+<tr valign="top"><td><small>dirbuf_malloc</small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  31 </small></td><td><small> #ifndef mini_dirbuf_malloc
+</small></td></tr><tr><td></td><td colspan="2"><small>which malloc to use for allocating the dir handles
+  malloc : use malloc, therefore the minibuf
+  malloc_brk : use malloc_brk 
+  defaults to malloc
+ </small></td></tr>
 <tr valign="top"><td><small>dirbufsize </small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  22 </small></td><td><small> #ifndef mini_dirbufsize
 </small></td></tr><tr><td></td><td colspan="2"><small>the dir stream bufsize
   The size of the buffer can be changed by setting mini_dirbufsize
@@ -660,11 +666,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">fgetc</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  11 </small></td><td><small>   int fgetc(FILE *F);
 </small></td></tr>
-<tr valign="top"><td><small>fgetd</small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  5 </small></td><td><small> int fgetd(FILE* F);
-</small></td></tr><tr><td></td><td colspan="2"><small>read a number from the stream F
-  reads all digits until a nondigit is read.
- </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../src/fgetd.c" target="right">../src/fgetd.c</a>  113 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  113 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">fgets</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  4 </small></td><td><small> char* fgets(char *buf, int size, FILE* F);
 </small></td></tr>
@@ -676,7 +678,11 @@
   Return a pointer to the terminating '0' byte.
   A terminating linebreak is not written to buf.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgetsp.c" target="right">../src/fgetsp.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
+<tr valign="top"><td><small>fgetud</small></td><td><small>   <a href="../src/fgetsp.c" target="right">../src/fgetsp.c</a>  5 </small></td><td><small> unsigned int fgetud(FILE* F);
+</small></td></tr><tr><td></td><td colspan="2"><small>read an unsigned integer from the stream F
+  reads all digits until a nondigit is read.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgetud.c" target="right">../src/fgetud.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
 </small></td></tr><tr><td></td><td colspan="2"><small>Return the fd nummber of stdin,-out,-err. 
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  10 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
@@ -2072,7 +2078,7 @@
 <tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  85 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>writesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  95 </small></td><td><small> #define writesl(str) write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1)
+<tr valign="top"><td><small>writesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  95 </small></td><td><small> #define writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout, followed by a newline. 
   Computes length with sizeof(str) at compile time.
  </small></td></tr>

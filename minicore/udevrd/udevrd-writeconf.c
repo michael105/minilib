@@ -1,10 +1,14 @@
 #if 0
 mini_start
 mini_group_write
-mini_group_printf
-mini_strcpy
 
 
+mini_printf
+mini_printsl
+mini_eprintsl
+mini_itodec
+mini_strlen
+mini_dprints
 mini_dies_if
 mini_die_if
 mini_open
@@ -12,13 +16,13 @@ mini_mmap
 mini_msync
 
 mini_fgets
-mini_fgetd
+mini_fgetud
 mini_fgetsn
 mini_fgetsp
-mini_feof
 
-mini_buf 1024
+mini_buf 256
 INCLUDESRC
+SHRINKELF
 
 return
 #endif
@@ -55,26 +59,31 @@ int main(int argc, char **argv){
 
 		int fsize = FILESIZE;
 		int flen = 0;
-		
+
 		conf* config = (conf*) (mapping+sizeof(MAGICBYTES)); 
-		dev* device = (dev*) (mapping+sizeof(conf)+sizeof(MAGICBYTES));
 		
 		write( fd, MAGICBYTES, sizeof(MAGICBYTES) );
-		fgets(config->logprefix,31,stdin);
 
-		//char buf[256];
-		//fgets(buf,31,stdin);
-		//write(fd,buf,32);
-
-		int *pi = &config->loglevel;
+		// config section
+		uint *pi = &config->loglevel;
 		for ( int a = CONF_INTEGERS; (a-->0);){
-			*pi = fgetd(stdin);
+			*pi = fgetud(stdin);
 			pi++;
 		}
 
-		char *p = 0;
+		config->p_logprefix = (&config->stringsstart - (char*)&config->p_logprefix);
+		char *p = fgetsp(&config->stringsstart,256,stdin);
+		p++;
+		config->p_devpath = ( p - (char*)&config->p_devpath );
+		p = fgetsp(p,256,stdin);
+		p++;
+		config->p_devices = ( p - (char*)&config->p_devices );
 
-		while ( ( ( *pi = fgetd(stdin) ) != 0xff ) && ( *pi ) ){
+		dev* device = (dev*) (p);
+
+		pi = (uint*)p;
+		// devices section
+		while ( ( ( *pi = fgetud(stdin) ) != 0xff )  ){
 
 				if ( fsize-flen < 1024 ){
 						// enlarge file
@@ -84,7 +93,7 @@ int main(int argc, char **argv){
 
 				pi++; // skip p_next
 				for ( int a = DEV_INTEGERS; (a-->0);){
-						*pi = fgetd(stdin);
+						*pi = fgetud(stdin);
 						pi++;
 				}
 				flen = (char*)device - mapping;
@@ -101,9 +110,10 @@ int main(int argc, char **argv){
 				device->p_next = p - (char*)&device->p_next;
 				flen += device->p_next;
 				device = (dev*)p;
-				pi=(int*)p;
+				pi=(uint*)p;
 		}
 
+		// test for correct end 
 		if ( *pi != 0xff ){
 				ewrites("Error reading stdin.\n");
 				exit(1);
@@ -113,12 +123,18 @@ int main(int argc, char **argv){
 		*p=0; // ending with p_next = 0
 		flen++;
 
-		printf("Wrote %d Bytes.\n",flen);
+		printf("Wrote %d Bytes.\n\n",flen);
 
-		device = (dev*) (mapping+sizeof(conf)+sizeof(MAGICBYTES));
+		printsl( "logpref: ", getstr(config->p_logprefix ) );
+		printsl( "devpath: ",getstr(config->p_devpath ),"\n\nDevices:" );
 
-		printsl( "device->p_match: ", ( (char*)&device->p_match + device->p_match ) );
-		printsl( "device->p_logmsg ", ( (char*)&device->p_logmsg + device->p_logmsg ) );
+
+
+		for ( device = firstdev(mapping);
+					device; device = nextdev(device)){
+						printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
+						printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
+		};
 
 
 		msync(mapping,flen,MS_SYNC);
@@ -126,9 +142,6 @@ int main(int argc, char **argv){
 
 		ftruncate(fd,flen);
 		close(fd);
-
-
-
 
 		return(0);
 }

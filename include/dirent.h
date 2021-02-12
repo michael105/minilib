@@ -23,13 +23,28 @@
 #define mini_dirbufsize 2048
 #endif
 
+//+doc which malloc to use for allocating the dir handles
+// malloc : use malloc, therefore the minibuf
+// malloc_brk : use malloc_brk 
+// defaults to malloc
+//+def dirbuf_malloc
+#ifndef mini_dirbuf_malloc
+#define DIRBUF_MALLOC malloc
+
 #ifndef mini_buf
-#error mini_buf not set.
+#error mini_buf not set. Try using malloc_brk for mini_dirbuf_malloc
 #endif
 
 #if mini_buf < mini_dirbufsize
 #error mini_buf < dirbufsize
 #endif
+
+#else
+
+#define DIRBUF_MALLOC mini_dirbuf_malloc
+
+#endif
+
 
 #else // ifdef dirbuf
 #define mini_dirbufsize 0

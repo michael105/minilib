@@ -319,6 +319,14 @@ dirbuf
               used internally
                (include/dirent.h: 7)
 
+dirbuf_malloc  #ifndef mini_dirbuf_malloc
+
+               which malloc to use for allocating the dir handles
+              malloc : use malloc, therefore the minibuf
+              malloc_brk : use malloc_brk 
+              defaults to malloc
+               (include/dirent.h: 31)
+
 dirbufsize     #ifndef mini_dirbufsize
 
                the dir stream bufsize
@@ -458,12 +466,6 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
 
                (include/fexecveat.h: 3)
 
-fgetd          int fgetd(FILE* F);
-
-               read a number from the stream F
-              reads all digits until a nondigit is read.
-               (src/fgetd.c: 5)
-
 fgetsn         int fgetsn(char *buf, int size, FILE* F);
 
                get a line like fgets, but return the len of the read string.
@@ -475,6 +477,12 @@ fgetsp         char* fgetsp(char *buf, int size, FILE* F);
               Return a pointer to the terminating '0' byte.
               A terminating linebreak is not written to buf.
                (src/fgetsp.c: 7)
+
+fgetud         unsigned int fgetud(FILE* F);
+
+               read an unsigned integer from the stream F
+              reads all digits until a nondigit is read.
+               (src/fgetud.c: 5)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
@@ -1551,7 +1559,7 @@ writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
                (include/prints.h: 85)
 
-writesl        #define writesl(str) write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1)
+writesl        #define writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
 
                write the constant str to stdout, followed by a newline. 
               Computes length with sizeof(str) at compile time.

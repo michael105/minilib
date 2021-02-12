@@ -23,7 +23,7 @@ static DIR *opendirp(const char *name, DIR *dir){
 //+def
 static DIR *opendir(const char *name ){
 		DIR *dir;
-	dir = malloc(sizeof(*dir));
+	dir = DIRBUF_MALLOC(sizeof(*dir));
 	if ( dir == 0 ){
 			ewrites("No memory in opendir\n");
 		return 0;

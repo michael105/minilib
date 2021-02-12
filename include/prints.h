@@ -92,7 +92,7 @@ extern int dprints(int fd, const char *msg,...);
 //+depends write 
 //+doc write the constant str to stdout, followed by a newline. 
 // Computes length with sizeof(str) at compile time.
-//+macro writesl(str) write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1)
+//+macro writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
 
 
 //+depends write 
