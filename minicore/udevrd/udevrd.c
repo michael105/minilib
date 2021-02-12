@@ -56,7 +56,7 @@ return
 #define NOTIFY_DIRS 64
 typedef struct _notify_dirs{
 		char* path[NOTIFY_DIRS];
-		char* next;
+		struct _notify_dirs* next;
 		int max;
 } notify_dirs;
 
@@ -68,34 +68,28 @@ typedef struct _globals {
 		notify_dirs *ino_dirs;
 } globals;
 
-// returns the matched device rule
-dev* apply_dev_rule( const char* path, struct stat *st, globals *data ){
-		
+// returns 0 on error
+int apply_dev_rule( const char* path, struct stat *st, dev *device, globals *data ){
+
 		struct stat ststat;
-
-		for ( dev* device = data->devices; device; device=nextdev(device) ){
-				if ( match( (char*)path, getstr(device->p_match),0) ){
-						printsl("matched: ",path);
-						if ( !st ){
-								if ( stat( path, &ststat ) != 0 )
-										return(0);
-								st = &ststat;
-						}
-						if ( (st->st_mode & 0777) != device->access ){
-								printsl("mode differs");
-								chmod( path, device->access );
-						}
-						if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
-								writesl("gid");
-								chown( path, device->owner, device->group );
-						}
-
-						return(device);
-				}
-
+		if ( !st ){
+				if ( stat( path, &ststat ) != 0 )
+						return(0);
+				st = &ststat;
 		}
 
-		return(0);
+		if ( (st->st_mode & 0777) != device->access ){
+				printsl("mode differs");
+				chmod( path, device->access );
+		}
+
+		if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
+				writesl("gid");
+				chown( path, device->owner, device->group );
+		}
+
+
+		return(1);
 }
 
 // apply rules on creation
@@ -104,14 +98,28 @@ void dev_action( const char* path, dev* device, globals *data ){
 		if ( s[0] ){ // len > 0
 				printsl("Execute: ", s, " ", path );
 		}
+}
 
+// returns a matching device rule or zero
+dev* get_dev_rule( const char* path, globals *data ){
 
+			for ( dev* device = data->devices; device; device=nextdev(device) ){
+				if ( match( (char*)path, getstr(device->p_match),0) ){
+						printsl("matched: ",path);
+						return( device );
+				}
+			}
+
+			return(0);
 }
 
 
 int dev_cb(const char* path, struct stat *st, globals *data){
 		printsl(" cb: ",path);
-		apply_dev_rule( path, st, data );
+		dev *d = get_dev_rule( path, data );
+		if ( d )
+				apply_dev_rule( path, st, d, data );
+
 		return(1);
 }
 
@@ -151,14 +159,14 @@ int traverse_dir( const char* path, int maxdepth,
 
 		while( ( de = readdir( dir ) ) ){
 				//printsl("Path: ",de->d_name);
-				if ( de->d_name[0] == '.' )
+				if ( de->d_name[0] == '.' ) // skip ., .. and .hidden dirs
 						continue;
 
 				struct stat st;
 				strcpy( p, de->d_name );
 				if ( stat( pathname, &st ) != 0 )
 						continue;
-				if ( !(st.st_mode & S_IFDIR) ){
+				if ( !(st.st_mode & S_IFDIR) ){ // node or file
 						if ( callback )
 								callback(pathname, &st, data);
 						continue;
@@ -198,13 +206,14 @@ int main( int argc, char **argv ){
 
 		writesl("ok\n");
 
-		conf* config = getconfig(mapping); 
-		dev* device = firstdev(mapping);
-	
-		// add inotifywatches for devpath
+		// initiate inotify
 		int nfd; // inotifyfd
 		nfd = inotify_init();
 		die_if ( nfd<0,nfd,"Couldn't initiate inotify. No kernel support?" );
+
+		// init globals
+		conf* config = getconfig(mapping); 
+		dev* device = firstdev(mapping);
 		
 		globals data;
 		data.devices = device;
@@ -215,8 +224,10 @@ int main( int argc, char **argv ){
 		nod.next = 0;
 		data.ino_dirs = &nod;
 
+		// watch devpath
 		watch_dir( getstr(config->p_devpath), &data );
 
+		// traverse the entire dev hierarchy and apply matching rules
 		traverse_dir( getstr(config->p_devpath),10,&dev_cb,&watch_dir, &data );
 
 #define BUFLEN 1024
@@ -242,8 +253,11 @@ int main( int argc, char **argv ){
 								watch_dir( path, &data );
 						} else {
 								writesl("  file");
-								dev* d = apply_dev_rule( path, 0, &data );
-								dev_action( path, d, &data );
+								dev* d = get_dev_rule( path, &data );
+								if ( d ){ //match
+										apply_dev_rule( path, 0, d, &data );
+										dev_action( path, d, &data );
+								}
 						}
 				}
 

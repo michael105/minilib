@@ -19,6 +19,7 @@ typedef struct _conf {
 		char stringsstart;
 } conf;
 
+
 #define DEV_INTEGERS 7
 #define DEV_STRINGS 5
 // struct containing the configuration for a device link.
