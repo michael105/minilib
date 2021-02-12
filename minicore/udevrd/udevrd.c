@@ -28,7 +28,8 @@ mini_free
 
 mini_match
 
-mini_buf 256
+# needed that "big" for the notifyfd/pathname array. fix it.
+mini_buf 4096
 
 HEADERGUARDS
 OPTFLAG -Os
@@ -40,6 +41,14 @@ return
 #endif
 
 #include "udevrd.conf.h"
+
+
+// todo:
+// log
+// notify_dirs->grow
+// execute
+// dev down
+
 
 // contains the nfd / directory keys
 #define NOTIFY_DIRS 64
@@ -63,7 +72,7 @@ dev* apply_dev_rule( const char* path, struct stat *st, globals *data ){
 		struct stat ststat;
 
 		for ( dev* device = data->devices; device; device=nextdev(device) ){
-				if ( match( path, getstr(device->p_match),0) ){
+				if ( match( (char*)path, getstr(device->p_match),0) ){
 						printsl("matched: ",path);
 						if ( !st ){
 								if ( stat( path, &ststat ) != 0 )
@@ -79,14 +88,21 @@ dev* apply_dev_rule( const char* path, struct stat *st, globals *data ){
 								chown( path, device->owner, device->group );
 						}
 
-
 						return(device);
 				}
 
 		}
 
-
 		return(0);
+}
+
+// apply rules on creation
+void dev_action( const char* path, dev* device, globals *data ){
+		if ( strlen( getstr( device->p_exec ) ) > 0 ){
+				printsl("Execute: ", getstr(device->p_exec), " ", path );
+		}
+
+
 }
 
 
@@ -230,7 +246,7 @@ int main( int argc, char **argv ){
 
 				
 
-				usleep(100000); // 1/10 second prevent spinning
+				usleep(1000); // 1/1000 second delay.
 		}
 
 		// shouldn't get here.
