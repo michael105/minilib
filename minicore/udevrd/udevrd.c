@@ -48,6 +48,8 @@ return
 // notify_dirs->grow
 // execute
 // dev down
+// reload config on SIGUSR1
+// removed devices
 
 
 // contains the nfd / directory keys
@@ -98,8 +100,9 @@ dev* apply_dev_rule( const char* path, struct stat *st, globals *data ){
 
 // apply rules on creation
 void dev_action( const char* path, dev* device, globals *data ){
-		if ( strlen( getstr( device->p_exec ) ) > 0 ){
-				printsl("Execute: ", getstr(device->p_exec), " ", path );
+		char *s = getstr( device->p_exec );
+		if ( s[0] ){ // len > 0
+				printsl("Execute: ", s, " ", path );
 		}
 
 
@@ -216,7 +219,7 @@ int main( int argc, char **argv ){
 
 		traverse_dir( getstr(config->p_devpath),10,&dev_cb,&watch_dir, &data );
 
-#define BUFLEN 512
+#define BUFLEN 1024
 		char buf[BUFLEN];
 		writesl("Ok");
 		int r;
@@ -246,7 +249,7 @@ int main( int argc, char **argv ){
 
 				
 
-				usleep(1000); // 1/1000 second delay.
+				usleep(1000); // ~ 1/1000 second delay.
 		}
 
 		// shouldn't get here.

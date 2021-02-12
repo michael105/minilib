@@ -19,8 +19,8 @@ typedef struct _conf {
 		char stringsstart;
 } conf;
 
-#define DEV_INTEGERS 6
-#define DEV_STRINGS 4
+#define DEV_INTEGERS 7
+#define DEV_STRINGS 5
 // struct containing the configuration for a device link.
 typedef struct _dev {
 		// relative pointer, 0 for end of list
@@ -29,14 +29,17 @@ typedef struct _dev {
 		uint owner;
 		uint group;
 		uint access;
-		uint link; // create link? bool.
 		uint exec_uid;
 		uint exec_gid;
+		uint exec_remove_uid;
+		uint exec_remove_gid;
+
 		// strings. relative pointers.
 		p_rel p_match;
 		p_rel p_logmsg;
 		p_rel p_link;
 		p_rel p_exec;
+		p_rel p_exec_remove;
 		// begin of string data section
 		char stringsstart;
 } dev;

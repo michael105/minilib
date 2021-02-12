@@ -74,15 +74,11 @@ function match(){
 		gid $2
 		# access
 		echo $(( 8#$3 ))
-		# bool link
-		if [ "$4" == "x" ] || [ -z $4 ]; then
-				echo 0
-		else
-				echo 1
-		fi
 		# exec as uid/gid
 		uid $5
 		guid $5
+		uid $7
+		guid $7
 		
 		# pattern
 		echo "$1"
@@ -92,6 +88,9 @@ function match(){
 		echo "$4"
 		# execute
 		echo $5 | sed 's/.*://'
+		# execute on removal
+		echo $7 | sed 's/.*://'
+
 }
 
 
