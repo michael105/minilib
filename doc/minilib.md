@@ -97,6 +97,14 @@ ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsi
 mini_addons.h
 ==========
 
+ALIGN          
+
+               macros for alignment.
+              They take a number or pointer, and align upwards to 2,4,8,..256
+              There are the macros ALIGN_2 ALIGN_4 ALIGN_8 ...,
+              and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
+               (macros/alignment.h: 9)
+
 OPTFENCE       static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...);
 
                prevent gcc to optimize away registers and variables
@@ -1243,7 +1251,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 82)
+               (include/globaldefs.h: 81)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1349,7 +1357,7 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 212)
+               (include/globaldefs.h: 211)
 
 ret_errno      #ifdef mini_errno
 

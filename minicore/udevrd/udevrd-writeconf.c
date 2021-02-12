@@ -22,6 +22,8 @@ mini_fgetud
 mini_fgetsn
 mini_fgetsp
 
+mini_ALIGN
+
 mini_buf 256
 INCLUDESRC
 SHRINKELF
@@ -108,7 +110,11 @@ int main(int argc, char **argv){
 						p++; // skip 0 byte
 						pi++;
 				}
-				p = (char*)(((( (long)p - (long)1 ) >> 2 ) << 2 ) +4); // align
+
+				//p = (char*)(((( (long)p - (long)1 ) >> 2 ) << 2 ) +4); // align
+				ALIGN_8(p);
+
+
 				device->p_next = p - (char*)&device->p_next;
 				flen += device->p_next;
 				device = (dev*)p;
