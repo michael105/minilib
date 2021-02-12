@@ -1,6 +1,6 @@
 // header file defining the configuration structures for udevrd
 
-#define MAGICBYTES "udevdcfg"
+#define MAGICINT *(int*)"/cfg"
 
 #define DEVPATH "./test"
 #define CONFIGFILE "./udevrd.conf.bin"
@@ -55,7 +55,7 @@ static inline char* _getstr( p_rel *i, p_rel addr ){
 #define getaddr( addr ) _getstr( &addr, addr )
 
 static inline conf* getconfig(char* mapping){
-		return((conf*) (mapping+sizeof(MAGICBYTES)));
+		return((conf*) (mapping+sizeof(MAGICINT)));
 }
 
 static inline dev* nextdev( const dev* current ){ 

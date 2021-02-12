@@ -4,6 +4,8 @@ mini_group_write
 
 
 mini_printf
+mini_itohex
+mini_ltodec
 mini_printsl
 mini_eprintsl
 mini_itodec
@@ -60,9 +62,9 @@ int main(int argc, char **argv){
 		int fsize = FILESIZE;
 		int flen = 0;
 
-		conf* config = (conf*) (mapping+sizeof(MAGICBYTES)); 
+		conf* config = (conf*) (mapping+sizeof(MAGICINT)); 
 		
-		write( fd, MAGICBYTES, sizeof(MAGICBYTES) );
+		*(int*)mapping = MAGICINT;
 
 		// config section
 		uint *pi = &config->loglevel;
@@ -106,7 +108,7 @@ int main(int argc, char **argv){
 						p++; // skip 0 byte
 						pi++;
 				}
-
+				p = (char*)(((( (long)p - (long)1 ) >> 2 ) << 2 ) +4); // align
 				device->p_next = p - (char*)&device->p_next;
 				flen += device->p_next;
 				device = (dev*)p;
@@ -119,9 +121,15 @@ int main(int argc, char **argv){
 				exit(1);
 		}
 
+		//p->p_next = 0;
 		// mark end of file
-		*p=0; // ending with p_next = 0
-		flen++;
+		*pi=0; // ending with p_next = 0
+		pi++;
+		*pi=MAGICINT;
+		flen+=2*sizeof(uint);
+		//*(long*)pi = (long) MAGICBYTES;
+		//flen += sizeof(long);
+
 
 		printf("Wrote %d Bytes.\n\n",flen);
 
@@ -132,6 +140,7 @@ int main(int argc, char **argv){
 
 		for ( device = firstdev(mapping);
 					device; device = nextdev(device)){
+						printf( "addr: %lx  %ld\n", device, device );
 						printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
 						printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
 		};
