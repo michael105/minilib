@@ -219,16 +219,23 @@ void dev_action( const char* path, dev* device, globals *data ){
 }
 
 // returns a matching device rule or zero
-dev* get_dev_rule( const char* path, globals *data ){
+dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 
-			for ( dev* device = data->devices; device; device=nextdev(device) ){
-				if ( match( (char*)path, getstr(device->p_match),0) ){
+		struct stat ststat;
+		if ( !st ){
+				if ( stat( path, &ststat ) != 0 )
+						return(0);
+				st = &ststat;
+		}
+
+		for ( dev* device = data->devices; device; device=nextdev(device) ){
+				if ( (st->st_mode & device->matchmode) && match( (char*)path, getstr(device->p_match),0) ){
 						printsl("matched: ",path);
 						return( device );
 				}
-			}
+		}
 
-			return(0);
+		return(0);
 }
 
 
@@ -245,15 +252,33 @@ int watch_dir(const char* path, globals *data){
 		return( ir );
 }
 
+int traverse_dir( const char* path, int maxdepth, 
+				int(*callback)(const char* path,struct stat *st,int maxdepth,globals *data), 
+				int(*dir_callback)(const char* path,globals *data), 
+				globals *data);
 
-int dev_cb(const char* path, struct stat *st, globals *data){
+
+int dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 		printsl(" cb: ",path);
-		dev *d = get_dev_rule( path, data );
+		dev *d = get_dev_rule( path, st, data );
 		if ( d ){
 				printf("matchmode: %o\n",d->matchmode);
 				if ( d->matchmode & st->st_mode ){
 						if ( d->matchmode & st->st_mode & S_IFDIR ){
 								printsl( "cb dir: ",path);
+
+								if ( d->matchmode & 01000000 ) 
+										apply_dev_rule( path, st, d, data );
+
+								if ( maxdepth == 0 )
+										return(1);
+								watch_dir(path,data);
+								int r = 1;
+								if ( d->matchmode & 04000000 )
+										r=-1;
+								if ( d->matchmode & 06000000 )
+										traverse_dir( path, r, &dev_cb, &watch_dir, data ); 
+
 						} else {
 								apply_dev_rule( path, st, d, data );
 						}
@@ -266,12 +291,13 @@ int dev_cb(const char* path, struct stat *st, globals *data){
 
 
 int traverse_dir( const char* path, int maxdepth, 
-				int(*callback)(const char* path,struct stat *st,globals *data), 
+				int(*callback)(const char* path,struct stat *st,int maxdepth,globals *data), 
 				int(*dir_callback)(const char* path,globals *data), 
 				globals *data){
 		
-		if ( maxdepth-1 == 0 )
+		if ( maxdepth == 0 )
 				return(0);
+		maxdepth--;
 
 		DIR *dir = opendir( path );
 		printsl("opendir: ",path);
@@ -295,16 +321,16 @@ int traverse_dir( const char* path, int maxdepth,
 						continue;
 				//if ( !(st.st_mode & S_IFDIR) ){ // node, file or link
 				if ( callback )
-						callback(pathname, &st, data);
+						callback(pathname, &st, maxdepth, data);
 				//		continue;
 				//}
-
+/*
 				if ( st.st_mode & S_IFDIR ){ // node, file or link
 						printsl("Directory: ",de->d_name);
 						if ( dir_callback )
 								dir_callback(pathname, data);
-						traverse_dir( pathname, maxdepth-1, callback, dir_callback, data );
-				}
+						traverse_dir( pathname, maxdepth, callback, dir_callback, data );
+				} */
 
 		}
 
@@ -518,7 +544,7 @@ int main( int argc, char **argv ){
 								watch_dir( path, &data );
 						} 
 						writesl(" matching ");
-						dev* d = get_dev_rule( path, &data );
+						dev* d = get_dev_rule( path, 0, &data );
 						if ( d ){ //match
 								apply_dev_rule( path, 0, d, &data );
 								dev_action( path, d, &data );

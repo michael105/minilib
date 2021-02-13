@@ -143,7 +143,7 @@ echo $cfg
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
     sed -E "/endfile/{d;q}; $,/error/{s/^.*:(.*:.*)/\n\t$LRED\1\n/}" ) &&
     cat $1.tmp | ./udevrd-writeconf $1.bin && \
-    echo -e "\n$LGREEN Ok\n" ||
+    (echo -e "\n$LGREEN Ok\n";killall -SIGUSR1 udevrd) ||
     echo -e "\n$LRED Error\n"
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
