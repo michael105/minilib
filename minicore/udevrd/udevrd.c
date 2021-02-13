@@ -34,6 +34,8 @@ mini_execl
 mini_match
 
 mini_sigaction
+mini_ansicolors
+mini_shortcolornames
 
 
 # needed that "big" for the notifyfd/pathname array. fix it.
@@ -66,11 +68,12 @@ int do_reload_config;
 int do_exit;
 
 // contains the nfd / directory keys
-#define NOTIFY_DIRS 64
+#define NOTIFY_DIRS 4
 typedef struct _notify_dirs{
 		p_rel path[NOTIFY_DIRS];
 		struct _notify_dirs* next;
 		int max;
+		int subtract;
 		char stringsstart;
 } notify_dirs;
 
@@ -90,29 +93,80 @@ typedef struct _globals {
 void ino_dir_init( globals *data ){
 		data->ino_dirs = mmap( 0, PAGESIZE, PROT_READ|PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 		data->ino_dirs->max = NOTIFY_DIRS;
+		data->ino_dirs->next = 0; // for clarity
 		setaddr( data->ino_dirs->path[0], &data->ino_dirs->stringsstart );
-		setaddr( data->ino_dirs->path[1], &data->ino_dirs->stringsstart );
+		//setaddr( data->ino_dirs->path[1], &data->ino_dirs->stringsstart );
+}
+
+
+const char* ino_dir_get( int num, globals *data ){
+		notify_dirs *nod = data->ino_dirs;
+		num-=nod->subtract;
+		
+		if ( num<0 ) // happens for inotify_rm_watch events
+				return(0); // closing the inotify fd didn't work out here
+		// so every watch needs to be removed. :/
+
+		printf("Get ino: %d\n", num ); 
+		 while( ( num >= nod->max-1) ){ // or addr > map
+				 num-= (nod->max-1);
+				 if ( nod->next ){
+					 	nod = nod->next;
+				 } else { // append
+						 //die(-14,"No such ino_dir");
+						 return(0);
+				 }
+		 }
+
+		eprintsl( "Got: ", RED, getaddr( nod->path[num] ), NORM );
+		return( getaddr( nod->path[num] ) );
+}
+
+void ino_dir_destroy( globals *data ){
+		notify_dirs *nod = data->ino_dirs;
+		for (int a = nod->subtract;ino_dir_get(a,data);a++){
+				printf(CYAN"remove: %d\n"NORM, a );
+				inotify_rm_watch(data->nfd,a);
+		}
+		do {
+				ewritesl("unmap");
+				char *tmp = (char*) nod;
+				nod = nod->next;
+				munmap( tmp, PAGESIZE );
+		} while ( nod );
 }
 
 void ino_dir_add( int num, const char* path, globals *data ){
-		if ( data->ino_dirs->path[num+1] )
-				dief(0,"ino_dirs: num %d already used!\n",num);
-		if ( num >= data->ino_dirs->max-2 ){
-				ewritesl("Num >= max in ino_dir_add. Extending mmap.");
-				die(0,"not supported yet");	
-				
-				
+
+		notify_dirs *nod = data->ino_dirs;
+		printf("Append ino: %d - %s\n", num, path ); 
+		if ( !nod->subtract ){
+				nod->subtract = num;
 		}
-		char *p = stpcpy( getaddr( data->ino_dirs->path[num] ), path );
+		num-= nod->subtract;
+		printf("Append ino2: %d - %s\n", num, path ); 
+		 while( ( num >= nod->max-1) ){ // or addr > map
+				 num-= (nod->max-1);
+				 if ( nod->next ){
+					 	nod = nod->next;
+				 } else { // append
+						 ewritesl(RED"append mmap"NORM);
+						 nod->next = (notify_dirs*)mmap( 0, PAGESIZE, PROT_READ|PROT_WRITE, 
+										MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+						 nod = nod->next;
+						 nod->max = NOTIFY_DIRS;
+						 setaddr( nod->path[0], &nod->stringsstart );
+						 break;
+				 }
+		 }
+		if ( nod->path[num+1] )
+				dief(0,"ino_dirs: num %d already used!\n",num);
+
+		char *p = stpcpy( getaddr( nod->path[num] ), path );
 		p++;
-		setaddr(data->ino_dirs->path[num+1],p);
-		printsl( getaddr( data->ino_dirs->path[num] ) );
+		setaddr(nod->path[num+1],p);
+		eprintsl( "appended: ", getaddr( nod->path[num] ) );
 }
-
-const char* ino_dir_get( int num, globals *data ){
-		return( getaddr( data->ino_dirs->path[num] ) );
-}
-
 
 
 
@@ -315,6 +369,28 @@ int reload_config( globals *global ){
 		close(global->configfd);
 
 		memcpy(global,&tmp,sizeof(globals));
+
+		ino_dir_destroy( global );
+		printf("nfd: %d\n",global->nfd);
+		//close(global->nfd);
+
+		//int nfd; // inotifyfd
+		//nfd = inotify_init();
+		//die_if ( nfd<0,nfd,"Couldn't reinitiate inotify." );
+
+		// init globals
+		//global->nfd = nfd;
+		//printf("nfd: %d\n",global->nfd);
+
+		ino_dir_init(global);
+
+		// watch devpath
+		//watch_dir( getstr(global->config->p_devpath), global );
+
+		// traverse the entire dev hierarchy and apply matching rules
+		//traverse_dir( getstr(global->config->p_devpath),10,&dev_cb,&watch_dir, global );
+
+
 		return(0);
 }
 
@@ -402,6 +478,14 @@ int main( int argc, char **argv ){
 						if ( do_reload_config ){ // got sigusr1
 								reload_config( &data );
 								do_reload_config = 0;
+
+								// watch devpath
+								watch_dir( getstr(data.config->p_devpath), &data );
+
+								// traverse the entire dev hierarchy and apply matching rules
+								traverse_dir( getstr(data.config->p_devpath),10,&dev_cb,&watch_dir, &data );
+
+
 						} else {
 										usleep(100000); // ~ 1/10 second delay.
 						}
@@ -410,6 +494,8 @@ int main( int argc, char **argv ){
 				// loop over events
 				for ( char *p = buf; p < buf+r;	p += sizeof(struct inotify_event) + e->len) {
 						e = (const struct inotify_event *) p;
+						if ( e->wd < data.ino_dirs->subtract )
+								continue; // got an event of a removed watch
 						printsl( "event: ", e->name );
 						//char *c = stpcpy( path, nod.path[e->wd] );
 						char *c = stpcpy( path, ino_dir_get(e->wd,&data) );
