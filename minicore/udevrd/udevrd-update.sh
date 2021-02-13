@@ -141,7 +141,7 @@ echo $cfg
     #sed -nE "/^\.\/$cfg/{s/^(\.\/$cfg.*)$/$LRED\1$NORM/;x;G;s/\n/ /;h;d};x;p"';${x;p}' | \
     sed -nE "/^\.\/$cfg/{s/^(\.\/$cfg.*)$/$LRED\1$NORM/;x;G;s/\n/ /;h;x;p;x;p;q};x;p"';${x;p}' | \
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
-    sed -E "/endfile/{d;q}; $,/error/{s/^.*:(.*:.*)/\n\t$LRED\1\n/}" ); exit
+    sed -E "/endfile/{d;q}; $,/error/{s/^.*:(.*:.*)/\n\t$LRED\1\n/}" ) &&
     cat $1.tmp | ./udevrd-writeconf $1.bin && \
     echo -e "\n$LGREEN Ok\n" ||
     echo -e "\n$LRED Error\n"
