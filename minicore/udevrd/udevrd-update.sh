@@ -170,13 +170,17 @@ function match(){
 
 }
 
+function endconfig(){
+    echo 255
+}  
+
 echo -e "\nReading config in $1.\n"
 cfg=`basename $1`
 
 (source $1 >t) 2>&1 | \
     sed -E "/^\.\/$cfg/{s/(..$cfg.*)$/$LRED\1$NORM/}" | \
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
-    sed -E "x;$,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
+    sed -E "x;$,/endconfig/{x;q}; $,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
 
@@ -185,4 +189,6 @@ cfg=`basename $1`
 #    sed -E "x;$,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
+echo
+echo Ok.
 echo
