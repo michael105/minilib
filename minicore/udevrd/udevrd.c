@@ -250,6 +250,7 @@ int dev_cb(const char* path, struct stat *st, globals *data){
 		printsl(" cb: ",path);
 		dev *d = get_dev_rule( path, data );
 		if ( d ){
+				printf("matchmode: %o\n",d->matchmode);
 				if ( d->matchmode & st->st_mode ){
 						if ( d->matchmode & st->st_mode & S_IFDIR ){
 								printsl( "cb dir: ",path);

@@ -129,7 +129,10 @@ define(){
 }
 
 DEFINE(){
-	echo "#define" $1 $2
+		param=$1
+		shift
+		echo "#define" $param \"$*\"
+		#echo "#define" $1 $2
 }
 
 # Everything below will be silently overwritten,
