@@ -98,7 +98,9 @@ void ino_dir_add( int num, const char* path, globals *data ){
 		if ( data->ino_dirs->path[num+1] )
 				dief(0,"ino_dirs: num %d already used!\n",num);
 		if ( num >= data->ino_dirs->max-2 ){
-				ewrites(0,"Num >= max in ino_dir_add. Extending mmap.");
+				ewritesl("Num >= max in ino_dir_add. Extending mmap.");
+				die(0,"not supported yet");	
+				
 				
 		}
 		char *p = stpcpy( getaddr( data->ino_dirs->path[num] ), path );
