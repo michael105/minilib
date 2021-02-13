@@ -21,6 +21,13 @@
 #define size_t long
 #endif
 
+// Locks
+#define LOCK_SH 1 // Shared
+#define LOCK_EX 2 // Exclusive
+#define LOCK_NB 4 // Don't block when locking
+#define LOCK_UN 8 // Unlock
+
+
 
 #ifndef SEEK_SET
 #define SEEK_SET        0       /* seek relative to beginning of file */

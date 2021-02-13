@@ -82,8 +82,8 @@ function tt(){
 		s/dir+/03040000/; s/dir-/040000/; s/dir/01040000/;   \
 		 s/\*/0777777/; s/dev/block|char/; \
 		s/file/0100000/; s/socket/0140000/; s/link/0120000/;\
-		 s/block/020000/; s/char/020000/; s/fifo/010000/; s/|/|8#/g'` ))
-    # don't distinguish between block and char device
+		 s/block/060000/; s/char/020000/; s/fifo/010000/; s/|/|8#/g'` ))
+    # distinguish between block and char device
 }
 function match(){
 		echo
@@ -144,7 +144,7 @@ echo $cfg
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
     sed -E "/endfile/{d;q}; $,/error/{s/^.*:(.*:.*)/\n\t$LRED\1\n/}" ) &&
     cat $1.tmp | ./udevrd-writeconf $1.bin && \
-    (echo -e "\n$LGREEN Ok\n";killall -SIGUSR1 udevrd) ||
+    (echo -e "\n$LGREEN Ok\n";killall -SIGUSR1 udevrd 2>/dev/null;true) ||
     echo -e "\n$LRED Error\n"
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 

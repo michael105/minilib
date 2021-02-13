@@ -5,7 +5,7 @@ mini_group_write
 mini_printf;mini_itohex;mini_ltodec;mini_printsl;mini_eprintsl;mini_itodec;
 mini_strlen;mini_dprints;mini_dies_if;mini_die_if;mini_open;mini_mmap;mini_msync;
 
-mini_fgets;mini_fgetud;mini_fgetsn;mini_fgetsp;;mini_ALIGN
+mini_fgets;mini_fgetud;mini_fgetsn;mini_fgetsp;mini_ALIGN
 
 mini_shortcolornames
 
@@ -66,7 +66,11 @@ int main(int argc, char **argv){
 		printsl(CYAN"open ", argv[1], " for writing."NORM);
 		int fd = open( argv[1], O_RDWR | O_CREAT | O_TRUNC, 0640 );
 		dies_if( fd<0, fd, "Couldn't open ", argv[1] );
-
+		
+		if ( flock( fd, LOCK_EX | LOCK_NB )){
+				eprintsl( "Waiting for lock on ", argv[1] );
+				flock( fd, LOCK_EX );
+		}
 		
 		ftruncate(fd,FILESIZE);
 

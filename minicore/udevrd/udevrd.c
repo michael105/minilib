@@ -176,6 +176,7 @@ void ino_dir_add( int num, const char* path, globals *data ){
 // returns 0 on error
 int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals *data ){
 
+		writesl("apply_dev_rule");
 		struct stat ststat;
 		if ( !st ){
 				if ( stat( fullpath, &ststat ) != 0 )
@@ -189,7 +190,7 @@ int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals 
 		}
 
 		if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
-				writesl("gid");
+				printf(RED"change id: %d:%d\n"NORM,device->owner,device->group);
 				chown( fullpath, device->owner, device->group );
 		}
 
@@ -220,6 +221,7 @@ void dev_action( const char* path, dev* device, globals *data ){
 		}
 }
 
+#define MODMASK 0170000
 // returns a matching device rule or zero
 dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 
@@ -231,10 +233,21 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 		}
 
 		for ( dev* device = data->devices; device; device=nextdev(device) ){
-				if ( (st->st_mode & device->matchmode) && match( (char*)path, getstr(device->p_match),0) ){
-						printsl("matched: ",path);
-						printf(" st_mode: %o  matchmode: %o\n",st->st_mode,device->matchmode);
-						return( device );
+				if ( match( (char*)path, getstr(device->p_match),0) ){
+				if ( !(( st->st_mode & MODMASK ) ^ S_IFDIR )){ // is directory
+						if ( !((device->matchmode & MODMASK ) ^ S_IFDIR ) ){
+								printsl("matched, directory: ",path);
+								return( device );
+						}
+				} else { // not a directory
+						if ( ((device->matchmode & MODMASK ) ^ S_IFDIR ) ){ // don't match for dir
+								if ( (st->st_mode & device->matchmode) ){
+										printsl("matched: ",path);
+										printf(" st_mode: %x  matchmode: %x\n",st->st_mode,device->matchmode);
+										return( device );
+								}
+						}
+				}
 				}
 		}
 
@@ -265,9 +278,9 @@ int dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 		printsl(" cb: ",path);
 		dev *d = get_dev_rule( path, st, data );
 		if ( d ){
-				printf("matchmode: %o\n",d->matchmode);
-				if ( d->matchmode & st->st_mode ){
-						if ( d->matchmode & st->st_mode & S_IFDIR ){
+				printf("matchmode: %x\n",d->matchmode);
+				//if ( d->matchmode & st->st_mode ){
+						if ( !((st->st_mode & MODMASK ) ^ S_IFDIR )){ // is dir
 								printsl( "cb dir: ",path);
 
 								if ( d->matchmode & 01000000 ) 
@@ -285,7 +298,7 @@ int dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 						} else {
 								apply_dev_rule( path, st, d, data );
 						}
-				}
+				//}
 		}
 
 		return(1);
@@ -349,6 +362,8 @@ int load_config( const char* configfile, globals *gl ){
 				eprintsl( "Couldn't open ", configfile );
 				return(fd);
 		}
+		// prevent raceconditions
+		flock(fd,LOCK_EX);
 
 		struct stat ststat;
 		fstat(fd, &ststat );
@@ -391,6 +406,8 @@ int load_config( const char* configfile, globals *gl ){
 		gl->mappingsize = ststat.st_size;
 
 		writesl("Configuration loaded\n");
+		flock(fd,LOCK_UN);
+
 		return(0);
 }
 

@@ -1251,7 +1251,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 81)
+               (include/globaldefs.h: 88)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1357,7 +1357,7 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 211)
+               (include/globaldefs.h: 218)
 
 ret_errno      #ifdef mini_errno
 
