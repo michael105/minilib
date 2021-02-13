@@ -135,17 +135,26 @@ fi
 
 echo -e "\n$LGREEN Reading config in $1.$NORM\n"
 cfg=`basename $1`
+echo $cfg
 
 ((source $1 >$1.tmp) 2>&1 | \
-    sed -E "/^\.\/$cfg/{s/(..$cfg.*)$/$LRED\1$NORM/}" | \
+    sed -nE "/^\.\/$cfg/{s/^(\.\/$cfg.*)$/$LRED\1$NORM/;x;G;s/\n/ /;h;d};x;p"';${x;p}' | \
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
-    sed -E "x;$,/endconfig/{x;q}; $,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}" ) &&
+    sed -E "/endfile/{q}; $,/error/{s/^.*:(.*:.*)/\n\t$LRED\1\n/}" ); exit
     cat $1.tmp | ./udevrd-writeconf $1.bin && \
     echo -e "\n$LGREEN Ok\n" ||
     echo -e "\n$LRED Error\n"
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
 
+#((source $1 >$1.tmp) 2>&1 | \
+#    sed -E "/^\.\/$cfg/{s/(..$cfg.*)$/$LRED\1$NORM/}" | \
+#    cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
+#    sed -E "x;$,/endconfig/{x;q}; $,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}" ) &&
+#    cat $1.tmp | ./udevrd-writeconf $1.bin && \
+#    echo -e "\n$LGREEN Ok\n" ||
+#    echo -e "\n$LRED Error\n"
+# 
 #(source $1 >t) 2>&1 | cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
 #    sed -E "s/^([[:space:]]*[[:digit:]]*[[:space:]]*..$cfg.*)/$LRED\1$NORM/" | \
 #    sed -E "x;$,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
