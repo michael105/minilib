@@ -3,6 +3,8 @@
 ========
 
 
+Work in progress - it's a backup copy. (2021/02)
+
 A slim resource friendly udevd daemon. 
 Less than 8kB linked statically with minilib.
 Uses the inotify interface.
