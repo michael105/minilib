@@ -170,10 +170,17 @@ function match(){
 
 echo -e "\nReading config in $1.\n"
 cfg=`basename $1`
-echo $cfg
-(source $1 >t) 2>&1 | cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
-    sed -E "s/^([[:space:]]*[[:digit:]]*[[:space:]]*..$cfg.*)/$LRED\1$NORM/" | \
+
+(source $1 >t) 2>&1 | \
+    sed -E "/^\.\/$cfg/{s/(..$cfg.*)$/$LRED\1$NORM/}" | \
+    cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
     sed -E "x;$,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
+    #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
+
+
+#(source $1 >t) 2>&1 | cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
+#    sed -E "s/^([[:space:]]*[[:digit:]]*[[:space:]]*..$cfg.*)/$LRED\1$NORM/" | \
+#    sed -E "x;$,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
 echo
