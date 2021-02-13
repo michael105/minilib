@@ -28,6 +28,7 @@ mini_buf 256
 INCLUDESRC
 SHRINKELF
 
+source common.conf
 return
 #endif
 

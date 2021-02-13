@@ -174,7 +174,11 @@ function endconfig(){
     echo 255
 }  
 
-echo -e "\nReading config in $1.\n"
+
+# ===========  "main" ==============
+
+
+echo -e "\n$LGREEN Reading config in $1.$NORM\n"
 cfg=`basename $1`
 
 (source $1 >t) 2>&1 | \
@@ -190,5 +194,8 @@ cfg=`basename $1`
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
 echo
-echo Ok.
+echo $LGREEN Ok.
 echo
+
+
+
