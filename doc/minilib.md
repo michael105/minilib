@@ -1422,8 +1422,8 @@ setpwent       void setpwent();
 
 short_errstr   const char* short_errstr(int num);
 
-               verbose error (errno) string. 
-              this adds about 3.5kB to the compiled binary(!)
+               short error (errno) string. 
+              this adds about 2kB to the compiled binary(!)
                (include/errstrshort.h: 10)
 
 shortcolornames
