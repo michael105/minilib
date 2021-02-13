@@ -3,7 +3,7 @@
 #define MAGICINT *(int*)"/cfg"
 
 #define DEVPATH "./test"
-#define CONFIGFILE compiledconfig
+//#define CONFIGFILE compiledconfig
 //#define CONFIGFILE "./udevrd.conf.bin"
 
 typedef unsigned int p_rel;

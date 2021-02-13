@@ -1,5 +1,5 @@
 #if 0
-mini_start;mini_writes;mini_open;mini_read;mini_exit_errno;;mini_usleep
+mini_start;mini_writes;mini_open;mini_read;mini_exit_errno;mini_usleep
 mini_strlcpy;mini_strcpy;mini_strncpy;mini_strdup;mini_stpcpy;
 mini_group_write
 mini_group_printf
@@ -16,6 +16,8 @@ mini_sigaction
 mini_ansicolors;mini_shortcolornames
 
 mini_buf 512
+
+source common.conf
 
 HEADERGUARDS
 OPTFLAG -Os
@@ -247,8 +249,15 @@ int watch_dir(const char* path, globals *data){
 int dev_cb(const char* path, struct stat *st, globals *data){
 		printsl(" cb: ",path);
 		dev *d = get_dev_rule( path, data );
-		if ( d )
-				apply_dev_rule( path, st, d, data );
+		if ( d ){
+				if ( d->matchmode & st->st_mode ){
+						if ( d->matchmode & st->st_mode & S_IFDIR ){
+								printsl( "cb dir: ",path);
+						} else {
+								apply_dev_rule( path, st, d, data );
+						}
+				}
+		}
 
 		return(1);
 }
@@ -346,7 +355,7 @@ int load_config( const char* configfile, globals *gl ){
 
 		gl->devices = firstdev(mapping);
 		gl->config = getconfig(mapping);
-		gl->watchdirlist=(watchdir_patterns*)getaddr(gl->config->p_watchdirlist);
+		//gl->watchdirlist=(watchdir_patterns*)getaddr(gl->config->p_watchdirlist);
 		gl->configfd = fd;
 		gl->mapping = mapping;
 		gl->mappingsize = ststat.st_size;
@@ -414,7 +423,7 @@ void sighandler( int signal ){
 int main( int argc, char **argv ){
 		
 		// read configuration
-		char *configfile = CONFIGFILE;
+		char *configfile = COMPILEDCONFIG;
 	
 		// set by the signal handler
 		do_reload_config = 0;
