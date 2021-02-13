@@ -4,6 +4,66 @@
 # Signal udevrd to reload it's configuration.
 
 
+NORM=""$'\033[0;0m'""
+N=""$'\033[0;0m'""
+
+BOLD=""$'\033[1m'""
+FAINT=""$'\033[2m'""
+CURSIVE=""$'\033[3m'""
+UNDERLINE=""$'\033[4m'""
+LIGHTBG=""$'\033[5m'""
+BLINK=""$'\033[6m'""
+INVERTED=""$'\033[7m'""
+INVERSE=""$'\033[7m'""
+
+
+BLACK=""$'\033[0;30m'""
+BGBLACK=""$'\033[40m'""
+GRAY=""$'\033[01;30m'""
+BGGRAY=""$'\033[05;40m'""
+
+RED=""$'\033[0;31m'""
+LRED=""$'\033[1;31m'""
+BGRED=""$'\033[41m'""
+BGLRED=""$'\033[5;41m'""
+
+LGREEN=""$'\033[1;32m'""
+GREEN=""$'\033[0;32m'""
+BGGREEN=""$'\033[42m'""
+BGLGREEN=""$'\033[5;42m'""
+
+YELLOW=""$'\033[01;33m'""
+BROWN=""$'\033[0;33m'""
+BGBROWN=""$'\033[43m'""
+BGYELLOW=""$'\033[5;43m'""
+
+LBLUE=""$'\033[01;34m'""
+BLUE=""$'\033[0;34m'""
+BGBLUE=""$'\033[44m'""
+BGLBLUE=""$'\033[5;44m'""
+
+PINK=""$'\033[1;35m'""
+MAGENTA=""$'\033[0;35m'""
+BGMAGENTA=""$'\033[45m'""
+BGPINK=""$'\033[5;45m'""
+LMAGENTA=""$'\033[1;35m'""
+
+CYAN=""$'\033[0;36m'""
+BGCYAN=""$'\033[46m'""
+LCYAN=""$'\033[1;36m'""
+BGLCYAN=""$'\033[5;46m'""
+
+WHITE=""$'\033[01;37m'""
+BGWHITE=""$'\033[5;47m'""
+LGRAY=""$'\033[0;37m'""
+BGLGRAY=""$'\033[47m'""
+
+
+# 256 indexed color mode
+ORANGE=""$'\033[38;5;214m'""
+
+
+
 function endconfig(){
 		#printf '%-31s\n' "$logprefix" | sed -E 's/ /\x0/g;s/\x0([[:alpha:]])/ \1/g'
 		echo $loglevel
@@ -108,8 +168,9 @@ function match(){
 
 }
 
-
-source $1
+(source $1 >t) 2>&1 | grep -n -v -E '^#' | sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$RED"
+#(source $1 >t) 2>&1 | cat -n -s | sed -E '/\s*\d\d\s*\#/d;'
+# source $1 > t 2>&1 #| sed -e '/^#/d;'
 
 # end with ack
 echo 255
