@@ -123,7 +123,9 @@ mini_globals(){
 }
 
 define(){
-	echo "#define" $1 $2
+		param=$1
+		shift
+	echo "#define" $param \"$*\"
 }
 
 DEFINE(){

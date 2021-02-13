@@ -1,42 +1,19 @@
 #if 0
-mini_start
-mini_writes
-mini_open
-mini_read
-mini_exit_errno
-
-mini_usleep
-mini_strlcpy
-mini_strcpy
-mini_strncpy
-mini_strdup
-mini_stpcpy
-
+mini_start;mini_writes;mini_open;mini_read;mini_exit_errno;;mini_usleep
+mini_strlcpy;mini_strcpy;mini_strncpy;mini_strdup;mini_stpcpy;
 mini_group_write
 mini_group_printf
 
-mini_die_if
-mini_dies_if
-mini_die
-mini_dief
+mini_die_if;mini_dies_if;mini_die;mini_dief;mini_mmap
 
-mini_mmap
-
-mini_dirbuf
-mini_opendir
-mini_readdir
-mini_dirbuf_malloc malloc_brk
-mini_malloc_brk
-mini_free
-
+mini_dirbuf;mini_opendir;mini_readdir;mini_dirbuf_malloc malloc_brk;
+mini_malloc_brk;mini_free;
 mini_execl
 
 mini_match
 
 mini_sigaction
-mini_ansicolors
-mini_shortcolornames
-
+mini_ansicolors;mini_shortcolornames
 
 mini_buf 512
 
@@ -51,6 +28,27 @@ return
 
 #include "udevrd.conf.h"
 
+/*
+
+(c) 2021 AGPLv3 (misc)
+Based on minilib, (c) 2012-2021, 'Fair use by attribution'
+Michael (misc) Myer (misc.myer@zoho.com, www.github.com/michael105)
+
+Please have a look into the accompanying files LICENSE.agpl and LICENSE.minilib
+for the exact licensing terms.
+
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+*/
 
 // todo:
 // log

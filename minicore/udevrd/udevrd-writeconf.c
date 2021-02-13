@@ -2,27 +2,12 @@
 mini_start
 mini_group_write
 
+mini_printf;mini_itohex;mini_ltodec;mini_printsl;mini_eprintsl;mini_itodec;
+mini_strlen;mini_dprints;mini_dies_if;mini_die_if;mini_open;mini_mmap;mini_msync;
 
-mini_printf
-mini_itohex
-mini_ltodec
-mini_printsl
-mini_eprintsl
-mini_itodec
-mini_strlen
-mini_dprints
-mini_dies_if
-mini_die_if
-mini_open
-mini_mmap
-mini_msync
+mini_fgets;mini_fgetud;mini_fgetsn;mini_fgetsp;;mini_ALIGN
 
-mini_fgets
-mini_fgetud
-mini_fgetsn
-mini_fgetsp
-
-mini_ALIGN
+mini_shortcolornames
 
 mini_buf 256
 INCLUDESRC
@@ -32,15 +17,40 @@ source common.conf
 return
 #endif
 
+
+/*
+
+(c) 2021 AGPLv3 (misc)
+Based on minilib, (c) 2012-2021, 'Fair use by attribution'
+Michael (misc) Myer (misc.myer@zoho.com, www.github.com/michael105)
+
+Please have a look into the accompanying files LICENSE.agpl and LICENSE.minilib
+for the exact licensing terms.
+
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+*/
+
+
+
+
 #include "udevrd.conf.h"
 
 void usage(){
 		writes("\nudevrd-writeconf outputfile\n\n\
 udevrd-writeconf updates udevrd.conf.bin,\n\
 the configuration file for udevrd.\n\
-It is intended to be callen from udevrd-update.sh\n\
-\n\
-(c) 2021 GPLv2 Michael (misc) Myer\n\n\n");
+It is intended to be callen from udevrd-update.sh\n\n\
+"LICENSENOTE"\n\n");
 	exit(0);
 }
 
@@ -49,11 +59,11 @@ It is intended to be callen from udevrd-update.sh\n\
 
 
 int main(int argc, char **argv){
-				
+
 		if ( argc<2 )
 				usage();
 
-		printsl("open ", argv[1]);
+		printsl(CYAN"open ", argv[1], " for writing."NORM);
 		int fd = open( argv[1], O_RDWR | O_CREAT | O_TRUNC, 0640 );
 		dies_if( fd<0, fd, "Couldn't open ", argv[1] );
 
@@ -73,26 +83,23 @@ int main(int argc, char **argv){
 		// config section
 		uint *pi = &config->loglevel;
 		for ( int a = CONF_INTEGERS; (a-->0);){
-			*pi = fgetud(stdin);
-			printf("pi: %d\n",*pi);
-			pi++;
+				*pi = fgetud(stdin);
+				pi++;
 		}
-		writesl("1");
 
 		config->p_logprefix = (&config->stringsstart - (char*)&config->p_logprefix);
 		char *p = fgetsp(&config->stringsstart,256,stdin);
 		p++;
 		config->p_devpath = ( p - (char*)&config->p_devpath );
 		p = fgetsp(p,256,stdin);
-		printsl("str ",&config->stringsstart);
-		printsl("str ",getaddr(config->p_devpath));
+		printsl("logprefix: ",&config->stringsstart);
+		printsl("devpath: ",getaddr(config->p_devpath));
 		p++;
 		config->p_devices = ( p - (char*)&config->p_devices );
 
 
 		dev* device = (dev*) (p);
 
-		writesl("2");
 		pi = (uint*)p;
 		// devices section
 		while ( ( ( *pi = fgetud(stdin) ) != 0xff )  ){
@@ -106,7 +113,7 @@ int main(int argc, char **argv){
 				pi++; // skip p_next
 				for ( int a = DEV_INTEGERS; (a-->0);){
 						*pi = fgetud(stdin);
-						printf( "pi: %d\n", *pi );
+						//printf( "pi: %d\n", *pi );
 						pi++;
 				}
 				flen = (char*)device - mapping;
@@ -155,7 +162,7 @@ int main(int argc, char **argv){
 
 		for ( device = firstdev(mapping);
 					device; device = nextdev(device)){
-						printf( "addr: %lx  %ld\n", device, device );
+						//printf( "addr: %lx  %ld\n", device, device );
 						printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
 						printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
 		};
