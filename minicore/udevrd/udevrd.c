@@ -58,18 +58,20 @@ for the exact licensing terms.
 // removed devices
 // argument parsing ( -c, -d, -B )
 
-// dir patterns
 
 // done
 // reload config on SIGUSR1
 // execute
 // notify_dirs->grow (mmap)
+// dir patterns
+
 
 int do_reload_config;
 int do_exit;
 
+// how many directories per page
+#define NOTIFY_DIRS (PAGESIZE/16)
 // contains the nfd / directory keys
-#define NOTIFY_DIRS 4
 typedef struct _notify_dirs{
 		p_rel path[NOTIFY_DIRS];
 		struct _notify_dirs* next;
@@ -231,6 +233,7 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 		for ( dev* device = data->devices; device; device=nextdev(device) ){
 				if ( (st->st_mode & device->matchmode) && match( (char*)path, getstr(device->p_match),0) ){
 						printsl("matched: ",path);
+						printf(" st_mode: %o  matchmode: %o\n",st->st_mode,device->matchmode);
 						return( device );
 				}
 		}
