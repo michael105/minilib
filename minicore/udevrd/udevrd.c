@@ -236,13 +236,13 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 				if ( match( (char*)path, getstr(device->p_match),0) ){
 				if ( !(( st->st_mode & MODMASK ) ^ S_IFDIR )){ // is directory
 						if ( !((device->matchmode & MODMASK ) ^ S_IFDIR ) ){
-								printsl("matched, directory: ",path);
+								printsl(LBLUE"matched, directory: ",path,NORM);
 								return( device );
 						}
 				} else { // not a directory
 						if ( ((device->matchmode & MODMASK ) ^ S_IFDIR ) ){ // don't match for dir
-								if ( (st->st_mode & device->matchmode) ){
-										printsl("matched: ",path);
+								if ( !((st->st_mode & MODMASK) ^ ( device->matchmode & MODMASK )) ){ // match ino type
+										printsl(CYAN"matched: ",path,NORM);
 										printf(" st_mode: %x  matchmode: %x\n",st->st_mode,device->matchmode);
 										return( device );
 								}
