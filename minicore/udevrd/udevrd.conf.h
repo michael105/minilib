@@ -15,17 +15,24 @@ typedef struct _conf {
 		p_rel p_logprefix;
 		p_rel p_devpath;
 		p_rel p_devices;
+		p_rel p_watchdirlist;
 		// begin of string section
 		char stringsstart;
 } conf;
 
+typedef struct _watchdir_patterns{
+		p_rel p_next;
+		uint ignore;
+		uint recurse;
+		p_rel p_match;
+} watchdir_patterns;
 
 #define DEV_INTEGERS 7
 #define DEV_STRINGS 5
 // struct containing the configuration for a device link.
 typedef struct _dev {
 		// relative pointer, 0 for end of list
-		uint p_next;
+		p_rel p_next;
 		// uinteger values
 		uint owner;
 		uint group;
@@ -49,10 +56,16 @@ static inline char* _getstr( p_rel *i, p_rel addr ){
 		return((char*)i + addr );
 }
 
+static inline p_rel _setaddr( p_rel *i, char *p ){ 
+		return( *i = (p - (char*)i ));
+}
+
 // get a relative string
 #define getstr( addr ) _getstr( &addr, addr )
 // get a relative addr (analog to getstr)
 #define getaddr( addr ) _getstr( &addr, addr )
+
+#define setaddr( relative_p, pointer ) _setaddr( &relative_p, pointer )
 
 static inline conf* getconfig(char* mapping){
 		return((conf*) (mapping+sizeof(MAGICINT)));

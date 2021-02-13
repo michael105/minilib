@@ -4,11 +4,11 @@
 #define ERRNO_MAX 133
 #endif
 
-//+doc verbose error (errno) string. 
-// this adds about 3.5kB to the compiled binary(!)
+//+doc short error (errno) string. 
+// this adds about 2kB to the compiled binary(!)
 //+def
 const char* short_errstr(int num){
-		const char* unknown = "UNNOWN";
+		const char* unknown = "UNKNOWN";
 		if ( num > ERRNO_MAX || num < 0 ){
 				return("UNKNOWN");
 		}

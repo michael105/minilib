@@ -67,6 +67,13 @@ function gid(){
 		fi
 }
 
+function stripx(){
+		if [ "$1" != "x" ];then
+				echo "$1"
+		else
+				echo
+		fi
+}
 
 function match(){
 		echo
@@ -85,9 +92,9 @@ function match(){
 		#log msg
 		echo "$6"
 		# link
-		echo "$4"
+		stripx "$4"
 		# execute
-		echo $5 | sed 's/.*://'
+		echo "$5" | sed 's/.*://'
 		# execute on removal
 		echo $7 | sed 's/.*://'
 

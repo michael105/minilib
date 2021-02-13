@@ -8,6 +8,7 @@ mini_exit_errno
 mini_usleep
 mini_strlcpy
 mini_strcpy
+mini_strncpy
 mini_strdup
 mini_stpcpy
 
@@ -16,6 +17,8 @@ mini_group_printf
 
 mini_die_if
 mini_dies_if
+mini_die
+mini_dief
 
 mini_mmap
 
@@ -25,6 +28,8 @@ mini_readdir
 mini_dirbuf_malloc malloc_brk
 mini_malloc_brk
 mini_free
+
+mini_execl
 
 mini_match
 
@@ -48,25 +53,31 @@ return
 
 // todo:
 // log
-// notify_dirs->grow
-// execute
+// notify_dirs->grow (mmap)
 // dev down
-// reload config on SIGUSR1
 // removed devices
+// argument parsing ( -c, -d, -B )
 
+// done
+// reload config on SIGUSR1
+// execute
+
+int do_reload_config;
+int do_exit;
 
 // contains the nfd / directory keys
 #define NOTIFY_DIRS 64
 typedef struct _notify_dirs{
-		char* path[NOTIFY_DIRS];
+		p_rel path[NOTIFY_DIRS];
 		struct _notify_dirs* next;
 		int max;
+		char stringsstart;
 } notify_dirs;
-
 
 typedef struct _globals {
 		dev* devices;
 		conf *config;
+		watchdir_patterns* watchdirlist;
 		notify_dirs *ino_dirs;
 		char *configfile;
 		char *mapping;
@@ -75,30 +86,59 @@ typedef struct _globals {
 		int nfd;
 } globals;
 
-globals *global;
+
+void ino_dir_init( globals *data ){
+		data->ino_dirs = mmap( 0, PAGESIZE, PROT_READ|PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+		data->ino_dirs->max = NOTIFY_DIRS;
+		setaddr( data->ino_dirs->path[0], &data->ino_dirs->stringsstart );
+		setaddr( data->ino_dirs->path[1], &data->ino_dirs->stringsstart );
+}
+
+void ino_dir_add( int num, const char* path, globals *data ){
+		if ( data->ino_dirs->path[num+1] )
+				dief(0,"ino_dirs: num %d already used!\n",num);
+		if ( num >= data->ino_dirs->max-2 ){
+				ewrites(0,"Num >= max in ino_dir_add. Extending mmap.");
+				
+		}
+		char *p = stpcpy( getaddr( data->ino_dirs->path[num] ), path );
+		p++;
+		setaddr(data->ino_dirs->path[num+1],p);
+		printsl( getaddr( data->ino_dirs->path[num] ) );
+}
+
+const char* ino_dir_get( int num, globals *data ){
+		return( getaddr( data->ino_dirs->path[num] ) );
+}
+
 
 
 
 // returns 0 on error
-int apply_dev_rule( const char* path, struct stat *st, dev *device, globals *data ){
+int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals *data ){
 
 		struct stat ststat;
 		if ( !st ){
-				if ( stat( path, &ststat ) != 0 )
+				if ( stat( fullpath, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
 		}
 
 		if ( (st->st_mode & 0777) != device->access ){
-				printsl("mode differs");
-				chmod( path, device->access );
+				writesl("mode differs");
+				chmod( fullpath, device->access );
 		}
 
 		if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
 				writesl("gid");
-				chown( path, device->owner, device->group );
+				chown( fullpath, device->owner, device->group );
 		}
 
+		char *s = getstr( device->p_link );
+		if ( s[0] ){ // len > 0
+				printsl( "link: :", fullpath, " - ", s );
+				symlink( fullpath, s );
+		}
 
 		return(1);
 }
@@ -107,7 +147,17 @@ int apply_dev_rule( const char* path, struct stat *st, dev *device, globals *dat
 void dev_action( const char* path, dev* device, globals *data ){
 		char *s = getstr( device->p_exec );
 		if ( s[0] ){ // len > 0
-				printsl("Execute: ", s, " ", path );
+				char buf[256];
+				char *p = stpcpy(buf,s);
+				*p = ' ';p++;
+				strncpy(p,path,(buf+256)-p);
+				printsl("Execute: ", buf );
+				int pid = vfork();
+				if ( pid == 0 ){
+						execl( "/bin/sh", "/bin/sh", "-c", buf, (char*)0 );
+						eprintsl("Couldn't execute ", buf );
+						_exit(1);
+				}
 		}
 }
 
@@ -142,7 +192,8 @@ int watch_dir(const char* path, globals *data){
 		if ( ir<0 ){ 
 				eprintsl("Couldn't add an inotify watch for ", path );
 		}
-		data->ino_dirs->path[ir] = strdup( path );
+		//data->ino_dirs->path[ir] = (char*)strdup( path );
+		ino_dir_add(ir, path, data); 
 		printf("inotify fd: %d\n", ir );
 		return( ir );
 }
@@ -216,25 +267,40 @@ int load_config( const char* configfile, globals *gl ){
 		}
 
 		printf( "mgc: %x\n", *(int*)mapping );
-		if ( *(int*)mapping != 0x76656475 ){
+		if ( *(int*)mapping != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
 				eprintsl( "The configuration file doesn't look correct.\n", configfile );
 				return(-14);
 		}
 
+
+		// check end of configfile
+		dev *d;
+		for ( dev *d2 = firstdev(mapping); d2; d2=nextdev(d) )
+				d = d2;
+
+		if ( *(int*)(getaddr(d->p_next)+sizeof(p_rel)) != MAGICINT ){
+				munmap(mapping, ststat.st_size);
+				close(fd);
+				eprintsl( "The configuration file is scrambled.\n", configfile );
+				return(-14);
+		}
+
+
 		gl->devices = firstdev(mapping);
 		gl->config = getconfig(mapping);
+		gl->watchdirlist=(watchdir_patterns*)getaddr(gl->config->p_watchdirlist);
 		gl->configfd = fd;
 		gl->mapping = mapping;
 		gl->mappingsize = ststat.st_size;
 
-		writesl("ok\n");
+		writesl("Configuration loaded\n");
 		return(0);
 }
 
 // return 1, when reloading the config gives an error
-int reload_config(){
+int reload_config( globals *global ){
 
 		globals tmp;
 		memcpy(&tmp,global,sizeof(globals));
@@ -253,9 +319,17 @@ int reload_config(){
 
 // handle SIGUSR1
 // reload config
-void sigusr1( int signal ){
-		writesl("sigusr1");
-		reload_config();
+void sighandler( int signal ){
+		switch (signal){ 
+				case SIGUSR1:
+						writesl("sigusr1");
+						do_reload_config = 1; // reload config
+						break;
+				case SIGTERM:
+						writesl("Got SIGTERM");
+						do_exit = 1;
+						break;
+		}
 }
 
 
@@ -264,8 +338,13 @@ int main( int argc, char **argv ){
 		// read configuration
 		char *configfile = CONFIGFILE;
 	
+		// set by the signal handler
+		do_reload_config = 0;
+		do_exit = 0;
+
+
 		globals data;
-		global = &data;
+		//global = &data;
 		int r;
 	
 		die_if( (r = load_config(configfile, &data) ) != 0, r, "Error. exit" );
@@ -278,10 +357,12 @@ int main( int argc, char **argv ){
 		// init globals
 		data.nfd = nfd;
 		data.configfile = configfile;
-		notify_dirs nod;
-		nod.max = NOTIFY_DIRS;
-		nod.next = 0;
-		data.ino_dirs = &nod;
+		//notify_dirs nod;
+		//nod.max = NOTIFY_DIRS;
+		//nod.next = 0;
+		//data.ino_dirs = &nod;
+		ino_dir_init(&data);
+		notify_dirs *nod = data.ino_dirs;
 
 
 		// watch devpath
@@ -295,12 +376,13 @@ int main( int argc, char **argv ){
 
 		sigfillset(&sa.sa_mask);
 		sa.sa_flags = 0;
-		sa.sa_handler = sigusr1;
+		sa.sa_handler = sighandler;
 
-		if ( sigaction (SIGUSR1, &sa, 0) )
+		if ( sigaction (SIGUSR1, &sa, 0) || sigaction (SIGTERM, &sa, 0) )
 				ewrites("Couldn't install signal handler");
 		// continue anyways.
-		//
+
+		
 
 #define BUFLEN 1024
 		char buf[BUFLEN];
@@ -308,17 +390,28 @@ int main( int argc, char **argv ){
 		const struct inotify_event *e;
 		char path[PATH_MAX];
 
-		while ( 1 ){
+		while ( !do_exit ){
+
 				while ( (r=read(nfd,buf,BUFLEN)) <= 0 ){
-						//printf("r: %d\n",r);
-						usleep(10000); // ~ 1/100 second delay.
+						// got signal or another interruption
+						if ( do_exit )
+								break;
+
+						if ( do_reload_config ){ // got sigusr1
+								reload_config( &data );
+								do_reload_config = 0;
+						} else {
+										usleep(100000); // ~ 1/10 second delay.
+						}
 				}
 
 				// loop over events
 				for ( char *p = buf; p < buf+r;	p += sizeof(struct inotify_event) + e->len) {
 						e = (const struct inotify_event *) p;
 						printsl( "event: ", e->name );
-						char *c = stpcpy( path, nod.path[e->wd] );
+						//char *c = stpcpy( path, nod.path[e->wd] );
+						char *c = stpcpy( path, ino_dir_get(e->wd,&data) );
+						//char *c = "              ";
 						*c = '/';
 						c++;
 						strcpy( c, e->name );
@@ -337,7 +430,8 @@ int main( int argc, char **argv ){
 
 		}
 
-		// shouldn't get here.
-		die( r, "error reading inotify events" );
+		// exit
+		writesl("Got SIGTERM. Exit.\n");
+		return(0);
 }
 

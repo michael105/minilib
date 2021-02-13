@@ -127,14 +127,12 @@ int main(int argc, char **argv){
 				exit(1);
 		}
 
-		//p->p_next = 0;
+
 		// mark end of file
 		*pi=0; // ending with p_next = 0
 		pi++;
 		*pi=MAGICINT;
 		flen+=2*sizeof(uint);
-		//*(long*)pi = (long) MAGICBYTES;
-		//flen += sizeof(long);
 
 
 		printf("Wrote %d Bytes.\n\n",flen);
