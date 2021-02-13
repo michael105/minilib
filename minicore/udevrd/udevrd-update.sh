@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Update the config file of udevrd.
 # Signal udevrd to reload it's configuration.
@@ -42,11 +42,11 @@ function conf(){
 }
 
 function uid(){
-		if [ "$1" == "x" ] || [ -z $1 ]; then
-				id -u nobody
-		else
-				echo $1 | sed -E 's/(.*):.*/id -u \1/e'
-		fi
+    if [ "$1" == "x" ] || [ -z $1 ]; then
+	id -u nobody
+    else
+	echo "$1" | sed -E 's/(.*):.*/id -u \1/p'
+    fi
 }
 
 function guid(){
@@ -75,28 +75,36 @@ function stripx(){
 		fi
 }
 
+function tt(){
+    echo $(( 8#`echo "$1" | sed \
+		's/^x/01737777/; s/\*>/01777777/; s/\*/0777777/; \
+		 s/dev/block|char/; s/dir>/01040000/; \
+		 s/dir/040000/; s/file/0100000/; s/socket/0140000/; s/link/0120000/;\
+		 s/block/060000/; s/char/020000/; s/fifo/010000/; s/|/|8#/g'` ))
+}
 function match(){
 		echo
-		uid $2
-		gid $2
+		tt "$1"
+		uid "$3"
+		gid "$3"
 		# access
-		echo $(( 8#$3 ))
+		echo $(( 8#$4 ))
 		# exec as uid/gid
-		uid $5
-		guid $5
-		uid $7
-		guid $7
+		uid $6
+		guid $6
+		uid $8
+		guid $8
 		
 		# pattern
-		echo "$1"
+		echo "$2"
 		#log msg
-		echo "$6"
+		echo "$7"
 		# link
-		stripx "$4"
+		stripx "$5"
 		# execute
-		echo "$5" | sed 's/.*://'
+		echo "$6" | sed 's/.*://'
 		# execute on removal
-		echo $7 | sed 's/.*://'
+		echo $8 | sed 's/.*://'
 
 }
 
