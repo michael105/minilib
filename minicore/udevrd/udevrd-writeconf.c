@@ -161,10 +161,10 @@ int main(int argc, char **argv){
 
 
 		for ( device = firstdev(mapping);
-					device; device = nextdev(device)){
-						//printf( "addr: %lx  %ld\n", device, device );
-						printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
-						printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
+						device; device = nextdev(device)){
+				//printf( "addr: %lx  %ld\n", device, device );
+				printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
+				printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
 		};
 
 

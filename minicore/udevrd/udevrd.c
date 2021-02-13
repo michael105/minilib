@@ -55,6 +55,7 @@ for the exact licensing terms.
 // dev down
 // removed devices
 // argument parsing ( -c, -d, -B )
+
 // dir patterns
 
 // done
@@ -229,16 +230,6 @@ dev* get_dev_rule( const char* path, globals *data ){
 }
 
 
-int dev_cb(const char* path, struct stat *st, globals *data){
-		printsl(" cb: ",path);
-		dev *d = get_dev_rule( path, data );
-		if ( d )
-				apply_dev_rule( path, st, d, data );
-
-		return(1);
-}
-
-
 int watch_dir(const char* path, globals *data){
 
 		printsl("Add watch to ",path);
@@ -250,6 +241,16 @@ int watch_dir(const char* path, globals *data){
 		ino_dir_add(ir, path, data); 
 		printf("inotify fd: %d\n", ir );
 		return( ir );
+}
+
+
+int dev_cb(const char* path, struct stat *st, globals *data){
+		printsl(" cb: ",path);
+		dev *d = get_dev_rule( path, data );
+		if ( d )
+				apply_dev_rule( path, st, d, data );
+
+		return(1);
 }
 
 
@@ -283,21 +284,20 @@ int traverse_dir( const char* path, int maxdepth,
 				if ( stat( pathname, &st ) != 0 )
 						continue;
 				//if ( !(st.st_mode & S_IFDIR) ){ // node, file or link
-						if ( callback )
-								callback(pathname, &st, data);
+				if ( callback )
+						callback(pathname, &st, data);
 				//		continue;
 				//}
 
-						if ( st.st_mode & S_IFDIR ){ // node, file or link
-								printsl("Directory: ",de->d_name);
-								if ( dir_callback )
-										dir_callback(pathname, data);
-
-								traverse_dir( pathname, maxdepth-1, callback, dir_callback, data );
-						}
+				if ( st.st_mode & S_IFDIR ){ // node, file or link
+						printsl("Directory: ",de->d_name);
+						if ( dir_callback )
+								dir_callback(pathname, data);
+						traverse_dir( pathname, maxdepth-1, callback, dir_callback, data );
+				}
 
 		}
-		
+
 		free(dir);
 		return(1);
 }
