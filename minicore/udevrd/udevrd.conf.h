@@ -27,13 +27,14 @@ typedef struct _watchdir_patterns{
 		p_rel p_match;
 } watchdir_patterns;
 
-#define DEV_INTEGERS 7
+#define DEV_INTEGERS 8
 #define DEV_STRINGS 5
 // struct containing the configuration for a device link.
 typedef struct _dev {
 		// relative pointer, 0 for end of list
 		p_rel p_next;
 		// uinteger values
+		uint matchmode;
 		uint owner;
 		uint group;
 		uint access;

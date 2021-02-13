@@ -38,8 +38,7 @@ mini_ansicolors
 mini_shortcolornames
 
 
-# needed that "big" for the notifyfd/pathname array. fix it.
-mini_buf 4096
+mini_buf 512
 
 HEADERGUARDS
 OPTFLAG -Os
@@ -55,14 +54,15 @@ return
 
 // todo:
 // log
-// notify_dirs->grow (mmap)
 // dev down
 // removed devices
 // argument parsing ( -c, -d, -B )
+// dir patterns
 
 // done
 // reload config on SIGUSR1
 // execute
+// notify_dirs->grow (mmap)
 
 int do_reload_config;
 int do_exit;
@@ -284,17 +284,19 @@ int traverse_dir( const char* path, int maxdepth,
 				strcpy( p, de->d_name );
 				if ( stat( pathname, &st ) != 0 )
 						continue;
-				if ( !(st.st_mode & S_IFDIR) ){ // node, file or link
+				//if ( !(st.st_mode & S_IFDIR) ){ // node, file or link
 						if ( callback )
 								callback(pathname, &st, data);
-						continue;
-				}
+				//		continue;
+				//}
 
-				printsl("Directory: ",de->d_name);
-				if ( dir_callback )
-						dir_callback(pathname, data);
+						if ( st.st_mode & S_IFDIR ){ // node, file or link
+								printsl("Directory: ",de->d_name);
+								if ( dir_callback )
+										dir_callback(pathname, data);
 
-				traverse_dir( pathname, maxdepth-1, callback, dir_callback, data );
+								traverse_dir( pathname, maxdepth-1, callback, dir_callback, data );
+						}
 
 		}
 		
@@ -506,13 +508,12 @@ int main( int argc, char **argv ){
 						if ( e->mask & IN_ISDIR ){
 								writesl("  directory");
 								watch_dir( path, &data );
-						} else {
-								writesl("  file");
-								dev* d = get_dev_rule( path, &data );
-								if ( d ){ //match
-										apply_dev_rule( path, 0, d, &data );
-										dev_action( path, d, &data );
-								}
+						} 
+						writesl(" matching ");
+						dev* d = get_dev_rule( path, &data );
+						if ( d ){ //match
+								apply_dev_rule( path, 0, d, &data );
+								dev_action( path, d, &data );
 						}
 				}
 
