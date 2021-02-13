@@ -168,10 +168,12 @@ function match(){
 
 }
 
-(source $1 >t) 2>&1 | grep -n -v -E '^#' | sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$RED"
-#(source $1 >t) 2>&1 | cat -n -s | sed -E '/\s*\d\d\s*\#/d;'
-# source $1 > t 2>&1 #| sed -e '/^#/d;'
+echo -e "\nReading config in $1.\n"
+cfg=`basename $1`
+echo $cfg
+(source $1 >t) 2>&1 | cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
+    sed -E "s/^([[:space:]]*[[:digit:]]*[[:space:]]*..$cfg.*)/$LRED\1$NORM/" | \
+    sed -E "x;$,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
+    #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
-# end with ack
-echo 255
-
+echo
