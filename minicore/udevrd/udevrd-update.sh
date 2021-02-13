@@ -105,7 +105,7 @@ function uid(){
     if [ "$1" == "x" ] || [ -z $1 ]; then
 	id -u nobody
     else
-	echo "$1" | sed -E 's/(.*):.*/id -u \1/p'
+	echo "$1" | sed -E 's/(.*):.*/id -u \1/e'
     fi
 }
 
@@ -147,8 +147,8 @@ function tt(){
 function match(){
 		echo
 		tt "$1"
-		uid "$3"
-		gid "$3"
+		uid $3
+		gid $3
 		# access
 		echo $(( 8#$4 ))
 		# exec as uid/gid
@@ -170,21 +170,26 @@ function match(){
 
 }
 
-function endconfig(){
+function endfile(){
     echo 255
 }  
 
+function define(){
+    export $1="$2"
+}
 
 # ===========  "main" ==============
 
+source ./common.conf
 
 echo -e "\n$LGREEN Reading config in $1.$NORM\n"
 cfg=`basename $1`
 
-(source $1 >t) 2>&1 | \
+((source $1 >$1.tmp) 2>&1 | \
     sed -E "/^\.\/$cfg/{s/(..$cfg.*)$/$LRED\1$NORM/}" | \
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
-    sed -E "x;$,/endconfig/{x;q}; $,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}"
+    sed -E "x;$,/endconfig/{x;q}; $,/error/{s/^/$LRED/p;x;s/^.*:(.*:.*)/\n\t\1/}" ) &&
+    cat $1.tmp | ./udevrd-writeconf $1.bin
     #sed -E "s/^([[:digit:]]*:)/\1\t/;$,/error/i$LRED"
 
 
@@ -197,5 +202,6 @@ echo
 echo $LGREEN Ok.
 echo
 
+echo $configfile
 
 

@@ -16,7 +16,7 @@ typedef struct _conf {
 		p_rel p_logprefix;
 		p_rel p_devpath;
 		p_rel p_devices;
-		p_rel p_watchdirlist;
+		//p_rel p_watchdirlist;
 		// begin of string section
 		char stringsstart;
 } conf;

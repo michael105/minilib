@@ -53,6 +53,7 @@ int main(int argc, char **argv){
 		if ( argc<2 )
 				usage();
 
+		printsl("open ", argv[1]);
 		int fd = open( argv[1], O_RDWR | O_CREAT | O_TRUNC, 0640 );
 		dies_if( fd<0, fd, "Couldn't open ", argv[1] );
 
@@ -73,19 +74,25 @@ int main(int argc, char **argv){
 		uint *pi = &config->loglevel;
 		for ( int a = CONF_INTEGERS; (a-->0);){
 			*pi = fgetud(stdin);
+			printf("pi: %d\n",*pi);
 			pi++;
 		}
+		writesl("1");
 
 		config->p_logprefix = (&config->stringsstart - (char*)&config->p_logprefix);
 		char *p = fgetsp(&config->stringsstart,256,stdin);
 		p++;
 		config->p_devpath = ( p - (char*)&config->p_devpath );
 		p = fgetsp(p,256,stdin);
+		printsl("str ",&config->stringsstart);
+		printsl("str ",getaddr(config->p_devpath));
 		p++;
 		config->p_devices = ( p - (char*)&config->p_devices );
 
+
 		dev* device = (dev*) (p);
 
+		writesl("2");
 		pi = (uint*)p;
 		// devices section
 		while ( ( ( *pi = fgetud(stdin) ) != 0xff )  ){
@@ -99,6 +106,7 @@ int main(int argc, char **argv){
 				pi++; // skip p_next
 				for ( int a = DEV_INTEGERS; (a-->0);){
 						*pi = fgetud(stdin);
+						printf( "pi: %d\n", *pi );
 						pi++;
 				}
 				flen = (char*)device - mapping;
@@ -107,7 +115,9 @@ int main(int argc, char **argv){
 
 				for ( int a = DEV_STRINGS; a-->0; ){
 						*pi = ( p - (char*)pi );
+						char *op = p;
 						p = fgetsp(p,256,stdin);
+						printsl(op);
 						p++; // skip 0 byte
 						pi++;
 				}
