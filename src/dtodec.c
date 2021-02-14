@@ -18,7 +18,7 @@ int dtodec(double d, char* buf, int precision){
 
 		int p;
 		if ( (d<=-1) || (d>0) )
-				p = itodec(i,buf,0,0);
+				p = itodec(i,buf,0,0,0);
 		else {
 				buf[0] = '-';
 				buf[1] = '0';

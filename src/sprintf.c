@@ -21,7 +21,7 @@
 
 //+include
 
-//+depends snprintf vsnprintf
+//+depends snprintf vsnprintf strlen
 //+macro
 #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -32,13 +32,13 @@
 // todo: add attribute printf (gcc format checking)
 
 //+ansi stdio.h
-//+depends write strlen
 //+needs exit.h stdarg.h overrun.h
 //+after itohex itoHEX
 //+doc the function, translating the fmt of printf.
 // warning - most possibly you'd like to define besides fprintf, or family,
 // mini_itodec (%d conversion) 
 // mini_atoi is needed for grouping numbers
+//+depends write strlen
 //+def
 int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 
@@ -262,7 +262,7 @@ msprintfout:
 //
 // 
 //+header stdio.h
-//+depends write prints dprintf sprintf fileno
+//+depends write prints dprintf sprintf fileno strlen
 //+needs mini_fstream.h 
 //+after itobin atoi itodec dtodec ltodec itohex
 //+macro fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
