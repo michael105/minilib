@@ -297,12 +297,12 @@ int watch_dir(const char* path, globals *data){
 }
 
 int traverse_dir( const char* path, int maxdepth, 
-				int(*callback)(const char* path,struct stat *st,int maxdepth,globals *data), 
+				dev*(*callback)(const char* path,struct stat *st,int maxdepth,globals *data), 
 				int(*dir_callback)(const char* path,globals *data), 
 				globals *data);
 
 
-int dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
+dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 		printsl(" cb: ",path);
 		dev *d = get_dev_rule( path, st, data );
 		if ( d ){
@@ -315,7 +315,7 @@ int dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 										apply_dev_rule( path, st, d, data );
 
 								if ( maxdepth == 0 )
-										return(1);
+										return(d);
 								watch_dir(path,data);
 								int r = 1;
 								if ( d->matchmode & 04000000 )
@@ -329,13 +329,13 @@ int dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 				//}
 		}
 
-		return(1);
+		return(d);
 }
 
 
 
 int traverse_dir( const char* path, int maxdepth, 
-				int(*callback)(const char* path,struct stat *st,int maxdepth,globals *data), 
+				dev*(*callback)(const char* path,struct stat *st,int maxdepth,globals *data), 
 				int(*dir_callback)(const char* path,globals *data), 
 				globals *data){
 		
@@ -363,19 +363,9 @@ int traverse_dir( const char* path, int maxdepth,
 				strcpy( p, de->d_name );
 				if ( stat( pathname, &st ) != 0 )
 						continue;
-				//if ( !(st.st_mode & S_IFDIR) ){ // node, file or link
+
 				if ( callback )
 						callback(pathname, &st, maxdepth, data);
-				//		continue;
-				//}
-/*
-				if ( st.st_mode & S_IFDIR ){ // node, file or link
-						printsl("Directory: ",de->d_name);
-						if ( dir_callback )
-								dir_callback(pathname, data);
-						traverse_dir( pathname, maxdepth, callback, dir_callback, data );
-				} */
-
 		}
 
 		free(dir);
@@ -587,14 +577,11 @@ int main( int argc, char **argv ){
 						*c = '/';
 						c++;
 						strcpy( c, e->name );
-						if ( e->mask & IN_ISDIR ){
-								writesl("  directory");
-								watch_dir( path, &data );
-						} 
 						writesl(" matching ");
-						dev* d = get_dev_rule( path, 0, &data );
+
+						dev* d = dev_cb( path, 0, -1, &data ); // todo. wrong. slightly
 						if ( d ){ //match
-								apply_dev_rule( path, 0, d, &data );
+								//apply_dev_rule( path, 0, d, &data );
 								dev_action( path, d, &data );
 						}
 				}
