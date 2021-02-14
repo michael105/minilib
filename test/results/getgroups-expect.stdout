@@ -1,0 +1,14 @@
+./getgroups
+ret: 6
+gr: 0 uid: 10
+> wheel - 10 - root micha
+gr: 1 uid: 18
+> audio - 18 - micha
+gr: 2 uid: 80
+> cdrw - 80 - micha
+gr: 3 uid: 85
+> usb - 85 - micha
+gr: 4 uid: 97
+> input - 97 - micha
+gr: 5 uid: 103
+> palemoon - 103 - micha
