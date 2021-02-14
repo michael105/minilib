@@ -4,7 +4,7 @@
 
 link:license.rst[License]
 
-minilib is licensed under BSD 3-clause.
+Opensource, '"fair use by attribution"'
 
 Some files in the folder header have different licensing terms,
 they define the kernel interface(s) and are either from linux itself (SPDX licensed),

@@ -24,7 +24,7 @@ alphasort
  the asciitables is used for the comparison
  (using strcmp)</code></pre>
 </td></tr></table>
-<p><a href="../src/dirent/alphasort.c">../src/dirent/alphasort.c</a> l.7 manpage: <a href="manpages/gen/scandir.3.rst.html">alphasort</a><br></p>
+<p><a href="../../src/dirent/alphasort.c">../src/dirent/alphasort.c</a> l.7 manpage: <a href="../manpages/gen/scandir.3.rst.html">alphasort</a><br></p>
 <a name="basename"></a><dl>
 <dt>
 basename
@@ -33,7 +33,7 @@ basename
 <p>
   <em>char <strong>basename(char *path)</em><br>
  *return the last component of a pathname</strong>
-Size: ~151B <a href="../src/basename.c">../src/basename.c</a> l.2 manpage: <a href="manpages/gen/basename.3.rst.html">basename</a><br>
+Size: ~151B <a href="../../src/basename.c">../src/basename.c</a> l.2 manpage: <a href="../manpages/gen/basename.3.rst.html">basename</a><br>
 </p>
 </dd>
 <dt>
@@ -43,7 +43,7 @@ chdir
 <p>
   <em>int chdir(const char* path)</em><br>
  <strong>change working directory</strong>
-Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.112 manpage: <a href="manpages/sys/chdir.2.rst.html">chdir</a><br>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.112 manpage: <a href="../manpages/sys/chdir.2.rst.html">chdir</a><br>
 </p>
 </dd>
 <dt>
@@ -60,7 +60,7 @@ dirbuf
 <pre><code>the switch for defining the dirbuf.
  used internally</code></pre>
 </td></tr></table>
-<p><a href="../include/dirent.h">../include/dirent.h</a> l.7</p>
+<p><a href="../../include/dirent.h">../include/dirent.h</a> l.7</p>
 <a name="dirbufsize"></a><dl>
 <dt>
 dirbufsize
@@ -77,7 +77,7 @@ dirfd
 <p>
   <em>int dirfd(DIR <strong>d)</em><br>
  *extract the file descriptor used by a DIR stream</strong>
-<a href="../src/dirent/dirfd.c">../src/dirent/dirfd.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">dirfd</a><br>
+<a href="../../src/dirent/dirfd.c">../src/dirent/dirfd.c</a> l.2 manpage: <a href="../manpages/gen/directory.3.rst.html">dirfd</a><br>
 </p>
 </dd>
 <dt>
@@ -88,7 +88,7 @@ dirname
   <em>char <strong>dirname(char *s)</em><br>
  *Defines:</strong> strlen<br>
  <strong>report the parent directory name of a file pathname</strong>
-Size: ~179B <a href="../src/dirname.c">../src/dirname.c</a> l.8 manpage: <a href="manpages/gen/dirname.3.rst.html">dirname</a><br>
+Size: ~179B <a href="../../src/dirname.c">../src/dirname.c</a> l.8 manpage: <a href="../manpages/gen/dirname.3.rst.html">dirname</a><br>
 </p>
 </dd>
 <dt>
@@ -98,7 +98,7 @@ fstat
 <p>
   <em>int fstat(int fd,struct stat* statbuf)</em><br>
  <strong>get file status</strong>
-Size: ~53B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.109 manpage: <a href="manpages/sys/stat.2.rst.html">fstat</a><br>
+Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.109 manpage: <a href="../manpages/sys/stat.2.rst.html">fstat</a><br>
 </p>
 </dd>
 <dt>
@@ -108,7 +108,7 @@ getcwd
 <p>
   <em>int getcwd( char <strong>buf,  unsigned long size)</em><br>
  *get the pathname of the current working directory</strong>
-Size: ~61B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.121 manpage: <a href="manpages/gen/getcwd.3.rst.html">getcwd</a><br>
+Size: ~61B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.121 manpage: <a href="../manpages/gen/getcwd.3.rst.html">getcwd</a><br>
 </p>
 </dd>
 <dt>
@@ -118,7 +118,7 @@ getdents
 <p>
   <em>int getdents( unsigned int fd, struct dirent <strong>direntry, unsigned int count )</em><br>
  *get directory entries</strong>
-Size: ~65B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.104 manpage: <a href="manpages/sys/getdirentries.2.rst.html">getdents</a><br>
+Size: ~65B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.104 manpage: <a href="../manpages/sys/getdirentries.2.rst.html">getdents</a><br>
 </p>
 </dd>
 <dt>
@@ -127,7 +127,7 @@ inotify_add_watch
 <dd>
 <p>
   <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.200
 </p>
 </dd>
 <dt>
@@ -136,7 +136,7 @@ inotify_init
 <dd>
 <p>
   <em>int DEF_syscall(inotify_init,0)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.199
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.199
 </p>
 </dd>
 <dt>
@@ -145,7 +145,7 @@ inotify_init1
 <dd>
 <p>
   <em>int inotify_init1( int flags)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.202
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.202
 </p>
 </dd>
 <dt>
@@ -154,7 +154,7 @@ inotify_rm_watch
 <dd>
 <p>
   <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
-<a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.201
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.201
 </p>
 </dd>
 <dt>
@@ -164,7 +164,7 @@ mkdir
 <p>
   <em>int mkdir( const char <strong>pathname, int mode)</em><br>
  *make a directory relative to directory file descriptor</strong>
-Size: ~59B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162 manpage: <a href="manpages/sys/mkdir.2.rst.html">mkdir</a><br>
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162 manpage: <a href="../manpages/sys/mkdir.2.rst.html">mkdir</a><br>
 </p>
 </dd>
 <dt>
@@ -175,7 +175,7 @@ opendir
   <em>DIR <strong>opendir(const char *name )</em><br>
  *Defines:</strong> write getbrk dirbuf close 0 brk open<br>
  <strong>open directory associated with file descriptor</strong>
-Size: ~281B <a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="manpages/gen/directory.3.rst.html">opendir</a><br>
+Size: ~281B <a href="../../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.24 manpage: <a href="../manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
 </dd>
 <dt>
@@ -185,7 +185,7 @@ opendirp
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
  *Defines:</strong> brk open close 0 dirbuf getbrk<br>
-<a href="../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
+<a href="../../src/dirent/opendir.c">../src/dirent/opendir.c</a> l.10
 </p>
 </dd>
 <dt>
@@ -206,7 +206,7 @@ readdir
  return 0 on error and set errno,
  if mini_errno is not defined, return -errno on error</code></pre>
 </td></tr></table>
-<p>Size: ~133B <a href="../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.10 manpage: <a href="manpages/gen/directory.3.rst.html">readdir</a><br></p>
+<p>Size: ~133B <a href="../../src/dirent/readdir.c">../src/dirent/readdir.c</a> l.10 manpage: <a href="../manpages/gen/directory.3.rst.html">readdir</a><br></p>
 <a name="rewinddir"></a><dl>
 <dt>
 rewinddir
@@ -215,7 +215,7 @@ rewinddir
 <p>
   <em>void rewinddir(DIR <strong>dir)</em><br>
  *reset the position of a directory stream to the beginning</strong>
-Size: ~80B <a href="../src/dirent/rewinddir.c">../src/dirent/rewinddir.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">rewinddir</a><br>
+Size: ~80B <a href="../../src/dirent/rewinddir.c">../src/dirent/rewinddir.c</a> l.2 manpage: <a href="../manpages/gen/directory.3.rst.html">rewinddir</a><br>
 </p>
 </dd>
 <dt>
@@ -225,7 +225,7 @@ rmdir
 <p>
   <em>int rmdir( const char <strong>pathname)</em><br>
  *remove a directory</strong>
-Size: ~47B <a href="../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.163 manpage: <a href="manpages/sys/rmdir.2.rst.html">rmdir</a><br>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.163 manpage: <a href="../manpages/sys/rmdir.2.rst.html">rmdir</a><br>
 </p>
 </dd>
 <dt>
@@ -267,7 +267,7 @@ scandir
  returns the number of the read entries,
  or the negative errno on error.</code></pre>
 </td></tr></table>
-<p><a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.35 manpage: <a href="manpages/gen/scandir.3.rst.html">scandir</a><br></p>
+<p><a href="../../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.35 manpage: <a href="../manpages/gen/scandir.3.rst.html">scandir</a><br></p>
 <a name="scandir_bufsize"></a><dl>
 <dt>
 scandir_bufsize
@@ -282,7 +282,7 @@ scandir_bufsize
 <pre><code>the increment of the buffer of scandir in bytes for memory allocations
  (default:4096)</code></pre>
 </td></tr></table>
-<p><a href="../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.4</p>
+<p><a href="../../src/dirent/scandir.c">../src/dirent/scandir.c</a> l.4</p>
 <a name="seekdir"></a><dl>
 <dt>
 seekdir
@@ -291,7 +291,7 @@ seekdir
 <p>
   <em>void seekdir(DIR <strong>dir, long off)</em><br>
  *set the position of a directory stream</strong>
-Size: ~100B <a href="../src/dirent/seekdir.c">../src/dirent/seekdir.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">seekdir</a><br>
+Size: ~100B <a href="../../src/dirent/seekdir.c">../src/dirent/seekdir.c</a> l.2 manpage: <a href="../manpages/gen/directory.3.rst.html">seekdir</a><br>
 </p>
 </dd>
 <dt>
@@ -301,7 +301,7 @@ telldir
 <p>
   <em>long telldir(DIR <strong>dir)</em><br>
  *current location of a named directory stream</strong>
-Size: ~32B <a href="../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 manpage: <a href="manpages/gen/directory.3.rst.html">telldir</a><br>
+Size: ~32B <a href="../../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 manpage: <a href="../manpages/gen/directory.3.rst.html">telldir</a><br>
 </p>
 </dd>
 </dl>
@@ -309,7 +309,7 @@ Size: ~32B <a href="../src/dirent/telldir.c">../src/dirent/telldir.c</a> l.2 man
 <p></p>
 <hr><p><small>
 Last updated
- 2021-02-14 12:56:50 UTC
+ 2021-02-14 13:29:08 UTC
 </small></p>
 </body>
 </html>
