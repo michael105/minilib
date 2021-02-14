@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.10">
+<meta name="generator" content="AsciiDoc 9.0.2">
 <title></title>
 </head>
 <body>
@@ -16,7 +16,7 @@ _strcasecmp
 <p>
   <em>int _strcasecmp(const char*c1,const char*c2,int len)</em><br>
  <strong>Defines:</strong> tolower<br>
-Size: ~44B <a href="../../src/strcmp.c">../src/strcmp.c</a> l.27
+Size: ~44B <a href="../src/string/strcmp.c">../src/string/strcmp.c</a> l.27
 </p>
 </dd>
 <dt>
@@ -25,7 +25,7 @@ _strcmp
 <dd>
 <p>
   <em>int _strcmp(const char*c1,const char*c2,int len)</em><br>
-Size: ~44B <a href="../../src/strcmp.c">../src/strcmp.c</a> l.10
+Size: ~44B <a href="../src/string/strcmp.c">../src/string/strcmp.c</a> l.10
 </p>
 </dd>
 <dt>
@@ -34,9 +34,9 @@ sprintf
 <dd>
 <p>
   <em>#define sprintf(str,&#8230;) snprintf( str, 4096,  <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write<br>
+ <strong>Defines:</strong> write strlen<br>
  <strong>print formatted output</strong>
-<a href="../../src/sprintf.c">../src/sprintf.c</a> l.26 manpage: <a href="../manpages/stdio/printf.3.rst.html">sprintf</a><br>
+<a href="../src/sprintf.c">../src/sprintf.c</a> l.26 manpage: <a href="manpages/stdio/printf.3.rst.html">sprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -45,7 +45,7 @@ strcasecmp
 <dd>
 <p>
   <em>int strcasecmp(const char*c1,const char*c2)</em><br>
-<a href="../../src/strcmp.c">../src/strcmp.c</a> l.48 manpage: <a href="../manpages/string/string.3.rst.html">strcasecmp</a><br>
+<a href="../src/string/strcmp.c">../src/string/strcmp.c</a> l.48 manpage: <a href="manpages/string/string.3.rst.html">strcasecmp</a><br>
 </p>
 </dd>
 <dt>
@@ -56,7 +56,7 @@ strcat
   <em>char <strong>strcat(char *dest, const char *src )</em><br>
  *Defines:</strong> strlen<br>
  <strong>concatenate two strings</strong>
-Size: ~126B <a href="../../src/strcat.c">../src/strcat.c</a> l.5 manpage: <a href="../manpages/string/string.3.rst.html">strcat</a><br>
+Size: ~126B <a href="../src/string/strcat.c">../src/string/strcat.c</a> l.5 manpage: <a href="manpages/string/string.3.rst.html">strcat</a><br>
 </p>
 </dd>
 <dt>
@@ -67,7 +67,7 @@ strchr
   <em>char <strong>strchr(const char *s, int c)</em><br>
  *Defines:</strong> strchrnul<br>
  <strong>string scanning operation</strong>
-Size: ~104B <a href="../../src/strchr.c">../src/strchr.c</a> l.20 manpage: <a href="../manpages/string/string.3.rst.html">strchr</a><br>
+Size: ~104B <a href="../src/string/strchr.c">../src/string/strchr.c</a> l.20 manpage: <a href="manpages/string/string.3.rst.html">strchr</a><br>
 </p>
 </dd>
 <dt>
@@ -77,7 +77,7 @@ strchrnul
 <p>
   <em>char <strong>strchrnul(const char *s, int c)</em><br>
  *locate character in string</strong>
-Size: ~87B <a href="../../src/strchr.c">../src/strchr.c</a> l.7 manpage: <a href="../manpages/string/strchr.3.rst.html">strchrnul</a><br>
+Size: ~87B <a href="../src/string/strchr.c">../src/string/strchr.c</a> l.7 manpage: <a href="manpages/string/strchr.3.rst.html">strchrnul</a><br>
 </p>
 </dd>
 <dt>
@@ -87,7 +87,7 @@ strcmp
 <p>
   <em>int strcmp(const char*c1,const char*c2)</em><br>
  <strong>compare two strings</strong>
-Size: ~32B <a href="../../src/strcmp.c">../src/strcmp.c</a> l.67 manpage: <a href="../manpages/string/string.3.rst.html">strcmp</a><br>
+Size: ~32B <a href="../src/string/strcmp.c">../src/string/strcmp.c</a> l.67 manpage: <a href="manpages/string/string.3.rst.html">strcmp</a><br>
 </p>
 </dd>
 <dt>
@@ -97,7 +97,7 @@ strcpy
 <p>
   <em>char <strong>strcpy(char *dest, const char *src)</em><br>
  *copy a string and return a pointer to the end of the result</strong>
-Size: ~84B <a href="../../src/strcpy.c">../src/strcpy.c</a> l.3 manpage: <a href="../manpages/string/string.3.rst.html">strcpy</a><br>
+Size: ~84B <a href="../src/string/strcpy.c">../src/string/strcpy.c</a> l.3 manpage: <a href="manpages/string/string.3.rst.html">strcpy</a><br>
 </p>
 </dd>
 <dt>
@@ -106,9 +106,9 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> strcpy 0 strlen<br>
+ *Defines:</strong> 0 strlen strcpy<br>
  <strong>duplicate a specific number of bytes from a string</strong>
-Size: ~258B <a href="../../src/strdup.c">../src/strdup.c</a> l.7 manpage: <a href="../manpages/string/strdup.3.rst.html">strdup</a><br>
+Size: ~258B <a href="../src/string/strdup.c">../src/string/strdup.c</a> l.7 manpage: <a href="manpages/string/strdup.3.rst.html">strdup</a><br>
 </p>
 </dd>
 <dt>
@@ -118,7 +118,7 @@ strlen
 <p>
   <em>int strlen(const char*str)</em><br>
  <strong>get length of fixed size string</strong>
-Size: ~32B <a href="../../src/strlen.c">../src/strlen.c</a> l.4 manpage: <a href="../manpages/string/strlen.3.rst.html">strlen</a><br>
+Size: ~32B <a href="../src/string/strlen.c">../src/string/strlen.c</a> l.4 manpage: <a href="manpages/string/strlen.3.rst.html">strlen</a><br>
 </p>
 </dd>
 <dt>
@@ -128,7 +128,7 @@ strncasecmp
 <p>
   <em>int strncasecmp(const char*c1,const char*c2,int len)</em><br>
  <strong>case-insensitive string comparisons</strong>
-<a href="../../src/strcmp.c">../src/strcmp.c</a> l.56 manpage: <a href="../manpages/string/string.3.rst.html">strncasecmp</a><br>
+<a href="../src/string/strcmp.c">../src/string/strcmp.c</a> l.56 manpage: <a href="manpages/string/string.3.rst.html">strncasecmp</a><br>
 </p>
 </dd>
 <dt>
@@ -138,7 +138,7 @@ strncmp
 <p>
   <em>int strncmp(const char*c1,const char*c2,int len)</em><br>
  <strong>compare part of two strings</strong>
-Size: ~44B <a href="../../src/strcmp.c">../src/strcmp.c</a> l.75 manpage: <a href="../manpages/string/string.3.rst.html">strncmp</a><br>
+Size: ~44B <a href="../src/string/strcmp.c">../src/string/strcmp.c</a> l.75 manpage: <a href="manpages/string/string.3.rst.html">strncmp</a><br>
 </p>
 </dd>
 <dt>
@@ -147,11 +147,20 @@ strncpy
 <dd>
 <p>
   <em>char <strong>strncpy(char *dest, const char *src, int n)</em><br>
- *Defines:</strong> memcpy<br>
- <strong>copy fixed length string, returning a pointer to the array end</strong>
-Size: ~96B <a href="../../src/strncpy.c">../src/strncpy.c</a> l.4 manpage: <a href="../manpages/string/string.3.rst.html">strncpy</a><br>
+ *copy fixed length string, returning a pointer to the array end</strong>
 </p>
 </dd>
+</dl>
+<a name="strncpy"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>copy max n chars from src to dest,
+ write 0's up to src[n] when len of dest &lt; n
+ Please note strlcpy (borrowed from freebsd),
+ which does the same,
+ but doesn't pad src with 0's.</code></pre>
+</td></tr></table>
+<p>Size: ~96B <a href="../src/string/strncpy.c">../src/string/strncpy.c</a> l.7 manpage: <a href="manpages/string/string.3.rst.html">strncpy</a><br></p>
+<a name="strrchr"></a><dl>
 <dt>
 strrchr
 </dt>
@@ -160,7 +169,7 @@ strrchr
   <em>char <strong>strrchr(const char *s, int c)</em><br>
  *Defines:</strong> strchrnul<br>
  <strong>string scanning operation</strong>
-Size: ~122B <a href="../../src/strchr.c">../src/strchr.c</a> l.36 manpage: <a href="../manpages/string/string.3.rst.html">strrchr</a><br>
+Size: ~122B <a href="../src/string/strchr.c">../src/string/strchr.c</a> l.36 manpage: <a href="manpages/string/string.3.rst.html">strrchr</a><br>
 </p>
 </dd>
 <dt>
@@ -170,7 +179,7 @@ strstr
 <p>
   <em>char* strstr(const char <strong>big, const char *little)</em><br>
  *find a substring</strong>
-Size: ~104B <a href="../../src/strstr.c">../src/strstr.c</a> l.3 manpage: <a href="../manpages/string/strstr.3.rst.html">strstr</a><br>
+Size: ~104B <a href="../src/string/strstr.c">../src/string/strstr.c</a> l.3 manpage: <a href="manpages/string/strstr.3.rst.html">strstr</a><br>
 </p>
 </dd>
 </dl>
@@ -178,7 +187,7 @@ Size: ~104B <a href="../../src/strstr.c">../src/strstr.c</a> l.3 manpage: <a hre
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 19:01:16 CEST
+ 2021-02-14 12:56:52 UTC
 </small></p>
 </body>
 </html>

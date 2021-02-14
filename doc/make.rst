@@ -79,4 +79,6 @@ the includes sources of the plugin.
 
 For further documentation please have a look into README.asc, and the folder ./doc/
 
-Michael (misc) Myer, 2012-2020, BSD 3clause
+Michael (misc) Myer, 2012-2021, all rights reserved. 
+Free use with attribution. Please have a look into 
+the file LICENSE for the licensing terms.

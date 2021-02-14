@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.10">
+<meta name="generator" content="AsciiDoc 9.0.2">
 <title></title>
 </head>
 <body>
@@ -97,6 +97,18 @@ globals_on_stack
 </p>
 </dd>
 <dt>
+mini_errno
+</dt>
+<dd>
+<p>
+        generate the code for the errno variable.<br>
+        This generates some overhead<br>
+        (a few bytes per every syscall, and every function which sets errno;
+        globals are generated as well)<br>
+        Without the switch, syscalls do return the negative errno value on failures.
+</p>
+</dd>
+<dt>
 mini_syscalls
 </dt>
 <dd>
@@ -124,12 +136,41 @@ OPTFLAG -Os
 (compile with debug info)</code></pre>
 </dd>
 <dt>
+OPTIMIZE
+</dt>
+<dd>
+<p>
+        add some speed optimizations, mainly vectorizations for 64bit.<br>
+        This comes naturally with a memory penalty,<br>
+        yet, the raise in memory usage is neglectible. (a few hundred bytes)
+</p>
+</dd>
+<dt>
 STRIPFLAG
 </dt>
 <dd>
 <p>
   stripflag ( defaults to -s)<br>
         Leaving <em>STRIPFLAG</em> alone removes the flag parameter from gcc&#8217;s commandline.
+</p>
+</dd>
+<dt>
+SOURCES file1 file2 &#8230;
+</dt>
+<dd>
+<p>
+        (optional)<br>
+        define other files as sources, to be compiled into the binary.
+</p>
+</dd>
+<dt>
+BINARY name
+</dt>
+<dd>
+<p>
+        (optional)<br>
+        Set the name of the resulting binary.+
+        (supplied to gcc as -o name)
 </p>
 </dd>
 <dt>
@@ -202,12 +243,23 @@ DEBUG
   generate debug info (-O0 -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
 </p>
 </dd>
+<dt>
+DEFINE def value
+</dt>
+<dd>
+<p>
+        add a #define def value
+        "def" and "value" have to be within apostrophes,
+        when they contain either brackets,spaces, or other operators.
+        Multilines are possible, with a preceding \\ before the linebreak.
+</p>
+</dd>
 </dl>
 <p></p>
 <p></p>
 <hr><p><small>
 Last updated
- 2020-08-05 19:01:16 CEST
+ 2021-02-14 12:56:50 UTC
 </small></p>
 </body>
 </html>
