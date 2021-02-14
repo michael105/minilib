@@ -72,8 +72,12 @@ for the exact licensing terms.
 int do_reload_config;
 int do_exit;
 
-// how many directories per page
+// how many directories per (preallocated) page
+// -> (PAGESIZE/16) = 256 for 4kB pages.
+// each path can be in the medium (PAGESIZE-4*256 - 20)/256 Bytes.
+// The notify dirlist ist dynamically grown.
 #define NOTIFY_DIRS (PAGESIZE/16)
+
 // contains the nfd / directory keys
 typedef struct _notify_dirs{
 		p_rel path[NOTIFY_DIRS];
@@ -101,7 +105,6 @@ void ino_dir_init( globals *data ){
 		data->ino_dirs->max = NOTIFY_DIRS;
 		data->ino_dirs->next = 0; // for clarity
 		setaddr( data->ino_dirs->path[0], &data->ino_dirs->stringsstart );
-		//setaddr( data->ino_dirs->path[1], &data->ino_dirs->stringsstart );
 }
 
 
@@ -142,6 +145,15 @@ void ino_dir_destroy( globals *data ){
 		} while ( nod );
 }
 
+notify_dirs *ino_dir_addmapping( notify_dirs* nod ){
+		nod->next = (notify_dirs*)mmap( 0, PAGESIZE, PROT_READ|PROT_WRITE, 
+						MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+		nod = nod->next;
+		nod->max = NOTIFY_DIRS;
+		setaddr( nod->path[0], &nod->stringsstart );
+		return(nod);
+}
+
 void ino_dir_add( int num, const char* path, globals *data ){
 
 		notify_dirs *nod = data->ino_dirs;
@@ -151,22 +163,34 @@ void ino_dir_add( int num, const char* path, globals *data ){
 		}
 		num-= nod->subtract;
 		printf("Append ino2: %d - %s\n", num, path ); 
-		 while( ( num >= nod->max-1) ){ // or addr > map
-				 num-= (nod->max-1);
+
+		 while( ( num >= nod->max-1) ){
+				printf("num: %d  max: %d\n", num, nod->max );
+				 num-=nod->max-1;
 				 if ( nod->next ){
 					 	nod = nod->next;
 				 } else { // append
 						 ewritesl(RED"append mmap"NORM);
-						 nod->next = (notify_dirs*)mmap( 0, PAGESIZE, PROT_READ|PROT_WRITE, 
-										MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-						 nod = nod->next;
-						 nod->max = NOTIFY_DIRS;
-						 setaddr( nod->path[0], &nod->stringsstart );
+						 //goto newmap;
+						 nod = ino_dir_addmapping(nod);
 						 break;
 				 }
 		 }
 		if ( nod->path[num+1] )
 				dief(0,"ino_dirs: num %d already used!\n",num);
+	
+		if ( (int)( (nod->path[num] - sizeof(notify_dirs)) + sizeof(p_rel) + strlen(path))>= PAGESIZE ) {  
+
+				writesl(RED"mmap"NORM);
+				printf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
+					nod->max = num+1; // addr > map
+					num = 0;
+//newmap:
+				nod = ino_dir_addmapping(nod);
+
+				printf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
+		}
+
 
 		char *p = stpcpy( getaddr( nod->path[num] ), path );
 		p++;
@@ -304,6 +328,15 @@ int traverse_dir( const char* path, int maxdepth,
 
 dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 		printsl(" cb: ",path);
+
+		struct stat ststat;
+		if ( !st ){
+				if ( stat( path, &ststat ) != 0 )
+						return(0);
+				st = &ststat;
+				printf("stat in callback %s  %o  %x\n",path,st->st_mode,st->st_mode);
+		}
+
 		dev *d = get_dev_rule( path, st, data );
 		if ( d ){
 				printf("matchmode: %x\n",d->matchmode);
@@ -445,16 +478,20 @@ int reload_config( globals *global ){
 		memcpy(global,&tmp,sizeof(globals));
 
 		ino_dir_destroy( global );
+		
+#if 0
 		printf("nfd: %d\n",global->nfd);
-		//close(global->nfd);
 
-		//int nfd; // inotifyfd
-		//nfd = inotify_init();
-		//die_if ( nfd<0,nfd,"Couldn't reinitiate inotify." );
+		close(global->nfd);
+
+		int nfd; // inotifyfd
+		nfd = inotify_init();
+		die_if ( nfd<0,nfd,"Couldn't reinitiate inotify." );
 
 		// init globals
-		//global->nfd = nfd;
-		//printf("nfd: %d\n",global->nfd);
+		global->nfd = nfd;
+		printf("nfd: %d\n",global->nfd);
+#endif
 
 		ino_dir_init(global);
 
@@ -479,6 +516,10 @@ void sighandler( int signal ){
 						break;
 				case SIGTERM:
 						writesl("Got SIGTERM");
+						do_exit = 1;
+						break;
+				case SIGINT:
+						writesl("Got SIGINT");
 						do_exit = 1;
 						break;
 		}
@@ -509,13 +550,9 @@ int main( int argc, char **argv ){
 		// init globals
 		data.nfd = nfd;
 		data.configfile = configfile;
-		//notify_dirs nod;
-		//nod.max = NOTIFY_DIRS;
-		//nod.next = 0;
-		//data.ino_dirs = &nod;
+
 		ino_dir_init(&data);
 		notify_dirs *nod = data.ino_dirs;
-
 
 		// watch devpath
 		watch_dir( getstr(data.config->p_devpath), &data );
@@ -530,7 +567,8 @@ int main( int argc, char **argv ){
 		sa.sa_flags = 0;
 		sa.sa_handler = sighandler;
 
-		if ( sigaction (SIGUSR1, &sa, 0) || sigaction (SIGTERM, &sa, 0) )
+		if ( sigaction (SIGUSR1, &sa, 0) || sigaction (SIGTERM, &sa, 0) ||
+				 sigaction (SIGINT, &sa, 0) )
 				ewrites("Couldn't install signal handler");
 		// continue anyways.
 
@@ -570,10 +608,9 @@ int main( int argc, char **argv ){
 						e = (const struct inotify_event *) p;
 						if ( e->wd < data.ino_dirs->subtract )
 								continue; // got an event of a removed watch
+
 						printsl( "event: ", e->name );
-						//char *c = stpcpy( path, nod.path[e->wd] );
 						char *c = stpcpy( path, ino_dir_get(e->wd,&data) );
-						//char *c = "              ";
 						*c = '/';
 						c++;
 						strcpy( c, e->name );
@@ -581,6 +618,7 @@ int main( int argc, char **argv ){
 
 						dev* d = dev_cb( path, 0, -1, &data ); // todo. wrong. slightly
 						if ( d ){ //match
+								writesl("back");
 								//apply_dev_rule( path, 0, d, &data );
 								dev_action( path, d, &data );
 						}
