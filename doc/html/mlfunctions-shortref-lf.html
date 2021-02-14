@@ -1651,11 +1651,11 @@
   flags will be random. (I still do not know, what 
   the flag showing up as "-T" means..)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  24 </small></td><td><small>  DIR *opendir(const char *name );
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small>  DIR *opendir(const char *name );
 </small></td></tr>
-<tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  10 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
+<tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  151 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendirp.c" target="right">../src/dirent/opendirp.c</a>  151 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.

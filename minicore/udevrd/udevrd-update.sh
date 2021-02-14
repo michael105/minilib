@@ -7,6 +7,7 @@
 function endconfig(){
 		#printf '%-31s\n' "$logprefix" | sed -E 's/ /\x0/g;s/\x0([[:alpha:]])/ \1/g'
 		echo $loglevel
+		echo $kmsglog
 		echo $logfacility
 		echo $logcolor
 		echo $logprefix
@@ -16,6 +17,11 @@ function endconfig(){
 
 function conf_devpath(){
 		devpath=$1
+}
+
+
+function conf_kmsglog(){
+		kmsglog=$1
 }
 
 

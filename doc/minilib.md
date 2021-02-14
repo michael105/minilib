@@ -16,7 +16,7 @@ closedir       int closedir(DIR *dir);
 
 opendir        static DIR *opendir(const char *name );
 
-               (src/dirent/opendir.c: 24)
+               (src/dirent/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
 
@@ -1280,7 +1280,7 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
-               (src/dirent/opendir.c: 10)
+               (src/dirent/opendirp.c: 5)
 
 optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
 

@@ -8,9 +8,10 @@
 
 typedef unsigned int p_rel;
 
-#define CONF_INTEGERS 3
+#define CONF_INTEGERS 4
 typedef struct _conf {
 		uint loglevel;
+		uint kmsglog;
 		uint logfacility;
 		uint logcolor;
 		p_rel p_logprefix;
