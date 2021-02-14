@@ -135,6 +135,10 @@ DEFINE(){
 		#echo "#define" $1 $2
 }
 
+embed(){
+		export embed="$*"
+}
+
 # Everything below will be silently overwritten,
 # when make header ist invoked
 

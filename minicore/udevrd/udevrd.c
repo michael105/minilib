@@ -33,6 +33,9 @@ return
 
 #include "udevrd.conf.h"
 
+//extern char* _binary_udevrd_conf_bin_start;
+//extern char* _binary_udevrd_conf_bin_end;
+
 /*
 
 (c) 2021 AGPLv3 (misc)
@@ -71,7 +74,80 @@ for the exact licensing terms.
 
 
 int do_reload_config;
+int load_embedded_config;
 int do_exit;
+
+
+//#define DEBUG
+
+#ifdef dbg
+#undef dbg
+#endif
+
+#ifdef dbgs
+#undef dbgs
+#endif
+
+#ifdef dbgf
+#undef dbgf
+#endif
+
+
+#ifdef DEBUG
+#define dbg(msg) ewritesl(msg)
+#define dbgs(...) eprintsl(__VA_ARGS__)
+#define dbgf(fmt,...) eprintf(fmt,__VA_ARGS__)
+#else
+#define dbg(msg) {}
+#define dbgs(...) {}
+#define dbgf(fmt,...) {}
+#endif
+
+#define warnings( ...) eprintsl(RED,__VA_ARGS__,NORM)
+#define warning( msg ) ewritesl(RED msg NORM)
+#define errors( ...) eprintsl(RED,__VA_ARGS__,NORM)
+
+// omit logging calls ( LOGLEVEL < loglevel )
+#define LOGLEVEL 2
+
+#define  _log( msg) ewritesl(msg)
+#define _logs( ...) eprintsl(__VA_ARGS__)
+#define _logf( fmt,...) eprintf(fmt,__VA_ARGS__)
+
+#if LOGLEVEL>2
+#define  log3( msg) _log(msg)
+#define logs3( ...) _logs(__VA_ARGS__)
+#define logf3( fmt,...) _logf(fmt,__VA_ARGS__)
+#else
+#define  log3( msg) {}
+#define logs3( ...) {}
+#define logf3( fmt,...) {}
+#endif
+
+#if LOGLEVEL>1
+#define  log2( msg) _log(msg)
+#define logs2( ...) _logs(__VA_ARGS__)
+#define logf2( fmt,...) _logf(fmt,__VA_ARGS__)
+#else
+#define  log2( msg) {}
+#define logs2( ...) {}
+#define logf2( fmt,...) {}
+#endif
+
+
+
+#define  log1( msg) _log(msg)
+#define logs1( ...) _logs(__VA_ARGS__)
+#define logf1( fmt,...) _logf(fmt,__VA_ARGS__)
+
+
+
+#define log( loglevel, msg) log##loglevel(msg)
+#define logs( loglevel, ...) logs##loglevel(__VA_ARGS__)
+#define logf( loglevel, fmt,...) logf##loglevel(fmt,__VA_ARGS__)
+
+
+
 
 // how many directories per (preallocated) page
 // -> (PAGESIZE/16) = 256 for 4kB pages.
@@ -117,7 +193,7 @@ const char* ino_dir_get( int num, globals *data ){
 				return(0); // closing the inotify fd didn't work out here
 		// so every watch needs to be removed. :/
 
-		printf("Get ino: %d\n", num ); 
+		dbgf("Get ino: %d\n", num ); 
 		 while( ( num >= nod->max-1) ){ // or addr > map
 				 num-= (nod->max-1);
 				 if ( nod->next ){
@@ -128,18 +204,18 @@ const char* ino_dir_get( int num, globals *data ){
 				 }
 		 }
 
-		eprintsl( "Got: ", RED, getaddr( nod->path[num] ), NORM );
+		dbgs( "Got: ", RED, getaddr( nod->path[num] ), NORM );
 		return( getaddr( nod->path[num] ) );
 }
 
 void ino_dir_destroy( globals *data ){
 		notify_dirs *nod = data->ino_dirs;
 		for (int a = nod->subtract;ino_dir_get(a,data);a++){
-				printf(CYAN"remove: %d\n"NORM, a );
+				dbgf(CYAN"remove: %d\n"NORM, a );
 				inotify_rm_watch(data->nfd,a);
 		}
 		do {
-				ewritesl("unmap");
+				dbg("unmap");
 				char *tmp = (char*) nod;
 				nod = nod->next;
 				munmap( tmp, PAGESIZE );
@@ -158,20 +234,20 @@ notify_dirs *ino_dir_addmapping( notify_dirs* nod ){
 void ino_dir_add( int num, const char* path, globals *data ){
 
 		notify_dirs *nod = data->ino_dirs;
-		printf("Append ino: %d - %s\n", num, path ); 
+		dbgf("Append ino: %d - %s\n", num, path ); 
 		if ( !nod->subtract ){
 				nod->subtract = num;
 		}
 		num-= nod->subtract;
-		printf("Append ino2: %d - %s\n", num, path ); 
+		dbgf("Append ino2: %d - %s\n", num, path ); 
 
 		 while( ( num >= nod->max-1) ){
-				printf("num: %d  max: %d\n", num, nod->max );
+				dbgf("num: %d  max: %d\n", num, nod->max );
 				 num-=nod->max-1;
 				 if ( nod->next ){
 					 	nod = nod->next;
 				 } else { // append
-						 ewritesl(RED"append mmap"NORM);
+						 dbg(RED"append mmap"NORM);
 						 //goto newmap;
 						 nod = ino_dir_addmapping(nod);
 						 break;
@@ -182,21 +258,21 @@ void ino_dir_add( int num, const char* path, globals *data ){
 	
 		if ( (int)( (nod->path[num] - sizeof(notify_dirs)) + sizeof(p_rel) + strlen(path))>= PAGESIZE ) {  
 
-				writesl(RED"mmap"NORM);
-				printf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
+				dbg(RED"mmap"NORM);
+				dbgf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
 					nod->max = num+1; // addr > map
 					num = 0;
 //newmap:
 				nod = ino_dir_addmapping(nod);
 
-				printf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
+				dbgf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
 		}
 
 
 		char *p = stpcpy( getaddr( nod->path[num] ), path );
 		p++;
 		setaddr(nod->path[num+1],p);
-		eprintsl( "appended: ", getaddr( nod->path[num] ) );
+		dbgs( "appended: ", getaddr( nod->path[num] ) );
 }
 
 
@@ -204,7 +280,7 @@ void ino_dir_add( int num, const char* path, globals *data ){
 // returns 0 on error
 int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals *data ){
 
-		writesl("apply_dev_rule");
+		logs(2,"apply rule to ",fullpath);
 		struct stat ststat;
 		if ( !st ){
 				if ( lstat( fullpath, &ststat ) != 0 )
@@ -213,18 +289,18 @@ int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals 
 		}
 
 		if ( (st->st_mode & 0777) != device->access ){
-				writesl("mode differs");
+				logf(3,"chmod: %o\n",device->access);
 				chmod( fullpath, device->access );
 		}
 
 		if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
-				printf(RED"change id: %d:%d\n"NORM,device->owner,device->group);
+				logf(3,"change id: %d:%d\n",device->owner,device->group);
 				chown( fullpath, device->owner, device->group );
 		}
 
 		char *s = getstr( device->p_link );
 		if ( s[0] ){ // len > 0
-				printsl( "link: :", fullpath, " - ", s );
+				logs( 3, "link: ", fullpath, " - ", s );
 				symlink( fullpath, s );
 		}
 
@@ -239,11 +315,11 @@ void dev_action( const char* path, dev* device, globals *data ){
 				char *p = stpcpy(buf,s);
 				*p = ' ';p++;
 				strncpy(p,path,(buf+256)-p);
-				printsl("Execute: ", buf );
+				logs(1,"Execute: ", buf );
 				int pid = vfork();
 				if ( pid == 0 ){
 						execl( "/bin/sh", "/bin/sh", "-c", buf, (char*)0 );
-						eprintsl("Couldn't execute ", buf );
+						warnings("Couldn't execute ", buf );
 						_exit(1);
 				}
 		}
@@ -258,51 +334,51 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 				if ( lstat( path, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
-				printf("stat in devrule: %s  %o  %x\n",path,st->st_mode,st->st_mode);
+				dbgf("stat in devrule: %s  %o  %x\n",path,st->st_mode,st->st_mode);
 		}
 
 		for ( dev* device = data->devices; device; device=nextdev(device) ){
 				if ( match( (char*)path, getstr(device->p_match),0) ){ // pattern match
-						printf(LGREEN" st_mode: %X  matchmode: %X  pattern:%s\n"NORM,
+						dbgf(LGREEN" st_mode: %X  matchmode: %X  pattern:%s\n"NORM,
 										st->st_mode,device->matchmode, getaddr(device->p_match));
 
 						if (device->matchmode & 040000000){ // matchall (*)
-								writesl("matchall");
+								dbg("matchall");
 								return(device);
 						}
 
 						if ( !(( st->st_mode & MODMASK ) ^ S_IFDIR )){ // is a directory
-								writesl("isdir");
+								dbg("isdir");
 								if ( !((device->matchmode & MODMASK ) ^ S_IFDIR ) ){
-										printsl(LBLUE"matched, directory: ",path,NORM);
+										dbgs(LBLUE"matched, directory: ",path,NORM);
 										return( device );
 								}
 						} else { // not a directory
 
-								writesl("no mcdir");
+								dbg("no mcdir");
 								if (device->matchmode & 020000000){ // matchall but dir (x)
-										writesl("x");
+										dbg("x");
 										return(device);
 								}
 
 								if (device->matchmode & 010000000){ // match dev (block|char)
 										if ( st->st_mode & 060000 ){ // block or char
-												writesl("match dev");
+												dbg("match dev");
 												return(device);
 										}
 								}
 
 								if ( ((device->matchmode & MODMASK ) ^ S_IFDIR ) ){ // don't match for dir
 										if ( !((st->st_mode & MODMASK) ^ ( device->matchmode & MODMASK )) ){ // match ino type
-												printsl(CYAN"matched: ",path,NORM);
-												printf(" st_mode: %x  matchmode: %x\n",st->st_mode,device->matchmode);
+												dbgs(CYAN"matched: ",path,NORM);
+												dbgf(" st_mode: %x  matchmode: %x\n",st->st_mode,device->matchmode);
 												return( device );
 										}
 								}
 						}
 				} // pattern match
 		} // for
-		writesl(MAGENTA"No Match"NORM);
+		dbg(MAGENTA"No Match"NORM);
 
 		return(0);
 }
@@ -310,14 +386,14 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 
 int watch_dir(const char* path, globals *data){
 
-		printsl("Add watch to ",path);
+		dbgs("Add watch to ",path);
 		int ir = inotify_add_watch(data->nfd, path, IN_CREATE );
 		if ( ir<0 ){ 
-				eprintsl("Couldn't add an inotify watch for ", path );
+				warnings("Couldn't add an inotify watch for ", path );
 		}
 		//data->ino_dirs->path[ir] = (char*)strdup( path );
 		ino_dir_add(ir, path, data); 
-		printf("inotify fd: %d\n", ir );
+		dbgf("inotify fd: %d\n", ir );
 		return( ir );
 }
 
@@ -328,22 +404,22 @@ int traverse_dir( const char* path, int maxdepth,
 
 
 dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
-		printsl(" cb: ",path);
+		dbgs(" cb: ",path);
 
 		struct stat ststat;
 		if ( !st ){
 				if ( lstat( path, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
-				printf("stat in callback %s  %o  %x\n",path,st->st_mode,st->st_mode);
+				dbgf("stat in callback %s  %o  %x\n",path,st->st_mode,st->st_mode);
 		}
 
 		dev *d = get_dev_rule( path, st, data );
 		if ( d ){
-				printf("matchmode: %x\n",d->matchmode);
+				dbgf("matchmode: %x\n",d->matchmode);
 				//if ( d->matchmode & st->st_mode ){
 						if ( !((st->st_mode & MODMASK ) ^ S_IFDIR )){ // is dir
-								printsl( "cb dir: ",path);
+								dbgs( "cb dir: ",path);
 
 								if ( d->matchmode & 01000000 ) 
 										apply_dev_rule( path, st, d, data );
@@ -378,7 +454,7 @@ int traverse_dir( const char* path, int maxdepth,
 		maxdepth--;
 
 		DIR *dir = opendir( path );
-		printsl("opendir: ",path);
+		dbgs("opendir: ",path);
 		if ( !dir )
 				return(0);
 
@@ -408,10 +484,10 @@ int traverse_dir( const char* path, int maxdepth,
 
 // return 0 on success
 int load_config( const char* configfile, globals *gl ){
-
+		log(1,"load config");
 		int fd = open( configfile, O_RDONLY, 0 );
 		if( fd<0 ){
-				eprintsl( "Couldn't open ", configfile );
+				errors( "Couldn't open config: ", configfile );
 				return(fd);
 		}
 		// prevent raceconditions
@@ -419,20 +495,20 @@ int load_config( const char* configfile, globals *gl ){
 
 		struct stat ststat;
 		fstat(fd, &ststat );
-		printf("Size: %d\n", ststat.st_size);
+		dbgf("Size: %d\n", ststat.st_size);
 	
 		char* mapping = mmap(0,ststat.st_size, PROT_READ, MAP_PRIVATE|MAP_POPULATE, fd, 0 );
 		if ( mapping<=(POINTER)0 ){
-				ewrites( "Couldn't map into memory" );
+				errors( "Couldn't map into memory" );
 				close(fd);
 				return( (int)(POINTER)mapping );
 		}
 
-		printf( "mgc: %x\n", *(int*)mapping );
+		dbgf( "mgc: %x\n", *(int*)mapping );
 		if ( *(int*)mapping != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
-				eprintsl( "The configuration file doesn't look correct.\n", configfile );
+				errors( "The configuration file doesn't look correct.\n", configfile );
 				return(-14);
 		}
 
@@ -445,7 +521,7 @@ int load_config( const char* configfile, globals *gl ){
 		if ( *(int*)(getaddr(d->p_next)+sizeof(p_rel)) != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
-				eprintsl( "The configuration file is scrambled.\n", configfile );
+				errors( "The configuration file is scrambled.\n", configfile );
 				return(-14);
 		}
 
@@ -457,7 +533,7 @@ int load_config( const char* configfile, globals *gl ){
 		gl->mapping = mapping;
 		gl->mappingsize = ststat.st_size;
 
-		writesl("Configuration loaded\n");
+		log(2,"Configuration loaded\n");
 		flock(fd,LOCK_UN);
 
 		return(0);
@@ -469,7 +545,7 @@ int reload_config( globals *global ){
 		globals tmp;
 		memcpy(&tmp,global,sizeof(globals));
 		if ( load_config( global->configfile, &tmp ) ){
-				ewritesl("Couldn't update the config");
+				warning("Couldn't reload the config");
 				return(1);
 		}
 
@@ -512,15 +588,20 @@ int reload_config( globals *global ){
 void sighandler( int signal ){
 		switch (signal){ 
 				case SIGUSR1:
-						writesl("sigusr1");
+						log(2,"sigusr1");
 						do_reload_config = 1; // reload config
 						break;
+				case SIGUSR2:
+						log(2,"sigusr2");
+						load_embedded_config = 1; // reload config
+						break;
+
 				case SIGTERM:
-						writesl("Got SIGTERM");
+						log(2,"Got SIGTERM");
 						do_exit = 1;
 						break;
 				case SIGINT:
-						writesl("Got SIGINT");
+						log(2,"Got SIGINT");
 						do_exit = 1;
 						break;
 		}
@@ -528,12 +609,15 @@ void sighandler( int signal ){
 
 
 int main( int argc, char **argv ){
+
+		log(1,"Starting udevrd");
 		
 		// read configuration
 		char *configfile = COMPILEDCONFIG;
 	
 		// set by the signal handler
 		do_reload_config = 0;
+		load_embedded_config = 0;
 		do_exit = 0;
 
 
@@ -569,7 +653,7 @@ int main( int argc, char **argv ){
 		sa.sa_handler = sighandler;
 
 		if ( sigaction (SIGUSR1, &sa, 0) || sigaction (SIGTERM, &sa, 0) ||
-				 sigaction (SIGINT, &sa, 0) )
+				  sigaction (SIGUSR2, &sa, 0) || sigaction (SIGINT, &sa, 0) )
 				ewrites("Couldn't install signal handler");
 		// continue anyways.
 
@@ -577,7 +661,7 @@ int main( int argc, char **argv ){
 
 #define BUFLEN 1024
 		char buf[BUFLEN];
-		writesl("Ok");
+		dbg("Ok");
 		const struct inotify_event *e;
 		char path[PATH_MAX];
 
@@ -588,7 +672,22 @@ int main( int argc, char **argv ){
 						if ( do_exit )
 								break;
 
+#if 0
+						if ( load_embedded_config ){
+								char* mapping = _binary_udevrd_conf_bin_start;
+								data.devices = firstdev(mapping);
+								data.config = getconfig(mapping);
+								data.configfd = 0;
+								data.mapping = mapping;
+								data.mappingsize = 0;
+								load_embedded_config = 0;
+						}
+#endif
+
+
+
 						if ( do_reload_config ){ // got sigusr1
+								log(2,"Reload configuration");
 								reload_config( &data );
 								do_reload_config = 0;
 
@@ -610,16 +709,16 @@ int main( int argc, char **argv ){
 						if ( e->wd < data.ino_dirs->subtract )
 								continue; // got an event of a removed watch
 
-						printsl( "event: ", e->name );
+						dbgs( "event: ", e->name );
 						char *c = stpcpy( path, ino_dir_get(e->wd,&data) );
 						*c = '/';
 						c++;
 						strcpy( c, e->name );
-						writesl(" matching ");
+						dbg(" matching ");
 
 						dev* d = dev_cb( path, 0, -1, &data ); // todo. wrong. slightly
 						if ( d ){ //match
-								writesl("back");
+								dbg("back");
 								//apply_dev_rule( path, 0, d, &data );
 								dev_action( path, d, &data );
 						}
@@ -628,7 +727,7 @@ int main( int argc, char **argv ){
 		}
 
 		// exit
-		writesl("Got SIGTERM. Exit.\n");
+		log(1,"Exit.\n");
 		return(0);
 }
 
