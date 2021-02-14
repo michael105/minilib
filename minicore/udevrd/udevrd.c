@@ -551,6 +551,11 @@ int main( int argc, char **argv ){
 		
 		// read configuration
 		char *configfile = COMPILEDCONFIG;
+
+		if ( argc>2 ){
+				if ( argv[1][0] == '-' && argv[1][1] == 'c' )
+						configfile = argv[2];
+		}
 	
 		// set by the signal handler
 		do_reload_config = 0;
