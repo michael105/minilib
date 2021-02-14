@@ -108,7 +108,7 @@ int do_exit;
 #define errors( ...) eprintsl(RED,__VA_ARGS__,NORM)
 
 // omit logging calls ( LOGLEVEL < loglevel )
-#define LOGLEVEL 2
+#define LOGLEVEL 3
 
 #define  _log( msg) ewritesl(msg)
 #define _logs( ...) eprintsl(__VA_ARGS__)
@@ -416,6 +416,7 @@ dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 
 		dev *d = get_dev_rule( path, st, data );
 		if ( d ){
+				logs(2, LGREEN"matched rule: ", getstr(d->p_match),NORM);
 				dbgf("matchmode: %x\n",d->matchmode);
 				//if ( d->matchmode & st->st_mode ){
 						if ( !((st->st_mode & MODMASK ) ^ S_IFDIR )){ // is dir
