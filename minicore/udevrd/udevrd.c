@@ -233,6 +233,7 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 				if ( stat( path, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
+				printf("stat in devrule: %s  %o  %x\n",path,st->st_mode,st->st_mode);
 		}
 
 		for ( dev* device = data->devices; device; device=nextdev(device) ){
@@ -243,14 +244,17 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 						if (device->matchmode & 040000000){ // matchall (*)
 								writesl("matchall");
 								return(device);
+						}
 
 						if ( !(( st->st_mode & MODMASK ) ^ S_IFDIR )){ // is a directory
+								writesl("isdir");
 								if ( !((device->matchmode & MODMASK ) ^ S_IFDIR ) ){
 										printsl(LBLUE"matched, directory: ",path,NORM);
 										return( device );
 								}
 						} else { // not a directory
 
+								writesl("no mcdir");
 								if (device->matchmode & 020000000){ // matchall but dir (x)
 										writesl("x");
 										return(device);
@@ -271,9 +275,9 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 										}
 								}
 						}
-				}
-		} // pattern match
+				} // pattern match
 		} // for
+		writesl(MAGENTA"No Match"NORM);
 
 		return(0);
 }
