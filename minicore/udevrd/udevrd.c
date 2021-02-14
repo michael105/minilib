@@ -206,7 +206,7 @@ int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals 
 		writesl("apply_dev_rule");
 		struct stat ststat;
 		if ( !st ){
-				if ( stat( fullpath, &ststat ) != 0 )
+				if ( lstat( fullpath, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
 		}
@@ -254,7 +254,7 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 
 		struct stat ststat;
 		if ( !st ){
-				if ( stat( path, &ststat ) != 0 )
+				if ( lstat( path, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
 				printf("stat in devrule: %s  %o  %x\n",path,st->st_mode,st->st_mode);
@@ -331,7 +331,7 @@ dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 
 		struct stat ststat;
 		if ( !st ){
-				if ( stat( path, &ststat ) != 0 )
+				if ( lstat( path, &ststat ) != 0 )
 						return(0);
 				st = &ststat;
 				printf("stat in callback %s  %o  %x\n",path,st->st_mode,st->st_mode);
@@ -394,7 +394,7 @@ int traverse_dir( const char* path, int maxdepth,
 
 				struct stat st;
 				strcpy( p, de->d_name );
-				if ( stat( pathname, &st ) != 0 )
+				if ( lstat( pathname, &st ) != 0 )
 						continue;
 
 				if ( callback )
