@@ -2,4 +2,5 @@
 
 ./abort
 
-return 0
+echo ok
+
