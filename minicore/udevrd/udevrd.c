@@ -3,6 +3,9 @@ mini_start;mini_writes;mini_open;mini_read;mini_exit_errno;mini_usleep
 mini_strlcpy;mini_strcpy;mini_strncpy;mini_strdup;mini_stpcpy;
 mini_group_write
 mini_group_printf
+mini_itohex;
+mini_itoHEX;
+
 
 mini_die_if;mini_dies_if;mini_die;mini_dief;mini_mmap
 
@@ -233,23 +236,44 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 		}
 
 		for ( dev* device = data->devices; device; device=nextdev(device) ){
-				if ( match( (char*)path, getstr(device->p_match),0) ){
-				if ( !(( st->st_mode & MODMASK ) ^ S_IFDIR )){ // is directory
-						if ( !((device->matchmode & MODMASK ) ^ S_IFDIR ) ){
-								printsl(LBLUE"matched, directory: ",path,NORM);
-								return( device );
-						}
-				} else { // not a directory
-						if ( ((device->matchmode & MODMASK ) ^ S_IFDIR ) ){ // don't match for dir
-								if ( !((st->st_mode & MODMASK) ^ ( device->matchmode & MODMASK )) ){ // match ino type
-										printsl(CYAN"matched: ",path,NORM);
-										printf(" st_mode: %x  matchmode: %x\n",st->st_mode,device->matchmode);
+				if ( match( (char*)path, getstr(device->p_match),0) ){ // pattern match
+						printf(LGREEN" st_mode: %X  matchmode: %X  pattern:%s\n"NORM,
+										st->st_mode,device->matchmode, getaddr(device->p_match));
+
+						if (device->matchmode & 040000000){ // matchall (*)
+								writesl("matchall");
+								return(device);
+
+						if ( !(( st->st_mode & MODMASK ) ^ S_IFDIR )){ // is a directory
+								if ( !((device->matchmode & MODMASK ) ^ S_IFDIR ) ){
+										printsl(LBLUE"matched, directory: ",path,NORM);
 										return( device );
+								}
+						} else { // not a directory
+
+								if (device->matchmode & 020000000){ // matchall but dir (x)
+										writesl("x");
+										return(device);
+								}
+
+								if (device->matchmode & 010000000){ // match dev (block|char)
+										if ( st->st_mode & 060000 ){ // block or char
+												writesl("match dev");
+												return(device);
+										}
+								}
+
+								if ( ((device->matchmode & MODMASK ) ^ S_IFDIR ) ){ // don't match for dir
+										if ( !((st->st_mode & MODMASK) ^ ( device->matchmode & MODMASK )) ){ // match ino type
+												printsl(CYAN"matched: ",path,NORM);
+												printf(" st_mode: %x  matchmode: %x\n",st->st_mode,device->matchmode);
+												return( device );
+										}
 								}
 						}
 				}
-				}
-		}
+		} // pattern match
+		} // for
 
 		return(0);
 }

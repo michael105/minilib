@@ -492,6 +492,12 @@ fgetud         unsigned int fgetud(FILE* F);
               reads all digits until a nondigit is read.
                (src/fgetud.c: 5)
 
+fgetul         unsigned long int fgetul(FILE* F);
+
+               read an unsigned long integer from the stream F
+              reads all digits until a nondigit is read.
+               (src/fgetul.c: 5)
+
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
                prints formatted and unbuffered output to the stream F.

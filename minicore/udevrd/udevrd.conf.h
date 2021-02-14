@@ -28,6 +28,7 @@ typedef struct _watchdir_patterns{
 		p_rel p_match;
 } watchdir_patterns;
 
+//#define DEV_INTEGERS 8
 #define DEV_INTEGERS 8
 #define DEV_STRINGS 5
 // struct containing the configuration for a device link.

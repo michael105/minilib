@@ -77,10 +77,14 @@ function stripx(){
 
 function tt(){
     echo $(( 8#`echo "$1" | sed \
-		's/^x/0730000/; \
-		s/\*>/07777777/; s/dir>/07040000/; \
-		s/dir+/03040000/; s/dir-/040000/; s/dir/01040000/;   \
-		 s/\*/0777777/; s/dev/block|char/; \
+		's/^x/020000000/; \
+		s/\*>/027770000/; \
+	        s/dir>/07040000/; \
+		s/dir+/03040000/; \
+		  s/dir-/040000/; \
+		 s/dir/01040000/; \
+		 s/\*/040000000/; \
+		s/dev/010000000/; \
 		s/file/0100000/; s/socket/0140000/; s/link/0120000/;\
 		 s/block/060000/; s/char/020000/; s/fifo/010000/; s/|/|8#/g'` ))
     # distinguish between block and char device

@@ -4,8 +4,11 @@ mini_group_write
 
 mini_printf;mini_itohex;mini_ltodec;mini_printsl;mini_eprintsl;mini_itodec;
 mini_strlen;mini_dprints;mini_dies_if;mini_die_if;mini_open;mini_mmap;mini_msync;
+mini_itohex;
+mini_itoHEX;
 
-mini_fgets;mini_fgetud;mini_fgetsn;mini_fgetsp;mini_ALIGN
+mini_fgets;mini_fgetud;mini_fgetsn;mini_fgetsp;mini_fgetul
+mini_ALIGN
 
 mini_shortcolornames
 
@@ -115,9 +118,14 @@ int main(int argc, char **argv){
 				}
 
 				pi++; // skip p_next
+				//long *pl = (long*)pi;
+				//*pl = fgetul(stdin);
+				//printf("pl: %ld\n",*pl);
+				//pi+=2;
+
 				for ( int a = DEV_INTEGERS; (a-->0);){
 						*pi = fgetud(stdin);
-						//printf( "pi: %d\n", *pi );
+						printf( "pi: %d\n", *pi );
 						pi++;
 				}
 				flen = (char*)device - mapping;
@@ -169,6 +177,7 @@ int main(int argc, char **argv){
 				//printf( "addr: %lx  %ld\n", device, device );
 				printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
 				printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
+				printf( "matchmode: %x\n", device->matchmode );
 		};
 
 

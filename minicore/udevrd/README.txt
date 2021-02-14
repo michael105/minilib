@@ -6,7 +6,12 @@
 Work in progress - it's a backup copy. (2021/02)
 
 A slim resource friendly udevd daemon. 
-Less than 8kB linked statically with minilib.
+
+Generically implemented this can be used to watch all sorts of directories
+recursively and change owner, group, access rights, create links,
+or execute actions on file creation or deletion.
+
+Less than 12kB linked statically with minilib.
 Uses the inotify interface.
 
 
