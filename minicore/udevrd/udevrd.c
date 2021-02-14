@@ -94,7 +94,7 @@ int do_exit;
 
 
 #ifdef DEBUG
-#define dbg(msg) ewritesl(msg)
+#define dbg(msg) {ewritesl(msg);}
 #define dbgs(...) eprintsl(__VA_ARGS__)
 #define dbgf(fmt,...) eprintf(fmt,__VA_ARGS__)
 #else
@@ -103,14 +103,18 @@ int do_exit;
 #define dbgf(fmt,...) {}
 #endif
 
+#define warning( msg ) {ewritesl(RED msg NORM);}
 #define warnings( ...) eprintsl(RED,__VA_ARGS__,NORM)
-#define warning( msg ) ewritesl(RED msg NORM)
+
+#define warnif( when, msg ) if(when) warning(msg)
+
+
 #define errors( ...) eprintsl(RED,__VA_ARGS__,NORM)
 
 // omit logging calls ( LOGLEVEL < loglevel )
 #define LOGLEVEL 3
 
-#define  _log( msg) ewritesl(msg)
+#define  _log( msg) {ewritesl(msg);}
 #define _logs( ...) eprintsl(__VA_ARGS__)
 #define _logf( fmt,...) eprintf(fmt,__VA_ARGS__)
 
@@ -290,18 +294,18 @@ int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals 
 
 		if ( (st->st_mode & 0777) != device->access ){
 				logf(3,"chmod: %o\n",device->access);
-				chmod( fullpath, device->access );
+				warnif(chmod( fullpath, device->access ), "Couldn't set access rights");
 		}
 
 		if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
 				logf(3,"change id: %d:%d\n",device->owner,device->group);
-				chown( fullpath, device->owner, device->group );
+				warnif(chown( fullpath, device->owner, device->group ), "Couldn't change owner");
 		}
 
 		char *s = getstr( device->p_link );
 		if ( s[0] ){ // len > 0
 				logs( 3, "link: ", fullpath, " - ", s );
-				symlink( fullpath, s );
+				warnif(symlink( fullpath, s ),"Couldn't create symbolic link");
 		}
 
 		return(1);
@@ -315,9 +319,14 @@ void dev_action( const char* path, dev* device, globals *data ){
 				char *p = stpcpy(buf,s);
 				*p = ' ';p++;
 				strncpy(p,path,(buf+256)-p);
-				logs(1,"Execute: ", buf );
+				logs(2,"Execute: ", buf );
 				int pid = vfork();
 				if ( pid == 0 ){
+						if ( setgid( device->exec_gid ) )
+								warning("Couldn't set the gid");
+						if ( setuid( device->exec_uid ) )
+								warning("Couldn't set the uid");
+
 						execl( "/bin/sh", "/bin/sh", "-c", buf, (char*)0 );
 						warnings("Couldn't execute ", buf );
 						_exit(1);
