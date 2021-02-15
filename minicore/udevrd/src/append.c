@@ -23,7 +23,7 @@ return
 void writefile(int fd){
 	char buf[4096];
 	int l, len=0;
-	while ( l=read(0,buf,4096) ){
+	while ( (l=read(0,buf,4096)) ){
 		write(fd,buf,l);
 		len+=l;
 	}

@@ -19,14 +19,14 @@ install: all
 	cp append /usr/bin/append
 	cp udevrd-appendconf.sh /usr/sbin/
 
-udevrd: udevrd.c udevrd.conf.h udevrd.conf.bin append log.h
+udevrd: udevrd.c udevrd.conf.h ../udevrd.conf.bin append log.h
 	$(MCC) udevrd.c
 	@echo appending config to udevrd
 	cat ../udevrd.conf.bin | ./append -a udevrd
 	@ls -l udevrd
 
 
-udevrd.conf.bin: udevrd.conf udevrd-writeconf
+../udevrd.conf.bin: ../udevrd.conf udevrd-writeconf
 	../scripts/udevrd-update.sh ../udevrd.conf
 
 udevrd-writeconf: udevrd-writeconf.c udevrd.conf.h common.conf
