@@ -18,6 +18,9 @@ mini_match
 mini_sigaction
 mini_ansicolors;mini_shortcolornames
 
+mini_snprintfs
+mini_stpncpy
+
 mini_buf 512
 
 source common.conf
@@ -546,6 +549,9 @@ void sighandler( int signal ){
 
 
 int main( int argc, char **argv ){
+
+		initlog(KERNEL|STDERR,argv[0],3);
+		setloglevel(KERNEL,3);
 
 		log(1,"Starting udevrd");
 		

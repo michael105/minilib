@@ -503,7 +503,7 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
               no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
-               (src/fprintfs.c: 10)
+               (src/fprintfs.c: 8)
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
@@ -1442,10 +1442,31 @@ snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
                (src/snprintf.c: 5)
 
+snprintfs      int snprintfs( char* buf, int size, char *fmt, ...);
+
+               prints formatted and unbuffered output into buf.
+              only %s and %c are recognized.
+              snprintfs instead of snprintf can save some bytes.
+               (src/snprintfs.c: 7)
+
 stpcpy         char *stpcpy(char *dest, const char *src);
 
                copy src to dest, return a pointer to the last char +1 ( ending '0' )
                (src/string/stpcpy.c: 3)
+
+stplcpy        char *stplcpy(char *dest, const char *src, int size);
+
+               copy src to dest, return a pointer to the last char +1 ( ending '0' )
+              doesn't pad dest with 0, when size<src;
+               (src/string/stplcpy.c: 4)
+
+stpncpy        char *stpncpy(char *dest, const char *src, int size);
+
+               copy src to dest, return a pointer to the last char +1 ( ending '0' )
+              Please note stplcpy (terminology borrowed from freebsd), 
+              which does the same,
+              but doesn't pad dest with 0's.
+               (src/string/stpncpy.c: 6)
 
 strlcpy        char *strlcpy(char *dest, const char *src, int n);
 
@@ -2398,7 +2419,7 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               write 0's up to src[n] when len of dest < n
               Please note strlcpy (borrowed from freebsd), 
               which does the same,
-              but doesn't pad src with 0's.
+              but doesn't pad dest with 0's.
                (src/string/strncpy.c: 7)
 
 strrchr        char *strrchr(const char *s, int c);
