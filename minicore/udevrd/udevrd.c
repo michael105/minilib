@@ -38,6 +38,30 @@ return
 #include "udevrd.conf.h"
 #include "log.h"
 
+void usage(){
+		writes("udevrd [-c configfile] [-e]\n\
+\n\
+The daemon handles devices in /dev.\n\
+\n\
+Please have a look into the configfile for the possible options.\n\
+\n\
+arguments:\n\
+ -c configfile\n\
+    use another file than the default ("COMPILEDCONFIG")\n\
+ -e use the embedded configfile\n\
+ \n\
+The configuration has to be compiled with udevrd-update.sh\n\
+Please have a look into the readme for further information.\n\
+\n\
+(c) 2021 Michael (misc) Myer, AGPLv3\n\
+Based on minilib (c) 2012-2021 misc.\n\
+" );
+
+		exit(0);
+}
+
+
+
 //extern char* _binary_udevrd_conf_bin_start;
 //extern char* _binary_udevrd_conf_bin_end;
 
@@ -64,7 +88,6 @@ for the exact licensing terms.
 */
 
 // todo:
-// log
 // dev down
 // removed devices
 // argument parsing ( -c, -d, -B )
@@ -76,6 +99,7 @@ for the exact licensing terms.
 // execute
 // notify_dirs->grow (mmap)
 // dir patterns
+// log
 
 
 int do_reload_config;
@@ -106,6 +130,7 @@ typedef struct _globals {
 		notify_dirs *ino_dirs;
 		char *configfile;
 		char *mapping;
+		int embeddedconfig;
 		int mappingsize;
 		int configfd;
 		int nfd;
@@ -423,29 +448,84 @@ int traverse_dir( const char* path, int maxdepth,
 		return(1);
 }
 
+// seek to embedded config
+int seekfile(int fd,int *offset){
+	int size = lseek( fd, 0, SEEK_END );
+	int fsize = lseek( fd, size-8, SEEK_SET );
+	int len,c;
+	read(fd,(char*)&len,4);
+	int r = read(fd,(char*)&c,4);
+
+	//fprintf(stderr,"len: %d\n",len);
+	if ( r!=4 || ( len > fsize ) || c!=0x5041 ){
+		return(-1);
+	}
+
+	lseek( fd, size-8-len, SEEK_SET );
+	*offset = size-8-len;
+	return(len);
+}
+
+
 // return 0 on success
 int load_config( const char* configfile, globals *gl ){
+		
 		log(1,"Load config");
+		
 		int fd = open( configfile, O_RDONLY, 0 );
 		if( fd<0 ){
 				errors( "Couldn't open config: ", configfile );
 				return(fd);
 		}
-		// prevent raceconditions
-		flock(fd,LOCK_EX);
+		
+		char *mapping = 0;
 
 		struct stat ststat;
 		fstat(fd, &ststat );
-		dbgf("Size: %d\n", ststat.st_size);
-	
-		char* mapping = mmap(0,ststat.st_size, PROT_READ, MAP_PRIVATE|MAP_POPULATE, fd, 0 );
+
+
+		if ( !gl->embeddedconfig ){
+				// prevent raceconditions
+				flock(fd,LOCK_EX);
+
+				dbgf("Size: %d\n", ststat.st_size);
+
+				mapping = mmap(0,ststat.st_size, PROT_READ, MAP_PRIVATE|MAP_POPULATE, fd, 0 );
+		} else { // use embedded config
+				int offset;
+				int len = seekfile(fd,&offset);
+				if ( len<0 ){
+						error("Error. No configuration embedded.\n");
+						exit(-1);
+				}
+
+				printf("offset: %d  len: %d\n",offset,len);
+				mapping = mmap(0,len, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 );
+				printf("ok\n");
+				int l;
+				char *p = mapping;
+				do {
+					l=len;
+					if ( len > 4096 )
+						l=4096;
+					l=read(fd,mapping,l);
+					len-=l;
+					p+=4096;
+				} while ( len>0 && l );
+
+
+		}
+
+				printf("ok\n");
 		if ( mapping<=(POINTER)0 ){
 				errors( "Couldn't map into memory" );
 				close(fd);
 				return( (int)(POINTER)mapping );
 		}
 
-		dbgf( "mgc: %x\n", *(int*)mapping );
+				printf("ok\n");
+		printf( "mgc: %x\n", *(int*)mapping );
+				printf("ok\n");
 		if ( *(int*)mapping != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
@@ -558,13 +638,23 @@ int main( int argc, char **argv ){
 		log(1,"Starting udevrd");
 		warning("warning - Starting udevrd");
 		error("error - Starting udevrd");
+
+		globals data;
 		
 		// read configuration
 		char *configfile = COMPILEDCONFIG;
+		data.embeddedconfig = 0;
 
 		if ( argc>2 ){
 				if ( argv[1][0] == '-' && argv[1][1] == 'c' )
 						configfile = argv[2];
+		}
+	
+		if ( argc>1 ){
+				if ( argv[1][0] == '-' && argv[1][1] == 'e' ){
+						configfile = argv[0];
+						data.embeddedconfig = 1;
+				}
 		}
 	
 		// set by the signal handler
@@ -573,8 +663,6 @@ int main( int argc, char **argv ){
 		do_exit = 0;
 
 
-		globals data;
-		//global = &data;
 		int r;
 	
 		die_if( (r = load_config(configfile, &data) ) != 0, r, "Error. exit" );
@@ -587,6 +675,7 @@ int main( int argc, char **argv ){
 		// init globals
 		data.nfd = nfd;
 		data.configfile = configfile;
+		data.embeddedconfig = 1;
 
 		ino_dir_init(&data);
 		notify_dirs *nod = data.ino_dirs;
