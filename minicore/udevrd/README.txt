@@ -64,22 +64,32 @@ Usage:
 		-B : daemonize and go into background
 
 
-	update-udevrd.sh [inputfile] [outputfile]
+	udevrd-update.sh [inputfile] [outputfile]
 	  
 		Update the binary config file [outputfile] (default: /etc/udevrd.conf.bin)
 		from the settings found in [inputfile] (default /etc/udevrd.conf)
 		and trigger udevrd to reload its config.
 
 
-	append-config.sh [inputfile] [udevrd-path]
+	udevrd-appendconfig.sh [inputfile] [udevrd-path]
 
 		(Optional)
+
 		Embedd the binary configfile (default /etc/udevrd.conf.bin)
 		in the udevrd daemon (default /sbin/udevrd)
 		Either the argument -e to udevrd triggers loading the embedded
 		configuration, or udevrd tries to resort onto the embedd configuration
 		when he cannot load the supplied (-c) config file, 
 		or the file /etc/udevrd.conf.bin doesn't exist.
+
+
+
+Compilation:
+
+		`make`
+		(within the minilib project hierarchy)
+
+		`make install`
 
 
 -------------------------------------------------------------------------------
