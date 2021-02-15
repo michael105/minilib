@@ -23,15 +23,7 @@
 #define dbgs(...) {}
 #define dbgf(fmt,...) {}
 #endif
-
-#define warning( msg ) {ewritesl(RED msg NORM);}
-#define warnings( ...) eprintsl(RED,__VA_ARGS__,NORM)
-
-#define warnif( when, msg ) if(when) warning(msg)
-
-
-#define errors( ...) eprintsl(RED,__VA_ARGS__,NORM)
-
+//
 // omit logging calls ( LOGLEVEL < loglevel )
 #define LOGLEVEL 3
 
@@ -39,6 +31,7 @@
 char _loglevels;
 int _logfd[2];
 int _kernelfacility;
+int _logtargets;
 const char *_kernelprefix;
 
 typedef enum _LOGTARGET { STDOUT=1, STDERR=2, KERNEL=4, LOGFILE=8 } LOGTARGET;
@@ -97,6 +90,11 @@ void setlog_kernelprefix( const char* prefix ){
 //
 void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 		_loglevels = 0xC; // to stderr, level 3 (all logs)
+		_logtargets = targets;
+
+		if ( !_logtargets )
+				_logtargets = 1; // stdout
+
 		_logfd[0]=0;
 	 _logfd[1]=0;
 	 _kernelprefix = kernelprefix;
@@ -112,9 +110,7 @@ void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 
 char* _log_kernelprefix(char *p,int level){
 		*p++='<';
-		int a = _kernelfacility + 5;
-		if ( level > 1 )
-				a++;
+		int a = _kernelfacility + level;
 		if ( a>=100 ){
 				*p++='1';
 				a-=100;
@@ -138,15 +134,26 @@ void __log(int level, const char* msg, int len){
 		char buf[BL];
 		char *p = buf;
 		//write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO," xxx\n",1);
-		if ( level <= ( _loglevels & _LMASK ) ){ //stdout
-				if ( level<2 )
-						writes(AC_GREEN);
-				write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO,"\n",1);
-				writes(AC_NORM);
+		if ( level <= ( _loglevels & _LMASK )+4 ){ //stdout
+				switch( level ){
+						case 5:
+								writes(AC_GREEN);
+								break;
+						case 4:
+								writes(AC_RED);
+								break;
+						case 3:
+								writes(AC_BGRED);
+				};
+				write(STDOUT_FILENO, msg, len);				
+				if ( level<=5 )
+						writes(AC_NORM );
+				write(STDOUT_FILENO,"\n",1);
+
 		};
 
-		//printf("loglevels: %d\n", _loglevels );
-		if ( level <= ((_loglevels >> 4 ) & _LMASK) ){ // kernel
+		printf("level: %d\n", level );
+		if ( level <= ((_loglevels >> 4 ) & _LMASK) +4 ){ // kernel
 				p=_log_kernelprefix(buf,level);
 				p=stplcpy(p,msg,(buf+BL-p));
 				*p++='\n';
@@ -197,9 +204,8 @@ void __logs(int level, const char* msg, ...){
 
 
 
-#define  _log( l, msg) __log(l,msg, sizeof(msg))
-//#define  _log( msg) {ewritesl(msg);}
-#define _logs( l, ... ) __logs(l,__VA_ARGS__,0)
+#define  _log( l, msg) __log(l+4,msg, sizeof(msg))
+#define _logs( l, ... ) __logs(l+4,__VA_ARGS__,0)
 #define _logf( fmt,...) eprintf(fmt,__VA_ARGS__)
 
 #if LOGLEVEL>2
@@ -236,7 +242,7 @@ void __logs(int level, const char* msg, ...){
 // It is possible to enable or disable logging calls at compile time.
 // Set LOGLEVEL to 1,2, or 3.
 // 1: only log calls with a loglevel of 1 are compiled
-// ..
+// 2" log calls with loglevel 1 and 2 are compiled
 // 3: log calls with loglevels 1,2 and 3 are compiled.
 //
 // log: write a fixed string. (compute len at compile time with 'sizeof(msg)'
@@ -247,5 +253,13 @@ void __logs(int level, const char* msg, ...){
 #define logs( loglevel, ...) logs##loglevel(__VA_ARGS__)
 #define logf( loglevel, fmt,...) logf##loglevel(fmt,__VA_ARGS__)
 
+
+
+#define warning( msg ) {_log(0,msg);}
+#define warnings( ...) _logs(0,__VA_ARGS__)
+#define warnif( when, msg ) if(when) warning(msg)
+
+#define errors( ... ) _logs(-1,__VA_ARGS__)
+#define error( ... ) _log(-1,__VA_ARGS__)
 
 

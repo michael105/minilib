@@ -425,7 +425,7 @@ int traverse_dir( const char* path, int maxdepth,
 
 // return 0 on success
 int load_config( const char* configfile, globals *gl ){
-		log(1,"load config");
+		log(1,"Load config");
 		int fd = open( configfile, O_RDONLY, 0 );
 		if( fd<0 ){
 				errors( "Couldn't open config: ", configfile );
@@ -556,6 +556,8 @@ int main( int argc, char **argv ){
 		setloglevel(STDOUT,3);
 
 		log(1,"Starting udevrd");
+		warning("warning - Starting udevrd");
+		error("error - Starting udevrd");
 		
 		// read configuration
 		char *configfile = COMPILEDCONFIG;
@@ -634,8 +636,6 @@ int main( int argc, char **argv ){
 						}
 #endif
 
-
-
 						if ( do_reload_config ){ // got sigusr1
 								log(2,"Reload configuration");
 								reload_config( &data );
@@ -646,7 +646,6 @@ int main( int argc, char **argv ){
 
 								// traverse the entire dev hierarchy and apply matching rules
 								traverse_dir( getstr(data.config->p_devpath),10,&dev_cb,&watch_dir, &data );
-
 
 						} else {
 										usleep(100000); // ~ 1/10 second delay.
