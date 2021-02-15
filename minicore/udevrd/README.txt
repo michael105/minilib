@@ -93,12 +93,40 @@ Usage:
 
 
 
+Configuration:
+		
+		The configuration is done with the configuration file udevrd.conf.
+		This is a simple shell script; the supplied example is documented.
+
+		When the binary configuration is compiled with udevrd-update.sh,
+		the config file is sourced with sh.
+		It is possible to source from this script other configuration files,
+		test for different systems, and so on.
+
+		The devices are matched with the "match" function of minilib.
+		Essentially, it is a simple expression engine, which matches straight
+		from left to right. 
+		Wildcards: 
+			* match any count of chars 
+			+ match 1 or more chars 
+			? match one char
+			\d digit 
+			\D no digit 
+
+		Please have a look into the reference of minilib for further 
+		documentation on 'match'.
+
+
+
 Compilation:
 
 		`make`
 		(within the minilib project hierarchy)
 
 		`make install`
+
+
+
 
 
 -------------------------------------------------------------------------------
