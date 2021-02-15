@@ -12,10 +12,11 @@ install: all
 	cp udevrd /sbin/
 	chmod 0700 /sbin/udevrd
 	cp udevrd-writeconf /usr/sbin/
-	cp append /usr/bin/append
+	cp append /usr/bin/
+	cp gid /usr/bin/
 
 
-udevrd: udevrd.c udevrd.conf.h ../udevrd.conf.bin append log.h
+udevrd: udevrd.c udevrd.conf.h ../udevrd.conf.bin append log.h gid
 	$(MCC) udevrd.c
 	@echo appending config to udevrd
 	cat ../udevrd.conf.bin | ./append -a udevrd
@@ -30,6 +31,9 @@ udevrd-writeconf: udevrd-writeconf.c udevrd.conf.h common.conf
 
 append: append.c
 	$(MCC) append.c
+
+gid: gid.c
+	$(MCC) gid.c
 
 
 

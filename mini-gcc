@@ -13,7 +13,7 @@ verbose=0
 
 # use either the minilib, included within this script as zipped file.
 # Or use the individual files, whem existing within MLIBDIR
-useincludedminilib=1
+useincludedminilib=0
 
 # grep mini-gcc path 
 MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
