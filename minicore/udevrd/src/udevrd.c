@@ -32,6 +32,7 @@ OPTFLAG -Os
 #LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC
+#FULLDEBUG
 return
 #endif
 

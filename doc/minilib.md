@@ -1447,7 +1447,8 @@ snprintfs      int snprintfs( char* buf, int size, char *fmt, ...);
                prints formatted and unbuffered output into buf.
               only %s and %c are recognized.
               snprintfs instead of snprintf can save some bytes.
-               (src/snprintfs.c: 7)
+              untested
+               (src/snprintfs.c: 8)
 
 stpcpy         char *stpcpy(char *dest, const char *src);
 
