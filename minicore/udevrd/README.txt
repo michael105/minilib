@@ -54,11 +54,12 @@ About:
 
 Usage:
 	
-	udevrd [-c config] [-d] [-B]
+	udevrd [-c config] [-e] [-B]
 		
 		The udev daemon
 
 		-c 'config': use an alternative config file (default: /etc/udevrd.conf.bin)
+		-e : Use an into udevrd itself embedded config file
 		-d : debug output to stdout
 		-B : daemonize and go into background
 
@@ -70,7 +71,15 @@ Usage:
 		and trigger udevrd to reload its config.
 
 
+	append-config.sh [inputfile] [udevrd-path]
 
+		(Optional)
+		Embedd the binary configfile (default /etc/udevrd.conf.bin)
+		in the udevrd daemon (default /sbin/udevrd)
+		Either the argument -e to udevrd triggers loading the embedded
+		configuration, or udevrd tries to resort onto the embedd configuration
+		when he cannot load the supplied (-c) config file, 
+		or the file /etc/udevrd.conf.bin doesn't exist.
 
 
 -------------------------------------------------------------------------------

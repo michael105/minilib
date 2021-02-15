@@ -4,7 +4,7 @@ mini_group_write
 
 mini_printf;mini_itohex;mini_ltodec;mini_printsl;mini_eprintsl;mini_itodec;
 mini_strlen;mini_dprints;mini_dies_if;mini_die_if;mini_open;mini_mmap;mini_msync;
-mini_itohex;
+mini_itohex;mini_itooct
 mini_itoHEX;
 
 mini_fgets;mini_fgetud;mini_fgetsn;mini_fgetsp;mini_fgetul
@@ -125,7 +125,7 @@ int main(int argc, char **argv){
 
 				for ( int a = DEV_INTEGERS; (a-->0);){
 						*pi = fgetud(stdin);
-						printf( "pi: %d\n", *pi );
+						//printf( "pi: %d\n", *pi );
 						pi++;
 				}
 				flen = (char*)device - mapping;
@@ -176,8 +176,8 @@ int main(int argc, char **argv){
 						device; device = nextdev(device)){
 				//printf( "addr: %lx  %ld\n", device, device );
 				printsl( " match: ", ( (char*)&device->p_match + device->p_match ) );
-				printf(  "   uid: %d  gid: %d\n",device->owner, device->group);
-				printf( "matchmode: %x\n", device->matchmode );
+				printf(  "   uid: %d  gid: %d  0%o\n",device->owner, device->group, device->access);
+				printf( "    matchmode: %x\n", device->matchmode );
 		};
 
 
