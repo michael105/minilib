@@ -20,6 +20,7 @@ mini_ansicolors;mini_shortcolornames
 
 mini_snprintfs
 mini_stpncpy
+mini_stplcpy
 
 mini_buf 512
 
@@ -550,8 +551,9 @@ void sighandler( int signal ){
 
 int main( int argc, char **argv ){
 
-		initlog(KERNEL|STDERR,argv[0],3);
-		setloglevel(KERNEL,3);
+		initlog(KERNEL|STDOUT,"udevrd",3);
+		setloglevel(KERNEL,1);
+		setloglevel(STDOUT,3);
 
 		log(1,"Starting udevrd");
 		

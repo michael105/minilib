@@ -41,11 +41,21 @@ int _logfd[2];
 int _kernelfacility;
 const char *_kernelprefix;
 
-typedef enum _LOGTARGET { STDOUT, STDERR, KERNEL, LOGFILE } LOGTARGET;
+typedef enum _LOGTARGET { STDOUT=1, STDERR=2, KERNEL=4, LOGFILE=8 } LOGTARGET;
 
 #define _LMASK 03
 void setloglevel( LOGTARGET target, int loglevel ){
-		_loglevels = (((!(loglevel &_LMASK)) & loglevel ) << (target*2));
+
+		if ( target & STDOUT )
+				_loglevels = ~(_loglevels ^ ( ~loglevel ));
+		if ( target & STDERR )
+				_loglevels = ~(_loglevels ^ ( ~(loglevel<<2) ));
+		if ( target & KERNEL )
+				_loglevels = ~(_loglevels ^ ( ~(loglevel<<4) ));
+		if ( target & LOGFILE )
+				_loglevels = ~(_loglevels ^ ( ~(loglevel<<6) ));
+
+		printf("set loglevels: %d %d\n", target, _loglevels );
 }
 
 void setlog_kernelprefix( const char* prefix ){
@@ -72,6 +82,19 @@ void setlog_kernelprefix( const char* prefix ){
 // 14	console	Console log alerts
 // 15	solaris-cron	Scheduling logs
 // 16-23	local0 to local7	Locally used facilities
+//
+// message level:
+// 0	Emergency	emerg
+// 1	Alert	alert
+// 2	Critical	crit
+// 3	Error	err
+// 4	Warning	warning
+// 5	Notice	notice
+// 6	Informational	info
+// 7	Debug	debug
+//
+// format: <(kernelfacility*8)+(message level)>prefix: message
+//
 void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 		_loglevels = 0xC; // to stderr, level 3 (all logs)
 		_logfd[0]=0;
@@ -86,51 +109,102 @@ void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 }
 
 #define BL 256
+
+char* _log_kernelprefix(char *p,int level){
+		*p++='<';
+		int a = _kernelfacility + 5;
+		if ( level > 1 )
+				a++;
+		if ( a>=100 ){
+				*p++='1';
+				a-=100;
+		}
+		if ( a>=10 ){
+				int t = a/10;
+				//int t = a/10;
+				*p++=t+'0';
+				a-=(t*10);
+		}
+		*p++=a+'0';
+		*p++='>';
+		p=stpcpy(p,_kernelprefix);
+		*p++=':';
+		*p++=' ';
+		return(p);
+}
+
+
 void __log(int level, const char* msg, int len){
 		char buf[BL];
 		char *p = buf;
-		if ( level <= ( _loglevels & _LMASK ) ) //stdout
-				{ write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO,"\n",1);};
+		//write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO," xxx\n",1);
+		if ( level <= ( _loglevels & _LMASK ) ){ //stdout
+				if ( level<2 )
+						writes(AC_GREEN);
+				write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO,"\n",1);
+				writes(AC_NORM);
+		};
 
-		//if ( level <= ((_loglevels >> 4 ) & _LMASK) ) // kernel
-		if ( 1 )
-				{ //write( _logfd[0],_kernelprefix,strlen(_kernelprefix)); 
-						//fprintfs(_logfd[0], _kernelprefix, msg );
-						//write(_logfd[0], msg, len);
-						*p++='<';
-						int a = _kernelfacility + 2;//5;
-						if ( level > 1 )
-								a++;
-						if ( a>=100 ){
-								*p++='1';
-								a-=100;
-						}
-						if ( a>=10 ){
-								int t = a/10;
-								*p++=t+'0';
-								a-=(t*10);
-						}
-						*p++=a+'0';
-						*p++='>';
-						p=stpcpy(p,_kernelprefix);
-						*p++=':';
-						*p++=' ';
-						p=stpncpy(p,msg,4);
-						write(_logfd[0],buf,p-buf);
-						writes("to kernel: ");writesl(msg);
-				};
+		//printf("loglevels: %d\n", _loglevels );
+		if ( level <= ((_loglevels >> 4 ) & _LMASK) ){ // kernel
+				p=_log_kernelprefix(buf,level);
+				p=stplcpy(p,msg,(buf+BL-p));
+				*p++='\n';
+				write(_logfd[0],buf,p-buf);
+				//writes("to kernel: ");writesl(msg);
+		};
 
 }
+/*
+int sprints(char *buf, const char *msg,...){
+		va_list args;
+		va_start(args,msg);
+		char *p = buf;
+
+		do {
+				do{
+						*buf= *msg;
+						buf++;msg++;
+				} while (msg != 0 );
+				msg = va_arg(args,char*);
+		} while ( msg != 0 );
+		va_end(args);
+		return(buf-p);
+}
+*/
+
+void __logs(int level, const char* msg, ...){
+		char buf[BL];
+		char *p = buf;
+		va_list args;
+		va_start(args,msg);
+
+		do {
+				do{
+						*p= *msg;
+						p++;msg++;
+						if ( p>=(buf+BL-1) ){
+							__log( level, buf, BL );
+							p = buf;
+						}
+				} while (*msg != 0 );
+				msg = va_arg(args,char*);
+		} while ( msg != 0 );
+		va_end(args);
+		
+		__log( level, buf, p-buf );
+}
+
 
 
 #define  _log( l, msg) __log(l,msg, sizeof(msg))
 //#define  _log( msg) {ewritesl(msg);}
-#define _logs( ...) eprintsl(__VA_ARGS__)
+#define _logs( l, ... ) __logs(l,__VA_ARGS__,0)
 #define _logf( fmt,...) eprintf(fmt,__VA_ARGS__)
 
 #if LOGLEVEL>2
 #define  log3( msg) _log(3,msg)
-#define logs3( ...) _logs(__VA_ARGS__)
+#define logs3( ...) _logs(3,__VA_ARGS__)
 #define logf3( fmt,...) _logf(fmt,__VA_ARGS__)
 #else
 #define  log3( msg) {}
@@ -140,7 +214,7 @@ void __log(int level, const char* msg, int len){
 
 #if LOGLEVEL>1
 #define  log2( msg) _log(2,msg)
-#define logs2( ...) _logs(__VA_ARGS__)
+#define logs2( ...) _logs(2,__VA_ARGS__)
 #define logf2( fmt,...) _logf(fmt,__VA_ARGS__)
 #else
 #define  log2( msg) {}
@@ -151,7 +225,7 @@ void __log(int level, const char* msg, int len){
 
 
 #define  log1( msg) _log(1,msg)
-#define logs1( ...) _logs(__VA_ARGS__)
+#define logs1( ...) _logs(1,__VA_ARGS__)
 #define logf1( fmt,...) _logf(fmt,__VA_ARGS__)
 
 
