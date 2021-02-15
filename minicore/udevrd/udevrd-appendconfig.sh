@@ -1,7 +1,6 @@
 #!/bin/sh
 
-
-
+# Appends the compiled configuration to the udevrd binary
 
 
 if [ -n "$1" ]; then

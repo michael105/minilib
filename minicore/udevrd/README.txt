@@ -64,11 +64,20 @@ Usage:
 		-B : daemonize and go into background
 
 
+
 	udevrd-update.sh [inputfile] [outputfile]
 	  
 		Update the binary config file [outputfile] (default: /etc/udevrd.conf.bin)
 		from the settings found in [inputfile] (default /etc/udevrd.conf)
 		and trigger udevrd to reload its config.
+		
+		uid's and gid's are translated to its numerical presentation, in order
+		to save a few kilobytes for udevrd and to prevent the need to have a
+		passwd and group file accessible to udevrd.
+
+		Therefore the configuration file has to be compiled for every system
+		with different users and groups again.
+
 
 
 	udevrd-appendconfig.sh [inputfile] [udevrd-path]
