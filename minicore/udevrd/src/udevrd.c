@@ -40,13 +40,14 @@ return
 #include "log.h"
 
 void usage(){
-		writes("udevrd [-c configfile] [-e]\n\
+		writes("udevrd [-c configfile] [-e] [-h]\n\
 \n\
 The daemon handles devices in /dev.\n\
 \n\
 Please have a look into the configfile for the possible options.\n\
 \n\
 arguments:\n\
+ -h show this help\n\
  -c configfile\n\
     use another file than the default ("COMPILEDCONFIG")\n\
  -e use the embedded configfile\n\
@@ -654,7 +655,7 @@ int main( int argc, char **argv ){
 
 		initlog(KERNEL|STDOUT,"udevrd",3);
 		setloglevel(KERNEL,1);
-		setloglevel(STDOUT,3);
+		setloglevel(STDOUT,1);
 
 		log(1,"Starting udevrd");
 
@@ -668,16 +669,35 @@ int main( int argc, char **argv ){
 		signalled = 0;
 
 		// parse arguments
-		if ( argc>2 ){
-				if ( argv[1][0] == '-' && argv[1][1] == 'c' )
-						data.configfile = argv[2];
-		}
-	
-		if ( argc>1 ){
-				if ( argv[1][0] == '-' && argv[1][1] == 'e' ){
-						data.embeddedconfig = 1;
+		for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
+				for ( const char *arg = argv[0]+1; *arg!= 0; arg++ ){
+						if ( *arg == 'c' ){
+								*argv++;
+								if ( !*argv ){
+										error("missing filename for '-c'\n");
+										usage();
+								}
+								data.configfile = *argv;
+								break;
+						}
+						if ( *arg == 'e' ){
+								data.embeddedconfig = 1;
+								continue;
+						}
+						if ( *arg == 'd' ){
+								setloglevel(STDOUT,3);
+								continue;
+						}
+
+						if ( *arg == 'h' )
+								usage();
+
+						errors( "Unknown option: ", *argv );
+						usage();
 				}
 		}
+
+		log(3,"arguments parsed");
 
 		// Load configuration
 		int r;

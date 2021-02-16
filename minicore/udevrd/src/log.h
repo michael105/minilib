@@ -40,15 +40,15 @@ typedef enum _LOGTARGET { STDOUT=1, STDERR=2, KERNEL=4, LOGFILE=8 } LOGTARGET;
 void setloglevel( LOGTARGET target, int loglevel ){
 
 		if ( target & STDOUT )
-				_loglevels = ~(_loglevels ^ ( ~loglevel ));
+				_loglevels = ((_loglevels & (~_LMASK)) | loglevel );
 		if ( target & STDERR )
-				_loglevels = ~(_loglevels ^ ( ~(loglevel<<2) ));
+				_loglevels = ((_loglevels & ( ~(_LMASK << 2))) | (loglevel<<2) );
 		if ( target & KERNEL )
-				_loglevels = ~(_loglevels ^ ( ~(loglevel<<4) ));
+				_loglevels = ((_loglevels & ( ~(_LMASK << 4))) | (loglevel<<4) );
 		if ( target & LOGFILE )
-				_loglevels = ~(_loglevels ^ ( ~(loglevel<<6) ));
+				_loglevels = ((_loglevels & ( ~(_LMASK << 6))) | (loglevel<<6) );
 
-		printf("set loglevels: %d %d\n", target, _loglevels );
+		//printf("set loglevels: %d %d, %d\n", target, _loglevels, loglevel );
 }
 
 void setlog_kernelprefix( const char* prefix ){
@@ -152,7 +152,7 @@ void __log(int level, const char* msg, int len){
 
 		};
 
-		printf("level: %d\n", level );
+		//printf("level: %d\n", level );
 		if ( level <= ((_loglevels >> 4 ) & _LMASK) +4 ){ // kernel
 				p=_log_kernelprefix(buf,level);
 				p=stplcpy(p,msg,(buf+BL-p));
@@ -260,6 +260,8 @@ void __logs(int level, const char* msg, ...){
 #define warnif( when, msg ) if(when) warning(msg)
 
 #define errors( ... ) _logs(-1,__VA_ARGS__)
-#define error( ... ) _log(-1,__VA_ARGS__)
+#define errors_if( when,... ) if(when) errors(__VA_ARGS__)
+#define error( msg ) _log(-1,msg)
+#define error_if( when, ... ) if(when) error(msg)
 
 
