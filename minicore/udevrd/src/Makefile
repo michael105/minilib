@@ -1,9 +1,8 @@
 
 MCC=../../../mini-gcc
 
-
 AP=./append
-
+PATH := $(PWD):$(PATH)
 
 all: udevrd 
 

@@ -7,7 +7,7 @@ Work in progress - it's a backup copy. (2021/02)
 
 A slim resource friendly udevd daemon. 
 
-Generically implemented this can be used to watch all sorts of directories
+Generically implemented, the daemon could be used to watch all sorts of directories
 recursively and change owner, group, access rights, create links,
 or execute actions on file creation or deletion.
 
@@ -115,6 +115,10 @@ Configuration:
 
 		Please have a look into the reference of minilib for further 
 		documentation on 'match'.
+
+		Signal udevrd with SIGUSR1 to reload the configuration file,
+		or with SIGUSR2 to load the configuration embedded into udevrd itself.
+		(`killall -SIGUSR1 udevrd`)
 
 
 

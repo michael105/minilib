@@ -10,6 +10,7 @@ function endconfig(){
 		echo $kmsglog
 		echo $logfacility
 		echo $logcolor
+		echo $maxrecursion
 		echo $logprefix
 		echo $devpath
 }
@@ -40,6 +41,11 @@ function conf_logprefix(){
 function conf_logcolor(){
 		logcolor=$1
 }
+
+function conf_maxrecursion(){
+		maxrecursion=$1
+}
+
 
 function conf(){
 		param=$1
@@ -226,7 +232,7 @@ echo $cfg
     sed -nE "/^\.\/$cfg/{s/^(\.\/$cfg.*)$/$LRED\1$NORM/;x;G;s/\n/ /;h;x;p;x;p;q};x;p"';${x;p}' | \
     cat -n | sed '/^[[:space:]]*[[:digit:]]*[[:space:]]*#/d' | \
     sed -E "/endfile/{d;q}; $,/error/{s/^.*:(.*:.*)/\n\t$LRED\1\n/}" ) &&
-    cat $1.tmp | ./udevrd-writeconf $1.bin && \
+    cat $1.tmp | udevrd-writeconf $1.bin && \
     (echo -e "\n$LGREEN Ok\n";killall -SIGUSR1 udevrd 2>/dev/null;true) ||
     echo -e "\n$LRED Error\n"
 

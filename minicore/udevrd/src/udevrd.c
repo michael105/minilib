@@ -62,10 +62,6 @@ Based on minilib (c) 2012-2021 misc.\n\
 }
 
 
-
-//extern char* _binary_udevrd_conf_bin_start;
-//extern char* _binary_udevrd_conf_bin_end;
-
 /*
 
 (c) 2021 AGPLv3 (misc)
@@ -103,9 +99,9 @@ for the exact licensing terms.
 // log
 
 
-int do_reload_config;
-int load_embedded_config;
-int do_exit;
+// set by the signal handler
+// used to communicate with the main loop
+enum _signalled { NOACTION, SIG_EXIT, SIG_RELOAD_CONFIG, SIG_LOAD_EMBEDDEDCONFIG } signalled;
 
 
 
@@ -130,6 +126,7 @@ typedef struct _globals {
 		watchdir_patterns* watchdirlist;
 		notify_dirs *ino_dirs;
 		char *configfile;
+		char *argv0; // needed to load embedded config
 		char *mapping;
 		int embeddedconfig;
 		int mappingsize;
@@ -152,7 +149,7 @@ const char* ino_dir_get( int num, globals *data ){
 		
 		if ( num<0 ) // happens for inotify_rm_watch events
 				return(0); // closing the inotify fd didn't work out here
-		// so every watch needs to be removed. :/
+		// so every watch needs to be removed when reloading the config :/
 
 		dbgf("Get ino: %d\n", num ); 
 		 while( ( num >= nod->max-1) ){ // or addr > map
@@ -192,6 +189,7 @@ notify_dirs *ino_dir_addmapping( notify_dirs* nod ){
 		return(nod);
 }
 
+// append a path. num MUST be sequential
 void ino_dir_add( int num, const char* path, globals *data ){
 
 		notify_dirs *nod = data->ino_dirs;
@@ -469,39 +467,56 @@ int seekfile(int fd,int *offset){
 
 
 // return 0 on success
-int load_config( const char* configfile, globals *gl ){
+int load_config( globals *gl ){
 		
 		log(1,"Load config");
-		
-		int fd = open( configfile, O_RDONLY, 0 );
-		if( fd<0 ){
-				errors( "Couldn't open config: ", configfile );
-				return(fd);
-		}
-		
+	
 		char *mapping = 0;
+		int fd;
 
 		struct stat ststat;
-		fstat(fd, &ststat );
 
 
 		if ( !gl->embeddedconfig ){
+		
+				logs(2,"load ",gl->configfile);
+				fd = open( gl->configfile, O_RDONLY, 0 );
+				if( fd<0 ){
+						errors( "Couldn't open config: ", gl->configfile );
+						return(fd);
+				}
+	
 				// prevent raceconditions
 				flock(fd,LOCK_EX);
 
+				fstat(fd, &ststat );
 				dbgf("Size: %d\n", ststat.st_size);
 
 				mapping = mmap(0,ststat.st_size, PROT_READ, MAP_PRIVATE|MAP_POPULATE, fd, 0 );
+				gl->mappingsize = ststat.st_size;
+
 		} else { // use embedded config
+				fd = open( gl->argv0, O_RDONLY, 0 );
+				if( fd<0 ){
+						errors( "Couldn't load an embedded config." );
+						return(fd);
+				}
+	
+				// prevent raceconditions
+				flock(fd,LOCK_EX);
+
 				int offset;
 				int len = seekfile(fd,&offset);
 				if ( len<0 ){
 						error("Error. No configuration embedded.\n");
 						exit(-1);
 				}
+				// prevent raceconditions
+				flock(fd,LOCK_EX);
 
 				printf("offset: %d  len: %d\n",offset,len);
 				mapping = mmap(0,len, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 );
+				gl->mappingsize = len;
 				printf("ok\n");
 				int l;
 				char *p = mapping;
@@ -513,7 +528,6 @@ int load_config( const char* configfile, globals *gl ){
 					len-=l;
 					p+=4096;
 				} while ( len>0 && l );
-
 
 		}
 
@@ -530,7 +544,7 @@ int load_config( const char* configfile, globals *gl ){
 		if ( *(int*)mapping != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
-				errors( "The configuration file doesn't look correct.\n", configfile );
+				error( "The configuration doesn't look correct." );
 				return(-14);
 		}
 
@@ -543,7 +557,7 @@ int load_config( const char* configfile, globals *gl ){
 		if ( *(int*)(getaddr(d->p_next)+sizeof(p_rel)) != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
-				errors( "The configuration file is scrambled.\n", configfile );
+				error( "The configuration is scrambled." );
 				return(-14);
 		}
 
@@ -553,7 +567,6 @@ int load_config( const char* configfile, globals *gl ){
 		//gl->watchdirlist=(watchdir_patterns*)getaddr(gl->config->p_watchdirlist);
 		gl->configfd = fd;
 		gl->mapping = mapping;
-		gl->mappingsize = ststat.st_size;
 
 		log(2,"Configuration loaded\n");
 		flock(fd,LOCK_UN);
@@ -563,11 +576,13 @@ int load_config( const char* configfile, globals *gl ){
 
 // return 1, when reloading the config gives an error
 int reload_config( globals *global ){
+		
+		log(1,"Load configuration");
 
 		globals tmp;
 		memcpy(&tmp,global,sizeof(globals));
-		if ( load_config( global->configfile, &tmp ) ){
-				warning("Couldn't reload the config");
+		if ( load_config( &tmp ) ){
+				error("Couldn't reload the configuration.");
 				return(1);
 		}
 
@@ -579,6 +594,9 @@ int reload_config( globals *global ){
 		ino_dir_destroy( global );
 		
 #if 0
+		// didn't work out here.
+		// adding the same watches again 
+		// gave no notifications. (?)
 		printf("nfd: %d\n",global->nfd);
 
 		close(global->nfd);
@@ -595,10 +613,10 @@ int reload_config( globals *global ){
 		ino_dir_init(global);
 
 		// watch devpath
-		//watch_dir( getstr(global->config->p_devpath), global );
+		watch_dir( getstr(global->config->p_devpath), global );
 
 		// traverse the entire dev hierarchy and apply matching rules
-		//traverse_dir( getstr(global->config->p_devpath),10,&dev_cb,&watch_dir, global );
+		traverse_dir( getstr(global->config->p_devpath),global->config->maxrecursion,&dev_cb,&watch_dir, global );
 
 
 		return(0);
@@ -611,20 +629,22 @@ void sighandler( int signal ){
 		switch (signal){ 
 				case SIGUSR1:
 						log(2,"sigusr1");
-						do_reload_config = 1; // reload config
+						//do_reload_config = 1; // reload config
+						signalled = SIG_RELOAD_CONFIG;
 						break;
 				case SIGUSR2:
 						log(2,"sigusr2");
-						load_embedded_config = 1; // reload config
+						//load_embedded_config = 1; // reload config
+						signalled = SIG_LOAD_EMBEDDEDCONFIG;
 						break;
 
 				case SIGTERM:
 						log(2,"Got SIGTERM");
-						do_exit = 1;
-						break;
+						//do_exit = 1;
 				case SIGINT:
-						log(2,"Got SIGINT");
-						do_exit = 1;
+						log(2,"Got SIGNAL - exit");
+						//do_exit = 1;
+						signalled = SIG_EXIT;
 						break;
 		}
 }
@@ -637,46 +657,52 @@ int main( int argc, char **argv ){
 		setloglevel(STDOUT,3);
 
 		log(1,"Starting udevrd");
-		warning("warning - Starting udevrd");
-		error("error - Starting udevrd");
 
+		// init globals
 		globals data;
-		
-		// read configuration
-		char *configfile = COMPILEDCONFIG;
+		data.configfile = COMPILEDCONFIG;
 		data.embeddedconfig = 0;
+		data.argv0 = argv[0]; // needed for the embedded config
+	
+		// set by the signal handler
+		signalled = 0;
 
+		// parse arguments
 		if ( argc>2 ){
 				if ( argv[1][0] == '-' && argv[1][1] == 'c' )
-						configfile = argv[2];
+						data.configfile = argv[2];
 		}
 	
 		if ( argc>1 ){
 				if ( argv[1][0] == '-' && argv[1][1] == 'e' ){
-						configfile = argv[0];
 						data.embeddedconfig = 1;
 				}
 		}
-	
-		// set by the signal handler
-		do_reload_config = 0;
-		load_embedded_config = 0;
-		do_exit = 0;
 
-
+		// Load configuration
 		int r;
+		die_if( (r = load_config(&data) ) != 0, r, "Unable to load the configuration. exit" );
 	
-		die_if( (r = load_config(configfile, &data) ) != 0, r, "Error. exit" );
+		// setup signal handlers
+		struct sigaction sa;
+		sigfillset(&sa.sa_mask);
+		sa.sa_flags = 0;
+		sa.sa_handler = sighandler;
+
+		if ( sigaction (SIGUSR1, &sa, 0) || sigaction (SIGTERM, &sa, 0) ||
+				  sigaction (SIGUSR2, &sa, 0) || sigaction (SIGINT, &sa, 0) )
+				error("Couldn't setup signal handler");
+		// continue anyways.
+		// The signal handlers do trigger reloading the configuration and exit -
+		// we can live without that
+
 
 		// initiate inotify
 		int nfd; // inotifyfd
 		nfd = inotify_init();
 		die_if ( nfd<0,nfd,"Couldn't initiate inotify. No kernel support?" );
 
-		// init globals
 		data.nfd = nfd;
-		data.configfile = configfile;
-		data.embeddedconfig = 1;
 
 		ino_dir_init(&data);
 		notify_dirs *nod = data.ino_dirs;
@@ -685,19 +711,7 @@ int main( int argc, char **argv ){
 		watch_dir( getstr(data.config->p_devpath), &data );
 
 		// traverse the entire dev hierarchy and apply matching rules
-		traverse_dir( getstr(data.config->p_devpath),10,&dev_cb,&watch_dir, &data );
-
-		// setup signal handler
-		struct sigaction sa;
-
-		sigfillset(&sa.sa_mask);
-		sa.sa_flags = 0;
-		sa.sa_handler = sighandler;
-
-		if ( sigaction (SIGUSR1, &sa, 0) || sigaction (SIGTERM, &sa, 0) ||
-				  sigaction (SIGUSR2, &sa, 0) || sigaction (SIGINT, &sa, 0) )
-				ewrites("Couldn't install signal handler");
-		// continue anyways.
+		traverse_dir( getstr(data.config->p_devpath),data.config->maxrecursion,&dev_cb,&watch_dir, &data );
 
 		
 
@@ -707,37 +721,30 @@ int main( int argc, char **argv ){
 		const struct inotify_event *e;
 		char path[PATH_MAX];
 
-		while ( !do_exit ){
-
+		// ========== main loop 
+		while ( 1 ){
+				// read inotify events
 				while ( (r=read(nfd,buf,BUFLEN)) <= 0 ){
-						// got signal or another interruption
-						if ( do_exit )
-								break;
+						// got signal or another interruption (r<=0)
+						switch ( signalled ){
+								case SIG_EXIT:
+										log(1,"Exit");
+										goto exitloop;
 
-#if 0
-						if ( load_embedded_config ){
-								char* mapping = _binary_udevrd_conf_bin_start;
-								data.devices = firstdev(mapping);
-								data.config = getconfig(mapping);
-								data.configfd = 0;
-								data.mapping = mapping;
-								data.mappingsize = 0;
-								load_embedded_config = 0;
-						}
-#endif
+								case SIG_LOAD_EMBEDDEDCONFIG:
+										log(1,"Signalled - Load embedded config");
+										data.embeddedconfig = 1;
+										reload_config( &data );
+										signalled = 0;
+										break;
+								case SIG_RELOAD_CONFIG:// got sigusr1
+										log(1,"Signalled - Load config");
+										data.embeddedconfig = 0;
+										reload_config( &data );
+										signalled = 0;
+										break;
 
-						if ( do_reload_config ){ // got sigusr1
-								log(2,"Reload configuration");
-								reload_config( &data );
-								do_reload_config = 0;
-
-								// watch devpath
-								watch_dir( getstr(data.config->p_devpath), &data );
-
-								// traverse the entire dev hierarchy and apply matching rules
-								traverse_dir( getstr(data.config->p_devpath),10,&dev_cb,&watch_dir, &data );
-
-						} else {
+								default: // another interruption
 										usleep(100000); // ~ 1/10 second delay.
 						}
 				}
@@ -762,9 +769,9 @@ int main( int argc, char **argv ){
 								dev_action( path, d, &data );
 						}
 				}
-
 		}
 
+exitloop:
 		// exit
 		log(1,"Exit.\n");
 		return(0);
