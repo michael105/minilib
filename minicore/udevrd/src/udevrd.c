@@ -40,7 +40,7 @@ return
 #include "log.h"
 
 void usage(){
-		writes("udevrd [-c configfile] [-e] [-h] [-d]\n\
+		writes("udevrd [-c configfile] [-e] [-h] [-d] [-B]\n\
 \n\
 The daemon handles devices in /dev.\n\
 \n\
@@ -50,6 +50,7 @@ arguments:\n\
  -h  show this help\n\
  -d  write verbose output to stdout/stderr\n\
  -dd write more verbose output to stdout/stderr\n\
+ -B  daemonize (detach from parent)\n\
  -c  configfile\n\
      use another file than the default ("COMPILEDCONFIG")\n\
  -e  use the embedded configfile\n\
@@ -90,8 +91,6 @@ for the exact licensing terms.
 // todo:
 // dev down
 // removed devices
-// argument parsing ( -c, -d, -B )
-// embed config
 
 
 // done
@@ -100,6 +99,8 @@ for the exact licensing terms.
 // notify_dirs->grow (mmap)
 // dir patterns
 // log
+// argument parsing ( -c, -d, -B )
+// embed config
 
 
 // set by the signal handler
@@ -675,6 +676,7 @@ int main( int argc, char **argv ){
 
 		// parse arguments
 		int loglevel = 1;
+		int daemonize = 0;
 		for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
 				for ( const char *arg = argv[0]+1; *arg!= 0; arg++ ){
 						if ( *arg == 'c' ){
@@ -684,23 +686,50 @@ int main( int argc, char **argv ){
 										usage();
 								}
 								data.configfile = *argv;
-								break;
-						}
-						if ( *arg == 'e' ){
-								data.embeddedconfig = 1;
-								continue;
-						}
-						if ( *arg == 'd' ){
-								loglevel++;
-								continue;
-						}
+								break; // ciontinue with the next argv (outer loop)
+						} else {
+								switch ( *arg ){
+								case 'e':
+										data.embeddedconfig = 1;
+										continue;
+								case 'd':
+										loglevel++;
+										continue;
+								case 'B':
+										daemonize = 1;
+										continue;
 
-						if ( *arg == 'h' )
-								usage();
-
-						errors( "Unknown option: ", *argv );
-						usage();
+								default:
+										eprints( "Unknown option: ", *argv, "\n\n" );
+								case 'h':
+										usage();
+								}
+						}
 				}
+		}
+
+		// Optionally daemonize
+		if ( daemonize ){
+				writes("Daemonize\n");
+
+				int pid = fork();
+				die_if( (pid < 0), EXIT_FAILURE, "Couldn't fork" );
+				if (pid > 0)
+						exit(EXIT_SUCCESS);
+
+				// become session leader
+				die_if( (setsid() < 0), EXIT_FAILURE, "Couldn't become session leader");
+
+				pid = fork();
+				die_if( (pid < 0), EXIT_FAILURE, "Couldn't fork" );
+				if (pid > 0)
+						exit(EXIT_SUCCESS);
+
+				umask(0);
+
+				// Change working directory 
+				// doesn't work out with argv0 for the embedded config
+				//chdir("/");
 		}
 		
 		// init logging
@@ -710,6 +739,13 @@ int main( int argc, char **argv ){
 
 		log(1,"Starting udevrd");
 
+		if ( daemonize ){
+				log(1,"Detach from terminal");
+				// close stdin,err,out
+				close(2);
+				close(1);
+				close(0);
+		}
 
 		log(3,"arguments parsed");
 
@@ -747,7 +783,7 @@ int main( int argc, char **argv ){
 		// traverse the entire dev hierarchy and apply matching rules
 		traverse_dir( getstr(data.config->p_devpath),data.config->maxrecursion,&dev_cb,&watch_dir, &data );
 
-		
+		log(1,"Running.");
 
 #define BUFLEN 1024
 		char buf[BUFLEN];
