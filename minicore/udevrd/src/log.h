@@ -101,8 +101,15 @@ void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 	 _kernelfacility = kernelfacility*8;
 
 	 int r;
-	if ( targets & KERNEL )
+	if ( targets & KERNEL ){
 				_logfd[0]=((r = open("/dev/kmsg",O_WRONLY))>0) ? r : 0;
+				if ( !_logfd[0] ){
+						eprints(AC_RED"Couldn't open /dev/kmsg for writing to the kernel log.\n"AC_NORM);
+						_logtargets &= (~KERNEL);
+						if ( !(_logtargets&03) ) // no logging to stdout or stderr
+								_logtargets |= 01; // log to stdout
+				}
+	}
 
 }
 
@@ -134,16 +141,16 @@ void __log(int level, const char* msg, int len){
 		char buf[BL];
 		char *p = buf;
 		//write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO," xxx\n",1);
-		if ( level <= ( _loglevels & _LMASK )+4 ){ //stdout
+		if ( _logtargets & STDOUT && level <= ( _loglevels & _LMASK )+4 ){ //stdout
 				switch( level ){
 						case 5:
 								writes(AC_GREEN);
 								break;
 						case 4:
-								writes(AC_RED);
+								writes(AC_YELLOW);
 								break;
 						case 3:
-								writes(AC_BGRED);
+								writes(AC_LRED);
 				};
 				write(STDOUT_FILENO, msg, len);				
 				if ( level<=5 )
@@ -153,7 +160,7 @@ void __log(int level, const char* msg, int len){
 		};
 
 		//printf("level: %d\n", level );
-		if ( level <= ((_loglevels >> 4 ) & _LMASK) +4 ){ // kernel
+		if ( _logtargets & KERNEL && level <= ((_loglevels >> 4 ) & _LMASK) +4 ){ // kernel
 				p=_log_kernelprefix(buf,level);
 				p=stplcpy(p,msg,(buf+BL-p));
 				*p++='\n';
