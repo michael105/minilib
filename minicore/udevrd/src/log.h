@@ -1,3 +1,5 @@
+#ifndef log_h
+#define log_h
 
 //#define DEBUG
 
@@ -116,7 +118,7 @@ void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 
 }
 
-#define BL 256
+#define _BUFLEN 512
 
 char* _log_kernelprefix(char *p,int level){
 		*p++='<';
@@ -141,7 +143,7 @@ char* _log_kernelprefix(char *p,int level){
 
 
 void __log(int level, const char* msg, int len){
-		char buf[BL];
+		char buf[_BUFLEN];
 		char *p = buf;
 		//write(STDOUT_FILENO, msg, len);write(STDOUT_FILENO," xxx\n",1);
 		if ( _logtargets & STDOUT && level <= ( _loglevels & _LMASK )+4 ){ //stdout
@@ -165,7 +167,7 @@ void __log(int level, const char* msg, int len){
 		//printf("level: %d\n", level );
 		if ( _logtargets & KERNEL && level <= ((_loglevels >> 4 ) & _LMASK) +4 ){ // kernel
 				p=_log_kernelprefix(buf,level);
-				p=stplcpy(p,msg,(buf+BL-p));
+				p=stplcpy(p,msg,(buf+_BUFLEN-p));
 				*p++='\n';
 				write(_logfd[0],buf,p-buf);
 				//writes("to kernel: ");writesl(msg);
@@ -191,7 +193,7 @@ int sprints(char *buf, const char *msg,...){
 */
 
 void __logs(int level, const char* msg, ...){
-		char buf[BL];
+		char buf[_BUFLEN];
 		char *p = buf;
 		va_list args;
 		va_start(args,msg);
@@ -200,8 +202,8 @@ void __logs(int level, const char* msg, ...){
 				do{
 						*p= *msg;
 						p++;msg++;
-						if ( p>=(buf+BL-1) ){
-							__log( level, buf, BL );
+						if ( p>=(buf+_BUFLEN-1) ){
+							__log( level, buf, _BUFLEN );
 							p = buf;
 						}
 				} while (*msg != 0 );
@@ -214,10 +216,10 @@ void __logs(int level, const char* msg, ...){
 
 
 void __logf(int level, const char* fmt, ...){
-		char buf[BL];
+		char buf[_BUFLEN];
 		va_list args;
 		va_start(args,fmt);
-		int len =	vsnprintf( buf, BL, fmt, args );
+		int len =	vsnprintf( buf, _BUFLEN, fmt, args );
 		va_end(args);
 		
 		__log( level, buf, len );
@@ -287,3 +289,4 @@ void __logf(int level, const char* fmt, ...){
 #define error_if( when, ... ) if(when) error(msg)
 
 
+#endif

@@ -62,6 +62,11 @@ retest
 	for rebuilding the expected output of the tests as well,
 	please have a look into ./test/Makefile
 
+syntaxcheck
+  rebuild the file syntaxcheck.h,
+  intended to be included for syntaxchecking plugins.
+  All declarations of minilib are define there.
+
 help
 	show this help
 

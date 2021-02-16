@@ -36,8 +36,13 @@ INCLUDESRC
 return
 #endif
 
+#ifndef MLIB
+#include "../../../syntaxcheck.h"
+#endif
+
 #include "udevrd.conf.h"
 #include "log.h"
+
 
 void usage(){
 		writes("udevrd [-c configfile] [-e] [-h] [-d] [-B]\n\
@@ -232,7 +237,7 @@ void ino_dir_add( int num, const char* path, globals *data ){
 		}
 
 
-		char *p = stpcpy( getaddr( nod->path[num] ), path );
+		char *p = stpcpy( getstr( nod->path[num] ), path );
 		p++;
 		setaddr(nod->path[num+1],p);
 		dbgs( "appended: ", getaddr( nod->path[num] ) );

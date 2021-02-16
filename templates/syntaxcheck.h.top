@@ -6,4 +6,5 @@
 #define dirbufsize 2048
 #define scandir_bufsize 4096
 void optimization_fence(void*p);
+#define asm(...)
 
