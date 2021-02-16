@@ -40,17 +40,19 @@ return
 #include "log.h"
 
 void usage(){
-		writes("udevrd [-c configfile] [-e] [-h]\n\
+		writes("udevrd [-c configfile] [-e] [-h] [-d]\n\
 \n\
 The daemon handles devices in /dev.\n\
 \n\
 Please have a look into the configfile for the possible options.\n\
 \n\
 arguments:\n\
- -h show this help\n\
- -c configfile\n\
-    use another file than the default ("COMPILEDCONFIG")\n\
- -e use the embedded configfile\n\
+ -h  show this help\n\
+ -d  write verbose output to stdout/stderr\n\
+ -dd write more verbose output to stdout/stderr\n\
+ -c  configfile\n\
+     use another file than the default ("COMPILEDCONFIG")\n\
+ -e  use the embedded configfile\n\
  \n\
 The configuration has to be compiled with udevrd-update.sh\n\
 Please have a look into the readme for further information.\n\
@@ -243,25 +245,28 @@ int apply_dev_rule( const char* fullpath, struct stat *st, dev *device, globals 
 		logs(2,"apply rule to ",fullpath);
 		struct stat ststat;
 		if ( !st ){
-				if ( lstat( fullpath, &ststat ) != 0 )
+				if ( lstat( fullpath, &ststat ) != 0 ){
+						warnings("Couldn't stat ",fullpath);
 						return(0);
+				}
 				st = &ststat;
 		}
 
 		if ( (st->st_mode & 0777) != device->access ){
-				logf(3,"chmod: %o\n",device->access);
-				warnif(chmod( fullpath, device->access ), "Couldn't set access rights");
+				logf(3,"chmod: %o",device->access);
+				warns_if(chmod( fullpath, device->access ), "Couldn't set access rights for ",fullpath);
 		}
 
 		if ( (st->st_uid != device->owner ) || ( st->st_gid != device->group ) ){
-				logf(3,"change id: %d:%d\n",device->owner,device->group);
-				warnif(chown( fullpath, device->owner, device->group ), "Couldn't change owner");
+				logf(3,"change id: %d:%d",device->owner,device->group);
+				warns_if(chown( fullpath, device->owner, device->group ), "Couldn't change owner of ",fullpath);
 		}
 
 		char *s = getstr( device->p_link );
 		if ( s[0] ){ // len > 0
 				logs( 3, "link: ", fullpath, " - ", s );
-				warnif(symlink( fullpath, s ),"Couldn't create symbolic link");
+				// TODO: unlink old link
+				warns_if(symlink( fullpath, s ),"Couldn't create symbolic link: ",fullpath," -> ",s);
 		}
 
 		return(1);
@@ -296,8 +301,10 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 
 		struct stat ststat;
 		if ( !st ){
-				if ( lstat( path, &ststat ) != 0 )
+				if ( lstat( path, &ststat ) != 0 ){
+						warnings("Couldn't stat ",path);
 						return(0);
+				}
 				st = &ststat;
 				dbgf("stat in devrule: %s  %o  %x\n",path,st->st_mode,st->st_mode);
 		}
@@ -351,14 +358,15 @@ dev* get_dev_rule( const char* path, struct stat *st, globals *data ){
 
 int watch_dir(const char* path, globals *data){
 
-		dbgs("Add watch to ",path);
+		logs(3,"Add watch to ",path);
 		int ir = inotify_add_watch(data->nfd, path, IN_CREATE );
-		if ( ir<0 ){ 
-				warnings("Couldn't add an inotify watch for ", path );
-		}
+		if ( ir<=0 ){ 
+				warnings("Couldn't add an inotify watch to ", path );
+		} else {
 		//data->ino_dirs->path[ir] = (char*)strdup( path );
-		ino_dir_add(ir, path, data); 
-		dbgf("inotify fd: %d\n", ir );
+				ino_dir_add(ir, path, data); 
+				dbgf("inotify fd: %d\n", ir );
+		}
 		return( ir );
 }
 
@@ -373,8 +381,10 @@ dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 
 		struct stat ststat;
 		if ( !st ){
-				if ( lstat( path, &ststat ) != 0 )
+				if ( lstat( path, &ststat ) != 0 ){
+						warnings("Couldn't stat ",path);
 						return(0);
+				}		
 				st = &ststat;
 				dbgf("stat in callback %s  %o  %x\n",path,st->st_mode,st->st_mode);
 		}
@@ -437,8 +447,10 @@ int traverse_dir( const char* path, int maxdepth,
 
 				struct stat st;
 				strcpy( p, de->d_name );
-				if ( lstat( pathname, &st ) != 0 )
+				if ( lstat( pathname, &st ) != 0 ){
+						logs(3, "Couldn't stat ",pathname);
 						continue;
+				}
 
 				if ( callback )
 						callback(pathname, &st, maxdepth, data);
@@ -497,6 +509,7 @@ int load_config( globals *gl ){
 				gl->mappingsize = ststat.st_size;
 
 		} else { // use embedded config
+				log(2,"Load embedded config");
 				fd = open( gl->argv0, O_RDONLY, 0 );
 				if( fd<0 ){
 						errors( "Couldn't load an embedded config." );
@@ -515,10 +528,10 @@ int load_config( globals *gl ){
 				// prevent raceconditions
 				flock(fd,LOCK_EX);
 
-				printf("offset: %d  len: %d\n",offset,len);
+				dbgf("offset: %d  len: %d\n",offset,len);
 				mapping = mmap(0,len, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 );
 				gl->mappingsize = len;
-				printf("ok\n");
+
 				int l;
 				char *p = mapping;
 				do {
@@ -532,16 +545,14 @@ int load_config( globals *gl ){
 
 		}
 
-				printf("ok\n");
 		if ( mapping<=(POINTER)0 ){
 				errors( "Couldn't map into memory" );
 				close(fd);
 				return( (int)(POINTER)mapping );
 		}
 
-				printf("ok\n");
-		printf( "mgc: %x\n", *(int*)mapping );
-				printf("ok\n");
+				dbgf( "mgc: %x\n", *(int*)mapping );
+
 		if ( *(int*)mapping != MAGICINT ){
 				munmap(mapping, ststat.st_size);
 				close(fd);
@@ -652,13 +663,7 @@ void sighandler( int signal ){
 
 
 int main( int argc, char **argv ){
-
-		initlog(KERNEL|STDOUT,"udevrd",3);
-		setloglevel(KERNEL,1);
-		setloglevel(STDOUT,1);
-
-		log(1,"Starting udevrd");
-
+		
 		// init globals
 		globals data;
 		data.configfile = COMPILEDCONFIG;
@@ -669,6 +674,7 @@ int main( int argc, char **argv ){
 		signalled = 0;
 
 		// parse arguments
+		int loglevel = 1;
 		for ( *argv++; *argv && argv[0][0]=='-'; *argv++ ){
 				for ( const char *arg = argv[0]+1; *arg!= 0; arg++ ){
 						if ( *arg == 'c' ){
@@ -685,7 +691,7 @@ int main( int argc, char **argv ){
 								continue;
 						}
 						if ( *arg == 'd' ){
-								setloglevel(STDOUT,3);
+								loglevel++;
 								continue;
 						}
 
@@ -696,6 +702,14 @@ int main( int argc, char **argv ){
 						usage();
 				}
 		}
+		
+		// init logging
+		initlog(KERNEL|STDOUT,"udevrd",3);
+		setloglevel(KERNEL,1);
+		setloglevel(STDOUT,loglevel);
+
+		log(1,"Starting udevrd");
+
 
 		log(3,"arguments parsed");
 

@@ -39,6 +39,9 @@ typedef enum _LOGTARGET { STDOUT=1, STDERR=2, KERNEL=4, LOGFILE=8 } LOGTARGET;
 #define _LMASK 03
 void setloglevel( LOGTARGET target, int loglevel ){
 
+		if ( loglevel>3 )
+				loglevel=3;
+
 		if ( target & STDOUT )
 				_loglevels = ((_loglevels & (~_LMASK)) | loglevel );
 		if ( target & STDERR )
@@ -104,7 +107,7 @@ void initlog( int targets, const char* kernelprefix, int kernelfacility ){
 	if ( targets & KERNEL ){
 				_logfd[0]=((r = open("/dev/kmsg",O_WRONLY))>0) ? r : 0;
 				if ( !_logfd[0] ){
-						eprints(AC_RED"Couldn't open /dev/kmsg for writing to the kernel log.\n"AC_NORM);
+						eprints(AC_BGRED"Couldn't open /dev/kmsg for writing to the kernel log."AC_NORM"\n");
 						_logtargets &= (~KERNEL);
 						if ( !(_logtargets&03) ) // no logging to stdout or stderr
 								_logtargets |= 01; // log to stdout
@@ -210,15 +213,26 @@ void __logs(int level, const char* msg, ...){
 }
 
 
+void __logf(int level, const char* fmt, ...){
+		char buf[BL];
+		va_list args;
+		va_start(args,fmt);
+		int len =	vsnprintf( buf, BL, fmt, args );
+		va_end(args);
+		
+		__log( level, buf, len );
+}
+
+
 
 #define  _log( l, msg) __log(l+4,msg, sizeof(msg))
 #define _logs( l, ... ) __logs(l+4,__VA_ARGS__,0)
-#define _logf( fmt,...) eprintf(fmt,__VA_ARGS__)
+#define _logf( l, fmt,...) __logf(l+4,fmt,__VA_ARGS__)
 
 #if LOGLEVEL>2
 #define  log3( msg) _log(3,msg)
 #define logs3( ...) _logs(3,__VA_ARGS__)
-#define logf3( fmt,...) _logf(fmt,__VA_ARGS__)
+#define logf3( fmt,...) _logf(3,fmt,__VA_ARGS__)
 #else
 #define  log3( msg) {}
 #define logs3( ...) {}
@@ -228,7 +242,7 @@ void __logs(int level, const char* msg, ...){
 #if LOGLEVEL>1
 #define  log2( msg) _log(2,msg)
 #define logs2( ...) _logs(2,__VA_ARGS__)
-#define logf2( fmt,...) _logf(fmt,__VA_ARGS__)
+#define logf2( fmt,...) _logf(2,fmt,__VA_ARGS__)
 #else
 #define  log2( msg) {}
 #define logs2( ...) {}
@@ -239,7 +253,7 @@ void __logs(int level, const char* msg, ...){
 
 #define  log1( msg) _log(1,msg)
 #define logs1( ...) _logs(1,__VA_ARGS__)
-#define logf1( fmt,...) _logf(fmt,__VA_ARGS__)
+#define logf1( fmt,...) _logf(1,fmt,__VA_ARGS__)
 
 
 //+doc logging macros
@@ -264,7 +278,8 @@ void __logs(int level, const char* msg, ...){
 
 #define warning( msg ) {_log(0,msg);}
 #define warnings( ...) _logs(0,__VA_ARGS__)
-#define warnif( when, msg ) if(when) warning(msg)
+#define warn_if( when, msg ) if(when) warning(msg)
+#define warns_if( when, ... ) if(when) warnings(__VA_ARGS__)
 
 #define errors( ... ) _logs(-1,__VA_ARGS__)
 #define errors_if( when,... ) if(when) errors(__VA_ARGS__)
