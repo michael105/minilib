@@ -126,7 +126,7 @@ typedef struct _notify_dirs{
 		struct _notify_dirs* next;
 		int max;
 		int subtract;
-		char stringsstart;
+		char stringsstart[0];
 } notify_dirs;
 
 typedef struct _globals {
@@ -148,7 +148,7 @@ void ino_dir_init( globals *data ){
 		data->ino_dirs = mmap( 0, PAGESIZE, PROT_READ|PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 		data->ino_dirs->max = NOTIFY_DIRS;
 		data->ino_dirs->next = 0; // for clarity
-		setaddr( data->ino_dirs->path[0], &data->ino_dirs->stringsstart );
+		setaddr( data->ino_dirs->path[0], data->ino_dirs->stringsstart );
 }
 
 
@@ -194,7 +194,7 @@ notify_dirs *ino_dir_addmapping( notify_dirs* nod ){
 						MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 		nod = nod->next;
 		nod->max = NOTIFY_DIRS;
-		setaddr( nod->path[0], &nod->stringsstart );
+		setaddr( nod->path[0], nod->stringsstart );
 		return(nod);
 }
 

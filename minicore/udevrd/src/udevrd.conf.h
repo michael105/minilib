@@ -1,3 +1,6 @@
+#ifndef udevdrd_conf_h
+#define udevdrd_conf_h
+
 // header file defining the configuration structures for udevrd
 
 #define MAGICINT *(int*)"/cfg"
@@ -88,4 +91,4 @@ static inline dev* firstdev(char* mapping){
 //#define nextdev( current ) 
 
 
-
+#endif
