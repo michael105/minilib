@@ -126,6 +126,7 @@ typedef struct _notify_dirs{
 		struct _notify_dirs* next;
 		int max;
 		int subtract;
+        // dynamic string section starts here
 		char stringsstart[0];
 } notify_dirs;
 
@@ -409,9 +410,9 @@ dev* dev_cb(const char* path, struct stat *st, int maxdepth, globals *data){
 								if ( maxdepth == 0 )
 										return(d);
 								watch_dir(path,data);
-								int r = 1;
+								int r = 1; // no recursions, just scan the directory
 								if ( d->matchmode & 04000000 )
-										r=-1;
+										r=maxdepth;
 								if ( d->matchmode & 06000000 )
 										traverse_dir( path, r, &dev_cb, &watch_dir, data ); 
 
@@ -691,7 +692,7 @@ int main( int argc, char **argv ){
 										usage();
 								}
 								data.configfile = *argv;
-								break; // ciontinue with the next argv (outer loop)
+								break; // continue with the next argv (outer loop)
 						} else {
 								switch ( *arg ){
 								case 'e':
