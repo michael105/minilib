@@ -161,7 +161,6 @@ const char* ino_dir_get( int num, globals *data ){
 				return(0); // closing the inotify fd didn't work out here
 		// so every watch needs to be removed when reloading the config :/
 
-		dbgf("Get ino: %d\n", num ); 
 		 while( ( num >= nod->max-1) ){ // or addr > map
 				 num-= (nod->max-1);
 				 if ( nod->next ){
@@ -172,7 +171,6 @@ const char* ino_dir_get( int num, globals *data ){
 				 }
 		 }
 
-		dbgs( "Got: ", RED, getaddr( nod->path[num] ), NORM );
 		return( getaddr( nod->path[num] ) );
 }
 
@@ -203,15 +201,13 @@ notify_dirs *ino_dir_addmapping( notify_dirs* nod ){
 void ino_dir_add( int num, const char* path, globals *data ){
 
 		notify_dirs *nod = data->ino_dirs;
-		dbgf("Append ino: %d - %s\n", num, path ); 
+		
 		if ( !nod->subtract ){
 				nod->subtract = num;
 		}
 		num-= nod->subtract;
-		dbgf("Append ino2: %d - %s\n", num, path ); 
 
 		 while( ( num >= nod->max-1) ){
-				dbgf("num: %d  max: %d\n", num, nod->max );
 				 num-=nod->max-1;
 				 if ( nod->next ){
 					 	nod = nod->next;
@@ -226,22 +222,16 @@ void ino_dir_add( int num, const char* path, globals *data ){
 				dief(0,"ino_dirs: num %d already used!\n",num);
 	
 		if ( (int)( (nod->path[num] - sizeof(notify_dirs)) + sizeof(p_rel) + strlen(path))>= PAGESIZE ) {  
-
-				dbg(RED"mmap"NORM);
-				dbgf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
-					nod->max = num+1; // addr > map
-					num = 0;
-//newmap:
+				nod->max = num+1; // addr > map
+                num = 0;
 				nod = ino_dir_addmapping(nod);
-
-				dbgf("num: %d  max: %d  nod->path: %d\n", num, nod->max, nod->path[num] );
 		}
 
 
 		char *p = stpcpy( getstr( nod->path[num] ), path );
 		p++;
 		setaddr(nod->path[num+1],p);
-		dbgs( "appended: ", getaddr( nod->path[num] ) );
+		//dbgs( "appended: ", getaddr( nod->path[num] ) );
 }
 
 
