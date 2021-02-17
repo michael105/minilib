@@ -1,40 +1,4 @@
-#if 0
-mini_start;mini_writes;mini_open;mini_read;mini_exit_errno;mini_usleep
-mini_strlcpy;mini_strcpy;mini_strncpy;mini_strdup;mini_stpcpy;
-mini_group_write
-mini_group_printf
-mini_itohex;
-mini_itoHEX;
 
-
-mini_die_if;mini_dies_if;mini_die;mini_dief;mini_mmap
-
-mini_dirbuf;mini_opendir;mini_readdir;mini_dirbuf_malloc malloc_brk;
-mini_malloc_brk;mini_free;
-mini_execl
-
-mini_match
-
-mini_sigaction
-mini_ansicolors;mini_shortcolornames
-
-mini_snprintfs
-mini_stpncpy
-mini_stplcpy
-
-mini_buf 512
-
-source common.conf
-
-HEADERGUARDS
-OPTFLAG -Os
-#STRIPFLAG
-#LDSCRIPT text_and_bss
-shrinkelf
-INCLUDESRC
-#FULLDEBUG
-return
-#endif
 
 #ifndef MLIB
 #include "../../../syntaxcheck.h"
@@ -94,18 +58,8 @@ for the exact licensing terms.
 */
 
 // todo:
-// dev down
 // removed devices
 
-
-// done
-// reload config on SIGUSR1
-// execute
-// notify_dirs->grow (mmap)
-// dir patterns
-// log
-// argument parsing ( -c, -d, -B )
-// embed config
 
 
 // set by the signal handler
