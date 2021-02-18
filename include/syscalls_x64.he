@@ -1,0 +1,622 @@
+#ifndef syscalls_x64_h
+
+#define syscalls_x64_h
+
+
+SYSDEF_syscall(read,3, unsigned int fd,  char *buf,  size_t count)
+
+SYSDEF_syscall(write,3, unsigned int fd,  const char *buf,  size_t count)
+
+SYSDEF_syscall(open,3, const char *filename,  int flags,  int mode)
+
+SYSDEF_syscall(close,1, unsigned int fd)
+
+SYSDEF_syscall(stat,2, const char *filename,  struct stat *statbuf)
+
+SYSDEF_syscall(fstat,2, unsigned int fd,  struct stat *statbuf)
+
+SYSDEF_syscall(lstat,2, const char *filename,  struct stat *statbuf)
+
+SYSDEF_syscall(poll,3, struct poll_fd *ufds,  unsigned int nfds,  long timeout_msecs)
+
+SYSDEF_syscall(lseek,3, unsigned int fd,  off_t offset,  unsigned int origin)
+
+SYSDEF_syscall(mmap,6, unsigned long addr,  unsigned long len,  unsigned long prot,  unsigned long flags,  unsigned long fd,  unsigned long off)
+
+SYSDEF_syscall(mprotect,3, unsigned long start,  size_t len,  unsigned long prot)
+
+SYSDEF_syscall(munmap,2, unsigned long addr,  size_t len)
+
+SYSDEF_syscall(brk,1, unsigned long brk)
+
+SYSDEF_syscall(rt_sigaction,4, int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
+
+SYSDEF_syscall(rt_sigprocmask,4, int how,  sigset_t *nset,  sigset_t *oset,  size_t sigsetsize)
+
+SYSDEF_syscall(rt_sigreturn,1, unsigned long __unused)
+
+SYSDEF_syscall(ioctl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
+
+SYSDEF_syscall(pread64,4, unsigned long fd,  char *buf,  size_t count,  loff_t pos)
+
+SYSDEF_syscall(pwrite64,4, unsigned int fd,  const char *buf,  size_t count,  loff_t pos)
+
+SYSDEF_syscall(readv,3, unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
+
+SYSDEF_syscall(writev,3, unsigned long fd,  const struct iovec *vec,  unsigned long vlen)
+
+SYSDEF_syscall(access,2, const char *filename,  int mode)
+
+SYSDEF_syscall(pipe,1, int *filedes)
+
+SYSDEF_syscall(select,5, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timeval *tvp)
+
+SYSDEF_syscall(sched_yield,0)
+
+SYSDEF_syscall(mremap,5, unsigned long addr,  unsigned long old_len,  unsigned long new_len,  unsigned long flags,  unsigned long new_addr)
+
+SYSDEF_syscall(msync,3, unsigned long start,  size_t len,  int flags)
+
+SYSDEF_syscall(mincore,3, unsigned long start,  size_t len,  unsigned char *vec)
+
+SYSDEF_syscall(madvise,3, unsigned long start,  size_t len_in,  int behavior)
+
+SYSDEF_syscall(shmget,3, key_t key,  size_t size,  int shmflg)
+
+SYSDEF_syscall(shmat,3, int shmid,  char *shmaddr,  int shmflg)
+
+SYSDEF_syscall(shmctl,3, int shmid,  int cmd,  struct shmid_ds *buf)
+
+SYSDEF_syscall(dup,1, unsigned int fildes)
+
+SYSDEF_syscall(dup2,2, unsigned int oldfd,  unsigned int newfd)
+
+SYSDEF_syscall(pause,0)
+
+SYSDEF_syscall(nanosleep,2, struct timespec *rqtp,  struct timespec *rmtp)
+
+SYSDEF_syscall(getitimer,2, int which,  struct itimerval *value)
+
+SYSDEF_syscall(alarm,1, unsigned int seconds)
+
+SYSDEF_syscall(setitimer,3, int which,  struct itimerval *value,  struct itimerval *ovalue)
+
+SYSDEF_syscall(getpid,0)
+
+SYSDEF_syscall(sendfile,4, int out_fd,  int in_fd,  off_t *offset,  size_t count)
+
+SYSDEF_syscall(socket,3, int family,  int type,  int protocol)
+
+SYSDEF_syscall(connect,3, int fd,  struct sockaddr *uservaddr,  int addrlen)
+
+SYSDEF_syscall(accept,3, int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)
+
+SYSDEF_syscall(sendto,6, int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)
+
+SYSDEF_syscall(recvfrom,6, int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  int *addr_len)
+
+SYSDEF_syscall(sendmsg,3, int fd,  struct msghdr *msg,  unsigned flags)
+
+SYSDEF_syscall(recvmsg,3, int fd,  struct msghdr *msg,  unsigned int flags)
+
+SYSDEF_syscall(shutdown,2, int fd,  int how)
+
+SYSDEF_syscall(bind,3, int fd,  struct sockaddr *umyaddr,  int addrlen)
+
+SYSDEF_syscall(listen,2, int fd,  int backlog)
+
+SYSDEF_syscall(getsockname,3, int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+
+SYSDEF_syscall(getpeername,3, int fd,  struct sockaddr *usockaddr,  int *usockaddr_len)
+
+SYSDEF_syscall(socketpair,4, int family,  int type,  int protocol,  int *usockvec)
+
+SYSDEF_syscall(setsockopt,5, int fd,  int level,  int optname,  char *optval,  int optlen)
+
+SYSDEF_syscall(getsockopt,5, int fd,  int level,  int optname,  char *optval,  int *optlen)
+
+SYSDEF_syscall(clone,4, unsigned long clone_flags,  unsigned long newsp,  void *parent_tid,  void *child_tid)
+
+SYSDEF_syscall(fork,0)
+
+SYSDEF_syscall(vfork,0)
+
+SYSDEF_syscall(execve,3, const char *filename,  const char *const argv[],  const char *const envp[])
+
+SYSDEF_syscall(exit,1, int error_code)
+
+SYSDEF_syscall(wait4,4, pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
+
+SYSDEF_syscall(kill,2, pid_t pid,  int sig)
+
+SYSDEF_syscall(uname,1, struct old_utsname *name)
+
+SYSDEF_syscall(semget,3, key_t key,  int nsems,  int semflg)
+
+SYSDEF_syscall(semop,3, int semid,  struct sembuf *tsops,  unsigned nsops)
+
+SYSDEF_syscall(semctl,4, int semid,  int semnum,  int cmd,  semun_u arg)
+
+SYSDEF_syscall(shmdt,1, char *shmaddr)
+
+SYSDEF_syscall(msgget,2, key_t key,  int msgflg)
+
+SYSDEF_syscall(msgsnd,4, int msqid,  struct msgbuf *msgp,  size_t msgsz,  int msgflg)
+
+SYSDEF_syscall(msgrcv,5, int msqid,  struct msgbuf *msgp,  size_t msgsz,  long msgtyp,  int msgflg)
+
+SYSDEF_syscall(msgctl,3, int msqid,  int cmd,  struct msqid_ds *buf)
+
+SYSDEF_syscall(fcntl,3, unsigned int fd,  unsigned int cmd,  unsigned long arg)
+
+SYSDEF_syscall(flock,2, unsigned int fd,  unsigned int cmd)
+
+SYSDEF_syscall(fsync,1, unsigned int fd)
+
+SYSDEF_syscall(fdatasync,1, unsigned int fd)
+
+SYSDEF_syscall(truncate,2, const char *path,  long length)
+
+SYSDEF_syscall(ftruncate,2, unsigned int fd,  unsigned long length)
+
+SYSDEF_syscall(getdents,3, unsigned int fd,  struct linux_dirent *dirent,  unsigned int count)
+
+SYSDEF_syscall(getcwd,2, char *buf,  unsigned long size)
+
+SYSDEF_syscall(chdir,1, const char *filename)
+
+SYSDEF_syscall(fchdir,1, unsigned int fd)
+
+SYSDEF_syscall(rename,2, const char *oldname,  const char *newname)
+
+SYSDEF_syscall(mkdir,2, const char *pathname,  int mode)
+
+SYSDEF_syscall(rmdir,1, const char *pathname)
+
+SYSDEF_syscall(creat,2, const char *pathname,  int mode)
+
+SYSDEF_syscall(link,2, const char *oldname,  const char *newname)
+
+SYSDEF_syscall(unlink,1, const char *pathname)
+
+SYSDEF_syscall(symlink,2, const char *oldname,  const char *newname)
+
+SYSDEF_syscall(readlink,3, const char *path,  char *buf,  int bufsiz)
+
+SYSDEF_syscall(chmod,2, const char *filename,  mode_t mode)
+
+SYSDEF_syscall(fchmod,2, unsigned int fd,  mode_t mode)
+
+SYSDEF_syscall(chown,3, const char *filename,  uid_t user,  gid_t group)
+
+SYSDEF_syscall(fchown,3, unsigned int fd,  uid_t user,  gid_t group)
+
+SYSDEF_syscall(lchown,3, const char *filename,  uid_t user,  gid_t group)
+
+SYSDEF_syscall(umask,1, int mask)
+
+SYSDEF_syscall(gettimeofday,2, struct timeval *tv,  struct timezone *tz)
+
+SYSDEF_syscall(getrlimit,2, unsigned int resource,  struct rlimit *rlim)
+
+SYSDEF_syscall(getrusage,2, int who,  struct rusage *ru)
+
+SYSDEF_syscall(sysinfo,1, struct sysinfo *info)
+
+SYSDEF_syscall(times,1, struct sysinfo *info)
+
+SYSDEF_syscall(ptrace,4, long request,  long pid,  unsigned long addr,  unsigned long data)
+
+SYSDEF_syscall(getuid,0)
+
+SYSDEF_syscall(syslog,3, int type,  char *buf,  int len)
+
+SYSDEF_syscall(getgid,0)
+
+SYSDEF_syscall(setuid,1, uid_t uid)
+
+SYSDEF_syscall(setgid,1, gid_t gid)
+
+SYSDEF_syscall(geteuid,0)
+
+SYSDEF_syscall(getegid,0)
+
+SYSDEF_syscall(setpgid,2, pid_t pid,  pid_t pgid)
+
+SYSDEF_syscall(getppid,0)
+
+SYSDEF_syscall(getpgrp,0)
+
+SYSDEF_syscall(setsid,0)
+
+SYSDEF_syscall(setreuid,2, uid_t ruid,  uid_t euid)
+
+SYSDEF_syscall(setregid,2, gid_t rgid,  gid_t egid)
+
+SYSDEF_syscall(getgroups,2, int gidsetsize,  gid_t *grouplist)
+
+SYSDEF_syscall(setgroups,2, int gidsetsize,  gid_t *grouplist)
+
+SYSDEF_syscall(setresuid,3, uid_t *ruid,  uid_t *euid,  uid_t *suid)
+
+SYSDEF_syscall(getresuid,3, uid_t *ruid,  uid_t *euid,  uid_t *suid)
+
+SYSDEF_syscall(setresgid,3, gid_t rgid,  gid_t egid,  gid_t sgid)
+
+SYSDEF_syscall(getresgid,3, gid_t *rgid,  gid_t *egid,  gid_t *sgid)
+
+SYSDEF_syscall(getpgid,1, pid_t pid)
+
+SYSDEF_syscall(setfsuid,1, uid_t uid)
+
+SYSDEF_syscall(setfsgid,1, gid_t gid)
+
+SYSDEF_syscall(getsid,1, pid_t pid)
+
+SYSDEF_syscall(capget,2, cap_user_header_t header,  cap_user_data_t dataptr)
+
+SYSDEF_syscall(capset,2, cap_user_header_t header,  const cap_user_data_t data)
+
+SYSDEF_syscall(rt_sigpending,2, sigset_t *set,  size_t sigsetsize)
+
+SYSDEF_syscall(rt_sigtimedwait,4, const sigset_t *uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)
+
+SYSDEF_syscall(rt_sigqueueinfo,3, pid_t pid,  int sig,  siginfo_t *uinfo)
+
+SYSDEF_syscall(rt_sigsuspend,2, sigset_t *unewset,  size_t sigsetsize)
+
+SYSDEF_syscall(sigaltstack,2, const stack_t *uss,  stack_t *uoss)
+
+SYSDEF_syscall(utime,2, char *filename,  struct utimbuf *times)
+
+SYSDEF_syscall(mknod,3, const char *filename,  umode_t mode,  unsigned dev)
+
+SYSDEF_syscall(personality,1, unsigned int personality)
+
+SYSDEF_syscall(ustat,2, unsigned dev,  struct ustat *ubuf)
+
+SYSDEF_syscall(statfs,2, const char *pathname,  struct statfs *buf)
+
+SYSDEF_syscall(fstatfs,2, unsigned int fd,  struct statfs *buf)
+
+SYSDEF_syscall(sysfs,3, int option,  unsigned long arg1,  unsigned long arg2)
+
+SYSDEF_syscall(getpriority,2, int which,  int who)
+
+SYSDEF_syscall(setpriority,3, int which,  int who,  int niceval)
+
+SYSDEF_syscall(sched_setparam,2, pid_t pid,  struct sched_param *param)
+
+SYSDEF_syscall(sched_getparam,2, pid_t pid,  struct sched_param *param)
+
+SYSDEF_syscall(sched_setscheduler,3, pid_t pid,  int policy,  struct sched_param *param)
+
+SYSDEF_syscall(sched_getscheduler,1, pid_t pid)
+
+SYSDEF_syscall(sched_get_priority_max,1, int policy)
+
+SYSDEF_syscall(sched_get_priority_min,1, int policy)
+
+SYSDEF_syscall(sched_rr_get_interval,2, pid_t pid,  struct timespec *interval)
+
+SYSDEF_syscall(mlock,2, unsigned long start,  size_t len)
+
+SYSDEF_syscall(munlock,2, unsigned long start,  size_t len)
+
+SYSDEF_syscall(mlockall,1, int flags)
+
+SYSDEF_syscall(munlockall,0)
+
+SYSDEF_syscall(vhangup,0)
+
+SYSDEF_syscall(modify_ldt,3, int func,  void *ptr,  unsigned long bytecount)
+
+SYSDEF_syscall(pivot_root,2, const char *new_root,  const char *put_old)
+
+SYSDEF_syscall(_sysctl,1, struct __sysctl_args *args)
+
+SYSDEF_syscall(prctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+
+SYSDEF_syscall(arch_prctl,3, struct task_struct *task,  int code,  unsigned long *addr)
+
+SYSDEF_syscall(adjtimex,1, struct timex *txc_p)
+
+SYSDEF_syscall(setrlimit,2, unsigned int resource,  struct rlimit *rlim)
+
+SYSDEF_syscall(chroot,1, const char *filename)
+
+SYSDEF_syscall(sync,0)
+
+SYSDEF_syscall(acct,1, const char *name)
+
+SYSDEF_syscall(settimeofday,2, struct timeval *tv,  struct timezone *tz)
+
+SYSDEF_syscall(mount,5, char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
+
+SYSDEF_syscall(umount2,2, const char *target,  int flags)
+
+SYSDEF_syscall(swapon,2, const char *specialfile,  int swap_flags)
+
+SYSDEF_syscall(swapoff,1, const char *specialfile)
+
+SYSDEF_syscall(reboot,4, int magic1,  int magic2,  unsigned int cmd,  void *arg)
+
+SYSDEF_syscall(sethostname,2, char *name,  int len)
+
+SYSDEF_syscall(setdomainname,2, char *name,  int len)
+
+SYSDEF_syscall(iopl,2, unsigned int level,  struct pt_regs *regs)
+
+SYSDEF_syscall(ioperm,3, unsigned long from,  unsigned long num,  int turn_on)
+
+SYSDEF_syscall(init_module,3, void *umod,  unsigned long len,  const char *uargs)
+
+SYSDEF_syscall(delete_module,2, const char *name_user,  unsigned int flags)
+
+SYSDEF_syscall(quotactl,4, unsigned int cmd,  const char *special,  qid_t id,  void *addr)
+
+SYSDEF_syscall(gettid,0)
+
+SYSDEF_syscall(readahead,3, int fd,  loff_t offset,  size_t count)
+
+SYSDEF_syscall(setxattr,5, const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
+
+SYSDEF_syscall(lsetxattr,5, const char *pathname,  const char *name,  const void *value, size_t size,  int flags)
+
+SYSDEF_syscall(fsetxattr,5, int fd,  const char *name,  const void *value,  size_t size, int flags)
+
+SYSDEF_syscall(getxattr,4, const char *pathname,  const char *name,  void *value,  size_t size)
+
+SYSDEF_syscall(lgetxattr,4, const char *pathname,  const char *name,  void *value,  size_t size)
+
+SYSDEF_syscall(fgetxattr,4, int fd,  const char *name,  void *value,  size_t size)
+
+SYSDEF_syscall(listxattr,3, const char *pathname,  char *list,  size_t size)
+
+SYSDEF_syscall(llistxattr,3, const char *pathname,  char *list,  size_t size)
+
+SYSDEF_syscall(flistxattr,3, int fd,  char *list,  size_t size)
+
+SYSDEF_syscall(removexattr,2, const char *pathname,  const char *name)
+
+SYSDEF_syscall(lremovexattr,2, const char *pathname,  const char *name)
+
+SYSDEF_syscall(fremovexattr,2, int fd,  const char *name)
+
+SYSDEF_syscall(tkill,2, pid_t pid,  int sig)
+
+SYSDEF_syscall(time,1, time_t *tloc)
+
+SYSDEF_syscall(futex,6, u32 *uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)
+
+SYSDEF_syscall(sched_setaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
+
+SYSDEF_syscall(sched_getaffinity,3, pid_t pid,  unsigned int len,  unsigned long *user_mask_ptr)
+
+SYSDEF_syscall(io_setup,2, unsigned nr_events,  aio_context_t *ctxp)
+
+SYSDEF_syscall(io_destroy,1, aio_context_t ctx)
+
+SYSDEF_syscall(io_getevents,4, aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event *events)
+
+SYSDEF_syscall(io_submit,3, aio_context_t ctx_id,  long nr,  struct iocb **iocbpp)
+
+SYSDEF_syscall(io_cancel,3, aio_context_t ctx_id,  struct iocb *iocb,  struct io_event *result)
+
+SYSDEF_syscall(lookup_dcookie,3, u64 cookie64,  long buf,  long len)
+
+SYSDEF_syscall(epoll_create,1, int size)
+
+SYSDEF_syscall(remap_file_pages,5, unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)
+
+SYSDEF_syscall(getdents64,3, unsigned int fd,  struct linux_dirent64 *dirent,  unsigned int count)
+
+SYSDEF_syscall(set_tid_address,1, int *tidptr)
+
+SYSDEF_syscall(restart_syscall,0)
+
+SYSDEF_syscall(semtimedop,4, int semid,  struct sembuf *tsops,  unsigned nsops,  const struct timespec *timeout)
+
+SYSDEF_syscall(fadvise64,4, int fd,  loff_t offset,  size_t len,  int advice)
+
+SYSDEF_syscall(timer_create,3, const clockid_t which_clock,  struct sigevent *timer_event_spec,  timer_t *created_timer_id)
+
+SYSDEF_syscall(timer_settime,4, timer_t timer_id,  int flags,  const struct itimerspec *new_setting,  struct itimerspec *old_setting)
+
+SYSDEF_syscall(timer_gettime,2, timer_t timer_id,  struct itimerspec *setting)
+
+SYSDEF_syscall(timer_getoverrun,1, timer_t timer_id)
+
+SYSDEF_syscall(timer_delete,1, timer_t timer_id)
+
+SYSDEF_syscall(clock_settime,2, const clockid_t which_clock,  const struct timespec *tp)
+
+SYSDEF_syscall(clock_gettime,2, const clockid_t which_clock,  struct timespec *tp)
+
+SYSDEF_syscall(clock_getres,2, const clockid_t which_clock,  struct timespec *tp)
+
+SYSDEF_syscall(clock_nanosleep,4, const clockid_t which_clock,  int flags,  const struct timespec *rqtp,  struct timespec *rmtp)
+
+SYSDEF_syscall(exit_group,1, int error_code)
+
+SYSDEF_syscall(epoll_wait,4, int epfd,  struct epoll_event *events,  int maxevents,  int timeout)
+
+SYSDEF_syscall(epoll_ctl,4, int epfd,  int op,  int fd,  struct epoll_event *event)
+
+SYSDEF_syscall(tgkill,3, pid_t tgid,  pid_t pid,  int sig)
+
+SYSDEF_syscall(utimes,2, char *filename,  struct timeval *utimes)
+
+SYSDEF_syscall(mbind,6, unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long *nmask,  unsigned long maxnode,  unsigned flags)
+
+SYSDEF_syscall(set_mempolicy,3, int mode,  unsigned long *nmask,  unsigned long maxnode)
+
+SYSDEF_syscall(get_mempolicy,5, int *policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)
+
+SYSDEF_syscall(mq_open,4, const char *u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)
+
+SYSDEF_syscall(mq_unlink,1, const char *u_name)
+
+SYSDEF_syscall(mq_timedsend,5, mqd_t mqdes,  const char *u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)
+
+SYSDEF_syscall(mq_timedreceive,5, mqd_t mqdes,  char *u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)
+
+SYSDEF_syscall(mq_notify,2, mqd_t mqdes,  const struct sigevent *u_notification)
+
+SYSDEF_syscall(mq_getsetattr,3, mqd_t mqdes,  const struct mq_attr *u_mqstat,  struct mq_attr *u_omqstat)
+
+SYSDEF_syscall(kexec_load,4, unsigned long entry,  unsigned long nr_segments,  struct kexec_segment *segments,  unsigned long flags)
+
+SYSDEF_syscall(waitid,5, int which,  pid_t upid,  struct siginfo *infop,  int options,  struct rusage *ru)
+
+SYSDEF_syscall(add_key,4, const char *_type,  const char *_description,  const void *_payload,  size_t plen)
+
+SYSDEF_syscall(request_key,4, const char *_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)
+
+SYSDEF_syscall(keyctl,5, int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
+
+SYSDEF_syscall(ioprio_set,3, int which,  int who,  int ioprio)
+
+SYSDEF_syscall(ioprio_get,2, int which,  int who)
+
+SYSDEF_syscall(inotify_init,0)
+
+SYSDEF_syscall(inotify_add_watch,3, int fd,  const char *pathname,  u32 mask)
+
+SYSDEF_syscall(inotify_rm_watch,2, int fd,  __s32 wd)
+
+SYSDEF_syscall(migrate_pages,4, pid_t pid,  unsigned long maxnode,  const unsigned long *old_nodes,  const unsigned long *new_nodes)
+
+SYSDEF_syscall(openat,4, int dfd,  const char *filename,  int flags,  int mode)
+
+SYSDEF_syscall(mkdirat,3, int dfd,  const char *pathname,  int mode)
+
+SYSDEF_syscall(mknodat,4, int dfd,  const char *filename,  int mode,  unsigned dev)
+
+SYSDEF_syscall(fchownat,5, int dfd,  const char *filename,  uid_t user,  gid_t group,  int flag)
+
+SYSDEF_syscall(futimesat,3, int dfd,  const char *filename,  struct timeval *utimes)
+
+SYSDEF_syscall(newfstatat,4, int dfd,  const char *filename,  struct stat *statbuf,  int flag)
+
+SYSDEF_syscall(unlinkat,3, int dfd,  const char *pathname,  int flag)
+
+SYSDEF_syscall(renameat,4, int oldfd,  const char *oldname,  int newfd,  const char *newname)
+
+SYSDEF_syscall(linkat,5, int oldfd,  const char *oldname,  int newfd,  const char *newname,  int flags)
+
+SYSDEF_syscall(symlinkat,3, const char *oldname,  int newfd,  const char *newname)
+
+SYSDEF_syscall(readlinkat,4, int dfd,  const char *pathname,  char *buf,  int bufsiz)
+
+SYSDEF_syscall(fchmodat,3, int dfd,  const char *filename,  mode_t mode)
+
+SYSDEF_syscall(faccessat,3, int dfd,  const char *filename,  int mode)
+
+SYSDEF_syscall(pselect6,6, int n,  fd_set *inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)
+
+SYSDEF_syscall(ppoll,5, struct pollfd *ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)
+
+SYSDEF_syscall(unshare,1, unsigned long unshare_flags)
+
+SYSDEF_syscall(set_robust_list,2, struct robust_list_head *head,  size_t len)
+
+SYSDEF_syscall(get_robust_list,3, int pid,  struct robust_list_head **head_ptr,  size_t *len_ptr)
+
+SYSDEF_syscall(splice,6, int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
+
+SYSDEF_syscall(tee,4, int fdin,  int fdout,  size_t len,  unsigned int flags)
+
+SYSDEF_syscall(sync_file_range,4, long fd,  loff_t offset,  loff_t bytes,  long flags)
+
+SYSDEF_syscall(vmsplice,4, int fd,  const struct iovec *iov,  unsigned long nr_segs, unsigned int flags)
+
+SYSDEF_syscall(move_pages,6, pid_t pid,  unsigned long nr_pages,  const void *pages[], const int *nodes,  int *status,  int flags)
+
+SYSDEF_syscall(utimensat,4, int dfd,  const char *filename,  struct timespec *utimes, int flags)
+
+SYSDEF_syscall(epoll_pwait,6, int epfd,  struct epoll_event *events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)
+
+SYSDEF_syscall(signalfd,3, int ufd,  sigset_t *user_mask,  size_t sizemask)
+
+SYSDEF_syscall(timerfd_create,2, int clockid,  int flags)
+
+SYSDEF_syscall(eventfd,1, unsigned int count)
+
+SYSDEF_syscall(fallocate,4, long fd,  long mode,  loff_t offset,  loff_t len)
+
+SYSDEF_syscall(timerfd_settime,4, int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)
+
+SYSDEF_syscall(timerfd_gettime,2, int ufd,  struct itimerspec *otmr)
+
+SYSDEF_syscall(accept4,4, int fd,  struct sockaddr *upeer_sockaddr,  int *upeer_addrlen,  int flags)
+
+SYSDEF_syscall(signalfd4,4, int ufd,  sigset_t *user_mask,  size_t sizemask,  int flags)
+
+SYSDEF_syscall(eventfd2,2, unsigned int count,  int flags)
+
+SYSDEF_syscall(epoll_create1,1, int flags)
+
+SYSDEF_syscall(dup3,3, unsigned int oldfd,  unsigned int newfd,  int flags)
+
+SYSDEF_syscall(pipe2,2, int *filedes,  int flags)
+
+SYSDEF_syscall(inotify_init1,1, int flags)
+
+SYSDEF_syscall(preadv,5, unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
+
+SYSDEF_syscall(pwritev,5, unsigned long fd,  const struct iovec *vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)
+
+SYSDEF_syscall(rt_tgsigqueueinfo,4, pid_t tgid,  pid_t pid,  int sig,  siginfo_t *uinfo)
+
+SYSDEF_syscall(perf_event_open,5, struct perf_event_attr *attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)
+
+SYSDEF_syscall(recvmmsg,5, int fd,  struct msghdr *mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)
+
+SYSDEF_syscall(fanotify_init,2, unsigned int flags,  unsigned int event_f_flags)
+
+SYSDEF_syscall(fanotify_mark,5, long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)
+
+SYSDEF_syscall(prlimit64,4, pid_t pid,  unsigned int resource,  const struct rlimit64 *new_rlim,  struct rlimit64 *old_rlim)
+
+SYSDEF_syscall(name_to_handle_at,5, int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flag)
+
+SYSDEF_syscall(open_by_handle_at,5, int dfd,  const char *name,  struct file_handle *handle,  int *mnt_id,  int flags)
+
+SYSDEF_syscall(clock_adjtime,2, clockid_t which_clock,  struct timex *tx)
+
+SYSDEF_syscall(syncfs,1, int fd)
+
+SYSDEF_syscall(sendmmsg,4, int fd,  struct mmsghdr *mmsg,  unsigned int vlen,  unsigned int flags)
+
+SYSDEF_syscall(setns,2, int fd,  int nstype)
+
+SYSDEF_syscall(getcpu,3, unsigned *cpup,  unsigned *nodep,  struct getcpu_cache *unused)
+
+SYSDEF_syscall(process_vm_readv,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)
+
+SYSDEF_syscall(process_vm_writev,6, pid_t pid,  const struct iovec *lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)
+
+SYSDEF_syscall(kcmp,5, pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)
+
+SYSDEF_syscall(finit_module,3, int fd,  const char  *uargs,  int flags)
+
+SYSDEF_syscall(sched_setattr,3, pid_t pid,  struct sched_attr  *attr,  unsigned int flags)
+
+SYSDEF_syscall(sched_getattr,4, pid_t pid,  struct sched_attr  *attr,  unsigned int size,  unsigned int flags)
+
+SYSDEF_syscall(renameat2,5, int olddfd,  const char  *oldname,  int newdfd,  const char  *newname,  unsigned int flags)
+
+SYSDEF_syscall(seccomp,3, unsigned int op,  unsigned int flags,  const char  *uargs)
+
+SYSDEF_syscall(getrandom,3, char  *buf,  size_t count,  unsigned int flags)
+
+SYSDEF_syscall(memfd_create,2, const char  *uname_ptr,  unsigned int flags)
+
+SYSDEF_syscall(kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
+
+SYSDEF_syscall(bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
+
+
+#endif
+
