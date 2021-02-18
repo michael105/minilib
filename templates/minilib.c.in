@@ -13,10 +13,10 @@
 #endif
 
 #include "minilib/asm/start.c"
-#include "minilib/src/minilib_global.c"
+#include "minilib/src/intern/minilib_global.c"
 
 #ifdef mini_prints
-#include "minilib/src/prints.c"
+#include "minilib/src/output/prints.c"
 #endif
 
 #ifdef mini_errno
@@ -26,6 +26,6 @@ int errno;
 int sysret;
 #endif
 
-#include "src/startup.c"
+#include "src/intern/startup.c"
 
 /* end templates/minilib.c.in */

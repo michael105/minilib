@@ -4,6 +4,11 @@
 
 
 Work in progress - it's a backup copy. (2021/02)
+Atm about to clean the structure.
+Harder then writing this thing..
+
+--------
+
 
 A slim resource friendly udevd daemon. 
 

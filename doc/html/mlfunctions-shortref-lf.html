@@ -65,7 +65,7 @@
 <tr valign="top"><td><small>_die</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  36 </small></td><td><small> void _die();
 </small></td></tr><tr><td></td><td colspan="2"><small>internal implementation of die
  </small></td></tr>
-<tr valign="top"><td><small>sys__dup</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  69 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>sys__dup</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  69 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__dup2</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  71 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__dup3</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  559 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__epoll_create</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  407 </small></td><td><small></small></td></tr>
@@ -97,7 +97,7 @@
 <tr valign="top"><td><small>_fopen</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  12 </small></td><td><small> FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small>sys__fork</small></td><td><small>   <a href="../src/_fopen.c" target="right">../src/_fopen.c</a>  119 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>sys__fork</small></td><td><small>   <a href="../src/streams/_fopen.c" target="right">../src/streams/_fopen.c</a>  119 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__fremovexattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  383 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__fsetxattr</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  365 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__fstat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  15 </small></td><td><small></small></td></tr>
@@ -152,9 +152,9 @@
 <tr valign="top"><td><small>sys__ioprio_set</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  477 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_itobin</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  8 </small></td><td><small> int _itobin(int i, char*buf, int prec, int groups );
 </small></td></tr>
-<tr valign="top"><td><small>_itohex</small></td><td><small>   <a href="../src/itobin.c" target="right">../src/itobin.c</a>  6 </small></td><td><small> int _itohex(int i,char* buf,int padding, int capitals);
+<tr valign="top"><td><small>_itohex</small></td><td><small>   <a href="../src/conversions/itobin.c" target="right">../src/conversions/itobin.c</a>  6 </small></td><td><small> int _itohex(int i,char* buf,int padding, int capitals);
 </small></td></tr>
-<tr valign="top"><td><small>sys__kcmp</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  599 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>sys__kcmp</small></td><td><small>   <a href="../src/conversions/itohex.c" target="right">../src/conversions/itohex.c</a>  599 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__kexec_file_load</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  615 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__kexec_load</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  467 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__keyctl</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  475 </small></td><td><small></small></td></tr>
@@ -174,10 +174,10 @@
 <tr valign="top"><td><small>sys__madvise</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  61 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_match</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  96 </small></td><td><small> int _match(char *text, const char *re, text_match *st_match);
 </small></td></tr>
-<tr valign="top"><td><small>_match_ext2</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  326 </small></td><td><small> char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
+<tr valign="top"><td><small>_match_ext2</small></td><td><small>   <a href="../src/match/match.c" target="right">../src/match/match.c</a>  326 </small></td><td><small> char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>internal implementation of match_ext
  </small></td></tr>
-<tr valign="top"><td><small>sys__mbind</small></td><td><small>   <a href="../src/match_ext2.c" target="right">../src/match_ext2.c</a>  449 </small></td><td><small></small></td></tr>
+<tr valign="top"><td><small>sys__mbind</small></td><td><small>   <a href="../src/match/match_ext2.c" target="right">../src/match/match_ext2.c</a>  449 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__memfd_create</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  613 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__migrate_pages</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  487 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__mincore</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  59 </small></td><td><small></small></td></tr>
@@ -364,7 +364,7 @@
 <tr valign="top"><td><small>sys__writev</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  45 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/abort.3.rst.html">abort</a></small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  3 </small></td><td><small> void abort();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../src/abort.c" target="right">../src/abort.c</a>  25 </small></td><td><small>  int abs(int i);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/abs.3.rst.html">abs</a></small></td><td><small>   <a href="../src/process/abort.c" target="right">../src/process/abort.c</a>  25 </small></td><td><small>  int abs(int i);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/access.2.rst.html">access</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  165 </small></td><td><small> access( const char *filename, int mode)
 </small></td></tr>
@@ -374,7 +374,7 @@
   the asciitables is used for the comparison
   (using strcmp)
  </small></td></tr>
-<tr valign="top"><td><small>ansicolors</small></td><td><small>   <a href="../src/dirent/alphasort.c" target="right">../src/dirent/alphasort.c</a>  45 </small></td><td><small> 
+<tr valign="top"><td><small>ansicolors</small></td><td><small>   <a href="../src/directories/alphasort.c" target="right">../src/directories/alphasort.c</a>  45 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>defines for ansicolors at the console, 16 color mode
  the names are:
   AC_NORM ( white text on black background)
@@ -422,11 +422,11 @@
   which defines the maximum numbers of functions to be registered.
   (defaults to 8)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../src/atexit.c" target="right">../src/atexit.c</a>  3 </small></td><td><small> int atoi(const char *c);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atoi.3.rst.html">atoi</a></small></td><td><small>   <a href="../src/process/atexit.c" target="right">../src/process/atexit.c</a>  3 </small></td><td><small> int atoi(const char *c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atol.3.rst.html">atol</a></small></td><td><small>   <a href="../src/atoi.c" target="right">../src/atoi.c</a>  3 </small></td><td><small> long atol(const char *c);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/atol.3.rst.html">atol</a></small></td><td><small>   <a href="../src/conversions/atoi.c" target="right">../src/conversions/atoi.c</a>  3 </small></td><td><small> long atol(const char *c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/atol.c" target="right">../src/atol.c</a>  2 </small></td><td><small> char *basename(char *path);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/basename.3.rst.html">basename</a></small></td><td><small>   <a href="../src/conversions/atol.c" target="right">../src/conversions/atol.c</a>  2 </small></td><td><small> char *basename(char *path);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../src/basename.c" target="right">../src/basename.c</a>  19 </small></td><td><small>  int brk( const void* addr );
 </small></td></tr><tr><td></td><td colspan="2"><small>set the brk to addr
@@ -435,7 +435,7 @@
   if errno isn't available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small>bsd_cksum</small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  31 </small></td><td><small> unsigned int bsd_cksum( const char* p, unsigned int len );
+<tr valign="top"><td><small>bsd_cksum</small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  31 </small></td><td><small> unsigned int bsd_cksum( const char* p, unsigned int len );
 </small></td></tr><tr><td></td><td colspan="2"><small>bsd checksum
  </small></td></tr>
 <tr valign="top"><td><small>bsd_cksumblock</small></td><td><small>   <a href="../src/cksum.c" target="right">../src/cksum.c</a>  20 </small></td><td><small> unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
@@ -444,7 +444,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">calloc</a></small></td><td><small>   <a href="../src/cksum.c" target="right">../src/cksum.c</a>  2 </small></td><td><small> void* calloc(int size);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">cfmakeraw</a></small></td><td><small>   <a href="../src/calloc.c" target="right">../src/calloc.c</a>  3 </small></td><td><small> void cfmakeraw(struct termios *tp);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">cfmakeraw</a></small></td><td><small>   <a href="../src/memory/calloc.c" target="right">../src/memory/calloc.c</a>  3 </small></td><td><small> void cfmakeraw(struct termios *tp);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chdir.2.rst.html">chdir</a></small></td><td><small>   <a href="../src/termios/cfmakeraw.c" target="right">../src/termios/cfmakeraw.c</a>  112 </small></td><td><small> chdir(const char* path)
 </small></td></tr>
@@ -462,11 +462,11 @@
 </small></td></tr>
 <tr valign="top"><td><small>clone_t</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  7 </small></td><td><small> int clone_t(int flags);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/close.2.rst.html">close</a></small></td><td><small>   <a href="../src/clone.c" target="right">../src/clone.c</a>  100 </small></td><td><small> close( int fd )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/close.2.rst.html">close</a></small></td><td><small>   <a href="../src/process/clone.c" target="right">../src/process/clone.c</a>  100 </small></td><td><small> close( int fd )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">closedir</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> int closedir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>config</small></td><td><small>   <a href="../src/dirent/closedir.c" target="right">../src/dirent/closedir.c</a>  6 </small></td><td><small> 
+<tr valign="top"><td><small>config</small></td><td><small>   <a href="../src/directories/closedir.c" target="right">../src/directories/closedir.c</a>  6 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>configuration settings, to be compiled statically.
   System specific paths, maximums, etc go here.
   Other values are within globaldefs.h;
@@ -486,7 +486,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>die_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  59 </small></td><td><small> #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
+<tr valign="top"><td><small>die_if</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  59 </small></td><td><small> #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
 </small></td></tr><tr><td></td><td colspan="2"><small>when arg1 is true, write msg to stderr and exit with failure
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
@@ -494,7 +494,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>dief</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  20 </small></td><td><small> #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
+<tr valign="top"><td><small>dief</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  20 </small></td><td><small> #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt andargs via fprintf to stderr and exit with failure
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
@@ -502,7 +502,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>dief_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  69 </small></td><td><small> #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+<tr valign="top"><td><small>dief_if</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  69 </small></td><td><small> #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
 </small></td></tr><tr><td></td><td colspan="2"><small>when arg1 is true, vall dief(errnum,fmt)
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
@@ -510,7 +510,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>dies</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  30 </small></td><td><small> #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
+<tr valign="top"><td><small>dies</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  30 </small></td><td><small> #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
 </small></td></tr><tr><td></td><td colspan="2"><small>write variable string list to stderr and exit with failure
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
@@ -518,7 +518,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>dies_if</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  80 </small></td><td><small> #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
+<tr valign="top"><td><small>dies_if</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  80 </small></td><td><small> #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
 </small></td></tr><tr><td></td><td colspan="2"><small>when arg1 is true, vall dies(errnum, ... )
   if errno is defined and set, /bin/errno is executed to give a verbose error 
   message
@@ -526,7 +526,7 @@
   exit with -1
   
  </small></td></tr>
-<tr valign="top"><td><small>dirbuf</small></td><td><small>   <a href="../src/die.c" target="right">../src/die.c</a>  7 </small></td><td><small> 
+<tr valign="top"><td><small>dirbuf</small></td><td><small>   <a href="../src/process/die.c" target="right">../src/process/die.c</a>  7 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>the switch for defining the dirbuf.
   used internally
  </small></td></tr>
@@ -545,7 +545,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">dirfd</a></small></td><td><small>   <a href="../include/dirent.h" target="right">../include/dirent.h</a>  2 </small></td><td><small> int dirfd(DIR *d);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../src/dirent/dirfd.c" target="right">../src/dirent/dirfd.c</a>  8 </small></td><td><small> char *dirname(char *s);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/dirname.3.rst.html">dirname</a></small></td><td><small>   <a href="../src/directories/dirfd.c" target="right">../src/directories/dirfd.c</a>  8 </small></td><td><small> char *dirname(char *s);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/div.3.rst.html">div</a></small></td><td><small>   <a href="../src/dirname.c" target="right">../src/dirname.c</a>  8 </small></td><td><small>  div_t div(int numerator, int denominator);
 </small></td></tr>
@@ -570,7 +570,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/dprintf.c" target="right">../src/dprintf.c</a>  17 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
-<tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/prints.c" target="right">../src/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
+<tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/prints.c" target="right">../src/output/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup</a></small></td><td><small>   <a href="../src/dtodec.c" target="right">../src/dtodec.c</a>  117 </small></td><td><small> dup(int fd)		
 </small></td></tr>
@@ -611,7 +611,7 @@
   with two \0\0, when errno<100
   errnum must be <200.
  </small></td></tr>
-<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/errno_str.c" target="right">../src/errno_str.c</a>  89 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/process/errno_str.c" target="right">../src/process/errno_str.c</a>  89 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 <tr valign="top"><td><small>ewritesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  101 </small></td><td><small> #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
@@ -648,7 +648,7 @@
   The supplied errno can be negative,
   the absolute value is supplied to errno.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../src/exit_errno.c" target="right">../src/exit_errno.c</a>  115 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/chmod.2.rst.html">fchmod</a></small></td><td><small>   <a href="../src/process/exit_errno.c" target="right">../src/process/exit_errno.c</a>  115 </small></td><td><small> fchmod( unsigned int fd, mode_t mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">fchown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  114 </small></td><td><small> fchown( unsigned int fd, uid_t user, gid_t group)
 </small></td></tr>
@@ -659,7 +659,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  170 </small></td><td><small>   int feof(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  170 </small></td><td><small>   int feof(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  177 </small></td><td><small>   int ferror(FILE *f);
 </small></td></tr>
@@ -676,23 +676,23 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">fgets</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  4 </small></td><td><small> char* fgets(char *buf, int size, FILE* F);
 </small></td></tr>
-<tr valign="top"><td><small>fgetsn</small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  4 </small></td><td><small> int fgetsn(char *buf, int size, FILE* F);
+<tr valign="top"><td><small>fgetsn</small></td><td><small>   <a href="../src/streams/fgets.c" target="right">../src/streams/fgets.c</a>  4 </small></td><td><small> int fgetsn(char *buf, int size, FILE* F);
 </small></td></tr><tr><td></td><td colspan="2"><small>get a line like fgets, but return the len of the read string.
  </small></td></tr>
-<tr valign="top"><td><small>fgetsp</small></td><td><small>   <a href="../src/fgetsn.c" target="right">../src/fgetsn.c</a>  7 </small></td><td><small> char* fgetsp(char *buf, int size, FILE* F);
+<tr valign="top"><td><small>fgetsp</small></td><td><small>   <a href="../src/streams/fgetsn.c" target="right">../src/streams/fgetsn.c</a>  7 </small></td><td><small> char* fgetsp(char *buf, int size, FILE* F);
 </small></td></tr><tr><td></td><td colspan="2"><small>read a line from F into buf with max chars size.
   Return a pointer to the terminating '0' byte.
   A terminating linebreak is not written to buf.
  </small></td></tr>
-<tr valign="top"><td><small>fgetud</small></td><td><small>   <a href="../src/fgetsp.c" target="right">../src/fgetsp.c</a>  5 </small></td><td><small> unsigned int fgetud(FILE* F);
+<tr valign="top"><td><small>fgetud</small></td><td><small>   <a href="../src/streams/fgetsp.c" target="right">../src/streams/fgetsp.c</a>  5 </small></td><td><small> unsigned int fgetud(FILE* F);
 </small></td></tr><tr><td></td><td colspan="2"><small>read an unsigned integer from the stream F
   reads all digits until a nondigit is read.
  </small></td></tr>
-<tr valign="top"><td><small>fgetul</small></td><td><small>   <a href="../src/fgetud.c" target="right">../src/fgetud.c</a>  5 </small></td><td><small> unsigned long int fgetul(FILE* F);
+<tr valign="top"><td><small>fgetul</small></td><td><small>   <a href="../src/streams/fgetud.c" target="right">../src/streams/fgetud.c</a>  5 </small></td><td><small> unsigned long int fgetul(FILE* F);
 </small></td></tr><tr><td></td><td colspan="2"><small>read an unsigned long integer from the stream F
   reads all digits until a nondigit is read.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/fgetul.c" target="right">../src/fgetul.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">fileno</a></small></td><td><small>   <a href="../src/streams/fgetul.c" target="right">../src/streams/fgetul.c</a>  56 </small></td><td><small>  int fileno( FILE *f );
 </small></td></tr><tr><td></td><td colspan="2"><small>Return the fd nummber of stdin,-out,-err. 
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/flock.2.rst.html">flock</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  127 </small></td><td><small> flock( unsigned int fd,  unsigned int cmd)
@@ -700,7 +700,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  135 </small></td><td><small> DEF_syscall(fork,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  135 </small></td><td><small> DEF_syscall(fork,0)
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  81 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
@@ -731,12 +731,12 @@
  
   
  </small></td></tr>
-<tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
+<tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted and unbuffered output to the stream F.
   only %s and %c are recognized.
   no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
  </small></td></tr>
-<tr valign="top"><td><small>fprints</small></td><td><small>   <a href="../src/fprintfs.c" target="right">../src/fprintfs.c</a>  34 </small></td><td><small> #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
+<tr valign="top"><td><small>fprints</small></td><td><small>   <a href="../src/output/fprintfs.c" target="right">../src/output/fprintfs.c</a>  34 </small></td><td><small> #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 </small></td></tr><tr><td></td><td colspan="2"><small>print the string(s) supplied as arg(s) to stream
   this macro has an variable argument count.
  </small></td></tr>
@@ -748,7 +748,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  146 </small></td><td><small> void free(void *p);
 </small></td></tr>
-<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  9 </small></td><td><small> int free_brk();
+<tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  9 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
   which has been allocated with malloc_brk.
   Returns 0, if memory has been freed;
@@ -756,10 +756,10 @@
   malloc_brk before.
   Then brk() gives an error, return the return value of brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/freebrk.c" target="right">../src/freebrk.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/fopen.c" target="right">../src/fopen.c</a>  132 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  132 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  119 </small></td><td><small>   int fsetpos(FILE *f, int pos );
 </small></td></tr>
@@ -785,7 +785,7 @@
   does either a syscall to brk,
   or returns the globally saved var
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  26 </small></td><td><small> #define getc(F) fgetc(F)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  26 </small></td><td><small> #define getc(F) fgetc(F)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  29 </small></td><td><small> #define getchar() fgetc(0)
 </small></td></tr>
@@ -842,7 +842,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../src/userdb/getpwuid.c" target="right">../src/userdb/getpwuid.c</a>  27 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../src/fgets.c" target="right">../src/fgets.c</a>  140 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../src/streams/fgets.c" target="right">../src/streams/fgets.c</a>  140 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getuid.2.rst.html">getuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  196 </small></td><td><small> DEF_syscall(getuid,0)
 </small></td></tr>
@@ -882,32 +882,32 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/ioctl.c" target="right">../src/ioctl.c</a>  5 </small></td><td><small> int isatty(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../src/isatty.c" target="right">../src/isatty.c</a>  65 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
+<tr valign="top"><td><small>itoHEX</small></td><td><small>   <a href="../src/termios/isatty.c" target="right">../src/termios/isatty.c</a>  65 </small></td><td><small> int itoHEX(int i,char* buf,int padding);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a number to hexadecimal representation with big capitals.
   the conversion assumes a size of 32bits for integers,
   negative values are represented as they are stored internally.
   ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )
  </small></td></tr>
-<tr valign="top"><td><small>itobin</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  46 </small></td><td><small> #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
+<tr valign="top"><td><small>itobin</small></td><td><small>   <a href="../src/conversions/itohex.c" target="right">../src/conversions/itohex.c</a>  46 </small></td><td><small> #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a number to a binary representation.
   the conversion assumes a size of 32bits for integers,
   negative values are represented as they are stored internally.
   ( -1 is 11111111111111111111111111111111,
     -2    11111111111111111111111111111110, ...)
  </small></td></tr>
-<tr valign="top"><td><small>itodec</small></td><td><small>   <a href="../src/itobin.c" target="right">../src/itobin.c</a>  123 </small></td><td><small> int itodec(int i, char *buf, int prec, char limiter, char pad );
+<tr valign="top"><td><small>itodec</small></td><td><small>   <a href="../src/conversions/itobin.c" target="right">../src/conversions/itobin.c</a>  123 </small></td><td><small> int itodec(int i, char *buf, int prec, char limiter, char pad );
 </small></td></tr>
-<tr valign="top"><td><small>itohex</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  53 </small></td><td><small> int itohex(int i,char* buf,int padding);
+<tr valign="top"><td><small>itohex</small></td><td><small>   <a href="../src/conversions/itodec.c" target="right">../src/conversions/itodec.c</a>  53 </small></td><td><small> int itohex(int i,char* buf,int padding);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a number to hexadecimal representation.
   the conversion assumes a size of 32bits for integers,
   negative values are represented as they are stored internally.
   ( -1 is 0xffffffff, -2 0xfffffffe, ... )
  </small></td></tr>
-<tr valign="top"><td><small>itooct</small></td><td><small>   <a href="../src/itohex.c" target="right">../src/itohex.c</a>  4 </small></td><td><small> int itooct(int i, char *buf);
+<tr valign="top"><td><small>itooct</small></td><td><small>   <a href="../src/conversions/itohex.c" target="right">../src/conversions/itohex.c</a>  4 </small></td><td><small> int itooct(int i, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert int to octal
   return the number of chars written.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/kill.2.rst.html">kill</a></small></td><td><small>   <a href="../src/itooct.c" target="right">../src/itooct.c</a>  133 </small></td><td><small> kill( pid_t pid,  int sig)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/kill.2.rst.html">kill</a></small></td><td><small>   <a href="../src/conversions/itooct.c" target="right">../src/conversions/itooct.c</a>  133 </small></td><td><small> kill( pid_t pid,  int sig)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/labs.3.rst.html">labs</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  30 </small></td><td><small>  long int labs(long int i);
 </small></td></tr>
@@ -921,7 +921,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  126 </small></td><td><small> void* malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  126 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
   Here we go.. with the .. well. 
   Fastes and smallest malloc/free combi ever. 
@@ -997,7 +997,7 @@
   Memory is allocated from right to left, 
   meaning from top to down.
  </small></td></tr>
-<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  16 </small></td><td><small> void* malloc_brk(int size);
+<tr valign="top"><td><small>malloc_brk</small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  16 </small></td><td><small> void* malloc_brk(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate via setting the brk
   free and realloc can be used normally.
   The intention of malloc_brk is for subsequent calls to realloc.
@@ -1009,7 +1009,7 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/malloc_brk.c" target="right">../src/malloc_brk.c</a>  19 </small></td><td><small> void* map_protected(int len);
+<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/memory/malloc_brk.c" target="right">../src/memory/malloc_brk.c</a>  19 </small></td><td><small> void* map_protected(int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate a buffer, which is surrounded by protected pages. 
   mprotect(PROT_NONE)
   When there is a buffer overflow,
@@ -1026,7 +1026,7 @@
   If an error occures, errno is set (when defined), 
   and -1 returned, or the negative errno value, when errno isn't defined.
  </small></td></tr>
-<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  83 </small></td><td><small> int match(char *text, const char *re, text_match *st_match);
+<tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  83 </small></td><td><small> int match(char *text, const char *re, text_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>text matching engine
  
   little bit simpler version than match_ext.
@@ -1104,7 +1104,7 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small>match_ext</small></td><td><small>   <a href="../src/match.c" target="right">../src/match.c</a>  193 </small></td><td><small> int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
+<tr valign="top"><td><small>match_ext</small></td><td><small>   <a href="../src/match/match.c" target="right">../src/match/match.c</a>  193 </small></td><td><small> int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
 </small></td></tr><tr><td></td><td colspan="2"><small>text matching engine
  
   This is somewhere between a fully fledged expression machine,
@@ -1296,7 +1296,7 @@
    while "%+" matches with % only the first char.
    !+ basically sets the greedyness of the left * or % higher.
  </small></td></tr>
-<tr valign="top"><td><small>match_ext2</small></td><td><small>   <a href="../src/match_ext.c" target="right">../src/match_ext.c</a>  306 </small></td><td><small> int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
+<tr valign="top"><td><small>match_ext2</small></td><td><small>   <a href="../src/match/match_ext.c" target="right">../src/match/match_ext.c</a>  306 </small></td><td><small> int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
 </small></td></tr><tr><td></td><td colspan="2"><small>text matching engine
  
   WORK IN PROGRESS, please use ext_match
@@ -1598,7 +1598,7 @@
   potentiates the *@* to many possibilities.
   One for every linebreak following 'matches'.
  </small></td></tr>
-<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match_ext2.c" target="right">../src/match_ext2.c</a>  88 </small></td><td><small> #ifndef mini_max_groupmembers
+<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match/match_ext2.c" target="right">../src/match/match_ext2.c</a>  88 </small></td><td><small> #ifndef mini_max_groupmembers
 </small></td></tr><tr><td></td><td colspan="2"><small>The maximum number of users, 
   which are within a group.
   used for the allocation of the array gr_mem.
@@ -1608,16 +1608,16 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  4 </small></td><td><small> void* memcpy( void*d, const void *s, int n );
 </small></td></tr>
-<tr valign="top"><td><small>memfd_create</small></td><td><small>   <a href="../src/mem/memcpy.c" target="right">../src/mem/memcpy.c</a>  179 </small></td><td><small> memfd_create( const char  *uname_ptr,  unsigned int flags)
+<tr valign="top"><td><small>memfd_create</small></td><td><small>   <a href="../src/memory/memcpy.c" target="right">../src/memory/memcpy.c</a>  179 </small></td><td><small> memfd_create( const char  *uname_ptr,  unsigned int flags)
 </small></td></tr>
 <tr valign="top"><td><small>memfrob</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> void* memfrob(void* s, unsigned int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>frob string; xor every char with 42
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memmove.3.rst.html">memmove</a></small></td><td><small>   <a href="../src/mem/memfrob.c" target="right">../src/mem/memfrob.c</a>  3 </small></td><td><small> void* memmove(void *dest, const void *src, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memmove.3.rst.html">memmove</a></small></td><td><small>   <a href="../src/memory/memfrob.c" target="right">../src/memory/memfrob.c</a>  3 </small></td><td><small> void* memmove(void *dest, const void *src, int n);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/mem/memmove.c" target="right">../src/mem/memmove.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memset.3.rst.html">memset</a></small></td><td><small>   <a href="../src/memory/memmove.c" target="right">../src/memory/memmove.c</a>  3 </small></td><td><small> void *memset( void *s, int c, int n);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/mem/memset.c" target="right">../src/mem/memset.c</a>  162 </small></td><td><small> mkdir( const char *pathname, int mode)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mkdir.2.rst.html">mkdir</a></small></td><td><small>   <a href="../src/memory/memset.c" target="right">../src/memory/memset.c</a>  162 </small></td><td><small> mkdir( const char *pathname, int mode)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mkfifo.2.rst.html">mkfifo</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  int mkfifo( const char* path, mode_t mode );
 </small></td></tr>
@@ -1631,7 +1631,7 @@
   if not, on error the negative errno value is returned.
   (e.g. -22 for "invalid argument")
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mount.2.rst.html">mount</a></small></td><td><small>   <a href="../src/mem/mmap.c" target="right">../src/mem/mmap.c</a>  172 </small></td><td><small> mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mount.2.rst.html">mount</a></small></td><td><small>   <a href="../src/memory/mmap.c" target="right">../src/memory/mmap.c</a>  172 </small></td><td><small> mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  211 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
 </small></td></tr>
@@ -1653,9 +1653,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">opendir</a></small></td><td><small>   <a href="../src/open.c" target="right">../src/open.c</a>  10 </small></td><td><small>  DIR *opendir(const char *name );
 </small></td></tr>
-<tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/dirent/opendir.c" target="right">../src/dirent/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
+<tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/directories/opendir.c" target="right">../src/directories/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/dirent/opendirp.c" target="right">../src/dirent/opendirp.c</a>  151 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  151 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -1684,7 +1684,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/perror.c" target="right">../src/perror.c</a>  213 </small></td><td><small> pipe( int *filedes)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/pipe.2.rst.html">pipe</a></small></td><td><small>   <a href="../src/output/perror.c" target="right">../src/output/perror.c</a>  213 </small></td><td><small> pipe( int *filedes)
 </small></td></tr>
 <tr valign="top"><td><small>pivot_root</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  146 </small></td><td><small> pivot_root( const char *new_root,  const char *put_old)
 </small></td></tr>
@@ -1742,7 +1742,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  139 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  101 </small></td><td><small> read( int fd, void *buf, int len )
 </small></td></tr>
@@ -1754,9 +1754,9 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/dirent/readdir.c" target="right">../src/dirent/readdir.c</a>  210 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/directories/readdir.c" target="right">../src/directories/readdir.c</a>  210 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/malloc.c" target="right">../src/malloc.c</a>  170 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  170 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/rename.2.rst.html">rename</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  106 </small></td><td><small> rename( const char* oldpath, const char* newpath )
 </small></td></tr>
@@ -1769,7 +1769,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">rewinddir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  2 </small></td><td><small> void rewinddir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/rmdir.2.rst.html">rmdir</a></small></td><td><small>   <a href="../src/dirent/rewinddir.c" target="right">../src/dirent/rewinddir.c</a>  163 </small></td><td><small> rmdir( const char *pathname)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/rmdir.2.rst.html">rmdir</a></small></td><td><small>   <a href="../src/directories/rewinddir.c" target="right">../src/directories/rewinddir.c</a>  163 </small></td><td><small> rmdir( const char *pathname)
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigaction</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  142 </small></td><td><small> rt_sigaction( int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 </small></td></tr>
@@ -1786,7 +1786,7 @@
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  35 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  35 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 </small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
  
   This implementation uses malloc_brk() for the dynamic allocation
@@ -1813,15 +1813,15 @@
   returns the number of the read entries,
   or the negative errno on error.
  </small></td></tr>
-<tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  4 </small></td><td><small> //#define mini_scandir_bufsize 4096
+<tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  4 </small></td><td><small> //#define mini_scandir_bufsize 4096
 </small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
   (default:4096)
  </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/dirent/scandir.c" target="right">../src/dirent/scandir.c</a>  23 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  23 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/hashes.c" target="right">../src/hashes.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/dirent/seekdir.c" target="right">../src/dirent/seekdir.c</a>  9 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/directories/seekdir.c" target="right">../src/directories/seekdir.c</a>  9 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  169 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
@@ -1829,7 +1829,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>set the current brk
   wrapper for brk(), with type of brk changed to long
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  197 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  197 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
@@ -1879,39 +1879,39 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/ansicolors.h" target="right">../include/ansicolors.h</a>  111 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  62 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  62 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigfillset</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  20 </small></td><td><small>  int sigfillset(sigset_t *set);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigfillset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  20 </small></td><td><small>  int sigfillset(sigset_t *set);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  79 </small></td><td><small> int sigismember(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  79 </small></td><td><small> int sigismember(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  5 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
+<tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  5 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/signal/signal.c" target="right">../src/signal/signal.c</a>  56 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/process/signal.c" target="right">../src/process/signal.c</a>  56 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigsuspend.2.rst.html">sigsuspend</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  51 </small></td><td><small> int sigsuspend( const sigset_t *mask );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigsuspend.2.rst.html">sigsuspend</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  51 </small></td><td><small> int sigsuspend( const sigset_t *mask );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/signal/sigaction.c" target="right">../src/signal/sigaction.c</a>  10 </small></td><td><small> unsigned int  sleep(unsigned int seconds);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  10 </small></td><td><small> unsigned int  sleep(unsigned int seconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">snprintf</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  5 </small></td><td><small> int snprintf( char *buf, size_t size, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">snprintf</a></small></td><td><small>   <a href="../src/process/sleep.c" target="right">../src/process/sleep.c</a>  5 </small></td><td><small> int snprintf( char *buf, size_t size, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>snprintfs</small></td><td><small>   <a href="../src/snprintf.c" target="right">../src/snprintf.c</a>  8 </small></td><td><small> int snprintfs( char* buf, int size, char *fmt, ...);
+<tr valign="top"><td><small>snprintfs</small></td><td><small>   <a href="../src/output/snprintf.c" target="right">../src/output/snprintf.c</a>  8 </small></td><td><small> int snprintfs( char* buf, int size, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted and unbuffered output into buf.
   only %s and %c are recognized.
   snprintfs instead of snprintf can save some bytes.
   untested
  </small></td></tr>
-<tr valign="top"><td><small>splice</small></td><td><small>   <a href="../src/snprintfs.c" target="right">../src/snprintfs.c</a>  184 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
+<tr valign="top"><td><small>splice</small></td><td><small>   <a href="../src/output/snprintfs.c" target="right">../src/output/snprintfs.c</a>  184 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  26 </small></td><td><small> #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  7 </small></td><td><small> void srand( unsigned int i );
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  7 </small></td><td><small> void srand( unsigned int i );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/rand.c" target="right">../src/rand.c</a>  110 </small></td><td><small> stat(const char* filename,struct stat* statbuf)		
 </small></td></tr>
@@ -1987,7 +1987,7 @@
 <tr valign="top"><td><small>sys_brk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small>  long sys_brk(unsigned long addr);
 </small></td></tr><tr><td></td><td colspan="2"><small>the kernel syscall brk.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/brk.c" target="right">../src/brk.c</a>  4 </small></td><td><small> int system( const char* command );
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  4 </small></td><td><small> int system( const char* command );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/exec/system.c" target="right">../src/exec/system.c</a>  19 </small></td><td><small> int tcgetattr(int fd, struct termios *io);
 </small></td></tr>
@@ -1995,7 +1995,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../src/termios/tcsetattr.c" target="right">../src/termios/tcsetattr.c</a>  2 </small></td><td><small> long telldir(DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>term_width</small></td><td><small>   <a href="../src/dirent/telldir.c" target="right">../src/dirent/telldir.c</a>  7 </small></td><td><small> int term_width();
+<tr valign="top"><td><small>term_width</small></td><td><small>   <a href="../src/directories/telldir.c" target="right">../src/directories/telldir.c</a>  7 </small></td><td><small> int term_width();
 </small></td></tr><tr><td></td><td colspan="2"><small>get the terminal width
   reads the environmental var COLS,
   if not present, returns 80.
@@ -2025,9 +2025,9 @@
   prec: precision, e.g. 4=> 0087 
   pad: 0 (pad with spaces), or the char to pad
  </small></td></tr>
-<tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/itodec.c" target="right">../src/itodec.c</a>  6 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/conversions/itodec.c" target="right">../src/conversions/itodec.c</a>  6 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/ltodec.c" target="right">../src/ltodec.c</a>  214 </small></td><td><small> umask( int mask)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  214 </small></td><td><small> umask( int mask)
 </small></td></tr>
 <tr valign="top"><td><small>umount2</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  168 </small></td><td><small> umount2( const char *mountpoint, int flags) 
 </small></td></tr>
@@ -2044,7 +2044,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  41 </small></td><td><small> int unmap_protected(void *p, int len);
 </small></td></tr>
-<tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/map_protected.c" target="right">../src/map_protected.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
+<tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/usleep.3.rst.html">usleep</a></small></td><td><small>   <a href="../src/userdb/userdb_open.c" target="right">../src/userdb/userdb_open.c</a>  31 </small></td><td><small> unsigned int  usleep(unsigned int useconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant usleep. 
@@ -2056,7 +2056,7 @@
  
   TODO: ignore blocked signals, sigchld
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../src/sleep.c" target="right">../src/sleep.c</a>  191 </small></td><td><small> utime( const char *filename, struct utimbuf *times)
+<tr valign="top"><td><small><a target="right" href="manpages/gen/utime.3.rst.html">utime</a></small></td><td><small>   <a href="../src/process/sleep.c" target="right">../src/process/sleep.c</a>  191 </small></td><td><small> utime( const char *filename, struct utimbuf *times)
 </small></td></tr>
 <tr valign="top"><td><small>verbose_errstr</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> const char* verbose_errstr(int num);
 </small></td></tr><tr><td></td><td colspan="2"><small>verbose error (errno) string. 
@@ -2089,18 +2089,18 @@
   mini_itodec (%d conversion) 
   mini_atoi is needed for grouping numbers
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/sprintf.c" target="right">../src/sprintf.c</a>  9 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  9 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments into buf
   calls vsnprintf, 
   the size is limited to 4096 by default.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/vsprintf.c" target="right">../src/vsprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/output/vsprintf.c" target="right">../src/output/vsprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait4</a></small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  164 </small></td><td><small> wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait4</a></small></td><td><small>   <a href="../src/process/wait.c" target="right">../src/process/wait.c</a>  164 </small></td><td><small> wait4( pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">waitpid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  16 </small></td><td><small> pid_t waitpid(pid_t pid, int *wstatus, int options);
 </small></td></tr>
-<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/wait.c" target="right">../src/wait.c</a>  8 </small></td><td><small> int where(const char *file,char *buf);
+<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/wait.c" target="right">../src/process/wait.c</a>  8 </small></td><td><small> int where(const char *file,char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>locate an executable in PATH
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/execvp.c" target="right">../src/exec/execvp.c</a>  102 </small></td><td><small> write(int fd,const void *buf, int len )
