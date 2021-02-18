@@ -28,7 +28,29 @@ const char* ino_dir_get( int num, notify_dirs *nod );
 
 void ino_dir_add( int num, const char* path, notify_dirs *nod );
 
-
+// notes: 1 bit for a deleted string.
+//  1 bit for a replaced string with different len.
+// freelist. no. optimized for sequential insertion and 
+// access by number.
+// but should have a "prev" pointer. (looking backwards).
+// skiplist? no. 
+// len: return pnext - p. ( no scanning needed )
+// -> also possible to use vectorized instructions. 
+//    ( no access fault on scanning behind a string )
+// -> besser als struct: union. no. 
+//    accessor functions needed. so.
+// name: str
+//  char* getstr( strings, num )
+//  char* appendstr(strings, const char*)
+//  char* delstr
+//  replacestr
+//  insertstr
+//  appendstr changes the reference of strings to the last node.
+//   -> sequential appends are speeded up.
+// 
+//  define struct in a macro. ( size of mem to map, count of elements )
+//  ( oder dyn array?)
+//
 
 
 #endif
