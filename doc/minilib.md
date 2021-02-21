@@ -12,11 +12,11 @@ dirent.h
 
 closedir       int closedir(DIR *dir);
 
-               (src/dirent/closedir.c: 6)
+               (src/directories/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
 
-               (src/dirent/opendir.c: 10)
+               (src/directories/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
 
@@ -24,11 +24,11 @@ readdir        struct dirent *readdir(DIR *dir);
               return the next dirent, or 0, if the end is reached.
               return 0 on error and set errno,
               if mini_errno is not defined, return -errno on error
-               (src/dirent/readdir.c: 10)
+               (src/directories/readdir.c: 10)
 
 rewinddir      void rewinddir(DIR *dir);
 
-               (src/dirent/rewinddir.c: 2)
+               (src/directories/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 
@@ -57,15 +57,15 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
              
               returns the number of the read entries,
               or the negative errno on error.
-               (src/dirent/scandir.c: 35)
+               (src/directories/scandir.c: 35)
 
 seekdir        void seekdir(DIR *dir, long off);
 
-               (src/dirent/seekdir.c: 2)
+               (src/directories/seekdir.c: 2)
 
 telldir        long telldir(DIR *dir);
 
-               (src/dirent/telldir.c: 2)
+               (src/directories/telldir.c: 2)
 
 
 
@@ -144,20 +144,20 @@ OPTIMIZATIONS
 _die           void _die();
 
                internal implementation of die
-               (src/die.c: 36)
+               (src/process/die.c: 36)
 
 _itobin        int _itobin(int i, char*buf, int prec, int groups );
 
-               (src/itobin.c: 8)
+               (src/conversions/itobin.c: 8)
 
 _match         int _match(char *text, const char *re, text_match *st_match);
 
-               (src/match.c: 96)
+               (src/match/match.c: 96)
 
 _match_ext2    char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
 
                internal implementation of match_ext
-               (src/match_ext2.c: 326)
+               (src/match/match_ext2.c: 326)
 
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
@@ -169,7 +169,7 @@ alphasort      int alphasort( const struct dirent** de1, const struct dirent** d
               Deviating of the standard, 
               the asciitables is used for the comparison
               (using strcmp)
-               (src/dirent/alphasort.c: 7)
+               (src/directories/alphasort.c: 7)
 
 ansicolors     
 
@@ -226,7 +226,7 @@ brk            static int brk( const void* addr );
               conformant brk, when mini_errno is defined return -1 and set errno.
               if errno isn't available,
               returns the negative errno value on error
-               (src/brk.c: 19)
+               (src/memory/brk.c: 19)
 
 bsd_cksum      unsigned int bsd_cksum( const char* p, unsigned int len );
 
@@ -245,7 +245,7 @@ cfmakeraw      void cfmakeraw(struct termios *tp);
 
 clone_t        int clone_t(int flags);
 
-               (src/clone.c: 7)
+               (src/process/clone.c: 7)
 
 config         
 
@@ -269,7 +269,7 @@ die            #define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 11)
+               (src/process/die.c: 11)
 
 die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
 
@@ -279,7 +279,7 @@ die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 59)
+               (src/process/die.c: 59)
 
 dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
 
@@ -289,7 +289,7 @@ dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exi
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 20)
+               (src/process/die.c: 20)
 
 dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
 
@@ -299,7 +299,7 @@ dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum,
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 69)
+               (src/process/die.c: 69)
 
 dies           #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
 
@@ -309,7 +309,7 @@ dies           #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 30)
+               (src/process/die.c: 30)
 
 dies_if        #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
 
@@ -319,7 +319,7 @@ dies_if        #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __V
               if errno is either not defined or not set,
               exit with -1
               
-               (src/die.c: 80)
+               (src/process/die.c: 80)
 
 dirbuf         
 
@@ -346,7 +346,7 @@ dirbufsize     #ifndef mini_dirbufsize
 
 dirfd          int dirfd(DIR *d);
 
-               (src/dirent/dirfd.c: 2)
+               (src/directories/dirfd.c: 2)
 
 dirname        char *dirname(char *s);
 
@@ -379,7 +379,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/prints.c: 17)
+               (src/output/prints.c: 17)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -436,7 +436,7 @@ errno_str      static char *errno_str(int err);
               ending the string (global) 
               with two \0\0, when errno<100
               errnum must be <200.
-               (src/errno_str.c: 7)
+               (src/process/errno_str.c: 7)
 
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
@@ -464,7 +464,7 @@ exit_errno     void exit_errno( int errnum );
               as well.
               The supplied errno can be negative,
               the absolute value is supplied to errno.
-               (src/exit_errno.c: 17)
+               (src/process/exit_errno.c: 17)
 
 fexecve        static inline int fexecve(int fd, char *const argv[], char *const envp[]);
 
@@ -477,33 +477,33 @@ fexecveat      static inline int fexecveat(int fd, char *const argv[], char *con
 fgetsn         int fgetsn(char *buf, int size, FILE* F);
 
                get a line like fgets, but return the len of the read string.
-               (src/fgetsn.c: 4)
+               (src/streams/fgetsn.c: 4)
 
 fgetsp         char* fgetsp(char *buf, int size, FILE* F);
 
                read a line from F into buf with max chars size.
               Return a pointer to the terminating '0' byte.
               A terminating linebreak is not written to buf.
-               (src/fgetsp.c: 7)
+               (src/streams/fgetsp.c: 7)
 
 fgetud         unsigned int fgetud(FILE* F);
 
                read an unsigned integer from the stream F
               reads all digits until a nondigit is read.
-               (src/fgetud.c: 5)
+               (src/streams/fgetud.c: 5)
 
 fgetul         unsigned long int fgetul(FILE* F);
 
                read an unsigned long integer from the stream F
               reads all digits until a nondigit is read.
-               (src/fgetul.c: 5)
+               (src/streams/fgetul.c: 5)
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
               no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
-               (src/fprintfs.c: 10)
+               (src/output/fprintfs.c: 8)
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 
@@ -519,7 +519,7 @@ free_brk       int free_brk();
               1, when there hasn't been any memory allocations with
               malloc_brk before.
               Then brk() gives an error, return the return value of brk
-               (src/freebrk.c: 9)
+               (src/memory/freebrk.c: 9)
 
 fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
 
@@ -537,7 +537,7 @@ getbrk         static long getbrk();
                get the current brk
               does either a syscall to brk,
               or returns the globally saved var
-               (src/brk.c: 48)
+               (src/memory/brk.c: 48)
 
 getgrent       struct group* getgrent();
 
@@ -624,21 +624,21 @@ itobin         #define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0),
               negative values are represented as they are stored internally.
               ( -1 is 11111111111111111111111111111111,
                 -2    11111111111111111111111111111110, ...)
-               (src/itobin.c: 46)
+               (src/conversions/itobin.c: 46)
 
 itodec         int itodec(int i, char *buf, int prec, char limiter, char pad );
 
-               (src/itodec.c: 123)
+               (src/conversions/itodec.c: 123)
 
 itooct         int itooct(int i, char *buf);
 
                convert int to octal
               return the number of chars written.
-               (src/itooct.c: 4)
+               (src/conversions/itooct.c: 4)
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 75)
+               (src/conversions/ltodec.c: 75)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -652,7 +652,7 @@ malloc_brk     void* malloc_brk(int size);
               the allocated memory can also be free'd by setting the brk to the saved value
               with brk(saved_brk)
               free_brk() free's all memory, which has been allocated with malloc_brk
-               (src/malloc_brk.c: 16)
+               (src/memory/malloc_brk.c: 16)
 
 map_protected  void* map_protected(int len);
 
@@ -671,7 +671,7 @@ map_protected  void* map_protected(int len);
               pagebreak. So this is the overhead. 
               If an error occures, errno is set (when defined), 
               and -1 returned, or the negative errno value, when errno isn't defined.
-               (src/map_protected.c: 19)
+               (src/memory/map_protected.c: 19)
 
 match          int match(char *text, const char *re, text_match *st_match);
 
@@ -751,7 +751,7 @@ match          int match(char *text, const char *re, text_match *st_match);
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/match.c: 83)
+               (src/match/match.c: 83)
 
 match_ext      int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
 
@@ -945,7 +945,7 @@ match_ext      int match_ext(char *text, const char *re, void(*p_match)(int numb
                "%!+" will match with % everything but the last char;
                while "%+" matches with % only the first char.
                !+ basically sets the greedyness of the left * or % higher.
-               (src/match_ext.c: 193)
+               (src/match/match_ext.c: 193)
 
 match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
 
@@ -1249,7 +1249,7 @@ match_ext2     int match_ext2(char *text, char *re, void(*p_matched_cb)(int numb
               matching e.g. *matches*@*doesn't match*
               potentiates the *@* to many possibilities.
               One for every linebreak following 'matches'.
-               (src/match_ext2.c: 306)
+               (src/match/match_ext2.c: 306)
 
 max_groupmembers#ifndef mini_max_groupmembers
 
@@ -1262,7 +1262,7 @@ max_groupmembers#ifndef mini_max_groupmembers
 memfrob        void* memfrob(void* s, unsigned int len);
 
                frob string; xor every char with 42
-               (src/mem/memfrob.c: 4)
+               (src/memory/memfrob.c: 4)
 
 mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 
@@ -1272,7 +1272,7 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
               errno is only set, when mini_errno is defined
               if not, on error the negative errno value is returned.
               (e.g. -22 for "invalid argument")
-               (src/mem/mmap.c: 8)
+               (src/memory/mmap.c: 8)
 
 mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 
@@ -1280,7 +1280,7 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
-               (src/dirent/opendirp.c: 5)
+               (src/directories/opendirp.c: 5)
 
 optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
 
@@ -1379,13 +1379,13 @@ sbrk           static void* sbrk(long incr);
               conformant sbrk, when mini_errno is defined
               if no errno is available,
               returns the negative errno value on error
-               (src/brk.c: 66)
+               (src/memory/brk.c: 66)
 
 scandir_bufsize//#define mini_scandir_bufsize 4096
 
                the increment of the buffer of scandir in bytes for memory allocations
               (default:4096)
-               (src/dirent/scandir.c: 4)
+               (src/directories/scandir.c: 4)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -1395,7 +1395,7 @@ setbrk         static int setbrk(long addr);
 
                set the current brk
               wrapper for brk(), with type of brk changed to long
-               (src/brk.c: 39)
+               (src/memory/brk.c: 39)
 
 setenv         int setenv( const char *name, const char *value, int overwrite );
 
@@ -1440,12 +1440,34 @@ shortcolornames
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
 
-               (src/snprintf.c: 5)
+               (src/output/snprintf.c: 5)
+
+snprintfs      int snprintfs( char* buf, int size, char *fmt, ...);
+
+               prints formatted and unbuffered output into buf.
+              only %s and %c are recognized.
+              snprintfs instead of snprintf can save some bytes.
+              untested
+               (src/output/snprintfs.c: 8)
 
 stpcpy         char *stpcpy(char *dest, const char *src);
 
                copy src to dest, return a pointer to the last char +1 ( ending '0' )
                (src/string/stpcpy.c: 3)
+
+stplcpy        char *stplcpy(char *dest, const char *src, int size);
+
+               copy src to dest, return a pointer to the last char +1 ( ending '0' )
+              doesn't pad dest with 0, when size<src;
+               (src/string/stplcpy.c: 4)
+
+stpncpy        char *stpncpy(char *dest, const char *src, int size);
+
+               copy src to dest, return a pointer to the last char +1 ( ending '0' )
+              Please note stplcpy (terminology borrowed from freebsd), 
+              which does the same,
+              but doesn't pad dest with 0's.
+               (src/string/stpncpy.c: 6)
 
 strlcpy        char *strlcpy(char *dest, const char *src, int n);
 
@@ -1471,7 +1493,7 @@ swap           static inline void swap(void* a, void* b,int size);
 sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
-               (src/brk.c: 6)
+               (src/memory/brk.c: 6)
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
@@ -1515,11 +1537,11 @@ uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *
                convert int to string.
               prec: precision, e.g. 4=> 0087 
               pad: 0 (pad with spaces), or the char to pad
-               (src/itodec.c: 9)
+               (src/conversions/itodec.c: 9)
 
 ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 
-               (src/ltodec.c: 6)
+               (src/conversions/ltodec.c: 6)
 
 unlockpt       int unlockpt(int fd);
 
@@ -1527,7 +1549,7 @@ unlockpt       int unlockpt(int fd);
 
 unmap_protectedint unmap_protected(void *p, int len);
 
-               (src/map_protected.c: 41)
+               (src/memory/map_protected.c: 41)
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
 
@@ -1566,7 +1588,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               warning - most possibly you'd like to define besides fprintf, or family,
               mini_itodec (%d conversion) 
               mini_atoi is needed for grouping numbers
-               (src/sprintf.c: 43)
+               (src/output/sprintf.c: 43)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
@@ -1898,43 +1920,43 @@ signal.h
 
 raise          static inline int raise(int signr);
 
-               (src/signal/sigaction.c: 139)
+               (src/process/sigaction.c: 139)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/signal/sigaction.c: 111)
+               (src/process/sigaction.c: 111)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
-               (src/signal/sigaction.c: 34)
+               (src/process/sigaction.c: 34)
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
 
-               (src/signal/sigaction.c: 62)
+               (src/process/sigaction.c: 62)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
-               (src/signal/sigaction.c: 7)
+               (src/process/sigaction.c: 7)
 
 sigfillset     static int sigfillset(sigset_t *set);
 
-               (src/signal/sigaction.c: 20)
+               (src/process/sigaction.c: 20)
 
 sigismember    int sigismember(sigset_t *set, int sig);
 
-               (src/signal/sigaction.c: 79)
+               (src/process/sigaction.c: 79)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
-               (src/signal/signal.c: 5)
+               (src/process/signal.c: 5)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
-               (src/signal/sigaction.c: 56)
+               (src/process/sigaction.c: 56)
 
 sigsuspend     int sigsuspend( const sigset_t *mask );
 
-               (src/signal/sigaction.c: 51)
+               (src/process/sigaction.c: 51)
 
 
 
@@ -1945,11 +1967,11 @@ stdio.h
 _fopen         FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/_fopen.c: 12)
+               (src/streams/_fopen.c: 12)
 
 _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
-               (src/itohex.c: 6)
+               (src/conversions/itohex.c: 6)
 
 clearerr       static inline void clearerr(FILE *f);
 
@@ -1966,7 +1988,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 20)
+               (src/streams/fopen.c: 20)
 
 feof           static inline int feof(FILE *f);
 
@@ -1991,7 +2013,7 @@ fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
-               (src/fgets.c: 4)
+               (src/streams/fgets.c: 4)
 
 fileno         static int fileno( FILE *f );
 
@@ -2001,7 +2023,7 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 10)
+               (src/streams/fopen.c: 10)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -2034,7 +2056,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
               prints (formatted output of one or several strings) are provided.
              
               
-               (src/sprintf.c: 268)
+               (src/output/sprintf.c: 268)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -2051,7 +2073,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/fopen.c: 30)
+               (src/streams/fopen.c: 30)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
@@ -2079,7 +2101,7 @@ getchar        #define getchar() fgetc(0)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
-               (src/fgets.c: 27)
+               (src/streams/fgets.c: 27)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -2087,7 +2109,7 @@ itoHEX         int itoHEX(int i,char* buf,int padding);
               the conversion assumes a size of 32bits for integers,
               negative values are represented as they are stored internally.
               ( -1 is 0xFFFFFFFF, -2 0xFFFFFFFE, ... )
-               (src/itohex.c: 65)
+               (src/conversions/itohex.c: 65)
 
 itohex         int itohex(int i,char* buf,int padding);
 
@@ -2095,11 +2117,11 @@ itohex         int itohex(int i,char* buf,int padding);
               the conversion assumes a size of 32bits for integers,
               negative values are represented as they are stored internally.
               ( -1 is 0xffffffff, -2 0xfffffffe, ... )
-               (src/itohex.c: 53)
+               (src/conversions/itohex.c: 53)
 
 perror         void perror(const char *msg);
 
-               (src/perror.c: 4)
+               (src/output/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
@@ -2135,7 +2157,7 @@ setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
-               (src/sprintf.c: 26)
+               (src/output/sprintf.c: 26)
 
 ungetc         static int ungetc(int c, FILE *F);
 
@@ -2153,7 +2175,7 @@ vsprintf       int vsprintf( char *buf, const char *fmt, ... );
                write fmt and arguments into buf
               calls vsnprintf, 
               the size is limited to 4096 by default.
-               (src/vsprintf.c: 9)
+               (src/output/vsprintf.c: 9)
 
 
 
@@ -2163,7 +2185,7 @@ stdlib.h
 
 abort          void abort();
 
-               (src/abort.c: 3)
+               (src/process/abort.c: 3)
 
 abs            static int abs(int i);
 
@@ -2175,19 +2197,19 @@ atexit         static int atexit( functionp* func );
               the switch mini_atexit takes a optional number,
               which defines the maximum numbers of functions to be registered.
               (defaults to 8)
-               (src/atexit.c: 7)
+               (src/process/atexit.c: 7)
 
 atoi           int atoi(const char *c);
 
-               (src/atoi.c: 3)
+               (src/conversions/atoi.c: 3)
 
 atol           long atol(const char *c);
 
-               (src/atol.c: 3)
+               (src/conversions/atol.c: 3)
 
 calloc         void* calloc(int size);
 
-               (src/calloc.c: 2)
+               (src/memory/calloc.c: 2)
 
 div            static div_t div(int numerator, int denominator);
 
@@ -2195,7 +2217,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/malloc.c: 146)
+               (src/memory/malloc.c: 146)
 
 getenv         char* getenv(const char* name);
 
@@ -2285,7 +2307,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/malloc.c: 126)
+               (src/memory/malloc.c: 126)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -2302,7 +2324,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/malloc.c: 210)
+               (src/memory/malloc.c: 210)
 
 srand          void srand( unsigned int i );
 
@@ -2338,15 +2360,15 @@ memcmp         int memcmp(const void* c1,const void* c2,int len);
 
 memcpy         void* memcpy( void*d, const void *s, int n );
 
-               (src/mem/memcpy.c: 4)
+               (src/memory/memcpy.c: 4)
 
 memmove        void* memmove(void *dest, const void *src, int n);
 
-               (src/mem/memmove.c: 3)
+               (src/memory/memmove.c: 3)
 
 memset         void *memset( void *s, int c, int n);
 
-               (src/mem/memset.c: 3)
+               (src/memory/memset.c: 3)
 
 strcasecmp     int strcasecmp(const char*c1,const char*c2);
 
@@ -2398,7 +2420,7 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               write 0's up to src[n] when len of dest < n
               Please note strlcpy (borrowed from freebsd), 
               which does the same,
-              but doesn't pad src with 0's.
+              but doesn't pad dest with 0's.
                (src/string/strncpy.c: 7)
 
 strrchr        char *strrchr(const char *s, int c);
@@ -2417,11 +2439,11 @@ sys/wait.h
 
 wait           pid_t wait(int *wstatus);
 
-               (src/wait.c: 8)
+               (src/process/wait.c: 8)
 
 waitpid        pid_t waitpid(pid_t pid, int *wstatus, int options);
 
-               (src/wait.c: 16)
+               (src/process/wait.c: 16)
 
 
 
@@ -2465,7 +2487,7 @@ getgroups      int getgroups(int maxgroups, int *list);
 
 isatty         int isatty(int fd);
 
-               (src/isatty.c: 5)
+               (src/termios/isatty.c: 5)
 
 open           int volatile open( const char *s, int flags, ... );
 
@@ -2485,7 +2507,7 @@ sleep          unsigned int volatile sleep(unsigned int seconds);
 
                nonconformant sleep
               TODO: ignore blocked signals, sigchld
-               (src/sleep.c: 10)
+               (src/process/sleep.c: 10)
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
@@ -2505,7 +2527,7 @@ usleep         unsigned int volatile usleep(unsigned int useconds);
               best shot might be a spinloop, and looking for cpu ticks.
              
               TODO: ignore blocked signals, sigchld
-               (src/sleep.c: 31)
+               (src/process/sleep.c: 31)
 
 where          int where(const char *file,char *buf);
 

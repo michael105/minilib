@@ -4,10 +4,15 @@
 
 
 Work in progress - it's a backup copy. (2021/02)
+Atm about to clean the structure.
+Harder then writing this thing..
+
+--------
+
 
 A slim resource friendly udevd daemon. 
 
-Generically implemented this can be used to watch all sorts of directories
+Generically implemented, the daemon could be used to watch all sorts of directories
 recursively and change owner, group, access rights, create links,
 or execute actions on file creation or deletion.
 
@@ -54,20 +59,80 @@ About:
 
 Usage:
 	
-	udevrd [-c config] [-d] [-B]
+	udevrd [-c config] [-e] [-B]
 		
 		The udev daemon
 
 		-c 'config': use an alternative config file (default: /etc/udevrd.conf.bin)
+		-e : Use an into udevrd itself embedded config file
 		-d : debug output to stdout
 		-B : daemonize and go into background
 
 
-	update-udevrd.sh [inputfile] [outputfile]
+
+	udevrd-update.sh [inputfile] [outputfile]
 	  
 		Update the binary config file [outputfile] (default: /etc/udevrd.conf.bin)
 		from the settings found in [inputfile] (default /etc/udevrd.conf)
 		and trigger udevrd to reload its config.
+		
+		uid's and gid's are translated to its numerical presentation, in order
+		to save a few kilobytes for udevrd and to prevent the need to have a
+		passwd and group file accessible to udevrd.
+
+		Therefore the configuration file has to be compiled for every system
+		with different users and groups again.
+
+
+
+	udevrd-appendconfig.sh [inputfile] [udevrd-path]
+
+		(Optional)
+
+		Embedd the binary configfile (default /etc/udevrd.conf.bin)
+		in the udevrd daemon (default /sbin/udevrd)
+		Either the argument -e to udevrd triggers loading the embedded
+		configuration, or udevrd tries to resort onto the embedd configuration
+		when he cannot load the supplied (-c) config file, 
+		or the file /etc/udevrd.conf.bin doesn't exist.
+
+
+
+Configuration:
+		
+		The configuration is done with the configuration file udevrd.conf.
+		This is a simple shell script; the supplied example is documented.
+
+		When the binary configuration is compiled with udevrd-update.sh,
+		the config file is sourced with sh.
+		It is possible to source from this script other configuration files,
+		test for different systems, and so on.
+
+		The devices are matched with the "match" function of minilib.
+		Essentially, it is a simple expression engine, which matches straight
+		from left to right. 
+		Wildcards: 
+			* match any count of chars 
+			+ match 1 or more chars 
+			? match one char
+			\d digit 
+			\D no digit 
+
+		Please have a look into the reference of minilib for further 
+		documentation on 'match'.
+
+		Signal udevrd with SIGUSR1 to reload the configuration file,
+		or with SIGUSR2 to load the configuration embedded into udevrd itself.
+		(`killall -SIGUSR1 udevrd`)
+
+
+
+Compilation:
+
+		`make`
+		(within the minilib project hierarchy)
+
+		`make install`
 
 
 

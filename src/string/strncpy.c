@@ -2,7 +2,7 @@
 // write 0's up to src[n] when len of dest < n
 // Please note strlcpy (borrowed from freebsd), 
 // which does the same,
-// but doesn't pad src with 0's.
+// but doesn't pad dest with 0's.
 //+def
 char *strncpy(char *dest, const char *src, int n){
 		int a;
