@@ -33,7 +33,7 @@ void ino_dir_add( int num, const char* path, notify_dirs *nod );
 // freelist. no. optimized for sequential insertion and 
 // access by number.
 // but should have a "prev" pointer. (looking backwards).
-// skiplist? no. 
+// skiplist? no.?
 // len: return pnext - p. ( no scanning needed )
 // -> also possible to use vectorized instructions. 
 //    ( no access fault on scanning behind a string )

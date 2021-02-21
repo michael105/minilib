@@ -38,6 +38,9 @@ endfile
 
 [ name ] -> syntaxcheck also possible. ( $2 needs to be ']' )
 
+// a comment. to be shown in C as well.
+// WHEN all values are integers or relative pointers, 
+// order doesn't matter.
 
 
 extract config:
