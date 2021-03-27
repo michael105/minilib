@@ -169,6 +169,7 @@
 #define _STDIO_H
 #define _STDLIB_H
 #define _STRING_H
+#define _STRINGS_H
 #define _STROPTS_H
 #define _SYSCALL_H
 #define _SYS_ACCT_H
