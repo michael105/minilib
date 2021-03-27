@@ -2207,7 +2207,7 @@ atol           long atol(const char *c);
 
                (src/conversions/atol.c: 3)
 
-calloc         void* calloc(int size);
+calloc         void* calloc(int nmemb, int size);
 
                (src/memory/calloc.c: 2)
 
