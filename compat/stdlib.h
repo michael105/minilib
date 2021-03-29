@@ -143,17 +143,17 @@ long int strtol(const char *c, const char **endp, int base);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/string/strtol.c"
-#include "minilib/src/rand.c"
 #include "minilib/src/getenv.c"
+#include "minilib/src/rand.c"
 #include "minilib/src/conversions/atoi.c"
-#include "minilib/src/process/atexit.c"
-#include "minilib/src/memory/calloc.c"
-#include "minilib/src/exec/system.c"
-#include "minilib/include/math.h"
 #include "minilib/src/conversions/atol.c"
-#include "minilib/src/qsort.c"
 #include "minilib/src/process/abort.c"
+#include "minilib/include/math.h"
+#include "minilib/src/exec/system.c"
+#include "minilib/src/memory/calloc.c"
+#include "minilib/src/process/atexit.c"
+#include "minilib/src/string/strtol.c"
+#include "minilib/src/qsort.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
