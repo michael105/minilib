@@ -4,6 +4,7 @@ mini_start
 mini_printf
 mini_nanosleep
 mini_sleep
+mini_strlen
 mini_itodec
 mini_atoi
 mini_fork

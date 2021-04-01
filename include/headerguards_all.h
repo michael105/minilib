@@ -212,6 +212,7 @@
 #define _SYS_SYSMACROS_H
 #define _SYS_TERMIOS_H
 #define _SYS_TIMEB_H
+#define _SYS_TIMERFD_H
 #define _SYS_TIME_H
 #define _SYS_TTYCHARS_H
 #define _SYS_TTYDEFAULTS_H
