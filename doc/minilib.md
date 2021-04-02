@@ -613,6 +613,14 @@ group_write
               or any globals.
                (macros/defgroups.h: 23)
 
+htons          static uint16_t htons(uint16_t i);
+
+               (src/network/byteorder.c: 2)
+
+inet_aton      int inet_aton(const char* s, struct in_addr *addr);
+
+               (src/network/inet_aton.c: 2)
+
 initgroups     int initgroups(const char* user, gid_t group);
 
                (src/userdb/initgroups.c: 2)

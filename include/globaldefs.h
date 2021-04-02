@@ -332,6 +332,28 @@ typedef struct group {
 #define CLONE_IO  0x80000000
 
 
+// network
+struct in_addr { uint32_t s_addr; };
+struct sockaddr_in {
+		unsigned short sin_family;
+		uint16_t sin_port;
+		struct in_addr sin_addr;
+		uint8_t sin_zero[8];
+};
+
+struct addrinfo {
+		int ai_flags;
+		int ai_family;
+		int ai_socktype;
+		int ai_protocol;
+		socklen_t ai_addrlen;
+		struct sockaddr *ai_addr;
+		char *ai_canonname;
+		struct addrinfo *ai_next;
+};
+
+
+
 
 
 #endif
