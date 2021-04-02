@@ -2364,7 +2364,7 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/string/strcmp.c: 84)
+               (src/memory/memcmp.c: 3)
 
 memcpy         void* memcpy( void*d, const void *s, int n );
 

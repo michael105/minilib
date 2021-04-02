@@ -1612,9 +1612,9 @@
   used for the allocation of the array gr_mem.
   default: 64
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  84 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcmp.3.rst.html">memcmp</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  3 </small></td><td><small> int memcmp(const void* c1,const void* c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  4 </small></td><td><small> void* memcpy( void*d, const void *s, int n );
+<tr valign="top"><td><small><a target="right" href="manpages/string/memcpy.3.rst.html">memcpy</a></small></td><td><small>   <a href="../src/memory/memcmp.c" target="right">../src/memory/memcmp.c</a>  4 </small></td><td><small> void* memcpy( void*d, const void *s, int n );
 </small></td></tr>
 <tr valign="top"><td><small>memfd_create</small></td><td><small>   <a href="../src/memory/memcpy.c" target="right">../src/memory/memcpy.c</a>  179 </small></td><td><small> memfd_create( const char  *uname_ptr,  unsigned int flags)
 </small></td></tr>
@@ -1876,7 +1876,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setsid.2.rst.html">setsid</a></small></td><td><small>   <a href="../src/userdb/setpwent.c" target="right">../src/userdb/setpwent.c</a>  150 </small></td><td><small> DEF_syscall(setsid,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getsockopt.2.rst.html">setsockopt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  219 </small></td><td><small> setsockopt( int fd,  int level,  int optname,  char *optval,  int optlen)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getsockopt.2.rst.html">setsockopt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  219 </small></td><td><small> setsockopt( int fd,  int level,  int optname,  const void *optval,  int optlen)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  152 </small></td><td><small> setuid( uid_t uid)
 </small></td></tr>
