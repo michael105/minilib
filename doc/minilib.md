@@ -1676,7 +1676,6 @@ sys_epoll_wait
 sys_eventfd       
 sys_eventfd2      
 sys_execve        
-sys_exit          
 sys_exit_group    
 sys_faccessat     
 sys_fadvise64     
