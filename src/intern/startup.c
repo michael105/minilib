@@ -88,6 +88,12 @@ mlgl->grent.gr_name = 0;
 
 	_exit(ret); 
 	// exits here. 
+	// This does a jump to _exit:
+	// As a sideeffect, also if there would have been a overrun in the
+	// globals (when located at the stack), the "return address" is unaffected.
+	// The buffer of minilib for malloc, printf, andsoon is located at the end of the globals,
+	// so that's the main danger.
+	//
 	// the next call prevents gcc from optimizing the assignments 
 	// to the globals out.
 	// gcc doesn't know, we exit before.

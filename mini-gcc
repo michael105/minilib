@@ -283,7 +283,7 @@ fi
 
 
 if [ "$fulldebug" == 1 ]; then
-		echo -e "\n   $LRED switching to fulldebug mode.$NORM\n"
+		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
 
 		echo $CYAN eval "$REAL_CC $INCLUDECONFIG $CYAN$INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $opt_args -E" 
 		echo
