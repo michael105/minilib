@@ -430,6 +430,13 @@ eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
                write msg to stderr, append a newline. Needs strlen.
                (include/prints.h: 78)
 
+err            #define err( int status, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); fprints(stderr,":",strerror(errno)); exit(status); }
+
+               print an error message to stderr,
+              print an error message dependend on errno ( strerror(errno) ),
+              exit with status
+               (src/process/error.c: 20)
+
 errno_str      static char *errno_str(int err);
 
                convert errno to str, with 3 chars length
@@ -437,6 +444,23 @@ errno_str      static char *errno_str(int err);
               with two \0\0, when errno<100
               errnum must be <200.
                (src/process/errno_str.c: 7)
+
+error          #define error( int status, int errnum, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
+
+               print an error message to stderr
+              when errnum is not 0, print either the number,
+               or a verbose error message (with strerror), 
+               when mini_verbose_errstr is defined.
+               (verbose error messages add aboyut 4kB)
+             
+              when status is non null, terminate with status
+               (src/process/error.c: 13)
+
+errx           #define errx( int status, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); exit(status); }
+
+               print an error message to stderr,
+              exit with status
+               (src/process/error.c: 27)
 
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 

@@ -331,26 +331,80 @@ typedef struct group {
 #define CLONE_NEWNET  0x40000000
 #define CLONE_IO  0x80000000
 
+#define IFHWADDRLEN  6
+#define IF_NAMESIZE  16
+#define IFNAMSIZ  IF_NAMESIZE
+
 
 // network
 struct in_addr { uint32_t s_addr; };
 struct sockaddr_in {
-		unsigned short sin_family;
-		uint16_t sin_port;
-		struct in_addr sin_addr;
-		uint8_t sin_zero[8];
+	unsigned short sin_family;
+	uint16_t sin_port;
+	struct in_addr sin_addr;
+	uint8_t sin_zero[8];
 };
 
 struct addrinfo {
-		int ai_flags;
-		int ai_family;
-		int ai_socktype;
-		int ai_protocol;
-		socklen_t ai_addrlen;
-		struct sockaddr *ai_addr;
-		char *ai_canonname;
-		struct addrinfo *ai_next;
+	int ai_flags;
+	int ai_family;
+	int ai_socktype;
+	int ai_protocol;
+	socklen_t ai_addrlen;
+	struct sockaddr *ai_addr;
+	char *ai_canonname;
+	struct addrinfo *ai_next;
 };
+
+struct ifmap {
+	unsigned long mem_start;
+	unsigned long mem_end;
+	uint16_t base_addr;
+	unsigned char irq;
+	unsigned char dma;
+	unsigned char port;
+};
+
+
+struct ifreq {
+	union
+	{
+		char ifrn_name[IF_NAMESIZE];    /* if name */
+	} ifr_ifrn;
+	union {
+		struct sockaddr ifru_addr;
+		struct sockaddr ifru_dstaddr;
+		struct sockaddr ifru_broadaddr;
+		struct sockaddr ifru_netmask;
+		struct  sockaddr ifru_hwaddr;
+		int16_t ifru_flags;
+		int32_t ifru_ivalue;
+		int32_t ifru_mtu;
+		struct ifmap ifru_map;
+		char ifru_slave[IF_NAMESIZE];  
+		char ifru_newname[IF_NAMESIZE];
+		char* ifru_data;
+	} ifr_ifru;
+};
+
+#define ifr_name  ifr_ifrn.ifrn_name
+#define ifr_hwaddr   ifr_ifru.ifru_hwaddr
+#define ifr_addr  ifr_ifru.ifru_addr
+#define ifr_dstaddr  ifr_ifru.ifru_dstaddr
+#define ifr_broadaddr   ifr_ifru.ifru_broadaddr
+#define ifr_netmask  ifr_ifru.ifru_netmask
+#define ifr_flags ifr_ifru.ifru_flags
+#define ifr_metric   ifr_ifru.ifru_ivalue
+#define ifr_mtu      ifr_ifru.ifru_mtu
+#define ifr_map      ifr_ifru.ifru_map
+#define ifr_slave ifr_ifru.ifru_slave
+#define ifr_data  ifr_ifru.ifru_data
+#define ifr_ifindex  ifr_ifru.ifru_ivalue
+#define ifr_bandwidth   ifr_ifru.ifru_ivalue
+#define ifr_qlen  ifr_ifru.ifru_ivalue
+#define ifr_newname  ifr_ifru.ifru_newname
+
+
 
 #define IPPORT_RESERVED 1024
 
@@ -388,6 +442,32 @@ struct addrinfo {
 #define IPPROTO_RAW      255
 #define IPPROTO_MAX      256
 
+
+#define ETHER_ADDR_LEN 6
+
+
+
+#define IFF_UP 0x1
+#define IFF_BROADCAST 0x2
+#define IFF_DEBUG 0x4
+#define IFF_LOOPBACK 0x8
+#define IFF_POINTOPOINT 0x10
+#define IFF_NOTRAILERS 0x20
+#define IFF_RUNNING 0x40
+#define IFF_NOARP 0x80
+#define IFF_PROMISC 0x100
+#define IFF_ALLMULTI 0x200
+#define IFF_MASTER 0x400
+#define IFF_SLAVE 0x800
+#define IFF_MULTICAST 0x1000
+#define IFF_PORTSEL 0x2000
+#define IFF_AUTOMEDIA 0x4000
+#define IFF_DYNAMIC 0x8000
+#define IFF_LOWER_UP 0x10000
+#define IFF_DORMANT 0x20000
+#define IFF_ECHO 0x40000
+#define IFF_VOLATILE (IFF_LOOPBACK|IFF_POINTOPOINT|IFF_BROADCAST| \
+		        IFF_ECHO|IFF_MASTER|IFF_SLAVE|IFF_RUNNING|IFF_LOWER_UP|IFF_DORMANT)
 
 
 

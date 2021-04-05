@@ -1,9 +1,10 @@
 #if 0
-mini_start
-mini_fopen
-mini_fclose
-mini_fprintf
-mini_printf
+compile start fopen fprintf printf 
+#mini_start
+#mini_fopen
+#mini_fclose
+#mini_fprintf
+#mini_printf
 mini_print
 mini_itodec
 mini_itohex

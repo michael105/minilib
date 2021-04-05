@@ -607,13 +607,31 @@
 <tr valign="top"><td><small>eputs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  78 </small></td><td><small> #define eputs(msg) ( eprint(msg) + eprintl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stderr, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  7 </small></td><td><small>  char *errno_str(int err);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">err</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  20 </small></td><td><small> #define err( int status, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); fprints(stderr,":",strerror(errno)); exit(status); }
+</small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr,
+  print an error message dependend on errno ( strerror(errno) ),
+  exit with status
+ </small></td></tr>
+<tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  7 </small></td><td><small>  char *errno_str(int err);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert errno to str, with 3 chars length
   ending the string (global) 
   with two \0\0, when errno<100
   errnum must be <200.
  </small></td></tr>
-<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/process/errno_str.c" target="right">../src/process/errno_str.c</a>  89 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+<tr valign="top"><td><small>error</small></td><td><small>   <a href="../src/process/errno_str.c" target="right">../src/process/errno_str.c</a>  13 </small></td><td><small> #define error( int status, int errnum, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
+</small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr
+  when errnum is not 0, print either the number,
+   or a verbose error message (with strerror), 
+   when mini_verbose_errstr is defined.
+   (verbose error messages add aboyut 4kB)
+ 
+  when status is non null, terminate with status
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">errx</a></small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  27 </small></td><td><small> #define errx( int status, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); exit(status); }
+</small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr,
+  exit with status
+ </small></td></tr>
+<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  89 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr. Computes length with sizeof(str) at compile time.
  </small></td></tr>
 <tr valign="top"><td><small>ewritesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  101 </small></td><td><small> #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)

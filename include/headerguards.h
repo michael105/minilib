@@ -15,6 +15,8 @@
 #define included_unistd_h
 
 
+#define __LINUX_IF_PACKET_H
+#define _ERR_H
 #define _AIO_H
 #define _ALIASES_H
 #define _ARGP_H
