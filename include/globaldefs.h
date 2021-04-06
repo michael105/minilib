@@ -5,6 +5,7 @@
 
 #ifdef X64
 #define POINTER unsigned long int
+#define __LITTLE_ENDIAN
 #else
 #define POINTER unsigned int
 #endif
@@ -337,7 +338,85 @@ typedef struct group {
 
 
 // network
-struct in_addr { uint32_t s_addr; };
+typedef uint16_t in_port_t;
+typedef uint32_t in_addr_t;
+
+struct in_addr { in_addr_t s_addr; };
+
+struct timestamp {
+	uint8_t len;
+	uint8_t ptr;
+#ifdef __LITTLE_ENDIAN
+	unsigned int flags:4;
+	unsigned int overflow:4;
+#else
+	unsigned int overflow:4;
+	unsigned int flags:4;
+#endif
+	uint32_t data[9];
+};
+
+struct iphdr {
+#ifdef __LITTLE_ENDIAN
+	unsigned int ihl:4;
+	unsigned int version:4;
+#else
+	unsigned int version:4;
+	unsigned int ihl:4;
+#endif
+	uint8_t tos;
+	uint16_t tot_len;
+	uint16_t id;
+	uint16_t frag_off;
+	uint8_t ttl;
+	uint8_t protocol;
+	uint16_t check;
+	uint32_t saddr;
+	uint32_t daddr;
+};
+
+
+struct ip {
+#ifdef __LITTLE_ENDIAN
+	unsigned int ip_hl:4;
+	unsigned int ip_v:4;
+#else
+	unsigned int ip_v:4;
+	unsigned int ip_hl:4;
+#endif
+	uint8_t ip_tos;
+	uint16_t ip_len;
+	uint16_t ip_id;
+	uint16_t ip_off;
+	uint8_t ip_ttl;
+	uint8_t ip_p;
+	uint16_t ip_sum;
+	struct in_addr ip_src, ip_dst;
+};
+
+#define  IP_RF 0x8000
+#define  IP_DF 0x4000
+#define  IP_MF 0x2000
+#define  IP_OFFMASK 0x1fff
+
+struct ip_timestamp {
+	uint8_t ipt_code;
+	uint8_t ipt_len;
+	uint8_t ipt_ptr;
+#ifdef __LITTLE_ENDIAN
+	unsigned int ipt_flg:4;
+	unsigned int ipt_oflw:4;
+#else
+	unsigned int ipt_oflw:4;
+	unsigned int ipt_flg:4;
+#endif
+	uint32_t data[9];
+};
+
+#define  IPVERSION   4
+#define  IP_MAXPACKET   65535
+
+
 struct sockaddr_in {
 	unsigned short sin_family;
 	uint16_t sin_port;
@@ -403,6 +482,28 @@ struct ifreq {
 #define ifr_bandwidth   ifr_ifru.ifru_ivalue
 #define ifr_qlen  ifr_ifru.ifru_ivalue
 #define ifr_newname  ifr_ifru.ifru_newname
+
+struct udphdr {
+	uint16_t uh_sport;
+	uint16_t uh_dport;
+	uint16_t uh_ulen;
+	uint16_t uh_sum;
+};
+
+#define UDP_CORK  1
+#define UDP_ENCAP 100
+#define UDP_NO_CHECK6_TX 101
+#define UDP_NO_CHECK6_RX 102
+#define UDP_SEGMENT  103
+
+#define UDP_ENCAP_ESPINUDP_NON_IKE 1
+#define UDP_ENCAP_ESPINUDP 2
+#define UDP_ENCAP_L2TPINUDP   3
+#define UDP_ENCAP_GTP0     4
+#define UDP_ENCAP_GTP1U    5
+
+#define SOL_UDP            17
+
 
 
 

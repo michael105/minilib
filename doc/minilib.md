@@ -430,7 +430,7 @@ eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
                write msg to stderr, append a newline. Needs strlen.
                (include/prints.h: 78)
 
-err            #define err( int status, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); fprints(stderr,":",strerror(errno)); exit(status); }
+err            #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
 
                print an error message to stderr,
               print an error message dependend on errno ( strerror(errno) ),
@@ -445,7 +445,7 @@ errno_str      static char *errno_str(int err);
               errnum must be <200.
                (src/process/errno_str.c: 7)
 
-error          #define error( int status, int errnum, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
+error          #define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
 
                print an error message to stderr
               when errnum is not 0, print either the number,
@@ -456,7 +456,7 @@ error          #define error( int status, int errnum, const char* fmt, ... ) { f
               when status is non null, terminate with status
                (src/process/error.c: 13)
 
-errx           #define errx( int status, const char* fmt, ... ) { fprintf(stderr,fmt,__VA_ARGS__); exit(status); }
+errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
 
                print an error message to stderr,
               exit with status
@@ -1289,7 +1289,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 88)
+               (include/globaldefs.h: 89)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1395,7 +1395,7 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 218)
+               (include/globaldefs.h: 219)
 
 ret_errno      #ifdef mini_errno
 
@@ -1621,6 +1621,11 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               mini_itodec (%d conversion) 
               mini_atoi is needed for grouping numbers
                (src/output/sprintf.c: 43)
+
+warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
+
+               print an error message to stderr
+               (src/process/error.c: 33)
 
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
