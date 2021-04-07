@@ -18,4 +18,6 @@
 #include "./sys/socket.h"
 #include "./dirent.h"
 #include "./signal.h"
+#include "./time.h"
+#include "./limits.h"
 #endif

@@ -639,11 +639,19 @@ group_write
 
 htons          static uint16_t htons(uint16_t i);
 
-               (src/network/byteorder.c: 2)
+               (src/network/byteorder.c: 6)
 
 inet_aton      int inet_aton(const char* s, struct in_addr *addr);
 
                (src/network/inet_aton.c: 2)
+
+inet_ntoa      char* inet_ntoa( struct in_addr in);
+
+               convert a address
+              This returns a pointer to a string in the globals,
+              therefore the routine isn't reentrant.
+              (whoever thought this might be a good idea..)
+               (src/network/inet_ntoa.c: 6)
 
 initgroups     int initgroups(const char* user, gid_t group);
 
@@ -1310,6 +1318,10 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
 
                (include/mremap.h: 4)
 
+ntohs          #define ntohs(i) htons(i)
+
+               (src/network/byteorder.c: 14)
+
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
                (src/directories/opendirp.c: 5)
@@ -1341,7 +1353,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               With less overhead the macro OPTFENCE(...) goes.
               There the call to the "ipa" function is jumped over,
               via asm inline instructions. 
-               (include/minilib_global.h: 151)
+               (include/minilib_global.h: 154)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -2520,6 +2532,11 @@ getgroups      int getgroups(int maxgroups, int *list);
               This function calls internally setgrent() and getgrent();
               therefore any iteration with getgrent will be resetted.
                (src/userdb/getgroups.c: 8)
+
+gethostname    static int gethostname(char *name,int len);
+
+               gethostname
+               (src/network/gethostname.c: 3)
 
 isatty         int isatty(int fd);
 

@@ -14,8 +14,11 @@ mini_read
 mini_strlen
 mini_strtol
 mini_inet_aton
+mini_inet_ntoa
 mini_buf 1024
+mini_gethostname
 
+OPTFLAG -O0
 INCLUDESRC
 
 return
@@ -59,7 +62,7 @@ int d_inet_aton(const char *cp, struct in_addr *inp) {
 		char *tmp=(char*)cp;
 		for (i=24; ;) {
 				long j;
-				j=strtol(tmp,&tmp,0);
+				j=strtol(tmp,(const char**)&tmp,0);
 				if (*tmp==0) {
 						ip|=j;
 						break;
@@ -78,23 +81,48 @@ int d_inet_aton(const char *cp, struct in_addr *inp) {
 }
 
 
+static unsigned int i2a(char* dest,unsigned int x) {
+	register unsigned int tmp=x;
+	register unsigned int len=0;
+	if (x>=100) { *dest++=tmp/100+'0'; tmp=tmp%100; ++len; }
+	if (x>=10) { *dest++=tmp/10+'0'; tmp=tmp%10; ++len; }
+	*dest++=tmp+'0';
+	return len+1;
+}
+
+char *dinet_ntoa_r(struct in_addr in,char* buf) {
+	unsigned int len;
+	unsigned char *ip=(unsigned char*)&in;
+	len=i2a(buf,ip[0]); buf[len]='.'; ++len;
+	len+=i2a(buf+ len,ip[1]); buf[len]='.'; ++len;
+	len+=i2a(buf+ len,ip[2]); buf[len]='.'; ++len;
+	len+=i2a(buf+ len,ip[3]); buf[len]=0;
+	return buf;
+}
+
+
 
 void conv(char *s){
 		struct in_addr ad;
 		inet_aton(s,&ad);
 		int i = ad.s_addr;
+		char buf[32];
 		printf("Ok\n");
-		printf( "conv: %s   %x - %d\n",s,i,i);
+		printf( "conv: %s   %x - %d - %s\n",s,i,i,inet_ntoa(ad));
 		d_inet_aton(s,&ad);
 		i = ad.s_addr;
 		printf("Ok - diet\n");
-		printf( "conv: %s   %x - %d\n\n\n",s,i,i);
+		dinet_ntoa_r(ad,buf);
+		printf( "conv: %s   %x - %d - %s\n\n\n",s,i,i,buf);
 
 }
 
 int main( int argc, char *argv[] ){
 
 	fprintf( stdout, "stdio.\n" );
+	char buf[32];
+	gethostname(buf,32);
+	fprintf( stdout, "hostname: %s\n",buf );
 
 	conv("127.0.0.1");
 	conv("127.0.0.2");

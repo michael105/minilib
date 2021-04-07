@@ -115,6 +115,9 @@ typedef struct {
 		// when needed. (shrinking the minibuf) ->getgrent
 		struct group groupent;
 #endif
+#ifdef mini_inet_ntoa
+		char inet_ntoa_addr[16];
+#endif
 
 		union {
 				int ibuf[(mini_bufsize>>2)];
