@@ -637,6 +637,10 @@ group_write
               or any globals.
                (macros/defgroups.h: 23)
 
+htonl          static uint32_t htonl(uint32_t i);
+
+               (src/network/byteorder.c: 17)
+
 htons          static uint16_t htons(uint16_t i);
 
                (src/network/byteorder.c: 6)
@@ -1317,6 +1321,10 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
 mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 
                (include/mremap.h: 4)
+
+ntohl          #define ntohl(i) htonl(i)
+
+               (src/network/byteorder.c: 29)
 
 ntohs          #define ntohs(i) htons(i)
 

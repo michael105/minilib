@@ -892,7 +892,9 @@
   these functions do not depend on strlen, 
   or any globals.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htons</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  6 </small></td><td><small>  uint16_t htons(uint16_t i);
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htonl</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  17 </small></td><td><small>  uint32_t htonl(uint32_t i);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htons</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  6 </small></td><td><small>  uint16_t htons(uint16_t i);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_aton</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  2 </small></td><td><small> int inet_aton(const char* s, struct in_addr *addr);
 </small></td></tr>
@@ -1677,7 +1679,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  141 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohs</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  14 </small></td><td><small> #define ntohs(i) htons(i)
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  29 </small></td><td><small> #define ntohl(i) htonl(i)
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohs</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  14 </small></td><td><small> #define ntohs(i) htons(i)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  19 </small></td><td><small> int  open( const char *s, int flags, ... );
 </small></td></tr><tr><td></td><td colspan="2"><small>open or create a file.
@@ -2083,7 +2087,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>umount2</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  170 </small></td><td><small> umount2( const char *mountpoint, int flags) 
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/uname.3.rst.html">uname</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  158 </small></td><td><small> uname(struct old_utsname *name )
+<tr valign="top"><td><small><a target="right" href="manpages/gen/uname.3.rst.html">uname</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  158 </small></td><td><small> uname(struct new_utsname *name )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ungetc.3.rst.html">ungetc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  35 </small></td><td><small>  int ungetc(int c, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>pushes one char back to the stream.
