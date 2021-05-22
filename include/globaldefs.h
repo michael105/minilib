@@ -810,6 +810,13 @@ struct ifmap {
 	unsigned char port;
 };
 
+struct sockaddr_storage {
+	sa_family_t  ss_family;
+	uint32_t  __ss_align;
+	char __ss_padding[(128  - (2 * sizeof (uint32_t ))) ];
+};
+
+
 #define  ETHERTYPE_PUP     0x0200
 #define ETHERTYPE_SPRITE   0x0500
 #define  ETHERTYPE_IP      0x0800

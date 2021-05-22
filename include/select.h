@@ -2,6 +2,14 @@
 #define select_h
 //#include "syscall.h"
 
+// Some syscalls do give trouble with gcc.
+// Amongst other problems, parts of the code are optimized out,
+// what results in hard to track bugs, which (even worse)
+// show up only sometimes.
+// The code below showed up to work.
+// (Amongst other things, volatile is not really accepted by gcc.
+// Only SOMETIMES. :// )
+
 //+header unistd.h
 //+inc
 //

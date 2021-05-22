@@ -1363,6 +1363,10 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               via asm inline instructions. 
                (include/minilib_global.h: 154)
 
+poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
+
+               (include/poll.h: 25)
+
 posix_openpt   int posix_openpt(int flags);
 
                (src/termios/pty.c: 8)
@@ -2562,7 +2566,7 @@ open           int volatile open( const char *s, int flags, ... );
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
-               (include/select.h: 9)
+               (include/select.h: 17)
 
 sleep          unsigned int volatile sleep(unsigned int seconds);
 

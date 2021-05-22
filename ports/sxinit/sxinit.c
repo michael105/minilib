@@ -5,18 +5,48 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <limits.h>
+#include <errno.h>
 
-static char displayfd[7] = "?";
-static char *xserv_cmd[] = {"X", "-displayfd", displayfd, NULL};
-static char *xinit_cmd[] = {"sh", "/home/micha/.xinitrc", NULL};
+
+// Hardcode full path and arguments to Xorg to prevent users 
+// of placing another binary into the search path,
+// which would be executed with admin rights.
+// For the same reason, it shouldn't be possible to submit arbitrary arguments to xorg for users,
+// nor should be Xorg itself be suid or executable by users.
+// xorg is a quite complex executable, so better have a small static binary being suid,
+// which can (could) be checked for security flaws
+
+#define XSERV_CMD { "/usr/bin/Xorg", "-nolisten", "tcp", "-displayfd", displayfd, 0 }
+
+
+// the shell which parses $HOME/.xinitrc
+// with the rigths of the user calling sx
+#define SHELL "/bin/sh"
+
+
+// The default xinitrc, in case either HOME is not set,
+// or HOME/.xinitrc not present
+#define DEFAULT_XINITRC "/etc/X11/xinitrc"
+
+
+#define PROGNAME "sxinit"
+
+// globals
+#define DISPLAY_ENV "DISPLAY=:0"
+char display[] = DISPLAY_ENV;
+
 static pid_t xserv_pid = 0;
 static pid_t xinit_pid = 0;
 static int signalpipe[2];
+extern char** environ;
 
+// signal handler
 void handler(int s) {
 	write(signalpipe[1], "", 1);
 }
 
+// setup signal handler
 static void handle_signals(void (*func)(int)) {
 	struct sigaction sa = {0};
 	sa.sa_handler = handler;
@@ -26,6 +56,7 @@ static void handle_signals(void (*func)(int)) {
 	sigaction(SIGCHLD, &sa, NULL);
 }
 
+// cleanup
 static void cleanup() {
 	if (xserv_pid > 0) kill(xserv_pid, SIGTERM);
 	if (xinit_pid > 0) kill(xinit_pid, SIGTERM);
@@ -33,34 +64,28 @@ static void cleanup() {
 	if (xinit_pid > 0) waitpid(xinit_pid, NULL, 0);
 }
 
+// exit with failure
 static void die(const char *msg) {
+	fputs( PROGNAME ": ", stderr );
 	fputs(msg, stderr);
-	if (msg[0] && msg[strlen(msg)-1] == ':') {
-		fputc(' ', stderr);
-		perror(NULL);
-	} else {
-		fputc('\n', stderr);
-	}
+	fputc( '\n', stderr );
+	fputs( strerror(errno),stderr);
+	fputc( '\n', stderr );
 	
 	cleanup();
+
 	exit(EXIT_FAILURE);
 }
 
-static void start_xserv(int argc, char *argv[]) {
-
-	char *cmd[sizeof(xserv_cmd) / sizeof(xserv_cmd[0]) + argc];
-	int i = 0, j = 0;
-	for (i = 0; xserv_cmd[i]; i++)	
-		cmd[i] = xserv_cmd[i];
-	for (j = 0; argv[j]; j++)
-		cmd[i + j] = argv[j];
-	cmd[i + j] = NULL;
-
+// start the xserver
+static void start_xserv(){
 	int fd[2];
 	if (-1 == pipe(fd))
 		die("pipe:");
 
-	snprintf(displayfd, sizeof(displayfd), "%d", fd[1]);
+	char displayfd[2] = "?";
+
+	displayfd[0] = '0'+fd[1];
 
 	xserv_pid = fork();
 	if (xserv_pid == -1)
@@ -71,55 +96,67 @@ static void start_xserv(int argc, char *argv[]) {
 		close(signalpipe[1]);
 		handle_signals(SIG_DFL);
 		close(fd[0]);
-		execvp(cmd[0], cmd);
-		exit(1);
+		char *xservcmd[] = XSERV_CMD;
+		fputs( displayfd , stderr );
+		fputc('\n',stderr);
+		execve( xservcmd[0], xservcmd, environ);
+		die("Couldn't start the xserver");
 	}
 	
 	close(fd[1]);
 
-	char display[10] = ":0\n\0";
-	int n = read(fd[0], display + 1, sizeof(display) - 1);
-	if (n == -1)
-		die("read:");
+	// read the diplay fd number and set the enviromental variable
+	int n = read(fd[0], display+sizeof(DISPLAY_ENV)-2, 1);
+
+	if (n == -1){
+		die("Couldn't read from pipe");
+	}
 	
 	close(fd[0]);
-	fputs("display:",stderr);
 	fputs(display,stderr);
 
-	if (-1 == setenv("DISPLAY", ":0", 1))
-				die("setenv:");
-	return;
-
-
-	int k;
-	for (k = 0; k < n + 1; k++) {
-		if (display[k] == '\n' || ( display[k] == 0 ) ) {
-			display[k] = '\0';
-			if (-1 == setenv("DISPLAY", display, 1))
-				die("setenv:");
-			return;
-		}
-	}
-
-	die("failed to read display number");
+	putenv(display);
 }
 
-static void start_xinit() {
+// execute xinitrc
+static void start_xinit(int argc, char *argv[]) {
 	pid_t xinit_pid = fork();
 	if (xinit_pid == -1)
 		die("fork:");
 
 	if (xinit_pid == 0) {
+		char buf[PATH_MAX];
+		char *home = getenv("HOME");
+		if ( !home ){
+			strcpy(buf,DEFAULT_XINITRC);
+		} else {
+			char *c = stpcpy(buf,home);
+			strcpy(c,"/.xinitrc");
+		}
+
 		close(signalpipe[0]);
 		close(signalpipe[1]);
 		handle_signals(SIG_DFL);
-		execvp(xinit_cmd[0], xinit_cmd);
-		exit(1);
+
+		char *xinitcmd[argc+3];
+		xinitcmd[0] = SHELL;
+		xinitcmd[1] = buf;
+
+		// copy arguments
+		char **xp = xinitcmd+2;
+		while( ( *xp = *argv ) ){
+			xp++; argv++;
+		}
+
+		execve( xinitcmd[0], xinitcmd, environ);
+
+		// shouldn't get here
+		die("Couldn't execute xinitrc");
 	}
 }
 
 
-int main(int argc, char *argv[]) {
+int main( int argc, char *argv[], char *envp[] ){
 	if (-1 == pipe(signalpipe))
 		die("pipe:");
 
@@ -132,8 +169,14 @@ int main(int argc, char *argv[]) {
 	if (-1 == chdir(home))
 		die("chdir:");
 
-	start_xserv(argc - 1, argv + 1);
-	start_xinit();
+	start_xserv();
+	fputs( PROGNAME ": Xorg started\n",stderr);
+
+	// Drop suid privileges
+	setreuid( -1, getuid() );
+
+	argv++;
+	start_xinit(argc-1,argv);
 
 	char running = 1;
 	while (running)
