@@ -75,7 +75,7 @@ fcntl.h
 
 creat          int volatile creat( const char *s, int mode );
 
-               (src/open.c: 36)
+               (src/file/open.c: 36)
 
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
@@ -89,7 +89,7 @@ ioctl.h
 
 ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
 
-               (src/ioctl.c: 9)
+               (src/system/ioctl.c: 9)
 
 
 
@@ -217,7 +217,7 @@ ansicolors
 
 basename       char *basename(char *path);
 
-               (src/basename.c: 2)
+               (src/directories/basename.c: 2)
 
 brk            static int brk( const void* addr );
 
@@ -231,13 +231,13 @@ brk            static int brk( const void* addr );
 bsd_cksum      unsigned int bsd_cksum( const char* p, unsigned int len );
 
                bsd checksum
-               (src/cksum.c: 31)
+               (src/file/cksum.c: 31)
 
 bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
 
                bsd checksum, called by bsd_cksum,
               with initial hash value
-               (src/cksum.c: 20)
+               (src/file/cksum.c: 20)
 
 cfmakeraw      void cfmakeraw(struct termios *tp);
 
@@ -350,7 +350,7 @@ dirfd          int dirfd(DIR *d);
 
 dirname        char *dirname(char *s);
 
-               (src/dirname.c: 8)
+               (src/directories/dirname.c: 8)
 
 djb2_hash      unsigned long djb2_hash(const unsigned char *str);
 
@@ -363,7 +363,7 @@ djb2_hash      unsigned long djb2_hash(const unsigned char *str);
               Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
               The hash functions compute the hashes of a c string with a 0 at the end.
               The cksum functions do work with a pointer and a given len.
-               (src/hashes.c: 12)
+               (src/math/hashes.c: 12)
 
 djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
 
@@ -371,11 +371,11 @@ djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
               Didn't do any benchmarks, but the computation 
               might be quite performant. 
               It is a bitshift and two additions per byte.
-               (src/cksum.c: 8)
+               (src/file/cksum.c: 8)
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
-               (src/dprintf.c: 5)
+               (src/output/dprintf.c: 5)
 
 dprints        int dprints(int fd, const char *msg,...);
 
@@ -383,7 +383,7 @@ dprints        int dprints(int fd, const char *msg,...);
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
-               (src/dtodec.c: 10)
+               (src/conversions/dtodec.c: 10)
 
 endgrent       void endgrent();
 
@@ -1415,7 +1415,7 @@ putenv         int putenv( char *string );
               Returns: 
               - 0 on success, 
               - EINVAL: string was 0, didn't contain a '=', some other error
-               (src/putenv.c: 10)
+               (src/system/putenv.c: 10)
 
 pwent          
 
@@ -1445,7 +1445,7 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
-               (src/hashes.c: 23)
+               (src/math/hashes.c: 23)
 
 setbrk         static int setbrk(long addr);
 
@@ -1467,7 +1467,7 @@ setenv         int setenv( const char *name, const char *value, int overwrite );
               Returns: 
               - 0 on success
               - EINVAL on error
-               (src/setenv.c: 15)
+               (src/system/setenv.c: 15)
 
 seterrno       #ifdef mini_errno
 
@@ -2281,7 +2281,7 @@ free           void free(void *p);
 
 getenv         char* getenv(const char* name);
 
-               (src/getenv.c: 5)
+               (src/system/getenv.c: 5)
 
 labs           static long int labs(long int i);
 
@@ -2380,7 +2380,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
 
 rand           unsigned int rand();
 
-               (src/rand.c: 15)
+               (src/math/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
 
@@ -2388,7 +2388,7 @@ realloc        void* realloc(void *p, int size);
 
 srand          void srand( unsigned int i );
 
-               (src/rand.c: 7)
+               (src/math/rand.c: 7)
 
 strtol         long int strtol(const char *c, const char **endp, int base);
 
@@ -2562,7 +2562,7 @@ open           int volatile open( const char *s, int flags, ... );
               as third argument. Otherwise file permission
               flags will be random. (I still do not know, what 
               the flag showing up as "-T" means..)
-               (src/open.c: 19)
+               (src/file/open.c: 19)
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
