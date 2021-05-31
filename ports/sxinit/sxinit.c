@@ -12,16 +12,20 @@
 // Hardcode full path and arguments to Xorg to prevent users 
 // of placing another binary into the search path,
 // which would be executed with admin rights.
-// For the same reason, it shouldn't be possible to submit arbitrary arguments to xorg for users,
+// For the same reason, it shouldn't be possible to submit 
+// arbitrary arguments to xorg for users,
 // nor should be Xorg itself be suid or executable by users.
-// xorg is a quite complex executable, so better have a small static binary being suid,
-// which can (could) be checked for security flaws
-
+// xorg is a quite complex executable, so I believe it's better to have 
+// a small static binary being suid,
+// which can be checked for security flaws
+// with sametime known vulnerabilities of the xserver
+//
 #define XSERV_CMD { "/usr/bin/Xorg", "-nolisten", "tcp", "-displayfd", displayfd, 0 }
 
 
 // the shell which parses $HOME/.xinitrc
-// with the rigths of the user calling sx
+// with the rights of the user calling sx
+// The full path should be hardcoded for the same reasons
 #define SHELL "/bin/sh"
 
 
@@ -66,10 +70,11 @@ static void cleanup() {
 
 // exit with failure
 static void die(const char *msg) {
+	int e = errno;
 	fputs( PROGNAME ": ", stderr );
 	fputs(msg, stderr);
 	fputc( '\n', stderr );
-	fputs( strerror(errno),stderr);
+	fputs( strerror(e),stderr);
 	fputc( '\n', stderr );
 	
 	cleanup();
@@ -84,7 +89,6 @@ static void start_xserv(){
 		die("pipe:");
 
 	char displayfd[2] = "?";
-
 	displayfd[0] = '0'+fd[1];
 
 	xserv_pid = fork();
@@ -97,9 +101,9 @@ static void start_xserv(){
 		handle_signals(SIG_DFL);
 		close(fd[0]);
 		char *xservcmd[] = XSERV_CMD;
-		fputs( displayfd , stderr );
+		fputs( displayfd, stderr );
 		fputc('\n',stderr);
-		execve( xservcmd[0], xservcmd, environ);
+		execve( xservcmd[0], xservcmd, environ );
 		die("Couldn't start the xserver");
 	}
 	

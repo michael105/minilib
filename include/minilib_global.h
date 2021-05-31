@@ -187,6 +187,13 @@ extern char **environ;
 
 #else //mini_globals_on_stack
 
+// when the global are located on the stack, 
+// (globals_on_stack), the position needs to be saved.
+// Using r15 for the position.
+// Locating all globals on the stack might only in some special cases
+// give advantages. (sparing the .data and .bss segments, for example)
+register minilib_globals __attribute__((used))*__restrict__ mlgl asm("r15");
+
 #define errno mlgl->errno
 //#define sysret mlgl->sysret
 #ifdef mini_environ
@@ -196,12 +203,6 @@ extern char **environ;
 
 #endif
 
-// when the global are located on the stack, 
-// (globals_on_stack), the position needs to be saved.
-// Using r15 for the position.
-// Locating all globals on the stack might only in some special cases
-// give advantages. (sparing the .data and .bss segments, for example)
-register minilib_globals __attribute__((used))*__restrict__ mlgl asm("r15");
 
 
 #endif //mini_globals_on_stack
