@@ -264,12 +264,15 @@ INCLUDECONFIG=""
 if [ "$opt_config" != "" ]; then
 		if [ "$useincludedminilib" == "0" ]; then
 			INCLUDECONFIG="-include <($0 --dump-config $opt_config)"
-			CFLAGS="$INCLUDEDIRS $CFLAGS"
 		else 
 			INCLUDECONFIG="-include <($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib)"
 		fi
 fi
 
+
+if [ "$useincludedminilib" == "0" ]; then
+	CFLAGS="$INCLUDEDIRS $CFLAGS"
+fi
 
 echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
 
