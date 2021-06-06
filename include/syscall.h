@@ -99,9 +99,9 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 #define __callend1 __callend
 #define __callend2 __callend
 #define __callend3 __callend
-#define __callend4 __callend; OPTFENCE(r10)
-#define __callend5 __callend; OPTFENCE(r10,r8)
-#define __callend6 __callend; OPTFENCE(r10,r8,r9)
+#define __callend4 __callend; OPTFENCE((void*)r10)
+#define __callend5 __callend; OPTFENCE((void*)r10,(void*)r8)
+#define __callend6 __callend; OPTFENCE((void*)r10,(void*)r8,(void*)r9)
 //(also osx)
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret)  : "a" ( (call | NCONST ) )
 #else

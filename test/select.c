@@ -1,5 +1,6 @@
 #define mini_start
 #define mini_select
+#define mini_strlen
 #define mini_printf
 #define mini_errno
 #define mini_buf 1024

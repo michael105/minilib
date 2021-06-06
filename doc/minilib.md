@@ -75,7 +75,7 @@ fcntl.h
 
 creat          int volatile creat( const char *s, int mode );
 
-               (src/open.c: 36)
+               (src/file/open.c: 36)
 
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
@@ -89,7 +89,7 @@ ioctl.h
 
 ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
 
-               (src/ioctl.c: 9)
+               (src/system/ioctl.c: 9)
 
 
 
@@ -217,7 +217,7 @@ ansicolors
 
 basename       char *basename(char *path);
 
-               (src/basename.c: 2)
+               (src/directories/basename.c: 2)
 
 brk            static int brk( const void* addr );
 
@@ -231,13 +231,13 @@ brk            static int brk( const void* addr );
 bsd_cksum      unsigned int bsd_cksum( const char* p, unsigned int len );
 
                bsd checksum
-               (src/cksum.c: 31)
+               (src/file/cksum.c: 31)
 
 bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
 
                bsd checksum, called by bsd_cksum,
               with initial hash value
-               (src/cksum.c: 20)
+               (src/file/cksum.c: 20)
 
 cfmakeraw      void cfmakeraw(struct termios *tp);
 
@@ -350,7 +350,7 @@ dirfd          int dirfd(DIR *d);
 
 dirname        char *dirname(char *s);
 
-               (src/dirname.c: 8)
+               (src/directories/dirname.c: 8)
 
 djb2_hash      unsigned long djb2_hash(const unsigned char *str);
 
@@ -363,7 +363,7 @@ djb2_hash      unsigned long djb2_hash(const unsigned char *str);
               Me I'm going this way. I guess. I might check djb2_hash for collisions within a space of around 8 digits.
               The hash functions compute the hashes of a c string with a 0 at the end.
               The cksum functions do work with a pointer and a given len.
-               (src/hashes.c: 12)
+               (src/math/hashes.c: 12)
 
 djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
 
@@ -371,11 +371,11 @@ djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
               Didn't do any benchmarks, but the computation 
               might be quite performant. 
               It is a bitshift and two additions per byte.
-               (src/cksum.c: 8)
+               (src/file/cksum.c: 8)
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
 
-               (src/dprintf.c: 5)
+               (src/output/dprintf.c: 5)
 
 dprints        int dprints(int fd, const char *msg,...);
 
@@ -383,7 +383,7 @@ dprints        int dprints(int fd, const char *msg,...);
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
-               (src/dtodec.c: 10)
+               (src/conversions/dtodec.c: 10)
 
 endgrent       void endgrent();
 
@@ -430,6 +430,13 @@ eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
                write msg to stderr, append a newline. Needs strlen.
                (include/prints.h: 78)
 
+err            #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
+
+               print an error message to stderr,
+              print an error message dependend on errno ( strerror(errno) ),
+              exit with status
+               (src/process/error.c: 20)
+
 errno_str      static char *errno_str(int err);
 
                convert errno to str, with 3 chars length
@@ -437,6 +444,23 @@ errno_str      static char *errno_str(int err);
               with two \0\0, when errno<100
               errnum must be <200.
                (src/process/errno_str.c: 7)
+
+error          #define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
+
+               print an error message to stderr
+              when errnum is not 0, print either the number,
+               or a verbose error message (with strerror), 
+               when mini_verbose_errstr is defined.
+               (verbose error messages add aboyut 4kB)
+             
+              when status is non null, terminate with status
+               (src/process/error.c: 13)
+
+errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
+
+               print an error message to stderr,
+              exit with status
+               (src/process/error.c: 27)
 
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
@@ -612,6 +636,26 @@ group_write
               these functions do not depend on strlen, 
               or any globals.
                (macros/defgroups.h: 23)
+
+htonl          static uint32_t htonl(uint32_t i);
+
+               (src/network/byteorder.c: 17)
+
+htons          static uint16_t htons(uint16_t i);
+
+               (src/network/byteorder.c: 6)
+
+inet_aton      int inet_aton(const char* s, struct in_addr *addr);
+
+               (src/network/inet_aton.c: 2)
+
+inet_ntoa      char* inet_ntoa( struct in_addr in);
+
+               convert a address
+              This returns a pointer to a string in the globals,
+              therefore the routine isn't reentrant.
+              (whoever thought this might be a good idea..)
+               (src/network/inet_ntoa.c: 6)
 
 initgroups     int initgroups(const char* user, gid_t group);
 
@@ -1257,7 +1301,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 88)
+               (include/globaldefs.h: 89)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1277,6 +1321,14 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
 mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 
                (include/mremap.h: 4)
+
+ntohl          #define ntohl(i) htonl(i)
+
+               (src/network/byteorder.c: 29)
+
+ntohs          #define ntohs(i) htons(i)
+
+               (src/network/byteorder.c: 14)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
@@ -1309,7 +1361,11 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               With less overhead the macro OPTFENCE(...) goes.
               There the call to the "ipa" function is jumped over,
               via asm inline instructions. 
-               (include/minilib_global.h: 151)
+               (include/minilib_global.h: 154)
+
+poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
+
+               (include/poll.h: 25)
 
 posix_openpt   int posix_openpt(int flags);
 
@@ -1359,11 +1415,11 @@ putenv         int putenv( char *string );
               Returns: 
               - 0 on success, 
               - EINVAL: string was 0, didn't contain a '=', some other error
-               (src/putenv.c: 10)
+               (src/system/putenv.c: 10)
 
 pwent          
 
-               (include/globaldefs.h: 218)
+               (include/globaldefs.h: 219)
 
 ret_errno      #ifdef mini_errno
 
@@ -1389,7 +1445,7 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
-               (src/hashes.c: 23)
+               (src/math/hashes.c: 23)
 
 setbrk         static int setbrk(long addr);
 
@@ -1411,7 +1467,7 @@ setenv         int setenv( const char *name, const char *value, int overwrite );
               Returns: 
               - 0 on success
               - EINVAL on error
-               (src/setenv.c: 15)
+               (src/system/setenv.c: 15)
 
 seterrno       #ifdef mini_errno
 
@@ -1590,6 +1646,11 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               mini_atoi is needed for grouping numbers
                (src/output/sprintf.c: 43)
 
+warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
+
+               print an error message to stderr
+               (src/process/error.c: 33)
+
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
@@ -1644,7 +1705,6 @@ sys_epoll_wait
 sys_eventfd       
 sys_eventfd2      
 sys_execve        
-sys_exit          
 sys_exit_group    
 sys_faccessat     
 sys_fadvise64     
@@ -2207,7 +2267,7 @@ atol           long atol(const char *c);
 
                (src/conversions/atol.c: 3)
 
-calloc         void* calloc(int size);
+calloc         void* calloc(int nmemb, int size);
 
                (src/memory/calloc.c: 2)
 
@@ -2221,7 +2281,7 @@ free           void free(void *p);
 
 getenv         char* getenv(const char* name);
 
-               (src/getenv.c: 5)
+               (src/system/getenv.c: 5)
 
 labs           static long int labs(long int i);
 
@@ -2320,7 +2380,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
 
 rand           unsigned int rand();
 
-               (src/rand.c: 15)
+               (src/math/rand.c: 15)
 
 realloc        void* realloc(void *p, int size);
 
@@ -2328,7 +2388,7 @@ realloc        void* realloc(void *p, int size);
 
 srand          void srand( unsigned int i );
 
-               (src/rand.c: 7)
+               (src/math/rand.c: 7)
 
 strtol         long int strtol(const char *c, const char **endp, int base);
 
@@ -2356,7 +2416,7 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
-               (src/string/strcmp.c: 84)
+               (src/memory/memcmp.c: 3)
 
 memcpy         void* memcpy( void*d, const void *s, int n );
 
@@ -2485,6 +2545,11 @@ getgroups      int getgroups(int maxgroups, int *list);
               therefore any iteration with getgrent will be resetted.
                (src/userdb/getgroups.c: 8)
 
+gethostname    static int gethostname(char *name,int len);
+
+               gethostname
+               (src/network/gethostname.c: 3)
+
 isatty         int isatty(int fd);
 
                (src/termios/isatty.c: 5)
@@ -2497,11 +2562,11 @@ open           int volatile open( const char *s, int flags, ... );
               as third argument. Otherwise file permission
               flags will be random. (I still do not know, what 
               the flag showing up as "-T" means..)
-               (src/open.c: 19)
+               (src/file/open.c: 19)
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
-               (include/select.h: 9)
+               (include/select.h: 17)
 
 sleep          unsigned int volatile sleep(unsigned int seconds);
 

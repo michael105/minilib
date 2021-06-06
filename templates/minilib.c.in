@@ -26,6 +26,10 @@ int errno;
 int sysret;
 #endif
 
+#ifdef mini_getopt
+#include "contrib/getopt/getopt.h"
+#endif
+
 #include "src/intern/startup.c"
 
 /* end templates/minilib.c.in */

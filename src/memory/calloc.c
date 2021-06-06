@@ -1,7 +1,7 @@
 //+def
-void* calloc(int size){
+void* calloc(int nmemb, int size){
 
-	char* p = malloc(size);
+	char* p = malloc(size*nmemb);
 	if ( !p )
 		return(0);
 

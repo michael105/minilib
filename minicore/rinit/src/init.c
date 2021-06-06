@@ -1,32 +1,19 @@
 #if 0
-mini_start
-mini_writes
-mini_vfork
-mini_execve
-mini_sleep
-mini_exit
-mini_waitpid
-mini_prints
-mini_printsl
-mini_sigaction
-mini_sigaddset
-mini_sigemptyset
-mini_sigfillset
-mini_raise
+# minilib configuration
 
-#mini_printf
-#mini_itodec
-#mini_buf 256
+COMPILE start,writes,vfork,execve,sleep,exit,waitpid,prints,printsl,sigaction,\
+			  sigaddset,sigemptyset,sigfillset,raise
+
+# debugging definitions
+# COMPILE printf,itodec; mini_buf 256
 
 #LDSCRIPT text_and_bss
-shrinkelf
+SHRINKELF
 INCLUDESRC
 return
 #endif
 
-
 /*
- 
  misc 2020/06
 
 		rinit init tools
@@ -45,20 +32,6 @@ return
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-Also add information on how to contact you by electronic and paper mail.
-
-  If your software can interact with users remotely through a computer
-network, you should also make sure that it provides a way for users to
-get its source.  For example, if your program is a web application, its
-interface could display a "Source" link that leads users to an archive
-of the code.  There are many ways you could offer source, and different
-solutions will be better for different programs; see section 13 for the
-specific requirements.
-
-  You should also get your employer (if you work as a programmer) or school,
-if any, to sign a "copyright disclaimer" for the program, if necessary.
-For more information on this, and how to apply and follow the GNU AGPL, see
-<https://www.gnu.org/licenses/>.
 
 
 Based on minilib,
@@ -67,213 +40,201 @@ Copyright (c) 2012-2021, Michael (misc) Myer
 Donations welcome: Please contact me.
 All rights reserved.
 The licensing terms of minilib are in the file LICENSE.minilib.
-(Opensource, free to use with attribution)
+(Opensource, free to use also commercially with attribution)
 
-
-
-
-
+----------------
 
  a minimal init
  
- starts /etc/rinit/1 and hands all over all arguments, invoked with.
+ starts /etc/rinit/rinit.boot and hands all over all arguments, invoked with.
+ rinit.boot executes all files within /etc/rinit/boot, starting with B,
+ in order of the numbering.
 
- after "1" has exited, 
- /etc/rinit/2 is started, and restarted if it should exit.
+ after "rinit.boot" has exited, 
+ /etc/rinit/rinit.run is started, and restarted if it should exit.
+ rinit.run is supplied with the runlevel to start 
+ (defaults to "default", so all files in /etc/rinit/default,
+ starting with B, are executed.
 
- on signals SIGINT, Ctrl+Alt+Del (->reboot) and SIGTERM (->shutdown)
- /etc/rinit/2 is sent SIGTERM, when not responding SIGKILL,
+
+
+
+ on signals SIGINT, SIGTERM (->shutdown) and Ctrl+Alt+Del (->reboot)
+ /etc/rinit/rinit.run is sent SIGTERM, 
+ when not responding past WAITTIME seconds SIGKILL,
  and after it's termination
- /etc/rinit/3 is executed.
+ /etc/rinit/rinit.shutdown is executed.
+
 
  SIGQUIT: send the current stage a sigterm.
-    when the current stage is stage 2, 
+    when the current stage is stage rinit.run, 
 		restart the process after termination
 
 
-(todo)
  SIGABRT: cancel a shutdown.
  		if stage 3 is running, send SIGABRT to the process, and restart at stage 1.
 		is stage 2 is still running, and a shutdown is in progress,
 		send stage 2 SIGABRT. If the process exits restart stage 2
 */
  
-
-#if 0
-#define STAGE1 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test1.sh"
-#define STAGE2 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test2.sh"
-#define STAGE3 "/hd/sda8/home/micha/prog/minilib/minicore/rinit/test3.sh"
-#else
-//#define STAGE1 "/rd/rbin/rinit.boot"
-#define STAGE1 "/etc/rinit/rinit.boot"
-#define STAGE2 "/etc/rinit/rinit.run"
-//#define STAGE2 "/rd/rbin/rinit.run"
-#define STAGE3 "/etc/rinit/3"
-#endif
-
-// After signalling the current stage with SIGTERM,
-// wait this time (in seconds). When the (running) stage still runs 
-// kill it with SIGKILL, when still not responding within WAITTIME seconds
-// continue anyways
-#define WAITTIME 30
-
-#define HL "\033[1;36m"
-#define RED "\033[31m"
-#define NORM "\033[0;37m"
-#define PREF HL "--- " NORM
+#include "config.h"
 
 int shutdown;
 int stagepid;
 int zombie;
 
-
-void error(const char*c){
-		writes( RED "Error: " NORM );
-		printsl( c );
+// log functions
+void _log(const char *pref, const char *msg){
+	printsl(pref,NORM,msg);
 }
 
-void warning(const char*c){
-		writes( RED "Warning: " NORM );
-		printsl( c );
+void error(const char *msg){
+	_log( COLOR_ERROR "init - error: ", msg );
 }
 
+void warning(const char *msg){
+	_log( COLOR_WARNING "init - warning: ", msg );
+}
 
-void log(const char*c){
-		writes( HL "--- " NORM );
-		printsl( c );
+void log(const char *msg){
+	_log( COLOR_LOG "--- " NORM "init: ", msg );
 }
 
 // set a timer, which calls sigalarm
 void settimer(int secs){
-		struct itimerval timer = { 
-				.it_value.tv_sec  = secs,
-				.it_value.tv_usec = 0 };
-		setitimer (ITIMER_REAL, &timer, 0);
+	struct itimerval timer = { 
+		.it_value.tv_sec  = secs,
+		.it_value.tv_usec = 0 };
+	setitimer (ITIMER_REAL, &timer, 0);
 }
 
-
+// handle shutdown and reboot
 void sighandler(int signal){
-		if ( signal == SIGTERM ){
-				shutdown = 1; // halt
-				log("init: Shutdown");
-		}
-		if ( signal == SIGINT ){
-				shutdown = 2; // reboot
-				log("init: Reboot");
-		}
+	if ( signal == SIGTERM ){
+		shutdown = 1; // halt
+		log("Shutdown");
+	}
+	if ( signal == SIGINT ){
+		shutdown = 2; // reboot
+		log("Reboot");
+	}
 
-		kill(stagepid,SIGTERM);
-	
-		// set a timer, 
-		// and kill the curent stage, 
-		// when init is still running at that time
-		settimer(WAITTIME);
+	kill(stagepid,SIGTERM);
+
+	// set a timer, 
+	// and kill the curent stage, 
+	// when init is still running after WAITTIME seconds
+	settimer(WAITTIME);
 }
 
+// timeout after signalling the currently running stage
 void sigalarm(int signal){
-		if ( shutdown ){
-				warning("Shutdown: timeout reached. Send kill.");
-				kill(stagepid, SIGKILL);
-				if ( zombie == stagepid ){ // stage process hangs, didn't respond to sigkill
-					 raise(SIGTERM); // kill ourselves / meaning continue in vexec, waitpid
-				}
-				zombie = stagepid; // save stagepid.
-				settimer(WAITTIME); // when the stage process doesn't respond to the sigkill,
-				// kill ourselves after "waittime"
+	if ( shutdown ){
+		warning("Shutdown: timeout reached. Send kill.");
+		kill(stagepid, SIGKILL);
+		if ( zombie == stagepid ){ // stage process hangs, didn't respond to sigkill
+			raise(SIGTERM); // kill ourselves / meaning continue in vexec, waitpid
 		}
+		zombie = stagepid; // save stagepid.
+		settimer(WAITTIME); // when the stage process doesn't respond to the sigkill,
+		// kill ourselves after "waittime"
+	}
 }
 
+// abort a shutdown
 void sigabrt(int signal){
-		if ( shutdown ){
-				shutdown = 0;
-				warning("Abort shutdown");
-				kill(stagepid, SIGABRT);
-		}
+	if ( shutdown ){
+		shutdown = 0;
+		warning("Abort shutdown");
+		kill(stagepid, SIGABRT);
+	}
 }
 
+// execute 'exec' and wait for it's termination
+// reap all children
 int vexec( const char* exec, char* const* argv, char* const* envp ){
-		stagepid = vfork();
+	stagepid = vfork();
 
-		if ( stagepid == 0 ){
-				execve(exec, argv, envp );
-				error("Couldn't execute");
-				error(exec);
-				sleep(3);
-				return(1); // exit with failure
-		}
+	if ( stagepid == 0 ){
+		execve(exec, argv, envp );
+		error("Couldn't execute");
+		error(exec);
+		sleep(3);
+		exit(1); // exit with failure
+	}
 
-		int ws;
-		int pid;
-		do {
-				pid = waitpid( -1, &ws, 0 ); // wait for any child (reap zombies)
-		} while ( !( ( (pid == stagepid) && (WIFEXITED(ws) || WIFSIGNALED(ws) ) ) || zombie ) );
+	int ws;
+	int pid;
+	// the main loop, while running a stage ( pid != stagepid )
+	do {
+		pid = waitpid( -1, &ws, 0 ); // wait for any child (reap zombies)
+	} while ( !( ( (pid == stagepid) && (WIFEXITED(ws) || WIFSIGNALED(ws) ) ) || zombie ) );
 
-		return(0);
+	return(0);
 }
 
 
 
 int main(int argc, char **argv, char **envp){
-		// setup 
-		shutdown = 0;
-		stagepid = 0;
-		zombie = 0;
+	// setup 
+	shutdown = 0;
+	stagepid = 0;
+	zombie = 0;
 
-		log("start init");
+	log("start init");
 
-		// install signal handlers
-		struct sigaction sa;
+	// install signal handlers
+	struct sigaction sa;
 
-		sigfillset(&sa.sa_mask);
-		sa.sa_flags = 0;
-		sa.sa_handler = sighandler;
+	sigfillset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sa.sa_handler = sighandler;
 
-		if ( sigaction (SIGTERM, &sa, 0) ||
-						sigaction (SIGQUIT, &sa, 0) ||
-						sigaction (SIGINT, &sa, 0) ){
-				error("Couldn't install signal handler");
-				// try to continue anyways.
-		}
+	if ( sigaction (SIGTERM, &sa, 0) ||
+		  sigaction (SIGQUIT, &sa, 0) ||
+		  sigaction (SIGINT, &sa, 0) ){
+		error("Couldn't install signal handler");
+		// try to continue anyways.
+	}
 
-		sa.sa_handler = sigalarm;
-		if ( sigaction (SIGALRM, &sa, 0) ){
-				error("Couldn't install alarm handler");
-		}
+	sa.sa_handler = sigalarm;
+	if ( sigaction (SIGALRM, &sa, 0) ){
+		error("Couldn't install alarm handler");
+	}
 
-		sa.sa_handler = sigabrt;
-		if ( sigaction (SIGABRT, &sa, 0) ){
-				error("Couldn't install sigabrt handler");
-		}
+	sa.sa_handler = sigabrt;
+	if ( sigaction (SIGABRT, &sa, 0) ){
+		error("Couldn't install sigabrt handler");
+	}
 
-		// Ctrl-Alt-Del: send sigint to init, but do not reboot
-		reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_CAD_OFF,0);
+	// Ctrl-Alt-Del: send sigint to init, but do not reboot
+	reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_CAD_OFF,0);
 
+	while (1){
 		// stage 1
-STAGE1_START:
 		zombie = 0;
 		log("Run " STAGE1);
 		vexec( STAGE1, argv, envp );
 
 		int a = 0;
-
 		char *st2av[3] = { STAGE2, "                ",0 };
+
 		// stage 2
 		while (!shutdown){
-				log("Run " STAGE2);
-				if ( vexec(STAGE2, st2av, envp) )
-						return(-1);
-				if ( (a++) > 1 ){ // prevent spinning 
-						warning("stage2 seems to die unexpectedly\nSleeping");
-						a=0;
-						sleep(5);
-				}
+			log("Run " STAGE2);
+			vexec(STAGE2, st2av, envp);
+			if ( (a++) > 1 ){ // prevent spinning 
+				warning("stage2 seems to die unexpectedly\nSleeping");
+				a=0;
+				sleep(5);
+			}
 		};
 
 		// stage 3
 		if ( shutdown==1 )
-				log("Shutdown");
+			log("Shutdown");
 		else
-				log("Reboot");
+			log("Reboot");
 
 		log("Run " STAGE3);
 		settimer(WAITTIME);
@@ -285,26 +246,23 @@ STAGE1_START:
 
 		// shutdown
 		if ( shutdown == 1 ){
-				log("Power off");
-				sync();
-				sync();
-				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_POWER_OFF,0);
-				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_HALT,0);
+			log("Power off");
+			sync();
+			sync();
+			reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_POWER_OFF,0);
+			reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_HALT,0);
 		}
 
 		if ( shutdown == 2 ){
-				log("Reboot");
-				sync();
-				sync();
-				reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART,0);
+			log("Reboot");
+			sync();
+			sync();
+			reboot(LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART,0);
 		}
 
-		if ( shutdown == 0 )
-				goto STAGE1_START; // shutdown aborted. start with stage1 again
+		// ( shutdown == 0 )
+	}; // shutdown aborted. start with stage1 again
 
-		// shouldn't get here.
-		log("Exit init.");
-		
-		return(0); // exit
+	return(0); // silence compiler warning
 }
 

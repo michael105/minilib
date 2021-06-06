@@ -18,7 +18,7 @@ static struct {
 /* Usage: uname [-a] [-s] [-n] [-r] [-v] [-m] */
 int main(int argc, const char *argv[])
 {
-	struct old_utsname uts;
+	struct new_utsname uts;
 	int i, flag;
 
 	flag = 0;

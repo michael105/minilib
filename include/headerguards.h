@@ -15,6 +15,8 @@
 #define included_unistd_h
 
 
+#define __LINUX_IF_PACKET_H
+#define _ERR_H
 #define _AIO_H
 #define _ALIASES_H
 #define _ARGP_H
@@ -169,6 +171,7 @@
 #define _STDIO_H
 #define _STDLIB_H
 #define _STRING_H
+#define _STRINGS_H
 #define _STROPTS_H
 #define _SYSCALL_H
 #define _SYS_ACCT_H
@@ -214,6 +217,7 @@
 //#define _SYS_TERMIOS_H
 #define _SYS_TIMEB_H
 #define _SYS_TIME_H
+#define _SYS_TIMERFD_H
 #define _SYS_TTYCHARS_H
 #define _SYS_TTYDEFAULTS_H
 #define _SYS_UCONTEXT_H

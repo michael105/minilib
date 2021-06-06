@@ -123,7 +123,8 @@ SYSDEF_syscall(_vfork,0)
 
 SYSDEF_syscall(_execve,3, const char *filename,  const char *const argv[],  const char *const envp[])
 
-SYSDEF_syscall(_exit,1, int error_code)
+// commented out. there is the global _exit, so.
+//SYSDEF_syscall(_exit,1, int error_code)
 
 SYSDEF_syscall(_wait4,4, pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
 

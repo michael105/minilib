@@ -20,6 +20,19 @@
 
 struct udiv_t { unsigned int quot, rem; };
 
+
+#ifdef mini_getopt
+#ifndef mini_prints
+#define mini_prints
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_strchr
+#define mini_strchr
+#endif
+#endif
+
 #ifndef itodec
 #ifdef printf
 #warning printf defined, but no int conversion (%d). Consider defining mini_itodec

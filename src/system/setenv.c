@@ -10,27 +10,36 @@
 // Returns: 
 // - 0 on success
 // - EINVAL on error
-//+depends environ getenv strcmp ret_errno malloc strcpy
+//+depends environ getenv strncmp ret_errno malloc strcpy strlen
 //+def
 int setenv( const char *name, const char *value, int overwrite ){
 
 	char **envp;
-		//ret_errno(EINVAL); // error. 
+	int len = strlen(name);
 
 	for ( envp=environ; *envp; envp++ ) {
-		if ( strcmp((char*)*envp, (char*)name) == 0 ) {
-			*envp=malloc(strlen(value));
+		if ( strncmp((char*)*envp, (char*)name, len) == 0 ) {
+			if ( overwrite == 0 )
+				return(0);
+
+			*envp=malloc(len+1+strlen(value));
 			if ( !*envp )
 				ret_errno(ENOMEM);
-			strcpy(*envp,value);
+			char *c = stpcpy(*envp,value);
+			*c = '=';
+			c++;
+			strcpy(c,value);
 			return(0);
 		}
 	}
 
-	*envp=malloc(strlen(value));
-	if ( !*envp )
-		ret_errno(ENOMEM);
-	strcpy(*envp,value);
+			*envp=malloc(len+1+strlen(value));
+			if ( !*envp )
+				ret_errno(ENOMEM);
+			char *c = stpcpy(*envp,value);
+			*c = '=';
+			c++;
+			strcpy(c,value);
 
 	envp++;
 	*envp=0;

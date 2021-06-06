@@ -1,5 +1,15 @@
 #if 0
-source minilib.conf
+# minilib configuration
+COMPILE start,printsl,fclose,strcpy,putenv,fopen,fgets,vexec,scandir,\
+			  strlen,ansicolors,free_brk,match,sleep,printfs,errno_str,errno,alphasort\
+			  strncpy
+mini_dirbuf_malloc malloc_brk
+mini_buf 512
+
+OPTFLAG -Os
+SHRINKELF
+INCLUDESRC
+
 return
 #endif
 
@@ -11,13 +21,13 @@ return
 
 
 int main( int argc, char **argv, char **envp ){
-		log("Start stage 1");
+	log("Start stage 1");
 
-		putenv("PATH=" PATH );
+	putenv("PATH=" PATH );
 
-		int r = rundir(RC_BOOT_PATH, 'B', argv, envp);
+	int r = rundir(RC_BOOT_PATH, 'B', argv, envp);
 
-		log("stage 1 up");
+	log("stage 1 up");
 
-		return(r);
+	return(r);
 }
