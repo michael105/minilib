@@ -248,8 +248,11 @@ if [ "$useincludedminilib" == "X" ]; then
 		#INCLUDEMINILIB='-include <(sed "0,/^#MINILIBGZ#$/d" $0 | gunzip -c)'
 fi
 
+
+if [ "$useincludedminilib" == "0" ]; then
 if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
 		LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
+fi
 fi
 
 if [ "$LDSCRIPTFILE" == "" ]; then
