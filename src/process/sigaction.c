@@ -48,7 +48,7 @@ int sigaddset(sigset_t *set, int sig){
 }
 
 //+def
-int sigsuspend( const sigset_t *mask ){
+static int sigsuspend( const sigset_t *mask ){
 	return( rt_sigsuspend( mask, sizeof(sigset_t) ) );
 }
 

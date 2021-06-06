@@ -10,7 +10,7 @@
 #endif
 
 
-#include <bits/alltypes.h>
+#include "../bits/alltypes.h"
 
 typedef unsigned char u_int8_t;
 typedef unsigned short u_int16_t;

@@ -220,6 +220,7 @@
 #define _SYS_TIMERFD_H
 #define _SYS_TTYCHARS_H
 #define _SYS_TTYDEFAULTS_H
+#define _SYS_TYPES_H
 #define _SYS_UCONTEXT_H
 #define _SYS_UIO_H
 #define _SYS_USER_H
