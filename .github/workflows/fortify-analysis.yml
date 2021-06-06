@@ -51,7 +51,7 @@ jobs:
       - name: Download Fortify ScanCentral Client
         uses: fortify/gha-setup-scancentral-client@v1
       - name: Package Code + Dependencies
-        run: scancentral package $PACKAGE_OPTS -o package.zip
+        run: zip package.zip minilibcompiled.h
         env:
           PACKAGE_OPTS: "-bt mvn"
 
