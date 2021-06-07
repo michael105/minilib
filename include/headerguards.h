@@ -15,6 +15,8 @@
 #define included_unistd_h
 
 
+#define __LINUX_IF_PACKET_H
+#define _ERR_H
 #define _AIO_H
 #define _ALIASES_H
 #define _ARGP_H
@@ -78,6 +80,7 @@
 //#define _ELF_H
 //#define _ENDIAN_H
 #define _ENVZ_H
+#define _ERRNO_H
 #define _ERROR_H
 #define _EXECINFO_H
 #define _FCNTL_H
@@ -108,6 +111,7 @@
 #define _LINUX_LIST_H
 #define _LINUX_LOOP_H
 #define _LINUX_TYPES_H
+#define _LINUX_SECCOMP_H
 #define _MALLOC_H
 #define _MATH_H
 #define _MCHECK_H
@@ -167,6 +171,7 @@
 #define _STDIO_H
 #define _STDLIB_H
 #define _STRING_H
+#define _STRINGS_H
 #define _STROPTS_H
 #define _SYSCALL_H
 #define _SYS_ACCT_H
@@ -176,6 +181,7 @@
 #define _SYS_FSUID_H
 #define _SYS_GMON_OUT_H
 #define _SYS_IOCTL_H
+#define _SYS_INOTIFY_H
 #define _SYS_IPC_H
 #define _SYS_KD_H
 #define _SYS_MMAN_H
@@ -211,8 +217,10 @@
 //#define _SYS_TERMIOS_H
 #define _SYS_TIMEB_H
 #define _SYS_TIME_H
+#define _SYS_TIMERFD_H
 #define _SYS_TTYCHARS_H
 #define _SYS_TTYDEFAULTS_H
+#define _SYS_TYPES_H
 #define _SYS_UCONTEXT_H
 #define _SYS_UIO_H
 #define _SYS_USER_H

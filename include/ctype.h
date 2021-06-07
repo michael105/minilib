@@ -20,11 +20,13 @@ static __inline int __isspace(int _c)
 //+nop 
 #define isupper(a) (0 ? 1 : ((unsigned)(a)-'A') < 26)
 //+nop 
-//#define isprint(a) (0 ? 1 : ((unsigned)(a)-(0x20)) < 0x5f)
+#define isprint(a) (0 ? 1 : ((unsigned)(a)-(0x20)) < 0x5f)
 //+nop 
 #define isgraph(a) (0 ? 1 : ((unsigned)(a)-0x21) < 0x5e)
 //+nop 
-//#define isspace(a) __isspace(a)
+#define isspace(a) ((a==' ')||(a=='\t')||(a=='\n')||(a=='\f')||(a=='\r')||(a=='\v'))
+//+nop
+#define isalnum(a) (isalpha(a) || isdigit(a))
 
 
 //+nop 

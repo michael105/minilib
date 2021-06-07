@@ -1,7 +1,7 @@
 #ifdef mini_start
 //#include "src/start_c.c"
 void _start(){
-#include "src/startup.c"
+//#include "src/startup.c" TODO: call startup instead of main
 __asm__("\
 #.global _start\n\
 #_start:\n\

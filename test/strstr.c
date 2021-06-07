@@ -4,7 +4,7 @@ mini_prints
 mini_strstr
 mini_INCLUDESRC
 shrinkelf
-LDSCRIPT textandbss
+LDSCRIPT text_and_bss
 return
 #endif
 

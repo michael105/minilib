@@ -6,7 +6,7 @@ mini_printf
 mini_itodec
 mini_system
 mini_INCLUDESRC
-LDSCRIPT textandbss
+LDSCRIPT text_and_bss
 return
 #endif
 

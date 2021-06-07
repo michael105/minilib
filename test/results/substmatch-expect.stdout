@@ -1,0 +1,35 @@
+---------------
+=== text: arg        re: % *
+Match num: %0, len: 3
+--- arg ---
+ Matched
+stmatch: arg
+=== text:         re: % *
+Match num: %0, len: 1
+---   ---
+ Matched
+stmatch:  
+=== text: x=start vesa=0x300 runlevel=terminal mouse=13  re: *runlevel=%#*
+Match num: %0, len: 8
+--- terminal ---
+ Matched
+stmatch: terminal
+=== text: x=start vesa=0x300 runlevel=terminal  re: *runlevel=%#
+Match num: %0, len: 8
+--- terminal ---
+ Matched
+stmatch: terminal
+=== text: x=start vesa=0x300 runlevel=terminal mouse  re: *runlevel=%#
+Match num: %0, len: 14
+--- terminal mouse ---
+ Matched
+stmatch: terminal mouse
+=== text: x=start vesa=0x300 runlevel=terminal mouse  re: *runlevel=%#*
+Match num: %0, len: 8
+--- terminal ---
+ Matched
+stmatch: terminal
+start vesa=0x300 runlevel=terminal mouse
+=== text: start vesa=0x300 runlevel=terminal mouse  re: *runlevel=%1#
+Match num: %1, len: 14
+--- terminal mouse ---

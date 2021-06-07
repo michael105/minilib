@@ -2,7 +2,7 @@
 // Not tested yet
 //
 void start(){
-#include "src/startup.c"
+//#include "src/startup.c" TODO: call startup instead of main
 __asm__ volatile (
 //		".globl start\n\t"
 //		"start:	

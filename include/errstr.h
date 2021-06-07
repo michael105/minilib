@@ -1,8 +1,18 @@
+//+include
+
+#ifndef ERRNO_MAX
+#define ERRNO_MAX 133
+#endif
+
 //+doc verbose error (errno) string. 
 // this adds about 3.5kB to the compiled binary(!)
 //+def
 const char* verbose_errstr(int num){
-char *errstr[] = { "Internal error (errno=0)",
+		const char* unknown = "Errno unknown";
+		if ( num > ERRNO_MAX || num < 0 ){
+				return("Errno unknown");
+		}
+		const char *errstr[] = { "Internal error (errno=0)",
 		"Operation not permitted",
 "No such file or directory",
 "No such process",
@@ -139,3 +149,6 @@ char *errstr[] = { "Internal error (errno=0)",
 
 return(errstr[num]);
 }
+
+
+

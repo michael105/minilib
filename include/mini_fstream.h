@@ -35,8 +35,8 @@ static inline int __attribute__((always_inline)) fflush( FILE *F ){
 
 //+doc Return the fd nummber of stdin,-out,-err. 
 // this is a boilerplate, in case, no minibuf and no streams are compiled.
-//+inline
-static inline int __attribute__((always_inline)) fileno( FILE *F ){
+//+def
+static int fileno( FILE *F ){
 		if ( F==stdin )
 				return ( 0 );
 		if ( F==stdout )
@@ -52,8 +52,8 @@ static inline int __attribute__((always_inline)) fileno( FILE *F ){
 int snprintf( char *buf, size_t size, const char *fmt, ... );
 
 //+doc Return the fd nummber of stdin,-out,-err. 
-//+inline
-static inline int __attribute__((always_inline)) fileno( FILE *f ){
+//+def
+static int fileno( FILE *f ){
 		return( (f==0) ? 0 : (*f & FD_MASK) );
 }
 
@@ -66,36 +66,22 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		int fd = fileno(f);
 		*f = -1;
 		// empty garbage; go back to first closed stream
-		if ( f[1] == ml.stream[ml.pstream] )
-				for ( ml.pstream--; ml.stream[ml.pstream-1] == -1; ml.pstream-- ); 
+		if ( f[1] == mlgl->stream[mlgl->pstream] )
+				for ( mlgl->pstream--; mlgl->stream[mlgl->pstream-1] == -1; mlgl->pstream-- ); 
 
 		return( close(fd) );
 }
 
-#if 0
-#ifndef fprintf
-#ifndef mini_sprintf
-#define mini_sprintf
-
-///+depends dprintf fileno sprintf
-///+def
-//#define fprintf(stream,...)  dprintf(fileno(stream),__VA_ARGS__)
-
-#endif
-#endif 
-
-#endif
-
-//+depends fprintf fileno
+//+depends fprintf fileno snprintf vsnprintf
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-//+depends fprintf fileno
+//+depends fprintf fileno snprintf vsnprintf
 //+macro
 #define fprint(...) fprintf(__VA_ARGS__)
 
 
-//+depends fprintf
+//+depends fprintf fileno snprintf vsnprintf
 //+macro
 #define vfprintf(...) fprintf(__VA_ARGS__)
 

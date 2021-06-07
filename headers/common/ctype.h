@@ -5,10 +5,10 @@
 extern "C" {
 #endif
 
-#include <features.h>
+//#include <features.h>
 
 
-#include <bits/alltypes.h>
+#include "bits/alltypes.h"
 
 int   isalnum_l(int, locale_t);
 int   isalpha_l(int, locale_t);

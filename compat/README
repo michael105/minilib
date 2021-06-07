@@ -1,0 +1,15 @@
+Please do notice,
+the compat headers are more or less 'unstable' and mostly untested.
+
+They aim at being able to compile source files without changing them.
+
+However, it might be more safe to use the minilib via a specific configuration.
+The configuation is described within the "reference", configuration.
+
+Most possibly I'm going to strip the compat headers.
+It is just too much work, having more than three possibilities to use the minilib.
+At least, as long the whole library is under development.
+
+
+
+

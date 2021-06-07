@@ -14,17 +14,17 @@
 
 
 ifndef PROG
-PROG=hello
+PROG=readkey
 endif
 
 # where to build object files (defaults to ./ )
 BUILDDIR=.
 
-# where should the binares go?
+# where should the binaries go?
 #BINDIR=./static_x64
 
 # Where minilib is installed, or should be installed to
-MLIBDIR=minilib
+MLIBDIR=.
 
 # Don't create obj files, include evrything in one gcc run.(yourself)
 SINGLERUN=1
@@ -32,11 +32,14 @@ SINGLERUN=1
 # Include everything yourself
 NOINCLUDE=1
 
-# include only the Text section in the resulting elf output
-#ONLYTEXT=1
+# which ldscript to use.
+# can be one of "default",
+# "onlytext": include only the Text section in the resulting elf output
+# "text_and_bss": text and bss sections,other sections are discarded/merged
+LDSCRIPT=default
 
 # Set the optimization flag (default: -O1)
-#OPTFLAG=-O1
+OPTFLAG=-Os
 
 # GCC
 #GCC=tcc
@@ -80,7 +83,7 @@ default:
 # compile with dynamic loading, os native libs
 native: $(PROG).c
 	$(info call "make getminilib" to fetch and extract the "minilib" and compile $(PROG) static (recommended) )
-	gcc -o $(PROG) $(PROG).c
+	gcc -o $(BUILDDIR)/$(PROG) $(PROG).c
 
 
 # we haven't been callen recursive

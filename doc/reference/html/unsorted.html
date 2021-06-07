@@ -1,0 +1,1377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 9.0.2">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_unsorted"></a>unsorted</h2>
+<a name="ALIGN"></a><dl>
+<dt>
+ALIGN
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>macros for alignment.
+ They take a number or pointer, and align upwards to 2,4,8,..256
+ There are the macros ALIGN_2 ALIGN_4 ALIGN_8 ...,
+ and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)</code></pre>
+</td></tr></table>
+<p><a href="../../macros/alignment.h">../macros/alignment.h</a> l.9</p>
+<a name="OPTFENCE"></a><dl>
+<dt>
+OPTFENCE
+</dt>
+<dd>
+<p>
+  <em>void  opt_fence(void*p,&#8230;)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>prevent gcc to optimize away registers and variables
+ the macro OPTFENCE(...) can be invoked with any parameter.
+ The parameters will get calculated, even if gcc doesn't recognize
+ the use of the parameters, e.g. cause they are needed for an inlined asm syscall.
+
+ The macro translates to an asm jmp and a function call to the function
+ opt_fence, which is defined with the attribute "noipa" -
+ (the compiler "forgets" the function body, so gcc is forced
+ to generate all arguments for the function)
+ The generated asm jump hops over the call to the function,
+ but this gcc doesn't recognize.
+
+ This generates some overhead,
+ (a few (never reached) bytes for setting up the function call, and the jmp)
+ but I didn't find any other solution,
+ which gcc wouldn't cut for optimizations from time to time.
+ (volatile, volatile asm, optimize attributes,
+ andsoon have all shown up to be unreliable - sometimes(!)).
+
+ Had some fun debugging these bugs, which naturally showed up only sometimes.
+ (Many syscalls also work with scrambled arguments..)
+ And, I believe it IS a compiler bug.
+ Volatile should be volatile for sure, not only sometimes.
+ I mean, why the heck do I write volatile??</code></pre>
+</td></tr></table>
+<p><a href="../../include/syscall.h">../include/syscall.h</a> l.65</p>
+<a name="OPTIMIZATIONS"></a><dl>
+<dt>
+OPTIMIZATIONS
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>enable some optimizations,
+ with a slitghtly bigger memory footprint.
+ defaults to off
+ (yet only calloc is optimized. todo)</code></pre>
+</td></tr></table>
+<p><a href="../../include/config.h">../include/config.h</a> l.33</p>
+<a name="_die"></a><dl>
+<dt>
+_die
+</dt>
+<dd>
+<p>
+  <em>void _die()</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>internal implementation of die</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.36</p>
+<a name="_match"></a><dl>
+<dt>
+_match
+</dt>
+<dd>
+<p>
+  <em>int _match(char *text, const char *re, text_match *st_match)</em><br>
+<a href="../../src/match.c">../src/match.c</a> l.96
+</p>
+</dd>
+<dt>
+_match_ext2
+</dt>
+<dd>
+<p>
+  <em>char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match)</em><br>
+</p>
+</dd>
+</dl>
+<a name="_match_ext2"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>internal implementation of match_ext</code></pre>
+</td></tr></table>
+<p><a href="../../src/match_ext2.c">../src/match_ext2.c</a> l.326</p>
+<a name="bsd_cksum"></a><dl>
+<dt>
+bsd_cksum
+</dt>
+<dd>
+<p>
+  <em>unsigned int bsd_cksum( const char* p, unsigned int len )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>bsd checksum</code></pre>
+</td></tr></table>
+<p><a href="../../src/cksum.c">../src/cksum.c</a> l.31</p>
+<a name="bsd_cksumblock"></a><dl>
+<dt>
+bsd_cksumblock
+</dt>
+<dd>
+<p>
+  <em>unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len )</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>bsd checksum, called by bsd_cksum,
+ with initial hash value</code></pre>
+</td></tr></table>
+<p><a href="../../src/cksum.c">../src/cksum.c</a> l.20</p>
+<a name="calloc"></a><dl>
+<dt>
+calloc
+</dt>
+<dd>
+<p>
+  <em>void* calloc(int size)</em><br>
+<a href="../../src/calloc.c">../src/calloc.c</a> l.2 manpage: <a href="../manpages/stdlib/memory.3.rst.html">calloc</a><br>
+</p>
+</dd>
+<dt>
+cfmakeraw
+</dt>
+<dd>
+<p>
+  <em>void cfmakeraw(struct termios *tp)</em><br>
+<a href="../../src/termios/cfmakeraw.c">../src/termios/cfmakeraw.c</a> l.3 manpage: <a href="../manpages/gen/tcsetattr.3.rst.html">cfmakeraw</a><br>
+</p>
+</dd>
+<dt>
+config
+</dt>
+<dd>
+<p>
+  __<br>
+</p>
+</dd>
+</dl>
+<a name="config"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>configuration settings, to be compiled statically.
+ System specific paths, maximums, etc go here.
+ Other values are within globaldefs.h;
+ architecture specific values are within the folder headers.</code></pre>
+</td></tr></table>
+<p><a href="../../include/config.h">../include/config.h</a> l.6</p>
+<a name="def"></a><dl>
+<dt>
+def
+</dt>
+<dd>
+<p>
+  <em>#define SETOPT_short( opts, option ) (</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>Set a option flag(s) (bit(s))  manually.
+                param options: e.g. just a, or ( a+h+l) to check for several flags at once</code></pre>
+</td></tr></table>
+<p><a href="../../macros/getoptm.h">../macros/getoptm.h</a> l.52</p>
+<a name="die"></a><dl>
+<dt>
+die
+</dt>
+<dd>
+<p>
+  <em>#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}</em><br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write msg to stderr and exit with failure
+ if errno is defined and set, /bin/errno is executed to give a verbose error
+ message
+ if errno is either not defined or not set,
+ exit with -1</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.11</p>
+<a name="die_if"></a><dl>
+<dt>
+die_if
+</dt>
+<dd>
+<p>
+  <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>when arg1 is true, write msg to stderr and exit with failure
+ if errno is defined and set, /bin/errno is executed to give a verbose error
+ message
+ if errno is either not defined or not set,
+ exit with -1</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.59</p>
+<a name="dief"></a><dl>
+<dt>
+dief
+</dt>
+<dd>
+<p>
+  <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
+ <strong>Defines:</strong> fileno write strlen execve exit errno_str<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write fmt andargs via fprintf to stderr and exit with failure
+ if errno is defined and set, /bin/errno is executed to give a verbose error
+ message
+ if errno is either not defined or not set,
+ exit with -1</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.20</p>
+<a name="dief_if"></a><dl>
+<dt>
+dief_if
+</dt>
+<dd>
+<p>
+  <em>#define dief_if( when, errnum, fmt,&#8230; ) if( when ) dief( errnum, fmt, <em>VA_ARGS</em> )</em><br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>when arg1 is true, vall dief(errnum,fmt)
+ if errno is defined and set, /bin/errno is executed to give a verbose error
+ message
+ if errno is either not defined or not set,
+ exit with -1</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.69</p>
+<a name="dies"></a><dl>
+<dt>
+dies
+</dt>
+<dd>
+<p>
+  <em>#define dies(errnum,&#8230;) {eprintsl(<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
+ <strong>Defines:</strong> errno_str execve write exit<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write variable string list to stderr and exit with failure
+ if errno is defined and set, /bin/errno is executed to give a verbose error
+ message
+ if errno is either not defined or not set,
+ exit with -1</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.30</p>
+<a name="dies_if"></a><dl>
+<dt>
+dies_if
+</dt>
+<dd>
+<p>
+  <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
+ <strong>Defines:</strong> exit write execve errno_str<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>when arg1 is true, vall dies(errnum, ... )
+ if errno is defined and set, /bin/errno is executed to give a verbose error
+ message
+ if errno is either not defined or not set,
+ exit with -1</code></pre>
+</td></tr></table>
+<p><a href="../../src/die.c">../src/die.c</a> l.80</p>
+<a name="dirbuf_malloc"></a><dl>
+<dt>
+dirbuf_malloc
+</dt>
+<dd>
+<p>
+  <em>#ifndef mini_dirbuf_malloc</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>which malloc to use for allocating the dir handles
+ malloc : use malloc, therefore the minibuf
+ malloc_brk : use malloc_brk
+ defaults to malloc</code></pre>
+</td></tr></table>
+<p><a href="../../include/dirent.h">../include/dirent.h</a> l.31</p>
+<a name="eprintf"></a><dl>
+<dt>
+eprintf
+</dt>
+<dd>
+<p>
+  <em>#define eprintf(fmt,&#8230;) fprintf(stderr, fmt, <em>VA_ARGS</em>)</em><br>
+ <strong>Defines:</strong> strlen fileno write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write fmt and arguments to stderr.</code></pre>
+</td></tr></table>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.132</p>
+<a name="ewritesl"></a><dl>
+<dt>
+ewritesl
+</dt>
+<dd>
+<p>
+  <em>#define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)</em><br>
+ <strong>Defines:</strong> write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write the constant str to stderr, followed by a newline.
+ Computes length with sizeof(str) at compile time.</code></pre>
+</td></tr></table>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.101</p>
+<a name="fgetsn"></a><dl>
+<dt>
+fgetsn
+</dt>
+<dd>
+<p>
+  <em>int fgetsn(char <strong>buf, int size, FILE</strong> F)</em><br>
+ <strong>Defines:</strong> fileno read<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get a line like fgets, but return the len of the read string.</code></pre>
+</td></tr></table>
+<p><a href="../../src/fgetsn.c">../src/fgetsn.c</a> l.4</p>
+<a name="fgetsp"></a><dl>
+<dt>
+fgetsp
+</dt>
+<dd>
+<p>
+  <em>char* fgetsp(char <strong>buf, int size, FILE</strong> F)</em><br>
+ <strong>Defines:</strong> read fileno<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>read a line from F into buf with max chars size.
+ Return a pointer to the terminating '0' byte.
+ A terminating linebreak is not written to buf.</code></pre>
+</td></tr></table>
+<p><a href="../../src/fgetsp.c">../src/fgetsp.c</a> l.7</p>
+<a name="fgetud"></a><dl>
+<dt>
+fgetud
+</dt>
+<dd>
+<p>
+  <em>unsigned int fgetud(FILE* F)</em><br>
+ <strong>Defines:</strong> read fileno<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>read an unsigned integer from the stream F
+ reads all digits until a nondigit is read.</code></pre>
+</td></tr></table>
+<p><a href="../../src/fgetud.c">../src/fgetud.c</a> l.5</p>
+<a name="fgetul"></a><dl>
+<dt>
+fgetul
+</dt>
+<dd>
+<p>
+  <em>unsigned long int fgetul(FILE* F)</em><br>
+ <strong>Defines:</strong> fileno read<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>read an unsigned long integer from the stream F
+ reads all digits until a nondigit is read.</code></pre>
+</td></tr></table>
+<p><a href="../../src/fgetul.c">../src/fgetul.c</a> l.5</p>
+<a name="flock"></a><dl>
+<dt>
+flock
+</dt>
+<dd>
+<p>
+  <em>int flock( unsigned int fd,  unsigned int cmd)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127 manpage: <a href="../manpages/sys/flock.2.rst.html">flock</a><br>
+</p>
+</dd>
+<dt>
+fwritesl
+</dt>
+<dd>
+<p>
+  <em>#define fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)</em><br>
+ <strong>Defines:</strong> write<br>
+</p>
+</dd>
+</dl>
+<a name="fwritesl"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write the constant str to fd,followed by a newline.
+ Computes length with sizeof(str) at compile time.</code></pre>
+</td></tr></table>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.114</p>
+<a name="getgrouplist"></a><dl>
+<dt>
+getgrouplist
+</dt>
+<dd>
+<p>
+  <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
+ *Defines:</strong> write passwdfile_open setgrent mmap setpwent grent pwent token_i token_s open<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>needs rewrite.
+ now nonstandard.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getgrouplist.c">../src/userdb/getgrouplist.c</a> l.5 manpage: <a href="../manpages/gen/getgrouplist.3.rst.html">getgrouplist</a><br></p>
+<a name="getgroups"></a><dl>
+<dt>
+getgroups
+</dt>
+<dd>
+<p>
+  <em>int getgroups(int maxgroups, int <strong>list)</em><br>
+ *Defines:</strong> token_s token_i open mmap setpwent passwdfile_open pwent setgrent write getuid grent<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the groups of the calling process
+ does not necessarily contain the primary group,
+ which is given in the passwd entry.
+ This function calls internally setgrent() and getgrent();
+ therefore any iteration with getgrent will be resetted.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getgroups.c">../src/userdb/getgroups.c</a> l.8 manpage: <a href="../manpages/sys/getgroups.2.rst.html">getgroups</a><br></p>
+<a name="getusergroups"></a><dl>
+<dt>
+getusergroups
+</dt>
+<dd>
+<p>
+  <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
+ *Defines:</strong> open token_i token_s grent pwent write setgrent mmap setpwent passwdfile_open<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the supplementary groups for the user uid.
+ does not necessarily contain the primary group,
+ which is given in the passwd entry.
+ This function calls internally setgrent() and getgrent();
+ therefore any iteration with getgrent will be resetted.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getusergroups.c">../src/userdb/getusergroups.c</a> l.8</p>
+<a name="group_printf"></a><dl>
+<dt>
+group_printf
+</dt>
+<dd>
+<p>
+  <em>//</em><br>
+ <strong>Defines:</strong> write fileno atoi itooct uitoHEX strlen globals uitodec uitohex ltodec<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>printf, eprintf, fprintf, itodec, ltodec, itohex, anprintf, sprintf (conversions %d %l %x %ud %ul %ux ),</code></pre>
+</td></tr></table>
+<p><a href="../../macros/defgroups.h">../macros/defgroups.h</a> l.29</p>
+<a name="initgroups"></a><dl>
+<dt>
+initgroups
+</dt>
+<dd>
+<p>
+  <em>int initgroups(const char* user, gid_t group)</em><br>
+<a href="../../src/userdb/initgroups.c">../src/userdb/initgroups.c</a> l.2 manpage: <a href="../manpages/gen/initgroups.3.rst.html">initgroups</a><br>
+</p>
+</dd>
+<dt>
+lstat
+</dt>
+<dd>
+<p>
+  <em>int lstat(const char* filename,struct stat* statbuf)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.111 manpage: <a href="../manpages/sys/stat.2.rst.html">lstat</a><br>
+</p>
+</dd>
+<dt>
+match_ext
+</dt>
+<dd>
+<p>
+  <em>int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata)</em><br>
+</p>
+</dd>
+</dl>
+<a name="match_ext"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>text matching engine
+
+ This is somewhere between a fully fledged expression machine,
+ and a simplicistic solution.
+ Consciusly named 'text matching', since the inherent logic
+ is quite different to a regular expression machine.
+
+ The engine matches from left to right,
+ backtracking is done as less as possible.
+ Since the matching is nongreedy in general,
+ many tries can be spared. Opposed to another route,
+ where most patterns are per default greedy, and therfore
+ not the first matching next char is seeked for, but the first
+ solution while matching the most chars.
+ (I do not want to make this a hard statement, and it
+ depends onto each pattern. But it is the way, the solution
+ of the pattern is searched for, in most patterns.)
+ This shows up in the logic of the patterns, which is more natural to me.
+
+ It is a compromise between performance, size
+ and capabilities.
+ The logic is different of a "regular" regular expression
+ machine, but has advantages (and disadvantages).
+ I'd say, the main advantage is the easiness of adding callbacks,
+ and defining your own matching/logic within these.
+ Performance might be better as well overall,
+ but this depends also on the expressions.
+
+ A few nonextensive benchmarks show,
+ this engine is a bit faster than perl's regular expression machine,
+ slower than gnu grep (around factor2), and has the same speed as sed.
+ This might however vary with each usecase.
+ In favor of codesize I'm not going to optimize match_ext,
+ but there would be several possibilities, if you'd need a faster engine.
+ (Albite I'd like to emphasise, sed (and match_ext), also perl, are quite fast.
+ About 10 times faster than most expression engines.)
+
+ matches:
+
+ * for every count of any char
+ + for 1 or more chars
+ ? for 1 char
+ # for space or end of text (0)
+ $ match end of text
+
+ backslash: escape *,?,%,$,!,+,#,&amp; and backslash itself.
+ !: invert the matching of the next character or character class
+ ,: separator. e.g. %,1 matches like ?*1.
+   ( without the commata, the '1' would be part of the % match)
+
+
+ predefined character classes:
+ \d - digit
+ \D - nondigit
+ \s - space
+ \S - nonspace
+ \w - word character ( defined as ascii 32-126,160-255 )
+ \W - nonword character ( defined as ascii 0-31,127-159 )
+
+
+ [xyz]: character classes, here x,y or z
+   the characters are matched literally, also \,*,?,+,..
+   it is not possible to match the closing bracket (])
+   within a character class
+
+ {nX}: counted match
+  Match n times X.
+  For X, all expressions are allowed.
+  If you need to match a number at the first char of 'X',
+  separate X by a commata. E.g. {5,0} matches 5 times '0'.
+
+ %[1]..%[9]: matches like a '+',
+  and calls the callback supplied as 3rd argument (when not null).
+  the number past the %, e.g. %1, is optional,
+  p_match will be callen with this number
+  as first parameter.
+  When not supplied, p_matched will be callen with
+  the parameter 'number' set to 0.
+
+  The matching is 'nongreedy'.
+  It is possible to rewrite the string to match
+  from within the p_matched callback.
+  This will not have an effect onto the current matching,
+  even if text is e.g. deleted by writing 0's.
+  The matched positions are called in reverse order.
+  (The last matched % in the regex calls p_match first,
+  the first % in the regex from the left will be callen last)
+
+ supply 0 for p_matched, when you do not need to extract matches.
+ This will treat % in the regex like a *,
+ a following digit (0..9) in the regex is ignored.
+ if the 5th argument, a pointer to a tmatch_ext struct,
+ is supplied, it will be filled with the first match.
+ (counting from left)
+
+
+ &amp;[1] .. &amp;[9]
+  "match" like a '?' and call p_match_char
+  p_match_char has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+  or a number of the count of chars, which have been matched.
+
+  Therefore it is possible to e.g. rule your own
+  character classes, defined at runtime,
+  or do further tricks like changing the matched chars,
+  match several chars, andsoon.
+  When returning RE_NOMATCH,
+  it is possible, the p_match and p_match_char callbacks are callen several times,
+  but with different pos or len parameters.
+
+  The matching works straight from left to right.
+  So, a "*&amp;*" will call the callback &amp; for the first char.
+  When returning RE_NOMATCH, the second char will be matched.
+  Until either RE_MATCH is returned from the callback,
+  or the last char has been matched.
+
+  Matching several characters is also posssible from within the callback,
+  the position within the text will be incremented by that number,
+  you return from the callback.
+
+  When returning RE_MATCHEND from the callback,
+  the whole regular expression is aborted, and returns with matched;
+  no matter, if there are chars left in the expression.
+
+
+  The difference between % and &amp; is the logic.
+  % matches nongreedy, and has to check therefore the right side of the star
+  for its matching.
+  Possibly this has to be repeated, when following chars do not match.
+
+  &amp; is matched straight from left to right.
+  Whatever number you return, the textpointer will be incremented by that value.
+  However, a &amp; isn't expanded on it's own. ( what a % is ).
+  e.g. "x%x" will match 'aa' in xaax, x&amp;x will match the whole expression
+  only, when you return '2' from the callback.
+
+  Performancewise, matching with &amp; is faster,
+  since the % has on its right side to be matched
+  with recursing calls of match_ext.
+
+ When using closures for the callbacks, you will possibly have to
+ enable an executable stack for the trampoline code
+ of gcc. Here, gcc complains about that.
+ For setting this bit, have a look into the ldscripts in the folder
+ with the same name.
+
+ supply 0 for p_match_char, when you don't need it.
+ This will treat &amp; in the regex like ?,
+ and match a following digit (0..9) in the text,
+ a following digit (0..9) in the regex is ignored.
+
+ -----
+ In general, you have to somehow invert the logic of regular expressions
+ when using match_ext.
+ e.g. when matching the parameter 'runlevel=default' at the kernel's
+ commandline, a working regular expression would be
+ "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+ For matching e.g. numbers, you'd most possibly best of
+ with writing your own &amp; callback.
+
+ returns: 1 on match, 0 on no match
+ ( RE_MATCH / RE_NOMATCH )
+
+ if the pointer (argument 5) st_match is nonnull,
+ the supplied struct tmatch_ext will be set to the first matching '%' location;
+ if there is no match, tmatch_ext.len will be set to 0.
+ The struct is defined as:
+ typedef struct _tmatch_ext { char* pos; int len; } tmatch_ext;
+
+
+ (memo) When the regex ist defined within C/cpp source code,
+ a backslash has to be defined as double backslash.
+
+ (note) - be careful when negating a following *, or ?.
+  somehow - it is logical, but seems to me I overshoot a bit,
+  tragically hit my own foot, and stumbled into a logical paradox.
+
+  Negating EVERYTHING translates to true.
+  However, since truth is negated as well, there's a problem,
+  cause it's now 'false', but 'false' is true. This is very close
+  to proving 42 is the answer. What is the escape velocity
+  in km/s out of the solar system, btw.
+
+  (I'm not kidding here. Just don't do a regex with !* or !?..
+  And, please, do not ask me what is going to happen when the impossible
+  gets possibilized. I have to point at the according sentences of the BSD license;//  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+
+  A "!+" will translate into nongreedy matching of any char, however;
+  "%!+" will match with % everything but the last char;
+  while "%+" matches with % only the first char.
+  !+ basically sets the greedyness of the left * or % higher.</code></pre>
+</td></tr></table>
+<p><a href="../../src/match_ext.c">../src/match_ext.c</a> l.193</p>
+<a name="match_ext2"></a><dl>
+<dt>
+match_ext2
+</dt>
+<dd>
+<p>
+  <em>int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>text matching engine
+
+ WORK IN PROGRESS, please use ext_match
+ Atm, please nested brackets are featureful.
+ nesting {} within () seems to work.
+ Nesting round brackets within {} gives sometimes
+ trouble, when wildcards are used within the brackets.
+ I'm leaving this at it is for now.
+ Possibly I'm going to hardcode an error message for nested brackets,
+ or nested brackets with wildcards.
+
+ This is somewhere between a fully fledged expression machine,
+ and a simplicistic solution.
+ Consciusly named 'text matching', since the inherent logic
+ is quite different to a regular expression machine;
+ "natural expressions" might fit better for the name.
+
+ The engine matches from left to right,
+ backtracking is done as less as possible.
+ Since the matching is nongreedy in general,
+ many tries can be spared. Opposed to another route,
+ where most patterns are per default greedy, and therfore
+ not the first matching next char is seeked for, but the first
+ solution while matching the most chars.
+ (I do not want to make this a hard statement, and it
+ depends onto each pattern. But it is the way, the solution
+ of the pattern is searched for, in most patterns.)
+ This shows up in the logic of the patterns, which is more natural to me.
+ Your mileage might vary.
+
+
+ It is a compromise between performance, size
+ and capabilities.
+ The logic is different of a "regular" regular expression
+ machine, but has advantages (and disadvantages).
+ I'd say, the main advantage is the easiness of adding callbacks,
+ and defining your own matching/logic within these.
+ Performance might be better as well overall,
+ but this depends on the expressions and usecases as well.
+
+ Yet I for myself have to get a grip of the possibilities of this engine.
+ However, I have the feeling, the logic is much more natural.
+ With regular regexes you always have to think kind of 'backwards',
+ e.g., match ".*" -&gt; match "." (any char) x times.
+ gets to a simple "*"
+ or, to match all group and user id's of /etc/passwd,
+ a regular expression would be: "(\d*):(\d*)"
+ This is here: "*(\d*):(\d*)*"
+ The content in the brackets looks the same,
+ but it's matched quite different.
+ The regular expression (the first) matches x times \d, for x&gt;=0.
+ In the second expressin, the ext_match expression,
+ the first digit is matched, and then nongreedy any chars, until
+ the first occurence of ':'.
+ It is another logic. Whether it suits you, you have to decide.
+
+ The callbacks have shown up to be a mighty tool, while
+ at the same time having a good performance.
+
+
+ A few nonextensive benchmarks show,
+ this engine is a bit faster than perl's regular expression machine,
+ slower than gnu grep (around factor2), and has the same speed as sed.
+ This might vary with each usecase, but the callbacks for extracting matches
+ have some advantage, as well as the strict left to right and nongreedy parsing.
+
+ In favor of codesize I'm not going to optimize ext_match,
+ but there would be several possibilities, if you'd need a faster engine.
+ (Albite I'd like to emphasise, sed (and ext_match), also perl, are quite fast.
+ About 5 to 10 times faster than most expression engines.)
+
+ matches:
+
+ * for every count of any char
+ + for 1 or more chars
+ ? for 1 char
+ # for space, end of text (\0), linebreak, tab ( \t \n \f \r \v )
+ @ matches the beginning of the text or endofline (\n)
+ $ match end of text (\0) or linebreak
+
+ backslash: escape *,?,%,@,$,!,+,#,&amp; and backslash itself.
+ !: invert the matching of the next character or character class
+ ,: separator. e.g. %,1 matches like ?*1.
+   ( without the commata, the '1' would be part of the % match)
+
+
+ predefined character classes:
+ \d - digit
+ \D - nondigit
+ \s - space
+ \S - nonspace
+ \w - word character ( defined as ascii 32-126,160-255 )
+ \W - nonword character ( defined as ascii 0-31,127-159 )
+ \x - hexadecimal digit (0-9,a-f,A-F)
+
+
+ [xyz]: character classes, here x,y or z
+   the characters are matched literally, also \,*,?,+,..
+   it is not possible to match the closing bracket (])
+   within a character class
+
+ {nX}: counted match
+  Match n times X.
+  For X, all expressions are allowed.
+  If you need to match a number at the first char of 'X',
+  separate X by a commata. E.g. {5,0} matches 5 times '0'.
+  n can be a number, * or +.
+  ('*' matches 0 or more, '+' 1 or more times)
+
+ (X): match the subexpression X. atm, no nesting of round () and {} brackets allowed
+
+ %[1]..%[9]: matches like a '+',
+  and calls the callback supplied as 3rd argument (when not null).
+  the number past the %, e.g. %1, is optional,
+  p_matched_cb will be callen with this number
+  as first parameter.
+  When not supplied, p_matched_cb will be callen with
+  the parameter 'number' set to 0.
+
+  The matching is 'nongreedy'.
+  It is possible to rewrite the string to match
+  from within the p_matched_cb callback.
+  This will not have an effect onto the current matching,
+  even if text is e.g. deleted by writing 0's.
+
+  The matched positions are called in reverse order.
+
+  (The last matched % in the regex calls p_matched_cb first,
+  the first % in the regex from the left will be callen last)
+  / The regex is first matched; when the regex has matched,
+  the %'s are filled/ the callbacks executed.
+  (x) bracketed patterns are matched the same way.
+
+  (Not like &amp;, which callbacks are invoked, while matching)
+
+ supply 0 for p_matched_cb, when you do not need to extract matches.
+ This will treat % in the regex like a *,
+ a following digit (0..9) in the regex is ignored.
+ if the 5th argument, a pointer to a text_match struct,
+ is supplied, it will be filled with the first match.
+ (counting from left)
+
+
+ &amp;[1] .. &amp;[9]
+  "match" like a '?' and call p_wildcard_cb
+  p_wildcard_cb has to return either RE_MATCH, RE_NOMATCH, RE_MATCHEND
+  or the number of the count of chars, which have been matched.
+
+  Therefore it is possible to e.g. rule your own
+  character classes, defined at runtime,
+  or do further tricks like changing the matched chars,
+  match several chars, andsoon.
+  When returning RE_NOMATCH,
+  it is possible, the p_wildcard_cb callback is callen several times,
+  but with different pos or len parameters, since p_wildcard_cb is
+  invoked while matching.
+
+  The matching works straight from left to right.
+  So, a "*&amp;*" will call the callback &amp; for the first char.
+  When returning RE_NOMATCH, the second char will be tried to match.
+  Until either RE_MATCH is returned from the callback,
+  or the last char of the text has been tried to match.
+
+  Matching several characters is also posssible from within the callback,
+  the position within the text will be incremented by that number,
+  you return from the callback.
+
+  When returning RE_MATCHEND from the callback,
+  the whole expression is aborted, and returns with matched;
+  no matter, if there are chars left in the expression.
+
+
+  The difference between % and &amp; is the logic.
+  % matches nongreedy, and has to check therefore the right side of the star
+  for its matching.
+  Possibly this has to be repeated, when following chars do not match.
+
+  &amp; is matched straight from left to right.
+  Whatever number you return, the textpointer will be incremented by that value.
+  However, a &amp; isn't expanded on it's own. ( what a % is ).
+  e.g. "x%x" will match 'aa' in xaax, x&amp;x will match the whole expression
+  only, when you return '2' from the callback.
+
+  Performancewise, matching with &amp; is faster,
+  since the % has on its right side to be matched
+  with recursing calls of ext_match.
+
+ When using closures for the callbacks, you will possibly have to
+ enable an executable stack for the trampoline code
+ of gcc. Here, gcc complains about that.
+ For setting this bit, please have a look into the ldscripts in the folder
+ with the same name.
+
+ supply 0 for p_wildcard_cb, when you don't need it.
+ This will treat &amp; in the regex like ?,
+ and match a following digit (0..9) in the text,
+ a following digit (0..9) in the regex is ignored.
+
+ -----
+ In general, you have to somehow invert the logic of regular expressions
+ when using ext_match.
+ Regular expressions could be regarded as "polish rpn notation",
+ first the char to be matched, then the count.
+ This expression machine could be described as "natural expression" machine.
+ First you define the number, then the chars or expression to be matched.
+
+ Furthermore, *,% and + match as less as possible.
+ You have to think about what needs to follow the wildcards.
+
+ e.g. when matching the parameter 'runlevel=default' at the kernel's
+ commandline, a working regular expression would be
+ "runlevel=(\S*)". This could be written here as "*runlevel=%#".
+ For matching e.g. numbers, you'd most possibly best of
+ with writing your own &amp; callback.
+
+ returns: 1 on match, 0 on no match
+ ( RE_MATCH / RE_NOMATCH )
+
+ if the pointer (argument 5) st_match is nonnull,
+ the supplied struct text_match will be set to the first matching '%' location;
+ if there is no match, text_match.len will be set to 0.
+ The struct is defined as:
+ typedef struct _text_match { char* pos; int len; } text_match;
+
+
+ (memo) When the regex ist defined within C/cpp source code,
+ a backslash has to be defined as double backslash.
+
+ (note) - be careful when negating a following *, or ?.
+  somehow - it is logical, but seems to me I overshoot a bit,
+  tragically hit my own foot, and stumbled into a logical paradox.
+
+  Negating EVERYTHING translates to true.
+  However, since truth is negated as well, there's a problem,
+  cause it's now 'false', but 'false' is true. This is very close
+  to proving 42 is the answer. What is the escape velocity
+  in km/s out of the solar system, btw.
+
+  (I'm not kidding here. Just don't do a regex with !* or !?..
+  And, please, do not ask me what is going to happen when the impossible
+  gets possibilized. I have to point at the according sentences of the BSD license;
+  there is NO WARRANTY for CONSEQUENTIAL DAMAGE, LOSS OF PROFIT, etc pp.)
+
+  A "!+" will translate into nongreedy matching of any char, however;
+  "%!+" will match with % everything but the last char;
+  while "%+" matches with % only the first char.
+  !+ basically sets the greedyness of the left * or % higher.
+
+ (work in progress here) please use ext_match
+ return 0 for nomatch, the current textpos ( &gt;0 ) for a match
+ With the exception of an empty text, matched by e.g. "*".
+ This will return 0, albite the regex formally matches, with 0 chars.
+
+ (todo)
+ bracket matching () and {} needs debugging. (test/extmatch2 for testing)
+ Add a callback for bracket matches, and add a matchlist
+ (linked list, allocated with malloc_brk)
+ Trouble: e.g. *:(*) doesn't match, albite it should
+  .. better. Now: # matches the end, after a bracket. Like it should
+   $ doesn't. But should as well.
+ change '+' to greedy matching of any char
+ for {n,X} let n be * or + as well.
+  (this would be closer to regular regulars again.?.)
+
+
+ note. About a tokenizer:
+ matching quoted string is really easy with the callback structure:
+  just match with &amp;. When a quote is matched, look forward to the next quote,
+  and return that many chars. Same time, the quoted string is matched.
+  That's so easy, it is hard to believe.
+  When using closures for that, it is same time easy to collect all tokens.
+
+  It is even easier. just a "*("*")*" is enough.
+
+  -&gt;There is something needed for partial matching. Possibly spare the last *, and return,
+  as soon the pattern is at it's end (and not the text?)
+  Already works this way.
+
+  Should start to define the language for the init scripts.
+  Or better, start thinking abut that, but follow my other obligations the next time.
+
+  Have to think thouroughly about what points would make such a language useful.
+  The reason to think about that is clear - performance squeezing, faster startup time.
+  And writing the startup scripts in C is. Well. little bit painful.
+  However, together with minilib, there is nearly no difference between having a C program compiled
+  and run, or working with scripts. To not have the overhead of linking the external libraries in,
+  is of quite some advance.
+  The only difference, the compiled binaries are "cached".
+  have just to sort something sensible out for the systematic.
+  Implement an own loader? possibly easy. Since the loading address is fixed.
+  This could possibly also be the solution for the yet unclear question of the line between parsing
+  arguments and calling the main function of the small core tools, andsoon.
+
+ ..yet I've to fiddle out the possibilities (and quirks) of this machine.
+ seems, this expression language did overpower it's creator.
+
+ Bugs (features):
+ matching e.g. *matches*@*doesn't match*
+ potentiates the *@* to many possibilities.
+ One for every linebreak following 'matches'.</code></pre>
+</td></tr></table>
+<p><a href="../../src/match_ext2.c">../src/match_ext2.c</a> l.306</p>
+<a name="msync"></a><dl>
+<dt>
+msync
+</dt>
+<dd>
+<p>
+  <em>int msync( void* addr,  size_t len, int flags)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.219 manpage: <a href="../manpages/sys/msync.2.rst.html">msync</a><br>
+</p>
+</dd>
+<dt>
+optimization_fence
+</dt>
+<dd>
+<p>
+  <em>void  optimization_fence(void*p)</em><br>
+</p>
+</dd>
+</dl>
+<a name="optimization_fence"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>prevent optimizations.
+ cast a var to void*, and calling this,
+ leaves the compiler unknown on what he can strip.
+ The function attribute noipa means,
+ the compiler doesn't know, what the function itself does.
+ (the function does nothing, but don't tell that gcc, please..)
+ therefore, everything used as parameter to this function,
+ will be calculated, defined, and so on before.
+ It's used for the globals,
+ shich are pushed within _start onto the stack.
+ since _start itself only provides a global pointer,
+ and initialitzes some of the globals,
+ but doesn't use them again,
+ this construction is needed.
+ more funnily, the function will never be called.
+ It's past the asm inline syscall to exit.
+ But again, luckily gcc doesn't know.
+ All other options, like having the globals volatile,
+ setting the optimization flag of _start to 0,
+ having a volatile asm call with the globals as param, and so on,
+ have been useless. All after all, seems to me, ai has it's restrictions.
+
+ With less overhead the macro OPTFENCE(...) goes.
+ There the call to the "ipa" function is jumped over,
+ via asm inline instructions.</code></pre>
+</td></tr></table>
+<p><a href="../../include/minilib_global.h">../include/minilib_global.h</a> l.151</p>
+<a name="prctl"></a><dl>
+<dt>
+prctl
+</dt>
+<dd>
+<p>
+  <em>int prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.225
+</p>
+</dd>
+<dt>
+pwent
+</dt>
+<dd>
+<p>
+  __<br>
+<a href="../../include/globaldefs.h">../include/globaldefs.h</a> l.218
+</p>
+</dd>
+<dt>
+qsort
+</dt>
+<dd>
+<p>
+  <em>void qsort(void  *base,      size_t nel,     size_t width,   int (*comp)(const void *, const void *))</em><br>
+</p>
+</dd>
+</dl>
+<a name="qsort"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>(quick) shell sort routine
+ following the tradition, this isn't exactly a quicksort algorithm,
+ albite named quicksort.
+ It is a shell sort implementation, originally done by Ray Gardner, 5/90;
+ which in turn I did find within musl.</code></pre>
+</td></tr></table>
+<p><a href="../../src/qsort.c">../src/qsort.c</a> l.59 manpage: <a href="../manpages/stdlib/qsort.3.rst.html">qsort</a><br></p>
+<a name="rt_sigsuspend"></a><dl>
+<dt>
+rt_sigsuspend
+</dt>
+<dd>
+<p>
+  <em>int rt_sigsuspend( const sigset_t *mask, size_t sigsetsize)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.176
+</p>
+</dd>
+<dt>
+setbrk
+</dt>
+<dd>
+<p>
+  <em>int setbrk(long addr)</em><br>
+ <strong>Defines:</strong> brk<br>
+</p>
+</dd>
+</dl>
+<a name="setbrk"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>set the current brk
+ wrapper for brk(), with type of brk changed to long</code></pre>
+</td></tr></table>
+<p><a href="../../src/brk.c">../src/brk.c</a> l.39</p>
+<a name="setenv"></a><dl>
+<dt>
+setenv
+</dt>
+<dd>
+<p>
+  <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
+ *Defines:</strong> 0 ret_errno environ strcpy<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>put a string into the environmental vars
+ UNTESTED (!) TODO
+ the supplied string's pointer is put into the environmental array of pointers.
+ The supplied strings are copied into memory.
+ If overwrite is zero, an existing environmental variable is not overritten.
+ If overwrite is 1, the environmental variable is overwritten,
+ but not(!) freed from memory.
+ The supplied value is not checked for e.g. an '='
+
+ Returns:
+ - 0 on success
+ - EINVAL on error</code></pre>
+</td></tr></table>
+<p><a href="../../src/setenv.c">../src/setenv.c</a> l.15 manpage: <a href="../manpages/stdlib/getenv.3.rst.html">setenv</a><br></p>
+<a name="short_errstr"></a><dl>
+<dt>
+short_errstr
+</dt>
+<dd>
+<p>
+  <em>const char* short_errstr(int num)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>short error (errno) string.
+ this adds about 2kB to the compiled binary(!)</code></pre>
+</td></tr></table>
+<p><a href="../../include/errstrshort.h">../include/errstrshort.h</a> l.10</p>
+<a name="sigsuspend"></a><dl>
+<dt>
+sigsuspend
+</dt>
+<dd>
+<p>
+  <em>int sigsuspend( const sigset_t *mask )</em><br>
+<a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.51 manpage: <a href="../manpages/sys/sigsuspend.2.rst.html">sigsuspend</a><br>
+</p>
+</dd>
+<dt>
+stpcpy
+</dt>
+<dd>
+<p>
+  <em>char *stpcpy(char *dest, const char *src)</em><br>
+</p>
+</dd>
+</dl>
+<a name="stpcpy"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>copy src to dest, return a pointer to the last char +1 ( ending '0' )</code></pre>
+</td></tr></table>
+<p><a href="../../src/string/stpcpy.c">../src/string/stpcpy.c</a> l.3 manpage: <a href="../manpages/string/string.3.rst.html">stpcpy</a><br></p>
+<a name="strlcpy"></a><dl>
+<dt>
+strlcpy
+</dt>
+<dd>
+<p>
+  <em>char *strlcpy(char *dest, const char *src, int n)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>copy max n chars from src to dest,
+ when src is longer than dest,
+ end dest[n-1] with '\0'.</code></pre>
+</td></tr></table>
+<p><a href="../../src/string/strlcpy.c">../src/string/strlcpy.c</a> l.5 manpage: <a href="../manpages/string/strlcpy.3.rst.html">strlcpy</a><br></p>
+<a name="strtoll"></a><dl>
+<dt>
+strtoll
+</dt>
+<dd>
+<p>
+  <em>long long int strtoll(const char *c, const char **endp, int base)</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>conversion
+ doesn't check for overflow(!)
+ For linux x64, long long and long both have 64 bit.
+ Therefore, strtoll just calls strtol</code></pre>
+</td></tr></table>
+<p><a href="../../src/string/strtoll.c">../src/string/strtoll.c</a> l.7 manpage: <a href="../manpages/stdlib/strtol.3.rst.html">strtoll</a><br></p>
+<a name="term_width"></a><dl>
+<dt>
+term_width
+</dt>
+<dd>
+<p>
+  <em>int term_width()</em><br>
+ <strong>Defines:</strong> environ<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the terminal width
+ reads the environmental var COLS,
+ if not present, returns 80.
+ Doesn't check for the existence of a terminal.</code></pre>
+</td></tr></table>
+<p><a href="../../src/termios/term_width.c">../src/termios/term_width.c</a> l.7</p>
+<a name="token_i"></a><dl>
+<dt>
+token_i
+</dt>
+<dd>
+<p>
+  <em>int token_i( userdb* udb, char **p )</em><br>
+<a href="../../src/userdb/userdb.c">../src/userdb/userdb.c</a> l.33
+</p>
+</dd>
+<dt>
+token_s
+</dt>
+<dd>
+<p>
+  <em>char *token_s( userdb *udb, char **p )</em><br>
+</p>
+</dd>
+</dl>
+<a name="token_s"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>tokenizer for the passwd/group files.
+ used by the group/user pwentry access functions.
+ performance of subsequent calls could be improved by replacing all ':' and '\n'
+ by 0's when loading the db file.
+ it would be possible as well, testing not only single bytes, but
+ integers of longs at once. However, in most cases, e.g.
+ for big directories with many small files, in most cases
+ all files do have the same owner and group. Since the last result to calls
+ of the access functions is cached,
+ there wouldn't be an improvement by optimizing the tokenizing functions.
+ So I'm leaving this for now, as it is.
+ And most possibly it would be better to implement bsd's cached versions
+ of the user db access functions instead.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/userdb.c">../src/userdb/userdb.c</a> l.19</p>
+<a name="unmap_protected"></a><dl>
+<dt>
+unmap_protected
+</dt>
+<dd>
+<p>
+  <em>int unmap_protected(void <strong>p, int len)</em><br>
+ *Defines:</strong> mprotect munmap<br>
+<a href="../../src/map_protected.c">../src/map_protected.c</a> l.41
+</p>
+</dd>
+<dt>
+userdb_open
+</dt>
+<dd>
+<p>
+  <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
+ <strong>Defines:</strong> write globals<br>
+<a href="../../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
+</p>
+</dd>
+<dt>
+where
+</dt>
+<dd>
+<p>
+  <em>int where(const char *file,char *buf)</em><br>
+</p>
+</dd>
+</dl>
+<a name="where"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>locate an executable in PATH</code></pre>
+</td></tr></table>
+<p><a href="../../src/exec/execvp.c">../src/exec/execvp.c</a> l.8</p>
+<a name="writesl"></a><dl>
+<dt>
+writesl
+</dt>
+<dd>
+<p>
+  <em>#define writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}</em><br>
+ <strong>Defines:</strong> write<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>write the constant str to stdout, followed by a newline.
+ Computes length with sizeof(str) at compile time.</code></pre>
+</td></tr></table>
+<p><a href="../../include/prints.h">../include/prints.h</a> l.95</p>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2021-02-14 13:29:08 UTC
+</small></p>
+</body>
+</html>

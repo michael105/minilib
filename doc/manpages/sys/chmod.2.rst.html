@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>chmod.2.rst</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<hr class="docutils" />
+<p>CHMOD(2) BSD System Calls Manual CHMOD(2)</p>
+<p><strong>NAME</strong></p>
+<p><strong>chmod</strong>, <strong>fchmod</strong>, <strong>lchmod</strong>, <strong>fchmodat</strong> — change mode of file</p>
+<p><strong>LIBRARY</strong></p>
+<p>Standard C&nbsp;Library (libc, −lc)</p>
+<p><strong>SYNOPSIS</strong></p>
+<p><strong>#include &lt;sys/stat.h&gt;</strong></p>
+<p><em>int</em></p>
+<p><strong>chmod</strong>(<em>const&nbsp;char&nbsp;*path</em>, <em>mode_t&nbsp;mode</em>);</p>
+<p><em>int</em></p>
+<p><strong>fchmod</strong>(<em>int&nbsp;fd</em>, <em>mode_t&nbsp;mode</em>);</p>
+<p><em>int</em></p>
+<p><strong>lchmod</strong>(<em>const&nbsp;char&nbsp;*path</em>, <em>mode_t&nbsp;mode</em>);</p>
+<p><em>int</em></p>
+<p><strong>fchmodat</strong>(<em>int&nbsp;fd</em>, <em>const&nbsp;char&nbsp;*path</em>, <em>mode_t&nbsp;mode</em>, <em>int&nbsp;flag</em>);</p>
+<p><strong>DESCRIPTION</strong></p>
+<p>The file permission bits of the file named specified by <em>path</em> or
+referenced by the file descriptor <em>fd</em> are changed to <em>mode</em>. The
+<strong>chmod</strong>() system call verifies that the process owner (user) either
+owns the file specified by <em>path</em> (or <em>fd</em>), or is the super-user. The
+<strong>chmod</strong>() system call follows symbolic links to operate on the
+target of the link rather than the link itself.</p>
+<p>The <strong>lchmod</strong>() system call is similar to <strong>chmod</strong>() but does not
+follow symbolic links.</p>
+<p>The <strong>fchmodat</strong>() is equivalent to either <strong>chmod</strong>() or
+<strong>lchmod</strong>() depending on the <em>flag</em> except in the case where <em>path</em>
+specifies a relative path. In this case the file to be changed is
+determined relative to the directory associated with the file descriptor
+<em>fd</em> instead of the current working directory. The values for the <em>flag</em>
+are constructed by a bitwise-inclusive OR of flags from the following
+list, defined in &lt;<em>fcntl.h</em>&gt;:</p>
+<p>AT_SYMLINK_NOFOLLOW</p>
+<p>If <em>path</em> names a symbolic link, then the mode of the symbolic link is
+changed.</p>
+<p>AT_BENEATH</p>
+<p>Only allow to change permissions of a file which is beneath of the
+topping directory. See the description of the O_BENEATH flag in the
+open(2) manual page.</p>
+<p>If <strong>fchmodat</strong>() is passed the special value AT_FDCWD in the <em>fd</em>
+parameter, the current working directory is used. If also <em>flag</em> is
+zero, the behavior is identical to a call to <strong>chmod</strong>().</p>
+<p>A mode is created from <em>or’d</em> permission bit masks defined in
+&lt;<em>sys/stat.h</em>&gt;:</p>
+<div class="line-block">
+<div class="line">#define S_IRWXU 0000700 /* RWX mask for owner */</div>
+<div class="line">#define S_IRUSR 0000400 /* R for owner */</div>
+<div class="line">#define S_IWUSR 0000200 /* W for owner */</div>
+<div class="line">#define S_IXUSR 0000100 /* X for owner */</div>
+</div>
+<div class="line-block">
+<div class="line">#define S_IRWXG 0000070 /* RWX mask for group */</div>
+<div class="line">#define S_IRGRP 0000040 /* R for group */</div>
+<div class="line">#define S_IWGRP 0000020 /* W for group */</div>
+<div class="line">#define S_IXGRP 0000010 /* X for group */</div>
+</div>
+<div class="line-block">
+<div class="line">#define S_IRWXO 0000007 /* RWX mask for other */</div>
+<div class="line">#define S_IROTH 0000004 /* R for other */</div>
+<div class="line">#define S_IWOTH 0000002 /* W for other */</div>
+<div class="line">#define S_IXOTH 0000001 /* X for other */</div>
+</div>
+<div class="line-block">
+<div class="line">#define S_ISUID 0004000 /* set user id on execution */</div>
+<div class="line">#define S_ISGID 0002000 /* set group id on execution */</div>
+<div class="line">#define S_ISVTX 0001000 /* sticky bit */</div>
+</div>
+<p>The non-standard S_ISTXT is a synonym for S_ISVTX.</p>
+<p>The FreeBSD VM system totally ignores the sticky bit (S_ISVTX) for
+executables. On UFS-based file systems (FFS, LFS) the sticky bit may
+only be set upon directories.</p>
+<p>If mode S_ISVTX (the ‘sticky bit’) is set on a directory, an
+unprivileged user may not delete or rename files of other users in that
+directory. The sticky bit may be set by any user on a directory which
+the user owns or has appropriate permissions. For more details of the
+properties of the sticky bit, see sticky(7).</p>
+<p>If mode ISUID (set UID) is set on a directory, and the MNT_SUIDDIR
+option was used in the mount of the file system, then the owner of any
+new files and sub-directories created within this directory are set to
+be the same as the owner of that directory. If this function is enabled,
+new directories will inherit the bit from their parents. Execute bits
+are removed from the file, and it will not be given to root. This
+behavior does not change the requirements for the user to be allowed to
+write the file, but only the eventual owner after it has been created.
+Group inheritance is not affected.</p>
+<p>This feature is designed for use on fileservers serving PC users via
+ftp, SAMBA, or netatalk. It provides security holes for shell users and
+as such should not be used on shell machines, especially on home
+directories. This option requires the SUIDDIR option in the kernel to
+work. Only UFS file systems support this option. For more details of the
+suiddir mount option, see mount(8).</p>
+<p>Writing or changing the owner of a file turns off the set-user-id and
+set-group-id bits unless the user is the super-user. This makes the
+system somewhat more secure by protecting set-user-id (set-group-id)
+files from remaining set-user-id (set-group-id) if they are modified, at
+the expense of a degree of compatibility.</p>
+<p><strong>RETURN VALUES</strong></p>
+<p>Upon successful completion, the value&nbsp;0 is returned; otherwise the
+value&nbsp;−1 is returned and the global variable <em>errno</em> is set to indicate
+the error.</p>
+<p><strong>ERRORS</strong></p>
+<p>The <strong>chmod</strong>() system call will fail and the file mode will be
+unchanged if:</p>
+<p>[ENOTDIR]</p>
+<p>A component of the path prefix is not a directory.</p>
+<p>[ENAMETOOLONG]</p>
+<p>A component of a pathname exceeded 255 characters, or an entire path
+name exceeded 1023 characters.</p>
+<p>[ENOENT]</p>
+<p>The named file does not exist.</p>
+<p>[EACCES]</p>
+<p>Search permission is denied for a component of the path prefix.</p>
+<p>[ELOOP]</p>
+<p>Too many symbolic links were encountered in translating the pathname.</p>
+<p>[EPERM]</p>
+<p>The effective user ID does not match the owner of the file and the
+effective user ID is not the super-user.</p>
+<p>[EPERM]</p>
+<p>The effective user ID is not the super-user, the effective user ID do
+match the owner of the file, but the group ID of the file does not match
+the effective group ID nor one of the supplementary group IDs.</p>
+<p>[EPERM]</p>
+<p>The named file has its immutable or append-only flag set, see the
+chflags(2) manual page for more information.</p>
+<p>[EROFS]</p>
+<p>The named file resides on a read-only file system.</p>
+<p>[EFAULT]</p>
+<p>The <em>path</em> argument points outside the process’s allocated address
+space.</p>
+<p>[EIO]</p>
+<p>An I/O error occurred while reading from or writing to the file system.</p>
+<p>[EFTYPE]</p>
+<p>The effective user ID is not the super-user, the mode includes the
+sticky bit (S_ISVTX), and path does not refer to a directory.</p>
+<p>The <strong>fchmod</strong>() system call will fail if:</p>
+<p>[EBADF]</p>
+<p>The descriptor is not valid.</p>
+<p>[EINVAL]</p>
+<p>The <em>fd</em> argument refers to a socket, not to a file.</p>
+<p>[EROFS]</p>
+<p>The file resides on a read-only file system.</p>
+<p>[EIO]</p>
+<p>An I/O error occurred while reading from or writing to the file system.</p>
+<p>In addition to the <strong>chmod</strong>() errors, <strong>fchmodat</strong>() fails if:</p>
+<p>[EBADF]</p>
+<p>The <em>path</em> argument does not specify an absolute path and the <em>fd</em>
+argument is neither <em>AT_FDCWD</em> nor a valid file descriptor open for
+searching.</p>
+<p>[EINVAL]</p>
+<p>The value of the <em>flag</em> argument is not valid.</p>
+<p>[ENOTDIR]</p>
+<p>The <em>path</em> argument is not an absolute path and <em>fd</em> is neither AT_FDCWD
+nor a file descriptor associated with a directory.</p>
+<p>[ENOTCAPABLE]</p>
+<p><em>path</em> is an absolute path, or contained a &quot;..&quot; component leading to a
+directory outside of the directory hierarchy specified by <em>fd</em>, and the
+process is in capability mode.</p>
+<p>[ENOTCAPABLE]</p>
+<p>The AT_BENEATH flag was provided to <strong>fchmodat</strong>(), and the absolute
+<em>path</em> does not have its tail fully contained under the topping
+directory, or the relative <em>path</em> escapes it.</p>
+<p><strong>SEE ALSO</strong></p>
+<p>chmod(1), chflags(2), chown(2), open(2), stat(2), sticky(7)</p>
+<p><strong>STANDARDS</strong></p>
+<p>The <strong>chmod</strong>() system call is expected to conform to ISO/IEC
+9945-1:1990 (‘‘POSIX.1’’), except for the return of EFTYPE. The S_ISVTX
+bit on directories is expected to conform to Version&nbsp;3 of the Single
+UNIX Specification (‘‘SUSv3’’). The <strong>fchmodat</strong>() system call is
+expected to conform to IEEE Std 1003.1-2008 (‘‘POSIX.1’’).</p>
+<p><strong>HISTORY</strong></p>
+<p>The <strong>chmod</strong>() function appeared in Version&nbsp;1 AT&amp;T UNIX. The
+<strong>fchmod</strong>() system call appeared in 4.2BSD. The <strong>lchmod</strong>() system
+call appeared in FreeBSD&nbsp;3.0. The <strong>fchmodat</strong>() system call appeared
+in FreeBSD&nbsp;8.0.</p>
+<p>BSD November&nbsp;11, 2018 BSD</p>
+<hr class="docutils" />
+<!-- Copyright (c) 1990, 1991, 1993 -->
+<!-- The Regents of the University of California.  All rights reserved. -->
+<!--  -->
+<!-- This code is derived from software contributed to Berkeley by -->
+<!-- Chris Torek and the American National Standards Committee X3, -->
+<!-- on Information Processing Systems. -->
+<!--  -->
+<!-- Redistribution and use in source and binary forms, with or without -->
+<!-- modification, are permitted provided that the following conditions -->
+<!-- are met: -->
+<!-- 1. Redistributions of source code must retain the above copyright -->
+<!-- notice, this list of conditions and the following disclaimer. -->
+<!-- 2. Redistributions in binary form must reproduce the above copyright -->
+<!-- notice, this list of conditions and the following disclaimer in the -->
+<!-- documentation and/or other materials provided with the distribution. -->
+<!-- 3. Neither the name of the University nor the names of its contributors -->
+<!-- may be used to endorse or promote products derived from this software -->
+<!-- without specific prior written permission. -->
+<!--  -->
+<!-- THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND -->
+<!-- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE -->
+<!-- IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE -->
+<!-- ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE -->
+<!-- FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL -->
+<!-- DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS -->
+<!-- OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) -->
+<!-- HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT -->
+<!-- LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY -->
+<!-- OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF -->
+<!-- SUCH DAMAGE. -->
+</div>
+</body>
+</html>

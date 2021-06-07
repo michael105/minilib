@@ -5,6 +5,7 @@
 //#define X64
 
 #define INCLUDESRC
+//#include "minilib/minilib.h"
 #include "minilib/minilibcompiled.h"
 
 #if 0

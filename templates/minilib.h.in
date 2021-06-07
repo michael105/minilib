@@ -13,11 +13,25 @@
 #include "minilib/include/exit.h"
 #include "minilib/include/minilib_global.h"
 #include "minilib/include/filemodes.h"
+//#include "minilib/include/errno_str.h"
 
 //#include "minilib/headers/common/dirent.h"
 
 
 struct udiv_t { unsigned int quot, rem; };
+
+
+#ifdef mini_getopt
+#ifndef mini_prints
+#define mini_prints
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_strchr
+#define mini_strchr
+#endif
+#endif
 
 #ifndef itodec
 #ifdef printf
@@ -47,7 +61,7 @@ struct udiv_t { unsigned int quot, rem; };
 //#endif
 
 //#ifdef mini_errno / No reason to not define errno Macros by default
-#include "errno.h"
+#include "m_errno.h"
 //#endif
 //
 

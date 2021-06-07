@@ -1,0 +1,39 @@
+ Reference
+===========
+
+
+Documentation of minilib.
+
+
+== link:overview.asc[Overview]
+
+A short introduction
+
+
+== link:configuration.asc[Configuration]
+
+
+Description of howto use and configure minilib
+
+
+
+
+ API
+-----
+
+Please note, the number after "Size:" is an estimation.
+Each function added as a function, with all dependent functions,
+within a binary that much bytes to the overall size.
+
+It is however not possible to give exact numbers, these depend on how much the compiler
+can optimize for each call. What is different each time, depending on the circumstances.
+
+To complicate things more, some functions will be inlined, others will be reused.
+
+And, the choosen linker script will have it's (sometimes surprising) influence.
+
+The linked manpages are from the freeBSD project and there for convenience.
+The description of the manpage does not neccessarily match the implementation,
+here the description at the reference precedes.
+
+

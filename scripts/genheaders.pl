@@ -1,6 +1,11 @@
 #!/bin/perl -w
-# (modified) BSD 3-clause (c) 2019 Michael misc Myer misc.myer@zoho.com;
-# www.github.com/michael105; BSD-Licensing terms attached
+# DOCU: genheaders.pl
+# generate minilib.conf; genconf.sh; minilib.h; compat/*.h
+# callen by make header, make devel
+#
+# (c) 2019,2020 Michael misc Myer misc.myer@zoho.com;
+# www.github.com/michael105; 
+# Licensing terms are attached at the bottom
 #
 #
 # somethere I've to start to docu this thing.
@@ -23,6 +28,7 @@
 #  (or whatever else name is supplied via --config )
 #  compat/*.h contains the ansi-c/posix-c (sort of "subsetcompatible") headers.
 #
+#
 # This script scans for "tags":
 # each tag consists (for the moment, this should also get more generic)
 # of this pattern: (linestart)"//+tag"
@@ -38,29 +44,54 @@
 #
 # "tag" can be one of:
 #
-# - def: the next line keeps a definition (function definition)
+# - def [switchname]
+# 				the next line keeps a definition (function definition),
 #
-# - macro: either in the same line, or in the next line is a macro defined.
-# 	the macros are collected and go into the corresponding header files;
-# 	as well as the definitions (+def)
-# 	Either into the headers, defined by the posic-c /ansi-c standard, or 
-# 	into the header file, supplied via the tag header
+# - inline
+# 				put all following lines, until the function is ended by
+# 				a line starting with '}', into the according header.
+# 				(minilib.h, and possibly compat/xxx.h)
 #
-# - header "name": the definitions and macros defined in this header file go into 
-#  								the header file "name". "header" can be defined several times within 
-#  								one file, each time the definitions below are put into name, until the 
-#  								next "header" tag is read
+# - macro 
+# 				either in the same line, or in the next line a macro is defined.
+#				 	the macros are collected and go into the corresponding header files;
+#				 	as well as the definitions (+def) and inlines (+inline).
+#				 	Either into the headers, defined by the posic-c /ansi-c standard, or 
+#				 	into the header file, supplied via the tag header
 #
-#	- depends "name1" "name2" .. :	the following definitions are selected automatically, when the following def or macro 
-#						is selected via the #define in the configfile. TODO example.
+# - header "name" 
+# 				the definitions and macros defined in this header file go into 
+# 				the header file "name". "header" can be defined several times within 
+#  				one file, each time the definitions below are put into name, until the 
+#  				next "header" tag is read
 #
-#	- needs "name1" "name2" .. : the headerfiles "name1", .. are included before the current header file.
+#	- depends/dep "name1" "name2" .. 
+#					the following definitions are selected automatically,
+#					when the following def or macro 
+#					is selected via the #define in the configfile. TODO example.
 #
-#	- doc: TODO needs implementing
-# - test: TODO (testing framework) -> most possibly best to define just a few calls to the implemented functions;
-# 																		and just compare the output to stdout/stderr. (Framework already implemented in /test)
-# 																		little hard to catch e.g. filecreation. But possible. ALso possibly
-# 																		just put some inline perl scripts into a "test" tag.
+#	- needs "name1" "name2" .. 
+#					the headerfiles "name1", .. are included 
+#					before the current header file.
+#
+#	- include/inc
+#	- after
+#
+#	- doc
+#					The tag's line an all following lines, until the next tag,
+#					are used for the generated documentation
+#
+#	- cat catname
+#					catname is used for the documentation. (chapter of the api reference)
+#
+#
+#(ideas)
+# - test: TODO (testing framework) -> most possibly best to define just a few calls 
+# 				to the implemented functions;
+# 				and just compare the output to stdout/stderr. 
+# 				(Framework already implemented in /test)
+# 				little hard to catch e.g. filecreation. But possible. ALso possibly
+# 				just put some inline perl scripts into a "test" tag.
 #
 
 
@@ -80,6 +111,7 @@ my $minilibheader = "$mlibdir/minilib.h";
 my $miniconf = "$mlibdir/miniconf.h";
 
 my $funchash;
+my $srcincfiles;
 my $mlfunchash; # Non standard functions
 my $allfunchash; # Allfuncs.
 my $headerhash;
@@ -199,6 +231,25 @@ sub headerfh{
 		return( $fhhash->{fh}->{$header} );
 }
 
+# copy templates of minilib.c
+sub minilibcfh{
+		my $header = shift;
+		my $path = shift;
+		dbg ("Header: $header\n");
+		if ( ! exists($fhhash->{fh}->{$header}) ){
+				open( $fhhash->{fh}->{$header}, ">", "$path/$header" ) or die;
+				copytemplates( $fhhash->{fh}->{$header}, "$mlibdir", "header.tmpl.top", "$header.top" );			
+				my $h = $header;
+				$h =~ s/\./_/g;
+				$h =~ s/\//_/g;
+				print {$fhhash->{fh}->{$header}} "#ifndef included_$h\n#define included_$h\n\n";
+				copytemplates( $fhhash->{fh}->{$header}, $path, "minilib.c.in", "$header.in" );			
+		}
+		return( $fhhash->{fh}->{$header} );
+}
+
+
+
 # iterate over commandline args
 while ( my $file = shift ){
 		open (F, "<", $file) or die;
@@ -212,7 +263,7 @@ while ( my $file = shift ){
 		my $header = 0;
 		my $line = 0;
 		my $included = 0;
-		while ( my $l= $fa[$line]){
+		while ( my $l= $fa[$line]){ # iterate lines
 				my $f;
 				my $tag = 0;
 				my $func = 0;
@@ -254,18 +305,23 @@ while ( my $file = shift ){
 										} while ( !($l =~ /^}/ ) );
 										dbg( "dbg: $f->{def}" );
 										$f->{file} = '';
-										
+
 								}elsif ( $tag eq 'def' | $tag eq 'inline'){
-										#$f->{def} = <F>;
-										#$line++;
-										$f->{def} = $fa[$line+=1];
-										dbg("def: $f->{def} $file: $l");
-										if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
-												$func = $2;
+										if ( length($c) > 1 ){
+												$f->{def} = $fa[$line+=1];
+												#$f->{def} = $c;
+												dbg("def,sameline: $c");
+												$func = $c;
 										} else {
-												dbg("f-def: $f->{def}");
-												$f->{def} =~ /.* \**(\S*)\(.*?\)\{.*$/;
-												$func = $1;
+												$f->{def} = $fa[$line+=1];
+												dbg("def: $f->{def} $file: $l");
+												if ( $f->{def} =~ /^DEF_syscall(ret)*.(.*?),/ ){
+														$func = $2;
+												} else {
+														dbg("f-def: $f->{def}");
+														$f->{def} =~ /.* \**(\S*)\(.*?\)\{.*$/;
+														$func = $1;
+												}
 										}
 										dbg("func: $LR $func $N\n");
 										$f->{def} =~ s/\{.*$/;/;
@@ -277,6 +333,8 @@ while ( my $file = shift ){
 								} elsif ( $tag eq 'depends' ){
 										$f->{dep} = $c;
 										dbg("$LG depends: $f->{dep} $N\n");
+								} elsif ( $tag eq 'cat' ){
+										$f->{cat} = $c;
 								} elsif ( $tag eq 'after' ){
 										$f->{after} = $c; # e.g. printf after atoi (when defined atoi)
 								} elsif ( $tag eq 'doc' ){
@@ -294,6 +352,7 @@ while ( my $file = shift ){
 										print {headerfh($header,$headerdir)} "// file: $file\n#include \"$file\"\n";
 										dbg "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
+										#$f->{incfile} = $file;
 										$included = 1;
 								} elsif( $tag eq 'macro' ){
 										if ( $l =~ /^\/\/\+macro\s*(\S+)/ ){
@@ -332,7 +391,8 @@ while ( my $file = shift ){
 								#print "Header::: XXXX $f->{header}\n";
 								if ( !$header ){
 										if ( exists( $syscallsysdefs->{$func} ) ){
-												$f->{header} = "mini_syscalls.h";
+# 												$f->{header} = "mini_ksyscalls";
+ 												$f->{header} = "mini_syscalls";
 										} else {
 												$f->{header} = "mini_addons.h";
 										}
@@ -354,6 +414,10 @@ while ( my $file = shift ){
 						if ( exists($syscalldefs->{$func}) ){
 								$syscalldefs->{$func}->{f} = $f
 						}
+						if ( exists($syscallsysdefs->{$func}) ){
+								$syscallsysdefs->{$func}->{f} = $f
+						}
+
 
 						if ( $f->{header} && $f->{def} && !($included)){
 								dbg("header: $f->{header}\n def: $f->{def}\n");
@@ -420,16 +484,29 @@ copytemplates( FDOC, $mlibdir, "minilib.txt.top" );
 foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
-				printf FDOC "%-15s",$f;
+				if ( exists($syscallsysdefs->{$f} ) ){
+# 						printf FDOC "ksys%-15s",$f;
+ 						printf FDOC "sys%-15s",$f;
+				} else {
+						printf FDOC "%-15s",$f;
+				}
+
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
 				my $docdef="";
 				if ( exists($funchash->{$f}->{def}) ){
-						print FDOC "$funchash->{$f}->{def}";
-						$docdef= "$funchash->{$f}->{def}";
+						if ( exists( $syscallsysdefs->{$f} ) ){
+								print FDOC "sys$funchash->{$f}->{def}";
+								$docdef= "sys$funchash->{$f}->{def}";
+						} else {
+								print FDOC "$funchash->{$f}->{def}";
+								$docdef= "$funchash->{$f}->{def}";
+						};
 						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
 						my $s = "$syscalldefs->{$f}->{def}";
+						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/sys$1(/;
 						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+						#$s=~s/^_/sys_/;
 						$docdef=$s;
 						print FDOC $s;
 						print FDOC "               Returns: $2\n" if ( $2 );
@@ -473,6 +550,7 @@ dbgdump( $bsdmanpage );
 
 # write doc
 open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref.asc" ) or die;
+open( API, ">", "$mlibdir/doc/build/minilib-reference.in" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref.asc.top" );
@@ -487,39 +565,76 @@ foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n"; #$k\n==========\n\n";
 		#print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
-				printf FDOC "%s::\n\n ",$f;
+				if ( exists($syscallsysdefs->{$f} ) ){
+# 						printf FDOC "ksys%s::\n\n ",$f;
+ 						printf FDOC "sys%s::\n\n ",$f;
+# 						printf API "f:ksys%s|",$f;
+ 						printf API "f:sys%s|",$f;
+				} else {
+						printf FDOC "%s::\n\n ",$f;
+						printf API "f:%s|",$f;
+				}
 				$funchash->{$f}->{file}=~/minilib\/(.*)/;
 				if ( exists($funchash->{$f}->{def}) ){
-						print FDOC " $funchash->{$f}->{def} +\n ";
+								print FDOC " $funchash->{$f}->{def} +\n ";
+								my $s =$funchash->{$f}->{def};
+								chomp $s;
+								print API "D:$s|";
 						} elsif ( exists($syscalldefs->{$f} ) && exists($syscalldefs->{$f}->{def} ) ){
 						my $s = "$syscalldefs->{$f}->{def}";
+						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscall.(\S*),\s*\d*\s*,/$1(/;
 						$s=~s/DEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
 						print FDOC " $s +\n";
+						chomp $s;
+						print API "k|D:int $s|";
 						print FDOC " Returns: $2 +\n" if ( $2 );
+						print API "R:$2|" if ( $2 );
+				}elsif ( exists($syscallsysdefs->{$f} ) && exists($syscallsysdefs->{$f}->{def} ) ){
+						my $s = "$syscallsysdefs->{$f}->{def}";
+						#$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
+						$s=~s/SYSDEF_syscall.(\S*),\s*\d*\s*,/$1(/;
+						$s=~s/SYSDEF_syscallret.(\S*),\s*(\S*)\s*,\s*\d*\s*,/$1(/;
+# 						print FDOC " ksys$s +\n";
+ 						print FDOC " sys$s +\n";
+						chomp $s;
+# 						print API "k|D:ksys$s|";
+ 						print API "k|D:sys$s|";
+						print FDOC " Returns: $2 +\n" if ( $2 );
+						print API "R:$2|" if ( $2 );
 				}
+
 				if ( exists($depends->{$f}) ){  
 						print FDOC " Defines: ".join(" ",keys(%{$fulldepends->{$f}}))," +\n";
+						print API "d:".join(" ",keys(%{$fulldepends->{$f}})),"|";
 				}
 
 				print FDOC " (link:../"."$1"."[../$1]"." l.$funchash->{$f}->{line}) ";
+				print API "l:../"."$1"."[../$1]"." l.$funchash->{$f}->{line}|";
 				if ( exists($bsdmanpage{$f}) ){
 						print FDOC "manpage: link:manpages/$bsdmanpage{$f}.rst"."[$f] +\n";
+						print API "m:manpages/$bsdmanpage{$f}.rst"."[$f]|";
 				}	else {
 						print FDOC " +\n";
 				}
 				if ( exists($funchash->{$f}->{doc} ) ){
 						print FDOC "",join(" +\n ", split( "\n", $funchash->{$f}->{doc}) )," +\n ";
+						print API "o:",join(":+:", split( "\n", $funchash->{$f}->{doc}) ),"|";
 						#print FDOC "               $funchash->{$f}->{doc}\n";
 				}
 				print FDOC "\n\n";
+				if ( exists($funchash->{$f}->{cat} ) ){
+						print API "c:$funchash->{$f}->{cat}|";
+				}
+				print API "|#\n";
 		}
 }
 
+close API;
 close FDOC;
 
 # write doc
-open( FDOC, ">", "$mlibdir/doc/mlfunctions-shortref-lf.html" ) or die;
+open( FDOC, ">", "$mlibdir/doc/html/mlfunctions-shortref-lf.html" ) or die;
 #*FDOC = *STDOUT;
 
 copytemplates( FDOC, $mlibdir, "mlfunctions-shortref-lf.html.top" );
@@ -531,7 +646,12 @@ foreach my $f ( sort( keys(%{$funchash} ) ) ){
 		if ( exists($bsdmanpage{$f}) ){
 				printf FDOC "<a target=\"right\" href=\"manpages/$bsdmanpage{$f}.rst.html\">$f</a>";
 		} else {
-				printf FDOC "$f";
+				if ( exists($syscallsysdefs->{$f} ) ){
+# 						printf FDOC "ksys_$f";
+ 						printf FDOC "sys_$f";
+				} else {
+						printf FDOC "$f";
+				}
 		}
 		print FDOC "</small></td><td><small>";
 
@@ -573,8 +693,14 @@ copytemplates( FDOC, $mlibdir, "minilib.md.top" );
 foreach my $k ( sort(keys(%{$headerhash})) ){
 		print FDOC "\n\n==========\n$k\n==========\n\n";
 		foreach my $f ( sort( keys(%{$headerhash->{$k}} ) ) ){
+				if ( exists($syscallsysdefs->{$f} ) ){
+# 						printf FDOC "ksys%-15s\n",$f;
+ 						printf FDOC "sys%-15s\n",$f;
+				};
+
 				if ( exists( $funchash->{$f}->{def} ) ){
-				printf FDOC "%-15s",$f;
+						printf FDOC "%-15s",$f;
+
 				print FDOC "$funchash->{$f}->{def}\n";
 				if ( exists($funchash->{$f}->{doc} ) ){
 						print FDOC "               ",join("\n             ", split( "\n", $funchash->{$f}->{doc}) ),"\n";
@@ -635,13 +761,22 @@ sub headerinclude{
 				}
 		} else {
 				print $fh $funchash->{$i}->{def}."";
+				if ( $funchash->{$i}->{inc} ){
+					if ( !exists( $funchash->{$i}->{incfile} )){
+							$funchash->{$i}->{incfile} = $funchash->{$i}->{file};
+							$funchash->{$i}->{incfile} =~ s/[\/\.]/_/g;
+					}
+				   if ( !exists( $srcincfiles->{$funchash->{$i}->{incfile}} )){
+						$srcincfiles->{$funchash->{$i}->{incfile}} = $funchash->{$i}->{file};
+					}
+					print $fh "#define include_$funchash->{$i}->{incfile}\n";
+				}
 		}
 		print $fh "#endif\n";
 }
 
+# MINILIB.H =========================================
 # Writing minilib.h starts here
-
-
 my $ml = headerfh( "minilib.h", $mlibdir );
 
 
@@ -680,11 +815,17 @@ TMPL_END
 # minilib.h ends here.
 # ldscripts
 
-foreach my $script ( qw/script script.onlytext script.text_and_bss/ ){
+#foreach my $script ( qw/default onlytext text_and_bss/ ){
+print "foreach my $script ( system(ls $mlibdir/ldscripts/ld.script*) ){";
+foreach my $script (`ls $mlibdir/ldscripts/ld.script*` ){
+		print("Script: $script");
 		my $s = $script;
+		chomp $s;
+		$s =~ s/^.*ld.script.//;
+		$s =~ s/ld.script.//;
 		$s =~ s/\./_/g;
 		print $ml "#ifdef LDSCRIPT_$s\n\n";
-		print $ml `cat $mlibdir/ldscripts/ld.$script`;
+		print $ml `cat $script`;
 		print $ml "#endif\n\n";
 }
 
@@ -698,8 +839,9 @@ dbg("$C"."==================$N");
 $debug=0;
 
 
+# MINILIB.C ==================================================
 # write minilib.c
-my $mc = headerfh( "minilib.c", $mlibdir );
+my $mc = minilibcfh( "minilib.c", $mlibdir );
 
 
 sub sourceinclude{
@@ -716,11 +858,23 @@ sub sourceinclude{
 		#}
 }
 
+foreach my $f ( keys(%{$srcincfiles}) ){
+		print $mc "\n// $srcincfiles->{$f}\n";
+		#if ( ! exists( $depends->{$i} ) ){
+		print $mc "#ifdef include_$f\n";
+		print $mc "#include \"$srcincfiles->{$f}\"\n";
+		print $mc "#endif\n";
+ }
+
 foreach my $f ( keys(%{$funchash}) ){
 	 if ( $f eq "0"){
 			 delete($funchash->{"0"});
 			 next;
 	 }
+	if ( exists( $funchash->{$f}->{incfile} ) ){
+		next;
+	}
+
 
 		dbg("kkk: $f ");
 
@@ -742,6 +896,7 @@ dbg( $headerhash );
 dbg("zz headerhash");
 
 print $mc "\n#endif\n";
+#print $mc "\nvoid __attribute__((naked)) opt_fence(void*p,...){}\n#endif\n";
 
 close( $mc );
 
@@ -788,7 +943,9 @@ sub configscripthandler{
 		my $fh = shift;
 		foreach my $func ( keys(%{$funchash}) ){
 						printf $fh "mini_$func(){ 
-  echo \"#define mini_$func $1\" 
+  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
+	else echo  \"#define mini_$func $func\"
+	fi
 }\n";
 				}
 		return(1);
@@ -835,16 +992,27 @@ sub syscalldefine{
 				print $fh "/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */\n";
 				dbg ("/* $syscalldefs->{$k}->{f}->{file}, line: $syscalldefs->{$k}->{f}->{line} */");
 				$def =~ s/^DEF/define/;
+
+				$def =~ /^\S*?,(\d*)/;
+				if ( $1 >= 4 ){
+						$def =~ s/define_syscall/define_syscall_noopt/;
+				}
 				print $fh "REAL_$def\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("REAL_$def\n");
 		}
+
+		if ( 1 ) { # syscalldefs (without wrapper) are written here.
+# 				print $fh "#ifdef mini_ksyscalls\n\n";
+ 				print $fh "#ifdef mini_syscalls\n\n";
 		foreach my $k ( keys( %{$syscallsysdefs} ) ){
-		}
-		if ( 0 ) {
 				my $def = $syscallsysdefs->{$k}->{def};
 				my $a = 1;
 				my $b = 2;
+				chomp $def;
+
+				print $fh "// $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line}\n";
+				print $fh "// $def\n";
 				while ( $def =~ s/(^SYSDEF_syscall\((?:.*?,){$b}.*?[\*]*)(\S*)\s*?([,)])/$1a$a$3 / ){
 						$a++; $b++;
 						#dbg "def: $def, $a, $b\n";
@@ -855,13 +1023,18 @@ sub syscalldefine{
 						$a++; $b++;
 				}
 
-
-				print $fh "/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */\n";
-				dbg ("/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */");
+				#dbg ("/* $syscallsysdefs->{$k}->{f}->{file}, line: $syscallsysdefs->{$k}->{f}->{line} */");
 				$def =~ s/^SYSDEF/define/;
-				print $fh "SYSREAL_$def\n";
+				$def =~ /^\S*?,(\d*)/;
+				if ( $1 >= 4 ){
+						$def =~ s/define_syscall/define_syscall_noopt/;
+				}
+
+				print $fh "SYSREAL_$def\n\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("SYSREAL_$def\n");
+		}
+				print $fh "#endif\n\n";
 		}
 		return(1);
 }
@@ -880,20 +1053,88 @@ exit(0);
 #Licensing terms of this script.
 $LICENSE = << 'ENDLICENSE';
 
-Copyright (c) 2012-2019, Michael (Misc) Myer 
-(misc.myer@zoho.com, www.github.com/michael105)
-All rights reserved.
+-------------------------------------------------
+ Copyright (c) 2012-2021, Michael (misc) Myer 
+ (misc.myer@zoho.com, www.github.com/michael105)
+ Donations welcome: Please contact me.
+ All rights reserved.
+-------------------------------------------------
 
-Redistribution and use in source and binary forms, with or without
+
+I did this minilib out of enthuiasm.
+One side, I`d like to have this project being opensource.
+On the other hand, I spent really much time with the development.
+In an ideal world, someone would sponsor me for this time.
+It is, however, not an ideal world we are living in.
+Therefore I do have to insist on attributions and what
+I`d like to call `fair use`.
+
+In short, you are allowed to do with this project what you wish,
+as long you show the copyright notice at a prominent place, 
+and include the file NOTICE in distributions.
+
+That`s the intention of this license,
+which I`d like to name "Fair use with attribution".
+
+
+
+License
+
+   The terms `minilib`, `source code`, `redistribution` or `linked with`
+   apply to the minilib in full as well as to parts of minilib.
+  
+   All files belonging to this project are subject to this license, besides 
+	 files, where within the header explicitely other licensing terms are noted.
+    
+   Michael (misc) Myer is a Pseudonym. 
+	 When your local laws don`t permit usage of pseudonyms, this license 
+	 or one of its sentences would be not legal, or you do not comply
+	 to this license, you may neither use minilib nor parts of this project.
+   The author is under this condition still the owner and copyright holder 
+	 of this software. Please contact me for different licensing terms 
+	 in this case, and explain your situation.
+  
+
+Redistribution, use and derived works in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright notice,
-   the file NOTICE, this list of conditions and the following disclaimer.
+
+ * Redistributions of source code must retain the above full notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and other materials provided with the distribution
+
  * Redistributions in binary form must reproduce the above copyright notice,
    the file NOTICE, this list of conditions and the following disclaimer in 
-   the documentation and/or other materials provided with the distribution.
+   the documentation and other materials provided with the distribution
+
+ * Software linked with, or derived from minilib must reproduce 
+   the file NOTICE, this list of conditions and the following disclaimer
+   in the documentation, and other materials
+
+ * Applications and software linked with, or derived from minilib must 
+   in addition reproduce one of the according full notices below for derived or 
+	 linked works within a documentation accessible at runtime:
+   - `--help` documentation
+   - online manual for web applications
+   - Alternatively within a for every user clearly visible and
+	   readable message at the application startup
+ 
+ * Software and applications without a textual or graphical user interface
+   linked with, or derived from minilib must 
+   reproduce the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and all other materials like advertisements, 
+   manuals, datasheets, etc.
+	 
  * Neither the name of the minilib nor the
    names of its contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+   derived from this software without specific prior written permission
+  
+ * You inform me with an email with the subject `minilib usage` 
+   about your usage of minilib and agree to a possible announcement 
+	 with your and/or your companie`s name at the homepage of minilib
+
+
+Disclaimer:
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -905,6 +1146,39 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+End of the license.
+
+
+Please contact me, if you are in need of differing licensing terms.
+
+
+Notices:
+
+
+(Notice for linked works)
+................................................
+Linked with minilib,
+Copyright (c) 2012-2021, Michael (misc) Myer 
+(misc.myer@zoho.com, www.github.com/michael105)
+Donations welcome: Please contact me.
+All rights reserved.
+................................................
+
+
+(Notice for derived works)
+................................................
+Based on minilib,
+Copyright (c) 2012-2021, Michael (misc) Myer 
+(misc.myer@zoho.com, www.github.com/michael105)
+Donations welcome: Please contact me.
+All rights reserved.
+................................................
+
+
+Some files in the folders headers and contrib have other licensing terms.
+Please look at the sources.
+
 
 ENDLICENSE
 

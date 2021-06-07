@@ -21,7 +21,7 @@ INCLUDESRC
 shrinkelf
 
 # The ldscript file. can be onlytext, text_and_bss or default
-LDSCRIPT text_and_bss
+LDSCRIPT onlytext
 
 # the optimization flag for gcc
 # (also defaults to -Os)

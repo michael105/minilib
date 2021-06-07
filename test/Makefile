@@ -6,9 +6,14 @@ PROG=hello
 
 PROGCUSTOM=fopen malloc fprintf select fputs fgets
 
-MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static hashes sigaction
+# ebedded config, mini-gcc, wildcard target
+MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
+					hashes sigaction realloc div ltodec globals atexit \
+					strerror mallocstack strtol abort putenv strcmp\
+					getpwuid getgrgid getgrnam getgroups
 
 MINIGCC=rand sleep execve strdup
+
 
 # where to build object files
 #BUILDDIR=.
@@ -58,7 +63,7 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM) $(MAKEPROGS)
+all: fputs hello-combined hello-include hello-smallest args build/minilib.o $(PROGCUSTOM) $(MAKEPROGS) common.conf
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , (echo minilib/mini-gcc --config $(P).c -o $(P) $(P).c && minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) && ) true
 
@@ -105,7 +110,7 @@ hello-smallest: hello-smallest.c
 
 # collect the expected output of the applets
 inittest: all
-	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ./$(P) > results/$(P)-expect.stdout ; ) true
+	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi ) > results/$(P)-expect.stdout ; ) true
 	
 retest: test rebuild
 	make test
@@ -116,7 +121,7 @@ test: all
 	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
-			set -o pipefail; ./$(P) | \
+			set -o pipefail; ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \
 			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \

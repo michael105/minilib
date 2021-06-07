@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 9.0.2">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_time"></a>time</h2>
+<a name="getitimer"></a><dl>
+<dt>
+getitimer
+</dt>
+<dd>
+<p>
+  <em>int getitimer( int which,  struct itimerval <strong>value)</em><br>
+ *get and set value of interval timer</strong>
+Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.222 manpage: <a href="../manpages/sys/getitimer.2.rst.html">getitimer</a><br>
+</p>
+</dd>
+<dt>
+gettimeofday
+</dt>
+<dd>
+<p>
+  <em>int gettimeofday( struct timeval <strong>a1, struct timezone *a2)</em><br>
+ *get the date and time</strong>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.140 manpage: <a href="../manpages/sys/gettimeofday.2.rst.html">gettimeofday</a><br>
+</p>
+</dd>
+<dt>
+setitimer
+</dt>
+<dd>
+<p>
+  <em>int setitimer( int which,  struct itimerval <strong>value,  struct itimerval *ovalue)</em><br>
+ *set the value of an interval timer</strong>
+Size: ~56B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.221 manpage: <a href="../manpages/sys/getitimer.2.rst.html">setitimer</a><br>
+</p>
+</dd>
+<dt>
+sleep
+</dt>
+<dd>
+<p>
+  <em>unsigned int volatile sleep(unsigned int seconds)</em><br>
+ <strong>suspend execution for an interval of time</strong>
+</p>
+</dd>
+</dl>
+<a name="sleep"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>nonconformant sleep
+ TODO: ignore blocked signals, sigchld</code></pre>
+</td></tr></table>
+<p>Size: ~123B <a href="../../src/sleep.c">../src/sleep.c</a> l.10 manpage: <a href="../manpages/gen/sleep.3.rst.html">sleep</a><br></p>
+<a name="time"></a><dl>
+<dt>
+time
+</dt>
+<dd>
+<p>
+  <em>int time(unsigned int <strong>a1 )</em><br>
+ *get time</strong>
+Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.228 manpage: <a href="../manpages/gen/time.3.rst.html">time</a><br>
+</p>
+</dd>
+<dt>
+usleep
+</dt>
+<dd>
+<p>
+  <em>unsigned int volatile usleep(unsigned int useconds)</em><br>
+ <strong>suspend execution for microsecond intervals</strong>
+</p>
+</dd>
+</dl>
+<a name="usleep"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>nonconformant usleep.
+ Sleep useconds.
+ I just hope, noone relies on an exact sleep time.
+ which isn't possible without a real time os, anyways.
+ When for whatever reason you'd need nanoseconds exact times,
+ best shot might be a spinloop, and looking for cpu ticks.
+
+ TODO: ignore blocked signals, sigchld</code></pre>
+</td></tr></table>
+<p>Size: ~147B <a href="../../src/sleep.c">../src/sleep.c</a> l.31 manpage: <a href="../manpages/gen/usleep.3.rst.html">usleep</a><br></p>
+<a name="utime"></a><dl>
+<dt>
+utime
+</dt>
+<dd>
+<p>
+  <em>int utime( const char <strong>filename, struct utimbuf *times)</em><br>
+ *set file access and modification times</strong>
+Size: ~49B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.191 manpage: <a href="../manpages/gen/utime.3.rst.html">utime</a><br>
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2021-02-14 13:29:08 UTC
+</small></p>
+</body>
+</html>

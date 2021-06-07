@@ -8,7 +8,9 @@ extern int __mini_vsys;
 
 //extern int sysret;
 #ifdef mini_errno
+#ifndef mini_globals_on_stack
 extern int errno;
+#endif
 #endif
 
 #ifdef OSX
@@ -32,6 +34,43 @@ extern int errno;
 
 #endif
 
+//void opt_fence(void*p,...);
+
+#ifndef OPTFENCE
+//+doc prevent gcc to optimize away registers and variables
+// the macro OPTFENCE(...) can be invoked with any parameter.
+// The parameters will get calculated, even if gcc doesn't recognize
+// the use of the parameters, e.g. cause they are needed for an inlined asm syscall.
+//
+// The macro translates to an asm jmp and a function call to the function 
+// opt_fence, which is defined with the attribute "noipa" -
+// (the compiler "forgets" the function body, so gcc is forced
+// to generate all arguments for the function)
+// The generated asm jump hops over the call to the function,
+// but this gcc doesn't recognize.
+//
+// This generates some overhead, 
+// (a few (never reached) bytes for setting up the function call, and the jmp)
+// but I didn't find any other solution,
+// which gcc wouldn't cut for optimizations from time to time.
+// (volatile, volatile asm, optimize attributes, 
+// andsoon have all shown up to be unreliable - sometimes(!)).
+//
+// Had some fun debugging these bugs, which naturally showed up only sometimes.
+// (Many syscalls also work with scrambled arguments..)
+// And, I believe it IS a compiler bug. 
+// Volatile should be volatile for sure, not only sometimes.
+// I mean, why the heck do I write volatile?? 
+//+def OPTFENCE
+static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
+#define _optjmp(a,b) asm( a "OPTFENCE_"#b )
+#define _optlabel(a) asm( "OPTFENCE_" #a ":" )
+#define __optfence(a,...) _optjmp("jmp ", a ); opt_fence(__VA_ARGS__); _optlabel(a)
+#define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
+//#define OPTFENCE(...) opt_fence(__VA_ARGS__)
+#endif
+
+
 
 // syscall table at: /usr/src/linux/include/linux/syscalls.h. 
 // table, ordered: /usr/src/linux/arch/x86/syscalls/syscall_32.tbl
@@ -44,14 +83,25 @@ extern int errno;
 // even with -O (lowest Optimization) gcc handles putting the parameters into the right registers fine.
 // so static inline even results often in smaller codesize than not inlining.
 //
+// when minilib is compiled without errno,
+// the syscalls return the negative value of errno on error.
+//
 
 //#define __callend : "rcx" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
 
+
 // memory clobber is needed, gcc optimizes syscalls very likely away without
 #define __callend : "memory","rcx", "r11" )
+#define __callend0 __callend
+#define __callend1 __callend
+#define __callend2 __callend
+#define __callend3 __callend
+#define __callend4 __callend; OPTFENCE((void*)r10)
+#define __callend5 __callend; OPTFENCE((void*)r10,(void*)r8)
+#define __callend6 __callend; OPTFENCE((void*)r10,(void*)r8,(void*)r9)
 //(also osx)
 #define __SYSCALL_ASM(ret,call) asm volatile ("syscall" : "=a" (ret)  : "a" ( (call | NCONST ) )
 #else
@@ -70,11 +120,7 @@ extern int errno;
 #define syscall1(ret,call,a1) __SYSCALL_ASM(ret,call) , "D" (a1) __callend
 #define syscall2(ret,call,a1,a2) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2) __callend
 #define syscall3(ret,call,a1,a2,a3) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3) __callend
-//#warning seems register ecx has been replaced with r10, but cannot say for sure. Tests needed.
-//#warning Yes. Todo: change macros accordingly. Also better copy flags. or not? ALso a question of an unneccessary instruction. 
-
 #define syscall4(ret,call,a1,a2,a3,a4) register long int r10 asm ("r10") = a4 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (r10) __callend
-//#define syscall4(ret,call,a1,a2,a3,a4) __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "c" (a4) __callend
 #define syscall5(ret,call,a1,a2,a3,a4,a5) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (r10), "r" (r8) __callend
 #define syscall6(ret,call,a1,a2,a3,a4,a5,a6) register long int r10 asm ("r10") = a4 ; register long int r8 asm ("r8") = a5 ; register long int r9 asm ("r9") = a6; __SYSCALL_ASM(ret,call) , "D" (a1), "S" (a2), "d" (a3), "r" (r10), "r" (r8), "r" (r9) __callend
 
@@ -138,10 +184,12 @@ extern int errno;
 
 
 // args: count of parameters, syscall number, [parameters...]
-#define __DO_syscall(n,...) syscall##n##_ret( __VA_ARGS__ ) __callend
+#define __DO_syscall(n,...) syscall##n##_ret( __VA_ARGS__ ) __callend##n
 
 // args: name (e.g. getpid), count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
+
+#ifndef GENSYNTAXCHECK 
 
 #ifdef mini_errno
 #define REAL_define_syscall( name, argcount, ... ) inline \
@@ -153,17 +201,37 @@ extern int errno;
 						return(-1);}\
 				return(sysret);\
 		}
-#else
+// syscalls with more than 4 args may not be optimized nor inlined.
+// register assignment gets optimized out otherways.
+#define REAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile  name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, (SCALL(name) | NCONST ) );\
+				if ( sysret<0){\
+						errno = -sysret;\
+						return(-1);}\
+				return(sysret);\
+		}
+
+#else //errno
 #define REAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
-				return( (sysret<0) ? -1 : sysret );\
+				return( sysret );\
 		}
+#define REAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, ( SCALL(name) | NCONST ) );\
+				return( sysret );\
+		}
+
+//				return( (sysret<0) ? -1 : sysret );
+
 #endif
 
 
-#if 0
 #ifdef mini_errno
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
@@ -174,17 +242,33 @@ extern int errno;
 						return(-1);}\
 				return(sysret);\
 		}
+
+#define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile sys##name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, (__SYSCALL(name) | NCONST ) );\
+				if ( sysret<0){\
+						errno = -sysret;\
+						return(-1);}\
+				return(sysret);\
+		}
+
 #else
 #define SYSREAL_define_syscall( name, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) sys##name( __VA_ARGS__ ){\
 				int sysret;\
 				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
-				return( (sysret<0) ? -1 : sysret );\
+				return( sysret );\
 		}
-#endif
-#else
 
-#define SYSREAL_define_syscall( name, argcount, ... )
+				//return( (sysret<0) ? -1 : sysret );
+
+#define SYSREAL_define_syscall_noopt( name, argcount, ... ) \
+		int volatile sys##name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, ( __SYSCALL(name) | NCONST ) );\
+				return( sysret );\
+		}
 
 #endif
 
@@ -212,103 +296,49 @@ extern int errno;
 
 // args: name (e.g. getpid), argument to return, count of args, arguments (e.g. int* a1, char *a2).
 // arguments must be named a1,a2,...
+#ifdef mini_errno
 #define REAL_define_syscallret( name, ret, argcount, ... ) inline \
 		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
+				int sysret;\
 				__DO_syscall( argcount, SCALL(name));\
 				if ( sysret<0 ){\
 						errno = -sysret;\
 						return(-1);}\
 				return(ret);\
-		}\
+		}
+
+#else
+#define REAL_define_syscallret( name, ret, argcount, ... ) inline \
+		int volatile __attribute__((always_inline)) name( __VA_ARGS__ ){\
+				int sysret;\
+				__DO_syscall( argcount, SCALL(name));\
+				if ( sysret<0 ){\
+						return(sysret);}\
+				return(ret);\
+		}
+
+#endif
 
 
 #define DEF_syscall(...) 
 #define DEF_syscallret(...) 
 
 
+#else //ifndef gensyntaxcheck
+// Boilerplates, to get the syntaxchecking right (syntaxcheck.h)
+#define DEF_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
+#define DEF_syscallret( name, ret, argcount, ... ) int volatile name( __VA_ARGS__ );
+//#define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
 
-//#define __DEF_SYSCALL(count) extern int __attribute__((always_inline,optimize("0"))) 
+#define SYSDEF_syscall( name, argcount, ... ) int volatile sys##name( __VA_ARGS__ );
 
-#if 0 
-
-#define __SYSCALL_ASMret(call) asm volatile ("mov %1,%%eax\n\tint $0x80" : "=a" (sysret)  : "g" (call)
-
-#define syscall0_ret(call,unused) __SYSCALL_ASMret(call) )
-#define syscall1_ret(call,a1) __SYSCALL_ASMret(call) , "b" (a1) )
-#define syscall2_ret(call,a1,a2) __SYSCALL_ASMret(call) , "b" (a1), "c" (a2) )
-#define syscall3_ret(call,a1,a2,a3) __SYSCALL_ASMret(call) , "b" (a1), "c" (a2), "d" (a3) )
-#define syscall4_ret(call,a1,a2,a3,a4) __SYSCALL_ASMret(call) , "b" (a1), "c" (a2), "d" (a3), "S" (a4))
-#define syscall5_ret(call,a1,a2,a3,a4,a5) __SYSCALL_ASMret(call) , "b" (a1), "c" (a2), "d" (a3), "S" (a4), "D" (a5) )
-
-// args: count of parameters, syscall number, [parameters...]
-#define __DO_syscall(n,...) syscall##n##_ret( __VA_ARGS__ )
-
-// args: name (e.g. getpid), count of args, arguments (e.g. int* a1, char *a2).
-#define DEF_syscall( name, argcount, ... ) static inline \
-		int __attribute__((always_inline)) name( __VA_ARGS__ ){\
-				__DO_syscall( argcount, __NR_##name , __VA_ARGS__ );\
-				if ( sysret<0 )\
-						errno = -sysret;\
-				return(sysret);\
-		}\
-
-
-
-
-
-wantbugs_by_optimizing
-#define __SYSCALL_asm(ret) asm volatile ("int $0x80" : "=a" (ret)  : "0" (call),
-
-#define __SYSCALL_CONSTRAINTS_1 "b" (a1)
-#define __SYSCALL_CONSTRAINTS_2 __SYSCALL_CONSTRAINTS_1, "c" (a2)
-#define __SYSCALL_CONSTRAINTS_3 __SYSCALL_CONSTRAINTS_2, "d" (a3)
-#define __SYSCALL_CONSTRAINTS_4 __SYSCALL_CONSTRAINTS_3, "S" (a4)
-#define __SYSCALL_CONSTRAINTS_5 __SYSCALL_CONSTRAINTS_4, "D" (a5)
-
-#define __SYSCALL_ARGS1 int a1
-#define __SYSCALL_ARGS2 __SYSCALL_ARGS1, int a2
-#define __SYSCALL_ARGS3 __SYSCALL_ARGS2, int a3
-#define __SYSCALL_ARGS4 __SYSCALL_ARGS3, int a4
-#define __SYSCALL_ARGS5 __SYSCALL_ARGS4, int a5
-#define __SYSCALL_ARGS6 __SYSCALL_ARGS5, int a6
-
-
-				
-#define __DEF_SYSCALL(count) extern int \
-		__syscall ## count \
-				( int call, __SYSCALL_ARGS ## count );
-
-
-#define __IMPL_SYSCALL(count) int \
-		__syscall ## count \
-				( int call, __SYSCALL_ARGS ## count ){\
-		__SYSCALL_asm(call)  __SYSCALL_CONSTRAINTS_ ##count );\
-		return(call);\
-}
-
-__DEF_SYSCALL(1)
-__DEF_SYSCALL(2)
-__DEF_SYSCALL(3)
-__DEF_SYSCALL(4)
-__DEF_SYSCALL(5)
-
-
-#define syscall1(call,a) __syscall1((int)call,(int)a)
-#define syscall2(call,a,b) __syscall2(call,(int)a,(int)b)
-#define syscall3(call,a,b,c) __syscall3(call,(int)a,(int)b,(int)c)
-#define syscall4(call,a,b,c,d) __syscall4(call,(int)a,(int)b,(int)c,(int)d)
-//#define syscall5(call,a,b,c,d,e) __syscall5(call,(int)a,(int)b,(int)c,(int)d,(int)e)
-#define syscall6(call,a,b,c,d,e,f) __syscall6(call,(int)a,(int)b,(int)c,(int)d,(int)e,(int)f)
-
-	/*
-static inline int __attribute__((always_inline)) __syscall6(int call, __SYSCALL_ARGS6 ){
-		int ret;
-		asm volatile ("push %%ebp\n\tmov %1,%%ebp\n\t int $0x80\n\tpop %%ebp" \
-												 : "=a" (ret) : "g" (a6), "a" (call) __SYSCALL_CONSTRAINTS_5 );
-		return(ret);
-}
-*/
+#define REAL_define_syscall(...) 
+#define REAL_define_syscall_noopt(...) 
+#define REAL_define_syscallret(...) 
+#define SYSREAL_define_syscall(...) 
+#define SYSREAL_define_syscall_noopt(...) 
 
 #endif
+
 
 #endif

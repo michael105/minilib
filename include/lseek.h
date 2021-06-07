@@ -13,7 +13,9 @@
 #endif
 
 extern int sysret;
+#ifndef mini_globals_on_stack
 extern int errno;
+#endif
 
 DEF_syscall(lseek,3,unsigned int a1, int a2, int a3 )
 

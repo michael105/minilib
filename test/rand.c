@@ -39,6 +39,13 @@ int main( int argc, char *argv[] ){
 		puts("");
 		}
 
+		for ( int a=0; a<20; a++ ){
+		for ( i=0; i<6; i++ ){
+				printf("%u  ",rand()>>19);
+		}
+		puts("");
+		}
+
 
 		return(0);
 }

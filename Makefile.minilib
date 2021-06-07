@@ -42,17 +42,20 @@ endif
 export PATH := $(PATH):$(MLIBDIR)/contrib
 
 ifndef BUILDDIR
-		BUILDDIR=build
+		BUILDDIR=.
 endif
 
 ifndef MLIBDIR
-		MLIBDIR=minilib/
+		MLIBDIR=.
 endif
 
 ifndef OPTFLAG
 		OPTFLAG=-O1
 endif
 
+ifndef LDSCRIPT
+		LDSCRIPT=default
+endif
 
 
 UNAME := $(shell uname)
@@ -61,10 +64,6 @@ COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-point
 
 
 ifeq ($(UNAME), Darwin)
-
-ifndef OPTFLAG
-		OPTFLAG=-O1
-endif
 
 STRIPEXEC = echo
 
@@ -110,10 +109,11 @@ endif
 
 
 
-LDSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script
-LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script
-#LDSCRIPT=
-#LSCRIPT=
+#LDSCRIPTarg=,-T$(MLIBDIR)/ldscripts/ld.script
+LDSCRIPTarg=,-T$(BUILDDIR)/ldscript
+LSCRIPTarg=-T$(BUILDDIR)/ldscript
+#LDSCRIPTarg=
+#LSCRIPTarg=
 
 
 
@@ -146,15 +146,15 @@ endif
 
 ifdef OTEXT
 $(info ONLYTEXT)
-LSCRIPT=-T$(MLIBDIR)/ldscripts/ld.script.onlytext
-LDSCRIPT=,-T$(MLIBDIR)/ldscripts/ld.script.onlytext
+#LSCRIPTarg=-T$(MLIBDIR)/ldscripts/ld.script.onlytext
+#LDSCRIPTarg=,-T$(MLIBDIR)/ldscripts/ld.script.onlytext
 endif
 #$(info Target: LINUX)
 	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
 ifdef DEBUG
-	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n $(LSCRIPT) -nostartfiles -O 2
+	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n $(LSCRIPTarg) -nostartfiles -O 2
 else
-	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
+	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPTarg) -nostartfiles -O 2
 endif
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
 	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
@@ -163,9 +163,9 @@ ifeq "$(strip $(GCC))" "tcc"
 	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
 else
 ifdef DEBUG
- 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPT)
+ 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPTarg),--allow-multiple-definition
 else	
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPT)
+	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPTarg),--allow-multiple-definition
 	#--orphan-handling=discard
 endif
 endif
@@ -240,7 +240,7 @@ ifdef MAKEPROG
 
 
 $(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o
-	$(LD) $(LDFLAGS) -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
+	$(LD) $(LDFLAGS) --allow-multiple-definition -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
 	$(STRIPEXEC) $(MAKEPROG)
 	#$(if $(strip $(SHRINKELF)),$(MLIBDIR)/tools/sstrip $(MAKEPROG))
 	$(if $(strip $(BINDIR)),cp $(MAKEPROG) $(BINDIR)/$(MAKEPROG))
@@ -265,7 +265,7 @@ ifeq "$(strip $(SINGLERUN))" "1"
 $(info Singlerun)
 
 
-$(PROG): $(PROG).c
+$(PROG): $(PROG).c $(BUILDDIR)/ldscript
 	$(if $(strip $(NOINCLUDE)), $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c, ((cat $(PROG).c && gunzip -c $(MLIBDIR)/minilibcompiled.c.gz) | $(GCC) $(CFLAGS) -o $(PROG) -x c - ))
 # cat $(PROG).c $(MLIBDIR)/minilibcompiled.c | $(GCC) $(CFLAGS) -o $(PROG) -x c -
 	$(STRIPEXEC) $(PROG)
@@ -277,9 +277,9 @@ else
 
 
 
-$(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o
+$(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o ldscript
 	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
-	$(LD) $(LDFLAGS) -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
+	$(LD) $(LDFLAGS) --allow-multiple-definition -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
 	$(STRIPEXEC) $(PROG)
 	#$(if $(strip $(SHRINKELF)),elftrunc $(PROG) $(PROG))
 	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))
@@ -300,6 +300,8 @@ $(BUILDDIR)/minilib.o: minilib.c
 #	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o $(MLIBDIR)/asm/start-osx.S
 
 
+$(BUILDDIR)/ldscript: Makefile $(MLIBDIR)/Makefile.minilib $(MLIBDIR)/minilib.h
+	gcc -P -E $(MLIBDIR)/minilib.h -DLDSCRIPT -DLDSCRIPT_$(LDSCRIPT) > $(BUILDDIR)/ldscript
 
 
 rebuild:

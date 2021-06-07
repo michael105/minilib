@@ -20,6 +20,7 @@
 #define	O_FSYNC		O_SYNC		/* source compatibility: do not use */
 #define O_NOFOLLOW  0x0100      /* don't follow symlinks */
 #define	O_CREAT		0x0200		/* create if nonexistant */
+#define	O_CREATE		0x0200		/* create if nonexistant */
 #define	O_TRUNC		0x0400		/* truncate to zero length */
 #define	O_EXCL		0x0800		/* error if already exists */
 

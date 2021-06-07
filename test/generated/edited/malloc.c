@@ -1,6 +1,7 @@
 #if 0
 mini_malloc
-mini_buf 800
+mini_buf 128
+globals_on_stack
 mini_start
 shrinkelf
 INCLUDESRC

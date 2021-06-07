@@ -3,7 +3,7 @@
 
 int main(){
 		write(fileno(stdout),"write\n",6);
-		printf("mbufsize: %d\n",ml.mbufsize);
+		printf("mbufsize: %d\n",mlgl->mbufsize);
 		printf("test: 12345 %d\n",12345);
 		dprintf(1,"test: 12345 %d\n",12345);
 
@@ -46,12 +46,12 @@ int main(){
 		printf ( c );
 		printf ("\n");
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 
 		int *a1 = malloc(4);
 		int *a2 = malloc(8);
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 
 		a1[0] = 42;
 		a2[0] = 13;
@@ -67,21 +67,21 @@ int main(){
 		printf( "i[1]: %d\n", i[1] );
 		printf( "i[2]: %d\n", i[2] );
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
-		printf("mbuf: %d\n", ml.mbuf[ml.mbufsize] ); // size of last region in bytes
-		printf("mbuf: %d\n", (int)ml.mbuf[ml.mbufsize+4] );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
+		printf("mbuf: %d\n", mlgl->mbuf[mlgl->mbufsize] ); // size of last region in bytes
+		printf("mbuf: %d\n", (int)mlgl->mbuf[mlgl->mbufsize+4] );
 
 
-		if ( (char*)&a2[-1] == &ml.mbuf[ml.mbufsize] )
+		if ( (char*)&a2[-1] == &mlgl->mbuf[mlgl->mbufsize] )
 				printf("Bottom a2\n"); // Ok. works
 
-		if ( (char*)&a1[-1] == &ml.mbuf[ml.mbufsize] )
+		if ( (char*)&a1[-1] == &mlgl->mbuf[mlgl->mbufsize] )
 				printf("Bottom a1\n");
 
-		//mbuf[ml.mbufsize+4] = 1976; //no: overflow with conversion.
-		//ml.mbuf[ml.mbufsize+4](int&) = 1976; //no: somehow casting doesn't work out. changed mbuf to ml.mbuf..
-	 	ml.ibuf[(ml.mbufsize>>2)+1] = 1976; 
-	 	//printf("mbuf: %d\n", (int)ml.mbuf[ml.mbufsize+5] ); // strange. The union{ ml.mbuf; ml.ibuf} is really better
+		//mbuf[mlgl->mbufsize+4] = 1976; //no: overflow with conversion.
+		//mlgl->mbuf[mlgl->mbufsize+4](int&) = 1976; //no: somehow casting doesn't work out. changed mbuf to mlgl->mbuf..
+	 	mlgl->ibuf[(mlgl->mbufsize>>2)+1] = 1976; 
+	 	//printf("mbuf: %d\n", (int)mlgl->mbuf[mlgl->mbufsize+5] ); // strange. The union{ mlgl->mbuf; mlgl->ibuf} is really better
 
 		i-=3;
 		printf( "i[-1]: %d\n", i[-1] );
@@ -89,22 +89,22 @@ int main(){
 		printf( "i[1]: %d\n", i[1] ); // 1976
 		printf( "i[2]: %d\n", i[2] );
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		free(a2);
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		free(a1);
-		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );	
 		char *c9 = malloc(9);
-		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );	
 		free(c9);
-		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );	
 		free(c9);
-		printf("ml.mbufsize: %d\n", ml.mbufsize );	
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );	
 
 		int *a4 = malloc(8);
 		int *a3 = malloc(4);
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 
 		a3[0] = 47;
 		a4[0] = 1333;
@@ -120,10 +120,10 @@ int main(){
 		printf( "i2[4]: %d\n", i2[4] );
 		printf( "i2[5]: (len of next area) 0x%x\n", i2[5] );
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		free(a4);
 		printf("a4 free'd\n");
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
 		printf( "i2[1]: %d\n", i2[1] );
 		printf( "i2[2]: (len of a4) 0x%x\n", i2[2] );
@@ -133,7 +133,7 @@ int main(){
 
 		free(a3);
 		printf("a3 free'd\n");
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
 		printf( "i2[1]: %d\n", i2[1] );
 		printf( "i2[2]: (len of a4) 0x%x\n", i2[2] );
@@ -150,7 +150,7 @@ int main(){
 		a3[0] = 3314;
 		a3[1] = 1234;
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
 		printf( "i2[1]: %d\n", i2[1] );
 		printf( "i2[2]: %d\n", i2[2] );
@@ -171,12 +171,12 @@ int main(){
 		a3[1] = 1235;
 
 		printf(AC_LMARINE "===== allocated a1 - a4\n" AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		void dump( int *p ){
 				for ( int b = 0; b<=10; b++ ){
-						if ( &ml.mbuf[ml.mbufsize] == (char*)&p[b] ){
-								printf( AC_YELLOW "-> bufsize ( %d ) " AC_WHITE , ml.mbufsize ); // ?????
+						if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)&p[b] ){
+								printf( AC_YELLOW "-> bufsize ( %d ) " AC_WHITE , mlgl->mbufsize ); // ?????
 								//printf( "p[%d]: 0x%x = %d\n", b, p[b], p[b] ); 
 						} else
 								printf( "                   " );
@@ -194,7 +194,7 @@ int main(){
 		free(a3);
 		free(a2);
 		printf(AC_LMARINE "===== free'd a3, a2\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 
 		dump(i2);
@@ -203,7 +203,7 @@ int main(){
 
 		free(a1);
 		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 
 		dump(i2);
@@ -216,7 +216,7 @@ int main(){
 		a3[0] = 3314;
 		a3[1] = 1234;
 
-		printf("ml.mbufsize: %d\n", ml.mbufsize );
+		printf("mlgl->mbufsize: %d\n", mlgl->mbufsize );
 		printf( "i2[0]: (len of a3) %d\n", i2[0] );  
 		printf( "i2[1]: %d\n", i2[1] );
 		printf( "i2[2]: %d\n", i2[2] );
@@ -237,32 +237,32 @@ int main(){
 		a3[1] = 1235;
 
 		printf(AC_LMARINE "===== allocated a1 - a4\n" AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a2);
 		printf(AC_LMARINE "===== free'd a2\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a1);
 		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 
 		dump(i2);
 		
 		free(a3);
 		printf(AC_LMARINE "===== free'd a3\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 		
 		free(a4);
 		printf(AC_LMARINE "===== free'd a4\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
@@ -290,32 +290,32 @@ int main(){
 		a3[1] = 373737;
 
 		printf(AC_LMARINE "===== allocated a1 - a4\n" AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a4);
 		printf(AC_LMARINE "===== free'd a4\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a2);
 		printf(AC_LMARINE "===== free'd a2\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 
 		dump(i2);
 		
 		free(a1);
 		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 		
 		free(a3);
 		printf(AC_LMARINE "===== free'd a3\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
@@ -342,32 +342,32 @@ int main(){
 		a3[1] = 373737;
 
 		printf(AC_LMARINE "===== allocated a1 - a4\n" AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a4);
 		printf(AC_LMARINE "===== free'd a4\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a2);
 		printf(AC_LMARINE "===== free'd a2\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 
 		dump(i2);
 		
 		free(a3);
 		printf(AC_LMARINE "===== free'd a3\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 		
 		free(a1);
 		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
@@ -395,32 +395,32 @@ int main(){
 		a3[1] = 373737;
 
 		printf(AC_LMARINE "===== allocated a1 - a4\n" AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a2);
 		printf(AC_LMARINE "===== free'd a2\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 
 		free(a4);
 		printf(AC_LMARINE "===== free'd a4\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 
 		dump(i2);
 		
 		free(a3);
 		printf(AC_LMARINE "===== free'd a3\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 		
 		free(a1);
 		printf(AC_LMARINE "===== free'd a1\n"AC_WHITE);
-		printf("ml.mbufsize: " AC_LRED "%d\n" AC_WHITE, ml.mbufsize );
+		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
 
 		dump(i2);
 

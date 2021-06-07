@@ -1,13 +1,16 @@
-**mini-gcc** v.GIT 2020-06-16 16:40:25
+**mini-gcc** v.GIT 2021-02-14 11:27:59
 
 ::
 
 
-Usage: `mini-gcc [options] [gcc-options] -o outputfile inputfile(s).c`
+Usage: `mini-gcc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf`
 
 mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
 generate the config of minilib and include minilib.h. 
+
+In the most shorthand form, the only argument is the file,
+containing the configuration directives. (And possibly the c source)
 
 mini-gcc passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed 
@@ -27,7 +30,7 @@ before options and parameters for gcc.
 
 --config 'file':
         when the --config 'file' option is given
-        mini-gcc also parses the config in 'file',
+        mini-gcc parses the config in 'file',
         and includes the generated define switches
         into every compiled file via the gcc option -include and pipes. 
         The configfile syntax is described within the file
@@ -75,7 +78,9 @@ before options and parameters for gcc.
 [--force] --genconf 'outfile' 'infile1' 'infile2' ...:
         parses the sourcefiles 'infile1',.. and writes a config into
         outfile, which enables compiling of all used minilib functions
-        within 'infiles'
+        within 'infiles'. 
+  			Most possibly you'll still have to edit the config manually,
+  			e.g. printf conversions aren't correctly recognized.
         After the config is written to outfile, 
         use the config file with --config 'outfile' 
           --force
@@ -110,8 +115,17 @@ before options and parameters for gcc.
 
 --dlog  debug log, write debug info to 'debuglog.n' (n counting up):
 
+--compat:
+        Include the provided compat headers (stdio.h,stdlib.h,...) directory 
+  			into the include search path.
+  			Using them is not recommended, they are not stable.
 
-\(c) 2019-2020 Michael misc Myer - BSD 3-clause
- ('mini-gcc --license' shows the terms)
+--fulldebug generate an outputfile (sourcefile.dbg.c) including the used parts:
+        of minilib, and compile this file to sourcefile.dbg with the options
+        -g2 -Og set.
+
+
+\(c) 2019-2021 Michael misc Myer. All rights reserved.
+ ('mini-gcc --license' shows the license)
 
 

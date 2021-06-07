@@ -27,7 +27,7 @@ SYSDEF_syscall(_mprotect,3, unsigned long start,  size_t len,  unsigned long pro
 
 SYSDEF_syscall(_munmap,2, unsigned long addr,  size_t len)
 
-SYSDEF_syscall(_brk,1, unsigned long brk)
+//SYSDEF_syscall(_brk,1, unsigned long brk)
 
 SYSDEF_syscall(_rt_sigaction,4, int sig,  const struct sigaction *act,  struct sigaction *oact,  size_t sigsetsize)
 
@@ -123,7 +123,8 @@ SYSDEF_syscall(_vfork,0)
 
 SYSDEF_syscall(_execve,3, const char *filename,  const char *const argv[],  const char *const envp[])
 
-SYSDEF_syscall(_exit,1, int error_code)
+// commented out. there is the global _exit, so.
+//SYSDEF_syscall(_exit,1, int error_code)
 
 SYSDEF_syscall(_wait4,4, pid_t upid,  int *stat_addr,  int options,  struct rusage *ru)
 
@@ -615,7 +616,7 @@ SYSDEF_syscall(_memfd_create,2, const char  *uname_ptr,  unsigned int flags)
 
 SYSDEF_syscall(_kexec_file_load,5, int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  *cmdline_ptr,  unsigned long flags)
 
-SYSDEF_syscall(_bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
+//SYSDEF_syscall(_bpf,3, int cmd,  union bpf_attr *attr,  unsigned int size)
 
 
 #endif

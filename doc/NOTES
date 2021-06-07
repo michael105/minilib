@@ -1,6 +1,119 @@
 ### assorted notes
 
 
+OPTIMIZE
+added compile switch optimize.
+Add a compile switch for sse/mmx instructions?
+(todo: write optimized versions of memcpy, memset, et al)
+
+
+
+closures.
+When closures are used, 
+gcc has to generate trampoline code.
+For this, the stack has to be executable.
+There are notes within the ldscripts,
+in howto get an executable stack.
+
+Renmoving the PT_STACK program header is another possibilty,
+which also saves a few bytes.
+The kernel will make the stack executable,
+when the according program header isn't present.
+
+The general opinion, this would be a security risk,
+ is plain wrong. The risk is there, if user input
+ is unchecked pushed onto the stack, what could lead 
+ to a stack overflow. But that's not really a difference to having 
+ an overflow within the bss or data section, for example.
+
+ The problem is there cause of unchecked input,
+ what cannot be fixed by making the stack not executable.
+
+I leave the stack unexecutable, albite this needs a few bytes.
+Just cause I know, malware scanning software would alarm.
+But. it is close to nonsense.
+
+
+about the differences of scripts and c
+
+seems, there should be something in between.
+would be better, having init scripts to be compiled binaries.
+
+so - I believe, the biggest difference is the one step more.
+
+scripts are just executed.
+c programs need to be compiled first, then run.
+
+This is already overcome with the switch --exec to mini-gcc.
+
+another difference: scripts start at the top.
+
+c programs at main.
+
+
+have to test closures in c.
+
+My idea is about a conglomeration of c and script.
+
+Somehow a reinvention of the wheel,
+and sametime, it's not very much work to implement.
+
+There are just some basic design questions:
+
+ what to do with errors?
+ pipes and redirections - not very asthetic,
+  but easy with macros like PIPE( cmd1, cmd2 )
+	can also be recursive.
+	PIPE( cmd1, PIPE( cmd2, cmd3 ) )
+
+hard to read.
+
+cpp would be advantegeous.
+
+there it might be possible to overwrite the '|' operator.
+
+or write the own parser.
+the parser just needs to recognize unquoted |,>
+
+
+another option:
+ 
+ doing a preparser,
+ just translating everything not being c to c.
+
+ (would also omit the ugly construct of 
+ #if 0
+ ...
+ return
+ #endif
+
+next idea. 
+ in general, boot scripts might have 3 stages:
+ init, run, shutdown
+
+ so - write 3 makros.
+ instead of int main(...)
+ just 
+
+ boot (
+ )
+ run (
+ )
+ shutdown (
+ )
+
+way better. and stupidly simple.
+
+so boot, run and shutdown can be compiled.
+ - better compile them separeted.
+ ->put them into the according folders
+
+needs a clean src/bin/runlevel structure
+
+
+
+---
+
 ldscript default and 
 defining mini_errno gives troubles.
 segfaults.
@@ -11,10 +124,11 @@ Most possibly the globals.
 
 Test: the stack address is known, 
 it's set by the ldscripts.
+(no. not known. stack randomization might
+be enabled on nearly all kernels)
 possibly drop the globals, instead 
 "push" the vars on the stack.
-
-I'm quite sure, either gcc or ld messes this up yet.
+(done)
 
 
 
@@ -41,6 +155,10 @@ Stackguard:
  Possibly I shouldn't add one at all.
 
  I already have some headache with fgets sort.
+ Security coniderations.
+
+ -> add a 'secured' buffer. 
+ (map protected, surrounded by guarded pages)
 
 
 Config system:
@@ -80,7 +198,7 @@ needed functions not.
 :/
 
 same with the config file generation for multiple source files.
-I do have to check that.
+have to check that.
 
 
 
@@ -107,6 +225,11 @@ security at all:
 (also: comparison to, e.g, the xserver..)
 
 	
+tools for analzying elf files:
+	readelf
+	elfls (elfkickers)
+	dumpelf
+	objdump
 
 
 
@@ -142,6 +265,7 @@ jmp WITHIN another instruction.
 
 --only-text could get selected automatic: bss/data sections aren't needed, when no globals are defined..
  so: insert a bss section var into genconfig.sh 
+ done. ("LDSCRIPT textonly")
 
 
 headers (compat-headers): also possible to just define e.g. _STDIO_H
@@ -284,6 +408,12 @@ After changing, you need to mark them as merged with
 git add <filename>
 before merging changes, you can also preview them by using
 git diff <source_branch> <target_branch>
+
+
+
+push to devel (from devel-HEAD)
+
+git push github devel-HEAD:devel
 
 
 tagging

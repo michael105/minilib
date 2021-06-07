@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 9.0.2">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_terminal"></a>terminal</h2>
+<a name="grantpt"></a><dl>
+<dt>
+grantpt
+</dt>
+<dd>
+<p>
+  <em>int grantpt(int fd)</em><br>
+ <strong>Defines:</strong> write ioctl strlen uitodec fstat open<br>
+ <strong>grant access to the slave pseudo-terminal device</strong>
+Size: ~44B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.49 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">grantpt</a><br>
+</p>
+</dd>
+<dt>
+isatty
+</dt>
+<dd>
+<p>
+  <em>int isatty(int fd)</em><br>
+ <strong>Defines:</strong> ioctl<br>
+ <strong>test for a terminal device</strong>
+Size: ~325B <a href="../../src/isatty.c">../src/isatty.c</a> l.5 manpage: <a href="../manpages/gen/ttyname.3.rst.html">isatty</a><br>
+</p>
+</dd>
+<dt>
+nanosleep
+</dt>
+<dd>
+<p>
+  <em>int nanosleep( struct timespec <strong>rqtp, struct timespec *rmtp)</em><br>
+ *high resolution sleep</strong>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.139 manpage: <a href="../manpages/sys/nanosleep.2.rst.html">nanosleep</a><br>
+</p>
+</dd>
+<dt>
+posix_openpt
+</dt>
+<dd>
+<p>
+  <em>int posix_openpt(int flags)</em><br>
+ <strong>Defines:</strong> open<br>
+ <strong>open a pseudo-terminal device</strong>
+Size: ~140B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.8 manpage: <a href="../manpages/sys/posix_openpt.2.rst.html">posix_openpt</a><br>
+</p>
+</dd>
+<dt>
+ptsname
+</dt>
+<dd>
+<p>
+  <em>char <strong>ptsname(int fd)</em><br>
+ *Defines:</strong> write ioctl strlen open uitodec<br>
+ <strong>get name of the slave pseudo-terminal device</strong>
+Size: ~1767B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.34 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
+</p>
+</dd>
+<dt>
+ptsname_r
+</dt>
+<dd>
+<p>
+  <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
+ *Defines:</strong> ioctl write uitodec open strlen<br>
+ <strong>get the name of the slave pseudoterminal</strong>
+Size: ~1748B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.21
+</p>
+</dd>
+<dt>
+tcgetattr
+</dt>
+<dd>
+<p>
+  <em>int tcgetattr(int fd, struct termios <strong>io)</em><br>
+ *Defines:</strong> ioctl<br>
+ <strong>get the parameters associated with the terminal</strong>
+Size: ~300B <a href="../../src/termios/tcgetattr.c">../src/termios/tcgetattr.c</a> l.19 manpage: <a href="../manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
+</p>
+</dd>
+<dt>
+tcsetattr
+</dt>
+<dd>
+<p>
+  <em>int tcsetattr(int fd, int opt, const struct termios <strong>io)</em><br>
+ *Defines:</strong> ioctl<br>
+ <strong>set the parameters associated with the terminal</strong>
+Size: ~316B <a href="../../src/termios/tcsetattr.c">../src/termios/tcsetattr.c</a> l.22 manpage: <a href="../manpages/gen/tcsetattr.3.rst.html">tcsetattr</a><br>
+</p>
+</dd>
+<dt>
+unlockpt
+</dt>
+<dd>
+<p>
+  <em>int unlockpt(int fd)</em><br>
+ <strong>Defines:</strong> ioctl<br>
+ <strong>unlock a pseudo-terminal master/slave pair</strong>
+Size: ~325B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.14 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">unlockpt</a><br>
+</p>
+</dd>
+<dt>
+vhangup
+</dt>
+<dd>
+<p>
+  <em>int DEF_syscall(vhangup,0 )</em><br>
+ <strong>virtually hangup the current terminal</strong>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.154
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2021-02-14 13:29:08 UTC
+</small></p>
+</body>
+</html>
