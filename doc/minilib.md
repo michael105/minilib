@@ -2014,7 +2014,7 @@ sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
                (src/process/sigaction.c: 56)
 
-sigsuspend     int sigsuspend( const sigset_t *mask );
+sigsuspend     static int sigsuspend( const sigset_t *mask );
 
                (src/process/sigaction.c: 51)
 

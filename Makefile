@@ -127,6 +127,9 @@ examples:
 test: 
 	cd test && make test
 
+testql: 
+	cd test && make testql
+
 retest: 
 	cd test && make retest
 

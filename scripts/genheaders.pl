@@ -111,6 +111,7 @@ my $minilibheader = "$mlibdir/minilib.h";
 my $miniconf = "$mlibdir/miniconf.h";
 
 my $funchash;
+my $srcincfiles;
 my $mlfunchash; # Non standard functions
 my $allfunchash; # Allfuncs.
 my $headerhash;
@@ -351,6 +352,7 @@ while ( my $file = shift ){
 										print {headerfh($header,$headerdir)} "// file: $file\n#include \"$file\"\n";
 										dbg "// file: $file\n#include \"$file\"\n";
 										$f->{inc} = 1;
+										#$f->{incfile} = $file;
 										$included = 1;
 								} elsif( $tag eq 'macro' ){
 										if ( $l =~ /^\/\/\+macro\s*(\S+)/ ){
@@ -759,6 +761,16 @@ sub headerinclude{
 				}
 		} else {
 				print $fh $funchash->{$i}->{def}."";
+				if ( $funchash->{$i}->{inc} ){
+					if ( !exists( $funchash->{$i}->{incfile} )){
+							$funchash->{$i}->{incfile} = $funchash->{$i}->{file};
+							$funchash->{$i}->{incfile} =~ s/[\/\.]/_/g;
+					}
+				   if ( !exists( $srcincfiles->{$funchash->{$i}->{incfile}} )){
+						$srcincfiles->{$funchash->{$i}->{incfile}} = $funchash->{$i}->{file};
+					}
+					print $fh "#define include_$funchash->{$i}->{incfile}\n";
+				}
 		}
 		print $fh "#endif\n";
 }
@@ -846,11 +858,23 @@ sub sourceinclude{
 		#}
 }
 
+foreach my $f ( keys(%{$srcincfiles}) ){
+		print $mc "\n// $srcincfiles->{$f}\n";
+		#if ( ! exists( $depends->{$i} ) ){
+		print $mc "#ifdef include_$f\n";
+		print $mc "#include \"$srcincfiles->{$f}\"\n";
+		print $mc "#endif\n";
+ }
+
 foreach my $f ( keys(%{$funchash}) ){
 	 if ( $f eq "0"){
 			 delete($funchash->{"0"});
 			 next;
 	 }
+	if ( exists( $funchash->{$f}->{incfile} ) ){
+		next;
+	}
+
 
 		dbg("kkk: $f ");
 

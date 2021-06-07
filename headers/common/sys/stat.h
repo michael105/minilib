@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 
-#include "bits/alltypes.h"
+#include "../bits/alltypes.h"
 
 
 #ifndef timevaldefined
