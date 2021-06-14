@@ -1,4 +1,3 @@
-
 /// Debugging macros
 #ifdef DEBUG
 #define mini_fputc
@@ -34,7 +33,4 @@ static inline int fputc(int c, int fd);
 #define dbgerrfif(a,...) {}
 
 #endif
-
-
-
 

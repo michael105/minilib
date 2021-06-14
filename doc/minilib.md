@@ -396,23 +396,23 @@ endpwent       void endpwent();
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 59)
+               (include/prints.h: 57)
 
 eprintf        #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
 
                write fmt and arguments to stderr. 
-               (include/prints.h: 132)
+               (include/prints.h: 133)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
-               (include/prints.h: 127)
+               (include/prints.h: 128)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 68)
+               (include/prints.h: 66)
 
 eprints        #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
@@ -428,7 +428,7 @@ eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 78)
+               (include/prints.h: 76)
 
 err            #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
 
@@ -465,13 +465,13 @@ errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(statu
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 89)
+               (include/prints.h: 87)
 
-ewritesl       #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
+ewritesl       #define ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
 
                write the constant str to stderr, followed by a newline. 
               Computes length with sizeof(str) at compile time.
-               (include/prints.h: 101)
+               (include/prints.h: 100)
 
 exit_errno     void exit_errno( int errnum );
 
@@ -550,7 +550,7 @@ fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
                write the constant str to fd. Computes length with sizeof(str) at compile time.
                (include/prints.h: 107)
 
-fwritesl       #define fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
+fwritesl       #define fwritesl(fd,str) write(fd,str"\n",sizeof(str)+1)
 
                write the constant str to fd,followed by a newline. 
               Computes length with sizeof(str) at compile time.
@@ -1374,18 +1374,18 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 55)
+               (include/prints.h: 53)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
-               (include/prints.h: 121)
+               (include/prints.h: 122)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 64)
+               (include/prints.h: 62)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -1654,13 +1654,13 @@ warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 85)
+               (include/prints.h: 83)
 
-writesl        #define writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
+writesl        #define writesl(str) write(STDOUT_FILENO,str "\n",sizeof(str)+1)
 
                write the constant str to stdout, followed by a newline. 
               Computes length with sizeof(str) at compile time.
-               (include/prints.h: 95)
+               (include/prints.h: 93)
 
 
 
@@ -2198,7 +2198,7 @@ putchar        #define putchar(c) fputc(c,stdout)
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 74)
+               (include/prints.h: 72)
 
 rewind         static inline void rewind( FILE *f );
 

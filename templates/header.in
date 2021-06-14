@@ -1,26 +1,16 @@
 /* templates/header.in */
 
 
-//#ifndef mini_INCLUDESRC
-//#ifdef INCLUDESRC
-//#define mini_INCLUDESRC
-//#endif
-//#endif
-
 
 #ifdef HEADERGUARDS
-#ifndef mini_HEADERGUARDS
 #define mini_HEADERGUARDS
 #endif
-#endif
 
-#ifndef mini_environ
 #ifdef mini_getenv
 #define mini_environ
 #endif
 #ifdef mini_system
 #define mini_environ
-#endif
 #endif
 
 #ifdef HEADERGUARDS
@@ -32,8 +22,8 @@
 
 #include "minilib/include/config.h"
 
-#include "minilib/macros/defgroups.h"
-
+#ifndef included_minilib_h
+// not minilib.h
 #include "minilib/headers/common/allheaders.h"
 #include "minilib/headers/linux_x64/allheaders.h"
 
@@ -43,6 +33,7 @@
 #include "minilib/include/dirent.h"
 #include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
+##endif
 
 
 #ifdef mini_GETOPTS

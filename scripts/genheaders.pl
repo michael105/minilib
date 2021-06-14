@@ -3,7 +3,7 @@
 # generate minilib.conf; genconf.sh; minilib.h; compat/*.h
 # callen by make header, make devel
 #
-# (c) 2019,2020 Michael misc Myer misc.myer@zoho.com;
+# (c) 2019-2021 Michael misc Myer misc.myer@zoho.com;
 # www.github.com/michael105; 
 # Licensing terms are attached at the bottom
 #
@@ -742,49 +742,50 @@ sub printdepend{
 # include the header files first, on which we depend,
 # or define the needed functions.
 sub headerinclude{
-		my $fh = shift;
-		my $i = shift;
-		print $fh "\n// $funchash->{$i}->{file}\n";
-		print $fh "#ifdef mini_$i\n";
-		if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
-				if ( exists($funchash->{$i}->{needs}) ){
-						foreach my $c ( split( " ", $funchash->{$i}->{needs} ) ){
-								if ( ! exists( $alreadyincluded->{$c} ) ){ # already incuded before. e.g. syscall.h
-										print $fh "#include \"$c\"\n";
-								}
-						}
+	my $fh = shift;
+	my $i = shift;
+	print $fh "\n// $funchash->{$i}->{file}\n";
+	print $fh "#ifdef mini_$i\n";
+	if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
+		if ( exists($funchash->{$i}->{needs}) ){
+			foreach my $c ( split( " ", $funchash->{$i}->{needs} ) ){
+				if ( ! exists( $alreadyincluded->{$c} ) ){ # already incuded before. e.g. syscall.h
+					print $fh "// needs\n#include \"$c\"\n";
 				}
-				if ( exists( $funchash->{$i}->{macro} ) ){
-						print $fh $funchash->{$i}->{def}."";
-				} else {
-						print $fh "#include \"$funchash->{$i}->{file}\"\n";
-				}
-		} else {
-				print $fh $funchash->{$i}->{def}."";
-				if ( $funchash->{$i}->{inc} ){
-					if ( !exists( $funchash->{$i}->{incfile} )){
-							$funchash->{$i}->{incfile} = $funchash->{$i}->{file};
-							$funchash->{$i}->{incfile} =~ s/[\/\.]/_/g;
-					}
-				   if ( !exists( $srcincfiles->{$funchash->{$i}->{incfile}} )){
-						$srcincfiles->{$funchash->{$i}->{incfile}} = $funchash->{$i}->{file};
-					}
-					print $fh "#define include_$funchash->{$i}->{incfile}\n";
-				}
+			}
 		}
-		print $fh "#endif\n";
+		if ( exists( $funchash->{$i}->{macro} ) ){
+			print $fh $funchash->{$i}->{def}."";
+		} else {
+			print $fh "#include \"$funchash->{$i}->{file}\"\n";
+		}
+	} else {
+		print $fh $funchash->{$i}->{def}."";
+		if ( $funchash->{$i}->{inc} ){
+			if ( !exists( $funchash->{$i}->{incfile} )){
+				$funchash->{$i}->{incfile} = $funchash->{$i}->{file};
+				$funchash->{$i}->{incfile} =~ s/[\/\.]/_/g;
+			}
+			if ( !exists( $srcincfiles->{$funchash->{$i}->{incfile}} )){
+				$srcincfiles->{$funchash->{$i}->{incfile}} = $funchash->{$i}->{file};
+			}
+			print $fh "#define include_$funchash->{$i}->{incfile}\n";
+		}
+	}
+	print $fh "#endif\n";
 }
 
 # MINILIB.H =========================================
 # Writing minilib.h starts here
 my $ml = headerfh( "minilib.h", $mlibdir );
 
-
 foreach my $d ( keys (%{$depends}) ){
 		printdepend($ml, $d);
 }
 
 print $ml "// Start incfirst\n";
+
+copytemplates( $ml, "$mlibdir", "minilib.h.include" );			
 
 foreach my $i ( keys(%{$includefirst}) ){
 		headerinclude( $ml, $i );
@@ -998,7 +999,7 @@ sub syscalldefine{
 				if ( $1 >= 4 ){
 						$def =~ s/define_syscall/define_syscall_noopt/;
 				}
-				print $fh "REAL_$def\n";
+				print $fh "#ifdef mini_$k\nREAL_$def#endif\n\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("REAL_$def\n");
 		}
