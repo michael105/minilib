@@ -940,15 +940,16 @@ template( "minilib.conf.all", "minilib_config", { Allswitches=>\&configallhandle
 #close($conf);
 
 sub configscripthandler{
-		my $fh = shift;
-		foreach my $func ( keys(%{$funchash}) ){
-						printf $fh "mini_$func(){ 
-  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
-	else echo  \"#define mini_$func $func\"
-	fi
-}\n";
-				}
-		return(1);
+	my $fh = shift;
+	foreach my $func ( keys(%{$funchash}) ){
+		printf $fh "mini_$func(){ mini_define $func $1; }\n";
+		#printf $fh "mini_$func(){ 
+		#  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
+		#	else echo  \"#define mini_$func $func\"
+		#	fi
+		#}\n";
+	}
+	return(1);
 }
 
 template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscripthandler } );
