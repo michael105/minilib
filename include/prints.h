@@ -48,8 +48,6 @@ extern int dprints(int fd, const char *msg,...);
 #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 
 
-
-
 //+depends write strlen
 //+doc write str to stdout. Needs strlen
 //+macro print(str) write(STDOUT_FILENO,str,strlen(str))
@@ -92,13 +90,15 @@ extern int dprints(int fd, const char *msg,...);
 //+depends write 
 //+doc write the constant str to stdout, followed by a newline. 
 // Computes length with sizeof(str) at compile time.
-//+macro writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
+//+macro writesl(str) write(STDOUT_FILENO,str "\n",sizeof(str)+1)
+////+macro writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
 
 
 //+depends write 
 //+doc write the constant str to stderr, followed by a newline. 
 // Computes length with sizeof(str) at compile time.
-//+macro ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
+//+macro ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
+////+macro ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
 
 
 
@@ -111,7 +111,8 @@ extern int dprints(int fd, const char *msg,...);
 //+depends write 
 //+doc write the constant str to fd,followed by a newline. 
 // Computes length with sizeof(str) at compile time.
-//+macro fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
+//+macro fwritesl(fd,str) write(fd,str"\n",sizeof(str)+1)
+////+macro fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
 
 
 
@@ -130,9 +131,6 @@ extern int dprints(int fd, const char *msg,...);
 //+depends fprintfs fputs strlen
 //+doc write fmt and arguments to stderr. 
 //+macro eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
-
-
-
 
 
 
