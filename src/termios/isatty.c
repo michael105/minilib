@@ -1,6 +1,6 @@
 //+header unistd.h
 //+include
-//+depends tcgetattr ioctl
+//+depends termio tcgetattr ioctl
 //+def
 int isatty(int fd){
 	struct termios term;

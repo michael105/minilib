@@ -2,6 +2,7 @@
 #define mini_byteorder_h
 
 
+//+depends network
 //+def 
 static uint16_t htons(uint16_t i){
 		union { uint16_t i; char c[2]; } u = { .i=i };
@@ -13,6 +14,7 @@ static uint16_t htons(uint16_t i){
 
 //+macro ntohs(i) htons(i)
 
+//+depends network
 //+def 
 static uint32_t htonl(uint32_t i){
 		union { uint32_t i; char c[4]; } u = { .i=i };

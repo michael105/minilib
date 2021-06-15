@@ -1,3 +1,4 @@
+//+depends network
 //+def
 int inet_aton(const char* s, struct in_addr *addr){
 		union { uint32_t i; char c[4]; } u = { .i=0 };

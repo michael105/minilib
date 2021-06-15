@@ -639,15 +639,15 @@ group_write
 
 htonl          static uint32_t htonl(uint32_t i);
 
-               (src/network/byteorder.c: 17)
+               (src/network/byteorder.c: 19)
 
 htons          static uint16_t htons(uint16_t i);
 
-               (src/network/byteorder.c: 6)
+               (src/network/byteorder.c: 7)
 
 inet_aton      int inet_aton(const char* s, struct in_addr *addr);
 
-               (src/network/inet_aton.c: 2)
+               (src/network/inet_aton.c: 3)
 
 inet_ntoa      char* inet_ntoa( struct in_addr in);
 
@@ -655,7 +655,7 @@ inet_ntoa      char* inet_ntoa( struct in_addr in);
               This returns a pointer to a string in the globals,
               therefore the routine isn't reentrant.
               (whoever thought this might be a good idea..)
-               (src/network/inet_ntoa.c: 6)
+               (src/network/inet_ntoa.c: 7)
 
 initgroups     int initgroups(const char* user, gid_t group);
 
@@ -1322,13 +1322,18 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
 
                (include/mremap.h: 4)
 
+network        
+
+               network definitions
+               (include/network.h: 4)
+
 ntohl          #define ntohl(i) htonl(i)
 
-               (src/network/byteorder.c: 29)
+               (src/network/byteorder.c: 31)
 
 ntohs          #define ntohs(i) htons(i)
 
-               (src/network/byteorder.c: 14)
+               (src/network/byteorder.c: 15)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
@@ -1419,7 +1424,8 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 219)
+               define passwd and group structures
+               (include/pwent.h: 5)
 
 ret_errno      #ifdef mini_errno
 
@@ -1557,7 +1563,7 @@ tcgetattr      int tcgetattr(int fd, struct termios *io);
 
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (src/termios/tcsetattr.c: 22)
+               (src/termios/tcsetattr.c: 18)
 
 term_width     int term_width();
 
@@ -2035,11 +2041,11 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerr       static inline void clearerr(FILE *f);
 
-               (include/mini_fstream.h: 184)
+               (include/mini_fstream.h: 183)
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 189)
+               (include/mini_fstream.h: 188)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
@@ -2052,11 +2058,11 @@ fdopen         FILE *fdopen(int fd, const char* mode);
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 170)
+               (include/mini_fstream.h: 169)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 177)
+               (include/mini_fstream.h: 176)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
@@ -2069,7 +2075,7 @@ fgetc          static inline int fgetc(FILE *F);
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 113)
+               (include/mini_fstream.h: 114)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
@@ -2128,7 +2134,7 @@ fputs          static inline int volatile fputs(const char *c, FILE *F);
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 148)
+               (include/mini_fstream.h: 147)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
@@ -2137,15 +2143,15 @@ freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 132)
+               (include/mini_fstream.h: 131)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 119)
+               (include/mini_fstream.h: 120)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 107)
+               (include/mini_fstream.h: 108)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
@@ -2202,18 +2208,18 @@ puts           #define puts(msg) ( print(msg) + printl() )
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 142)
+               (include/mini_fstream.h: 140)
 
 setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy function.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 197)
+               (include/mini_fstream.h: 196)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy function
-               (include/mini_fstream.h: 202)
+               (include/mini_fstream.h: 201)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -2548,7 +2554,7 @@ getgroups      int getgroups(int maxgroups, int *list);
 gethostname    static int gethostname(char *name,int len);
 
                gethostname
-               (src/network/gethostname.c: 3)
+               (src/network/gethostname.c: 4)
 
 isatty         int isatty(int fd);
 
@@ -2580,7 +2586,7 @@ tcgetattr      int tcgetattr(int fd, struct termios *io);
 
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (src/termios/tcsetattr.c: 22)
+               (src/termios/tcsetattr.c: 18)
 
 usleep         unsigned int volatile usleep(unsigned int useconds);
 

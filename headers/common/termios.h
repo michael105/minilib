@@ -1,7 +1,6 @@
-// source: musl
 #ifndef termios_xxxxx
 #define termios_xxxxx
-
+#ifdef mini_termio
 
 typedef unsigned char cc_t;
 typedef unsigned int speed_t;
@@ -190,5 +189,6 @@ struct termio
 #define EXTPROC 0200000
 
 #define XTABS  0014000
+#endif
 #endif
 #endif

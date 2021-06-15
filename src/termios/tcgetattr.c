@@ -14,7 +14,7 @@
 //#define TCGETS TIOCGETA
 //#endif
 
-//+depends ioctl
+//+depends termio ioctl
 //+def
 int tcgetattr(int fd, struct termios *io){
 	//return(ioctl(fd, 0x5401, io));

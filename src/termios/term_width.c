@@ -2,7 +2,7 @@
 // reads the environmental var COLS,
 // if not present, returns 80.
 // Doesn't check for the existence of a terminal.
-//+depends getenv environ
+//+depends termio getenv environ
 //+def
 int term_width(){
 	char *p = getenv("COLUMNS");
