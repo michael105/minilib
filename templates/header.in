@@ -22,6 +22,9 @@
 
 #include "minilib/include/config.h"
 
+#include "minilib/include/ctype.h"
+#include "minilib/include/syscall.h"
+
 #ifndef included_minilib_h
 // not minilib.h
 #include "minilib/headers/common/allheaders.h"
@@ -29,9 +32,7 @@
 
 #include "minilib/include/globaldefs.h"
 #include "minilib/include/minilib_global.h"
-#include "minilib/include/ctype.h"
 #include "minilib/include/dirent.h"
-#include "minilib/include/syscall.h"
 #include "minilib/include/syscall_stubs.h"
 #endif
 

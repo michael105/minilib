@@ -15,7 +15,7 @@ mini_buf 1024
 
 INCLUDESRC
 BINARY testprintf
-SOURCES $1 
+#SOURCES $1 
 
 return
 #endif

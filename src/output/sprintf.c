@@ -13,7 +13,7 @@
 #include "../macros/overrun.h"
 //#include "../include/write.h"
 #include "../include/exit.h" // Needed for testing for buffer overrun
-#include "../include/stdarg.h"
+//#include "../include/stdarg.h"
 
 
 #undef MINI_TEST_OVERRUN

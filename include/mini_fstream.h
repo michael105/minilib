@@ -102,6 +102,7 @@ static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f)
 		return(a);
 }
 
+#ifdef mini_lseek
 //+depends lseek
 //+inline
 static inline long ftell(FILE *f){
@@ -125,8 +126,6 @@ static inline int fsetpos(FILE *f, int pos ){
 		return(r); // todo set errno 
 }
 
-
-
 //+depends lseek
 //+inline
 static inline int fseek(FILE *f, long offset, int whence ){
@@ -136,12 +135,12 @@ static inline int fseek(FILE *f, long offset, int whence ){
 		return(r);
 }
 
-
 //+depends fseek
 //+inline
 static inline void rewind( FILE *f ){
 		fseek(f, 0, SEEK_SET);
 }
+#endif
 
 //+depends read
 //+inline

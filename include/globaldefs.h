@@ -11,15 +11,15 @@
 #endif
 
 #ifndef uint32_t
-#define uint32_t unsigned int
+typedef unsigned int uint32_t;
 #endif
 
 #ifndef uint8_t
-#define uint8_t unsigned char
+typedef unsigned char uint8_t;
 #endif
 
 #ifndef size_t
-#define size_t long
+typedef long size_t;
 #endif
 
 // Locks

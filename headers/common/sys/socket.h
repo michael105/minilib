@@ -1,5 +1,5 @@
-#ifndef	SYS_SOCKET_H
-#define	SYS_SOCKET_H
+#ifndef	ML_SOCKET_H
+#define	ML_SOCKET_H
 
 
 struct sockaddr {
