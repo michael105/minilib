@@ -4,12 +4,6 @@
 //+header ctype.h
 //+inc
 
-/*
-static __inline int __isspace(int _c)
-{
-	return _c == ' ' || (unsigned)_c-'\t' < 5;
-}
-*/
 
 //+nop 
 #define isalpha(a) (0 ? 1 : (((unsigned)(a)|32)-'a') < 26)
