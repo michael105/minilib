@@ -73,14 +73,6 @@
 #define mini_bufsize 0
 #endif
 
-// the structure keeping the files
-// passwd and group
-typedef struct {
-	char* file;
-	char* p;
-	char** p2;
-	int size;
-} userdb;
 
 typedef struct {
 		int errno;
