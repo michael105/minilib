@@ -569,7 +569,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/file/cksum.c" target="right">../src/file/cksum.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  17 </small></td><td><small> int dprints(int fd, const char *msg,...);
+<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  14 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/prints.c" target="right">../src/output/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
@@ -1700,7 +1700,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/directories/opendir.c" target="right">../src/directories/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  154 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  146 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -2061,7 +2061,10 @@
   if not present, returns 80.
   Doesn't check for the existence of a terminal.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  257 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small>termio</small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  5 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>termios structures and definitions
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/termio.h" target="right">../include/termio.h</a>  257 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>timerfd_create</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  248 </small></td><td><small> timerfd_create( int clockid,  int flags)
 </small></td></tr>

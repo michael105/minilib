@@ -379,7 +379,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/output/prints.c: 17)
+               (src/output/prints.c: 14)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -1366,7 +1366,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               With less overhead the macro OPTFENCE(...) goes.
               There the call to the "ipa" function is jumped over,
               via asm inline instructions. 
-               (include/minilib_global.h: 154)
+               (include/minilib_global.h: 146)
 
 poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
 
@@ -1572,6 +1572,11 @@ term_width     int term_width();
               if not present, returns 80.
               Doesn't check for the existence of a terminal.
                (src/termios/term_width.c: 7)
+
+termio         
+
+               termios structures and definitions
+               (include/termio.h: 5)
 
 token_i        int token_i( userdb* udb, char **p );
 

@@ -1,8 +1,5 @@
 #ifndef mini_dprints_c
 #define mini_dprints_c
-//#include "../include/write.h"
-//#include "../include/prints.h"
-//#include "../include/stdarg.h"
 
 #ifndef mini_prints
 #define mini_prints
