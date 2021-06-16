@@ -5,55 +5,59 @@
 # The output of this script generates minilib.conf.h
 # 
 
+# empty, to enable parsing 'makefiles'
+ifdef(){ 
+}
+
 mini_errno(){
-		echo "#define mini_errno $1"
+	echo "#define mini_errno $1"
 }
 
 compile(){
 	for f in `echo $* | tr ',' ' '`;
-		do "mini_$f"
+	do "mini_$f"
 	done
 }
 
 COMPILE(){
 	for f in `echo $* | tr ',' ' '`;
-		do "mini_$f"  
+	do "mini_$f"  
 	done
 }
 
 mini_start(){
-		echo "#define mini_start $1"
+	echo "#define mini_start $1"
 }
 mini_exit(){
-		echo "#define mini_exit $1"
+	echo "#define mini_exit $1"
 }
 
 LDSCRIPT(){
-		export LDSCRIPT="$1" 
+	export LDSCRIPT="$1" 
 }
 
 shrinkelf(){
-		export opt_shrinkelf=1
+	export opt_shrinkelf=1
 }
 
 SHRINKELF(){
-		export opt_shrinkelf=1
+	export opt_shrinkelf=1
 }
 
 ARCH(){
-		echo "#define MINILIB_ARCH $1"
-		export MINI_ARCH=$1
+	echo "#define MINILIB_ARCH $1"
+	export MINI_ARCH=$1
 }
 OS(){
-		echo "#define MINILIB_OS $1"
-		export MINI_OS=$1
+	echo "#define MINILIB_OS $1"
+	export MINI_OS=$1
 }
 mini_buf(){
-		echo "#define mini_buf $1"
+	echo "#define mini_buf $1"
 }
 
 mini_INCLUDESRC(){
-		echo "#define INCLUDESRC"
+	echo "#define INCLUDESRC"
 }
 
 OPTIMIZE(){
@@ -69,11 +73,11 @@ SOURCES(){
 }
 
 INCLUDESRC(){
-		echo "#define INCLUDESRC"
+	echo "#define INCLUDESRC"
 }
 
 mini_GETOPTS(){
-		echo "#define mini_GETOPTS"
+	echo "#define mini_GETOPTS"
 }
 
 # The (optimization)-flag, gcc is callen with.
@@ -81,27 +85,27 @@ mini_GETOPTS(){
 # -O2 and higher optimizations seem to give trouble.
 # -Os, -O0, -O1 passed all tests here and might be save.
 OPTFLAG(){
-		export OPTFLAG=$1
+	export OPTFLAG=$1
 }
 
 # The stripflag (defaults to -s)
 STRIPFLAG(){
-		export STRIPFLAG=$1
+	export STRIPFLAG=$1
 }
 
 
 # Generate debug symbols - don't optimize, don't strip
 DEBUG(){
-		export OPTFLAG='-Og -g'
-		export STRIPFLAG=""
-		export opt_shrinkelf=0
+	export OPTFLAG='-Og -g'
+	export STRIPFLAG=""
+	export opt_shrinkelf=0
 }
 
 
 # Generate debug symbols, including minilib's source.
 FULLDEBUG(){
-		export opt_shrinkelf=0
-		export fulldebug=1
+	export opt_shrinkelf=0
+	export fulldebug=1
 }
 
 
@@ -111,42 +115,42 @@ FULLDEBUG(){
 # and compiled to make this work
 
 mini_HEADERGUARDS(){
-		echo "#define HEADERGUARDS"
+	echo "#define HEADERGUARDS"
 }
 
 
 HEADERGUARDS(){
-		echo "#define HEADERGUARDS"
+	echo "#define HEADERGUARDS"
 }
 
 
 mini_syscalls(){
-		echo "#define mini_syscalls"
+	echo "#define mini_syscalls"
 }
 
 globals_on_stack(){
-		echo "#define mini_globals_on_stack"
+	echo "#define mini_globals_on_stack"
 }
 
 mini_globals(){
-		echo "#define mini_globals"
+	echo "#define mini_globals"
 }
 
 define(){
-		param=$1
-		shift
+	param=$1
+	shift
 	echo "#define" $param \"$*\"
 }
 
 DEFINE(){
-		param=$1
-		shift
-		echo "#define" $param \"$*\"
-		#echo "#define" $1 $2
+	param=$1
+	shift
+	echo "#define" $param \"$*\"
+	#echo "#define" $1 $2
 }
 
 embed(){
-		export embed="$*"
+	export embed="$*"
 }
 
 mini_getopt(){

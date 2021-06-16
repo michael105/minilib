@@ -15,7 +15,7 @@ NOW=$(shell echo `date '+%F %T'` )
 
 #include Makefile.template
 
-.PHONY: test combined header tools
+.PHONY: test combined header tools Makefile.minilib
 
 define HELP
 
@@ -191,6 +191,14 @@ combined: tools
 	gzip -c minilibcompiled.h > minilibcompiled.h.gz
 
 
+Makefile.minilib:
+	echo generate Makfile.minilib
+	sed -e 's/\$$/$$$$/g' scripts/genconfig.sh > scripts/genconfig.sh.include
+	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh.include' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
+
+
+
 hello-combinedb: hello-combined.c tools
 	make SINGLERUN=1 PROG=hello-combined
 
@@ -209,3 +217,6 @@ syntaxcheck:
 			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
 	@echo Ok.
+
+
+

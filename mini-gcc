@@ -15,6 +15,37 @@ verbose=0
 # Or use the individual files, whem existing within MLIBDIR
 useincludedminilib=0
 
+
+#everything between _start and _end is extracted and inserted into Makefile.minilib
+#defaultvalues_start
+
+# gcc options
+# only linux x64 for now.
+
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -fno-pic\
+		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
+
+#COMPATHEADER="-I$MLIBDIR/compat" 
+		#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
+	
+OPTFLAG="-Os"
+
+#strip symbols
+STRIPFLAG="-s"
+
+# needs os detection. but not important for now
+CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
+
+# ld options 
+CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+
+# (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
+LDSCRIPT="default"
+
+#defaultvalues_end
+
+
 # grep mini-gcc path 
 MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
 if [ ! -e "$MLIBDIR/minilib.h" ]; then
@@ -24,12 +55,16 @@ if [ ! -e "$MLIBDIR/minilib.h" ]; then
 		fi
 fi
 
+INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \
+		-I$MLIBDIR/include "
+	
 
 if [ ! -e "$MLIBDIR/minilib.h" ]; then # minilib not found. check, if included
 		if [  "`sed -n '/^#MINILIBGZ/,+3p' $0 | sed -n '3s/.*/1/p'`" = 1 ];then
 				useincludedminilib=1
 		fi
 fi
+
 
 echo_verbose(){
 		if [ $verbose = 1 ]; then
@@ -48,37 +83,6 @@ fail(){
 	echo $RED$* $NORM
 	exit 1
 }
-
-
-# gcc options
-# only linux x64 for now.
-
-COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -fno-pic\
-		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
-		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
-
-INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \
-		-I$MLIBDIR/include "
-		
-#COMPATHEADER="-I$MLIBDIR/compat" 
-		#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
-OPTFLAG="-Os"
-
-#strip symbols
-STRIPFLAG="-s"
-
-# needs os detection. but not important for now
-CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
-
-# ld options 
-CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
-#CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s,--allow-multiple-definition"
-#CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,-s"
-
-# (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
-LDSCRIPT="default"
-
-#LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPT) -nostartfiles -O 2
 
 
 PARSE=1
