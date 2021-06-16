@@ -2,20 +2,25 @@
 # Makefile for minilib
 # 
 
-ifndef conf
-	conf:=minilib.conf
+ifndef CONF
+	CONF:=minilib.conf
 endif
 
 .ONESHELL:
 genconfig:
-	@echo generate config 1>&2
+	echo generate config 1>&2
 	source $(defaultvalues)
 	source $(genconfig)
-	source $(conf)
+	source $(CONF) > $(CONF).h
 	echo $$LDSCRIPT
+	echo "$(ldscripts/ld.script.default)" > $(CONF).ldscript
 
 
+	#sed -e '/^#ldscripts.ld.script.default$$/,/^#ldscripts.ld.script.default$$/!d;/^#/d'  Makefile.minilib
 
+define test/t1.t2 =
+hello 1
+endef
 
 define genconfig =
 #genconfig_start
@@ -893,9 +898,8 @@ LDSCRIPT="default"
 endef
 
 
-ifdef undef
 #ldscripts_start
-#ldscripts/ld.script.exec
+define ldscripts/ld.script.exec =
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -978,8 +982,8 @@ SECTIONS {
 }
 
 
-#ldscripts/ld.script.exec
-#ldscripts/ld.script.textandbss
+endef
+define ldscripts/ld.script.textandbss =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
 
@@ -1060,8 +1064,8 @@ misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 }
 
 
-#ldscripts/ld.script.textandbss
-#ldscripts/ld.script.default_execstack
+endef
+define ldscripts/ld.script.default_execstack =
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -1144,8 +1148,8 @@ SECTIONS {
 }
 
 
-#ldscripts/ld.script.default_execstack
-#ldscripts/ld.script.onlytext_tiny
+endef
+define ldscripts/ld.script.onlytext_tiny =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)
 */
@@ -1225,8 +1229,8 @@ misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 }
 
 
-#ldscripts/ld.script.onlytext_tiny
-#ldscripts/ld.script.onlytext
+endef
+define ldscripts/ld.script.onlytext =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)
 */
@@ -1306,8 +1310,8 @@ misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 }
 
 
-#ldscripts/ld.script.onlytext
-#ldscripts/ld.script.bloating
+endef
+define ldscripts/ld.script.bloating =
 
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
@@ -1373,8 +1377,8 @@ SECTIONS
 }
 
 
-#ldscripts/ld.script.bloating
-#ldscripts/ld.script.text_and_bss
+endef
+define ldscripts/ld.script.text_and_bss =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
 
@@ -1455,8 +1459,8 @@ misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 }
 
 
-#ldscripts/ld.script.text_and_bss
-#ldscripts/ld.script.default
+endef
+define ldscripts/ld.script.default =
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -1539,5 +1543,4 @@ SECTIONS {
 }
 
 
-#ldscripts/ld.script.default
-endif
+endef
