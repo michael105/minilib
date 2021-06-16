@@ -1,4 +1,6 @@
 #ifdef mini_pwent
+#ifndef mini_pwent_h
+#define mini_pwent_h
 
 //+doc define passwd and group structures
 //+def pwent
@@ -32,4 +34,5 @@ typedef struct {
 } userdb;
 
 
+#endif
 #endif

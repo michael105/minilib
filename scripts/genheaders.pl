@@ -739,6 +739,13 @@ sub printdepend{
 		print $fh "#endif\n"
 }
 
+sub pathconv{
+	my $p = shift;
+	$p=~s/[\/\.]/_/g;
+	$p;
+}
+my $neededheader;
+my $includeheader;
 # include the header files first, on which we depend,
 # or define the needed functions.
 sub headerinclude{
@@ -749,15 +756,19 @@ sub headerinclude{
 	if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
 		if ( exists($funchash->{$i}->{needs}) ){
 			foreach my $c ( split( " ", $funchash->{$i}->{needs} ) ){
-				if ( ! exists( $alreadyincluded->{$c} ) ){ # already incuded before. e.g. syscall.h
-					print $fh "// needs\n#include \"$c\"\n";
-				}
+				#if ( ! exists( $alreadyincluded->{$c} ) ){ # already incuded before. e.g. syscall.h
+				#	print $fh "// needs\n#include \"$c\"\n";
+				#}
+				$neededheader->{pathconv($c)}=$c;
+				printf $fh "// needs\n#define ". pathconv($c) ."\n";
 			}
 		}
 		if ( exists( $funchash->{$i}->{macro} ) ){
 			print $fh $funchash->{$i}->{def}."";
 		} else {
-			print $fh "#include \"$funchash->{$i}->{file}\"\n";
+			#print $fh "#include \"$funchash->{$i}->{file}\"\n";
+			$includeheader->{pathconv($funchash->{$i}->{file})}=$funchash->{$i}->{file};
+			print $fh "#define ". pathconv($funchash->{$i}->{file}) ."\n";
 		}
 	} else {
 		print $fh $funchash->{$i}->{def}."";
@@ -783,6 +794,12 @@ foreach my $d ( keys (%{$depends}) ){
 		printdepend($ml, $d);
 }
 
+foreach my $d ( keys (%{$depends}) ){
+		printdepend($ml, $d);
+}
+
+
+
 print $ml "// Start incfirst\n";
 
 copytemplates( $ml, "$mlibdir", "minilib.h.include" );			
@@ -798,6 +815,18 @@ foreach my $i ( keys(%{$funchash}) ){
 				headerinclude( $ml, $i );
 		}
 }
+
+print $ml "\n// needed\n";
+foreach my $k ( keys(%{$neededheader}) ){
+	print $ml "#ifdef $k\n#include \"$neededheader->{$k}\"\n#endif\n";
+}
+
+print $ml "\n// include\n";
+foreach my $k ( keys(%{$includeheader}) ){
+	print $ml "#ifdef $k\n#include \"$includeheader->{$k}\"\n#endif\n";
+}
+
+
 
 print $ml <<TMPL_END;
 #ifdef INCLUDESRC

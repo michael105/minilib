@@ -387,11 +387,11 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
 endgrent       void endgrent();
 
-               (src/userdb/endgrent.c: 3)
+               (src/userdb/endgrent.c: 4)
 
 endpwent       void endpwent();
 
-               (src/userdb/endpwent.c: 3)
+               (src/userdb/endpwent.c: 4)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
@@ -1425,7 +1425,7 @@ putenv         int putenv( char *string );
 pwent          
 
                define passwd and group structures
-               (include/pwent.h: 5)
+               (include/pwent.h: 7)
 
 ret_errno      #ifdef mini_errno
 
@@ -1991,11 +1991,11 @@ signal.h
 
 raise          static inline int raise(int signr);
 
-               (src/process/sigaction.c: 139)
+               (src/process/sigaction.c: 145)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/process/sigaction.c: 111)
+               (src/process/sigaction.c: 117)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
@@ -2003,7 +2003,7 @@ sigaddset      int sigaddset(sigset_t *set, int sig);
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
 
-               (src/process/sigaction.c: 62)
+               (src/process/sigaction.c: 68)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
@@ -2015,7 +2015,7 @@ sigfillset     static int sigfillset(sigset_t *set);
 
 sigismember    int sigismember(sigset_t *set, int sig);
 
-               (src/process/sigaction.c: 79)
+               (src/process/sigaction.c: 85)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
@@ -2023,11 +2023,11 @@ signal         sighandler_t signal(int sig, sighandler_t func );
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
-               (src/process/sigaction.c: 56)
+               (src/process/sigaction.c: 61)
 
 sigsuspend     static int sigsuspend( const sigset_t *mask );
 
-               (src/process/sigaction.c: 51)
+               (src/process/sigaction.c: 53)
 
 
 
@@ -2046,15 +2046,15 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerr       static inline void clearerr(FILE *f);
 
-               (include/mini_fstream.h: 183)
+               (include/mini_fstream.h: 191)
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 188)
+               (include/mini_fstream.h: 196)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-               (include/mini_fstream.h: 65)
+               (include/mini_fstream.h: 67)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
@@ -2063,11 +2063,11 @@ fdopen         FILE *fdopen(int fd, const char* mode);
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 169)
+               (include/mini_fstream.h: 177)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 176)
+               (include/mini_fstream.h: 184)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
@@ -2076,11 +2076,11 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
 
 fgetc          static inline int fgetc(FILE *F);
 
-               (include/fgetc.h: 11)
+               (src/streams/fgetc.c: 5)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 114)
+               (include/mini_fstream.h: 118)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
@@ -2098,7 +2098,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 81)
+               (include/mini_fstream.h: 85)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
 
@@ -2139,7 +2139,7 @@ fputs          static inline int volatile fputs(const char *c, FILE *F);
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 147)
+               (include/mini_fstream.h: 153)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
@@ -2148,27 +2148,27 @@ freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 131)
+               (include/mini_fstream.h: 135)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 120)
+               (include/mini_fstream.h: 124)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 108)
+               (include/mini_fstream.h: 112)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 92)
+               (include/mini_fstream.h: 96)
 
 getc           #define getc(F) fgetc(F)
 
-               (include/fgetc.h: 26)
+               (include/fgetc.h: 8)
 
 getchar        #define getchar() fgetc(0)
 
-               (include/fgetc.h: 29)
+               (include/fgetc.h: 11)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
@@ -2196,7 +2196,7 @@ perror         void perror(const char *msg);
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-               (include/mini_fstream.h: 77)
+               (include/mini_fstream.h: 81)
 
 putc           #define putc(c,stream) fputc(c,stream)
 
@@ -2213,18 +2213,18 @@ puts           #define puts(msg) ( print(msg) + printl() )
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 140)
+               (include/mini_fstream.h: 144)
 
 setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy function.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 196)
+               (include/mini_fstream.h: 204)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy function
-               (include/mini_fstream.h: 201)
+               (include/mini_fstream.h: 209)
 
 sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
 
@@ -2235,11 +2235,11 @@ ungetc         static int ungetc(int c, FILE *F);
                pushes one char back to the stream.
               Overwrites a previously pushed char
               (conforming to the posix spec) 
-               (include/fgetc.h: 35)
+               (src/streams/ungetc.c: 5)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 86)
+               (include/mini_fstream.h: 90)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
 

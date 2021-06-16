@@ -1,4 +1,5 @@
 #define mini_start
+#define mini_write
 #define mini_select
 #define mini_strlen
 #define mini_printf

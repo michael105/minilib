@@ -1,5 +1,5 @@
-#ifndef mini_fstream_h
-#define mini_fstream_h
+#ifndef inc_mini_fstream_h
+#define inc_mini_fstream_h
 
 #include "stdarg.h"
 
@@ -60,6 +60,8 @@ static int fileno( FILE *f ){
 ////+macro
 //#define fileno(stream) ({union ful { FILE *F; int i, fd;};ful.F=stream;ful.fd;})
 
+#ifdef mini_fclose
+
 //+depends close
 //+inline
 static inline int __attribute__((always_inline)) fclose( FILE* f ){
@@ -72,16 +74,18 @@ static inline int __attribute__((always_inline)) fclose( FILE* f ){
 		return( close(fd) );
 }
 
-//+depends fprintf fileno snprintf vsnprintf
+#endif
+
+//+depends fprintf fileno snprintf vsnprintf write strlen
 //+macro
 #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-//+depends fprintf fileno snprintf vsnprintf
+//+depends fprintf fileno snprintf vsnprintf write strlen
 //+macro
 #define fprint(...) fprintf(__VA_ARGS__)
 
 
-//+depends fprintf fileno snprintf vsnprintf
+//+depends fprintf fileno snprintf vsnprintf write strlen
 //+macro
 #define vfprintf(...) fprintf(__VA_ARGS__)
 
@@ -142,6 +146,8 @@ static inline void rewind( FILE *f ){
 }
 #endif
 
+#ifdef mini_fread
+
 //+depends read
 //+inline
 static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
@@ -156,6 +162,8 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 		}
 		return(a);
 }
+
+#endif
 
 //todo: case eagain
 

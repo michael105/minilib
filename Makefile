@@ -136,7 +136,8 @@ retest:
 header:
 	cd headers && make
 	scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h minilib/macros/*.h minilib/src/*/*.c
-			rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
+	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
 # ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
 
@@ -186,6 +187,7 @@ combined: tools
 #	cp templates/LICENSE.tmpl minilibcompiled.h
 #	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h
 #	gzip -c minilibcompiled.c > minilibcompiled.c.gz
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilibcompiled.h
 	gzip -c minilibcompiled.h > minilibcompiled.h.gz
 
 
