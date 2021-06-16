@@ -751,6 +751,9 @@ my $includeheader;
 sub headerinclude{
 	my $fh = shift;
 	my $i = shift;
+	if ( $funchash->{$i}->{file} =~ /syscall_stubs.h$/ ){
+		next;
+	}
 	print $fh "\n// $funchash->{$i}->{file}\n";
 	print $fh "#ifdef mini_$i\n";
 	if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
