@@ -2,23 +2,18 @@
 # Makefile for minilib
 # 
 
+ifndef conf
+	conf:=minilib.conf
+endif
 
 .ONESHELL:
 genconfig:
 	@echo generate config 1>&2
-	source $(defaultvars)
+	source $(defaultvalues)
 	source $(genconfig)
-	source $(CONF)
+	source $(conf)
 	echo $$LDSCRIPT
 
-
-
-
-define defaultvalues =
-#defaultvalues_start
-LDSCRIPT=text
-#defaultvalues_end
-endef
 
 
 
@@ -30,6 +25,11 @@ define genconfig =
 # (or another config file)
 # The output of this script generates minilib.conf.h
 # 
+
+# empty, to enable parsing 'makefiles'
+ifdef(){ 
+	echo -n
+}
 
 mini_errno(){
 	echo "#define mini_errno $$1"
@@ -860,3 +860,684 @@ mini_link(){ mini_define link generate; }
 #genconfig_end
 endef
 
+
+
+define defaultvalues =
+#defaultvalues_start
+
+# gcc options
+# only linux x64 for now.
+
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -fno-pic\
+		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
+
+#COMPATHEADER="-I$$MLIBDIR/compat" 
+		#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
+	
+OPTFLAG="-Os"
+
+#strip symbols
+STRIPFLAG="-s"
+
+# needs os detection. but not important for now
+CFLAGS="$$COMMONCFLAGS -DLINUX -DX64"
+
+# ld options 
+CFLAGS="$$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+
+# (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
+LDSCRIPT="default"
+
+#defaultvalues_end
+endef
+
+
+ifdef undef
+#ldscripts_start
+#ldscripts/ld.script.exec
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x7) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x7) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+#ldscripts/ld.script.exec
+#ldscripts/ld.script.textandbss
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+#ldscripts/ld.script.textandbss
+#ldscripts/ld.script.default_execstack
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x7) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+#ldscripts/ld.script.default_execstack
+#ldscripts/ld.script.onlytext_tiny
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	/* stack PT_GNU_STACK FLAGS(0x6) ; */
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
+}
+
+
+#ldscripts/ld.script.onlytext_tiny
+#ldscripts/ld.script.onlytext
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	stack PT_GNU_STACK FLAGS(0x6) ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
+}
+
+
+#ldscripts/ld.script.onlytext
+#ldscripts/ld.script.bloating
+
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text.exit .text.exit.*)
+						*(.text.startup .text.startup.*)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+		 }
+		.bss            :
+		{ 
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(.bss)
+						*(.shstrtab)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  */
+						. = ALIGN(. != 0 ? 32 / 8 : 1);
+						_bssend = . ;
+						_brk = .;
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(.note*)
+			}
+}
+
+
+#ldscripts/ld.script.bloating
+#ldscripts/ld.script.text_and_bss
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+#ldscripts/ld.script.text_and_bss
+#ldscripts/ld.script.default
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+							 FIXME: Why do we need it? When there is no .bss section, we dont
+							 pad the .data section.  
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+#ldscripts/ld.script.default
+endif

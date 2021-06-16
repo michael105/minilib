@@ -7,6 +7,7 @@
 
 # empty, to enable parsing 'makefiles'
 ifdef(){ 
+	echo -n
 }
 
 mini_errno(){

@@ -192,11 +192,14 @@ combined: tools
 
 
 Makefile.minilib:
-	echo generate Makfile.minilib
-	sed -e 's/\$$/$$$$/g' scripts/genconfig.sh > scripts/genconfig.sh.include
-	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh.include' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
-	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
-
+	echo generate Makefile.minilib
+	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
+	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
+	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
+	$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
+	echo "endif" >> Makefile.minilib
 
 
 hello-combinedb: hello-combined.c tools
