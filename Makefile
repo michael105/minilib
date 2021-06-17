@@ -120,7 +120,7 @@ default: help
 
 all: header combined compile-mini-gcc doc examples test syntaxcheck
 
-devel: header combined compile-mini-gcc 
+devel: header combined compile-mini-gcc Makefile.minilib
 
 examples:
 	cd examples && make
@@ -196,7 +196,7 @@ combined: tools
 
 Makefile.minilib:
 	echo generate Makefile.minilib
-	sed -i -e 's/^VERSION:=.*/VERSION=$(NOW)/' Makefile.minilib
+	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' Makefile.minilib
 	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
 	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
 	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
