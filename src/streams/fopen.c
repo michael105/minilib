@@ -1,8 +1,9 @@
-#ifndef mini_fopen_c
-#define mini_fopen_c
+#ifndef inc_mini_fopen_c
+#define inc_mini_fopen_c
 
 
 //+header stdio.h
+//+include
 //+depends open _fopen fileno close
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+

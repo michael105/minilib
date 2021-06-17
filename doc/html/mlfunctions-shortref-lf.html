@@ -675,7 +675,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  169 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  177 </small></td><td><small>   int feof(FILE *f);
@@ -716,7 +716,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/flock.2.rst.html">flock</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  129 </small></td><td><small> flock( unsigned int fd,  unsigned int cmd)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  137 </small></td><td><small> DEF_syscall(fork,0)
@@ -775,7 +775,7 @@
   malloc_brk before.
   Then brk() gives an error, return the return value of brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  31 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  135 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
@@ -1867,9 +1867,9 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
   (default:4096)
  </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  23 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  3 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/math/hashes.c" target="right">../src/math/hashes.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/math/sdbm_hash.c" target="right">../src/math/sdbm_hash.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/directories/seekdir.c" target="right">../src/directories/seekdir.c</a>  17 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>

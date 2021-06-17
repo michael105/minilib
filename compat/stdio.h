@@ -140,14 +140,7 @@ char* fgets(char *buf, int size, FILE* F);
 #define gets(F) fgets(F,0xfffffff,stdin)
 
 // file: minilib/src/streams/fopen.c
-FILE *fopen(const char* filename, const char* mode);
-
-// file: minilib/src/streams/fopen.c
-FILE *fdopen(int fd, const char* mode);
-
-// file: minilib/src/streams/fopen.c
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-
+#include "minilib/src/streams/fopen.c"
 // file: minilib/src/streams/ungetc.c
 static int ungetc(int c, FILE *F);
 
@@ -158,16 +151,15 @@ static int ungetc(int c, FILE *F);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/include/prints.h"
-#include "minilib/include/fputc.h"
-#include "minilib/src/streams/ungetc.c"
-#include "minilib/src/streams/_fopen.c"
-#include "minilib/include/fgetc.h"
 #include "minilib/src/output/perror.c"
-#include "minilib/src/streams/fopen.c"
-#include "minilib/src/streams/fgets.c"
-#include "minilib/src/streams/fgetc.c"
 #include "minilib/src/output/vsprintf.c"
+#include "minilib/src/streams/_fopen.c"
+#include "minilib/src/streams/fgets.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/streams/fgetc.c"
+#include "minilib/src/streams/ungetc.c"
+#include "minilib/include/fputc.h"
+#include "minilib/include/fgetc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
