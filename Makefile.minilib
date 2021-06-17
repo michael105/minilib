@@ -70,7 +70,7 @@ default: $(BUILDDIR) minilib.h
 	echo generate $(BUILDDIR)/$(CONF).ldscript
 	echo "$(ldscripts/ld.script.default)" > $(BUILDDIR)/$(CONF).ldscript || exit 1
 	echo compile $$SOURCES to $$BINARY
-	$(GCC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript -o $$BINARY $$SOURCES
+	$(if $(SHOWSOURCE),($(GCC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -E -P),($(GCC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript -o $$BINARY $$SOURCES))
 
 
 minilib.h:
