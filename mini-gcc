@@ -495,8 +495,7 @@ endif
 
 urlbase = "https://raw.githubusercontent.com/michael105/minilib/download"
 
-fetch = "$(shell ((wget $(urlbase)/$(1).gz ) \
-	   || (curl $(urlbase)/$(1).gz > $(1).gz) && gunzip $(1).gz) )"
+fetch = $(shell ((curl $(urlbase)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(1).gz)) && gunzip $(1).gz)
 	
 
 default: Makefile.minilib
