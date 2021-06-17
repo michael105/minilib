@@ -240,8 +240,8 @@ if [ "$opt_execname" != "" ]; then # compile and execute
 		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
 fi
 
-if [ -n "$binary" ]; then
-	opt_args="-o $binary $opt_args"
+if [ -n "$outputfile" ]; then
+	opt_args="-o $outputfile $opt_args"
 	echo B: $binary 1>&2
 fi
 
