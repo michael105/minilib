@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-# This is a script I use to bring up splitvt in an xterm.
-
-exec \
-xterm -fn 9x15 -132 -cr red +ls \
-	-bg peachpuff -fg "steel blue" -geometry 80x49 -e \
-splitvt -t "Xsplitvt" -rcfile $HOME/.xsplitvtrc

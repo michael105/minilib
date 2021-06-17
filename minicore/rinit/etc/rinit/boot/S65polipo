@@ -1,4 +1,0 @@
-#!/bin/sh
-
-sg polipo "polipo -c /etc/polipo/config" 2>/var/log/polipo.log &
-
