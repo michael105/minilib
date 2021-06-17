@@ -1,11 +1,38 @@
+# Makefile for minilib
 # 
-# This makefile is part of minilib
-# (https://github.com/michael105/minilib)
+# call with 'make -f Makefile.minilib [CONF=configfile.conf]'
 #
-#
+# When minilib.h is not present,
+# it will be downloaded from github. (100kB gzipped)
 # 
+# Dependencies: gcc, sed
+# 
+# Minilib and the accompanying tools and scripts are licensed under a 
+# BSD-style opensource license with attribution.
+# I did my best and I'm using minilib myself,
+# but cannot give any guarantees for any functionality
+# of the opensourced library or the accompanying tools.
+#
+# (Disclaimer)
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# The full license is available at the webpage of minilib.
+# https://github.com/michael105/minilib
+# Michael (misc) Myer, 2012-2021
+#
 
 
+
+VERSION:="2021"
 
 #default values
 ifndef CONF
@@ -17,7 +44,7 @@ ifndef GCC
 endif
 
 ifndef BUILDDIR
-	BUILDDIR:=build2
+	BUILDDIR:=build
 endif
 
 
