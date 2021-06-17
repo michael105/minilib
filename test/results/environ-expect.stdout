@@ -1,9 +1,0 @@
-getenv.
-./environ
-argument1
-/home/testvalue
-Ok
-a: 0
-a: 1
-a: 2
-a out: 3

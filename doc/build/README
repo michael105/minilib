@@ -1,8 +1,0 @@
-edit minilib-reference.in.2,
-save as minilib-reference.sortme.1 (overwrite)
-
-edit: categories, or 
-(when the category is unsorted,c:unsorted)
-copy the lines under the target category.
-
-run makereference.pl

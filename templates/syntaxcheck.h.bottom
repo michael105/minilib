@@ -1,9 +1,0 @@
-
-
-static void* __attribute__((optimize("O0"))) mmap(void* addr, long len, int prot, int flags, int fd, off_t off){}
-static void* sbrk(long incr){}
-static inline int fgetc(FILE *F){}
-static int fileno(FILE *F){}
-#endif
-#endif
-

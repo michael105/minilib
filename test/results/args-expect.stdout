@@ -1,5 +1,0 @@
-argc: 1
-argv: ./args
-argv[argc-1]: ./args
-env: TTM2=asdf
-env: TTM1=Hallo

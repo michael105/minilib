@@ -1,6 +1,0 @@
-strcmp(hello,someth)<0
-strcmp(hello,soth)<0
-strcmp(hello,sth)<0
-strcmp(xhello,soth)>0
-strcmp(xhlo,soth)>0
-strcmp(xlo,soth)>0
