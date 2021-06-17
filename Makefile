@@ -155,6 +155,8 @@ mini-gcc: scripts/genconfig.sh ldscript
 
 compile-mini-gcc: mini-gcc unpack-mini-gcc
 	gzip -c minilibcompiled.h >> mini-gcc
+	echo -e "\n#ENDGZ" >> mini-gcc
+
 
 unpack-mini-gcc:
 	sed '/^#MINILIBGZ#$$/q' mini-gcc > mini-gcc.tmp

@@ -17,7 +17,7 @@ ifndef GCC
 endif
 
 ifndef BUILDDIR
-	BUILDDIR:=build
+	BUILDDIR:=build2
 endif
 
 

@@ -252,6 +252,7 @@ sub minilibcfh{
 
 # iterate over commandline args
 while ( my $file = shift ){
+	dbg("File: $file\n");
 		open (F, "<", $file) or die;
 		my @fa = <F>;
 		close( F );
