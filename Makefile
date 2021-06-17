@@ -10,7 +10,8 @@ endif
 ONLYTEXT=1
 NOINCLUDE=1
 
-NOW=$(shell echo `date '+%F %T'` )
+NOW="$(shell date '+%Y%m%d')"
+#NOW=$(shell echo `date '+%F %T'` )
 #NOW=$(shell echo `date +%F` r$$[ `date +%s` - 1579400000 ] )
 
 #include Makefile.template
@@ -119,7 +120,7 @@ default: help
 
 all: header combined compile-mini-gcc doc examples test syntaxcheck
 
-devel: header combined compile-mini-gcc 
+devel: header combined compile-mini-gcc Makefile.minilib
 
 examples:
 	cd examples && make
@@ -149,7 +150,7 @@ mini-gcc: scripts/genconfig.sh ldscript
 	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh
 	scripts/template.pl mini-gcc genconf-macros minilib.genconf.h
 	scripts/template.pl mini-gcc headerguards include/headerguards.h
-	sed -ie 's/^VERSION=.*/VERSION="GIT $(NOW)"/' mini-gcc
+	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' mini-gcc
 	rm mini-gcce
 
 
@@ -195,6 +196,7 @@ combined: tools
 
 Makefile.minilib:
 	echo generate Makefile.minilib
+	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' Makefile.minilib
 	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
 	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
 	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
