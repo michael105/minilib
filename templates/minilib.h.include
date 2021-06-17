@@ -1,0 +1,16 @@
+/* templates/minilib.h.include */
+
+#include "minilib/headers/common/allheaders.h"
+#include "minilib/headers/linux_x64/allheaders.h"
+
+
+
+#include "minilib/include/globaldefs.h"
+#include "minilib/include/pwent.h"
+#include "minilib/include/exit.h"
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/dirent.h"
+#include "minilib/include/filemodes.h"
+
+#include "minilib/include/syscall_stubs.h"
+

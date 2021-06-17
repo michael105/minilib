@@ -15,7 +15,7 @@ int ioctl( int fd, unsigned long int request, ... );
 //+needs termios.h bits/ioctl.h
 //+header unistd.h
 //+include
-//+depends ioctl
+//+depends ioctl termio
 //+def
 static inline int __attribute__((always_inline)) tcsetattr(int fd, int opt, const struct termios *io){
 	return(ioctl(fd, TCSETS +opt, io));

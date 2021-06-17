@@ -167,6 +167,7 @@
 #define _SHADOW_H
 #define _SIGNAL_H
 //#define _STDINT_H
+#define _STDDEF_H
 #define _STDIO_EXT_H
 #define _STDIO_H
 #define _STDLIB_H

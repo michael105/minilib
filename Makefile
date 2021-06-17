@@ -15,7 +15,7 @@ NOW=$(shell echo `date '+%F %T'` )
 
 #include Makefile.template
 
-.PHONY: test combined header tools
+.PHONY: test combined header tools Makefile.minilib
 
 define HELP
 
@@ -136,7 +136,8 @@ retest:
 header:
 	cd headers && make
 	scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h minilib/macros/*.h minilib/src/*/*.c
-			rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
+	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
 # ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
 
@@ -154,6 +155,8 @@ mini-gcc: scripts/genconfig.sh ldscript
 
 compile-mini-gcc: mini-gcc unpack-mini-gcc
 	gzip -c minilibcompiled.h >> mini-gcc
+	echo -e "\n#ENDGZ" >> mini-gcc
+
 
 unpack-mini-gcc:
 	sed '/^#MINILIBGZ#$$/q' mini-gcc > mini-gcc.tmp
@@ -186,7 +189,20 @@ combined: tools
 #	cp templates/LICENSE.tmpl minilibcompiled.h
 #	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h
 #	gzip -c minilibcompiled.c > minilibcompiled.c.gz
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilibcompiled.h
 	gzip -c minilibcompiled.h > minilibcompiled.h.gz
+
+
+Makefile.minilib:
+	echo generate Makefile.minilib
+	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
+	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
+	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
+	$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
+	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
+	#echo "endif" >> Makefile.minilib
 
 
 hello-combinedb: hello-combined.c tools
@@ -207,3 +223,6 @@ syntaxcheck:
 			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
 	@echo Ok.
+
+
+

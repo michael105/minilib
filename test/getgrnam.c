@@ -5,6 +5,7 @@ mini_errno
 mini_start
 mini_printf
 mini_prints
+mini_printsl
 mini_itodec
 mini_atoi
 mini_getenv

@@ -41,7 +41,6 @@
 #define NULL 0
 #endif
 
-
 //#include "minilib/include/timeval.h"
 #include "minilib/include/filemodes.h"
 
@@ -59,6 +58,12 @@
 #include "minilib/include/syscall_stubs.h"
 #include "minilib/headers/common/sys/types.h"
 
+
+#include "minilib/headers/common/allheaders.h"
+#include "minilib/headers/linux_x64/allheaders.h"
+
+#include "minilib/include/minilib_global.h"
+#include "minilib/include/dirent.h"
 
 
 #include "include/stdarg.h"
