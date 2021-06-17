@@ -16,23 +16,22 @@ verbose=0
 useincludedminilib=0
 
 
-#everything between _start and _end is extracted and inserted into Makefile.minilib
+#everything between _start and _end is extracted and copied into Makefile.minilib
+# ------------------
 #defaultvalues_start
 
 # gcc options
 # only linux x64 for now.
 
-COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -fno-pic\
-		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
-		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
-
-#COMPATHEADER="-I$MLIBDIR/compat" 
-		#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -nostdinc\
-	
 OPTFLAG="-Os"
 
 #strip symbols
 STRIPFLAG="-s"
+
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -fno-pic\
+		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
+
 
 # needs os detection. but not important for now
 CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
@@ -43,7 +42,11 @@ CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-
 # (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
 LDSCRIPT="default"
 
+# colorize the output of gcc
+colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
+
 #defaultvalues_end
+# ----------------
 
 
 # grep mini-gcc path 
@@ -223,9 +226,6 @@ before options and parameters for gcc.
 "
 		exit
 }
-
-# colorize the output of gcc
-colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
 
 # compile gcc options and execute gcc
 exec_gcc(){

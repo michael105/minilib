@@ -1,26 +1,53 @@
 # 
-# Makefile for minilib
+# This makefile is part of minilib
+# (https://github.com/michael105/minilib)
+#
+#
 # 
 
+
+
+#default values
 ifndef CONF
 	CONF:=minilib.conf
 endif
 
+ifndef GCC
+	GCC:=gcc
+endif
+
+ifndef BUILDDIR
+	BUILDDIR:=build
+endif
+
+
+
+$(info Using config: $(CONF))
+
+
 .ONESHELL:
-genconfig:
-	echo generate config 1>&2
+default: $(BUILDDIR) S(BUILDDIR)/minilib.h
+	@echo generate $(BUILDDIR)/$(CONF).h
+	BINARY=$(shell echo "$(CONF)" | sed 's/.*\///;s/\..*//')
+	SOURCES=$(CONF)
+	MINILIB=$(shell if [ -e "$(BUILDDIR)/minilibcompiled.h" ]; then echo -n "$(BUILDDIR)/minilibcompiled.h";else echo -n "$(BUILDDIR)/minilib.h";fi)
+	echo use header: $$MINILIB
 	source $(defaultvalues)
 	source $(genconfig)
-	source $(CONF) > $(CONF).h
-	echo $$LDSCRIPT
-	echo "$(ldscripts/ld.script.default)" > $(CONF).ldscript
+	source $(CONF) > $(BUILDDIR)/$(CONF).h || exit 1
+	echo LDSCRIPT: $$LDSCRIPT
+	echo generate $(BUILDDIR)/$(CONF).ldscript
+	echo "$(ldscripts/ld.script.default)" > $(BUILDDIR)/$(CONF).ldscript || exit 1
+	echo compile $$SOURCES to $$BINARY
+	$(GCC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript -o $$BINARY $$SOURCES
 
 
-	#sed -e '/^#ldscripts.ld.script.default$$/,/^#ldscripts.ld.script.default$$/!d;/^#/d'  Makefile.minilib
+S(BUILDDIR)/minilib.h: $(BUILDDIR)
+	$(shell if [ ! -e "$(BUILDDIR)/minilib.h" ]; then cp minilibcompiled.h ./$(BUILDDIR)/minilib.h; fi)
 
-define test/t1.t2 =
-hello 1
-endef
+$(BUILDDIR):
+	$(shell if [ ! -d "$(BUILDDIR)" ]; then mkdir $(BUILDDIR); fi)
+
 
 define genconfig =
 #genconfig_start
@@ -93,10 +120,12 @@ OPTIMIZE(){
 
 BINARY(){
 	export outputfile=$$1
+	export BINARY=$$1
 }
 
 SOURCES(){
 	export sources="$$*"
+	export SOURCES="$$*"
 }
 
 INCLUDESRC(){

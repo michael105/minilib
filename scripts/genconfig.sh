@@ -67,10 +67,12 @@ OPTIMIZE(){
 
 BINARY(){
 	export outputfile=$1
+	export BINARY=$1
 }
 
 SOURCES(){
 	export sources="$*"
+	export SOURCES="$*"
 }
 
 INCLUDESRC(){
