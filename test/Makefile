@@ -60,7 +60,8 @@ endif
 
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
-		include ../Makefile.minilib
+		include Makefile.minilib.old
+		#make -f ../Makefile.minilib CONF=$(BUILDPROG)
 else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
@@ -84,7 +85,7 @@ malloc: malloc.c
 	minilib/mini-gcc --config malloc.mconf -o malloc malloc.c
 
 select: select.c
-	minilib/mini-gcc -o select select.c
+	minilib/mini-gcc -o select select.c -Iminilib/include -Iminilib/headers/common -Iminilib/headers/linux_x64 -Iminilib/macros -nostdinc
 
 fgets: fgets.c
 	minilib/mini-gcc --config fgets.c -o fgets-bin fgets.c

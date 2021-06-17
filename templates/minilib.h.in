@@ -24,6 +24,7 @@
 #include "minilib/macros/defgroups.h"
 
 #include "minilib/include/utils.h"
+#include "minilib/include/globaldefs.h"
 #include "minilib/macros/vararg.h"
 #include "minilib/macros/stdarg.h"
 #include "minilib/include/config.h"

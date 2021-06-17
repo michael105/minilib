@@ -1451,7 +1451,7 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
-               (src/math/hashes.c: 23)
+               (src/math/sdbm_hash.c: 3)
 
 setbrk         static int setbrk(long addr);
 
@@ -2059,7 +2059,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 20)
+               (src/streams/fopen.c: 21)
 
 feof           static inline int feof(FILE *f);
 
@@ -2094,7 +2094,7 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 10)
+               (src/streams/fopen.c: 11)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -2144,7 +2144,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 30)
+               (src/streams/fopen.c: 31)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
