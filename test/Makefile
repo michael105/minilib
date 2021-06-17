@@ -4,7 +4,7 @@
 #PROG=malloc select
 PROG=hello
 
-PROGCUSTOM=fopen malloc fprintf select fputs fgets
+PROGCUSTOM=fopen malloc fprintf select fputs
 
 # ebedded config, mini-gcc, wildcard target
 MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
@@ -14,7 +14,7 @@ MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 
 MINIGCC=rand sleep execve strdup
 
-TESTQL=abort environ fputs getpwuid globals mallocstack strcmp strstr strtol system
+TESTQL=abort environ getpwuid globals mallocstack strcmp strstr strtol system
 
 
 # where to build object files
