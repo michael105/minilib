@@ -118,7 +118,7 @@ help:
 
 default: help
 
-all: header combined compile-mini-gcc doc examples test syntaxcheck
+all: header combined compile-mini-gcc Makefile.minilib doc examples test syntaxcheck
 
 devel: header combined compile-mini-gcc Makefile.minilib
 
@@ -226,5 +226,13 @@ syntaxcheck:
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
 	@echo Ok.
 
+
+update-master: devel syntaxcheck
+	# update master repo at github
+	git push
+	cd ../minilib-devel
+	git fetch
+	git pull
+	git push github devel-HEAD:master
 
 
