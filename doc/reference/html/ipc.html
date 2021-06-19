@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 9.0.2">
+<meta name="generator" content="AsciiDoc 9.0.5">
 <title></title>
 </head>
 <body>
@@ -16,7 +16,7 @@ kill
 <p>
   <em>int kill( pid_t pid,  int sig)</em><br>
  <strong>send a signal to a process or a group of processes</strong>
-Size: ~63B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.133 manpage: <a href="../manpages/sys/kill.2.rst.html">kill</a><br>
+Size: ~63B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.135 manpage: <a href="../manpages/sys/kill.2.rst.html">kill</a><br>
 </p>
 </dd>
 <dt>
@@ -36,7 +36,7 @@ pipe
 <p>
   <em>int pipe( int <strong>filedes)</em><br>
  *create an interprocess channel</strong>
-Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.213 manpage: <a href="../manpages/sys/pipe.2.rst.html">pipe</a><br>
+Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.236 manpage: <a href="../manpages/sys/pipe.2.rst.html">pipe</a><br>
 </p>
 </dd>
 <dt>
@@ -45,9 +45,9 @@ raise
 <dd>
 <p>
   <em>int raise(int signr)</em><br>
- <strong>Defines:</strong> getpid<br>
+ <strong>Defines:</strong> getpid kill<br>
  <strong>send a signal to the executing process</strong>
-Size: ~68B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.139 manpage: <a href="../manpages/gen/raise.3.rst.html">raise</a><br>
+Size: ~68B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.145 manpage: <a href="../manpages/gen/raise.3.rst.html">raise</a><br>
 </p>
 </dd>
 <dt>
@@ -57,7 +57,7 @@ rt_sigaction
 <p>
   <em>int rt_sigaction( int sig,  const struct sigaction <strong>act,  struct sigaction *oact,  size_t sigsetsize)</em><br>
  *examine and change a signal action</strong>
-Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.142
+Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.144
 </p>
 </dd>
 <dt>
@@ -67,7 +67,7 @@ rt_sigprocmask
 <p>
   <em>int rt_sigprocmask( int how,  sigset_t <strong>nset,  sigset_t *oset,  size_t sigsetsize)</em><br>
  *examine and change blocked signals</strong>
-Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.174
+Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.177
 </p>
 </dd>
 <dt>
@@ -77,7 +77,7 @@ rt_sigreturn
 <p>
   <em>int rt_sigreturn( unsigned long __unused)</em><br>
  <strong>return from signal handler and cleanup stack frame</strong>
-Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.143
+Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145
 </p>
 </dd>
 <dt>
@@ -86,9 +86,9 @@ sigaction
 <dd>
 <p>
   <em>int volatile sigaction(int sig, const struct sigaction <strong>act, struct sigaction *oact)</em><br>
- *Defines:</strong> memcpy<br>
+ *Defines:</strong> memcpy rt_sigaction<br>
  <strong>examine and change a signal action</strong>
-Size: ~215B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.111 manpage: <a href="../manpages/sys/sigaction.2.rst.html">sigaction</a><br>
+Size: ~215B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.117 manpage: <a href="../manpages/sys/sigaction.2.rst.html">sigaction</a><br>
 </p>
 </dd>
 <dt>
@@ -98,7 +98,7 @@ sigaddset
 <p>
   <em>int sigaddset(sigset_t <strong>set, int sig)</em><br>
  *add a signal to a signal set</strong>
-Size: ~85B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.34 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigaddset</a><br>
+Size: ~85B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.34 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigaddset</a><br>
 </p>
 </dd>
 <dt>
@@ -108,7 +108,7 @@ sigdelset
 <p>
   <em>int sigdelset(sigset_t <strong>set, int sig)</em><br>
  *delete a signal from a signal set</strong>
-Size: ~85B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.62 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigdelset</a><br>
+Size: ~85B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.68 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigdelset</a><br>
 </p>
 </dd>
 <dt>
@@ -118,7 +118,7 @@ sigemptyset
 <p>
   <em>int sigemptyset(sigset_t <strong>set)</em><br>
  *initialize and empty a signal set</strong>
-Size: ~41B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.7 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigemptyset</a><br>
+Size: ~41B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.7 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigemptyset</a><br>
 </p>
 </dd>
 <dt>
@@ -128,7 +128,7 @@ sigfillset
 <p>
   <em>int sigfillset(sigset_t <strong>set)</em><br>
  *initialize and fill a signal set</strong>
-Size: ~41B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.20 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigfillset</a><br>
+Size: ~41B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.20 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigfillset</a><br>
 </p>
 </dd>
 <dt>
@@ -138,7 +138,7 @@ sigismember
 <p>
   <em>int sigismember(sigset_t <strong>set, int sig)</em><br>
  *test for a signal in a signal set</strong>
-Size: ~44B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.79 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigismember</a><br>
+Size: ~44B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.85 manpage: <a href="../manpages/gen/sigsetops.3.rst.html">sigismember</a><br>
 </p>
 </dd>
 <dt>
@@ -147,9 +147,9 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> write memcpy<br>
+ <strong>Defines:</strong> rt_sigaction memcpy write<br>
  <strong>signal management</strong>
-Size: ~337B <a href="../../src/signal/signal.c">../src/signal/signal.c</a> l.5 manpage: <a href="../manpages/gen/signal.3.rst.html">signal</a><br>
+Size: ~337B <a href="../../src/process/signal.c">../src/process/signal.c</a> l.5 manpage: <a href="../manpages/gen/signal.3.rst.html">signal</a><br>
 </p>
 </dd>
 <dt>
@@ -158,8 +158,9 @@ sigprocmask
 <dd>
 <p>
   <em>int sigprocmask(int how, const sigset_t <strong>set, sigset_t *oldset)</em><br>
- *examine and change blocked signals</strong>
-Size: ~130B <a href="../../src/signal/sigaction.c">../src/signal/sigaction.c</a> l.56 manpage: <a href="../manpages/sys/sigprocmask.2.rst.html">sigprocmask</a><br>
+ *Defines:</strong> rt_sigprocmask<br>
+ <strong>examine and change blocked signals</strong>
+Size: ~130B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.61 manpage: <a href="../manpages/sys/sigprocmask.2.rst.html">sigprocmask</a><br>
 </p>
 </dd>
 <dt>
@@ -170,7 +171,7 @@ wait
   <em>pid_t wait(int <strong>wstatus)</em><br>
  *Defines:</strong> wait4<br>
  <strong>wait for a child process to stop or terminate</strong>
-Size: ~122B <a href="../../src/wait.c">../src/wait.c</a> l.8 manpage: <a href="../manpages/sys/wait.2.rst.html">wait</a><br>
+Size: ~122B <a href="../../src/process/wait.c">../src/process/wait.c</a> l.8 manpage: <a href="../manpages/sys/wait.2.rst.html">wait</a><br>
 </p>
 </dd>
 <dt>
@@ -180,7 +181,7 @@ wait4
 <p>
   <em>int wait4( pid_t upid,  int <strong>stat_addr,  int options,  struct rusage *ru)</em><br>
  *wait for process to change state, BSD style</strong>
-Size: ~133B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.164 manpage: <a href="../manpages/sys/wait.2.rst.html">wait4</a><br>
+Size: ~133B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.167 manpage: <a href="../manpages/sys/wait.2.rst.html">wait4</a><br>
 </p>
 </dd>
 <dt>
@@ -191,7 +192,7 @@ waitpid
   <em>pid_t waitpid(pid_t pid, int <strong>wstatus, int options)</em><br>
  *Defines:</strong> wait4<br>
  <strong>wait for a child process to stop or terminate</strong>
-Size: ~138B <a href="../../src/wait.c">../src/wait.c</a> l.16 manpage: <a href="../manpages/sys/wait.2.rst.html">waitpid</a><br>
+Size: ~138B <a href="../../src/process/wait.c">../src/process/wait.c</a> l.16 manpage: <a href="../manpages/sys/wait.2.rst.html">waitpid</a><br>
 </p>
 </dd>
 </dl>
@@ -199,7 +200,7 @@ Size: ~138B <a href="../../src/wait.c">../src/wait.c</a> l.16 manpage: <a href="
 <p></p>
 <hr><p><small>
 Last updated
- 2021-02-14 13:29:08 UTC
+ 2021-06-19 17:52:52 UTC
 </small></p>
 </body>
 </html>

@@ -1,4 +1,4 @@
-**mini-gcc** v.GIT 2021-02-14 11:27:59
+**mini-gcc** v.20210619
 
 ::
 
@@ -23,7 +23,7 @@ before options and parameters for gcc.
         version info
 
 --license:
-        shows the license (BSD 3-clause)
+        shows the license (Opensource, fair use by attribution)
 
 -v,--verbose:
         work verbosely
@@ -43,6 +43,10 @@ before options and parameters for gcc.
         Parses 'file' as configuration file, and dumps the generated
         define switches to stdout.
         Used internally, to pass the generated header via pipe to gcc
+
+--showsources:
+        Dump all used sources to the terminal 
+        (gcc options -E -P)
 
 --no-mbuf:
         When generating a config, don't write switches for the global mini_buf, 
