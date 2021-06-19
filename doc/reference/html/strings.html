@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 9.0.2">
+<meta name="generator" content="AsciiDoc 9.0.5">
 <title></title>
 </head>
 <body>
@@ -36,7 +36,7 @@ sprintf
   <em>#define sprintf(str,&#8230;) snprintf( str, 4096,  <em>VA_ARGS</em>)</em><br>
  <strong>Defines:</strong> write strlen<br>
  <strong>print formatted output</strong>
-<a href="../../src/sprintf.c">../src/sprintf.c</a> l.26 manpage: <a href="../manpages/stdio/printf.3.rst.html">sprintf</a><br>
+<a href="../../src/output/sprintf.c">../src/output/sprintf.c</a> l.26 manpage: <a href="../manpages/stdio/printf.3.rst.html">sprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -157,7 +157,7 @@ strncpy
  write 0's up to src[n] when len of dest &lt; n
  Please note strlcpy (borrowed from freebsd),
  which does the same,
- but doesn't pad src with 0's.</code></pre>
+ but doesn't pad dest with 0's.</code></pre>
 </td></tr></table>
 <p>Size: ~96B <a href="../../src/string/strncpy.c">../src/string/strncpy.c</a> l.7 manpage: <a href="../manpages/string/string.3.rst.html">strncpy</a><br></p>
 <a name="strrchr"></a><dl>
@@ -187,7 +187,7 @@ Size: ~104B <a href="../../src/string/strstr.c">../src/string/strstr.c</a> l.3 m
 <p></p>
 <hr><p><small>
 Last updated
- 2021-02-14 13:29:08 UTC
+ 2021-06-19 17:52:52 UTC
 </small></p>
 </body>
 </html>

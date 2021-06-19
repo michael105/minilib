@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 9.0.2">
+<meta name="generator" content="AsciiDoc 9.0.5">
 <title></title>
 </head>
 <body>
@@ -25,7 +25,7 @@ sys__sysctl
 <p>
   <em>sys<em>sysctl( struct </em>sysctl_args <strong>args)</em><br>
  *read/write system parameters</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.315
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.316
 </p>
 </dd>
 <dt>
@@ -45,7 +45,7 @@ sys_accept4
 <p>
   <em>sys_accept4( int fd,  struct sockaddr <strong>upeer_sockaddr,  int *upeer_addrlen,  int flags)</em><br>
  *accept a connection on a socket</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.551
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.552
 </p>
 </dd>
 <dt>
@@ -65,7 +65,7 @@ sys_acct
 <p>
   <em>sys_acct( const char <strong>name)</em><br>
  *switch process accounting on or off</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.329
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.330
 </p>
 </dd>
 <dt>
@@ -75,7 +75,7 @@ sys_add_key
 <p>
   <em>sys_add_key( const char <strong>_type,  const char *_description,  const void *_payload,  size_t plen)</em><br>
  *add a key to the kernel&#8217;s key management facility</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.471
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.472
 </p>
 </dd>
 <dt>
@@ -85,7 +85,7 @@ sys_adjtimex
 <p>
   <em>sys_adjtimex( struct timex <strong>txc_p)</em><br>
  *tune kernel clock</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.321
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.322
 </p>
 </dd>
 <dt>
@@ -105,7 +105,7 @@ sys_arch_prctl
 <p>
   <em>sys_arch_prctl( struct task_struct <strong>task,  int code,  unsigned long *addr)</em><br>
  *set architecture-specific thread state</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.319
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.320
 </p>
 </dd>
 <dt>
@@ -132,7 +132,7 @@ sys_brk
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>the kernel syscall brk.</code></pre>
 </td></tr></table>
-<p><a href="../../src/brk.c">../src/brk.c</a> l.6</p>
+<p><a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.6</p>
 <a name="sys_capget"></a><dl>
 <dt>
 sys_capget
@@ -141,7 +141,7 @@ sys_capget
 <p>
   <em>sys_capget( cap_user_header_t header,  cap_user_data_t dataptr)</em><br>
  <strong>set/get capabilities of thread(s)</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.255
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.256
 </p>
 </dd>
 <dt>
@@ -151,7 +151,7 @@ sys_capset
 <p>
   <em>sys_capset( cap_user_header_t header,  const cap_user_data_t data)</em><br>
  <strong>set/get capabilities of thread(s)</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.257
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.258
 </p>
 </dd>
 <dt>
@@ -161,7 +161,7 @@ sys_chdir
 <p>
   <em>sys_chdir( const char <strong>filename)</em><br>
  *change working directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.165
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.166
 </p>
 </dd>
 <dt>
@@ -171,7 +171,7 @@ sys_chmod
 <p>
   <em>sys_chmod( const char <strong>filename,  mode_t mode)</em><br>
  *change mode of a file relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.185
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.186
 </p>
 </dd>
 <dt>
@@ -181,7 +181,7 @@ sys_chown
 <p>
   <em>sys_chown( const char <strong>filename,  uid_t user,  gid_t group)</em><br>
  *change owner and group of a file relative to directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.189
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.190
 </p>
 </dd>
 <dt>
@@ -191,7 +191,7 @@ sys_chroot
 <p>
   <em>sys_chroot( const char <strong>filename)</em><br>
  *change root directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.325
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.326
 </p>
 </dd>
 <dt>
@@ -200,7 +200,7 @@ sys_clock_adjtime
 <dd>
 <p>
   <em>sys_clock_adjtime( clockid_t which_clock,  struct timex *tx)</em><br>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.585
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.586
 </p>
 </dd>
 <dt>
@@ -209,7 +209,7 @@ sys_clock_getres
 <dd>
 <p>
   <em>sys_clock_getres( const clockid_t which_clock,  struct timespec *tp)</em><br>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.435
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.436
 </p>
 </dd>
 <dt>
@@ -219,7 +219,7 @@ sys_clock_gettime
 <p>
   <em>sys_clock_gettime( const clockid_t which_clock,  struct timespec <strong>tp)</em><br>
  *clock and time functions</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.433
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.434
 </p>
 </dd>
 <dt>
@@ -229,7 +229,7 @@ sys_clock_nanosleep
 <p>
   <em>sys_clock_nanosleep( const clockid_t which_clock,  int flags,  const struct timespec <strong>rqtp,  struct timespec *rmtp)</em><br>
  *high resolution sleep with specifiable clock</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.437
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.438
 </p>
 </dd>
 <dt>
@@ -239,7 +239,7 @@ sys_clock_settime
 <p>
   <em>sys_clock_settime( const clockid_t which_clock,  const struct timespec <strong>tp)</em><br>
  *clock and timer functions</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.431
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.432
 </p>
 </dd>
 <dt>
@@ -279,7 +279,7 @@ sys_creat
 <p>
   <em>sys_creat( const char <strong>pathname,  int mode)</em><br>
  *create a new file or rewrite an existing one</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.175
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.176
 </p>
 </dd>
 <dt>
@@ -289,7 +289,7 @@ sys_delete_module
 <p>
   <em>sys_delete_module( const char <strong>name_user,  unsigned int flags)</em><br>
  *unload a kernel module</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.353
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.354
 </p>
 </dd>
 <dt>
@@ -319,7 +319,7 @@ sys_dup3
 <p>
   <em>sys_dup3( unsigned int oldfd,  unsigned int newfd,  int flags)</em><br>
  <strong>duplicate a file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.559
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.560
 </p>
 </dd>
 <dt>
@@ -329,7 +329,7 @@ sys_epoll_create
 <p>
   <em>sys_epoll_create( int size)</em><br>
  <strong>open an epoll file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.407
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.408
 </p>
 </dd>
 <dt>
@@ -339,7 +339,7 @@ sys_epoll_create1
 <p>
   <em>sys_epoll_create1( int flags)</em><br>
  <strong>open an epoll file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.557
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.558
 </p>
 </dd>
 <dt>
@@ -349,7 +349,7 @@ sys_epoll_ctl
 <p>
   <em>sys_epoll_ctl( int epfd,  int op,  int fd,  struct epoll_event <strong>event)</em><br>
  *control interface for an epoll file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.443
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.444
 </p>
 </dd>
 <dt>
@@ -359,7 +359,7 @@ sys_epoll_pwait
 <p>
   <em>sys_epoll_pwait( int epfd,  struct epoll_event <strong>events,  int maxevents,  int timeout,  const sigset_t *sigmask,  size_t sigsetsize)</em><br>
  *wait for an I/O event on an epoll file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.537
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.538
 </p>
 </dd>
 <dt>
@@ -369,7 +369,7 @@ sys_epoll_wait
 <p>
   <em>sys_epoll_wait( int epfd,  struct epoll_event <strong>events,  int maxevents,  int timeout)</em><br>
  *wait for an I/O event on an epoll file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.441
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.442
 </p>
 </dd>
 <dt>
@@ -379,7 +379,7 @@ sys_eventfd
 <p>
   <em>sys_eventfd( unsigned int count)</em><br>
  <strong>create a file descriptor for event notification</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.543
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.544
 </p>
 </dd>
 <dt>
@@ -389,7 +389,7 @@ sys_eventfd2
 <p>
   <em>sys_eventfd2( unsigned int count,  int flags)</em><br>
  <strong>create a file descriptor for event notification</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.555
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.556
 </p>
 </dd>
 <dt>
@@ -409,7 +409,6 @@ sys_exit
 <p>
   <em>sys_exit( int error_code)</em><br>
  <strong>terminate a process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.125 manpage: <a href="../manpages/sys/_exit.2.rst.html">_exit</a><br>
 </p>
 </dd>
 <dt>
@@ -419,7 +418,7 @@ sys_exit_group
 <p>
   <em>sys_exit_group( int error_code)</em><br>
  <strong>exit all threads in a process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.439
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.440
 </p>
 </dd>
 <dt>
@@ -429,7 +428,7 @@ sys_faccessat
 <p>
   <em>sys_faccessat( int dfd,  const char <strong>filename,  int mode)</em><br>
  *determine accessibility of a file relative to directory file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.513
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.514
 </p>
 </dd>
 <dt>
@@ -439,7 +438,7 @@ sys_fadvise64
 <p>
   <em>sys_fadvise64( int fd,  loff_t offset,  size_t len,  int advice)</em><br>
  <strong>predeclare an access pattern for file data</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.419
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.420
 </p>
 </dd>
 <dt>
@@ -449,7 +448,7 @@ sys_fallocate
 <p>
   <em>sys_fallocate( long fd,  long mode,  loff_t offset,  loff_t len)</em><br>
  <strong>manipulate file space</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.545
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.546
 </p>
 </dd>
 <dt>
@@ -459,7 +458,7 @@ sys_fanotify_init
 <p>
   <em>sys_fanotify_init( unsigned int flags,  unsigned int event_f_flags)</em><br>
  <strong>create and initialize fanotify group</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.575
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.576
 </p>
 </dd>
 <dt>
@@ -469,7 +468,7 @@ sys_fanotify_mark
 <p>
   <em>sys_fanotify_mark( long fanotify_fd,  long flags,  __u64 mask,  long dfd, long pathname)</em><br>
  <strong>add, remove, or modify an fanotify mark on a filesystem</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.577
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.578
 </p>
 </dd>
 <dt>
@@ -479,7 +478,7 @@ sys_fchdir
 <p>
   <em>sys_fchdir( unsigned int fd)</em><br>
  <strong>change working directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.167
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.168
 </p>
 </dd>
 <dt>
@@ -489,7 +488,7 @@ sys_fchmod
 <p>
   <em>sys_fchmod( unsigned int fd,  mode_t mode)</em><br>
  <strong>change mode of a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.187
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.188
 </p>
 </dd>
 <dt>
@@ -499,7 +498,7 @@ sys_fchmodat
 <p>
   <em>sys_fchmodat( int dfd,  const char <strong>filename,  mode_t mode)</em><br>
  *change mode of a file relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.511
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.512
 </p>
 </dd>
 <dt>
@@ -509,7 +508,7 @@ sys_fchown
 <p>
   <em>sys_fchown( unsigned int fd,  uid_t user,  gid_t group)</em><br>
  <strong>change owner and group of a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.191
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.192
 </p>
 </dd>
 <dt>
@@ -519,7 +518,7 @@ sys_fchownat
 <p>
   <em>sys_fchownat( int dfd,  const char <strong>filename,  uid_t user,  gid_t group,  int flag)</em><br>
  *change owner and group of a file relative to directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.495
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.496
 </p>
 </dd>
 <dt>
@@ -529,7 +528,7 @@ sys_fcntl
 <p>
   <em>sys_fcntl( unsigned int fd,  unsigned int cmd,  unsigned long arg)</em><br>
  <strong>file control</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.149
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.150
 </p>
 </dd>
 <dt>
@@ -539,7 +538,7 @@ sys_fdatasync
 <p>
   <em>sys_fdatasync( unsigned int fd)</em><br>
  <strong>synchronize the data of a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.155
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.156
 </p>
 </dd>
 <dt>
@@ -549,7 +548,7 @@ sys_fgetxattr
 <p>
   <em>sys_fgetxattr( int fd,  const char <strong>name,  void *value,  size_t size)</em><br>
  *retrieve an extended attribute value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.371
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.372
 </p>
 </dd>
 <dt>
@@ -559,7 +558,7 @@ sys_finit_module
 <p>
   <em>sys_finit_module( int fd,  const char  <strong>uargs,  int flags)</em><br>
  *load a kernel module</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.601
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.602
 </p>
 </dd>
 <dt>
@@ -569,7 +568,7 @@ sys_flistxattr
 <p>
   <em>sys_flistxattr( int fd,  char <strong>list,  size_t size)</em><br>
  *list extended attribute names</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.377
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.378
 </p>
 </dd>
 <dt>
@@ -579,7 +578,7 @@ sys_flock
 <p>
   <em>sys_flock( unsigned int fd,  unsigned int cmd)</em><br>
  <strong>apply or remove an advisory lock on an open file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.151
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.152
 </p>
 </dd>
 <dt>
@@ -599,7 +598,7 @@ sys_fremovexattr
 <p>
   <em>sys_fremovexattr( int fd,  const char <strong>name)</em><br>
  *remove an extended attribute</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.383
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.384
 </p>
 </dd>
 <dt>
@@ -609,7 +608,7 @@ sys_fsetxattr
 <p>
   <em>sys_fsetxattr( int fd,  const char <strong>name,  const void *value,  size_t size, int flags)</em><br>
  *set an extended attribute value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.365
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.366
 </p>
 </dd>
 <dt>
@@ -629,7 +628,7 @@ sys_fstatfs
 <p>
   <em>sys_fstatfs( unsigned int fd,  struct statfs <strong>buf)</em><br>
  *get filesystem statistics</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.279
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.280
 </p>
 </dd>
 <dt>
@@ -639,7 +638,7 @@ sys_fsync
 <p>
   <em>sys_fsync( unsigned int fd)</em><br>
  <strong>synchronize changes to a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.153
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.154
 </p>
 </dd>
 <dt>
@@ -649,7 +648,7 @@ sys_ftruncate
 <p>
   <em>sys_ftruncate( unsigned int fd,  unsigned long length)</em><br>
  <strong>truncate a file to a specified length</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.159
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.160
 </p>
 </dd>
 <dt>
@@ -659,7 +658,7 @@ sys_futex
 <p>
   <em>sys_futex( u32 <strong>uaddr,  int op,  u32 val,  struct timespec *utime,  u32 *uaddr2,  u32 val3)</em><br>
  *fast user-space locking</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.389
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.390
 </p>
 </dd>
 <dt>
@@ -669,7 +668,7 @@ sys_futimesat
 <p>
   <em>sys_futimesat( int dfd,  const char <strong>filename,  struct timeval *utimes)</em><br>
  *change timestamps of a file relative to a directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.497
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.498
 </p>
 </dd>
 <dt>
@@ -679,7 +678,7 @@ sys_get_mempolicy
 <p>
   <em>sys_get_mempolicy( int <strong>policy,  unsigned long *nmask,  unsigned long maxnode,  unsigned long addr,  unsigned long flags)</em><br>
  *retrieve NUMA memory policy for a thread</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.453
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.454
 </p>
 </dd>
 <dt>
@@ -689,7 +688,7 @@ sys_get_robust_list
 <p>
   <em>sys_get_robust_list( int pid,  struct robust_list_head <strong>*head_ptr,  size_t *len_ptr)</em><br>
  *get/set list of robust futexes</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.523
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.524
 </p>
 </dd>
 <dt>
@@ -699,7 +698,7 @@ sys_getcpu
 <p>
   <em>sys_getcpu( unsigned <strong>cpup,  unsigned *nodep,  struct getcpu_cache *unused)</em><br>
  *determine CPU and NUMA node on which the calling thread is running</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.593
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.594
 </p>
 </dd>
 <dt>
@@ -709,7 +708,7 @@ sys_getcwd
 <p>
   <em>sys_getcwd( char <strong>buf,  unsigned long size)</em><br>
  *get the pathname of the current working directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.163
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.164
 </p>
 </dd>
 <dt>
@@ -719,7 +718,7 @@ sys_getdents
 <p>
   <em>sys_getdents( unsigned int fd,  struct linux_dirent <strong>dirent,  unsigned int count)</em><br>
  *get directory entries</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.161
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.162
 </p>
 </dd>
 <dt>
@@ -729,7 +728,7 @@ sys_getdents64
 <p>
   <em>sys_getdents64( unsigned int fd,  struct linux_dirent64 <strong>dirent,  unsigned int count)</em><br>
  *get directory entries</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.411
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.412
 </p>
 </dd>
 <dt>
@@ -739,7 +738,7 @@ sys_getegid
 <p>
   <em>sysSYSDEF_syscall(_getegid,0)</em><br>
  <strong>get the effective group ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.221
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.222
 </p>
 </dd>
 <dt>
@@ -749,7 +748,7 @@ sys_geteuid
 <p>
   <em>sysSYSDEF_syscall(_geteuid,0)</em><br>
  <strong>get the effective user ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.219
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.220
 </p>
 </dd>
 <dt>
@@ -759,7 +758,7 @@ sys_getgid
 <p>
   <em>sysSYSDEF_syscall(_getgid,0)</em><br>
  <strong>get the real group ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.213
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.214
 </p>
 </dd>
 <dt>
@@ -769,7 +768,7 @@ sys_getgroups
 <p>
   <em>sys_getgroups( int gidsetsize,  gid_t <strong>grouplist)</em><br>
  *get supplementary group IDs</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.235
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.236
 </p>
 </dd>
 <dt>
@@ -799,7 +798,7 @@ sys_getpgid
 <p>
   <em>sys_getpgid( pid_t pid)</em><br>
  <strong>get the process group ID for a process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.247
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.248
 </p>
 </dd>
 <dt>
@@ -809,7 +808,7 @@ sys_getpgrp
 <p>
   <em>sysSYSDEF_syscall(_getpgrp,0)</em><br>
  <strong>get the process group ID of the calling process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.227
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.228
 </p>
 </dd>
 <dt>
@@ -829,7 +828,7 @@ sys_getppid
 <p>
   <em>sysSYSDEF_syscall(_getppid,0)</em><br>
  <strong>get the parent process ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.225
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.226
 </p>
 </dd>
 <dt>
@@ -839,7 +838,7 @@ sys_getpriority
 <p>
   <em>sys_getpriority( int which,  int who)</em><br>
  <strong>get and set the nice value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.283
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.284
 </p>
 </dd>
 <dt>
@@ -849,7 +848,7 @@ sys_getrandom
 <p>
   <em>sys_getrandom( char  <strong>buf,  size_t count,  unsigned int flags)</em><br>
  *obtain a series of random bytes</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.611
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.612
 </p>
 </dd>
 <dt>
@@ -859,7 +858,7 @@ sys_getresgid
 <p>
   <em>sys_getresgid( gid_t <strong>rgid,  gid_t *egid,  gid_t *sgid)</em><br>
  *get real, effective and saved user/group IDs</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.245
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.246
 </p>
 </dd>
 <dt>
@@ -869,7 +868,7 @@ sys_getresuid
 <p>
   <em>sys_getresuid( uid_t <strong>ruid,  uid_t *euid,  uid_t *suid)</em><br>
  *get real, effective and saved user/group IDs</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.241
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.242
 </p>
 </dd>
 <dt>
@@ -879,7 +878,7 @@ sys_getrlimit
 <p>
   <em>sys_getrlimit( unsigned int resource,  struct rlimit <strong>rlim)</em><br>
  *control maximum resource consumption</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.199
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.200
 </p>
 </dd>
 <dt>
@@ -889,7 +888,7 @@ sys_getrusage
 <p>
   <em>sys_getrusage( int who,  struct rusage <strong>ru)</em><br>
  *get information about resource utilization</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.201
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.202
 </p>
 </dd>
 <dt>
@@ -899,7 +898,7 @@ sys_getsid
 <p>
   <em>sys_getsid( pid_t pid)</em><br>
  <strong>get the process group ID of a session leader</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.253
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.254
 </p>
 </dd>
 <dt>
@@ -929,7 +928,7 @@ sys_gettid
 <p>
   <em>sysSYSDEF_syscall(_gettid,0)</em><br>
  <strong>get thread identification</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.357
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.358
 </p>
 </dd>
 <dt>
@@ -939,7 +938,7 @@ sys_gettimeofday
 <p>
   <em>sys_gettimeofday( struct timeval <strong>tv,  struct timezone *tz)</em><br>
  *get the date and time</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.197
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.198
 </p>
 </dd>
 <dt>
@@ -949,7 +948,7 @@ sys_getuid
 <p>
   <em>sysSYSDEF_syscall(_getuid,0)</em><br>
  <strong>get a real user ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.209
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.210
 </p>
 </dd>
 <dt>
@@ -959,7 +958,7 @@ sys_getxattr
 <p>
   <em>sys_getxattr( const char <strong>pathname,  const char *name,  void *value,  size_t size)</em><br>
  *retrieve an extended attribute value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.367
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.368
 </p>
 </dd>
 <dt>
@@ -969,7 +968,7 @@ sys_init_module
 <p>
   <em>sys_init_module( void <strong>umod,  unsigned long len,  const char *uargs)</em><br>
  *load a kernel module</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.351
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.352
 </p>
 </dd>
 <dt>
@@ -979,7 +978,7 @@ sys_inotify_add_watch
 <p>
   <em>sys_inotify_add_watch( int fd,  const char <strong>pathname,  u32 mask)</em><br>
  *add a watch to an initialized inotify instance</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.483
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.484
 </p>
 </dd>
 <dt>
@@ -989,7 +988,7 @@ sys_inotify_init
 <p>
   <em>sysSYSDEF_syscall(_inotify_init,0)</em><br>
  <strong>initialize an inotify instance</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.481
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.482
 </p>
 </dd>
 <dt>
@@ -999,7 +998,7 @@ sys_inotify_init1
 <p>
   <em>sys_inotify_init1( int flags)</em><br>
  <strong>initialize an inotify instance</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.563
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.564
 </p>
 </dd>
 <dt>
@@ -1009,7 +1008,7 @@ sys_inotify_rm_watch
 <p>
   <em>sys_inotify_rm_watch( int fd,  __s32 wd)</em><br>
  <strong>remove an existing watch from an inotify instance</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.485
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.486
 </p>
 </dd>
 <dt>
@@ -1019,7 +1018,7 @@ sys_io_cancel
 <p>
   <em>sys_io_cancel( aio_context_t ctx_id,  struct iocb <strong>iocb,  struct io_event *result)</em><br>
  *cancel an outstanding asynchronous I/O operation</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.403
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.404
 </p>
 </dd>
 <dt>
@@ -1029,7 +1028,7 @@ sys_io_destroy
 <p>
   <em>sys_io_destroy( aio_context_t ctx)</em><br>
  <strong>destroy an asynchronous I/O context</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.397
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.398
 </p>
 </dd>
 <dt>
@@ -1039,7 +1038,7 @@ sys_io_getevents
 <p>
   <em>sys_io_getevents( aio_context_t ctx_id,  long min_nr,  long nr,  struct io_event <strong>events)</em><br>
  *read asynchronous I/O events from the completion queue</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.399
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.400
 </p>
 </dd>
 <dt>
@@ -1049,7 +1048,7 @@ sys_io_setup
 <p>
   <em>sys_io_setup( unsigned nr_events,  aio_context_t <strong>ctxp)</em><br>
  *create an asynchronous I/O context</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.395
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.396
 </p>
 </dd>
 <dt>
@@ -1059,7 +1058,7 @@ sys_io_submit
 <p>
   <em>sys_io_submit( aio_context_t ctx_id,  long nr,  struct iocb <strong>*iocbpp)</em><br>
  *submit asynchronous I/O blocks for processing</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.401
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.402
 </p>
 </dd>
 <dt>
@@ -1079,7 +1078,7 @@ sys_ioperm
 <p>
   <em>sys_ioperm( unsigned long from,  unsigned long num,  int turn_on)</em><br>
  <strong>set port input/output permissions</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.349
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.350
 </p>
 </dd>
 <dt>
@@ -1089,7 +1088,7 @@ sys_iopl
 <p>
   <em>sys_iopl( unsigned int level,  struct pt_regs <strong>regs)</em><br>
  *change I/O privilege level</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.347
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.348
 </p>
 </dd>
 <dt>
@@ -1099,7 +1098,7 @@ sys_ioprio_get
 <p>
   <em>sys_ioprio_get( int which,  int who)</em><br>
  <strong>get/set I/O scheduling class and priority</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.479
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.480
 </p>
 </dd>
 <dt>
@@ -1109,7 +1108,7 @@ sys_ioprio_set
 <p>
   <em>sys_ioprio_set( int which,  int who,  int ioprio)</em><br>
  <strong>get/set I/O scheduling class and priority</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.477
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.478
 </p>
 </dd>
 <dt>
@@ -1119,7 +1118,7 @@ sys_kcmp
 <p>
   <em>sys_kcmp( pid_t pid1,  pid_t pid2,  int type,  unsigned long idx1,  unsigned long idx2)</em><br>
  <strong>compare two processes to determine if they share a kernel resource</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.599
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.600
 </p>
 </dd>
 <dt>
@@ -1129,7 +1128,7 @@ sys_kexec_file_load
 <p>
   <em>sys_kexec_file_load( int kernel_fd,  int initrd_fd,  unsigned long cmdline_len,  const char  <strong>cmdline_ptr,  unsigned long flags)</em><br>
  *load a new kernel for later execution</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.615
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.616
 </p>
 </dd>
 <dt>
@@ -1139,7 +1138,7 @@ sys_kexec_load
 <p>
   <em>sys_kexec_load( unsigned long entry,  unsigned long nr_segments,  struct kexec_segment <strong>segments,  unsigned long flags)</em><br>
  *load a new kernel for later execution</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.467
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.468
 </p>
 </dd>
 <dt>
@@ -1149,7 +1148,7 @@ sys_keyctl
 <p>
   <em>sys_keyctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)</em><br>
  <strong>key management function wrappers</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.475
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.476
 </p>
 </dd>
 <dt>
@@ -1159,7 +1158,7 @@ sys_kill
 <p>
   <em>sys_kill( pid_t pid,  int sig)</em><br>
  <strong>send a signal to a process or a group of processes</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.129
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.130
 </p>
 </dd>
 <dt>
@@ -1169,7 +1168,7 @@ sys_lchown
 <p>
   <em>sys_lchown( const char <strong>filename,  uid_t user,  gid_t group)</em><br>
  *change the owner and group of a symbolic link</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.193
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.194
 </p>
 </dd>
 <dt>
@@ -1179,7 +1178,7 @@ sys_lgetxattr
 <p>
   <em>sys_lgetxattr( const char <strong>pathname,  const char *name,  void *value,  size_t size)</em><br>
  *retrieve an extended attribute value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.369
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.370
 </p>
 </dd>
 <dt>
@@ -1189,7 +1188,7 @@ sys_link
 <p>
   <em>sys_link( const char <strong>oldname,  const char *newname)</em><br>
  *link one file to another file relative to two directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.177
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.178
 </p>
 </dd>
 <dt>
@@ -1199,7 +1198,7 @@ sys_linkat
 <p>
   <em>sys_linkat( int oldfd,  const char <strong>oldname,  int newfd,  const char *newname,  int flags)</em><br>
  *make a new name for a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.505
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.506
 </p>
 </dd>
 <dt>
@@ -1219,7 +1218,7 @@ sys_listxattr
 <p>
   <em>sys_listxattr( const char <strong>pathname,  char *list,  size_t size)</em><br>
  *list extended attribute names</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.373
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.374
 </p>
 </dd>
 <dt>
@@ -1229,7 +1228,7 @@ sys_llistxattr
 <p>
   <em>sys_llistxattr( const char <strong>pathname,  char *list,  size_t size)</em><br>
  *list extended attribute names</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.375
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.376
 </p>
 </dd>
 <dt>
@@ -1239,7 +1238,7 @@ sys_lookup_dcookie
 <p>
   <em>sys_lookup_dcookie( u64 cookie64,  long buf,  long len)</em><br>
  <strong>return a directory entry&#8217;s path</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.405
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.406
 </p>
 </dd>
 <dt>
@@ -1249,7 +1248,7 @@ sys_lremovexattr
 <p>
   <em>sys_lremovexattr( const char <strong>pathname,  const char *name)</em><br>
  *remove an extended attribute</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.381
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.382
 </p>
 </dd>
 <dt>
@@ -1269,7 +1268,7 @@ sys_lsetxattr
 <p>
   <em>sys_lsetxattr( const char <strong>pathname,  const char *name,  const void *value, size_t size,  int flags)</em><br>
  *set an extended attribute value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.363
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.364
 </p>
 </dd>
 <dt>
@@ -1299,7 +1298,7 @@ sys_mbind
 <p>
   <em>sys_mbind( unsigned long start,  unsigned long len,  unsigned long mode,  unsigned long <strong>nmask,  unsigned long maxnode,  unsigned flags)</em><br>
  *set memory policy for a memory range</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.449
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.450
 </p>
 </dd>
 <dt>
@@ -1309,7 +1308,7 @@ sys_memfd_create
 <p>
   <em>sys_memfd_create( const char  <strong>uname_ptr,  unsigned int flags)</em><br>
  *create an anonymous file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.613
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.614
 </p>
 </dd>
 <dt>
@@ -1319,7 +1318,7 @@ sys_migrate_pages
 <p>
   <em>sys_migrate_pages( pid_t pid,  unsigned long maxnode,  const unsigned long <strong>old_nodes,  const unsigned long *new_nodes)</em><br>
  *move all pages in a process to another set of nodes</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.487
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.488
 </p>
 </dd>
 <dt>
@@ -1339,7 +1338,7 @@ sys_mkdir
 <p>
   <em>sys_mkdir( const char <strong>pathname,  int mode)</em><br>
  *make a directory relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.171
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.172
 </p>
 </dd>
 <dt>
@@ -1349,7 +1348,7 @@ sys_mkdirat
 <p>
   <em>sys_mkdirat( int dfd,  const char <strong>pathname,  int mode)</em><br>
  *create a directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.491
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.492
 </p>
 </dd>
 <dt>
@@ -1359,7 +1358,7 @@ sys_mknod
 <p>
   <em>sys_mknod( const char <strong>filename,  umode_t mode,  unsigned dev)</em><br>
  *make directory, special file, or regular file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.271
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.272
 </p>
 </dd>
 <dt>
@@ -1369,7 +1368,7 @@ sys_mknodat
 <p>
   <em>sys_mknodat( int dfd,  const char <strong>filename,  int mode,  unsigned dev)</em><br>
  *create a special or ordinary file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.493
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.494
 </p>
 </dd>
 <dt>
@@ -1379,7 +1378,7 @@ sys_mlock
 <p>
   <em>sys_mlock( unsigned long start,  size_t len)</em><br>
  <strong>lock or unlock a range of process address space</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.301
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.302
 </p>
 </dd>
 <dt>
@@ -1389,7 +1388,7 @@ sys_mlockall
 <p>
   <em>sys_mlockall( int flags)</em><br>
  <strong>lock/unlock the address space of a process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.305
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.306
 </p>
 </dd>
 <dt>
@@ -1409,7 +1408,7 @@ sys_modify_ldt
 <p>
   <em>sys_modify_ldt( int func,  void <strong>ptr,  unsigned long bytecount)</em><br>
  *get or set a per-process LDT entry</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.311
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.312
 </p>
 </dd>
 <dt>
@@ -1419,7 +1418,7 @@ sys_mount
 <p>
   <em>sys_mount( char <strong>dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)</em><br>
  *mount filesystem</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.333
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.334
 </p>
 </dd>
 <dt>
@@ -1429,7 +1428,7 @@ sys_move_pages
 <p>
   <em>sys_move_pages( pid_t pid,  unsigned long nr_pages,  const void <strong>pages[], const int *nodes,  int *status,  int flags)</em><br>
  *move individual pages of a process to another node</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.533
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.534
 </p>
 </dd>
 <dt>
@@ -1449,7 +1448,7 @@ sys_mq_getsetattr
 <p>
   <em>sys_mq_getsetattr( mqd_t mqdes,  const struct mq_attr <strong>u_mqstat,  struct mq_attr *u_omqstat)</em><br>
  *get/set message queue attributes</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.465
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.466
 </p>
 </dd>
 <dt>
@@ -1459,7 +1458,7 @@ sys_mq_notify
 <p>
   <em>sys_mq_notify( mqd_t mqdes,  const struct sigevent <strong>u_notification)</em><br>
  *notify process that a message is available</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.463
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.464
 </p>
 </dd>
 <dt>
@@ -1469,7 +1468,7 @@ sys_mq_open
 <p>
   <em>sys_mq_open( const char <strong>u_name,  int oflag,  mode_t mode,  struct mq_attr *u_attr)</em><br>
  *open a message queue</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.455
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.456
 </p>
 </dd>
 <dt>
@@ -1479,7 +1478,7 @@ sys_mq_timedreceive
 <p>
   <em>sys_mq_timedreceive( mqd_t mqdes,  char <strong>u_msg_ptr,  size_t msg_len,  unsigned int *u_msg_prio,  const struct timespec *u_abs_timeout)</em><br>
  *receive a message from a message queue</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.461
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.462
 </p>
 </dd>
 <dt>
@@ -1489,7 +1488,7 @@ sys_mq_timedsend
 <p>
   <em>sys_mq_timedsend( mqd_t mqdes,  const char <strong>u_msg_ptr,  size_t msg_len,  unsigned int msg_prio,  const struct timespec *u_abs_timeout)</em><br>
  *send a message to a message queue</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.459
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.460
 </p>
 </dd>
 <dt>
@@ -1499,7 +1498,7 @@ sys_mq_unlink
 <p>
   <em>sys_mq_unlink( const char <strong>u_name)</em><br>
  *remove a message queue</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.457
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.458
 </p>
 </dd>
 <dt>
@@ -1519,7 +1518,7 @@ sys_msgctl
 <p>
   <em>sys_msgctl( int msqid,  int cmd,  struct msqid_ds <strong>buf)</em><br>
  *XSI message control operations</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.147
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.148
 </p>
 </dd>
 <dt>
@@ -1529,7 +1528,7 @@ sys_msgget
 <p>
   <em>sys_msgget( key_t key,  int msgflg)</em><br>
  <strong>get the XSI message queue identifier</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.141
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.142
 </p>
 </dd>
 <dt>
@@ -1539,7 +1538,7 @@ sys_msgrcv
 <p>
   <em>sys_msgrcv( int msqid,  struct msgbuf <strong>msgp,  size_t msgsz,  long msgtyp,  int msgflg)</em><br>
  *XSI message receive operation</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.145
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.146
 </p>
 </dd>
 <dt>
@@ -1549,7 +1548,7 @@ sys_msgsnd
 <p>
   <em>sys_msgsnd( int msqid,  struct msgbuf <strong>msgp,  size_t msgsz,  int msgflg)</em><br>
  *XSI message send operation</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.143
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.144
 </p>
 </dd>
 <dt>
@@ -1569,7 +1568,7 @@ sys_munlock
 <p>
   <em>sys_munlock( unsigned long start,  size_t len)</em><br>
  <strong>unlock a range of process address space</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.303
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.304
 </p>
 </dd>
 <dt>
@@ -1579,7 +1578,7 @@ sys_munlockall
 <p>
   <em>sysSYSDEF_syscall(_munlockall,0)</em><br>
  <strong>unlock the address space of a process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.307
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.308
 </p>
 </dd>
 <dt>
@@ -1599,7 +1598,7 @@ sys_name_to_handle_at
 <p>
   <em>sys_name_to_handle_at( int dfd,  const char <strong>name,  struct file_handle *handle,  int *mnt_id,  int flag)</em><br>
  *obtain handle</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.581
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.582
 </p>
 </dd>
 <dt>
@@ -1619,7 +1618,7 @@ sys_newfstatat
 <p>
   <em>sys_newfstatat( int dfd,  const char <strong>filename,  struct stat *statbuf,  int flag)</em><br>
  *get file status</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.499
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.500
 </p>
 </dd>
 <dt>
@@ -1639,7 +1638,7 @@ sys_open_by_handle_at
 <p>
   <em>sys_open_by_handle_at( int dfd,  const char <strong>name,  struct file_handle *handle,  int *mnt_id,  int flags)</em><br>
  *obtain handle</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.583
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.584
 </p>
 </dd>
 <dt>
@@ -1649,7 +1648,7 @@ sys_openat
 <p>
   <em>sys_openat( int dfd,  const char <strong>filename,  int flags,  int mode)</em><br>
  *open file relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.489
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.490
 </p>
 </dd>
 <dt>
@@ -1669,7 +1668,7 @@ sys_perf_event_open
 <p>
   <em>sys_perf_event_open( struct perf_event_attr <strong>attr_uptr,  pid_t pid,  int cpu,  int group_fd,  unsigned long flags)</em><br>
  *set up performance monitoring</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.571
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.572
 </p>
 </dd>
 <dt>
@@ -1679,7 +1678,7 @@ sys_personality
 <p>
   <em>sys_personality( unsigned int personality)</em><br>
  <strong>set the process execution domain</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.273
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.274
 </p>
 </dd>
 <dt>
@@ -1699,7 +1698,7 @@ sys_pipe2
 <p>
   <em>sys_pipe2( int <strong>filedes,  int flags)</em><br>
  *create pipe</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.561
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.562
 </p>
 </dd>
 <dt>
@@ -1709,7 +1708,7 @@ sys_pivot_root
 <p>
   <em>sys_pivot_root( const char <strong>new_root,  const char *put_old)</em><br>
  *change the root mount</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.313
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.314
 </p>
 </dd>
 <dt>
@@ -1729,7 +1728,7 @@ sys_ppoll
 <p>
   <em>sys_ppoll( struct pollfd <strong>ufds,  unsigned int nfds,  struct timespec *tsp,  const sigset_t *sigmask,  size_t sigsetsize)</em><br>
  *wait for some event on a file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.517
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.518
 </p>
 </dd>
 <dt>
@@ -1739,7 +1738,7 @@ sys_prctl
 <p>
   <em>sys_prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)</em><br>
  <strong>operations on a process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.317
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.318
 </p>
 </dd>
 <dt>
@@ -1759,7 +1758,7 @@ sys_preadv
 <p>
   <em>sys_preadv( unsigned long fd,  const struct iovec <strong>vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)</em><br>
  *read or write data into multiple buffers</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.565
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.566
 </p>
 </dd>
 <dt>
@@ -1769,7 +1768,7 @@ sys_prlimit64
 <p>
   <em>sys_prlimit64( pid_t pid,  unsigned int resource,  const struct rlimit64 <strong>new_rlim,  struct rlimit64 *old_rlim)</em><br>
  *get/set resource limits</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.579
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.580
 </p>
 </dd>
 <dt>
@@ -1779,7 +1778,7 @@ sys_process_vm_readv
 <p>
   <em>sys_process_vm_readv( pid_t pid,  const struct iovec <strong>lvec,  unsigned long liovcnt,  const struct iovec *rvec,  unsigned long riovcnt,  unsigned long flags)</em><br>
  *transfer data between process address spaces</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.595
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.596
 </p>
 </dd>
 <dt>
@@ -1789,7 +1788,7 @@ sys_process_vm_writev
 <p>
   <em>sys_process_vm_writev( pid_t pid,  const struct iovec <strong>lvec,  unsigned long liovcnt,  const struct iovcc *rvec,  unsigned long riovcnt,  unsigned long flags)</em><br>
  *transfer data between process address spaces</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.597
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.598
 </p>
 </dd>
 <dt>
@@ -1799,7 +1798,7 @@ sys_pselect6
 <p>
   <em>sys_pselect6( int n,  fd_set <strong>inp,  fd_set *outp,  fd_set *exp,  struct timespec *tsp,  void *sig)</em><br>
  *select, pselect, FD_CLR, FD_ISSET, FD_SET, FD_ZERO \-</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.515
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.516
 </p>
 </dd>
 <dt>
@@ -1809,7 +1808,7 @@ sys_ptrace
 <p>
   <em>sys_ptrace( long request,  long pid,  unsigned long addr,  unsigned long data)</em><br>
  <strong>process trace</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.207
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.208
 </p>
 </dd>
 <dt>
@@ -1829,7 +1828,7 @@ sys_pwritev
 <p>
   <em>sys_pwritev( unsigned long fd,  const struct iovec <strong>vec,  unsigned long vlen,  unsigned long pos_l,  unsigned long pos_h)</em><br>
  *read or write data into multiple buffers</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.567
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.568
 </p>
 </dd>
 <dt>
@@ -1839,7 +1838,7 @@ sys_quotactl
 <p>
   <em>sys_quotactl( unsigned int cmd,  const char <strong>special,  qid_t id,  void *addr)</em><br>
  *manipulate disk quotas</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.355
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.356
 </p>
 </dd>
 <dt>
@@ -1859,7 +1858,7 @@ sys_readahead
 <p>
   <em>sys_readahead( int fd,  loff_t offset,  size_t count)</em><br>
  <strong>initiate file readahead into page cache</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.359
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.360
 </p>
 </dd>
 <dt>
@@ -1869,7 +1868,7 @@ sys_readlink
 <p>
   <em>sys_readlink( const char <strong>path,  char *buf,  int bufsiz)</em><br>
  *read the contents of a symbolic link</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.183
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.184
 </p>
 </dd>
 <dt>
@@ -1879,7 +1878,7 @@ sys_readlinkat
 <p>
   <em>sys_readlinkat( int dfd,  const char <strong>pathname,  char *buf,  int bufsiz)</em><br>
  *read value of a symbolic link</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.509
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.510
 </p>
 </dd>
 <dt>
@@ -1899,7 +1898,7 @@ sys_reboot
 <p>
   <em>sys_reboot( int magic1,  int magic2,  unsigned int cmd,  void <strong>arg)</em><br>
  *reboot or enable/disable Ctrl-Alt-Del</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.341
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.342
 </p>
 </dd>
 <dt>
@@ -1919,7 +1918,7 @@ sys_recvmmsg
 <p>
   <em>sys_recvmmsg( int fd,  struct msghdr <strong>mmsg,  unsigned int vlen,  unsigned int flags,  struct timespec *timeout)</em><br>
  *receive multiple messages on a socket</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.573
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.574
 </p>
 </dd>
 <dt>
@@ -1939,7 +1938,7 @@ sys_remap_file_pages
 <p>
   <em>sys_remap_file_pages( unsigned long start,  unsigned long size,  unsigned long prot,  unsigned long pgoff,  unsigned long flags)</em><br>
  <strong>create a nonlinear file mapping</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.409
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.410
 </p>
 </dd>
 <dt>
@@ -1949,7 +1948,7 @@ sys_removexattr
 <p>
   <em>sys_removexattr( const char <strong>pathname,  const char *name)</em><br>
  *remove an extended attribute</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.379
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.380
 </p>
 </dd>
 <dt>
@@ -1959,7 +1958,7 @@ sys_rename
 <p>
   <em>sys_rename( const char <strong>oldname,  const char *newname)</em><br>
  *rename file relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.169
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.170
 </p>
 </dd>
 <dt>
@@ -1969,7 +1968,7 @@ sys_renameat
 <p>
   <em>sys_renameat( int oldfd,  const char <strong>oldname,  int newfd,  const char *newname)</em><br>
  *change the name or location of a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.503
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.504
 </p>
 </dd>
 <dt>
@@ -1979,7 +1978,7 @@ sys_renameat2
 <p>
   <em>sys_renameat2( int olddfd,  const char  <strong>oldname,  int newdfd,  const char  *newname,  unsigned int flags)</em><br>
  *change the name or location of a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.607
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.608
 </p>
 </dd>
 <dt>
@@ -1989,7 +1988,7 @@ sys_request_key
 <p>
   <em>sys_request_key( const char <strong>_type,  const char *_description,  const char *_callout_info,  key_serial_t destringid)</em><br>
  *request a key from the kernel&#8217;s key management facility</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.473
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.474
 </p>
 </dd>
 <dt>
@@ -1999,7 +1998,7 @@ sys_restart_syscall
 <p>
   <em>sysSYSDEF_syscall(_restart_syscall,0)</em><br>
  <strong>restart a system call after interruption by a stop signal</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.415
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.416
 </p>
 </dd>
 <dt>
@@ -2009,7 +2008,7 @@ sys_rmdir
 <p>
   <em>sys_rmdir( const char <strong>pathname)</em><br>
  *remove a directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.173
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.174
 </p>
 </dd>
 <dt>
@@ -2029,7 +2028,7 @@ sys_rt_sigpending
 <p>
   <em>sys_rt_sigpending( sigset_t <strong>set,  size_t sigsetsize)</em><br>
  *examine pending signals</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.259
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.260
 </p>
 </dd>
 <dt>
@@ -2049,7 +2048,7 @@ sys_rt_sigqueueinfo
 <p>
   <em>sys_rt_sigqueueinfo( pid_t pid,  int sig,  siginfo_t <strong>uinfo)</em><br>
  *queue a signal and data</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.263
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.264
 </p>
 </dd>
 <dt>
@@ -2069,7 +2068,7 @@ sys_rt_sigsuspend
 <p>
   <em>sys_rt_sigsuspend( sigset_t <strong>unewset,  size_t sigsetsize)</em><br>
  *wait for a signal</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.265
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.266
 </p>
 </dd>
 <dt>
@@ -2079,7 +2078,7 @@ sys_rt_sigtimedwait
 <p>
   <em>sys_rt_sigtimedwait( const sigset_t <strong>uthese,  siginfo_t *uinfo,  const struct timespec *uts,  size_t sigsetsize)</em><br>
  *synchronously wait</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.261
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.262
 </p>
 </dd>
 <dt>
@@ -2089,7 +2088,7 @@ sys_rt_tgsigqueueinfo
 <p>
   <em>sys_rt_tgsigqueueinfo( pid_t tgid,  pid_t pid,  int sig,  siginfo_t <strong>uinfo)</em><br>
  *queue a signal and data</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.569
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.570
 </p>
 </dd>
 <dt>
@@ -2099,7 +2098,7 @@ sys_sched_get_priority_max
 <p>
   <em>sys_sched_get_priority_max( int policy)</em><br>
  <strong>get priority limits</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.295
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.296
 </p>
 </dd>
 <dt>
@@ -2109,7 +2108,7 @@ sys_sched_get_priority_min
 <p>
   <em>sys_sched_get_priority_min( int policy)</em><br>
  <strong>get static priority range</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.297
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.298
 </p>
 </dd>
 <dt>
@@ -2119,7 +2118,7 @@ sys_sched_getaffinity
 <p>
   <em>sys_sched_getaffinity( pid_t pid,  unsigned int len,  unsigned long <strong>user_mask_ptr)</em><br>
  *set and get a thread&#8217;s CPU affinity mask</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.393
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.394
 </p>
 </dd>
 <dt>
@@ -2129,7 +2128,7 @@ sys_sched_getattr
 <p>
   <em>sys_sched_getattr( pid_t pid,  struct sched_attr  <strong>attr,  unsigned int size,  unsigned int flags)</em><br>
  *sched_setattr, sched_getattr \-</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.605
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.606
 </p>
 </dd>
 <dt>
@@ -2139,7 +2138,7 @@ sys_sched_getparam
 <p>
   <em>sys_sched_getparam( pid_t pid,  struct sched_param <strong>param)</em><br>
  *get scheduling parameters</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.289
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.290
 </p>
 </dd>
 <dt>
@@ -2149,7 +2148,7 @@ sys_sched_getscheduler
 <p>
   <em>sys_sched_getscheduler( pid_t pid)</em><br>
  <strong>get scheduling policy</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.293
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.294
 </p>
 </dd>
 <dt>
@@ -2159,7 +2158,7 @@ sys_sched_rr_get_interval
 <p>
   <em>sys_sched_rr_get_interval( pid_t pid,  struct timespec <strong>interval)</em><br>
  *get execution time limits</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.299
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.300
 </p>
 </dd>
 <dt>
@@ -2169,7 +2168,7 @@ sys_sched_setaffinity
 <p>
   <em>sys_sched_setaffinity( pid_t pid,  unsigned int len,  unsigned long <strong>user_mask_ptr)</em><br>
  *set and get a thread&#8217;s CPU affinity mask</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.391
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.392
 </p>
 </dd>
 <dt>
@@ -2179,7 +2178,7 @@ sys_sched_setattr
 <p>
   <em>sys_sched_setattr( pid_t pid,  struct sched_attr  <strong>attr,  unsigned int flags)</em><br>
  *sched_setattr, sched_getattr \-</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.603
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.604
 </p>
 </dd>
 <dt>
@@ -2189,7 +2188,7 @@ sys_sched_setparam
 <p>
   <em>sys_sched_setparam( pid_t pid,  struct sched_param <strong>param)</em><br>
  *set scheduling parameters</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.287
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.288
 </p>
 </dd>
 <dt>
@@ -2199,7 +2198,7 @@ sys_sched_setscheduler
 <p>
   <em>sys_sched_setscheduler( pid_t pid,  int policy,  struct sched_param <strong>param)</em><br>
  *set scheduling policy and parameters</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.291
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.292
 </p>
 </dd>
 <dt>
@@ -2219,7 +2218,7 @@ sys_seccomp
 <p>
   <em>sys_seccomp( unsigned int op,  unsigned int flags,  const char  <strong>uargs)</em><br>
  *operate on Secure Computing state of the process</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.609
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.610
 </p>
 </dd>
 <dt>
@@ -2239,7 +2238,7 @@ sys_semctl
 <p>
   <em>sys_semctl( int semid,  int semnum,  int cmd,  semun_u arg)</em><br>
  <strong>XSI semaphore control operations</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.137
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.138
 </p>
 </dd>
 <dt>
@@ -2249,7 +2248,7 @@ sys_semget
 <p>
   <em>sys_semget( key_t key,  int nsems,  int semflg)</em><br>
  <strong>get set of XSI semaphores</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.133
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.134
 </p>
 </dd>
 <dt>
@@ -2259,7 +2258,7 @@ sys_semop
 <p>
   <em>sys_semop( int semid,  struct sembuf <strong>tsops,  unsigned nsops)</em><br>
  *XSI semaphore operations</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.135
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.136
 </p>
 </dd>
 <dt>
@@ -2269,7 +2268,7 @@ sys_semtimedop
 <p>
   <em>sys_semtimedop( int semid,  struct sembuf <strong>tsops,  unsigned nsops,  const struct timespec *timeout)</em><br>
  *System V semaphore operations</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.417
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.418
 </p>
 </dd>
 <dt>
@@ -2289,7 +2288,7 @@ sys_sendmmsg
 <p>
   <em>sys_sendmmsg( int fd,  struct mmsghdr <strong>mmsg,  unsigned int vlen,  unsigned int flags)</em><br>
  *send multiple messages on a socket</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.589
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.590
 </p>
 </dd>
 <dt>
@@ -2319,7 +2318,7 @@ sys_set_mempolicy
 <p>
   <em>sys_set_mempolicy( int mode,  unsigned long <strong>nmask,  unsigned long maxnode)</em><br>
  *set default NUMA memory policy for a thread and its children</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.451
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.452
 </p>
 </dd>
 <dt>
@@ -2329,7 +2328,7 @@ sys_set_robust_list
 <p>
   <em>sys_set_robust_list( struct robust_list_head <strong>head,  size_t len)</em><br>
  *get/set list of robust futexes</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.521
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.522
 </p>
 </dd>
 <dt>
@@ -2339,7 +2338,7 @@ sys_set_tid_address
 <p>
   <em>sys_set_tid_address( int <strong>tidptr)</em><br>
  *set pointer to thread ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.413
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.414
 </p>
 </dd>
 <dt>
@@ -2349,7 +2348,7 @@ sys_setdomainname
 <p>
   <em>sys_setdomainname( char <strong>name,  int len)</em><br>
  *get/set NIS domain name</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.345
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.346
 </p>
 </dd>
 <dt>
@@ -2359,7 +2358,7 @@ sys_setfsgid
 <p>
   <em>sys_setfsgid( gid_t gid)</em><br>
  <strong>set group identity used for filesystem checks</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.251
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.252
 </p>
 </dd>
 <dt>
@@ -2369,7 +2368,7 @@ sys_setfsuid
 <p>
   <em>sys_setfsuid( uid_t uid)</em><br>
  <strong>set user identity used for filesystem checks</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.249
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.250
 </p>
 </dd>
 <dt>
@@ -2379,7 +2378,7 @@ sys_setgid
 <p>
   <em>sys_setgid( gid_t gid)</em><br>
  <strong>set-group-ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.217
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.218
 </p>
 </dd>
 <dt>
@@ -2389,7 +2388,7 @@ sys_setgroups
 <p>
   <em>sys_setgroups( int gidsetsize,  gid_t <strong>grouplist)</em><br>
  *get/set list of supplementary group IDs</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.237
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.238
 </p>
 </dd>
 <dt>
@@ -2399,7 +2398,7 @@ sys_sethostname
 <p>
   <em>sys_sethostname( char <strong>name,  int len)</em><br>
  *get/set hostname</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.343
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.344
 </p>
 </dd>
 <dt>
@@ -2419,7 +2418,7 @@ sys_setns
 <p>
   <em>sys_setns( int fd,  int nstype)</em><br>
  <strong>reassociate thread with a namespace</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.591
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.592
 </p>
 </dd>
 <dt>
@@ -2429,7 +2428,7 @@ sys_setpgid
 <p>
   <em>sys_setpgid( pid_t pid,  pid_t pgid)</em><br>
  <strong>set process group ID for job control</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.223
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.224
 </p>
 </dd>
 <dt>
@@ -2439,7 +2438,7 @@ sys_setpriority
 <p>
   <em>sys_setpriority( int which,  int who,  int niceval)</em><br>
  <strong>set the nice value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.285
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.286
 </p>
 </dd>
 <dt>
@@ -2449,7 +2448,7 @@ sys_setregid
 <p>
   <em>sys_setregid( gid_t rgid,  gid_t egid)</em><br>
  <strong>set real and effective group IDs</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.233
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.234
 </p>
 </dd>
 <dt>
@@ -2459,7 +2458,7 @@ sys_setresgid
 <p>
   <em>sys_setresgid( gid_t rgid,  gid_t egid,  gid_t sgid)</em><br>
  <strong>set real, effective and saved user or group ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.243
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.244
 </p>
 </dd>
 <dt>
@@ -2469,7 +2468,7 @@ sys_setresuid
 <p>
   <em>sys_setresuid( uid_t <strong>ruid,  uid_t *euid,  uid_t *suid)</em><br>
  *set real, effective and saved user or group ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.239
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.240
 </p>
 </dd>
 <dt>
@@ -2479,7 +2478,7 @@ sys_setreuid
 <p>
   <em>sys_setreuid( uid_t ruid,  uid_t euid)</em><br>
  <strong>set real and effective user IDs</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.231
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.232
 </p>
 </dd>
 <dt>
@@ -2489,7 +2488,7 @@ sys_setrlimit
 <p>
   <em>sys_setrlimit( unsigned int resource,  struct rlimit <strong>rlim)</em><br>
  *control maximum resource consumption</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.323
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.324
 </p>
 </dd>
 <dt>
@@ -2499,7 +2498,7 @@ sys_setsid
 <p>
   <em>sysSYSDEF_syscall(_setsid,0)</em><br>
  <strong>create session and set process group ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.229
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.230
 </p>
 </dd>
 <dt>
@@ -2519,7 +2518,7 @@ sys_settimeofday
 <p>
   <em>sys_settimeofday( struct timeval <strong>tv,  struct timezone *tz)</em><br>
  *get / set time</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.331
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.332
 </p>
 </dd>
 <dt>
@@ -2529,7 +2528,7 @@ sys_setuid
 <p>
   <em>sys_setuid( uid_t uid)</em><br>
  <strong>set user ID</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.215
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.216
 </p>
 </dd>
 <dt>
@@ -2539,7 +2538,7 @@ sys_setxattr
 <p>
   <em>sys_setxattr( const char <strong>pathname,  const char *name,  const void *value, size_t size,  int flags)</em><br>
  *set an extended attribute value</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.361
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.362
 </p>
 </dd>
 <dt>
@@ -2569,7 +2568,7 @@ sys_shmdt
 <p>
   <em>sys_shmdt( char <strong>shmaddr)</em><br>
  *XSI shared memory detach operation</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.139
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.140
 </p>
 </dd>
 <dt>
@@ -2599,7 +2598,7 @@ sys_sigaltstack
 <p>
   <em>sys_sigaltstack( const stack_t <strong>uss,  stack_t *uoss)</em><br>
  *set and get signal alternate stack context</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.267
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.268
 </p>
 </dd>
 <dt>
@@ -2609,7 +2608,7 @@ sys_signalfd
 <p>
   <em>sys_signalfd( int ufd,  sigset_t <strong>user_mask,  size_t sizemask)</em><br>
  *create a file descriptor for accepting signals</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.539
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.540
 </p>
 </dd>
 <dt>
@@ -2619,7 +2618,7 @@ sys_signalfd4
 <p>
   <em>sys_signalfd4( int ufd,  sigset_t <strong>user_mask,  size_t sizemask,  int flags)</em><br>
  *create a file descriptor for accepting signals</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.553
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.554
 </p>
 </dd>
 <dt>
@@ -2649,7 +2648,7 @@ sys_splice
 <p>
   <em>sys_splice( int fd_in,  loff_t <strong>off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)</em><br>
  *splice data to/from a pipe</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.525
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.526
 </p>
 </dd>
 <dt>
@@ -2669,7 +2668,7 @@ sys_statfs
 <p>
   <em>sys_statfs( const char <strong>pathname,  struct statfs *buf)</em><br>
  *get filesystem statistics</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.277
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.278
 </p>
 </dd>
 <dt>
@@ -2679,7 +2678,7 @@ sys_swapoff
 <p>
   <em>sys_swapoff( const char <strong>specialfile)</em><br>
  *start/stop swapping to file/device</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.339
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.340
 </p>
 </dd>
 <dt>
@@ -2689,7 +2688,7 @@ sys_swapon
 <p>
   <em>sys_swapon( const char <strong>specialfile,  int swap_flags)</em><br>
  *start/stop swapping to file/device</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.337
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.338
 </p>
 </dd>
 <dt>
@@ -2699,7 +2698,7 @@ sys_symlink
 <p>
   <em>sys_symlink( const char <strong>oldname,  const char *newname)</em><br>
  *make a symbolic link relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.181
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.182
 </p>
 </dd>
 <dt>
@@ -2709,7 +2708,7 @@ sys_symlinkat
 <p>
   <em>sys_symlinkat( const char <strong>oldname,  int newfd,  const char *newname)</em><br>
  *make a new name for a file</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.507
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.508
 </p>
 </dd>
 <dt>
@@ -2719,7 +2718,7 @@ sys_sync
 <p>
   <em>sysSYSDEF_syscall(_sync,0)</em><br>
  <strong>schedule file system updates</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.327
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.328
 </p>
 </dd>
 <dt>
@@ -2729,7 +2728,7 @@ sys_sync_file_range
 <p>
   <em>sys_sync_file_range( long fd,  loff_t offset,  loff_t bytes,  long flags)</em><br>
  <strong>sync a file segment with disk</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.529
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.530
 </p>
 </dd>
 <dt>
@@ -2739,7 +2738,7 @@ sys_syncfs
 <p>
   <em>sys_syncfs( int fd)</em><br>
  <strong>commit filesystem caches to disk</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.587
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.588
 </p>
 </dd>
 <dt>
@@ -2749,7 +2748,7 @@ sys_sysfs
 <p>
   <em>sys_sysfs( int option,  unsigned long arg1,  unsigned long arg2)</em><br>
  <strong>get filesystem type information</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.281
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.282
 </p>
 </dd>
 <dt>
@@ -2759,7 +2758,7 @@ sys_sysinfo
 <p>
   <em>sys_sysinfo( struct sysinfo <strong>info)</em><br>
  *return system information</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.203
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.204
 </p>
 </dd>
 <dt>
@@ -2769,7 +2768,7 @@ sys_syslog
 <p>
   <em>sys_syslog( int type,  char <strong>buf,  int len)</em><br>
  *log a message</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.211
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.212
 </p>
 </dd>
 <dt>
@@ -2779,7 +2778,7 @@ sys_tee
 <p>
   <em>sys_tee( int fdin,  int fdout,  size_t len,  unsigned int flags)</em><br>
  <strong>duplicating pipe content</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.527
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.528
 </p>
 </dd>
 <dt>
@@ -2789,7 +2788,7 @@ sys_tgkill
 <p>
   <em>sys_tgkill( pid_t tgid,  pid_t pid,  int sig)</em><br>
  <strong>send a signal to a thread</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.445
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.446
 </p>
 </dd>
 <dt>
@@ -2799,7 +2798,7 @@ sys_time
 <p>
   <em>sys_time( time_t <strong>tloc)</em><br>
  *get time</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.387
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.388
 </p>
 </dd>
 <dt>
@@ -2809,7 +2808,7 @@ sys_timer_create
 <p>
   <em>sys_timer_create( const clockid_t which_clock,  struct sigevent <strong>timer_event_spec,  timer_t *created_timer_id)</em><br>
  *create a per-process timer</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.421
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.422
 </p>
 </dd>
 <dt>
@@ -2819,7 +2818,7 @@ sys_timer_delete
 <p>
   <em>sys_timer_delete( timer_t timer_id)</em><br>
  <strong>delete a per-process timer</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.429
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.430
 </p>
 </dd>
 <dt>
@@ -2828,7 +2827,7 @@ sys_timer_getoverrun
 <dd>
 <p>
   <em>sys_timer_getoverrun( timer_t timer_id)</em><br>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.427
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.428
 </p>
 </dd>
 <dt>
@@ -2838,7 +2837,7 @@ sys_timer_gettime
 <p>
   <em>sys_timer_gettime( timer_t timer_id,  struct itimerspec <strong>setting)</em><br>
  *arm/disarm and fetch</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.425
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.426
 </p>
 </dd>
 <dt>
@@ -2848,7 +2847,7 @@ sys_timer_settime
 <p>
   <em>sys_timer_settime( timer_t timer_id,  int flags,  const struct itimerspec <strong>new_setting,  struct itimerspec *old_setting)</em><br>
  *arm/disarm and fetch</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.423
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.424
 </p>
 </dd>
 <dt>
@@ -2858,7 +2857,7 @@ sys_timerfd_create
 <p>
   <em>sys_timerfd_create( int clockid,  int flags)</em><br>
  <strong>timerfd_create, timerfd_settime, timerfd_gettime \-</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.541
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.542
 </p>
 </dd>
 <dt>
@@ -2868,7 +2867,7 @@ sys_timerfd_gettime
 <p>
   <em>sys_timerfd_gettime( int ufd,  struct itimerspec <strong>otmr)</em><br>
  *timerfd_create, timerfd_settime, timerfd_gettime \-</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.549
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.550
 </p>
 </dd>
 <dt>
@@ -2878,7 +2877,7 @@ sys_timerfd_settime
 <p>
   <em>sys_timerfd_settime( int ufd,  int flags,  const struct itimerspec <strong>utmr,  struct itimerspec *otmr)</em><br>
  *timerfd_create, timerfd_settime, timerfd_gettime \-</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.547
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.548
 </p>
 </dd>
 <dt>
@@ -2888,7 +2887,7 @@ sys_times
 <p>
   <em>sys_times( struct sysinfo <strong>info)</em><br>
  *get process and waited-for child process times</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.205
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.206
 </p>
 </dd>
 <dt>
@@ -2898,7 +2897,7 @@ sys_tkill
 <p>
   <em>sys_tkill( pid_t pid,  int sig)</em><br>
  <strong>send a signal to a thread</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.385
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.386
 </p>
 </dd>
 <dt>
@@ -2908,7 +2907,7 @@ sys_truncate
 <p>
   <em>sys_truncate( const char <strong>path,  long length)</em><br>
  *truncate a file to a specified length</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.157
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.158
 </p>
 </dd>
 <dt>
@@ -2918,7 +2917,7 @@ sys_umask
 <p>
   <em>sys_umask( int mask)</em><br>
  <strong>set and get the file mode creation mask</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.195
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.196
 </p>
 </dd>
 <dt>
@@ -2928,7 +2927,7 @@ sys_umount2
 <p>
   <em>sys_umount2( const char <strong>target,  int flags)</em><br>
  *unmount filesystem</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.335
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.336
 </p>
 </dd>
 <dt>
@@ -2938,7 +2937,7 @@ sys_uname
 <p>
   <em>sys_uname( struct old_utsname <strong>name)</em><br>
  *get the name of the current system</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.131
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.132
 </p>
 </dd>
 <dt>
@@ -2948,7 +2947,7 @@ sys_unlink
 <p>
   <em>sys_unlink( const char <strong>pathname)</em><br>
  *remove a directory entry relative to directory file descriptor</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.179
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.180
 </p>
 </dd>
 <dt>
@@ -2958,7 +2957,7 @@ sys_unlinkat
 <p>
   <em>sys_unlinkat( int dfd,  const char <strong>pathname,  int flag)</em><br>
  *delete a name and possibly the file it refers to</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.501
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.502
 </p>
 </dd>
 <dt>
@@ -2968,7 +2967,7 @@ sys_unshare
 <p>
   <em>sys_unshare( unsigned long unshare_flags)</em><br>
  <strong>disassociate parts of the process execution context</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.519
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.520
 </p>
 </dd>
 <dt>
@@ -2978,7 +2977,7 @@ sys_ustat
 <p>
   <em>sys_ustat( unsigned dev,  struct ustat <strong>ubuf)</em><br>
  *get filesystem statistics</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.275
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.276
 </p>
 </dd>
 <dt>
@@ -2988,7 +2987,7 @@ sys_utime
 <p>
   <em>sys_utime( char <strong>filename,  struct utimbuf *times)</em><br>
  *set file access and modification times</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.269
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.270
 </p>
 </dd>
 <dt>
@@ -2998,7 +2997,7 @@ sys_utimensat
 <p>
   <em>sys_utimensat( int dfd,  const char <strong>filename,  struct timespec *utimes, int flags)</em><br>
  *set file access and modification times relative to directory</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.535
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.536
 </p>
 </dd>
 <dt>
@@ -3008,7 +3007,7 @@ sys_utimes
 <p>
   <em>sys_utimes( char <strong>filename,  struct timeval *utimes)</em><br>
  *change file last access and modification times</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.447
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.448
 </p>
 </dd>
 <dt>
@@ -3028,7 +3027,7 @@ sys_vhangup
 <p>
   <em>sysSYSDEF_syscall(_vhangup,0)</em><br>
  <strong>virtually hangup the current terminal</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.309
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.310
 </p>
 </dd>
 <dt>
@@ -3038,7 +3037,7 @@ sys_vmsplice
 <p>
   <em>sys_vmsplice( int fd,  const struct iovec <strong>iov,  unsigned long nr_segs, unsigned int flags)</em><br>
  *splice user pages to/from a pipe</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.531
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.532
 </p>
 </dd>
 <dt>
@@ -3048,7 +3047,7 @@ sys_wait4
 <p>
   <em>sys_wait4( pid_t upid,  int <strong>stat_addr,  int options,  struct rusage *ru)</em><br>
  *wait for process to change state, BSD style</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.127
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.128
 </p>
 </dd>
 <dt>
@@ -3058,7 +3057,7 @@ sys_waitid
 <p>
   <em>sys_waitid( int which,  pid_t upid,  struct siginfo <strong>infop,  int options,  struct rusage *ru)</em><br>
  *wait for a child process to change state</strong>
-<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.469
+<a href="../../include/syscalls_x64.h">../include/syscalls_x64.h</a> l.470
 </p>
 </dd>
 <dt>
@@ -3086,7 +3085,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2021-02-14 13:29:08 UTC
+ 2021-06-19 17:52:52 UTC
 </small></p>
 </body>
 </html>

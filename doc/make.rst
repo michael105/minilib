@@ -1,3 +1,4 @@
+**make[1]: Entering directory '/home/micha/prog/minilib'**
 
 **make targets:**
 
@@ -42,6 +43,11 @@ retest
 	for rebuilding the expected output of the tests as well,
 	please have a look into ./test/Makefile
 
+syntaxcheck
+  rebuild the file syntaxcheck.h,
+  intended to be included for syntaxchecking plugins.
+  All declarations of minilib are define there.
+
 help
 	show this help
 
@@ -82,3 +88,4 @@ For further documentation please have a look into README.asc, and the folder ./d
 Michael (misc) Myer, 2012-2021, all rights reserved. 
 Free use with attribution. Please have a look into 
 the file LICENSE for the licensing terms.
+make[1]: Leaving directory '/home/micha/prog/minilib'

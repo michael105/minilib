@@ -706,6 +706,9 @@ map_protected  void* map_protected(int len);
               neither the stack, nor other structures can be overwritten.
               Instead the overflow (or underflow) touches the next protected page,
               what results in a segfault.
+              Most probably you'd like to catch the segfault signal.
+              (By installing a segfault signal handler)
+             
               The size is always a mutliple of the systems pagesize, 4kB here.
               The len of the mapped memory area is rounded up to the next pagesize.
               The mapped area can only be freed by call(s) to munmap,
@@ -713,9 +716,9 @@ map_protected  void* map_protected(int len);
               There is one page before, and one page after the mapped area
               protected with PROT_NONE, and len rounded up to the next
               pagebreak. So this is the overhead. 
-              If an error occures, errno is set (when defined), 
+              If an error occures, errno is set (when defined by the switch mini_errno), 
               and -1 returned, or the negative errno value, when errno isn't defined.
-               (src/memory/map_protected.c: 19)
+               (src/memory/map_protected.c: 22)
 
 match          int match(char *text, const char *re, text_match *st_match);
 
@@ -1616,7 +1619,12 @@ unlockpt       int unlockpt(int fd);
 
 unmap_protectedint unmap_protected(void *p, int len);
 
-               (src/memory/map_protected.c: 41)
+               free an area, allocated before with map_protected
+              (len must be the same, when at the invocation of map_protected)
+              returns the value of munmap, when an error occures.
+              errno is set, when defined.
+              return 0 on success.
+               (src/memory/map_protected.c: 44)
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
 
