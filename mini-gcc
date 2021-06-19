@@ -139,6 +139,10 @@ before options and parameters for gcc.
         define switches to stdout.
         Used internally, to pass the generated header via pipe to gcc
 
+--showsources
+        Dump all used sources to the terminal 
+        (gcc options -E -P)
+
 --no-mbuf:
         When generating a config, don't write switches for the global mini_buf, 
         also don't generate the global structures for the fstream streams. 
@@ -240,9 +244,14 @@ if [ "$opt_execname" != "" ]; then # compile and execute
 		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
 fi
 
+if [ -n "$SHOWSOURCES" ]; then
+	opt_args="-E -P $opt_args"
+else
+
 if [ -n "$outputfile" ]; then
 	opt_args="-o $outputfile $opt_args"
 	echo B: $binary 1>&2
+fi
 fi
 
 
@@ -279,6 +288,7 @@ fi
 if [ "$useincludedminilib" == "0" ]; then
 	CFLAGS="$INCLUDEDIRS $CFLAGS"
 fi
+
 
 echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
 
@@ -625,6 +635,11 @@ do
 						shift
 						opt=1
 						dump_cmd=1
+						;;
+				--showsources )
+						shift
+						opt=1
+						SHOWSOURCES=1
 						;;
 				--useincludedminilib )
 						shift
