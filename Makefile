@@ -202,7 +202,7 @@ Makefile.minilib:
 	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
-	@$(foreach FILE,$(wildcard ldscripts/ld.script*), @sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
+	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
 	#echo "endif" >> Makefile.minilib
 

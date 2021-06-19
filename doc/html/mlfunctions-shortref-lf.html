@@ -1047,13 +1047,16 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/memory/malloc_brk.c" target="right">../src/memory/malloc_brk.c</a>  19 </small></td><td><small> void* map_protected(int len);
+<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/memory/malloc_brk.c" target="right">../src/memory/malloc_brk.c</a>  22 </small></td><td><small> void* map_protected(int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate a buffer, which is surrounded by protected pages. 
   mprotect(PROT_NONE)
   When there is a buffer overflow,
   neither the stack, nor other structures can be overwritten.
   Instead the overflow (or underflow) touches the next protected page,
   what results in a segfault.
+  Most probably you'd like to catch the segfault signal.
+  (By installing a segfault signal handler)
+ 
   The size is always a mutliple of the systems pagesize, 4kB here.
   The len of the mapped memory area is rounded up to the next pagesize.
   The mapped area can only be freed by call(s) to munmap,
@@ -1061,7 +1064,7 @@
   There is one page before, and one page after the mapped area
   protected with PROT_NONE, and len rounded up to the next
   pagebreak. So this is the overhead. 
-  If an error occures, errno is set (when defined), 
+  If an error occures, errno is set (when defined by the switch mini_errno), 
   and -1 returned, or the negative errno value, when errno isn't defined.
  </small></td></tr>
 <tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  83 </small></td><td><small> int match(char *text, const char *re, text_match *st_match);
@@ -2111,8 +2114,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  14 </small></td><td><small> int unlockpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  41 </small></td><td><small> int unmap_protected(void *p, int len);
-</small></td></tr>
+<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  44 </small></td><td><small> int unmap_protected(void *p, int len);
+</small></td></tr><tr><td></td><td colspan="2"><small>free an area, allocated before with map_protected
+  (len must be the same, when at the invocation of map_protected)
+  returns the value of munmap, when an error occures.
+  errno is set, when defined.
+  return 0 on success.
+ </small></td></tr>
 <tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/usleep.3.rst.html">usleep</a></small></td><td><small>   <a href="../src/userdb/userdb_open.c" target="right">../src/userdb/userdb_open.c</a>  31 </small></td><td><small> unsigned int  usleep(unsigned int useconds);
