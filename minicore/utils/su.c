@@ -3,6 +3,7 @@ mini_start
 mini_vexec
 mini_writes
 mini_waitpid
+COMPILE vfork execve close
 
 
 INCLUDESRC

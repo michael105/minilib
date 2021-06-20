@@ -5,10 +5,15 @@
 
 
 #include "minilib/include/pwent.h"
+#include "minilib/include/termio.h"
 #include "minilib/include/exit.h"
 #include "minilib/include/minilib_global.h"
 #include "minilib/include/dirent.h"
 #include "minilib/include/filemodes.h"
+
+#ifdef VERBOSE_COMPILATION
+#pragma message "=== End of definitions, and beginning of src ==="
+#endif
 
 #include "minilib/include/syscall_stubs.h"
 

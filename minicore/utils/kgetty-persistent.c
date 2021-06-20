@@ -26,6 +26,8 @@ mini_sigaction
 mini_isatty
 mini_vexec
 
+COMPILE setsid setgid setuid execve dup2
+
 LDSCRIPT text_and_bss
 shrinkelf
 INCLUDESRC

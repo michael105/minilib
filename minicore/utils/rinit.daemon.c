@@ -13,6 +13,8 @@ mini_itodec
 mini_select
 mini_open
 
+COMPILE pipe read close dup2
+
 INCLUDESRC
 
 return

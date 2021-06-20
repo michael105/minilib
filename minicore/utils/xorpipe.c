@@ -6,6 +6,7 @@ mini_ewritesl
 mini_read
 mini_malloc_brk
 mini_realloc
+mini_eprints
 
 mini_buf 1024
 mini_group_printf

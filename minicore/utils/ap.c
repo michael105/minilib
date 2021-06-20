@@ -6,6 +6,8 @@ mini_write
 mini_writes
 mini_ewrites
 mini_read
+mini_lseek
+mini_ftruncate
 mini_group_printf
 mini_buf 1024
 mini_GETOPTS

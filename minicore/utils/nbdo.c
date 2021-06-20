@@ -6,6 +6,9 @@ mini_eprints
 mini_exit_errno
 mini_syscalls
 mini_strcpy
+mini_setuid
+mini_setgid
+
 
 
 INCLUDESRC

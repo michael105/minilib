@@ -4,6 +4,10 @@ mini_start
 mini_vexec_q
 mini_writes
 mini_waitpid
+mini_vexec
+mini_execve
+mini_vfork
+mini_close
 
 
 INCLUDESRC

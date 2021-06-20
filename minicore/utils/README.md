@@ -8,18 +8,27 @@ Since I'm aiming at a 64kB (128kB max) base system, I've to separate them.
 
 
 ```
-conv            2020-07-30             2959
-errno           2020-07-30             5247
-kgetty          2020-07-30             4552
-ksudo           2020-07-30             921
-nbdo            2020-07-30             980
-rd.pstat        2020-07-30             6192
-rinit.daemon    2020-07-30             3264
+a.out           2021-06-20             3859
+ap              2021-06-20             1296
+conv            2021-06-20             3104
+errno           2021-06-20             7805
+fromhex         2021-06-20             816
+getresuid       2021-06-20             2400
+kgetty          2021-06-20             3859
+kgetty-persistent 2021-06-20             4864
+ksudo           2021-06-20             904
+lockfile        2021-06-20             3928
+nbdo            2021-06-20             968
+pbutton.d       2021-06-20             3464
+rd.pstat        2021-06-20             6456
+rinit.daemon    2021-06-20             2040
 sed/s           2020-07-07             18656
 sed/sed         2020-07-07             16748
 sed/sed.bak     2020-06-12             18320
-su              2020-07-30             658
-udo             2020-07-30             1249
+su              2021-06-20             644
+tohex           2021-06-20             502
+udo             2021-06-20             1204
+xorpipe         2021-06-20             4440
 ===============================================
-                          size: 79746 Bytes
+                         size: 106277 Bytes
 ```

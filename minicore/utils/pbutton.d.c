@@ -4,6 +4,7 @@ mini_exit_errno
 mini_open
 mini_system
 mini_writes
+mini_read
 
 
 mini_group_printf

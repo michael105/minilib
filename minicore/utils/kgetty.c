@@ -24,6 +24,7 @@ mini_fchown
 mini_sigemptyset
 mini_sigaction
 mini_isatty
+COMPILE tcgetattr setsid setgid setuid execve
 
 LDSCRIPT text_and_bss
 shrinkelf

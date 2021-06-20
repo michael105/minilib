@@ -4,6 +4,10 @@ mini_write
 mini_writes
 mini_read
 
+LDSCRIPT textandbss
+SHRINKELF
+#STRIPFLAG
+
 INCLUDESRC
 
 return
@@ -11,6 +15,7 @@ return
 
 #define BUF 4096
 
+//void __attribute__((noreturn))usage(){
 void usage(){
 	writes("tohex. convert stdin to hexadecimal output.\n");
 	exit(0);

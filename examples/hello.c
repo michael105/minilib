@@ -25,7 +25,7 @@ LDSCRIPT onlytext
 
 # the optimization flag for gcc
 # (also defaults to -Os)
-OPTFLAG=-Os
+OPTFLAG -Os
 
 # the following two line have to be there
 return

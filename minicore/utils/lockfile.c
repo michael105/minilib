@@ -11,6 +11,7 @@ mini_exit_errno
 mini_errno
 mini_open
 mini_sleep
+mini_fstat
 
 mini_group_printf
 mini_buf 256
