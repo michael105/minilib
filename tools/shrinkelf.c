@@ -460,6 +460,7 @@ static void process_file ()
       * performing necessary skips and replacements along the way. */
 {
   region_ref p ;
+	 size_t outlen = 0;
 
   /* Copy region by region... */
   for (p = first_region ; p ; p = p->next)
@@ -531,8 +532,10 @@ static void process_file ()
       }
       toread -= thisread ;
       thisoff += thisread ;
+		outlen += thisread;
     }
   }
+  fprintf(stderr,"New size:  %d\n",outlen);
 }
 
 int main (int argc, char const *const *argv)
@@ -561,13 +564,16 @@ int main (int argc, char const *const *argv)
     tmpname = malloc(strlen(oldname)+8);
     strcpy( tmpname, oldname );
 		strcpy(	&tmpname[strlen(oldname)],".shrinkelf");
-		fprintf(stdout, "stripping: %s\n",oldname);
+		fprintf(stderr, "Stripping: %s\n",oldname);
 
     {
       struct stat st ;
       register int fdw ;
       if (fstat(0, &st) == -1)
         err("Unkown error stat %s", oldname) ;
+	 	
+		fprintf(stderr,"Old size:  %d\n",st.st_size);
+
       fdw = open(tmpname, O_WRONLY|O_CREAT|O_TRUNC|O_EXCL, st.st_mode & 0777) ;
       if (fdw == -1)
         err("Unkown error opening temp file %s", tmpname, " for writing") ;

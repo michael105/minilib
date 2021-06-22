@@ -20,6 +20,7 @@ LDSCRIPT default
 mini_close
 mini_dup2
 mini_fprintf
+mini_itodec
 mini_fputc
 mini_free
 mini_fstat
@@ -35,5 +36,6 @@ mini_strlen
 mini_unlink
 mini_write
 mini_errno
+mini_exit
 
 mini_itodec
