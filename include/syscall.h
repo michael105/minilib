@@ -8,7 +8,7 @@ extern int __mini_vsys;
 
 //extern int sysret;
 #ifdef mini_errno
-#ifndef mini_globals_on_stack
+#ifndef mini_globalregister
 extern int errno;
 #endif
 #endif

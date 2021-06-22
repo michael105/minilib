@@ -154,6 +154,9 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 #ifndef mini_globals
 #define mini_globals
 #endif
+#ifndef mini_globalregister
+#define mini_globalregister
+#endif
 #endif
 
 
@@ -164,7 +167,7 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
 
 
-#ifndef mini_globals_on_stack
+#ifndef mini_globalregister
 
 extern minilib_globals*__restrict__ mlgl;
 extern minilib_globals __mlgl;
@@ -177,14 +180,28 @@ extern int errno;
 extern char **environ;
 #endif
 
-#else //mini_globals_on_stack
+#else //mini_globalregister
 
 // when the global are located on the stack, 
 // (globals_on_stack), the position needs to be saved.
 // Using r15 for the position.
 // Locating all globals on the stack might only in some special cases
 // give advantages. (sparing the .data and .bss segments, for example)
-register minilib_globals __attribute__((used))*__restrict__ mlgl asm("r15");
+// Same when loading "plugins"
+//
+// Seems to me the easiest way, mixing position independent code
+// and common "globals".
+// Especially, since (here r15) is rarely used with amd64 and gcc.
+// for Saving the register, it would also be possible to store the address
+// of the globals at a fixed position, e.g. the beginning of the text section.
+// Or allocating the globals at a fixed memory position..
+//
+// However.
+// The option to have the globals at a varying address gives as a sideeffect
+// a certain security advantage. Albite, well.
+// I leave this at it is for now.
+//
+register minilib_globals __attribute__((used))*__restrict__ mlgl asm(mini_globalregister);
 
 #define errno mlgl->errno
 //#define sysret mlgl->sysret

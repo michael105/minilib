@@ -1,5 +1,6 @@
 #if 0
 mini_start
+mini_kill
 mini_writes
 mini_perror
 mini_errno

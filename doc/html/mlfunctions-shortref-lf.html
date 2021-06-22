@@ -571,7 +571,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  14 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
-<tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/prints.c" target="right">../src/output/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
+<tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/dprints.c" target="right">../src/output/dprints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup</a></small></td><td><small>   <a href="../src/conversions/dtodec.c" target="right">../src/conversions/dtodec.c</a>  119 </small></td><td><small> dup(int fd)		
 </small></td></tr>
@@ -647,7 +647,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  40 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
+<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  11 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
 </small></td></tr><tr><td></td><td colspan="2"><small>When invoked with a filename, starting with "." or "/",
   interprets this as absolute path. (calls execve with the pathname)
   Looks for file in the PATH environment, othwerise.
@@ -2180,10 +2180,10 @@
 <tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">warn</a></small></td><td><small>   <a href="../src/process/wait.c" target="right">../src/process/wait.c</a>  33 </small></td><td><small> #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 </small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr
  </small></td></tr>
-<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  8 </small></td><td><small> int where(const char *file,char *buf);
+<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  4 </small></td><td><small> int where(const char *file,char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>locate an executable in PATH
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/execvp.c" target="right">../src/exec/execvp.c</a>  104 </small></td><td><small> write(int fd,const void *buf, int len )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/where.c" target="right">../src/exec/where.c</a>  104 </small></td><td><small> write(int fd,const void *buf, int len )
 </small></td></tr>
 <tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  83 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.

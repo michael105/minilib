@@ -8,7 +8,6 @@ LDSCRIPT onlytext
 shrinkelf
 return
 #endif
-#include "minilib.h"
 
 int main(int argc, const char *argv[])
 {

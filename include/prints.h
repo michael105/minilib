@@ -29,7 +29,7 @@ extern int dprints(int fd, const char *msg,...);
 
 //+doc print the string(s) supplied as arg(s) to stream
 // this macro has an variable argument count.
-//+depends fileno write strlen
+//+depends fileno write strlen dprints
 //+macro
 #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 

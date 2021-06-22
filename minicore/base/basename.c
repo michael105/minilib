@@ -10,7 +10,6 @@ INCLUDESRC
 shrinkelf
 return
 #endif
-#include "minilib.h"
 
 // Original work by ammongit (github.com/ammongit/minutils)
 // Modified by misc 2019

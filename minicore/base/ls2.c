@@ -26,10 +26,10 @@ HEADERGUARDS
 shrinkelf
 return
 #endif
-#include "minilib.h"
 
 // source from minutils
 
+#ifndef MLIB
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
@@ -38,6 +38,7 @@ return
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#endif
 
 
 

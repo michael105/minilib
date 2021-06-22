@@ -379,7 +379,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/output/prints.c: 14)
+               (src/output/dprints.c: 14)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -1670,6 +1670,11 @@ warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
                print an error message to stderr
                (src/process/error.c: 33)
 
+where          int where(const char *file,char *buf);
+
+               locate an executable in PATH
+               (src/exec/where.c: 4)
+
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
@@ -2553,7 +2558,7 @@ execvpe        static int execvpe(const char *file, char *const argv[], char *co
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
               Looks for file in the PATH environment, othwerise.
-               (src/exec/execvp.c: 40)
+               (src/exec/execvp.c: 11)
 
 getgroups      int getgroups(int maxgroups, int *list);
 
@@ -2612,9 +2617,4 @@ usleep         unsigned int volatile usleep(unsigned int useconds);
              
               TODO: ignore blocked signals, sigchld
                (src/process/sleep.c: 31)
-
-where          int where(const char *file,char *buf);
-
-               locate an executable in PATH
-               (src/exec/execvp.c: 8)
 

@@ -7,7 +7,7 @@
 
 int main();//int argc, char **argv, char **envp );
 
-int _startup(int argc, char **argv, char **envp ){
+void __attribute__((noreturn))_startup(int argc, char **argv, char **envp ){
 	// these init instructions
 	// I guess, it would be better 
 	// writing the assembly from hand,
@@ -22,12 +22,15 @@ int _startup(int argc, char **argv, char **envp ){
 		// put the globals onto the stack.
 minilib_globals __mlgl;
 //{ .errno = 0, .mbuf[0] = 0, .environ=envp };
-mlgl=&__mlgl;
+//mlgl=&__mlgl;
 #else
 #endif
 
 #ifdef mini_buf
 mlgl=&__mlgl;
+// didn't change the size.
+// but possible to dynamically allocate the globals.
+//mlgl=__buf;
 mlgl->mbufsize = mini_buf-4;
 int a = 0;
 for (; a<3; a++ )
@@ -69,6 +72,7 @@ mlgl->grent.gr_name = 0;
 	
 	// call main
 	int ret = main(argc,argv,envp);
+	//asm volatile("jmp main");
 
 #ifdef mini_atexit
 #ifdef X64
@@ -86,6 +90,7 @@ mlgl->grent.gr_name = 0;
 	}
 #endif
 
+	//_exit(0); 
 	_exit(ret); 
 	// exits here. 
 	// This does a jump to _exit:
@@ -104,7 +109,8 @@ mlgl->grent.gr_name = 0;
 	OPTFENCE((void*)mlgl);
 #endif
 	// silence compiler warning.
-	return(ret);
+	__builtin_unreachable();
+	//return(ret);
 }
 
 #endif

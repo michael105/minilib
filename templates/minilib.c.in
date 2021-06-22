@@ -16,7 +16,7 @@
 #include "minilib/src/intern/minilib_global.c"
 
 #ifdef mini_prints
-#include "minilib/src/output/prints.c"
+#include "minilib/src/output/dprints.c"
 #endif
 
 #ifdef mini_errno

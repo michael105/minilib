@@ -3,6 +3,7 @@ mini_start
 mini_exit
 mini_write
 mini_open
+mini_close
 mini_read
 mini_writes
 mini_prints
@@ -13,7 +14,6 @@ INCLUDESRC
 shrinkelf
 return
 #endif
-#include "minilib.h"
 
 /** 
 * Simple grep.  Supports only ^ . * $ operators.

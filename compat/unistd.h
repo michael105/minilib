@@ -116,9 +116,6 @@ static inline int execvp(const char *file, char *const argv[]);
 static int execl(const char *pathname, const char* arg0,... );
 
 // file: minilib/src/exec/execvp.c
-int where(const char *file,char *buf);
-
-// file: minilib/src/exec/execvp.c
 static int execvpe(const char *file, char *const argv[], char *const envp[]);
 
 // file: minilib/src/network/gethostname.c
@@ -140,12 +137,12 @@ int getgroups(int maxgroups, int *list);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/userdb/getgroups.c"
+#include "minilib/src/exec/_execv.c"
 #include "minilib/src/exec/execvp.c"
 #include "minilib/src/exec/execl.c"
-#include "minilib/src/exec/_execvp.c"
-#include "minilib/src/exec/_execv.c"
-#include "minilib/src/userdb/getgroups.c"
 #include "minilib/src/network/gethostname.c"
+#include "minilib/src/exec/_execvp.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

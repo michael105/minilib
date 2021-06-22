@@ -37,9 +37,12 @@
 // if globals are on the stack, 
 // the structure is defined in startup.c
 // (which is included in _start)
+//static char __buf[8192];
 minilib_globals __mlgl;
-minilib_globals * __restrict__ mlgl = &__mlgl;
+minilib_globals * __restrict__ mlgl;// = &__buf;
+//minilib_globals * __restrict__ mlgl = &__mlgl;
 
+//char secondbuf[2048];
 
 #ifdef mini_errno
 int errno;

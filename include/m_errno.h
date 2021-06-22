@@ -138,7 +138,7 @@
 #define ENOTRECOVERABLE 131
 #define ERFKILL         132
 
-#ifndef mini_globals_on_stack
+#ifndef mini_globalregister
 extern int errno;
 #endif
 #endif

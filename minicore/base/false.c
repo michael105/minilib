@@ -5,7 +5,6 @@ INCLUDESRC
 shrinkelf
 return
 #endif
-#include "minilib.h"
 
 int main(void){
 	return 1;

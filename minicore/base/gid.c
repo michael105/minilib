@@ -1,5 +1,7 @@
 #if 0
 mini_start
+mini_eprintsl
+mini_getuid
 mini_printsl
 mini_writes
 mini_ewrites

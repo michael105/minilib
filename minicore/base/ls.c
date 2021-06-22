@@ -1,11 +1,14 @@
 #if 0
 mini_start
+mini_stat
+mini_chdir
 
 mini_scandir
 mini_malloc
 mini_prints
 mini_writes
 mini_open
+mini_close
 mini_errno
 mini_readdir
 mini_qsort
@@ -29,6 +32,7 @@ mini_ansicolors
 OPTFLAG -Os
 
 #LDSCRIPT 
+shrinkelf
 INCLUDESRC
 HEADERGUARDS
 
@@ -277,7 +281,7 @@ void printlist(const char* path,struct dirent **list,int count,long opts){
 
 
 		//prints(permstring);
-		printf("%s %s%s%s %d\n",permstring,color,list[a]->d_name,AC_NORM,st.st_size);
+		printf("%s %4d %4d %8d %s%s"AC_NORM"\n",permstring,st.st_uid, st.st_gid,st.st_size,color,list[a]->d_name);
 	}
 }
 

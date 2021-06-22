@@ -12,9 +12,9 @@ __asm__ volatile("\
 	"call _startup\n"
 #else
 	"call main\n"
+	"movq %rax, %rdi\n"
 #endif
-	"movq %rax, %rdi\n\
-.global __exit\n\
+".global __exit\n\
 __exit:\n\
 	movq $60, %rax\n\
 	syscall\n"

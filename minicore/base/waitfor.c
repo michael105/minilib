@@ -1,5 +1,7 @@
 #if 0
 mini_start
+mini_inotify_add_watch
+mini_inotify_init
 mini_writes
 mini_open
 mini_read

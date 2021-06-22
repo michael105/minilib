@@ -5,7 +5,6 @@
  shrinkelf
 return
 #endif
-#include "minilib.h"
 /* Usage: echo [-n] [TEXT...] */
 int main(int argc, char *argv[]){
 		int n = 1;

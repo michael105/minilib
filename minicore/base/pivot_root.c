@@ -8,7 +8,6 @@ HEADERGUARDS
 shrinkelf
 return
 #endif
-#include "minilib.h"
 
 
 int main(int argc, char *argv[]){
