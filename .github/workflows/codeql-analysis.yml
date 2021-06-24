@@ -64,7 +64,7 @@ jobs:
     #    uses a compiled language
 
     - run: |
-       make test
+       make testql
        
     #   make release
 
