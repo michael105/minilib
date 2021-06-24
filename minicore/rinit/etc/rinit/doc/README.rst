@@ -1,2 +1,0 @@
-
-manpages, and documentation
