@@ -8,7 +8,7 @@
 // Most probably you'd like to catch the segfault signal.
 // (By installing a segfault signal handler)
 //
-// The size is always a mutliple of the systems pagesize, 4kB here.
+// The size is always a multiple of the systems pagesize, 4kB here.
 // The len of the mapped memory area is rounded up to the next pagesize.
 // The mapped area can only be freed by call(s) to munmap,
 // neither realloc nor free are allowed.
