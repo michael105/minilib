@@ -94,6 +94,11 @@ globals_on_stack
         when nowhere else globals (ans static variables) are used,
         for aggressive size optimization)
         The address of the globals is going to be stored within a fixed cpu register. (r15 at amd64)
+        The globals are stored at the end of the stack, behind the first return addresse.
+        (They are setup within startup.c; however, startup calls main, but never returns itself,
+        instead the function exits via syscall. So it is not possible to overwrite the return addresse
+        with a Bufferoverflow. In case you have to work with unsafe userinput, please have a look
+        into map_protected)
 </p>
 </dd>
 <dt>
@@ -105,7 +110,7 @@ mini_errno
         This generates some overhead<br>
         (a few bytes per every syscall, and every function which sets errno;
         globals are generated as well)<br>
-        Without the switch, syscalls do return the negative errno value on failures.
+        Without the switch, syscalls do return the negative errno value on failure.
 </p>
 </dd>
 <dt>
@@ -179,7 +184,7 @@ INCLUDESRC
 <dd>
 <p>
   Build minilib with source.<br>
-        Without this switch, only defines and declarations are built<br>
+        Without this switch, only defines and declarations are included.<br>
         When building with several object files, most probably you should<br>
         enable this flag only for one object file.<br>
         It&#8217;s also possible to pass the switch via a define flag to gcc.<br>
@@ -259,7 +264,7 @@ DEFINE def value
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-19 17:52:52 UTC
+ 2021-06-25 14:52:15 UTC
 </small></p>
 </body>
 </html>

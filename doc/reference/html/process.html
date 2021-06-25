@@ -15,7 +15,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> kill getpid write memcpy rt_sigaction<br>
+ <strong>Defines:</strong> getpid memcpy write rt_sigaction kill<br>
 <a href="../../src/process/abort.c">../src/process/abort.c</a> l.3 manpage: <a href="../manpages/stdlib/abort.3.rst.html">abort</a><br>
 </p>
 </dd>
@@ -72,7 +72,7 @@ execv
 <dd>
 <p>
   <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
- *Defines:</strong> environ execve<br>
+ *Defines:</strong> execve environ<br>
  <strong>execute a file</strong>
 Size: ~300B <a href="../../src/exec/_execv.c">../src/exec/_execv.c</a> l.4 manpage: <a href="../manpages/gen/exec.3.rst.html">execv</a><br>
 </p>
@@ -103,7 +103,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> execve environ access<br>
+ *Defines:</strong> environ access execve<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../../src/exec/_execvp.c">../src/exec/_execvp.c</a> l.4 manpage: <a href="../manpages/gen/exec.3.rst.html">execvp</a><br>
 </p>
@@ -114,7 +114,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> execve environ access<br>
+ *Defines:</strong> environ execve access<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -125,7 +125,7 @@ execvpe
  interprets this as absolute path. (calls execve with the pathname)
  Looks for file in the PATH environment, othwerise.</code></pre>
 </td></tr></table>
-<p>Size: ~556B <a href="../../src/exec/execvp.c">../src/exec/execvp.c</a> l.40</p>
+<p>Size: ~556B <a href="../../src/exec/execvp.c">../src/exec/execvp.c</a> l.11</p>
 <a name="fexecve"></a><dl>
 <dt>
 fexecve
@@ -223,7 +223,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> vfork execve environ write wait4<br>
+ <strong>Defines:</strong> wait4 execve vfork write environ<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../../src/exec/system.c">../src/exec/system.c</a> l.4 manpage: <a href="../manpages/stdlib/system.3.rst.html">system</a><br>
 </p>
@@ -234,7 +234,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> wait4 seterrno<br>
+ <strong>Defines:</strong> exit vfork seterrno wait4 execve<br>
 </p>
 </dd>
 </dl>
@@ -252,7 +252,7 @@ vexec_q
 <dd>
 <p>
   <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> seterrno wait4<br>
+ <strong>Defines:</strong> execve wait4 seterrno vfork exit<br>
 </p>
 </dd>
 </dl>
@@ -278,7 +278,7 @@ vfork
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-19 17:52:52 UTC
+ 2021-06-25 14:52:15 UTC
 </small></p>
 </body>
 </html>
