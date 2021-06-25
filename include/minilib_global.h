@@ -155,7 +155,8 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 #define mini_globals
 #endif
 #ifndef mini_globalregister
-#define mini_globalregister
+// user register r15 by default
+#define mini_globalregister "r15"
 #endif
 #endif
 
