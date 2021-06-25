@@ -26,8 +26,9 @@ minilib_globals __mlgl;
 #else
 #endif
 
-#ifdef mini_buf
 mlgl=&__mlgl;
+
+#ifdef mini_buf
 // didn't change the size.
 // but possible to dynamically allocate the globals.
 //mlgl=__buf;
