@@ -227,7 +227,7 @@ syntaxcheck:
 	@echo Ok.
 
 
-update-master:
+master:
 	# update master repo at github
 	git push
 	cd ../minilib-devel && \

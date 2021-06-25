@@ -45,7 +45,7 @@ raise
 <dd>
 <p>
   <em>int raise(int signr)</em><br>
- <strong>Defines:</strong> getpid kill<br>
+ <strong>Defines:</strong> kill getpid<br>
  <strong>send a signal to the executing process</strong>
 Size: ~68B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.145 manpage: <a href="../manpages/gen/raise.3.rst.html">raise</a><br>
 </p>
@@ -86,7 +86,7 @@ sigaction
 <dd>
 <p>
   <em>int volatile sigaction(int sig, const struct sigaction <strong>act, struct sigaction *oact)</em><br>
- *Defines:</strong> memcpy rt_sigaction<br>
+ *Defines:</strong> rt_sigaction memcpy<br>
  <strong>examine and change a signal action</strong>
 Size: ~215B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.117 manpage: <a href="../manpages/sys/sigaction.2.rst.html">sigaction</a><br>
 </p>
@@ -147,7 +147,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> rt_sigaction memcpy write<br>
+ <strong>Defines:</strong> memcpy write rt_sigaction<br>
  <strong>signal management</strong>
 Size: ~337B <a href="../../src/process/signal.c">../src/process/signal.c</a> l.5 manpage: <a href="../manpages/gen/signal.3.rst.html">signal</a><br>
 </p>
@@ -200,7 +200,7 @@ Size: ~138B <a href="../../src/process/wait.c">../src/process/wait.c</a> l.16 ma
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-19 17:52:52 UTC
+ 2021-06-25 14:52:15 UTC
 </small></p>
 </body>
 </html>

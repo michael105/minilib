@@ -120,7 +120,7 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> getbrk brk<br>
  <strong>free allocated memory</strong>
 Size: ~32B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.146 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
@@ -242,7 +242,7 @@ malloc_brk
 <dd>
 <p>
   <em>void* malloc_brk(int size)</em><br>
- <strong>Defines:</strong> sbrk<br>
+ <strong>Defines:</strong> getbrk sbrk<br>
 </p>
 </dd>
 </dl>
@@ -280,7 +280,7 @@ map_protected
  Most probably you'd like to catch the segfault signal.
  (By installing a segfault signal handler)
 
- The size is always a mutliple of the systems pagesize, 4kB here.
+ The size is always a multiple of the systems pagesize, 4kB here.
  The len of the mapped memory area is rounded up to the next pagesize.
  The mapped area can only be freed by call(s) to munmap,
  neither realloc nor free are allowed.
@@ -415,7 +415,7 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> brk getbrk 0<br>
+ *Defines:</strong> getbrk 0 brk<br>
  <strong>memory reallocator</strong>
 Size: ~636B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.210 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
 </p>
@@ -472,7 +472,7 @@ unmap_protected
 <dd>
 <p>
   <em>int unmap_protected(void <strong>p, int len)</em><br>
- *Defines:</strong> mprotect munmap<br>
+ *Defines:</strong> munmap mprotect<br>
 </p>
 </dd>
 </dl>
@@ -488,7 +488,7 @@ unmap_protected
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-19 17:52:52 UTC
+ 2021-06-25 14:52:15 UTC
 </small></p>
 </body>
 </html>

@@ -215,7 +215,7 @@ die
 <dd>
 <p>
   <em>#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> write exit execve errno_str<br>
+ <strong>Defines:</strong> exit write errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -234,7 +234,7 @@ die_if
 <dd>
 <p>
   <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
- <strong>Defines:</strong> execve write exit errno_str<br>
+ <strong>Defines:</strong> errno_str execve exit write<br>
 </p>
 </dd>
 </dl>
@@ -253,7 +253,7 @@ dief
 <dd>
 <p>
   <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> errno_str exit write execve strlen fileno<br>
+ <strong>Defines:</strong> execve errno_str strlen fileno write exit<br>
 </p>
 </dd>
 </dl>
@@ -272,7 +272,7 @@ dief_if
 <dd>
 <p>
   <em>#define dief_if( when, errnum, fmt,&#8230; ) if( when ) dief( errnum, fmt, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> exit write execve errno_str<br>
+ <strong>Defines:</strong> exit write errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -310,7 +310,7 @@ dies_if
 <dd>
 <p>
   <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> errno_str execve write exit<br>
+ <strong>Defines:</strong> write exit execve errno_str<br>
 </p>
 </dd>
 </dl>
@@ -346,7 +346,7 @@ eprintf
 <dd>
 <p>
   <em>#define eprintf(fmt,&#8230;) fprintf(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -361,7 +361,7 @@ err
 <dd>
 <p>
   <em>#define err( status, fmt &#8230; ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }</em><br>
- <strong>Defines:</strong> strerror strlen fileno write exit errno<br>
+ <strong>Defines:</strong> exit strerror fileno errno write strlen<br>
 </p>
 </dd>
 </dl>
@@ -378,7 +378,7 @@ error
 <dd>
 <p>
   <em>#define error( status, errnum, fmt &#8230; ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }</em><br>
- <strong>Defines:</strong> fileno strlen write exit strerror<br>
+ <strong>Defines:</strong> strlen strerror exit write fileno<br>
 </p>
 </dd>
 </dl>
@@ -399,7 +399,7 @@ errx
 <dd>
 <p>
   <em>#define errx( status, fmt &#8230; ) { fprintf(stderr,fmt); exit(status); }</em><br>
- <strong>Defines:</strong> fileno strlen exit write<br>
+ <strong>Defines:</strong> strlen exit fileno write<br>
 </p>
 </dd>
 </dl>
@@ -463,7 +463,7 @@ fgetud
 <dd>
 <p>
   <em>unsigned int fgetud(FILE* F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
 </p>
 </dd>
 </dl>
@@ -521,7 +521,7 @@ getgrouplist
 <dd>
 <p>
   <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
- *Defines:</strong> open pwent grent mmap write token_i setpwent setgrent token_s passwdfile_open<br>
+ *Defines:</strong> pwent token_s grent mmap write passwdfile_open setgrent setpwent token_i open<br>
 </p>
 </dd>
 </dl>
@@ -537,7 +537,7 @@ getgroups
 <dd>
 <p>
   <em>int getgroups(int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> getuid setpwent open grent pwent token_i write setgrent token_s passwdfile_open mmap<br>
+ *Defines:</strong> mmap grent token_s pwent getuid token_i open setpwent setgrent passwdfile_open write<br>
 </p>
 </dd>
 </dl>
@@ -589,7 +589,7 @@ getusergroups
 <dd>
 <p>
   <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> passwdfile_open token_s setgrent setpwent write token_i mmap pwent grent open<br>
+ *Defines:</strong> token_s grent mmap pwent passwdfile_open setpwent setgrent open token_i write<br>
 </p>
 </dd>
 </dl>
@@ -609,7 +609,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> atoi itooct fileno strlen write globals ltodec uitoHEX uitohex uitodec<br>
+ <strong>Defines:</strong> write atoi fileno ltodec uitohex strlen globals itooct uitoHEX uitodec<br>
 </p>
 </dd>
 </dl>
@@ -1384,7 +1384,7 @@ setenv
 <dd>
 <p>
   <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
- *Defines:</strong> strlen environ strcpy 0 ret_errno<br>
+ *Defines:</strong> environ ret_errno 0 strlen strcpy<br>
 </p>
 </dd>
 </dl>
@@ -1570,7 +1570,7 @@ term_width
 <dd>
 <p>
   <em>int term_width()</em><br>
- <strong>Defines:</strong> termio environ<br>
+ <strong>Defines:</strong> environ termio<br>
 </p>
 </dd>
 </dl>
@@ -1665,7 +1665,7 @@ userdb_open
 <dd>
 <p>
   <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
- <strong>Defines:</strong> close write globals fstat<br>
+ <strong>Defines:</strong> globals close fstat write<br>
 <a href="../../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
 </p>
 </dd>
@@ -1690,14 +1690,15 @@ where
 </dt>
 <dd>
 <p>
-  <em>int where(const char *file,char *buf)</em><br>
+  <em>int where(const char <strong>file,char *buf)</em><br>
+ *Defines:</strong> environ access<br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>locate an executable in PATH</code></pre>
 </td></tr></table>
-<p><a href="../../src/exec/execvp.c">../src/exec/execvp.c</a> l.8</p>
+<p><a href="../../src/exec/where.c">../src/exec/where.c</a> l.4</p>
 <a name="writesl"></a><dl>
 <dt>
 writesl
@@ -1718,7 +1719,7 @@ writesl
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-19 17:52:52 UTC
+ 2021-06-25 14:52:15 UTC
 </small></p>
 </body>
 </html>

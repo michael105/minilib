@@ -173,7 +173,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> brk dirbuf open write close 0 getbrk<br>
+ *Defines:</strong> write close brk open 0 getbrk dirbuf<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../../src/directories/opendir.c">../src/directories/opendir.c</a> l.10 manpage: <a href="../manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
@@ -184,7 +184,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> dirbuf brk open close 0 getbrk<br>
+ *Defines:</strong> dirbuf getbrk 0 close brk open<br>
 <a href="../../src/directories/opendirp.c">../src/directories/opendirp.c</a> l.5
 </p>
 </dd>
@@ -194,7 +194,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> dirbuf getdents<br>
+ *Defines:</strong> getdents dirbuf<br>
  <strong>read a directory</strong>
 </p>
 </dd>
@@ -234,7 +234,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> brk open memcpy seterrno errno 0 sbrk dirbuf strlen write qsort getbrk<br>
+ <strong>Defines:</strong> strlen open brk write errno qsort seterrno dirbuf 0 memcpy sbrk getbrk<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -309,7 +309,7 @@ Size: ~32B <a href="../../src/directories/telldir.c">../src/directories/telldir.
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-19 17:52:52 UTC
+ 2021-06-25 14:52:15 UTC
 </small></p>
 </body>
 </html>
