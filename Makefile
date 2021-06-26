@@ -129,7 +129,7 @@ test:
 	cd test && make test
 
 testql: 
-	cd test && make test
+	cd test && make testql
 
 retest: 
 	cd test && make retest
