@@ -5,7 +5,7 @@
 
 #ifdef mini_globals
 
-int main();//int argc, char **argv, char **envp );
+int main();
 
 void __attribute__((noreturn))_startup(int argc, char **argv, char **envp ){
 	// these init instructions
@@ -21,9 +21,6 @@ void __attribute__((noreturn))_startup(int argc, char **argv, char **envp ){
 #ifdef mini_globals_on_stack
 		// put the globals onto the stack.
 minilib_globals __mlgl;
-//{ .errno = 0, .mbuf[0] = 0, .environ=envp };
-//mlgl=&__mlgl;
-#else
 #endif
 
 mlgl=&__mlgl;
@@ -46,7 +43,6 @@ mlgl->pstream = a;
 
 #ifdef mini_errno
 errno = 0;
-//sysret = 0;
 #endif
 
 #ifdef mini_environ
@@ -111,12 +107,10 @@ mlgl->grent.gr_name = 0;
 	// all other options, like using the global struct within a asm volatile,
 	// and so on, have shown up to be unreliable.
 #ifdef mini_globals
-	//optimization_fence((void*)mlgl);
 	opt_fence((void*)mlgl);
 #endif
 	// silence compiler warning.
 	__builtin_unreachable();
-	//return(ret);
 }
 
 #endif
