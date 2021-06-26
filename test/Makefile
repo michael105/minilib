@@ -124,7 +124,7 @@ test: all
 	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
-			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \
+			set -o pipefail; ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \
 			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
@@ -135,6 +135,7 @@ test: all
 
 
 
+# ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| 
 #set -o pipefail; ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| 
 
 
