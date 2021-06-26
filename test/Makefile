@@ -120,6 +120,7 @@ retest: test rebuild
 	make test
 
 .ONESHELL:
+SHELL = /bin/bash
 test: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
@@ -142,6 +143,7 @@ test: all
 
 
 
+.ONESHELL:
 testql: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
