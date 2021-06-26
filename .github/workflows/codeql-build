@@ -9,7 +9,7 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "Security scan"
+name: "CodeQL: Build"
 
 on:
   push:
@@ -46,7 +46,7 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
-        queries: +security-extended
+        # queries: +security-extended
         # , security-and-quality
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
@@ -66,7 +66,7 @@ jobs:
     #    uses a compiled language
 
     - run: |
-       make testql
+       make testql-build
        
     #   make release
 
