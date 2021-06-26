@@ -118,14 +118,15 @@ inittest: all
 retest: test rebuild
 	make test
 
+.ONESHELL:
 test: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
 	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
-			set -o pipefail; ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \
-			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
+			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi; RET=$$? )| \
+			tee results/$(P)-test.stdout; exit $$RET'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \
