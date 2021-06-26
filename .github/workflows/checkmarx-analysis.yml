@@ -4,10 +4,10 @@ name: CxFlow
 
 on:
   push:
-    branches: [ master ]
+    branches: [ devel ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ devel ]
   schedule:
     - cron: '30 6 * * 2'
 
