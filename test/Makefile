@@ -10,12 +10,12 @@ PROGCUSTOM=fopen malloc fprintf select fputs
 MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 					hashes sigaction realloc div ltodec globals atexit \
 					strerror mallocstack strtol abort putenv strcmp\
-					getpwuid
+					getpwuid getgrgid getgrnam getgroups
 
 MINIGCC=rand sleep execve strdup
 
 TESTQL=abort environ getpwuid globals mallocstack strcmp strstr strtol system \
-		 getpwuid getgrgid getgrnam getgroups
+		 getpwuid 
 
 
 # where to build object files
