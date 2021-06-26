@@ -1,4 +1,5 @@
-#ifndef common_allheaders_h\n#define common_allheaders_h
+#ifndef common_allheaders_h
+#define common_allheaders_h
 #include "./termios.h"
 #include "./bits/alltypes.h"
 #include "./bits/ioctl.h"
