@@ -230,9 +230,9 @@ syntaxcheck:
 master:
 	# update master repo at github
 	git push
-	cd ../minilib-devel && \
+	cd ../minilib-master && \
 		git fetch && \
 		git pull && \
-		git push github devel-HEAD:master
+		git push github devel:master
 
 

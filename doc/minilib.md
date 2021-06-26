@@ -57,7 +57,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
              
               returns the number of the read entries,
               or the negative errno on error.
-               (src/directories/scandir.c: 35)
+               (src/directories/scandir.c: 34)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -75,7 +75,7 @@ fcntl.h
 
 creat          int volatile creat( const char *s, int mode );
 
-               (src/file/open.c: 36)
+               (src/file/open.c: 35)
 
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
@@ -1446,7 +1446,7 @@ sbrk           static void* sbrk(long incr);
               returns the negative errno value on error
                (src/memory/brk.c: 66)
 
-scandir_bufsize//#define mini_scandir_bufsize 4096
+scandir_bufsize
 
                the increment of the buffer of scandir in bytes for memory allocations
               (default:4096)
@@ -1562,11 +1562,11 @@ sys_brk        static long sys_brk(unsigned long addr);
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
-               (src/termios/tcgetattr.c: 19)
+               (src/termios/tcgetattr.c: 12)
 
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (src/termios/tcsetattr.c: 18)
+               (src/termios/tcsetattr.c: 12)
 
 term_width     int term_width();
 
@@ -2059,15 +2059,15 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerr       static inline void clearerr(FILE *f);
 
-               (include/mini_fstream.h: 191)
+               (include/mini_fstream.h: 189)
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 196)
+               (include/mini_fstream.h: 194)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-               (include/mini_fstream.h: 67)
+               (include/mini_fstream.h: 66)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
@@ -2076,11 +2076,11 @@ fdopen         FILE *fdopen(int fd, const char* mode);
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 177)
+               (include/mini_fstream.h: 175)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 184)
+               (include/mini_fstream.h: 182)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
@@ -2093,7 +2093,7 @@ fgetc          static inline int fgetc(FILE *F);
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 118)
+               (include/mini_fstream.h: 117)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
@@ -2111,7 +2111,7 @@ fopen          FILE *fopen(const char* filename, const char* mode);
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 85)
+               (include/mini_fstream.h: 84)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))
 
@@ -2144,15 +2144,15 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snpri
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
-               (include/fputc.h: 10)
+               (include/fputc.h: 9)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
 
-               (include/fputs.h: 20)
+               (include/fputs.h: 19)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 153)
+               (include/mini_fstream.h: 152)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
@@ -2161,19 +2161,19 @@ freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 135)
+               (include/mini_fstream.h: 134)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 124)
+               (include/mini_fstream.h: 123)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 112)
+               (include/mini_fstream.h: 111)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 96)
+               (include/mini_fstream.h: 95)
 
 getc           #define getc(F) fgetc(F)
 
@@ -2209,15 +2209,15 @@ perror         void perror(const char *msg);
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-               (include/mini_fstream.h: 81)
+               (include/mini_fstream.h: 80)
 
 putc           #define putc(c,stream) fputc(c,stream)
 
-               (include/fputc.h: 19)
+               (include/fputc.h: 18)
 
 putchar        #define putchar(c) fputc(c,stdout)
 
-               (include/fputc.h: 16)
+               (include/fputc.h: 15)
 
 puts           #define puts(msg) ( print(msg) + printl() )
 
@@ -2226,18 +2226,18 @@ puts           #define puts(msg) ( print(msg) + printl() )
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 144)
+               (include/mini_fstream.h: 143)
 
 setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy function.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 204)
+               (include/mini_fstream.h: 202)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy function
-               (include/mini_fstream.h: 209)
+               (include/mini_fstream.h: 207)
 
 sprintf        #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
 
@@ -2255,7 +2255,7 @@ ungetc         static int ungetc(int c, FILE *F);
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 90)
+               (include/mini_fstream.h: 89)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
 
@@ -2304,7 +2304,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/memory/malloc.c: 146)
+               (src/memory/malloc.c: 145)
 
 getenv         char* getenv(const char* name);
 
@@ -2394,7 +2394,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/memory/malloc.c: 126)
+               (src/memory/malloc.c: 125)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -2411,7 +2411,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/memory/malloc.c: 210)
+               (src/memory/malloc.c: 209)
 
 srand          void srand( unsigned int i );
 
@@ -2589,11 +2589,11 @@ open           int volatile open( const char *s, int flags, ... );
               as third argument. Otherwise file permission
               flags will be random. (I still do not know, what 
               the flag showing up as "-T" means..)
-               (src/file/open.c: 19)
+               (src/file/open.c: 18)
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
-               (include/select.h: 17)
+               (include/select.h: 16)
 
 sleep          unsigned int volatile sleep(unsigned int seconds);
 
@@ -2603,11 +2603,11 @@ sleep          unsigned int volatile sleep(unsigned int seconds);
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
-               (src/termios/tcgetattr.c: 19)
+               (src/termios/tcgetattr.c: 12)
 
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (src/termios/tcsetattr.c: 18)
+               (src/termios/tcsetattr.c: 12)
 
 usleep         unsigned int volatile usleep(unsigned int useconds);
 

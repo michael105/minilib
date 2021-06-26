@@ -4,7 +4,6 @@
 //+include
 
 
-//#include "syscall.h"
 #include "include/filemodes.h"
 
 #include "macros/stdarg.h"

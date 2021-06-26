@@ -1,6 +1,5 @@
 #ifndef select_h
 #define select_h
-//#include "syscall.h"
 
 // Some syscalls do give trouble with gcc.
 // Amongst other problems, parts of the code are optimized out,
