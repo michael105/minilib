@@ -14,7 +14,8 @@ MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 
 MINIGCC=rand sleep execve strdup
 
-TESTQL=abort environ getpwuid globals mallocstack strcmp strstr strtol system
+TESTQL=abort environ getpwuid globals mallocstack strcmp strstr strtol system \
+		 getpwuid getgrgid getgrnam getgroups
 
 
 # where to build object files
