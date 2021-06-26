@@ -168,9 +168,6 @@ typedef void (functionp)(void);
 #endif
 #endif
 
-#ifdef mini_ioctl
-//int ioctl( int fd, unsigned long int request, ... );
-#endif
 
 // the current implementation of malloc has this max,
 // equal to 256MB

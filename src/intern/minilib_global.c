@@ -42,8 +42,6 @@ minilib_globals __mlgl;
 minilib_globals * __restrict__ mlgl;// = &__buf;
 //minilib_globals * __restrict__ mlgl = &__mlgl;
 
-//char secondbuf[2048];
-
 #ifdef mini_errno
 int errno;
 #endif
@@ -61,8 +59,6 @@ char **environ;
 
 #endif
 
-
-//int sysret;
 
 
 #endif //mini_globals

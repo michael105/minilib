@@ -229,7 +229,7 @@ syntaxcheck:
 
 master:
 	# update master repo at github
-	git push
+git push origin devel-HEAD:devel
 	cd ../minilib-master && \
 		git fetch && \
 		git pull && \
