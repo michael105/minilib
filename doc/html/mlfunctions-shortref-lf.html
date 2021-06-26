@@ -723,7 +723,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  85 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  268 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  263 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))
 </small></td></tr><tr><td></td><td colspan="2"><small>fprintf, formatted output
   conversions implemented:
   %d: signed int (mini_itodec)
@@ -1972,8 +1972,11 @@
 </small></td></tr>
 <tr valign="top"><td><small>splice</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  26 </small></td><td><small> #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  27 </small></td><td><small> #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
+</small></td></tr><tr><td></td><td colspan="2"><small>I'm really uncertain about the size arg here, amongst others
+  these are just misdefined functions, inhaerent insecure. :/
+  If possible, do not use sprintf. Use snprintf instead. 
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  7 </small></td><td><small> void srand( unsigned int i );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/math/rand.c" target="right">../src/math/rand.c</a>  112 </small></td><td><small> stat(const char* filename,struct stat* statbuf)		
@@ -2160,7 +2163,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  157 </small></td><td><small> DEF_syscall(vhangup,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  43 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  41 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 </small></td></tr><tr><td></td><td colspan="2"><small>the function, translating the fmt of printf.
   warning - most possibly you'd like to define besides fprintf, or family,
   mini_itodec (%d conversion) 
