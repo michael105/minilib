@@ -91,10 +91,14 @@ mlgl->grent.gr_name = 0;
 	}
 #endif
 
-	//_exit(0); 
-	_exit(ret); 
+
+#ifdef X64
+	asm("jmp __exit"::"D"(ret));
+#else
+	asm("jmp __exit"::"b"(ret););
+#endif
 	// exits here. 
-	// This does a jump to _exit:
+	// This does a jump to __exit:
 	// As a sideeffect, also if there would have been a overrun in the
 	// globals (when located at the stack), the "return address" is unaffected.
 	// The buffer of minilib for malloc, printf, andsoon is located at the end of the globals,
@@ -102,12 +106,13 @@ mlgl->grent.gr_name = 0;
 	//
 	// the next call prevents gcc from optimizing the assignments 
 	// to the globals out.
-	// gcc doesn't know, we exit before.
+	// gcc doesn't recognize, we exit before,
+	// the optimizer doesn't (yet) recognize the inline assembly jmp.
 	// all other options, like using the global struct within a asm volatile,
 	// and so on, have shown up to be unreliable.
 #ifdef mini_globals
 	//optimization_fence((void*)mlgl);
-	OPTFENCE((void*)mlgl);
+	opt_fence((void*)mlgl);
 #endif
 	// silence compiler warning.
 	__builtin_unreachable();
