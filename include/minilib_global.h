@@ -205,7 +205,6 @@ extern char **environ;
 register minilib_globals __attribute__((used))*__restrict__ mlgl asm(mini_globalregister);
 
 #define errno mlgl->errno
-//#define sysret mlgl->sysret
 #ifdef mini_environ
 //+doc pointer to env, when mini_getenv is defined.
 //extern char **environ;
@@ -219,7 +218,6 @@ register minilib_globals __attribute__((used))*__restrict__ mlgl asm(mini_global
 
 #else 
 
-//#warning no globals
 
 #endif
 

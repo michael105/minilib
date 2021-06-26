@@ -4,7 +4,6 @@
 //+header unistd.h
 //+inc
 
-//#include "syscall.h"
 #ifndef SEEK_SET
 #define SEEK_SET        0       /* seek relative to beginning of file */
 #define SEEK_CUR        1       /* seek relative to current file position */

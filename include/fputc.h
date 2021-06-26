@@ -1,7 +1,6 @@
 #ifndef fputc_c
 #define fputc_c
 
-//#include "write.h"
 
 //+header stdio.h
 //+depends fileno write

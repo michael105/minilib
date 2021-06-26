@@ -102,10 +102,6 @@ typedef int FILE;
 // about 17 bits here. so. might be ok.
 // feeling a bit uncomfortable with that decision,
 // however.
-//#define FEOF_FLAG 0x80000000
-//#define ERR_FLAG 0x40000000
-//#define FLAG_MASK 0xc0000000
-//#define FD_MASK 0x3fffffff
 
 #define FEOF_FLAG 0x800000
 #define ERR_FLAG 0x400000
@@ -157,10 +153,6 @@ typedef union { FILE *F; int i, fd;} mfl_union;
 #define STDERR_FILENO 2
 #endif
 
-//#include <bits/alltypes.h>
-//#include <bits/ioctl.h>
-//#include <sys/utsname.h>
-//#include <sys/termios.h>
 
 typedef struct { int quot; int rem; } div_t;
 typedef struct { long int quot; long int rem; } ldiv_t;

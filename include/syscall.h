@@ -67,7 +67,6 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 #define _optlabel(a) asm( "OPTFENCE_" #a ":" )
 #define __optfence(a,...) _optjmp("jmp ", a ); opt_fence(__VA_ARGS__); _optlabel(a)
 #define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
-//#define OPTFENCE(...) opt_fence(__VA_ARGS__)
 #endif
 
 
@@ -87,7 +86,6 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 // the syscalls return the negative value of errno on error.
 //
 
-//#define __callend : "rcx" )
 
 // Seems linux x86_64 has same convention as osx darwin
 #ifdef X64
@@ -328,7 +326,6 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 // Boilerplates, to get the syntaxchecking right (syntaxcheck.h)
 #define DEF_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
 #define DEF_syscallret( name, ret, argcount, ... ) int volatile name( __VA_ARGS__ );
-//#define REAL_define_syscall( name, argcount, ... ) int volatile name( __VA_ARGS__ );
 
 #define SYSDEF_syscall( name, argcount, ... ) int volatile sys##name( __VA_ARGS__ );
 

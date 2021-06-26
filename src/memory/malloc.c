@@ -1,7 +1,6 @@
 #ifndef mini_malloc_c
 #define mini_malloc_c
 //+header stdlib.h
-//#include "../include/syscall.h"
 
 //+include
 

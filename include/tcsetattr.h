@@ -1,11 +1,8 @@
 #ifndef tcsetattr_h
 #define tcsetattr_h
 
-//#include <termios.h>
-//#include "ioctl.h"
 int ioctl( int fd, unsigned long int request, ... );
 
-//#include <sys/ttycom.h>
 
 #ifndef TCSETS
 #warning TCSETS not defined. Applying ugly hack.

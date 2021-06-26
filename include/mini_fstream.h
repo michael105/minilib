@@ -58,7 +58,6 @@ static int fileno( FILE *f ){
 }
 
 ////+macro
-//#define fileno(stream) ({union ful { FILE *F; int i, fd;};ful.F=stream;ful.fd;})
 
 #ifdef mini_fclose
 
@@ -170,7 +169,6 @@ static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f){
 
 ///+depends _fread
 ///+macro
-//#define fread(ptr,size,nmemb,f) ((_fread(ptr,size,nmemb,f)==nmemb) ? nmemb : ((int)(f=((int)f|FEOF_FLAG))&0x3fffffff))
 	
 
 //+inline

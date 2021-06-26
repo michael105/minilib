@@ -4,8 +4,6 @@
 ///+header unistd.h
 ///+inc
 
-//#include "syscall.h"
-//#include "macros/overrun.h"
 
 ///+needs syscall.h
 ///+def

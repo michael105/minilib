@@ -62,9 +62,7 @@ char **environ;
 #endif
 
 
-//#ifdef mini_errno
 //int sysret;
-//#endif
 
 
 #endif //mini_globals
