@@ -1,5 +1,7 @@
 SUBDIRS=common linux_x64
 
+.ONESHELL:
+SHELL = /bin/bash
 all:
 	@$(foreach DIR, $(SUBDIRS), \
 			(echo "make $(DIR)/allheaders.h" && \
