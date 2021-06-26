@@ -227,12 +227,20 @@ syntaxcheck:
 	@echo Ok.
 
 
-master:
+git-master:
 	# update master repo at github
-git push origin devel-HEAD:devel
+	git push origin devel-HEAD:devel
 	cd ../minilib-master && \
 		git fetch && \
 		git pull && \
 		git push github devel:master
+
+git-devel:
+	# update master repo at github
+	git push origin devel-HEAD:devel
+	cd ../minilib-master && \
+		git fetch && \
+		git pull && \
+		git push github
 
 
