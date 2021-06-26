@@ -1,5 +1,4 @@
-#ifndef linux_x64_allheaders_h
-#define linux_x64_allheaders_h
+#ifndef linux_x64_allheaders_h\n#define linux_x64_allheaders_h
 #include "./sys/syscall.h"
 #include "./sys/utsname.h"
 #include "./sys/signal.h"
