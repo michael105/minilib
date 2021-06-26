@@ -1663,7 +1663,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               warning - most possibly you'd like to define besides fprintf, or family,
               mini_itodec (%d conversion) 
               mini_atoi is needed for grouping numbers
-               (src/output/sprintf.c: 43)
+               (src/output/sprintf.c: 41)
 
 warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 
@@ -2113,7 +2113,7 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
                (include/mini_fstream.h: 85)
 
-fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))
 
                fprintf, formatted output
               conversions implemented:
@@ -2140,7 +2140,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
               prints (formatted output of one or several strings) are provided.
              
               
-               (src/output/sprintf.c: 268)
+               (src/output/sprintf.c: 263)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -2239,9 +2239,12 @@ setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size
                dummy function
                (include/mini_fstream.h: 209)
 
-sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
+sprintf        #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
 
-               (src/output/sprintf.c: 26)
+               I'm really uncertain about the size arg here, amongst others
+              these are just misdefined functions, inhaerent insecure. :/
+              If possible, do not use sprintf. Use snprintf instead. 
+               (src/output/sprintf.c: 27)
 
 ungetc         static int ungetc(int c, FILE *F);
 
