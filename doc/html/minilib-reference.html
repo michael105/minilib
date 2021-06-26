@@ -622,7 +622,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> write close brk open 0 getbrk dirbuf<br>
+ *Defines:</strong> brk write 0 open dirbuf close getbrk<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../src/directories/opendir.c">../src/directories/opendir.c</a> l.10 manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -633,7 +633,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> dirbuf getbrk 0 close brk open<br>
+ *Defines:</strong> getbrk dirbuf close open brk 0<br>
 <a href="../src/directories/opendirp.c">../src/directories/opendirp.c</a> l.5
 </p>
 </dd>
@@ -643,7 +643,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> getdents dirbuf<br>
+ *Defines:</strong> dirbuf getdents<br>
  <strong>read a directory</strong>
 </p>
 </dd>
@@ -683,7 +683,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> strlen open brk write errno qsort seterrno dirbuf 0 memcpy sbrk getbrk<br>
+ <strong>Defines:</strong> sbrk open brk memcpy getpid qsort kill getbrk dirbuf strlen write seterrno 0 errno<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -716,14 +716,14 @@ scandir
  returns the number of the read entries,
  or the negative errno on error.</code></pre>
 </td></tr></table>
-<p><a href="../src/directories/scandir.c">../src/directories/scandir.c</a> l.35 manpage: <a href="manpages/gen/scandir.3.rst">scandir</a><br></p>
+<p><a href="../src/directories/scandir.c">../src/directories/scandir.c</a> l.34 manpage: <a href="manpages/gen/scandir.3.rst">scandir</a><br></p>
 <a name="scandir_bufsize"></a><dl>
 <dt>
 scandir_bufsize
 </dt>
 <dd>
 <p>
-  <em>//#define mini_scandir_bufsize 4096</em><br>
+  __<br>
 </p>
 </dd>
 </dl>
@@ -791,7 +791,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> execve errno_str write exit<br>
+ <strong>Defines:</strong> exit write errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -818,7 +818,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> write fileno errno strerror strlen<br>
+ *Defines:</strong> strerror strlen errno write fileno<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../src/output/perror.c">../src/output/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -972,7 +972,7 @@ creat
   <em>int volatile creat( const char <strong>s, int mode )</em><br>
  *Defines:</strong> open<br>
  <strong>create a new file or rewrite an existing one</strong>
-Size: ~124B <a href="../src/file/open.c">../src/file/open.c</a> l.36 manpage: <a href="manpages/compat-43/creat.2.rst">creat</a><br>
+Size: ~124B <a href="../src/file/open.c">../src/file/open.c</a> l.35 manpage: <a href="manpages/compat-43/creat.2.rst">creat</a><br>
 </p>
 </dd>
 <dt>
@@ -1042,7 +1042,7 @@ fsync
 <p>
   <em>int fsync(int a1 )</em><br>
  <strong>synchronize changes to a file</strong>
-Size: ~51B <a href="../include/lseek.h">../include/lseek.h</a> l.22 manpage: <a href="manpages/sys/fsync.2.rst">fsync</a><br>
+Size: ~51B <a href="../include/lseek.h">../include/lseek.h</a> l.21 manpage: <a href="manpages/sys/fsync.2.rst">fsync</a><br>
 </p>
 </dd>
 <dt>
@@ -1052,7 +1052,7 @@ ftruncate
 <p>
   <em>int ftruncate(unsigned int a1, unsigned int a2 )</em><br>
  <strong>truncate a file to a specified length</strong>
-Size: ~63B <a href="../include/lseek.h">../include/lseek.h</a> l.21 manpage: <a href="manpages/sys/truncate.2.rst">ftruncate</a><br>
+Size: ~63B <a href="../include/lseek.h">../include/lseek.h</a> l.20 manpage: <a href="manpages/sys/truncate.2.rst">ftruncate</a><br>
 </p>
 </dd>
 <dt>
@@ -1072,7 +1072,7 @@ lseek
 <p>
   <em>int lseek(unsigned int a1, int a2, int a3 )</em><br>
  <strong>move the read/write file offset</strong>
-Size: ~75B <a href="../include/lseek.h">../include/lseek.h</a> l.19 manpage: <a href="manpages/sys/lseek.2.rst">lseek</a><br>
+Size: ~75B <a href="../include/lseek.h">../include/lseek.h</a> l.18 manpage: <a href="manpages/sys/lseek.2.rst">lseek</a><br>
 </p>
 </dd>
 <dt>
@@ -1094,7 +1094,7 @@ open
  flags will be random. (I still do not know, what
  the flag showing up as "-T" means..)</code></pre>
 </td></tr></table>
-<p>Size: ~124B <a href="../src/file/open.c">../src/file/open.c</a> l.19 manpage: <a href="manpages/sys/open.2.rst">open</a><br></p>
+<p>Size: ~124B <a href="../src/file/open.c">../src/file/open.c</a> l.18 manpage: <a href="manpages/sys/open.2.rst">open</a><br></p>
 <a name="readahead"></a><dl>
 <dt>
 readahead
@@ -1123,7 +1123,7 @@ select
 <p>
   <em>int volatile  select(int fd, volatile fd_set* readfd, volatile fd_set <strong>writefd, volatile fd_set *exceptfd, volatile struct timeval *wait)</em><br>
  *synchronous I/O multiplexing</strong>
-Size: ~138B <a href="../include/select.h">../include/select.h</a> l.17 manpage: <a href="manpages/sys/select.2.rst">select</a><br>
+Size: ~138B <a href="../include/select.h">../include/select.h</a> l.16 manpage: <a href="manpages/sys/select.2.rst">select</a><br>
 </p>
 </dd>
 <dt>
@@ -1229,7 +1229,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 <a href="../include/fgetc.h">../include/fgetc.h</a> l.8 manpage: <a href="manpages/stdio/getc.3.rst">getc</a><br>
 </p>
@@ -1240,7 +1240,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a byte from a</strong>
 <a href="../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="manpages/stdio/getc.3.rst">getchar</a><br>
 </p>
@@ -1425,7 +1425,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> memcpy write rt_sigaction<br>
+ <strong>Defines:</strong> write memcpy rt_sigaction<br>
  <strong>signal management</strong>
 Size: ~337B <a href="../src/process/signal.c">../src/process/signal.c</a> l.5 manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
@@ -1599,9 +1599,9 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> getbrk brk<br>
+ *Defines:</strong> brk getbrk<br>
  <strong>free allocated memory</strong>
-Size: ~32B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.146 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
+Size: ~32B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.145 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
 </dd>
 <dt>
@@ -1713,7 +1713,7 @@ malloc
       size  data  size    mini_buf size
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
-<p>Size: ~173B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.126 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
+<p>Size: ~173B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.125 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
 <a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
@@ -1721,7 +1721,7 @@ malloc_brk
 <dd>
 <p>
   <em>void* malloc_brk(int size)</em><br>
- <strong>Defines:</strong> getbrk sbrk<br>
+ <strong>Defines:</strong> sbrk getbrk<br>
 </p>
 </dd>
 </dl>
@@ -1745,7 +1745,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mmap mprotect<br>
+ <strong>Defines:</strong> mprotect mmap<br>
 </p>
 </dd>
 </dl>
@@ -1894,9 +1894,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> getbrk 0 brk<br>
+ *Defines:</strong> 0 brk getbrk<br>
  <strong>memory reallocator</strong>
-Size: ~636B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.210 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
+Size: ~636B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.209 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -1951,7 +1951,7 @@ unmap_protected
 <dd>
 <p>
   <em>int unmap_protected(void <strong>p, int len)</em><br>
- *Defines:</strong> munmap mprotect<br>
+ *Defines:</strong> mprotect munmap<br>
 </p>
 </dd>
 </dl>
@@ -2037,7 +2037,7 @@ dprintf
 <dd>
 <p>
   <em>int dprintf( int fd, const char <strong>fmt, &#8230; )</em><br>
- *Defines:</strong> strlen write<br>
+ *Defines:</strong> strlen write getpid kill<br>
  <strong>print formatted output</strong>
 Size: ~818B <a href="../src/output/dprintf.c">../src/output/dprintf.c</a> l.5 manpage: <a href="manpages/stdio/printf.3.rst">dprintf</a><br>
 </p>
@@ -2136,7 +2136,7 @@ eputs
 <dd>
 <p>
   <em>#define eputs(msg) ( eprint(msg) + eprintl() )</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
 </p>
 </dd>
 </dl>
@@ -2166,8 +2166,8 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.85
+ <strong>Defines:</strong> strlen write getpid fileno kill<br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.84
 </p>
 </dd>
 <dt>
@@ -2175,8 +2175,8 @@ fprintf
 </dt>
 <dd>
 <p>
-  <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,sprintf(mlgl&#8594;mbuf,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
+  <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,snprintf(mlgl&#8594;mbuf,mini_buf,<em>VA_ARGS</em>))</em><br>
+ <strong>Defines:</strong> fileno kill write getpid strlen<br>
 </p>
 </dd>
 </dl>
@@ -2206,7 +2206,7 @@ fprintf
  writes(constant string) and print (variable string),
  prints (formatted output of one or several strings) are provided.</code></pre>
 </td></tr></table>
-<p><a href="../src/output/sprintf.c">../src/output/sprintf.c</a> l.268 manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br></p>
+<p><a href="../src/output/sprintf.c">../src/output/sprintf.c</a> l.263 manpage: <a href="manpages/stdio/printf.3.rst">fprintf</a><br></p>
 <a name="fprintfs"></a><dl>
 <dt>
 fprintfs
@@ -2214,7 +2214,7 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> strlen write fileno<br>
+ *Defines:</strong> write fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -2249,7 +2249,7 @@ fputc
   <em>int volatile fputc(int c, FILE* F)</em><br>
  <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stream</strong>
-Size: ~64B <a href="../include/fputc.h">../include/fputc.h</a> l.10 manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
+Size: ~64B <a href="../include/fputc.h">../include/fputc.h</a> l.9 manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
 </dd>
 <dt>
@@ -2260,7 +2260,7 @@ fwrite
   <em>size_t fwrite(const void <strong>ptr, size_t size, size_t nmemb, FILE *f)</em><br>
  *Defines:</strong> write<br>
  <strong>binary output</strong>
-Size: ~117B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.96 manpage: <a href="manpages/stdio/fread.3.rst">fwrite</a><br>
+Size: ~117B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.95 manpage: <a href="manpages/stdio/fread.3.rst">fwrite</a><br>
 </p>
 </dd>
 <dt>
@@ -2285,7 +2285,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> getpid write kill fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -2319,7 +2319,7 @@ print
 <dd>
 <p>
   <em>#define print(str) write(STDOUT_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> write strlen<br>
 </p>
 </dd>
 </dl>
@@ -2334,9 +2334,9 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen write fileno<br>
+ <strong>Defines:</strong> write getpid fileno kill strlen<br>
  <strong>print formatted output</strong>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.81 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.80 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
 </dd>
 <dt>
@@ -2345,7 +2345,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> fileno write strlen<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -2410,7 +2410,7 @@ putc
   <em>#define putc(c,stream) fputc(c,stream)</em><br>
  <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stream</strong>
-<a href="../include/fputc.h">../include/fputc.h</a> l.19 manpage: <a href="manpages/stdio/putc.3.rst">putc</a><br>
+<a href="../include/fputc.h">../include/fputc.h</a> l.18 manpage: <a href="manpages/stdio/putc.3.rst">putc</a><br>
 </p>
 </dd>
 <dt>
@@ -2421,7 +2421,7 @@ putchar
   <em>#define putchar(c) fputc(c,stdout)</em><br>
  <strong>Defines:</strong> write fileno<br>
  <strong>put a byte on a stdout stream</strong>
-<a href="../include/fputc.h">../include/fputc.h</a> l.16 manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
+<a href="../include/fputc.h">../include/fputc.h</a> l.15 manpage: <a href="manpages/stdio/putc.3.rst">putchar</a><br>
 </p>
 </dd>
 <dt>
@@ -2430,7 +2430,7 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> fileno write strlen<br>
+ <strong>Defines:</strong> getpid write fileno kill strlen<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
@@ -2462,7 +2462,7 @@ snprintf
 <dd>
 <p>
   <em>int snprintf( char <strong>buf, size_t size, const char *fmt, &#8230; )</em><br>
- *Defines:</strong> strlen write<br>
+ *Defines:</strong> getpid write kill strlen<br>
  <strong>print formatted output</strong>
 Size: ~738B <a href="../src/output/snprintf.c">../src/output/snprintf.c</a> l.5 manpage: <a href="manpages/stdio/printf.3.rst">snprintf</a><br>
 </p>
@@ -2473,8 +2473,8 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.90 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
+ <strong>Defines:</strong> strlen kill fileno getpid write<br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.89 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
 <dt>
@@ -2483,7 +2483,7 @@ vsnprintf
 <dd>
 <p>
   <em>int vsnprintf(char <strong>buf, size_t size, const char</strong> fmt, va_list args )</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> strlen kill getpid write<br>
  <strong>format output of a stdarg argument list</strong>
 </p>
 </dd>
@@ -2495,7 +2495,7 @@ vsnprintf
  mini_itodec (%d conversion)
  mini_atoi is needed for grouping numbers</code></pre>
 </td></tr></table>
-<p>Size: ~590B <a href="../src/output/sprintf.c">../src/output/sprintf.c</a> l.43 manpage: <a href="manpages/stdio/printf.3.rst">vsnprintf</a><br></p>
+<p>Size: ~590B <a href="../src/output/sprintf.c">../src/output/sprintf.c</a> l.41 manpage: <a href="manpages/stdio/printf.3.rst">vsnprintf</a><br></p>
 <a name="vsprintf"></a><dl>
 <dt>
 vsprintf
@@ -2548,7 +2548,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> getpid memcpy write rt_sigaction kill<br>
+ <strong>Defines:</strong> write getpid memcpy kill rt_sigaction<br>
 <a href="../src/process/abort.c">../src/process/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2595,7 +2595,7 @@ execl
 <dd>
 <p>
   <em>int execl(const char <strong>pathname, const char</strong> arg0,&#8230; )</em><br>
- <strong>Defines:</strong> environ execve<br>
+ <strong>Defines:</strong> execve environ<br>
 <a href="../src/exec/execl.c">../src/exec/execl.c</a> l.6 manpage: <a href="manpages/gen/exec.3.rst">execl</a><br>
 </p>
 </dd>
@@ -2605,7 +2605,7 @@ execv
 <dd>
 <p>
   <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
- *Defines:</strong> execve environ<br>
+ *Defines:</strong> environ execve<br>
  <strong>execute a file</strong>
 Size: ~300B <a href="../src/exec/_execv.c">../src/exec/_execv.c</a> l.4 manpage: <a href="manpages/gen/exec.3.rst">execv</a><br>
 </p>
@@ -2647,7 +2647,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> environ execve access<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -2756,7 +2756,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> wait4 execve vfork write environ<br>
+ <strong>Defines:</strong> environ vfork execve write wait4<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../src/exec/system.c">../src/exec/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2767,7 +2767,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> exit vfork seterrno wait4 execve<br>
+ <strong>Defines:</strong> execve vfork wait4 seterrno exit<br>
 </p>
 </dd>
 </dl>
@@ -2785,7 +2785,7 @@ vexec_q
 <dd>
 <p>
   <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> execve wait4 seterrno vfork exit<br>
+ <strong>Defines:</strong> vfork execve seterrno wait4 exit<br>
 </p>
 </dd>
 </dl>
@@ -2919,7 +2919,7 @@ clearerr
 <p>
   <em>void clearerr(FILE <strong>f)</em><br>
  *clear indicators on a stream</strong>
-Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.191 manpage: <a href="manpages/stdio/ferror.3.rst">clearerr</a><br>
+Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.189 manpage: <a href="manpages/stdio/ferror.3.rst">clearerr</a><br>
 </p>
 </dd>
 <dt>
@@ -2928,7 +2928,7 @@ clearerror
 <dd>
 <p>
   <em>void clearerror(FILE *f)</em><br>
-Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.196
+Size: ~36B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.194
 </p>
 </dd>
 <dt>
@@ -2939,7 +2939,7 @@ fclose
   <em>int  fclose( FILE* f )</em><br>
  <strong>Defines:</strong> close<br>
  <strong>close a stream</strong>
-Size: ~40B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.67 manpage: <a href="manpages/stdio/fclose.3.rst">fclose</a><br>
+Size: ~40B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.66 manpage: <a href="manpages/stdio/fclose.3.rst">fclose</a><br>
 </p>
 </dd>
 <dt>
@@ -2948,7 +2948,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> fileno open close<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -2966,7 +2966,7 @@ feof
 <p>
   <em>int feof(FILE <strong>f)</em><br>
  *test end-of-file indicator on a stream</strong>
-<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.177 manpage: <a href="manpages/stdio/ferror.3.rst">feof</a><br>
+<a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.175 manpage: <a href="manpages/stdio/ferror.3.rst">feof</a><br>
 </p>
 </dd>
 <dt>
@@ -2976,7 +2976,7 @@ ferror
 <p>
   <em>int ferror(FILE <strong>f)</em><br>
  *test error indicator on a stream</strong>
-Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.184 manpage: <a href="manpages/stdio/ferror.3.rst">ferror</a><br>
+Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.182 manpage: <a href="manpages/stdio/ferror.3.rst">ferror</a><br>
 </p>
 </dd>
 <dt>
@@ -3003,7 +3003,7 @@ fgetpos
   <em>void fgetpos(FILE <strong>f, long *pos )</em><br>
  *Defines:</strong> lseek<br>
  <strong>get current file position information</strong>
-Size: ~62B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.118 manpage: <a href="manpages/stdio/fseek.3.rst">fgetpos</a><br>
+Size: ~62B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.117 manpage: <a href="manpages/stdio/fseek.3.rst">fgetpos</a><br>
 </p>
 </dd>
 <dt>
@@ -3028,7 +3028,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> open close fileno<br>
+ <strong>Defines:</strong> fileno close open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3044,9 +3044,9 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> fileno write strlen<br>
+ *Defines:</strong> write fileno strlen<br>
  <strong>put a string on a stream</strong>
-Size: ~90B <a href="../include/fputs.h">../include/fputs.h</a> l.20 manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
+Size: ~90B <a href="../include/fputs.h">../include/fputs.h</a> l.19 manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
 </dd>
 <dt>
@@ -3057,7 +3057,7 @@ fread
   <em>size_t fread(void <strong>ptr, size_t size, size_t nmemb, FILE *f)</em><br>
  *Defines:</strong> read<br>
  <strong>binary input</strong>
-Size: ~110B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.153 manpage: <a href="manpages/stdio/fread.3.rst">fread</a><br>
+Size: ~110B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.152 manpage: <a href="manpages/stdio/fread.3.rst">fread</a><br>
 </p>
 </dd>
 <dt>
@@ -3066,7 +3066,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> fileno close open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3085,7 +3085,7 @@ fseek
   <em>int fseek(FILE <strong>f, long offset, int whence )</em><br>
  *Defines:</strong> lseek<br>
  <strong>reposition a file-position indicator in a stream</strong>
-Size: ~80B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.135 manpage: <a href="manpages/stdio/fseek.3.rst">fseek</a><br>
+Size: ~80B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.134 manpage: <a href="manpages/stdio/fseek.3.rst">fseek</a><br>
 </p>
 </dd>
 <dt>
@@ -3096,7 +3096,7 @@ fsetpos
   <em>int fsetpos(FILE <strong>f, int pos )</em><br>
  *Defines:</strong> lseek<br>
  <strong>set current file position</strong>
-Size: ~78B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.124 manpage: <a href="manpages/stdio/fseek.3.rst">fsetpos</a><br>
+Size: ~78B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.123 manpage: <a href="manpages/stdio/fseek.3.rst">fsetpos</a><br>
 </p>
 </dd>
 <dt>
@@ -3107,7 +3107,7 @@ ftell
   <em>long ftell(FILE <strong>f)</em><br>
  *Defines:</strong> lseek<br>
  <strong>return a file offset in a stream</strong>
-Size: ~53B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.112 manpage: <a href="manpages/stdio/fseek.3.rst">ftell</a><br>
+Size: ~53B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.111 manpage: <a href="manpages/stdio/fseek.3.rst">ftell</a><br>
 </p>
 </dd>
 <dt>
@@ -3118,7 +3118,7 @@ rewind
   <em>void rewind( FILE <strong>f )</em><br>
  *Defines:</strong> lseek<br>
  <strong>reset the file position indicator in a stream</strong>
-Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.144 manpage: <a href="manpages/stdio/fseek.3.rst">rewind</a><br>
+Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.143 manpage: <a href="manpages/stdio/fseek.3.rst">rewind</a><br>
 </p>
 </dd>
 <dt>
@@ -3136,7 +3136,7 @@ setbuf
 <pre><code>dummy function.
  There is no buffering implemented for the streams yet.</code></pre>
 </td></tr></table>
-<p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.204 manpage: <a href="manpages/stdio/setbuf.3.rst">setbuf</a><br></p>
+<p>Size: ~32B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.202 manpage: <a href="manpages/stdio/setbuf.3.rst">setbuf</a><br></p>
 <a name="setvbuf"></a><dl>
 <dt>
 setvbuf
@@ -3151,7 +3151,7 @@ setvbuf
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>dummy function</code></pre>
 </td></tr></table>
-<p>Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.209 manpage: <a href="manpages/stdio/setbuf.3.rst">setvbuf</a><br></p>
+<p>Size: ~58B <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.207 manpage: <a href="manpages/stdio/setbuf.3.rst">setvbuf</a><br></p>
 <p>---</p>
 <hr>
 <h2><a name="_strings"></a>15. strings</h2>
@@ -3180,12 +3180,20 @@ sprintf
 </dt>
 <dd>
 <p>
-  <em>#define sprintf(str,&#8230;) snprintf( str, 4096,  <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen<br>
+  <em>#define sprintf(str,&#8230;) snprintf( str, mini_buf,  <em>VA_ARGS</em>)</em><br>
+ <strong>Defines:</strong> strlen write getpid kill<br>
  <strong>print formatted output</strong>
-<a href="../src/output/sprintf.c">../src/output/sprintf.c</a> l.26 manpage: <a href="manpages/stdio/printf.3.rst">sprintf</a><br>
 </p>
 </dd>
+</dl>
+<a name="sprintf"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>I'm really uncertain about the size arg here, amongst others
+ these are just misdefined functions, inhaerent insecure. :/
+ If possible, do not use sprintf. Use snprintf instead.</code></pre>
+</td></tr></table>
+<p><a href="../src/output/sprintf.c">../src/output/sprintf.c</a> l.27 manpage: <a href="manpages/stdio/printf.3.rst">sprintf</a><br></p>
+<a name="strcasecmp"></a><dl>
 <dt>
 strcasecmp
 </dt>
@@ -3515,7 +3523,7 @@ grantpt
 <dd>
 <p>
   <em>int grantpt(int fd)</em><br>
- <strong>Defines:</strong> termio open strlen write uitodec fstat ioctl<br>
+ <strong>Defines:</strong> kill ioctl uitodec getpid fstat termio write open strlen<br>
  <strong>grant access to the slave pseudo-terminal device</strong>
 Size: ~44B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.49 manpage: <a href="manpages/stdlib/ptsname.3.rst">grantpt</a><br>
 </p>
@@ -3547,7 +3555,7 @@ posix_openpt
 <dd>
 <p>
   <em>int posix_openpt(int flags)</em><br>
- <strong>Defines:</strong> termio open<br>
+ <strong>Defines:</strong> open termio<br>
  <strong>open a pseudo-terminal device</strong>
 Size: ~140B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.8 manpage: <a href="manpages/sys/posix_openpt.2.rst">posix_openpt</a><br>
 </p>
@@ -3558,7 +3566,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> uitodec ioctl open strlen termio write<br>
+ *Defines:</strong> strlen open write termio ioctl kill getpid uitodec<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.34 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -3569,7 +3577,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> ioctl uitodec write termio open strlen<br>
+ *Defines:</strong> getpid uitodec kill ioctl write termio strlen open<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.21
 </p>
@@ -3580,9 +3588,9 @@ tcgetattr
 <dd>
 <p>
   <em>int tcgetattr(int fd, struct termios <strong>io)</em><br>
- *Defines:</strong> ioctl termio<br>
+ *Defines:</strong> termio ioctl<br>
  <strong>get the parameters associated with the terminal</strong>
-Size: ~300B <a href="../src/termios/tcgetattr.c">../src/termios/tcgetattr.c</a> l.19 manpage: <a href="manpages/gen/tcsetattr.3.rst">tcgetattr</a><br>
+Size: ~300B <a href="../src/termios/tcgetattr.c">../src/termios/tcgetattr.c</a> l.12 manpage: <a href="manpages/gen/tcsetattr.3.rst">tcgetattr</a><br>
 </p>
 </dd>
 <dt>
@@ -3593,7 +3601,7 @@ tcsetattr
   <em>int tcsetattr(int fd, int opt, const struct termios <strong>io)</em><br>
  *Defines:</strong> ioctl termio<br>
  <strong>set the parameters associated with the terminal</strong>
-Size: ~316B <a href="../src/termios/tcsetattr.c">../src/termios/tcsetattr.c</a> l.18 manpage: <a href="manpages/gen/tcsetattr.3.rst">tcsetattr</a><br>
+Size: ~316B <a href="../src/termios/tcsetattr.c">../src/termios/tcsetattr.c</a> l.12 manpage: <a href="manpages/gen/tcsetattr.3.rst">tcsetattr</a><br>
 </p>
 </dd>
 <dt>
@@ -3602,7 +3610,7 @@ unlockpt
 <dd>
 <p>
   <em>int unlockpt(int fd)</em><br>
- <strong>Defines:</strong> termio ioctl<br>
+ <strong>Defines:</strong> ioctl termio<br>
  <strong>unlock a pseudo-terminal master/slave pair</strong>
 Size: ~325B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.14 manpage: <a href="manpages/stdlib/ptsname.3.rst">unlockpt</a><br>
 </p>
@@ -3925,7 +3933,7 @@ die
 <dd>
 <p>
   <em>#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> exit write errno_str execve<br>
+ <strong>Defines:</strong> write execve errno_str exit<br>
 </p>
 </dd>
 </dl>
@@ -3944,7 +3952,7 @@ die_if
 <dd>
 <p>
   <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
- <strong>Defines:</strong> errno_str execve exit write<br>
+ <strong>Defines:</strong> errno_str execve write exit<br>
 </p>
 </dd>
 </dl>
@@ -3963,7 +3971,7 @@ dief
 <dd>
 <p>
   <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> execve errno_str strlen fileno write exit<br>
+ <strong>Defines:</strong> exit strlen fileno execve write errno_str kill getpid<br>
 </p>
 </dd>
 </dl>
@@ -4001,7 +4009,7 @@ dies
 <dd>
 <p>
   <em>#define dies(errnum,&#8230;) {eprintsl(<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> write exit execve errno_str<br>
+ <strong>Defines:</strong> exit write errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -4020,7 +4028,7 @@ dies_if
 <dd>
 <p>
   <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> write exit execve errno_str<br>
+ <strong>Defines:</strong> execve errno_str write exit<br>
 </p>
 </dd>
 </dl>
@@ -4056,7 +4064,7 @@ eprintf
 <dd>
 <p>
   <em>#define eprintf(fmt,&#8230;) fprintf(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen write fileno<br>
+ <strong>Defines:</strong> fileno write strlen<br>
 </p>
 </dd>
 </dl>
@@ -4071,7 +4079,7 @@ err
 <dd>
 <p>
   <em>#define err( status, fmt &#8230; ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }</em><br>
- <strong>Defines:</strong> exit strerror fileno errno write strlen<br>
+ <strong>Defines:</strong> errno kill getpid exit strlen strerror fileno write<br>
 </p>
 </dd>
 </dl>
@@ -4088,7 +4096,7 @@ error
 <dd>
 <p>
   <em>#define error( status, errnum, fmt &#8230; ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }</em><br>
- <strong>Defines:</strong> strlen strerror exit write fileno<br>
+ <strong>Defines:</strong> strerror strlen exit write getpid kill fileno<br>
 </p>
 </dd>
 </dl>
@@ -4109,7 +4117,7 @@ errx
 <dd>
 <p>
   <em>#define errx( status, fmt &#8230; ) { fprintf(stderr,fmt); exit(status); }</em><br>
- <strong>Defines:</strong> strlen exit fileno write<br>
+ <strong>Defines:</strong> fileno kill write getpid exit strlen<br>
 </p>
 </dd>
 </dl>
@@ -4173,7 +4181,7 @@ fgetud
 <dd>
 <p>
   <em>unsigned int fgetud(FILE* F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
 </p>
 </dd>
 </dl>
@@ -4231,7 +4239,7 @@ getgrouplist
 <dd>
 <p>
   <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
- *Defines:</strong> pwent token_s grent mmap write passwdfile_open setgrent setpwent token_i open<br>
+ *Defines:</strong> token_i pwent grent setgrent mmap passwdfile_open write setpwent token_s open<br>
 </p>
 </dd>
 </dl>
@@ -4247,7 +4255,7 @@ getgroups
 <dd>
 <p>
   <em>int getgroups(int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> mmap grent token_s pwent getuid token_i open setpwent setgrent passwdfile_open write<br>
+ *Defines:</strong> mmap passwdfile_open write getuid setpwent token_s open pwent token_i grent setgrent<br>
 </p>
 </dd>
 </dl>
@@ -4299,7 +4307,7 @@ getusergroups
 <dd>
 <p>
   <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> token_s grent mmap pwent passwdfile_open setpwent setgrent open token_i write<br>
+ *Defines:</strong> mmap passwdfile_open write setpwent token_s open token_i pwent setgrent grent<br>
 </p>
 </dd>
 </dl>
@@ -4319,7 +4327,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> write atoi fileno ltodec uitohex strlen globals itooct uitoHEX uitodec<br>
+ <strong>Defines:</strong> getpid kill globals atoi ltodec uitodec itooct write fileno uitohex uitoHEX strlen<br>
 </p>
 </dd>
 </dl>
@@ -5094,7 +5102,7 @@ setenv
 <dd>
 <p>
   <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
- *Defines:</strong> environ ret_errno 0 strlen strcpy<br>
+ *Defines:</strong> strlen ret_errno environ 0 strcpy<br>
 </p>
 </dd>
 </dl>
@@ -5280,7 +5288,7 @@ term_width
 <dd>
 <p>
   <em>int term_width()</em><br>
- <strong>Defines:</strong> environ termio<br>
+ <strong>Defines:</strong> termio environ<br>
 </p>
 </dd>
 </dl>
@@ -5375,7 +5383,7 @@ userdb_open
 <dd>
 <p>
   <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
- <strong>Defines:</strong> globals close fstat write<br>
+ <strong>Defines:</strong> close globals fstat write<br>
 <a href="../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
 </p>
 </dd>
@@ -5385,7 +5393,7 @@ warn
 <dd>
 <p>
   <em>#define warn( fmt &#8230; ) { fprintf(stderr,fmt ); }</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> strlen getpid write fileno kill<br>
 </p>
 </dd>
 </dl>
@@ -5435,7 +5443,7 @@ endgrent
 <dd>
 <p>
   <em>void endgrent()</em><br>
- <strong>Defines:</strong> munmap pwent<br>
+ <strong>Defines:</strong> pwent munmap<br>
 <a href="../src/userdb/endgrent.c">../src/userdb/endgrent.c</a> l.4 manpage: <a href="manpages/gen/getgrent.3.rst">endgrent</a><br>
 </p>
 </dd>
@@ -5455,7 +5463,7 @@ getgrent
 <dd>
 <p>
   <em>struct group* getgrent()</em><br>
- <strong>Defines:</strong> open pwent userdb<br>
+ <strong>Defines:</strong> pwent open userdb<br>
 <a href="../src/userdb/getgrent.c">../src/userdb/getgrent.c</a> l.4 manpage: <a href="manpages/gen/getgrent.3.rst">getgrent</a><br>
 </p>
 </dd>
@@ -5465,7 +5473,7 @@ getgrgid
 <dd>
 <p>
   <em>struct group <strong>getgrgid(gid_t gid)</em><br>
- *Defines:</strong> open fstat mmap grent globals userdb write token_i close setgrent pwent token_s<br>
+ *Defines:</strong> write mmap userdb grent fstat close open token_s pwent token_i globals setgrent<br>
 </p>
 </dd>
 </dl>
@@ -5483,7 +5491,7 @@ getgrnam
 <dd>
 <p>
   <em>struct group <strong>getgrnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> mmap globals grent fstat open token_s pwent token_i close setgrent write userdb<br>
+ <strong>Defines:</strong> write mmap userdb fstat grent close open token_s token_i pwent globals setgrent<br>
 </p>
 </dd>
 </dl>
@@ -5500,7 +5508,7 @@ getpwent
 <dd>
 <p>
   <em>struct passwd* getpwent()</em><br>
- <strong>Defines:</strong> open userdb<br>
+ <strong>Defines:</strong> userdb open<br>
 <a href="../src/userdb/getpwent.c">../src/userdb/getpwent.c</a> l.4 manpage: <a href="manpages/gen/getpwent.3.rst">getpwent</a><br>
 </p>
 </dd>
@@ -5510,7 +5518,7 @@ getpwnam
 <dd>
 <p>
   <em>struct passwd <strong>getpwnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> write token_i open close fstat pwent token_s globals mmap<br>
+ <strong>Defines:</strong> mmap write token_s open close pwent token_i fstat globals<br>
 </p>
 </dd>
 </dl>
@@ -5528,7 +5536,7 @@ getpwuid
 <dd>
 <p>
   <em>struct passwd <strong>getpwuid(uid_t uid)</em><br>
- *Defines:</strong> pwent mmap token_s write open token_i passwdfile_open setpwent<br>
+ *Defines:</strong> open token_s setpwent passwdfile_open mmap write pwent token_i<br>
 </p>
 </dd>
 </dl>
@@ -8646,7 +8654,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-25 14:52:10 UTC
+ 2021-06-26 12:43:02 UTC
 </small></p>
 </body>
 </html>

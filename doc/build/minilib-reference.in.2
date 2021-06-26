@@ -39,7 +39,7 @@ f:readdir|D:struct dirent *readdir(DIR *dir)|c:directories|x:read a directory|
 f:rewinddir|D:void rewinddir(DIR *dir)|c:directories|x:reset the position of a directory stream to the beginning|
 f:rmdir|D:int rmdir( const char *pathname)|c:directories|x:remove a directory|
 f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **))|c:directories|x:scan a directory|
-f:scandir_bufsize|D://#define mini_scandir_bufsize 4096|c:directories|x:|
+f:scandir_bufsize|D:|c:directories|x:|
 f:seekdir|D:void seekdir(DIR *dir, long off)|c:directories|x:set the position of a directory stream|
 f:telldir|D:long telldir(DIR *dir)|c:directories|x:current location of a named directory stream|
 
@@ -169,7 +169,7 @@ f:eprintsl|D:#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)|c:o
 f:eputs|D:#define eputs(msg) ( eprint(msg) + eprintl() )|c:output|x:|
 f:ewrites|D:#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))|c:output|x:|
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|c:output|x:|
-f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))|c:output|x:|
+f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))|c:output|x:|
 f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...)|c:output|x:|
 f:fprints|D:#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)|c:output|x:|
 f:fputc|D:int volatile fputc(int c, FILE* F)|c:output|x:put a byte on a stream|
@@ -251,7 +251,7 @@ f:setvbuf|D:int setvbuf(FILE *stream, char *buf, int mode, size_t size)|c:stream
 
 f:_strcasecmp|D:int _strcasecmp(const char*c1,const char*c2,int len)|c:strings|x:|
 f:_strcmp|D:int _strcmp(const char*c1,const char*c2,int len)|c:strings|x:|
-f:sprintf|D:#define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)|c:strings|x:print formatted output|
+f:sprintf|D:#define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)|c:strings|x:print formatted output|
 f:strcasecmp|D:int strcasecmp(const char*c1,const char*c2)|c:strings|x:|
 f:strcat|D:char *strcat(char *dest, const char *src )|c:strings|x:concatenate two strings|
 f:strchr|D:char *strchr(const char *s, int c)|c:strings|x:string scanning operation|

@@ -16,7 +16,7 @@ clearerr
 <p>
   <em>void clearerr(FILE <strong>f)</em><br>
  *clear indicators on a stream</strong>
-Size: ~36B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.191 manpage: <a href="../manpages/stdio/ferror.3.rst.html">clearerr</a><br>
+Size: ~36B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.189 manpage: <a href="../manpages/stdio/ferror.3.rst.html">clearerr</a><br>
 </p>
 </dd>
 <dt>
@@ -25,7 +25,7 @@ clearerror
 <dd>
 <p>
   <em>void clearerror(FILE *f)</em><br>
-Size: ~36B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.196
+Size: ~36B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.194
 </p>
 </dd>
 <dt>
@@ -36,7 +36,7 @@ fclose
   <em>int  fclose( FILE* f )</em><br>
  <strong>Defines:</strong> close<br>
  <strong>close a stream</strong>
-Size: ~40B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.67 manpage: <a href="../manpages/stdio/fclose.3.rst.html">fclose</a><br>
+Size: ~40B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.66 manpage: <a href="../manpages/stdio/fclose.3.rst.html">fclose</a><br>
 </p>
 </dd>
 <dt>
@@ -45,7 +45,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> fileno open close<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -63,7 +63,7 @@ feof
 <p>
   <em>int feof(FILE <strong>f)</em><br>
  *test end-of-file indicator on a stream</strong>
-<a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.177 manpage: <a href="../manpages/stdio/ferror.3.rst.html">feof</a><br>
+<a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.175 manpage: <a href="../manpages/stdio/ferror.3.rst.html">feof</a><br>
 </p>
 </dd>
 <dt>
@@ -73,7 +73,7 @@ ferror
 <p>
   <em>int ferror(FILE <strong>f)</em><br>
  *test error indicator on a stream</strong>
-Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.184 manpage: <a href="../manpages/stdio/ferror.3.rst.html">ferror</a><br>
+Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.182 manpage: <a href="../manpages/stdio/ferror.3.rst.html">ferror</a><br>
 </p>
 </dd>
 <dt>
@@ -100,7 +100,7 @@ fgetpos
   <em>void fgetpos(FILE <strong>f, long *pos )</em><br>
  *Defines:</strong> lseek<br>
  <strong>get current file position information</strong>
-Size: ~62B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.118 manpage: <a href="../manpages/stdio/fseek.3.rst.html">fgetpos</a><br>
+Size: ~62B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.117 manpage: <a href="../manpages/stdio/fseek.3.rst.html">fgetpos</a><br>
 </p>
 </dd>
 <dt>
@@ -125,7 +125,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> open close fileno<br>
+ <strong>Defines:</strong> fileno close open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -141,9 +141,9 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> fileno write strlen<br>
+ *Defines:</strong> write fileno strlen<br>
  <strong>put a string on a stream</strong>
-Size: ~90B <a href="../../include/fputs.h">../include/fputs.h</a> l.20 manpage: <a href="../manpages/stdio/fputs.3.rst.html">fputs</a><br>
+Size: ~90B <a href="../../include/fputs.h">../include/fputs.h</a> l.19 manpage: <a href="../manpages/stdio/fputs.3.rst.html">fputs</a><br>
 </p>
 </dd>
 <dt>
@@ -154,7 +154,7 @@ fread
   <em>size_t fread(void <strong>ptr, size_t size, size_t nmemb, FILE *f)</em><br>
  *Defines:</strong> read<br>
  <strong>binary input</strong>
-Size: ~110B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.153 manpage: <a href="../manpages/stdio/fread.3.rst.html">fread</a><br>
+Size: ~110B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.152 manpage: <a href="../manpages/stdio/fread.3.rst.html">fread</a><br>
 </p>
 </dd>
 <dt>
@@ -163,7 +163,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> fileno close open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -182,7 +182,7 @@ fseek
   <em>int fseek(FILE <strong>f, long offset, int whence )</em><br>
  *Defines:</strong> lseek<br>
  <strong>reposition a file-position indicator in a stream</strong>
-Size: ~80B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.135 manpage: <a href="../manpages/stdio/fseek.3.rst.html">fseek</a><br>
+Size: ~80B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.134 manpage: <a href="../manpages/stdio/fseek.3.rst.html">fseek</a><br>
 </p>
 </dd>
 <dt>
@@ -193,7 +193,7 @@ fsetpos
   <em>int fsetpos(FILE <strong>f, int pos )</em><br>
  *Defines:</strong> lseek<br>
  <strong>set current file position</strong>
-Size: ~78B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.124 manpage: <a href="../manpages/stdio/fseek.3.rst.html">fsetpos</a><br>
+Size: ~78B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.123 manpage: <a href="../manpages/stdio/fseek.3.rst.html">fsetpos</a><br>
 </p>
 </dd>
 <dt>
@@ -204,7 +204,7 @@ ftell
   <em>long ftell(FILE <strong>f)</em><br>
  *Defines:</strong> lseek<br>
  <strong>return a file offset in a stream</strong>
-Size: ~53B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.112 manpage: <a href="../manpages/stdio/fseek.3.rst.html">ftell</a><br>
+Size: ~53B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.111 manpage: <a href="../manpages/stdio/fseek.3.rst.html">ftell</a><br>
 </p>
 </dd>
 <dt>
@@ -215,7 +215,7 @@ rewind
   <em>void rewind( FILE <strong>f )</em><br>
  *Defines:</strong> lseek<br>
  <strong>reset the file position indicator in a stream</strong>
-Size: ~58B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.144 manpage: <a href="../manpages/stdio/fseek.3.rst.html">rewind</a><br>
+Size: ~58B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.143 manpage: <a href="../manpages/stdio/fseek.3.rst.html">rewind</a><br>
 </p>
 </dd>
 <dt>
@@ -233,7 +233,7 @@ setbuf
 <pre><code>dummy function.
  There is no buffering implemented for the streams yet.</code></pre>
 </td></tr></table>
-<p>Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.204 manpage: <a href="../manpages/stdio/setbuf.3.rst.html">setbuf</a><br></p>
+<p>Size: ~32B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.202 manpage: <a href="../manpages/stdio/setbuf.3.rst.html">setbuf</a><br></p>
 <a name="setvbuf"></a><dl>
 <dt>
 setvbuf
@@ -248,12 +248,12 @@ setvbuf
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>dummy function</code></pre>
 </td></tr></table>
-<p>Size: ~58B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.209 manpage: <a href="../manpages/stdio/setbuf.3.rst.html">setvbuf</a><br></p>
+<p>Size: ~58B <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.207 manpage: <a href="../manpages/stdio/setbuf.3.rst.html">setvbuf</a><br></p>
 <p></p>
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-25 14:52:15 UTC
+ 2021-06-26 12:43:07 UTC
 </small></p>
 </body>
 </html>

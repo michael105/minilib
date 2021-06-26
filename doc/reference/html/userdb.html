@@ -15,7 +15,7 @@ endgrent
 <dd>
 <p>
   <em>void endgrent()</em><br>
- <strong>Defines:</strong> munmap pwent<br>
+ <strong>Defines:</strong> pwent munmap<br>
 <a href="../../src/userdb/endgrent.c">../src/userdb/endgrent.c</a> l.4 manpage: <a href="../manpages/gen/getgrent.3.rst.html">endgrent</a><br>
 </p>
 </dd>
@@ -35,7 +35,7 @@ getgrent
 <dd>
 <p>
   <em>struct group* getgrent()</em><br>
- <strong>Defines:</strong> open pwent userdb<br>
+ <strong>Defines:</strong> pwent open userdb<br>
 <a href="../../src/userdb/getgrent.c">../src/userdb/getgrent.c</a> l.4 manpage: <a href="../manpages/gen/getgrent.3.rst.html">getgrent</a><br>
 </p>
 </dd>
@@ -45,7 +45,7 @@ getgrgid
 <dd>
 <p>
   <em>struct group <strong>getgrgid(gid_t gid)</em><br>
- *Defines:</strong> open fstat mmap grent globals userdb write token_i close setgrent pwent token_s<br>
+ *Defines:</strong> write mmap userdb grent fstat close open token_s pwent token_i globals setgrent<br>
 </p>
 </dd>
 </dl>
@@ -63,7 +63,7 @@ getgrnam
 <dd>
 <p>
   <em>struct group <strong>getgrnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> mmap globals grent fstat open token_s pwent token_i close setgrent write userdb<br>
+ <strong>Defines:</strong> write mmap userdb fstat grent close open token_s token_i pwent globals setgrent<br>
 </p>
 </dd>
 </dl>
@@ -80,7 +80,7 @@ getpwent
 <dd>
 <p>
   <em>struct passwd* getpwent()</em><br>
- <strong>Defines:</strong> open userdb<br>
+ <strong>Defines:</strong> userdb open<br>
 <a href="../../src/userdb/getpwent.c">../src/userdb/getpwent.c</a> l.4 manpage: <a href="../manpages/gen/getpwent.3.rst.html">getpwent</a><br>
 </p>
 </dd>
@@ -90,7 +90,7 @@ getpwnam
 <dd>
 <p>
   <em>struct passwd <strong>getpwnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> write token_i open close fstat pwent token_s globals mmap<br>
+ <strong>Defines:</strong> mmap write token_s open close pwent token_i fstat globals<br>
 </p>
 </dd>
 </dl>
@@ -108,7 +108,7 @@ getpwuid
 <dd>
 <p>
   <em>struct passwd <strong>getpwuid(uid_t uid)</em><br>
- *Defines:</strong> pwent mmap token_s write open token_i passwdfile_open setpwent<br>
+ *Defines:</strong> open token_s setpwent passwdfile_open mmap write pwent token_i<br>
 </p>
 </dd>
 </dl>
@@ -159,7 +159,7 @@ setpwent
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-25 14:52:15 UTC
+ 2021-06-26 12:43:07 UTC
 </small></p>
 </body>
 </html>
