@@ -131,6 +131,9 @@ test:
 testql: 
 	cd test && make testql
 
+testql-build: 
+	cd test && make all
+
 retest: 
 	cd test && make retest
 
