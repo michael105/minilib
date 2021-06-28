@@ -1,18 +1,6 @@
 #ifndef msprintf_c
 #define msprintf_c
 
-#ifndef mini_write
-#define mini_write
-#endif
-
-
-#ifndef mini_prints
-#define mini_prints
-#endif
-
-#undef MINI_TEST_OVERRUN
-#define MINI_TEST_OVERRUN(pos) if ( pos>= size ){ goto OVERFLOW;}
-
 //+include
 
 //+doc I'm really uncertain about the size arg here, amongst others
