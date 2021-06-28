@@ -1,9 +1,7 @@
 
-#include "../macros/overrun.h"
-#include "../include/exit.h" // Needed for testing for buffer overrun
-
-
+#ifdef MINI_TEST_OVERRUN
 #undef MINI_TEST_OVERRUN
+#endif
 #define MINI_TEST_OVERRUN(pos) if ( pos>= size ){ goto OVERFLOW;}
 
 
