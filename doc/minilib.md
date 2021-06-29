@@ -1663,7 +1663,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               warning - most possibly you'd like to define besides fprintf, or family,
               mini_itodec (%d conversion) 
               mini_atoi is needed for grouping numbers
-               (src/output/sprintf.c: 41)
+               (src/output/vsnprintf.c: 18)
 
 warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 
@@ -2113,13 +2113,13 @@ fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
                (include/mini_fstream.h: 84)
 
-fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))
+fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
 
                fprintf, formatted output
               conversions implemented:
               %d: signed int (mini_itodec)
               %u: unsigned int (mini_uitodec)
-              %f: double (max precision 8 digits, highest possible number: 2^31
+              %f: double (max precision 8 digits, highest possible number: 2^31 (mini_dtodec)
               %l (modify a following d,u to long) (mini_ltodec,mini_ultodec)
               %s: string
               %c: char
@@ -2140,7 +2140,7 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snpri
               prints (formatted output of one or several strings) are provided.
              
               
-               (src/output/sprintf.c: 263)
+               (src/output/fprintf.c: 32)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
@@ -2244,7 +2244,7 @@ sprintf        #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
                I'm really uncertain about the size arg here, amongst others
               these are just misdefined functions, inhaerent insecure. :/
               If possible, do not use sprintf. Use snprintf instead. 
-               (src/output/sprintf.c: 27)
+               (src/output/sprintf.c: 9)
 
 ungetc         static int ungetc(int c, FILE *F);
 
@@ -2261,8 +2261,9 @@ vsprintf       int vsprintf( char *buf, const char *fmt, ... );
 
                write fmt and arguments into buf
               calls vsnprintf, 
-              the size is limited to 4096 by default.
-               (src/output/vsprintf.c: 9)
+              the size is limited to 4096 by default and assumes
+              a buf len of 4096.
+               (src/output/vsprintf.c: 10)
 
 
 

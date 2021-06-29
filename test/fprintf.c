@@ -3,6 +3,7 @@ mini_start
 mini_fopen
 mini_fclose
 mini_fprintf
+mini_dprintf
 mini_printf
 mini_print
 mini_itodec

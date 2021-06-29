@@ -723,12 +723,12 @@
 </small></td></tr>
 <tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  84 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  263 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  32 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
 </small></td></tr><tr><td></td><td colspan="2"><small>fprintf, formatted output
   conversions implemented:
   %d: signed int (mini_itodec)
   %u: unsigned int (mini_uitodec)
-  %f: double (max precision 8 digits, highest possible number: 2^31
+  %f: double (max precision 8 digits, highest possible number: 2^31 (mini_dtodec)
   %l (modify a following d,u to long) (mini_ltodec,mini_ultodec)
   %s: string
   %c: char
@@ -750,7 +750,7 @@
  
   
  </small></td></tr>
-<tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
+<tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/output/fprintf.c" target="right">../src/output/fprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted and unbuffered output to the stream F.
   only %s and %c are recognized.
   no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
@@ -1972,7 +1972,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>splice</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  27 </small></td><td><small> #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>I'm really uncertain about the size arg here, amongst others
   these are just misdefined functions, inhaerent insecure. :/
   If possible, do not use sprintf. Use snprintf instead. 
@@ -2163,16 +2163,17 @@
 </small></td></tr>
 <tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  157 </small></td><td><small> DEF_syscall(vhangup,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  41 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  18 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 </small></td></tr><tr><td></td><td colspan="2"><small>the function, translating the fmt of printf.
   warning - most possibly you'd like to define besides fprintf, or family,
   mini_itodec (%d conversion) 
   mini_atoi is needed for grouping numbers
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  9 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/output/vsnprintf.c" target="right">../src/output/vsnprintf.c</a>  10 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments into buf
   calls vsnprintf, 
-  the size is limited to 4096 by default.
+  the size is limited to 4096 by default and assumes
+  a buf len of 4096.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/output/vsprintf.c" target="right">../src/output/vsprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
 </small></td></tr>
