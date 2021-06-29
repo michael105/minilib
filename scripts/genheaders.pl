@@ -3,7 +3,7 @@
 # generate minilib.conf; genconf.sh; minilib.h; compat/*.h
 # callen by make header, make devel
 #
-# (c) 2019,2020 Michael misc Myer misc.myer@zoho.com;
+# (c) 2019-2021 Michael misc Myer misc.myer@zoho.com;
 # www.github.com/michael105; 
 # Licensing terms are attached at the bottom
 #
@@ -252,6 +252,7 @@ sub minilibcfh{
 
 # iterate over commandline args
 while ( my $file = shift ){
+	dbg("File: $file\n");
 		open (F, "<", $file) or die;
 		my @fa = <F>;
 		close( F );
@@ -739,52 +740,73 @@ sub printdepend{
 		print $fh "#endif\n"
 }
 
+sub pathconv{
+	my $p = shift;
+	$p=~s/[\/\.]/_/g;
+	$p;
+}
+my $neededheader;
+my $includeheader;
 # include the header files first, on which we depend,
 # or define the needed functions.
 sub headerinclude{
-		my $fh = shift;
-		my $i = shift;
-		print $fh "\n// $funchash->{$i}->{file}\n";
-		print $fh "#ifdef mini_$i\n";
-		if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
-				if ( exists($funchash->{$i}->{needs}) ){
-						foreach my $c ( split( " ", $funchash->{$i}->{needs} ) ){
-								if ( ! exists( $alreadyincluded->{$c} ) ){ # already incuded before. e.g. syscall.h
-										print $fh "#include \"$c\"\n";
-								}
-						}
-				}
-				if ( exists( $funchash->{$i}->{macro} ) ){
-						print $fh $funchash->{$i}->{def}."";
-				} else {
-						print $fh "#include \"$funchash->{$i}->{file}\"\n";
-				}
-		} else {
-				print $fh $funchash->{$i}->{def}."";
-				if ( $funchash->{$i}->{inc} ){
-					if ( !exists( $funchash->{$i}->{incfile} )){
-							$funchash->{$i}->{incfile} = $funchash->{$i}->{file};
-							$funchash->{$i}->{incfile} =~ s/[\/\.]/_/g;
-					}
-				   if ( !exists( $srcincfiles->{$funchash->{$i}->{incfile}} )){
-						$srcincfiles->{$funchash->{$i}->{incfile}} = $funchash->{$i}->{file};
-					}
-					print $fh "#define include_$funchash->{$i}->{incfile}\n";
-				}
+	my $fh = shift;
+	my $i = shift;
+	if ( $funchash->{$i}->{file} =~ /syscall_stubs.h$/ ){
+		next;
+	}
+	print $fh "\n// $funchash->{$i}->{file}\n";
+	print $fh "#ifdef mini_$i\n";
+	if ( $funchash->{$i}->{file} =~ /\S\.h$/ ){
+		if ( exists($funchash->{$i}->{needs}) ){
+			foreach my $c ( split( " ", $funchash->{$i}->{needs} ) ){
+				#if ( ! exists( $alreadyincluded->{$c} ) ){ # already incuded before. e.g. syscall.h
+				#	print $fh "// needs\n#include \"$c\"\n";
+				#}
+				$neededheader->{pathconv($c)}=$c;
+				printf $fh "// needs\n#define ". pathconv($c) ."\n";
+			}
 		}
-		print $fh "#endif\n";
+		if ( exists( $funchash->{$i}->{macro} ) ){
+			print $fh $funchash->{$i}->{def}."";
+		} else {
+			#print $fh "#include \"$funchash->{$i}->{file}\"\n";
+			$includeheader->{pathconv($funchash->{$i}->{file})}=$funchash->{$i}->{file};
+			print $fh "#define ". pathconv($funchash->{$i}->{file}) ."\n";
+		}
+	} else {
+		print $fh $funchash->{$i}->{def}."";
+		if ( $funchash->{$i}->{inc} ){
+			if ( !exists( $funchash->{$i}->{incfile} )){
+				$funchash->{$i}->{incfile} = $funchash->{$i}->{file};
+				$funchash->{$i}->{incfile} =~ s/[\/\.]/_/g;
+			}
+			if ( !exists( $srcincfiles->{$funchash->{$i}->{incfile}} )){
+				$srcincfiles->{$funchash->{$i}->{incfile}} = $funchash->{$i}->{file};
+			}
+			print $fh "#define include_$funchash->{$i}->{incfile}\n";
+		}
+	}
+	print $fh "#endif\n";
 }
 
 # MINILIB.H =========================================
 # Writing minilib.h starts here
 my $ml = headerfh( "minilib.h", $mlibdir );
 
+foreach my $d ( keys (%{$depends}) ){
+		printdepend($ml, $d);
+}
 
 foreach my $d ( keys (%{$depends}) ){
 		printdepend($ml, $d);
 }
 
+
+
 print $ml "// Start incfirst\n";
+
+copytemplates( $ml, "$mlibdir", "minilib.h.include" );			
 
 foreach my $i ( keys(%{$includefirst}) ){
 		headerinclude( $ml, $i );
@@ -797,6 +819,18 @@ foreach my $i ( keys(%{$funchash}) ){
 				headerinclude( $ml, $i );
 		}
 }
+
+print $ml "\n// needed\n";
+foreach my $k ( keys(%{$neededheader}) ){
+	print $ml "#ifdef $k\n#include \"$neededheader->{$k}\"\n#endif\n";
+}
+
+print $ml "\n// include\n";
+foreach my $k ( keys(%{$includeheader}) ){
+	print $ml "#ifdef $k\n#include \"$includeheader->{$k}\"\n#endif\n";
+}
+
+
 
 print $ml <<TMPL_END;
 #ifdef INCLUDESRC
@@ -940,15 +974,16 @@ template( "minilib.conf.all", "minilib_config", { Allswitches=>\&configallhandle
 #close($conf);
 
 sub configscripthandler{
-		my $fh = shift;
-		foreach my $func ( keys(%{$funchash}) ){
-						printf $fh "mini_$func(){ 
-  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
-	else echo  \"#define mini_$func $func\"
-	fi
-}\n";
-				}
-		return(1);
+	my $fh = shift;
+	foreach my $func ( keys(%{$funchash}) ){
+		printf $fh "mini_$func(){ mini_define $func $1; }\n";
+		#printf $fh "mini_$func(){ 
+		#  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
+		#	else echo  \"#define mini_$func $func\"
+		#	fi
+		#}\n";
+	}
+	return(1);
 }
 
 template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscripthandler } );
@@ -997,7 +1032,7 @@ sub syscalldefine{
 				if ( $1 >= 4 ){
 						$def =~ s/define_syscall/define_syscall_noopt/;
 				}
-				print $fh "REAL_$def\n";
+				print $fh "#ifdef mini_$k\nREAL_$def#endif\n\n";
 				$def =~ s/(.*?)\((.*?),/$1( $Y$2 $N,/; 
 				dbg ("REAL_$def\n");
 		}

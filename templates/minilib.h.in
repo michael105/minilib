@@ -1,36 +1,46 @@
 /* templates/minilib.h.in */
 
 
-#include "minilib/include//utils.h"
+#ifdef HEADERGUARDS
+#define mini_HEADERGUARDS
+#endif
 
+#ifdef mini_getenv
+#ifndef mini_environ
+#define mini_environ
+#endif
+#endif
+#ifdef mini_system
+#ifndef mini_environ
+#define mini_environ
+#endif
+#endif
+
+#ifdef HEADERGUARDS
+#include "minilib/include/headerguards.h"
+#endif
+
+
+#include "minilib/macros/defgroups.h"
+
+#include "minilib/include/utils.h"
+#include "minilib/include/globaldefs.h"
 #include "minilib/macros/vararg.h"
+#include "minilib/macros/stdarg.h"
+#include "minilib/include/config.h"
+#include "minilib/include/ctype.h"
+#include "minilib/include/syscall.h"
 
-//#include "minilib/include/syscall.h"
-#include "minilib/include/stdarg.h"
-
-//#include "minilib/headers/common/sys/types.h"
-//#include "minilib/include/syscall_stubs.h"
-#include "minilib/include/exit.h"
-#include "minilib/include/minilib_global.h"
-#include "minilib/include/filemodes.h"
-//#include "minilib/include/errno_str.h"
-
-//#include "minilib/headers/common/dirent.h"
-
+#ifdef mini_GETOPTS
+#include "minilib/macros/getoptm.h"
+#endif
 
 struct udiv_t { unsigned int quot, rem; };
 
-
 #ifdef mini_getopt
-#ifndef mini_prints
 #define mini_prints
-#endif
-#ifndef mini_strcmp
 #define mini_strcmp
-#endif
-#ifndef mini_strchr
 #define mini_strchr
-#endif
 #endif
 
 #ifndef itodec
@@ -49,21 +59,7 @@ struct udiv_t { unsigned int quot, rem; };
 //#endif
 #endif
 
-
-//#ifdef mini_puts
-//#define puts(a1) printl(a1)
-//#define mini_print
-//#endif
-//#ifdef mini_print
-////#include "print.h"
-//extern int print(const char *msg);
-//extern int printl(const char *msg);
-//#endif
-
-//#ifdef mini_errno / No reason to not define errno Macros by default
 #include "m_errno.h"
-//#endif
-//
 
 
 /* end templates/minilib.h.in */

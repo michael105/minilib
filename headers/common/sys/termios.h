@@ -1,6 +1,7 @@
 #ifndef	_TERMIOS_H
 #define	_TERMIOS_H
 
+#if 0
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,4 +45,5 @@ int cfsetspeed(struct termios *, speed_t);
 }
 #endif
 
+#endif
 #endif

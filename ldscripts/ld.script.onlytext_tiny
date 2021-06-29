@@ -54,8 +54,6 @@ saves 15 bytes. ( needs -N for linking )*/
 						/* Align here to ensure that the .bss section occupies space up to
 							 _end.  Align after .bss to ensure correct alignment even if the
 							 .bss section disappears because there are no input sections.
-							 FIXME: Why do we need it? When there is no .bss section, we dont
-							 pad the .data section.  
 misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
 		} :text
 

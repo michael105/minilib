@@ -57,7 +57,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
              
               returns the number of the read entries,
               or the negative errno on error.
-               (src/directories/scandir.c: 35)
+               (src/directories/scandir.c: 34)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -75,7 +75,7 @@ fcntl.h
 
 creat          int volatile creat( const char *s, int mode );
 
-               (src/file/open.c: 36)
+               (src/file/open.c: 35)
 
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
@@ -379,7 +379,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/output/prints.c: 17)
+               (src/output/dprints.c: 14)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -387,32 +387,32 @@ dtodec         int dtodec(double d, char* buf, int precision);
 
 endgrent       void endgrent();
 
-               (src/userdb/endgrent.c: 3)
+               (src/userdb/endgrent.c: 4)
 
 endpwent       void endpwent();
 
-               (src/userdb/endpwent.c: 3)
+               (src/userdb/endpwent.c: 4)
 
 eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 
                write str to stderr. Needs strlen
-               (include/prints.h: 59)
+               (include/prints.h: 57)
 
 eprintf        #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
 
                write fmt and arguments to stderr. 
-               (include/prints.h: 132)
+               (include/prints.h: 133)
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
-               (include/prints.h: 127)
+               (include/prints.h: 128)
 
 eprintl        #define eprintl() write(STDERR_FILENO,"\n",1)
 
                write a newline to stderr
-               (include/prints.h: 68)
+               (include/prints.h: 66)
 
 eprints        #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 
@@ -428,7 +428,7 @@ eprintsl       #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
 
                write msg to stderr, append a newline. Needs strlen.
-               (include/prints.h: 78)
+               (include/prints.h: 76)
 
 err            #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
 
@@ -465,13 +465,13 @@ errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(statu
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 89)
+               (include/prints.h: 87)
 
-ewritesl       #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
+ewritesl       #define ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
 
                write the constant str to stderr, followed by a newline. 
               Computes length with sizeof(str) at compile time.
-               (include/prints.h: 101)
+               (include/prints.h: 100)
 
 exit_errno     void exit_errno( int errnum );
 
@@ -550,7 +550,7 @@ fwrites        #define fwrites(fd,str) write(fd,str,sizeof(str))
                write the constant str to fd. Computes length with sizeof(str) at compile time.
                (include/prints.h: 107)
 
-fwritesl       #define fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
+fwritesl       #define fwritesl(fd,str) write(fd,str"\n",sizeof(str)+1)
 
                write the constant str to fd,followed by a newline. 
               Computes length with sizeof(str) at compile time.
@@ -639,15 +639,15 @@ group_write
 
 htonl          static uint32_t htonl(uint32_t i);
 
-               (src/network/byteorder.c: 17)
+               (src/network/byteorder.c: 19)
 
 htons          static uint16_t htons(uint16_t i);
 
-               (src/network/byteorder.c: 6)
+               (src/network/byteorder.c: 7)
 
 inet_aton      int inet_aton(const char* s, struct in_addr *addr);
 
-               (src/network/inet_aton.c: 2)
+               (src/network/inet_aton.c: 3)
 
 inet_ntoa      char* inet_ntoa( struct in_addr in);
 
@@ -655,7 +655,7 @@ inet_ntoa      char* inet_ntoa( struct in_addr in);
               This returns a pointer to a string in the globals,
               therefore the routine isn't reentrant.
               (whoever thought this might be a good idea..)
-               (src/network/inet_ntoa.c: 6)
+               (src/network/inet_ntoa.c: 7)
 
 initgroups     int initgroups(const char* user, gid_t group);
 
@@ -706,16 +706,19 @@ map_protected  void* map_protected(int len);
               neither the stack, nor other structures can be overwritten.
               Instead the overflow (or underflow) touches the next protected page,
               what results in a segfault.
-              The size is always a mutliple of the systems pagesize, 4kB here.
+              Most probably you'd like to catch the segfault signal.
+              (By installing a segfault signal handler)
+             
+              The size is always a multiple of the systems pagesize, 4kB here.
               The len of the mapped memory area is rounded up to the next pagesize.
               The mapped area can only be freed by call(s) to munmap,
               neither realloc nor free are allowed.
               There is one page before, and one page after the mapped area
               protected with PROT_NONE, and len rounded up to the next
               pagebreak. So this is the overhead. 
-              If an error occures, errno is set (when defined), 
+              If an error occures, errno is set (when defined by the switch mini_errno), 
               and -1 returned, or the negative errno value, when errno isn't defined.
-               (src/memory/map_protected.c: 19)
+               (src/memory/map_protected.c: 22)
 
 match          int match(char *text, const char *re, text_match *st_match);
 
@@ -1322,13 +1325,18 @@ mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void
 
                (include/mremap.h: 4)
 
+network        
+
+               network definitions
+               (include/network.h: 4)
+
 ntohl          #define ntohl(i) htonl(i)
 
-               (src/network/byteorder.c: 29)
+               (src/network/byteorder.c: 31)
 
 ntohs          #define ntohs(i) htons(i)
 
-               (src/network/byteorder.c: 14)
+               (src/network/byteorder.c: 15)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 
@@ -1361,7 +1369,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               With less overhead the macro OPTFENCE(...) goes.
               There the call to the "ipa" function is jumped over,
               via asm inline instructions. 
-               (include/minilib_global.h: 154)
+               (include/minilib_global.h: 146)
 
 poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
 
@@ -1374,18 +1382,18 @@ posix_openpt   int posix_openpt(int flags);
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
 
                write str to stdout. Needs strlen
-               (include/prints.h: 55)
+               (include/prints.h: 53)
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
-               (include/prints.h: 121)
+               (include/prints.h: 122)
 
 printl         #define printl() write(STDOUT_FILENO,"\n",1)
 
                write a newline to stdout
-               (include/prints.h: 64)
+               (include/prints.h: 62)
 
 prints         #define prints(...) _mprints(__VA_ARGS__,0)
 
@@ -1419,7 +1427,8 @@ putenv         int putenv( char *string );
 
 pwent          
 
-               (include/globaldefs.h: 219)
+               define passwd and group structures
+               (include/pwent.h: 7)
 
 ret_errno      #ifdef mini_errno
 
@@ -1437,7 +1446,7 @@ sbrk           static void* sbrk(long incr);
               returns the negative errno value on error
                (src/memory/brk.c: 66)
 
-scandir_bufsize//#define mini_scandir_bufsize 4096
+scandir_bufsize
 
                the increment of the buffer of scandir in bytes for memory allocations
               (default:4096)
@@ -1445,7 +1454,7 @@ scandir_bufsize//#define mini_scandir_bufsize 4096
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
-               (src/math/hashes.c: 23)
+               (src/math/sdbm_hash.c: 3)
 
 setbrk         static int setbrk(long addr);
 
@@ -1553,11 +1562,11 @@ sys_brk        static long sys_brk(unsigned long addr);
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
-               (src/termios/tcgetattr.c: 19)
+               (src/termios/tcgetattr.c: 12)
 
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (src/termios/tcsetattr.c: 22)
+               (src/termios/tcsetattr.c: 12)
 
 term_width     int term_width();
 
@@ -1566,6 +1575,11 @@ term_width     int term_width();
               if not present, returns 80.
               Doesn't check for the existence of a terminal.
                (src/termios/term_width.c: 7)
+
+termio         
+
+               termios structures and definitions
+               (include/termio.h: 5)
 
 token_i        int token_i( userdb* udb, char **p );
 
@@ -1605,7 +1619,12 @@ unlockpt       int unlockpt(int fd);
 
 unmap_protectedint unmap_protected(void *p, int len);
 
-               (src/memory/map_protected.c: 41)
+               free an area, allocated before with map_protected
+              (len must be the same, when at the invocation of map_protected)
+              returns the value of munmap, when an error occures.
+              errno is set, when defined.
+              return 0 on success.
+               (src/memory/map_protected.c: 44)
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
 
@@ -1644,23 +1663,28 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               warning - most possibly you'd like to define besides fprintf, or family,
               mini_itodec (%d conversion) 
               mini_atoi is needed for grouping numbers
-               (src/output/sprintf.c: 43)
+               (src/output/vsnprintf.c: 18)
 
 warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 
                print an error message to stderr
                (src/process/error.c: 33)
 
+where          int where(const char *file,char *buf);
+
+               locate an executable in PATH
+               (src/exec/where.c: 4)
+
 writes         #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 
                write the constant str to stdout. Computes length with sizeof(str) at compile time.
-               (include/prints.h: 85)
+               (include/prints.h: 83)
 
-writesl        #define writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
+writesl        #define writesl(str) write(STDOUT_FILENO,str "\n",sizeof(str)+1)
 
                write the constant str to stdout, followed by a newline. 
               Computes length with sizeof(str) at compile time.
-               (include/prints.h: 95)
+               (include/prints.h: 93)
 
 
 
@@ -1980,11 +2004,11 @@ signal.h
 
 raise          static inline int raise(int signr);
 
-               (src/process/sigaction.c: 139)
+               (src/process/sigaction.c: 145)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 
-               (src/process/sigaction.c: 111)
+               (src/process/sigaction.c: 117)
 
 sigaddset      int sigaddset(sigset_t *set, int sig);
 
@@ -1992,7 +2016,7 @@ sigaddset      int sigaddset(sigset_t *set, int sig);
 
 sigdelset      int sigdelset(sigset_t *set, int sig);
 
-               (src/process/sigaction.c: 62)
+               (src/process/sigaction.c: 68)
 
 sigemptyset    static int sigemptyset(sigset_t *set);
 
@@ -2004,7 +2028,7 @@ sigfillset     static int sigfillset(sigset_t *set);
 
 sigismember    int sigismember(sigset_t *set, int sig);
 
-               (src/process/sigaction.c: 79)
+               (src/process/sigaction.c: 85)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
 
@@ -2012,11 +2036,11 @@ signal         sighandler_t signal(int sig, sighandler_t func );
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
-               (src/process/sigaction.c: 56)
+               (src/process/sigaction.c: 61)
 
 sigsuspend     static int sigsuspend( const sigset_t *mask );
 
-               (src/process/sigaction.c: 51)
+               (src/process/sigaction.c: 53)
 
 
 
@@ -2035,28 +2059,28 @@ _itohex        int _itohex(int i,char* buf,int padding, int capitals);
 
 clearerr       static inline void clearerr(FILE *f);
 
-               (include/mini_fstream.h: 184)
+               (include/mini_fstream.h: 189)
 
 clearerror     static inline void clearerror(FILE *f);
 
-               (include/mini_fstream.h: 189)
+               (include/mini_fstream.h: 194)
 
 fclose         static inline int __attribute__((always_inline)) fclose( FILE* f );
 
-               (include/mini_fstream.h: 65)
+               (include/mini_fstream.h: 66)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 20)
+               (src/streams/fopen.c: 21)
 
 feof           static inline int feof(FILE *f);
 
-               (include/mini_fstream.h: 170)
+               (include/mini_fstream.h: 175)
 
 ferror         static inline int ferror(FILE *f);
 
-               (include/mini_fstream.h: 177)
+               (include/mini_fstream.h: 182)
 
 fflush         static inline int __attribute__((always_inline)) fflush( FILE *F );
 
@@ -2065,11 +2089,11 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
 
 fgetc          static inline int fgetc(FILE *F);
 
-               (include/fgetc.h: 11)
+               (src/streams/fgetc.c: 5)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
 
-               (include/mini_fstream.h: 113)
+               (include/mini_fstream.h: 117)
 
 fgets          char* fgets(char *buf, int size, FILE* F);
 
@@ -2083,19 +2107,19 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 10)
+               (src/streams/fopen.c: 11)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 81)
+               (include/mini_fstream.h: 84)
 
-fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
 
                fprintf, formatted output
               conversions implemented:
               %d: signed int (mini_itodec)
               %u: unsigned int (mini_uitodec)
-              %f: double (max precision 8 digits, highest possible number: 2^31
+              %f: double (max precision 8 digits, highest possible number: 2^31 (mini_dtodec)
               %l (modify a following d,u to long) (mini_ltodec,mini_ultodec)
               %s: string
               %c: char
@@ -2116,48 +2140,48 @@ fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprin
               prints (formatted output of one or several strings) are provided.
              
               
-               (src/output/sprintf.c: 268)
+               (src/output/fprintf.c: 32)
 
 fputc          static inline int volatile fputc(int c, FILE* F);
 
-               (include/fputc.h: 10)
+               (include/fputc.h: 9)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
 
-               (include/fputs.h: 20)
+               (include/fputs.h: 19)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 148)
+               (include/mini_fstream.h: 152)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 30)
+               (src/streams/fopen.c: 31)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
-               (include/mini_fstream.h: 132)
+               (include/mini_fstream.h: 134)
 
 fsetpos        static inline int fsetpos(FILE *f, int pos );
 
-               (include/mini_fstream.h: 119)
+               (include/mini_fstream.h: 123)
 
 ftell          static inline long ftell(FILE *f);
 
-               (include/mini_fstream.h: 107)
+               (include/mini_fstream.h: 111)
 
 fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 
-               (include/mini_fstream.h: 92)
+               (include/mini_fstream.h: 95)
 
 getc           #define getc(F) fgetc(F)
 
-               (include/fgetc.h: 26)
+               (include/fgetc.h: 8)
 
 getchar        #define getchar() fgetc(0)
 
-               (include/fgetc.h: 29)
+               (include/fgetc.h: 11)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
@@ -2185,57 +2209,61 @@ perror         void perror(const char *msg);
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
 
-               (include/mini_fstream.h: 77)
+               (include/mini_fstream.h: 80)
 
 putc           #define putc(c,stream) fputc(c,stream)
 
-               (include/fputc.h: 19)
+               (include/fputc.h: 18)
 
 putchar        #define putchar(c) fputc(c,stdout)
 
-               (include/fputc.h: 16)
+               (include/fputc.h: 15)
 
 puts           #define puts(msg) ( print(msg) + printl() )
 
                write msg to stdout, append a newline. Needs strlen.
-               (include/prints.h: 74)
+               (include/prints.h: 72)
 
 rewind         static inline void rewind( FILE *f );
 
-               (include/mini_fstream.h: 142)
+               (include/mini_fstream.h: 143)
 
 setbuf         static void setbuf(FILE *stream, char *buf);
 
                dummy function.
               There is no buffering implemented for the streams yet.
-               (include/mini_fstream.h: 197)
+               (include/mini_fstream.h: 202)
 
 setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
                dummy function
-               (include/mini_fstream.h: 202)
+               (include/mini_fstream.h: 207)
 
-sprintf        #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
+sprintf        #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
 
-               (src/output/sprintf.c: 26)
+               I'm really uncertain about the size arg here, amongst others
+              these are just misdefined functions, inhaerent insecure. :/
+              If possible, do not use sprintf. Use snprintf instead. 
+               (src/output/sprintf.c: 9)
 
 ungetc         static int ungetc(int c, FILE *F);
 
                pushes one char back to the stream.
               Overwrites a previously pushed char
               (conforming to the posix spec) 
-               (include/fgetc.h: 35)
+               (src/streams/ungetc.c: 5)
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
 
-               (include/mini_fstream.h: 86)
+               (include/mini_fstream.h: 89)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
 
                write fmt and arguments into buf
               calls vsnprintf, 
-              the size is limited to 4096 by default.
-               (src/output/vsprintf.c: 9)
+              the size is limited to 4096 by default and assumes
+              a buf len of 4096.
+               (src/output/vsprintf.c: 10)
 
 
 
@@ -2277,7 +2305,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/memory/malloc.c: 146)
+               (src/memory/malloc.c: 145)
 
 getenv         char* getenv(const char* name);
 
@@ -2367,7 +2395,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/memory/malloc.c: 126)
+               (src/memory/malloc.c: 125)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -2384,7 +2412,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/memory/malloc.c: 210)
+               (src/memory/malloc.c: 209)
 
 srand          void srand( unsigned int i );
 
@@ -2534,7 +2562,7 @@ execvpe        static int execvpe(const char *file, char *const argv[], char *co
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
               Looks for file in the PATH environment, othwerise.
-               (src/exec/execvp.c: 40)
+               (src/exec/execvp.c: 11)
 
 getgroups      int getgroups(int maxgroups, int *list);
 
@@ -2548,7 +2576,7 @@ getgroups      int getgroups(int maxgroups, int *list);
 gethostname    static int gethostname(char *name,int len);
 
                gethostname
-               (src/network/gethostname.c: 3)
+               (src/network/gethostname.c: 4)
 
 isatty         int isatty(int fd);
 
@@ -2562,11 +2590,11 @@ open           int volatile open( const char *s, int flags, ... );
               as third argument. Otherwise file permission
               flags will be random. (I still do not know, what 
               the flag showing up as "-T" means..)
-               (src/file/open.c: 19)
+               (src/file/open.c: 18)
 
 select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
-               (include/select.h: 17)
+               (include/select.h: 16)
 
 sleep          unsigned int volatile sleep(unsigned int seconds);
 
@@ -2576,11 +2604,11 @@ sleep          unsigned int volatile sleep(unsigned int seconds);
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
-               (src/termios/tcgetattr.c: 19)
+               (src/termios/tcgetattr.c: 12)
 
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
-               (src/termios/tcsetattr.c: 22)
+               (src/termios/tcsetattr.c: 12)
 
 usleep         unsigned int volatile usleep(unsigned int useconds);
 
@@ -2593,9 +2621,4 @@ usleep         unsigned int volatile usleep(unsigned int useconds);
              
               TODO: ignore blocked signals, sigchld
                (src/process/sleep.c: 31)
-
-where          int where(const char *file,char *buf);
-
-               locate an executable in PATH
-               (src/exec/execvp.c: 8)
 

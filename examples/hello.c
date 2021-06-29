@@ -21,11 +21,11 @@ INCLUDESRC
 shrinkelf
 
 # The ldscript file. can be onlytext, text_and_bss or default
-LDSCRIPT onlytext
+LDSCRIPT onlytext_tiny
 
 # the optimization flag for gcc
 # (also defaults to -Os)
-OPTFLAG=-Os
+OPTFLAG -Os
 
 # the following two line have to be there
 return

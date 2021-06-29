@@ -1,332 +1,1794 @@
-# include this makefile via include Makefile.minilib
-# For using it, have a look into Makefile.template
-# The different switches are explained and commented there.
-# atm, it is better using the script mini-gcc anyways.
-# Have to fix this.
+# Makefile for minilib
+# 
+# call with 'make -f Makefile.minilib [CONF=configfile.conf]'
 #
-#if 0
-ifdef UNDEF
-
-Copyright (c) 2012-2020 Michael (Misc) Myer, 
-misc.myer@zoho.com / www.github.com/michael105
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright notice,
-   the file NOTICE, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice,
-   the file NOTICE, this list of conditions and the following disclaimer in 
-   the documentation and/or other materials provided with the distribution.
- * Neither the name of the minilib nor the
-   names of its contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-Some files in the folders headers and contrib have other licensing terms.
-Look at the sources.
-
-
-endif
-
-export PATH := $(PATH):$(MLIBDIR)/contrib
-
-ifndef BUILDDIR
-		BUILDDIR=.
-endif
-
-ifndef MLIBDIR
-		MLIBDIR=.
-endif
-
-ifndef OPTFLAG
-		OPTFLAG=-O1
-endif
-
-ifndef LDSCRIPT
-		LDSCRIPT=default
-endif
-
-
-UNAME := $(shell uname)
-
-COMMONCFLAGS= $(OPTFLAG) -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused -Wno-unused-function -Wall -I$(MLIBDIR) -I$(MLIBDIR)/compat -I$(MLIBDIR)/headers/common -I$(MLIBDIR)/include
-
-
-ifeq ($(UNAME), Darwin)
-
-STRIPEXEC = echo
-
-ifeq "$(strip $(STRIP))" "1"
-		STRIPEXEC=strip
-endif
-
-
-#colors..
-GREEN="\033[00;32m"
-RED="\033[00;31m"
-YELLOW="\033[01;33m"
-BLUE="\033[01;33m"
-LBLUE="\033[00;36m"
-WHITE="\033[01;37m"
-GREY="\033[02;37m"
-
-ifndef NOMLIB
-		LDFLAGS=-static
-		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
-		CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -DOSX -DMLIB -DX64 -fno-builtin -I$(MLIBDIR)/compat -I$(MLIBDIR)/headers/common-links
-else
-		LDFLAGS=
-		#CFLAGS= -Wall -nodefaultlibs -static -nostdlib -DOSX
-		CFLAGS=$(COMMONCFLAGS) -DOSX
-endif
-
-else
-		#assuming Linux
-LINUX=1
-
-ifeq ($(shell uname -m),x86_64)
-#$(info X64)
-	DEFX=-DLINUX -DX64 -DMLIB -I$(MLIBDIR)/headers/linux_x64 -I$(MLIBDIR)/headers/common -I$(MLIBDIR)/headers/common-links
-#CFLAGS=$(COMMONCFLAGS) -Os -nodefaultlibs -static -nostdlib -fno-builtin -DMLIB -DLINUX -DX64
-else
-  DEFX=-DLINUX -DMLIB
-endif
-
-ifeq "$(strip $(INCLUDECOMPATSRC))" "1"
-		DEFX := $(DEFX) -DINCLUDECOMPATSRC
-endif
+# When minilib.h is not present,
+# it will be downloaded from github. (100kB gzipped)
+# 
+# Dependencies: gcc, sed
+# 
+# Minilib and the accompanying tools and scripts are licensed under a 
+# BSD-style opensource license with attribution.
+# I did my best and I'm using minilib myself,
+# but cannot give any guarantees for any functionality
+# of the opensourced library or the accompanying tools.
+#
+# (Disclaimer)
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# The full license is available at the webpage of minilib.
+# https://github.com/michael105/minilib
+# Michael (misc) Myer, 2012-2021
+#
 
 
 
-#LDSCRIPTarg=,-T$(MLIBDIR)/ldscripts/ld.script
-LDSCRIPTarg=,-T$(BUILDDIR)/ldscript
-LSCRIPTarg=-T$(BUILDDIR)/ldscript
-#LDSCRIPTarg=
-#LSCRIPTarg=
+VERSION:="20210629"
 
-
-
-ifeq "$(strip $(ONLYTEXT))" "1"
-		OTEXT=1
-endif
-
-ifdef MAKEPROG
-ifeq ($(findstring $(MAKEPROG) ,$(ONLYTEXT)),$(MAKEPROG) )
-OTEXT=1
-endif
-endif
-
-ifdef PROG
-ifeq ($(findstring $(PROG) ,$(ONLYTEXT)),$(PROG) )
-OTEXT=1
-endif
-endif
-
-
-ifdef DEBUG
-		OPTFLAG=-g
-		DEFX := $(DEFX) -DDEBUG
-		undefine OTEXT
-		COMMONCFLAGS := $(COMMONCFLAGS) -g
-  	STRIPEXEC=echo Debugging config
-endif
-
-
-
-ifdef OTEXT
-$(info ONLYTEXT)
-#LSCRIPTarg=-T$(MLIBDIR)/ldscripts/ld.script.onlytext
-#LDSCRIPTarg=,-T$(MLIBDIR)/ldscripts/ld.script.onlytext
-endif
-#$(info Target: LINUX)
-	#LDFLAGS=-nostdlib -nodefaultlibs -static -n -s --gc-sections
-ifdef DEBUG
-	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n $(LSCRIPTarg) -nostartfiles -O 2
-else
-	LDFLAGS=-nostdlib -nodefaultlibs --gc-sections -static -n -s $(LSCRIPTarg) -nostartfiles -O 2
-endif
-	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script -nodefaultlibs --warn-section-align --gc-sections -static -n -s
-	#LDFLAGS=-T $(MLIBDIR)/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
-
-ifeq "$(strip $(GCC))" "tcc"
-	CFLAGS=$(COMMONCFLAGS) -static -nostdlib -fno-builtin $(DEFX)
-else
-ifdef DEBUG
- 	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-nostdlib$(LDSCRIPTarg),--allow-multiple-definition
-else	
-	CFLAGS=$(COMMONCFLAGS) -nodefaultlibs -static -nostdlib -nostdinc -fno-builtin $(DEFX) -Wl,-n,-s,--gc-sections,-nostdlib$(LDSCRIPTarg),--allow-multiple-definition
-	#--orphan-handling=discard
-endif
-endif
-
-
-
-endif
-
-
-ifneq "$(strip $(LINUX))" "1"
-	SHRINKELF=0
-endif
-
-
-#lin
-#CFLAGS =-Os -Wall -nostdlib -nostdinc -fdata-sections -ffunction-sections -fno-builtin -static
-#CFLAGS=-Os -Wall -nodefaultlibs -fdata-sections -ffunction-sections -static -fno-builtin -fomit-frame-pointer
-
-
-#CFLAGS=-Wall -g -nodefaultlibs
-# -fomit-frame-pointer führt zu bugs.(?)
-#CFLAGS=-Os -Wall -nodefaultlibs -fdata-sections -ffunction-sections
-#CFLAGS=-Wall -nodefaultlibs
-
-#lin
-#LDFLAGS=-T minilib/scripts/ld.script.onlytext -nodefaultlibs --gc-sections -static -N -s
-#LDFLAGS=-T ld.script3 -nodefaultlibs --warn-section-align --gc-sections -static -N -s
-#LDFLAGS=-T ld.script -nodefaultlibs --no-define-common --warn-section-align --gc-sections -static -n -s
-
-# --no-define-common schmeisst mbuf raus !??
-#  alle Optionen vergrößern den Speicherplatz aufs doppelte??
-#LDFLAGS=-g -nodefaultlibs
-
-
-ifndef LD
-LD=ld
+#default values
+ifndef CONF
+	CONF:=minilib.conf
 endif
 
 ifndef GCC
-GCC=gcc
+	GCC:=gcc
 endif
 
-
-ifdef DEBUG
-		undefine SHRINKELF
-		LD:= $(LD) -g
+ifndef BUILDDIR
+	BUILDDIR:=build
 endif
 
-ifeq "$(strip $(SHRINKELF))" "1"
-		STRIPEXEC=$(MLIBDIR)/tools/shrinkelf
-else
-		STRIPEXEC=strip
-endif
+urlbase = "https://raw.githubusercontent.com/michael105/minilib/download"
+
+fetch = $(shell ((curl $(urlbase)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(1).gz)) && gunzip $(1).gz)
+	
+
+$(info Using config: $(CONF))
 
 
-ifdef VERBOSE
-
-$(info $(YELLOW)----- config: -----$(WHITE)) 
-
-$(info Architecture ${UNAME} )
-
-$(info gcc: $(GCC) $(CFLAGS))
-$(info ld: $(LD) $(LDFLAGS))
-$(info minilib path: $(MLIBDIR))
-$(info PATH: $(PATH))
-$(info STRIPEXEC: $(STRIPEXEC))
-$(info -----)
-endif
-
-
-ifdef MAKEPROG
-
-
-$(MAKEPROG): $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o
-	$(LD) $(LDFLAGS) --allow-multiple-definition -o $(MAKEPROG) $(BUILDDIR)/$(MAKEPROG).o $(BUILDDIR)/minilib.o $(BUILDDIR)/start.o
-	$(STRIPEXEC) $(MAKEPROG)
-	#$(if $(strip $(SHRINKELF)),$(MLIBDIR)/tools/sstrip $(MAKEPROG))
-	$(if $(strip $(BINDIR)),cp $(MAKEPROG) $(BINDIR)/$(MAKEPROG))
+.ONESHELL:
+default: $(BUILDDIR) minilib.h
+	@echo generate $(BUILDDIR)/$(CONF).h
+	BINARY=$(shell echo "$(CONF)" | sed 's/.*\///;s/\..*//')
+	SOURCES=$(CONF)
+	MINILIB=minilib.h
+	#MINILIB=$(shell if [ -e "$(BUILDDIR)/minilibcompiled.h" ]; then echo -n "$(BUILDDIR)/minilibcompiled.h";else echo -n "$(BUILDDIR)/minilib.h";fi)
+	echo use header: $$MINILIB
+	source $(defaultvalues)
+	source $(genconfig)
+	source $(CONF) > $(BUILDDIR)/$(CONF).h || exit 1
+	echo LDSCRIPT: $$LDSCRIPT
+	echo generate $(BUILDDIR)/$(CONF).ldscript
+	echo "$(ldscripts/ld.script.default)" > $(BUILDDIR)/$(CONF).ldscript || exit 1
+	echo compile $$SOURCES to $$BINARY
+	$(if $(SHOWSOURCE),($(GCC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -E -P),($(GCC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript -o $$BINARY $$SOURCES))
 
 
-$(BUILDDIR)/$(MAKEPROG).o: $(MAKEPROG).c
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/$(MAKEPROG).o $(MAKEPROG).c
-
-endif
-
-
-ifdef MAKEOBJ
-$(BUILDDIR)/$(MAKEOBJ).o: $(MAKEOBJ).c
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/$(MAKEOBJ).o $(MAKEOBJ).c
-else
+minilib.h:
+	$(info Download minilib.h)
+	$(call fetch,minilib.h)
+	$(info Ok)
 
 
 
-
-ifeq "$(strip $(SINGLERUN))" "1"
-
-$(info Singlerun)
+$(BUILDDIR):
+	$(shell if [ ! -d "$(BUILDDIR)" ]; then mkdir $(BUILDDIR); fi)
 
 
-$(PROG): $(PROG).c $(BUILDDIR)/ldscript
-	$(if $(strip $(NOINCLUDE)), $(GCC) $(CFLAGS) -o $(PROG) $(PROG).c, ((cat $(PROG).c && gunzip -c $(MLIBDIR)/minilibcompiled.c.gz) | $(GCC) $(CFLAGS) -o $(PROG) -x c - ))
-# cat $(PROG).c $(MLIBDIR)/minilibcompiled.c | $(GCC) $(CFLAGS) -o $(PROG) -x c -
-	$(STRIPEXEC) $(PROG)
-	#$(if $(strip $(SHRINKELF)),$(MLIBDIR)/tools/sstrip $(PROG))
-	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))
+define genconfig =
+#genconfig_start
+#
+# Script, updated from "make header" / genheaders.pl
+# The functions are callen from minilib.conf 
+# (or another config file)
+# The output of this script generates minilib.conf.h
+# 
 
-else
+# empty, to enable parsing 'makefiles'
+ifdef(){ 
+	echo -n
+}
 
-
-
-
-$(PROG): $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o ldscript
-	$(foreach FILE,$(OFILES),make MAKEOBJ=$(FILE);)
-	$(LD) $(LDFLAGS) --allow-multiple-definition -o $(PROG) $(BUILDDIR)/$(PROG).o $(BUILDDIR)/minilib.o $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(OFILES)))
-	$(STRIPEXEC) $(PROG)
-	#$(if $(strip $(SHRINKELF)),elftrunc $(PROG) $(PROG))
-	$(if $(strip $(BINDIR)),cp $(PROG) $(BINDIR)/$(PROG))
-
-endif
-
-$(BUILDDIR)/$(PROG).o: $(PROG).c
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/$(PROG).o $(PROG).c
+globalregister(){
+	if [ ! -z $$1 ]; then 
+		echo "#define mini_globalregister $$1" 
+	else 
+		echo  '#define mini_globalregister "r15"'
+	fi
+}
 
 
+mini_errno(){
+	echo "#define mini_errno $$1"
+}
+
+compile(){
+	for f in `echo $$* | tr ',' ' '`;
+	do "mini_$$f"
+	done
+}
+
+COMPILE(){
+	for f in `echo $$* | tr ',' ' '`;
+	do "mini_$$f"  
+	done
+}
+
+mini_start(){
+	echo "#define mini_start $$1"
+}
+mini_exit(){
+	echo "#define mini_exit $$1"
+}
+
+LDSCRIPT(){
+	export LDSCRIPT="$$1" 
+}
+
+shrinkelf(){
+	export opt_shrinkelf=1
+}
+
+SHRINKELF(){
+	export opt_shrinkelf=1
+}
+
+ARCH(){
+	echo "#define MINILIB_ARCH $$1"
+	export MINI_ARCH=$$1
+}
+OS(){
+	echo "#define MINILIB_OS $$1"
+	export MINI_OS=$$1
+}
+mini_buf(){
+	echo "#define mini_buf $$1"
+}
+
+mini_INCLUDESRC(){
+	echo "#define INCLUDESRC"
+}
+
+OPTIMIZE(){
+	echo "#define mini_OPTIMIZE"
+}
+
+BINARY(){
+	export outputfile=$$1
+	export BINARY=$$1
+}
+
+SOURCES(){
+	export sources="$$*"
+	export SOURCES="$$*"
+}
+
+INCLUDESRC(){
+	echo "#define INCLUDESRC"
+}
+
+mini_GETOPTS(){
+	echo "#define mini_GETOPTS"
+}
+
+# The (optimization)-flag, gcc is callen with.
+# Either leave it blank, or set it to e.g. '-Os'
+# -O2 and higher optimizations seem to give trouble.
+# -Os, -O0, -O1 passed all tests here and might be save.
+OPTFLAG(){
+	export OPTFLAG=$$1
+}
+
+# The stripflag (defaults to -s)
+STRIPFLAG(){
+	export STRIPFLAG=$$1
+}
 
 
-$(BUILDDIR)/minilib.o: minilib.c 
-	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/minilib.o minilib.c 
+# Generate debug symbols - don't optimize, don't strip
+DEBUG(){
+	export OPTFLAG='-Og -g'
+	export STRIPFLAG=""
+	export opt_shrinkelf=0
+}
 
 
-#$(BUILDDIR)/start.o: $(MLIBDIR)/asm/start-osx.S
-#	$(GCC) $(CFLAGS) -c -o $(BUILDDIR)/start.o $(MLIBDIR)/asm/start-osx.S
+# Generate debug symbols, including minilib's source.
+FULLDEBUG(){
+	export opt_shrinkelf=0
+	export fulldebug=1
+}
 
 
-$(BUILDDIR)/ldscript: Makefile $(MLIBDIR)/Makefile.minilib $(MLIBDIR)/minilib.h
-	gcc -P -E $(MLIBDIR)/minilib.h -DLDSCRIPT -DLDSCRIPT_$(LDSCRIPT) > $(BUILDDIR)/ldscript
+# Generate debug symbols, including minilib itself
+# A new outputfile ( sourcefilename.dbg.c ) containing the 
+# used parts of the minilib source is generated
+# and compiled to make this work
+
+mini_HEADERGUARDS(){
+	echo "#define HEADERGUARDS"
+}
 
 
-rebuild:
-	make clean
-	make
-
-clean:
-	rm build/*.o || echo No build dir
-	rm $(PROG) || echo
+HEADERGUARDS(){
+	echo "#define HEADERGUARDS"
+}
 
 
-endif
+mini_syscalls(){
+	echo "#define mini_syscalls"
+}
 
-ifdef UNDEF
-#endif
+globals_on_stack(){
+	echo "#define mini_globals_on_stack"
+}
+
+mini_globals(){
+	echo "#define mini_globals"
+}
+
+define(){
+	param=$$1
+	shift
+	echo "#define" $$param \"$$*\"
+}
+
+DEFINE(){
+	param=$$1
+	shift
+	echo "#define" $$param \"$$*\"
+	#echo "#define" $$1 $$2
+}
+
+embed(){
+	export embed="$$*"
+}
+
+mini_getopt(){
+	echo "#define mini_getopt"
+}
+
+mini_define(){
+	if [ ! -z $$2 ]; then 
+		echo "#define mini_$$1 $$2" 
+	else 
+		echo  "#define mini_$$1 $$1"
+	fi
+}
+
+
+# Everything below will be silently overwritten,
+# when make header ist invoked
+
+# --- define_functions-start: generate --- #
+mini_seterrno(){ mini_define seterrno generate; }
+mini_setpgid(){ mini_define setpgid generate; }
+mini_inet_aton(){ mini_define inet_aton generate; }
+mini_dies_if(){ mini_define dies_if generate; }
+mini__flistxattr(){ mini_define _flistxattr generate; }
+mini__tee(){ mini_define _tee generate; }
+mini__setregid(){ mini_define _setregid generate; }
+mini_rt_sigreturn(){ mini_define rt_sigreturn generate; }
+mini__futex(){ mini_define _futex generate; }
+mini__eventfd2(){ mini_define _eventfd2 generate; }
+mini__shmdt(){ mini_define _shmdt generate; }
+mini__select(){ mini_define _select generate; }
+mini__setsid(){ mini_define _setsid generate; }
+mini__msync(){ mini_define _msync generate; }
+mini_environ(){ mini_define environ generate; }
+mini__epoll_pwait(){ mini_define _epoll_pwait generate; }
+mini_sys_brk(){ mini_define sys_brk generate; }
+mini_mmap(){ mini_define mmap generate; }
+mini_getppid(){ mini_define getppid generate; }
+mini_getenv(){ mini_define getenv generate; }
+mini_writes(){ mini_define writes generate; }
+mini_memcpy(){ mini_define memcpy generate; }
+mini_strcmp(){ mini_define strcmp generate; }
+mini_execveat(){ mini_define execveat generate; }
+mini__mq_timedsend(){ mini_define _mq_timedsend generate; }
+mini_readahead(){ mini_define readahead generate; }
+mini_poll(){ mini_define poll generate; }
+mini__setresuid(){ mini_define _setresuid generate; }
+mini_gets(){ mini_define gets generate; }
+mini__pread64(){ mini_define _pread64 generate; }
+mini_alphasort(){ mini_define alphasort generate; }
+mini_splice(){ mini_define splice generate; }
+mini__lgetxattr(){ mini_define _lgetxattr generate; }
+mini__readahead(){ mini_define _readahead generate; }
+mini_sigismember(){ mini_define sigismember generate; }
+mini_print(){ mini_define print generate; }
+mini_abort(){ mini_define abort generate; }
+mini_posix_openpt(){ mini_define posix_openpt generate; }
+mini__sched_get_priority_max(){ mini_define _sched_get_priority_max generate; }
+mini__stat(){ mini_define _stat generate; }
+mini__epoll_ctl(){ mini_define _epoll_ctl generate; }
+mini_stat(){ mini_define stat generate; }
+mini__getpid(){ mini_define _getpid generate; }
+mini__ustat(){ mini_define _ustat generate; }
+mini_sendfile(){ mini_define sendfile generate; }
+mini__timer_getoverrun(){ mini_define _timer_getoverrun generate; }
+mini__lookup_dcookie(){ mini_define _lookup_dcookie generate; }
+mini__getgroups(){ mini_define _getgroups generate; }
+mini__name_to_handle_at(){ mini_define _name_to_handle_at generate; }
+mini_eputs(){ mini_define eputs generate; }
+mini__mount(){ mini_define _mount generate; }
+mini_inet_ntoa(){ mini_define inet_ntoa generate; }
+mini__mq_timedreceive(){ mini_define _mq_timedreceive generate; }
+mini__lchown(){ mini_define _lchown generate; }
+mini__ppoll(){ mini_define _ppoll generate; }
+mini_dirbuf(){ mini_define dirbuf generate; }
+mini__writev(){ mini_define _writev generate; }
+mini_chdir(){ mini_define chdir generate; }
+mini__fork(){ mini_define _fork generate; }
+mini__mprints(){ mini_define _mprints generate; }
+mini__setpriority(){ mini_define _setpriority generate; }
+mini__eventfd(){ mini_define _eventfd generate; }
+mini_OPTFENCE(){ mini_define OPTFENCE generate; }
+mini_freopen(){ mini_define freopen generate; }
+mini__settimeofday(){ mini_define _settimeofday generate; }
+mini__getxattr(){ mini_define _getxattr generate; }
+mini__delete_module(){ mini_define _delete_module generate; }
+mini_ewrite(){ mini_define ewrite generate; }
+mini_ftruncate(){ mini_define ftruncate generate; }
+mini__readv(){ mini_define _readv generate; }
+mini__restart_syscall(){ mini_define _restart_syscall generate; }
+mini_qsort(){ mini_define qsort generate; }
+mini__sendmmsg(){ mini_define _sendmmsg generate; }
+mini_closedir(){ mini_define closedir generate; }
+mini__mkdirat(){ mini_define _mkdirat generate; }
+mini__sched_yield(){ mini_define _sched_yield generate; }
+mini__pwritev(){ mini_define _pwritev generate; }
+mini_lstat(){ mini_define lstat generate; }
+mini__mq_unlink(){ mini_define _mq_unlink generate; }
+mini_tcsetattr(){ mini_define tcsetattr generate; }
+mini_kill(){ mini_define kill generate; }
+mini_atol(){ mini_define atol generate; }
+mini__fallocate(){ mini_define _fallocate generate; }
+mini_itodec(){ mini_define itodec generate; }
+mini__vfork(){ mini_define _vfork generate; }
+mini_malloc_brk(){ mini_define malloc_brk generate; }
+mini_chmod(){ mini_define chmod generate; }
+mini__symlink(){ mini_define _symlink generate; }
+mini_execve(){ mini_define execve generate; }
+mini__get_robust_list(){ mini_define _get_robust_list generate; }
+mini__arch_prctl(){ mini_define _arch_prctl generate; }
+mini__setresgid(){ mini_define _setresgid generate; }
+mini_mremap(){ mini_define mremap generate; }
+mini__umask(){ mini_define _umask generate; }
+mini_fgetsp(){ mini_define fgetsp generate; }
+mini_sigaction(){ mini_define sigaction generate; }
+mini_optimization_fence(){ mini_define optimization_fence generate; }
+mini__msgrcv(){ mini_define _msgrcv generate; }
+mini_sendto(){ mini_define sendto generate; }
+mini__pwrite64(){ mini_define _pwrite64 generate; }
+mini__get_mempolicy(){ mini_define _get_mempolicy generate; }
+mini__getpgrp(){ mini_define _getpgrp generate; }
+mini__clone(){ mini_define _clone generate; }
+mini_getitimer(){ mini_define getitimer generate; }
+mini_fgetud(){ mini_define fgetud generate; }
+mini_ansicolors(){ mini_define ansicolors generate; }
+mini_getgroups(){ mini_define getgroups generate; }
+mini__finit_module(){ mini_define _finit_module generate; }
+mini_dup(){ mini_define dup generate; }
+mini_msync(){ mini_define msync generate; }
+mini_clone(){ mini_define clone generate; }
+mini__listen(){ mini_define _listen generate; }
+mini__shutdown(){ mini_define _shutdown generate; }
+mini_execv(){ mini_define execv generate; }
+mini__getpeername(){ mini_define _getpeername generate; }
+mini__inotify_init1(){ mini_define _inotify_init1 generate; }
+mini_fsync(){ mini_define fsync generate; }
+mini_getcwd(){ mini_define getcwd generate; }
+mini__execve(){ mini_define _execve generate; }
+mini_OPTIMIZATIONS(){ mini_define OPTIMIZATIONS generate; }
+mini_calloc(){ mini_define calloc generate; }
+mini_pivot_root(){ mini_define pivot_root generate; }
+mini__dup2(){ mini_define _dup2 generate; }
+mini_snprintf(){ mini_define snprintf generate; }
+mini_group_printf(){ mini_define group_printf generate; }
+mini__mkdir(){ mini_define _mkdir generate; }
+mini_strchr(){ mini_define strchr generate; }
+mini__dup(){ mini_define _dup generate; }
+mini__inotify_rm_watch(){ mini_define _inotify_rm_watch generate; }
+mini__fchdir(){ mini_define _fchdir generate; }
+mini_system(){ mini_define system generate; }
+mini_ungetc(){ mini_define ungetc generate; }
+mini_errno(){ mini_define errno generate; }
+mini_eprint(){ mini_define eprint generate; }
+mini__fremovexattr(){ mini_define _fremovexattr generate; }
+mini_timerfd_settime(){ mini_define timerfd_settime generate; }
+mini_bsd_cksumblock(){ mini_define bsd_cksumblock generate; }
+mini_strlen(){ mini_define strlen generate; }
+mini__sched_get_priority_min(){ mini_define _sched_get_priority_min generate; }
+mini__io_submit(){ mini_define _io_submit generate; }
+mini_waitpid(){ mini_define waitpid generate; }
+mini__sched_getscheduler(){ mini_define _sched_getscheduler generate; }
+mini__add_key(){ mini_define _add_key generate; }
+mini__kexec_load(){ mini_define _kexec_load generate; }
+mini__keyctl(){ mini_define _keyctl generate; }
+mini__accept(){ mini_define _accept generate; }
+mini_fopen(){ mini_define fopen generate; }
+mini__madvise(){ mini_define _madvise generate; }
+mini__inotify_init(){ mini_define _inotify_init generate; }
+mini__migrate_pages(){ mini_define _migrate_pages generate; }
+mini__unshare(){ mini_define _unshare generate; }
+mini__creat(){ mini_define _creat generate; }
+mini__waitid(){ mini_define _waitid generate; }
+mini_vfork(){ mini_define vfork generate; }
+mini__semop(){ mini_define _semop generate; }
+mini_token_s(){ mini_define token_s generate; }
+mini_setbrk(){ mini_define setbrk generate; }
+mini__pipe(){ mini_define _pipe generate; }
+mini__memfd_create(){ mini_define _memfd_create generate; }
+mini__timerfd_gettime(){ mini_define _timerfd_gettime generate; }
+mini_dprints(){ mini_define dprints generate; }
+mini_itohex(){ mini_define itohex generate; }
+mini_getpid(){ mini_define getpid generate; }
+mini_rt_sigaction(){ mini_define rt_sigaction generate; }
+mini_djb2_hash(){ mini_define djb2_hash generate; }
+mini_execl(){ mini_define execl generate; }
+mini_strstr(){ mini_define strstr generate; }
+mini_setgrent(){ mini_define setgrent generate; }
+mini_dup2(){ mini_define dup2 generate; }
+mini_grantpt(){ mini_define grantpt generate; }
+mini_termio(){ mini_define termio generate; }
+mini__acct(){ mini_define _acct generate; }
+mini__strcasecmp(){ mini_define _strcasecmp generate; }
+mini_usleep(){ mini_define usleep generate; }
+mini__getuid(){ mini_define _getuid generate; }
+mini_getresuid(){ mini_define getresuid generate; }
+mini_passwdfile_open(){ mini_define passwdfile_open generate; }
+mini__syslog(){ mini_define _syslog generate; }
+mini_rt_sigprocmask(){ mini_define rt_sigprocmask generate; }
+mini_dprintf(){ mini_define dprintf generate; }
+mini_ftell(){ mini_define ftell generate; }
+mini__perf_event_open(){ mini_define _perf_event_open generate; }
+mini__epoll_create(){ mini_define _epoll_create generate; }
+mini__clock_settime(){ mini_define _clock_settime generate; }
+mini__dup3(){ mini_define _dup3 generate; }
+mini_strncasecmp(){ mini_define strncasecmp generate; }
+mini__setsockopt(){ mini_define _setsockopt generate; }
+mini_prctl(){ mini_define prctl generate; }
+mini_seekdir(){ mini_define seekdir generate; }
+mini_getgrgid(){ mini_define getgrgid generate; }
+mini__sched_setaffinity(){ mini_define _sched_setaffinity generate; }
+mini__fstat(){ mini_define _fstat generate; }
+mini_free_brk(){ mini_define free_brk generate; }
+mini_where(){ mini_define where generate; }
+mini__setgid(){ mini_define _setgid generate; }
+mini_mkfifo(){ mini_define mkfifo generate; }
+mini_fputc(){ mini_define fputc generate; }
+mini_getsockopt(){ mini_define getsockopt generate; }
+mini__getcpu(){ mini_define _getcpu generate; }
+mini__pipe2(){ mini_define _pipe2 generate; }
+mini_socket(){ mini_define socket generate; }
+mini___sysctl(){ mini_define __sysctl generate; }
+mini__rt_sigsuspend(){ mini_define _rt_sigsuspend generate; }
+mini_symlink(){ mini_define symlink generate; }
+mini_fgetsn(){ mini_define fgetsn generate; }
+mini__signalfd4(){ mini_define _signalfd4 generate; }
+mini__splice(){ mini_define _splice generate; }
+mini_verbose_errstr2(){ mini_define verbose_errstr2 generate; }
+mini_getgid(){ mini_define getgid generate; }
+mini_fprint(){ mini_define fprint generate; }
+mini_fileno(){ mini_define fileno generate; }
+mini_brk(){ mini_define brk generate; }
+mini__getcwd(){ mini_define _getcwd generate; }
+mini_putenv(){ mini_define putenv generate; }
+mini__set_tid_address(){ mini_define _set_tid_address generate; }
+mini_setuid(){ mini_define setuid generate; }
+mini_pwent(){ mini_define pwent generate; }
+mini_rewinddir(){ mini_define rewinddir generate; }
+mini_fchown(){ mini_define fchown generate; }
+mini__connect(){ mini_define _connect generate; }
+mini__fchmodat(){ mini_define _fchmodat generate; }
+mini__readlink(){ mini_define _readlink generate; }
+mini_raise(){ mini_define raise generate; }
+mini_strdup(){ mini_define strdup generate; }
+mini_puts(){ mini_define puts generate; }
+mini_rt_sigsuspend(){ mini_define rt_sigsuspend generate; }
+mini_fcntl(){ mini_define fcntl generate; }
+mini_exit(){ mini_define exit generate; }
+mini_printf(){ mini_define printf generate; }
+mini__timer_gettime(){ mini_define _timer_gettime generate; }
+mini_endpwent(){ mini_define endpwent generate; }
+mini__getitimer(){ mini_define _getitimer generate; }
+mini_ptsname(){ mini_define ptsname generate; }
+mini_vhangup(){ mini_define vhangup generate; }
+mini__sched_setattr(){ mini_define _sched_setattr generate; }
+mini__kexec_file_load(){ mini_define _kexec_file_load generate; }
+mini_initgroups(){ mini_define initgroups generate; }
+mini__move_pages(){ mini_define _move_pages generate; }
+mini_token_i(){ mini_define token_i generate; }
+mini_strcat(){ mini_define strcat generate; }
+mini__getpgid(){ mini_define _getpgid generate; }
+mini__syncfs(){ mini_define _syncfs generate; }
+mini_vfprintf(){ mini_define vfprintf generate; }
+mini__vhangup(){ mini_define _vhangup generate; }
+mini__process_vm_readv(){ mini_define _process_vm_readv generate; }
+mini__faccessat(){ mini_define _faccessat generate; }
+mini_creat(){ mini_define creat generate; }
+mini__epoll_create1(){ mini_define _epoll_create1 generate; }
+mini_strtol(){ mini_define strtol generate; }
+mini_fork(){ mini_define fork generate; }
+mini__fcntl(){ mini_define _fcntl generate; }
+mini_close(){ mini_define close generate; }
+mini__accept4(){ mini_define _accept4 generate; }
+mini__ioprio_set(){ mini_define _ioprio_set generate; }
+mini__init_module(){ mini_define _init_module generate; }
+mini_sprintf(){ mini_define sprintf generate; }
+mini_shortcolornames(){ mini_define shortcolornames generate; }
+mini_telldir(){ mini_define telldir generate; }
+mini_timerfd_create(){ mini_define timerfd_create generate; }
+mini__open_by_handle_at(){ mini_define _open_by_handle_at generate; }
+mini_setbuf(){ mini_define setbuf generate; }
+mini_unlink(){ mini_define unlink generate; }
+mini__pselect6(){ mini_define _pselect6 generate; }
+mini_gettimeofday(){ mini_define gettimeofday generate; }
+mini__getrlimit(){ mini_define _getrlimit generate; }
+mini_sigfillset(){ mini_define sigfillset generate; }
+mini_fread(){ mini_define fread generate; }
+mini_dief(){ mini_define dief generate; }
+mini__remap_file_pages(){ mini_define _remap_file_pages generate; }
+mini__fchmod(){ mini_define _fchmod generate; }
+mini_dirname(){ mini_define dirname generate; }
+mini_tcgetattr(){ mini_define tcgetattr generate; }
+mini__gettid(){ mini_define _gettid generate; }
+mini_setsid(){ mini_define setsid generate; }
+mini_write(){ mini_define write generate; }
+mini_umount2(){ mini_define umount2 generate; }
+mini__removexattr(){ mini_define _removexattr generate; }
+mini__fsync(){ mini_define _fsync generate; }
+mini_atexit(){ mini_define atexit generate; }
+mini_group_print(){ mini_define group_print generate; }
+mini__chmod(){ mini_define _chmod generate; }
+mini__utimes(){ mini_define _utimes generate; }
+mini_inotify_add_watch(){ mini_define inotify_add_watch generate; }
+mini_fputs(){ mini_define fputs generate; }
+mini__mincore(){ mini_define _mincore generate; }
+mini_fgetpos(){ mini_define fgetpos generate; }
+mini__sched_getparam(){ mini_define _sched_getparam generate; }
+mini_vsprintf(){ mini_define vsprintf generate; }
+mini__access(){ mini_define _access generate; }
+mini_getpwent(){ mini_define getpwent generate; }
+mini__sethostname(){ mini_define _sethostname generate; }
+mini_exit_errno(){ mini_define exit_errno generate; }
+mini__timer_create(){ mini_define _timer_create generate; }
+mini_getpwnam(){ mini_define getpwnam generate; }
+mini_itoHEX(){ mini_define itoHEX generate; }
+mini_verbose_errstr(){ mini_define verbose_errstr generate; }
+mini__mq_getsetattr(){ mini_define _mq_getsetattr generate; }
+mini__setfsuid(){ mini_define _setfsuid generate; }
+mini_sigprocmask(){ mini_define sigprocmask generate; }
+mini_prints(){ mini_define prints generate; }
+mini__prctl(){ mini_define _prctl generate; }
+mini_clearerror(){ mini_define clearerror generate; }
+mini__getsockname(){ mini_define _getsockname generate; }
+mini__quotactl(){ mini_define _quotactl generate; }
+mini__close(){ mini_define _close generate; }
+mini__match(){ mini_define _match generate; }
+mini__readlinkat(){ mini_define _readlinkat generate; }
+mini_perror(){ mini_define perror generate; }
+mini__lsetxattr(){ mini_define _lsetxattr generate; }
+mini_chroot(){ mini_define chroot generate; }
+mini_fwrite(){ mini_define fwrite generate; }
+mini_strerror(){ mini_define strerror generate; }
+mini__sendmsg(){ mini_define _sendmsg generate; }
+mini_umask(){ mini_define umask generate; }
+mini_nanosleep(){ mini_define nanosleep generate; }
+mini_lseek(){ mini_define lseek generate; }
+mini_itobin(){ mini_define itobin generate; }
+mini_flock(){ mini_define flock generate; }
+mini__mbind(){ mini_define _mbind generate; }
+mini__openat(){ mini_define _openat generate; }
+mini_strncpy(){ mini_define strncpy generate; }
+mini__listxattr(){ mini_define _listxattr generate; }
+mini__renameat2(){ mini_define _renameat2 generate; }
+mini_match(){ mini_define match generate; }
+mini__prlimit64(){ mini_define _prlimit64 generate; }
+mini_dup3(){ mini_define dup3 generate; }
+mini_fflush(){ mini_define fflush generate; }
+mini_chown(){ mini_define chown generate; }
+mini__setrlimit(){ mini_define _setrlimit generate; }
+mini_readdir(){ mini_define readdir generate; }
+mini__fstatfs(){ mini_define _fstatfs generate; }
+mini_realloc(){ mini_define realloc generate; }
+mini__io_getevents(){ mini_define _io_getevents generate; }
+mini__fdatasync(){ mini_define _fdatasync generate; }
+mini_fexecve(){ mini_define fexecve generate; }
+mini__sync(){ mini_define _sync generate; }
+mini__request_key(){ mini_define _request_key generate; }
+mini_ltodec(){ mini_define ltodec generate; }
+mini_memfrob(){ mini_define memfrob generate; }
+mini__fanotify_init(){ mini_define _fanotify_init generate; }
+mini__fsetxattr(){ mini_define _fsetxattr generate; }
+mini__exit_group(){ mini_define _exit_group generate; }
+mini_strlcpy(){ mini_define strlcpy generate; }
+mini_scandir_bufsize(){ mini_define scandir_bufsize generate; }
+mini_rmdir(){ mini_define rmdir generate; }
+mini_die_if(){ mini_define die_if generate; }
+mini_dirfd(){ mini_define dirfd generate; }
+mini_mprotect(){ mini_define mprotect generate; }
+mini__sigaltstack(){ mini_define _sigaltstack generate; }
+mini_pipe(){ mini_define pipe generate; }
+mini__msgctl(){ mini_define _msgctl generate; }
+mini__getrusage(){ mini_define _getrusage generate; }
+mini_vexec_q(){ mini_define vexec_q generate; }
+mini__munlock(){ mini_define _munlock generate; }
+mini_ALIGN(){ mini_define ALIGN generate; }
+mini__time(){ mini_define _time generate; }
+mini_sleep(){ mini_define sleep generate; }
+mini_gethostname(){ mini_define gethostname generate; }
+mini__poll(){ mini_define _poll generate; }
+mini_dirbuf_malloc(){ mini_define dirbuf_malloc generate; }
+mini__open(){ mini_define _open generate; }
+mini_read(){ mini_define read generate; }
+mini__seccomp(){ mini_define _seccomp generate; }
+mini_sdbm_hash(){ mini_define sdbm_hash generate; }
+mini_map_protected(){ mini_define map_protected generate; }
+mini__getppid(){ mini_define _getppid generate; }
+mini_config(){ mini_define config generate; }
+mini_div(){ mini_define div generate; }
+mini__mlock(){ mini_define _mlock generate; }
+mini_ewrites(){ mini_define ewrites generate; }
+mini__kill(){ mini_define _kill generate; }
+mini_feof(){ mini_define feof generate; }
+mini_djb_cksum(){ mini_define djb_cksum generate; }
+mini__semget(){ mini_define _semget generate; }
+mini_setvbuf(){ mini_define setvbuf generate; }
+mini_access(){ mini_define access generate; }
+mini_putchar(){ mini_define putchar generate; }
+mini_userdb_open(){ mini_define userdb_open generate; }
+mini__rt_sigaction(){ mini_define _rt_sigaction generate; }
+mini__futimesat(){ mini_define _futimesat generate; }
+mini__sched_setparam(){ mini_define _sched_setparam generate; }
+mini_setgroups(){ mini_define setgroups generate; }
+mini_unlockpt(){ mini_define unlockpt generate; }
+mini__rt_sigprocmask(){ mini_define _rt_sigprocmask generate; }
+mini_mount(){ mini_define mount generate; }
+mini_utime(){ mini_define utime generate; }
+mini_setitimer(){ mini_define setitimer generate; }
+mini__tgkill(){ mini_define _tgkill generate; }
+mini__sched_rr_get_interval(){ mini_define _sched_rr_get_interval generate; }
+mini_fsetpos(){ mini_define fsetpos generate; }
+mini_fprintfs(){ mini_define fprintfs generate; }
+mini_cfmakeraw(){ mini_define cfmakeraw generate; }
+mini__mknodat(){ mini_define _mknodat generate; }
+mini_fgetc(){ mini_define fgetc generate; }
+mini_fwritesl(){ mini_define fwritesl generate; }
+mini_scandir(){ mini_define scandir generate; }
+mini_dies(){ mini_define dies generate; }
+mini__adjtimex(){ mini_define _adjtimex generate; }
+mini__swapoff(){ mini_define _swapoff generate; }
+mini__unlinkat(){ mini_define _unlinkat generate; }
+mini__kcmp(){ mini_define _kcmp generate; }
+mini_unmap_protected(){ mini_define unmap_protected generate; }
+mini_sync(){ mini_define sync generate; }
+mini_munmap(){ mini_define munmap generate; }
+mini_grent(){ mini_define grent generate; }
+mini__sched_getaffinity(){ mini_define _sched_getaffinity generate; }
+mini_strcpy(){ mini_define strcpy generate; }
+mini_fgets(){ mini_define fgets generate; }
+mini__recvmmsg(){ mini_define _recvmmsg generate; }
+mini__getsockopt(){ mini_define _getsockopt generate; }
+mini_errx(){ mini_define errx generate; }
+mini__msgsnd(){ mini_define _msgsnd generate; }
+mini_dtodec(){ mini_define dtodec generate; }
+mini__clock_gettime(){ mini_define _clock_gettime generate; }
+mini_fstat(){ mini_define fstat generate; }
+mini__shmat(){ mini_define _shmat generate; }
+mini__preadv(){ mini_define _preadv generate; }
+mini_signal(){ mini_define signal generate; }
+mini__unlink(){ mini_define _unlink generate; }
+mini_strncmp(){ mini_define strncmp generate; }
+mini_snprintfs(){ mini_define snprintfs generate; }
+mini_mknod(){ mini_define mknod generate; }
+mini_basename(){ mini_define basename generate; }
+mini__getgid(){ mini_define _getgid generate; }
+mini_sigsuspend(){ mini_define sigsuspend generate; }
+mini_execvp(){ mini_define execvp generate; }
+mini_putc(){ mini_define putc generate; }
+mini__strcmp(){ mini_define _strcmp generate; }
+mini__mremap(){ mini_define _mremap generate; }
+mini_wait(){ mini_define wait generate; }
+mini_memmove(){ mini_define memmove generate; }
+mini__nanosleep(){ mini_define _nanosleep generate; }
+mini__rt_sigpending(){ mini_define _rt_sigpending generate; }
+mini__getrandom(){ mini_define _getrandom generate; }
+mini__sendto(){ mini_define _sendto generate; }
+mini_memcmp(){ mini_define memcmp generate; }
+mini_strtoll(){ mini_define strtoll generate; }
+mini_errno_str(){ mini_define errno_str generate; }
+mini__setuid(){ mini_define _setuid generate; }
+mini__sysfs(){ mini_define _sysfs generate; }
+mini__chroot(){ mini_define _chroot generate; }
+mini__fanotify_mark(){ mini_define _fanotify_mark generate; }
+mini__mlockall(){ mini_define _mlockall generate; }
+mini__mknod(){ mini_define _mknod generate; }
+mini__rt_sigreturn(){ mini_define _rt_sigreturn generate; }
+mini_eprintf(){ mini_define eprintf generate; }
+mini__io_setup(){ mini_define _io_setup generate; }
+mini__sched_getattr(){ mini_define _sched_getattr generate; }
+mini_sigemptyset(){ mini_define sigemptyset generate; }
+mini__shmget(){ mini_define _shmget generate; }
+mini_match_ext(){ mini_define match_ext generate; }
+mini__setitimer(){ mini_define _setitimer generate; }
+mini__getdents(){ mini_define _getdents generate; }
+mini__munmap(){ mini_define _munmap generate; }
+mini__setpgid(){ mini_define _setpgid generate; }
+mini__symlinkat(){ mini_define _symlinkat generate; }
+mini_setenv(){ mini_define setenv generate; }
+mini_rand(){ mini_define rand generate; }
+mini__recvfrom(){ mini_define _recvfrom generate; }
+mini__rt_tgsigqueueinfo(){ mini_define _rt_tgsigqueueinfo generate; }
+mini_uitodec(){ mini_define uitodec generate; }
+mini__truncate(){ mini_define _truncate generate; }
+mini__timer_settime(){ mini_define _timer_settime generate; }
+mini__lstat(){ mini_define _lstat generate; }
+mini__sync_file_range(){ mini_define _sync_file_range generate; }
+mini__setdomainname(){ mini_define _setdomainname generate; }
+mini_printsl(){ mini_define printsl generate; }
+mini__itobin(){ mini_define _itobin generate; }
+mini__setfsgid(){ mini_define _setfsgid generate; }
+mini_malloc(){ mini_define malloc generate; }
+mini__mq_notify(){ mini_define _mq_notify generate; }
+mini__mq_open(){ mini_define _mq_open generate; }
+mini__capget(){ mini_define _capget generate; }
+mini_eprints(){ mini_define eprints generate; }
+mini_err(){ mini_define err generate; }
+mini__bind(){ mini_define _bind generate; }
+mini__die(){ mini_define _die generate; }
+mini__alarm(){ mini_define _alarm generate; }
+mini__timerfd_create(){ mini_define _timerfd_create generate; }
+mini_group_write(){ mini_define group_write generate; }
+mini__wait4(){ mini_define _wait4 generate; }
+mini_fexecveat(){ mini_define fexecveat generate; }
+mini__ioprio_get(){ mini_define _ioprio_get generate; }
+mini_bsd_cksum(){ mini_define bsd_cksum generate; }
+mini_network(){ mini_define network generate; }
+mini_vexec(){ mini_define vexec generate; }
+mini_inotify_init(){ mini_define inotify_init generate; }
+mini__io_destroy(){ mini_define _io_destroy generate; }
+mini__set_mempolicy(){ mini_define _set_mempolicy generate; }
+mini_ntohs(){ mini_define ntohs generate; }
+mini__recvmsg(){ mini_define _recvmsg generate; }
+mini_ferror(){ mini_define ferror generate; }
+mini__clock_adjtime(){ mini_define _clock_adjtime generate; }
+mini__socket(){ mini_define _socket generate; }
+mini_opendir(){ mini_define opendir generate; }
+mini__setns(){ mini_define _setns generate; }
+mini_clearerr(){ mini_define clearerr generate; }
+mini_vsnprintf(){ mini_define vsnprintf generate; }
+mini_uitohex(){ mini_define uitohex generate; }
+mini__sendfile(){ mini_define _sendfile generate; }
+mini_fseek(){ mini_define fseek generate; }
+mini__getdents64(){ mini_define _getdents64 generate; }
+mini__ptrace(){ mini_define _ptrace generate; }
+mini_getchar(){ mini_define getchar generate; }
+mini_setpwent(){ mini_define setpwent generate; }
+mini__setreuid(){ mini_define _setreuid generate; }
+mini__mmap(){ mini_define _mmap generate; }
+mini_getgrouplist(){ mini_define getgrouplist generate; }
+mini__uname(){ mini_define _uname generate; }
+mini_execvpe(){ mini_define execvpe generate; }
+mini_opendirp(){ mini_define opendirp generate; }
+mini__timerfd_settime(){ mini_define _timerfd_settime generate; }
+mini__read(){ mini_define _read generate; }
+mini_globals(){ mini_define globals generate; }
+mini_stpcpy(){ mini_define stpcpy generate; }
+mini_writesl(){ mini_define writesl generate; }
+mini_fdopen(){ mini_define fdopen generate; }
+mini__clock_nanosleep(){ mini_define _clock_nanosleep generate; }
+mini__socketpair(){ mini_define _socketpair generate; }
+mini_itooct(){ mini_define itooct generate; }
+mini__match_ext2(){ mini_define _match_ext2 generate; }
+mini__lremovexattr(){ mini_define _lremovexattr generate; }
+mini__vmsplice(){ mini_define _vmsplice generate; }
+mini__getresgid(){ mini_define _getresgid generate; }
+mini__set_robust_list(){ mini_define _set_robust_list generate; }
+mini_short_errstr(){ mini_define short_errstr generate; }
+mini__shmctl(){ mini_define _shmctl generate; }
+mini_getpgrp(){ mini_define getpgrp generate; }
+mini__ftruncate(){ mini_define _ftruncate generate; }
+mini_printl(){ mini_define printl generate; }
+mini_open(){ mini_define open generate; }
+mini_inotify_init1(){ mini_define inotify_init1 generate; }
+mini__itohex(){ mini_define _itohex generate; }
+mini__renameat(){ mini_define _renameat generate; }
+mini__sched_setscheduler(){ mini_define _sched_setscheduler generate; }
+mini_swap(){ mini_define swap generate; }
+mini_tolower(){ mini_define tolower generate; }
+mini_fgetul(){ mini_define fgetul generate; }
+mini_printfs(){ mini_define printfs generate; }
+mini__write(){ mini_define _write generate; }
+mini__fchownat(){ mini_define _fchownat generate; }
+mini_fprintf(){ mini_define fprintf generate; }
+mini_eprintsl(){ mini_define eprintsl generate; }
+mini__statfs(){ mini_define _statfs generate; }
+mini__fopen(){ mini_define _fopen generate; }
+mini_fclose(){ mini_define fclose generate; }
+mini_clone_t(){ mini_define clone_t generate; }
+mini_ioctl(){ mini_define ioctl generate; }
+mini_link(){ mini_define link generate; }
+mini_fchmod(){ mini_define fchmod generate; }
+mini_htons(){ mini_define htons generate; }
+mini_abs(){ mini_define abs generate; }
+mini_ptsname_r(){ mini_define ptsname_r generate; }
+mini_memset(){ mini_define memset generate; }
+mini__pivot_root(){ mini_define _pivot_root generate; }
+mini_endgrent(){ mini_define endgrent generate; }
+mini_strchrnul(){ mini_define strchrnul generate; }
+mini_labs(){ mini_define labs generate; }
+mini_select(){ mini_define select generate; }
+mini_strcasecmp(){ mini_define strcasecmp generate; }
+mini_fprints(){ mini_define fprints generate; }
+mini__reboot(){ mini_define _reboot generate; }
+mini__ioperm(){ mini_define _ioperm generate; }
+mini__inotify_add_watch(){ mini_define _inotify_add_watch generate; }
+mini__newfstatat(){ mini_define _newfstatat generate; }
+mini_inotify_rm_watch(){ mini_define inotify_rm_watch generate; }
+mini_getpwuid(){ mini_define getpwuid generate; }
+mini_setgid(){ mini_define setgid generate; }
+mini__process_vm_writev(){ mini_define _process_vm_writev generate; }
+mini_term_width(){ mini_define term_width generate; }
+mini__ioctl(){ mini_define _ioctl generate; }
+mini__rmdir(){ mini_define _rmdir generate; }
+mini__pause(){ mini_define _pause generate; }
+mini_isatty(){ mini_define isatty generate; }
+mini_atoi(){ mini_define atoi generate; }
+mini_reboot(){ mini_define reboot generate; }
+mini__getresuid(){ mini_define _getresuid generate; }
+mini_stplcpy(){ mini_define stplcpy generate; }
+mini_memfd_create(){ mini_define memfd_create generate; }
+mini_match_ext2(){ mini_define match_ext2 generate; }
+mini_dirbufsize (){ mini_define dirbufsize  generate; }
+mini_getuid(){ mini_define getuid generate; }
+mini__flock(){ mini_define _flock generate; }
+mini_error(){ mini_define error generate; }
+mini__epoll_wait(){ mini_define _epoll_wait generate; }
+mini_ntohl(){ mini_define ntohl generate; }
+mini__io_cancel(){ mini_define _io_cancel generate; }
+mini__timer_delete(){ mini_define _timer_delete generate; }
+mini_max_groupmembers(){ mini_define max_groupmembers generate; }
+mini__getegid(){ mini_define _getegid generate; }
+mini__clock_getres(){ mini_define _clock_getres generate; }
+mini__tkill(){ mini_define _tkill generate; }
+mini_ret_errno(){ mini_define ret_errno generate; }
+mini_stpncpy(){ mini_define stpncpy generate; }
+mini__semctl(){ mini_define _semctl generate; }
+mini_uname(){ mini_define uname generate; }
+mini_timerfd_gettime(){ mini_define timerfd_gettime generate; }
+mini_free(){ mini_define free generate; }
+mini__swapon(){ mini_define _swapon generate; }
+mini__fchown(){ mini_define _fchown generate; }
+mini__fadvise64(){ mini_define _fadvise64 generate; }
+mini_rewind(){ mini_define rewind generate; }
+mini__rename(){ mini_define _rename generate; }
+mini__chdir(){ mini_define _chdir generate; }
+mini__link(){ mini_define _link generate; }
+mini__getsid(){ mini_define _getsid generate; }
+mini__lseek(){ mini_define _lseek generate; }
+mini__utimensat(){ mini_define _utimensat generate; }
+mini_getbrk(){ mini_define getbrk generate; }
+mini_ldiv(){ mini_define ldiv generate; }
+mini__getpriority(){ mini_define _getpriority generate; }
+mini_uitoHEX(){ mini_define uitoHEX generate; }
+mini__sysinfo(){ mini_define _sysinfo generate; }
+mini__rt_sigqueueinfo(){ mini_define _rt_sigqueueinfo generate; }
+mini__personality(){ mini_define _personality generate; }
+mini_ultodec(){ mini_define ultodec generate; }
+mini_rename(){ mini_define rename generate; }
+mini_sigaddset(){ mini_define sigaddset generate; }
+mini_warn(){ mini_define warn generate; }
+mini__setxattr(){ mini_define _setxattr generate; }
+mini__modify_ldt(){ mini_define _modify_ldt generate; }
+mini__capset(){ mini_define _capset generate; }
+mini_fwrites(){ mini_define fwrites generate; }
+mini_strrchr(){ mini_define strrchr generate; }
+mini__gettimeofday(){ mini_define _gettimeofday generate; }
+mini_dief_if(){ mini_define dief_if generate; }
+mini_mkdir(){ mini_define mkdir generate; }
+mini_def(){ mini_define def generate; }
+mini_setresuid(){ mini_define setresuid generate; }
+mini_die(){ mini_define die generate; }
+mini_bind(){ mini_define bind generate; }
+mini__fgetxattr(){ mini_define _fgetxattr generate; }
+mini_getgrnam(){ mini_define getgrnam generate; }
+mini__msgget(){ mini_define _msgget generate; }
+mini_getgrent(){ mini_define getgrent generate; }
+mini__iopl(){ mini_define _iopl generate; }
+mini_ewritesl(){ mini_define ewritesl generate; }
+mini_srand(){ mini_define srand generate; }
+mini_eprintl(){ mini_define eprintl generate; }
+mini__munlockall(){ mini_define _munlockall generate; }
+mini__semtimedop(){ mini_define _semtimedop generate; }
+mini__mprotect(){ mini_define _mprotect generate; }
+mini_eprintfs(){ mini_define eprintfs generate; }
+mini_getusergroups(){ mini_define getusergroups generate; }
+mini_getc(){ mini_define getc generate; }
+mini_wait4(){ mini_define wait4 generate; }
+mini__times(){ mini_define _times generate; }
+mini__llistxattr(){ mini_define _llistxattr generate; }
+mini__utime(){ mini_define _utime generate; }
+mini_time(){ mini_define time generate; }
+mini_setreuid(){ mini_define setreuid generate; }
+mini_setsockopt(){ mini_define setsockopt generate; }
+mini__geteuid(){ mini_define _geteuid generate; }
+mini__signalfd(){ mini_define _signalfd generate; }
+mini__setgroups(){ mini_define _setgroups generate; }
+mini__chown(){ mini_define _chown generate; }
+mini_getdents(){ mini_define getdents generate; }
+mini_htonl(){ mini_define htonl generate; }
+mini__linkat(){ mini_define _linkat generate; }
+mini_sbrk(){ mini_define sbrk generate; }
+mini__umount2(){ mini_define _umount2 generate; }
+mini__rt_sigtimedwait(){ mini_define _rt_sigtimedwait generate; }
+mini_userdb(){ mini_define userdb generate; }
+mini_sigdelset(){ mini_define sigdelset generate; }
+mini_recvfrom(){ mini_define recvfrom generate; }
+#genconfig_end
+endef
 
 
 
+define defaultvalues =
+#defaultvalues_start
+
+# gcc options
+# only linux x64 for now.
+
+
+if [ -z "$$OPTFLAG" ]; then
+	OPTFLAG="-Os"
+fi
+
+if [ -z "$$PICFLAG" ]; then
+	PICFLAG="-fno-pic"
+fi
+
+#strip symbols
+if [ -z "$$STRIPFLAG" ]; then
+	STRIPFLAG="-s"
+fi
+
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
+		-Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-const-variable -Wall -Wno-unused\
+		-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
+
+
+# needs os detection. but not important for now
+CFLAGS="$$COMMONCFLAGS -DLINUX -DX64"
+
+# ld options 
+CFLAGS="$$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+
+# (default) linker script. mini-gcc is going to be invoked with mini-gcc --dump ld_script 
+if [ -z "$$LDSCRIPT" ]; then
+	LDSCRIPT="default"
+fi
+
+# colorize the output of gcc
+colorize='2>&1| sed -e "s/warning:.*/$$YELLOW\0$$NORM/" -e "s/note:.*/$$MAGENTA\0$$NORM/" -e "s/\s\^\~*/$$MAGENTA\0$$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$$CYAN\0$$NORM/" -e "s/^.*:\serror:.*/$$RED\0$$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$$CYAN\2$$NORM/" -e "/error:/h;\$${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
+
+#defaultvalues_end
+endef
+
+
+#ldscripts_start
+define ldscripts/ld.script.exec =
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x7) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x7) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
 
 
 
-#if 0
-endif
-#endif
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+endef
+define ldscripts/ld.script.mlplugin_onlytext =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
+              "elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64) */
+
+/* memo to me -
+  the bss section is NOT
+  stored in the binary as shown with objdump !! */
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(*__plugin_export*);
+			
+				/* *(.dynbss)
+				 *(*mlgl)  */
+				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*) 
+						*(.bss* .dynbss*)
+		 } :text
 
 
 
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
 
+
+endef
+define ldscripts/ld.script.onlytext_tiny =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	/* stack PT_GNU_STACK FLAGS(0x6) ; */
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.default =
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+endef
+define ldscripts/ld.script.mlplugin =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
+              "elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64) */
+
+/* memo to me -
+  the bss section is NOT
+  stored in the binary as shown with objdump !! */
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	/* data PT_LOAD FLAGS(0x7); */
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				
+		 				*(__plugin_export*)
+
+				/* *(.dynbss)
+				 *(*mlgl)  */
+				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+
+		 .data :
+		 {
+			*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*) 
+
+			} : data 
+		.bss           : 
+		{ 
+		/* PROVIDE(_bssstart = 23); */
+
+
+						 *(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*) 
+						 *(COMMON)
+									/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+						. = ALIGN(. != 0 ? 32 / 8 : 1); */
+		/* _bsssize = . - LOADADDR( ".bss" ); */
+		/*_bsssize = _bssend - _bssstart; */
+		/* _bsssize -= _bssstart; */
+		/* PROVIDE( _bsssize = _bssend - _bssstart ); */
+		
+		} :bss 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.textandbss =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.default_execstack =
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x7) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+endef
+define ldscripts/ld.script.onlytext =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	stack PT_GNU_STACK FLAGS(0x6) ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.bloating =
+
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text.exit .text.exit.*)
+						*(.text.startup .text.startup.*)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+		 }
+		.bss            :
+		{ 
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(.bss)
+						*(.shstrtab)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections. */
+						. = ALIGN(. != 0 ? 32 / 8 : 1);
+						_bssend = . ;
+						_brk = .;
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(.note*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.text_and_bss =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef

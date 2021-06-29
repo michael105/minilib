@@ -455,9 +455,9 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chroot.2.rst.html">chroot</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  147 </small></td><td><small> chroot( const char *filename)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">clearerr</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  184 </small></td><td><small>   void clearerr(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">clearerr</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  189 </small></td><td><small>   void clearerr(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  189 </small></td><td><small>   void clearerror(FILE *f);
+<tr valign="top"><td><small>clearerror</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  194 </small></td><td><small>   void clearerror(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small>clone</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  211 </small></td><td><small> clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)
 </small></td></tr>
@@ -473,7 +473,7 @@
   Other values are within globaldefs.h;
   architecture specific values are within the folder headers.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  36 </small></td><td><small> int  creat( const char *s, int mode );
+<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  35 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
 <tr valign="top"><td><small>def</small></td><td><small>   <a href="../src/file/open.c" target="right">../src/file/open.c</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
@@ -569,9 +569,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/file/cksum.c" target="right">../src/file/cksum.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  17 </small></td><td><small> int dprints(int fd, const char *msg,...);
+<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  14 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
-<tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/prints.c" target="right">../src/output/prints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
+<tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/dprints.c" target="right">../src/output/dprints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/dup.2.rst.html">dup</a></small></td><td><small>   <a href="../src/conversions/dtodec.c" target="right">../src/conversions/dtodec.c</a>  119 </small></td><td><small> dup(int fd)		
 </small></td></tr>
@@ -579,21 +579,21 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/dup3.3.rst.html">dup3</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  121 </small></td><td><small> dup3(int oldfd, int newfd, int flags)		
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">endgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> void endgrent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getgrent.3.rst.html">endgrent</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> void endgrent();
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../src/userdb/endgrent.c" target="right">../src/userdb/endgrent.c</a>  3 </small></td><td><small> void endpwent();
+<tr valign="top"><td><small><a target="right" href="manpages/gen/getpwent.3.rst.html">endpwent</a></small></td><td><small>   <a href="../src/userdb/endgrent.c" target="right">../src/userdb/endgrent.c</a>  4 </small></td><td><small> void endpwent();
 </small></td></tr>
-<tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../src/userdb/endpwent.c" target="right">../src/userdb/endpwent.c</a>  59 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
+<tr valign="top"><td><small>eprint</small></td><td><small>   <a href="../src/userdb/endpwent.c" target="right">../src/userdb/endpwent.c</a>  57 </small></td><td><small> #define eprint(str) write(STDERR_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stderr. Needs strlen
  </small></td></tr>
-<tr valign="top"><td><small>eprintf</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  132 </small></td><td><small> #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+<tr valign="top"><td><small>eprintf</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  133 </small></td><td><small> #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments to stderr. 
  </small></td></tr>
-<tr valign="top"><td><small>eprintfs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  127 </small></td><td><small> #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
+<tr valign="top"><td><small>eprintfs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  128 </small></td><td><small> #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments to stderr. 
   only format %s and %c are recognized
  </small></td></tr>
-<tr valign="top"><td><small>eprintl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  68 </small></td><td><small> #define eprintl() write(STDERR_FILENO,"\n",1)
+<tr valign="top"><td><small>eprintl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  66 </small></td><td><small> #define eprintl() write(STDERR_FILENO,"\n",1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write a newline to stderr
  </small></td></tr>
 <tr valign="top"><td><small>eprints</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  26 </small></td><td><small> #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
@@ -603,7 +603,7 @@
 <tr valign="top"><td><small>eprintsl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  48 </small></td><td><small> #define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
 </small></td></tr><tr><td></td><td colspan="2"><small>print the string(s) supplied as arg(s) and newline to stderr
  </small></td></tr>
-<tr valign="top"><td><small>eputs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  78 </small></td><td><small> #define eputs(msg) ( eprint(msg) + eprintl() )
+<tr valign="top"><td><small>eputs</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  76 </small></td><td><small> #define eputs(msg) ( eprint(msg) + eprintl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stderr, append a newline. Needs strlen.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">err</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  20 </small></td><td><small> #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
@@ -630,10 +630,10 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr,
   exit with status
  </small></td></tr>
-<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  89 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+<tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  87 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>ewritesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  101 </small></td><td><small> #define ewritesl(str) write(STDERR_FILENO,str,sizeof(str));write(STDERR_FILENO,"\n",1)
+<tr valign="top"><td><small>ewritesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  100 </small></td><td><small> #define ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr, followed by a newline. 
   Computes length with sizeof(str) at compile time.
  </small></td></tr>
@@ -647,7 +647,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/exec.3.rst.html">execvp</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>   int execvp(const char *file, char *const argv[]);
 </small></td></tr>
-<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  40 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
+<tr valign="top"><td><small>execvpe</small></td><td><small>   <a href="../src/exec/_execvp.c" target="right">../src/exec/_execvp.c</a>  11 </small></td><td><small>  int execvpe(const char *file, char *const argv[], char *const envp[]);
 </small></td></tr><tr><td></td><td colspan="2"><small>When invoked with a filename, starting with "." or "/",
   interprets this as absolute path. (calls execve with the pathname)
   Looks for file in the PATH environment, othwerise.
@@ -671,16 +671,16 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/chown.2.rst.html">fchown</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  116 </small></td><td><small> fchown( unsigned int fd, uid_t user, gid_t group)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fclose.3.rst.html">fclose</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  65 </small></td><td><small>   int ) fclose( FILE* f );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fclose.3.rst.html">fclose</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  66 </small></td><td><small>   int ) fclose( FILE* f );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  169 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  20 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  170 </small></td><td><small>   int feof(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  175 </small></td><td><small>   int feof(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  177 </small></td><td><small>   int ferror(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  182 </small></td><td><small>   int ferror(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/execve.2.rst.html">fexecve</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  3 </small></td><td><small>   int fexecve(int fd, char *const argv[], char *const envp[]);
 </small></td></tr>
@@ -689,9 +689,9 @@
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fflush.3.rst.html">fflush</a></small></td><td><small>   <a href="../include/fexecveat.h" target="right">../include/fexecveat.h</a>  28 </small></td><td><small>   int ) fflush( FILE *F );
 </small></td></tr><tr><td></td><td colspan="2"><small>This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">fgetc</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  11 </small></td><td><small>   int fgetc(FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">fgetc</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  5 </small></td><td><small>   int fgetc(FILE *F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  113 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fgetpos</a></small></td><td><small>   <a href="../src/streams/fgetc.c" target="right">../src/streams/fgetc.c</a>  117 </small></td><td><small>   void fgetpos(FILE *f, long *pos );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">fgets</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  4 </small></td><td><small> char* fgets(char *buf, int size, FILE* F);
 </small></td></tr>
@@ -716,19 +716,19 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/flock.2.rst.html">flock</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  129 </small></td><td><small> flock( unsigned int fd,  unsigned int cmd)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  137 </small></td><td><small> DEF_syscall(fork,0)
 </small></td></tr>
-<tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  81 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
+<tr valign="top"><td><small>fprint</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  84 </small></td><td><small> #define fprint(...) fprintf(__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  268 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,sprintf(mlgl->mbuf,__VA_ARGS__))
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">fprintf</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  32 </small></td><td><small> #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
 </small></td></tr><tr><td></td><td colspan="2"><small>fprintf, formatted output
   conversions implemented:
   %d: signed int (mini_itodec)
   %u: unsigned int (mini_uitodec)
-  %f: double (max precision 8 digits, highest possible number: 2^31
+  %f: double (max precision 8 digits, highest possible number: 2^31 (mini_dtodec)
   %l (modify a following d,u to long) (mini_ltodec,mini_ultodec)
   %s: string
   %c: char
@@ -750,7 +750,7 @@
  
   
  </small></td></tr>
-<tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
+<tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/output/fprintf.c" target="right">../src/output/fprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted and unbuffered output to the stream F.
   only %s and %c are recognized.
   no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
@@ -759,13 +759,13 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>print the string(s) supplied as arg(s) to stream
   this macro has an variable argument count.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">fputc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  10 </small></td><td><small>   int  fputc(int c, FILE* F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">fputc</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  9 </small></td><td><small>   int  fputc(int c, FILE* F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">fputs</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  20 </small></td><td><small>   int  fputs(const char *c, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">fputs</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  19 </small></td><td><small>   int  fputs(const char *c, FILE *F);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  148 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  152 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  146 </small></td><td><small> void free(void *p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  145 </small></td><td><small> void free(void *p);
 </small></td></tr>
 <tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  9 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
@@ -775,27 +775,27 @@
   malloc_brk before.
   Then brk() gives an error, return the return value of brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  30 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  31 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  132 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  134 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  119 </small></td><td><small>   int fsetpos(FILE *f, int pos );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  123 </small></td><td><small>   int fsetpos(FILE *f, int pos );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">fstat</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  111 </small></td><td><small> fstat(int fd,struct stat* statbuf)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/fsync.2.rst.html">fsync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  22 </small></td><td><small> fsync(int a1 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/fsync.2.rst.html">fsync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> fsync(int a1 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">ftell</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  107 </small></td><td><small>   long ftell(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">ftell</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  111 </small></td><td><small>   long ftell(FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/truncate.2.rst.html">ftruncate</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  21 </small></td><td><small> ftruncate(unsigned int a1, unsigned int a2 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/truncate.2.rst.html">ftruncate</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  20 </small></td><td><small> ftruncate(unsigned int a1, unsigned int a2 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fwrite</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  92 </small></td><td><small>   size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fwrite</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  95 </small></td><td><small>   size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small>fwrites</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  107 </small></td><td><small> #define fwrites(fd,str) write(fd,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>fwritesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  114 </small></td><td><small> #define fwritesl(fd,str) write(fd,str,sizeof(str));write(fd,"\n",1)
+<tr valign="top"><td><small>fwritesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  114 </small></td><td><small> #define fwritesl(fd,str) write(fd,str"\n",sizeof(str)+1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd,followed by a newline. 
   Computes length with sizeof(str) at compile time.
  </small></td></tr>
@@ -804,9 +804,9 @@
   does either a syscall to brk,
   or returns the globally saved var
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  26 </small></td><td><small> #define getc(F) fgetc(F)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  8 </small></td><td><small> #define getc(F) fgetc(F)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  29 </small></td><td><small> #define getchar() fgetc(0)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  11 </small></td><td><small> #define getchar() fgetc(0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/getcwd.3.rst.html">getcwd</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  123 </small></td><td><small> getcwd( char *buf,  unsigned long size)
 </small></td></tr>
@@ -839,7 +839,7 @@
   This function calls internally setgrent() and getgrent();
   therefore any iteration with getgrent will be resetted.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/gethostname.3.rst.html">gethostname</a></small></td><td><small>   <a href="../src/userdb/getgroups.c" target="right">../src/userdb/getgroups.c</a>  3 </small></td><td><small>  int gethostname(char *name,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/gethostname.3.rst.html">gethostname</a></small></td><td><small>   <a href="../src/userdb/getgroups.c" target="right">../src/userdb/getgroups.c</a>  4 </small></td><td><small>  int gethostname(char *name,int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>gethostname
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/getitimer.2.rst.html">getitimer</a></small></td><td><small>   <a href="../src/network/gethostname.c" target="right">../src/network/gethostname.c</a>  245 </small></td><td><small> getitimer( int which,  struct itimerval *value)
@@ -894,13 +894,13 @@
   these functions do not depend on strlen, 
   or any globals.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htonl</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  17 </small></td><td><small>  uint32_t htonl(uint32_t i);
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htonl</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  19 </small></td><td><small>  uint32_t htonl(uint32_t i);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htons</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  6 </small></td><td><small>  uint16_t htons(uint16_t i);
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htons</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  7 </small></td><td><small>  uint16_t htons(uint16_t i);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_aton</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  2 </small></td><td><small> int inet_aton(const char* s, struct in_addr *addr);
+<tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_aton</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  3 </small></td><td><small> int inet_aton(const char* s, struct in_addr *addr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_ntoa</a></small></td><td><small>   <a href="../src/network/inet_aton.c" target="right">../src/network/inet_aton.c</a>  6 </small></td><td><small> char* inet_ntoa( struct in_addr in);
+<tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_ntoa</a></small></td><td><small>   <a href="../src/network/inet_aton.c" target="right">../src/network/inet_aton.c</a>  7 </small></td><td><small> char* inet_ntoa( struct in_addr in);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a address
   This returns a pointer to a string in the globals,
   therefore the routine isn't reentrant.
@@ -953,13 +953,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/link.2.rst.html">link</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  125 </small></td><td><small> link( const char *oldname, const char *newname)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  19 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  18 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">lstat</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  113 </small></td><td><small> lstat(const char* filename,struct stat* statbuf)		
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  126 </small></td><td><small> void* malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  125 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
   Here we go.. with the .. well. 
   Fastes and smallest malloc/free combi ever. 
@@ -1047,21 +1047,24 @@
   with brk(saved_brk)
   free_brk() free's all memory, which has been allocated with malloc_brk
  </small></td></tr>
-<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/memory/malloc_brk.c" target="right">../src/memory/malloc_brk.c</a>  19 </small></td><td><small> void* map_protected(int len);
+<tr valign="top"><td><small>map_protected</small></td><td><small>   <a href="../src/memory/malloc_brk.c" target="right">../src/memory/malloc_brk.c</a>  22 </small></td><td><small> void* map_protected(int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>allocate a buffer, which is surrounded by protected pages. 
   mprotect(PROT_NONE)
   When there is a buffer overflow,
   neither the stack, nor other structures can be overwritten.
   Instead the overflow (or underflow) touches the next protected page,
   what results in a segfault.
-  The size is always a mutliple of the systems pagesize, 4kB here.
+  Most probably you'd like to catch the segfault signal.
+  (By installing a segfault signal handler)
+ 
+  The size is always a multiple of the systems pagesize, 4kB here.
   The len of the mapped memory area is rounded up to the next pagesize.
   The mapped area can only be freed by call(s) to munmap,
   neither realloc nor free are allowed.
   There is one page before, and one page after the mapped area
   protected with PROT_NONE, and len rounded up to the next
   pagebreak. So this is the overhead. 
-  If an error occures, errno is set (when defined), 
+  If an error occures, errno is set (when defined by the switch mini_errno), 
   and -1 returned, or the negative errno value, when errno isn't defined.
  </small></td></tr>
 <tr valign="top"><td><small>match</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  83 </small></td><td><small> int match(char *text, const char *re, text_match *st_match);
@@ -1681,11 +1684,14 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/nanosleep.2.rst.html">nanosleep</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  141 </small></td><td><small> nanosleep( struct timespec *rqtp, struct timespec *rmtp)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  29 </small></td><td><small> #define ntohl(i) htonl(i)
+<tr valign="top"><td><small>network</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>network definitions
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohl</a></small></td><td><small>   <a href="../include/network.h" target="right">../include/network.h</a>  31 </small></td><td><small> #define ntohl(i) htonl(i)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohs</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  14 </small></td><td><small> #define ntohs(i) htons(i)
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohs</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  15 </small></td><td><small> #define ntohs(i) htons(i)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  19 </small></td><td><small> int  open( const char *s, int flags, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  18 </small></td><td><small> int  open( const char *s, int flags, ... );
 </small></td></tr><tr><td></td><td colspan="2"><small>open or create a file.
   warning: when using the flag O_CREAT,
   file permission flags have to be given
@@ -1697,7 +1703,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/directories/opendir.c" target="right">../src/directories/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  154 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  146 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -1736,16 +1742,16 @@
 </small></td></tr>
 <tr valign="top"><td><small>prctl</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  254 </small></td><td><small> prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)
 </small></td></tr>
-<tr valign="top"><td><small>print</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  55 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
+<tr valign="top"><td><small>print</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  53 </small></td><td><small> #define print(str) write(STDOUT_FILENO,str,strlen(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write str to stdout. Needs strlen
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  77 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">printf</a></small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  80 </small></td><td><small> #define printf(...) fprintf(stdout,__VA_ARGS__)
 </small></td></tr>
-<tr valign="top"><td><small>printfs</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  121 </small></td><td><small> #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+<tr valign="top"><td><small>printfs</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  122 </small></td><td><small> #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments to stdout. 
   only format %s and %c are recognized
  </small></td></tr>
-<tr valign="top"><td><small>printl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  64 </small></td><td><small> #define printl() write(STDOUT_FILENO,"\n",1)
+<tr valign="top"><td><small>printl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  62 </small></td><td><small> #define printl() write(STDOUT_FILENO,"\n",1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write a newline to stdout
  </small></td></tr>
 <tr valign="top"><td><small>prints</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  18 </small></td><td><small> #define prints(...) _mprints(__VA_ARGS__,0)
@@ -1759,9 +1765,9 @@
 </small></td></tr>
 <tr valign="top"><td><small>ptsname_r</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  21 </small></td><td><small> int ptsname_r(int fd, char *buf, size_t len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putc</a></small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  19 </small></td><td><small> #define putc(c,stream) fputc(c,stream)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putc</a></small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  18 </small></td><td><small> #define putc(c,stream) fputc(c,stream)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putchar</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  16 </small></td><td><small> #define putchar(c) fputc(c,stdout)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/putc.3.rst.html">putchar</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  15 </small></td><td><small> #define putchar(c) fputc(c,stdout)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">putenv</a></small></td><td><small>   <a href="../include/fputc.h" target="right">../include/fputc.h</a>  10 </small></td><td><small> int putenv( char *string );
 </small></td></tr><tr><td></td><td colspan="2"><small>put a string into the environmental vars
@@ -1772,19 +1778,20 @@
   - 0 on success, 
   - EINVAL: string was 0, didn't contain a '=', some other error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/system/putenv.c" target="right">../src/system/putenv.c</a>  74 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fputs.3.rst.html">puts</a></small></td><td><small>   <a href="../src/system/putenv.c" target="right">../src/system/putenv.c</a>  72 </small></td><td><small> #define puts(msg) ( print(msg) + printl() )
 </small></td></tr><tr><td></td><td colspan="2"><small>write msg to stdout, append a newline. Needs strlen.
  </small></td></tr>
-<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  219 </small></td><td><small> 
-</small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/globaldefs.h" target="right">../include/globaldefs.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
+<tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  7 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>define passwd and group structures
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/pwent.h" target="right">../include/pwent.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 </small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine
   following the tradition, this isn't exactly a quicksort algorithm,
   albite named quicksort.
   It is a shell sort implementation, originally done by Ray Gardner, 5/90;
   which in turn I did find within musl.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  139 </small></td><td><small>   int raise(int signr);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  145 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
@@ -1798,7 +1805,7 @@
   return 0 on error and set errno,
   if mini_errno is not defined, return -errno on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/directories/readdir.c" target="right">../src/directories/readdir.c</a>  210 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../src/directories/readdir.c" target="right">../src/directories/readdir.c</a>  209 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  173 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -1811,7 +1818,7 @@
   (when mini_errno is defined) returns -1 and sets errno,
   or returns the negative errno value.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/ret_errno.h" target="right">../include/ret_errno.h</a>  142 </small></td><td><small>   void rewind( FILE *f );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">rewind</a></small></td><td><small>   <a href="../include/ret_errno.h" target="right">../include/ret_errno.h</a>  143 </small></td><td><small>   void rewind( FILE *f );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">rewinddir</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  2 </small></td><td><small> void rewinddir(DIR *dir);
 </small></td></tr>
@@ -1832,7 +1839,7 @@
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  35 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  34 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 </small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
  
   This implementation uses malloc_brk() for the dynamic allocation
@@ -1859,15 +1866,15 @@
   returns the number of the read entries,
   or the negative errno on error.
  </small></td></tr>
-<tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  4 </small></td><td><small> //#define mini_scandir_bufsize 4096
+<tr valign="top"><td><small>scandir_bufsize</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  4 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
   (default:4096)
  </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  23 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  3 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/math/hashes.c" target="right">../src/math/hashes.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/math/sdbm_hash.c" target="right">../src/math/sdbm_hash.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/directories/seekdir.c" target="right">../src/directories/seekdir.c</a>  17 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/directories/seekdir.c" target="right">../src/directories/seekdir.c</a>  16 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  172 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
@@ -1877,7 +1884,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>set the current brk
   wrapper for brk(), with type of brk changed to long
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  197 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  202 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
@@ -1920,7 +1927,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setuid.2.rst.html">setuid</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  154 </small></td><td><small> setuid( uid_t uid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  202 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setvbuf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  207 </small></td><td><small>  int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function
  </small></td></tr>
 <tr valign="top"><td><small>short_errstr</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  10 </small></td><td><small> const char* short_errstr(int num);
@@ -1931,23 +1938,23 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>short ansi color names
   all colornames, without the praefix "AC_"
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/ansicolors.h" target="right">../include/ansicolors.h</a>  111 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigaction.2.rst.html">sigaction</a></small></td><td><small>   <a href="../include/ansicolors.h" target="right">../include/ansicolors.h</a>  117 </small></td><td><small>  int  sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigaddset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  34 </small></td><td><small> int sigaddset(sigset_t *set, int sig);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  62 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigdelset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  68 </small></td><td><small> int sigdelset(sigset_t *set, int sig);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigemptyset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  7 </small></td><td><small>  int sigemptyset(sigset_t *set);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigfillset</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  20 </small></td><td><small>  int sigfillset(sigset_t *set);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  79 </small></td><td><small> int sigismember(sigset_t *set, int sig);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/sigsetops.3.rst.html">sigismember</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  85 </small></td><td><small> int sigismember(sigset_t *set, int sig);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/signal.3.rst.html">signal</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  5 </small></td><td><small> sighandler_t signal(int sig, sighandler_t func );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/process/signal.c" target="right">../src/process/signal.c</a>  56 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigprocmask.2.rst.html">sigprocmask</a></small></td><td><small>   <a href="../src/process/signal.c" target="right">../src/process/signal.c</a>  61 </small></td><td><small> int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/sigsuspend.2.rst.html">sigsuspend</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  51 </small></td><td><small>  int sigsuspend( const sigset_t *mask );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/sigsuspend.2.rst.html">sigsuspend</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  53 </small></td><td><small>  int sigsuspend( const sigset_t *mask );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/sleep.3.rst.html">sleep</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  10 </small></td><td><small> unsigned int  sleep(unsigned int seconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant sleep
@@ -1965,8 +1972,11 @@
 </small></td></tr>
 <tr valign="top"><td><small>splice</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  187 </small></td><td><small> splice( int fd_in,  loff_t *off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  26 </small></td><td><small> #define sprintf(str,...) snprintf( str, 4096,  __VA_ARGS__)
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">sprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
+</small></td></tr><tr><td></td><td colspan="2"><small>I'm really uncertain about the size arg here, amongst others
+  these are just misdefined functions, inhaerent insecure. :/
+  If possible, do not use sprintf. Use snprintf instead. 
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  7 </small></td><td><small> void srand( unsigned int i );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/math/rand.c" target="right">../src/math/rand.c</a>  112 </small></td><td><small> stat(const char* filename,struct stat* statbuf)		
@@ -2045,9 +2055,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  4 </small></td><td><small> int system( const char* command );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/exec/system.c" target="right">../src/exec/system.c</a>  19 </small></td><td><small> int tcgetattr(int fd, struct termios *io);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/exec/system.c" target="right">../src/exec/system.c</a>  12 </small></td><td><small> int tcgetattr(int fd, struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../src/termios/tcgetattr.c" target="right">../src/termios/tcgetattr.c</a>  22 </small></td><td><small> int tcsetattr(int fd, int opt, const struct termios *io);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../src/termios/tcgetattr.c" target="right">../src/termios/tcgetattr.c</a>  12 </small></td><td><small> int tcsetattr(int fd, int opt, const struct termios *io);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../src/termios/tcsetattr.c" target="right">../src/termios/tcsetattr.c</a>  2 </small></td><td><small> long telldir(DIR *dir);
 </small></td></tr>
@@ -2057,7 +2067,10 @@
   if not present, returns 80.
   Doesn't check for the existence of a terminal.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  257 </small></td><td><small> time(unsigned int *a1 )
+<tr valign="top"><td><small>termio</small></td><td><small>   <a href="../src/termios/term_width.c" target="right">../src/termios/term_width.c</a>  5 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>termios structures and definitions
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/time.3.rst.html">time</a></small></td><td><small>   <a href="../include/termio.h" target="right">../include/termio.h</a>  257 </small></td><td><small> time(unsigned int *a1 )
 </small></td></tr>
 <tr valign="top"><td><small>timerfd_create</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  248 </small></td><td><small> timerfd_create( int clockid,  int flags)
 </small></td></tr>
@@ -2095,17 +2108,22 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/uname.3.rst.html">uname</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  159 </small></td><td><small> uname(struct new_utsname *name )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ungetc.3.rst.html">ungetc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  35 </small></td><td><small>  int ungetc(int c, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ungetc.3.rst.html">ungetc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  5 </small></td><td><small>  int ungetc(int c, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>pushes one char back to the stream.
   Overwrites a previously pushed char
   (conforming to the posix spec) 
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/unlink.2.rst.html">unlink</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  109 </small></td><td><small> unlink( const char* path)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/unlink.2.rst.html">unlink</a></small></td><td><small>   <a href="../src/streams/ungetc.c" target="right">../src/streams/ungetc.c</a>  109 </small></td><td><small> unlink( const char* path)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  14 </small></td><td><small> int unlockpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  41 </small></td><td><small> int unmap_protected(void *p, int len);
-</small></td></tr>
+<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  44 </small></td><td><small> int unmap_protected(void *p, int len);
+</small></td></tr><tr><td></td><td colspan="2"><small>free an area, allocated before with map_protected
+  (len must be the same, when at the invocation of map_protected)
+  returns the value of munmap, when an error occures.
+  errno is set, when defined.
+  return 0 on success.
+ </small></td></tr>
 <tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/usleep.3.rst.html">usleep</a></small></td><td><small>   <a href="../src/userdb/userdb_open.c" target="right">../src/userdb/userdb_open.c</a>  31 </small></td><td><small> unsigned int  usleep(unsigned int useconds);
@@ -2141,20 +2159,21 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  138 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  86 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  89 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>
 <tr valign="top"><td><small>vhangup</small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  157 </small></td><td><small> DEF_syscall(vhangup,0 )
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  43 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsnprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  18 </small></td><td><small> int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 </small></td></tr><tr><td></td><td colspan="2"><small>the function, translating the fmt of printf.
   warning - most possibly you'd like to define besides fprintf, or family,
   mini_itodec (%d conversion) 
   mini_atoi is needed for grouping numbers
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  9 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vsprintf</a></small></td><td><small>   <a href="../src/output/vsnprintf.c" target="right">../src/output/vsnprintf.c</a>  10 </small></td><td><small> int vsprintf( char *buf, const char *fmt, ... );
 </small></td></tr><tr><td></td><td colspan="2"><small>write fmt and arguments into buf
   calls vsnprintf, 
-  the size is limited to 4096 by default.
+  the size is limited to 4096 by default and assumes
+  a buf len of 4096.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/wait.2.rst.html">wait</a></small></td><td><small>   <a href="../src/output/vsprintf.c" target="right">../src/output/vsprintf.c</a>  8 </small></td><td><small> pid_t wait(int *wstatus);
 </small></td></tr>
@@ -2165,15 +2184,15 @@
 <tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">warn</a></small></td><td><small>   <a href="../src/process/wait.c" target="right">../src/process/wait.c</a>  33 </small></td><td><small> #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 </small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr
  </small></td></tr>
-<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  8 </small></td><td><small> int where(const char *file,char *buf);
+<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  4 </small></td><td><small> int where(const char *file,char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>locate an executable in PATH
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/execvp.c" target="right">../src/exec/execvp.c</a>  104 </small></td><td><small> write(int fd,const void *buf, int len )
+<tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/where.c" target="right">../src/exec/where.c</a>  104 </small></td><td><small> write(int fd,const void *buf, int len )
 </small></td></tr>
-<tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  85 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+<tr valign="top"><td><small>writes</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  83 </small></td><td><small> #define writes(str) write(STDOUT_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout. Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>writesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  95 </small></td><td><small> #define writesl(str) {write(STDOUT_FILENO,str,sizeof(str));write(STDOUT_FILENO,"\n",1);}
+<tr valign="top"><td><small>writesl</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  93 </small></td><td><small> #define writesl(str) write(STDOUT_FILENO,str "\n",sizeof(str)+1)
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stdout, followed by a newline. 
   Computes length with sizeof(str) at compile time.
  </small></td></tr>

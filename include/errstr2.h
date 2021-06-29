@@ -12,7 +12,7 @@ static const char* verbose_errstr2(int num){
 		if ( num > ERRNO_MAX || num < 0 ){
 				return("Errno unknown");
 		}
-		char *errstr = 
+		const char *errstr = 
 "Internal error (errno=0)\0"
 "Operation not permitted\0"
 "No such file or directory\0"

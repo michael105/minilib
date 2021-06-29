@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 9.0.2">
+<meta name="generator" content="AsciiDoc 9.0.5">
 <title></title>
 </head>
 <body>
@@ -34,7 +34,7 @@ errno_str
  with two \0\0, when errno&lt;100
  errnum must be &lt;200.</code></pre>
 </td></tr></table>
-<p>Size: ~123B <a href="../../src/errno_str.c">../src/errno_str.c</a> l.7</p>
+<p>Size: ~123B <a href="../../src/process/errno_str.c">../src/process/errno_str.c</a> l.7</p>
 <a name="exit_errno"></a><dl>
 <dt>
 exit_errno
@@ -42,7 +42,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> execve errno_str exit write<br>
+ <strong>Defines:</strong> exit write errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -61,7 +61,7 @@ exit_errno
  The supplied errno can be negative,
  the absolute value is supplied to errno.</code></pre>
 </td></tr></table>
-<p><a href="../../src/exit_errno.c">../src/exit_errno.c</a> l.17</p>
+<p><a href="../../src/process/exit_errno.c">../src/process/exit_errno.c</a> l.17</p>
 <a name="perror"></a><dl>
 <dt>
 perror
@@ -69,9 +69,9 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> fileno write strerror errno strlen<br>
+ *Defines:</strong> strerror strlen errno write fileno<br>
  <strong>write error messages to standard error</strong>
-Size: ~329B <a href="../../src/perror.c">../src/perror.c</a> l.4 manpage: <a href="../manpages/string/strerror.3.rst.html">perror</a><br>
+Size: ~329B <a href="../../src/output/perror.c">../src/output/perror.c</a> l.4 manpage: <a href="../manpages/string/strerror.3.rst.html">perror</a><br>
 </p>
 </dd>
 <dt>
@@ -149,7 +149,7 @@ verbose_errstr2
 <p></p>
 <hr><p><small>
 Last updated
- 2021-02-14 13:29:08 UTC
+ 2021-06-26 12:43:07 UTC
 </small></p>
 </body>
 </html>

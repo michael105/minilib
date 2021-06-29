@@ -3,7 +3,9 @@
 mini_start
 mini_fopen
 mini_feof
+mini_fread
 mini_fclose
+mini_fsetpos
 mini_fprintf
 mini_printf
 mini_sprintf

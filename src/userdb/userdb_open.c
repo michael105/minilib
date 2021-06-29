@@ -1,4 +1,4 @@
-//+depends globals ewrites
+//+depends globals ewrites fstat close 
 //+def
 int userdb_open(userdb *udb, const char* file){
 

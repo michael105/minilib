@@ -1,5 +1,6 @@
 #ifndef mini_ELF_H
 #define mini_ELF_H
+#ifdef mini_elf
 
 #include <stdint.h>
 
@@ -1759,4 +1760,5 @@ typedef Elf32_Addr Elf32_Conflict;
 #endif
 
 
+#endif
 #endif

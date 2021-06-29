@@ -1,4 +1,5 @@
 //+doc gethostname
+//+depends network
 //+def 
 static int gethostname(char *name,int len){
 	struct new_utsname u;

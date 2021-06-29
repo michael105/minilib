@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 9.0.2">
+<meta name="generator" content="AsciiDoc 9.0.5">
 <title></title>
 </head>
 <body>
@@ -112,7 +112,7 @@ brk
  if errno isn't available,
  returns the negative errno value on error</code></pre>
 </td></tr></table>
-<p>Size: ~66B <a href="../../src/brk.c">../src/brk.c</a> l.19 manpage: <a href="../manpages/sys/brk.2.rst.html">brk</a><br></p>
+<p>Size: ~66B <a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.19 manpage: <a href="../manpages/sys/brk.2.rst.html">brk</a><br></p>
 <a name="free"></a><dl>
 <dt>
 free
@@ -120,9 +120,9 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> getbrk brk<br>
+ *Defines:</strong> brk getbrk<br>
  <strong>free allocated memory</strong>
-Size: ~32B <a href="../../src/malloc.c">../src/malloc.c</a> l.146 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
+Size: ~32B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.145 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
 </dd>
 <dt>
@@ -143,7 +143,7 @@ free_brk
  malloc_brk before.
  Then brk() gives an error, return the return value of brk</code></pre>
 </td></tr></table>
-<p><a href="../../src/freebrk.c">../src/freebrk.c</a> l.9</p>
+<p><a href="../../src/memory/freebrk.c">../src/memory/freebrk.c</a> l.9</p>
 <a name="getbrk"></a><dl>
 <dt>
 getbrk
@@ -159,7 +159,7 @@ getbrk
  does either a syscall to brk,
  or returns the globally saved var</code></pre>
 </td></tr></table>
-<p><a href="../../src/brk.c">../src/brk.c</a> l.48</p>
+<p><a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.48</p>
 <a name="malloc"></a><dl>
 <dt>
 malloc
@@ -234,7 +234,7 @@ malloc
       size  data  size    mini_buf size
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
-<p>Size: ~173B <a href="../../src/malloc.c">../src/malloc.c</a> l.126 manpage: <a href="../manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
+<p>Size: ~173B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.125 manpage: <a href="../manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
 <a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
@@ -242,7 +242,7 @@ malloc_brk
 <dd>
 <p>
   <em>void* malloc_brk(int size)</em><br>
- <strong>Defines:</strong> sbrk<br>
+ <strong>Defines:</strong> sbrk getbrk<br>
 </p>
 </dd>
 </dl>
@@ -258,7 +258,7 @@ malloc_brk
  with brk(saved_brk)
  free_brk() free's all memory, which has been allocated with malloc_brk</code></pre>
 </td></tr></table>
-<p><a href="../../src/malloc_brk.c">../src/malloc_brk.c</a> l.16</p>
+<p><a href="../../src/memory/malloc_brk.c">../src/memory/malloc_brk.c</a> l.16</p>
 <a name="map_protected"></a><dl>
 <dt>
 map_protected
@@ -277,17 +277,20 @@ map_protected
  neither the stack, nor other structures can be overwritten.
  Instead the overflow (or underflow) touches the next protected page,
  what results in a segfault.
- The size is always a mutliple of the systems pagesize, 4kB here.
+ Most probably you'd like to catch the segfault signal.
+ (By installing a segfault signal handler)
+
+ The size is always a multiple of the systems pagesize, 4kB here.
  The len of the mapped memory area is rounded up to the next pagesize.
  The mapped area can only be freed by call(s) to munmap,
  neither realloc nor free are allowed.
  There is one page before, and one page after the mapped area
  protected with PROT_NONE, and len rounded up to the next
  pagebreak. So this is the overhead.
- If an error occures, errno is set (when defined),
+ If an error occures, errno is set (when defined by the switch mini_errno),
  and -1 returned, or the negative errno value, when errno isn't defined.</code></pre>
 </td></tr></table>
-<p><a href="../../src/map_protected.c">../src/map_protected.c</a> l.19</p>
+<p><a href="../../src/memory/map_protected.c">../src/memory/map_protected.c</a> l.22</p>
 <a name="memcmp"></a><dl>
 <dt>
 memcmp
@@ -296,7 +299,7 @@ memcmp
 <p>
   <em>int memcmp(const void* c1,const void* c2,int len)</em><br>
  <strong>compare bytes in memory</strong>
-Size: ~44B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.84 manpage: <a href="../manpages/string/memcmp.3.rst.html">memcmp</a><br>
+Size: ~44B <a href="../../src/memory/memcmp.c">../src/memory/memcmp.c</a> l.3 manpage: <a href="../manpages/string/memcmp.3.rst.html">memcmp</a><br>
 </p>
 </dd>
 <dt>
@@ -306,7 +309,7 @@ memcpy
 <p>
   <em>void* memcpy( void*d, const void <strong>s, int n )</em><br>
  *copy bytes in memory</strong>
-Size: ~84B <a href="../../src/mem/memcpy.c">../src/mem/memcpy.c</a> l.4 manpage: <a href="../manpages/string/memcpy.3.rst.html">memcpy</a><br>
+Size: ~84B <a href="../../src/memory/memcpy.c">../src/memory/memcpy.c</a> l.4 manpage: <a href="../manpages/string/memcpy.3.rst.html">memcpy</a><br>
 </p>
 </dd>
 <dt>
@@ -316,7 +319,7 @@ memfd_create
 <p>
   <em>int memfd_create( const char  <strong>uname_ptr,  unsigned int flags)</em><br>
  *create an anonymous file</strong>
-Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.179
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.182
 </p>
 </dd>
 <dt>
@@ -333,7 +336,7 @@ memfrob
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>frob string; xor every char with 42</code></pre>
 </td></tr></table>
-<p>Size: ~78B <a href="../../src/mem/memfrob.c">../src/mem/memfrob.c</a> l.4</p>
+<p>Size: ~78B <a href="../../src/memory/memfrob.c">../src/memory/memfrob.c</a> l.4</p>
 <a name="memmove"></a><dl>
 <dt>
 memmove
@@ -342,7 +345,7 @@ memmove
 <p>
   <em>void* memmove(void <strong>dest, const void *src, int n)</em><br>
  *copy bytes in memory with overlapping areas</strong>
-Size: ~88B <a href="../../src/mem/memmove.c">../src/mem/memmove.c</a> l.3 manpage: <a href="../manpages/string/memmove.3.rst.html">memmove</a><br>
+Size: ~88B <a href="../../src/memory/memmove.c">../src/memory/memmove.c</a> l.3 manpage: <a href="../manpages/string/memmove.3.rst.html">memmove</a><br>
 </p>
 </dd>
 <dt>
@@ -352,7 +355,7 @@ memset
 <p>
   <em>void <strong>memset( void *s, int c, int n)</em><br>
  *set bytes in memory</strong>
-Size: ~90B <a href="../../src/mem/memset.c">../src/mem/memset.c</a> l.3 manpage: <a href="../manpages/string/memset.3.rst.html">memset</a><br>
+Size: ~90B <a href="../../src/memory/memset.c">../src/memory/memset.c</a> l.3 manpage: <a href="../manpages/string/memset.3.rst.html">memset</a><br>
 </p>
 </dd>
 <dt>
@@ -374,7 +377,7 @@ mmap
  if not, on error the negative errno value is returned.
  (e.g. -22 for "invalid argument")</code></pre>
 </td></tr></table>
-<p>Size: ~197B <a href="../../src/mem/mmap.c">../src/mem/mmap.c</a> l.8 manpage: <a href="../manpages/sys/mmap.2.rst.html">mmap</a><br></p>
+<p>Size: ~197B <a href="../../src/memory/mmap.c">../src/memory/mmap.c</a> l.8 manpage: <a href="../manpages/sys/mmap.2.rst.html">mmap</a><br></p>
 <a name="mprotect"></a><dl>
 <dt>
 mprotect
@@ -383,7 +386,7 @@ mprotect
 <p>
   <em>int mprotect( POINTER <strong>a1, POINTER a2, int a3 )</em><br>
  *set protection of memory mapping</strong>
-Size: ~146B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.211 manpage: <a href="../manpages/sys/mprotect.2.rst.html">mprotect</a><br>
+Size: ~146B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.234 manpage: <a href="../manpages/sys/mprotect.2.rst.html">mprotect</a><br>
 </p>
 </dd>
 <dt>
@@ -403,7 +406,7 @@ munmap
 <p>
   <em>int munmap( void* addr,  size_t len)</em><br>
  <strong>unmap pages of memory</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.218 manpage: <a href="../manpages/sys/munmap.2.rst.html">munmap</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.241 manpage: <a href="../manpages/sys/munmap.2.rst.html">munmap</a><br>
 </p>
 </dd>
 <dt>
@@ -412,9 +415,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> getbrk 0 brk<br>
+ *Defines:</strong> 0 brk getbrk<br>
  <strong>memory reallocator</strong>
-Size: ~636B <a href="../../src/malloc.c">../src/malloc.c</a> l.210 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
+Size: ~636B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.209 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -435,7 +438,7 @@ sbrk
  if no errno is available,
  returns the negative errno value on error</code></pre>
 </td></tr></table>
-<p>Size: ~108B <a href="../../src/brk.c">../src/brk.c</a> l.66 manpage: <a href="../manpages/sys/brk.2.rst.html">sbrk</a><br></p>
+<p>Size: ~108B <a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.66 manpage: <a href="../manpages/sys/brk.2.rst.html">sbrk</a><br></p>
 <a name="splice"></a><dl>
 <dt>
 splice
@@ -444,7 +447,7 @@ splice
 <p>
   <em>int splice( int fd_in,  loff_t <strong>off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)</em><br>
  *splice data to/from a pipe</strong>
-Size: ~178B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.184
+Size: ~178B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187
 </p>
 </dd>
 <dt>
@@ -462,11 +465,30 @@ swap
  swaps integers and longs at once, when size eq sizeof(int/long)</code></pre>
 </td></tr></table>
 <p><a href="../../src/qsort.c">../src/qsort.c</a> l.31</p>
+<a name="unmap_protected"></a><dl>
+<dt>
+unmap_protected
+</dt>
+<dd>
+<p>
+  <em>int unmap_protected(void <strong>p, int len)</em><br>
+ *Defines:</strong> mprotect munmap<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>free an area, allocated before with map_protected
+ (len must be the same, when at the invocation of map_protected)
+ returns the value of munmap, when an error occures.
+ errno is set, when defined.
+ return 0 on success.</code></pre>
+</td></tr></table>
+<p><a href="../../src/memory/map_protected.c">../src/memory/map_protected.c</a> l.44</p>
 <p></p>
 <p></p>
 <hr><p><small>
 Last updated
- 2021-02-14 13:29:08 UTC
+ 2021-06-26 12:43:07 UTC
 </small></p>
 </body>
 </html>

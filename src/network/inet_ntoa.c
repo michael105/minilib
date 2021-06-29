@@ -2,6 +2,7 @@
 // This returns a pointer to a string in the globals,
 // therefore the routine isn't reentrant.
 // (whoever thought this might be a good idea..)
+//+depends network
 //+def
 char* inet_ntoa( struct in_addr in){
 	union { uint32_t i; char c[4]; } u = { .i=in.s_addr };

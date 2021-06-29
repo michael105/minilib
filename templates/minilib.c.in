@@ -1,13 +1,5 @@
 /* templates/minilib.c.in */
 
-//#include "minilib.conf"
-
-//#ifdef INCLUDESRC
-//#ifndef mini_INCLUDESRC
-//#define mini_INCLUDESRC
-//#endif
-//#endif
-
 #ifndef included_minilib_h
 //#include "minilib.h"
 #endif
@@ -16,7 +8,7 @@
 #include "minilib/src/intern/minilib_global.c"
 
 #ifdef mini_prints
-#include "minilib/src/output/prints.c"
+#include "minilib/src/output/dprints.c"
 #endif
 
 #ifdef mini_errno

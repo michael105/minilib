@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 9.0.5">
+<title></title>
+</head>
+<body>
+<hr>
+<h2><a name="_userdb"></a>userdb</h2>
+<a name="endgrent"></a><dl>
+<dt>
+endgrent
+</dt>
+<dd>
+<p>
+  <em>void endgrent()</em><br>
+ <strong>Defines:</strong> pwent munmap<br>
+<a href="../../src/userdb/endgrent.c">../src/userdb/endgrent.c</a> l.4 manpage: <a href="../manpages/gen/getgrent.3.rst.html">endgrent</a><br>
+</p>
+</dd>
+<dt>
+endpwent
+</dt>
+<dd>
+<p>
+  <em>void endpwent()</em><br>
+ <strong>Defines:</strong> munmap pwent<br>
+<a href="../../src/userdb/endpwent.c">../src/userdb/endpwent.c</a> l.4 manpage: <a href="../manpages/gen/getpwent.3.rst.html">endpwent</a><br>
+</p>
+</dd>
+<dt>
+getgrent
+</dt>
+<dd>
+<p>
+  <em>struct group* getgrent()</em><br>
+ <strong>Defines:</strong> pwent open userdb<br>
+<a href="../../src/userdb/getgrent.c">../src/userdb/getgrent.c</a> l.4 manpage: <a href="../manpages/gen/getgrent.3.rst.html">getgrent</a><br>
+</p>
+</dd>
+<dt>
+getgrgid
+</dt>
+<dd>
+<p>
+  <em>struct group <strong>getgrgid(gid_t gid)</em><br>
+ *Defines:</strong> write mmap userdb grent fstat close open token_s pwent token_i globals setgrent<br>
+</p>
+</dd>
+</dl>
+<a name="getgrgid"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the group entry of the group "gid".
+ the last result is cached, multiple calls with the same
+ name will return the cached result.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getgrgid.c">../src/userdb/getgrgid.c</a> l.7 manpage: <a href="../manpages/gen/getgrent.3.rst.html">getgrgid</a><br></p>
+<a name="getgrnam"></a><dl>
+<dt>
+getgrnam
+</dt>
+<dd>
+<p>
+  <em>struct group <strong>getgrnam(const char</strong> name)</em><br>
+ <strong>Defines:</strong> write mmap userdb fstat grent close open token_s token_i pwent globals setgrent<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the group entry of the group "name".
+ the last result is cached, multiple calls with the same
+ name will return the cached result.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getgrnam.c">../src/userdb/getgrnam.c</a> l.7 manpage: <a href="../manpages/gen/getgrent.3.rst.html">getgrnam</a><br></p>
+<a name="getpwent"></a><dl>
+<dt>
+getpwent
+</dt>
+<dd>
+<p>
+  <em>struct passwd* getpwent()</em><br>
+ <strong>Defines:</strong> userdb open<br>
+<a href="../../src/userdb/getpwent.c">../src/userdb/getpwent.c</a> l.4 manpage: <a href="../manpages/gen/getpwent.3.rst.html">getpwent</a><br>
+</p>
+</dd>
+<dt>
+getpwnam
+</dt>
+<dd>
+<p>
+  <em>struct passwd <strong>getpwnam(const char</strong> name)</em><br>
+ <strong>Defines:</strong> mmap write token_s open close pwent token_i fstat globals<br>
+</p>
+</dd>
+</dl>
+<a name="getpwnam"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the passwd entry of the user "name".
+ the last result is cached, multiple calls with the same
+ name will return the cached result.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getpwnam.c">../src/userdb/getpwnam.c</a> l.7 manpage: <a href="../manpages/gen/getpwent.3.rst.html">getpwnam</a><br></p>
+<a name="getpwuid"></a><dl>
+<dt>
+getpwuid
+</dt>
+<dd>
+<p>
+  <em>struct passwd <strong>getpwuid(uid_t uid)</em><br>
+ *Defines:</strong> open token_s setpwent passwdfile_open mmap write pwent token_i<br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>get the passwd entry of the user with uid.
+ the last result is cached, multiple calls with the same
+ uid will return the cached result.</code></pre>
+</td></tr></table>
+<p><a href="../../src/userdb/getpwuid.c">../src/userdb/getpwuid.c</a> l.7 manpage: <a href="../manpages/gen/getpwent.3.rst.html">getpwuid</a><br></p>
+<a name="max_groupmembers"></a><dl>
+<dt>
+max_groupmembers
+</dt>
+<dd>
+<p>
+  <em>#ifndef mini_max_groupmembers</em><br>
+</p>
+</dd>
+</dl>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>The maximum number of users,
+ which are within a group.
+ used for the allocation of the array gr_mem.
+ default: 64</code></pre>
+</td></tr></table>
+<p><a href="../../include/globaldefs.h">../include/globaldefs.h</a> l.89</p>
+<a name="setgrent"></a><dl>
+<dt>
+setgrent
+</dt>
+<dd>
+<p>
+  <em>void setgrent()</em><br>
+<a href="../../src/userdb/setgrent.c">../src/userdb/setgrent.c</a> l.3 manpage: <a href="../manpages/gen/getgrent.3.rst.html">setgrent</a><br>
+</p>
+</dd>
+<dt>
+setpwent
+</dt>
+<dd>
+<p>
+  <em>void setpwent()</em><br>
+<a href="../../src/userdb/setpwent.c">../src/userdb/setpwent.c</a> l.3 manpage: <a href="../manpages/gen/getpwent.3.rst.html">setpwent</a><br>
+</p>
+</dd>
+</dl>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2021-06-26 12:43:07 UTC
+</small></p>
+</body>
+</html>

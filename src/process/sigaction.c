@@ -47,15 +47,21 @@ int sigaddset(sigset_t *set, int sig){
 		return(0);
 }
 
+#ifdef mini_sigsuspend
+//+depends rt_sigsuspend
 //+def
 static int sigsuspend( const sigset_t *mask ){
 	return( rt_sigsuspend( mask, sizeof(sigset_t) ) );
 }
+#endif
 
+#ifdef mini_sigprocmask
+//+depends rt_sigprocmask
 //+def
 int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
 		return( rt_sigprocmask( how, (sigset_t*)set, oldset, sizeof(sigset_t) ) );
 }
+#endif
 
 
 //+def
@@ -106,7 +112,7 @@ _sigrestore:\n\
 
 //+header signal.h
 //+include
-//+depends memcpy
+//+depends memcpy rt_sigaction
 //+def
 static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact){
 		struct sigaction sa;
@@ -133,12 +139,13 @@ static int volatile sigaction(int sig, const struct sigaction *act, struct sigac
 // (meaning, including the definition into the header.
 // What is the right thing to do for a wrapper call.)
 
-
-//+depends getpid 
+#ifdef mini_raise
+//+depends getpid kill
 //+def
 static inline int raise(int signr){
 		return(kill(getpid(),signr));
 }
+#endif
 
 
 #endif

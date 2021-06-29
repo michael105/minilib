@@ -10,12 +10,13 @@ endif
 ONLYTEXT=1
 NOINCLUDE=1
 
-NOW=$(shell echo `date '+%F %T'` )
+NOW="$(shell date '+%Y%m%d')"
+#NOW=$(shell echo `date '+%F %T'` )
 #NOW=$(shell echo `date +%F` r$$[ `date +%s` - 1579400000 ] )
 
 #include Makefile.template
 
-.PHONY: test combined header tools
+.PHONY: test combined header tools Makefile.minilib
 
 define HELP
 
@@ -117,9 +118,9 @@ help:
 
 default: help
 
-all: header combined compile-mini-gcc doc examples test syntaxcheck
+all: header combined compile-mini-gcc Makefile.minilib doc examples test syntaxcheck
 
-devel: header combined compile-mini-gcc 
+devel: header combined compile-mini-gcc Makefile.minilib
 
 examples:
 	cd examples && make
@@ -127,13 +128,20 @@ examples:
 test: 
 	cd test && make test
 
+testql: 
+	cd test && make testql
+
+testql-build: 
+	cd test && make all
+
 retest: 
 	cd test && make retest
 
 header:
 	cd headers && make
-	scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h minilib/macros/*.h minilib/src/*/*.c
-			rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
+	./scripts/genheaders.pl ./ minilib/src/*.c minilib/include/*.h minilib/macros/*.h minilib/src/*/*.c
+	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
 # ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
 
@@ -145,12 +153,14 @@ mini-gcc: scripts/genconfig.sh ldscript
 	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh
 	scripts/template.pl mini-gcc genconf-macros minilib.genconf.h
 	scripts/template.pl mini-gcc headerguards include/headerguards.h
-	sed -ie 's/^VERSION=.*/VERSION="GIT $(NOW)"/' mini-gcc
+	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' mini-gcc
 	rm mini-gcce
 
 
 compile-mini-gcc: mini-gcc unpack-mini-gcc
 	gzip -c minilibcompiled.h >> mini-gcc
+	echo -e "\n#ENDGZ" >> mini-gcc
+
 
 unpack-mini-gcc:
 	sed '/^#MINILIBGZ#$$/q' mini-gcc > mini-gcc.tmp
@@ -183,7 +193,21 @@ combined: tools
 #	cp templates/LICENSE.tmpl minilibcompiled.h
 #	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h
 #	gzip -c minilibcompiled.c > minilibcompiled.c.gz
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilibcompiled.h
 	gzip -c minilibcompiled.h > minilibcompiled.h.gz
+
+
+Makefile.minilib:
+	echo generate Makefile.minilib
+	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' Makefile.minilib
+	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
+	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
+	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
+	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
+	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
+	#echo "endif" >> Makefile.minilib
 
 
 hello-combinedb: hello-combined.c tools
@@ -204,3 +228,22 @@ syntaxcheck:
 			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
 	@echo Ok.
+
+
+git-master:
+	# update master repo at github
+	git push origin devel-HEAD:devel
+	cd ../minilib-master && \
+		git fetch && \
+		git pull && \
+		git push github devel:master
+
+git-devel:
+	# update master repo at github
+	git push origin devel-HEAD:devel
+	cd ../minilib-master && \
+		git fetch && \
+		git pull && \
+		git push github
+
+

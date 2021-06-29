@@ -1,7 +1,8 @@
 
 //+doc write fmt and arguments into buf
 // calls vsnprintf, 
-// the size is limited to 4096 by default.
+// the size is limited to 4096 by default and assumes
+// a buf len of 4096.
 //+depends write vsnprintf
 //+needs stdarg.h
 //+depends

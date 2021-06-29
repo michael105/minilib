@@ -1,5 +1,5 @@
 //+cat userdb
-//+depends open userdb
+//+depends open userdb pwent
 //+def
 struct group* getgrent(){
 	if ( !mlgl->groupfile.file ){

@@ -3,7 +3,7 @@
 
 //+header unistd.h
 //+include
-//+needs nanosleep
+//+depends nanosleep
 //+doc nonconformant sleep
 // TODO: ignore blocked signals, sigchld
 //+def
@@ -18,7 +18,7 @@ unsigned int volatile sleep(unsigned int seconds){
 
 //+header unistd.h
 //+include
-//+needs nanosleep
+//+depends nanosleep
 //+doc nonconformant usleep. 
 // Sleep useconds.
 // I just hope, noone relies on an exact sleep time.

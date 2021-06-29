@@ -1,6 +1,6 @@
 
 //+header signal.h
-//+depends sigaction ewrites
+//+depends sigaction ewrites rt_sigaction
 //+def
 sighandler_t signal(int sig, sighandler_t func ){
 		struct sigaction sa_old = { .sa_handler=0, .sa_flags=0 };

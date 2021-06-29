@@ -3,20 +3,20 @@
 
 // musl
 
-//+depends open
+//+depends termio open
 //+def
 int posix_openpt(int flags){
 		return open("/dev/ptmx", flags);
 }
 
-//+depends ioctl
+//+depends termio ioctl
 //+def
 int unlockpt(int fd){
 		int unlock = 0;
 		return ioctl(fd, TIOCSPTLCK, &unlock);
 }
 
-//+depends snprintf itodec ioctl open sprintf
+//+depends termio snprintf itodec ioctl open sprintf
 //+def
 int ptsname_r(int fd, char *buf, size_t len){
 		int pty, err;
@@ -29,7 +29,7 @@ int ptsname_r(int fd, char *buf, size_t len){
 		return 0;
 }
 
-//+depends ptsname_r snprintf itodec ioctl sprintf
+//+depends termio ptsname_r snprintf itodec ioctl sprintf
 //+def
 char *ptsname(int fd){
 		static char buf[9 + sizeof(int)*3 + 1];
@@ -44,7 +44,7 @@ char *ptsname(int fd){
 }
 
 
-//+depends fstat ptsname
+//+depends termio fstat ptsname
 //+def
 int grantpt(int fd){
 	struct stat st;

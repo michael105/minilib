@@ -7,6 +7,7 @@ mini_sleep
 mini_itodec
 mini_atoi
 mini_vfork
+mini_execve
 mini_INCLUDESRC
 return
 #endif

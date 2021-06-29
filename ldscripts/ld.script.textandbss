@@ -1,1 +1,78 @@
-ld.script.text_and_bss
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+

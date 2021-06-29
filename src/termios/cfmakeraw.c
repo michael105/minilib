@@ -1,4 +1,4 @@
-//+depends
+//+depends termio
 //+def
 void cfmakeraw(struct termios *tp){
 	tp->c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP|INLCR|IGNCR|ICRNL|IXON);

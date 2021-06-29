@@ -11,7 +11,7 @@
 // the allocated memory can also be free'd by setting the brk to the saved value
 // with brk(saved_brk)
 // free_brk() free's all memory, which has been allocated with malloc_brk
-//+depends sbrk
+//+depends sbrk getbrk 
 //+def
 void* malloc_brk(int size){
 		if ( size<0 )
