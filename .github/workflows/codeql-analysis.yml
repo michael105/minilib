@@ -11,13 +11,12 @@
 #
 name: "Security scan"
 
-on:
+on: workflow_dispatch
   #push:
   #  branches: [ master,devel ]
   #pull_request:
     # The branches below must be a subset of the branches above
     #  branches: [ master,devel ]
-  workflow_dispatch
 
   schedule:
     - cron: '32 7 * * 1'
