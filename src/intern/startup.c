@@ -20,6 +20,8 @@ void __attribute__((noreturn))_startup(int argc, char **argv, char **envp ){
 
 #ifdef mini_globals_on_stack
 		// put the globals onto the stack.
+		// (the return address of _startup isn't used,
+		// so an overflow would result in a segfault)
 minilib_globals __mlgl;
 #endif
 
