@@ -2,8 +2,6 @@
 
 VERSION="20210629"
 
-REAL_CC=gcc
-REAL_LD=ld
 
 # colorize the output
 ansicolor=1
@@ -22,6 +20,11 @@ useincludedminilib=1
 # gcc options
 # only linux x64 for now.
 
+if [ -n "$CC" ]; then
+	REAL_CC="$CC"
+else
+	REAL_CC="gcc"
+fi
 
 if [ -z "$OPTFLAG" ]; then
 	OPTFLAG="-Os"

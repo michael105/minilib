@@ -18,7 +18,7 @@ mini_write
 INCLUDESRC
 
 # shrink the binary with "shrinkelf"
-shrinkelf
+SHRINKELF
 
 # The ldscript file. can be onlytext, text_and_bss or default
 LDSCRIPT onlytext_tiny
