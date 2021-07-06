@@ -152,7 +152,7 @@ typedef struct {
 		char inet_ntoa_addr[16];
 #endif
 
-#if mini_GLOBALS & MINI_GUARDED_GLOBALS
+#if mini_GLOBALS & MINI_GUARDED_GLOBALS && GLOBALS & BSS_SECTION
 		char __padding1[PAGESIZE-sizeof(__globals_shadow)];
 		char __guardpage1[PAGESIZE];
 #define __mini_guardpage1
