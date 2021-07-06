@@ -1,5 +1,0 @@
-#!/bin/sh
-
-(ifconfig eth0 192.168.4.2
-route add default gw 192.168.4.1 ) &
-
