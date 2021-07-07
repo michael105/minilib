@@ -13,7 +13,7 @@
 // warning - most possibly you'd like to define besides fprintf, or family,
 // mini_itodec (%d conversion) 
 // mini_atoi is needed for grouping numbers
-//+depends write strlen raise
+//+depends write strlen raise getpid kill
 //+def
 int vsnprintf(char *buf, size_t size, const char* fmt, va_list args ){
 

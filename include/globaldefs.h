@@ -1,7 +1,7 @@
 #ifndef globaldefs_h
 #define globaldefs_h
 
-// definitions
+// definitions, included first
 
 #ifdef X64
 #define POINTER unsigned long int
