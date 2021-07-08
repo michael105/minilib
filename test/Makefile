@@ -15,7 +15,10 @@ MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 MINIGCC=rand sleep execve strdup
 
 TESTQL=environ getpwuid globals mallocstack strcmp strstr strtol system \
-		 getpwuid 
+		 getpwuid rand execve strdup fopen malloc fprintf select fputs hashes \
+		 div globals atexit strerror strchr static
+
+
 
 
 # where to build object files
