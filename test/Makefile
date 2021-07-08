@@ -14,7 +14,7 @@ MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 
 MINIGCC=rand sleep execve strdup
 
-TESTQL=abort environ getpwuid globals mallocstack strcmp strstr strtol system \
+TESTQL=environ getpwuid globals mallocstack strcmp strstr strtol system \
 		 getpwuid 
 
 
