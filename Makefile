@@ -126,7 +126,7 @@ examples:
 	cd examples && make
 
 test: 
-	cd test && make test
+	(cd test && make test) 2>&1 | tee test/make-test.log
 
 testql: 
 	cd test && make testql
@@ -245,5 +245,9 @@ git-devel:
 		git fetch && \
 		git pull && \
 		git push github
+
+
+packtestresults:
+	cd test && make packtestresults
 
 

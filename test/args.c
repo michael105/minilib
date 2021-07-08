@@ -2,7 +2,9 @@
 #define mini_strcmp
 #define mini_printf
 #define mini_getenv
-#include "minilib.c"
+#define mini_start
+#define INCLUDESRC
+#include "minilib.h"
 
 
 

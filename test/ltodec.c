@@ -9,6 +9,8 @@ mini_atoi
 mini_itodec
 mini_ultodec
 
+mini_memcpy
+
 OPTFLAG -O0
 INCLUDESRC
 

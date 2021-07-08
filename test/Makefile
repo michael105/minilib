@@ -14,7 +14,7 @@ MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
 
 MINIGCC=rand sleep execve strdup
 
-TESTQL=abort environ getpwuid globals mallocstack strcmp strstr strtol system \
+TESTQL=environ getpwuid globals mallocstack strcmp strstr strtol system \
 		 getpwuid 
 
 
@@ -31,12 +31,14 @@ MLIBDIR=../
 OPTFLAG=-Os
 
 # GCC
-GCC=gcc
+GCC=clang
 
 # LD
 #LD=ld
 
 STRIP=1
+
+export STRIPFLAG=-I.
 
 #SHRINKELF=1
 
@@ -58,6 +60,8 @@ WHITE="\033[01;37m"
 GREY="\033[02;37m"
 endif
 
+
+tpath=$(shell date '+%Y%m%d_%H%M')
 
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
@@ -119,6 +123,19 @@ inittest: all
 retest: test rebuild
 	make test
 
+
+.ONESHELL:
+packtestresults:
+	echo p: $(tpath) $$target
+	mkdir "./$(tpath)"
+	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ( if [ -e $(P) ]; then cp $(P) ./$(tpath); fi;  ); ) true
+	cp *.log ./$(tpath)
+	cp results/*test.* ./$(tpath)
+	gcc -dumpspecs > ./$(tpath)/dumpspecs
+	ld --verbose > ./$(tpath)/ld.verbose
+	tar -czf results-packed.tgz ./$(tpath)
+
+
 .ONESHELL:
 SHELL = /bin/bash
 test: all
@@ -147,7 +164,7 @@ test: all
 testql: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
-	@$(foreach P,$(PROG) hello-combined $(TESTQL), \
+	@$(foreach P,hello-combined $(TESTQL), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
 			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \

@@ -80,6 +80,47 @@ typedef struct {
 		int srand;	
 		int pstream;
 		int mbufsize;
+		int _intbufsize;
+		int align[1];
+		char **environ;
+		unsigned long brk;
+		unsigned long malloc_start;
+#ifdef mini_atexit
+		functionp* atexitp[ATEXIT_MAX];
+#endif
+		void *appdata; // can be used freely. 
+		// intended to be used for globals,
+		// which can be located on the stack.
+		// just define a struct on stack,
+		// (e.g. within main),
+		// and set this pointer to the struct.
+		int stream[mini_FOPEN_MAX];
+#ifdef mini_pwent
+		userdb passwdfile;
+		struct passwd pwent; // quite some overhead. But needed for threadsafety.
+		// leaving it here for now. possibly todo: make pwent a switch,
+		// either with or without threadsafety of getpwuid and family.
+		// (keeping this struct within the globals, or not)
+#endif
+#ifdef mini_grent
+		userdb groupfile;
+		//int groupnamecount; TODO: enlarge the array to the groupname pointers,
+		// when needed. (shrinking the minibuf) ->getgrent
+		struct group groupent;
+#endif
+#ifdef mini_inet_ntoa
+		char inet_ntoa_addr[16];
+#endif
+} __globals_shadow;
+
+
+typedef struct {
+		int errno;
+		int sysret;
+		int srand;	
+		int pstream;
+		int mbufsize;
+		int _intbufsize;
 		int align[1];
 		char **environ;
 		unsigned long brk;
@@ -111,10 +152,34 @@ typedef struct {
 		char inet_ntoa_addr[16];
 #endif
 
+#if mini_GLOBALS & MINI_GUARDED_GLOBALS && GLOBALS & BSS_SECTION
+		char __padding1[PAGESIZE-sizeof(__globals_shadow)];
+		char __guardpage1[PAGESIZE];
+#define __mini_guardpage1
+#endif
+
+#ifdef mini_internalbuf
+		union {
+				int intibuf[(mini_internalbufsize>>2)];
+				char intmbuf[mini_internalbufsize];
+		};
+#if mini_GLOBALS & MINI_GUARDED_GLOBALS
+		char __padding2[ PAGESIZE - (mini_internalbufsize % PAGESIZE) ];
+		char __guardpage2[ PAGESIZE ];
+#define __mini_guardpage2
+#endif
+#endif
+
 		union {
 				int ibuf[(mini_bufsize>>2)];
 				char mbuf[mini_bufsize];
 		};
+
+#if mini_GLOBALS & MINI_GUARDED_GLOBALS
+		char __padding3[ PAGESIZE - (mini_bufsize % PAGESIZE) ];
+		char __guardpage3[ PAGESIZE ];
+#define __mini_guardpage3
+#endif
 } minilib_globals;
 
 //+doc prevent optimizations.
@@ -155,7 +220,7 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 #define mini_globals
 #endif
 #ifndef mini_globalregister
-// user register r15 by default
+// user register r15 by default (GCC only)
 #define mini_globalregister "r15"
 #endif
 #endif
@@ -202,7 +267,11 @@ extern char **environ;
 // a certain security advantage. Albite, well.
 // I leave this at it is for now.
 //
+#ifndef __clang__
 register minilib_globals __attribute__((used))*__restrict__ mlgl asm(mini_globalregister);
+#else
+minilib_globals __attribute__((used))*__restrict__ mlgl;
+#endif
 
 #define errno mlgl->errno
 #ifdef mini_environ

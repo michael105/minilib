@@ -2,7 +2,7 @@
 #define mini_fileno
 #define mini_fputs
 #define INCLUDESRC
-#include "minilib/minilib.h"
+#include "minilib.h"
 
 
 

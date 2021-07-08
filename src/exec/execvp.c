@@ -3,7 +3,7 @@
 //+header unistd.h
 ////+include
 
-//+depends environ execve getenv access
+//+depends environ execve getenv access where
 //+doc When invoked with a filename, starting with "." or "/",
 // interprets this as absolute path. (calls execve with the pathname)
 // Looks for file in the PATH environment, othwerise.

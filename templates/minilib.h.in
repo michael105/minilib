@@ -29,7 +29,6 @@
 #include "minilib/macros/stdarg.h"
 #include "minilib/include/config.h"
 #include "minilib/include/ctype.h"
-#include "minilib/include/syscall.h"
 
 #ifdef mini_GETOPTS
 #include "minilib/macros/getoptm.h"

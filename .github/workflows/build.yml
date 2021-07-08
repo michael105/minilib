@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ devel ]
+  pull_request:
+    branches: [ devel ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: make test
+      run: make test
+    - name: make packtestresults
+      run: make packtestresults
+      if: always()
+    - name: Upload testresults
+      uses: actions/upload-artifact@v2
+      if: always()
+      with: 
+        name: packed results
+        path: test/results-packed.tgz
+

@@ -7,7 +7,7 @@
 #define mini_buf 1024
 #define INCLUDESRC
 
-#include "minilib/minilib.h"
+#include "minilib.h"
 
 int main(){
 		printf("Ok\n\n");

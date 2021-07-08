@@ -15,7 +15,7 @@ LDSCRIPT default
 return
 #endif
 
-#include "minilib/minilib.h"
+#include "minilib.h"
 
 static char *st = "Test\n";
 

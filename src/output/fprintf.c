@@ -26,7 +26,7 @@
 //
 // 
 //+header stdio.h
-//+depends write snprintf fileno globals
+//+depends write snprintf fileno globals getpid kill
 //+needs mini_fstream.h 
 //+after itobin atoi itodec dtodec ltodec itohex
 //+macro fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))

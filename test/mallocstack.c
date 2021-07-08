@@ -25,6 +25,21 @@ return
 
 #include "minilib/minilib.h"
 
+
+		void dump( int *p ){
+				for ( int b = 0; b<=10; b++ ){
+						if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)&p[b] ){
+								printf( AC_YELLOW "-> bufsize ( %d ) " AC_WHITE , mlgl->mbufsize ); // ?????
+								//printf( "p[%d]: 0x%x = %d\n", b, p[b], p[b] ); 
+						} else
+								printf( "                   " );
+						if ( p[b] & 0xF0000000 )
+								printf( AC_LGREEN "p[%d]: 0x%x" AC_WHITE " = %d \n", b, p[b], p[b] ); 
+						else
+								printf( "p[%d]: 0x%x = %d \n", b, p[b], p[b] ); 
+				}
+		}
+
 int main(){
 		write(fileno(stdout),"write\n",6);
 		printf("mbufsize: %d\n",mlgl->mbufsize);
@@ -196,20 +211,6 @@ int main(){
 
 		printf(AC_LMARINE "===== allocated a1 - a4\n" AC_WHITE);
 		printf("mlgl->mbufsize: " AC_LRED "%d\n" AC_WHITE, mlgl->mbufsize );
-
-		void dump( int *p ){
-				for ( int b = 0; b<=10; b++ ){
-						if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)&p[b] ){
-								printf( AC_YELLOW "-> bufsize ( %d ) " AC_WHITE , mlgl->mbufsize ); // ?????
-								//printf( "p[%d]: 0x%x = %d\n", b, p[b], p[b] ); 
-						} else
-								printf( "                   " );
-						if ( p[b] & 0xF0000000 )
-								printf( AC_LGREEN "p[%d]: 0x%x" AC_WHITE " = %d \n", b, p[b], p[b] ); 
-						else
-								printf( "p[%d]: 0x%x = %d \n", b, p[b], p[b] ); 
-				}
-		}
 
 		dump(i2);
 

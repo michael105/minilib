@@ -1,5 +1,5 @@
 #ifdef mini_start
-void volatile __attribute__((naked,noreturn))_start(){
+void __attribute__((naked,noreturn))_start(){
 __asm__ volatile("\
 #.global _start\n\
 #_start:\n\
@@ -19,7 +19,7 @@ __exit:\n\
 	movq $60, %rax\n\
 	syscall\n"
 	);
-	__builtin_unreachable();
+	//__builtin_unreachable();
 };
 #endif
 
