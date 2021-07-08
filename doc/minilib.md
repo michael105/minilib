@@ -1369,7 +1369,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               With less overhead the macro OPTFENCE(...) goes.
               There the call to the "ipa" function is jumped over,
               via asm inline instructions. 
-               (include/minilib_global.h: 146)
+               (include/minilib_global.h: 211)
 
 poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
 
@@ -2148,7 +2148,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
 
-               (include/fputs.h: 19)
+               (include/fputs.h: 18)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 

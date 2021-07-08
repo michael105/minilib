@@ -38,6 +38,8 @@ GCC=gcc
 
 STRIP=1
 
+export STRIPFLAG=-I.
+
 #SHRINKELF=1
 
 ONLYTEXT = hello-smallest hello-include fputs
