@@ -1,7 +1,8 @@
 #define mini_start 
 #define mini_write
+#define INCLUDESRC
 
-#include "minilib/minilib.h"
+#include "minilib.h"
 
 #if 0
 testhello:

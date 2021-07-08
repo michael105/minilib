@@ -9,8 +9,7 @@ shrinkelf
 return
 #endif
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]){
 	char cwd[PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd))) {

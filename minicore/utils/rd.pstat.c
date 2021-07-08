@@ -1,5 +1,6 @@
 #if 0
 mini_start
+mini_buf 512
 mini_group_write
 
 

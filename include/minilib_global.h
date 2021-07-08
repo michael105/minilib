@@ -220,7 +220,7 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 #define mini_globals
 #endif
 #ifndef mini_globalregister
-// user register r15 by default
+// user register r15 by default (GCC only)
 #define mini_globalregister "r15"
 #endif
 #endif
@@ -267,7 +267,11 @@ extern char **environ;
 // a certain security advantage. Albite, well.
 // I leave this at it is for now.
 //
+#ifndef __clang__
 register minilib_globals __attribute__((used))*__restrict__ mlgl asm(mini_globalregister);
+#else
+minilib_globals __attribute__((used))*__restrict__ mlgl;
+#endif
 
 #define errno mlgl->errno
 #ifdef mini_environ
