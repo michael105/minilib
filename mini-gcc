@@ -28,6 +28,8 @@ else
 	REAL_CC="clang"
 fi
 
+REAL_CC="clang"
+
 if [ -z "$OPTFLAG" ]; then
 	OPTFLAG="-Os"
 fi

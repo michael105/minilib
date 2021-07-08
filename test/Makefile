@@ -31,7 +31,7 @@ MLIBDIR=../
 OPTFLAG=-Os
 
 # GCC
-GCC=gcc
+GCC=clang
 
 # LD
 #LD=ld
