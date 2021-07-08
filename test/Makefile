@@ -121,6 +121,19 @@ inittest: all
 retest: test rebuild
 	make test
 
+
+.ONESHELL:
+packtestresults:
+	echo p: $(tpath) $$target
+	mkdir "./$(tpath)"
+	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ( if [ -e $(P) ]; then cp $(P) ./$(tpath); fi;  ); ) true
+	cp *.log ./$(tpath)
+	cp results/*test.* ./$(tpath)
+	gcc -dumpspecs > ./$(tpath)/dumpspecs
+	ld --verbose > ./$(tpath)/ld.verbose
+	tar -czf results-packed.tgz ./$(tpath)
+
+
 .ONESHELL:
 SHELL = /bin/bash
 test: all
