@@ -63,10 +63,13 @@ extern int errno;
 // I mean, why the heck do I write volatile?? 
 //+def OPTFENCE
 static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
+#ifndef __clang__ 
 #define _optjmp(a,b) asm( a "OPTFENCE_"#b )
 #define _optlabel(a) asm( "OPTFENCE_" #a ":" )
 #define __optfence(a,...) _optjmp("jmp ", a ); opt_fence(__VA_ARGS__); _optlabel(a)
 #define OPTFENCE(...) __optfence(__COUNTER__,__VA_ARGS__)
+#else
+#define OPTFENCE(...)
 #endif
 
 

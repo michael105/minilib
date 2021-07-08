@@ -1655,7 +1655,7 @@ vexec_q        int vexec_q( const char* path, char* const* argv, char* const* en
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
               Deviating of system() an absolute pathname is taken.
-               (src/exec/vexec.c: 30)
+               (src/exec/vexec_q.c: 6)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 

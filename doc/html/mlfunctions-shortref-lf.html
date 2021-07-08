@@ -2152,12 +2152,12 @@
   Deviating of system() an absolute pathname is taken.
   sets errno on error.
  </small></td></tr>
-<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  30 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
+<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  6 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
 </small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits, 
   do not write any output of the process. (close stdout)
   Deviating of system() an absolute pathname is taken.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  138 </small></td><td><small> DEF_syscall(vfork,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/exec/vexec_q.c" target="right">../src/exec/vexec_q.c</a>  138 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  89 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>
