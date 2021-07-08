@@ -61,6 +61,8 @@ GREY="\033[02;37m"
 endif
 
 
+tpath=$(shell date '+%Y%m%d_%H%M')
+
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
 		include Makefile.minilib.old
