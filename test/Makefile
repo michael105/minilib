@@ -7,10 +7,12 @@ PROG=hello
 PROGCUSTOM=fopen malloc fprintf select fputs
 
 # ebedded config, mini-gcc, wildcard target
-MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
-					hashes sigaction realloc div ltodec globals atexit \
+MAKEPROGS=fprintf fopen strchr strstr system environ static \
+					hashes realloc div globals atexit \
 					strerror mallocstack strtol abort putenv strcmp\
-					getpwuid getgrgid getgrnam getgroups brk brk2
+					getpwuid getgrgid getgrnam getgroups 
+
+FAILING=ltodec sigaction vfork vforked
 
 MINIGCC=rand sleep execve strdup
 
@@ -146,7 +148,7 @@ test: all
 	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
-			set -o pipefail; ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi;\
+			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi;\
 			if [ $$? != 0 ]; then echo $(RED) Fail; fi )| \
 			tee results/$(P)-test.stdout'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \

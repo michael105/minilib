@@ -182,6 +182,8 @@ typedef struct {
 #endif
 } minilib_globals;
 
+#ifndef __clang__
+
 //+doc prevent optimizations.
 // cast a var to void*, and calling this,
 // leaves the compiler unknown on what he can strip.
@@ -207,9 +209,12 @@ typedef struct {
 // With less overhead the macro OPTFENCE(...) goes.
 // There the call to the "ipa" function is jumped over,
 // via asm inline instructions. 
+// Doesn't work with clang.
+// But yet I also didn't it with clang.
 //+def optimization_fence
 static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 
+#endif
 
 
 // void __attribute__((noipa,naked))prevent_optimization(void*p){

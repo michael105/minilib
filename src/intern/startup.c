@@ -109,7 +109,9 @@ mlgl->grent.gr_name = 0;
 	// all other options, like using the global struct within a asm volatile,
 	// and so on, have shown up to be unreliable.
 #ifdef mini_globals
+#ifndef __clang__
 	opt_fence((void*)mlgl);
+#endif
 #endif
 	// silence compiler warning.
 	__builtin_unreachable();

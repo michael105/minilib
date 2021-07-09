@@ -13,13 +13,8 @@
 //+inc
 //
 //+def
-static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
-#if 0
-		int ret;
-		int tmp = fd;
-		syscall5(ret, SCALL(select),tmp,(POINTER)readfd,(POINTER)writefd,(POINTER)exceptfd,(POINTER) wait);
-		return(ret);
-#else
+static int volatile ATTR_OPT("O0") select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait){
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
@@ -42,7 +37,6 @@ static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_s
 		return(sysret);
 
 #pragma GCC diagnostic pop
-#endif
 }
 
 #endif

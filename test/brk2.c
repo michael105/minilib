@@ -41,11 +41,11 @@ int main(int argc, char **argv){
 		unsigned long *memstart;
 		r = (ulong)sbrk(0);
 		memstart = (ulong*)r;
-		printf("r: %ld\n",r);
+		//printf("r: %ld\n",r);
 		r = (ulong)sbrk(32);
-		printf("r: %ld\n",r);
+		//printf("r: %ld\n",r);
 		r = (ulong)sbrk(0);
-		printf("r: %ld\n",r);
+		//printf("r: %ld\n",r);
 
 
 		for( int a=0; a<8; a++ ){
