@@ -105,7 +105,7 @@ ALIGN
               and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
                (macros/alignment.h: 9)
 
-OPTFENCE       #ifndef __clang__ 
+OPTFENCE       #ifndef __clang__
 
                prevent gcc to optimize away registers and variables
               the macro OPTFENCE(...) can be invoked with any parameter.
