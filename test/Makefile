@@ -135,8 +135,9 @@ packtestresults:
 	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ( if [ -e $(P) ]; then cp $(P) ./$(tpath); fi;  ); ) true
 	cp *.log ./$(tpath)
 	cp results/*test.* ./$(tpath)
-	gcc -dumpspecs > ./$(tpath)/dumpspecs
+	gcc -dumpspecs > ./$(tpath)/gcc-dumpspecs
 	ld --verbose > ./$(tpath)/ld.verbose
+	clang -v > ./$(tpath)/clang-v
 	tar -czf results-packed.tgz ./$(tpath)
 
 
