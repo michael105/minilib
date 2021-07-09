@@ -21,8 +21,14 @@ int main( int argc, char *argv[] ){
 		int pid = fork();
 		//printf("Pid: %d\n",pid);
 		printf("Sleep 1\n");
-		unsigned int i = sleep(1);
-		printf("Got: %d\n",i);
+		if ( !pid){
+			printf("pid\n");
+			unsigned int i = sleep(1);
+			printf("pid . sl\n");
+			printf("Got: %d\n",i);
+		} else {
+			printf("nopid\n");
+		}
 
 
 		return(0);

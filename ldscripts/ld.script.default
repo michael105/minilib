@@ -40,6 +40,8 @@ SECTIONS {
 		 {
 						*(.data .data.*)
 			} : data
+	 . = .;
+  	 __bss_start = .;
 
 
 		.bss           : 
@@ -51,9 +53,8 @@ SECTIONS {
 							 _end.  Align after .bss to ensure correct alignment even if the
 							 .bss section disappears because there are no input sections.
 								misc: deleted : */
-				. = ALIGN(. != 0 ? 32 / 8 : 1);
+				. = ALIGN(. != 0 ? 64 / 8 : 1);
 		} :bss 
-		 . = ALIGN(64 / 8);
 	  _end = .; 
 		PROVIDE (_end = .); 
 

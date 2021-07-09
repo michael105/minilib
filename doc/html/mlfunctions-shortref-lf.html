@@ -4,7 +4,7 @@
   There are the macros ALIGN_2 ALIGN_4 ALIGN_8 ...,
   and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
  </small></td></tr>
-<tr valign="top"><td><small>OPTFENCE</small></td><td><small>   <a href="../macros/alignment.h" target="right">../macros/alignment.h</a>  65 </small></td><td><small>  void ) opt_fence(void*p,...);
+<tr valign="top"><td><small>OPTFENCE</small></td><td><small>   <a href="../macros/alignment.h" target="right">../macros/alignment.h</a>  65 </small></td><td><small> #ifndef __clang__ 
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent gcc to optimize away registers and variables
   the macro OPTFENCE(...) can be invoked with any parameter.
   The parameters will get calculated, even if gcc doesn't recognize
@@ -916,7 +916,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>inotify_rm_watch</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  207 </small></td><td><small> inotify_rm_watch( int fd,  __s32 wd)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> int   )) ioctl( int fd, unsigned long int request, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/ioctl.2.rst.html">ioctl</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> int   ATTR_OPT("O0") ioctl( int fd, unsigned long int request, ... );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/ttyname.3.rst.html">isatty</a></small></td><td><small>   <a href="../src/system/ioctl.c" target="right">../src/system/ioctl.c</a>  5 </small></td><td><small> int isatty(int fd);
 </small></td></tr>
@@ -1639,7 +1639,7 @@
   potentiates the *@* to many possibilities.
   One for every linebreak following 'matches'.
  </small></td></tr>
-<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match/match_ext2.c" target="right">../src/match/match_ext2.c</a>  89 </small></td><td><small> #ifndef mini_max_groupmembers
+<tr valign="top"><td><small>max_groupmembers</small></td><td><small>   <a href="../src/match/match_ext2.c" target="right">../src/match/match_ext2.c</a>  96 </small></td><td><small> #ifndef mini_max_groupmembers
 </small></td></tr><tr><td></td><td colspan="2"><small>The maximum number of users, 
   which are within a group.
   used for the allocation of the array gr_mem.
@@ -1664,7 +1664,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mknod.2.rst.html">mknod</a></small></td><td><small>   <a href="../include/mkfifo.h" target="right">../include/mkfifo.h</a>  239 </small></td><td><small> mknod( const char *filename,  umode_t mode,  unsigned dev)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/mmap.2.rst.html">mmap</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small>  void* )) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/mmap.2.rst.html">mmap</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small>  void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 </small></td></tr><tr><td></td><td colspan="2"><small>mmap wrapper
   address length is rounded up to a multiple of pagesize (4096 Bytes here)
   for the description, please look up the according manpage
@@ -1676,7 +1676,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/mprotect.2.rst.html">mprotect</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  234 </small></td><td><small> mprotect( POINTER *a1, POINTER a2, int a3 )
 </small></td></tr>
-<tr valign="top"><td><small>mremap</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  void*  )) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
+<tr valign="top"><td><small>mremap</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  void*  ATTR_OPT("O0") mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/msync.2.rst.html">msync</a></small></td><td><small>   <a href="../include/mremap.h" target="right">../include/mremap.h</a>  242 </small></td><td><small> msync( void* addr,  size_t len, int flags)
 </small></td></tr>
@@ -1703,7 +1703,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/directories/opendir.c" target="right">../src/directories/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  211 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  215 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -1729,6 +1729,8 @@
   With less overhead the macro OPTFENCE(...) goes.
   There the call to the "ipa" function is jumped over,
   via asm inline instructions. 
+  Doesn't work with clang.
+  But yet I also didn't it with clang.
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strerror.3.rst.html">perror</a></small></td><td><small>   <a href="../include/minilib_global.h" target="right">../include/minilib_global.h</a>  4 </small></td><td><small> void perror(const char *msg);
 </small></td></tr>
@@ -1874,7 +1876,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/math/sdbm_hash.c" target="right">../src/math/sdbm_hash.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/directories/seekdir.c" target="right">../src/directories/seekdir.c</a>  16 </small></td><td><small>  int  )) select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/select.2.rst.html">select</a></small></td><td><small>   <a href="../src/directories/seekdir.c" target="right">../src/directories/seekdir.c</a>  16 </small></td><td><small>  int  ATTR_OPT("O0") select(int fd,  fd_set* readfd,  fd_set *writefd,  fd_set *exceptfd,  struct timeval *wait);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sendfile.2.rst.html">sendfile</a></small></td><td><small>   <a href="../include/select.h" target="right">../include/select.h</a>  172 </small></td><td><small> sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)
 </small></td></tr>
@@ -2095,7 +2097,7 @@
   And most possibly it would be better to implement bsd's cached versions 
   of the user db access functions instead. 
  </small></td></tr>
-<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/userdb/userdb.c" target="right">../src/userdb/userdb.c</a>  9 </small></td><td><small> int ))uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
+<tr valign="top"><td><small>uitodec</small></td><td><small>   <a href="../src/userdb/userdb.c" target="right">../src/userdb/userdb.c</a>  9 </small></td><td><small> int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
 </small></td></tr><tr><td></td><td colspan="2"><small>convert int to string.
   prec: precision, e.g. 4=> 0087 
   pad: 0 (pad with spaces), or the char to pad
@@ -2152,12 +2154,12 @@
   Deviating of system() an absolute pathname is taken.
   sets errno on error.
  </small></td></tr>
-<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  30 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
+<tr valign="top"><td><small>vexec_q</small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  6 </small></td><td><small> int vexec_q( const char* path, char* const* argv, char* const* envp );
 </small></td></tr><tr><td></td><td colspan="2"><small>execute a path, wait until the executed file exits, 
   do not write any output of the process. (close stdout)
   Deviating of system() an absolute pathname is taken.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/exec/vexec.c" target="right">../src/exec/vexec.c</a>  138 </small></td><td><small> DEF_syscall(vfork,0)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/vfork.2.rst.html">vfork</a></small></td><td><small>   <a href="../src/exec/vexec_q.c" target="right">../src/exec/vexec_q.c</a>  138 </small></td><td><small> DEF_syscall(vfork,0)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">vfprintf</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  89 </small></td><td><small> #define vfprintf(...) fprintf(__VA_ARGS__)
 </small></td></tr>

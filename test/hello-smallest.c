@@ -4,7 +4,7 @@
 
 #define INCLUDESRC
 
-#include "minilib/minilib.h"
+#include "minilib.h"
 //void _exit(int i);
 
 int main(){

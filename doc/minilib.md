@@ -87,7 +87,7 @@ mkfifo         static int mkfifo( const char* path, mode_t mode );
 ioctl.h
 ==========
 
-ioctl          int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... );
+ioctl          int volatile  ATTR_OPT("O0") ioctl( int fd, unsigned long int request, ... );
 
                (src/system/ioctl.c: 9)
 
@@ -105,7 +105,7 @@ ALIGN
               and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
                (macros/alignment.h: 9)
 
-OPTFENCE       static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...);
+OPTFENCE       #ifndef __clang__ 
 
                prevent gcc to optimize away registers and variables
               the macro OPTFENCE(...) can be invoked with any parameter.
@@ -1304,14 +1304,14 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 89)
+               (include/globaldefs.h: 96)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
                frob string; xor every char with 42
                (src/memory/memfrob.c: 4)
 
-mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
+mmap           static void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 
                mmap wrapper
               address length is rounded up to a multiple of pagesize (4096 Bytes here)
@@ -1321,7 +1321,7 @@ mmap           static void* __attribute__((optimize("O0"))) mmap(void* addr,  si
               (e.g. -22 for "invalid argument")
                (src/memory/mmap.c: 8)
 
-mremap         static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
+mremap         static void* volatile ATTR_OPT("O0") mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr);
 
                (include/mremap.h: 4)
 
@@ -1369,7 +1369,9 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               With less overhead the macro OPTFENCE(...) goes.
               There the call to the "ipa" function is jumped over,
               via asm inline instructions. 
-               (include/minilib_global.h: 211)
+              Doesn't work with clang.
+              But yet I also didn't it with clang.
+               (include/minilib_global.h: 215)
 
 poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
 
@@ -1602,7 +1604,7 @@ token_s        char *token_s( userdb *udb, char **p );
               of the user db access functions instead. 
                (src/userdb/userdb.c: 19)
 
-uitodec        int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
+uitodec        int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
 
                convert int to string.
               prec: precision, e.g. 4=> 0087 
@@ -1655,7 +1657,7 @@ vexec_q        int vexec_q( const char* path, char* const* argv, char* const* en
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
               Deviating of system() an absolute pathname is taken.
-               (src/exec/vexec.c: 30)
+               (src/exec/vexec_q.c: 6)
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
 
@@ -2592,7 +2594,7 @@ open           int volatile open( const char *s, int flags, ... );
               the flag showing up as "-T" means..)
                (src/file/open.c: 18)
 
-select         static int volatile __attribute__((optimize("O0"))) select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
+select         static int volatile ATTR_OPT("O0") select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait);
 
                (include/select.h: 16)
 

@@ -154,18 +154,18 @@ char* strstr(const char *big, const char *little);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/string/strerror.c"
 #include "minilib/src/string/strncpy.c"
-#include "minilib/src/memory/memcpy.c"
-#include "minilib/src/string/strchr.c"
-#include "minilib/src/string/strlen.c"
-#include "minilib/src/memory/memmove.c"
+#include "minilib/src/string/strdup.c"
 #include "minilib/src/string/strcpy.c"
+#include "minilib/src/string/strstr.c"
+#include "minilib/src/memory/memcpy.c"
+#include "minilib/src/string/strerror.c"
+#include "minilib/src/string/strlen.c"
+#include "minilib/src/memory/memcmp.c"
 #include "minilib/src/string/strcat.c"
 #include "minilib/src/memory/memset.c"
-#include "minilib/src/string/strstr.c"
-#include "minilib/src/memory/memcmp.c"
-#include "minilib/src/string/strdup.c"
+#include "minilib/src/string/strchr.c"
+#include "minilib/src/memory/memmove.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
