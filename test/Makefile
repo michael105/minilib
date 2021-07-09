@@ -170,7 +170,7 @@ test: all
 testql: all
 	@rm -f failed.txt passed.txt
 	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
-	@$(foreach P,$(PROG) hello-combined $(TESTQL), \
+	@$(foreach P,hello-combined $(TESTQL), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
 			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \
