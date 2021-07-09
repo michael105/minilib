@@ -1,7 +1,7 @@
 #ifndef globaldefs_h
 #define globaldefs_h
 
-// definitions
+// definitions, included first
 
 #ifdef X64
 #define POINTER unsigned long int
@@ -20,6 +20,13 @@ typedef unsigned char uint8_t;
 
 #ifndef size_t
 typedef long size_t;
+#endif
+
+
+#ifndef __clang__
+#define ATTR_OPT(x) __attribute__((optimize(x)))
+#else
+#define ATTR_OPT(x)
 #endif
 
 // Locks
