@@ -8,11 +8,22 @@ VERSION="20210708"
 ansicolor=1
 
 # be verbose
-verbose=0
+if [ -n "$VERBOSE" ]; then
+if [ $VERBOSE = 1 ]; then
+	verbose=1
+else
+	verbose=0
+fi
+else
+	verbose=0
+fi
 
 # use either the minilib, included within this script as zipped file.
 # Or use the individual files, whem existing within MLIBDIR
 useincludedminilib=1
+
+# use clang
+CLANG=1
 
 #everything between _start and _end is extracted and copied into Makefile.minilib
 # ------------------
@@ -23,9 +34,16 @@ useincludedminilib=1
 
 if [ -n "$CC" ]; then
 	REAL_CC="$CC"
+	echo $CC | sed '/clang/Q1'
+	if [ $? = 1 ]; then
+		CLANG=1
+	fi
 else
-	#REAL_CC="gcc"
-	REAL_CC="clang"
+	if [ $CLANG = 1 ]; then
+		REAL_CC="clang"
+	else
+		REAL_CC="gcc"
+	fi
 fi
 
 if [ -z "$OPTFLAG" ]; then
@@ -49,7 +67,13 @@ COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffu
 
 
 # needs os detection. but not important for now
-CFLAGS="$COMMONCFLAGS -DLINUX -DX64 -fuse-ld=lld"
+CFLAGS="$COMMONCFLAGS -DLINUX -DX64"
+
+# somehow; seems to be neccessary telling clang exclusively to use it's on linker.?
+if [ $CLANG = 1 ]; then
+	CFLAGS="$CFLAGS -fuse-ld=lld"
+fi
+
 
 # ld options 
 CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
@@ -69,34 +93,34 @@ colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$N
 # grep mini-gcc path 
 MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/mini-gcc/\1/")
 if [ ! -e "$MLIBDIR/minilib.h" ]; then
-		MLIBDIR="."
-		if [ ! -e "$MLIBDIR/minilib.h" ]; then
-				MLIBDIR="/home/micha/prog/minilib"  # .. I know ;)
-		fi
+	MLIBDIR="."
+	if [ ! -e "$MLIBDIR/minilib.h" ]; then
+		MLIBDIR="/home/micha/prog/minilib"  # .. I know ;)
+	fi
 fi
 
 INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \
-		-I$MLIBDIR/include "
-	
+	-I$MLIBDIR/include "
+
 
 if [ ! -e "$MLIBDIR/minilib.h" ]; then # minilib not found. check, if included
-		if [  "`sed -n '/^#MINILIBGZ/,+3p' $0 | sed -n '3s/.*/1/p'`" = 1 ];then
-				useincludedminilib=1
-		fi
+	if [  "`sed -n '/^#MINILIBGZ/,+3p' $0 | sed -n '3s/.*/1/p'`" = 1 ];then
+		useincludedminilib=1
+	fi
 fi
 
 
 echo_verbose(){
-		if [ $verbose = 1 ]; then
+	if [ $verbose = 1 ]; then
 		>&2 echo $@
-		fi
+	fi
 }
 
 
 verbose(){
-		if [ $verbose = 1 ]; then
+	if [ $verbose = 1 ]; then
 		>&2 echo $@
-		fi
+	fi
 }
 
 fail(){
@@ -113,9 +137,9 @@ while [ 1 ]; do # loop around the whole script,
 if [ $PARSE = 0 ]; then 
 
 usage(){
-		echo "mini-gcc v.$VERSION"
-		echo
-		echo "Usage: \`mini-gcc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf\`
+	echo "mini-gcc v.$VERSION"
+	echo
+	echo "Usage: \`mini-gcc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf\`
 
 mini-gcc compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc with the right compile options,
@@ -250,87 +274,89 @@ before options and parameters for gcc.
 
 # compile gcc options and execute gcc
 exec_gcc(){
-		opt_args="$@"
+	opt_args="$@"
 
-if [ -n "$sources" ]; then
-	opt_args="$@ $sources"
-	verbose Sources: $sources
-fi
+	if [ -n "$sources" ]; then
+		opt_args="$@ $sources"
+		verbose Source: $sources
+	fi
 
-if [ "$opt_execname" != "" ]; then # compile and execute
+	if [ "$opt_execname" != "" ]; then # compile and execute
 		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
-fi
+	fi
 
-if [ -n "$SHOWSOURCES" ]; then
-	opt_args="-E -P $opt_args"
-else
+	if [ -n "$SHOWSOURCES" ]; then
+		opt_args="-E -P $opt_args"
+	else
 
-if [ -n "$outputfile" ]; then
-	opt_args="-o $outputfile $opt_args"
-	verbose Binary: $binary 
-fi
-fi
+		if [ -n "$outputfile" ]; then
+			opt_args="-o $outputfile $opt_args"
+			verbose Binary: $binary 
+		fi
+	fi
 
-if [ -n "$PICFLAG" ]; then
-	CFLAGS="$PICFLAG $CFLAGS"
-fi
+	if [ -n "$PICFLAG" ]; then
+		CFLAGS="$PICFLAG $CFLAGS"
+	fi
 
-if [ -n "$NOCOLOR" ]; then
-	colorize=""
-fi
+	if [ -n "$NOCOLOR" ]; then
+		colorize=""
+	fi
 
-INCLUDEMINILIB=""
-if [ "$useincludedminilib" == "X" ]; then
+	INCLUDEMINILIB=""
+	if [ "$useincludedminilib" == "X" ]; then
 		INCLUDEMINILIB="-include <($0 --dump-minilib)"
-fi
+	fi
 
 
-if [ "$useincludedminilib" == "0" ]; then
-if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
-		LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
-fi
-fi
+	if [ "$useincludedminilib" == "0" ]; then
+		if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
+			LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
+		fi
+	fi
 
-if [ "$LDSCRIPTFILE" == "" ]; then
+	if [ "$LDSCRIPTFILE" == "" ]; then
 		LDSCRIPTFILE="<($0 --dump ld_script_$LDSCRIPT)"
-fi
-if [ "$fulldebug" == 1 ]; then
+	fi
+	if [ "$fulldebug" == 1 ]; then
 		dbgfile=`echo -n $opt_args | sed -E 's/.*-o (\S*).*/\1.dbg/'`
 		opt_args=`echo -n $opt_args | sed -E 's/-o \S*//'`
-fi
+	fi
 
-INCLUDECONFIG=""
-if [ "$opt_config" != "" ]; then
+	INCLUDECONFIG=""
+	if [ "$opt_config" != "" ]; then
 		if [ "$useincludedminilib" == "0" ]; then
 			INCLUDECONFIG="-include <($0 --dump-config $opt_config)"
 		else 
-		#	INCLUDECONFIG="-include <($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib)"
-		($0 --useincludedminilib --dump-config $opt_config;$0 --dump-minilib) > minilib.tmp.h
-		#($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib) > minilib.tmp.h
-		INCLUDECONFIG="-include minilib.tmp.h"
+			#	INCLUDECONFIG="-include <($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib)"
+			#($0 --useincludedminilib --dump-config $opt_config;$0 --dump-minilib) > minilib.tmp.h
+			#($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib) > minilib.tmp.h
+			($0 --useincludedminilib --dump-config $opt_config) > minilibcfg.tmp.h
+			$0 --useincludedminilib --dump-minilib > minilib.tmp.h
+			INCLUDECONFIG="-include minilibcfg.tmp.h -include minilib.tmp.h"
 		fi
-fi
+	fi
 
 
-if [ "$useincludedminilib" == "0" ]; then
-	CFLAGS="$INCLUDEDIRS $CFLAGS"
-fi
+	if [ "$useincludedminilib" == "0" ]; then
+		CFLAGS="$INCLUDEDIRS $CFLAGS"
+	fi
 
 
-echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
+	echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
 
 
-if [ "$debuglog" = "1" ]; then
+	if [ "$debuglog" = "1" ]; then
 		let i=1;
 		while [ -e "debuglog.$i" ] 
 		do 
-				let i++
+			let i++
 		done
 		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E > debuglog.$i
-fi
+	fi
 
 
-if [ "$fulldebug" == 1 ]; then
+	if [ "$fulldebug" == 1 ]; then
 		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
 
 		echo $CYAN eval "$REAL_CC $INCLUDECONFIG $CYAN$INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $opt_args -E" 
@@ -341,7 +367,7 @@ if [ "$fulldebug" == 1 ]; then
 		echo $CYAN "eval $REAL_CC $CFLAGS,-T$LDSCRIPTFILE -Og -g2 -o $dbgfile $dbgfile.c"$NORM
 
 		eval $REAL_CC $CFLAGS,-T$LDSCRIPTFILE -Og -g2 -o $dbgfile $dbgfile.c $colorize
-else
+	else
 		# execute gcc
 		if [ "$dump_cmd" = "1" ]; then
 			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
@@ -349,53 +375,53 @@ else
 			eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS,-T$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		fi
 		#$REAL_CC $CFLAGS$LDSCRIPT $@
-fi
-return ${PIPESTATUS[1]}
+	fi
+	return ${PIPESTATUS[1]}
 }
 
 
 # Parse config.
 # Also set variables in the current instance of mini-gcc
 checkconfig (){
-	  #( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
-		echo_verbose minilibconfig: parse $1
-		#ERR=$((source $1 > $1.h) 2>&1)
-		#echo '#include "minilib.h"' >> $1.h
-		#sed "s/command/function/"
-		ERR= source $1 2>&1 > /dev/null
-		echo_verbose var: $VAR
-		if [ -n "$ERR" ]; 
-		then
-				echo -e "Error parsing config in $1: \n $ERR" >&2
-				exit 1;
-		fi
+	#( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
+	echo_verbose minilibconfig: parse $1
+	#ERR=$((source $1 > $1.h) 2>&1)
+	#echo '#include "minilib.h"' >> $1.h
+	#sed "s/command/function/"
+	ERR= source $1 2>&1 > /dev/null
+	echo_verbose var: $VAR
+	if [ -n "$ERR" ]; 
+	then
+		echo -e "Error parsing config in $1: \n $ERR" >&2
+		exit 1;
+	fi
 
-		echo_verbose minilibdir: $MLIBDIR
-		echo_verbose ARCH: $MINI_ARCH
-		echo_verbose OS: $MINI_OS
-		echo_verbose ldscript: $LDSCRIPT
-		#echo GCC-Options: $REAL_CC $CFLAGS
-		#CFLAGS="--include $1.h $CFLAGS"
+	echo_verbose minilibdir: $MLIBDIR
+	echo_verbose ARCH: $MINI_ARCH
+	echo_verbose OS: $MINI_OS
+	echo_verbose ldscript: $LDSCRIPT
+	#echo GCC-Options: $REAL_CC $CFLAGS
+	#CFLAGS="--include $1.h $CFLAGS"
 }
 
 
 dumpconfig (){
 
-		exec 3>&1 4>&2 #open fd 3
-		E=$( { source $1 1>&3;} 2>&1 ) 3>&1
+	exec 3>&1 4>&2 #open fd 3
+	E=$( { source $1 1>&3;} 2>&1 ) 3>&1
 
-		if [ "$E" != "" ]; 
-		then
-				echo -e "Error parsing config in $1: \n\033[1;31m $E \033[1;37m" >&2
-				#exit 1;
-		fi
+	if [ "$E" != "" ]; 
+	then
+		echo -e "Error parsing config in $1: \n\033[1;31m $E \033[1;37m" >&2
+		#exit 1;
+	fi
 
-		if [ "$useincludedminilib" == "0" ]; then
-				echo '#include "minilib.h"'
+	if [ "$useincludedminilib" == "0" ]; then
+		echo '#include "minilib.h"'
 		#else
 		#		echo -e "#define mini_INCLUDESRC\n"
 
-		fi
+	fi
 
 		#CFLAGS="--include $1.h $CFLAGS"
 }
@@ -634,7 +660,7 @@ if [ "$2" == "" ]; then
 	outputfile=`echo $1 | sed -E 's/(.*)\..*/\1/'`
 	checkconfig $config
 	opt_config=$config
-	if [ "$1" == "Soutputfile" ]; then
+	if [ "$1" == "$outputfile" ]; then
 		fail "couldn't determine the outputfile.\nGot: $1"
 	fi
 	#REAL_CC="$REAL_CC -o $outputfile $1"
@@ -649,248 +675,248 @@ fi
 a=0
 for i in "$@"
 do
-		if [ $a = 1 ]; then
-				outputfile=$i
-				a=0
-				break
-		fi
-		if [ $i == "-o" ]
-		then
-			a=1
-		fi
+	if [ $a = 1 ]; then
+		outputfile=$i
+		a=0
+		break
+	fi
+	if [ $i == "-o" ]
+	then
+		a=1
+	fi
 done
 
 #echo_verbose "output: $outputfile"
 while [ "$1" != "" ] && [ $opt = 1 ]
 do
-		opt=0
-		case $1 in
-				--gcc )
-						shift
-						opt=0
-						;;
-				--dlog )
-						shift
-						opt=1
-						debuglog=1
-						;;
-				--version )
-						echo $VERSION
-						exit 0
-						;;
-				--verbose | -v )
-						verbose=1
-						shift
-						opt=1
-						;;
-				--dump-cmd )
-						shift
-						opt=1
-						dump_cmd=1
-						;;
-				--showsources )
-						shift
-						opt=1
-						SHOWSOURCES=1
-						;;
-				--useincludedminilib )
-						shift
-						opt=1
-						useincludedminilib=1
-						;;
+	opt=0
+	case $1 in
+		--gcc )
+			shift
+			opt=0
+			;;
+		--dlog )
+			shift
+			opt=1
+			debuglog=1
+			;;
+		--version )
+			echo $VERSION
+			exit 0
+			;;
+		--verbose | -v )
+			verbose=1
+			shift
+			opt=1
+			;;
+		--dump-cmd )
+			shift
+			opt=1
+			dump_cmd=1
+			;;
+		--showsources )
+			shift
+			opt=1
+			SHOWSOURCES=1
+			;;
+		--useincludedminilib )
+			shift
+			opt=1
+			useincludedminilib=1
+			;;
 
-				--dump-minilib )
-					if [ "$useincludedminilib" = "0" ] && [ -e $MLIBDIR/minilib.h ]
-						then 
-								cat $MLIBDIR/minilib.h
-						else
-								sed -e '0,/^#MINILIBGZ#$/d;/^#ENDGZ/Q' $0 | head -q -c -1 | gunzip -c
-						fi
-						exit 0
-						;;
-				--dump )
-						if [ "${!2}" == "" ] ; then
-								echo No such var: $2 >&2
-								exit 1
-						else
-								echo "${!2}"
-								exit 0
-						fi
-						;;
-				--config )   
-						shift
-						config=$1
-						checkconfig $config 
-						opt_config=$1
-						shift
-						opt=1
-						;;
-				-mlc | --compile )
-						shift
-						config=$1
-						echo $REAL_CC config: $config
-						checkconfig $config
-						opt_config=$1
-						outputfile=`basename $1 .c`
-						REAL_CC="$REAL_CC -o $outputfile $1"
-						echo $REAL_CC
-						compile=1
-						opt=1
-						shift
-						;;
-				--dump-config )   
-						shift
-						config=$1
-						dumpconfig $config 
-						exit $?
-						;;
-				--force )
-						shift
-						opt_force=1
-						opt=1
-						;;
-				--no-mbuf )
-						opt_nombuf="--no-mbuf"
-						shift
-						opt=1
-						;;
-				--compat )
-						$CFLAGS="$CFLAGS -I$MLIBDIR/compat"
-						echo Warning: compat headers >&2
-						shift
-						opt=1
-						;;
-				--exec ) #compile and run 
-						shift
-						opt=1
-						opt_exec=1
-						opt_execname=`basename $1 .c`
-						opt_compilename=`echo $1 | sed 's/.*\///'`
-						REAL_CC="$REAL_CC -o $opt_execname" # -x c <(cat $1)"
-						verbose compiling $1 to $opt_execname: $REAL_CC
-						#shift
-						;;
-				--autoconf | -ac )
-						shift
-						opt_autoconf=1
-						opt=1
-						#echo "Invoking: $0 --config <($0 --dump-conf $@) $@ --include <($0 --dump-minilib)" 
-						genconfig $@ 
-						echo Ok
-						source <( genconfig $@ ) > minilib.mconf.h
-						echo '#include "minilib.h"' >> minilib.mconf.h
-						if [ "$opt_ldscript" != "" ]; then
-								$0 --ldscript $opt_ldscript $@ -include minilib.mconf.h -include <($0 --dump-minilib) -DINCLUDESRC
-						else
-								$0 $@ -include minilib.mconf.h -include <($0 --dump-minilib) -DINCLUDESRC
-						fi
-						exit $?
-						;;
-				--dump-conf )
-						shift
-						genconfig $@
-						exit $?
-						;;
-				--genconf )
-						shift
-						outfile=$1
-						if [ -e $outfile ]
-						then
-								if [ $opt_force == 1 ]
-								then
-										echo "Overwriting $outfile"
-								else
-										echo "$outfile already exists. Won't overwrite without --force."
-										exit 1
-								fi
-						fi
-						echo generating config in $outfile
-						shift
-						genconfig $@ > $outfile
-						exit $?
-						;;
-				--ldscript )
-						shift
-						opt_ldscript=$1
-						if [ -e "$MLIBDIR/ldscripts/ld.script.$1" ]; then
-								LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$1"
-						else
-								LDSCRIPT="$1"
-						fi
-						shift
-						opt=1
-						;;
-				--ldscript-file )
-						shift
-						LDSCRIPT=",-T$1"
-						shift
-						opt=1
-						;;
-				--shrinkelf )
-						shift
-						opt=1
-						opt_shrinkelf=1
-						;;
-			 	-h | --help )   
-						usage
-						exit
-						;;
-				--license )
-						echo "$LICENSE"
-						echo
-						exit
-						;;
-				--fulldebug )
-						shift
-						opt=1
-						fulldebug=1
-						;;
+		--dump-minilib )
+			if [ "$useincludedminilib" = "0" ] && [ -e $MLIBDIR/minilib.h ]
+			then 
+				cat $MLIBDIR/minilib.h
+			else
+				sed -e '0,/^#MINILIBGZ#$/d;/^#ENDGZ/Q' $0 | head -q -c -1 | gunzip -c
+			fi
+			exit 0
+			;;
+		--dump )
+			if [ "${!2}" == "" ] ; then
+				echo No such var: $2 >&2
+				exit 1
+			else
+				echo "${!2}"
+				exit 0
+			fi
+			;;
+		--config )   
+			shift
+			config=$1
+			checkconfig $config 
+			opt_config=$1
+			shift
+			opt=1
+			;;
+		-mlc | --compile )
+			shift
+			config=$1
+			echo $REAL_CC config: $config
+			checkconfig $config
+			opt_config=$1
+			outputfile=`basename $1 .c`
+			REAL_CC="$REAL_CC -o $outputfile $1"
+			echo $REAL_CC
+			compile=1
+			opt=1
+			shift
+			;;
+		--dump-config )   
+			shift
+			config=$1
+			dumpconfig $config 
+			exit $?
+			;;
+		--force )
+			shift
+			opt_force=1
+			opt=1
+			;;
+		--no-mbuf )
+			opt_nombuf="--no-mbuf"
+			shift
+			opt=1
+			;;
+		--compat )
+			$CFLAGS="$CFLAGS -I$MLIBDIR/compat"
+			echo Warning: compat headers >&2
+			shift
+			opt=1
+			;;
+		--exec ) #compile and run 
+			shift
+			opt=1
+			opt_exec=1
+			opt_execname=`basename $1 .c`
+			opt_compilename=`echo $1 | sed 's/.*\///'`
+			REAL_CC="$REAL_CC -o $opt_execname" # -x c <(cat $1)"
+			verbose compiling $1 to $opt_execname: $REAL_CC
+			#shift
+			;;
+		--autoconf | -ac )
+			shift
+			opt_autoconf=1
+			opt=1
+			#echo "Invoking: $0 --config <($0 --dump-conf $@) $@ --include <($0 --dump-minilib)" 
+			genconfig $@ 
+			echo Ok
+			source <( genconfig $@ ) > minilib.mconf.h
+			echo '#include "minilib.h"' >> minilib.mconf.h
+			if [ "$opt_ldscript" != "" ]; then
+				$0 --ldscript $opt_ldscript $@ -include minilib.mconf.h -include <($0 --dump-minilib) -DINCLUDESRC
+			else
+				$0 $@ -include minilib.mconf.h -include <($0 --dump-minilib) -DINCLUDESRC
+			fi
+			exit $?
+			;;
+		--dump-conf )
+			shift
+			genconfig $@
+			exit $?
+			;;
+		--genconf )
+			shift
+			outfile=$1
+			if [ -e $outfile ]
+			then
+				if [ $opt_force == 1 ]
+				then
+					echo "Overwriting $outfile"
+				else
+					echo "$outfile already exists. Won't overwrite without --force."
+					exit 1
+				fi
+			fi
+			echo generating config in $outfile
+			shift
+			genconfig $@ > $outfile
+			exit $?
+			;;
+		--ldscript )
+			shift
+			opt_ldscript=$1
+			if [ -e "$MLIBDIR/ldscripts/ld.script.$1" ]; then
+				LDSCRIPTFILE="$MLIBDIR/ldscripts/ld.script.$1"
+			else
+				LDSCRIPT="$1"
+			fi
+			shift
+			opt=1
+			;;
+		--ldscript-file )
+			shift
+			LDSCRIPT=",-T$1"
+			shift
+			opt=1
+			;;
+		--shrinkelf )
+			shift
+			opt=1
+			opt_shrinkelf=1
+			;;
+		-h | --help )   
+			usage
+			exit
+			;;
+		--license )
+			echo "$LICENSE"
+			echo
+			exit
+			;;
+		--fulldebug )
+			shift
+			opt=1
+			fulldebug=1
+			;;
 
-		esac
+	esac
 done
 
 verbose Parsing args done.
 
 if [ "$1" = "" ]; then
-		if [ "$compile" != "1" ]; then
+	if [ "$compile" != "1" ]; then
 		# Assume, everything is alright and there havent been parameters forgotten
 		# $1 will have the arguments for gcc, so continue below..
 		exit 0;
-		fi
+	fi
 fi
 
 #echo args: $@
 if [ $opt_autoconf = 1 ]
 then
-		exec_gcc $@
+	exec_gcc $@
 else
-		exec_gcc $@
+	exec_gcc $@
 fi
 
 ret=$?
 
 if [ $ret != 0 ]; then
-		echo Error.
-		#echo Failed command:
-		#echo $REAL_CC $CFLAGS$LDSCRIPT $@
-		exit $ret
+	echo Error.
+	#echo Failed command:
+	#echo $REAL_CC $CFLAGS$LDSCRIPT $@
+	exit $ret
 fi
 
 if [ "$opt_shrinkelf" = "1" ]; then
-		if [ -e $MLIBDIR/tools/shrinkelf ]; then
-				echo_verbose Executing shrinkelf
-				stat -c "size of $outputfile: %sB" $outputfile
-				$MLIBDIR/tools/shrinkelf $outputfile
-				stat -c "    shrinked to: %sB" $outputfile
-				exit $?
-		fi
+	if [ -e $MLIBDIR/tools/shrinkelf ]; then
+		echo_verbose Executing shrinkelf
+		stat -c "size of $outputfile: %sB" $outputfile
+		$MLIBDIR/tools/shrinkelf $outputfile
+		stat -c "    shrinked to: %sB" $outputfile
+		exit $?
+	fi
 fi
 
 if [ "$opt_exec" = "1" ]; then
-		verbose execute: $opt_execname
-		verbose
-		./$opt_execname
-		ret=$?
+	verbose execute: $opt_execname
+	verbose
+	./$opt_execname
+	ret=$?
 fi
 
 exit $ret
@@ -931,10 +957,10 @@ LGRAY=""$'\033[37m'""
 
 # prefer the genconfig script, if present.
 if [ -e $MLIBDIR/scripts/genconfig.sh ]; then
-		#echo_verbose Parsing genconfig.sh
-		source $MLIBDIR/scripts/genconfig.sh
+	#echo_verbose Parsing genconfig.sh
+	source $MLIBDIR/scripts/genconfig.sh
 else
-		verbose "Parsing builtin config"	
+	verbose "Parsing builtin config"	
 
 # --- genconfig-start: TMPL ---
 #

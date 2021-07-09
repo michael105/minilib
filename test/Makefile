@@ -31,7 +31,7 @@ MLIBDIR=../
 OPTFLAG=-Os
 
 # GCC
-GCC=gcc
+GCC=clang
 
 # LD
 #LD=ld
@@ -60,6 +60,8 @@ WHITE="\033[01;37m"
 GREY="\033[02;37m"
 endif
 
+
+tpath=$(shell date '+%Y%m%d_%H%M')
 
 ifdef BUILDPROG
 		PROG=$(BUILDPROG)
@@ -121,6 +123,19 @@ inittest: all
 retest: test rebuild
 	make test
 
+
+.ONESHELL:
+packtestresults:
+	echo p: $(tpath) $$target
+	mkdir "./$(tpath)"
+	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ( if [ -e $(P) ]; then cp $(P) ./$(tpath); fi;  ); ) true
+	cp *.log ./$(tpath)
+	cp results/*test.* ./$(tpath)
+	gcc -dumpspecs > ./$(tpath)/dumpspecs
+	ld --verbose > ./$(tpath)/ld.verbose
+	tar -czf results-packed.tgz ./$(tpath)
+
+
 .ONESHELL:
 SHELL = /bin/bash
 test: all
@@ -129,8 +144,9 @@ test: all
 	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
-			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi; export RET=$$? )| \
-			tee results/$(P)-test.stdout; exit $$RET'  ) && \
+			set -o pipefail; ( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi;\
+			if [ $$? != 0 ]; then echo $(RED) Fail; fi )| \
+			tee results/$(P)-test.stdout'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \
