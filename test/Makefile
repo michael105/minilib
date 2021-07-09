@@ -7,15 +7,19 @@ PROG=hello
 PROGCUSTOM=fopen malloc fprintf select fputs
 
 # ebedded config, mini-gcc, wildcard target
-MAKEPROGS=fprintf fopen vforked vfork strchr strstr system environ static \
-					hashes sigaction realloc div ltodec globals atexit \
+MAKEPROGS=fprintf fopen strchr strstr system environ static \
+					hashes realloc div globals atexit \
 					strerror mallocstack strtol abort putenv strcmp\
-					getpwuid getgrgid getgrnam getgroups
+					getpwuid getgrgid getgrnam getgroups 
+
+FAILING=ltodec sigaction vfork vforked
 
 MINIGCC=rand sleep execve strdup
 
 TESTQL=environ getpwuid globals mallocstack strcmp strstr strtol system \
-		 getpwuid 
+		 getpwuid rand execve strdup fopen malloc fprintf select fputs hashes \
+		 div globals atexit strerror strchr static
+
 
 
 # where to build object files
@@ -131,8 +135,9 @@ packtestresults:
 	@$(foreach P,$(PROG) $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC) hello-combined, ( if [ -e $(P) ]; then cp $(P) ./$(tpath); fi;  ); ) true
 	cp *.log ./$(tpath)
 	cp results/*test.* ./$(tpath)
-	gcc -dumpspecs > ./$(tpath)/dumpspecs
+	gcc -dumpspecs > ./$(tpath)/gcc-dumpspecs
 	ld --verbose > ./$(tpath)/ld.verbose
+	clang -v > ./$(tpath)/clang-v
 	tar -czf results-packed.tgz ./$(tpath)
 
 
@@ -144,8 +149,9 @@ test: all
 	@$(foreach P,$(PROG) hello-combined $(MAKEPROGS) $(PROGCUSTOM) $(MINIGCC), \
 			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
 			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
-			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi; export RET=$$? )| \
-			tee results/$(P)-test.stdout; exit $$RET'  ) && \
+			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi;\
+			if [ $$? != 0 ]; then echo $(RED) Fail; fi )| \
+			tee results/$(P)-test.stdout'  ) && \
 			echo -e $(GREEN)Exec:$(WHITE) Ok && \
 				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
 			  ) || \

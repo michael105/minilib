@@ -6,7 +6,7 @@
 // prec: precision, e.g. 4=> 0087 
 // pad: 0 (pad with spaces), or the char to pad
 //+def uitodec
-int __attribute__((optimize("Os")))uitodec(unsigned int i, char *buf, int prec, char limiter, char pad ){
+int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, char limiter, char pad ){
 		int p = 0;
 		int a;
 		int t1,t2,t3,dec;

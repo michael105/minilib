@@ -6,7 +6,7 @@
 
 //+header ioctl.h
 //+def
-int volatile  __attribute__((optimize("O0"))) ioctl( int fd, unsigned long int request, ... ){
+int volatile  ATTR_OPT("O0") ioctl( int fd, unsigned long int request, ... ){
 		va_list args;
 		va_start(args,request);
 

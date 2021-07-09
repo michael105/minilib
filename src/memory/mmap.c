@@ -5,7 +5,7 @@
 // if not, on error the negative errno value is returned.
 // (e.g. -22 for "invalid argument")
 //+def
-static void* __attribute__((optimize("O0"))) mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off){
+static void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off){
 		long ret;
 		if ( fd <0 )
 				fd=0;

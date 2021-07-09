@@ -1,7 +1,7 @@
 //+inc
 //
 //+def
-static void* volatile __attribute__((optimize("O0"))) mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr){
+static void* volatile ATTR_OPT("O0") mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr){
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-conversion"
 

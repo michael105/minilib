@@ -22,6 +22,13 @@ typedef unsigned char uint8_t;
 typedef long size_t;
 #endif
 
+
+#ifndef __clang__
+#define ATTR_OPT(x) __attribute__((optimize(x)))
+#else
+#define ATTR_OPT(x)
+#endif
+
 // Locks
 #define LOCK_SH 1 // Shared
 #define LOCK_EX 2 // Exclusive

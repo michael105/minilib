@@ -9,11 +9,13 @@ mini_itohex
 
 mini_mmap
 mini_brk
+mini_sbrk
+mini_memcpy
 
 INCLUDESRC
 LDSCRIPT text_and_bss
 STRIPFLAG
-OPTFLAG -O0
+OPTFLAG -Os
 
 return
 #endif
@@ -31,11 +33,11 @@ int main(int argc, char **argv){
 		unsigned long *memstart;
 		r = sbrk(0);
 		memstart = r;
-		printf("r: %ld\n",r);
+		//printf("r: %ld\n",r);
 		r = sbrk(32);
-		printf("r: %ld\n",r);
+		//printf("r: %ld\n",r);
 		r = sbrk(0);
-		printf("r: %ld\n",r);
+		//printf("r: %ld\n",r);
 
 
 		for( int a=0; a<8; a++ ){
@@ -50,14 +52,14 @@ int main(int argc, char **argv){
 
 
 		m = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
-		printf("m: %ld\n",m);
+		//printf("m: %ld\n",m);
 
 		void* m2 = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, 0, 0 );
-		printf("m: %ld\n",m2);
+		//printf("m: %ld\n",m2);
 		printf("m-m2: %ld\n",m-m2);
 		char *c = m2;
 		
-		for ( int a = 0; a<50000; a+=256 ){
+		for ( int a = 0; a<5000; a+=256 ){
 				printf("a: %d\n",a);
 				c[a] = a;
 				//m2+=4;
