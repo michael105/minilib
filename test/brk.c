@@ -9,11 +9,13 @@ mini_itohex
 
 mini_mmap
 mini_brk
+mini_sbrk
+mini_memcpy
 
 INCLUDESRC
 LDSCRIPT text_and_bss
 STRIPFLAG
-OPTFLAG -O0
+OPTFLAG -Os
 
 return
 #endif
@@ -57,7 +59,7 @@ int main(int argc, char **argv){
 		printf("m-m2: %ld\n",m-m2);
 		char *c = m2;
 		
-		for ( int a = 0; a<50000; a+=256 ){
+		for ( int a = 0; a<5000; a+=256 ){
 				printf("a: %d\n",a);
 				c[a] = a;
 				//m2+=4;

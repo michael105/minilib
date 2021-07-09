@@ -9,6 +9,7 @@ mini_itohex
 
 mini_mmap
 mini_brk
+mini_sbrk
 
 mini_sleep
 mini_getchar
@@ -16,7 +17,7 @@ mini_getchar
 INCLUDESRC
 LDSCRIPT text_and_bss
 STRIPFLAG
-OPTFLAG -O0
+OPTFLAG -Os
 
 return
 #endif
@@ -72,7 +73,7 @@ int main(int argc, char **argv){
 				c+=1024;
 				//m2+=4;
 		}
-		getchar();
+		//getchar();
 
 		void* m3 = mmap(0,64, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE | MAP_GROWSDOWN, 0, 0 );
 		printf("m3: %ld\n",m3);
@@ -80,7 +81,7 @@ int main(int argc, char **argv){
 		c = m2;
 			
 
-		getchar();
+		//getchar();
 
 		for ( int a = 0; a<16; a++ ){
 				printf("a: %d, addr: %ld\n",a,c);
@@ -90,6 +91,7 @@ int main(int argc, char **argv){
 		}
 
 		c = m2;
+		exit(0);
 
 		getchar();
 
