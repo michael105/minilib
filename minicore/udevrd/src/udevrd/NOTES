@@ -1,0 +1,129 @@
+
+concept scripted config 
+
+Advantages:
+ 
+ syntaxcheck of the names
+ parsing doesn't need to be done within the program to configure.
+ -> no convesions, etc.
+ A simple mmap (or read) is enough.
+ possibility to compress (or encrypt) the data transparent.
+ signed config files.
+
+ Within the program, the variables can be accessed by name.
+ (compile time)
+ efficient. Also for the strings.
+ Further datatypes: list, array(?)
+
+ check config would be good. (just load the config
+ and check the begin and end tokens.
+ -> between the sections should be a token for safety.
+
+	sections:
+
+	 either begin and end
+	 or:
+	 
+[ sectionname ]
+
+
+[ section2 ]
+
+
+endfile
+
+(
+	[/ is also possible
+)
+
+[ name ] -> syntaxcheck also possible. ( $2 needs to be ']' )
+
+// a comment. to be shown in C as well.
+// WHEN all values are integers or relative pointers, 
+// order doesn't matter.
+
+
+extract config:
+
+
+
+	write config
+	parse config, generate shell script to parse the config
+	 -> the shell script communicates with writeconf via tokens.
+	   ( write type (long,int,p_rel,..) - write value )
+			predefined tokens (e.g. bitfield, dir|file| .. : 
+			defined as " e.g. values log STDOUT 1 STDOUT 2 KERNEL 4 .."
+			conf log STDOUT|KERNEL
+
+			-> type explicit.
+
+	-> parse config file to generate c header.
+	 use sed. simple. (?)
+	 just use perl.
+	 values need to be in order. ?
+	 eventually. not.
+	 
+	typedef struct config{
+		int var1;
+		int var2l
+		p_rel str1;
+		p_rel str2;
+		char stringsstart[0];
+	}
+
+(include comments)?
+
+
+begin config
+
+# first var
+int var1 12
+
+# 2. var
+int var2 42
+
+string str1 "example1"
+
+# empty string
+string str2 
+
+values logtarget STDOUT 1 STDERR 2 KERNEL 4 FILE 8
+
+int logtarget STDOUT STDERR
+
+
+end config
+
+begin_list devices
+
+ int var1
+ int var2
+ string str1
+ string str2
+
+end_list devices
+
+
+-> creates p_next pointer. (poss. p_prev as well)
+
+
+  func set_value(){
+		eval "$1"=$2
+	}
+	
+	func int_logtarget(){
+		for i in $*
+			
+
+
+function f2(){ p="$1"; echo "${!p}"; }
+
+-> 
+v=23
+f2 v -> 23
+
+needs bash. 
+
+
+
+

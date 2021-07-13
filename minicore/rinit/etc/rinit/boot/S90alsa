@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+( 
+ sleep 1
+ modprobe snd-hda-intel
+ sleep 1
+ chmod a+rw /dev/snd/*
+) &
+
