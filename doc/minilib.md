@@ -226,7 +226,7 @@ brk            static int brk( const void* addr );
               conformant brk, when mini_errno is defined return -1 and set errno.
               if errno isn't available,
               returns the negative errno value on error
-               (src/memory/brk.c: 19)
+               (src/memory/brk.c: 8)
 
 bsd_cksum      unsigned int bsd_cksum( const char* p, unsigned int len );
 
@@ -561,7 +561,7 @@ getbrk         static long getbrk();
                get the current brk
               does either a syscall to brk,
               or returns the globally saved var
-               (src/memory/brk.c: 48)
+               (src/memory/getbrk.c: 6)
 
 getgrent       struct group* getgrent();
 
@@ -1446,7 +1446,7 @@ sbrk           static void* sbrk(long incr);
               conformant sbrk, when mini_errno is defined
               if no errno is available,
               returns the negative errno value on error
-               (src/memory/brk.c: 66)
+               (src/memory/sbrk.c: 9)
 
 scandir_bufsize
 
@@ -1462,7 +1462,7 @@ setbrk         static int setbrk(long addr);
 
                set the current brk
               wrapper for brk(), with type of brk changed to long
-               (src/memory/brk.c: 39)
+               (src/memory/setbrk.c: 6)
 
 setenv         int setenv( const char *name, const char *value, int overwrite );
 
@@ -1560,7 +1560,7 @@ swap           static inline void swap(void* a, void* b,int size);
 sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
-               (src/memory/brk.c: 6)
+               (src/memory/sys_brk.c: 4)
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 

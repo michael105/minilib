@@ -8,7 +8,8 @@ COMPILE vfork execve close
 
 INCLUDESRC
 SHRINKELF
-LDSCRIPT onlytext
+LDSCRIPT text_and_bss
+#LDSCRIPT onlytext
 
 return
 #endif

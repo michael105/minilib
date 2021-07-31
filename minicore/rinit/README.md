@@ -15,7 +15,7 @@ I'm still aiming at 1 second from grub to a running Xserver including the deskto
 
 shutdown maybe 1/10 seconds. 
 (terminating a list of programs like vi, to save data to disk,
-and umnmounting mounts)
+and unmounting mounts)
 
 
 

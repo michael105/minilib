@@ -6,6 +6,5 @@ static long sys_brk(unsigned long addr){
 		syscall1( ret,( __SYSCALL(_brk) | NCONST ), addr );
 		return(ret);
 }
-#define _sys_brk sys_brk
 
 
