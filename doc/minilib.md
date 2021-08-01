@@ -57,7 +57,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
              
               returns the number of the read entries,
               or the negative errno on error.
-               (src/directories/scandir.c: 34)
+               (src/directories/scandir.c: 30)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -105,7 +105,7 @@ ALIGN
               and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
                (macros/alignment.h: 9)
 
-OPTFENCE       #ifndef __clang__ 
+OPTFENCE       #ifndef __clang__
 
                prevent gcc to optimize away registers and variables
               the macro OPTFENCE(...) can be invoked with any parameter.
@@ -226,7 +226,7 @@ brk            static int brk( const void* addr );
               conformant brk, when mini_errno is defined return -1 and set errno.
               if errno isn't available,
               returns the negative errno value on error
-               (src/memory/brk.c: 19)
+               (src/memory/brk.c: 8)
 
 bsd_cksum      unsigned int bsd_cksum( const char* p, unsigned int len );
 
@@ -561,7 +561,7 @@ getbrk         static long getbrk();
                get the current brk
               does either a syscall to brk,
               or returns the globally saved var
-               (src/memory/brk.c: 48)
+               (src/memory/getbrk.c: 6)
 
 getgrent       struct group* getgrent();
 
@@ -1446,13 +1446,13 @@ sbrk           static void* sbrk(long incr);
               conformant sbrk, when mini_errno is defined
               if no errno is available,
               returns the negative errno value on error
-               (src/memory/brk.c: 66)
+               (src/memory/sbrk.c: 9)
 
 scandir_bufsize
 
                the increment of the buffer of scandir in bytes for memory allocations
               (default:4096)
-               (src/directories/scandir.c: 4)
+               (src/directories/scandir_bufsize.c: 4)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -1462,7 +1462,7 @@ setbrk         static int setbrk(long addr);
 
                set the current brk
               wrapper for brk(), with type of brk changed to long
-               (src/memory/brk.c: 39)
+               (src/memory/setbrk.c: 6)
 
 setenv         int setenv( const char *name, const char *value, int overwrite );
 
@@ -1555,12 +1555,12 @@ swap           static inline void swap(void* a, void* b,int size);
 
                swap a with b, with 'size' bytes
               swaps integers and longs at once, when size eq sizeof(int/long)
-               (src/qsort.c: 31)
+               (src/sort/swap.c: 5)
 
 sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
-               (src/memory/brk.c: 6)
+               (src/memory/sys_brk.c: 4)
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
@@ -2187,7 +2187,7 @@ getchar        #define getchar() fgetc(0)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
-               (src/streams/fgets.c: 27)
+               (src/streams/gets.c: 3)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -2406,7 +2406,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
               albite named quicksort.
               It is a shell sort implementation, originally done by Ray Gardner, 5/90;
               which in turn I did find within musl.
-               (src/qsort.c: 59)
+               (src/sort/qsort.c: 35)
 
 rand           unsigned int rand();
 

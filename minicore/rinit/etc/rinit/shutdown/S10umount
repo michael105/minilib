@@ -1,0 +1,26 @@
+#!/bin/sh
+
+echo " --- Sync"
+
+sync
+
+echo " --- Remounting remaing filesystems readonly"
+
+r=`mount | sed -n '/on \/ /s/[[:space:]].*//p'`
+
+for i in `mount | sed -n -e '/on \/ /d;/^\/dev\/sd/s/[[:space:]].*//p'`
+do
+		echo Remount $i
+		mount -o remount,ro $i
+done
+
+
+echo " --- Remount root ro"
+mount -o remount,ro /
+
+echo Done.
+#sleep 3
+echo
+
+
+

@@ -4,7 +4,7 @@
   There are the macros ALIGN_2 ALIGN_4 ALIGN_8 ...,
   and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
  </small></td></tr>
-<tr valign="top"><td><small>OPTFENCE</small></td><td><small>   <a href="../macros/alignment.h" target="right">../macros/alignment.h</a>  65 </small></td><td><small> #ifndef __clang__ 
+<tr valign="top"><td><small>OPTFENCE</small></td><td><small>   <a href="../macros/alignment.h" target="right">../macros/alignment.h</a>  65 </small></td><td><small> #ifndef __clang__
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent gcc to optimize away registers and variables
   the macro OPTFENCE(...) can be invoked with any parameter.
   The parameters will get calculated, even if gcc doesn't recognize
@@ -429,7 +429,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/bind.2.rst.html">bind</a></small></td><td><small>   <a href="../src/directories/basename.c" target="right">../src/directories/basename.c</a>  223 </small></td><td><small> bind( int fd,  struct sockaddr *umyaddr,  int addrlen)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  19 </small></td><td><small>  int brk( const void* addr );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">brk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small>  int brk( const void* addr );
 </small></td></tr><tr><td></td><td colspan="2"><small>set the brk to addr
   return 0 on success.
   conformant brk, when mini_errno is defined return -1 and set errno.
@@ -799,12 +799,12 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to fd,followed by a newline. 
   Computes length with sizeof(str) at compile time.
  </small></td></tr>
-<tr valign="top"><td><small>getbrk</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  48 </small></td><td><small>  long getbrk();
+<tr valign="top"><td><small>getbrk</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  6 </small></td><td><small>  long getbrk();
 </small></td></tr><tr><td></td><td colspan="2"><small>get the current brk
   does either a syscall to brk,
   or returns the globally saved var
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  8 </small></td><td><small> #define getc(F) fgetc(F)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getc</a></small></td><td><small>   <a href="../src/memory/getbrk.c" target="right">../src/memory/getbrk.c</a>  8 </small></td><td><small> #define getc(F) fgetc(F)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/getc.3.rst.html">getchar</a></small></td><td><small>   <a href="../include/fgetc.h" target="right">../include/fgetc.h</a>  11 </small></td><td><small> #define getchar() fgetc(0)
 </small></td></tr>
@@ -864,9 +864,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/setresuid.2.rst.html">getresuid</a></small></td><td><small>   <a href="../src/userdb/getpwuid.c" target="right">../src/userdb/getpwuid.c</a>  201 </small></td><td><small> getresuid( uid_t *ruid,  uid_t *euid,  uid_t *suid)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  27 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fgets.3.rst.html">gets</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> #define gets(F) fgets(F,0xfffffff,stdin)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/getsockopt.2.rst.html">getsockopt</a></small></td><td><small>   <a href="../src/streams/fgets.c" target="right">../src/streams/fgets.c</a>  227 </small></td><td><small> getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/getsockopt.2.rst.html">getsockopt</a></small></td><td><small>   <a href="../src/streams/gets.c" target="right">../src/streams/gets.c</a>  227 </small></td><td><small> getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/gettimeofday.2.rst.html">gettimeofday</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  142 </small></td><td><small> gettimeofday( struct timeval *a1, struct timezone *a2)
 </small></td></tr>
@@ -1786,14 +1786,14 @@
 <tr valign="top"><td><small>pwent</small></td><td><small>   <a href="../include/prints.h" target="right">../include/prints.h</a>  7 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>define passwd and group structures
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/pwent.h" target="right">../include/pwent.h</a>  59 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/qsort.3.rst.html">qsort</a></small></td><td><small>   <a href="../include/pwent.h" target="right">../include/pwent.h</a>  35 </small></td><td><small> void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 </small></td></tr><tr><td></td><td colspan="2"><small>(quick) shell sort routine
   following the tradition, this isn't exactly a quicksort algorithm,
   albite named quicksort.
   It is a shell sort implementation, originally done by Ray Gardner, 5/90;
   which in turn I did find within musl.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  145 </small></td><td><small>   int raise(int signr);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/sort/qsort.c" target="right">../src/sort/qsort.c</a>  145 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
 </small></td></tr>
@@ -1834,14 +1834,14 @@
 </small></td></tr>
 <tr valign="top"><td><small>rt_sigsuspend</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  179 </small></td><td><small> rt_sigsuspend( const sigset_t *mask, size_t sigsetsize);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  66 </small></td><td><small>  void* sbrk(long incr);
+<tr valign="top"><td><small><a target="right" href="manpages/sys/brk.2.rst.html">sbrk</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small>  void* sbrk(long incr);
 </small></td></tr><tr><td></td><td colspan="2"><small>Set the new brk, increment/decrement by incr bytes.
   return the old brk on success.
   conformant sbrk, when mini_errno is defined
   if no errno is available,
   returns the negative errno value on error
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  34 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
+<tr valign="top"><td><small><a target="right" href="manpages/gen/scandir.3.rst.html">scandir</a></small></td><td><small>   <a href="../src/memory/sbrk.c" target="right">../src/memory/sbrk.c</a>  30 </small></td><td><small> int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 </small></td></tr><tr><td></td><td colspan="2"><small>list files and dirs in a directory
  
   This implementation uses malloc_brk() for the dynamic allocation
@@ -1872,7 +1872,7 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>the increment of the buffer of scandir in bytes for memory allocations
   (default:4096)
  </small></td></tr>
-<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir.c" target="right">../src/directories/scandir.c</a>  3 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
+<tr valign="top"><td><small>sdbm_hash</small></td><td><small>   <a href="../src/directories/scandir_bufsize.c" target="right">../src/directories/scandir_bufsize.c</a>  3 </small></td><td><small> unsigned long sdbm_hash(const unsigned char *str);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">seekdir</a></small></td><td><small>   <a href="../src/math/sdbm_hash.c" target="right">../src/math/sdbm_hash.c</a>  2 </small></td><td><small> void seekdir(DIR *dir, long off);
 </small></td></tr>
@@ -1882,11 +1882,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/send.2.rst.html">sendto</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  221 </small></td><td><small> sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)
 </small></td></tr>
-<tr valign="top"><td><small>setbrk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  39 </small></td><td><small>  int setbrk(long addr);
+<tr valign="top"><td><small>setbrk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small>  int setbrk(long addr);
 </small></td></tr><tr><td></td><td colspan="2"><small>set the current brk
   wrapper for brk(), with type of brk changed to long
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  202 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/setbuf.3.rst.html">setbuf</a></small></td><td><small>   <a href="../src/memory/setbrk.c" target="right">../src/memory/setbrk.c</a>  202 </small></td><td><small>  void setbuf(FILE *stream, char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>dummy function.
   There is no buffering implemented for the streams yet.
  </small></td></tr>
@@ -2044,18 +2044,18 @@
   For linux x64, long long and long both have 64 bit.
   Therefore, strtoll just calls strtol
  </small></td></tr>
-<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/string/strtoll.c" target="right">../src/string/strtoll.c</a>  31 </small></td><td><small>   void swap(void* a, void* b,int size);
+<tr valign="top"><td><small>swap</small></td><td><small>   <a href="../src/string/strtoll.c" target="right">../src/string/strtoll.c</a>  5 </small></td><td><small>   void swap(void* a, void* b,int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>swap a with b, with 'size' bytes
   swaps integers and longs at once, when size eq sizeof(int/long)
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/symlink.2.rst.html">symlink</a></small></td><td><small>   <a href="../src/qsort.c" target="right">../src/qsort.c</a>  126 </small></td><td><small> symlink( const char *oldname,  const char *newname)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/symlink.2.rst.html">symlink</a></small></td><td><small>   <a href="../src/sort/swap.c" target="right">../src/sort/swap.c</a>  126 </small></td><td><small> symlink( const char *oldname,  const char *newname)
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/sync.2.rst.html">sync</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  127 </small></td><td><small> DEF_syscall(sync,0)
 </small></td></tr>
-<tr valign="top"><td><small>sys_brk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small>  long sys_brk(unsigned long addr);
+<tr valign="top"><td><small>sys_brk</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small>  long sys_brk(unsigned long addr);
 </small></td></tr><tr><td></td><td colspan="2"><small>the kernel syscall brk.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/memory/brk.c" target="right">../src/memory/brk.c</a>  4 </small></td><td><small> int system( const char* command );
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/system.3.rst.html">system</a></small></td><td><small>   <a href="../src/memory/sys_brk.c" target="right">../src/memory/sys_brk.c</a>  4 </small></td><td><small> int system( const char* command );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/exec/system.c" target="right">../src/exec/system.c</a>  12 </small></td><td><small> int tcgetattr(int fd, struct termios *io);
 </small></td></tr>
