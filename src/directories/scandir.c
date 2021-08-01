@@ -32,14 +32,15 @@
 //+depends errno malloc_brk realloc free memcpy dirbuf seterrno getbrk sbrk prints open sprintf qsort getdents
 //+def scandir
 int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **)){
+	struct dirent **names=0, **tmp;
+	int cnt=0, len=0;
 #ifndef mini_scandir_bufsize
 #define _BUFSIZE 4096
 #else
 #define _BUFSIZE mini_scandir_bufsize
 #endif
 
-	struct dirent **names=0, **tmp;
-	int cnt=0, len=0;
+
 
 	int fd;
 
