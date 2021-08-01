@@ -57,7 +57,7 @@ scandir        int scandir(const char *path, struct dirent **listing[], int (*fp
              
               returns the number of the read entries,
               or the negative errno on error.
-               (src/directories/scandir.c: 34)
+               (src/directories/scandir.c: 30)
 
 seekdir        void seekdir(DIR *dir, long off);
 
@@ -1452,7 +1452,7 @@ scandir_bufsize
 
                the increment of the buffer of scandir in bytes for memory allocations
               (default:4096)
-               (src/directories/scandir.c: 4)
+               (src/directories/scandir_bufsize.c: 4)
 
 sdbm_hash      unsigned long sdbm_hash(const unsigned char *str);
 
@@ -1555,7 +1555,7 @@ swap           static inline void swap(void* a, void* b,int size);
 
                swap a with b, with 'size' bytes
               swaps integers and longs at once, when size eq sizeof(int/long)
-               (src/qsort.c: 31)
+               (src/sort/swap.c: 5)
 
 sys_brk        static long sys_brk(unsigned long addr);
 
@@ -2187,7 +2187,7 @@ getchar        #define getchar() fgetc(0)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
 
-               (src/streams/fgets.c: 27)
+               (src/streams/gets.c: 3)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
 
@@ -2406,7 +2406,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
               albite named quicksort.
               It is a shell sort implementation, originally done by Ray Gardner, 5/90;
               which in turn I did find within musl.
-               (src/qsort.c: 59)
+               (src/sort/qsort.c: 35)
 
 rand           unsigned int rand();
 
