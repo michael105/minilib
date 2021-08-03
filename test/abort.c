@@ -7,6 +7,12 @@ mini_abort
 
 INCLUDESRC
 
+
+if [ -n "$CLANG" ]; then
+	OPTFLAG -O2
+	mini_memset
+fi
+
 return
 #endif
 
