@@ -7,6 +7,11 @@ mini_itodec
 mini_buf 1024
 mini_INCLUDESRC
 
+if [ -n "$CLANG" ]; then
+# clang makes trouble with optimizations and strdup
+	OPTFLAG -O0
+fi
+
 return
 #endif
 
