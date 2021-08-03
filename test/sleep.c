@@ -6,9 +6,19 @@ mini_nanosleep
 mini_sleep
 mini_strlen
 mini_itodec
+
+if [ -n "$CLANG" ]; then
+# clang needs memcpy defined here, used within uitodec. (??)
+	mini_memcpy
+# clang makes trouble with optimizations > O1 and fork
+	OPTFLAG -O1
+fi
+
 mini_atoi
 mini_fork
 mini_INCLUDESRC
+
+
 return
 #endif
 

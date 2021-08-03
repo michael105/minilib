@@ -12,6 +12,12 @@ mini_usleep
 mini_buf 1024
 mini_INCLUDESRC
 
+
+if [ -n "$CLANG" ]; then
+# clang makes trouble with optimizations > O1 and fork
+	OPTFLAG -O1
+fi
+
 return
 #endif
 
