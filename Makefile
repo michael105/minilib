@@ -241,7 +241,7 @@ git-master:
 git-devel:
 	# update master repo at github
 	git push origin devel-HEAD:devel
-	cd ../minilib-master && \
+	cd ../minilib-devel \
 		git fetch && \
 		git pull && \
 		git push github

@@ -23,7 +23,7 @@ fi
 useincludedminilib=1
 
 # use clang
-CLANG=1
+# CLANG=1
 
 defaultvalues (){
 #everything between _start and _end is extracted and copied into Makefile.minilib
