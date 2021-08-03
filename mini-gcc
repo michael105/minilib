@@ -297,8 +297,11 @@ exec_gcc(){
 	else
 
 		if [ -n "$outputfile" ]; then
-			opt_args="-o $outputfile $opt_args"
-			verbose Binary: $binary 
+			echo $opt_args | sed '/-o /Q1' > /dev/null
+			if [ $? = 0 ]; then
+				opt_args="-o $outputfile $opt_args"
+			fi
+			verbose Binary: $outputfile 
 		fi
 	fi
 
@@ -664,17 +667,18 @@ if [ "$2" == "" ]; then
 		fi
 	fi
 
-	echo $REAL_CC config: $config
+	verbose $REAL_CC config: $config
 	outputfile=`echo $1 | sed -E 's/(.*)\..*/\1/'`
-	echo outputfile: $outputfile
+	verbose outputfile: $outputfile
 	checkconfig $config
 	opt_config=$config
 	if [ "$1" == "$outputfile" ]; then
 		fail "couldn't determine the outputfile.\nGot: $1"
 	fi
-	sources=$config
+	sources=$config 
 	#REAL_CC="$REAL_CC -o $outputfile $1"
 	#echo $REAL_CC
+	echo compile $config 
 	compile=1
 	opt=1
 	shift
@@ -912,6 +916,8 @@ if [ $ret != 0 ]; then
 	#echo Failed command:
 	#echo $REAL_CC $CFLAGS$LDSCRIPT $@
 	exit $ret
+else
+	verbose "Ok"
 fi
 
 if [ "$opt_shrinkelf" = "1" ]; then
@@ -931,6 +937,7 @@ if [ "$opt_exec" = "1" ]; then
 	ret=$?
 fi
 
+verbose -e ""
 exit $ret
 
 fi
