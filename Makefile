@@ -222,12 +222,14 @@ gitlog:
 
 
 syntaxcheck: 
-	@echo Generate syntaxcheck.h
-	$(shell cp templates/syntaxcheck.h.top ./syntaxcheck.h) 
-	$(shell ( ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -DGENSYNTAXCHECK -dD | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
+	$(info Generate syntaxcheck.h)
+	cp templates/syntaxcheck.h.top ./syntaxcheck.h
+	$(info echo copies)
+	./mini-gcc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
+	( gcc -include minilibcfg-syntaxcheck.h minilib.h -E -dD -DGENSYNTAXCHECK -I. -I./include -I./headers -nodefaultlibs -nostdlib -DMLIB -fno-builtin -DLINUX -DX64 | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
 			cat templates/syntaxcheck.h.bottom ) |\
-			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
-	@echo Ok.
+			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h 
+	$(info Ok)
 
 
 git-master:
