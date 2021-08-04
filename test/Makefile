@@ -10,7 +10,7 @@ PROGCUSTOM=fopen malloc fprintf select fputs
 MAKEPROGS=fprintf fopen strchr strstr system environ static \
 					hashes realloc div globals atexit \
 					strerror mallocstack strtol abort putenv strcmp\
-					getpwuid getgrgid getgrnam getgroups 
+					getpwuid getgrgid getgrnam getgroups prints
 
 FAILING=ltodec sigaction vfork vforked
 
