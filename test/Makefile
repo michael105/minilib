@@ -9,7 +9,7 @@ PROGCUSTOM=fopen malloc fprintf select fputs
 # ebedded config, mini-gcc, wildcard target
 MAKEPROGS=fprintf fopen strchr strstr system environ static \
 					hashes realloc div globals atexit \
-					strerror mallocstack strtol abort putenv strcmp\
+					strerror mallocstack strtol putenv strcmp\
 					getpwuid getgrgid getgrnam getgroups prints
 
 FAILING=ltodec sigaction vfork vforked

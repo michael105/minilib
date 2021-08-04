@@ -17,7 +17,7 @@ INCLUDESRC
 
 
 if [ -n "$CLANG" ]; then
-	OPTFLAG -O2
+	OPTFLAG -O0
 	mini_memset
 fi
 
