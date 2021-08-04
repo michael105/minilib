@@ -86,7 +86,7 @@ sigaction
 <dd>
 <p>
   <em>int volatile sigaction(int sig, const struct sigaction <strong>act, struct sigaction *oact)</em><br>
- *Defines:</strong> rt_sigaction memcpy<br>
+ *Defines:</strong> memcpy rt_sigaction<br>
  <strong>examine and change a signal action</strong>
 Size: ~215B <a href="../../src/process/sigaction.c">../src/process/sigaction.c</a> l.117 manpage: <a href="../manpages/sys/sigaction.2.rst.html">sigaction</a><br>
 </p>
@@ -147,7 +147,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> write memcpy rt_sigaction<br>
+ <strong>Defines:</strong> rt_sigaction write memcpy<br>
  <strong>signal management</strong>
 Size: ~337B <a href="../../src/process/signal.c">../src/process/signal.c</a> l.5 manpage: <a href="../manpages/gen/signal.3.rst.html">signal</a><br>
 </p>
@@ -200,7 +200,7 @@ Size: ~138B <a href="../../src/process/wait.c">../src/process/wait.c</a> l.16 ma
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

@@ -45,7 +45,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> fileno open close<br>
+ <strong>Defines:</strong> open close fileno<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -125,7 +125,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> fileno close open<br>
+ <strong>Defines:</strong> close fileno open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -141,9 +141,9 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> write fileno strlen<br>
+ *Defines:</strong> strlen write fileno<br>
  <strong>put a string on a stream</strong>
-Size: ~90B <a href="../../include/fputs.h">../include/fputs.h</a> l.19 manpage: <a href="../manpages/stdio/fputs.3.rst.html">fputs</a><br>
+Size: ~90B <a href="../../include/fputs.h">../include/fputs.h</a> l.18 manpage: <a href="../manpages/stdio/fputs.3.rst.html">fputs</a><br>
 </p>
 </dd>
 <dt>
@@ -163,7 +163,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> fileno close open<br>
+ *Defines:</strong> close fileno open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -253,7 +253,7 @@ setvbuf
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

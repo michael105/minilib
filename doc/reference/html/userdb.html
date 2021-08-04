@@ -35,7 +35,7 @@ getgrent
 <dd>
 <p>
   <em>struct group* getgrent()</em><br>
- <strong>Defines:</strong> pwent open userdb<br>
+ <strong>Defines:</strong> userdb open pwent<br>
 <a href="../../src/userdb/getgrent.c">../src/userdb/getgrent.c</a> l.4 manpage: <a href="../manpages/gen/getgrent.3.rst.html">getgrent</a><br>
 </p>
 </dd>
@@ -45,7 +45,7 @@ getgrgid
 <dd>
 <p>
   <em>struct group <strong>getgrgid(gid_t gid)</em><br>
- *Defines:</strong> write mmap userdb grent fstat close open token_s pwent token_i globals setgrent<br>
+ *Defines:</strong> fstat write globals mmap setgrent pwent token_s token_i open grent userdb close<br>
 </p>
 </dd>
 </dl>
@@ -63,7 +63,7 @@ getgrnam
 <dd>
 <p>
   <em>struct group <strong>getgrnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> write mmap userdb fstat grent close open token_s token_i pwent globals setgrent<br>
+ <strong>Defines:</strong> close open grent userdb mmap pwent setgrent token_s token_i write fstat globals<br>
 </p>
 </dd>
 </dl>
@@ -80,7 +80,7 @@ getpwent
 <dd>
 <p>
   <em>struct passwd* getpwent()</em><br>
- <strong>Defines:</strong> userdb open<br>
+ <strong>Defines:</strong> open userdb<br>
 <a href="../../src/userdb/getpwent.c">../src/userdb/getpwent.c</a> l.4 manpage: <a href="../manpages/gen/getpwent.3.rst.html">getpwent</a><br>
 </p>
 </dd>
@@ -90,7 +90,7 @@ getpwnam
 <dd>
 <p>
   <em>struct passwd <strong>getpwnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> mmap write token_s open close pwent token_i fstat globals<br>
+ <strong>Defines:</strong> open fstat write globals close mmap pwent token_s token_i<br>
 </p>
 </dd>
 </dl>
@@ -108,7 +108,7 @@ getpwuid
 <dd>
 <p>
   <em>struct passwd <strong>getpwuid(uid_t uid)</em><br>
- *Defines:</strong> open token_s setpwent passwdfile_open mmap write pwent token_i<br>
+ *Defines:</strong> open passwdfile_open write mmap pwent setpwent token_i token_s<br>
 </p>
 </dd>
 </dl>
@@ -134,7 +134,7 @@ max_groupmembers
  used for the allocation of the array gr_mem.
  default: 64</code></pre>
 </td></tr></table>
-<p><a href="../../include/globaldefs.h">../include/globaldefs.h</a> l.89</p>
+<p><a href="../../include/globaldefs.h">../include/globaldefs.h</a> l.96</p>
 <a name="setgrent"></a><dl>
 <dt>
 setgrent
@@ -159,7 +159,7 @@ setpwent
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

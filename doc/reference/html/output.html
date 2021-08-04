@@ -79,7 +79,7 @@ dprintf
 <dd>
 <p>
   <em>int dprintf( int fd, const char <strong>fmt, &#8230; )</em><br>
- *Defines:</strong> strlen write getpid kill<br>
+ *Defines:</strong> write getpid strlen kill<br>
  <strong>print formatted output</strong>
 Size: ~818B <a href="../../src/output/dprintf.c">../src/output/dprintf.c</a> l.5 manpage: <a href="../manpages/stdio/printf.3.rst.html">dprintf</a><br>
 </p>
@@ -100,7 +100,7 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> strlen write<br>
+ <strong>Defines:</strong> write strlen<br>
 </p>
 </dd>
 </dl>
@@ -116,7 +116,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> fileno write strlen<br>
 </p>
 </dd>
 </dl>
@@ -208,7 +208,7 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen write getpid fileno kill<br>
+ <strong>Defines:</strong> fileno kill write getpid globals strlen<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.84
 </p>
 </dd>
@@ -217,8 +217,8 @@ fprintf
 </dt>
 <dd>
 <p>
-  <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,snprintf(mlgl&#8594;mbuf,mini_buf,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> fileno kill write getpid strlen<br>
+  <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,snprintf(mlgl&#8594;mbuf,mlgl&#8594;mbufsize,<em>VA_ARGS</em>))</em><br>
+ <strong>Defines:</strong> write getpid globals strlen kill fileno<br>
 </p>
 </dd>
 </dl>
@@ -228,7 +228,7 @@ fprintf
  conversions implemented:
  %d: signed int (mini_itodec)
  %u: unsigned int (mini_uitodec)
- %f: double (max precision 8 digits, highest possible number: 2^31
+ %f: double (max precision 8 digits, highest possible number: 2^31 (mini_dtodec)
  %l (modify a following d,u to long) (mini_ltodec,mini_ultodec)
  %s: string
  %c: char
@@ -248,7 +248,7 @@ fprintf
  writes(constant string) and print (variable string),
  prints (formatted output of one or several strings) are provided.</code></pre>
 </td></tr></table>
-<p><a href="../../src/output/sprintf.c">../src/output/sprintf.c</a> l.263 manpage: <a href="../manpages/stdio/printf.3.rst.html">fprintf</a><br></p>
+<p><a href="../../src/output/fprintf.c">../src/output/fprintf.c</a> l.32 manpage: <a href="../manpages/stdio/printf.3.rst.html">fprintf</a><br></p>
 <a name="fprintfs"></a><dl>
 <dt>
 fprintfs
@@ -256,7 +256,7 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> write fileno strlen<br>
+ *Defines:</strong> write strlen fileno<br>
 </p>
 </dd>
 </dl>
@@ -273,7 +273,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -327,7 +327,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> getpid write kill fileno strlen<br>
+ <strong>Defines:</strong> strlen globals getpid write fileno kill<br>
 </p>
 </dd>
 </dl>
@@ -344,7 +344,7 @@ group_write
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> ewrite write<br>
+ <strong>Defines:</strong> write ewrite<br>
 </p>
 </dd>
 </dl>
@@ -361,7 +361,7 @@ print
 <dd>
 <p>
   <em>#define print(str) write(STDOUT_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
 </p>
 </dd>
 </dl>
@@ -376,7 +376,7 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write getpid fileno kill strlen<br>
+ <strong>Defines:</strong> write getpid globals strlen kill fileno<br>
  <strong>print formatted output</strong>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.80 manpage: <a href="../manpages/stdio/printf.3.rst.html">printf</a><br>
 </p>
@@ -472,7 +472,7 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> getpid write fileno kill strlen<br>
+ <strong>Defines:</strong> getpid write strlen globals fileno kill<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
@@ -504,7 +504,7 @@ snprintf
 <dd>
 <p>
   <em>int snprintf( char <strong>buf, size_t size, const char *fmt, &#8230; )</em><br>
- *Defines:</strong> getpid write kill strlen<br>
+ *Defines:</strong> write getpid strlen kill<br>
  <strong>print formatted output</strong>
 Size: ~738B <a href="../../src/output/snprintf.c">../src/output/snprintf.c</a> l.5 manpage: <a href="../manpages/stdio/printf.3.rst.html">snprintf</a><br>
 </p>
@@ -515,7 +515,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen kill fileno getpid write<br>
+ <strong>Defines:</strong> strlen globals getpid write kill fileno<br>
 <a href="../../include/mini_fstream.h">../include/mini_fstream.h</a> l.89 manpage: <a href="../manpages/stdio/printf.3.rst.html">vfprintf</a><br>
 </p>
 </dd>
@@ -525,7 +525,7 @@ vsnprintf
 <dd>
 <p>
   <em>int vsnprintf(char <strong>buf, size_t size, const char</strong> fmt, va_list args )</em><br>
- <strong>Defines:</strong> strlen kill getpid write<br>
+ <strong>Defines:</strong> getpid write strlen kill<br>
  <strong>format output of a stdarg argument list</strong>
 </p>
 </dd>
@@ -537,7 +537,7 @@ vsnprintf
  mini_itodec (%d conversion)
  mini_atoi is needed for grouping numbers</code></pre>
 </td></tr></table>
-<p>Size: ~590B <a href="../../src/output/sprintf.c">../src/output/sprintf.c</a> l.41 manpage: <a href="../manpages/stdio/printf.3.rst.html">vsnprintf</a><br></p>
+<p>Size: ~590B <a href="../../src/output/vsnprintf.c">../src/output/vsnprintf.c</a> l.18 manpage: <a href="../manpages/stdio/printf.3.rst.html">vsnprintf</a><br></p>
 <a name="vsprintf"></a><dl>
 <dt>
 vsprintf
@@ -551,9 +551,10 @@ vsprintf
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>write fmt and arguments into buf
  calls vsnprintf,
- the size is limited to 4096 by default.</code></pre>
+ the size is limited to 4096 by default and assumes
+ a buf len of 4096.</code></pre>
 </td></tr></table>
-<p><a href="../../src/output/vsprintf.c">../src/output/vsprintf.c</a> l.9 manpage: <a href="../manpages/stdio/printf.3.rst.html">vsprintf</a><br></p>
+<p><a href="../../src/output/vsprintf.c">../src/output/vsprintf.c</a> l.10 manpage: <a href="../manpages/stdio/printf.3.rst.html">vsprintf</a><br></p>
 <a name="write"></a><dl>
 <dt>
 write
@@ -584,7 +585,7 @@ writes
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

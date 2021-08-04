@@ -15,7 +15,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> write getpid memcpy kill rt_sigaction<br>
+ <strong>Defines:</strong> memcpy getpid write rt_sigaction kill<br>
 <a href="../../src/process/abort.c">../src/process/abort.c</a> l.3 manpage: <a href="../manpages/stdlib/abort.3.rst.html">abort</a><br>
 </p>
 </dd>
@@ -72,7 +72,7 @@ execv
 <dd>
 <p>
   <em>int execv(const char <strong>pathname, char *const argv[])</em><br>
- *Defines:</strong> environ execve<br>
+ *Defines:</strong> execve environ<br>
  <strong>execute a file</strong>
 Size: ~300B <a href="../../src/exec/_execv.c">../src/exec/_execv.c</a> l.4 manpage: <a href="../manpages/gen/exec.3.rst.html">execv</a><br>
 </p>
@@ -103,7 +103,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> environ access execve<br>
+ *Defines:</strong> access execve environ<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../../src/exec/_execvp.c">../src/exec/_execvp.c</a> l.4 manpage: <a href="../manpages/gen/exec.3.rst.html">execvp</a><br>
 </p>
@@ -114,7 +114,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> execve access environ<br>
+ *Defines:</strong> environ execve access<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -223,7 +223,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> environ vfork execve write wait4<br>
+ <strong>Defines:</strong> wait4 execve environ write vfork<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../../src/exec/system.c">../src/exec/system.c</a> l.4 manpage: <a href="../manpages/stdlib/system.3.rst.html">system</a><br>
 </p>
@@ -234,7 +234,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> execve vfork wait4 seterrno exit<br>
+ <strong>Defines:</strong> execve wait4 exit vfork seterrno<br>
 </p>
 </dd>
 </dl>
@@ -252,7 +252,7 @@ vexec_q
 <dd>
 <p>
   <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> vfork execve seterrno wait4 exit<br>
+ <strong>Defines:</strong> wait4 execve exit seterrno vfork<br>
 </p>
 </dd>
 </dl>
@@ -261,7 +261,7 @@ vexec_q
  do not write any output of the process. (close stdout)
  Deviating of system() an absolute pathname is taken.</code></pre>
 </td></tr></table>
-<p><a href="../../src/exec/vexec.c">../src/exec/vexec.c</a> l.30</p>
+<p><a href="../../src/exec/vexec_q.c">../src/exec/vexec_q.c</a> l.6</p>
 <a name="vfork"></a><dl>
 <dt>
 vfork
@@ -278,7 +278,7 @@ vfork
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

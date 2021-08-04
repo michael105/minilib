@@ -101,6 +101,7 @@ brk
 <dd>
 <p>
   <em>int brk( const void* addr )</em><br>
+ <strong>Defines:</strong> sys_brk<br>
  <strong>change data segment size</strong>
 </p>
 </dd>
@@ -112,7 +113,7 @@ brk
  if errno isn't available,
  returns the negative errno value on error</code></pre>
 </td></tr></table>
-<p>Size: ~66B <a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.19 manpage: <a href="../manpages/sys/brk.2.rst.html">brk</a><br></p>
+<p>Size: ~66B <a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.8 manpage: <a href="../manpages/sys/brk.2.rst.html">brk</a><br></p>
 <a name="free"></a><dl>
 <dt>
 free
@@ -120,7 +121,7 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> brk getbrk<br>
+ *Defines:</strong> sys_brk getbrk<br>
  <strong>free allocated memory</strong>
 Size: ~32B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.145 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
@@ -159,7 +160,7 @@ getbrk
  does either a syscall to brk,
  or returns the globally saved var</code></pre>
 </td></tr></table>
-<p><a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.48</p>
+<p><a href="../../src/memory/getbrk.c">../src/memory/getbrk.c</a> l.6</p>
 <a name="malloc"></a><dl>
 <dt>
 malloc
@@ -242,7 +243,7 @@ malloc_brk
 <dd>
 <p>
   <em>void* malloc_brk(int size)</em><br>
- <strong>Defines:</strong> sbrk getbrk<br>
+ <strong>Defines:</strong> getbrk sys_brk<br>
 </p>
 </dd>
 </dl>
@@ -266,7 +267,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mprotect mmap<br>
+ <strong>Defines:</strong> mmap mprotect<br>
 </p>
 </dd>
 </dl>
@@ -363,7 +364,7 @@ mmap
 </dt>
 <dd>
 <p>
-  <em>void*  mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off)</em><br>
+  <em>void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off)</em><br>
  <strong>map pages of memory</strong>
 </p>
 </dd>
@@ -394,7 +395,7 @@ mremap
 </dt>
 <dd>
 <p>
-  <em>void* volatile  mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr)</em><br>
+  <em>void* volatile ATTR_OPT("O0") mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr)</em><br>
  <strong>remap a virtual memory address</strong>
 Size: ~162B <a href="../../include/mremap.h">../include/mremap.h</a> l.4
 </p>
@@ -415,7 +416,7 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> 0 brk getbrk<br>
+ *Defines:</strong> 0 getbrk sys_brk<br>
  <strong>memory reallocator</strong>
 Size: ~636B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.209 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
 </p>
@@ -426,6 +427,7 @@ sbrk
 <dd>
 <p>
   <em>void* sbrk(long incr)</em><br>
+ <strong>Defines:</strong> sys_brk<br>
  <strong>change data segment size</strong>
 </p>
 </dd>
@@ -438,7 +440,7 @@ sbrk
  if no errno is available,
  returns the negative errno value on error</code></pre>
 </td></tr></table>
-<p>Size: ~108B <a href="../../src/memory/brk.c">../src/memory/brk.c</a> l.66 manpage: <a href="../manpages/sys/brk.2.rst.html">sbrk</a><br></p>
+<p>Size: ~108B <a href="../../src/memory/sbrk.c">../src/memory/sbrk.c</a> l.9 manpage: <a href="../manpages/sys/brk.2.rst.html">sbrk</a><br></p>
 <a name="splice"></a><dl>
 <dt>
 splice
@@ -464,7 +466,7 @@ swap
 <pre><code>swap a with b, with 'size' bytes
  swaps integers and longs at once, when size eq sizeof(int/long)</code></pre>
 </td></tr></table>
-<p><a href="../../src/qsort.c">../src/qsort.c</a> l.31</p>
+<p><a href="../../src/sort/swap.c">../src/sort/swap.c</a> l.5</p>
 <a name="unmap_protected"></a><dl>
 <dt>
 unmap_protected
@@ -472,7 +474,7 @@ unmap_protected
 <dd>
 <p>
   <em>int unmap_protected(void <strong>p, int len)</em><br>
- *Defines:</strong> mprotect munmap<br>
+ *Defines:</strong> munmap mprotect<br>
 </p>
 </dd>
 </dl>
@@ -488,7 +490,7 @@ unmap_protected
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

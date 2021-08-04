@@ -599,10 +599,10 @@ a { text-decoration: none; }
 <div class="document">
 
 
-<p><strong>mini-gcc</strong> v.20210626</p>
+<p><strong>mini-gcc</strong> v.20210804</p>
 <p>Usage: <cite>mini-gcc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf</cite></p>
 <p>mini-gcc compiles binaries and links them statically with minilib.
-It's a wrapper to call gcc with the right compile options,
+It's a wrapper to call gcc or clang with the right compile options,
 generate the config of minilib and include minilib.h.</p>
 <p>In the most shorthand form, the only argument is the file,
 containing the configuration directives. (And possibly the c source)</p>
@@ -629,11 +629,9 @@ and includes the generated define switches
 into every compiled file via the gcc option -include and pipes.
 The configfile syntax is described within the file
 'minilib.mconf', which is also a minimal configuration file
-for the hello world examples.</p>
-<blockquote>
-<p>When the file 'minilib.h' is not found,
+for the hello world examples.
+When the file 'minilib.h' is not found,
 minilib.h will be piped to gcc on the fly.</p>
-</blockquote>
 </dd>
 <dt>--dump-config 'file':</dt>
 <dd><p>Parses 'file' as configuration file, and dumps the generated
@@ -682,12 +680,10 @@ and 'mini-gcc --config minilib.mconf [args]</p>
 <dt>[--force] --genconf 'outfile' 'infile1' 'infile2' ...:</dt>
 <dd><p>parses the sourcefiles 'infile1',.. and writes a config into
 outfile, which enables compiling of all used minilib functions
-within 'infiles'.</p>
-<blockquote>
-<p>Most possibly you'll still have to edit the config manually,
-e.g. printf conversions aren't correctly recognized.</p>
-</blockquote>
-<p>After the config is written to outfile,
+within 'infiles'.
+Most possibly you'll still have to edit the config manually,
+e.g. printf conversions aren't correctly recognized.
+After the config is written to outfile,
 use the config file with --config 'outfile'</p>
 <blockquote>
 <dl class="option-list">
@@ -732,17 +728,31 @@ and execute the binary
 </dl>
 <dl class="simple">
 <dt>--compat:</dt>
-<dd><dl class="simple">
-<dt>Include the provided compat headers (stdio.h,stdlib.h,...) directory</dt>
-<dd><p>into the include search path.
+<dd><p>Include the provided compat headers (stdio.h,stdlib.h,...) directory
+into the include search path.
 Using them is not recommended, they are not stable.</p>
-</dd>
-</dl>
 </dd>
 <dt>--fulldebug generate an outputfile (sourcefile.dbg.c) including the used parts:</dt>
 <dd><p>of minilib, and compile this file to sourcefile.dbg with the options
 -g2 -Og set.</p>
 </dd>
+</dl>
+<p>---------:</p>
+<p>The following (optional) environmental variables are used:</p>
+<p>CC          The name and path of the compiler
+CFLAGS      optional flags for the compiler
+CLANG       Set this to 1 to use clang as compiler.</p>
+<blockquote>
+<p>(Or set CC to clang)</p>
+</blockquote>
+<p>OPTFLAG     optimization flag (default -Os)
+STRIPFLAG   stripflag (default -s)
+PICFLAG     parameter -fpic/-fno-pic .. (default -fno-pic)
+LDFLAG      Name of the ldscript
+VERBOSE     Set this to 1 to enable verbose messages
+NOCOLOR     Set this to 1 to disable colors
+SHOWSOURCES Set to 1 to save all combined sources into the outputfile</p>
+<dl class="simple">
 <dt>(c) 2019-2021 Michael misc Myer. All rights reserved.</dt>
 <dd><p>('mini-gcc --license' shows the license)</p>
 </dd>

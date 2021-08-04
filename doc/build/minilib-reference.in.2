@@ -13,7 +13,7 @@ f:itohex|D:int itohex(int i,char* buf,int padding)|c:conversions|x:|
 f:itooct|D:int itooct(int i, char *buf)|c:conversions|x:|
 f:ltodec|D:int ltodec(long i, char *buf, int prec, char limiter )|c:conversions|x:|
 f:strtol|D:long int strtol(const char *c, const char **endp, int base)|c:conversions|x:convert a string to a long integer|
-f:uitodec|D:int uitodec(unsigned int i, char *buf, int prec, char limiter, char pad )|c:conversions|x:|
+f:uitodec|D:int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, char limiter, char pad )|c:conversions|x:|
 f:ultodec|D:int ultodec(unsigned long ui, char *buf, int prec, char limiter )|c:conversions|x:|
 
 #directories
@@ -77,7 +77,7 @@ f:lseek|D:int lseek(unsigned int a1, int a2, int a3 )|c:files|x:move the read/wr
 f:open|D:int volatile open( const char *s, int flags, ... )|c:files|x:open file relative to directory file descriptor|
 f:readahead|D:int readahead( int fd,  loff_t offset,  size_t count)|c:files|x:initiate file readahead into page cache|
 f:rename|D:int rename( const char* oldpath, const char* newpath )|c:files|x:rename file relative to directory file descriptor|
-f:select|D:int volatile  select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait)|c:files|x:synchronous I/O multiplexing|
+f:select|D:int volatile ATTR_OPT("O0") select(int fd, volatile fd_set* readfd, volatile fd_set *writefd, volatile fd_set *exceptfd, volatile struct timeval *wait)|c:files|x:synchronous I/O multiplexing|
 f:sendfile|D:int sendfile( int out_fd,  int in_fd,  off_t *offset,  size_t count)|c:files|x:transfer data between file descriptors|
 f:stat|D:int stat(const char* filename,struct stat* statbuf)|c:files|x:get file status|
 f:symlink|D:int symlink( const char *oldname,  const char *newname)|c:files|x:make a symbolic link relative to directory file descriptor|
@@ -145,9 +145,9 @@ f:memfd_create|D:int memfd_create( const char  *uname_ptr,  unsigned int flags)|
 f:memfrob|D:void* memfrob(void* s, unsigned int len)|c:memory|x:frobnicate (encrypt) a memory area|
 f:memmove|D:void* memmove(void *dest, const void *src, int n)|c:memory|x:copy bytes in memory with overlapping areas|
 f:memset|D:void *memset( void *s, int c, int n)|c:memory|x:set bytes in memory|
-f:mmap|D:void*  mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off)|c:memory|x:map pages of memory|
+f:mmap|D:void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off)|c:memory|x:map pages of memory|
 f:mprotect|D:int mprotect( POINTER *a1, POINTER a2, int a3 )|c:memory|x:set protection of memory mapping|
-f:mremap|D:void* volatile  mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr)|c:memory|x:remap a virtual memory address|
+f:mremap|D:void* volatile ATTR_OPT("O0") mremap(void* addr, size_t old_len, size_t new_len, int flags, void* new_addr)|c:memory|x:remap a virtual memory address|
 f:munmap|D:int munmap( void* addr,  size_t len)|c:memory|x:unmap pages of memory|
 f:realloc|D:void* realloc(void *p, int size)|c:memory|x:memory reallocator|
 f:sbrk|D:void* sbrk(long incr)|c:memory|x:change data segment size|
@@ -169,7 +169,7 @@ f:eprintsl|D:#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)|c:o
 f:eputs|D:#define eputs(msg) ( eprint(msg) + eprintl() )|c:output|x:|
 f:ewrites|D:#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))|c:output|x:|
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|c:output|x:|
-f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mini_buf,__VA_ARGS__))|c:output|x:|
+f:fprintf|D:#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))|c:output|x:|
 f:fprintfs|D:int fprintfs( FILE* F, char *fmt, ...)|c:output|x:|
 f:fprints|D:#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)|c:output|x:|
 f:fputc|D:int volatile fputc(int c, FILE* F)|c:output|x:put a byte on a stream|
@@ -271,7 +271,7 @@ f:strstr|D:char* strstr(const char *big, const char *little)|c:strings|x:find a 
 f:chroot|D:int chroot( const char *filename)|c:system|x:change root directory|
 f:getgid|D:int DEF_syscall(getgid,0)|c:system|x:get the real group ID|
 f:getuid|D:int DEF_syscall(getuid,0)|c:system|x:get a real user ID|
-f:ioctl|D:int volatile   ioctl( int fd, unsigned long int request, ... )|c:system|x:control a STREAMS device (\fBSTREAMS\fP)|
+f:ioctl|D:int volatile  ATTR_OPT("O0") ioctl( int fd, unsigned long int request, ... )|c:system|x:control a STREAMS device (\fBSTREAMS\fP)|
 f:macro|D:void  optimization_fence(void*p){}|c:system|x:|
 f:mknod|D:int mknod( const char *filename,  umode_t mode,  unsigned dev)|c:system|x:make directory, special file, or regular file|
 f:mount|D:int mount( char *dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)|c:system|x:mount filesystem|
@@ -311,7 +311,7 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 #unsorted
 
 f:ALIGN|D:|c:unsorted|x:|
-f:OPTFENCE|D:void  opt_fence(void*p,...)|c:unsorted|x:|
+f:OPTFENCE|D:#ifndef __clang__|c:unsorted|x:|
 f:OPTIMIZATIONS|D:|c:unsorted|x:|
 f:_die|D:void _die()|c:unsorted|x:|
 f:_match|D:int _match(char *text, const char *re, text_match *st_match)|c:unsorted|x:|

@@ -1,4 +1,4 @@
-**mini-gcc** v.20210626
+**mini-gcc** v.20210804
 
 ::
 
@@ -6,7 +6,7 @@
 Usage: `mini-gcc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf`
 
 mini-gcc compiles binaries and links them statically with minilib.
-It's a wrapper to call gcc with the right compile options,
+It's a wrapper to call gcc or clang with the right compile options,
 generate the config of minilib and include minilib.h. 
 
 In the most shorthand form, the only argument is the file,
@@ -36,8 +36,8 @@ before options and parameters for gcc.
         The configfile syntax is described within the file
         'minilib.mconf', which is also a minimal configuration file
         for the hello world examples.
-  			When the file 'minilib.h' is not found, 
-  			minilib.h will be piped to gcc on the fly.
+        When the file 'minilib.h' is not found, 
+        minilib.h will be piped to gcc on the fly.
 
 --dump-config 'file':
         Parses 'file' as configuration file, and dumps the generated
@@ -83,8 +83,8 @@ before options and parameters for gcc.
         parses the sourcefiles 'infile1',.. and writes a config into
         outfile, which enables compiling of all used minilib functions
         within 'infiles'. 
-  			Most possibly you'll still have to edit the config manually,
-  			e.g. printf conversions aren't correctly recognized.
+        Most possibly you'll still have to edit the config manually,
+        e.g. printf conversions aren't correctly recognized.
         After the config is written to outfile, 
         use the config file with --config 'outfile' 
           --force
@@ -121,12 +121,30 @@ before options and parameters for gcc.
 
 --compat:
         Include the provided compat headers (stdio.h,stdlib.h,...) directory 
-  			into the include search path.
-  			Using them is not recommended, they are not stable.
+        into the include search path.
+        Using them is not recommended, they are not stable.
 
 --fulldebug generate an outputfile (sourcefile.dbg.c) including the used parts:
         of minilib, and compile this file to sourcefile.dbg with the options
         -g2 -Og set.
+
+
+---------:
+
+
+The following (optional) environmental variables are used:
+
+CC          The name and path of the compiler
+CFLAGS      optional flags for the compiler
+CLANG       Set this to 1 to use clang as compiler.
+            (Or set CC to clang)
+OPTFLAG     optimization flag (default -Os)
+STRIPFLAG   stripflag (default -s)
+PICFLAG     parameter -fpic/-fno-pic .. (default -fno-pic)
+LDFLAG      Name of the ldscript
+VERBOSE     Set this to 1 to enable verbose messages
+NOCOLOR     Set this to 1 to disable colors
+SHOWSOURCES Set to 1 to save all combined sources into the outputfile
 
 
 \(c) 2019-2021 Michael misc Myer. All rights reserved.
