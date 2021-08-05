@@ -845,6 +845,7 @@ do
 			;;
 		--dump-conf )
 			shift
+			defaultvalues
 			genconfig $@
 			exit $?
 			;;
@@ -862,6 +863,7 @@ do
 				fi
 			fi
 			echo generating config in $outfile
+			defaultvalues
 			shift
 			genconfig $@ > $outfile
 			exit $?
