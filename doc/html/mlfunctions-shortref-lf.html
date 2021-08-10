@@ -894,11 +894,11 @@
   these functions do not depend on strlen, 
   or any globals.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htonl</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  19 </small></td><td><small>  uint32_t htonl(uint32_t i);
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htonl</a></small></td><td><small>   <a href="../macros/defgroups.h" target="right">../macros/defgroups.h</a>  8 </small></td><td><small>  uint32_t htonl(uint32_t i);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htons</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  7 </small></td><td><small>  uint16_t htons(uint16_t i);
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">htons</a></small></td><td><small>   <a href="../src/network/htonl.c" target="right">../src/network/htonl.c</a>  3 </small></td><td><small>  uint16_t htons(uint16_t i);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_aton</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  3 </small></td><td><small> int inet_aton(const char* s, struct in_addr *addr);
+<tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_aton</a></small></td><td><small>   <a href="../src/network/htons.c" target="right">../src/network/htons.c</a>  3 </small></td><td><small> int inet_aton(const char* s, struct in_addr *addr);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/net/inet.3.rst.html">inet_ntoa</a></small></td><td><small>   <a href="../src/network/inet_aton.c" target="right">../src/network/inet_aton.c</a>  7 </small></td><td><small> char* inet_ntoa( struct in_addr in);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert a address
@@ -1687,11 +1687,11 @@
 <tr valign="top"><td><small>network</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  4 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>network definitions
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohl</a></small></td><td><small>   <a href="../include/network.h" target="right">../include/network.h</a>  31 </small></td><td><small> #define ntohl(i) htonl(i)
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohl</a></small></td><td><small>   <a href="../include/network.h" target="right">../include/network.h</a>  20 </small></td><td><small> #define ntohl(i) htonl(i)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohs</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  15 </small></td><td><small> #define ntohs(i) htons(i)
+<tr valign="top"><td><small><a target="right" href="manpages/net/byteorder.3.rst.html">ntohs</a></small></td><td><small>   <a href="../src/network/htonl.c" target="right">../src/network/htonl.c</a>  2 </small></td><td><small> #define ntohs(i) htons(i)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../src/network/byteorder.c" target="right">../src/network/byteorder.c</a>  18 </small></td><td><small> int  open( const char *s, int flags, ... );
+<tr valign="top"><td><small><a target="right" href="manpages/sys/open.2.rst.html">open</a></small></td><td><small>   <a href="../src/network/macros.h" target="right">../src/network/macros.h</a>  18 </small></td><td><small> int  open( const char *s, int flags, ... );
 </small></td></tr><tr><td></td><td colspan="2"><small>open or create a file.
   warning: when using the flag O_CREAT,
   file permission flags have to be given

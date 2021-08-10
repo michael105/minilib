@@ -139,7 +139,7 @@ retest:
 
 header:
 	cd headers && make
-	./scripts/genheaders.pl ./ minilib/include/*.h minilib/macros/*.h minilib/src/*/*.c
+	./scripts/genheaders.pl ./ minilib/include/*.h minilib/macros/*.h minilib/src/*/*.h minilib/src/*/*.c
 	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 

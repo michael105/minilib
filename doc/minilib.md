@@ -639,11 +639,11 @@ group_write
 
 htonl          static uint32_t htonl(uint32_t i);
 
-               (src/network/byteorder.c: 19)
+               (src/network/htonl.c: 8)
 
 htons          static uint16_t htons(uint16_t i);
 
-               (src/network/byteorder.c: 7)
+               (src/network/htons.c: 3)
 
 inet_aton      int inet_aton(const char* s, struct in_addr *addr);
 
@@ -1332,11 +1332,11 @@ network
 
 ntohl          #define ntohl(i) htonl(i)
 
-               (src/network/byteorder.c: 31)
+               (src/network/htonl.c: 20)
 
 ntohs          #define ntohs(i) htons(i)
 
-               (src/network/byteorder.c: 15)
+               (src/network/macros.h: 2)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
 

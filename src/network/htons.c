@@ -9,5 +9,4 @@ static uint16_t htons(uint16_t i){
 }
 
 
-//+macro ntohs(i) htons(i)
 
