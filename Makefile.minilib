@@ -61,7 +61,7 @@ endif
 
 urlbase = "https://raw.githubusercontent.com/michael105/minilib/download"
 
-fetch = $(shell ((curl $(urlbase)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(1).gz)) && gunzip $(1).gz)
+fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
 	
 
 $(info Using config: $(CONF))
@@ -81,7 +81,11 @@ default: $(BUILDDIR) minilib.h
 	echo generate $(BUILDDIR)/$(CONF).ldscript
 	echo "$(ldscripts/ld.script.default)" > $(BUILDDIR)/$(CONF).ldscript || exit 1
 	echo compile $$SOURCES to $$BINARY
-	$(if $(SHOWSOURCE),($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -E -P),($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript -o $$BINARY $$SOURCES))
+	$(if $(SHOWSOURCE),\
+		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
+         $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -E -P),\
+      ($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
+         $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript -o $$BINARY $$SOURCES))
 
 
 minilib.h:
