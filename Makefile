@@ -207,6 +207,11 @@ Makefile.minilib:
 	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
 	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
 	echo "#sha256sums" >> Makefile.minilib
+	echo "define sha256sums =" > sign.tmp
+	cat Makefile.minilib | sha256sum  | sed 's/\s$$//g' >> sign.tmp
+	cat sign.tmp >> Makefile.minilib
+	sha256sum minilibcompiled.h >> Makefile.minilib
+	echo "endef" >> Makefile.minilib
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
 	#echo "endif" >> Makefile.minilib
 

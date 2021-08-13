@@ -30,7 +30,7 @@
 # Michael (misc) Myer, 2012-2021
 #
 
-VERSION:="20210805"
+VERSION:="20210813"
 
 #default values
 ifndef CONF
@@ -64,11 +64,12 @@ urlbase = "https://raw.githubusercontent.com/michael105/minilib/download"
 fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
 	
 
-$(info Using config: $(CONF))
+#$(info Using config: $(CONF))
 
 
 .ONESHELL:
 default: $(BUILDDIR) minilib.h
+	@echo Using config $(CONF)
 	@echo generate $(BUILDDIR)/$(CONF).h
 	BINARY=$(BUILDPROG)
 	MINILIB=minilib.h
@@ -93,6 +94,14 @@ minilib.h:
 	$(call fetch,minilib.h)
 	$(info Ok)
 
+
+check:
+	@echo Check sha256sums
+	@cat << ENDL > sign.tmp
+	$(sha256sums)
+	ENDL
+	#> sign.tmp
+	sed '/^#sha256sums/q' Makefile.minilib | sha256sum -c sign.tmp
 
 
 $(BUILDDIR):
@@ -1109,16 +1118,10 @@ SECTIONS {
 
 
 endef
-define ldscripts/ld.script.mlplugin_onlytext =
+define ldscripts/ld.script.textandbss =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
-/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
-              "elf64-x86-64")
-OUTPUT_ARCH(i386:x86-64) */
 
-/* memo to me -
-  the bss section is NOT
-  stored in the binary as shown with objdump !! */
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -1132,6 +1135,7 @@ OUTPUT_ARCH(i386:x86-64) */
 	 */ 
 
 	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
 
@@ -1147,11 +1151,6 @@ SECTIONS
 
 		.text           :
 		{
-				*(*__plugin_export*);
-			
-				/* *(.dynbss)
-				 *(*mlgl)  */
-				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start)
 						*(.text.exit .text.exit.*)
@@ -1161,11 +1160,24 @@ SECTIONS
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*) 
-						*(.bss* .dynbss*)
 		 } :text
 
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
 
 
 		/DISCARD/ : { 
@@ -1181,85 +1193,6 @@ SECTIONS
 			*(.plt*)
 			*(.got.plt*)
 			*(.rel.*)
-			}
-}
-
-
-endef
-define ldscripts/ld.script.onlytext_tiny =
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)
-*/
-
-PHDRS {
-	text PT_LOAD FILEHDR PHDRS;
-	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
-	 would set the text section read- and writable. somehow. 
-	 this spares one section, if globals are used.
-	 but seems to me a bit too nasty and dangerous.
-	 sametime, some bins are compiled with writable text.
-	 have to look for the source. strange, somehow. */
-	/* stack PT_GNU_STACK FLAGS(0x6) ; */
-	/*bss PT_LOAD;*/
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start .text._start.*)
-						*(.text._exit .text._exit.*)
-						*(.text.__exit .text.__exit.*)
-						*(.text._startup .text._startup.*)
-						*(.text.main .text.main.*)
-						*(.text.cexit)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-
-/*		 }
-		.bss            :
-		{ 
-*/
-/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
-saves 15 bytes. ( needs -N for linking )*/
-
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						*(.data .data.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :text
-
-		/DISCARD/ : { 
-			*(.note.GNU-stack) 
-	  		*(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			*(*)
 			}
 }
 
@@ -1367,10 +1300,16 @@ SECTIONS
 
 
 endef
-define ldscripts/ld.script.textandbss =
+define ldscripts/ld.script.mlplugin_onlytext =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
+/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
+              "elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64) */
 
+/* memo to me -
+  the bss section is NOT
+  stored in the binary as shown with objdump !! */
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -1384,7 +1323,6 @@ OUTPUT_ARCH(i386)*/
 	 */ 
 
 	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	bss PT_LOAD FLAGS(0x7);
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
 
@@ -1400,6 +1338,11 @@ SECTIONS
 
 		.text           :
 		{
+				*(*__plugin_export*);
+			
+				/* *(.dynbss)
+				 *(*mlgl)  */
+				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start)
 						*(.text.exit .text.exit.*)
@@ -1409,24 +1352,11 @@ SECTIONS
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*) 
+						*(.bss* .dynbss*)
 		 } :text
 
-		.bss           : 
-		{ 
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :bss 
-		 . = ALIGN(64 / 8);
-	  _end = .; 
-		PROVIDE (_end = .); 
 
 
 		/DISCARD/ : { 
@@ -1525,6 +1455,85 @@ SECTIONS {
 			}
 
 
+}
+
+
+endef
+define ldscripts/ld.script.onlytext_tiny =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	/* stack PT_GNU_STACK FLAGS(0x6) ; */
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
 }
 
 
@@ -1836,4 +1845,9 @@ SECTIONS {
 }
 
 
+endef
+#sha256sums
+define sha256sums =
+0d04b56fba9ff003cb3b0e7d63f2aea1c85b96b39de3814106c0c89122f1f58e  -
+d66659cd4da16de628ba7d10c14a398d2063376f4d291fd4cf374c9fe382fb1f  minilibcompiled.h
 endef
