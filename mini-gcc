@@ -818,12 +818,16 @@ do
 			opt=1
 			;;
 		--exec ) #compile and run 
+			echo Sorry, not working atm.
+			echo "(TODO) - repair option --exec"
+			exit 1
 			shift
 			opt=1
 			opt_exec=1
 			opt_execname=`basename $1 .c`
 			opt_compilename=`echo $1 | sed 's/.*\///'`
 			REAL_CC="$REAL_CC -o $opt_execname" # -x c <(cat $1)"
+			BINARY=$opt_execname
 			verbose compiling $1 to $opt_execname: $REAL_CC
 			#shift
 			;;

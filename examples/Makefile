@@ -1,6 +1,8 @@
 
 
-all: hello hello-include hello-scripted hello-unistd
+#all: hello hello-include hello-scripted hello-unistd
+
+all: hello hello-include hello-unistd
 
 hello: hello.c
 	 ../mini-gcc --config hello.c -o hello hello.c
