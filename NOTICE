@@ -57,11 +57,11 @@ modification, are permitted provided that the following conditions are met:
 
  * Applications and software linked with, or derived from minilib must 
    in addition reproduce one of the according full notices below for derived or 
-	 linked works within a documentation accessible at runtime:
+   linked works within a documentation accessible at runtime:
    - `--help` documentation
    - online manual for web applications
    - Alternatively within a for every user clearly visible and
-	   readable message at the application startup
+     readable message at the application startup
  
  * Software and applications without a textual or graphical user interface
    linked with, or derived from minilib must 
@@ -69,14 +69,10 @@ modification, are permitted provided that the following conditions are met:
    the file NOTICE, this list of conditions and the following disclaimer in 
    the documentation and all other materials like advertisements, 
    manuals, datasheets, etc.
-	 
+ 
  * Neither the name of the minilib nor the
    names of its contributors may be used to endorse or promote products
    derived from this software without specific prior written permission
-  
- * You inform me with an email with the subject `minilib usage` 
-   about your usage of minilib and agree to a possible announcement 
-	 with your and/or your companie`s name at the homepage of minilib
 
 
 Disclaimer:
@@ -95,7 +91,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 End of the license.
 
 
-Please contact me, if you are in need of differing licensing terms.
+Please contact me, if you are in need of other license terms.
 
 
 Notices:

@@ -15,7 +15,7 @@ _fopen
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> open close fileno<br>
 </p>
 </dd>
 </dl>
@@ -70,7 +70,7 @@ closedir
 <dd>
 <p>
   <em>int closedir(DIR <strong>dir)</em><br>
- *Defines:</strong> getbrk brk<br>
+ *Defines:</strong> sys_brk getbrk<br>
  <strong>close a directory stream</strong>
 Size: ~323B <a href="../../src/directories/closedir.c">../src/directories/closedir.c</a> l.6 manpage: <a href="../manpages/gen/directory.3.rst.html">closedir</a><br>
 </p>
@@ -232,7 +232,7 @@ select
 </dt>
 <dd>
 <p>
-  <em>int volatile  select(int fd, volatile fd_set* readfd, volatile fd_set <strong>writefd, volatile fd_set *exceptfd, volatile struct timeval *wait)</em><br>
+  <em>int volatile ATTR_OPT("O0") select(int fd, volatile fd_set* readfd, volatile fd_set <strong>writefd, volatile fd_set *exceptfd, volatile struct timeval *wait)</em><br>
  *synchronous I/O multiplexing</strong>
 Size: ~138B <a href="../../include/select.h">../include/select.h</a> l.16 manpage: <a href="../manpages/sys/select.2.rst.html">select</a><br>
 </p>
@@ -292,7 +292,7 @@ Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

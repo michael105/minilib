@@ -15,7 +15,7 @@ grantpt
 <dd>
 <p>
   <em>int grantpt(int fd)</em><br>
- <strong>Defines:</strong> kill ioctl uitodec getpid fstat termio write open strlen<br>
+ <strong>Defines:</strong> getpid open strlen write termio fstat ioctl uitodec kill<br>
  <strong>grant access to the slave pseudo-terminal device</strong>
 Size: ~44B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.49 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">grantpt</a><br>
 </p>
@@ -58,7 +58,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> strlen open write termio ioctl kill getpid uitodec<br>
+ *Defines:</strong> getpid open strlen kill write termio uitodec ioctl<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.34 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
 </p>
@@ -69,7 +69,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> getpid uitodec kill ioctl write termio strlen open<br>
+ *Defines:</strong> open getpid strlen kill write termio uitodec ioctl<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.21
 </p>
@@ -80,7 +80,7 @@ tcgetattr
 <dd>
 <p>
   <em>int tcgetattr(int fd, struct termios <strong>io)</em><br>
- *Defines:</strong> termio ioctl<br>
+ *Defines:</strong> ioctl termio<br>
  <strong>get the parameters associated with the terminal</strong>
 Size: ~300B <a href="../../src/termios/tcgetattr.c">../src/termios/tcgetattr.c</a> l.12 manpage: <a href="../manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
 </p>
@@ -122,7 +122,7 @@ vhangup
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

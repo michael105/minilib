@@ -139,7 +139,7 @@ retest:
 
 header:
 	cd headers && make
-	./scripts/genheaders.pl ./ minilib/include/*.h minilib/macros/*.h minilib/src/*/*.c
+	./scripts/genheaders.pl ./ minilib/include/*.h minilib/macros/*.h minilib/src/*/*.h minilib/src/*/*.c
 	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
@@ -206,6 +206,12 @@ Makefile.minilib:
 	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
 	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
+	echo "#sha256sums" >> Makefile.minilib
+	echo "define sha256sums =" > sign.tmp
+	cat Makefile.minilib | sha256sum  | sed 's/\s$$//g' >> sign.tmp
+	cat sign.tmp >> Makefile.minilib
+	sha256sum minilibcompiled.h >> Makefile.minilib
+	echo "endef" >> Makefile.minilib
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
 	#echo "endif" >> Makefile.minilib
 
@@ -222,12 +228,14 @@ gitlog:
 
 
 syntaxcheck: 
-	@echo Generate syntaxcheck.h
-	$(shell cp templates/syntaxcheck.h.top ./syntaxcheck.h) 
-	$(shell ( ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -DGENSYNTAXCHECK -dD | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
+	$(info Generate syntaxcheck.h)
+	cp templates/syntaxcheck.h.top ./syntaxcheck.h
+	$(info echo copies)
+	./mini-gcc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
+	( gcc -include minilibcfg-syntaxcheck.h minilib.h -E -dD -DGENSYNTAXCHECK -I. -I./include -I./headers -nodefaultlibs -nostdlib -DMLIB -fno-builtin -DLINUX -DX64 | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
 			cat templates/syntaxcheck.h.bottom ) |\
-			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h )
-	@echo Ok.
+			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h 
+	$(info Ok)
 
 
 git-master:
@@ -241,7 +249,7 @@ git-master:
 git-devel:
 	# update master repo at github
 	git push origin devel-HEAD:devel
-	cd ../minilib-master && \
+	cd ../minilib-devel \
 		git fetch && \
 		git pull && \
 		git push github

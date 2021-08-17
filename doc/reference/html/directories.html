@@ -173,7 +173,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> brk write 0 open dirbuf close getbrk<br>
+ *Defines:</strong> 0 getbrk dirbuf open sys_brk close write<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../../src/directories/opendir.c">../src/directories/opendir.c</a> l.10 manpage: <a href="../manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
@@ -184,7 +184,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> getbrk dirbuf close open brk 0<br>
+ *Defines:</strong> close sys_brk dirbuf getbrk open 0<br>
 <a href="../../src/directories/opendirp.c">../src/directories/opendirp.c</a> l.5
 </p>
 </dd>
@@ -234,7 +234,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> sbrk open brk memcpy getpid qsort kill getbrk dirbuf strlen write seterrno 0 errno<br>
+ <strong>Defines:</strong> getdents dirbuf getbrk open seterrno strlen kill write memcpy errno sys_brk getpid 0 swap<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -267,7 +267,7 @@ scandir
  returns the number of the read entries,
  or the negative errno on error.</code></pre>
 </td></tr></table>
-<p><a href="../../src/directories/scandir.c">../src/directories/scandir.c</a> l.34 manpage: <a href="../manpages/gen/scandir.3.rst.html">scandir</a><br></p>
+<p><a href="../../src/directories/scandir.c">../src/directories/scandir.c</a> l.30 manpage: <a href="../manpages/gen/scandir.3.rst.html">scandir</a><br></p>
 <a name="scandir_bufsize"></a><dl>
 <dt>
 scandir_bufsize
@@ -282,7 +282,7 @@ scandir_bufsize
 <pre><code>the increment of the buffer of scandir in bytes for memory allocations
  (default:4096)</code></pre>
 </td></tr></table>
-<p><a href="../../src/directories/scandir.c">../src/directories/scandir.c</a> l.4</p>
+<p><a href="../../src/directories/scandir_bufsize.c">../src/directories/scandir_bufsize.c</a> l.4</p>
 <a name="seekdir"></a><dl>
 <dt>
 seekdir
@@ -309,7 +309,7 @@ Size: ~32B <a href="../../src/directories/telldir.c">../src/directories/telldir.
 <p></p>
 <hr><p><small>
 Last updated
- 2021-06-26 12:43:07 UTC
+ 2021-08-04 15:28:59 UTC
 </small></p>
 </body>
 </html>

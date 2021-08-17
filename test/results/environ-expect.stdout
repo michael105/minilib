@@ -1,7 +1,6 @@
 getenv.
 ./environ
-argument1
-/home/testvalue
+/home/micha
 Ok
 a: 0
 a: 1
