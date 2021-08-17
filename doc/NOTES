@@ -44,7 +44,7 @@ so - I believe, the biggest difference is the one step more.
 scripts are just executed.
 c programs need to be compiled first, then run.
 
-This is already overcome with the switch --exec to mini-cc.
+This is already overcome with the switch --exec to mlcc.
 
 another difference: scripts start at the top.
 
@@ -188,7 +188,7 @@ printf_allformats(){
 }
 
 
-Something breaks the config generation. (mini-cc --genconf)
+Something breaks the config generation. (mlcc --genconf)
 It might be related to the header inclusion,
 and the headerguards.
 But that's only a guess.
@@ -212,7 +212,7 @@ gcc -E main2.c -include <( cat prep2.h ) | sed -n 's/^.*\(P.*\)(.*/\1/p'
 gcc -E main2.c -include <( cat prep2.h ) | sed -n 's/^.*\(P.*\)(.*/\1/p' | sort -u 
 
 
-cat minilib.genconf.h | ( ./mini-cc -E hello.c -include <( cat - ) )
+cat minilib.genconf.h | ( ./mlcc -E hello.c -include <( cat - ) )
 
 
 

@@ -1,6 +1,6 @@
 
 
-doc: mini-cc.rst make.rst html/*.html html/minilib-reference.html reference
+doc: mlcc.rst make.rst html/*.html html/minilib-reference.html reference
 
 reference: minilib-reference.asc
 	cd reference && make once && make
@@ -22,9 +22,9 @@ make.rst: ../Makefile
 	sed -i -e '1,3s/^\S.*/**\0**/' -e '4,/^help/s/^\S.*/\0/' make.rst
 
 
-mini-cc.rst: ../mini-cc
-	../mini-cc --help > mini-cc.rst
-	sed -i -e '1s/mini-cc/**\0**/; 2i\\n::\n' -e 's/\(^-.*\)\(:\)\s*$$/\1/' -e 's/^-.*/\0:/' -e "s/^\d040/\\\(/"  -e 's/^\t/  /g' mini-cc.rst
+mlcc.rst: ../mlcc
+	../mlcc --help > mlcc.rst
+	sed -i -e '1s/mlcc/**\0**/; 2i\\n::\n' -e 's/\(^-.*\)\(:\)\s*$$/\1/' -e 's/^-.*/\0:/' -e "s/^\d040/\\\(/"  -e 's/^\t/  /g' mlcc.rst
 
 html/%.html: %.rst
 	rst2html5 -r 5 $< > $@

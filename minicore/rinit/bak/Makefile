@@ -1,7 +1,7 @@
 
 
 
-CC=../../mini-cc
+CC=../../mlcc
 
 all: init reboot halt rinit.boot rinit.run
 

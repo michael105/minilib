@@ -1,5 +1,5 @@
 
-MCC=../minilib/mini-cc
+MCC=../minilib/mlcc
 
 AP=./append
 PATH := $(PWD):$(PATH)

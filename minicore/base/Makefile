@@ -1,4 +1,4 @@
-MCC=../../mini-cc
+MCC=../../mlcc
 
 
 src = $(patsubst %.c,%, $(wildcard *.c))

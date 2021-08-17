@@ -1,4 +1,4 @@
-MCC=../../../mini-cc
+MCC=../../../mlcc
 APPEND="-DPWD=${PWD}"
 
 
