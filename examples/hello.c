@@ -1,7 +1,7 @@
 #if 0
 # file: hello.c
 # An example, of howto use the inbuilt scripting configuration
-# compile with mini-gcc --config hello.c -o hello hello.c
+# compile with mlcc --config hello.c -o hello hello.c
 # Atm, something bloats this to 214Byte here
 # Have to sort this out. Used to be around 180 Bytes
 

@@ -1,7 +1,7 @@
 # include this makefile via include Makefile.minilib
 # For using it, have a look into Makefile.template
 # The different switches are explained and commented there.
-# atm, it is better using the script mini-gcc anyways.
+# atm, it is better using the script mlcc anyways.
 # Have to fix this.
 #
 #if 0
