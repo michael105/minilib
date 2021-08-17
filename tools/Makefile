@@ -3,7 +3,7 @@ PROGS=shrinkelf removeccomments stripblanks
 all: $(PROGS)
 
 %: %.c
-	../mlcc -mlc $<
+	../mlcc $<
 
 shrinkelf: shrinkelf.c
 	../mlcc --config shrinkelf.mconf -o shrinkelf shrinkelf.c

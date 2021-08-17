@@ -37,5 +37,5 @@ mini_unlink
 mini_write
 mini_errno
 mini_exit
-
+mini_raise
 mini_itodec
