@@ -1,7 +1,7 @@
 // file: hello-include.c
 //   howto use minilib via including header only
 //   compile with: 
-//   mini-gcc -o hello-include hello-include.c
+//   mini-cc -o hello-include hello-include.c
 //
 
 

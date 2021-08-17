@@ -23,7 +23,7 @@ define HELP
 make targets:
 
 all
-  header compile-mini-gcc doc examples test
+  header compile-mini-cc doc examples test
 	
 examples
 	make examples
@@ -32,23 +32,23 @@ header
 	rebuild header files, also rebuild some of the generated documentation.
 
 doc
-	rebuild generated documentation: html files, mini-gcc info
+	rebuild generated documentation: html files, mini-cc info
 
-mini-gcc
-	rebuild the script mini-gcc, pack ldscripts and config scripts
+mini-cc
+	rebuild the script mini-cc, pack ldscripts and config scripts
 
-compile-mini-gcc
-	pack the gzipped (complete) minilib into mini-gcc
-	(run mini-gcc --dump-minilib to extract the header to stdout)
+compile-mini-cc
+	pack the gzipped (complete) minilib into mini-cc
+	(run mini-cc --dump-minilib to extract the header to stdout)
 
-unpack-mini-gcc
-	strip the gzipped minilib of mini-gcc
+unpack-mini-cc
+	strip the gzipped minilib of mini-cc
 
 combined
 	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
 devel
-	make header combined compile-mini-gcc
+	make header combined compile-mini-cc
 
 tools
 	make tools in the dir ./tools
@@ -72,7 +72,7 @@ help
 	show this help
 
 
-Most possibly you'll need: "make compile-mini-gcc", and "make test"
+Most possibly you'll need: "make compile-mini-cc", and "make test"
 Both run all needed other targets.
 
 However, building with minilib is sort of transparent:
@@ -80,10 +80,10 @@ You can include the uncompiled "minilib.h", which will include
 all other header files.
 And you can include the compiled "minilib.h", as only dependency.
 
-When compiling with mini-gcc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into mini-gcc; these
+When compiling with mini-cc, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into mini-cc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile mini-gcc every time)
+(Making development easier - no need to compile mini-cc every time)
 
 The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)
@@ -118,9 +118,9 @@ help:
 
 default: help
 
-all: header combined compile-mini-gcc Makefile.minilib doc examples test syntaxcheck
+all: header combined compile-mini-cc Makefile.minilib doc examples test syntaxcheck
 
-devel: header combined compile-mini-gcc Makefile.minilib
+devel: header combined compile-mini-cc Makefile.minilib
 
 examples:
 	cd examples && make
@@ -143,40 +143,40 @@ header:
 	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
-# ./mini-gcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
+# ./mini-cc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
 
 doc: header
 	cd doc && make
 
-mini-gcc: scripts/genconfig.sh ldscript
+mini-cc: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 
-	scripts/template.pl mini-gcc genconfig scripts/genconfig.sh
-	scripts/template.pl mini-gcc genconf-macros minilib.genconf.h
-	scripts/template.pl mini-gcc headerguards include/headerguards.h
-	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' mini-gcc
-	rm mini-gcce
+	scripts/template.pl mini-cc genconfig scripts/genconfig.sh
+	scripts/template.pl mini-cc genconf-macros minilib.genconf.h
+	scripts/template.pl mini-cc headerguards include/headerguards.h
+	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' mini-cc
+	rm mini-cce
 
 
-compile-mini-gcc: mini-gcc unpack-mini-gcc
-	gzip -c minilibcompiled.h >> mini-gcc
-	echo -e "\n#ENDGZ" >> mini-gcc
+compile-mini-cc: mini-cc unpack-mini-cc
+	gzip -c minilibcompiled.h >> mini-cc
+	echo -e "\n#ENDGZ" >> mini-cc
 
 
-unpack-mini-gcc:
-	sed '/^#MINILIBGZ#$$/q' mini-gcc > mini-gcc.tmp
-	cp mini-gcc.tmp mini-gcc
-	rm mini-gcc.tmp
+unpack-mini-cc:
+	sed '/^#MINILIBGZ#$$/q' mini-cc > mini-cc.tmp
+	cp mini-cc.tmp mini-cc
+	rm mini-cc.tmp
 
 
 ldscript: ldscripts/ld.script*
 	@echo dbg, ldscripts. var: $^ 
-	echo "# Parsing" | scripts/template.pl mini-gcc content-ldscript
+	echo "# Parsing" | scripts/template.pl mini-cc content-ldscript
 	sh scripts/ldscripts.sh $^ 
 
 
-			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert mini-gcc content-ldscript; echo J ) )  
+			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert mini-cc content-ldscript; echo J ) )  
 	
-	#| scripts/template.pl -insert mini-gcc content-ldscript )  )   
+	#| scripts/template.pl -insert mini-cc content-ldscript )  )   
 
 tools:
 	cd tools && make
@@ -201,7 +201,7 @@ Makefile.minilib:
 	echo generate Makefile.minilib
 	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' Makefile.minilib
 	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
-	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-gcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mini-cc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
 	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
@@ -231,7 +231,7 @@ syntaxcheck:
 	$(info Generate syntaxcheck.h)
 	cp templates/syntaxcheck.h.top ./syntaxcheck.h
 	$(info echo copies)
-	./mini-gcc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
+	./mini-cc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
 	( gcc -include minilibcfg-syntaxcheck.h minilib.h -E -dD -DGENSYNTAXCHECK -I. -I./include -I./headers -nodefaultlibs -nostdlib -DMLIB -fno-builtin -DLINUX -DX64 | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
 			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h 

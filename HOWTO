@@ -7,7 +7,7 @@ If you'd like to try this minilib,
 there are several ways:
 
 
-1. Using the "released" (pre-released..) bundled files "minilib.h" and "mini-gcc" 
+1. Using the "released" (pre-released..) bundled files "minilib.h" and "mini-cc" 
    from the branch "release"
 ===
 
@@ -18,9 +18,9 @@ there are several ways:
 
   (source of hello-combined attached below, with explanations..)
     
-	Compile, using mini-gcc:
+	Compile, using mini-cc:
 
-	mini-gcc -o hello hello-include.c
+	mini-cc -o hello hello-include.c
 
 
 	The tool "shrinkelf" out of the folder minilib/tools brings this further down, now 185 Bytes here.
@@ -56,16 +56,16 @@ git clone https://github.com/michael105/minilib.git minilib
   -> this will build the folder minilib and download the sources of minilib into it.
 
 	Either export the environmental variable CC,
-	so the wrapper script mini-gcc is going to be used by existing makefiles.
+	so the wrapper script mini-cc is going to be used by existing makefiles.
 	(When they take care of the environmental variable CC)
 
-export CC="path-to-minilib/mini-gcc"
+export CC="path-to-minilib/mini-cc"
 
-	or call the wrapper mini-gcc yourself, 
+	or call the wrapper mini-cc yourself, 
 	instead of gcc.
 
   (e.g.)
-path-to-minilib/mini-gcc -o hello hello.c
+path-to-minilib/mini-cc -o hello hello.c
 
 ___________
 
@@ -89,7 +89,7 @@ ___________
 		All options, defined before the inclusion of minilib.h,
 		are going to be built.
 
-	- By the config system, integrated into mini-gcc
+	- By the config system, integrated into mini-cc
 		This is the preferred way now.
 
 
@@ -112,7 +112,7 @@ copy minilib/minilib.conf ./
 
 
 
--- create/update minilib.conf.h with mini-gcc --config minilib.conf
+-- create/update minilib.conf.h with mini-cc --config minilib.conf
 	
 TODO: Update docu
 

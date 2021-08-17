@@ -1,7 +1,7 @@
 # configfile, enabling all buildoptions.
 #
 # This file can be parsed and included by 
-# mini-gcc --config minilib.conf.all (sources.c)
+# mini-cc --config minilib.conf.all (sources.c)
 # define the names of the functions you'd like to use here,
 # comment unwanted functions out.
 #

@@ -6,7 +6,7 @@ PROG=hello
 
 PROGCUSTOM=fopen malloc fprintf select fputs
 
-# ebedded config, mini-gcc, wildcard target
+# ebedded config, mini-cc, wildcard target
 MAKEPROGS=fprintf fopen strchr strstr system environ static \
 					hashes realloc div globals atexit \
 					strerror mallocstack strtol putenv strcmp\
@@ -77,27 +77,27 @@ $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
 all: fputs hello-combined hello-include hello-smallest args $(PROGCUSTOM) $(MAKEPROGS) common.conf
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
-	@$(foreach P,$(MINIGCC) , (echo minilib/mini-gcc --config $(P).c -o $(P) $(P).c && minilib/mini-gcc --config $(P).c -o $(P) $(P).c ) && ) true
+	@$(foreach P,$(MINIGCC) , (echo minilib/mini-cc --config $(P).c -o $(P) $(P).c && minilib/mini-cc --config $(P).c -o $(P) $(P).c ) && ) true
 
 test-generated: 
 	cd generated && make clean
 	cd generated && make test
 
 %: %.c
-	minilib/mini-gcc --config $< -o $@ $<
+	minilib/mini-cc --config $< -o $@ $<
 
 build/minilib.o: minilib.conf
-	minilib/mini-gcc --config minilib.conf -c -o build/minilib.o minilib.c -DINCLUDESRC
+	minilib/mini-cc --config minilib.conf -c -o build/minilib.o minilib.c -DINCLUDESRC
 
 
 malloc: malloc.c
-	minilib/mini-gcc --config malloc.mconf -o malloc malloc.c
+	minilib/mini-cc --config malloc.mconf -o malloc malloc.c
 
 select: select.c
-	minilib/mini-gcc -o select select.c -Iminilib/include -Iminilib/headers/common -Iminilib/headers/linux_x64 -Iminilib/macros -nostdinc
+	minilib/mini-cc -o select select.c -Iminilib/include -Iminilib/headers/common -Iminilib/headers/linux_x64 -Iminilib/macros -nostdinc
 
 fgets: fgets.c
-	minilib/mini-gcc --config fgets.c -o fgets-bin fgets.c
+	minilib/mini-cc --config fgets.c -o fgets-bin fgets.c
 	echo '#!/bin/sh' > fgets 
 	echo 'echo -e "Xest\nfgets\n" | ./fgets-bin' >> fgets
 	chmod a+x fgets

@@ -9,7 +9,7 @@
 <hr>
 <h2><a name="_configuration"></a> Configuration</h2>
 <p>Before the include of minilib.h, the minilib has to be configured.</p>
-<p>The proposed way is to use the supplied script mini-gcc,<br>
+<p>The proposed way is to use the supplied script mini-cc,<br>
 which translates config options to define flags,<br>
 and pipes the minilib header to gcc.</p>
 <p>The config file is a bash script and can be a separate file,
@@ -52,12 +52,12 @@ int main(int argc, char *argv[] ){
 the files within the folder test are there for regression tests,<br>
 but might also be helpful.</p>
 <p>To compile a c source file with embedded configuration (as in the example above),<br>
-type <em>mini-gcc --config example.c -o example example.c</em>.<br>
-(Shortcut <em>mini-gcc -mlc example.c</em>)</p>
-<p>(mini-gcc needs to be in the standard search path)<br>
-If you&#8217;d like to "install" the mini-gcc, simply copy the script mini-gcc into /usr/local/bin,<br>
+type <em>mini-cc --config example.c -o example example.c</em>.<br>
+(Shortcut <em>mini-cc -mlc example.c</em>)</p>
+<p>(mini-cc needs to be in the standard search path)<br>
+If you&#8217;d like to "install" the mini-cc, simply copy the script mini-cc into /usr/local/bin,<br>
 or wherever your executables live and can be found.</p>
-<p>The minilib itself, as well as the supllied linker scripts are embedded into mini-gcc,<br>
+<p>The minilib itself, as well as the supllied linker scripts are embedded into mini-cc,<br>
 and extracted and piped to gcc on demand.</p>
 <p>(There are compatibility headers provided, e.g. stdio.h;<br>
 these are however not stable and will most probably not work.<br>

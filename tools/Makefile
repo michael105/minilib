@@ -3,10 +3,10 @@ PROGS=shrinkelf removeccomments stripblanks
 all: $(PROGS)
 
 %: %.c
-	../mini-gcc -mlc $<
+	../mini-cc -mlc $<
 
 shrinkelf: shrinkelf.c
-	../mini-gcc --config shrinkelf.mconf -o shrinkelf shrinkelf.c
+	../mini-cc --config shrinkelf.mconf -o shrinkelf shrinkelf.c
 
 clean:
 	rm $(PROGS)

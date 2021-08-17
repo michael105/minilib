@@ -2,7 +2,7 @@
 **make targets:**
 
 all
-  header compile-mini-gcc doc examples test
+  header compile-mini-cc doc examples test
 	
 examples
 	make examples
@@ -11,23 +11,23 @@ header
 	rebuild header files, also rebuild some of the generated documentation.
 
 doc
-	rebuild generated documentation: html files, mini-gcc info
+	rebuild generated documentation: html files, mini-cc info
 
-mini-gcc
-	rebuild the script mini-gcc, pack ldscripts and config scripts
+mini-cc
+	rebuild the script mini-cc, pack ldscripts and config scripts
 
-compile-mini-gcc
-	pack the gzipped (complete) minilib into mini-gcc
-	(run mini-gcc --dump-minilib to extract the header to stdout)
+compile-mini-cc
+	pack the gzipped (complete) minilib into mini-cc
+	(run mini-cc --dump-minilib to extract the header to stdout)
 
-unpack-mini-gcc
-	strip the gzipped minilib of mini-gcc
+unpack-mini-cc
+	strip the gzipped minilib of mini-cc
 
 combined
 	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
 devel
-	make header combined compile-mini-gcc
+	make header combined compile-mini-cc
 
 tools
 	make tools in the dir ./tools
@@ -51,7 +51,7 @@ help
 	show this help
 
 
-Most possibly you'll need: "make compile-mini-gcc", and "make test"
+Most possibly you'll need: "make compile-mini-cc", and "make test"
 Both run all needed other targets.
 
 However, building with minilib is sort of transparent:
@@ -59,10 +59,10 @@ You can include the uncompiled "minilib.h", which will include
 all other header files.
 And you can include the compiled "minilib.h", as only dependency.
 
-When compiling with mini-gcc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into mini-gcc; these
+When compiling with mini-cc, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into mini-cc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile mini-gcc every time)
+(Making development easier - no need to compile mini-cc every time)
 
 The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)

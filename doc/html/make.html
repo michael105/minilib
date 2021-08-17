@@ -602,7 +602,7 @@ a { text-decoration: none; }
 <p><strong>make targets:</strong></p>
 <dl class="simple">
 <dt>all</dt>
-<dd><p>header compile-mini-gcc doc examples test</p>
+<dd><p>header compile-mini-cc doc examples test</p>
 </dd>
 <dt>examples</dt>
 <dd><p>make examples</p>
@@ -611,23 +611,23 @@ a { text-decoration: none; }
 <dd><p>rebuild header files, also rebuild some of the generated documentation.</p>
 </dd>
 <dt>doc</dt>
-<dd><p>rebuild generated documentation: html files, mini-gcc info</p>
+<dd><p>rebuild generated documentation: html files, mini-cc info</p>
 </dd>
-<dt>mini-gcc</dt>
-<dd><p>rebuild the script mini-gcc, pack ldscripts and config scripts</p>
+<dt>mini-cc</dt>
+<dd><p>rebuild the script mini-cc, pack ldscripts and config scripts</p>
 </dd>
-<dt>compile-mini-gcc</dt>
-<dd><p>pack the gzipped (complete) minilib into mini-gcc
-(run mini-gcc --dump-minilib to extract the header to stdout)</p>
+<dt>compile-mini-cc</dt>
+<dd><p>pack the gzipped (complete) minilib into mini-cc
+(run mini-cc --dump-minilib to extract the header to stdout)</p>
 </dd>
-<dt>unpack-mini-gcc</dt>
-<dd><p>strip the gzipped minilib of mini-gcc</p>
+<dt>unpack-mini-cc</dt>
+<dd><p>strip the gzipped minilib of mini-cc</p>
 </dd>
 <dt>combined</dt>
 <dd><p>compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)</p>
 </dd>
 <dt>devel</dt>
-<dd><p>make header combined compile-mini-gcc</p>
+<dd><p>make header combined compile-mini-cc</p>
 </dd>
 <dt>tools</dt>
 <dd><p>make tools in the dir ./tools
@@ -651,16 +651,16 @@ All declarations of minilib are define there.</p>
 <dd><p>show this help</p>
 </dd>
 </dl>
-<p>Most possibly you'll need: &quot;make compile-mini-gcc&quot;, and &quot;make test&quot;
+<p>Most possibly you'll need: &quot;make compile-mini-cc&quot;, and &quot;make test&quot;
 Both run all needed other targets.</p>
 <p>However, building with minilib is sort of transparent:
 You can include the uncompiled &quot;minilib.h&quot;, which will include
 all other header files.
 And you can include the compiled &quot;minilib.h&quot;, as only dependency.</p>
-<p>When compiling with mini-gcc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into mini-gcc; these
+<p>When compiling with mini-cc, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into mini-cc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile mini-gcc every time)</p>
+(Making development easier - no need to compile mini-cc every time)</p>
 <p>The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)
 I leave them here.
