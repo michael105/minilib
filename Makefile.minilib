@@ -1,11 +1,11 @@
 # Makefile for minilib
 # 
-# call with 'make -f Makefile.minilib [CONF=configfile.conf] [BUILD=binaryname]'
+# call with 'make -f Makefile.minilib [CONF=configfile.conf] BUILD=binaryname'
 #
 # When minilib.h is not present,
 # it will be downloaded from github. (100kB gzipped)
 # 
-# Dependencies: gcc|clang, sed
+# Dependencies: gcc or clang, sed
 # 
 # Minilib and the accompanying tools and scripts are licensed under a 
 # BSD-style opensource license with attribution.
@@ -30,7 +30,7 @@
 # Michael (misc) Myer, 2012-2021
 #
 
-VERSION:="20210827"
+VERSION:="20210828"
 
 $(info Build:$(BUILD) Conf:$(CONF))
 
@@ -52,7 +52,7 @@ ifndef $(BUILDDIR)
 endif
 
 ifndef $(SOURCES)
-	SOURCES:=$(CONF)
+	SOURCES:=$(BUILD).c
 endif
 
 ifndef $(LDSCRIPT)
@@ -66,6 +66,7 @@ urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
 
 fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
 	
+SELF = $(lastword $(MAKEFILE_LIST))
 
 #$(info Using config: $(CONF))
 
@@ -82,7 +83,8 @@ default: $(BUILDDIR) minilib.h
 	source $(CONF) > $(BUILDDIR)/$(CONF).h || exit 1
 	echo LDSCRIPT: $$LDSCRIPT
 	echo generate $(BUILDDIR)/$(CONF).ldscript
-	echo "$(ldscripts/ld.script.default)" > $(BUILDDIR)/$(CONF).ldscript || exit 1
+	#echo $($$VAR) > $(BUILDDIR)/$(CONF).ldscript || exit 1
+	cat $(SELF) | sed -n "/ldscripts\/ld.script.$$LDSCRIPT/,/endef/p" | sed '1d;/endef/Q' > $(BUILDDIR)/$(CONF).ldscript || exit 1
 	echo compile $(SOURCES) to $(BUILD)
 	echo $(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
        $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -o $$BINARY
@@ -91,6 +93,8 @@ default: $(BUILDDIR) minilib.h
          $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -E -P),\
 		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
          $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -o $$BINARY ))
+	$(if $$opt_shrinkelf,echo shrinkelf $$BINARY)
+	$(if $$opt_shrinkelf,$(MAKE) -f $(SELF) $(BUILDDIR)/shrinkelf && $(BUILDDIR)/shrinkelf $$BINARY)
 
 
 minilib.h:
@@ -99,13 +103,23 @@ minilib.h:
 	$(info Ok)
 
 
+$(BUILDDIR)/shrinkelf: minilib.h $(BUILDDIR)/shrinkelf.c $(BUILDDIR)/shrinkelf.mconf 
+	$(MAKE) -f $(SELF) default BUILD=$(BUILDDIR)/shrinkelf CONF=$(BUILDDIR)/shrinkelf.mconf BUILDDIR=.
+
+$(BUILDDIR)/shrinkelf.c: minilib.h
+	$(CC) -Dminilibcompiled_h -DSHRINKELF -E -P minilib.h > $(BUILDDIR)/shrinkelf.c
+
+$(BUILDDIR)/shrinkelf.mconf: minilib.h
+	$(CC) -Dminilibcompiled_h -DSHRINKELF_MCONF -E -P minilib.h > $(BUILDDIR)/shrinkelf.mconf
+
+
 check:
 	@echo Check sha256sums
 	@cat << ENDL > sign.tmp
 	$(sha256sums)
 	ENDL
 	#> sign.tmp
-	sed '/^#sha256sums/q' Makefile.minilib | sha256sum -c sign.tmp
+	sed '/^#sha256sums/q' $(SELF) | sha256sum -c sign.tmp
 
 
 $(BUILDDIR):
@@ -142,7 +156,7 @@ SHOWSOURCES Set to 1 to save all combined sources into the outputfile
 
 (c) 2019-2021 Michael misc Myer. All rights reserved.
 Free to use with attribution
-'make -f Makefile.minilib license' shows the license
+'make -f $(SELF) license' shows the license
 
 endef
 
@@ -2014,6 +2028,6 @@ SECTIONS {
 endef
 #sha256sums
 define sha256sums =
-c1d407783a6aecd3e0ea633aa029762dbe466a938ad364b819021d1c09876757  -
-d66659cd4da16de628ba7d10c14a398d2063376f4d291fd4cf374c9fe382fb1f  minilib.h
+16075ace995965a86038fc547d5eb4ddd9886dc41de8416b5c2a739e6fb91f18  -
+3223739d2279790c8526c84a73b5e1987c9b605a063c60faaef90c6f1baa5198  minilibcompiled.h
 endef
