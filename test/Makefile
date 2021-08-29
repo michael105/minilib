@@ -137,6 +137,10 @@ packtestresults:
 	gcc -dumpspecs > ./$(tpath)/gcc-dumpspecs
 	ld --verbose > ./$(tpath)/ld.verbose
 	clang -v > ./$(tpath)/clang-v
+	ls /usr/bin | gzip > ./$(tpath)/usrbin.gz
+	ls /bin | gzip > ./$(tpath)/bin.gz
+	ls /sbin | gzip > ./$(tpath)/sbin.gz
+	ls /usr/sbin | gzip > ./$(tpath)/usrsbin.gz
 	tar -czf results-packed.tgz ./$(tpath)
 
 
