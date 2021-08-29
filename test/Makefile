@@ -16,9 +16,8 @@ FAILING=ltodec sigaction vfork vforked
 
 MINIGCC=rand sleep execve strdup
 
-TESTQL=environ getpwuid globals mallocstack strcmp strstr strtol system \
-		 getpwuid rand execve strdup fopen malloc fprintf select fputs hashes \
-		 div globals atexit strerror strchr static
+TESTQL=getpwuid globals mallocstack strcmp strstr strtol system \
+		 getpwuid fputs globals
 
 
 
@@ -34,7 +33,7 @@ MLIBDIR=../
 #Set the optimization flag (default: -O1)
 OPTFLAG=-Os
 
-# GCC
+# CC
 GCC=clang
 
 # LD

@@ -1,3 +1,13 @@
+#if 0
+mini_buf 4096
+mini_start
+INCLUDESRC
+# function switches. Only functions named below will be compiled
+COMPILE close dup2 fprintf itodec fputc free fstat lseek malloc memcmp memcpy
+COMPILE open read rename strcpy strlen unlink write errno exit raise itodec
+
+return
+#endif
 /* shrinkelf - strip an ELF executable of as much as possible
  *
  * Modified to work with 64bit.
