@@ -16,7 +16,7 @@ FAILING=ltodec sigaction vfork vforked
 
 MINIGCC=rand sleep execve strdup
 
-TESTQL=getpwuid globals mallocstack strcmp strstr strtol system \
+TESTQL=getpwuid globals mallocstack strcmp strstr strtol \
 		 getpwuid fputs globals
 
 
