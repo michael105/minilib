@@ -131,6 +131,9 @@ test:
 testql: 
 	cd test && make testql
 
+testql-gcc9: 
+	cd test && make testql-gcc9
+
 testql-build: 
 	cd test && make all
 
