@@ -34,7 +34,11 @@ MLIBDIR=../
 OPTFLAG=-Os
 
 # CC
-GCC=clang
+ifndef CC
+export CC=clang
+endif
+
+#export CC=clang
 
 # LD
 #LD=ld
@@ -137,6 +141,10 @@ packtestresults:
 	gcc -dumpspecs > ./$(tpath)/gcc-dumpspecs
 	ld --verbose > ./$(tpath)/ld.verbose
 	clang -v > ./$(tpath)/clang-v
+	ls /usr/bin | gzip > ./$(tpath)/usrbin.gz
+	ls /bin | gzip > ./$(tpath)/bin.gz
+	ls /sbin | gzip > ./$(tpath)/sbin.gz
+	ls /usr/sbin | gzip > ./$(tpath)/usrsbin.gz
 	tar -czf results-packed.tgz ./$(tpath)
 
 
@@ -180,6 +188,26 @@ testql: all
 			( echo -e $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
 	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && sort passed.txt && echo -e $(WHITE) )
 	@if [ -e failed.txt ]; then ( echo -e  $(RED)   FAILED: && sort failed.txt && echo -e $(WHITE) && false ); fi
+
+
+
+.ONESHELL:
+testql-gcc9: all
+	@rm -f failed.txt passed.txt
+	export CC=gcc-9
+	@echo Test segfaulting && (./failtest-segfault && echo -e $(RED)Fail: No segfault$(WHITE) ) || echo -e $(GREEN)Pass:$(WHITE) got segfault
+	@$(foreach P,hello-combined $(TESTQL), \
+			echo -e $(LBLUE)Test:$(WHITE) $(P) $(BLUE) && \
+			(( sh -c 'export TTM1=check1;export TTM2="Checking different env values";export TTM3=Ok;\
+			( if [ -x $(P).sh ]; then ./$(P).sh; else ./$(P); fi )| \
+			tee results/$(P)-test.stdout; exit $$PIPESTATUS'  ) && \
+			echo -e $(GREEN)Exec:$(WHITE) Ok && \
+				diff -q results/$(P)-expect.stdout results/$(P)-test.stdout 1>null && (echo -e $(GREEN)Pass:$(WHITE) $(P) && echo -e $(P) >> passed.txt) || (echo -e $(RED)Fail:$(WHITE) $(P) && echo -e $(P) >> failed.txt) \
+			  ) || \
+			( echo -e $(RED)Fail$(WHITE) && echo Fail > results/$(P)-test.stdout); ) true
+	@(echo -e $(YELLOW)==============================\\n $(LGREEN)  PASSED: && sort passed.txt && echo -e $(WHITE) )
+	@if [ -e failed.txt ]; then ( echo -e  $(RED)   FAILED: && sort failed.txt && echo -e $(WHITE) && false ); fi
+
 
 
 
