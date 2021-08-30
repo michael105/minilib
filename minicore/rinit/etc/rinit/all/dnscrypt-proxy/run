@@ -1,3 +1,0 @@
-#!/bin/sh
-
-dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml 2>/var/log/dnscrypt-proxy.log
