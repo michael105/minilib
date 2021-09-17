@@ -2000,11 +2000,11 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strchr</a></small></td><td><small>   <a href="../src/string/strcat.c" target="right">../src/string/strcat.c</a>  20 </small></td><td><small> char *strchr(const char *s, int c);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strchr</a></small></td><td><small>   <a href="../src/string/strcat.c" target="right">../src/string/strcat.c</a>  6 </small></td><td><small> char *strchr(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  7 </small></td><td><small> char *strchrnul(const char *s, int c);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  3 </small></td><td><small> char *strchrnul(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
@@ -2030,9 +2030,11 @@
   which does the same,
   but doesn't pad dest with 0's.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/string/strncpy.c" target="right">../src/string/strncpy.c</a>  36 </small></td><td><small> char *strrchr(const char *s, int c);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strpbrk</a></small></td><td><small>   <a href="../src/string/strncpy.c" target="right">../src/string/strncpy.c</a>  2 </small></td><td><small> char* strpbrk(const char* s, const char* charset);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/string/strpbrk.c" target="right">../src/string/strpbrk.c</a>  4 </small></td><td><small> char *strrchr(const char *s, int c);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/string/strrchr.c" target="right">../src/string/strrchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/string/strstr.c" target="right">../src/string/strstr.c</a>  5 </small></td><td><small> long int strtol(const char *c, const char **endp, int base);
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion

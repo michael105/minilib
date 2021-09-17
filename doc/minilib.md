@@ -1536,6 +1536,10 @@ stpncpy        char *stpncpy(char *dest, const char *src, int size);
               but doesn't pad dest with 0's.
                (src/string/stpncpy.c: 6)
 
+strchrnul      char *strchrnul(const char *s, int c);
+
+               (src/string/strchrnul.c: 3)
+
 strlcpy        char *strlcpy(char *dest, const char *src, int n);
 
                copy max n chars from src to dest, 
@@ -2470,11 +2474,7 @@ strcat         char *strcat(char *dest, const char *src );
 
 strchr         char *strchr(const char *s, int c);
 
-               (src/string/strchr.c: 20)
-
-strchrnul      char *strchrnul(const char *s, int c);
-
-               (src/string/strchr.c: 7)
+               (src/string/strchr.c: 6)
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
@@ -2513,9 +2513,13 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               but doesn't pad dest with 0's.
                (src/string/strncpy.c: 7)
 
+strpbrk        char* strpbrk(const char* s, const char* charset);
+
+               (src/string/strpbrk.c: 2)
+
 strrchr        char *strrchr(const char *s, int c);
 
-               (src/string/strchr.c: 36)
+               (src/string/strrchr.c: 4)
 
 strstr         char* strstr(const char *big, const char *little);
 

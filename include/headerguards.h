@@ -15,6 +15,7 @@
 #define included_unistd_h
 
 
+#define _CTYPE_H
 #define __LINUX_IF_PACKET_H
 #define _ERR_H
 #define _AIO_H
@@ -204,6 +205,7 @@
 #define _SYS_SENDFILE_H
 #define _SYS_SHM_H
 #define _SYS_SOCKET_H
+#define _SYS_STAT_H
 #define _SYS_STATFS_H
 #define _SYS_STATVFS_H
 #define _SYS_SWAP_H
