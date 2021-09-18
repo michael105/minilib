@@ -4,6 +4,7 @@
 #include "./sys/utsname.h"
 #include "./sys/signal.h"
 #include "./sys/prctl.h"
+#include "./sys/.socket.h.swp"
 #include "./sys/socket.h"
 #include "./reboot.h"
 #include "./bits/limits.h"

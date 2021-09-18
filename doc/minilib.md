@@ -1432,6 +1432,10 @@ pwent
                define passwd and group structures
                (include/pwent.h: 7)
 
+recv           int recv(int sockfd, void *buf, size_t len, int flags);
+
+               (src/network/recv.c: 3)
+
 ret_errno      #ifdef mini_errno
 
                This macro expands to a return, and
@@ -1536,12 +1540,20 @@ stpncpy        char *stpncpy(char *dest, const char *src, int size);
               but doesn't pad dest with 0's.
                (src/string/stpncpy.c: 6)
 
+strchrnul      char *strchrnul(const char *s, int c);
+
+               (src/string/strchrnul.c: 3)
+
 strlcpy        char *strlcpy(char *dest, const char *src, int n);
 
                copy max n chars from src to dest, 
               when src is longer than dest, 
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
+
+strtok_r       char* strtok_r(char *s, const char *delim, char **last);
+
+               (src/string/strtok_r.c: 2)
 
 strtoll        long long int strtoll(const char *c, const char **endp, int base);
 
@@ -2470,11 +2482,7 @@ strcat         char *strcat(char *dest, const char *src );
 
 strchr         char *strchr(const char *s, int c);
 
-               (src/string/strchr.c: 20)
-
-strchrnul      char *strchrnul(const char *s, int c);
-
-               (src/string/strchr.c: 7)
+               (src/string/strchr.c: 6)
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
@@ -2513,13 +2521,21 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               but doesn't pad dest with 0's.
                (src/string/strncpy.c: 7)
 
+strpbrk        char* strpbrk(const char* s, const char* charset);
+
+               (src/string/strpbrk.c: 2)
+
 strrchr        char *strrchr(const char *s, int c);
 
-               (src/string/strchr.c: 36)
+               (src/string/strrchr.c: 4)
 
 strstr         char* strstr(const char *big, const char *little);
 
                (src/string/strstr.c: 3)
+
+strtok         char* strtok(char *s, const char *delim);
+
+               (src/string/strtok.c: 3)
 
 
 
