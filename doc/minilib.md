@@ -1432,6 +1432,10 @@ pwent
                define passwd and group structures
                (include/pwent.h: 7)
 
+recv           int recv(int sockfd, void *buf, size_t len, int flags);
+
+               (src/network/recv.c: 3)
+
 ret_errno      #ifdef mini_errno
 
                This macro expands to a return, and
@@ -1546,6 +1550,10 @@ strlcpy        char *strlcpy(char *dest, const char *src, int n);
               when src is longer than dest, 
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
+
+strtok_r       char* strtok_r(char *s, const char *delim, char **last);
+
+               (src/string/strtok_r.c: 2)
 
 strtoll        long long int strtoll(const char *c, const char **endp, int base);
 
@@ -2524,6 +2532,10 @@ strrchr        char *strrchr(const char *s, int c);
 strstr         char* strstr(const char *big, const char *little);
 
                (src/string/strstr.c: 3)
+
+strtok         char* strtok(char *s, const char *delim);
+
+               (src/string/strtok.c: 3)
 
 
 

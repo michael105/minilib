@@ -2,6 +2,7 @@
 
 #include "minilib/headers/common/allheaders.h"
 #include "minilib/headers/linux_x64/allheaders.h"
+#include "minilib/headers/linux_x64/sys/socket.h"
 
 
 #include "minilib/include/pwent.h"
