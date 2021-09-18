@@ -35,7 +35,7 @@ getgrent
 <dd>
 <p>
   <em>struct group* getgrent()</em><br>
- <strong>Defines:</strong> userdb open pwent<br>
+ <strong>Defines:</strong> pwent userdb open<br>
 <a href="../../src/userdb/getgrent.c">../src/userdb/getgrent.c</a> l.4 manpage: <a href="../manpages/gen/getgrent.3.rst.html">getgrent</a><br>
 </p>
 </dd>
@@ -45,7 +45,7 @@ getgrgid
 <dd>
 <p>
   <em>struct group <strong>getgrgid(gid_t gid)</em><br>
- *Defines:</strong> fstat write globals mmap setgrent pwent token_s token_i open grent userdb close<br>
+ *Defines:</strong> open token_i pwent write fstat globals mmap grent close userdb setgrent token_s<br>
 </p>
 </dd>
 </dl>
@@ -63,7 +63,7 @@ getgrnam
 <dd>
 <p>
   <em>struct group <strong>getgrnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> close open grent userdb mmap pwent setgrent token_s token_i write fstat globals<br>
+ <strong>Defines:</strong> write pwent fstat globals token_i open token_s userdb setgrent close grent mmap<br>
 </p>
 </dd>
 </dl>
@@ -80,7 +80,7 @@ getpwent
 <dd>
 <p>
   <em>struct passwd* getpwent()</em><br>
- <strong>Defines:</strong> open userdb<br>
+ <strong>Defines:</strong> userdb open<br>
 <a href="../../src/userdb/getpwent.c">../src/userdb/getpwent.c</a> l.4 manpage: <a href="../manpages/gen/getpwent.3.rst.html">getpwent</a><br>
 </p>
 </dd>
@@ -90,7 +90,7 @@ getpwnam
 <dd>
 <p>
   <em>struct passwd <strong>getpwnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> open fstat write globals close mmap pwent token_s token_i<br>
+ <strong>Defines:</strong> open fstat globals pwent write token_i close mmap token_s<br>
 </p>
 </dd>
 </dl>
@@ -108,7 +108,7 @@ getpwuid
 <dd>
 <p>
   <em>struct passwd <strong>getpwuid(uid_t uid)</em><br>
- *Defines:</strong> open passwdfile_open write mmap pwent setpwent token_i token_s<br>
+ *Defines:</strong> mmap open setpwent passwdfile_open token_i write pwent token_s<br>
 </p>
 </dd>
 </dl>
@@ -159,7 +159,7 @@ setpwent
 <p></p>
 <hr><p><small>
 Last updated
- 2021-08-04 15:28:59 UTC
+ 2021-09-18 14:24:14 UTC
 </small></p>
 </body>
 </html>

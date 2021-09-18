@@ -15,7 +15,7 @@ grantpt
 <dd>
 <p>
   <em>int grantpt(int fd)</em><br>
- <strong>Defines:</strong> getpid open strlen write termio fstat ioctl uitodec kill<br>
+ <strong>Defines:</strong> write fstat uitodec ioctl strlen open termio getpid kill<br>
  <strong>grant access to the slave pseudo-terminal device</strong>
 Size: ~44B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.49 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">grantpt</a><br>
 </p>
@@ -47,7 +47,7 @@ posix_openpt
 <dd>
 <p>
   <em>int posix_openpt(int flags)</em><br>
- <strong>Defines:</strong> open termio<br>
+ <strong>Defines:</strong> termio open<br>
  <strong>open a pseudo-terminal device</strong>
 Size: ~140B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.8 manpage: <a href="../manpages/sys/posix_openpt.2.rst.html">posix_openpt</a><br>
 </p>
@@ -58,7 +58,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> getpid open strlen kill write termio uitodec ioctl<br>
+ *Defines:</strong> write open uitodec ioctl strlen getpid termio kill<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.34 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">ptsname</a><br>
 </p>
@@ -69,7 +69,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> open getpid strlen kill write termio uitodec ioctl<br>
+ *Defines:</strong> kill termio getpid strlen uitodec ioctl open write<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.21
 </p>
@@ -80,7 +80,7 @@ tcgetattr
 <dd>
 <p>
   <em>int tcgetattr(int fd, struct termios <strong>io)</em><br>
- *Defines:</strong> ioctl termio<br>
+ *Defines:</strong> termio ioctl<br>
  <strong>get the parameters associated with the terminal</strong>
 Size: ~300B <a href="../../src/termios/tcgetattr.c">../src/termios/tcgetattr.c</a> l.12 manpage: <a href="../manpages/gen/tcsetattr.3.rst.html">tcgetattr</a><br>
 </p>
@@ -102,7 +102,7 @@ unlockpt
 <dd>
 <p>
   <em>int unlockpt(int fd)</em><br>
- <strong>Defines:</strong> ioctl termio<br>
+ <strong>Defines:</strong> termio ioctl<br>
  <strong>unlock a pseudo-terminal master/slave pair</strong>
 Size: ~325B <a href="../../src/termios/pty.c">../src/termios/pty.c</a> l.14 manpage: <a href="../manpages/stdlib/ptsname.3.rst.html">unlockpt</a><br>
 </p>
@@ -122,7 +122,7 @@ vhangup
 <p></p>
 <hr><p><small>
 Last updated
- 2021-08-04 15:28:59 UTC
+ 2021-09-18 14:24:14 UTC
 </small></p>
 </body>
 </html>

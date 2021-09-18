@@ -121,7 +121,7 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> sys_brk getbrk<br>
+ *Defines:</strong> getbrk sys_brk<br>
  <strong>free allocated memory</strong>
 Size: ~32B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.145 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
@@ -243,7 +243,7 @@ malloc_brk
 <dd>
 <p>
   <em>void* malloc_brk(int size)</em><br>
- <strong>Defines:</strong> getbrk sys_brk<br>
+ <strong>Defines:</strong> sys_brk getbrk<br>
 </p>
 </dd>
 </dl>
@@ -387,7 +387,7 @@ mprotect
 <p>
   <em>int mprotect( POINTER <strong>a1, POINTER a2, int a3 )</em><br>
  *set protection of memory mapping</strong>
-Size: ~146B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.234 manpage: <a href="../manpages/sys/mprotect.2.rst.html">mprotect</a><br>
+Size: ~146B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.237 manpage: <a href="../manpages/sys/mprotect.2.rst.html">mprotect</a><br>
 </p>
 </dd>
 <dt>
@@ -407,7 +407,7 @@ munmap
 <p>
   <em>int munmap( void* addr,  size_t len)</em><br>
  <strong>unmap pages of memory</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.241 manpage: <a href="../manpages/sys/munmap.2.rst.html">munmap</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.244 manpage: <a href="../manpages/sys/munmap.2.rst.html">munmap</a><br>
 </p>
 </dd>
 <dt>
@@ -490,7 +490,7 @@ unmap_protected
 <p></p>
 <hr><p><small>
 Last updated
- 2021-08-04 15:28:59 UTC
+ 2021-09-18 14:24:14 UTC
 </small></p>
 </body>
 </html>

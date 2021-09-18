@@ -117,14 +117,23 @@ _match_ext2
 <pre><code>internal implementation of match_ext</code></pre>
 </td></tr></table>
 <p><a href="../../src/match/match_ext2.c">../src/match/match_ext2.c</a> l.326</p>
-<a name="bind"></a><dl>
+<a name="accept"></a><dl>
+<dt>
+accept
+</dt>
+<dd>
+<p>
+  <em>int accept( int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.230 manpage: <a href="../manpages/sys/accept.2.rst.html">accept</a><br>
+</p>
+</dd>
 <dt>
 bind
 </dt>
 <dd>
 <p>
   <em>int bind( int fd,  struct sockaddr *umyaddr,  int addrlen)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.223 manpage: <a href="../manpages/sys/bind.2.rst.html">bind</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.224 manpage: <a href="../manpages/sys/bind.2.rst.html">bind</a><br>
 </p>
 </dd>
 <dt>
@@ -234,7 +243,7 @@ die_if
 <dd>
 <p>
   <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
- <strong>Defines:</strong> execve errno_str write exit<br>
+ <strong>Defines:</strong> errno_str write exit execve<br>
 </p>
 </dd>
 </dl>
@@ -253,7 +262,7 @@ dief
 <dd>
 <p>
   <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> globals write kill fileno exit strlen errno_str getpid execve<br>
+ <strong>Defines:</strong> strlen exit write globals fileno execve kill getpid errno_str<br>
 </p>
 </dd>
 </dl>
@@ -272,7 +281,7 @@ dief_if
 <dd>
 <p>
   <em>#define dief_if( when, errnum, fmt,&#8230; ) if( when ) dief( errnum, fmt, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> write errno_str exit execve<br>
+ <strong>Defines:</strong> exit execve errno_str write<br>
 </p>
 </dd>
 </dl>
@@ -291,7 +300,7 @@ dies
 <dd>
 <p>
   <em>#define dies(errnum,&#8230;) {eprintsl(<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> exit write errno_str execve<br>
+ <strong>Defines:</strong> errno_str write exit execve<br>
 </p>
 </dd>
 </dl>
@@ -310,7 +319,7 @@ dies_if
 <dd>
 <p>
   <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> execve exit errno_str write<br>
+ <strong>Defines:</strong> exit execve errno_str write<br>
 </p>
 </dd>
 </dl>
@@ -346,7 +355,7 @@ eprintf
 <dd>
 <p>
   <em>#define eprintf(fmt,&#8230;) fprintf(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen write fileno<br>
+ <strong>Defines:</strong> strlen fileno write<br>
 </p>
 </dd>
 </dl>
@@ -361,7 +370,7 @@ err
 <dd>
 <p>
   <em>#define err( status, fmt &#8230; ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }</em><br>
- <strong>Defines:</strong> globals write kill fileno strlen exit getpid strerror errno<br>
+ <strong>Defines:</strong> kill fileno strerror getpid strlen exit errno globals write<br>
 </p>
 </dd>
 </dl>
@@ -378,7 +387,7 @@ error
 <dd>
 <p>
   <em>#define error( status, errnum, fmt &#8230; ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }</em><br>
- <strong>Defines:</strong> fileno kill globals write strerror strlen exit getpid<br>
+ <strong>Defines:</strong> globals write strlen exit getpid strerror fileno kill<br>
 </p>
 </dd>
 </dl>
@@ -399,7 +408,7 @@ errx
 <dd>
 <p>
   <em>#define errx( status, fmt &#8230; ) { fprintf(stderr,fmt); exit(status); }</em><br>
- <strong>Defines:</strong> fileno kill globals write exit strlen getpid<br>
+ <strong>Defines:</strong> fileno exit kill strlen getpid globals write<br>
 </p>
 </dd>
 </dl>
@@ -431,7 +440,7 @@ fgetsn
 <dd>
 <p>
   <em>int fgetsn(char <strong>buf, int size, FILE</strong> F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
 </p>
 </dd>
 </dl>
@@ -446,7 +455,7 @@ fgetsp
 <dd>
 <p>
   <em>char* fgetsp(char <strong>buf, int size, FILE</strong> F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
 </p>
 </dd>
 </dl>
@@ -463,7 +472,7 @@ fgetud
 <dd>
 <p>
   <em>unsigned int fgetud(FILE* F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
 </p>
 </dd>
 </dl>
@@ -479,7 +488,7 @@ fgetul
 <dd>
 <p>
   <em>unsigned long int fgetul(FILE* F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
 </p>
 </dd>
 </dl>
@@ -521,7 +530,7 @@ getgrouplist
 <dd>
 <p>
   <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
- *Defines:</strong> passwdfile_open grent open token_i setpwent token_s mmap setgrent pwent write<br>
+ *Defines:</strong> grent mmap setpwent setgrent passwdfile_open token_s open token_i write pwent<br>
 </p>
 </dd>
 </dl>
@@ -537,7 +546,7 @@ getgroups
 <dd>
 <p>
   <em>int getgroups(int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> write token_i setpwent token_s setgrent mmap pwent getuid passwdfile_open grent open<br>
+ *Defines:</strong> write open token_s passwdfile_open mmap grent pwent token_i getuid setgrent setpwent<br>
 </p>
 </dd>
 </dl>
@@ -580,7 +589,7 @@ getsockopt
 <dd>
 <p>
   <em>int getsockopt( int fd,  int level,  int optname,  char *optval,  int *optlen)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.227 manpage: <a href="../manpages/sys/getsockopt.2.rst.html">getsockopt</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.228 manpage: <a href="../manpages/sys/getsockopt.2.rst.html">getsockopt</a><br>
 </p>
 </dd>
 <dt>
@@ -589,7 +598,7 @@ getusergroups
 <dd>
 <p>
   <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> setgrent mmap pwent token_s token_i setpwent write open grent passwdfile_open<br>
+ *Defines:</strong> open token_i write pwent grent mmap setpwent passwdfile_open setgrent token_s<br>
 </p>
 </dd>
 </dl>
@@ -609,7 +618,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> write uitodec globals itooct uitohex kill fileno strlen uitoHEX ltodec getpid atoi<br>
+ <strong>Defines:</strong> uitoHEX uitohex write globals itooct kill ltodec uitodec strlen atoi fileno getpid<br>
 </p>
 </dd>
 </dl>
@@ -625,7 +634,7 @@ htonl
 <p>
   <em>uint32_t htonl(uint32_t i)</em><br>
  <strong>Defines:</strong> network<br>
-<a href="../../src/network/byteorder.c">../src/network/byteorder.c</a> l.19 manpage: <a href="../manpages/net/byteorder.3.rst.html">htonl</a><br>
+<a href="../../src/network/htonl.c">../src/network/htonl.c</a> l.8 manpage: <a href="../manpages/net/byteorder.3.rst.html">htonl</a><br>
 </p>
 </dd>
 <dt>
@@ -635,7 +644,7 @@ htons
 <p>
   <em>uint16_t htons(uint16_t i)</em><br>
  <strong>Defines:</strong> network<br>
-<a href="../../src/network/byteorder.c">../src/network/byteorder.c</a> l.7 manpage: <a href="../manpages/net/byteorder.3.rst.html">htons</a><br>
+<a href="../../src/network/htons.c">../src/network/htons.c</a> l.3 manpage: <a href="../manpages/net/byteorder.3.rst.html">htons</a><br>
 </p>
 </dd>
 <dt>
@@ -674,6 +683,15 @@ initgroups
 <p>
   <em>int initgroups(const char* user, gid_t group)</em><br>
 <a href="../../src/userdb/initgroups.c">../src/userdb/initgroups.c</a> l.2 manpage: <a href="../manpages/gen/initgroups.3.rst.html">initgroups</a><br>
+</p>
+</dd>
+<dt>
+listen
+</dt>
+<dd>
+<p>
+  <em>int listen( int fd,  int backlog)</em><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.231 manpage: <a href="../manpages/sys/listen.2.rst.html">listen</a><br>
 </p>
 </dd>
 <dt>
@@ -1208,7 +1226,7 @@ msync
 <dd>
 <p>
   <em>int msync( void* addr,  size_t len, int flags)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.242 manpage: <a href="../manpages/sys/msync.2.rst.html">msync</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.245 manpage: <a href="../manpages/sys/msync.2.rst.html">msync</a><br>
 </p>
 </dd>
 <dt>
@@ -1232,7 +1250,7 @@ ntohl
 <dd>
 <p>
   <em>#define ntohl(i) htonl(i)</em><br>
-<a href="../../src/network/byteorder.c">../src/network/byteorder.c</a> l.31 manpage: <a href="../manpages/net/byteorder.3.rst.html">ntohl</a><br>
+<a href="../../src/network/htonl.c">../src/network/htonl.c</a> l.20 manpage: <a href="../manpages/net/byteorder.3.rst.html">ntohl</a><br>
 </p>
 </dd>
 <dt>
@@ -1241,7 +1259,8 @@ ntohs
 <dd>
 <p>
   <em>#define ntohs(i) htons(i)</em><br>
-<a href="../../src/network/byteorder.c">../src/network/byteorder.c</a> l.15 manpage: <a href="../manpages/net/byteorder.3.rst.html">ntohs</a><br>
+ <strong>Defines:</strong> network<br>
+<a href="../../src/network/macros.h">../src/network/macros.h</a> l.2 manpage: <a href="../manpages/net/byteorder.3.rst.html">ntohs</a><br>
 </p>
 </dd>
 <dt>
@@ -1300,7 +1319,7 @@ prctl
 <dd>
 <p>
   <em>int prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.254
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.257
 </p>
 </dd>
 <dt>
@@ -1336,7 +1355,17 @@ qsort
  which in turn I did find within musl.</code></pre>
 </td></tr></table>
 <p><a href="../../src/sort/qsort.c">../src/sort/qsort.c</a> l.35 manpage: <a href="../manpages/stdlib/qsort.3.rst.html">qsort</a><br></p>
-<a name="recvfrom"></a><dl>
+<a name="recv"></a><dl>
+<dt>
+recv
+</dt>
+<dd>
+<p>
+  <em>int recv(int sockfd, void <strong>buf, size_t len, int flags)</em><br>
+ *Defines:</strong> recvfrom<br>
+<a href="../../src/network/recv.c">../src/network/recv.c</a> l.3 manpage: <a href="../manpages/sys/recv.2.rst.html">recv</a><br>
+</p>
+</dd>
 <dt>
 recvfrom
 </dt>
@@ -1361,7 +1390,7 @@ sendto
 <dd>
 <p>
   <em>int sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.221 manpage: <a href="../manpages/sys/send.2.rst.html">sendto</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.222 manpage: <a href="../manpages/sys/send.2.rst.html">sendto</a><br>
 </p>
 </dd>
 <dt>
@@ -1387,7 +1416,7 @@ setenv
 <dd>
 <p>
   <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
- *Defines:</strong> 0 strlen strcpy ret_errno environ<br>
+ *Defines:</strong> environ strlen ret_errno strcpy 0<br>
 </p>
 </dd>
 </dl>
@@ -1431,7 +1460,7 @@ setsockopt
 <dd>
 <p>
   <em>int setsockopt( int fd,  int level,  int optname,  const void *optval,  int optlen)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.225 manpage: <a href="../manpages/sys/getsockopt.2.rst.html">setsockopt</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.226 manpage: <a href="../manpages/sys/getsockopt.2.rst.html">setsockopt</a><br>
 </p>
 </dd>
 <dt>
@@ -1549,7 +1578,35 @@ strlcpy
  end dest[n-1] with '\0'.</code></pre>
 </td></tr></table>
 <p><a href="../../src/string/strlcpy.c">../src/string/strlcpy.c</a> l.5 manpage: <a href="../manpages/string/strlcpy.3.rst.html">strlcpy</a><br></p>
-<a name="strtoll"></a><dl>
+<a name="strpbrk"></a><dl>
+<dt>
+strpbrk
+</dt>
+<dd>
+<p>
+  <em>char* strpbrk(const char* s, const char* charset)</em><br>
+<a href="../../src/string/strpbrk.c">../src/string/strpbrk.c</a> l.2 manpage: <a href="../manpages/string/string.3.rst.html">strpbrk</a><br>
+</p>
+</dd>
+<dt>
+strtok
+</dt>
+<dd>
+<p>
+  <em>char* strtok(char <strong>s, const char *delim)</em><br>
+ *Defines:</strong> strtok_r<br>
+<a href="../../src/string/strtok.c">../src/string/strtok.c</a> l.3 manpage: <a href="../manpages/string/strtok.3.rst.html">strtok</a><br>
+</p>
+</dd>
+<dt>
+strtok_r
+</dt>
+<dd>
+<p>
+  <em>char* strtok_r(char *s, const char *delim, char **last)</em><br>
+<a href="../../src/string/strtok_r.c">../src/string/strtok_r.c</a> l.2 manpage: <a href="../manpages/string/strtok.3.rst.html">strtok_r</a><br>
+</p>
+</dd>
 <dt>
 strtoll
 </dt>
@@ -1559,6 +1616,7 @@ strtoll
 </p>
 </dd>
 </dl>
+<a name="strtoll"></a>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>conversion
  doesn't check for overflow(!)
@@ -1573,7 +1631,7 @@ term_width
 <dd>
 <p>
   <em>int term_width()</em><br>
- <strong>Defines:</strong> environ termio<br>
+ <strong>Defines:</strong> termio environ<br>
 </p>
 </dd>
 </dl>
@@ -1605,7 +1663,7 @@ timerfd_create
 <dd>
 <p>
   <em>int timerfd_create( int clockid,  int flags)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.248
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.251
 </p>
 </dd>
 <dt>
@@ -1614,7 +1672,7 @@ timerfd_gettime
 <dd>
 <p>
   <em>int timerfd_gettime( int ufd,  struct itimerspec *otmr)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.252
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.255
 </p>
 </dd>
 <dt>
@@ -1623,7 +1681,7 @@ timerfd_settime
 <dd>
 <p>
   <em>int timerfd_settime( int ufd,  int flags,  const struct itimerspec *utmr,  struct itimerspec *otmr)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.250
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.253
 </p>
 </dd>
 <dt>
@@ -1668,7 +1726,7 @@ userdb_open
 <dd>
 <p>
   <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
- <strong>Defines:</strong> close globals write fstat<br>
+ <strong>Defines:</strong> fstat globals write close<br>
 <a href="../../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
 </p>
 </dd>
@@ -1678,7 +1736,7 @@ warn
 <dd>
 <p>
   <em>#define warn( fmt &#8230; ) { fprintf(stderr,fmt ); }</em><br>
- <strong>Defines:</strong> getpid write strlen globals kill fileno<br>
+ <strong>Defines:</strong> strlen kill fileno write globals getpid<br>
 </p>
 </dd>
 </dl>
@@ -1722,7 +1780,7 @@ writesl
 <p></p>
 <hr><p><small>
 Last updated
- 2021-08-04 15:28:59 UTC
+ 2021-09-18 14:24:14 UTC
 </small></p>
 </body>
 </html>
