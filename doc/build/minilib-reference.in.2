@@ -316,6 +316,7 @@ f:OPTIMIZATIONS|D:|c:unsorted|x:|
 f:_die|D:void _die()|c:unsorted|x:|
 f:_match|D:int _match(char *text, const char *re, text_match *st_match)|c:unsorted|x:|
 f:_match_ext2|D:char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match)|c:unsorted|x:|
+f:accept|D:int accept( int fd,  struct sockaddr *upeersockaddr,  int *upeeraddrlen)|c:unsorted|x:|
 f:bind|D:int bind( int fd,  struct sockaddr *umyaddr,  int addrlen)|c:unsorted|x:|
 f:bsd_cksum|D:unsigned int bsd_cksum( const char* p, unsigned int len )|c:unsorted|x:|
 f:bsd_cksumblock|D:unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len )|c:unsorted|x:|
@@ -353,6 +354,7 @@ f:htons|D:uint16_t htons(uint16_t i)|c:unsorted|x:|
 f:inet_aton|D:int inet_aton(const char* s, struct in_addr *addr)|c:unsorted|x:|
 f:inet_ntoa|D:char* inet_ntoa( struct in_addr in)|c:unsorted|x:|
 f:initgroups|D:int initgroups(const char* user, gid_t group)|c:unsorted|x:|
+f:listen|D:int listen( int fd,  int backlog)|c:unsorted|x:|
 f:lstat|D:int lstat(const char* filename,struct stat* statbuf)|c:unsorted|x:|
 f:match_ext|D:int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata)|c:unsorted|x:|
 f:match_ext2|D:int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match)|c:unsorted|x:|
@@ -365,6 +367,7 @@ f:poll|D:int poll(struct pollfd *fds, nfds_t cnt, int timeout)|c:unsorted|x:|
 f:prctl|D:int prctl( int option,  unsigned long arg2,  unsigned long arg3,  unsigned long arg4,  unsigned long arg5)|c:unsorted|x:|
 f:pwent|D:|c:unsorted|x:|
 f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
+f:recv|D:int recv(int sockfd, void *buf, size_t len, int flags)|c:unsorted|x:|
 f:recvfrom|D:int recvfrom( int fd,  void *ubuf,  size_t size,  unsigned flags,  struct sockaddr *addr,  unsigned int *addr_len)|c:unsorted|x:|
 f:rt_sigsuspend|D:int rt_sigsuspend( const sigset_t *mask, size_t sigsetsize)|c:unsorted|x:|
 f:sendto|D:int sendto( int fd,  void *buff,  size_t len,  unsigned flags,  struct sockaddr *addr,  int addr_len)|c:unsorted|x:|
@@ -381,6 +384,9 @@ f:stpcpy|D:char *stpcpy(char *dest, const char *src)|c:unsorted|x:|
 f:stplcpy|D:char *stplcpy(char *dest, const char *src, int size)|c:unsorted|x:|
 f:stpncpy|D:char *stpncpy(char *dest, const char *src, int size)|c:unsorted|x:|
 f:strlcpy|D:char *strlcpy(char *dest, const char *src, int n)|c:unsorted|x:|
+f:strpbrk|D:char* strpbrk(const char* s, const char* charset)|c:unsorted|x:|
+f:strtok|D:char* strtok(char *s, const char *delim)|c:unsorted|x:|
+f:strtok_r|D:char* strtok_r(char *s, const char *delim, char **last)|c:unsorted|x:|
 f:strtoll|D:long long int strtoll(const char *c, const char **endp, int base)|c:unsorted|x:|
 f:term_width|D:int term_width()|c:unsorted|x:|
 f:termio|D:|c:unsorted|x:|

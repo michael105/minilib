@@ -15,7 +15,7 @@ _fopen
 <dd>
 <p>
   <em>FILE <strong>_fopen(int fd, const char</strong> filename, const char* mode, FILE <strong>f)</em><br>
- *Defines:</strong> open close fileno<br>
+ *Defines:</strong> close fileno open<br>
 </p>
 </dd>
 </dl>
@@ -70,7 +70,7 @@ closedir
 <dd>
 <p>
   <em>int closedir(DIR <strong>dir)</em><br>
- *Defines:</strong> sys_brk getbrk<br>
+ *Defines:</strong> getbrk sys_brk<br>
  <strong>close a directory stream</strong>
 Size: ~323B <a href="../../src/directories/closedir.c">../src/directories/closedir.c</a> l.6 manpage: <a href="../manpages/gen/directory.3.rst.html">closedir</a><br>
 </p>
@@ -214,7 +214,7 @@ readahead
 <p>
   <em>int readahead( int fd,  loff_t offset,  size_t count)</em><br>
  <strong>initiate file readahead into page cache</strong>
-Size: ~79B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.238
+Size: ~79B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.241
 </p>
 </dd>
 <dt>
@@ -274,7 +274,7 @@ umask
 <p>
   <em>int umask( int mask)</em><br>
  <strong>set and get the file mode creation mask</strong>
-Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.237 manpage: <a href="../manpages/sys/umask.2.rst.html">umask</a><br>
+Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.240 manpage: <a href="../manpages/sys/umask.2.rst.html">umask</a><br>
 </p>
 </dd>
 <dt>
@@ -292,7 +292,7 @@ Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 <p></p>
 <hr><p><small>
 Last updated
- 2021-08-04 15:28:59 UTC
+ 2021-09-18 14:24:14 UTC
 </small></p>
 </body>
 </html>
