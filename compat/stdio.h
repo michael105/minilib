@@ -133,6 +133,9 @@ int vsprintf( char *buf, const char *fmt, ... );
 // file: minilib/src/streams/_fopen.c
 FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
 
+// file: minilib/src/streams/fdopen.c
+FILE *fdopen(int fd, const char* mode);
+
 // file: minilib/src/streams/fgetc.c
 static inline int fgetc(FILE *F);
 
@@ -141,6 +144,9 @@ char* fgets(char *buf, int size, FILE* F);
 
 // file: minilib/src/streams/fopen.c
 #include "minilib/src/streams/fopen.c"
+// file: minilib/src/streams/freopen.c
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+
 // file: minilib/src/streams/gets.c
 #define gets(F) fgets(F,0xfffffff,stdin)
 
@@ -154,17 +160,19 @@ static int ungetc(int c, FILE *F);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/streams/gets.c"
+#include "minilib/include/prints.h"
+#include "minilib/include/fgetc.h"
+#include "minilib/src/streams/fgetc.c"
+#include "minilib/src/streams/_fopen.c"
 #include "minilib/src/output/fprintf.c"
+#include "minilib/src/streams/ungetc.c"
+#include "minilib/src/streams/fdopen.c"
 #include "minilib/include/fputc.h"
 #include "minilib/src/output/perror.c"
-#include "minilib/src/streams/_fopen.c"
 #include "minilib/src/streams/fgets.c"
-#include "minilib/include/fgetc.h"
-#include "minilib/include/prints.h"
-#include "minilib/src/streams/fgetc.c"
-#include "minilib/src/streams/ungetc.c"
-#include "minilib/src/streams/gets.c"
 #include "minilib/src/output/vsprintf.c"
+#include "minilib/src/streams/freopen.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

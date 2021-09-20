@@ -1,5 +1,4 @@
-
-
+//+depends ultodec
 //+def
 int ltodec(long i, char *buf, int prec, char limiter ){
 	if ( i < 0 ){

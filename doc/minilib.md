@@ -73,10 +73,6 @@ telldir        long telldir(DIR *dir);
 fcntl.h
 ==========
 
-creat          int volatile creat( const char *s, int mode );
-
-               (src/file/open.c: 35)
-
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
                (include/mkfifo.h: 4)
@@ -254,6 +250,10 @@ config
               Other values are within globaldefs.h;
               architecture specific values are within the folder headers.
                (include/config.h: 6)
+
+creat          int volatile creat( const char *s, int mode );
+
+               (src/file/creat.c: 5)
 
 def            #define SETOPT_short( opts, option ) (;
 
@@ -682,7 +682,7 @@ itooct         int itooct(int i, char *buf);
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/conversions/ltodec.c: 75)
+               (src/conversions/ltodec.c: 3)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -1625,7 +1625,7 @@ uitodec        int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, ch
 
 ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 
-               (src/conversions/ltodec.c: 6)
+               (src/conversions/ultodec.c: 2)
 
 unlockpt       int unlockpt(int fd);
 
@@ -2086,7 +2086,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 21)
+               (src/streams/fdopen.c: 6)
 
 feof           static inline int feof(FILE *f);
 
@@ -2121,7 +2121,7 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 11)
+               (src/streams/fopen.c: 8)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -2171,7 +2171,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 31)
+               (src/streams/freopen.c: 7)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
@@ -2422,7 +2422,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
 
 rand           unsigned int rand();
 
-               (src/math/rand.c: 15)
+               (src/math/rand.c: 7)
 
 realloc        void* realloc(void *p, int size);
 
@@ -2430,7 +2430,7 @@ realloc        void* realloc(void *p, int size);
 
 srand          void srand( unsigned int i );
 
-               (src/math/rand.c: 7)
+               (src/math/srand.c: 4)
 
 strtol         long int strtol(const char *c, const char **endp, int base);
 
