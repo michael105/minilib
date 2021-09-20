@@ -29,15 +29,6 @@ int volatile open( const char *s, int flags, ... ){
 		return(ret);
 }
 
-/// creat
-//+depends open
-//+def
-int volatile creat( const char *s, int mode ){
-		return(open( s, O_CREAT|O_WRONLY|O_TRUNC, mode) );
-}
-
-
-
 //FILE* volatile fopen( const char *s, const char *mode ){
 //		int m = 0;
 

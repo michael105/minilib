@@ -4,14 +4,6 @@
 
 //+header stdlib.h
 //+def
-void srand( unsigned int i ){
-		mlgl->srand = i;
-}
-	
-
-
-//+header stdlib.h
-//+def
 unsigned int rand(){
 		// xorshift, algorithm af marsaglia.
 		// second round added, it doesn't give more randomness,
