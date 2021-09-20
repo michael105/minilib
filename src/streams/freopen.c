@@ -1,11 +1,11 @@
 
 //+header stdio.h
-//+include
 //+depends open _fopen fileno close
 //+needs lseek.h
 //+doc modes implemented: r, r+, w, w+, a, a+
 //+def
-FILE *fopen(const char* filename, const char* mode){
-		return(_fopen(0,filename, mode,0));
+FILE *freopen(const char* filename, const char* mode, FILE *F){
+		return(_fopen(0,filename, mode,F));
 }
+
 
