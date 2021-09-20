@@ -159,6 +159,10 @@ _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
                (include/prints.h: 10)
 
+_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
+
+               (src/string/strcasecmp.c: 5)
+
 alphasort      int alphasort( const struct dirent** de1, const struct dirent** de2 );
 
                Sort dirents by name.
@@ -1540,6 +1544,10 @@ stpncpy        char *stpncpy(char *dest, const char *src, int size);
               but doesn't pad dest with 0's.
                (src/string/stpncpy.c: 6)
 
+strcasecmp     int strcasecmp(const char*c1,const char*c2);
+
+               (src/string/strcasecmp.c: 26)
+
 strchrnul      char *strchrnul(const char *s, int c);
 
                (src/string/strchrnul.c: 3)
@@ -1550,6 +1558,10 @@ strlcpy        char *strlcpy(char *dest, const char *src, int n);
               when src is longer than dest, 
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
+
+strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
+
+               (src/string/strcasecmp.c: 34)
 
 strtok_r       char* strtok_r(char *s, const char *delim, char **last);
 
@@ -2448,10 +2460,6 @@ system         int system( const char* command );
 string.h
 ==========
 
-_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
-
-               (src/string/strcmp.c: 27)
-
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
                (src/string/strcmp.c: 10)
@@ -2472,10 +2480,6 @@ memset         void *memset( void *s, int c, int n);
 
                (src/memory/memset.c: 3)
 
-strcasecmp     int strcasecmp(const char*c1,const char*c2);
-
-               (src/string/strcmp.c: 48)
-
 strcat         char *strcat(char *dest, const char *src );
 
                (src/string/strcat.c: 5)
@@ -2486,7 +2490,7 @@ strchr         char *strchr(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/string/strcmp.c: 67)
+               (src/string/strcmp.c: 26)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -2504,13 +2508,9 @@ strlen         int strlen(const char*str);
 
                (src/string/strlen.c: 4)
 
-strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
-
-               (src/string/strcmp.c: 56)
-
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/string/strcmp.c: 75)
+               (src/string/strcmp.c: 34)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 

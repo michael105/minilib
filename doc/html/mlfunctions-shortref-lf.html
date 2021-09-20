@@ -316,9 +316,9 @@
 <tr valign="top"><td><small>sys__splice</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  526 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__stat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  13 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__statfs</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  278 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  27 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  5 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small>sys__swapoff</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  340 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__swapon</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  338 </small></td><td><small></small></td></tr>
@@ -2002,15 +2002,15 @@
   which does the same,
   but doesn't pad dest with 0's.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../src/string/stpncpy.c" target="right">../src/string/stpncpy.c</a>  48 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../src/string/stpncpy.c" target="right">../src/string/stpncpy.c</a>  26 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strchr</a></small></td><td><small>   <a href="../src/string/strcat.c" target="right">../src/string/strcat.c</a>  6 </small></td><td><small> char *strchr(const char *s, int c);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  3 </small></td><td><small> char *strchrnul(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  26 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
@@ -2025,9 +2025,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/string/strlcpy.c" target="right">../src/string/strlcpy.c</a>  4 </small></td><td><small> int strlen(const char*str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/string/strlen.c" target="right">../src/string/strlen.c</a>  56 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/string/strlen.c" target="right">../src/string/strlen.c</a>  34 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  75 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  34 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
