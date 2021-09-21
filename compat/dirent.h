@@ -123,10 +123,10 @@ long telldir(DIR *dir);
 
 #include "minilib/src/directories/closedir.c"
 #include "minilib/src/directories/seekdir.c"
+#include "minilib/src/directories/telldir.c"
 #include "minilib/src/directories/rewinddir.c"
 #include "minilib/src/directories/scandir.c"
 #include "minilib/src/directories/readdir.c"
-#include "minilib/src/directories/telldir.c"
 #include "minilib/src/directories/opendir.c"
 
 // Need global included. Doesn't matter by which file.

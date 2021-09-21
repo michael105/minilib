@@ -186,13 +186,14 @@ tools:
 
 combined: tools
 	cp templates/LICENSE.tmpl minilibcompiled.h
-	echo -e "#ifndef minilibcompiled_h\n#define minilibcompiled_h\n" > minilibcompiled.tmp.h && \
-			scripts/combinesources.pl minilib.h >> minilibcompiled.tmp.h && \
-			echo -e "#else\n#ifdef SHRINKELF" >> minilibcompiled.tmp.h && \
+	echo -e "#ifndef minilibcompiled_h\n#define minilibcompiled_h\n" > minilibcompiled.tmp2.h && \
+			scripts/combinesources.pl minilib.h >> minilibcompiled.tmp2.h && \
+			sed -e '$$d' minilibcompiled.tmp2.h | sed -e '$$d' > minilibcompiled.tmp.h && \
+			echo -e "#endif\n#ifdef SHRINKELF" >> minilibcompiled.tmp.h && \
 			cat tools/shrinkelf.c >> minilibcompiled.tmp.h &&\
 			echo -e "#endif\n#ifdef SHRINKELF_MCONF" >> minilibcompiled.tmp.h &&\
 			cat tools/shrinkelf.mconf >> minilibcompiled.tmp.h &&\
-			echo -e "#endif\n#endif" >> minilibcompiled.tmp.h
+			echo -e "#endif\n" >> minilibcompiled.tmp.h
 	cat minilibcompiled.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanks | scripts/stripundefs.pl >> minilibcompiled.h
 	#cat minilibcompiled.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanklines | sed -E '/^#if 0/,/^#endif/d;'s/^\s*//' > minilibcompiled.h
 #./tools/scc/scc minilibcompiled.tmp.h | sed '/^\s*$$/d' > minilibcompiled.h

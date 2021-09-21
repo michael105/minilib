@@ -32,11 +32,12 @@ extern int errno;
 #include "i386syscalls.h"
 #endif
 
-#endif
+#endif //OSX
 
 //void opt_fence(void*p,...);
 
 #ifndef OPTFENCE
+
 //+doc prevent gcc to optimize away registers and variables
 // the macro OPTFENCE(...) can be invoked with any parameter.
 // The parameters will get calculated, even if gcc doesn't recognize
@@ -72,6 +73,7 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 #define OPTFENCE(...)
 #endif
 
+#endif //OPTFENCE
 
 
 // syscall table at: /usr/src/linux/include/linux/syscalls.h. 
@@ -342,3 +344,5 @@ static void __attribute__((noipa,cold,naked)) opt_fence(void*p,...){}
 
 
 #endif
+
+

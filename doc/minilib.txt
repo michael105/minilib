@@ -210,7 +210,7 @@ closedir       int closedir(DIR *dir);
                (src/directories/closedir.c: 6)
 
 opendir        static DIR *opendir(const char *name );
-               Defines: sys_brk open write getbrk dirbuf 0 close
+               Defines: dirbuf write getbrk 0 open sys_brk close
                (src/directories/opendir.c: 10)
 
 readdir        struct dirent *readdir(DIR *dir);
@@ -225,7 +225,7 @@ rewinddir      void rewinddir(DIR *dir);
                (src/directories/rewinddir.c: 2)
 
 scandir        int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-               Defines: dirbuf swap strlen write sys_brk kill getpid getdents errno memcpy open getbrk 0 seterrno
+               Defines: getdents swap memcpy 0 strlen errno seterrno getbrk dirbuf write getpid sys_brk open kill
                (src/directories/scandir.c: 30)
                list files and dirs in a directory
              
@@ -291,7 +291,7 @@ ALIGN
               and ALIGN_P, which aligns to the size of a pointer. (8 for amd64)
 
 OPTFENCE       #ifndef __clang__
-               (include/syscall.h: 65)
+               (include/syscall.h: 66)
                prevent gcc to optimize away registers and variables
               the macro OPTFENCE(...) can be invoked with any parameter.
               The parameters will get calculated, even if gcc doesn't recognize
@@ -442,7 +442,7 @@ def            #define SETOPT_short( opts, option ) (;
              		param options: e.g. just a, or ( a+h+l) to check for several flags at once
 
 die            #define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
-               Defines: execve write exit errno_str
+               Defines: errno_str execve exit write
                (src/process/die.c: 11)
                write msg to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -452,7 +452,7 @@ die            #define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
               
 
 die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
-               Defines: errno_str execve exit write
+               Defines: write errno_str exit execve
                (src/process/die.c: 59)
                when arg1 is true, write msg to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -462,7 +462,7 @@ die_if         #define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
               
 
 dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
-               Defines: errno_str globals strlen write fileno execve exit getpid kill
+               Defines: getpid kill errno_str exit execve write globals fileno strlen
                (src/process/die.c: 20)
                write fmt andargs via fprintf to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -472,7 +472,7 @@ dief           #define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exi
               
 
 dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
-               Defines: write exit execve errno_str
+               Defines: write errno_str exit execve
                (src/process/die.c: 69)
                when arg1 is true, vall dief(errnum,fmt)
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -482,7 +482,7 @@ dief_if        #define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum,
               
 
 dies           #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
-               Defines: errno_str exit write execve
+               Defines: write exit execve errno_str
                (src/process/die.c: 30)
                write variable string list to stderr and exit with failure
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -492,7 +492,7 @@ dies           #define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum
               
 
 dies_if        #define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
-               Defines: write exit execve errno_str
+               Defines: write errno_str execve exit
                (src/process/die.c: 80)
                when arg1 is true, vall dies(errnum, ... )
               if errno is defined and set, /bin/errno is executed to give a verbose error 
@@ -548,7 +548,7 @@ djb_cksum      unsigned int djb_cksum( const char* p, unsigned int len );
               It is a bitshift and two additions per byte.
 
 dprintf        int dprintf( int fd, const char *fmt, ... );
-               Defines: kill getpid strlen write
+               Defines: getpid kill write strlen
                (src/output/dprintf.c: 5)
 
 dprints        int dprints(int fd, const char *msg,...);
@@ -573,12 +573,12 @@ eprint         #define eprint(str) write(STDERR_FILENO,str,strlen(str))
                write str to stderr. Needs strlen
 
 eprintf        #define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
-               Defines: strlen write fileno
+               Defines: write strlen fileno
                (include/prints.h: 133)
                write fmt and arguments to stderr. 
 
 eprintfs       #define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-               Defines: write strlen fileno
+               Defines: fileno write strlen
                (include/prints.h: 128)
                write fmt and arguments to stderr. 
               only format %s and %c are recognized
@@ -605,7 +605,7 @@ eputs          #define eputs(msg) ( eprint(msg) + eprintl() )
                write msg to stderr, append a newline. Needs strlen.
 
 err            #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
-               Defines: exit strerror fileno kill getpid strlen write globals errno
+               Defines: errno globals strlen fileno strerror getpid kill exit write
                (src/process/error.c: 20)
                print an error message to stderr,
               print an error message dependend on errno ( strerror(errno) ),
@@ -619,7 +619,7 @@ errno_str      static char *errno_str(int err);
               errnum must be <200.
 
 error          #define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
-               Defines: fileno exit strerror kill getpid globals strlen write
+               Defines: strlen fileno globals write exit kill getpid strerror
                (src/process/error.c: 13)
                print an error message to stderr
               when errnum is not 0, print either the number,
@@ -630,7 +630,7 @@ error          #define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); 
               when status is non null, terminate with status
 
 errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
-               Defines: exit fileno kill getpid strlen write globals
+               Defines: kill getpid write exit strlen fileno globals
                (src/process/error.c: 27)
                print an error message to stderr,
               exit with status
@@ -647,7 +647,7 @@ ewritesl       #define ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
               Computes length with sizeof(str) at compile time.
 
 exit_errno     void exit_errno( int errnum );
-               Defines: errno_str exit write execve
+               Defines: write errno_str execve exit
                (src/process/exit_errno.c: 17)
                exit, and execute /bin/errno
               this is intended to give a error message for the 
@@ -682,26 +682,26 @@ fgetsp         char* fgetsp(char *buf, int size, FILE* F);
               A terminating linebreak is not written to buf.
 
 fgetud         unsigned int fgetud(FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/streams/fgetud.c: 5)
                read an unsigned integer from the stream F
               reads all digits until a nondigit is read.
 
 fgetul         unsigned long int fgetul(FILE* F);
-               Defines: read fileno
+               Defines: fileno read
                (src/streams/fgetul.c: 5)
                read an unsigned long integer from the stream F
               reads all digits until a nondigit is read.
 
 fprintfs       int fprintfs( FILE* F, char *fmt, ...);
-               Defines: write strlen fileno
+               Defines: fileno write strlen
                (src/output/fprintfs.c: 8)
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
               no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
-               Defines: fileno write strlen
+               Defines: strlen write fileno
                (include/prints.h: 34)
                print the string(s) supplied as arg(s) to stream
               this macro has an variable argument count.
@@ -733,25 +733,25 @@ getbrk         static long getbrk();
               or returns the globally saved var
 
 getgrent       struct group* getgrent();
-               Defines: userdb open pwent
+               Defines: pwent open userdb
                (src/userdb/getgrent.c: 4)
 
 getgrgid       struct group *getgrgid(gid_t gid);
-               Defines: close token_s setgrent globals open grent token_i mmap fstat pwent userdb write
+               Defines: mmap token_i userdb close setgrent token_s globals open grent write pwent fstat
                (src/userdb/getgrgid.c: 7)
                get the group entry of the group "gid".
               the last result is cached, multiple calls with the same
               name will return the cached result.
 
 getgrnam       struct group *getgrnam(const char* name);
-               Defines: pwent fstat token_i mmap userdb write token_s setgrent close grent open globals
+               Defines: token_i mmap open fstat pwent write grent userdb globals setgrent token_s close
                (src/userdb/getgrnam.c: 7)
                get the group entry of the group "name".
               the last result is cached, multiple calls with the same
               name will return the cached result.
 
 getgrouplist   int getgrouplist(const char* user, gid_t group, gid_t *groups, int *ngroups);
-               Defines: grent passwdfile_open open write pwent setgrent token_s mmap setpwent token_i
+               Defines: mmap token_i passwdfile_open setpwent setgrent token_s open write grent pwent
                (src/userdb/getgrouplist.c: 5)
                needs rewrite.
               now nonstandard.
@@ -761,21 +761,21 @@ getpwent       struct passwd* getpwent();
                (src/userdb/getpwent.c: 4)
 
 getpwnam       struct passwd *getpwnam(const char* name);
-               Defines: close token_i mmap pwent token_s fstat write open globals
+               Defines: token_i open mmap globals fstat pwent token_s write close
                (src/userdb/getpwnam.c: 7)
                get the passwd entry of the user "name".
               the last result is cached, multiple calls with the same
               name will return the cached result.
 
 getpwuid       struct passwd *getpwuid(uid_t uid);
-               Defines: token_i mmap setpwent pwent token_s write open passwdfile_open
+               Defines: open pwent write token_i mmap token_s setpwent passwdfile_open
                (src/userdb/getpwuid.c: 7)
                get the passwd entry of the user with uid.
               the last result is cached, multiple calls with the same
               uid will return the cached result.
 
 getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
-               Defines: grent passwdfile_open write open token_s setgrent pwent setpwent mmap token_i
+               Defines: passwdfile_open token_s setgrent setpwent mmap token_i grent write pwent open
                (src/userdb/getusergroups.c: 8)
                get the supplementary groups for the user uid.
               does not necessarily contain the primary group,
@@ -784,23 +784,23 @@ getusergroups  int getusergroups(const char* user, int maxgroups, int *list);
               therefore any iteration with getgrent will be resetted.
 
 grantpt        int grantpt(int fd);
-               Defines: uitodec open write strlen ioctl kill getpid fstat termio
+               Defines: termio ioctl strlen uitodec write fstat kill open getpid
                (src/termios/pty.c: 49)
 
 group_print    
-               Defines: fileno kill getpid globals write strlen
+               Defines: globals fileno strlen write getpid kill
                (macros/defgroups.h: 13)
                enable print and related functions
               This switch enables strlen;
               but neither globals nor the mini_buf are used.
 
 group_printf   //
-               Defines: itooct write strlen getpid kill uitoHEX atoi uitodec globals uitohex ultodec fileno
+               Defines: uitodec uitohex globals itooct strlen getpid kill write atoi uitoHEX ultodec fileno
                (macros/defgroups.h: 29)
                printf, eprintf, fprintf, itodec, ltodec, itohex, anprintf, sprintf (conversions %d %l %x %ud %ul %ux ), 
 
 group_write    
-               Defines: ewrite write
+               Defines: write ewrite
                (macros/defgroups.h: 23)
                write, and related functions
               these functions do not depend on strlen, 
@@ -866,7 +866,7 @@ malloc_brk     void* malloc_brk(int size);
               free_brk() free's all memory, which has been allocated with malloc_brk
 
 map_protected  void* map_protected(int len);
-               Defines: mmap mprotect
+               Defines: mprotect mmap
                (src/memory/map_protected.c: 22)
                allocate a buffer, which is surrounded by protected pages. 
               mprotect(PROT_NONE)
@@ -1499,7 +1499,7 @@ ntohs          #define ntohs(i) htons(i)
                (src/network/macros.h: 2)
 
 opendirp       static DIR *opendirp(const char *name, DIR *dir);
-               Defines: close 0 dirbuf open getbrk sys_brk
+               Defines: open sys_brk 0 getbrk close dirbuf
                (src/directories/opendirp.c: 5)
 
 optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(void*p);
@@ -1536,7 +1536,7 @@ poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeou
                (include/poll.h: 25)
 
 posix_openpt   int posix_openpt(int flags);
-               Defines: termio open
+               Defines: open termio
                (src/termios/pty.c: 8)
 
 print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
@@ -1545,7 +1545,7 @@ print          #define print(str) write(STDOUT_FILENO,str,strlen(str))
                write str to stdout. Needs strlen
 
 printfs        #define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
-               Defines: strlen write fileno
+               Defines: write fileno strlen
                (include/prints.h: 122)
                write fmt and arguments to stdout. 
               only format %s and %c are recognized
@@ -1567,11 +1567,11 @@ printsl        #define printsl(...) _mprints(__VA_ARGS__,"\n",0)
                print the string(s) supplied as arg(s) and newline to stdout
 
 ptsname        char *ptsname(int fd);
-               Defines: ioctl write open strlen uitodec termio getpid kill
+               Defines: uitodec termio ioctl strlen getpid open kill write
                (src/termios/pty.c: 34)
 
 ptsname_r      int ptsname_r(int fd, char *buf, size_t len);
-               Defines: write strlen open ioctl uitodec termio kill getpid
+               Defines: ioctl termio strlen uitodec write open getpid kill
                (src/termios/pty.c: 21)
 
 putenv         int putenv( char *string );
@@ -1623,7 +1623,7 @@ setbrk         static int setbrk(long addr);
               wrapper for brk(), with type of brk changed to long
 
 setenv         int setenv( const char *name, const char *value, int overwrite );
-               Defines: strlen environ strcpy 0 ret_errno
+               Defines: strlen strcpy environ ret_errno 0
                (src/system/setenv.c: 15)
                put a string into the environmental vars
               UNTESTED (!) TODO
@@ -1659,7 +1659,7 @@ shortcolornames
               all colornames, without the praefix "AC_"
 
 snprintf       int snprintf( char *buf, size_t size, const char *fmt, ... );
-               Defines: strlen write getpid kill
+               Defines: getpid kill strlen write
                (src/output/snprintf.c: 5)
 
 snprintfs      int snprintfs( char* buf, int size, char *fmt, ...);
@@ -1775,7 +1775,7 @@ unlockpt       int unlockpt(int fd);
                (src/termios/pty.c: 14)
 
 unmap_protectedint unmap_protected(void *p, int len);
-               Defines: mprotect munmap
+               Defines: munmap mprotect
                (src/memory/map_protected.c: 44)
                free an area, allocated before with map_protected
               (len must be the same, when at the invocation of map_protected)
@@ -1784,7 +1784,7 @@ unmap_protectedint unmap_protected(void *p, int len);
               return 0 on success.
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
-               Defines: fstat write globals close
+               Defines: fstat globals write close
                (src/userdb/userdb_open.c: 3)
 
 verbose_errstr const char* verbose_errstr(int num);
@@ -1799,21 +1799,21 @@ verbose_errstr2static const char* verbose_errstr2(int num);
               Trying to shrink that here.
 
 vexec          int vexec( const char* path, char* const* argv, char* const* envp );
-               Defines: vfork seterrno wait4 exit execve
+               Defines: seterrno exit execve vfork wait4
                (src/exec/vexec.c: 6)
                execute a path, wait until the executed file exits.
               Deviating of system() an absolute pathname is taken.
               sets errno on error.
 
 vexec_q        int vexec_q( const char* path, char* const* argv, char* const* envp );
-               Defines: vfork exit wait4 execve seterrno
+               Defines: seterrno exit execve wait4 vfork
                (src/exec/vexec_q.c: 6)
                execute a path, wait until the executed file exits, 
               do not write any output of the process. (close stdout)
               Deviating of system() an absolute pathname is taken.
 
 vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
-               Defines: write strlen kill getpid
+               Defines: write strlen getpid kill
                (src/output/vsnprintf.c: 18)
                the function, translating the fmt of printf.
               warning - most possibly you'd like to define besides fprintf, or family,
@@ -1821,7 +1821,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
               mini_atoi is needed for grouping numbers
 
 warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
-               Defines: fileno kill getpid globals write strlen
+               Defines: globals write fileno strlen getpid kill
                (src/process/error.c: 33)
                print an error message to stderr
 
@@ -2462,7 +2462,7 @@ signal.h
 ==========
 
 raise          static inline int raise(int signr);
-               Defines: getpid kill
+               Defines: kill getpid
                (src/process/sigaction.c: 145)
 
 sigaction      static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
@@ -2485,7 +2485,7 @@ sigismember    int sigismember(sigset_t *set, int sig);
                (src/process/sigaction.c: 85)
 
 signal         sighandler_t signal(int sig, sighandler_t func );
-               Defines: write rt_sigaction memcpy
+               Defines: memcpy rt_sigaction write
                (src/process/signal.c: 5)
 
 sigprocmask    int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
@@ -2521,7 +2521,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
                (include/mini_fstream.h: 66)
 
 fdopen         FILE *fdopen(int fd, const char* mode);
-               Defines: open fileno close
+               Defines: fileno close open
                (src/streams/fdopen.c: 6)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -2536,7 +2536,7 @@ fflush         static inline int __attribute__((always_inline)) fflush( FILE *F 
                This does nothing, since minilib doesn't provide buffered streams yet.In order to sync data to disc, please use fsync
 
 fgetc          static inline int fgetc(FILE *F);
-               Defines: read fileno
+               Defines: fileno read
                (src/streams/fgetc.c: 5)
 
 fgetpos        static inline void fgetpos(FILE *f, long *pos );
@@ -2552,16 +2552,16 @@ fileno         static int fileno( FILE *f );
                Return the fd nummber of stdin,-out,-err. 
 
 fopen          FILE *fopen(const char* filename, const char* mode);
-               Defines: open fileno close
+               Defines: fileno close open
                (src/streams/fopen.c: 8)
                modes implemented: r, r+, w, w+, a, a+
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
-               Defines: getpid kill fileno globals write strlen
+               Defines: strlen fileno write globals kill getpid
                (include/mini_fstream.h: 84)
 
 fprintf        #define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
-               Defines: strlen write globals fileno kill getpid
+               Defines: getpid kill globals fileno strlen write
                (src/output/fprintf.c: 32)
                fprintf, formatted output
               conversions implemented:
@@ -2594,7 +2594,7 @@ fputc          static inline int volatile fputc(int c, FILE* F);
                (include/fputc.h: 9)
 
 fputs          static inline int volatile fputs(const char *c, FILE *F);
-               Defines: write strlen fileno
+               Defines: fileno write strlen
                (include/fputs.h: 18)
 
 fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
@@ -2602,7 +2602,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
                (include/mini_fstream.h: 152)
 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
-               Defines: fileno open close
+               Defines: open fileno close
                (src/streams/freopen.c: 7)
                modes implemented: r, r+, w, w+, a, a+
 
@@ -2623,15 +2623,15 @@ fwrite         static inline size_t fwrite(const void *ptr, size_t size, size_t 
                (include/mini_fstream.h: 95)
 
 getc           #define getc(F) fgetc(F)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 8)
 
 getchar        #define getchar() fgetc(0)
-               Defines: fileno read
+               Defines: read fileno
                (include/fgetc.h: 11)
 
 gets           #define gets(F) fgets(F,0xfffffff,stdin)
-               Defines: fileno read
+               Defines: read fileno
                (src/streams/gets.c: 3)
 
 itoHEX         int itoHEX(int i,char* buf,int padding);
@@ -2651,11 +2651,11 @@ itohex         int itohex(int i,char* buf,int padding);
               ( -1 is 0xffffffff, -2 0xfffffffe, ... )
 
 perror         void perror(const char *msg);
-               Defines: fileno write strerror strlen errno
+               Defines: fileno write strlen strerror errno
                (src/output/perror.c: 4)
 
 printf         #define printf(...) fprintf(stdout,__VA_ARGS__)
-               Defines: globals write strlen kill getpid fileno
+               Defines: kill getpid strlen fileno write globals
                (include/mini_fstream.h: 80)
 
 putc           #define putc(c,stream) fputc(c,stream)
@@ -2667,7 +2667,7 @@ putchar        #define putchar(c) fputc(c,stdout)
                (include/fputc.h: 15)
 
 puts           #define puts(msg) ( print(msg) + printl() )
-               Defines: getpid kill fileno write strlen globals
+               Defines: strlen fileno write globals kill getpid
                (include/prints.h: 72)
                write msg to stdout, append a newline. Needs strlen.
 
@@ -2685,7 +2685,7 @@ setvbuf        static int setvbuf(FILE *stream, char *buf, int mode, size_t size
                dummy function
 
 sprintf        #define sprintf(str,...) snprintf( str, mini_buf,  __VA_ARGS__)
-               Defines: getpid kill strlen write
+               Defines: write strlen kill getpid
                (src/output/sprintf.c: 9)
                I'm really uncertain about the size arg here, amongst others
               these are just misdefined functions, inhaerent insecure. :/
@@ -2698,7 +2698,7 @@ ungetc         static int ungetc(int c, FILE *F);
               (conforming to the posix spec) 
 
 vfprintf       #define vfprintf(...) fprintf(__VA_ARGS__)
-               Defines: strlen write globals fileno getpid kill
+               Defines: globals fileno strlen write getpid kill
                (include/mini_fstream.h: 89)
 
 vsprintf       int vsprintf( char *buf, const char *fmt, ... );
@@ -2716,7 +2716,7 @@ stdlib.h
 ==========
 
 abort          void abort();
-               Defines: write rt_sigaction kill memcpy getpid
+               Defines: memcpy getpid kill rt_sigaction write
                (src/process/abort.c: 3)
 
 abs            static int abs(int i);
@@ -2743,7 +2743,7 @@ div            static div_t div(int numerator, int denominator);
                (include/math.h: 8)
 
 free           void free(void *p);
-               Defines: sys_brk getbrk
+               Defines: getbrk sys_brk
                (src/memory/malloc.c: 145)
 
 getenv         char* getenv(const char* name);
@@ -2847,7 +2847,7 @@ rand           unsigned int rand();
                (src/math/rand.c: 7)
 
 realloc        void* realloc(void *p, int size);
-               Defines: 0 getbrk sys_brk
+               Defines: sys_brk 0 getbrk
                (src/memory/malloc.c: 209)
 
 srand          void srand( unsigned int i );
@@ -2859,7 +2859,7 @@ strtol         long int strtol(const char *c, const char **endp, int base);
               doesn't check for overflow(!)
 
 system         int system( const char* command );
-               Defines: execve environ wait4 write vfork
+               Defines: execve wait4 write vfork environ
                (src/exec/system.c: 4)
 
 
@@ -2986,22 +2986,22 @@ dup2           dup2(int oldfd, int newfd)
                (include/syscall_stubs.h: 120)
 
 execl          static int execl(const char *pathname, const char* arg0,... );
-               Defines: execve environ
+               Defines: environ execve
                (src/exec/execl.c: 6)
 
 execv          static inline int execv(const char *pathname, char *const argv[]);
-               Defines: execve environ
+               Defines: environ execve
                (src/exec/_execv.c: 4)
 
 execve         execve( const char *filename,  char* const* argv, char* const* envp)
                (include/syscall_stubs.h: 133)
 
 execvp         static inline int execvp(const char *file, char *const argv[]);
-               Defines: execve environ access
+               Defines: execve access environ
                (src/exec/_execvp.c: 4)
 
 execvpe        static int execvpe(const char *file, char *const argv[], char *const envp[]);
-               Defines: access execve environ
+               Defines: execve access environ
                (src/exec/execvp.c: 11)
                When invoked with a filename, starting with "." or "/",
               interprets this as absolute path. (calls execve with the pathname)
@@ -3020,7 +3020,7 @@ getgid         DEF_syscall(getgid,0)
                (include/syscall_stubs.h: 197)
 
 getgroups      int getgroups(int maxgroups, int *list);
-               Defines: setpwent getuid setgrent token_s open grent passwdfile_open mmap token_i pwent write
+               Defines: setpwent token_i mmap getuid setgrent token_s passwdfile_open pwent grent write open
                (src/userdb/getgroups.c: 8)
                get the groups of the calling process
               does not necessarily contain the primary group,
