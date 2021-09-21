@@ -73,10 +73,6 @@ telldir        long telldir(DIR *dir);
 fcntl.h
 ==========
 
-creat          int volatile creat( const char *s, int mode );
-
-               (src/file/open.c: 35)
-
 mkfifo         static int mkfifo( const char* path, mode_t mode );
 
                (include/mkfifo.h: 4)
@@ -162,6 +158,10 @@ _match_ext2    char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int n
 _mprints       #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 
                (include/prints.h: 10)
+
+_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
+
+               (src/string/strcasecmp.c: 5)
 
 alphasort      int alphasort( const struct dirent** de1, const struct dirent** de2 );
 
@@ -254,6 +254,10 @@ config
               Other values are within globaldefs.h;
               architecture specific values are within the folder headers.
                (include/config.h: 6)
+
+creat          int volatile creat( const char *s, int mode );
+
+               (src/file/creat.c: 5)
 
 def            #define SETOPT_short( opts, option ) (;
 
@@ -682,7 +686,7 @@ itooct         int itooct(int i, char *buf);
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
-               (src/conversions/ltodec.c: 75)
+               (src/conversions/ltodec.c: 3)
 
 malloc_brk     void* malloc_brk(int size);
 
@@ -1540,6 +1544,10 @@ stpncpy        char *stpncpy(char *dest, const char *src, int size);
               but doesn't pad dest with 0's.
                (src/string/stpncpy.c: 6)
 
+strcasecmp     int strcasecmp(const char*c1,const char*c2);
+
+               (src/string/strcasecmp.c: 26)
+
 strchrnul      char *strchrnul(const char *s, int c);
 
                (src/string/strchrnul.c: 3)
@@ -1550,6 +1558,10 @@ strlcpy        char *strlcpy(char *dest, const char *src, int n);
               when src is longer than dest, 
               end dest[n-1] with '\0'.
                (src/string/strlcpy.c: 5)
+
+strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
+
+               (src/string/strcasecmp.c: 34)
 
 strtok_r       char* strtok_r(char *s, const char *delim, char **last);
 
@@ -1625,7 +1637,7 @@ uitodec        int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, ch
 
 ultodec        int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 
-               (src/conversions/ltodec.c: 6)
+               (src/conversions/ultodec.c: 2)
 
 unlockpt       int unlockpt(int fd);
 
@@ -2086,7 +2098,7 @@ fclose         static inline int __attribute__((always_inline)) fclose( FILE* f 
 fdopen         FILE *fdopen(int fd, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 21)
+               (src/streams/fdopen.c: 6)
 
 feof           static inline int feof(FILE *f);
 
@@ -2121,7 +2133,7 @@ fileno         static int fileno( FILE *f );
 fopen          FILE *fopen(const char* filename, const char* mode);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 11)
+               (src/streams/fopen.c: 8)
 
 fprint         #define fprint(...) fprintf(__VA_ARGS__)
 
@@ -2171,7 +2183,7 @@ fread          static inline size_t fread(void *ptr, size_t size, size_t nmemb, 
 freopen        FILE *freopen(const char* filename, const char* mode, FILE *F);
 
                modes implemented: r, r+, w, w+, a, a+
-               (src/streams/fopen.c: 31)
+               (src/streams/freopen.c: 7)
 
 fseek          static inline int fseek(FILE *f, long offset, int whence );
 
@@ -2422,7 +2434,7 @@ qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(con
 
 rand           unsigned int rand();
 
-               (src/math/rand.c: 15)
+               (src/math/rand.c: 7)
 
 realloc        void* realloc(void *p, int size);
 
@@ -2430,7 +2442,7 @@ realloc        void* realloc(void *p, int size);
 
 srand          void srand( unsigned int i );
 
-               (src/math/rand.c: 7)
+               (src/math/srand.c: 4)
 
 strtol         long int strtol(const char *c, const char **endp, int base);
 
@@ -2447,10 +2459,6 @@ system         int system( const char* command );
 ==========
 string.h
 ==========
-
-_strcasecmp    int _strcasecmp(const char*c1,const char*c2,int len);
-
-               (src/string/strcmp.c: 27)
 
 _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
@@ -2472,10 +2480,6 @@ memset         void *memset( void *s, int c, int n);
 
                (src/memory/memset.c: 3)
 
-strcasecmp     int strcasecmp(const char*c1,const char*c2);
-
-               (src/string/strcmp.c: 48)
-
 strcat         char *strcat(char *dest, const char *src );
 
                (src/string/strcat.c: 5)
@@ -2486,7 +2490,7 @@ strchr         char *strchr(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/string/strcmp.c: 67)
+               (src/string/strcmp.c: 26)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -2504,13 +2508,9 @@ strlen         int strlen(const char*str);
 
                (src/string/strlen.c: 4)
 
-strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
-
-               (src/string/strcmp.c: 56)
-
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/string/strcmp.c: 75)
+               (src/string/strcmp.c: 34)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 

@@ -316,9 +316,9 @@
 <tr valign="top"><td><small>sys__splice</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  526 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__stat</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  13 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__statfs</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  278 </small></td><td><small></small></td></tr>
-<tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  27 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  5 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small>sys__swapoff</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  340 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__swapon</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  338 </small></td><td><small></small></td></tr>
@@ -475,9 +475,9 @@
   Other values are within globaldefs.h;
   architecture specific values are within the folder headers.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  35 </small></td><td><small> int  creat( const char *s, int mode );
+<tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  5 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
-<tr valign="top"><td><small>def</small></td><td><small>   <a href="../src/file/open.c" target="right">../src/file/open.c</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
+<tr valign="top"><td><small>def</small></td><td><small>   <a href="../src/file/creat.c" target="right">../src/file/creat.c</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
  		param options: e.g. just a, or ( a+h+l) to check for several flags at once
  </small></td></tr>
@@ -677,10 +677,10 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fcntl.2.rst.html">fcntl</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  169 </small></td><td><small> fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  21 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fdopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  6 </small></td><td><small> FILE *fdopen(int fd, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  175 </small></td><td><small>   int feof(FILE *f);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">feof</a></small></td><td><small>   <a href="../src/streams/fdopen.c" target="right">../src/streams/fdopen.c</a>  175 </small></td><td><small>   int feof(FILE *f);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/ferror.3.rst.html">ferror</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  182 </small></td><td><small>   int ferror(FILE *f);
 </small></td></tr>
@@ -718,7 +718,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/flock.2.rst.html">flock</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  129 </small></td><td><small> flock( unsigned int fd,  unsigned int cmd)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  11 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">fopen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  8 </small></td><td><small> FILE *fopen(const char* filename, const char* mode);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/fork.2.rst.html">fork</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  137 </small></td><td><small> DEF_syscall(fork,0)
@@ -777,10 +777,10 @@
   malloc_brk before.
   Then brk() gives an error, return the return value of brk
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  31 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fopen.3.rst.html">freopen</a></small></td><td><small>   <a href="../src/memory/freebrk.c" target="right">../src/memory/freebrk.c</a>  7 </small></td><td><small> FILE *freopen(const char* filename, const char* mode, FILE *F);
 </small></td></tr><tr><td></td><td colspan="2"><small>modes implemented: r, r+, w, w+, a, a+
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/streams/fopen.c" target="right">../src/streams/fopen.c</a>  134 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
+<tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fseek</a></small></td><td><small>   <a href="../src/streams/freopen.c" target="right">../src/streams/freopen.c</a>  134 </small></td><td><small>   int fseek(FILE *f, long offset, int whence );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fseek.3.rst.html">fsetpos</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  123 </small></td><td><small>   int fsetpos(FILE *f, int pos );
 </small></td></tr>
@@ -961,7 +961,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">lstat</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  113 </small></td><td><small> lstat(const char* filename,struct stat* statbuf)		
 </small></td></tr>
-<tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  75 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  125 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
@@ -1799,7 +1799,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/raise.3.rst.html">raise</a></small></td><td><small>   <a href="../src/sort/qsort.c" target="right">../src/sort/qsort.c</a>  145 </small></td><td><small>   int raise(int signr);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  15 </small></td><td><small> unsigned int rand();
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">rand</a></small></td><td><small>   <a href="../src/process/sigaction.c" target="right">../src/process/sigaction.c</a>  7 </small></td><td><small> unsigned int rand();
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/read.2.rst.html">read</a></small></td><td><small>   <a href="../src/math/rand.c" target="right">../src/math/rand.c</a>  103 </small></td><td><small> read( int fd, void *buf, int len )
 </small></td></tr>
@@ -1985,9 +1985,9 @@
   these are just misdefined functions, inhaerent insecure. :/
   If possible, do not use sprintf. Use snprintf instead. 
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  7 </small></td><td><small> void srand( unsigned int i );
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/rand.3.rst.html">srand</a></small></td><td><small>   <a href="../src/output/sprintf.c" target="right">../src/output/sprintf.c</a>  4 </small></td><td><small> void srand( unsigned int i );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/math/rand.c" target="right">../src/math/rand.c</a>  112 </small></td><td><small> stat(const char* filename,struct stat* statbuf)		
+<tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">stat</a></small></td><td><small>   <a href="../src/math/srand.c" target="right">../src/math/srand.c</a>  112 </small></td><td><small> stat(const char* filename,struct stat* statbuf)		
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">stpcpy</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> char *stpcpy(char *dest, const char *src);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy src to dest, return a pointer to the last char +1 ( ending '0' )
@@ -2002,15 +2002,15 @@
   which does the same,
   but doesn't pad dest with 0's.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../src/string/stpncpy.c" target="right">../src/string/stpncpy.c</a>  48 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcasecmp</a></small></td><td><small>   <a href="../src/string/stpncpy.c" target="right">../src/string/stpncpy.c</a>  26 </small></td><td><small> int strcasecmp(const char*c1,const char*c2);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcat</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  5 </small></td><td><small> char *strcat(char *dest, const char *src );
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strchr</a></small></td><td><small>   <a href="../src/string/strcat.c" target="right">../src/string/strcat.c</a>  6 </small></td><td><small> char *strchr(const char *s, int c);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  3 </small></td><td><small> char *strchrnul(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  67 </small></td><td><small> int strcmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  26 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
@@ -2025,9 +2025,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/string/strlcpy.c" target="right">../src/string/strlcpy.c</a>  4 </small></td><td><small> int strlen(const char*str);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/string/strlen.c" target="right">../src/string/strlen.c</a>  56 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/string/strlen.c" target="right">../src/string/strlen.c</a>  34 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  75 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  34 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
@@ -2114,9 +2114,9 @@
   prec: precision, e.g. 4=> 0087 
   pad: 0 (pad with spaces), or the char to pad
  </small></td></tr>
-<tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/conversions/itodec.c" target="right">../src/conversions/itodec.c</a>  6 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
+<tr valign="top"><td><small>ultodec</small></td><td><small>   <a href="../src/conversions/itodec.c" target="right">../src/conversions/itodec.c</a>  2 </small></td><td><small> int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  240 </small></td><td><small> umask( int mask)
+<tr valign="top"><td><small><a target="right" href="manpages/sys/umask.2.rst.html">umask</a></small></td><td><small>   <a href="../src/conversions/ultodec.c" target="right">../src/conversions/ultodec.c</a>  240 </small></td><td><small> umask( int mask)
 </small></td></tr>
 <tr valign="top"><td><small>umount2</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  171 </small></td><td><small> umount2( const char *mountpoint, int flags) 
 </small></td></tr>
