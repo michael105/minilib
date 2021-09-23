@@ -16,6 +16,8 @@
 
 
 #define _CTYPE_H
+#define _LIBC_LIMITS_H_
+#define _SYS_CDEFS_H
 #define __LINUX_IF_PACKET_H
 #define _ERR_H
 #define _AIO_H

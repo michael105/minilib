@@ -5,6 +5,7 @@
 #include "minilib/headers/linux_x64/sys/socket.h"
 
 
+#include "minilib/include/network.h"
 #include "minilib/include/pwent.h"
 #include "minilib/include/termio.h"
 #include "minilib/include/exit.h"

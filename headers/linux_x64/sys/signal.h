@@ -63,6 +63,7 @@ struct sigaction {
 		sigset_t sa_mask;
 };
 
+typedef int sig_atomic_t;
 
 
 
