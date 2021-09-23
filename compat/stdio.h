@@ -160,19 +160,19 @@ static int ungetc(int c, FILE *F);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/streams/fgetc.c"
-#include "minilib/src/output/vsprintf.c"
-#include "minilib/include/prints.h"
-#include "minilib/src/streams/freopen.c"
-#include "minilib/src/streams/fgets.c"
-#include "minilib/src/streams/gets.c"
-#include "minilib/include/fgetc.h"
-#include "minilib/src/output/perror.c"
-#include "minilib/include/fputc.h"
-#include "minilib/src/streams/ungetc.c"
 #include "minilib/src/streams/fdopen.c"
-#include "minilib/src/output/fprintf.c"
 #include "minilib/src/streams/_fopen.c"
+#include "minilib/include/fgetc.h"
+#include "minilib/src/streams/ungetc.c"
+#include "minilib/include/prints.h"
+#include "minilib/src/streams/fgetc.c"
+#include "minilib/src/streams/fgets.c"
+#include "minilib/src/streams/freopen.c"
+#include "minilib/src/streams/gets.c"
+#include "minilib/src/output/vsprintf.c"
+#include "minilib/src/output/perror.c"
+#include "minilib/src/output/fprintf.c"
+#include "minilib/include/fputc.h"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"
