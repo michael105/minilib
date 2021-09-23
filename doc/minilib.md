@@ -1332,7 +1332,7 @@ mremap         static void* volatile ATTR_OPT("O0") mremap(void* addr, size_t ol
 network        
 
                network definitions
-               (include/network.h: 4)
+               (include/network.h: 5)
 
 ntohl          #define ntohl(i) htonl(i)
 

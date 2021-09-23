@@ -1,5 +1,6 @@
 #ifdef mini_network
 //+doc network definitions
+//+include
 //+def network
 
 
