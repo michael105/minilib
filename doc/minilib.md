@@ -127,7 +127,7 @@ OPTFENCE       #ifndef __clang__
               And, I believe it IS a compiler bug. 
               Volatile should be volatile for sure, not only sometimes.
               I mean, why the heck do I write volatile?? 
-               (include/syscall.h: 65)
+               (include/syscall.h: 66)
 
 OPTIMIZATIONS  
 

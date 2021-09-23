@@ -1,7 +1,7 @@
 #ifndef signal_h
 #define signal_h
 
-#include "sys/signal.h"
+//#include "sys/signal.h"
 
 #define SIG_ERR  ((void (*)(int))-1)
 #define SIG_DFL  ((void (*)(int)) 0)
