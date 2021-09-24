@@ -151,6 +151,9 @@ typedef struct {
 #ifdef mini_inet_ntoa
 		char inet_ntoa_addr[16];
 #endif
+#ifdef mini_ether_ntoa
+		char ether_ntoa_addr[20]; // padded to %4
+#endif
 
 #if mini_GLOBALS & MINI_GUARDED_GLOBALS && GLOBALS & BSS_SECTION
 		char __padding1[PAGESIZE-sizeof(__globals_shadow)];

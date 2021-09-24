@@ -466,6 +466,10 @@ errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(statu
               exit with status
                (src/process/error.c: 27)
 
+ether_ntoa     char* ether_ntoa( const struct ether_addr *e );
+
+               (src/network/ether_ntoa.c: 3)
+
 ewrites        #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 
                write the constant str to stderr. Computes length with sizeof(str) at compile time.
@@ -1375,7 +1379,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               via asm inline instructions. 
               Doesn't work with clang.
               But yet I also didn't it with clang.
-               (include/minilib_global.h: 215)
+               (include/minilib_global.h: 218)
 
 poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
 
