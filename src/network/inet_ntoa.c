@@ -5,8 +5,8 @@
 //+depends network
 //+def
 char* inet_ntoa( struct in_addr in){
-	union { uint32_t i; char c[4]; } u = { .i=in.s_addr };
-	char *p = mlgl->inet_ntoa_addr-1;
+	union { uint32_t i; unsigned char c[4]; } u = { .i=in.s_addr };
+	char *p = mlgl->inet_ntoa_addr - 1;
 
 	for ( int n=0; n<4; n++ ){
 		p++;
