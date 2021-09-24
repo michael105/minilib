@@ -22,6 +22,13 @@ typedef unsigned char uint8_t;
 typedef long size_t;
 #endif
 
+typedef int bool;
+
+#define PATH_MAX 4096
+#define MAXPATHLEN PATH_MAX
+
+#define FOPEN_MAX 16
+
 
 #ifndef __clang__
 #define ATTR_OPT(x) __attribute__((optimize(x)))

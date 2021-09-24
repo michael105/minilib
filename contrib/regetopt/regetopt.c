@@ -5,10 +5,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#endif
 
 #define REGETOPT_INTERNAL 1
 #include "include/regetopt.h"
+#endif
 
 
 char *re_optarg;

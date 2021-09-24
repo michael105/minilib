@@ -22,6 +22,12 @@ int sysret;
 #include "contrib/getopt/getopt.h"
 #endif
 
+#ifdef mini_getopt_long
+#include "contrib/regetopt/getopt_long.c"
+#endif
+
+
+
 #include "src/intern/startup.c"
 
 /* end templates/minilib.c.in */

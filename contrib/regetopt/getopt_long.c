@@ -1,17 +1,24 @@
 
-#include "regetopt.c"
 
 
-#define optarg re_optarg
-#define optind re_optind 
-#define opterr re_opterr 
-#define optopt re_optopt
-
-#define getopt_short regetopt_short
-#define getopt_long regetopt_long
-#define getopt regetopt
+#define re_option option
+#define re_optarg optarg
+#define re_optind optind 
+#define re_opterr opterr 
+#define re_optopt optopt
+#define regetopt_short getopt_short
+#define regetopt_long getopt_long
+#define regetopt getopt
 
 //order_option reorder_option
 
+#define no_argument 0
+#define required_argument 1
+#define optional_argument 2
 
+
+
+#define REGETOPT_INTERNAL 1
+#include "contrib/regetopt/include/regetopt.h"
+#include "contrib/regetopt/regetopt.c"
 

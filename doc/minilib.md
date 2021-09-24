@@ -643,7 +643,7 @@ group_write
 
 htonl          static uint32_t htonl(uint32_t i);
 
-               (src/network/htonl.c: 8)
+               (src/network/htonl.c: 5)
 
 htons          static uint16_t htons(uint16_t i);
 
@@ -1308,7 +1308,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 96)
+               (include/globaldefs.h: 103)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1336,7 +1336,7 @@ network
 
 ntohl          #define ntohl(i) htonl(i)
 
-               (src/network/htonl.c: 20)
+               (src/network/ntohl.h: 2)
 
 ntohs          #define ntohs(i) htons(i)
 
