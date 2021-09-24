@@ -1,7 +1,7 @@
 //+depends network
 //+def
 int inet_aton(const char* s, struct in_addr *addr){
-		union { uint32_t i; char c[4]; } u = { .i=0 };
+		union { uint32_t i; unsigned char c[4]; } u = { .i=0 };
 		int p = 0;
 		char *pc = (char*)s;
 

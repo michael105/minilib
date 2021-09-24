@@ -1,6 +1,3 @@
-#ifndef mini_byteorder_h
-#define mini_byteorder_h
-
 
 
 //+depends network
@@ -17,7 +14,5 @@ static uint32_t htonl(uint32_t i){
 }
 
 
-//+macro ntohl(i) htonl(i)
 
 
-#endif

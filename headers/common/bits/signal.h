@@ -13,6 +13,7 @@
 
 
 #define _NSIG 65
+#define NSIG _NSIG
 
 #define SIGHUP    1
 #define SIGINT    2
