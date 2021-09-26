@@ -5,6 +5,9 @@
 #endif
 
 #include "minilib/asm/start.c"
+
+#include "minilib/asm/jmp-x64.c"
+
 #include "minilib/src/intern/minilib_global.c"
 
 #ifdef mini_prints

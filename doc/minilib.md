@@ -1312,7 +1312,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 103)
+               (include/globaldefs.h: 106)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 

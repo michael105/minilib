@@ -4,6 +4,7 @@
 #include "headers/linux_x64/./sys/utsname.h"
 #include "headers/linux_x64/./sys/signal.h"
 #include "headers/linux_x64/./sys/prctl.h"
+#include "headers/linux_x64/./sys/ttydefaults.h"
 #include "headers/linux_x64/./sys/socket.h"
 #include "headers/linux_x64/./reboot.h"
 #include "headers/linux_x64/./bits/limits.h"
