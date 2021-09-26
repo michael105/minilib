@@ -613,7 +613,7 @@
   print an error message dependend on errno ( strerror(errno) ),
   exit with status
  </small></td></tr>
-<tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  7 </small></td><td><small>  char *errno_str(int err);
+<tr valign="top"><td><small>errno_str</small></td><td><small>   <a href="../src/process/error.h" target="right">../src/process/error.h</a>  7 </small></td><td><small>  char *errno_str(int err);
 </small></td></tr><tr><td></td><td colspan="2"><small>convert errno to str, with 3 chars length
   ending the string (global) 
   with two \0\0, when errno<100
@@ -628,11 +628,11 @@
  
   when status is non null, terminate with status
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">errx</a></small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  27 </small></td><td><small> #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
+<tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">errx</a></small></td><td><small>   <a href="../src/process/error.h" target="right">../src/process/error.h</a>  27 </small></td><td><small> #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
 </small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr,
   exit with status
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/net/ethers.3.rst.html">ether_ntoa</a></small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  3 </small></td><td><small> char* ether_ntoa( const struct ether_addr *e );
+<tr valign="top"><td><small><a target="right" href="manpages/net/ethers.3.rst.html">ether_ntoa</a></small></td><td><small>   <a href="../src/process/error.h" target="right">../src/process/error.h</a>  3 </small></td><td><small> char* ether_ntoa( const struct ether_addr *e );
 </small></td></tr>
 <tr valign="top"><td><small>ewrites</small></td><td><small>   <a href="../src/network/ether_ntoa.c" target="right">../src/network/ether_ntoa.c</a>  87 </small></td><td><small> #define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
 </small></td></tr><tr><td></td><td colspan="2"><small>write the constant str to stderr. Computes length with sizeof(str) at compile time.
@@ -2200,7 +2200,7 @@
 <tr valign="top"><td><small><a target="right" href="manpages/gen/err.3.rst.html">warn</a></small></td><td><small>   <a href="../src/process/wait.c" target="right">../src/process/wait.c</a>  33 </small></td><td><small> #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 </small></td></tr><tr><td></td><td colspan="2"><small>print an error message to stderr
  </small></td></tr>
-<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/error.c" target="right">../src/process/error.c</a>  4 </small></td><td><small> int where(const char *file,char *buf);
+<tr valign="top"><td><small>where</small></td><td><small>   <a href="../src/process/error.h" target="right">../src/process/error.h</a>  4 </small></td><td><small> int where(const char *file,char *buf);
 </small></td></tr><tr><td></td><td colspan="2"><small>locate an executable in PATH
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/write.2.rst.html">write</a></small></td><td><small>   <a href="../src/exec/where.c" target="right">../src/exec/where.c</a>  104 </small></td><td><small> write(int fd,const void *buf, int len )
