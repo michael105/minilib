@@ -15,6 +15,7 @@
 #define included_unistd_h
 
 
+#define _LOCALE_H
 #define _PWD_H
 #define _SYS_SYSCTL_H
 #define _SYS_TIMES_H

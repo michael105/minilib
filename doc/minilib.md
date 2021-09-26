@@ -439,7 +439,7 @@ err            #define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(st
                print an error message to stderr,
               print an error message dependend on errno ( strerror(errno) ),
               exit with status
-               (src/process/error.c: 20)
+               (src/process/error.h: 20)
 
 errno_str      static char *errno_str(int err);
 
@@ -458,13 +458,13 @@ error          #define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); 
                (verbose error messages add aboyut 4kB)
              
               when status is non null, terminate with status
-               (src/process/error.c: 13)
+               (src/process/error.h: 13)
 
 errx           #define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
 
                print an error message to stderr,
               exit with status
-               (src/process/error.c: 27)
+               (src/process/error.h: 27)
 
 ether_ntoa     char* ether_ntoa( const struct ether_addr *e );
 
@@ -1698,7 +1698,7 @@ vsnprintf      int vsnprintf(char *buf, size_t size, const char* fmt, va_list ar
 warn           #define warn( fmt ... ) { fprintf(stderr,fmt ); }
 
                print an error message to stderr
-               (src/process/error.c: 33)
+               (src/process/error.h: 33)
 
 where          int where(const char *file,char *buf);
 
