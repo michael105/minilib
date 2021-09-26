@@ -182,6 +182,12 @@ typedef void (functionp)(void);
 #endif
 #endif
 
+// according to linux sysheaders,
+// stat64 is euqal to stat
+#define stat64 stat
+#define lstat64 lstat
+
+
 
 // the current implementation of malloc has this max,
 // equal to 256MB

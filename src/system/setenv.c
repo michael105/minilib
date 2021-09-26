@@ -10,7 +10,7 @@
 // Returns: 
 // - 0 on success
 // - EINVAL on error
-//+depends environ getenv strncmp ret_errno malloc strcpy strlen
+//+depends environ getenv strncmp ret_errno malloc strcpy strlen stpcpy
 //+def
 int setenv( const char *name, const char *value, int overwrite ){
 

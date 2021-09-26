@@ -1577,7 +1577,7 @@ strtoll        long long int strtoll(const char *c, const char **endp, int base)
               doesn't check for overflow(!)
               For linux x64, long long and long both have 64 bit.
               Therefore, strtoll just calls strtol
-               (src/string/strtoll.c: 7)
+               (src/string/strtoll.c: 8)
 
 swap           static inline void swap(void* a, void* b,int size);
 

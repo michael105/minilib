@@ -15,6 +15,9 @@
 #define included_unistd_h
 
 
+#define _PWD_H
+#define _SYS_SYSCTL_H
+#define _SYS_TIMES_H
 #define _CTYPE_H
 #define _LIBC_LIMITS_H_
 #define _SYS_CDEFS_H
