@@ -3,7 +3,7 @@
 // which is given in the passwd entry.
 // This function calls internally setgrent() and getgrent();
 // therefore any iteration with getgrent will be resetted.
-//+depends getpwuid setgrent strcmp grent pwent
+//+depends getpwuid setgrent strcmp grent pwent getgrent
 //+def
 int getusergroups(const char* user, int maxgroups, int *list){
 	int groups = 0;
