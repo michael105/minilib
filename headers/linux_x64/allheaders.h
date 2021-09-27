@@ -6,6 +6,7 @@
 #include "headers/linux_x64/./sys/prctl.h"
 #include "headers/linux_x64/./sys/ttydefaults.h"
 #include "headers/linux_x64/./sys/socket.h"
+#include "headers/linux_x64/./sys/times.h"
 #include "headers/linux_x64/./reboot.h"
 #include "headers/linux_x64/./bits/limits.h"
 #include "headers/linux_x64/./bits/stat.h"
@@ -14,4 +15,6 @@
 #include "headers/linux_x64/./mount.h"
 #include "headers/linux_x64/./fcntl.h"
 #include "headers/linux_x64/./seccomp.h"
+#include "headers/linux_x64/./resource.h"
+#include "headers/linux_x64/./paths.h"
 #endif

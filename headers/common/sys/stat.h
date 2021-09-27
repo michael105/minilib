@@ -1,5 +1,5 @@
-#ifndef	_sys_stat_h
-#define	_sys_stat_h
+#ifndef	_mlsys_stat_h
+#define	_mlsys_stat_h
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -21,8 +21,9 @@ struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 /* copied from kernel definition, but with padding replaced
  * by the corresponding correctly-sized userspace types. */
 
-#ifndef stat_defined
-#define stat_defined
+//#ifndef stat_defined
+//#define stat_defined
+#if 0
 struct stat {
 	dev_t st_dev;
 	ino_t st_ino;
@@ -42,12 +43,13 @@ struct stat {
 	struct timespec st_ctim;
 	long __unused[3];
 };
-#endif
-
-
 #define st_atime st_atim.tv_sec
 #define st_mtime st_mtim.tv_sec
 #define st_ctime st_ctim.tv_sec
+
+
+#endif
+
 
 #define S_TYPEISMQ(buf)  0
 #define S_TYPEISSEM(buf) 0
