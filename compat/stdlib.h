@@ -132,6 +132,9 @@ void abort();
 // file: minilib/src/process/atexit.c
 static int atexit( functionp* func );
 
+// file: minilib/src/sort/bsearch.c
+void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
+
 // file: minilib/src/sort/qsort.c
 void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -148,17 +151,18 @@ char* getenv(const char* name);
 
 #ifdef mini_INCLUDESRC
 
+#include "minilib/src/conversions/atol.c"
+#include "minilib/src/memory/calloc.c"
+#include "minilib/src/process/atexit.c"
+#include "minilib/src/process/abort.c"
+#include "minilib/src/sort/bsearch.c"
+#include "minilib/include/math.h"
 #include "minilib/src/sort/qsort.c"
 #include "minilib/src/system/getenv.c"
-#include "minilib/src/process/abort.c"
-#include "minilib/src/math/rand.c"
-#include "minilib/src/conversions/atol.c"
-#include "minilib/src/process/atexit.c"
 #include "minilib/src/exec/system.c"
-#include "minilib/src/string/strtol.c"
-#include "minilib/include/math.h"
-#include "minilib/src/memory/calloc.c"
 #include "minilib/src/conversions/atoi.c"
+#include "minilib/src/math/rand.c"
+#include "minilib/src/string/strtol.c"
 #include "minilib/src/math/srand.c"
 
 // Need global included. Doesn't matter by which file.

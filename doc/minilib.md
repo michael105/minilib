@@ -239,6 +239,12 @@ bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, un
               with initial hash value
                (src/file/cksum.c: 20)
 
+bsd_definitions
+
+               definitions, found at BSD
+              enable with mini_bsd_definitions
+               (include/bsd_definitions.h: 5)
+
 bsd_timespec   
 
                timespec functions, copied from freebsd
@@ -692,6 +698,21 @@ itooct         int itooct(int i, char *buf);
                convert int to octal
               return the number of chars written.
                (src/conversions/itooct.c: 4)
+
+killpg         static int killpg( int pid, int signal );
+
+               (src/process/killpg.c: 2)
+
+locale_dummies 
+
+               several dummy definitions,
+              mostly locale related.
+              (locales are not the target of minilib,
+              so define mini_dummies to have code relying on locales 
+              running)
+              Quite often some code does only checking for locales,
+              but doesn't rely on them.
+               (include/dummies.h: 9)
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
@@ -1572,6 +1593,11 @@ strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
 
                (src/string/strcasecmp.c: 34)
 
+strtoimax      int strtoimax(const char *c, const char **endp, int base);
+
+               conversion
+               (src/string/strtoimax.c: 4)
+
 strtok_r       char* strtok_r(char *s, const char *delim, char **last);
 
                (src/string/strtok_r.c: 2)
@@ -2335,6 +2361,12 @@ atol           long atol(const char *c);
 
                (src/conversions/atol.c: 3)
 
+bsearch        void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
+
+               search for an element
+              code is copied from netbsd
+               (src/sort/bsearch.c: 55)
+
 calloc         void* calloc(int nmemb, int size);
 
                (src/memory/calloc.c: 2)
@@ -2461,8 +2493,7 @@ srand          void srand( unsigned int i );
 strtol         long int strtol(const char *c, const char **endp, int base);
 
                conversion
-              doesn't check for overflow(!)
-               (src/string/strtol.c: 5)
+               (src/string/strtol.c: 4)
 
 system         int system( const char* command );
 
@@ -2510,6 +2541,14 @@ strcpy         char *strcpy(char *dest, const char *src);
 
                (src/string/strcpy.c: 3)
 
+strcspn        int strcspn(const char *s1, const char *s2);
+
+               look for the first place in s1,
+              containing one of the chars of s2.
+              Optimizes a bit (+16Bytes code),
+              when OPTIMIZE is defined
+               (src/string/strcspn.c: 6)
+
 strdup         char *strdup(const char *source);
 
                (src/string/strdup.c: 7)
@@ -2542,6 +2581,10 @@ strpbrk        char* strpbrk(const char* s, const char* charset);
 strrchr        char *strrchr(const char *s, int c);
 
                (src/string/strrchr.c: 4)
+
+strspn         int strspn(const char *s1, const char *s2);
+
+               (src/string/strspn.c: 2)
 
 strstr         char* strstr(const char *big, const char *little);
 

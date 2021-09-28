@@ -445,10 +445,18 @@
 </small></td></tr><tr><td></td><td colspan="2"><small>bsd checksum, called by bsd_cksum,
   with initial hash value
  </small></td></tr>
-<tr valign="top"><td><small>bsd_timespec</small></td><td><small>   <a href="../src/file/cksum.c" target="right">../src/file/cksum.c</a>  5 </small></td><td><small> 
+<tr valign="top"><td><small>bsd_definitions</small></td><td><small>   <a href="../src/file/cksum.c" target="right">../src/file/cksum.c</a>  5 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>definitions, found at BSD
+  enable with mini_bsd_definitions
+ </small></td></tr>
+<tr valign="top"><td><small>bsd_timespec</small></td><td><small>   <a href="../include/bsd_definitions.h" target="right">../include/bsd_definitions.h</a>  5 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>timespec functions, copied from freebsd
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">calloc</a></small></td><td><small>   <a href="../include/bsd_timespec.h" target="right">../include/bsd_timespec.h</a>  2 </small></td><td><small> void* calloc(int nmemb, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/bsearch.3.rst.html">bsearch</a></small></td><td><small>   <a href="../include/bsd_timespec.h" target="right">../include/bsd_timespec.h</a>  55 </small></td><td><small> void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
+</small></td></tr><tr><td></td><td colspan="2"><small>search for an element
+  code is copied from netbsd
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">calloc</a></small></td><td><small>   <a href="../src/sort/bsearch.c" target="right">../src/sort/bsearch.c</a>  2 </small></td><td><small> void* calloc(int nmemb, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">cfmakeraw</a></small></td><td><small>   <a href="../src/memory/calloc.c" target="right">../src/memory/calloc.c</a>  3 </small></td><td><small> void cfmakeraw(struct termios *tp);
 </small></td></tr>
@@ -960,7 +968,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/kill.2.rst.html">kill</a></small></td><td><small>   <a href="../src/conversions/itooct.c" target="right">../src/conversions/itooct.c</a>  135 </small></td><td><small> kill( pid_t pid,  int sig)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/labs.3.rst.html">labs</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  30 </small></td><td><small>  long int labs(long int i);
+<tr valign="top"><td><small><a target="right" href="manpages/compat-43/killpg.2.rst.html">killpg</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  2 </small></td><td><small>  int killpg( int pid, int signal );
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/labs.3.rst.html">labs</a></small></td><td><small>   <a href="../src/process/killpg.c" target="right">../src/process/killpg.c</a>  30 </small></td><td><small>  long int labs(long int i);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ldiv.3.rst.html">ldiv</a></small></td><td><small>   <a href="../include/math.h" target="right">../include/math.h</a>  16 </small></td><td><small>  ldiv_t ldiv(long int numerator, long int denominator);
 </small></td></tr>
@@ -968,7 +978,16 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/listen.2.rst.html">listen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  241 </small></td><td><small> listen( int fd,  int backlog)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  18 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
+<tr valign="top"><td><small>locale_dummies</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> 
+</small></td></tr><tr><td></td><td colspan="2"><small>several dummy definitions,
+  mostly locale related.
+  (locales are not the target of minilib,
+  so define mini_dummies to have code relying on locales 
+  running)
+  Quite often some code does only checking for locales,
+  but doesn't rely on them.
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/sys/lseek.2.rst.html">lseek</a></small></td><td><small>   <a href="../include/dummies.h" target="right">../include/dummies.h</a>  18 </small></td><td><small> lseek(unsigned int a1, int a2, int a3 )
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/stat.2.rst.html">lstat</a></small></td><td><small>   <a href="../include/lseek.h" target="right">../include/lseek.h</a>  113 </small></td><td><small> lstat(const char* filename,struct stat* statbuf)		
 </small></td></tr>
@@ -2027,7 +2046,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strdup.3.rst.html">strdup</a></small></td><td><small>   <a href="../src/string/strcpy.c" target="right">../src/string/strcpy.c</a>  7 </small></td><td><small> char *strdup(const char *source);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strspn.3.rst.html">strcspn</a></small></td><td><small>   <a href="../src/string/strcpy.c" target="right">../src/string/strcpy.c</a>  6 </small></td><td><small> int strcspn(const char *s1, const char *s2);
+</small></td></tr><tr><td></td><td colspan="2"><small>look for the first place in s1,
+  containing one of the chars of s2.
+  Optimizes a bit (+16Bytes code),
+  when OPTIMIZE is defined
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/strdup.3.rst.html">strdup</a></small></td><td><small>   <a href="../src/string/strcspn.c" target="right">../src/string/strcspn.c</a>  7 </small></td><td><small> char *strdup(const char *source);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strerror</a></small></td><td><small>   <a href="../src/string/strdup.c" target="right">../src/string/strdup.c</a>  7 </small></td><td><small>  char* strerror( int errnum );
 </small></td></tr>
@@ -2053,15 +2078,19 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/string/strpbrk.c" target="right">../src/string/strpbrk.c</a>  4 </small></td><td><small> char *strrchr(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/string/strrchr.c" target="right">../src/string/strrchr.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strspn.3.rst.html">strspn</a></small></td><td><small>   <a href="../src/string/strrchr.c" target="right">../src/string/strrchr.c</a>  2 </small></td><td><small> int strspn(const char *s1, const char *s2);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strtok.3.rst.html">strtok</a></small></td><td><small>   <a href="../src/string/strstr.c" target="right">../src/string/strstr.c</a>  3 </small></td><td><small> char* strtok(char *s, const char *delim);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strstr.3.rst.html">strstr</a></small></td><td><small>   <a href="../src/string/strspn.c" target="right">../src/string/strspn.c</a>  3 </small></td><td><small> char* strstr(const char *big, const char *little);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtoimax</a></small></td><td><small>   <a href="../src/string/strstr.c" target="right">../src/string/strstr.c</a>  4 </small></td><td><small> int strtoimax(const char *c, const char **endp, int base);
+</small></td></tr><tr><td></td><td colspan="2"><small>conversion
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/strtok.3.rst.html">strtok</a></small></td><td><small>   <a href="../src/string/strtoimax.c" target="right">../src/string/strtoimax.c</a>  3 </small></td><td><small> char* strtok(char *s, const char *delim);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strtok.3.rst.html">strtok_r</a></small></td><td><small>   <a href="../src/string/strtok.c" target="right">../src/string/strtok.c</a>  2 </small></td><td><small> char* strtok_r(char *s, const char *delim, char **last);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/string/strtok_r.c" target="right">../src/string/strtok_r.c</a>  5 </small></td><td><small> long int strtol(const char *c, const char **endp, int base);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtol</a></small></td><td><small>   <a href="../src/string/strtok_r.c" target="right">../src/string/strtok_r.c</a>  4 </small></td><td><small> long int strtol(const char *c, const char **endp, int base);
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion
-  doesn't check for overflow(!)
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/strtol.3.rst.html">strtoll</a></small></td><td><small>   <a href="../src/string/strtol.c" target="right">../src/string/strtol.c</a>  8 </small></td><td><small> long long int strtoll(const char *c, const char **endp, int base);
 </small></td></tr><tr><td></td><td colspan="2"><small>conversion

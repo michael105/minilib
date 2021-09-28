@@ -66,7 +66,8 @@ void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int
 		p = base + (lim >> 1) * size;
 		cmp = (*compar)(key, p);
 		if (cmp == 0)
-			return __UNCONST(p);
+			return (p);
+			//return __UNCONST(p);
 		if (cmp > 0) {	/* key > p: move right */
 			base = (const char *)p + size;
 			lim--;
