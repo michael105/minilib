@@ -74,6 +74,7 @@ struct rlimit {
 	__kernel_ulong_t	rlim_max;
 };
 
+typedef unsigned long rlim_t;
 
 #define RLIM64_INFINITY		(~0ULL)
 

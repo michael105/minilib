@@ -138,11 +138,11 @@ int getgroups(int maxgroups, int *list);
 #ifdef mini_INCLUDESRC
 
 #include "minilib/src/network/gethostname.c"
-#include "minilib/src/exec/execvp.c"
-#include "minilib/src/exec/_execv.c"
 #include "minilib/src/userdb/getgroups.c"
-#include "minilib/src/exec/execl.c"
+#include "minilib/src/exec/_execv.c"
 #include "minilib/src/exec/_execvp.c"
+#include "minilib/src/exec/execvp.c"
+#include "minilib/src/exec/execl.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

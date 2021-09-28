@@ -239,6 +239,11 @@ bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, un
               with initial hash value
                (src/file/cksum.c: 20)
 
+bsd_timespec   
+
+               timespec functions, copied from freebsd
+               (include/bsd_timespec.h: 5)
+
 cfmakeraw      void cfmakeraw(struct termios *tp);
 
                (src/termios/cfmakeraw.c: 3)
@@ -1589,6 +1594,11 @@ sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
                (src/memory/sys_brk.c: 4)
+
+sys_signame    const char* sys_signame[] = ;
+
+               abbreviated signal names, according to BSD > 4.2
+               (src/process/signames.h: 3)
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
