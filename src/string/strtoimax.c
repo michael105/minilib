@@ -1,14 +1,14 @@
 //+doc conversion
 //+needs isspace
 //+def
-long int strtol(const char *c, const char **endp, int base){
+int strtoimax(const char *c, const char **endp, int base){
 		
 		while(isspace(*c)){
 				c++;
 		};
 
 		if ( !c ){
-				goto strtol_err;
+				goto strtoimax_err;
 		}
 
 		int sign = 0;
@@ -31,7 +31,7 @@ long int strtol(const char *c, const char **endp, int base){
 				}
 		}
 
-		long ret = 0;
+		int ret = 0;
 
 		while ( 1 ){
 				if ( endp )
@@ -55,12 +55,12 @@ long int strtol(const char *c, const char **endp, int base){
 #ifdef mini_errno
 					errno=ERANGE;
 #endif
-					return( sign?LONG_MIN:LONG_MAX );
+					return( sign?INT_MIN:INT_MAX );
 				}
 		}
 
 
-strtol_err:
+strtoimax_err:
 #ifdef mini_errno
 		errno=EINVAL;
 #endif
