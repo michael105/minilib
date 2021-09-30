@@ -127,6 +127,12 @@ static int gethostname(char *name,int len);
 #include "minilib/src/process/sleep.c"
 // file: minilib/src/termios/isatty.c
 #include "minilib/src/termios/isatty.c"
+// file: minilib/src/termios/tcgetpgrp.c
+int tcgetpgrp(int fd);
+
+// file: minilib/src/termios/tcsetpgrp.c
+int tcsetpgrp(int fd, int pgrp);
+
 // file: minilib/src/userdb/getgroups.c
 int getgroups(int maxgroups, int *list);
 
@@ -137,12 +143,14 @@ int getgroups(int maxgroups, int *list);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/userdb/getgroups.c"
-#include "minilib/src/exec/_execvp.c"
-#include "minilib/src/exec/_execv.c"
 #include "minilib/src/exec/execl.c"
-#include "minilib/src/network/gethostname.c"
 #include "minilib/src/exec/execvp.c"
+#include "minilib/src/exec/_execvp.c"
+#include "minilib/src/termios/tcgetpgrp.c"
+#include "minilib/src/termios/tcsetpgrp.c"
+#include "minilib/src/network/gethostname.c"
+#include "minilib/src/exec/_execv.c"
+#include "minilib/src/userdb/getgroups.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

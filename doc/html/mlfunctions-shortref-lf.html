@@ -978,7 +978,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/listen.2.rst.html">listen</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  241 </small></td><td><small> listen( int fd,  int backlog)
 </small></td></tr>
-<tr valign="top"><td><small>locale_dummies</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  9 </small></td><td><small> 
+<tr valign="top"><td><small>locale_dummies</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  10 </small></td><td><small> 
 </small></td></tr><tr><td></td><td colspan="2"><small>several dummy definitions,
   mostly locale related.
   (locales are not the target of minilib,
@@ -2061,11 +2061,15 @@
   when src is longer than dest, 
   end dest[n-1] with '\0'.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/string/strlcpy.c" target="right">../src/string/strlcpy.c</a>  4 </small></td><td><small> int strlen(const char*str);
-</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strlen</a></small></td><td><small>   <a href="../src/string/strlcpy.c" target="right">../src/string/strlcpy.c</a>  6 </small></td><td><small> int strlen(const char*str);
+</small></td></tr><tr><td></td><td colspan="2"><small>return len of str.
+  if str points to 0, return 0
+ </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncasecmp</a></small></td><td><small>   <a href="../src/string/strlen.c" target="right">../src/string/strlen.c</a>  34 </small></td><td><small> int strncasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  34 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncat</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  2 </small></td><td><small> char* strncat( char* dst, const char* src, unsigned int n);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strncat.c" target="right">../src/string/strncat.c</a>  34 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
@@ -2116,9 +2120,13 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcgetattr</a></small></td><td><small>   <a href="../src/exec/system.c" target="right">../src/exec/system.c</a>  12 </small></td><td><small> int tcgetattr(int fd, struct termios *io);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../src/termios/tcgetattr.c" target="right">../src/termios/tcgetattr.c</a>  12 </small></td><td><small> int tcsetattr(int fd, int opt, const struct termios *io);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcgetpgrp.3.rst.html">tcgetpgrp</a></small></td><td><small>   <a href="../src/termios/tcgetattr.c" target="right">../src/termios/tcgetattr.c</a>  2 </small></td><td><small> int tcgetpgrp(int fd);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../src/termios/tcsetattr.c" target="right">../src/termios/tcsetattr.c</a>  2 </small></td><td><small> long telldir(DIR *dir);
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetattr.3.rst.html">tcsetattr</a></small></td><td><small>   <a href="../src/termios/tcgetpgrp.c" target="right">../src/termios/tcgetpgrp.c</a>  12 </small></td><td><small> int tcsetattr(int fd, int opt, const struct termios *io);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/tcsetpgrp.3.rst.html">tcsetpgrp</a></small></td><td><small>   <a href="../src/termios/tcsetattr.c" target="right">../src/termios/tcsetattr.c</a>  2 </small></td><td><small> int tcsetpgrp(int fd, int pgrp);
+</small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/gen/directory.3.rst.html">telldir</a></small></td><td><small>   <a href="../src/termios/tcsetpgrp.c" target="right">../src/termios/tcsetpgrp.c</a>  2 </small></td><td><small> long telldir(DIR *dir);
 </small></td></tr>
 <tr valign="top"><td><small>term_width</small></td><td><small>   <a href="../src/directories/telldir.c" target="right">../src/directories/telldir.c</a>  7 </small></td><td><small> int term_width();
 </small></td></tr><tr><td></td><td colspan="2"><small>get the terminal width

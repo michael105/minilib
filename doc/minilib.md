@@ -712,7 +712,7 @@ locale_dummies
               running)
               Quite often some code does only checking for locales,
               but doesn't rely on them.
-               (include/dummies.h: 9)
+               (include/dummies.h: 10)
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
@@ -2559,7 +2559,13 @@ strerror       static char* strerror( int errnum );
 
 strlen         int strlen(const char*str);
 
-               (src/string/strlen.c: 4)
+               return len of str.
+              if str points to 0, return 0
+               (src/string/strlen.c: 6)
+
+strncat        char* strncat( char* dst, const char* src, unsigned int n);
+
+               (src/string/strncat.c: 2)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
@@ -2681,9 +2687,17 @@ tcgetattr      int tcgetattr(int fd, struct termios *io);
 
                (src/termios/tcgetattr.c: 12)
 
+tcgetpgrp      int tcgetpgrp(int fd);
+
+               (src/termios/tcgetpgrp.c: 2)
+
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
                (src/termios/tcsetattr.c: 12)
+
+tcsetpgrp      int tcsetpgrp(int fd, int pgrp);
+
+               (src/termios/tcsetpgrp.c: 2)
 
 usleep         unsigned int volatile usleep(unsigned int useconds);
 
