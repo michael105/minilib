@@ -10,6 +10,7 @@ char* strncat( char* dst, const char* src, unsigned int n){
 		n--;
 		d++;src++;
 	}
+	*d = 0;
 
 	return(dst);
 }
