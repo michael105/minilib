@@ -2509,6 +2509,10 @@ _strcmp        int _strcmp(const char*c1,const char*c2,int len);
 
                (src/string/strcmp.c: 10)
 
+memchr         void* memchr(const void *s, int c, unsigned int n);
+
+               (src/memory/memchr.c: 2)
+
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
                (src/memory/memcmp.c: 3)
