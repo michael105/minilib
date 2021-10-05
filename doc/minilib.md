@@ -1,6 +1,27 @@
 
 
 ==========
+assert.h
+==========
+
+assert         
+
+               (macros/assert.h: 4)
+
+
+
+==========
+ctype.h
+==========
+
+ctype_functions#ifdef mini_ctype_functions
+
+               create functions instead of macros for isalpha, .., isprint
+               (include/ctype.h: 22)
+
+
+
+==========
 declarations.h
 ==========
 
@@ -1338,7 +1359,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 106)
+               (include/globaldefs.h: 108)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -2583,6 +2604,10 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               which does the same,
               but doesn't pad dest with 0's.
                (src/string/strncpy.c: 7)
+
+strndup        char *strndup(const char *source, int maxlen);
+
+               (src/string/strndup.c: 5)
 
 strpbrk        char* strpbrk(const char* s, const char* charset);
 

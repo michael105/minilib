@@ -151,19 +151,19 @@ char* getenv(const char* name);
 
 #ifdef mini_INCLUDESRC
 
-#include "minilib/src/sort/bsearch.c"
-#include "minilib/src/math/srand.c"
-#include "minilib/include/math.h"
-#include "minilib/src/exec/system.c"
 #include "minilib/src/memory/calloc.c"
+#include "minilib/src/exec/system.c"
+#include "minilib/src/sort/bsearch.c"
+#include "minilib/src/system/getenv.c"
 #include "minilib/src/conversions/atol.c"
+#include "minilib/src/process/atexit.c"
 #include "minilib/src/string/strtol.c"
 #include "minilib/src/conversions/atoi.c"
-#include "minilib/src/process/atexit.c"
+#include "minilib/include/math.h"
 #include "minilib/src/process/abort.c"
 #include "minilib/src/math/rand.c"
-#include "minilib/src/system/getenv.c"
 #include "minilib/src/sort/qsort.c"
+#include "minilib/src/math/srand.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

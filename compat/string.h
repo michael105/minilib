@@ -141,6 +141,9 @@ char* strncat( char* dst, const char* src, unsigned int n);
 // file: minilib/src/string/strncpy.c
 char *strncpy(char *dest, const char *src, int n);
 
+// file: minilib/src/string/strndup.c
+char *strndup(const char *source, int maxlen);
+
 // file: minilib/src/string/strpbrk.c
 char* strpbrk(const char* s, const char* charset);
 
@@ -164,24 +167,25 @@ char* strtok(char *s, const char *delim);
 #ifdef mini_INCLUDESRC
 
 #include "minilib/src/memory/memmove.c"
-#include "minilib/src/memory/memchr.c"
-#include "minilib/src/string/strncpy.c"
-#include "minilib/src/string/strncat.c"
 #include "minilib/src/string/strtok.c"
-#include "minilib/src/string/strcpy.c"
-#include "minilib/src/string/strrchr.c"
+#include "minilib/src/string/strndup.c"
 #include "minilib/src/string/strdup.c"
-#include "minilib/src/memory/memcpy.c"
-#include "minilib/src/memory/memset.c"
 #include "minilib/src/string/strerror.c"
-#include "minilib/src/string/strspn.c"
-#include "minilib/src/string/strcspn.c"
-#include "minilib/src/string/strpbrk.c"
-#include "minilib/src/string/strcat.c"
-#include "minilib/src/string/strstr.c"
+#include "minilib/src/memory/memchr.c"
 #include "minilib/src/string/strlen.c"
-#include "minilib/src/string/strchr.c"
+#include "minilib/src/string/strcpy.c"
+#include "minilib/src/string/strncat.c"
+#include "minilib/src/memory/memset.c"
 #include "minilib/src/memory/memcmp.c"
+#include "minilib/src/memory/memcpy.c"
+#include "minilib/src/string/strchr.c"
+#include "minilib/src/string/strcspn.c"
+#include "minilib/src/string/strstr.c"
+#include "minilib/src/string/strpbrk.c"
+#include "minilib/src/string/strrchr.c"
+#include "minilib/src/string/strcat.c"
+#include "minilib/src/string/strncpy.c"
+#include "minilib/src/string/strspn.c"
 
 // Need global included. Doesn't matter by which file.
 #include "src/minilib_global.c"

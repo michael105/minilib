@@ -32,6 +32,8 @@ typedef int bool;
 
 #define FOPEN_MAX 16
 
+#define PRIdMAX "d"
+#define PRIuMAX "u"
 
 #ifndef __clang__
 #define ATTR_OPT(x) __attribute__((optimize(x)))

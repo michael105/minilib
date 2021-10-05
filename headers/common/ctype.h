@@ -1,5 +1,5 @@
-#ifndef	_CTYPE_H
-#define	_CTYPE_H
+//#ifndef	_CTYPE_H
+//#define	_CTYPE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,4 +29,4 @@ int   toupper_l(int, locale_t);
 }
 #endif
 
-#endif
+//#endif
