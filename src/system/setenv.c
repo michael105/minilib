@@ -33,17 +33,17 @@ int setenv( const char *name, const char *value, int overwrite ){
 		}
 	}
 
-			*envp=malloc(len+1+strlen(value));
-			if ( !*envp )
-				ret_errno(ENOMEM);
-			char *c = stpcpy(*envp,value);
-			*c = '=';
-			c++;
-			strcpy(c,value);
+	*envp=malloc(len+1+strlen(value));
+	if ( !*envp )
+		ret_errno(ENOMEM);
+	char *c = stpcpy(*envp,name);
+	*c = '=';
+	c++;
+	strcpy(c,value);
 
 	envp++;
 	*envp=0;
-	
+
 	return(0);
 }
 
