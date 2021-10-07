@@ -318,7 +318,7 @@
 <tr valign="top"><td><small>sys__statfs</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  278 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>_strcasecmp</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  5 </small></td><td><small> int _strcasecmp(const char*c1,const char*c2,int len);
 </small></td></tr>
-<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  10 </small></td><td><small> int _strcmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small>_strcmp</small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  10 </small></td><td><small> int _strcmp(const char *s1, const char *s2, int n);
 </small></td></tr>
 <tr valign="top"><td><small>sys__swapoff</small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  340 </small></td><td><small></small></td></tr>
 <tr valign="top"><td><small>sys__swapon</small></td><td><small>   <a href="../include/syscalls_x64.h" target="right">../include/syscalls_x64.h</a>  338 </small></td><td><small></small></td></tr>
@@ -587,7 +587,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/file/cksum.c" target="right">../src/file/cksum.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  14 </small></td><td><small> int dprints(int fd, const char *msg,...);
+<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  12 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/dprints.c" target="right">../src/output/dprints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
@@ -785,7 +785,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/fread.3.rst.html">fread</a></small></td><td><small>   <a href="../include/fputs.h" target="right">../include/fputs.h</a>  152 </small></td><td><small>   size_t fread(void *ptr, size_t size, size_t nmemb, FILE *f);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  145 </small></td><td><small> void free(void *p);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">free</a></small></td><td><small>   <a href="../include/mini_fstream.h" target="right">../include/mini_fstream.h</a>  157 </small></td><td><small> void free(void *p);
 </small></td></tr>
 <tr valign="top"><td><small>free_brk</small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  9 </small></td><td><small> int free_brk();
 </small></td></tr><tr><td></td><td colspan="2"><small>free all memory,
@@ -1002,16 +1002,24 @@
 </small></td></tr>
 <tr valign="top"><td><small>ltodec</small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  3 </small></td><td><small> int ltodec(long i, char *buf, int prec, char limiter );
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  125 </small></td><td><small> void* malloc(int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">malloc</a></small></td><td><small>   <a href="../src/conversions/ltodec.c" target="right">../src/conversions/ltodec.c</a>  133 </small></td><td><small> void* malloc(int size);
 </small></td></tr><tr><td></td><td colspan="2"><small>0
   Here we go.. with the .. well. 
   Fastes and smallest malloc/free combi ever. 
   Not the smartest.
   Since it isn't exactly a memory allocation,
-  instead it (mis)uses the minilib buf.
-  Which is allocated by the kernel, and uses
-  either the bss section, or is allocated on the stack.
+  instead it uses the minilib buf.
+  Which is allocated by the kernel, and located
+  either in the bss section, or is allocated on the stack.
   (option "globals_on_stack")
+  When allocated at the stack, the stack is first expanded
+  within startup_c.c, and the return address of startup_c
+  discarded. (Jump to exit)
+  Therefore an overflow of the globals would result in a segfault.
+ 
+  For debugging and analization of mallocs and free's, there's 
+  the option analyzemalloc; which dumps all malloc's and free's to stderr.
+  Format: Address - size)
  
   This is basically a linked list,
   optimized for fast access, allocation of new elements, 
@@ -1854,7 +1862,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/readlink.2.rst.html">readlink</a></small></td><td><small>   <a href="../src/directories/readdir.c" target="right">../src/directories/readdir.c</a>  127 </small></td><td><small> readlink( const char *path,  char *buf,  int bufsiz)
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  209 </small></td><td><small> void* realloc(void *p, int size);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/memory.3.rst.html">realloc</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  229 </small></td><td><small> void* realloc(void *p, int size);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/sys/reboot.2.rst.html">reboot</a></small></td><td><small>   <a href="../src/memory/malloc.c" target="right">../src/memory/malloc.c</a>  182 </small></td><td><small> reboot( int magic1,  int magic2,  unsigned int cmd,  void *arg)
 </small></td></tr>
@@ -2055,7 +2063,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strchr.3.rst.html">strchrnul</a></small></td><td><small>   <a href="../src/string/strchr.c" target="right">../src/string/strchr.c</a>  3 </small></td><td><small> char *strchrnul(const char *s, int c);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  26 </small></td><td><small> int strcmp(const char*c1,const char*c2);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcmp</a></small></td><td><small>   <a href="../src/string/strchrnul.c" target="right">../src/string/strchrnul.c</a>  36 </small></td><td><small> int strcmp(const char*c1,const char*c2);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strcpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  3 </small></td><td><small> char *strcpy(char *dest, const char *src);
 </small></td></tr>
@@ -2082,7 +2090,7 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncat</a></small></td><td><small>   <a href="../src/string/strcasecmp.c" target="right">../src/string/strcasecmp.c</a>  2 </small></td><td><small> char* strncat( char* dst, const char* src, unsigned int n);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strncat.c" target="right">../src/string/strncat.c</a>  34 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncmp</a></small></td><td><small>   <a href="../src/string/strncat.c" target="right">../src/string/strncat.c</a>  44 </small></td><td><small> int strncmp(const char*c1,const char*c2,int len);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strncpy</a></small></td><td><small>   <a href="../src/string/strcmp.c" target="right">../src/string/strcmp.c</a>  7 </small></td><td><small> char *strncpy(char *dest, const char *src, int n);
 </small></td></tr><tr><td></td><td colspan="2"><small>copy max n chars from src to dest, 
@@ -2093,7 +2101,13 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/strdup.3.rst.html">strndup</a></small></td><td><small>   <a href="../src/string/strncpy.c" target="right">../src/string/strncpy.c</a>  5 </small></td><td><small> char *strndup(const char *source, int maxlen);
 </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strpbrk</a></small></td><td><small>   <a href="../src/string/strndup.c" target="right">../src/string/strndup.c</a>  2 </small></td><td><small> char* strpbrk(const char* s, const char* charset);
+<tr valign="top"><td><small><a target="right" href="manpages/string/strlen.3.rst.html">strnlen</a></small></td><td><small>   <a href="../src/string/strndup.c" target="right">../src/string/strndup.c</a>  8 </small></td><td><small> int strnlen(const char*str, int max);
+</small></td></tr><tr><td></td><td colspan="2"><small>return len of str.
+  if str points to 0, return 0
+  if no 0 is within max chars of str,
+  return max
+ </small></td></tr>
+<tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strpbrk</a></small></td><td><small>   <a href="../src/string/strnlen.c" target="right">../src/string/strnlen.c</a>  2 </small></td><td><small> char* strpbrk(const char* s, const char* charset);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/string/string.3.rst.html">strrchr</a></small></td><td><small>   <a href="../src/string/strpbrk.c" target="right">../src/string/strpbrk.c</a>  4 </small></td><td><small> char *strrchr(const char *s, int c);
 </small></td></tr>
@@ -2208,7 +2222,16 @@
   errno is set, when defined.
   return 0 on success.
  </small></td></tr>
-<tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">unsetenv</a></small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  10 </small></td><td><small> int unsetenv( char *name);
+</small></td></tr><tr><td></td><td colspan="2"><small>remove a string from the environmental vars
+  The env var is not free'd. (It's not possible,
+  since we don't know whether the string has been allocated 
+  with malloc or has been setup by the system )
+  Returns: 
+  - 0 on success, 
+  - EINVAL: string was 0, did contain a '=', some other error
+ </small></td></tr>
+<tr valign="top"><td><small>userdb_open</small></td><td><small>   <a href="../src/system/unsetenv.c" target="right">../src/system/unsetenv.c</a>  3 </small></td><td><small> int userdb_open(userdb *udb, const char* file);
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/gen/usleep.3.rst.html">usleep</a></small></td><td><small>   <a href="../src/userdb/userdb_open.c" target="right">../src/userdb/userdb_open.c</a>  31 </small></td><td><small> unsigned int  usleep(unsigned int useconds);
 </small></td></tr><tr><td></td><td colspan="2"><small>nonconformant usleep. 

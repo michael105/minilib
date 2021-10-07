@@ -1,8 +1,9 @@
 #if 0
-mini_buf 256
+mini_buf 512
 mini_start
 mini_printf
 mini_prints
+mini_printsl
 mini_writes
 mini_itodec
 mini_atoi
@@ -37,10 +38,15 @@ int main( int argc, char *argv[] ){
 		prints(c1);
 		prints(c);
 
+		printsl("XXX");
+
 		free(c);
 		prints(c1);
+		printsl("Y1");
 		c1=realloc(c1,16);
-		write(1,c1,8);
+		printsl("Y2");
+		prints(c1);
+		write(1,c1,10);
 		writes("| \n");
 
 		c = malloc(8);

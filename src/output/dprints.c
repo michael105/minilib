@@ -1,5 +1,3 @@
-#ifndef mini_dprints_c
-#define mini_dprints_c
 
 #ifndef mini_prints
 #define mini_prints
@@ -29,4 +27,3 @@ int dprints(int fd, const char *msg,...){
 		return(ret);
 }
 
-#endif

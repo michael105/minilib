@@ -271,8 +271,8 @@ void* realloc(void *p, int size){
 
 		//mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
 		//mlgl->mbufsize -= (size<<2);
-		//mlgl->mbufsize += oldsize-size; // can't free. would need to copy the contents. 
-		// I should rearrange to bottom to top layout.
+		//mlgl->mbufsize += oldsize-size; // no sense to free. would need to copy the contents. 
+		// I should rearrange to bottom to top layout. spares the copying, WHEN p is at the top
 		//mlgl->ibuf[(mlgl->mbufsize>>2)] = size;
 		//return( &mlgl->mbuf[mlgl->mbufsize+4] ); 
 						return(p); 
@@ -286,7 +286,7 @@ void* realloc(void *p, int size){
 		}
 		int *s = (int*)p;
 		void *n = malloc(size);
-		if ( 1 ){ //TODO: clean this
+		if ( 1 ){ //TODO: clean and fix this. patched for now.
 				//writes("p>n\n"); // todo: replace with memcpy / copy longs
 				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize*2-1)); d++ ){
 						*d = *s;

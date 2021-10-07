@@ -415,7 +415,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/output/dprints.c: 14)
+               (src/output/dprints.c: 12)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -1713,6 +1713,17 @@ unmap_protectedint unmap_protected(void *p, int len);
               return 0 on success.
                (src/memory/map_protected.c: 44)
 
+unsetenv       int unsetenv( char *name);
+
+               remove a string from the environmental vars
+              The env var is not free'd. (It's not possible,
+              since we don't know whether the string has been allocated 
+              with malloc or has been setup by the system )
+              Returns: 
+              - 0 on success, 
+              - EINVAL: string was 0, did contain a '=', some other error
+               (src/system/unsetenv.c: 10)
+
 userdb_open    int userdb_open(userdb *udb, const char* file);
 
                (src/userdb/userdb_open.c: 3)
@@ -2398,7 +2409,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/memory/malloc.c: 145)
+               (src/memory/malloc.c: 157)
 
 getenv         char* getenv(const char* name);
 
@@ -2419,10 +2430,18 @@ malloc         void* malloc(int size);
               Fastes and smallest malloc/free combi ever. 
               Not the smartest.
               Since it isn't exactly a memory allocation,
-              instead it (mis)uses the minilib buf.
-              Which is allocated by the kernel, and uses
-              either the bss section, or is allocated on the stack.
+              instead it uses the minilib buf.
+              Which is allocated by the kernel, and located
+              either in the bss section, or is allocated on the stack.
               (option "globals_on_stack")
+              When allocated at the stack, the stack is first expanded
+              within startup_c.c, and the return address of startup_c
+              discarded. (Jump to exit)
+              Therefore an overflow of the globals would result in a segfault.
+             
+              For debugging and analization of mallocs and free's, there's 
+              the option analyzemalloc; which dumps all malloc's and free's to stderr.
+              Format: Address - size)
              
               This is basically a linked list,
               optimized for fast access, allocation of new elements, 
@@ -2488,7 +2507,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/memory/malloc.c: 125)
+               (src/memory/malloc.c: 133)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -2505,7 +2524,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/memory/malloc.c: 209)
+               (src/memory/malloc.c: 229)
 
 srand          void srand( unsigned int i );
 
@@ -2526,7 +2545,7 @@ system         int system( const char* command );
 string.h
 ==========
 
-_strcmp        int _strcmp(const char*c1,const char*c2,int len);
+_strcmp        int _strcmp(const char *s1, const char *s2, int n);
 
                (src/string/strcmp.c: 10)
 
@@ -2560,7 +2579,7 @@ strchr         char *strchr(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/string/strcmp.c: 26)
+               (src/string/strcmp.c: 36)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
@@ -2594,7 +2613,7 @@ strncat        char* strncat( char* dst, const char* src, unsigned int n);
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/string/strcmp.c: 34)
+               (src/string/strcmp.c: 44)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
@@ -2608,6 +2627,14 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
 strndup        char *strndup(const char *source, int maxlen);
 
                (src/string/strndup.c: 5)
+
+strnlen        int strnlen(const char*str, int max);
+
+               return len of str.
+              if str points to 0, return 0
+              if no 0 is within max chars of str,
+              return max
+               (src/string/strnlen.c: 8)
 
 strpbrk        char* strpbrk(const char* s, const char* charset);
 
