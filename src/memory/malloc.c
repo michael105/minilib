@@ -286,16 +286,16 @@ void* realloc(void *p, int size){
 		}
 		int *s = (int*)p;
 		void *n = malloc(size);
-		if ( p > n ){
+		if ( 1 ){ //TODO: clean this
 				//writes("p>n\n"); // todo: replace with memcpy / copy longs
-				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize<<2)); d++ ){
+				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize*2-1)); d++ ){
 						*d = *s;
 						s++;
 				}
 		} else { // p<n
 				//writes("p<n\n");
 						int *s = (int*)n;
-				for ( int *d = (int*)p; d<=(int*)((void*)p+(oldsize<<2)); d++ ){
+				for ( int *d = (int*)p; d<=(int*)((void*)p+(oldsize)); d++ ){
 						*d = *s;
 						s++;
 				}
