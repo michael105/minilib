@@ -3,7 +3,7 @@
 # This is just a wrapper script for backward compatibility
 
 MPATH=`echo $0 | sed 's/mini-gcc$//'`
-exec $MPATH"mlcc" $*
+exec $MPATH"minicc" $*
 
 
 

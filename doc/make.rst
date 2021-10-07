@@ -3,7 +3,7 @@
 **make targets:**
 
 all
-  header compile-mlcc doc examples test
+  header compile-minicc doc examples test
 	
 examples
 	make examples
@@ -12,23 +12,23 @@ header
 	rebuild header files, also rebuild some of the generated documentation.
 
 doc
-	rebuild generated documentation: html files, mlcc info
+	rebuild generated documentation: html files, minicc info
 
-mlcc
-	rebuild the script mlcc, pack ldscripts and config scripts
+minicc
+	rebuild the script minicc, pack ldscripts and config scripts
 
-compile-mlcc
-	pack the gzipped (complete) minilib into mlcc
-	(run mlcc --dump-minilib to extract the header to stdout)
+compile-minicc
+	pack the gzipped (complete) minilib into minicc
+	(run minicc --dump-minilib to extract the header to stdout)
 
-unpack-mlcc
-	strip the gzipped minilib of mlcc
+unpack-minicc
+	strip the gzipped minilib of minicc
 
 combined
 	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
 devel
-	make header combined compile-mlcc
+	make header combined compile-minicc
 
 tools
 	make tools in the dir ./tools
@@ -52,7 +52,7 @@ help
 	show this help
 
 
-Most possibly you'll need: "make compile-mlcc", and "make test"
+Most possibly you'll need: "make compile-minicc", and "make test"
 Both run all needed other targets.
 
 However, building with minilib is sort of transparent:
@@ -60,10 +60,10 @@ You can include the uncompiled "minilib.h", which will include
 all other header files.
 And you can include the compiled "minilib.h", as only dependency.
 
-When compiling with mlcc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into mlcc; these
+When compiling with minicc, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into minicc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile mlcc every time)
+(Making development easier - no need to compile minicc every time)
 
 The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)

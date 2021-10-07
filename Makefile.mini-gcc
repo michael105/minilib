@@ -1,10 +1,10 @@
-# A template for a makefile, which uses mlcc
+# A template for a makefile, which uses minicc
 # The config is searched for, and can be either inlined in the 
 # sourcefile, or be located within one of the files 
 # 'sourcefile'.conf, 'sourcefile'.mconf, or minilib.conf
 
 ifndef $(MCC)
-MCC=$(pm)/mlcc
+MCC=$(pm)/minicc
 endif
 
 

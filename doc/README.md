@@ -13,7 +13,7 @@ Reference of the api
 [minilib-reference.asc](minilib-reference.asc)
 short reference, all functions and config switches in one page
 
-[mlcc](mlcc.rst)
+[minicc](minicc.rst)
 invocation and options
 
 [make.rst](make.rst)
