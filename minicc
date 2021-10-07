@@ -79,7 +79,8 @@ fi
 
 
 # ld options 
-CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+LDFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+#CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
 
 # (default) linker script. minicc is going to be invoked with minicc --dump ld_script 
 if [ -z "$LDSCRIPT" ]; then
@@ -346,6 +347,7 @@ exec_gcc(){
 		LDSCRIPTFILE=",-T<($0 --dump ld_script_$LDSCRIPT)"
 	fi
 	if [ "$fulldebug" == 1 ]; then
+		LDFLAGS=""
 		#LDSCRIPTFILE=",-T<(ld --verbose | sed -e '1,/^===/d;/^===/,\$d')"
 		LDSCRIPTFILE=""
 		dbgfile=`echo -n $opt_args | sed -E 's/.*-o (\S*).*/\1.dbg/'`
@@ -373,7 +375,7 @@ exec_gcc(){
 	fi
 
 
-	echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
+	echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
 
 
 	if [ "$debuglog" = "1" ]; then
@@ -382,27 +384,27 @@ exec_gcc(){
 		do 
 			let i++
 		done
-		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E > debuglog.$i
+		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E > debuglog.$i
 	fi
 
 
 	if [ "$fulldebug" == 1 ]; then
 		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
 
-		echo $CYAN eval "$REAL_CC $INCLUDECONFIG $CYAN$INCLUDEMINILIB $CFLAGS$LDSCRIPTFILE $opt_args -E" 
+		echo $CYAN eval "$REAL_CC $INCLUDECONFIG $CYAN$INCLUDEMINILIB $CFLAGS $opt_args -E" 
 		echo
 
-		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS$LDSCRIPTFILE $opt_args -E | sed '/^#/d' > $dbgfile.c
+		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $opt_args -E | sed '/^#/d' > $dbgfile.c
 
-		echo $CYAN "eval $REAL_CC $CFLAGS$LDSCRIPTFILE -O0 -g -o $dbgfile $dbgfile.c"$NORM
+		echo $CYAN "eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c"$NORM
 
 		eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c $colorize
 	else
 		# execute gcc
 		if [ "$dump_cmd" = "1" ]; then
-			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
+			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		else
-			eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
+			eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		fi
 		#$REAL_CC $CFLAGS$LDSCRIPT $@
 	fi
