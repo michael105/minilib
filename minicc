@@ -46,6 +46,9 @@ else
 	fi
 fi
 
+if [ -z "$BUILDDIR" ]; then
+	BUILDDIR="build"
+fi
 
 if [ -z "$OPTFLAG" ]; then
 	OPTFLAG="-Os"
@@ -60,17 +63,16 @@ if [ -z "$STRIPFLAG" ]; then
 	STRIPFLAG="-s"
 fi
 
-#COMMONCFLAGS="-fuse-ld=lld -I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections 
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 	-Wno-unused-variable -Wno-unused-const-variable -Wall -Wno-unused\
 	-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
 	#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -mmanual-endbr "
 
 
-# needs os detection. but not important for now
+# needs os detection. Only linux 64bit for now
 CFLAGS="$CFLAGS $COMMONCFLAGS -DLINUX -DX64 "
 
-# somehow; seems to be neccessary telling clang exclusively to use it's on linker.?
+# somehow; seems to be neccessary telling clang exclusively to use it's own linker.?
 if [ "$CLANG" = 1 ]; then
 	CFLAGS="$CFLAGS -fuse-ld=lld "
 else
@@ -79,8 +81,7 @@ fi
 
 
 # ld options 
-LDFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
-#CFLAGS="$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+LDFLAGS="-Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
 
 # (default) linker script. minicc is going to be invoked with minicc --dump ld_script 
 if [ -z "$LDSCRIPT" ]; then
@@ -91,10 +92,8 @@ fi
 colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
 
 #defaultvalues_end
-# ----------------
+# --- End of makefile inclusion
 }
-
-#default_values();
 
 
 # grep minicc path 
@@ -277,14 +276,15 @@ before options and parameters for gcc.
 
 The following (optional) environmental variables are used:
 
-CC          The name and path of the compiler
+CC          The name and (optional) path of the compiler
 CFLAGS      optional flags for the compiler
 CLANG       Set this to 1 to use clang as compiler.
             (Or set CC to clang)
 OPTFLAG     optimization flag (default -Os)
 STRIPFLAG   stripflag (default -s)
 PICFLAG     parameter -fpic/-fno-pic .. (default -fno-pic)
-LDFLAG      Name of the ldscript
+LDFLAGS     (optional) flags for the linker
+LDSCRIPT    Name of the ldscript
 VERBOSE     Set this to 1 to enable verbose messages
 NOCOLOR     Set this to 1 to disable colors
 SHOWSOURCES Set to 1 to save all combined sources into the outputfile
@@ -429,19 +429,18 @@ checkconfig (){
 	fi
 	# set unset values to defaults
 	defaultvalues
+	# dump parts of the config, when verbose
 	echo_verbose minilibdir: $MLIBDIR
 	echo_verbose ARCH: $MINI_ARCH
 	echo_verbose OS: $MINI_OS
 	echo_verbose ldscript: $LDSCRIPT
-	#echo GCC-Options: $REAL_CC $CFLAGS
-	#CFLAGS="--include $1.h $CFLAGS"
 }
 
 
 dumpconfig (){
 
 	exec 3>&1 4>&2 #open fd 3
-	E=$( { source $1 1>&3;} 2>&1 ) 3>&1
+	E=$( { source $1 1>&3;} 2>&1 ) 3>&1  # redirect error messages to fd3
 
 	if [ "$E" != "" ]; 
 	then
@@ -455,8 +454,6 @@ dumpconfig (){
 		#		echo -e "#define mini_INCLUDESRC\n"
 
 	fi
-
-		#CFLAGS="--include $1.h $CFLAGS"
 }
 
 

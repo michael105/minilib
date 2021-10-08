@@ -30,7 +30,7 @@
 # Michael (misc) Myer, 2012-2021
 #
 
-VERSION:="20211007"
+VERSION:="20211008"
 
 $(info Build:$(BUILD) Conf:$(CONF))
 
@@ -87,7 +87,7 @@ default: $(BUILDDIR) minilib.h
 	cat $(SELF) | sed -n "/ldscripts\/ld.script.$$LDSCRIPT/,/endef/p" | sed '1d;/endef/Q' > $(BUILDDIR)/$(CONF).ldscript || exit 1
 	echo compile $(SOURCES) to $(BUILD)
 	echo $(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
-       $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -o $$BINARY
+       $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -o $$BINARY
 	$(if $(SHOWSOURCE),\
 		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
          $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -E -P),\
@@ -1219,6 +1219,9 @@ else
 	fi
 fi
 
+if [ -z "$$BUILDDIR" ]; then
+	BUILDDIR="build"
+fi
 
 if [ -z "$$OPTFLAG" ]; then
 	OPTFLAG="-Os"
@@ -1233,17 +1236,16 @@ if [ -z "$$STRIPFLAG" ]; then
 	STRIPFLAG="-s"
 fi
 
-#COMMONCFLAGS="-fuse-ld=lld -I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections 
 COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
 	-Wno-unused-variable -Wno-unused-const-variable -Wall -Wno-unused\
 	-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
 	#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -mmanual-endbr "
 
 
-# needs os detection. but not important for now
+# needs os detection. Only linux 64bit for now
 CFLAGS="$$CFLAGS $$COMMONCFLAGS -DLINUX -DX64 "
 
-# somehow; seems to be neccessary telling clang exclusively to use it's on linker.?
+# somehow; seems to be neccessary telling clang exclusively to use it's own linker.?
 if [ "$$CLANG" = 1 ]; then
 	CFLAGS="$$CFLAGS -fuse-ld=lld "
 else
@@ -1252,7 +1254,7 @@ fi
 
 
 # ld options 
-CFLAGS="$$CFLAGS -Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+LDFLAGS="-Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
 
 # (default) linker script. minicc is going to be invoked with minicc --dump ld_script 
 if [ -z "$$LDSCRIPT" ]; then
@@ -1349,16 +1351,10 @@ SECTIONS {
 
 
 endef
-define ldscripts/ld.script.mlplugin_onlytext =
+define ldscripts/ld.script.textandbss =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
-/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
-              "elf64-x86-64")
-OUTPUT_ARCH(i386:x86-64) */
 
-/* memo to me -
-  the bss section is NOT
-  stored in the binary as shown with objdump !! */
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -1372,6 +1368,7 @@ OUTPUT_ARCH(i386:x86-64) */
 	 */ 
 
 	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
 
@@ -1387,11 +1384,6 @@ SECTIONS
 
 		.text           :
 		{
-				*(*__plugin_export*);
-			
-				/* *(.dynbss)
-				 *(*mlgl)  */
-				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start)
 						*(.text.exit .text.exit.*)
@@ -1401,11 +1393,24 @@ SECTIONS
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*) 
-						*(.bss* .dynbss*)
 		 } :text
 
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
 
 
 		/DISCARD/ : { 
@@ -1421,85 +1426,6 @@ SECTIONS
 			*(.plt*)
 			*(.got.plt*)
 			*(.rel.*)
-			}
-}
-
-
-endef
-define ldscripts/ld.script.onlytext_tiny =
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)
-*/
-
-PHDRS {
-	text PT_LOAD FILEHDR PHDRS;
-	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
-	 would set the text section read- and writable. somehow. 
-	 this spares one section, if globals are used.
-	 but seems to me a bit too nasty and dangerous.
-	 sametime, some bins are compiled with writable text.
-	 have to look for the source. strange, somehow. */
-	/* stack PT_GNU_STACK FLAGS(0x6) ; */
-	/*bss PT_LOAD;*/
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start .text._start.*)
-						*(.text._exit .text._exit.*)
-						*(.text.__exit .text.__exit.*)
-						*(.text._startup .text._startup.*)
-						*(.text.main .text.main.*)
-						*(.text.cexit)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-
-/*		 }
-		.bss            :
-		{ 
-*/
-/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
-saves 15 bytes. ( needs -N for linking )*/
-
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						*(.data .data.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :text
-
-		/DISCARD/ : { 
-			*(.note.GNU-stack) 
-	  		*(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			*(*)
 			}
 }
 
@@ -1607,10 +1533,16 @@ SECTIONS
 
 
 endef
-define ldscripts/ld.script.textandbss =
+define ldscripts/ld.script.mlplugin_onlytext =
 /*OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)*/
+/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
+              "elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64) */
 
+/* memo to me -
+  the bss section is NOT
+  stored in the binary as shown with objdump !! */
 
  PHDRS {
  /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
@@ -1624,7 +1556,6 @@ OUTPUT_ARCH(i386)*/
 	 */ 
 
 	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	bss PT_LOAD FLAGS(0x7);
 	stack PT_GNU_STACK FLAGS(0x6) ;
 }
 
@@ -1640,6 +1571,11 @@ SECTIONS
 
 		.text           :
 		{
+				*(*__plugin_export*);
+			
+				/* *(.dynbss)
+				 *(*mlgl)  */
+				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
 				*(.text.unlikely .text.*_unlikely)
 						*(.text._start)
 						*(.text.exit .text.exit.*)
@@ -1649,24 +1585,11 @@ SECTIONS
 						*(.text .stub .text.* .gnu.linkonce.t.*)
 						/* .gnu.warning sections are handled specially by elf32.em.  */
 						*(.gnu.warning)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*) 
+						*(.bss* .dynbss*)
 		 } :text
 
-		.bss           : 
-		{ 
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :bss 
-		 . = ALIGN(64 / 8);
-	  _end = .; 
-		PROVIDE (_end = .); 
 
 
 		/DISCARD/ : { 
@@ -1765,6 +1688,85 @@ SECTIONS {
 			}
 
 
+}
+
+
+endef
+define ldscripts/ld.script.onlytext_tiny =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	/* stack PT_GNU_STACK FLAGS(0x6) ; */
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
 }
 
 
@@ -2079,6 +2081,6 @@ SECTIONS {
 endef
 #sha256sums
 define sha256sums =
-f0f03ae2c103efd6a844fa37729ccc31ef37a55379b42700186a41cf7a0392ca  -
+3a06aebe92fb87e820b91b8aaf19bd27709887c3d3f3c5790e80a1748b39aa3b  -
 09c9499b700f980c5718f1290310c340e7b2fa4dc8ee403bf03d99fcaf5244b8  minilibcompiled.h
 endef
