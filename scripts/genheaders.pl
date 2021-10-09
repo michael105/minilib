@@ -24,7 +24,7 @@
 #   of the functions can be enabled/disabled.
 # minilib.h bundles all other headers, as well as the sources when invoked with a defined "INCLUDESRC",
 #  and is to be included in every source file, using the minilib. (Only once with "INCLUDESRC")
-# genconf.sh gets callen by mlcc; it generates minilib.conf.h out of minilib.conf 
+# genconf.sh gets callen by minicc; it generates minilib.conf.h out of minilib.conf 
 #  (or whatever else name is supplied via --config )
 #  compat/*.h contains the ansi-c/posix-c (sort of "subsetcompatible") headers.
 #

@@ -31,7 +31,7 @@ access
 <p>
   <em>int access( const char <strong>filename, int mode)</em><br>
  *determine accessibility of a file relative to directory file</strong>
-Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.168 manpage: <a href="../manpages/sys/access.2.rst.html">access</a><br>
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.177 manpage: <a href="../manpages/sys/access.2.rst.html">access</a><br>
 </p>
 </dd>
 <dt>
@@ -41,7 +41,7 @@ chmod
 <p>
   <em>int chmod( const char <strong>filename, mode_t mode)</em><br>
  *change mode of a file relative to directory file descriptor</strong>
-Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.192 manpage: <a href="../manpages/sys/chmod.2.rst.html">chmod</a><br>
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.201 manpage: <a href="../manpages/sys/chmod.2.rst.html">chmod</a><br>
 </p>
 </dd>
 <dt>
@@ -51,7 +51,7 @@ chown
 <p>
   <em>int chown( const char <strong>filename, uid_t user, gid_t group)</em><br>
  *change owner and group of a file relative to directory</strong>
-Size: ~71B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.193 manpage: <a href="../manpages/sys/chown.2.rst.html">chown</a><br>
+Size: ~71B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.202 manpage: <a href="../manpages/sys/chown.2.rst.html">chown</a><br>
 </p>
 </dd>
 <dt>
@@ -70,7 +70,7 @@ closedir
 <dd>
 <p>
   <em>int closedir(DIR <strong>dir)</em><br>
- *Defines:</strong> getbrk sys_brk<br>
+ *Defines:</strong> sys_brk getbrk<br>
  <strong>close a directory stream</strong>
 Size: ~323B <a href="../../src/directories/closedir.c">../src/directories/closedir.c</a> l.6 manpage: <a href="../manpages/gen/directory.3.rst.html">closedir</a><br>
 </p>
@@ -83,7 +83,7 @@ creat
   <em>int volatile creat( const char <strong>s, int mode )</em><br>
  *Defines:</strong> open<br>
  <strong>create a new file or rewrite an existing one</strong>
-Size: ~124B <a href="../../src/file/open.c">../src/file/open.c</a> l.35 manpage: <a href="../manpages/compat-43/creat.2.rst.html">creat</a><br>
+Size: ~124B <a href="../../src/file/creat.c">../src/file/creat.c</a> l.5 manpage: <a href="../manpages/compat-43/creat.2.rst.html">creat</a><br>
 </p>
 </dd>
 <dt>
@@ -143,7 +143,7 @@ fcntl
 <p>
   <em>int fcntl( unsigned int fd, unsigned int cmd, unsigned long arg)</em><br>
  <strong>file control</strong>
-Size: ~77B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.169 manpage: <a href="../manpages/sys/fcntl.2.rst.html">fcntl</a><br>
+Size: ~77B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.178 manpage: <a href="../manpages/sys/fcntl.2.rst.html">fcntl</a><br>
 </p>
 </dd>
 <dt>
@@ -214,7 +214,7 @@ readahead
 <p>
   <em>int readahead( int fd,  loff_t offset,  size_t count)</em><br>
  <strong>initiate file readahead into page cache</strong>
-Size: ~79B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.241
+Size: ~79B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.258
 </p>
 </dd>
 <dt>
@@ -244,7 +244,7 @@ sendfile
 <p>
   <em>int sendfile( int out_fd,  int in_fd,  off_t <strong>offset,  size_t count)</em><br>
  *transfer data between file descriptors</strong>
-Size: ~142B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.172 manpage: <a href="../manpages/sys/sendfile.2.rst.html">sendfile</a><br>
+Size: ~142B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.181 manpage: <a href="../manpages/sys/sendfile.2.rst.html">sendfile</a><br>
 </p>
 </dd>
 <dt>
@@ -274,7 +274,7 @@ umask
 <p>
   <em>int umask( int mask)</em><br>
  <strong>set and get the file mode creation mask</strong>
-Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.240 manpage: <a href="../manpages/sys/umask.2.rst.html">umask</a><br>
+Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.257 manpage: <a href="../manpages/sys/umask.2.rst.html">umask</a><br>
 </p>
 </dd>
 <dt>
@@ -292,7 +292,7 @@ Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:28:27 UTC
 </small></p>
 </body>
 </html>

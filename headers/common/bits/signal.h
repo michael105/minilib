@@ -12,7 +12,9 @@
 
 
 
-#define _NSIG 65
+// ? uncertain about the value of NSIG
+#define _NSIG 32
+//#define _NSIG 65
 #define NSIG _NSIG
 
 #define SIGHUP    1

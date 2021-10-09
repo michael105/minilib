@@ -1,5 +1,4 @@
 //+doc conversion
-// doesn't check for overflow(!)
 //+needs isspace
 //+def
 long int strtol(const char *c, const char **endp, int base){
@@ -52,6 +51,12 @@ long int strtol(const char *c, const char **endp, int base){
 				c++;
 				ret *= base;
 				ret += add;
+				if ( ret < 0 ){ //overflow
+#ifdef mini_errno
+					errno=ERANGE;
+#endif
+					return( sign?LONG_MIN:LONG_MAX );
+				}
 		}
 
 

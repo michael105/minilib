@@ -121,9 +121,9 @@ free
 <dd>
 <p>
   <em>void free(void <strong>p)</em><br>
- *Defines:</strong> getbrk sys_brk<br>
+ *Defines:</strong> sys_brk getbrk<br>
  <strong>free allocated memory</strong>
-Size: ~32B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.145 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
+Size: ~32B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.157 manpage: <a href="../manpages/stdlib/memory.3.rst.html">free</a><br>
 </p>
 </dd>
 <dt>
@@ -178,10 +178,18 @@ malloc
  Fastes and smallest malloc/free combi ever.
  Not the smartest.
  Since it isn't exactly a memory allocation,
- instead it (mis)uses the minilib buf.
- Which is allocated by the kernel, and uses
- either the bss section, or is allocated on the stack.
+ instead it uses the minilib buf.
+ Which is allocated by the kernel, and located
+ either in the bss section, or is allocated on the stack.
  (option "globals_on_stack")
+ When allocated at the stack, the stack is first expanded
+ within startup_c.c, and the return address of startup_c
+ discarded. (Jump to exit)
+ Therefore an overflow of the globals would result in a segfault.
+
+ For debugging and analization of mallocs and free's, there's
+ the option analyzemalloc; which dumps all malloc's and free's to stderr.
+ Format: Address - size)
 
  This is basically a linked list,
  optimized for fast access, allocation of new elements,
@@ -235,7 +243,7 @@ malloc
       size  data  size    mini_buf size
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
-<p>Size: ~173B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.125 manpage: <a href="../manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
+<p>Size: ~173B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.133 manpage: <a href="../manpages/stdlib/memory.3.rst.html">malloc</a><br></p>
 <a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
@@ -243,7 +251,7 @@ malloc_brk
 <dd>
 <p>
   <em>void* malloc_brk(int size)</em><br>
- <strong>Defines:</strong> sys_brk getbrk<br>
+ <strong>Defines:</strong> getbrk sys_brk<br>
 </p>
 </dd>
 </dl>
@@ -267,7 +275,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mmap mprotect<br>
+ <strong>Defines:</strong> mprotect mmap<br>
 </p>
 </dd>
 </dl>
@@ -320,7 +328,7 @@ memfd_create
 <p>
   <em>int memfd_create( const char  <strong>uname_ptr,  unsigned int flags)</em><br>
  *create an anonymous file</strong>
-Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.182
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.191
 </p>
 </dd>
 <dt>
@@ -387,7 +395,7 @@ mprotect
 <p>
   <em>int mprotect( POINTER <strong>a1, POINTER a2, int a3 )</em><br>
  *set protection of memory mapping</strong>
-Size: ~146B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.237 manpage: <a href="../manpages/sys/mprotect.2.rst.html">mprotect</a><br>
+Size: ~146B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.254 manpage: <a href="../manpages/sys/mprotect.2.rst.html">mprotect</a><br>
 </p>
 </dd>
 <dt>
@@ -407,7 +415,7 @@ munmap
 <p>
   <em>int munmap( void* addr,  size_t len)</em><br>
  <strong>unmap pages of memory</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.244 manpage: <a href="../manpages/sys/munmap.2.rst.html">munmap</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.261 manpage: <a href="../manpages/sys/munmap.2.rst.html">munmap</a><br>
 </p>
 </dd>
 <dt>
@@ -416,9 +424,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> 0 getbrk sys_brk<br>
+ *Defines:</strong> getbrk 0 sys_brk<br>
  <strong>memory reallocator</strong>
-Size: ~636B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.209 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
+Size: ~636B <a href="../../src/memory/malloc.c">../src/memory/malloc.c</a> l.229 manpage: <a href="../manpages/stdlib/memory.3.rst.html">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -449,7 +457,7 @@ splice
 <p>
   <em>int splice( int fd_in,  loff_t <strong>off_in,  int fd_out,  loff_t *off_out, size_t len,  unsigned int flags)</em><br>
  *splice data to/from a pipe</strong>
-Size: ~178B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.187
+Size: ~178B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.196
 </p>
 </dd>
 <dt>
@@ -474,7 +482,7 @@ unmap_protected
 <dd>
 <p>
   <em>int unmap_protected(void <strong>p, int len)</em><br>
- *Defines:</strong> munmap mprotect<br>
+ *Defines:</strong> mprotect munmap<br>
 </p>
 </dd>
 </dl>
@@ -490,7 +498,7 @@ unmap_protected
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:28:27 UTC
 </small></p>
 </body>
 </html>

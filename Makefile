@@ -23,7 +23,7 @@ define HELP
 make targets:
 
 all
-  header compile-mlcc doc examples test
+  header compile-minicc doc examples test
 	
 examples
 	make examples
@@ -32,23 +32,23 @@ header
 	rebuild header files, also rebuild some of the generated documentation.
 
 doc
-	rebuild generated documentation: html files, mlcc info
+	rebuild generated documentation: html files, minicc info
 
-mlcc
-	rebuild the script mlcc, pack ldscripts and config scripts
+minicc
+	rebuild the script minicc, pack ldscripts and config scripts
 
-compile-mlcc
-	pack the gzipped (complete) minilib into mlcc
-	(run mlcc --dump-minilib to extract the header to stdout)
+compile-minicc
+	pack the gzipped (complete) minilib into minicc
+	(run minicc --dump-minilib to extract the header to stdout)
 
-unpack-mlcc
-	strip the gzipped minilib of mlcc
+unpack-minicc
+	strip the gzipped minilib of minicc
 
 combined
 	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
 
 devel
-	make header combined compile-mlcc
+	make header combined compile-minicc
 
 tools
 	make tools in the dir ./tools
@@ -72,7 +72,7 @@ help
 	show this help
 
 
-Most possibly you'll need: "make compile-mlcc", and "make test"
+Most possibly you'll need: "make compile-minicc", and "make test"
 Both run all needed other targets.
 
 However, building with minilib is sort of transparent:
@@ -80,10 +80,10 @@ You can include the uncompiled "minilib.h", which will include
 all other header files.
 And you can include the compiled "minilib.h", as only dependency.
 
-When compiling with mlcc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into mlcc; these
+When compiling with minicc, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into minicc; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile mlcc every time)
+(Making development easier - no need to compile minicc every time)
 
 The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)
@@ -118,9 +118,9 @@ help:
 
 default: help
 
-all: header combined compile-mlcc Makefile.minilib doc examples test syntaxcheck
+all: header combined compile-minicc Makefile.minilib doc examples test syntaxcheck
 
-devel: header combined compile-mlcc Makefile.minilib
+devel: header combined compile-minicc Makefile.minilib
 
 examples:
 	cd examples && make
@@ -146,40 +146,40 @@ header:
 	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
-# ./mlcc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
+# ./minicc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
 
 doc: header
 	cd doc && make
 
-mlcc: scripts/genconfig.sh ldscript
+minicc: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 
-	scripts/template.pl mlcc genconfig scripts/genconfig.sh
-	scripts/template.pl mlcc genconf-macros minilib.genconf.h
-	scripts/template.pl mlcc headerguards include/headerguards.h
-	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' mlcc
-	rm mlcce
+	scripts/template.pl minicc genconfig scripts/genconfig.sh
+	scripts/template.pl minicc genconf-macros minilib.genconf.h
+	scripts/template.pl minicc headerguards include/headerguards.h
+	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' minicc
+	rm minicce
 
 
-compile-mlcc: mlcc unpack-mlcc
-	gzip -c minilibcompiled.h >> mlcc
-	echo -e "\n#ENDGZ" >> mlcc
+compile-minicc: minicc unpack-minicc
+	gzip -c minilibcompiled.h >> minicc
+	echo -e "\n#ENDGZ" >> minicc
 
 
-unpack-mlcc:
-	sed '/^#MINILIBGZ#$$/q' mlcc > mlcc.tmp
-	cp mlcc.tmp mlcc
-	rm mlcc.tmp
+unpack-minicc:
+	sed '/^#MINILIBGZ#$$/q' minicc > minicc.tmp
+	cp minicc.tmp minicc
+	rm minicc.tmp
 
 
 ldscript: ldscripts/ld.script*
 	@echo dbg, ldscripts. var: $^ 
-	echo "# Parsing" | scripts/template.pl mlcc content-ldscript
+	echo "# Parsing" | scripts/template.pl minicc content-ldscript
 	sh scripts/ldscripts.sh $^ 
 
 
-			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert mlcc content-ldscript; echo J ) )  
+			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert minicc content-ldscript; echo J ) )  
 	
-	#| scripts/template.pl -insert mlcc content-ldscript )  )   
+	#| scripts/template.pl -insert minicc content-ldscript )  )   
 
 tools:
 	cd tools && make
@@ -209,7 +209,7 @@ Makefile.minilib:
 	echo generate Makefile.minilib
 	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' Makefile.minilib
 	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
-	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" mlcc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" minicc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
 	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
 	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
@@ -239,7 +239,7 @@ syntaxcheck:
 	$(info Generate syntaxcheck.h)
 	cp templates/syntaxcheck.h.top ./syntaxcheck.h
 	$(info echo copies)
-	./mlcc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
+	./minicc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
 	( gcc -include minilibcfg-syntaxcheck.h minilib.h -E -dD -DGENSYNTAXCHECK -I. -I./include -I./headers -nodefaultlibs -nostdlib -DMLIB -fno-builtin -DLINUX -DX64 | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
 			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h 

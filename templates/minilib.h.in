@@ -23,7 +23,7 @@
 
 #include "minilib/macros/defgroups.h"
 
-#include "minilib/include/utils.h"
+#include "minilib/include/debug.h"
 #include "minilib/include/globaldefs.h"
 #include "minilib/macros/vararg.h"
 #include "minilib/macros/stdarg.h"
@@ -58,7 +58,7 @@ struct udiv_t { unsigned int quot, rem; };
 //#endif
 #endif
 
-#include "m_errno.h"
+#include "minilib/include/m_errno.h"
 
 
 /* end templates/minilib.h.in */

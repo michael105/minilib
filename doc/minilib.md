@@ -1,6 +1,27 @@
 
 
 ==========
+assert.h
+==========
+
+assert         
+
+               (macros/assert.h: 4)
+
+
+
+==========
+ctype.h
+==========
+
+ctype_functions#ifdef mini_ctype_functions
+
+               create functions instead of macros for isalpha, .., isprint
+               (include/ctype.h: 22)
+
+
+
+==========
 declarations.h
 ==========
 
@@ -239,6 +260,17 @@ bsd_cksumblock unsigned int bsd_cksumblock( unsigned int hash, const char* p, un
               with initial hash value
                (src/file/cksum.c: 20)
 
+bsd_definitions
+
+               definitions, found at BSD
+              enable with mini_bsd_definitions
+               (include/bsd_definitions.h: 5)
+
+bsd_timespec   
+
+               timespec functions, copied from freebsd
+               (include/bsd_timespec.h: 5)
+
 cfmakeraw      void cfmakeraw(struct termios *tp);
 
                (src/termios/cfmakeraw.c: 3)
@@ -383,7 +415,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/output/dprints.c: 14)
+               (src/output/dprints.c: 12)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -687,6 +719,21 @@ itooct         int itooct(int i, char *buf);
                convert int to octal
               return the number of chars written.
                (src/conversions/itooct.c: 4)
+
+killpg         static int killpg( int pid, int signal );
+
+               (src/process/killpg.c: 2)
+
+locale_dummies 
+
+               several dummy definitions,
+              mostly locale related.
+              (locales are not the target of minilib,
+              so define mini_dummies to have code relying on locales 
+              running)
+              Quite often some code does only checking for locales,
+              but doesn't rely on them.
+               (include/dummies.h: 10)
 
 ltodec         int ltodec(long i, char *buf, int prec, char limiter );
 
@@ -1312,7 +1359,7 @@ max_groupmembers#ifndef mini_max_groupmembers
               which are within a group.
               used for the allocation of the array gr_mem.
               default: 64
-               (include/globaldefs.h: 103)
+               (include/globaldefs.h: 108)
 
 memfrob        void* memfrob(void* s, unsigned int len);
 
@@ -1567,6 +1614,11 @@ strncasecmp    int strncasecmp(const char*c1,const char*c2,int len);
 
                (src/string/strcasecmp.c: 34)
 
+strtoimax      int strtoimax(const char *c, const char **endp, int base);
+
+               conversion
+               (src/string/strtoimax.c: 4)
+
 strtok_r       char* strtok_r(char *s, const char *delim, char **last);
 
                (src/string/strtok_r.c: 2)
@@ -1589,6 +1641,11 @@ sys_brk        static long sys_brk(unsigned long addr);
 
                the kernel syscall brk.
                (src/memory/sys_brk.c: 4)
+
+sys_signame    const char* sys_signame[] = ;
+
+               abbreviated signal names, according to BSD > 4.2
+               (src/process/signames.h: 3)
 
 tcgetattr      int tcgetattr(int fd, struct termios *io);
 
@@ -1655,6 +1712,17 @@ unmap_protectedint unmap_protected(void *p, int len);
               errno is set, when defined.
               return 0 on success.
                (src/memory/map_protected.c: 44)
+
+unsetenv       int unsetenv( char *name);
+
+               remove a string from the environmental vars
+              The env var is not free'd. (It's not possible,
+              since we don't know whether the string has been allocated 
+              with malloc or has been setup by the system )
+              Returns: 
+              - 0 on success, 
+              - EINVAL: string was 0, did contain a '=', some other error
+               (src/system/unsetenv.c: 10)
 
 userdb_open    int userdb_open(userdb *udb, const char* file);
 
@@ -2325,6 +2393,12 @@ atol           long atol(const char *c);
 
                (src/conversions/atol.c: 3)
 
+bsearch        void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
+
+               search for an element
+              code is copied from netbsd
+               (src/sort/bsearch.c: 55)
+
 calloc         void* calloc(int nmemb, int size);
 
                (src/memory/calloc.c: 2)
@@ -2335,7 +2409,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/memory/malloc.c: 145)
+               (src/memory/malloc.c: 157)
 
 getenv         char* getenv(const char* name);
 
@@ -2356,10 +2430,18 @@ malloc         void* malloc(int size);
               Fastes and smallest malloc/free combi ever. 
               Not the smartest.
               Since it isn't exactly a memory allocation,
-              instead it (mis)uses the minilib buf.
-              Which is allocated by the kernel, and uses
-              either the bss section, or is allocated on the stack.
+              instead it uses the minilib buf.
+              Which is allocated by the kernel, and located
+              either in the bss section, or is allocated on the stack.
               (option "globals_on_stack")
+              When allocated at the stack, the stack is first expanded
+              within startup_c.c, and the return address of startup_c
+              discarded. (Jump to exit)
+              Therefore an overflow of the globals would result in a segfault.
+             
+              For debugging and analization of mallocs and free's, there's 
+              the option analyzemalloc; which dumps all malloc's and free's to stderr.
+              Format: Address - size)
              
               This is basically a linked list,
               optimized for fast access, allocation of new elements, 
@@ -2425,7 +2507,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/memory/malloc.c: 125)
+               (src/memory/malloc.c: 133)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -2442,7 +2524,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/memory/malloc.c: 209)
+               (src/memory/malloc.c: 229)
 
 srand          void srand( unsigned int i );
 
@@ -2451,8 +2533,7 @@ srand          void srand( unsigned int i );
 strtol         long int strtol(const char *c, const char **endp, int base);
 
                conversion
-              doesn't check for overflow(!)
-               (src/string/strtol.c: 5)
+               (src/string/strtol.c: 4)
 
 system         int system( const char* command );
 
@@ -2464,9 +2545,13 @@ system         int system( const char* command );
 string.h
 ==========
 
-_strcmp        int _strcmp(const char*c1,const char*c2,int len);
+_strcmp        int _strcmp(const char *s1, const char *s2, int n);
 
                (src/string/strcmp.c: 10)
+
+memchr         void* memchr(const void *s, int c, unsigned int n);
+
+               (src/memory/memchr.c: 2)
 
 memcmp         int memcmp(const void* c1,const void* c2,int len);
 
@@ -2494,11 +2579,19 @@ strchr         char *strchr(const char *s, int c);
 
 strcmp         int strcmp(const char*c1,const char*c2);
 
-               (src/string/strcmp.c: 26)
+               (src/string/strcmp.c: 36)
 
 strcpy         char *strcpy(char *dest, const char *src);
 
                (src/string/strcpy.c: 3)
+
+strcspn        int strcspn(const char *s1, const char *s2);
+
+               look for the first place in s1,
+              containing one of the chars of s2.
+              Optimizes a bit (+16Bytes code),
+              when OPTIMIZE is defined
+               (src/string/strcspn.c: 6)
 
 strdup         char *strdup(const char *source);
 
@@ -2510,11 +2603,17 @@ strerror       static char* strerror( int errnum );
 
 strlen         int strlen(const char*str);
 
-               (src/string/strlen.c: 4)
+               return len of str.
+              if str points to 0, return 0
+               (src/string/strlen.c: 6)
+
+strncat        char* strncat( char* dst, const char* src, unsigned int n);
+
+               (src/string/strncat.c: 2)
 
 strncmp        int strncmp(const char*c1,const char*c2,int len);
 
-               (src/string/strcmp.c: 34)
+               (src/string/strcmp.c: 44)
 
 strncpy        char *strncpy(char *dest, const char *src, int n);
 
@@ -2525,6 +2624,18 @@ strncpy        char *strncpy(char *dest, const char *src, int n);
               but doesn't pad dest with 0's.
                (src/string/strncpy.c: 7)
 
+strndup        char *strndup(const char *source, int maxlen);
+
+               (src/string/strndup.c: 5)
+
+strnlen        int strnlen(const char*str, int max);
+
+               return len of str.
+              if str points to 0, return 0
+              if no 0 is within max chars of str,
+              return max
+               (src/string/strnlen.c: 8)
+
 strpbrk        char* strpbrk(const char* s, const char* charset);
 
                (src/string/strpbrk.c: 2)
@@ -2532,6 +2643,10 @@ strpbrk        char* strpbrk(const char* s, const char* charset);
 strrchr        char *strrchr(const char *s, int c);
 
                (src/string/strrchr.c: 4)
+
+strspn         int strspn(const char *s1, const char *s2);
+
+               (src/string/strspn.c: 2)
 
 strstr         char* strstr(const char *big, const char *little);
 
@@ -2628,9 +2743,17 @@ tcgetattr      int tcgetattr(int fd, struct termios *io);
 
                (src/termios/tcgetattr.c: 12)
 
+tcgetpgrp      int tcgetpgrp(int fd);
+
+               (src/termios/tcgetpgrp.c: 2)
+
 tcsetattr      int tcsetattr(int fd, int opt, const struct termios *io);
 
                (src/termios/tcsetattr.c: 12)
+
+tcsetpgrp      int tcsetpgrp(int fd, int pgrp);
+
+               (src/termios/tcsetpgrp.c: 2)
 
 usleep         unsigned int volatile usleep(unsigned int useconds);
 

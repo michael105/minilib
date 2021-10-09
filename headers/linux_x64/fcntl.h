@@ -30,4 +30,7 @@
 #define AT_RECURSIVE    0x8000  /* Apply to the entire subtree */
 
 
+#define FD_CLOEXEC	1	/* actually anything with low bit set goes */
+
+
 #endif

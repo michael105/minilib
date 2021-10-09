@@ -9,7 +9,7 @@
 <hr>
 <h2><a name="_configuration"></a> Configuration</h2>
 <p>Before the include of minilib.h, the minilib has to be configured.</p>
-<p>The proposed way is to use the supplied script mlcc,<br>
+<p>The proposed way is to use the supplied script minicc,<br>
 which translates config options to define flags,<br>
 and pipes the minilib header to gcc.</p>
 <p>The config file is a bash script and can be a separate file,
@@ -52,12 +52,12 @@ int main(int argc, char *argv[] ){
 the files within the folder test are there for regression tests,<br>
 but might also be helpful.</p>
 <p>To compile a c source file with embedded configuration (as in the example above),<br>
-type <em>mlcc --config example.c -o example example.c</em>.<br>
-(Shortcut <em>mlcc -mlc example.c</em>)</p>
-<p>(mlcc needs to be in the standard search path)<br>
-If you&#8217;d like to "install" the mlcc, simply copy the script mlcc into /usr/local/bin,<br>
+type <em>minicc --config example.c -o example example.c</em>.<br>
+(Shortcut <em>minicc -mlc example.c</em>)</p>
+<p>(minicc needs to be in the standard search path)<br>
+If you&#8217;d like to "install" the minicc, simply copy the script minicc into /usr/local/bin,<br>
 or wherever your executables live and can be found.</p>
-<p>The minilib itself, as well as the supllied linker scripts are embedded into mlcc,<br>
+<p>The minilib itself, as well as the supllied linker scripts are embedded into minicc,<br>
 and extracted and piped to gcc on demand.</p>
 <p>(There are compatibility headers provided, e.g. stdio.h;<br>
 these are however not stable and will most probably not work.<br>
@@ -264,7 +264,7 @@ DEFINE def value
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:28:27 UTC
 </small></p>
 </body>
 </html>
