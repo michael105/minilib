@@ -1,6 +1,8 @@
 
 #conversions
 
+
+f:itooct|D:int itooct(int i, char *buf)|c:conversions|x:|
 f:_itobin|D:int _itobin(int i, char*buf, int prec, int groups )|c:conversions|x:|
 f:_itohex|D:int _itohex(int i,char* buf,int padding, int capitals)|c:conversions|x:|
 f:atoi|D:int atoi(const char *c)|c:conversions|x:convert a string to an integer|
@@ -36,9 +38,12 @@ f:scandir|D:int scandir(const char *path, struct dirent **listing[], int (*fp_se
 f:scandir_bufsize|D://#define mini_scandir_bufsize 4096|c:directories|x:|
 f:seekdir|D:void seekdir(DIR *dir, long off)|c:directories|x:set the position of a directory stream|
 f:telldir|D:long telldir(DIR *dir)|c:directories|x:current location of a named directory stream|
+f:alphasort|D:int alphasort( const struct dirent** de1, const struct dirent** de2 )|c:directories|x:|
 
 #errno
 
+f:ret_errno|D:#ifdef mini_errno|c:errno|x:|
+f:seterrno|D:#ifdef mini_errno|c:errno|x:|
 f:errno|D:#ifdef mini_errno|c:errno|x:error return value|
 f:errno_str|D:char *errno_str(int err)|c:errno|x:|
 f:exit_errno|D:void exit_errno( int errnum )|c:errno|x:|
@@ -48,6 +53,11 @@ f:verbose_errstr|D:const char* verbose_errstr(int num)|c:errno|x:|
 f:verbose_errstr2|D:const char* verbose_errstr2(int num)|c:errno|x:|
 
 #files
+
+f:inotify_add_watch|D:int inotify_add_watch( int fd,  const char *pathname,  u32 mask)|c:directories|x:|
+f:inotify_init|D:int DEF_syscall(inotify_init,0)|c:directories|x:|
+f:inotify_init1|D:int inotify_init1( int flags)|c:directories|x:|
+f:inotify_rm_watch|D:int inotify_rm_watch( int fd,  __s32 wd)|c:directories|x:|
 
 f:_fopen|D:FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f)|c:files|x:|
 f:access|D:int access( const char *filename, int mode)|c:files|x:determine accessibility of a file relative to directory file|
@@ -150,6 +160,9 @@ f:eprint|D:#define eprint(str) write(STDERR_FILENO,str,strlen(str))|c:output|x:|
 f:eprintfs|D:#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)|c:output|x:|
 f:eprintl|D:#define eprintl() write(STDERR_FILENO,"\n",1)|c:output|x:|
 f:eprints|D:#define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)|c:output|x:|
+f:eprintsl|D:#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)|c:output|x:|
+f:group_print|D:|c:output|x:|
+f:group_write|D:|c:output|x:|
 f:eputs|D:#define eputs(msg) ( eprint(msg) + eprintl() )|c:output|x:|
 f:ewrites|D:#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))|c:output|x:|
 f:fprint|D:#define fprint(...) fprintf(__VA_ARGS__)|c:output|x:|
@@ -170,11 +183,19 @@ f:putchar|D:#define putchar(c) fputc(c,stdout)|c:output|x:put a byte on a stdout
 f:puts|D:#define puts(msg) ( print(msg) + printl() )|c:output|x:put a string on standard output|
 f:snprintf|D:int snprintf( char *buf, size_t size, const char *fmt, ... )|c:output|x:print formatted output|
 f:vfprintf|D:#define vfprintf(...) fprintf(__VA_ARGS__)|c:output|x:|
+f:vsprintf|D:int vsprintf( char *buf, const char *fmt, ... )|c:output|x:|
+f:shortcolornames|D:|c:output|x:|
+f:ansicolors|D:|c:output|x:|
 f:vsnprintf|D:int vsnprintf(char *buf, size_t size, const char* fmt, va_list args )|c:output|x:format output of a stdarg argument list|
 f:write|D:int write(int fd,const void *buf, int len )|c:output|x:write on a file|
 f:writes|D:#define writes(str) write(STDOUT_FILENO,str,sizeof(str))|c:output|x:|
 
 #process
+
+f:clone|D:int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)|c:process|x:|
+
+
+f:clone_t|D:int clone_t(int flags)|c:process|x:|
 
 f:abort|D:void abort()|c:process|x:|
 f:atexit|D:int atexit( functionp* func )|c:process|x:|
@@ -287,25 +308,11 @@ f:utime|D:int utime( const char *filename, struct utimbuf *times)|c:time|x:set f
 
 #unsorted
 
-f:alphasort|D:int alphasort( const struct dirent** de1, const struct dirent** de2 )|c:directories|x:|
-f:ansicolors|D:|c:output|x:|
-f:clone|D:int clone( int clone_flags,  unsigned long stack,  void *parent_tid,  void *child_tid)|c:process|x:|
-f:clone_t|D:int clone_t(int flags)|c:process|x:|
 f:def|D:#define SETOPT_short( opts, option ) (|c:unsorted|x:|
-f:eprintsl|D:#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)|c:output|x:|
-f:group_print|D:|c:output|x:|
-f:group_write|D:|c:output|x:|
-f:inotify_add_watch|D:int inotify_add_watch( int fd,  const char *pathname,  u32 mask)|c:directories|x:|
-f:inotify_init|D:int DEF_syscall(inotify_init,0)|c:directories|x:|
-f:inotify_init1|D:int inotify_init1( int flags)|c:directories|x:|
-f:inotify_rm_watch|D:int inotify_rm_watch( int fd,  __s32 wd)|c:directories|x:|
-f:itooct|D:int itooct(int i, char *buf)|c:conversions|x:|
 f:putenv|D:int putenv( char *string )|c:system|x:|
 f:qsort|D:void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *))|c:unsorted|x:|
-f:ret_errno|D:#ifdef mini_errno|c:errno|x:|
-f:seterrno|D:#ifdef mini_errno|c:errno|x:|
-f:shortcolornames|D:|c:output|x:|
-f:vsprintf|D:int vsprintf( char *buf, const char *fmt, ... )|c:output|x:|
+
+
 
 #x64-syscalls
 
