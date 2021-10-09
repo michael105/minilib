@@ -16,7 +16,7 @@ chroot
 <p>
   <em>int chroot( const char <strong>filename)</em><br>
  *change root directory</strong>
-Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.147 manpage: <a href="../manpages/sys/chroot.2.rst.html">chroot</a><br>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.155 manpage: <a href="../manpages/sys/chroot.2.rst.html">chroot</a><br>
 </p>
 </dd>
 <dt>
@@ -26,7 +26,7 @@ getgid
 <p>
   <em>int DEF_syscall(getgid,0)</em><br>
  <strong>get the real group ID</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.197 manpage: <a href="../manpages/sys/getgid.2.rst.html">getgid</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.206 manpage: <a href="../manpages/sys/getgid.2.rst.html">getgid</a><br>
 </p>
 </dd>
 <dt>
@@ -36,7 +36,7 @@ getuid
 <p>
   <em>int DEF_syscall(getuid,0)</em><br>
  <strong>get a real user ID</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.199 manpage: <a href="../manpages/sys/getuid.2.rst.html">getuid</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.208 manpage: <a href="../manpages/sys/getuid.2.rst.html">getuid</a><br>
 </p>
 </dd>
 <dt>
@@ -65,7 +65,7 @@ mknod
 <p>
   <em>int mknod( const char <strong>filename,  umode_t mode,  unsigned dev)</em><br>
  *make directory, special file, or regular file</strong>
-Size: ~73B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.242 manpage: <a href="../manpages/sys/mknod.2.rst.html">mknod</a><br>
+Size: ~73B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.259 manpage: <a href="../manpages/sys/mknod.2.rst.html">mknod</a><br>
 </p>
 </dd>
 <dt>
@@ -75,7 +75,7 @@ mount
 <p>
   <em>int mount( char <strong>dev_name,  char *dir_name,  char *type,  unsigned long flags,  void *data)</em><br>
  *mount filesystem</strong>
-Size: ~151B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.175 manpage: <a href="../manpages/sys/mount.2.rst.html">mount</a><br>
+Size: ~151B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.184 manpage: <a href="../manpages/sys/mount.2.rst.html">mount</a><br>
 </p>
 </dd>
 <dt>
@@ -85,7 +85,7 @@ pivot_root
 <p>
   <em>int pivot_root( const char <strong>new_root,  const char *put_old)</em><br>
  *change the root mount</strong>
-Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.148
+Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.156
 </p>
 </dd>
 <dt>
@@ -117,7 +117,7 @@ reboot
 <p>
   <em>int reboot( int magic1,  int magic2,  unsigned int cmd,  void <strong>arg)</em><br>
  *reboot or enable/disable Ctrl-Alt-Del</strong>
-Size: ~139B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.173 manpage: <a href="../manpages/sys/reboot.2.rst.html">reboot</a><br>
+Size: ~139B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.182 manpage: <a href="../manpages/sys/reboot.2.rst.html">reboot</a><br>
 </p>
 </dd>
 <dt>
@@ -127,7 +127,7 @@ setgid
 <p>
   <em>int setgid( gid_t gid)</em><br>
  <strong>set-group-ID</strong>
-Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.153 manpage: <a href="../manpages/sys/setuid.2.rst.html">setgid</a><br>
+Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.161 manpage: <a href="../manpages/sys/setuid.2.rst.html">setgid</a><br>
 </p>
 </dd>
 <dt>
@@ -136,7 +136,7 @@ setgroups
 <dd>
 <p>
   <em>int setgroups( int gidsetsize,  gid_t *grouplist)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.190 manpage: <a href="../manpages/sys/setgroups.2.rst.html">setgroups</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.199 manpage: <a href="../manpages/sys/setgroups.2.rst.html">setgroups</a><br>
 </p>
 </dd>
 <dt>
@@ -146,7 +146,7 @@ setuid
 <p>
   <em>int setuid( uid_t uid)</em><br>
  <strong>set user ID</strong>
-Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.154 manpage: <a href="../manpages/sys/setuid.2.rst.html">setuid</a><br>
+Size: ~51B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.162 manpage: <a href="../manpages/sys/setuid.2.rst.html">setuid</a><br>
 </p>
 </dd>
 <dt>
@@ -156,7 +156,7 @@ sync
 <p>
   <em>int DEF_syscall(sync,0)</em><br>
  <strong>schedule file system updates</strong>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.127 manpage: <a href="../manpages/sys/sync.2.rst.html">sync</a><br>
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.128 manpage: <a href="../manpages/sys/sync.2.rst.html">sync</a><br>
 </p>
 </dd>
 <dt>
@@ -166,7 +166,7 @@ umount2
 <p>
   <em>int umount2( const char <strong>mountpoint, int flags)</em><br>
  *unmount filesystem</strong>
-Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.171
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.180
 </p>
 </dd>
 <dt>
@@ -176,7 +176,7 @@ uname
 <p>
   <em>int uname(struct new_utsname <strong>name )</em><br>
  *get the name of the current system</strong>
-Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.159 manpage: <a href="../manpages/gen/uname.3.rst.html">uname</a><br>
+Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.168 manpage: <a href="../manpages/gen/uname.3.rst.html">uname</a><br>
 </p>
 </dd>
 </dl>
@@ -184,7 +184,7 @@ Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:11:53 UTC
 </small></p>
 </body>
 </html>

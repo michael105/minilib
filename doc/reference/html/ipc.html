@@ -16,7 +16,7 @@ kill
 <p>
   <em>int kill( pid_t pid,  int sig)</em><br>
  <strong>send a signal to a process or a group of processes</strong>
-Size: ~63B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.135 manpage: <a href="../manpages/sys/kill.2.rst.html">kill</a><br>
+Size: ~63B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.136 manpage: <a href="../manpages/sys/kill.2.rst.html">kill</a><br>
 </p>
 </dd>
 <dt>
@@ -36,7 +36,7 @@ pipe
 <p>
   <em>int pipe( int <strong>filedes)</em><br>
  *create an interprocess channel</strong>
-Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.239 manpage: <a href="../manpages/sys/pipe.2.rst.html">pipe</a><br>
+Size: ~41B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.256 manpage: <a href="../manpages/sys/pipe.2.rst.html">pipe</a><br>
 </p>
 </dd>
 <dt>
@@ -57,7 +57,7 @@ rt_sigaction
 <p>
   <em>int rt_sigaction( int sig,  const struct sigaction <strong>act,  struct sigaction *oact,  size_t sigsetsize)</em><br>
  *examine and change a signal action</strong>
-Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.144
+Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.152
 </p>
 </dd>
 <dt>
@@ -67,7 +67,7 @@ rt_sigprocmask
 <p>
   <em>int rt_sigprocmask( int how,  sigset_t <strong>nset,  sigset_t *oset,  size_t sigsetsize)</em><br>
  *examine and change blocked signals</strong>
-Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.177
+Size: ~132B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.186
 </p>
 </dd>
 <dt>
@@ -77,7 +77,7 @@ rt_sigreturn
 <p>
   <em>int rt_sigreturn( unsigned long __unused)</em><br>
  <strong>return from signal handler and cleanup stack frame</strong>
-Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.145
+Size: ~53B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.153
 </p>
 </dd>
 <dt>
@@ -181,7 +181,7 @@ wait4
 <p>
   <em>int wait4( pid_t upid,  int <strong>stat_addr,  int options,  struct rusage *ru)</em><br>
  *wait for process to change state, BSD style</strong>
-Size: ~133B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.167 manpage: <a href="../manpages/sys/wait.2.rst.html">wait4</a><br>
+Size: ~133B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.176 manpage: <a href="../manpages/sys/wait.2.rst.html">wait4</a><br>
 </p>
 </dd>
 <dt>
@@ -200,7 +200,7 @@ Size: ~138B <a href="../../src/process/wait.c">../src/process/wait.c</a> l.16 ma
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:11:53 UTC
 </small></p>
 </body>
 </html>

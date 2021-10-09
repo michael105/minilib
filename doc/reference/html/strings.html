@@ -16,7 +16,7 @@ _strcasecmp
 <p>
   <em>int _strcasecmp(const char*c1,const char*c2,int len)</em><br>
  <strong>Defines:</strong> tolower<br>
-Size: ~44B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.27
+Size: ~44B <a href="../../src/string/strcasecmp.c">../src/string/strcasecmp.c</a> l.5
 </p>
 </dd>
 <dt>
@@ -24,7 +24,7 @@ _strcmp
 </dt>
 <dd>
 <p>
-  <em>int _strcmp(const char*c1,const char*c2,int len)</em><br>
+  <em>int _strcmp(const char *s1, const char *s2, int n)</em><br>
 Size: ~44B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.10
 </p>
 </dd>
@@ -34,7 +34,7 @@ sprintf
 <dd>
 <p>
   <em>#define sprintf(str,&#8230;) snprintf( str, mini_buf,  <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write getpid strlen kill<br>
+ <strong>Defines:</strong> kill getpid strlen write<br>
  <strong>print formatted output</strong>
 </p>
 </dd>
@@ -53,7 +53,7 @@ strcasecmp
 <dd>
 <p>
   <em>int strcasecmp(const char*c1,const char*c2)</em><br>
-<a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.48 manpage: <a href="../manpages/string/string.3.rst.html">strcasecmp</a><br>
+<a href="../../src/string/strcasecmp.c">../src/string/strcasecmp.c</a> l.26 manpage: <a href="../manpages/string/string.3.rst.html">strcasecmp</a><br>
 </p>
 </dd>
 <dt>
@@ -95,7 +95,7 @@ strcmp
 <p>
   <em>int strcmp(const char*c1,const char*c2)</em><br>
  <strong>compare two strings</strong>
-Size: ~32B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.67 manpage: <a href="../manpages/string/string.3.rst.html">strcmp</a><br>
+Size: ~32B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.36 manpage: <a href="../manpages/string/string.3.rst.html">strcmp</a><br>
 </p>
 </dd>
 <dt>
@@ -114,7 +114,7 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> strlen strcpy 0<br>
+ *Defines:</strong> strcpy strlen 0<br>
  <strong>duplicate a specific number of bytes from a string</strong>
 Size: ~258B <a href="../../src/string/strdup.c">../src/string/strdup.c</a> l.7 manpage: <a href="../manpages/string/strdup.3.rst.html">strdup</a><br>
 </p>
@@ -126,9 +126,16 @@ strlen
 <p>
   <em>int strlen(const char*str)</em><br>
  <strong>get length of fixed size string</strong>
-Size: ~32B <a href="../../src/string/strlen.c">../src/string/strlen.c</a> l.4 manpage: <a href="../manpages/string/strlen.3.rst.html">strlen</a><br>
 </p>
 </dd>
+</dl>
+<a name="strlen"></a>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>return len of str.
+ if str points to 0, return 0</code></pre>
+</td></tr></table>
+<p>Size: ~32B <a href="../../src/string/strlen.c">../src/string/strlen.c</a> l.6 manpage: <a href="../manpages/string/strlen.3.rst.html">strlen</a><br></p>
+<a name="strncasecmp"></a><dl>
 <dt>
 strncasecmp
 </dt>
@@ -136,7 +143,7 @@ strncasecmp
 <p>
   <em>int strncasecmp(const char*c1,const char*c2,int len)</em><br>
  <strong>case-insensitive string comparisons</strong>
-<a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.56 manpage: <a href="../manpages/string/string.3.rst.html">strncasecmp</a><br>
+<a href="../../src/string/strcasecmp.c">../src/string/strcasecmp.c</a> l.34 manpage: <a href="../manpages/string/string.3.rst.html">strncasecmp</a><br>
 </p>
 </dd>
 <dt>
@@ -146,7 +153,7 @@ strncmp
 <p>
   <em>int strncmp(const char*c1,const char*c2,int len)</em><br>
  <strong>compare part of two strings</strong>
-Size: ~44B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.75 manpage: <a href="../manpages/string/string.3.rst.html">strncmp</a><br>
+Size: ~44B <a href="../../src/string/strcmp.c">../src/string/strcmp.c</a> l.44 manpage: <a href="../manpages/string/string.3.rst.html">strncmp</a><br>
 </p>
 </dd>
 <dt>
@@ -195,7 +202,7 @@ Size: ~104B <a href="../../src/string/strstr.c">../src/string/strstr.c</a> l.3 m
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:11:53 UTC
 </small></p>
 </body>
 </html>

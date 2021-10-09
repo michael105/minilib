@@ -127,7 +127,7 @@ inotify_add_watch
 <dd>
 <p>
   <em>int inotify_add_watch( int fd,  const char *pathname,  u32 mask)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.206
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.220
 </p>
 </dd>
 <dt>
@@ -136,7 +136,7 @@ inotify_init
 <dd>
 <p>
   <em>int DEF_syscall(inotify_init,0)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.205
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.219
 </p>
 </dd>
 <dt>
@@ -145,7 +145,7 @@ inotify_init1
 <dd>
 <p>
   <em>int inotify_init1( int flags)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.208
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.222
 </p>
 </dd>
 <dt>
@@ -154,7 +154,7 @@ inotify_rm_watch
 <dd>
 <p>
   <em>int inotify_rm_watch( int fd,  __s32 wd)</em><br>
-<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.207
+<a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.221
 </p>
 </dd>
 <dt>
@@ -164,7 +164,7 @@ mkdir
 <p>
   <em>int mkdir( const char <strong>pathname, int mode)</em><br>
  *make a directory relative to directory file descriptor</strong>
-Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.165 manpage: <a href="../manpages/sys/mkdir.2.rst.html">mkdir</a><br>
+Size: ~59B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.174 manpage: <a href="../manpages/sys/mkdir.2.rst.html">mkdir</a><br>
 </p>
 </dd>
 <dt>
@@ -173,7 +173,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> close sys_brk 0 getbrk dirbuf open write<br>
+ *Defines:</strong> close dirbuf sys_brk write open 0 getbrk<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../../src/directories/opendir.c">../src/directories/opendir.c</a> l.10 manpage: <a href="../manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
@@ -184,7 +184,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> getbrk dirbuf open close sys_brk 0<br>
+ *Defines:</strong> dirbuf sys_brk close getbrk 0 open<br>
 <a href="../../src/directories/opendirp.c">../src/directories/opendirp.c</a> l.5
 </p>
 </dd>
@@ -194,7 +194,7 @@ readdir
 <dd>
 <p>
   <em>struct dirent <strong>readdir(DIR *dir)</em><br>
- *Defines:</strong> dirbuf getdents<br>
+ *Defines:</strong> getdents dirbuf<br>
  <strong>read a directory</strong>
 </p>
 </dd>
@@ -225,7 +225,7 @@ rmdir
 <p>
   <em>int rmdir( const char <strong>pathname)</em><br>
  *remove a directory</strong>
-Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.166 manpage: <a href="../manpages/sys/rmdir.2.rst.html">rmdir</a><br>
+Size: ~47B <a href="../../include/syscall_stubs.h">../include/syscall_stubs.h</a> l.175 manpage: <a href="../manpages/sys/rmdir.2.rst.html">rmdir</a><br>
 </p>
 </dd>
 <dt>
@@ -234,7 +234,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> 0 getpid getbrk strlen swap getdents memcpy kill sys_brk dirbuf seterrno open write errno<br>
+ <strong>Defines:</strong> dirbuf sys_brk getbrk swap seterrno getdents getpid kill errno 0 open write strlen memcpy<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -309,7 +309,7 @@ Size: ~32B <a href="../../src/directories/telldir.c">../src/directories/telldir.
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:11:53 UTC
 </small></p>
 </body>
 </html>

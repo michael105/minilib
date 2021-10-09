@@ -45,7 +45,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> close open fileno<br>
+ <strong>Defines:</strong> open fileno close<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -54,7 +54,7 @@ fdopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~323B <a href="../../src/streams/fopen.c">../src/streams/fopen.c</a> l.21 manpage: <a href="../manpages/stdio/fopen.3.rst.html">fdopen</a><br></p>
+<p>Size: ~323B <a href="../../src/streams/fdopen.c">../src/streams/fdopen.c</a> l.6 manpage: <a href="../manpages/stdio/fopen.3.rst.html">fdopen</a><br></p>
 <a name="feof"></a><dl>
 <dt>
 feof
@@ -133,7 +133,7 @@ fopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~324B <a href="../../src/streams/fopen.c">../src/streams/fopen.c</a> l.11 manpage: <a href="../manpages/stdio/fopen.3.rst.html">fopen</a><br></p>
+<p>Size: ~324B <a href="../../src/streams/fopen.c">../src/streams/fopen.c</a> l.8 manpage: <a href="../manpages/stdio/fopen.3.rst.html">fopen</a><br></p>
 <a name="fputs"></a><dl>
 <dt>
 fputs
@@ -141,7 +141,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> strlen fileno write<br>
+ *Defines:</strong> strlen write fileno<br>
  <strong>put a string on a stream</strong>
 Size: ~90B <a href="../../include/fputs.h">../include/fputs.h</a> l.18 manpage: <a href="../manpages/stdio/fputs.3.rst.html">fputs</a><br>
 </p>
@@ -163,7 +163,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> fileno open close<br>
+ *Defines:</strong> open close fileno<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -172,7 +172,7 @@ freopen
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>modes implemented: r, r+, w, w+, a, a+</code></pre>
 </td></tr></table>
-<p>Size: ~320B <a href="../../src/streams/fopen.c">../src/streams/fopen.c</a> l.31 manpage: <a href="../manpages/stdio/fopen.3.rst.html">freopen</a><br></p>
+<p>Size: ~320B <a href="../../src/streams/freopen.c">../src/streams/freopen.c</a> l.7 manpage: <a href="../manpages/stdio/fopen.3.rst.html">freopen</a><br></p>
 <a name="fseek"></a><dl>
 <dt>
 fseek
@@ -253,7 +253,7 @@ setvbuf
 <p></p>
 <hr><p><small>
 Last updated
- 2021-09-18 14:24:14 UTC
+ 2021-10-09 15:11:53 UTC
 </small></p>
 </body>
 </html>
