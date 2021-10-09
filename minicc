@@ -105,8 +105,8 @@ if [ ! -e "$MLIBDIR/minilib.h" ]; then
 	fi
 fi
 
-INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common -I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ \
-	-I$MLIBDIR/include "
+INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common \
+	-I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ -I$MLIBDIR/include "
 
 
 if [ ! -e "$MLIBDIR/minilib.h" ]; then # minilib not found. check, if included
@@ -154,9 +154,11 @@ generate the config of minilib and include minilib.h.
 In the most shorthand form, the only argument is the file,
 containing the configuration directives. (And possibly the c source)
 
-minicc passes all options it's invoked with on to gcc,
+minicc passes all options it's invoked with on to the compiler,
 besides the options described below, which must be passed 
 before options and parameters for gcc.
+Beginning with the first option, not recognized as option for minicc,
+all options are given unchanged to gcc/clang.
 
 -h, --help:    
         shows this help
@@ -197,7 +199,7 @@ before options and parameters for gcc.
         minilib fstream functions)
         Without global data some initialization code can be saved,
         as well as all elf segments besides 'text'.
-        Eitheradd  the line into your configfile: 'LDSCRIPT onlytext'
+        Either add the line into your configfile: 'LDSCRIPT onlytext'
         Or use the switch '--ldscript onlytext'
 
 --ldscript-file 'file':
@@ -244,7 +246,7 @@ before options and parameters for gcc.
         dump the contained headerfile minilib.h to stdout
         (if bundled within minicc)
 
---gcc
+--cc
         The following arguments are passed unchanged to gcc.
         It's not strictly necessary, to pass this parameter;
         the first argument not recognized will do the same
@@ -590,7 +592,7 @@ endif
 VERSION := "20210629"
 urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
 
-fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(1).gz)) && gunzip $(1).gz)
+fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
 
 
 default: Makefile.minilib minilib.h check compile
@@ -724,6 +726,10 @@ while [ "$1" != "" ] && [ $opt = 1 ]
 do
 	opt=0
 	case $1 in
+		--cc )
+			shift
+			opt=0
+			;;
 		--gcc )
 			shift
 			opt=0
