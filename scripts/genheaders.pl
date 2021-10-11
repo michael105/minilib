@@ -991,11 +991,12 @@ template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscript
 
 
 sub genconfighandler{
-		my $fh = shift;
-		foreach my $func ( keys(%{$funchash}) ){
-						printf $fh "#define $func(...) _M_MLIB_$func"."_M_(__VA_ARGS__)\n";
-				}
-		return(1);
+	my $fh = shift;
+	foreach my $func ( keys(%{$funchash}) ){
+		#printf $fh "#define $func(...) _M_MLIB_$func"."_M_(__VA_ARGS__)\n";
+		printf $fh "#define $func(...) _M_MLIB_$func"."_M_()\n";
+	}
+	return(1);
 }
 
 template( "minilib.genconf.h", "define_macros", { generate=>\&genconfighandler } );
