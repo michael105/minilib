@@ -304,6 +304,22 @@ SHOWSOURCES Set to 1 to save all combined sources into the outputfile
 exec_gcc(){
 	opt_args="$@"
 
+
+	if [ -n "$DUMMYHEADER" ]; then
+		if [ -d "$MLIBDIR/dummyheader" ]; then
+			opt_args="-I$MLIBDIR/dummyheader $opt_args"
+		else
+			if [ ! -d $BUILDDIR ]; then
+				verbose Create builddir: $BUILDDIR
+				mkdir $BUILDDIR
+			fi
+			touchdummyheaders
+			opt_args="-I$BUILDDIR/dummyheader $opt_args"
+		fi
+
+	fi
+
+
 	src=""
 	if [ -n "$sources" ]; then
 		#opt_args="$@ $sources"
@@ -399,7 +415,7 @@ exec_gcc(){
 	if [ "$fulldebug" == 1 ]; then
 		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
 
-		echo $CYAN eval "$REAL_CC $CFLAGS $opt_args -E" 
+		echo $CYAN eval "$REAL_CC $CFLAGS $opt_args -E" $NORM 
 		echo
 
 		eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $opt_args -E -x c - | sed '/^#/d' > $dbgfile.c"
@@ -445,6 +461,25 @@ checkconfig (){
 	echo_verbose OS: $MINI_OS
 	echo_verbose ldscript: $LDSCRIPT
 }
+
+touchdummyheaders(){
+	if [ ! -d $BUILDDIR ]; then
+		mkdir $BUILDDIR
+	fi
+	if [ ! -d "$BUILDDIR/dummyheader" ]; then
+		mkdir $BUILDDIR/dummyheader
+	fi
+
+	tmp=`pwd`
+	cd $BUILDDIR/dummyheader && \
+	mkdir bits sys net arpa scsi netinet protocols && \
+	for i in bits/uClibc_config.h bits/posix_opt.h bits/local_lim.h bits/fcntl.h bits/byteswap.h bits/shm.h bits/epoll.h bits/sem.h bits/mman.h bits/sigcontext.h bits/msq.h bits/environments.h bits/fenv.h bits/wordsize.h bits/endian.h bits/mathdef.h bits/stat.h bits/mathinline.h bits/setjmp.h bits/byteswap-16.h bits/wchar.h bits/uClibc_touplow.h bits/uClibc_charclass.h bits/getopt_int.h bits/socket_type.h bits/utmp.h bits/errno.h bits/statx.h bits/huge_vall.h bits/termios.h bits/ioctls.h bits/sigaction.h bits/typesizes.h bits/sigthread.h bits/fenvinline.h bits/uClibc_local_lim.h bits/uClibc_locale.h bits/xopen_lim.h bits/confname.h bits/uClibc_page.h bits/timerfd.h bits/dirent.h bits/byteswap-common.h bits/huge_valf.h bits/stdio.h bits/waitstatus.h bits/utsname.h bits/eventfd.h bits/ipc.h bits/posix1_lim.h bits/uClibc_clk_tck.h bits/mman-shared.h bits/siginfo.h bits/netdb.h bits/stdio_lim.h bits/nan.h bits/waitflags.h bits/mqueue.h bits/statvfs.h bits/in.h bits/uClibc_alloc.h bits/resource.h bits/mathcalls.h bits/uio.h bits/sigset.h bits/kernel-features.h bits/poll.h bits/mman-common.h bits/signum.h bits/huge_val.h bits/locale.h bits/utmpx.h bits/signalfd.h bits/sigstack.h bits/select.h bits/statfs.h bits/ioctl-types.h bits/inf.h bits/uClibc_posix_opt.h bits/dlfcn.h bits/uClibc_stdio.h bits/sockaddr.h bits/sched.h bits/socket.h bits/elfclass.h bits/initspin.h bits/posix2_lim.h bits/types.h bits/time.h bits/getopt.h bits/inotify.h bits/cmathcalls.h bits/mman-linux.h bits/sysnum.h bits/semaphore.h bits/pthreadtypes.h sys/perm.h sys/ucontext.h sys/io.h sys/reg.h sys/debugreg.h sys/procfs.h sys/user.h sys/timerfd.h sys/ptrace.h sys/prctl.h sys/fanotify.h sys/epoll.h sys/acct.h sys/random.h sys/eventfd.h sys/signalfd.h sys/inotify.h sys/vfs.h sys/swap.h sys/timeb.h sys/types.h sys/timex.h sys/syscall.h sys/socket.h sys/select.h sys/ipc.h sys/kdaemon.h sys/kd.h sys/unistd.h sys/dir.h sys/sysmacros.h sys/reboot.h sys/msg.h sys/mman.h sys/statvfs.h sys/bitypes.h sys/time.h sys/xattr.h sys/syslog.h sys/file.h sys/socketvar.h sys/times.h sys/poll.h sys/mount.h sys/stat.h sys/shm.h sys/un.h sys/statfs.h sys/personality.h sys/resource.h sys/fcntl.h sys/wait.h sys/utsname.h sys/fsuid.h sys/signal.h sys/errno.h sys/quota.h sys/param.h sys/sem.h sys/soundcard.h sys/cdefs.h sys/sendfile.h sys/ioctl.h sys/ttydefaults.h sys/sysinfo.h sys/queue.h sys/termios.h sys/vt.h sys/mtio.h sys/klog.h sys/uio.h sys/sysctl.h net/if_arp.h net/if.h net/if_slip.h net/ppp_defs.h net/route.h net/if_shaper.h net/ethernet.h net/ppp-comp.h net/if_packet.h net/if_ppp.h arpa/ftp.h arpa/nameser.h arpa/tftp.h arpa/inet.h arpa/nameser_compat.h arpa/telnet.h scsi/scsi_ioctl.h scsi/sg.h scsi/scsi.h netinet/tcp.h netinet/ether.h netinet/in_systm.h netinet/igmp.h netinet/if_ether.h netinet/in.h netinet/udp.h netinet/ip6.h netinet/if_tr.h netinet/ip.h netinet/icmp6.h netinet/if_fddi.h netinet/ip_icmp.h fpu_control.h thread_db.h pthread.h semaphore.h libgen.h ucontext.h stdint.h grp.h limits.h fts.h termio.h syscall.h mqueue.h utmpx.h inttypes.h pwd.h regex.h langinfo.h unistd.h a.out.h tar.h wchar.h strings.h printf.h search.h time.h fnmatch.h sysexits.h glob.h elf.h utmp.h stdlib.h math.h wordexp.h link.h syslog.h utime.h ttyent.h poll.h malloc.h byteswap.h nl_types.h features.h complex.h error.h uchar.h stdio_ext.h lastlog.h fcntl.h paths.h wait.h values.h string.h sched.h ifaddrs.h dlfcn.h endian.h signal.h errno.h gnu-versions.h memory.h mntent.h resolv.h crypt.h cpio.h ar.h setjmp.h regexp.h netdb.h locale.h shadow.h stdio.h tgmath.h pty.h ulimit.h ieee754.h getopt.h spawn.h termios.h sgtty.h err.h ftw.h fenv.h wctype.h dirent.h alloca.h execinfo.h ctype.h assert.h protocols/routed.h protocols/talkd.h protocols/timed.h protocols/rwhod.h
+	do 
+		touch $i
+	done
+	cd $tmp
+}
+
 
 
 dumpconfig (){
@@ -704,7 +739,11 @@ if [ "$2" == "" ]; then
 	if [ "$1" == "$outputfile" ]; then
 		fail "couldn't determine the outputfile.\nGot: $1"
 	fi
-	sources=$config 
+	if [ -n "$sources" ]; then
+		src=`echo "$sources" | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'`
+	else
+		sources=$config 
+	fi
 	#REAL_CC="$REAL_CC -o $outputfile $1"
 	#echo $REAL_CC
 	echo compile $config 
@@ -795,6 +834,7 @@ do
 			config=$1
 			checkconfig $config 
 			opt_config=$1
+			compile=1
 			shift
 			opt=1
 			;;
