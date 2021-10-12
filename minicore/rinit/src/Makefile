@@ -1,4 +1,4 @@
-MCC=../../../minicc
+MCC=../../../minimake
 APPEND="-DPWD=${PWD}"
 
 

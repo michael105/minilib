@@ -1,6 +1,6 @@
 
 
-doc: minicc.rst make.rst html/*.html html/minilib-reference.html reference
+doc: minimake.rst make.rst html/*.html html/minilib-reference.html reference
 
 reference: minilib-reference.asc
 	cd reference && make once && make
@@ -22,9 +22,9 @@ make.rst: ../Makefile
 	sed -i -e '1,3s/^\S.*/**\0**/' -e '4,/^help/s/^\S.*/\0/' make.rst
 
 
-minicc.rst: ../minicc
-	../minicc --help > minicc.rst
-	sed -i -e '1s/minicc/**\0**/; 2i\\n::\n' -e 's/\(^-.*\)\(:\)\s*$$/\1/' -e 's/^-.*/\0:/' -e "s/^\d040/\\\(/"  -e 's/^\t/  /g' minicc.rst
+minimake.rst: ../minimake
+	../minimake --help > minimake.rst
+	sed -i -e '1s/minimake/**\0**/; 2i\\n::\n' -e 's/\(^-.*\)\(:\)\s*$$/\1/' -e 's/^-.*/\0:/' -e "s/^\d040/\\\(/"  -e 's/^\t/  /g' minimake.rst
 
 html/%.html: %.rst
 	rst2html5 -r 5 $< > $@

@@ -1272,7 +1272,7 @@ fi
 # ld options 
 LDFLAGS="-Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
 
-# (default) linker script. minicc is going to be invoked with minicc --dump ld_script 
+# (default) linker script. minimake is going to be invoked with minimake --dump ld_script 
 if [ -z "$$LDSCRIPT" ]; then
 	LDSCRIPT="default"
 fi

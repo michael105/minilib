@@ -1,5 +1,5 @@
 
-MCC=../../../minicc
+MCC=../../../minimake
 
 AP=./append
 PATH := $(PWD):$(PATH)

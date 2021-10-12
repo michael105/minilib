@@ -8,7 +8,7 @@ clean:
 
 %: %.c
 	echo $@ $<
-	( ../../minicc --verbose --compile $< 2>&1 || mv $< ./fail/ ) | tee $@.log
+	( ../../minimake --verbose --compile $< 2>&1 || mv $< ./fail/ ) | tee $@.log
 
 p:
 	perl -e 'print "Ok\n"'

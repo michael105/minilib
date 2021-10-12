@@ -23,7 +23,7 @@ define HELP
 make targets:
 
 all
-  header compile-minicc doc examples test
+  header compile-minimake doc examples test
 	
 examples
 	make examples
@@ -32,23 +32,23 @@ header
 	rebuild header files, also rebuild some of the generated documentation.
 
 doc
-	rebuild generated documentation: html files, minicc info
+	rebuild generated documentation: html files, minimake info
 
-minicc
-	rebuild the script minicc, pack ldscripts and config scripts
+minimake
+	rebuild the script minimake, pack ldscripts and config scripts
 
-compile-minicc
-	pack the gzipped (complete) minilib into minicc
-	(run minicc --dump-minilib to extract the header to stdout)
+compile-minimake
+	pack the gzipped (complete) minilib into minimake
+	(run minimake --dump-minilib to extract the header to stdout)
 
-unpack-minicc
-	strip the gzipped minilib of minicc
+unpack-minimake
+	strip the gzipped minilib of minimake
 
 compiled/minilib.h
 	compile compiled/minilib.h, compiled/minilib.h.gz (single header sourcefile)
 
 devel
-	make header compiled/minilib.h compile-minicc
+	make header compiled/minilib.h compile-minimake
 
 tools
 	make tools in the dir ./tools
@@ -72,7 +72,7 @@ help
 	show this help
 
 
-Most possibly you'll need: "make compile-minicc", and "make test"
+Most possibly you'll need: "make compile-minimake", and "make test"
 Both run all needed other targets.
 
 However, building with minilib is sort of transparent:
@@ -80,10 +80,10 @@ You can include the uncompiled "minilib.h", which will include
 all other header files.
 And you can include the compiled "minilib.h", as only dependency.
 
-When compiling with minicc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into minicc; these
+When compiling with minimake, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into minimake; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile minicc every time)
+(Making development easier - no need to compile minimake every time)
 
 The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)
@@ -118,9 +118,9 @@ help:
 
 default: help
 
-all: header compiled/minilib.h compile-minicc compiled/Makefile.minilib doc examples test syntaxcheck
+all: header compiled/minilib.h compile-minimake compiled/Makefile.minilib doc examples test syntaxcheck
 
-devel: header compiled/minilib.h compile-minicc compiled/Makefile.minilib
+devel: header compiled/minilib.h compile-minimake compiled/Makefile.minilib
 
 examples:
 	cd examples && make
@@ -146,40 +146,40 @@ header:
 	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
 
-# ./minicc --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
+# ./minimake --config minilib.conf.all -E minilib.h -Wno-all -dD | sed -e 's/^# /\/\/ /;/^$$/d;/^[[:space:]]*from/d;/^\.\//,2d' &&\
 
 doc: header
 	cd doc && make
 
-minicc: scripts/genconfig.sh ldscript
+minimake: scripts/genconfig.sh ldscript
 	@echo dbg. var: $^ 
-	scripts/template.pl minicc genconfig scripts/genconfig.sh
-	scripts/template.pl minicc genconf-macros minilib.genconf.h
-	scripts/template.pl minicc headerguards include/headerguards.h
-	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' minicc
-	rm minicce
+	scripts/template.pl minimake genconfig scripts/genconfig.sh
+	scripts/template.pl minimake genconf-macros minilib.genconf.h
+	scripts/template.pl minimake headerguards include/headerguards.h
+	sed -ie 's/^VERSION=.*/VERSION=$(NOW)/' minimake
+	rm minimakee
 
 
-compile-minicc: minicc unpack-minicc
-	gzip -c compiled/minilib.h >> minicc
-	echo -e "\n#ENDGZ" >> minicc
+compile-minimake: minimake unpack-minimake
+	gzip -c compiled/minilib.h >> minimake
+	echo -e "\n#ENDGZ" >> minimake
 
 
-unpack-minicc:
-	sed '/^#MINILIBGZ#$$/q' minicc > minicc.tmp
-	cp minicc.tmp minicc
-	rm minicc.tmp
+unpack-minimake:
+	sed '/^#MINILIBGZ#$$/q' minimake > minimake.tmp
+	cp minimake.tmp minimake
+	rm minimake.tmp
 
 
 ldscript: ldscripts/ld.script*
 	@echo dbg, ldscripts. var: $^ 
-	echo "# Parsing" | scripts/template.pl minicc content-ldscript
+	echo "# Parsing" | scripts/template.pl minimake content-ldscript
 	sh scripts/ldscripts.sh $^ 
 
 
-			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert minicc content-ldscript; echo J ) )  
+			#echo -n "$(FILE)" | sed -e "s/.*\///" -e "s/\./_/g" && echo "='" | scripts/template.pl -insert minimake content-ldscript; echo J ) )  
 	
-	#| scripts/template.pl -insert minicc content-ldscript )  )   
+	#| scripts/template.pl -insert minimake content-ldscript )  )   
 
 tools:
 	cd tools && make
@@ -209,7 +209,7 @@ compiled/Makefile.minilib:
 	echo generate $@
 	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' $@
 	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' $@
-	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" minicc' -e '/^#defaultvalues/,/^#defaultvalues/d' $@
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" minimake' -e '/^#defaultvalues/,/^#defaultvalues/d' $@
 	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' $@
 	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' $@
 	sed -i -n -e '0,/^#ldscripts_start/p' $@
@@ -239,7 +239,7 @@ syntaxcheck:
 	$(info Generate syntaxcheck.h)
 	cp templates/syntaxcheck.h.top ./syntaxcheck.h
 	$(info echo copies)
-	./minicc --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
+	./minimake --dump-config minilib.conf.all > minilibcfg-syntaxcheck.h
 	( gcc -include minilibcfg-syntaxcheck.h minilib.h -E -dD -DGENSYNTAXCHECK -I. -I./include -I./headers -nodefaultlibs -nostdlib -DMLIB -fno-builtin -DLINUX -DX64 | sed -e 's/^# /\/\/ /;/^$$/d' | sed '/stdc-predef/,/command-line/d;/<built-in>/,/\/\/ /d;/^SYSDEF/d' &&\
 			cat templates/syntaxcheck.h.bottom ) |\
 			sed -E '/optimization_fence/d;/^static.*\{$$/,/^\}$$/{s/(^static.*)\{/\1;/p;d}' | sed -E '/^const.*\{$$/,/^\}$$/{s/(^const.*)\{/\1;/p;d}' >> syntaxcheck.h 

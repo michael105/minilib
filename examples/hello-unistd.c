@@ -1,7 +1,7 @@
 #include <unistd.h>
 
 // Compile with 
-// ./minicc -o hello-unistd hello-unistd.c -Dmini_INCLUDESRC
+// ./minimake -o hello-unistd hello-unistd.c -Dmini_INCLUDESRC
 // and optionally strip with 
 // ./tools/shrinkelf hello-unistd
 //

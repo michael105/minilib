@@ -1,4 +1,4 @@
-MCC=../../minicc
+MCC=../../minimake
 
 
 src = $(patsubst %.c,%, $(wildcard *.c))

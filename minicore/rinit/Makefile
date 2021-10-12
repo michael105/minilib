@@ -1,7 +1,7 @@
 
 
 
-CC=../../minicc
+CC=../../minimake
 
 all: init reboot halt rinit.boot rinit.run
 

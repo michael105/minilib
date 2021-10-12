@@ -1,18 +1,18 @@
-**minicc** v.20210804
+**minimake** v.20210804
 
 ::
 
 
-Usage: `minicc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf`
+Usage: `minimake [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf`
 
-minicc compiles binaries and links them statically with minilib.
+minimake compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc or clang with the right compile options,
 generate the config of minilib and include minilib.h. 
 
 In the most shorthand form, the only argument is the file,
 containing the configuration directives. (And possibly the c source)
 
-minicc passes all options it's invoked with on to gcc,
+minimake passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed 
 before options and parameters for gcc.
 
@@ -30,7 +30,7 @@ before options and parameters for gcc.
 
 --config 'file':
         when the --config 'file' option is given
-        minicc parses the config in 'file',
+        minimake parses the config in 'file',
         and includes the generated define switches
         into every compiled file via the gcc option -include and pipes. 
         The configfile syntax is described within the file
@@ -76,8 +76,8 @@ before options and parameters for gcc.
 --autoconf / -ac:
         This is going to generate the configuration file 'minilib.mconf'
         and compile the supplied sources with this configuration
-        It is essentially the same, as calling 'minicc --genconf minilib.mconf',
-        and 'minicc --config minilib.mconf [args]
+        It is essentially the same, as calling 'minimake --genconf minilib.mconf',
+        and 'minimake --config minilib.mconf [args]
 
 [--force] --genconf 'outfile' 'infile1' 'infile2' ...:
         parses the sourcefiles 'infile1',.. and writes a config into
@@ -93,14 +93,14 @@ before options and parameters for gcc.
 --shrinkelf:
         Shrink the resulting elf binary via tools/shrinkelf.
         TODO: implement proper search algorithm. 
-        Prob. keep shrinkelf's sourcecode within minicc (?)
+        Prob. keep shrinkelf's sourcecode within minimake (?)
 
 --dump var:
         dump the content of 'var', if defined.
 
 --dump-minilib:
         dump the contained headerfile minilib.h to stdout
-        (if bundled within minicc)
+        (if bundled within minimake)
 
 --gcc:
         The following arguments are passed unchanged to gcc.
@@ -148,6 +148,6 @@ SHOWSOURCES Set to 1 to save all combined sources into the outputfile
 
 
 \(c) 2019-2021 Michael misc Myer. All rights reserved.
- ('minicc --license' shows the license)
+ ('minimake --license' shows the license)
 
 

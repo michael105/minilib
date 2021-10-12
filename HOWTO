@@ -7,7 +7,7 @@ If you'd like to try this minilib,
 there are several ways:
 
 
-1. Using the "released" (pre-released..) bundled files "minilib.h" and "minicc" 
+1. Using the "released" (pre-released..) bundled files "minilib.h" and "minimake" 
    from the branch "release"
 ===
 
@@ -18,9 +18,9 @@ there are several ways:
 
   (source of hello-combined attached below, with explanations..)
     
-	Compile, using minicc:
+	Compile, using minimake:
 
-	minicc -o hello hello-include.c
+	minimake -o hello hello-include.c
 
 
 	The tool "shrinkelf" out of the folder minilib/tools brings this further down, now 185 Bytes here.
@@ -56,16 +56,16 @@ git clone https://github.com/michael105/minilib.git minilib
   -> this will build the folder minilib and download the sources of minilib into it.
 
 	Either export the environmental variable CC,
-	so the wrapper script minicc is going to be used by existing makefiles.
+	so the wrapper script minimake is going to be used by existing makefiles.
 	(When they take care of the environmental variable CC)
 
-export CC="path-to-minilib/minicc"
+export CC="path-to-minilib/minimake"
 
-	or call the wrapper minicc yourself, 
+	or call the wrapper minimake yourself, 
 	instead of gcc.
 
   (e.g.)
-path-to-minilib/minicc -o hello hello.c
+path-to-minilib/minimake -o hello hello.c
 
 ___________
 
@@ -89,7 +89,7 @@ ___________
 		All options, defined before the inclusion of minilib.h,
 		are going to be built.
 
-	- By the config system, integrated into minicc
+	- By the config system, integrated into minimake
 		This is the preferred way now.
 
 
@@ -112,7 +112,7 @@ copy minilib/minilib.conf ./
 
 
 
--- create/update minilib.conf.h with minicc --config minilib.conf
+-- create/update minilib.conf.h with minimake --config minilib.conf
 	
 TODO: Update docu
 
