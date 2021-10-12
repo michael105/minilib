@@ -4,7 +4,7 @@
 #PROG=malloc select
 PROG=hello
 
-PROGCUSTOM=fopen malloc fprintf select fputs
+PROGCUSTOM=fopen malloc fprintf fputs
 
 # ebedded config, minimake, wildcard target
 MAKEPROGS=fprintf fopen strchr strstr system environ static \

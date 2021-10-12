@@ -399,7 +399,9 @@ exec_gcc(){
 	fi
 
 	INCLUDECONFIG=""
-	if [ "$opt_config" != "" ]; then
+	if [ "$opt_config" == "" ]; then
+		opt_config=$sources
+	fi
 		if [ "$useincludedminilib" == "0" ]; then
 			INCLUDECONFIG="$0 --dump-config $opt_config"
 		else 
@@ -410,7 +412,6 @@ exec_gcc(){
 			#$0 --useincludedminilib --dump-minilib > minilib.tmp.h
 			#INCLUDECONFIG="-include minilibcfg.tmp.h -include minilib.tmp.h"
 		fi
-	fi
 
 
 	if [ "$useincludedminilib" == "0" ]; then
