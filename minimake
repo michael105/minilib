@@ -46,6 +46,15 @@ else
 	fi
 fi
 
+#echo $REAL_CC | sed '/gcc/Q1' > /dev/null
+#if [ $? = 1 ]; then
+#	echo $REAL_CC | sed '/9.3/Q1' > /dev/null
+#	if [ $? != 1 ]; then
+#		echo 
+#	fi
+#fi
+
+
 if [ -z "$BUILDDIR" ]; then
 	BUILDDIR="build"
 fi
@@ -329,11 +338,8 @@ exec_gcc(){
 
 
 	src=""
-		echo $RED sources: $sources
-		echo $RED $opt_args
 	if [ -z "$sources" ]; then
 		sources=`echo $opt_args | sed -E 's/.*\s(\S\S*\.c).*/\1/'`
-		echo $RED so2 $sources
 		opt_args=`echo $opt_args | sed -E 's/(.*\s)(\S\S*\.c)(.*)/\1 \3/'`
 		if [ -z "$sources" ]; then
 			sources=$config

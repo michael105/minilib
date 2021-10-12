@@ -125,7 +125,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> close fileno open<br>
+ <strong>Defines:</strong> fileno open close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -141,7 +141,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> strlen write fileno<br>
+ *Defines:</strong> write strlen fileno<br>
  <strong>put a string on a stream</strong>
 Size: ~90B <a href="../../include/fputs.h">../include/fputs.h</a> l.18 manpage: <a href="../manpages/stdio/fputs.3.rst.html">fputs</a><br>
 </p>
@@ -163,7 +163,7 @@ freopen
 <dd>
 <p>
   <em>FILE <strong>freopen(const char</strong> filename, const char* mode, FILE <strong>F)</em><br>
- *Defines:</strong> open close fileno<br>
+ *Defines:</strong> open fileno close<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -253,7 +253,7 @@ setvbuf
 <p></p>
 <hr><p><small>
 Last updated
- 2021-10-09 15:28:27 UTC
+ 2021-10-12 02:23:50 UTC
 </small></p>
 </body>
 </html>

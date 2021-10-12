@@ -15,7 +15,7 @@ fgetc
 <dd>
 <p>
   <em>int fgetc(FILE <strong>F)</em><br>
- *Defines:</strong> read fileno<br>
+ *Defines:</strong> fileno read<br>
  <strong>get a byte from a stream</strong>
 Size: ~57B <a href="../../src/streams/fgetc.c">../src/streams/fgetc.c</a> l.5 manpage: <a href="../manpages/stdio/getc.3.rst.html">fgetc</a><br>
 </p>
@@ -37,7 +37,7 @@ getc
 <dd>
 <p>
   <em>#define getc(F) fgetc(F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a byte from a stream</strong>
 <a href="../../include/fgetc.h">../include/fgetc.h</a> l.8 manpage: <a href="../manpages/stdio/getc.3.rst.html">getc</a><br>
 </p>
@@ -48,7 +48,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a byte from a</strong>
 <a href="../../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="../manpages/stdio/getc.3.rst.html">getchar</a><br>
 </p>
@@ -59,7 +59,7 @@ gets
 <dd>
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
  <strong>get a string from a</strong>
 <a href="../../src/streams/gets.c">../src/streams/gets.c</a> l.3 manpage: <a href="../manpages/stdio/fgets.3.rst.html">gets</a><br>
 </p>
@@ -95,7 +95,7 @@ ungetc
 <p></p>
 <hr><p><small>
 Last updated
- 2021-10-09 15:28:27 UTC
+ 2021-10-12 02:23:50 UTC
 </small></p>
 </body>
 </html>

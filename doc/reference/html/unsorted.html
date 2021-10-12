@@ -133,7 +133,7 @@ assert
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> getpid memcpy write rt_sigaction kill<br>
+ <strong>Defines:</strong> memcpy getpid write rt_sigaction kill<br>
 <a href="../../macros/assert.h">../macros/assert.h</a> l.4
 </p>
 </dd>
@@ -292,7 +292,7 @@ die
 <dd>
 <p>
   <em>#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> write errno_str execve exit<br>
+ <strong>Defines:</strong> errno_str write exit execve<br>
 </p>
 </dd>
 </dl>
@@ -311,7 +311,7 @@ die_if
 <dd>
 <p>
   <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
- <strong>Defines:</strong> exit execve errno_str write<br>
+ <strong>Defines:</strong> exit write errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -330,7 +330,7 @@ dief
 <dd>
 <p>
   <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> errno_str write exit fileno execve kill globals strlen getpid<br>
+ <strong>Defines:</strong> globals exit kill getpid execve fileno strlen write errno_str<br>
 </p>
 </dd>
 </dl>
@@ -349,7 +349,7 @@ dief_if
 <dd>
 <p>
   <em>#define dief_if( when, errnum, fmt,&#8230; ) if( when ) dief( errnum, fmt, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> write errno_str execve exit<br>
+ <strong>Defines:</strong> execve errno_str write exit<br>
 </p>
 </dd>
 </dl>
@@ -368,7 +368,7 @@ dies
 <dd>
 <p>
   <em>#define dies(errnum,&#8230;) {eprintsl(<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> execve exit write errno_str<br>
+ <strong>Defines:</strong> errno_str write exit execve<br>
 </p>
 </dd>
 </dl>
@@ -387,7 +387,7 @@ dies_if
 <dd>
 <p>
   <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> write errno_str execve exit<br>
+ <strong>Defines:</strong> errno_str exit write execve<br>
 </p>
 </dd>
 </dl>
@@ -438,7 +438,7 @@ err
 <dd>
 <p>
   <em>#define err( status, fmt &#8230; ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }</em><br>
- <strong>Defines:</strong> errno fileno exit kill strerror write globals getpid strlen<br>
+ <strong>Defines:</strong> globals kill exit errno getpid strlen fileno strerror write<br>
 </p>
 </dd>
 </dl>
@@ -455,7 +455,7 @@ error
 <dd>
 <p>
   <em>#define error( status, errnum, fmt &#8230; ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }</em><br>
- <strong>Defines:</strong> strerror kill exit fileno write getpid strlen globals<br>
+ <strong>Defines:</strong> globals exit kill getpid strerror fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -476,7 +476,7 @@ errx
 <dd>
 <p>
   <em>#define errx( status, fmt &#8230; ) { fprintf(stderr,fmt); exit(status); }</em><br>
- <strong>Defines:</strong> fileno exit kill write globals strlen getpid<br>
+ <strong>Defines:</strong> exit kill globals write fileno strlen getpid<br>
 </p>
 </dd>
 </dl>
@@ -567,7 +567,7 @@ fgetul
 <dd>
 <p>
   <em>unsigned long int fgetul(FILE* F)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
 </p>
 </dd>
 </dl>
@@ -627,7 +627,7 @@ getgrouplist
 <dd>
 <p>
   <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
- *Defines:</strong> token_i mmap grent passwdfile_open setgrent userdb open write setpwent pwent token_s<br>
+ *Defines:</strong> userdb write mmap open passwdfile_open grent token_i token_s setpwent setgrent pwent<br>
 </p>
 </dd>
 </dl>
@@ -644,7 +644,7 @@ getgroups
 <dd>
 <p>
   <em>int getgroups(int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> token_i mmap userdb passwdfile_open grent setgrent pwent write open setpwent getuid token_s<br>
+ *Defines:</strong> pwent setgrent open passwdfile_open grent token_i token_s setpwent getuid mmap userdb write<br>
 </p>
 </dd>
 </dl>
@@ -663,7 +663,7 @@ gethostname
 <dd>
 <p>
   <em>int gethostname(char <strong>name,int len)</em><br>
- *Defines:</strong> network uname<br>
+ *Defines:</strong> uname network<br>
 </p>
 </dd>
 </dl>
@@ -723,7 +723,7 @@ getusergroups
 <dd>
 <p>
   <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> token_s pwent setpwent open write userdb setgrent grent passwdfile_open mmap token_i<br>
+ *Defines:</strong> pwent setgrent setpwent token_s token_i passwdfile_open grent mmap open write userdb<br>
 </p>
 </dd>
 </dl>
@@ -743,7 +743,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> uitodec uitoHEX getpid itooct globals ultodec uitohex atoi write kill fileno strlen<br>
+ <strong>Defines:</strong> fileno getpid uitoHEX globals uitohex strlen ultodec itooct write uitodec atoi kill<br>
 </p>
 </dd>
 </dl>
@@ -1589,7 +1589,7 @@ setenv
 <dd>
 <p>
   <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
- *Defines:</strong> 0 ret_errno stpcpy strlen environ strcpy<br>
+ *Defines:</strong> 0 strlen strcpy stpcpy ret_errno environ<br>
 </p>
 </dd>
 </dl>
@@ -1793,7 +1793,7 @@ strndup
 <dd>
 <p>
   <em>char <strong>strndup(const char *source, int maxlen)</em><br>
- *Defines:</strong> stplcpy strlen 0<br>
+ *Defines:</strong> 0 strlen stplcpy<br>
 <a href="../../src/string/strndup.c">../src/string/strndup.c</a> l.5 manpage: <a href="../manpages/string/strdup.3.rst.html">strndup</a><br>
 </p>
 </dd>
@@ -1924,7 +1924,7 @@ term_width
 <dd>
 <p>
   <em>int term_width()</em><br>
- <strong>Defines:</strong> termio environ<br>
+ <strong>Defines:</strong> environ termio<br>
 </p>
 </dd>
 </dl>
@@ -2050,7 +2050,7 @@ userdb_open
 <dd>
 <p>
   <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
- <strong>Defines:</strong> globals write fstat close<br>
+ <strong>Defines:</strong> write close fstat globals<br>
 <a href="../../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
 </p>
 </dd>
@@ -2060,7 +2060,7 @@ warn
 <dd>
 <p>
   <em>#define warn( fmt &#8230; ) { fprintf(stderr,fmt ); }</em><br>
- <strong>Defines:</strong> strlen getpid globals write kill fileno<br>
+ <strong>Defines:</strong> kill globals write getpid fileno strlen<br>
 </p>
 </dd>
 </dl>
@@ -2076,7 +2076,7 @@ where
 <dd>
 <p>
   <em>int where(const char <strong>file,char *buf)</em><br>
- *Defines:</strong> access environ<br>
+ *Defines:</strong> environ access<br>
 </p>
 </dd>
 </dl>
@@ -2104,7 +2104,7 @@ writesl
 <p></p>
 <hr><p><small>
 Last updated
- 2021-10-09 15:28:27 UTC
+ 2021-10-12 02:23:50 UTC
 </small></p>
 </body>
 </html>
