@@ -141,7 +141,7 @@ retest:
 	cd test && make retest
 
 header:
-	cd headers && make
+	cd headers && make && cd ..
 	./scripts/genheaders.pl ./ minilib/include/*.h minilib/macros/*.h minilib/src/*/*.h minilib/src/*/*.c
 	rm minilib.conf.tmp minilib.conf.all.tmp minilib.genconf.h.tmp
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilib.h
@@ -226,8 +226,21 @@ compiled/Makefile.minilib:
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> $@; )
 	#echo "endif" >> Makefile.minilib
 
-gitversion: #compiled/Makefile.minilib
+gitversion: compiled/Makefile.minilib syntaxcheck
+	cd compiled && sha256sum minilib.h Makefile.minilib > sign.tmp
+	cd ..
 	sed -i -e 's/^VERSION := .*/VERSION := $(NOW)/' minimake
+	sed -i -n -e '1,/^define SHA256SUMS/p;/^endef/,$$p' minimake
+	sed -i -e '/^define SHA256SUMS/r compiled/sign.tmp' minimake
+	cp minimake ./compiled/
+	cp syntaxcheck.h ./compiled/
+	cd compiled 
+	rm minilib.tmp.h minilib.tmp2.h sign.tmp minilib.h
+	gzip -f syntaxcheck.h
+	v=`echo $(NOW) | tr -d '"'`
+	sed -i -e "s/v.\S*/v\.$$v/;q" README
+	sha256sum * > sha256sums.txt
+
 
 hello-combinedb: hello-combined.c tools
 	make SINGLERUN=1 PROG=hello-combined
