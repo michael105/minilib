@@ -1,4 +1,7 @@
-beta release v.20211012 of minilib.
+The bundled files of the beta release v.20211012,
+also located at
+https://github.com/michael105/minilib/tree/download
+
 
 The script minimake contains the bundled minilib with ldscripts.
 
