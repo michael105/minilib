@@ -1,4 +1,4 @@
-beta release v.XXX of minilib.
+beta release v.20211012 of minilib.
 
 The script minimake contains the bundled minilib with ldscripts.
 
@@ -14,3 +14,4 @@ of the readme at the github repository.
 
 Patches welcome.
 
+(misc 2021)

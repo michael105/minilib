@@ -238,7 +238,7 @@ gitversion: compiled/Makefile.minilib syntaxcheck
 	rm minilib.tmp.h minilib.tmp2.h sign.tmp minilib.h
 	gzip -f syntaxcheck.h
 	v=`echo $(NOW) | tr -d '"'`
-	sed -i -e "s/v.\S*/v\.$$v/;q" README
+	sed -i -e "s/release v.\S*/release v.$$v/" README
 	sha256sum * > sha256sums.txt
 
 
