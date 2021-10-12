@@ -1,4 +1,5 @@
 #if 0
+#mlconfig
 mini_start
 mini_fgets
 mini_prints

@@ -599,14 +599,14 @@ a { text-decoration: none; }
 <div class="document">
 
 
-<p><strong>minicc</strong> v.20210804</p>
-<p>Usage: <cite>minicc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf</cite></p>
-<p>minicc compiles binaries and links them statically with minilib.
+<p><strong>minimake</strong> v.20210804</p>
+<p>Usage: <cite>minimake [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf</cite></p>
+<p>minimake compiles binaries and links them statically with minilib.
 It's a wrapper to call gcc or clang with the right compile options,
 generate the config of minilib and include minilib.h.</p>
 <p>In the most shorthand form, the only argument is the file,
 containing the configuration directives. (And possibly the c source)</p>
-<p>minicc passes all options it's invoked with on to gcc,
+<p>minimake passes all options it's invoked with on to gcc,
 besides the options described below, which must be passed
 before options and parameters for gcc.</p>
 <dl>
@@ -624,7 +624,7 @@ before options and parameters for gcc.</p>
 </dd>
 <dt>--config 'file':</dt>
 <dd><p>when the --config 'file' option is given
-minicc parses the config in 'file',
+minimake parses the config in 'file',
 and includes the generated define switches
 into every compiled file via the gcc option -include and pipes.
 The configfile syntax is described within the file
@@ -674,8 +674,8 @@ name can be one of:</p>
 <dt>--autoconf / -ac:</dt>
 <dd><p>This is going to generate the configuration file 'minilib.mconf'
 and compile the supplied sources with this configuration
-It is essentially the same, as calling 'minicc --genconf minilib.mconf',
-and 'minicc --config minilib.mconf [args]</p>
+It is essentially the same, as calling 'minimake --genconf minilib.mconf',
+and 'minimake --config minilib.mconf [args]</p>
 </dd>
 <dt>[--force] --genconf 'outfile' 'infile1' 'infile2' ...:</dt>
 <dd><p>parses the sourcefiles 'infile1',.. and writes a config into
@@ -696,14 +696,14 @@ use the config file with --config 'outfile'</p>
 <dt>--shrinkelf:</dt>
 <dd><p>Shrink the resulting elf binary via tools/shrinkelf.
 TODO: implement proper search algorithm.
-Prob. keep shrinkelf's sourcecode within minicc (?)</p>
+Prob. keep shrinkelf's sourcecode within minimake (?)</p>
 </dd>
 <dt>--dump var:</dt>
 <dd><p>dump the content of 'var', if defined.</p>
 </dd>
 <dt>--dump-minilib:</dt>
 <dd><p>dump the contained headerfile minilib.h to stdout
-(if bundled within minicc)</p>
+(if bundled within minimake)</p>
 </dd>
 <dt>--gcc:</dt>
 <dd><p>The following arguments are passed unchanged to gcc.
@@ -754,7 +754,7 @@ NOCOLOR     Set this to 1 to disable colors
 SHOWSOURCES Set to 1 to save all combined sources into the outputfile</p>
 <dl class="simple">
 <dt>(c) 2019-2021 Michael misc Myer. All rights reserved.</dt>
-<dd><p>('minicc --license' shows the license)</p>
+<dd><p>('minimake --license' shows the license)</p>
 </dd>
 </dl>
 </div>

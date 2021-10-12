@@ -1,4 +1,4 @@
-#!../minicc --exec 
+#!../minimake --exec 
 // this file can be compiled and executed by just calling it..
 // The configuration of the functions to be built
 #define mini_start 

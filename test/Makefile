@@ -4,9 +4,9 @@
 #PROG=malloc select
 PROG=hello
 
-PROGCUSTOM=fopen malloc fprintf select fputs
+PROGCUSTOM=fopen malloc fprintf fputs
 
-# ebedded config, minicc, wildcard target
+# ebedded config, minimake, wildcard target
 MAKEPROGS=fprintf fopen strchr strstr system environ static \
 					hashes realloc div globals atexit \
 					strerror mallocstack strtol putenv strcmp\
@@ -80,27 +80,27 @@ $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
 all: fputs hello-combined hello-include hello-smallest args $(PROGCUSTOM) $(MAKEPROGS) common.conf
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
-	@$(foreach P,$(MINIGCC) , (echo minilib/minicc --config $(P).c -o $(P) $(P).c && minilib/minicc --config $(P).c -o $(P) $(P).c ) && ) true
+	@$(foreach P,$(MINIGCC) , (echo minilib/minimake --config $(P).c -o $(P) $(P).c && minilib/minimake --config $(P).c -o $(P) $(P).c ) && ) true
 
 test-generated: 
 	cd generated && make clean
 	cd generated && make test
 
 %: %.c
-	minilib/minicc --config $< -o $@ $<
+	minilib/minimake --config $< -o $@ $<
 
 build/minilib.o: minilib.conf
-	minilib/minicc --config minilib.conf -c -o build/minilib.o minilib.c -DINCLUDESRC
+	minilib/minimake --config minilib.conf -c -o build/minilib.o minilib.c -DINCLUDESRC
 
 
 malloc: malloc.c
-	minilib/minicc --config malloc.mconf -o malloc malloc.c
+	minilib/minimake --config malloc.mconf -o malloc malloc.c
 
 select: select.c
-	minilib/minicc -o select select.c -Iminilib/include -Iminilib/headers/common -Iminilib/headers/linux_x64 -Iminilib/macros -nostdinc
+	minilib/minimake -o select select.c -Iminilib/include -Iminilib/headers/common -Iminilib/headers/linux_x64 -Iminilib/macros -nostdinc
 
 fgets: fgets.c
-	minilib/minicc --config fgets.c -o fgets-bin fgets.c
+	minilib/minimake --config fgets.c -o fgets-bin fgets.c
 	echo '#!/bin/sh' > fgets 
 	echo 'echo -e "Xest\nfgets\n" | ./fgets-bin' >> fgets
 	chmod a+x fgets

@@ -1,4208 +1,0 @@
-#!/bin/bash
-
-VERSION="20211007"
-
-
-# colorize the output
-ansicolor=1
-
-# be verbose
-if [ -n "$VERBOSE" ]; then
-if [ $VERBOSE = 1 ]; then
-	verbose=1
-else
-	verbose=0
-fi
-else
-	verbose=0
-fi
-
-# =1 :use the minilib, included within this script as zipped file.
-# =0 :use the individual files, when existing within MLIBDIR
-useincludedminilib=1
-
-# use clang
-# CLANG=1
-
-defaultvalues (){
-#everything between _start and _end is extracted and copied into Makefile.minilib
-# ------------------
-#defaultvalues_start
-
-# gcc/clang options
-# only linux x64 for now.
-
-if [ -n "$CC" ]; then
-	REAL_CC="$CC"
-	echo $CC | sed '/clang/Q1' > /dev/null
-	if [ $? = 1 ]; then
-		CLANG=1
-	fi
-else
-	if [ "$CLANG" = 1 ]; then
-		REAL_CC="clang"
-	else
-		REAL_CC="gcc"
-	fi
-fi
-
-if [ -z "$BUILDDIR" ]; then
-	BUILDDIR="build"
-fi
-
-if [ -z "$OPTFLAG" ]; then
-	OPTFLAG="-Os"
-fi
-
-if [ -z "$PICFLAG" ]; then
-	PICFLAG="-fno-pic"
-fi
-
-#strip symbols
-if [ -z "$STRIPFLAG" ]; then
-	STRIPFLAG="-s"
-fi
-
-COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
-	-Wno-unused-variable -Wno-unused-const-variable -Wall -Wno-unused\
-	-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
-	#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -mmanual-endbr "
-
-
-# needs os detection. Only linux 64bit for now
-CFLAGS="$CFLAGS $COMMONCFLAGS -DLINUX -DX64 "
-
-# somehow; seems to be neccessary telling clang exclusively to use it's own linker.?
-if [ "$CLANG" = 1 ]; then
-	CFLAGS="$CFLAGS -fuse-ld=lld "
-else
-	CFLAGS="$CFLAGS -Wno-unused-but-set-variable "
-fi
-
-
-# ld options 
-LDFLAGS="-Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
-
-# (default) linker script. minicc is going to be invoked with minicc --dump ld_script 
-if [ -z "$LDSCRIPT" ]; then
-	LDSCRIPT="default"
-fi
-
-# colorize the output of gcc
-colorize='2>&1| sed -e "s/warning:.*/$YELLOW\0$NORM/" -e "s/note:.*/$MAGENTA\0$NORM/" -e "s/\s\^\~*/$MAGENTA\0$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$CYAN\0$NORM/" -e "s/^.*:\serror:.*/$RED\0$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$CYAN\2$NORM/" -e "/error:/h;\${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
-
-#defaultvalues_end
-# --- End of makefile inclusion
-}
-
-
-# grep minicc path 
-MLIBDIR=$(echo -e $0 | sed -E "s/(.*)\/minicc/\1/")
-if [ ! -e "$MLIBDIR/minilib.h" ]; then
-	MLIBDIR="."
-	if [ ! -e "$MLIBDIR/minilib.h" ]; then
-		MLIBDIR="/home/micha/prog/minilib"  # .. I know ;)
-	fi
-fi
-
-INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common \
-	-I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ -I$MLIBDIR/include "
-
-
-if [ ! -e "$MLIBDIR/minilib.h" ]; then # minilib not found. check, if included
-	if [  "`sed -n '/^#MINILIBGZ/,+3p' $0 | sed -n '3s/.*/1/p'`" = 1 ];then
-		useincludedminilib=1
-	fi
-fi
-
-
-echo_verbose(){
-	if [ $verbose = 1 ]; then
-		>&2 echo $@
-	fi
-}
-
-
-verbose(){
-	if [ $verbose = 1 ]; then
-		>&2 echo $@
-	fi
-}
-
-fail(){
-	echo $RED$* $NORM
-	exit 1
-}
-
-
-PARSE=1
-
-while [ 1 ]; do # loop around the whole script, 
-# source functions and variables
-# Nicer, to have all this data at the bottom than on top
-if [ $PARSE = 0 ]; then 
-
-usage(){
-	echo "minicc v.$VERSION"
-	echo
-	echo "Usage: \`minicc [options] [gcc-options] [-o outputfile] inputfile(s).c|inputfile.conf\`
-
-minicc compiles binaries and links them statically with minilib.
-It's a wrapper to call gcc or clang with the right compile options,
-generate the config of minilib and include minilib.h. 
-
-In the most shorthand form, the only argument is the file,
-containing the configuration directives. (And possibly the c source)
-
-minicc passes all options it's invoked with on to the compiler,
-besides the options described below, which must be passed 
-before options and parameters for gcc.
-Beginning with the first option, not recognized as option for minicc,
-all options are given unchanged to gcc/clang.
-
--h, --help:    
-        shows this help
-
---version:     
-        version info
-
---license:     
-        shows the license (Opensource, fair use by attribution)
-
--v,--verbose: 
-        work verbosely
-
---config 'file': 
-        when the --config 'file' option is given
-        minicc parses the config in 'file',
-        and includes the generated define switches
-        into every compiled file via the gcc option -include and pipes. 
-        The configfile syntax is described within the file
-        'minilib.mconf', which is also a minimal configuration file
-        for the hello world examples.
-        When the file 'minilib.h' is not found, 
-        minilib.h will be piped to gcc on the fly.
-
---dump-config 'file':
-        Parses 'file' as configuration file, and dumps the generated
-        define switches to stdout.
-        Used internally, to pass the generated header via pipe to gcc
-
---showsources
-        Dump all used sources to the terminal 
-        (gcc options -E -P)
-
---no-mbuf:
-        When generating a config, don't write switches for the global mini_buf, 
-        also don't generate the global structures for the fstream streams. 
-        (Handle them as simple numeric file descriptors within the according
-        minilib fstream functions)
-        Without global data some initialization code can be saved,
-        as well as all elf segments besides 'text'.
-        Either add the line into your configfile: 'LDSCRIPT onlytext'
-        Or use the switch '--ldscript onlytext'
-
---ldscript-file 'file':
-        Uses the supplied 'file' as linker script for ld.
-
---dump 'var':
-        Dumps the content of 'var' to stdout
-
---ldscript 'name': 
-        Either includes the according ld.script.'name' file 
-        from the directory ldscripts, if existent, or extracts the according
-        script and writes it into minilib.ldscript.
-        This script is passed to ld with the option -T
-        name can be one of:
-          - onlytext     ( drop all sections beside the text segment )
-          - text_and_bss ( keep also the bss segment )
-
---autoconf / -ac
-        This is going to generate the configuration file 'minilib.mconf'
-        and compile the supplied sources with this configuration
-        It is essentially the same, as calling 'minicc --genconf minilib.mconf',
-        and 'minicc --config minilib.mconf [args]
-
-[--force] --genconf 'outfile' 'infile1' 'infile2' ...:
-        parses the sourcefiles 'infile1',.. and writes a config into
-        outfile, which enables compiling of all used minilib functions
-        within 'infiles'. 
-        Most possibly you'll still have to edit the config manually,
-        e.g. printf conversions aren't correctly recognized.
-        After the config is written to outfile, 
-        use the config file with --config 'outfile' 
-          --force
-            Overwrite existing files without warning
-
---shrinkelf:
-        Shrink the resulting elf binary via tools/shrinkelf.
-        TODO: implement proper search algorithm. 
-        Prob. keep shrinkelf's sourcecode within minicc (?)
-
---dump var
-        dump the content of 'var', if defined.
-
---dump-minilib
-        dump the contained headerfile minilib.h to stdout
-        (if bundled within minicc)
-
---cc
-        The following arguments are passed unchanged to gcc.
-        It's not strictly necessary, to pass this parameter;
-        the first argument not recognized will do the same
-        and be passed on to gcc
-
---exec 'sourcefile'
-        Compile sourcefile to 'basename sourcefile .c';
-        and execute the binary 
-        (works only with embedded 'define' configuration yet) (TODO)
-
--mlc, --compile 'sourcefile'
-        compile sourcefile, use embedded scripting config
-        (same as: --config 'sourcefile' -o \`basename sourcefile\` 'sourcefile')
-
---dlog  debug log, write debug info to 'debuglog.n' (n counting up)
-
---compat
-        Include the provided compat headers (stdio.h,stdlib.h,...) directory 
-        into the include search path.
-        Using them is not recommended, they are not stable.
-
---fulldebug generate an outputfile (sourcefile.dbg.c) including the used parts
-        of minilib, and compile this file to sourcefile.dbg with the options
-        -g2 -Og set.
-
-
----------
-
-
-The following (optional) environmental variables are used:
-
-CC          The name and (optional) path of the compiler
-CFLAGS      optional flags for the compiler
-CLANG       Set this to 1 to use clang as compiler.
-            (Or set CC to clang)
-OPTFLAG     optimization flag (default -Os)
-STRIPFLAG   stripflag (default -s)
-PICFLAG     parameter -fpic/-fno-pic .. (default -fno-pic)
-LDFLAGS     (optional) flags for the linker
-LDSCRIPT    Name of the ldscript
-VERBOSE     Set this to 1 to enable verbose messages
-NOCOLOR     Set this to 1 to disable colors
-SHOWSOURCES Set to 1 to save all combined sources into the outputfile
-
-
-(c) 2019-2021 Michael misc Myer. All rights reserved.
- ('minicc --license' shows the license)
-
-"
-		exit
-}
-
-# compile gcc options and execute gcc
-exec_gcc(){
-	opt_args="$@"
-
-	if [ -n "$sources" ]; then
-		opt_args="$@ $sources"
-		verbose Source: $sources
-	fi
-
-	if [ "$opt_execname" != "" ]; then # compile and execute
-		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
-	fi
-
-	if [ -n "$SHOWSOURCES" ]; then
-		opt_args="-E -P $opt_args"
-	else
-
-		if [ -n "$outputfile" ]; then
-			echo $opt_args | sed '/-o /Q1' > /dev/null
-			if [ $? = 0 ]; then
-				opt_args="-o $outputfile $opt_args"
-			fi
-			verbose Binary: $outputfile 
-		fi
-	fi
-
-	if [ -n "$PICFLAG" ]; then
-		CFLAGS="$PICFLAG $CFLAGS"
-	fi
-
-	if [ -n "$NOCOLOR" ]; then
-		colorize=""
-	fi
-
-	INCLUDEMINILIB=""
-	if [ "$useincludedminilib" == "X" ]; then
-		INCLUDEMINILIB="-include <($0 --dump-minilib)"
-	fi
-
-
-	if [ "$useincludedminilib" == "0" ]; then
-		if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
-			LDSCRIPTFILE=",-T$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
-		fi
-	fi
-
-	if [ "$LDSCRIPTFILE" == "" ]; then
-		LDSCRIPTFILE=",-T<($0 --dump ld_script_$LDSCRIPT)"
-	fi
-	if [ "$fulldebug" == 1 ]; then
-		LDFLAGS=""
-		#LDSCRIPTFILE=",-T<(ld --verbose | sed -e '1,/^===/d;/^===/,\$d')"
-		LDSCRIPTFILE=""
-		dbgfile=`echo -n $opt_args | sed -E 's/.*-o (\S*).*/\1.dbg/'`
-		opt_args=`echo -n $opt_args | sed -E 's/-o \S*//'`
-		OPTFLAG='-g'
-	fi
-
-	INCLUDECONFIG=""
-	if [ "$opt_config" != "" ]; then
-		if [ "$useincludedminilib" == "0" ]; then
-			INCLUDECONFIG="-include <($0 --dump-config $opt_config)"
-		else 
-			#	INCLUDECONFIG="-include <($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib)"
-			#($0 --useincludedminilib --dump-config $opt_config;$0 --dump-minilib) > minilib.tmp.h
-			#($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib) > minilib.tmp.h
-			($0 --useincludedminilib --dump-config $opt_config) > minilibcfg.tmp.h
-			$0 --useincludedminilib --dump-minilib > minilib.tmp.h
-			INCLUDECONFIG="-include minilibcfg.tmp.h -include minilib.tmp.h"
-		fi
-	fi
-
-
-	if [ "$useincludedminilib" == "0" ]; then
-		CFLAGS="$INCLUDEDIRS $CFLAGS"
-	fi
-
-
-	echo_verbose "$REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
-
-
-	if [ "$debuglog" = "1" ]; then
-		let i=1;
-		while [ -e "debuglog.$i" ] 
-		do 
-			let i++
-		done
-		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E > debuglog.$i
-	fi
-
-
-	if [ "$fulldebug" == 1 ]; then
-		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
-
-		echo $CYAN eval "$REAL_CC $INCLUDECONFIG $CYAN$INCLUDEMINILIB $CFLAGS $opt_args -E" 
-		echo
-
-		eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $opt_args -E | sed '/^#/d' > $dbgfile.c
-
-		echo $CYAN "eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c"$NORM
-
-		eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c $colorize
-	else
-		# execute gcc
-		if [ "$dump_cmd" = "1" ]; then
-			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
-		else
-			eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
-		fi
-		#$REAL_CC $CFLAGS$LDSCRIPT $@
-	fi
-	return ${PIPESTATUS[1]}
-}
-
-
-# Parse config.
-# Also set variables in the current instance of minicc
-checkconfig (){
-	#( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
-	echo_verbose minilibconfig: parse $1
-	#ERR=$((source $1 > $1.h) 2>&1)
-	#echo '#include "minilib.h"' >> $1.h
-	#sed "s/command/function/"
-	ERR= source $1 2>&1 > /dev/null
-	echo_verbose var: $VAR
-	if [ -n "$ERR" ]; 
-	then
-		echo -e "Error parsing config in $1: \n $ERR" >&2
-		exit 1;
-	fi
-	# set unset values to defaults
-	defaultvalues
-	# dump parts of the config, when verbose
-	echo_verbose minilibdir: $MLIBDIR
-	echo_verbose ARCH: $MINI_ARCH
-	echo_verbose OS: $MINI_OS
-	echo_verbose ldscript: $LDSCRIPT
-}
-
-
-dumpconfig (){
-
-	exec 3>&1 4>&2 #open fd 3
-	E=$( { source $1 1>&3;} 2>&1 ) 3>&1  # redirect error messages to fd3
-
-	if [ "$E" != "" ]; 
-	then
-		echo -e "Error parsing config in $1: \n\033[1;31m $E \033[1;37m" >&2
-		#exit 1;
-	fi
-
-	if [ "$useincludedminilib" == "0" ]; then
-		echo '#include "minilib.h"'
-		#else
-		#		echo -e "#define mini_INCLUDESRC\n"
-
-	fi
-}
-
-
-genconfig(){
-cat << 'ENDL'
-#mlconfig
-ifdef undef
-#
-# type 'make -f minilib.conf'
-# to use this combined config and makefile generated by minicc,
-# compile and download when needed (ca.100kB) with minilib.
-# (https://github.com/michael105/minilib)
-#
-# Alternatively, when the script minicc with the embedded minilib is already present,
-# 'minicc --config minilib.conf' 
-# compiles without fetching minilib again.
-#
-# 
-# Minilib and the accompanying tools are licensed under a 
-# BSD-style opensource license with attribution.
-# I did my best and I'm using minilib myself,
-# but cannot give any guarantees for any functionality
-# of an opensource library or the accompanying tools.
-#
-# (Disclaimer)
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND
-# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
-# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# The full license is available at the webpage of minilib.
-# https://github.com/michael105/minilib
-# Michael (misc) Myer, 2021
-#
-
-
-ENDL
-
-
-if [ "$opt_nombuf" = "" ]; then
-		echo '# Save default. The minibuf is needed for malloc, printf, and file streams.
-mini_buf 1024'
-	else 
-	 	echo  '# Disabled mbuf. The minibuf is needed for malloc, printf, and file streams.
-# mini_buf 1024'
-fi
-
-cat << 'ENDL'						
-# define headerguards, to prevent parsing the standard header
-HEADERGUARDS
-
-# Startup function
-mini_start
-
-# put the globals on stack.
-# reserves a fixed register as pointer to the globals
-# globals_on_stack
-
-# define var (#define var arg)
-# DEFINE var arg
-
-# optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
-OPTFLAG -Os
-
-# (with debug info)
-#OPTFLAG '-g -Og'
-
-# stripflag ( defaults to -s)
-#STRIPFLAG
-
-# Build minilib source
-INCLUDESRC
-
-# the ldscript to use
-# Can be one of: default, onlytext, textandbss
-LDSCRIPT default
-
-# Shrink the compiled binary with shrinkelf
-#SHRINKELF
-
-# generate debug info (-Og -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
-#DEBUG
-
-# generate debug info, including the source of minilib itself. (-Og -g). 
-# Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
-#FULLDEBUG
-
-
-# list of source files, supplied to gcc
-# $1 expands to the current filename 
-#SOURCES $1 file1.c file2.c
-
-# the binary to be compiled ( -o $BINARY )
-#BINARY a.out
-
-# function switches. Only functions named below will be compiled
-ENDL
-
-if [ "$debuglog" = "1" ]; then
-
-		let i=1;
-
-		while [ -e "debuglog.$i" ] 
-		do 
-				let i++
-		done
-		echo "$headerguards_h" "$genconfigmacros_h" | ($REAL_CC $CFLAGS -Dincluded_minilib_h -E $@ -include <( cat - ) ) > debuglog.$i
-		echo $REAL_CC $CFLAGS $@ >> debuglog.$i
-		let i++
-		echo "$headerguards_h" "$genconfigmacros_h" >> debuglog.$i
-fi
-
-echo "$headerguards_h" "$genconfigmacros_h" \
-	| ($REAL_CC $CFLAGS -Dincluded_minilib_h -E $@ -include <( cat - ) ) \
-	| sed 's/_M_MLIB_/\n_M_MLIB_/g' | sed -n 's/^.*_M_MLIB_\(.*\)_M_.*/mini_\1/p' \
-	| sort -u 2>/dev/null 
-
-
-cat << 'ENDL'
-
-
-return
-endif
-# configuration part ends, 
-# embedded makefile starts below
-
-
-VERSION := "20210629"
-urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
-
-fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
-
-
-default: Makefile.minilib minilib.h check compile
-
-
-compile:
-	$(info Compile)
-	make -f Makefile.minilib CONF="$(lastword $(MAKEFILE_LIST))"
-
-
-Makefile.minilib:
-	$(info "Download Makefile.minilib (Version $(VERSION))from github")
-	$(call fetch,Makefile.minilib)
-
-
-minilib.h:
-	$(info "Download minilib.h (Version $(VERSION))from github")
-	$(call fetch,minilib.h)
-
-
-.ONESHELL:
-check:
-	@echo "Checking sha256 sums"
-	echo -e "$(SHA256SUMS)" | sha256sum -c || exit
-	echo ok 
-
-
-# checksums 
-define SHA256SUMS =
-e7871196b083f725cfe6d8c4a3f84d4ad1e3c246495ad9c7e870e24f22b5b37c  minilib.h
-a0f1cc92cc34fd55a500213069fcef2eda96006a71ef950c2a2744bd8fba6149  Makefile.minilib
-endef
-
-
-ENDL
-	
-return $?
-
-}
-
-
-ARGS=$@
-
-if [ "$1" = "" ]
-then
-		usage
-fi
-
-opt=1
-opt_force=0
-opt_autoconf=0
-opt_exec=0
-opt_execname=""
-outputfile="a.out"
-dump_cmd=0
-
-# Handle only one argument.
-# use either the embedded config ( first line #if 0 )
-# or one of ( in this order ): file.conf, file.mconf, minilib.conf,
-# minilib.mconf
-if [ "$2" == "" ]; then
-	if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-			usage
-	fi
-	if [ "$1" == "--license" ]; then
-			echo "$LICENSE"
-			exit
-	fi
-	if [ "$1" == "--version" ]; then
-						echo $VERSION
-						exit 0
-	fi
-
-	if [ `echo $1 | dd bs=1 count=1 2>/dev/null` != "-" ]; then	
-	config=$1
-	if [ ! -f $config ]; then
-		fail "No such file: $config"
-	fi
-	sed -n '1,2{/#if 0/q1}' $config
-	if [ $? != 1 ]; then
-		echo ${YELLOW}No configuration found in $config $NORM
-		tmp=`echo $1 | sed -E 's/(.*)\..*/\1/'`
-		for config in $tmp.conf $tmp.mconf minilib.conf minilib.mconf
-		do
-			echo Try: $config
-			if [ -f $config ]; then
-				echo Using config: $config
-				break
-			fi
-		done
-		if [ ! -f $config ]; then
-			fail "No configuration found"
-		fi
-	fi
-
-	verbose $REAL_CC config: $config
-	outputfile=`echo $1 | sed -E 's/(.*)\..*/\1/'`
-	verbose outputfile: $outputfile
-	checkconfig $config
-	opt_config=$config
-	if [ "$1" == "$outputfile" ]; then
-		fail "couldn't determine the outputfile.\nGot: $1"
-	fi
-	sources=$config 
-	#REAL_CC="$REAL_CC -o $outputfile $1"
-	#echo $REAL_CC
-	echo compile $config 
-	compile=1
-	opt=1
-	shift
-	fi
-fi
-
-# get the ouput file's name
-a=0
-for i in "$@"
-do
-	if [ $a = 1 ]; then
-		outputfile=$i
-		a=0
-		break
-	fi
-	if [ $i == "-o" ]
-	then
-		a=1
-	fi
-done
-
-#echo_verbose "output: $outputfile"
-while [ "$1" != "" ] && [ $opt = 1 ]
-do
-	opt=0
-	case $1 in
-		--cc )
-			shift
-			opt=0
-			;;
-		--gcc )
-			shift
-			opt=0
-			;;
-		--dlog )
-			shift
-			opt=1
-			debuglog=1
-			;;
-		--version )
-			echo $VERSION
-			exit 0
-			;;
-		--verbose | -v )
-			verbose=1
-			shift
-			opt=1
-			;;
-		--dump-cmd )
-			shift
-			opt=1
-			dump_cmd=1
-			;;
-		--showsources )
-			shift
-			opt=1
-			SHOWSOURCES=1
-			;;
-		--useincludedminilib )
-			shift
-			opt=1
-			useincludedminilib=1
-			;;
-
-		--dump-minilib )
-			if [ "$useincludedminilib" = "0" ] && [ -e $MLIBDIR/minilib.h ]
-			then 
-				cat $MLIBDIR/minilib.h
-			else
-				sed -e '0,/^#MINILIBGZ#$/d;/^#ENDGZ/Q' $0 | head -q -c -1 | gunzip -c
-			fi
-			exit 0
-			;;
-		--dump )
-			if [ "${!2}" == "" ] ; then
-				echo No such var: $2 >&2
-				exit 1
-			else
-				echo "${!2}"
-				exit 0
-			fi
-			;;
-		--config )   
-			shift
-			config=$1
-			checkconfig $config 
-			opt_config=$1
-			shift
-			opt=1
-			;;
-		-mlc | --compile )
-			shift
-			config=$1
-			echo $REAL_CC config: $config
-			checkconfig $config
-			opt_config=$1
-			outputfile=`basename $1 .c`
-			REAL_CC="$REAL_CC -o $outputfile $1"
-			echo $REAL_CC
-			compile=1
-			opt=1
-			shift
-			;;
-		--dump-config )   
-			shift
-			config=$1
-			dumpconfig $config 
-			exit $?
-			;;
-		--force )
-			shift
-			opt_force=1
-			opt=1
-			;;
-		--no-mbuf )
-			opt_nombuf="--no-mbuf"
-			shift
-			opt=1
-			;;
-		--compat )
-			$CFLAGS="$CFLAGS -I$MLIBDIR/compat"
-			echo Warning: compat headers >&2
-			shift
-			opt=1
-			;;
-		--exec ) #compile and run 
-			echo Sorry, not working atm.
-			echo "(TODO) - repair option --exec"
-			exit 1
-			shift
-			opt=1
-			opt_exec=1
-			opt_execname=`basename $1 .c`
-			opt_compilename=`echo $1 | sed 's/.*\///'`
-			REAL_CC="$REAL_CC -o $opt_execname" # -x c <(cat $1)"
-			BINARY=$opt_execname
-			verbose compiling $1 to $opt_execname: $REAL_CC
-			#shift
-			;;
-		--autoconf | -ac )
-			shift
-			opt_autoconf=1
-			opt=1
-			#echo "Invoking: $0 --config <($0 --dump-conf $@) $@ --include <($0 --dump-minilib)" 
-			genconfig $@ 
-			echo Ok
-			source <( genconfig $@ ) > minilib.mconf.h
-			echo '#include "minilib.h"' >> minilib.mconf.h
-			if [ "$opt_ldscript" != "" ]; then
-				$0 --ldscript $opt_ldscript $@ -include minilib.mconf.h -include <($0 --dump-minilib) -DINCLUDESRC
-			else
-				$0 $@ -include minilib.mconf.h -include <($0 --dump-minilib) -DINCLUDESRC
-			fi
-			exit $?
-			;;
-		--dump-conf )
-			shift
-			defaultvalues
-			genconfig $@
-			exit $?
-			;;
-		--genconf )
-			shift
-			outfile=$1
-			if [ -e $outfile ]
-			then
-				if [ $opt_force == 1 ]
-				then
-					echo "Overwriting $outfile"
-				else
-					echo "$outfile already exists. Won't overwrite without --force."
-					exit 1
-				fi
-			fi
-			echo generating config in $outfile
-			defaultvalues
-			shift
-			genconfig $@ > $outfile
-			exit $?
-			;;
-		--ldscript )
-			shift
-			opt_ldscript=$1
-			if [ -e "$MLIBDIR/ldscripts/ld.script.$1" ]; then
-				LDSCRIPTFILE=",-T$MLIBDIR/ldscripts/ld.script.$1"
-			else
-				LDSCRIPT="$1"
-			fi
-			shift
-			opt=1
-			;;
-		--ldscript-file )
-			shift
-			LDSCRIPT=",-T$1"
-			shift
-			opt=1
-			;;
-		--shrinkelf )
-			shift
-			opt=1
-			opt_shrinkelf=1
-			;;
-		-h | --help )   
-			usage
-			exit
-			;;
-		--license )
-			echo "$LICENSE"
-			echo
-			exit
-			;;
-		--fulldebug )
-			shift
-			opt=1
-			fulldebug=1
-			;;
-
-	esac
-done
-
-verbose Parsing args done.
-
-if [ "$1" = "" ]; then
-	if [ "$compile" != "1" ]; then
-		# Assume, everything is alright and there havent been parameters forgotten
-		# $1 will have the arguments for gcc, so continue below..
-		exit 0;
-	fi
-fi
-
-defaultvalues
-
-#echo args: $@
-if [ $opt_autoconf = 1 ]
-then
-	exec_gcc $@
-else
-	exec_gcc $@
-fi
-
-ret=$?
-
-if [ $ret != 0 ]; then
-	echo Error.
-	#echo Failed command:
-	#echo $REAL_CC $CFLAGS$LDSCRIPT $@
-	exit $ret
-else
-	verbose "Ok"
-fi
-
-if [ "$opt_shrinkelf" = "1" ]; then
-	if [ -e $MLIBDIR/tools/shrinkelf ]; then
-		echo_verbose Executing shrinkelf
-		stat -c "size of $outputfile: %sB" $outputfile
-		$MLIBDIR/tools/shrinkelf $outputfile
-		stat -c "    shrinked to: %sB" $outputfile
-		exit $?
-	fi
-fi
-
-if [ "$opt_exec" = "1" ]; then
-	verbose execute: $opt_execname
-	verbose
-	./$opt_execname
-	ret=$?
-fi
-
-verbose -e ""
-exit $ret
-
-fi
-# end of if PARSE==1
-# the loop for sourcing the whole script.
-PARSE=0
-
-
-# ansi colors
-BLACK=""$'\033[30m'""
-GRAY=""$'\033[01;30m'""
-LGREEN=""$'\033[01;32m'""
-GREEN=""$'\033[32m'""
-LRED=""$'\033[01;31m'""
-RED=""$'\033[31m'""
-YELLOW=""$'\033[01;33m'""
-BROWN=""$'\033[33m'""
-LBLUE=""$'\033[01;34m'""
-BLUE=""$'\033[34m'""
-BOLD=""$'\033[01;39m'""
-NORM=""$'\033[00m'""
-PINK=""$'\033[01;35m'""
-MAGENTA=""$'\033[00;35m'""
-LMAGENTA=""$'\033[01;35m'""
-CYAN=""$'\033[36m'""
-LCYAN=""$'\033[01;36m'""
-WHITE=""$'\033[01;37m'""
-LGRAY=""$'\033[37m'""
-
-
-# ==================================================
-# configfiles and embedded scripts start below. 
-# They are generated and included by "make minicc"
-# All changes below will be overwritten.
-# ==================================================
-
-# prefer the genconfig script, if present.
-if [ -e $MLIBDIR/scripts/genconfig.sh ]; then
-	#echo_verbose Parsing genconfig.sh
-	source $MLIBDIR/scripts/genconfig.sh
-else
-	verbose "Parsing builtin config"	
-
-# --- genconfig-start: TMPL ---
-#
-# Script, updated from "make header" / genheaders.pl
-# The functions are callen from minilib.conf 
-# (or another config file)
-# The output of this script generates minilib.conf.h
-# 
-
-# empty, to enable parsing 'makefiles'
-ifdef(){ 
-	echo -n
-}
-
-globalregister(){
-	if [ ! -z $1 ]; then 
-		echo "#define mini_globalregister $1" 
-	else 
-		echo  '#define mini_globalregister "r15"'
-	fi
-}
-
-
-mini_errno(){
-	echo "#define mini_errno $1"
-}
-
-compile(){
-	for f in `echo $* | tr ',' ' '`;
-	do "mini_$f"
-	done
-}
-
-COMPILE(){
-	for f in `echo $* | tr ',' ' '`;
-	do "mini_$f"  
-	done
-}
-
-mini_start(){
-	echo "#define mini_start $1"
-}
-mini_exit(){
-	echo "#define mini_exit $1"
-}
-
-mini_setjmp(){
-	echo "#define mini_setjmp"
-}
-
-mini_longjmp(){
-	mini_setjmp
-}
-
-LDSCRIPT(){
-	export LDSCRIPT="$1" 
-}
-
-PICFLAG(){
-	export PICFLAG="$1" 
-}
-
-
-shrinkelf(){
-	export opt_shrinkelf=1
-}
-
-SHRINKELF(){
-	export opt_shrinkelf=1
-}
-
-ARCH(){
-	echo "#define MINILIB_ARCH $1"
-	export MINI_ARCH=$1
-}
-OS(){
-	echo "#define MINILIB_OS $1"
-	export MINI_OS=$1
-}
-mini_buf(){
-	echo "#define mini_buf $1"
-}
-
-mini_INCLUDESRC(){
-	echo "#define INCLUDESRC"
-}
-
-OPTIMIZE(){
-	echo "#define mini_OPTIMIZE"
-}
-
-BINARY(){
-	export outputfile=$1
-	export BINARY=$1
-}
-
-SOURCES(){
-	export sources="$*"
-	export SOURCES="$*"
-}
-
-INCLUDESRC(){
-	echo "#define INCLUDESRC"
-}
-
-mini_GETOPTS(){
-	echo "#define mini_GETOPTS"
-}
-
-# The (optimization)-flag, gcc is callen with.
-# Either leave it blank, or set it to e.g. '-Os'
-# -O2 and higher optimizations seem to give trouble.
-# -Os, -O0, -O1 passed all tests here and might be save.
-OPTFLAG(){
-	if [ -z "$OPTFLAG" ]; then
-		export OPTFLAG=$1
-	fi
-}
-
-# The stripflag (defaults to -s)
-STRIPFLAG(){
-	if [ -z "$STRIPFLAG" ]; then
-		export STRIPFLAG=$1
-	fi
-}
-
-
-# Generate debug symbols - don't optimize, don't strip
-DEBUG(){
-	export OPTFLAG='-Og -g'
-	export STRIPFLAG=""
-	export opt_shrinkelf=0
-}
-
-
-# Generate debug symbols, including minilib's source.
-FULLDEBUG(){
-	export opt_shrinkelf=0
-	export fulldebug=1
-}
-
-
-# Generate debug symbols, including minilib itself
-# A new outputfile ( sourcefilename.dbg.c ) containing the 
-# used parts of the minilib source is generated
-# and compiled to make this work
-
-mini_HEADERGUARDS(){
-	echo "#define HEADERGUARDS"
-}
-
-
-HEADERGUARDS(){
-	echo "#define HEADERGUARDS"
-}
-
-
-mini_syscalls(){
-	echo "#define mini_syscalls"
-}
-
-globals_on_stack(){
-	echo "#define mini_globals_on_stack"
-}
-
-mini_globals(){
-	echo "#define mini_globals"
-}
-
-define(){
-	param=$1
-	shift
-	echo "#define" $param \"$*\"
-}
-
-DEFINE(){
-	param=$1
-	shift
-	echo "#define" $param \"$*\"
-	#echo "#define" $1 $2
-}
-
-embed(){
-	export embed="$*"
-}
-
-mini_getopt(){
-	echo "#define mini_getopt"
-}
-
-mini_getopt_long(){
-	echo "#define mini_getopt_long"
-}
-
-
-mini_define(){
-	if [ ! -z $2 ]; then 
-		echo "#define mini_$1 $2" 
-	else 
-		echo  "#define mini_$1 $1"
-	fi
-}
-
-
-# Everything below will be silently overwritten,
-# when make header ist invoked
-
-# --- define_functions-start: generate --- #
-mini_strncpy(){ mini_define strncpy generate; }
-mini__sched_setaffinity(){ mini_define _sched_setaffinity generate; }
-mini_strtok_r(){ mini_define strtok_r generate; }
-mini__readahead(){ mini_define _readahead generate; }
-mini_strcasecmp(){ mini_define strcasecmp generate; }
-mini_bsd_definitions(){ mini_define bsd_definitions generate; }
-mini_uitodec(){ mini_define uitodec generate; }
-mini__ioctl(){ mini_define _ioctl generate; }
-mini__fchmod(){ mini_define _fchmod generate; }
-mini_msync(){ mini_define msync generate; }
-mini_setvbuf(){ mini_define setvbuf generate; }
-mini_fprintfs(){ mini_define fprintfs generate; }
-mini_fdopen(){ mini_define fdopen generate; }
-mini_ret_errno(){ mini_define ret_errno generate; }
-mini__preadv(){ mini_define _preadv generate; }
-mini_strndup(){ mini_define strndup generate; }
-mini_eprint(){ mini_define eprint generate; }
-mini_flock(){ mini_define flock generate; }
-mini_locale_dummies(){ mini_define locale_dummies generate; }
-mini__rename(){ mini_define _rename generate; }
-mini__inotify_rm_watch(){ mini_define _inotify_rm_watch generate; }
-mini__mprotect(){ mini_define _mprotect generate; }
-mini__getdents(){ mini_define _getdents generate; }
-mini__uname(){ mini_define _uname generate; }
-mini__ustat(){ mini_define _ustat generate; }
-mini_getuid(){ mini_define getuid generate; }
-mini__rt_sigaction(){ mini_define _rt_sigaction generate; }
-mini__sched_rr_get_interval(){ mini_define _sched_rr_get_interval generate; }
-mini_match_ext(){ mini_define match_ext generate; }
-mini_strchr(){ mini_define strchr generate; }
-mini__mq_unlink(){ mini_define _mq_unlink generate; }
-mini_read(){ mini_define read generate; }
-mini_bsd_cksumblock(){ mini_define bsd_cksumblock generate; }
-mini_feof(){ mini_define feof generate; }
-mini__ioperm(){ mini_define _ioperm generate; }
-mini_fopen(){ mini_define fopen generate; }
-mini_perror(){ mini_define perror generate; }
-mini_verbose_errstr2(){ mini_define verbose_errstr2 generate; }
-mini__open(){ mini_define _open generate; }
-mini_fgets(){ mini_define fgets generate; }
-mini_itoHEX(){ mini_define itoHEX generate; }
-mini_cfmakeraw(){ mini_define cfmakeraw generate; }
-mini_killpg(){ mini_define killpg generate; }
-mini_print(){ mini_define print generate; }
-mini__recvmsg(){ mini_define _recvmsg generate; }
-mini__capset(){ mini_define _capset generate; }
-mini_unlockpt(){ mini_define unlockpt generate; }
-mini__epoll_create1(){ mini_define _epoll_create1 generate; }
-mini_term_width(){ mini_define term_width generate; }
-mini__vmsplice(){ mini_define _vmsplice generate; }
-mini_writes(){ mini_define writes generate; }
-mini_ewrites(){ mini_define ewrites generate; }
-mini__shutdown(){ mini_define _shutdown generate; }
-mini__mincore(){ mini_define _mincore generate; }
-mini_system(){ mini_define system generate; }
-mini__fgetxattr(){ mini_define _fgetxattr generate; }
-mini__fstat(){ mini_define _fstat generate; }
-mini_times(){ mini_define times generate; }
-mini__shmat(){ mini_define _shmat generate; }
-mini__signalfd4(){ mini_define _signalfd4 generate; }
-mini__epoll_pwait(){ mini_define _epoll_pwait generate; }
-mini__setresuid(){ mini_define _setresuid generate; }
-mini_getpwnam(){ mini_define getpwnam generate; }
-mini_dirbufsize (){ mini_define dirbufsize  generate; }
-mini__unshare(){ mini_define _unshare generate; }
-mini_errno_str(){ mini_define errno_str generate; }
-mini__process_vm_readv(){ mini_define _process_vm_readv generate; }
-mini_strncat(){ mini_define strncat generate; }
-mini__pread64(){ mini_define _pread64 generate; }
-mini__match(){ mini_define _match generate; }
-mini__io_getevents(){ mini_define _io_getevents generate; }
-mini__clone(){ mini_define _clone generate; }
-mini__timer_delete(){ mini_define _timer_delete generate; }
-mini_match_ext2(){ mini_define match_ext2 generate; }
-mini__sysfs(){ mini_define _sysfs generate; }
-mini_vhangup(){ mini_define vhangup generate; }
-mini__get_mempolicy(){ mini_define _get_mempolicy generate; }
-mini_endpwent(){ mini_define endpwent generate; }
-mini__setsid(){ mini_define _setsid generate; }
-mini_inotify_init1(){ mini_define inotify_init1 generate; }
-mini__getitimer(){ mini_define _getitimer generate; }
-mini__kexec_load(){ mini_define _kexec_load generate; }
-mini_rewind(){ mini_define rewind generate; }
-mini_pipe(){ mini_define pipe generate; }
-mini__personality(){ mini_define _personality generate; }
-mini_fexecve(){ mini_define fexecve generate; }
-mini_getegid(){ mini_define getegid generate; }
-mini_dirfd(){ mini_define dirfd generate; }
-mini__execve(){ mini_define _execve generate; }
-mini_itobin(){ mini_define itobin generate; }
-mini_mprotect(){ mini_define mprotect generate; }
-mini_swap(){ mini_define swap generate; }
-mini_tolower(){ mini_define tolower generate; }
-mini_creat(){ mini_define creat generate; }
-mini_strcmp(){ mini_define strcmp generate; }
-mini_fwritesl(){ mini_define fwritesl generate; }
-mini__flistxattr(){ mini_define _flistxattr generate; }
-mini__itohex(){ mini_define _itohex generate; }
-mini_setrlimit(){ mini_define setrlimit generate; }
-mini_mmap(){ mini_define mmap generate; }
-mini__syncfs(){ mini_define _syncfs generate; }
-mini__fremovexattr(){ mini_define _fremovexattr generate; }
-mini_chown(){ mini_define chown generate; }
-mini__name_to_handle_at(){ mini_define _name_to_handle_at generate; }
-mini_network(){ mini_define network generate; }
-mini__fallocate(){ mini_define _fallocate generate; }
-mini_getgid(){ mini_define getgid generate; }
-mini__seccomp(){ mini_define _seccomp generate; }
-mini_link(){ mini_define link generate; }
-mini_getgrgid(){ mini_define getgrgid generate; }
-mini_uitohex(){ mini_define uitohex generate; }
-mini_exit(){ mini_define exit generate; }
-mini__msync(){ mini_define _msync generate; }
-mini_malloc(){ mini_define malloc generate; }
-mini_dief(){ mini_define dief generate; }
-mini__remap_file_pages(){ mini_define _remap_file_pages generate; }
-mini__sched_getattr(){ mini_define _sched_getattr generate; }
-mini__setsockopt(){ mini_define _setsockopt generate; }
-mini_realloc(){ mini_define realloc generate; }
-mini_ultodec(){ mini_define ultodec generate; }
-mini__access(){ mini_define _access generate; }
-mini__timerfd_settime(){ mini_define _timerfd_settime generate; }
-mini__mkdirat(){ mini_define _mkdirat generate; }
-mini_inotify_rm_watch(){ mini_define inotify_rm_watch generate; }
-mini_die_if(){ mini_define die_if generate; }
-mini__mprints(){ mini_define _mprints generate; }
-mini_ftruncate(){ mini_define ftruncate generate; }
-mini_vexec_q(){ mini_define vexec_q generate; }
-mini_ioctl(){ mini_define ioctl generate; }
-mini__truncate(){ mini_define _truncate generate; }
-mini__epoll_ctl(){ mini_define _epoll_ctl generate; }
-mini__modify_ldt(){ mini_define _modify_ldt generate; }
-mini__faccessat(){ mini_define _faccessat generate; }
-mini_getchar(){ mini_define getchar generate; }
-mini__timerfd_gettime(){ mini_define _timerfd_gettime generate; }
-mini_sys_signame(){ mini_define sys_signame generate; }
-mini_symlink(){ mini_define symlink generate; }
-mini__setfsuid(){ mini_define _setfsuid generate; }
-mini__strcasecmp(){ mini_define _strcasecmp generate; }
-mini_fcntl(){ mini_define fcntl generate; }
-mini_getc(){ mini_define getc generate; }
-mini__perf_event_open(){ mini_define _perf_event_open generate; }
-mini_setsid(){ mini_define setsid generate; }
-mini_poll(){ mini_define poll generate; }
-mini_rt_sigreturn(){ mini_define rt_sigreturn generate; }
-mini_lstat(){ mini_define lstat generate; }
-mini__shmget(){ mini_define _shmget generate; }
-mini__semtimedop(){ mini_define _semtimedop generate; }
-mini_ntohs(){ mini_define ntohs generate; }
-mini_bsd_timespec(){ mini_define bsd_timespec generate; }
-mini__semctl(){ mini_define _semctl generate; }
-mini_ether_ntoa(){ mini_define ether_ntoa generate; }
-mini_execve(){ mini_define execve generate; }
-mini__epoll_wait(){ mini_define _epoll_wait generate; }
-mini_clearerr(){ mini_define clearerr generate; }
-mini__set_robust_list(){ mini_define _set_robust_list generate; }
-mini_fgetc(){ mini_define fgetc generate; }
-mini__unlinkat(){ mini_define _unlinkat generate; }
-mini_mknod(){ mini_define mknod generate; }
-mini__vfork(){ mini_define _vfork generate; }
-mini_max_groupmembers(){ mini_define max_groupmembers generate; }
-mini_printf(){ mini_define printf generate; }
-mini_eputs(){ mini_define eputs generate; }
-mini_strncmp(){ mini_define strncmp generate; }
-mini_chroot(){ mini_define chroot generate; }
-mini_bind(){ mini_define bind generate; }
-mini_dirname(){ mini_define dirname generate; }
-mini_fgetsp(){ mini_define fgetsp generate; }
-mini__io_setup(){ mini_define _io_setup generate; }
-mini__getsockopt(){ mini_define _getsockopt generate; }
-mini_ptsname(){ mini_define ptsname generate; }
-mini__munlock(){ mini_define _munlock generate; }
-mini_sprintf(){ mini_define sprintf generate; }
-mini_scandir(){ mini_define scandir generate; }
-mini__mknod(){ mini_define _mknod generate; }
-mini__recvfrom(){ mini_define _recvfrom generate; }
-mini_dprints(){ mini_define dprints generate; }
-mini_strncasecmp(){ mini_define strncasecmp generate; }
-mini__socketpair(){ mini_define _socketpair generate; }
-mini_telldir(){ mini_define telldir generate; }
-mini_userdb(){ mini_define userdb generate; }
-mini__waitid(){ mini_define _waitid generate; }
-mini__dup2(){ mini_define _dup2 generate; }
-mini__creat(){ mini_define _creat generate; }
-mini_fexecveat(){ mini_define fexecveat generate; }
-mini__ftruncate(){ mini_define _ftruncate generate; }
-mini_setgid(){ mini_define setgid generate; }
-mini__rmdir(){ mini_define _rmdir generate; }
-mini_sigsuspend(){ mini_define sigsuspend generate; }
-mini_inet_aton(){ mini_define inet_aton generate; }
-mini_dup(){ mini_define dup generate; }
-mini_group_print(){ mini_define group_print generate; }
-mini__clock_nanosleep(){ mini_define _clock_nanosleep generate; }
-mini_getrlimit(){ mini_define getrlimit generate; }
-mini_open(){ mini_define open generate; }
-mini_fgetud(){ mini_define fgetud generate; }
-mini_wait(){ mini_define wait generate; }
-mini_strtok(){ mini_define strtok generate; }
-mini__socket(){ mini_define _socket generate; }
-mini__setns(){ mini_define _setns generate; }
-mini__eventfd(){ mini_define _eventfd generate; }
-mini__sched_setattr(){ mini_define _sched_setattr generate; }
-mini__futex(){ mini_define _futex generate; }
-mini_OPTIMIZATIONS(){ mini_define OPTIMIZATIONS generate; }
-mini_fgetul(){ mini_define fgetul generate; }
-mini__madvise(){ mini_define _madvise generate; }
-mini__fcntl(){ mini_define _fcntl generate; }
-mini_dup2(){ mini_define dup2 generate; }
-mini__itobin(){ mini_define _itobin generate; }
-mini_errx(){ mini_define errx generate; }
-mini__msgget(){ mini_define _msgget generate; }
-mini__strcmp(){ mini_define _strcmp generate; }
-mini__add_key(){ mini_define _add_key generate; }
-mini_uitoHEX(){ mini_define uitoHEX generate; }
-mini_grent(){ mini_define grent generate; }
-mini_fchmod(){ mini_define fchmod generate; }
-mini_recvfrom(){ mini_define recvfrom generate; }
-mini__chmod(){ mini_define _chmod generate; }
-mini_getgrnam(){ mini_define getgrnam generate; }
-mini_fgetsn(){ mini_define fgetsn generate; }
-mini__nanosleep(){ mini_define _nanosleep generate; }
-mini_putenv(){ mini_define putenv generate; }
-mini__clock_getres(){ mini_define _clock_getres generate; }
-mini__lremovexattr(){ mini_define _lremovexattr generate; }
-mini__rt_sigsuspend(){ mini_define _rt_sigsuspend generate; }
-mini_memcmp(){ mini_define memcmp generate; }
-mini__kcmp(){ mini_define _kcmp generate; }
-mini__get_robust_list(){ mini_define _get_robust_list generate; }
-mini_fork(){ mini_define fork generate; }
-mini_raise(){ mini_define raise generate; }
-mini_strlcpy(){ mini_define strlcpy generate; }
-mini__lseek(){ mini_define _lseek generate; }
-mini__restart_syscall(){ mini_define _restart_syscall generate; }
-mini_dirbuf(){ mini_define dirbuf generate; }
-mini_endgrent(){ mini_define endgrent generate; }
-mini_prctl(){ mini_define prctl generate; }
-mini__unlink(){ mini_define _unlink generate; }
-mini_dirbuf_malloc(){ mini_define dirbuf_malloc generate; }
-mini_clone(){ mini_define clone generate; }
-mini__semop(){ mini_define _semop generate; }
-mini__request_key(){ mini_define _request_key generate; }
-mini__llistxattr(){ mini_define _llistxattr generate; }
-mini_getsid(){ mini_define getsid generate; }
-mini_printfs(){ mini_define printfs generate; }
-mini_atexit(){ mini_define atexit generate; }
-mini__wait4(){ mini_define _wait4 generate; }
-mini__mq_open(){ mini_define _mq_open generate; }
-mini__getpid(){ mini_define _getpid generate; }
-mini_getpwuid(){ mini_define getpwuid generate; }
-mini_basename(){ mini_define basename generate; }
-mini__set_tid_address(){ mini_define _set_tid_address generate; }
-mini_geteuid(){ mini_define geteuid generate; }
-mini_OPTFENCE(){ mini_define OPTFENCE generate; }
-mini_sync(){ mini_define sync generate; }
-mini_unsetenv(){ mini_define unsetenv generate; }
-mini_eprints(){ mini_define eprints generate; }
-mini_fseek(){ mini_define fseek generate; }
-mini__renameat(){ mini_define _renameat generate; }
-mini__epoll_create(){ mini_define _epoll_create generate; }
-mini_umount2(){ mini_define umount2 generate; }
-mini_error(){ mini_define error generate; }
-mini__umount2(){ mini_define _umount2 generate; }
-mini_getppid(){ mini_define getppid generate; }
-mini__newfstatat(){ mini_define _newfstatat generate; }
-mini__futimesat(){ mini_define _futimesat generate; }
-mini__die(){ mini_define _die generate; }
-mini_setuid(){ mini_define setuid generate; }
-mini_usleep(){ mini_define usleep generate; }
-mini__link(){ mini_define _link generate; }
-mini__fchmodat(){ mini_define _fchmodat generate; }
-mini_close(){ mini_define close generate; }
-mini__sched_getaffinity(){ mini_define _sched_getaffinity generate; }
-mini_userdb_open(){ mini_define userdb_open generate; }
-mini_ctype_functions(){ mini_define ctype_functions generate; }
-mini__mlockall(){ mini_define _mlockall generate; }
-mini__flock(){ mini_define _flock generate; }
-mini_strtol(){ mini_define strtol generate; }
-mini__lstat(){ mini_define _lstat generate; }
-mini__lgetxattr(){ mini_define _lgetxattr generate; }
-mini__writev(){ mini_define _writev generate; }
-mini__alarm(){ mini_define _alarm generate; }
-mini_gets(){ mini_define gets generate; }
-mini__listen(){ mini_define _listen generate; }
-mini_rand(){ mini_define rand generate; }
-mini_ungetc(){ mini_define ungetc generate; }
-mini_htons(){ mini_define htons generate; }
-mini__getrandom(){ mini_define _getrandom generate; }
-mini_ALIGN(){ mini_define ALIGN generate; }
-mini_getdents(){ mini_define getdents generate; }
-mini_sigprocmask(){ mini_define sigprocmask generate; }
-mini__symlinkat(){ mini_define _symlinkat generate; }
-mini_tcsetattr(){ mini_define tcsetattr generate; }
-mini_getpgrp(){ mini_define getpgrp generate; }
-mini__sync(){ mini_define _sync generate; }
-mini__fopen(){ mini_define _fopen generate; }
-mini__mbind(){ mini_define _mbind generate; }
-mini_execl(){ mini_define execl generate; }
-mini__sched_get_priority_max(){ mini_define _sched_get_priority_max generate; }
-mini_fsync(){ mini_define fsync generate; }
-mini_vsprintf(){ mini_define vsprintf generate; }
-mini__recvmmsg(){ mini_define _recvmmsg generate; }
-mini_bsearch(){ mini_define bsearch generate; }
-mini__rt_tgsigqueueinfo(){ mini_define _rt_tgsigqueueinfo generate; }
-mini__getsid(){ mini_define _getsid generate; }
-mini__rt_sigpending(){ mini_define _rt_sigpending generate; }
-mini__set_mempolicy(){ mini_define _set_mempolicy generate; }
-mini_ewrite(){ mini_define ewrite generate; }
-mini_printsl(){ mini_define printsl generate; }
-mini_itodec(){ mini_define itodec generate; }
-mini_gettimeofday(){ mini_define gettimeofday generate; }
-mini_match(){ mini_define match generate; }
-mini__rt_sigreturn(){ mini_define _rt_sigreturn generate; }
-mini__setitimer(){ mini_define _setitimer generate; }
-mini__renameat2(){ mini_define _renameat2 generate; }
-mini_dies(){ mini_define dies generate; }
-mini_ansicolors(){ mini_define ansicolors generate; }
-mini_verbose_errstr(){ mini_define verbose_errstr generate; }
-mini_stpcpy(){ mini_define stpcpy generate; }
-mini__getresuid(){ mini_define _getresuid generate; }
-mini_access(){ mini_define access generate; }
-mini_strrchr(){ mini_define strrchr generate; }
-mini__setfsgid(){ mini_define _setfsgid generate; }
-mini_mremap(){ mini_define mremap generate; }
-mini__readv(){ mini_define _readv generate; }
-mini_die(){ mini_define die generate; }
-mini__swapon(){ mini_define _swapon generate; }
-mini_optimization_fence(){ mini_define optimization_fence generate; }
-mini_sigemptyset(){ mini_define sigemptyset generate; }
-mini_mount(){ mini_define mount generate; }
-mini_fflush(){ mini_define fflush generate; }
-mini__getcwd(){ mini_define _getcwd generate; }
-mini_pwent(){ mini_define pwent generate; }
-mini_memchr(){ mini_define memchr generate; }
-mini_fprintf(){ mini_define fprintf generate; }
-mini_mkdir(){ mini_define mkdir generate; }
-mini__shmdt(){ mini_define _shmdt generate; }
-mini_sleep(){ mini_define sleep generate; }
-mini_tcsetpgrp(){ mini_define tcsetpgrp generate; }
-mini__pselect6(){ mini_define _pselect6 generate; }
-mini__getrusage(){ mini_define _getrusage generate; }
-mini__getdents64(){ mini_define _getdents64 generate; }
-mini_def(){ mini_define def generate; }
-mini__gettid(){ mini_define _gettid generate; }
-mini__mq_timedreceive(){ mini_define _mq_timedreceive generate; }
-mini__symlink(){ mini_define _symlink generate; }
-mini__times(){ mini_define _times generate; }
-mini_setsockopt(){ mini_define setsockopt generate; }
-mini_seterrno(){ mini_define seterrno generate; }
-mini__pipe(){ mini_define _pipe generate; }
-mini__timer_getoverrun(){ mini_define _timer_getoverrun generate; }
-mini_freopen(){ mini_define freopen generate; }
-mini__mount(){ mini_define _mount generate; }
-mini_itohex(){ mini_define itohex generate; }
-mini_exit_errno(){ mini_define exit_errno generate; }
-mini__munmap(){ mini_define _munmap generate; }
-mini_munmap(){ mini_define munmap generate; }
-mini_strpbrk(){ mini_define strpbrk generate; }
-mini_htonl(){ mini_define htonl generate; }
-mini_setgrent(){ mini_define setgrent generate; }
-mini__inotify_init1(){ mini_define _inotify_init1 generate; }
-mini_gethostname(){ mini_define gethostname generate; }
-mini_malloc_brk(){ mini_define malloc_brk generate; }
-mini__getresgid(){ mini_define _getresgid generate; }
-mini__rt_sigqueueinfo(){ mini_define _rt_sigqueueinfo generate; }
-mini__timer_gettime(){ mini_define _timer_gettime generate; }
-mini__sched_yield(){ mini_define _sched_yield generate; }
-mini__utime(){ mini_define _utime generate; }
-mini_ftell(){ mini_define ftell generate; }
-mini_clone_t(){ mini_define clone_t generate; }
-mini_abs(){ mini_define abs generate; }
-mini__keyctl(){ mini_define _keyctl generate; }
-mini_globals(){ mini_define globals generate; }
-mini_fprints(){ mini_define fprints generate; }
-mini__mlock(){ mini_define _mlock generate; }
-mini_dief_if(){ mini_define dief_if generate; }
-mini_reboot(){ mini_define reboot generate; }
-mini_readdir(){ mini_define readdir generate; }
-mini_getusergroups(){ mini_define getusergroups generate; }
-mini_memfd_create(){ mini_define memfd_create generate; }
-mini_listen(){ mini_define listen generate; }
-mini__geteuid(){ mini_define _geteuid generate; }
-mini_eprintl(){ mini_define eprintl generate; }
-mini_termio(){ mini_define termio generate; }
-mini_readahead(){ mini_define readahead generate; }
-mini_signal(){ mini_define signal generate; }
-mini_eprintf(){ mini_define eprintf generate; }
-mini_sigdelset(){ mini_define sigdelset generate; }
-mini_bsd_cksum(){ mini_define bsd_cksum generate; }
-mini__msgrcv(){ mini_define _msgrcv generate; }
-mini__read(){ mini_define _read generate; }
-mini_memmove(){ mini_define memmove generate; }
-mini_puts(){ mini_define puts generate; }
-mini_fread(){ mini_define fread generate; }
-mini_socket(){ mini_define socket generate; }
-mini_labs(){ mini_define labs generate; }
-mini__connect(){ mini_define _connect generate; }
-mini_scandir_bufsize(){ mini_define scandir_bufsize generate; }
-mini__time(){ mini_define _time generate; }
-mini_splice(){ mini_define splice generate; }
-mini_short_errstr(){ mini_define short_errstr generate; }
-mini__linkat(){ mini_define _linkat generate; }
-mini_group_printf(){ mini_define group_printf generate; }
-mini__kill(){ mini_define _kill generate; }
-mini__fanotify_init(){ mini_define _fanotify_init generate; }
-mini__ioprio_set(){ mini_define _ioprio_set generate; }
-mini__prlimit64(){ mini_define _prlimit64 generate; }
-mini_map_protected(){ mini_define map_protected generate; }
-mini_timerfd_settime(){ mini_define timerfd_settime generate; }
-mini__finit_module(){ mini_define _finit_module generate; }
-mini_fwrite(){ mini_define fwrite generate; }
-mini_fstat(){ mini_define fstat generate; }
-mini_itooct(){ mini_define itooct generate; }
-mini__write(){ mini_define _write generate; }
-mini_strtoimax(){ mini_define strtoimax generate; }
-mini__swapoff(){ mini_define _swapoff generate; }
-mini__msgsnd(){ mini_define _msgsnd generate; }
-mini__stat(){ mini_define _stat generate; }
-mini_utime(){ mini_define utime generate; }
-mini_execv(){ mini_define execv generate; }
-mini__ppoll(){ mini_define _ppoll generate; }
-mini__setpriority(){ mini_define _setpriority generate; }
-mini_warn(){ mini_define warn generate; }
-mini__memfd_create(){ mini_define _memfd_create generate; }
-mini__sched_setscheduler(){ mini_define _sched_setscheduler generate; }
-mini_strlen(){ mini_define strlen generate; }
-mini__splice(){ mini_define _splice generate; }
-mini_writesl(){ mini_define writesl generate; }
-mini_sigismember(){ mini_define sigismember generate; }
-mini__signalfd(){ mini_define _signalfd generate; }
-mini_strdup(){ mini_define strdup generate; }
-mini_strspn(){ mini_define strspn generate; }
-mini__init_module(){ mini_define _init_module generate; }
-mini_mkfifo(){ mini_define mkfifo generate; }
-mini__sched_getparam(){ mini_define _sched_getparam generate; }
-mini_fileno(){ mini_define fileno generate; }
-mini_getpwent(){ mini_define getpwent generate; }
-mini_timerfd_create(){ mini_define timerfd_create generate; }
-mini_nanosleep(){ mini_define nanosleep generate; }
-mini__fchown(){ mini_define _fchown generate; }
-mini_unmap_protected(){ mini_define unmap_protected generate; }
-mini__io_destroy(){ mini_define _io_destroy generate; }
-mini_recv(){ mini_define recv generate; }
-mini__arch_prctl(){ mini_define _arch_prctl generate; }
-mini_atoi(){ mini_define atoi generate; }
-mini__getcpu(){ mini_define _getcpu generate; }
-mini_config(){ mini_define config generate; }
-mini_execvpe(){ mini_define execvpe generate; }
-mini__mknodat(){ mini_define _mknodat generate; }
-mini___sysctl(){ mini_define __sysctl generate; }
-mini__fchdir(){ mini_define _fchdir generate; }
-mini__getgid(){ mini_define _getgid generate; }
-mini_rt_sigaction(){ mini_define rt_sigaction generate; }
-mini__fork(){ mini_define _fork generate; }
-mini_djb_cksum(){ mini_define djb_cksum generate; }
-mini_inotify_add_watch(){ mini_define inotify_add_watch generate; }
-mini__gettimeofday(){ mini_define _gettimeofday generate; }
-mini__utimensat(){ mini_define _utimensat generate; }
-mini__migrate_pages(){ mini_define _migrate_pages generate; }
-mini_tcgetpgrp(){ mini_define tcgetpgrp generate; }
-mini_wait4(){ mini_define wait4 generate; }
-mini__clock_settime(){ mini_define _clock_settime generate; }
-mini_accept(){ mini_define accept generate; }
-mini_fgetpos(){ mini_define fgetpos generate; }
-mini_strerror(){ mini_define strerror generate; }
-mini_select(){ mini_define select generate; }
-mini__process_vm_writev(){ mini_define _process_vm_writev generate; }
-mini_getenv(){ mini_define getenv generate; }
-mini__io_cancel(){ mini_define _io_cancel generate; }
-mini_inotify_init(){ mini_define inotify_init generate; }
-mini_memfrob(){ mini_define memfrob generate; }
-mini__exit_group(){ mini_define _exit_group generate; }
-mini__open_by_handle_at(){ mini_define _open_by_handle_at generate; }
-mini__getegid(){ mini_define _getegid generate; }
-mini_sdbm_hash(){ mini_define sdbm_hash generate; }
-mini_dprintf(){ mini_define dprintf generate; }
-mini_abort(){ mini_define abort generate; }
-mini_strstr(){ mini_define strstr generate; }
-mini_dtodec(){ mini_define dtodec generate; }
-mini_closedir(){ mini_define closedir generate; }
-mini_getresuid(){ mini_define getresuid generate; }
-mini_getrusage(){ mini_define getrusage generate; }
-mini__getxattr(){ mini_define _getxattr generate; }
-mini_memcpy(){ mini_define memcpy generate; }
-mini_ldiv(){ mini_define ldiv generate; }
-mini__lookup_dcookie(){ mini_define _lookup_dcookie generate; }
-mini_token_i(){ mini_define token_i generate; }
-mini__pause(){ mini_define _pause generate; }
-mini_getitimer(){ mini_define getitimer generate; }
-mini__setpgid(){ mini_define _setpgid generate; }
-mini_inet_ntoa(){ mini_define inet_ntoa generate; }
-mini_strcspn(){ mini_define strcspn generate; }
-mini_getcwd(){ mini_define getcwd generate; }
-mini_stpncpy(){ mini_define stpncpy generate; }
-mini_setgroups(){ mini_define setgroups generate; }
-mini__getppid(){ mini_define _getppid generate; }
-mini__setuid(){ mini_define _setuid generate; }
-mini__msgctl(){ mini_define _msgctl generate; }
-mini_eprintsl(){ mini_define eprintsl generate; }
-mini_setbrk(){ mini_define setbrk generate; }
-mini_tcgetattr(){ mini_define tcgetattr generate; }
-mini_group_write(){ mini_define group_write generate; }
-mini__getgroups(){ mini_define _getgroups generate; }
-mini_strchrnul(){ mini_define strchrnul generate; }
-mini__dup(){ mini_define _dup generate; }
-mini__setrlimit(){ mini_define _setrlimit generate; }
-mini_fchown(){ mini_define fchown generate; }
-mini__pwrite64(){ mini_define _pwrite64 generate; }
-mini__sendmmsg(){ mini_define _sendmmsg generate; }
-mini_atol(){ mini_define atol generate; }
-mini__tkill(){ mini_define _tkill generate; }
-mini__chown(){ mini_define _chown generate; }
-mini__sendfile(){ mini_define _sendfile generate; }
-mini_pivot_root(){ mini_define pivot_root generate; }
-mini__io_submit(){ mini_define _io_submit generate; }
-mini__lsetxattr(){ mini_define _lsetxattr generate; }
-mini_sendfile(){ mini_define sendfile generate; }
-mini_rename(){ mini_define rename generate; }
-mini__setregid(){ mini_define _setregid generate; }
-mini__sendto(){ mini_define _sendto generate; }
-mini_errno(){ mini_define errno generate; }
-mini_setenv(){ mini_define setenv generate; }
-mini_fsetpos(){ mini_define fsetpos generate; }
-mini_chdir(){ mini_define chdir generate; }
-mini__accept(){ mini_define _accept generate; }
-mini__sendmsg(){ mini_define _sendmsg generate; }
-mini_ferror(){ mini_define ferror generate; }
-mini__readlinkat(){ mini_define _readlinkat generate; }
-mini_strcpy(){ mini_define strcpy generate; }
-mini__fsetxattr(){ mini_define _fsetxattr generate; }
-mini_setreuid(){ mini_define setreuid generate; }
-mini__getsockname(){ mini_define _getsockname generate; }
-mini_fclose(){ mini_define fclose generate; }
-mini__settimeofday(){ mini_define _settimeofday generate; }
-mini__capget(){ mini_define _capget generate; }
-mini__close(){ mini_define _close generate; }
-mini__fchownat(){ mini_define _fchownat generate; }
-mini_snprintf(){ mini_define snprintf generate; }
-mini__ptrace(){ mini_define _ptrace generate; }
-mini_getpid(){ mini_define getpid generate; }
-mini__sched_setparam(){ mini_define _sched_setparam generate; }
-mini__sysinfo(){ mini_define _sysinfo generate; }
-mini_rmdir(){ mini_define rmdir generate; }
-mini__removexattr(){ mini_define _removexattr generate; }
-mini_putchar(){ mini_define putchar generate; }
-mini__mkdir(){ mini_define _mkdir generate; }
-mini__fsync(){ mini_define _fsync generate; }
-mini_vfprintf(){ mini_define vfprintf generate; }
-mini__setgid(){ mini_define _setgid generate; }
-mini_alphasort(){ mini_define alphasort generate; }
-mini__clock_gettime(){ mini_define _clock_gettime generate; }
-mini_clearerror(){ mini_define clearerror generate; }
-mini_assert(){ mini_define assert generate; }
-mini__semget(){ mini_define _semget generate; }
-mini_time(){ mini_define time generate; }
-mini_execvp(){ mini_define execvp generate; }
-mini_ewritesl(){ mini_define ewritesl generate; }
-mini_opendirp(){ mini_define opendirp generate; }
-mini_setpwent(){ mini_define setpwent generate; }
-mini_putc(){ mini_define putc generate; }
-mini_readlink(){ mini_define readlink generate; }
-mini_opendir(){ mini_define opendir generate; }
-mini_lseek(){ mini_define lseek generate; }
-mini_brk(){ mini_define brk generate; }
-mini_strcat(){ mini_define strcat generate; }
-mini_strnlen(){ mini_define strnlen generate; }
-mini__shmctl(){ mini_define _shmctl generate; }
-mini_umask(){ mini_define umask generate; }
-mini_token_s(){ mini_define token_s generate; }
-mini__fanotify_mark(){ mini_define _fanotify_mark generate; }
-mini__statfs(){ mini_define _statfs generate; }
-mini__timerfd_create(){ mini_define _timerfd_create generate; }
-mini_getgrouplist(){ mini_define getgrouplist generate; }
-mini_ltodec(){ mini_define ltodec generate; }
-mini_fputs(){ mini_define fputs generate; }
-mini__bind(){ mini_define _bind generate; }
-mini__inotify_add_watch(){ mini_define _inotify_add_watch generate; }
-mini__iopl(){ mini_define _iopl generate; }
-mini__fadvise64(){ mini_define _fadvise64 generate; }
-mini_dies_if(){ mini_define dies_if generate; }
-mini__reboot(){ mini_define _reboot generate; }
-mini_free(){ mini_define free generate; }
-mini__vhangup(){ mini_define _vhangup generate; }
-mini__setgroups(){ mini_define _setgroups generate; }
-mini_rewinddir(){ mini_define rewinddir generate; }
-mini_rt_sigprocmask(){ mini_define rt_sigprocmask generate; }
-mini_environ(){ mini_define environ generate; }
-mini_getbrk(){ mini_define getbrk generate; }
-mini_sbrk(){ mini_define sbrk generate; }
-mini__getrlimit(){ mini_define _getrlimit generate; }
-mini_chmod(){ mini_define chmod generate; }
-mini_ntohl(){ mini_define ntohl generate; }
-mini__kexec_file_load(){ mini_define _kexec_file_load generate; }
-mini_initgroups(){ mini_define initgroups generate; }
-mini_vsnprintf(){ mini_define vsnprintf generate; }
-mini__getpgid(){ mini_define _getpgid generate; }
-mini__dup3(){ mini_define _dup3 generate; }
-mini_getgroups(){ mini_define getgroups generate; }
-mini_kill(){ mini_define kill generate; }
-mini__munlockall(){ mini_define _munlockall generate; }
-mini_err(){ mini_define err generate; }
-mini__getuid(){ mini_define _getuid generate; }
-mini_setitimer(){ mini_define setitimer generate; }
-mini_stat(){ mini_define stat generate; }
-mini_uname(){ mini_define uname generate; }
-mini_djb2_hash(){ mini_define djb2_hash generate; }
-mini__setdomainname(){ mini_define _setdomainname generate; }
-mini__rt_sigprocmask(){ mini_define _rt_sigprocmask generate; }
-mini__tgkill(){ mini_define _tgkill generate; }
-mini_setresuid(){ mini_define setresuid generate; }
-mini__poll(){ mini_define _poll generate; }
-mini_memset(){ mini_define memset generate; }
-mini_div(){ mini_define div generate; }
-mini_sigfillset(){ mini_define sigfillset generate; }
-mini_where(){ mini_define where generate; }
-mini__sigaltstack(){ mini_define _sigaltstack generate; }
-mini__lchown(){ mini_define _lchown generate; }
-mini__setxattr(){ mini_define _setxattr generate; }
-mini_waitpid(){ mini_define waitpid generate; }
-mini_execveat(){ mini_define execveat generate; }
-mini_srand(){ mini_define srand generate; }
-mini_stplcpy(){ mini_define stplcpy generate; }
-mini_dup3(){ mini_define dup3 generate; }
-mini__mq_notify(){ mini_define _mq_notify generate; }
-mini__eventfd2(){ mini_define _eventfd2 generate; }
-mini_strtoll(){ mini_define strtoll generate; }
-mini__getpeername(){ mini_define _getpeername generate; }
-mini_printl(){ mini_define printl generate; }
-mini_setbuf(){ mini_define setbuf generate; }
-mini_isatty(){ mini_define isatty generate; }
-mini__match_ext2(){ mini_define _match_ext2 generate; }
-mini_sigaction(){ mini_define sigaction generate; }
-mini__sched_get_priority_min(){ mini_define _sched_get_priority_min generate; }
-mini_seekdir(){ mini_define seekdir generate; }
-mini__acct(){ mini_define _acct generate; }
-mini_snprintfs(){ mini_define snprintfs generate; }
-mini__syslog(){ mini_define _syslog generate; }
-mini_free_brk(){ mini_define free_brk generate; }
-mini_eprintfs(){ mini_define eprintfs generate; }
-mini__pipe2(){ mini_define _pipe2 generate; }
-mini_sendto(){ mini_define sendto generate; }
-mini_calloc(){ mini_define calloc generate; }
-mini__setresgid(){ mini_define _setresgid generate; }
-mini_getgrent(){ mini_define getgrent generate; }
-mini__select(){ mini_define _select generate; }
-mini__delete_module(){ mini_define _delete_module generate; }
-mini__utimes(){ mini_define _utimes generate; }
-mini_ptsname_r(){ mini_define ptsname_r generate; }
-mini_unlink(){ mini_define unlink generate; }
-mini_posix_openpt(){ mini_define posix_openpt generate; }
-mini_getsockopt(){ mini_define getsockopt generate; }
-mini_shortcolornames(){ mini_define shortcolornames generate; }
-mini__timer_settime(){ mini_define _timer_settime generate; }
-mini_fprint(){ mini_define fprint generate; }
-mini__pivot_root(){ mini_define _pivot_root generate; }
-mini__getpriority(){ mini_define _getpriority generate; }
-mini__listxattr(){ mini_define _listxattr generate; }
-mini_grantpt(){ mini_define grantpt generate; }
-mini__umask(){ mini_define _umask generate; }
-mini__openat(){ mini_define _openat generate; }
-mini__tee(){ mini_define _tee generate; }
-mini__clock_adjtime(){ mini_define _clock_adjtime generate; }
-mini__quotactl(){ mini_define _quotactl generate; }
-mini__inotify_init(){ mini_define _inotify_init generate; }
-mini__move_pages(){ mini_define _move_pages generate; }
-mini_vfork(){ mini_define vfork generate; }
-mini__ioprio_get(){ mini_define _ioprio_get generate; }
-mini__mmap(){ mini_define _mmap generate; }
-mini_timerfd_gettime(){ mini_define timerfd_gettime generate; }
-mini_setpgid(){ mini_define setpgid generate; }
-mini__timer_create(){ mini_define _timer_create generate; }
-mini__rt_sigtimedwait(){ mini_define _rt_sigtimedwait generate; }
-mini__adjtimex(){ mini_define _adjtimex generate; }
-mini_rt_sigsuspend(){ mini_define rt_sigsuspend generate; }
-mini__fstatfs(){ mini_define _fstatfs generate; }
-mini__setreuid(){ mini_define _setreuid generate; }
-mini_prints(){ mini_define prints generate; }
-mini__sched_getscheduler(){ mini_define _sched_getscheduler generate; }
-mini__mq_timedsend(){ mini_define _mq_timedsend generate; }
-mini__getpgrp(){ mini_define _getpgrp generate; }
-mini__chroot(){ mini_define _chroot generate; }
-mini_qsort(){ mini_define qsort generate; }
-mini_sys_brk(){ mini_define sys_brk generate; }
-mini__mq_getsetattr(){ mini_define _mq_getsetattr generate; }
-mini__sync_file_range(){ mini_define _sync_file_range generate; }
-mini_vexec(){ mini_define vexec generate; }
-mini__accept4(){ mini_define _accept4 generate; }
-mini__pwritev(){ mini_define _pwritev generate; }
-mini__readlink(){ mini_define _readlink generate; }
-mini_write(){ mini_define write generate; }
-mini__fdatasync(){ mini_define _fdatasync generate; }
-mini_passwdfile_open(){ mini_define passwdfile_open generate; }
-mini_sigaddset(){ mini_define sigaddset generate; }
-mini__sethostname(){ mini_define _sethostname generate; }
-mini__prctl(){ mini_define _prctl generate; }
-mini__mremap(){ mini_define _mremap generate; }
-mini_fputc(){ mini_define fputc generate; }
-mini_fwrites(){ mini_define fwrites generate; }
-mini__chdir(){ mini_define _chdir generate; }
-# --- genconfig-end: TMPL ---
-
-fi
-
-
-# .. note: read -r -d '' << ENDVAR 
-# ...
-# --- content-ldscript-start: TMPL ---
-ld_script_default='
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	data PT_LOAD FLAGS(0x7);
-	bss PT_LOAD FLAGS(0x7);
-	stack PT_GNU_STACK FLAGS(0x6) ;
-}
-
-
-SECTIONS {                                                                                                                                                    
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-		 } :text
-
-		 .data :
-		 {
-						*(.data .data.*)
-			} : data
-	 . = .;
-  	 __bss_start = .;
-
-
-		.bss           : 
-		{ 
-						*(COMMON)
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-								misc: deleted : */
-				. = ALIGN(. != 0 ? 64 / 8 : 1);
-		} :bss 
-	  _end = .; 
-		PROVIDE (_end = .); 
-
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.got*)
-			*(.rel.*)
-			}
-
-
-}
-
-
-'
-ld_script_text_and_bss='
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)*/
-
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	bss PT_LOAD FLAGS(0x7);
-	stack PT_GNU_STACK FLAGS(0x6) ;
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-		 } :text
-
-		.bss           : 
-		{ 
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :bss 
-		 . = ALIGN(64 / 8);
-	  _end = .; 
-		PROVIDE (_end = .); 
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			}
-}
-
-
-'
-ld_script_bloating='
-
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)*/
-
-PHDRS {
-	text PT_LOAD FILEHDR PHDRS ;
-	/*bss PT_LOAD;*/
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text.exit .text.exit.*)
-						*(.text.startup .text.startup.*)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-
-		 }
-		.bss            :
-		{ 
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(.bss)
-						*(.shstrtab)
-						*(COMMON)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections. */
-						. = ALIGN(. != 0 ? 32 / 8 : 1);
-						_bssend = . ;
-						_brk = .;
-		} :text
-
-		/DISCARD/ : { 
-			*(.note.GNU-stack) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			*(.note*)
-			}
-}
-
-
-'
-ld_script_onlytext='
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)
-*/
-
-PHDRS {
-	text PT_LOAD FILEHDR PHDRS;
-	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
-	 would set the text section read- and writable. somehow. 
-	 this spares one section, if globals are used.
-	 but seems to me a bit too nasty and dangerous.
-	 sametime, some bins are compiled with writable text.
-	 have to look for the source. strange, somehow. */
-	stack PT_GNU_STACK FLAGS(0x6) ;
-	/*bss PT_LOAD;*/
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start .text._start.*)
-						*(.text._exit .text._exit.*)
-						*(.text.__exit .text.__exit.*)
-						*(.text._startup .text._startup.*)
-						*(.text.main .text.main.*)
-						*(.text.cexit)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-
-/*		 }
-		.bss            :
-		{ 
-*/
-/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
-saves 15 bytes. ( needs -N for linking )*/
-
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						*(.data .data.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :text
-
-		/DISCARD/ : { 
-			*(.note.GNU-stack) 
-	  		*(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			*(*)
-			}
-}
-
-
-'
-ld_script_onlytext_tiny='
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)
-*/
-
-PHDRS {
-	text PT_LOAD FILEHDR PHDRS;
-	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
-	 would set the text section read- and writable. somehow. 
-	 this spares one section, if globals are used.
-	 but seems to me a bit too nasty and dangerous.
-	 sametime, some bins are compiled with writable text.
-	 have to look for the source. strange, somehow. */
-	/* stack PT_GNU_STACK FLAGS(0x6) ; */
-	/*bss PT_LOAD;*/
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start .text._start.*)
-						*(.text._exit .text._exit.*)
-						*(.text.__exit .text.__exit.*)
-						*(.text._startup .text._startup.*)
-						*(.text.main .text.main.*)
-						*(.text.cexit)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-
-/*		 }
-		.bss            :
-		{ 
-*/
-/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
-saves 15 bytes. ( needs -N for linking )*/
-
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						*(.data .data.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :text
-
-		/DISCARD/ : { 
-			*(.note.GNU-stack) 
-	  		*(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			*(*)
-			}
-}
-
-
-'
-ld_script_default_execstack='
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	data PT_LOAD FLAGS(0x7);
-	bss PT_LOAD FLAGS(0x7);
-	stack PT_GNU_STACK FLAGS(0x7) ;
-}
-
-
-SECTIONS {                                                                                                                                                    
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-		 } :text
-
-		 .data :
-		 {
-						*(.data .data.*)
-			} : data
-
-
-		.bss           : 
-		{ 
-						*(COMMON)
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-								misc: deleted : */
-				. = ALIGN(. != 0 ? 32 / 8 : 1);
-		} :bss 
-		 . = ALIGN(64 / 8);
-	  _end = .; 
-		PROVIDE (_end = .); 
-
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			}
-
-
-}
-
-
-'
-ld_script_mlplugin_onlytext='
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)*/
-/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
-              "elf64-x86-64")
-OUTPUT_ARCH(i386:x86-64) */
-
-/* memo to me -
-  the bss section is NOT
-  stored in the binary as shown with objdump !! */
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	stack PT_GNU_STACK FLAGS(0x6) ;
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(*__plugin_export*);
-			
-				/* *(.dynbss)
-				 *(*mlgl)  */
-				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*) 
-						*(.bss* .dynbss*)
-		 } :text
-
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			}
-}
-
-
-'
-ld_script_mlplugin='
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)*/
-/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
-              "elf64-x86-64")
-OUTPUT_ARCH(i386:x86-64) */
-
-/* memo to me -
-  the bss section is NOT
-  stored in the binary as shown with objdump !! */
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	/* data PT_LOAD FLAGS(0x7); */
-	bss PT_LOAD FLAGS(0x7);
-	stack PT_GNU_STACK FLAGS(0x6) ;
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				
-		 				*(__plugin_export*)
-
-				/* *(.dynbss)
-				 *(*mlgl)  */
-				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-		 } :text
-
-
-		 .data :
-		 {
-			*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*) 
-
-			} : data 
-		.bss           : 
-		{ 
-		/* PROVIDE(_bssstart = 23); */
-
-
-						 *(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*) 
-						 *(COMMON)
-									/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-						. = ALIGN(. != 0 ? 32 / 8 : 1); */
-		/* _bsssize = . - LOADADDR( ".bss" ); */
-		/*_bsssize = _bssend - _bssstart; */
-		/* _bsssize -= _bssstart; */
-		/* PROVIDE( _bsssize = _bssend - _bssstart ); */
-		
-		} :bss 
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			}
-}
-
-
-'
-ld_script_textandbss='
-/*OUTPUT_FORMAT("elf32-i386")
-OUTPUT_ARCH(i386)*/
-
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
-	bss PT_LOAD FLAGS(0x7);
-	stack PT_GNU_STACK FLAGS(0x6) ;
-}
-
-ENTRY(_start)
-
-SECTIONS
-{
-		/* Read-only sections, merged into text segment: */
-		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-		 } :text
-
-		.bss           : 
-		{ 
-
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						*(COMMON)
-						*(.data .data.*)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
-		} :bss 
-		 . = ALIGN(64 / 8);
-	  _end = .; 
-		PROVIDE (_end = .); 
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			}
-}
-
-
-'
-ld_script_exec='
-
- PHDRS {
- /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
-   (TODO) somehow some functions seem to need a writable text section,
-	 as well as some need an executable bss section.
-	 Have to sort this out.
-	 Would be better, separating that cleanly.
-	 seems like as soon, there is written (and/or?) read from data,
-	 placed into the bss section, the section has to be executable.???
-	 that is. not easy to understand. 
-	 */ 
-
-	text PT_LOAD FILEHDR PHDRS FLAGS(0x7) ;
-	data PT_LOAD FLAGS(0x7);
-	bss PT_LOAD FLAGS(0x7);
-	stack PT_GNU_STACK FLAGS(0x7) ;
-}
-
-
-SECTIONS {                                                                                                                                                    
-		start = _start;
-		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
-		. = 0x08048000 + SIZEOF_HEADERS;
-
-		.text           :
-		{
-				*(.text.unlikely .text.*_unlikely)
-						*(.text._start)
-						*(.text.exit .text.exit.*)
-						*(.text._startup)
-						*(.text.main)
-						*(.text.hot .text.hot.*)
-						*(.text .stub .text.* .gnu.linkonce.t.*)
-						/* .gnu.warning sections are handled specially by elf32.em.  */
-						*(.gnu.warning)
-						*(.rodata .rodata.* .gnu.linkonce.r.*)
-		 } :text
-
-		 .data :
-		 {
-						*(.data .data.*)
-			} : data
-
-
-		.bss           : 
-		{ 
-						*(COMMON)
-						*(.dynbss)
-						*(.bss .bss.* .gnu.linkonce.b.*)
-						/* Align here to ensure that the .bss section occupies space up to
-							 _end.  Align after .bss to ensure correct alignment even if the
-							 .bss section disappears because there are no input sections.
-								misc: deleted : */
-				. = ALIGN(. != 0 ? 32 / 8 : 1);
-		} :bss 
-		 . = ALIGN(64 / 8);
-	  _end = .; 
-		PROVIDE (_end = .); 
-
-
-
-		/DISCARD/ : { 
-			 *(.note.GNU-stack) 
-			  *(.note*) 
-			*(.gnu_debuglink) 
-			*(.gnu.lto_*) 
-			*(.iplt*) 
-			*(.igot*) 
-			*(.rel*) 
-			*(.comment)
-			*(.eh_frame)
-			*(.plt*)
-			*(.got.plt*)
-			*(.rel.*)
-			}
-
-
-}
-
-
-'
-# Parsing
-# --- content-ldscript-end: TMPL ---
-
-#ld_script_default=$ld_script_default
-
-
-genconfigmacros_h='
-// --- content-genconf-macros-start: TMPL ---
-// This file is part of minilib, (c) 2012-2019 Michael Misc Myer.
-// misc.myer@zoho.com / www.github.com/michael105
-// Opensource, fair use by attribution.
-// Please see the files LICENSE and NOTICE for the exact conditions. 
-//
-//
-// Disclaimer:
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-// DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
-// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-//
-
-
-// Everything below will be silently overwritten,
-// when make header ist invoked
-
-// --- define_macros-start: generate --- //
-#define strncpy(...) _M_MLIB_strncpy_M_(__VA_ARGS__)
-#define _sched_setaffinity(...) _M_MLIB__sched_setaffinity_M_(__VA_ARGS__)
-#define strtok_r(...) _M_MLIB_strtok_r_M_(__VA_ARGS__)
-#define _readahead(...) _M_MLIB__readahead_M_(__VA_ARGS__)
-#define strcasecmp(...) _M_MLIB_strcasecmp_M_(__VA_ARGS__)
-#define bsd_definitions(...) _M_MLIB_bsd_definitions_M_(__VA_ARGS__)
-#define uitodec(...) _M_MLIB_uitodec_M_(__VA_ARGS__)
-#define _ioctl(...) _M_MLIB__ioctl_M_(__VA_ARGS__)
-#define _fchmod(...) _M_MLIB__fchmod_M_(__VA_ARGS__)
-#define msync(...) _M_MLIB_msync_M_(__VA_ARGS__)
-#define setvbuf(...) _M_MLIB_setvbuf_M_(__VA_ARGS__)
-#define fprintfs(...) _M_MLIB_fprintfs_M_(__VA_ARGS__)
-#define fdopen(...) _M_MLIB_fdopen_M_(__VA_ARGS__)
-#define ret_errno(...) _M_MLIB_ret_errno_M_(__VA_ARGS__)
-#define _preadv(...) _M_MLIB__preadv_M_(__VA_ARGS__)
-#define strndup(...) _M_MLIB_strndup_M_(__VA_ARGS__)
-#define eprint(...) _M_MLIB_eprint_M_(__VA_ARGS__)
-#define flock(...) _M_MLIB_flock_M_(__VA_ARGS__)
-#define locale_dummies(...) _M_MLIB_locale_dummies_M_(__VA_ARGS__)
-#define _rename(...) _M_MLIB__rename_M_(__VA_ARGS__)
-#define _inotify_rm_watch(...) _M_MLIB__inotify_rm_watch_M_(__VA_ARGS__)
-#define _mprotect(...) _M_MLIB__mprotect_M_(__VA_ARGS__)
-#define _getdents(...) _M_MLIB__getdents_M_(__VA_ARGS__)
-#define _uname(...) _M_MLIB__uname_M_(__VA_ARGS__)
-#define _ustat(...) _M_MLIB__ustat_M_(__VA_ARGS__)
-#define getuid(...) _M_MLIB_getuid_M_(__VA_ARGS__)
-#define _rt_sigaction(...) _M_MLIB__rt_sigaction_M_(__VA_ARGS__)
-#define _sched_rr_get_interval(...) _M_MLIB__sched_rr_get_interval_M_(__VA_ARGS__)
-#define match_ext(...) _M_MLIB_match_ext_M_(__VA_ARGS__)
-#define strchr(...) _M_MLIB_strchr_M_(__VA_ARGS__)
-#define _mq_unlink(...) _M_MLIB__mq_unlink_M_(__VA_ARGS__)
-#define read(...) _M_MLIB_read_M_(__VA_ARGS__)
-#define bsd_cksumblock(...) _M_MLIB_bsd_cksumblock_M_(__VA_ARGS__)
-#define feof(...) _M_MLIB_feof_M_(__VA_ARGS__)
-#define _ioperm(...) _M_MLIB__ioperm_M_(__VA_ARGS__)
-#define fopen(...) _M_MLIB_fopen_M_(__VA_ARGS__)
-#define perror(...) _M_MLIB_perror_M_(__VA_ARGS__)
-#define verbose_errstr2(...) _M_MLIB_verbose_errstr2_M_(__VA_ARGS__)
-#define _open(...) _M_MLIB__open_M_(__VA_ARGS__)
-#define fgets(...) _M_MLIB_fgets_M_(__VA_ARGS__)
-#define itoHEX(...) _M_MLIB_itoHEX_M_(__VA_ARGS__)
-#define cfmakeraw(...) _M_MLIB_cfmakeraw_M_(__VA_ARGS__)
-#define killpg(...) _M_MLIB_killpg_M_(__VA_ARGS__)
-#define print(...) _M_MLIB_print_M_(__VA_ARGS__)
-#define _recvmsg(...) _M_MLIB__recvmsg_M_(__VA_ARGS__)
-#define _capset(...) _M_MLIB__capset_M_(__VA_ARGS__)
-#define unlockpt(...) _M_MLIB_unlockpt_M_(__VA_ARGS__)
-#define _epoll_create1(...) _M_MLIB__epoll_create1_M_(__VA_ARGS__)
-#define term_width(...) _M_MLIB_term_width_M_(__VA_ARGS__)
-#define _vmsplice(...) _M_MLIB__vmsplice_M_(__VA_ARGS__)
-#define writes(...) _M_MLIB_writes_M_(__VA_ARGS__)
-#define ewrites(...) _M_MLIB_ewrites_M_(__VA_ARGS__)
-#define _shutdown(...) _M_MLIB__shutdown_M_(__VA_ARGS__)
-#define _mincore(...) _M_MLIB__mincore_M_(__VA_ARGS__)
-#define system(...) _M_MLIB_system_M_(__VA_ARGS__)
-#define _fgetxattr(...) _M_MLIB__fgetxattr_M_(__VA_ARGS__)
-#define _fstat(...) _M_MLIB__fstat_M_(__VA_ARGS__)
-#define times(...) _M_MLIB_times_M_(__VA_ARGS__)
-#define _shmat(...) _M_MLIB__shmat_M_(__VA_ARGS__)
-#define _signalfd4(...) _M_MLIB__signalfd4_M_(__VA_ARGS__)
-#define _epoll_pwait(...) _M_MLIB__epoll_pwait_M_(__VA_ARGS__)
-#define _setresuid(...) _M_MLIB__setresuid_M_(__VA_ARGS__)
-#define getpwnam(...) _M_MLIB_getpwnam_M_(__VA_ARGS__)
-#define dirbufsize (...) _M_MLIB_dirbufsize _M_(__VA_ARGS__)
-#define _unshare(...) _M_MLIB__unshare_M_(__VA_ARGS__)
-#define errno_str(...) _M_MLIB_errno_str_M_(__VA_ARGS__)
-#define _process_vm_readv(...) _M_MLIB__process_vm_readv_M_(__VA_ARGS__)
-#define strncat(...) _M_MLIB_strncat_M_(__VA_ARGS__)
-#define _pread64(...) _M_MLIB__pread64_M_(__VA_ARGS__)
-#define _match(...) _M_MLIB__match_M_(__VA_ARGS__)
-#define _io_getevents(...) _M_MLIB__io_getevents_M_(__VA_ARGS__)
-#define _clone(...) _M_MLIB__clone_M_(__VA_ARGS__)
-#define _timer_delete(...) _M_MLIB__timer_delete_M_(__VA_ARGS__)
-#define match_ext2(...) _M_MLIB_match_ext2_M_(__VA_ARGS__)
-#define _sysfs(...) _M_MLIB__sysfs_M_(__VA_ARGS__)
-#define vhangup(...) _M_MLIB_vhangup_M_(__VA_ARGS__)
-#define _get_mempolicy(...) _M_MLIB__get_mempolicy_M_(__VA_ARGS__)
-#define endpwent(...) _M_MLIB_endpwent_M_(__VA_ARGS__)
-#define _setsid(...) _M_MLIB__setsid_M_(__VA_ARGS__)
-#define inotify_init1(...) _M_MLIB_inotify_init1_M_(__VA_ARGS__)
-#define _getitimer(...) _M_MLIB__getitimer_M_(__VA_ARGS__)
-#define _kexec_load(...) _M_MLIB__kexec_load_M_(__VA_ARGS__)
-#define rewind(...) _M_MLIB_rewind_M_(__VA_ARGS__)
-#define pipe(...) _M_MLIB_pipe_M_(__VA_ARGS__)
-#define _personality(...) _M_MLIB__personality_M_(__VA_ARGS__)
-#define fexecve(...) _M_MLIB_fexecve_M_(__VA_ARGS__)
-#define getegid(...) _M_MLIB_getegid_M_(__VA_ARGS__)
-#define dirfd(...) _M_MLIB_dirfd_M_(__VA_ARGS__)
-#define _execve(...) _M_MLIB__execve_M_(__VA_ARGS__)
-#define itobin(...) _M_MLIB_itobin_M_(__VA_ARGS__)
-#define mprotect(...) _M_MLIB_mprotect_M_(__VA_ARGS__)
-#define swap(...) _M_MLIB_swap_M_(__VA_ARGS__)
-#define tolower(...) _M_MLIB_tolower_M_(__VA_ARGS__)
-#define creat(...) _M_MLIB_creat_M_(__VA_ARGS__)
-#define strcmp(...) _M_MLIB_strcmp_M_(__VA_ARGS__)
-#define fwritesl(...) _M_MLIB_fwritesl_M_(__VA_ARGS__)
-#define _flistxattr(...) _M_MLIB__flistxattr_M_(__VA_ARGS__)
-#define _itohex(...) _M_MLIB__itohex_M_(__VA_ARGS__)
-#define setrlimit(...) _M_MLIB_setrlimit_M_(__VA_ARGS__)
-#define mmap(...) _M_MLIB_mmap_M_(__VA_ARGS__)
-#define _syncfs(...) _M_MLIB__syncfs_M_(__VA_ARGS__)
-#define _fremovexattr(...) _M_MLIB__fremovexattr_M_(__VA_ARGS__)
-#define chown(...) _M_MLIB_chown_M_(__VA_ARGS__)
-#define _name_to_handle_at(...) _M_MLIB__name_to_handle_at_M_(__VA_ARGS__)
-#define network(...) _M_MLIB_network_M_(__VA_ARGS__)
-#define _fallocate(...) _M_MLIB__fallocate_M_(__VA_ARGS__)
-#define getgid(...) _M_MLIB_getgid_M_(__VA_ARGS__)
-#define _seccomp(...) _M_MLIB__seccomp_M_(__VA_ARGS__)
-#define link(...) _M_MLIB_link_M_(__VA_ARGS__)
-#define getgrgid(...) _M_MLIB_getgrgid_M_(__VA_ARGS__)
-#define uitohex(...) _M_MLIB_uitohex_M_(__VA_ARGS__)
-#define exit(...) _M_MLIB_exit_M_(__VA_ARGS__)
-#define _msync(...) _M_MLIB__msync_M_(__VA_ARGS__)
-#define malloc(...) _M_MLIB_malloc_M_(__VA_ARGS__)
-#define dief(...) _M_MLIB_dief_M_(__VA_ARGS__)
-#define _remap_file_pages(...) _M_MLIB__remap_file_pages_M_(__VA_ARGS__)
-#define _sched_getattr(...) _M_MLIB__sched_getattr_M_(__VA_ARGS__)
-#define _setsockopt(...) _M_MLIB__setsockopt_M_(__VA_ARGS__)
-#define realloc(...) _M_MLIB_realloc_M_(__VA_ARGS__)
-#define ultodec(...) _M_MLIB_ultodec_M_(__VA_ARGS__)
-#define _access(...) _M_MLIB__access_M_(__VA_ARGS__)
-#define _timerfd_settime(...) _M_MLIB__timerfd_settime_M_(__VA_ARGS__)
-#define _mkdirat(...) _M_MLIB__mkdirat_M_(__VA_ARGS__)
-#define inotify_rm_watch(...) _M_MLIB_inotify_rm_watch_M_(__VA_ARGS__)
-#define die_if(...) _M_MLIB_die_if_M_(__VA_ARGS__)
-#define _mprints(...) _M_MLIB__mprints_M_(__VA_ARGS__)
-#define ftruncate(...) _M_MLIB_ftruncate_M_(__VA_ARGS__)
-#define vexec_q(...) _M_MLIB_vexec_q_M_(__VA_ARGS__)
-#define ioctl(...) _M_MLIB_ioctl_M_(__VA_ARGS__)
-#define _truncate(...) _M_MLIB__truncate_M_(__VA_ARGS__)
-#define _epoll_ctl(...) _M_MLIB__epoll_ctl_M_(__VA_ARGS__)
-#define _modify_ldt(...) _M_MLIB__modify_ldt_M_(__VA_ARGS__)
-#define _faccessat(...) _M_MLIB__faccessat_M_(__VA_ARGS__)
-#define getchar(...) _M_MLIB_getchar_M_(__VA_ARGS__)
-#define _timerfd_gettime(...) _M_MLIB__timerfd_gettime_M_(__VA_ARGS__)
-#define sys_signame(...) _M_MLIB_sys_signame_M_(__VA_ARGS__)
-#define symlink(...) _M_MLIB_symlink_M_(__VA_ARGS__)
-#define _setfsuid(...) _M_MLIB__setfsuid_M_(__VA_ARGS__)
-#define _strcasecmp(...) _M_MLIB__strcasecmp_M_(__VA_ARGS__)
-#define fcntl(...) _M_MLIB_fcntl_M_(__VA_ARGS__)
-#define getc(...) _M_MLIB_getc_M_(__VA_ARGS__)
-#define _perf_event_open(...) _M_MLIB__perf_event_open_M_(__VA_ARGS__)
-#define setsid(...) _M_MLIB_setsid_M_(__VA_ARGS__)
-#define poll(...) _M_MLIB_poll_M_(__VA_ARGS__)
-#define rt_sigreturn(...) _M_MLIB_rt_sigreturn_M_(__VA_ARGS__)
-#define lstat(...) _M_MLIB_lstat_M_(__VA_ARGS__)
-#define _shmget(...) _M_MLIB__shmget_M_(__VA_ARGS__)
-#define _semtimedop(...) _M_MLIB__semtimedop_M_(__VA_ARGS__)
-#define ntohs(...) _M_MLIB_ntohs_M_(__VA_ARGS__)
-#define bsd_timespec(...) _M_MLIB_bsd_timespec_M_(__VA_ARGS__)
-#define _semctl(...) _M_MLIB__semctl_M_(__VA_ARGS__)
-#define ether_ntoa(...) _M_MLIB_ether_ntoa_M_(__VA_ARGS__)
-#define execve(...) _M_MLIB_execve_M_(__VA_ARGS__)
-#define _epoll_wait(...) _M_MLIB__epoll_wait_M_(__VA_ARGS__)
-#define clearerr(...) _M_MLIB_clearerr_M_(__VA_ARGS__)
-#define _set_robust_list(...) _M_MLIB__set_robust_list_M_(__VA_ARGS__)
-#define fgetc(...) _M_MLIB_fgetc_M_(__VA_ARGS__)
-#define _unlinkat(...) _M_MLIB__unlinkat_M_(__VA_ARGS__)
-#define mknod(...) _M_MLIB_mknod_M_(__VA_ARGS__)
-#define _vfork(...) _M_MLIB__vfork_M_(__VA_ARGS__)
-#define max_groupmembers(...) _M_MLIB_max_groupmembers_M_(__VA_ARGS__)
-#define printf(...) _M_MLIB_printf_M_(__VA_ARGS__)
-#define eputs(...) _M_MLIB_eputs_M_(__VA_ARGS__)
-#define strncmp(...) _M_MLIB_strncmp_M_(__VA_ARGS__)
-#define chroot(...) _M_MLIB_chroot_M_(__VA_ARGS__)
-#define bind(...) _M_MLIB_bind_M_(__VA_ARGS__)
-#define dirname(...) _M_MLIB_dirname_M_(__VA_ARGS__)
-#define fgetsp(...) _M_MLIB_fgetsp_M_(__VA_ARGS__)
-#define _io_setup(...) _M_MLIB__io_setup_M_(__VA_ARGS__)
-#define _getsockopt(...) _M_MLIB__getsockopt_M_(__VA_ARGS__)
-#define ptsname(...) _M_MLIB_ptsname_M_(__VA_ARGS__)
-#define _munlock(...) _M_MLIB__munlock_M_(__VA_ARGS__)
-#define sprintf(...) _M_MLIB_sprintf_M_(__VA_ARGS__)
-#define scandir(...) _M_MLIB_scandir_M_(__VA_ARGS__)
-#define _mknod(...) _M_MLIB__mknod_M_(__VA_ARGS__)
-#define _recvfrom(...) _M_MLIB__recvfrom_M_(__VA_ARGS__)
-#define dprints(...) _M_MLIB_dprints_M_(__VA_ARGS__)
-#define strncasecmp(...) _M_MLIB_strncasecmp_M_(__VA_ARGS__)
-#define _socketpair(...) _M_MLIB__socketpair_M_(__VA_ARGS__)
-#define telldir(...) _M_MLIB_telldir_M_(__VA_ARGS__)
-#define userdb(...) _M_MLIB_userdb_M_(__VA_ARGS__)
-#define _waitid(...) _M_MLIB__waitid_M_(__VA_ARGS__)
-#define _dup2(...) _M_MLIB__dup2_M_(__VA_ARGS__)
-#define _creat(...) _M_MLIB__creat_M_(__VA_ARGS__)
-#define fexecveat(...) _M_MLIB_fexecveat_M_(__VA_ARGS__)
-#define _ftruncate(...) _M_MLIB__ftruncate_M_(__VA_ARGS__)
-#define setgid(...) _M_MLIB_setgid_M_(__VA_ARGS__)
-#define _rmdir(...) _M_MLIB__rmdir_M_(__VA_ARGS__)
-#define sigsuspend(...) _M_MLIB_sigsuspend_M_(__VA_ARGS__)
-#define inet_aton(...) _M_MLIB_inet_aton_M_(__VA_ARGS__)
-#define dup(...) _M_MLIB_dup_M_(__VA_ARGS__)
-#define group_print(...) _M_MLIB_group_print_M_(__VA_ARGS__)
-#define _clock_nanosleep(...) _M_MLIB__clock_nanosleep_M_(__VA_ARGS__)
-#define getrlimit(...) _M_MLIB_getrlimit_M_(__VA_ARGS__)
-#define open(...) _M_MLIB_open_M_(__VA_ARGS__)
-#define fgetud(...) _M_MLIB_fgetud_M_(__VA_ARGS__)
-#define wait(...) _M_MLIB_wait_M_(__VA_ARGS__)
-#define strtok(...) _M_MLIB_strtok_M_(__VA_ARGS__)
-#define _socket(...) _M_MLIB__socket_M_(__VA_ARGS__)
-#define _setns(...) _M_MLIB__setns_M_(__VA_ARGS__)
-#define _eventfd(...) _M_MLIB__eventfd_M_(__VA_ARGS__)
-#define _sched_setattr(...) _M_MLIB__sched_setattr_M_(__VA_ARGS__)
-#define _futex(...) _M_MLIB__futex_M_(__VA_ARGS__)
-#define OPTIMIZATIONS(...) _M_MLIB_OPTIMIZATIONS_M_(__VA_ARGS__)
-#define fgetul(...) _M_MLIB_fgetul_M_(__VA_ARGS__)
-#define _madvise(...) _M_MLIB__madvise_M_(__VA_ARGS__)
-#define _fcntl(...) _M_MLIB__fcntl_M_(__VA_ARGS__)
-#define dup2(...) _M_MLIB_dup2_M_(__VA_ARGS__)
-#define _itobin(...) _M_MLIB__itobin_M_(__VA_ARGS__)
-#define errx(...) _M_MLIB_errx_M_(__VA_ARGS__)
-#define _msgget(...) _M_MLIB__msgget_M_(__VA_ARGS__)
-#define _strcmp(...) _M_MLIB__strcmp_M_(__VA_ARGS__)
-#define _add_key(...) _M_MLIB__add_key_M_(__VA_ARGS__)
-#define uitoHEX(...) _M_MLIB_uitoHEX_M_(__VA_ARGS__)
-#define grent(...) _M_MLIB_grent_M_(__VA_ARGS__)
-#define fchmod(...) _M_MLIB_fchmod_M_(__VA_ARGS__)
-#define recvfrom(...) _M_MLIB_recvfrom_M_(__VA_ARGS__)
-#define _chmod(...) _M_MLIB__chmod_M_(__VA_ARGS__)
-#define getgrnam(...) _M_MLIB_getgrnam_M_(__VA_ARGS__)
-#define fgetsn(...) _M_MLIB_fgetsn_M_(__VA_ARGS__)
-#define _nanosleep(...) _M_MLIB__nanosleep_M_(__VA_ARGS__)
-#define putenv(...) _M_MLIB_putenv_M_(__VA_ARGS__)
-#define _clock_getres(...) _M_MLIB__clock_getres_M_(__VA_ARGS__)
-#define _lremovexattr(...) _M_MLIB__lremovexattr_M_(__VA_ARGS__)
-#define _rt_sigsuspend(...) _M_MLIB__rt_sigsuspend_M_(__VA_ARGS__)
-#define memcmp(...) _M_MLIB_memcmp_M_(__VA_ARGS__)
-#define _kcmp(...) _M_MLIB__kcmp_M_(__VA_ARGS__)
-#define _get_robust_list(...) _M_MLIB__get_robust_list_M_(__VA_ARGS__)
-#define fork(...) _M_MLIB_fork_M_(__VA_ARGS__)
-#define raise(...) _M_MLIB_raise_M_(__VA_ARGS__)
-#define strlcpy(...) _M_MLIB_strlcpy_M_(__VA_ARGS__)
-#define _lseek(...) _M_MLIB__lseek_M_(__VA_ARGS__)
-#define _restart_syscall(...) _M_MLIB__restart_syscall_M_(__VA_ARGS__)
-#define dirbuf(...) _M_MLIB_dirbuf_M_(__VA_ARGS__)
-#define endgrent(...) _M_MLIB_endgrent_M_(__VA_ARGS__)
-#define prctl(...) _M_MLIB_prctl_M_(__VA_ARGS__)
-#define _unlink(...) _M_MLIB__unlink_M_(__VA_ARGS__)
-#define dirbuf_malloc(...) _M_MLIB_dirbuf_malloc_M_(__VA_ARGS__)
-#define clone(...) _M_MLIB_clone_M_(__VA_ARGS__)
-#define _semop(...) _M_MLIB__semop_M_(__VA_ARGS__)
-#define _request_key(...) _M_MLIB__request_key_M_(__VA_ARGS__)
-#define _llistxattr(...) _M_MLIB__llistxattr_M_(__VA_ARGS__)
-#define getsid(...) _M_MLIB_getsid_M_(__VA_ARGS__)
-#define printfs(...) _M_MLIB_printfs_M_(__VA_ARGS__)
-#define atexit(...) _M_MLIB_atexit_M_(__VA_ARGS__)
-#define _wait4(...) _M_MLIB__wait4_M_(__VA_ARGS__)
-#define _mq_open(...) _M_MLIB__mq_open_M_(__VA_ARGS__)
-#define _getpid(...) _M_MLIB__getpid_M_(__VA_ARGS__)
-#define getpwuid(...) _M_MLIB_getpwuid_M_(__VA_ARGS__)
-#define basename(...) _M_MLIB_basename_M_(__VA_ARGS__)
-#define _set_tid_address(...) _M_MLIB__set_tid_address_M_(__VA_ARGS__)
-#define geteuid(...) _M_MLIB_geteuid_M_(__VA_ARGS__)
-#define OPTFENCE(...) _M_MLIB_OPTFENCE_M_(__VA_ARGS__)
-#define sync(...) _M_MLIB_sync_M_(__VA_ARGS__)
-#define unsetenv(...) _M_MLIB_unsetenv_M_(__VA_ARGS__)
-#define eprints(...) _M_MLIB_eprints_M_(__VA_ARGS__)
-#define fseek(...) _M_MLIB_fseek_M_(__VA_ARGS__)
-#define _renameat(...) _M_MLIB__renameat_M_(__VA_ARGS__)
-#define _epoll_create(...) _M_MLIB__epoll_create_M_(__VA_ARGS__)
-#define umount2(...) _M_MLIB_umount2_M_(__VA_ARGS__)
-#define error(...) _M_MLIB_error_M_(__VA_ARGS__)
-#define _umount2(...) _M_MLIB__umount2_M_(__VA_ARGS__)
-#define getppid(...) _M_MLIB_getppid_M_(__VA_ARGS__)
-#define _newfstatat(...) _M_MLIB__newfstatat_M_(__VA_ARGS__)
-#define _futimesat(...) _M_MLIB__futimesat_M_(__VA_ARGS__)
-#define _die(...) _M_MLIB__die_M_(__VA_ARGS__)
-#define setuid(...) _M_MLIB_setuid_M_(__VA_ARGS__)
-#define usleep(...) _M_MLIB_usleep_M_(__VA_ARGS__)
-#define _link(...) _M_MLIB__link_M_(__VA_ARGS__)
-#define _fchmodat(...) _M_MLIB__fchmodat_M_(__VA_ARGS__)
-#define close(...) _M_MLIB_close_M_(__VA_ARGS__)
-#define _sched_getaffinity(...) _M_MLIB__sched_getaffinity_M_(__VA_ARGS__)
-#define userdb_open(...) _M_MLIB_userdb_open_M_(__VA_ARGS__)
-#define ctype_functions(...) _M_MLIB_ctype_functions_M_(__VA_ARGS__)
-#define _mlockall(...) _M_MLIB__mlockall_M_(__VA_ARGS__)
-#define _flock(...) _M_MLIB__flock_M_(__VA_ARGS__)
-#define strtol(...) _M_MLIB_strtol_M_(__VA_ARGS__)
-#define _lstat(...) _M_MLIB__lstat_M_(__VA_ARGS__)
-#define _lgetxattr(...) _M_MLIB__lgetxattr_M_(__VA_ARGS__)
-#define _writev(...) _M_MLIB__writev_M_(__VA_ARGS__)
-#define _alarm(...) _M_MLIB__alarm_M_(__VA_ARGS__)
-#define gets(...) _M_MLIB_gets_M_(__VA_ARGS__)
-#define _listen(...) _M_MLIB__listen_M_(__VA_ARGS__)
-#define rand(...) _M_MLIB_rand_M_(__VA_ARGS__)
-#define ungetc(...) _M_MLIB_ungetc_M_(__VA_ARGS__)
-#define htons(...) _M_MLIB_htons_M_(__VA_ARGS__)
-#define _getrandom(...) _M_MLIB__getrandom_M_(__VA_ARGS__)
-#define ALIGN(...) _M_MLIB_ALIGN_M_(__VA_ARGS__)
-#define getdents(...) _M_MLIB_getdents_M_(__VA_ARGS__)
-#define sigprocmask(...) _M_MLIB_sigprocmask_M_(__VA_ARGS__)
-#define _symlinkat(...) _M_MLIB__symlinkat_M_(__VA_ARGS__)
-#define tcsetattr(...) _M_MLIB_tcsetattr_M_(__VA_ARGS__)
-#define getpgrp(...) _M_MLIB_getpgrp_M_(__VA_ARGS__)
-#define _sync(...) _M_MLIB__sync_M_(__VA_ARGS__)
-#define _fopen(...) _M_MLIB__fopen_M_(__VA_ARGS__)
-#define _mbind(...) _M_MLIB__mbind_M_(__VA_ARGS__)
-#define execl(...) _M_MLIB_execl_M_(__VA_ARGS__)
-#define _sched_get_priority_max(...) _M_MLIB__sched_get_priority_max_M_(__VA_ARGS__)
-#define fsync(...) _M_MLIB_fsync_M_(__VA_ARGS__)
-#define vsprintf(...) _M_MLIB_vsprintf_M_(__VA_ARGS__)
-#define _recvmmsg(...) _M_MLIB__recvmmsg_M_(__VA_ARGS__)
-#define bsearch(...) _M_MLIB_bsearch_M_(__VA_ARGS__)
-#define _rt_tgsigqueueinfo(...) _M_MLIB__rt_tgsigqueueinfo_M_(__VA_ARGS__)
-#define _getsid(...) _M_MLIB__getsid_M_(__VA_ARGS__)
-#define _rt_sigpending(...) _M_MLIB__rt_sigpending_M_(__VA_ARGS__)
-#define _set_mempolicy(...) _M_MLIB__set_mempolicy_M_(__VA_ARGS__)
-#define ewrite(...) _M_MLIB_ewrite_M_(__VA_ARGS__)
-#define printsl(...) _M_MLIB_printsl_M_(__VA_ARGS__)
-#define itodec(...) _M_MLIB_itodec_M_(__VA_ARGS__)
-#define gettimeofday(...) _M_MLIB_gettimeofday_M_(__VA_ARGS__)
-#define match(...) _M_MLIB_match_M_(__VA_ARGS__)
-#define _rt_sigreturn(...) _M_MLIB__rt_sigreturn_M_(__VA_ARGS__)
-#define _setitimer(...) _M_MLIB__setitimer_M_(__VA_ARGS__)
-#define _renameat2(...) _M_MLIB__renameat2_M_(__VA_ARGS__)
-#define dies(...) _M_MLIB_dies_M_(__VA_ARGS__)
-#define ansicolors(...) _M_MLIB_ansicolors_M_(__VA_ARGS__)
-#define verbose_errstr(...) _M_MLIB_verbose_errstr_M_(__VA_ARGS__)
-#define stpcpy(...) _M_MLIB_stpcpy_M_(__VA_ARGS__)
-#define _getresuid(...) _M_MLIB__getresuid_M_(__VA_ARGS__)
-#define access(...) _M_MLIB_access_M_(__VA_ARGS__)
-#define strrchr(...) _M_MLIB_strrchr_M_(__VA_ARGS__)
-#define _setfsgid(...) _M_MLIB__setfsgid_M_(__VA_ARGS__)
-#define mremap(...) _M_MLIB_mremap_M_(__VA_ARGS__)
-#define _readv(...) _M_MLIB__readv_M_(__VA_ARGS__)
-#define die(...) _M_MLIB_die_M_(__VA_ARGS__)
-#define _swapon(...) _M_MLIB__swapon_M_(__VA_ARGS__)
-#define optimization_fence(...) _M_MLIB_optimization_fence_M_(__VA_ARGS__)
-#define sigemptyset(...) _M_MLIB_sigemptyset_M_(__VA_ARGS__)
-#define mount(...) _M_MLIB_mount_M_(__VA_ARGS__)
-#define fflush(...) _M_MLIB_fflush_M_(__VA_ARGS__)
-#define _getcwd(...) _M_MLIB__getcwd_M_(__VA_ARGS__)
-#define pwent(...) _M_MLIB_pwent_M_(__VA_ARGS__)
-#define memchr(...) _M_MLIB_memchr_M_(__VA_ARGS__)
-#define fprintf(...) _M_MLIB_fprintf_M_(__VA_ARGS__)
-#define mkdir(...) _M_MLIB_mkdir_M_(__VA_ARGS__)
-#define _shmdt(...) _M_MLIB__shmdt_M_(__VA_ARGS__)
-#define sleep(...) _M_MLIB_sleep_M_(__VA_ARGS__)
-#define tcsetpgrp(...) _M_MLIB_tcsetpgrp_M_(__VA_ARGS__)
-#define _pselect6(...) _M_MLIB__pselect6_M_(__VA_ARGS__)
-#define _getrusage(...) _M_MLIB__getrusage_M_(__VA_ARGS__)
-#define _getdents64(...) _M_MLIB__getdents64_M_(__VA_ARGS__)
-#define def(...) _M_MLIB_def_M_(__VA_ARGS__)
-#define _gettid(...) _M_MLIB__gettid_M_(__VA_ARGS__)
-#define _mq_timedreceive(...) _M_MLIB__mq_timedreceive_M_(__VA_ARGS__)
-#define _symlink(...) _M_MLIB__symlink_M_(__VA_ARGS__)
-#define _times(...) _M_MLIB__times_M_(__VA_ARGS__)
-#define setsockopt(...) _M_MLIB_setsockopt_M_(__VA_ARGS__)
-#define seterrno(...) _M_MLIB_seterrno_M_(__VA_ARGS__)
-#define _pipe(...) _M_MLIB__pipe_M_(__VA_ARGS__)
-#define _timer_getoverrun(...) _M_MLIB__timer_getoverrun_M_(__VA_ARGS__)
-#define freopen(...) _M_MLIB_freopen_M_(__VA_ARGS__)
-#define _mount(...) _M_MLIB__mount_M_(__VA_ARGS__)
-#define itohex(...) _M_MLIB_itohex_M_(__VA_ARGS__)
-#define exit_errno(...) _M_MLIB_exit_errno_M_(__VA_ARGS__)
-#define _munmap(...) _M_MLIB__munmap_M_(__VA_ARGS__)
-#define munmap(...) _M_MLIB_munmap_M_(__VA_ARGS__)
-#define strpbrk(...) _M_MLIB_strpbrk_M_(__VA_ARGS__)
-#define htonl(...) _M_MLIB_htonl_M_(__VA_ARGS__)
-#define setgrent(...) _M_MLIB_setgrent_M_(__VA_ARGS__)
-#define _inotify_init1(...) _M_MLIB__inotify_init1_M_(__VA_ARGS__)
-#define gethostname(...) _M_MLIB_gethostname_M_(__VA_ARGS__)
-#define malloc_brk(...) _M_MLIB_malloc_brk_M_(__VA_ARGS__)
-#define _getresgid(...) _M_MLIB__getresgid_M_(__VA_ARGS__)
-#define _rt_sigqueueinfo(...) _M_MLIB__rt_sigqueueinfo_M_(__VA_ARGS__)
-#define _timer_gettime(...) _M_MLIB__timer_gettime_M_(__VA_ARGS__)
-#define _sched_yield(...) _M_MLIB__sched_yield_M_(__VA_ARGS__)
-#define _utime(...) _M_MLIB__utime_M_(__VA_ARGS__)
-#define ftell(...) _M_MLIB_ftell_M_(__VA_ARGS__)
-#define clone_t(...) _M_MLIB_clone_t_M_(__VA_ARGS__)
-#define abs(...) _M_MLIB_abs_M_(__VA_ARGS__)
-#define _keyctl(...) _M_MLIB__keyctl_M_(__VA_ARGS__)
-#define globals(...) _M_MLIB_globals_M_(__VA_ARGS__)
-#define fprints(...) _M_MLIB_fprints_M_(__VA_ARGS__)
-#define _mlock(...) _M_MLIB__mlock_M_(__VA_ARGS__)
-#define dief_if(...) _M_MLIB_dief_if_M_(__VA_ARGS__)
-#define reboot(...) _M_MLIB_reboot_M_(__VA_ARGS__)
-#define readdir(...) _M_MLIB_readdir_M_(__VA_ARGS__)
-#define getusergroups(...) _M_MLIB_getusergroups_M_(__VA_ARGS__)
-#define memfd_create(...) _M_MLIB_memfd_create_M_(__VA_ARGS__)
-#define listen(...) _M_MLIB_listen_M_(__VA_ARGS__)
-#define _geteuid(...) _M_MLIB__geteuid_M_(__VA_ARGS__)
-#define eprintl(...) _M_MLIB_eprintl_M_(__VA_ARGS__)
-#define termio(...) _M_MLIB_termio_M_(__VA_ARGS__)
-#define readahead(...) _M_MLIB_readahead_M_(__VA_ARGS__)
-#define signal(...) _M_MLIB_signal_M_(__VA_ARGS__)
-#define eprintf(...) _M_MLIB_eprintf_M_(__VA_ARGS__)
-#define sigdelset(...) _M_MLIB_sigdelset_M_(__VA_ARGS__)
-#define bsd_cksum(...) _M_MLIB_bsd_cksum_M_(__VA_ARGS__)
-#define _msgrcv(...) _M_MLIB__msgrcv_M_(__VA_ARGS__)
-#define _read(...) _M_MLIB__read_M_(__VA_ARGS__)
-#define memmove(...) _M_MLIB_memmove_M_(__VA_ARGS__)
-#define puts(...) _M_MLIB_puts_M_(__VA_ARGS__)
-#define fread(...) _M_MLIB_fread_M_(__VA_ARGS__)
-#define socket(...) _M_MLIB_socket_M_(__VA_ARGS__)
-#define labs(...) _M_MLIB_labs_M_(__VA_ARGS__)
-#define _connect(...) _M_MLIB__connect_M_(__VA_ARGS__)
-#define scandir_bufsize(...) _M_MLIB_scandir_bufsize_M_(__VA_ARGS__)
-#define _time(...) _M_MLIB__time_M_(__VA_ARGS__)
-#define splice(...) _M_MLIB_splice_M_(__VA_ARGS__)
-#define short_errstr(...) _M_MLIB_short_errstr_M_(__VA_ARGS__)
-#define _linkat(...) _M_MLIB__linkat_M_(__VA_ARGS__)
-#define group_printf(...) _M_MLIB_group_printf_M_(__VA_ARGS__)
-#define _kill(...) _M_MLIB__kill_M_(__VA_ARGS__)
-#define _fanotify_init(...) _M_MLIB__fanotify_init_M_(__VA_ARGS__)
-#define _ioprio_set(...) _M_MLIB__ioprio_set_M_(__VA_ARGS__)
-#define _prlimit64(...) _M_MLIB__prlimit64_M_(__VA_ARGS__)
-#define map_protected(...) _M_MLIB_map_protected_M_(__VA_ARGS__)
-#define timerfd_settime(...) _M_MLIB_timerfd_settime_M_(__VA_ARGS__)
-#define _finit_module(...) _M_MLIB__finit_module_M_(__VA_ARGS__)
-#define fwrite(...) _M_MLIB_fwrite_M_(__VA_ARGS__)
-#define fstat(...) _M_MLIB_fstat_M_(__VA_ARGS__)
-#define itooct(...) _M_MLIB_itooct_M_(__VA_ARGS__)
-#define _write(...) _M_MLIB__write_M_(__VA_ARGS__)
-#define strtoimax(...) _M_MLIB_strtoimax_M_(__VA_ARGS__)
-#define _swapoff(...) _M_MLIB__swapoff_M_(__VA_ARGS__)
-#define _msgsnd(...) _M_MLIB__msgsnd_M_(__VA_ARGS__)
-#define _stat(...) _M_MLIB__stat_M_(__VA_ARGS__)
-#define utime(...) _M_MLIB_utime_M_(__VA_ARGS__)
-#define execv(...) _M_MLIB_execv_M_(__VA_ARGS__)
-#define _ppoll(...) _M_MLIB__ppoll_M_(__VA_ARGS__)
-#define _setpriority(...) _M_MLIB__setpriority_M_(__VA_ARGS__)
-#define warn(...) _M_MLIB_warn_M_(__VA_ARGS__)
-#define _memfd_create(...) _M_MLIB__memfd_create_M_(__VA_ARGS__)
-#define _sched_setscheduler(...) _M_MLIB__sched_setscheduler_M_(__VA_ARGS__)
-#define strlen(...) _M_MLIB_strlen_M_(__VA_ARGS__)
-#define _splice(...) _M_MLIB__splice_M_(__VA_ARGS__)
-#define writesl(...) _M_MLIB_writesl_M_(__VA_ARGS__)
-#define sigismember(...) _M_MLIB_sigismember_M_(__VA_ARGS__)
-#define _signalfd(...) _M_MLIB__signalfd_M_(__VA_ARGS__)
-#define strdup(...) _M_MLIB_strdup_M_(__VA_ARGS__)
-#define strspn(...) _M_MLIB_strspn_M_(__VA_ARGS__)
-#define _init_module(...) _M_MLIB__init_module_M_(__VA_ARGS__)
-#define mkfifo(...) _M_MLIB_mkfifo_M_(__VA_ARGS__)
-#define _sched_getparam(...) _M_MLIB__sched_getparam_M_(__VA_ARGS__)
-#define fileno(...) _M_MLIB_fileno_M_(__VA_ARGS__)
-#define getpwent(...) _M_MLIB_getpwent_M_(__VA_ARGS__)
-#define timerfd_create(...) _M_MLIB_timerfd_create_M_(__VA_ARGS__)
-#define nanosleep(...) _M_MLIB_nanosleep_M_(__VA_ARGS__)
-#define _fchown(...) _M_MLIB__fchown_M_(__VA_ARGS__)
-#define unmap_protected(...) _M_MLIB_unmap_protected_M_(__VA_ARGS__)
-#define _io_destroy(...) _M_MLIB__io_destroy_M_(__VA_ARGS__)
-#define recv(...) _M_MLIB_recv_M_(__VA_ARGS__)
-#define _arch_prctl(...) _M_MLIB__arch_prctl_M_(__VA_ARGS__)
-#define atoi(...) _M_MLIB_atoi_M_(__VA_ARGS__)
-#define _getcpu(...) _M_MLIB__getcpu_M_(__VA_ARGS__)
-#define config(...) _M_MLIB_config_M_(__VA_ARGS__)
-#define execvpe(...) _M_MLIB_execvpe_M_(__VA_ARGS__)
-#define _mknodat(...) _M_MLIB__mknodat_M_(__VA_ARGS__)
-#define __sysctl(...) _M_MLIB___sysctl_M_(__VA_ARGS__)
-#define _fchdir(...) _M_MLIB__fchdir_M_(__VA_ARGS__)
-#define _getgid(...) _M_MLIB__getgid_M_(__VA_ARGS__)
-#define rt_sigaction(...) _M_MLIB_rt_sigaction_M_(__VA_ARGS__)
-#define _fork(...) _M_MLIB__fork_M_(__VA_ARGS__)
-#define djb_cksum(...) _M_MLIB_djb_cksum_M_(__VA_ARGS__)
-#define inotify_add_watch(...) _M_MLIB_inotify_add_watch_M_(__VA_ARGS__)
-#define _gettimeofday(...) _M_MLIB__gettimeofday_M_(__VA_ARGS__)
-#define _utimensat(...) _M_MLIB__utimensat_M_(__VA_ARGS__)
-#define _migrate_pages(...) _M_MLIB__migrate_pages_M_(__VA_ARGS__)
-#define tcgetpgrp(...) _M_MLIB_tcgetpgrp_M_(__VA_ARGS__)
-#define wait4(...) _M_MLIB_wait4_M_(__VA_ARGS__)
-#define _clock_settime(...) _M_MLIB__clock_settime_M_(__VA_ARGS__)
-#define accept(...) _M_MLIB_accept_M_(__VA_ARGS__)
-#define fgetpos(...) _M_MLIB_fgetpos_M_(__VA_ARGS__)
-#define strerror(...) _M_MLIB_strerror_M_(__VA_ARGS__)
-#define select(...) _M_MLIB_select_M_(__VA_ARGS__)
-#define _process_vm_writev(...) _M_MLIB__process_vm_writev_M_(__VA_ARGS__)
-#define getenv(...) _M_MLIB_getenv_M_(__VA_ARGS__)
-#define _io_cancel(...) _M_MLIB__io_cancel_M_(__VA_ARGS__)
-#define inotify_init(...) _M_MLIB_inotify_init_M_(__VA_ARGS__)
-#define memfrob(...) _M_MLIB_memfrob_M_(__VA_ARGS__)
-#define _exit_group(...) _M_MLIB__exit_group_M_(__VA_ARGS__)
-#define _open_by_handle_at(...) _M_MLIB__open_by_handle_at_M_(__VA_ARGS__)
-#define _getegid(...) _M_MLIB__getegid_M_(__VA_ARGS__)
-#define sdbm_hash(...) _M_MLIB_sdbm_hash_M_(__VA_ARGS__)
-#define dprintf(...) _M_MLIB_dprintf_M_(__VA_ARGS__)
-#define abort(...) _M_MLIB_abort_M_(__VA_ARGS__)
-#define strstr(...) _M_MLIB_strstr_M_(__VA_ARGS__)
-#define dtodec(...) _M_MLIB_dtodec_M_(__VA_ARGS__)
-#define closedir(...) _M_MLIB_closedir_M_(__VA_ARGS__)
-#define getresuid(...) _M_MLIB_getresuid_M_(__VA_ARGS__)
-#define getrusage(...) _M_MLIB_getrusage_M_(__VA_ARGS__)
-#define _getxattr(...) _M_MLIB__getxattr_M_(__VA_ARGS__)
-#define memcpy(...) _M_MLIB_memcpy_M_(__VA_ARGS__)
-#define ldiv(...) _M_MLIB_ldiv_M_(__VA_ARGS__)
-#define _lookup_dcookie(...) _M_MLIB__lookup_dcookie_M_(__VA_ARGS__)
-#define token_i(...) _M_MLIB_token_i_M_(__VA_ARGS__)
-#define _pause(...) _M_MLIB__pause_M_(__VA_ARGS__)
-#define getitimer(...) _M_MLIB_getitimer_M_(__VA_ARGS__)
-#define _setpgid(...) _M_MLIB__setpgid_M_(__VA_ARGS__)
-#define inet_ntoa(...) _M_MLIB_inet_ntoa_M_(__VA_ARGS__)
-#define strcspn(...) _M_MLIB_strcspn_M_(__VA_ARGS__)
-#define getcwd(...) _M_MLIB_getcwd_M_(__VA_ARGS__)
-#define stpncpy(...) _M_MLIB_stpncpy_M_(__VA_ARGS__)
-#define setgroups(...) _M_MLIB_setgroups_M_(__VA_ARGS__)
-#define _getppid(...) _M_MLIB__getppid_M_(__VA_ARGS__)
-#define _setuid(...) _M_MLIB__setuid_M_(__VA_ARGS__)
-#define _msgctl(...) _M_MLIB__msgctl_M_(__VA_ARGS__)
-#define eprintsl(...) _M_MLIB_eprintsl_M_(__VA_ARGS__)
-#define setbrk(...) _M_MLIB_setbrk_M_(__VA_ARGS__)
-#define tcgetattr(...) _M_MLIB_tcgetattr_M_(__VA_ARGS__)
-#define group_write(...) _M_MLIB_group_write_M_(__VA_ARGS__)
-#define _getgroups(...) _M_MLIB__getgroups_M_(__VA_ARGS__)
-#define strchrnul(...) _M_MLIB_strchrnul_M_(__VA_ARGS__)
-#define _dup(...) _M_MLIB__dup_M_(__VA_ARGS__)
-#define _setrlimit(...) _M_MLIB__setrlimit_M_(__VA_ARGS__)
-#define fchown(...) _M_MLIB_fchown_M_(__VA_ARGS__)
-#define _pwrite64(...) _M_MLIB__pwrite64_M_(__VA_ARGS__)
-#define _sendmmsg(...) _M_MLIB__sendmmsg_M_(__VA_ARGS__)
-#define atol(...) _M_MLIB_atol_M_(__VA_ARGS__)
-#define _tkill(...) _M_MLIB__tkill_M_(__VA_ARGS__)
-#define _chown(...) _M_MLIB__chown_M_(__VA_ARGS__)
-#define _sendfile(...) _M_MLIB__sendfile_M_(__VA_ARGS__)
-#define pivot_root(...) _M_MLIB_pivot_root_M_(__VA_ARGS__)
-#define _io_submit(...) _M_MLIB__io_submit_M_(__VA_ARGS__)
-#define _lsetxattr(...) _M_MLIB__lsetxattr_M_(__VA_ARGS__)
-#define sendfile(...) _M_MLIB_sendfile_M_(__VA_ARGS__)
-#define rename(...) _M_MLIB_rename_M_(__VA_ARGS__)
-#define _setregid(...) _M_MLIB__setregid_M_(__VA_ARGS__)
-#define _sendto(...) _M_MLIB__sendto_M_(__VA_ARGS__)
-#define errno(...) _M_MLIB_errno_M_(__VA_ARGS__)
-#define setenv(...) _M_MLIB_setenv_M_(__VA_ARGS__)
-#define fsetpos(...) _M_MLIB_fsetpos_M_(__VA_ARGS__)
-#define chdir(...) _M_MLIB_chdir_M_(__VA_ARGS__)
-#define _accept(...) _M_MLIB__accept_M_(__VA_ARGS__)
-#define _sendmsg(...) _M_MLIB__sendmsg_M_(__VA_ARGS__)
-#define ferror(...) _M_MLIB_ferror_M_(__VA_ARGS__)
-#define _readlinkat(...) _M_MLIB__readlinkat_M_(__VA_ARGS__)
-#define strcpy(...) _M_MLIB_strcpy_M_(__VA_ARGS__)
-#define _fsetxattr(...) _M_MLIB__fsetxattr_M_(__VA_ARGS__)
-#define setreuid(...) _M_MLIB_setreuid_M_(__VA_ARGS__)
-#define _getsockname(...) _M_MLIB__getsockname_M_(__VA_ARGS__)
-#define fclose(...) _M_MLIB_fclose_M_(__VA_ARGS__)
-#define _settimeofday(...) _M_MLIB__settimeofday_M_(__VA_ARGS__)
-#define _capget(...) _M_MLIB__capget_M_(__VA_ARGS__)
-#define _close(...) _M_MLIB__close_M_(__VA_ARGS__)
-#define _fchownat(...) _M_MLIB__fchownat_M_(__VA_ARGS__)
-#define snprintf(...) _M_MLIB_snprintf_M_(__VA_ARGS__)
-#define _ptrace(...) _M_MLIB__ptrace_M_(__VA_ARGS__)
-#define getpid(...) _M_MLIB_getpid_M_(__VA_ARGS__)
-#define _sched_setparam(...) _M_MLIB__sched_setparam_M_(__VA_ARGS__)
-#define _sysinfo(...) _M_MLIB__sysinfo_M_(__VA_ARGS__)
-#define rmdir(...) _M_MLIB_rmdir_M_(__VA_ARGS__)
-#define _removexattr(...) _M_MLIB__removexattr_M_(__VA_ARGS__)
-#define putchar(...) _M_MLIB_putchar_M_(__VA_ARGS__)
-#define _mkdir(...) _M_MLIB__mkdir_M_(__VA_ARGS__)
-#define _fsync(...) _M_MLIB__fsync_M_(__VA_ARGS__)
-#define vfprintf(...) _M_MLIB_vfprintf_M_(__VA_ARGS__)
-#define _setgid(...) _M_MLIB__setgid_M_(__VA_ARGS__)
-#define alphasort(...) _M_MLIB_alphasort_M_(__VA_ARGS__)
-#define _clock_gettime(...) _M_MLIB__clock_gettime_M_(__VA_ARGS__)
-#define clearerror(...) _M_MLIB_clearerror_M_(__VA_ARGS__)
-#define assert(...) _M_MLIB_assert_M_(__VA_ARGS__)
-#define _semget(...) _M_MLIB__semget_M_(__VA_ARGS__)
-#define time(...) _M_MLIB_time_M_(__VA_ARGS__)
-#define execvp(...) _M_MLIB_execvp_M_(__VA_ARGS__)
-#define ewritesl(...) _M_MLIB_ewritesl_M_(__VA_ARGS__)
-#define opendirp(...) _M_MLIB_opendirp_M_(__VA_ARGS__)
-#define setpwent(...) _M_MLIB_setpwent_M_(__VA_ARGS__)
-#define putc(...) _M_MLIB_putc_M_(__VA_ARGS__)
-#define readlink(...) _M_MLIB_readlink_M_(__VA_ARGS__)
-#define opendir(...) _M_MLIB_opendir_M_(__VA_ARGS__)
-#define lseek(...) _M_MLIB_lseek_M_(__VA_ARGS__)
-#define brk(...) _M_MLIB_brk_M_(__VA_ARGS__)
-#define strcat(...) _M_MLIB_strcat_M_(__VA_ARGS__)
-#define strnlen(...) _M_MLIB_strnlen_M_(__VA_ARGS__)
-#define _shmctl(...) _M_MLIB__shmctl_M_(__VA_ARGS__)
-#define umask(...) _M_MLIB_umask_M_(__VA_ARGS__)
-#define token_s(...) _M_MLIB_token_s_M_(__VA_ARGS__)
-#define _fanotify_mark(...) _M_MLIB__fanotify_mark_M_(__VA_ARGS__)
-#define _statfs(...) _M_MLIB__statfs_M_(__VA_ARGS__)
-#define _timerfd_create(...) _M_MLIB__timerfd_create_M_(__VA_ARGS__)
-#define getgrouplist(...) _M_MLIB_getgrouplist_M_(__VA_ARGS__)
-#define ltodec(...) _M_MLIB_ltodec_M_(__VA_ARGS__)
-#define fputs(...) _M_MLIB_fputs_M_(__VA_ARGS__)
-#define _bind(...) _M_MLIB__bind_M_(__VA_ARGS__)
-#define _inotify_add_watch(...) _M_MLIB__inotify_add_watch_M_(__VA_ARGS__)
-#define _iopl(...) _M_MLIB__iopl_M_(__VA_ARGS__)
-#define _fadvise64(...) _M_MLIB__fadvise64_M_(__VA_ARGS__)
-#define dies_if(...) _M_MLIB_dies_if_M_(__VA_ARGS__)
-#define _reboot(...) _M_MLIB__reboot_M_(__VA_ARGS__)
-#define free(...) _M_MLIB_free_M_(__VA_ARGS__)
-#define _vhangup(...) _M_MLIB__vhangup_M_(__VA_ARGS__)
-#define _setgroups(...) _M_MLIB__setgroups_M_(__VA_ARGS__)
-#define rewinddir(...) _M_MLIB_rewinddir_M_(__VA_ARGS__)
-#define rt_sigprocmask(...) _M_MLIB_rt_sigprocmask_M_(__VA_ARGS__)
-#define environ(...) _M_MLIB_environ_M_(__VA_ARGS__)
-#define getbrk(...) _M_MLIB_getbrk_M_(__VA_ARGS__)
-#define sbrk(...) _M_MLIB_sbrk_M_(__VA_ARGS__)
-#define _getrlimit(...) _M_MLIB__getrlimit_M_(__VA_ARGS__)
-#define chmod(...) _M_MLIB_chmod_M_(__VA_ARGS__)
-#define ntohl(...) _M_MLIB_ntohl_M_(__VA_ARGS__)
-#define _kexec_file_load(...) _M_MLIB__kexec_file_load_M_(__VA_ARGS__)
-#define initgroups(...) _M_MLIB_initgroups_M_(__VA_ARGS__)
-#define vsnprintf(...) _M_MLIB_vsnprintf_M_(__VA_ARGS__)
-#define _getpgid(...) _M_MLIB__getpgid_M_(__VA_ARGS__)
-#define _dup3(...) _M_MLIB__dup3_M_(__VA_ARGS__)
-#define getgroups(...) _M_MLIB_getgroups_M_(__VA_ARGS__)
-#define kill(...) _M_MLIB_kill_M_(__VA_ARGS__)
-#define _munlockall(...) _M_MLIB__munlockall_M_(__VA_ARGS__)
-#define err(...) _M_MLIB_err_M_(__VA_ARGS__)
-#define _getuid(...) _M_MLIB__getuid_M_(__VA_ARGS__)
-#define setitimer(...) _M_MLIB_setitimer_M_(__VA_ARGS__)
-#define stat(...) _M_MLIB_stat_M_(__VA_ARGS__)
-#define uname(...) _M_MLIB_uname_M_(__VA_ARGS__)
-#define djb2_hash(...) _M_MLIB_djb2_hash_M_(__VA_ARGS__)
-#define _setdomainname(...) _M_MLIB__setdomainname_M_(__VA_ARGS__)
-#define _rt_sigprocmask(...) _M_MLIB__rt_sigprocmask_M_(__VA_ARGS__)
-#define _tgkill(...) _M_MLIB__tgkill_M_(__VA_ARGS__)
-#define setresuid(...) _M_MLIB_setresuid_M_(__VA_ARGS__)
-#define _poll(...) _M_MLIB__poll_M_(__VA_ARGS__)
-#define memset(...) _M_MLIB_memset_M_(__VA_ARGS__)
-#define div(...) _M_MLIB_div_M_(__VA_ARGS__)
-#define sigfillset(...) _M_MLIB_sigfillset_M_(__VA_ARGS__)
-#define where(...) _M_MLIB_where_M_(__VA_ARGS__)
-#define _sigaltstack(...) _M_MLIB__sigaltstack_M_(__VA_ARGS__)
-#define _lchown(...) _M_MLIB__lchown_M_(__VA_ARGS__)
-#define _setxattr(...) _M_MLIB__setxattr_M_(__VA_ARGS__)
-#define waitpid(...) _M_MLIB_waitpid_M_(__VA_ARGS__)
-#define execveat(...) _M_MLIB_execveat_M_(__VA_ARGS__)
-#define srand(...) _M_MLIB_srand_M_(__VA_ARGS__)
-#define stplcpy(...) _M_MLIB_stplcpy_M_(__VA_ARGS__)
-#define dup3(...) _M_MLIB_dup3_M_(__VA_ARGS__)
-#define _mq_notify(...) _M_MLIB__mq_notify_M_(__VA_ARGS__)
-#define _eventfd2(...) _M_MLIB__eventfd2_M_(__VA_ARGS__)
-#define strtoll(...) _M_MLIB_strtoll_M_(__VA_ARGS__)
-#define _getpeername(...) _M_MLIB__getpeername_M_(__VA_ARGS__)
-#define printl(...) _M_MLIB_printl_M_(__VA_ARGS__)
-#define setbuf(...) _M_MLIB_setbuf_M_(__VA_ARGS__)
-#define isatty(...) _M_MLIB_isatty_M_(__VA_ARGS__)
-#define _match_ext2(...) _M_MLIB__match_ext2_M_(__VA_ARGS__)
-#define sigaction(...) _M_MLIB_sigaction_M_(__VA_ARGS__)
-#define _sched_get_priority_min(...) _M_MLIB__sched_get_priority_min_M_(__VA_ARGS__)
-#define seekdir(...) _M_MLIB_seekdir_M_(__VA_ARGS__)
-#define _acct(...) _M_MLIB__acct_M_(__VA_ARGS__)
-#define snprintfs(...) _M_MLIB_snprintfs_M_(__VA_ARGS__)
-#define _syslog(...) _M_MLIB__syslog_M_(__VA_ARGS__)
-#define free_brk(...) _M_MLIB_free_brk_M_(__VA_ARGS__)
-#define eprintfs(...) _M_MLIB_eprintfs_M_(__VA_ARGS__)
-#define _pipe2(...) _M_MLIB__pipe2_M_(__VA_ARGS__)
-#define sendto(...) _M_MLIB_sendto_M_(__VA_ARGS__)
-#define calloc(...) _M_MLIB_calloc_M_(__VA_ARGS__)
-#define _setresgid(...) _M_MLIB__setresgid_M_(__VA_ARGS__)
-#define getgrent(...) _M_MLIB_getgrent_M_(__VA_ARGS__)
-#define _select(...) _M_MLIB__select_M_(__VA_ARGS__)
-#define _delete_module(...) _M_MLIB__delete_module_M_(__VA_ARGS__)
-#define _utimes(...) _M_MLIB__utimes_M_(__VA_ARGS__)
-#define ptsname_r(...) _M_MLIB_ptsname_r_M_(__VA_ARGS__)
-#define unlink(...) _M_MLIB_unlink_M_(__VA_ARGS__)
-#define posix_openpt(...) _M_MLIB_posix_openpt_M_(__VA_ARGS__)
-#define getsockopt(...) _M_MLIB_getsockopt_M_(__VA_ARGS__)
-#define shortcolornames(...) _M_MLIB_shortcolornames_M_(__VA_ARGS__)
-#define _timer_settime(...) _M_MLIB__timer_settime_M_(__VA_ARGS__)
-#define fprint(...) _M_MLIB_fprint_M_(__VA_ARGS__)
-#define _pivot_root(...) _M_MLIB__pivot_root_M_(__VA_ARGS__)
-#define _getpriority(...) _M_MLIB__getpriority_M_(__VA_ARGS__)
-#define _listxattr(...) _M_MLIB__listxattr_M_(__VA_ARGS__)
-#define grantpt(...) _M_MLIB_grantpt_M_(__VA_ARGS__)
-#define _umask(...) _M_MLIB__umask_M_(__VA_ARGS__)
-#define _openat(...) _M_MLIB__openat_M_(__VA_ARGS__)
-#define _tee(...) _M_MLIB__tee_M_(__VA_ARGS__)
-#define _clock_adjtime(...) _M_MLIB__clock_adjtime_M_(__VA_ARGS__)
-#define _quotactl(...) _M_MLIB__quotactl_M_(__VA_ARGS__)
-#define _inotify_init(...) _M_MLIB__inotify_init_M_(__VA_ARGS__)
-#define _move_pages(...) _M_MLIB__move_pages_M_(__VA_ARGS__)
-#define vfork(...) _M_MLIB_vfork_M_(__VA_ARGS__)
-#define _ioprio_get(...) _M_MLIB__ioprio_get_M_(__VA_ARGS__)
-#define _mmap(...) _M_MLIB__mmap_M_(__VA_ARGS__)
-#define timerfd_gettime(...) _M_MLIB_timerfd_gettime_M_(__VA_ARGS__)
-#define setpgid(...) _M_MLIB_setpgid_M_(__VA_ARGS__)
-#define _timer_create(...) _M_MLIB__timer_create_M_(__VA_ARGS__)
-#define _rt_sigtimedwait(...) _M_MLIB__rt_sigtimedwait_M_(__VA_ARGS__)
-#define _adjtimex(...) _M_MLIB__adjtimex_M_(__VA_ARGS__)
-#define rt_sigsuspend(...) _M_MLIB_rt_sigsuspend_M_(__VA_ARGS__)
-#define _fstatfs(...) _M_MLIB__fstatfs_M_(__VA_ARGS__)
-#define _setreuid(...) _M_MLIB__setreuid_M_(__VA_ARGS__)
-#define prints(...) _M_MLIB_prints_M_(__VA_ARGS__)
-#define _sched_getscheduler(...) _M_MLIB__sched_getscheduler_M_(__VA_ARGS__)
-#define _mq_timedsend(...) _M_MLIB__mq_timedsend_M_(__VA_ARGS__)
-#define _getpgrp(...) _M_MLIB__getpgrp_M_(__VA_ARGS__)
-#define _chroot(...) _M_MLIB__chroot_M_(__VA_ARGS__)
-#define qsort(...) _M_MLIB_qsort_M_(__VA_ARGS__)
-#define sys_brk(...) _M_MLIB_sys_brk_M_(__VA_ARGS__)
-#define _mq_getsetattr(...) _M_MLIB__mq_getsetattr_M_(__VA_ARGS__)
-#define _sync_file_range(...) _M_MLIB__sync_file_range_M_(__VA_ARGS__)
-#define vexec(...) _M_MLIB_vexec_M_(__VA_ARGS__)
-#define _accept4(...) _M_MLIB__accept4_M_(__VA_ARGS__)
-#define _pwritev(...) _M_MLIB__pwritev_M_(__VA_ARGS__)
-#define _readlink(...) _M_MLIB__readlink_M_(__VA_ARGS__)
-#define write(...) _M_MLIB_write_M_(__VA_ARGS__)
-#define _fdatasync(...) _M_MLIB__fdatasync_M_(__VA_ARGS__)
-#define passwdfile_open(...) _M_MLIB_passwdfile_open_M_(__VA_ARGS__)
-#define sigaddset(...) _M_MLIB_sigaddset_M_(__VA_ARGS__)
-#define _sethostname(...) _M_MLIB__sethostname_M_(__VA_ARGS__)
-#define _prctl(...) _M_MLIB__prctl_M_(__VA_ARGS__)
-#define _mremap(...) _M_MLIB__mremap_M_(__VA_ARGS__)
-#define fputc(...) _M_MLIB_fputc_M_(__VA_ARGS__)
-#define fwrites(...) _M_MLIB_fwrites_M_(__VA_ARGS__)
-#define _chdir(...) _M_MLIB__chdir_M_(__VA_ARGS__)
-// --- content-genconf-macros-end: TMPL ---
-'
-
-headerguards_h='
-// --- content-headerguards-start: TMPL ---
-#ifndef headerguards_h
-#define headerguards_h
-
-// prevent standard headers from being compiled
-
-#define included_ctype_h
-#define included_declarations_h
-#define included_fcntl_h
-#define included_ioctl_h
-#define included_miniaddons_h
-#define included_stdio_h
-#define included_stdlib_h
-#define included_string_h
-#define included_time_h
-#define included_unistd_h
-
-
-#define _LOCALE_H
-#define _PWD_H
-#define _SYS_SYSCTL_H
-#define _SYS_TIMES_H
-#define _CTYPE_H
-#define _LIBC_LIMITS_H_
-#define _SYS_CDEFS_H
-#define __LINUX_IF_PACKET_H
-#define _ERR_H
-#define _AIO_H
-#define _ALIASES_H
-#define _ARGP_H
-#define _ARGZ_H
-#define _ARPA_FTP_H
-#define _ARPA_INET_H
-#define _ARPA_NAMESER_H
-#define _ARPA_TELNET_H
-#define _ARPA_TFTP_H
-#define _AR_H
-#define _BITS_BYTESWAP_H
-#define _BITS_CPU_SET_H
-#define _BITS_ERRNO_H
-#define _BITS_FLOATN_COMMON_H
-#define _BITS_FLOATN_H
-#define _BITS_IPCTYPES_H
-#define _BITS_LIBM_SIMD_DECL_STUBS_H
-#define _BITS_LOCALE_H
-#define _BITS_PTHREADTYPES_ARCH_H
-#define _BITS_PTHREADTYPES_COMMON_H
-#define _BITS_SCHED_H
-#define _BITS_SETJMP_H
-#define _BITS_SIGACTION_H
-#define _BITS_SIGCONTEXT_H
-#define _BITS_SIGEVENT_CONSTS_H
-#define _BITS_SIGINFO_ARCH_H
-#define _BITS_SIGINFO_CONSTS_ARCH_H
-#define _BITS_SIGINFO_CONSTS_H
-#define _BITS_SIGNUM_H
-#define _BITS_SIGSTACK_H
-#define _BITS_SIGTHREAD_H
-#define _BITS_SOCKADDR_H
-#define _BITS_SS_FLAGS_H
-#define _BITS_STAT_H
-#define _BITS_STDINT_INTN_H
-#define _BITS_STDINT_UINTN_H
-#define _BITS_STDIO2_H
-#define _BITS_STDIO_H
-#define _BITS_STDIO_LIM_H
-#define _BITS_STRING_FORTIFIED_H
-#define _BITS_STROPTS_H
-#define _BITS_SYSLOG_PATH_H
-#define _BITS_SYSMACROS_H
-#define _BITS_TIME_H
-#define _BITS_TYPES_H
-#define _BITS_TYPES_LOCALE_T_H
-#define _BITS_TYPES_STRUCT_SCH
-#define _BITS_TYPES___LOCALE_T_H
-#define _BITS_UINTN_IDENTITY_H
-#define _BITS_UIO_EXT_H
-#define _BITS_UIO_LIM_H
-#define _BITS_WCHAR_H
-#define _BITS_WCTYPE_WCHAR_H
-#define _BITS_XTITYPES_H
-#define _BYTESWAP_H
-#define _COMPLEX_H
-#define _CPIO_H
-#define _CRYPT_H
-#define _DLFCN_H
-#define _ENVZ_H
-#define _ERRNO_H
-#define _ERROR_H
-#define _EXECINFO_H
-#define _FCNTL_H
-#define _FEATURES_H
-#define _FENV_H
-#define _FPU_CONTROL_H
-#define _FSTAB_H
-#define _FTW_H
-#define _GCONV_H
-#define _GETOPT_CORE_H
-#define _GETOPT_EXT_H
-#define _GETOPT_H
-#define _GETOPT_POSIX_H
-#define _GNU_LIBC_VERSION_H
-#define _GNU_VERSIONS_H
-#define _GSHADOW_H
-#define _ICONV_H
-#define _IEEE754_H
-#define _IFADDRS_H
-#define _INTTYPES_H
-#define _IP_VH
-#define _LANGINFO_H
-#define _LIBC_LIMITS_H
-#define _LIBGEN_H
-#define _LIBINTL_H
-#define _LINK_H
-#define _LINUX_KERNEL_H
-#define _LINUX_LIST_H
-#define _LINUX_LOOP_H
-#define _LINUX_TYPES_H
-#define _LINUX_SECCOMP_H
-#define _MALLOC_H
-#define _MATH_H
-#define _MCHECK_H
-#define _MONETARY_H
-#define _MQUEUE_H
-#define _NETASH_ASH_H
-#define _NETATALK_AT_H
-#define _NETAX25_AX25_H
-#define _NETDB_H
-#define _NETECONET_EC_H
-#define _NETINET_ETHER_H
-#define _NETINET_ICMP6_H
-#define _NETINET_IF_FDDI_H
-#define _NETINET_IF_TR_H
-#define _NETINET_IGMP_H
-#define _NETINET_IN_H
-#define _NETINET_IN_SYSTM_H
-#define _NETINET_IP6_H
-#define _NETINET_TCP_H
-#define _NETROM_NETROM_H
-#define _NETROSE_ROSE_H
-#define _NET_IF_ARP_H
-#define _NET_IF_H
-#define _NET_IF_SHAPER_H
-#define _NET_IF_SLIP_H
-#define _NET_PPP_DEFS_H
-#define _NET_ROUTE_H
-#define _NL_TYPES_H
-#define _NSS_H
-#define _OBSTACK_H
-#define _PATH
-#define _PATHS_H
-#define _PRINTF_H
-#define _PROC_SERVICE_H
-#define _PROFIL_H
-#define _PROTOCOLS_ROUTED_H
-#define _PROTOCOLS_RWHOD_H
-#define _PROTOCOLS_TALKD_H
-#define _PTHREAD_H
-#define _PTY_H
-#define _REGEXP_H
-#define _REGEX_H
-#define _RESOLV_H
-#define _RE_COMP_H
-#define _RPC_NETDB_H
-#define _SCHED_H
-#define _SCSI_IOCTL_H
-#define _SCSI_SCSI_H
-#define _SCSI_SG_H
-#define _SEARCH_H
-#define _SEMAPHORE_H
-#define _SETJMP_H
-#define _SHADOW_H
-#define _SIGNAL_H
-#define _STDDEF_H
-#define _STDIO_EXT_H
-#define _STDIO_H
-#define _STDLIB_H
-#define _STRING_H
-#define _STRINGS_H
-#define _STROPTS_H
-#define _SYSCALL_H
-#define _SYS_ACCT_H
-#define _SYS_AUXV_H
-#define _SYS_DEBUGREG_H
-#define _SYS_ELF_H
-#define _SYS_FSUID_H
-#define _SYS_GMON_OUT_H
-#define _SYS_IOCTL_H
-#define _SYS_INOTIFY_H
-#define _SYS_IPC_H
-#define _SYS_KD_H
-#define _SYS_MMAN_H
-#define _SYS_MOUNT_H
-#define _SYS_MSG_H
-#define _SYS_MTIO_H
-#define _SYS_PARAM_H
-#define _SYS_PCI_H
-#define _SYS_PERM_H
-#define _SYS_PERSONALITY_H
-#define _SYS_POLL_H
-#define _SYS_PRCTL_H
-#define _SYS_PROCFS_H
-#define _SYS_PTRACE_H
-#define _SYS_QUOTA_H
-#define _SYS_RANDOM_H
-#define _SYS_RAW_H
-#define _SYS_REBOOT_H
-#define _SYS_REG_H
-#define _SYS_RESOURCE_H
-#define _SYS_SELECT_H
-#define _SYS_SEM_H
-#define _SYS_SENDFILE_H
-#define _SYS_SHM_H
-#define _SYS_SOCKET_H
-#define _SYS_STAT_H
-#define _SYS_STATFS_H
-#define _SYS_STATVFS_H
-#define _SYS_SWAP_H
-#define _SYS_SYSINFO_H
-#define _SYS_SYSLOG_H
-#define _SYS_SYSMACROS_H
-#define _SYS_TIMEB_H
-#define _SYS_TIME_H
-#define _SYS_TIMERFD_H
-#define _SYS_TTYCHARS_H
-#define _SYS_TTYDEFAULTS_H
-#define _SYS_TYPES_H
-#define _SYS_UCONTEXT_H
-#define _SYS_UIO_H
-#define _SYS_USER_H
-#define _SYS_VLIMIT_H
-#define _SYS_VM86_H
-#define _SYS_VTIMES_H
-#define _SYS_XATTR_H
-#define _SYS_WAIT_H
-#define _TGMATH_H
-#define _THREADS_H
-#define _THREAD_DB_H
-#define _THREAD_SHARED_TYPES_H
-#define _TIME_H
-#define _UCHAR_H
-#define _UCONTEXT_H
-#define _ULIMIT_H
-#define _UNISTD_H
-#define _UTIME_H
-#define _UTMPX_H
-#define _UTMP_H
-#define _UTSNAME_MACHINE_LENGTH
-#define _UTSNAME_NODENAME_LENGTH
-#define _UTSNAME_RELEASE_LENGTH
-#define _UTSNAME_SYSNAME_LENGTH
-#define _UTSNAME_VERSION_LENGTH
-#define _WCHAR_H
-#define _WCTYPE_H
-#define _XOPEN_LIM_H
-#define __A_OUT_GNU_H
-#define __BITS_SOCKET_H
-#define __FMTMSG_H
-#define __GLIBC_INTERNAL_STARTING_H
-#define __GNU_LIB_NAMES_H
-#define __IF_PACKET_H
-#define __LINUX_COMPILER_H
-#define __NETINET_IF_ETHER_H
-#define __NETINET_IP_H
-#define __NETINET_IP_ICMP_H
-#define __NETINET_UDP_H
-#define __NETIPX_IPX_H
-#define __NETIUCV_IUCV_H
-#define __NETPACKET_PACKET_H
-#define __NET_ETHERNET_H
-#define __NET_IF_PPP_H
-#define __NO_MATH
-#define __O_PATH
-#define __PTHREAD_RWLOCK_INT_FLAGS_SH
-#define __SI_ERRNO_TH
-#define __SI_H
-
-
-
-
-#endif
-// --- content-headerguards-end: TMPL ---
-'
-
-
-LICENSE='
-
--------------------------------------------------
- Copyright (c) 2012-2021, Michael (misc) Myer 
- (misc.myer@zoho.com, www.github.com/michael105)
- Donations welcome: Please contact me.
- All rights reserved.
--------------------------------------------------
-
-
-I did this minilib out of enthuiasm.
-One side, I`d like to have this project being opensource.
-On the other hand, I spent really much time with the development.
-In an ideal world, someone would sponsor me for this time.
-It is, however, not an ideal world we are living in.
-Therefore I do have to insist on attributions and what
-I`d like to call `fair use`.
-
-In short, you are allowed to do with this project what you wish,
-as long you show the copyright notice at a prominent place, 
-and include the file NOTICE in distributions.
-
-That`s the intention of this license,
-which I`d like to name "Fair use with attribution".
-
-
-
-License
-
-   The terms `minilib`, `source code`, `redistribution` or `linked with`
-   apply to the minilib in full as well as to parts of minilib
-  
-   All files belonging to this project are subject to this license,
-   besides files, where within the header explicitely other licensing terms are noted
-    
-   Michael (misc) Myer is a Pseudonym. When your local laws don`t permit usage of pseudonyms,
-   one of the conditions below would be not legal, or you do not comply to this license,
-   you may neither use minilib nor parts of this project.
-   The author is under this condition still the owner of this software.
-   Please contact me for differing licensing terms in this case,
-   and explain your situation
-  
-
-Redistribution, use and derived works in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
- * Redistributions of source code must retain the above full notice,
-   the file NOTICE, this list of conditions and the following disclaimer in 
-   the documentation and other materials provided with the distribution
-
- * Redistributions in binary form must reproduce the above copyright notice,
-   the file NOTICE, this list of conditions and the following disclaimer in 
-   the documentation and other materials provided with the distribution
-
- * Software linked with, or derived from minilib must reproduce 
-   the file NOTICE, this list of conditions and the following disclaimer
-   in the documentation, and other materials
-
- * Applications and software linked with, or derived from minilib must 
-   in addition reproduce one of the according full notices below for derived or 
-   linked works within a documentation accessible at runtime:
-   - `--help` documentation
-   - online manual for web applications
-   - Alternatively within a for every user clearly visible and
-     readable message at the application startup
- 
- * Software and applications without a textual or graphical user interface
-   linked with, or derived from minilib must 
-   reproduce the above copyright notice,
-   the file NOTICE, this list of conditions and the following disclaimer in 
-   the documentation and all other materials like advertisements, 
-   manuals, datasheets, etc.
- 
- * Neither the name of the minilib nor the
-   names of its contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission
-  
-
-Disclaimer:
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-End of the license.
-
-
-Please contact me, if you are in need of other license terms.
-
-
-Notices:
-
-
-(Notice for linked works)
-................................................
-Linked with minilib,
-Copyright (c) 2012-2021, Michael (misc) Myer 
-(misc.myer@zoho.com, www.github.com/michael105)
-Donations welcome: Please contact me.
-All rights reserved.
-................................................
-
-
-(Notice for derived works)
-................................................
-Based on minilib,
-Copyright (c) 2012-2021, Michael (misc) Myer 
-(misc.myer@zoho.com, www.github.com/michael105)
-Donations welcome: Please contact me.
-All rights reserved.
-................................................
-
-
-Some files in the folders headers and contrib have other licensing terms.
-Please look at the sources.
-
-'
-
-
-# the "main loop". Continue at top after parsing the config switches
-done
-
-
-
-# dump minicc without gzipped data: 
-# sed '/^#MINILIBGZ#$/q' minicc
-
-# gzipped minilib.h data starts here
-#MINILIBGZ#
-‹á^a minilibcompiled.h ì[ısâF“şşŠIR—ƒ}½»FÆ6.g·NH(’¢‘À$•R± l*öøØİ$—ûÛ¯{FÍ¹¼w÷ÃİÕëÚµÑóô|õôt÷Œ†o–‹y¾ iàÒ^½ú¹</wd±\åş~œn÷d³ /ËõrµüpQŸ‡ì~İíóÏÛéöWòy¹&S²ØÌ;²Y“İËtµ"»åoù®>]ÏÉ‡|¹~"³Íz±|:l§Vù›zãóçÏo àáÃ›ÙæåíËrö<ÍW­Ëë·ESÍzİÙ|üu»|zŞ“Æ¬I¬Ë–õÚº´Zd(¤Ic¸Ü3ü5ß’zãŞ¼Àçùmó¼Áj/ÈÙfšu:Ékß‘m¾Ë·Ÿòù›z=ZåÓ]N§ŸrÓj³ù…,×ûÙ?çB)A˜x%0°·›-ñásÀ(©/àeò/ÓÙT3Ë×PÍ>ß¾ì Ödà1ÂÂ^2¶cJàs‡#Ï¥.éNH2 Ä	£Iìõ	„¾KcFìÀ4Hb¯›&! _ÛJ~Dİ&„>F1eŒ„1ñ†‘ïAeP{l‰GÙñÇO]/è_¨ »z	ˆ%áo´(V?#aiìàÑîz¾—LxGz^`[=hÌ&‘ƒRßI”ÆQã‡aÕ]9¾í©ûZ‡	Ñ !l`û~9g|²º:cw}*j&P8¦N‚İ>}r@CĞÿ‚°ˆ:~ :mÇ“7è‡ÑR’¸öĞîSVoü'Cİ;iL‡Ø7/K»,ñ’4¡¤†.W(£ñf–İ×ıq­¤Œ^@‰Í†*@%ì?wSæqåxABã8/š0c>ôÑ†¢.Ÿµ0À¡¢êÃx‚•¢¸’/Èx@Qq|ÖmTƒÙw’ª´ÆTÆHÚ÷½>À(±–±ÇhæÄc(à‰fÇ6´™ò!ãäC¯ÄGÕ–yÁgŒx=b»#»]Ã3¯°®2gP¨Œ;_Ï—‹ú7ÅŸåbÎ¤XÅ°è>Âª™gÏõo ^®sS”ñ]æÄ^” `vNÿk|Óßãšşg<ÓÍ1ı¹_ú‡[ú‡[úÿê–Œ^i¹­sp:ÅB®¸%%\Ï€Ú`úıÔ]&y±LfÊ¦ş/{Ê÷ùú“ä3 –ÛÍZ®¨Õ^—Å„_ûïV%w¸¨ë9ŸÎóíÓaºï*
-9—zšíı˜›ˆy>[M·Óır³6\ÌÖû•‰Xnff6ÏÏÔ·ÛÏ—›3Ä™9Şí·à÷MÌ~ùbÔa½„ê*Læ‡íÓlpB¢±[}d†ÿÄWÑ¼«‚N2‰¤ª|¯ëdÜ;€\&—v J¥A0H3¯—E¶ó@“*K¿úh{¡ôk˜É]±ã~¤<ÿ(?GvÖK"o“h``ÃHi¬á	õMâ‰Vqõ©‹ÚèNÊÆv¤N”fL®“ã  ÔĞÚI9ápçXö">QL#`º†ó†næRÇÏXÎ[Ò†ÃQ2ˆaYŠŠmr.q¦ÇÌPWGiòıPWóúàÈ=S5^ı<}Ôõœ†·Dğ^ĞÍC8’EÙ¿"c ƒth‚Yfo"„Şt&tl×Õm‹áÌÛ}CÛ‰mPH.»7XJÁ¥gÉĞ2ÃgPp&†8šAª’x=Ï4ûIF&MN˜öÁY$†I˜°¡íÄ¡^
-–—ƒ@{×'hè]ê$h¸F:;_^h•gaùt˜™8=£Ç1ä•º-Œ…O6“Ø°:rƒc‚ÅùôQ‚"y’xI}uı#ÙF’Ö ¡ÔGHG¾”*T*¢µÈ7™Œ#é|*ÏûB¹(¬‡®$ãê#ú©>MÀ¡ª˜`e²
-TG İó$]‚C‘2Z¦¸3ä
-Xbò~7”ºë©İõ(¥·×m	ê¡Çj+ÔŒÀ‹²Q5ŒÛA_)´K0dË
-â)sşAy†Àÿ@ã€ªr€ûKhF:ªDÀŒ:hÃUbÛ¦Ğ‘Ù‘!É"M`{$a°CJ%s@6Èğ¿‚Ânë!“]0ÂÖuÆÉ¸ÛU ê`ûuœ§,|ƒc"<gİ‰^Ös]ï•˜+ëËZ,ñà
-89s§G­?‡Ç?*ÁhÆÉ8öÒ0ª#°Š"Mmœğ=­†(Š25iE<†ŸÜ	_7Ä€IaW÷Èä'©Da2éÉp±™Vğç+H:¡ÏD_İ3Üx¡ĞreJOJ"9ˆÅ´O#‘ú#ÉÔ…G¾´<‘9ÌË¼Pİ¥ Êi`_‚¨šÊ1:´£âèõ<T÷Â˜ßÙr'¬FAôà®åM €ï”*iS 5]Âí¸;ÊlÇI4,}©˜K»i&OÅ©ßS¡K=m÷ØÇLìNÅõéB {zĞí@ÃÂ4ĞZ2m0ÃDÑ>`‘ÛCt<¢±.A;KPR;N…ú\D±A¸À{êLÂ:‹myÁ#úC&¶
-Ævà†Z×b{¬A´†ššsK6õæõ©nM°Št(pÁ;étÑP=à¨²‰9bº¢`%»-8Ô§€q‹¡£úæâx Ò5&,îiö‰æéz½É<ˆúÚ²Öã‚©aóËqİÄSåX±Oë4tØ¹Ñ0íÑG;I´JÇ¶\eÒWó-Q˜e²ï/@p½1Ä Mª¾SuëcÒNª9 í”f(ÕjN†Ñ£
-ÈÏO ³tİd>ú‰BØâ‡s1¬.›çAÁZş¸±Pym[8ÖğÃòyeÃ™ÙÜŸãæ¤Š–ÇòªÍzÃDñ¸YŸïø¡>†KXª°ı±/§oc<#,r}ÌÀ¿HÃª&¶Z¢\IIÏÁ˜C¹ÔÕq°	O¶§Î(ã¿¢ˆa<eZTA¤4ò=L	•¤²LÛâ1l~PÿÅQ«JA~$vç‰‚ôóx~öş´Ú|˜®àSõd[ÅÉıãM»ä£O?9¬wË§u>'«Íú	ßV-j’Ğ0vA
-§7I n@üğì z°ÚåçëâÕÈ< veeû:øs "\²÷¦bS©Ùót{dµRøn¶RˆM`¥è‘ÃÖ?l6«ûr4‹)Œ\–Ïûí!'­Ó`ÑqíGÒ¾¼»)Q €%^
-”\/b,Ò:€Å¡¯ç_W±Ç_—CÉ²Ùjº~ÊNç÷Ü¿C’ÙøÒvºßo—û<ËÍÇıòÆ	T³©LR¥X©®‚âÖÈ¤EŞ¾%›Ïe>9úe¶:ì–Ÿr™º¤´»Yÿ3hsµ™ıB>?çk‚Ÿ–ë'Y:H¥Ó5Òå@¥˜ã—ÂG€?—Å_YÀIã£@Ë( {°Œ¨ñâçX@µ'„48õL<’Ó¥jö!YG+z.áipdZCÚìATWà1†'p+Î R	€ü´N†„TKƒpü¯[¥½ïÀœg{’íó/ûìeºŸ=“ßÅbzõq³»çëa•¯ïÉä$r_j"H}¿l°²²ğí×'îz@ædH
-,­MşÂÖ¦¼`»|¶YÏwU¦\ÿU²SÑŒGÔGöŸ2º¯Ö„Øƒ”® (~€R‹ßëEéé?Üsƒ) —ÍüˆÕÿ¸¯,-í>B&8™-r_rùå~ªBàÓí4	ù¦èÌÒ!îáÑ{ ×RŠVêÇ$nŒ½·("–QÄ…ì(ÑV$b
-ë‰y#*ºwâºiy?’Ö¥Õ–ß¿L¿dOÛÍáãKşò!ßîÊF–`’—
-,¿¬‡i4¤Ã.Ş1W[õ×¸ƒ9i¿GÃ£EŸ+½Æ—Ó–D3¾Ü.¿ÌÊ=Wü)‰4èÓÄ9’‹ÅeQî\OVºÜ¬Á±£äUO¬ªåYÌïÿ /‹UÆîúót»æWˆóÙ//àOëÓ+“ô
-Z!×­¦t ìû$÷óåé½?"ß¾¬V¯ßÃŠÈ§/?]ş¬Öı|sØWÁ£Rªe*•o·ÕRğ¨”²N¥„Rş¤—ş«¦æxÌÂ­¿Ö'!lI´ø¹'!O®»V=}âb’^à­*Î­Rà–š¾èw>ÃÿzØìÅ\oóôÈóå§ª3,…¹[Q¢|,Š­”rŸ6Ë9i¼Oú<]ÏWù6Û7qäMUdqXÏğ
-ÆÇfæ½dLSË=B¤QŞ_6+.…>ÂÎC¬TDÉLJ¡ªùrz¦û›6ÿSb«\Ièf±ØåûÍ¢nò‚§‚‰Ò‡Ãrµ_®³£ ‘%*¡øGÊû‚K¼p ÿç"[¥Üoèâïu4üÙÿ†7a _Ü}Îw`+Ub¾Û—!O8yÀ3B’‚
-@ë:İbŞ{÷‹j¦õßëªÜ.û°Üï~ªTûSCªÃ¢TóçûúX%ÌÙ}µ#?Ò8lìšd¾)K–-ï•¼‚YB¯ßÛº'‹Í¶¢ïD`â¼êæÛã3oô^Ô¿^¿nòjşö·w—¸”>?/Wy£bá¢óùÎÒšû©1o¾mt^UÔü™üÛ;Òh¥şwß5€ÿ'•ç©û©vÇÿ¾Ú¿}Gşı¯Wï±S÷¿úê¯5ğW{Ï—5K¯^ÊpÏöü4¦ÏØËÂ‡ŠÔ#>Ø1>Vc|<ífÇA8°ƒ>‘’êqÊ/R·šQYFbU»Ä±jxRå)àjCx–Æ³z¤U3^&Y)CÓl 6A["Wh’÷ïIç¤œ1ì˜‡÷ÉBğvÑ”{ZÈ5W»S7FR%Šy½—øªÒ¨$S(¥¨æy³…€À»ÿ­ğ‚ÍWb´­æû÷	ïê¥Üx÷r¬¤Röu+%ßq-¤¥~ËŞ¿{Wxİ“ÜĞ¸­À,4x"¯š„§5UÌ‹ˆ²×BBS
-âËeKâ`·=‚ĞSp–¡\6²}ÏE¸’xN/”Ş<mr‘8;ƒ²œ¥sØ0R>J| “/)Q3wd!‡37b¨
-ëÒ`2½„—½ì(,ŞõH~iYÙz ‹»ÕR‰–ÊFa”úBÊAô¹ÜíëEÖ3¾†%•ªezBÆíwİÖKã&æXº£Ñ|¸Ö"Ü@¹`+ç-!nÊªš'ğ¨®8X‰B’áªQ”hËÄinÄÔè½àiTØ¢"1Œñ}($%`£ªË,apf°	åºiUO;†ø~¯4iK¡
-e¶«°ãƒr²Ñ›YÉ¬Ùc%ié$¬Kv¤Ûc€Wğ& ^¶L¯èìw
-º­Ó¬b<¨]@È²y
-€ƒb–f6bt(Ú&š$şQEƒ€è"—ó„&#bÎÀó1 xR_tØ2	º–Ô€"m“È),¢Hç|sE§LF[jÇá{w“Õ–"i"Ğ>'àEÎÑ-©ÜŞ)Ş"ÑMë¬@@“Ò‡è^Xz*™1¯.ãn &£B?ˆ·dÜÈç¡fIhÀuÄ¸ü•ÄO†km	f	˜å×‘üX¼Òz¬İHÄ÷a÷xÉ®v+×eÀz.«u$Zğù;5·YíN¢!:†1¾>ç—=Rßúµ–¬ş•ÕZ²
-¸çÄa [kY¦z!Ùw9+ëãX¶¤e½ô¯µd€„ÔEøšZKVlî0úÔZ·&ßĞ÷i­ÕQÉ0ğë7”_p®µîÆì>.]†_B©Y²ZÊË+¬fÉª)²Š¢°û=ÔB²‚l~Ã”á…œfëJc9ÜÖ`Ô,,?±…„¬% ì	Ÿ1Á*zúádŠÖ­Jñš9%kªx±Y³ÓAåàv®vu©Nd[Lğ œ/–ªË,€_ÅÚ±4ÂY*ÖÃ•bI^_Üä\[7\AÈJêÂ?|ÓË©•r=±$¯nU†ñKÆœëhœ¸6ÄIYOŞDSüjœ_[V~|K)ŞÇWÚ—ÇCH#ÁÈ£¶Êùjß(tÔÜZûVÃ]:ªµ;
-Œ·Åsgbâ4¨]_*ó×-´]Ú«]ËL…Íyá¨v£˜`Â*şH\a¨İÜ`ğƒ=HHÒ€/i’yf?ÎâìxúS»¹Sùh\åoå¶ı°ïYéœoåa&àGOœeêKÅ]ö0Î »ŒmÑËÛ+“ìƒ¹mGÊï6½ v{mâW=x7&	ş®Wƒ–k·F…„øš¾í˜„Laäöîœ$ä§
-âµif…Há—k–Y$ÄÓ†ÂÕÖ:J .è0ÆïÀ½Zçê,~PëÈ
-ü^x±ZGV­=ªr²ROç›µ¬IŒ —•'®}—kçÎ@>:åÕôÚİ¥A ¼ÇÚ]ËÀğoÔî,EƒAæµ:På•eƒaíNu*ü+Ôî®*híîÖÔù¨oÕîLcæªvgpÔo×ZJvà1  J.»Î<?º²²°×»² ¹ş®©¹„İ´QàV¢bÁCÑS¦ñø´o; MC:¦`™f°ÌĞ­¥DGşMVL%ğö°òŒví8öx‚¦„FG¼ïçwyz£4'J‹^—ô‰VÒ"HùHİŠ w“ù˜oTìc~¨ ]»V¢v^ôHµ•âx£`y*Ù€ú> JÒÙcØõ‚†±ízâÚ6!Y4º]Lq50ú65@(şwéé]ëF]QQ5¨Šw‚ñİ0ÏµoÔØŠ-Pı­^‘,òR`Õ ‹,îù0Vr¨É—ƒoe”h#v!Ğ×[uÍc}üûüæÈCİÈ«O	2Uš¯%¾ _]yJ`áluİ)ádBÂTÛ–IpçhKG3ñÍDØG$8éJè"ÇøÔR‡`!	 FV–n ‰—„w€ÅM=Hÿ•Dst+)ÏRg•Æá[Ê"¾¢<KY£œ­(ÏRRN†wŒ#¿ØbœWR©_«mRS…6é‰é‹¥d¨‚å—bE3BHñİ"¶iµ	LvS0)§°ÚÆ4¦*zÌ-¬vG}÷ûiºn«ßöÖ€Ñ°÷çİäFŞ(ü7ëSä-¿-•Õ6“¤(Éåö=‰SÉæ¢R¹í“‡â"qŠ"Ù\j™î~>û 2$µU{<s¥w1ãØ@  €R§Ô9Û+œâjvéÙıàÿıKp°­Åóz­úÓŸöƒRLV¡ˆÁ„—ºèïålXÛé%„é×§åµY¢àoßùxÿ-Ùûü4ˆfÓõ&Ğÿ¾e…‰Ö›Áj³÷é`†MVáü»½OûzùÕâWç…|š˜¯A8÷p±üº7: /›;F'U@UìÇ”XIºQ?k‚ÊFİéööô^üş£Ù†Äñà» ÄÍ•ÿ»'‰û®Ëƒ`6Xo0¾Ár?ø>0{{{ÊÕjÿ÷{ÄÉ¸9Q#mŒKíìg=¯7Áz5D&ü „ñÛ©
-Ì Š
-8Y•„öã,àËİß?È¼¡ŸÈ—‡ı.5làTà—ãbZ+Jüß×›Ì£F%×¢©ÖˆµOâ˜,÷¥ŸQÜ¾43wŠ±×`¼ê+t_ÄH5¡3Š›wå¾§¹€å3i›“ÕànF£Õx½ŞËîï¬¨DÖq¹•‰
-¶Vb>0-XWØÛL"§ñ˜VË>TMqM©®a ×J6ƒ%6;O‡ˆ{!Qşx´ÿûÿ{ä–ÄóGlé¬¬*ÌA˜¾K"fL÷‰ÅêIYX^K¿¡òÙü#¥@aî“‚ŠøI!î®qoº™o‡‘#Ôt²¸R­ÕA9H·¯ßóÚö®ÖÚ'Öïé¤mHÁë?7Ã?/ëõgô¾¶ÇYZ«·BÆü_ËÜÙ+@Aî0É¢e’lÒ Ÿjk à³Gò”ò:GÓõ`¶¼ì N²Áÿ„Á_p¯İ¸½@ïÿ’Ïí÷‡Áöƒ¿¹â>;šŞL7",úİ²,ÌZÁf‹ÏãÕÎ`ŞÔ¶Ëå=ÁJ¾`Ëhå]ÁöpŸgŸ\
-'VØ›Õ`y»+,uÈ±r½Çroğı÷ş°ÿË/ôë›äç<ù9I~®’ŸŸş°¿oWÖ|{G±²Šûå— ©
-Æ¾Y$‚Æz¤br8(üç÷Náëát}ƒ¸°‚sÇVĞëÙ`ş‘‚ĞŠ¹T¿Q œw8ß¬fŠ÷¯˜Å_~¢Û+X‹è9H\¬Z~ù…ÉÄbÿ’4MÖNA¬¬ş¦eÿµ¸o{µª[¤Œ³âš\ÚŒÀñ÷pÿç`5ŞlWó½¤ZÛüª™U’fØÌª<Ì
-°™U­y˜`3«ÆïaV€Í¬ÄêaV€Í¬¸‡Y6³ª#¯èàÌ¦Õ:Ì°™S¤a ‘jÁ¾l`3«6ìaV€Í¬±‡Y¢R¨-û*… ›ùKjKúÂšÒ¯Â–©¦ã÷Ö=k¦®k¦–«\¦~kUÖ•«N¦F­‚iÈú~3Çôƒ“œ'¿yäFÇ1ıÇàX¯1ÇàX•1µÆÅbtÓgşÂëäKR)î½{êê™ä²<s¯ßb¹¹—šzÈx}A‹n^ìFU¼½Šüó‚1ˆ2¸¨7ë1¨è?PÇáÁ5ü7w0„ÿFğßãƒ1Ò³²7ˆdnÊL	Ëü'Ùƒ¼úHxö`FÙƒ;Å‘=˜+–ìÁBqd–Š%{ğ“æÉ¬4Sö`­¹0ÎfÌlgöà“aÍ|6¼Ùƒ/†5{ğ5æÍüWÌœØ	œv©Ó­ÒÅ$„½ d¸>À™Ş§üÃÂA°¯ÆÃÅÍÌßQ CÍÏÿxåîÛ¼ÒÅå÷!|à¨{jîˆŠ÷ÇÁòŸğkùÇ?û:ÁÇô³ÿ¤±ó»?†ñ€ñ¼vd×<®¯!ºk*Ëé[5Pù‡X(rŞL¿ÿú×@ø[Ì¿gqìwr„FçèÿÁ)¾ .`l¦PpLË˜eÿÙE[¹Ò—'YÂU±Ş'GÊóï“2ğX»Ï‹õ{*HDÚ7Ñ[³sº‹Î@@ï°Îây‰}LÂ>Ü ú¡İ7I7ŠNığnéÒnWÎ½¡›Åh<4‰P\“ä¨úT4£ƒàz»	æÊäp1ÿ4^­Q,{ÿg´ÿ§ •9WŠCS²&KMdB“oŸ’«ñ@Q¯Ôİ¢«Õ|!µ$VñRvÀR­o>í,fµÛ)Ÿó¸’%éj½Ùëp¨À V`ı²$¯l0™ Us§õ3YıCñ/™ğUOK••,ÚWÉÓŒÉ¹Ñ—ÎJõ&ƒBÖE•Éù`UKèÏ &ºä‚Aaï´ñ.˜4Nûİ,ïlºZ­^ÁŸALW•ê%uÌÓ²0æ}…Ù¨Ô“cWÕz—#s½ª’×+ƒ˜4šÌu!&ÙÒè±2³İåjïªwÊäÁ¶•«5»mä¬¶Ñm³¦Áªİv½Í³Á¤ÑiÕXMl¹z·¼1ˆIÃ/`»ÆÕJËêtlß¸J®rbÒ¨TKÖ6ò¼§”.@Ç·-u6ƒmuA‘eC[XÁòVÛèÑ9Y1ià>&Ë<ÛÙª¾oõ•ä<¶ê9Voé²ša[ZÕzÅÒCl;zf§ÉC1‰4rMæ›°¬j#ÎûÛ¾¨Ã{Û®ª6švZL"ı&ü!«·”»õ$óÉ‚ZÙ`nY¨Œxû`nYquÉ6ï«W5<@Vo)5™¾<<´#ü!iølÍ¡.Ë"ÛàW®·İ YĞZ‹	‡–Hº\ã3 T;¥^)˜HpÇŸ•»˜³"ä")æ9Ô¬²l-‘´ß±úd.ÕNõ¢ÕKR+Ú]†÷jæçàÚ4(rÒ¹àÒ(òÁ¥uÁ[7ó*¨ÒísbÒ¸€Q¢~w¶#Kôàÿ“Py«>y/c>ÕÖeµSk´Şˆ+V¯ß¬ÿ‡²HŒÌ‰ eX>gi1i4ê§0&Ğ‰–’³Ô-'c-s@ˆİ 0·„øÌF·—
- Ï<İÇCLĞv¹öf~fUÜ5g:óØR§½nÒ[ækVE¯Ctñë¨Ì0O³*TÉÔ'²m$' N,Ãƒ@0Ú”¡ »ôÛíy˜U1{=ñ¶ÑÆì Ó²Û†:2£şV–f-‰C3•du¦J§ŞÄWTšÇ6©”.KuÔv'\µT{êø•úã®jˆõ›°½Î5ZëêÅá˜ÌÊ­f³t
-YTç¯ÂlŞÆXÀ0ké¼°!HòÂÄVïbH†Y¦ÇÁ0Ë¤Ò=ïó†Y&¨ñ‹RóC§ªåy¤<ñ,¼	ÇMXU†=#A“îšğô¸‹hÈ­ØRı:b,äfl=<Ïèm…Y«Äí½²}<yÃdÚİÌ†qsÅ4ƒğzàÁÀFç÷VĞ Ï2BnÍVğ²AÎ@ÖõşEŒq{–¸Û†Ü -—šåjÃœZ¸¿$Äù®ú§ÇäHõª]7g,¹—$bêeë]Œıãt½s«ª¼Ú©$‡ïòÖ}¥ŒãVä‘0„¼«3„Ü!­7ºk5¾™®7ãÕ«ñøïœ¦½4û|»c:»Ş¬·ë% v”«éœø ô¨çj>¾¶cÎÚ±ewÄ L›h°Áç:x@ı¼X}´ã‰‰é3÷íì¸&HµcÒ¤Ôxh“T­˜ØqiK“<‹¾CKeŸùøgé|ü~ö±'óãôÜ}Ñï_`¼«cŸˆÆ÷Éhâ“éÄ`ì1ŞÚ†L`›’±Ë;Ne^oV³±x«ÆĞ<ìÑO8	Õdä1ÜÖ>ÙŒg3;¦Ùz<½O“ÒûÌx#ÔÀD‘¬§H¼#"{©"ù˜§ µ…àÖ4ûj<
-(é”·£GfĞfìÕo“œìj’·MÓÎÜ¬~L…ªCJÁE“R#¹İàö·PäŸâ•_ä¼‚ûíÄgBvó)|ò‡ù´3ĞçÕt3¢U¤oUÓéŸ!oËo ©FÓñ$r”ğ—ñğ“È¨¡¥.áCŞDˆ„ìD?Ù)LSÆM’3ÆÔ”ØUÜ4İ'Ä©(5ÒµÍj³øèTĞ¢•SqšºKÛß¬n¦BGŞ¬ÆÒÂĞ$_“Á(ş„ê	rãr³+Èİİ@lp)Š‡u»¯F×Ñb)²¤W¹·Æ½Ü$RãNÛ¢»ó—êm<DVbbj€©/ÀÔo}v*@“vµ<ÚR”åº]Í·3·hš¼»í¥iş™ªúôÕñ7+ñôf¹Zñ*1ß¤+Á,£D`©±“‹Íz±Ú<º©¸qás°‹á“çoh-r Q¥5Î(ÒNÍşï­ÖŸ¦£]%miéG[7®äĞ”MEïİ–iŠæ×«£±3'Ôİ†²˜;<ÁP¬¡÷‰Ö<¸¦Î£Ñ¤§j`¯&Á~OÓıµ#’åçítäˆDS¿Í€öHíş¨ñõ^µõ„‘Õ3ÇÁ.¹µñgY¾¾ôuö¥¿¯†ÃñZT·¡ùKGÏĞŠ²íi±{[x2¢İˆpØ‚¾*dúˆám8[¬Eššä³´ş·,$MóÚœR,“ÕXäDQÒWğ6ë9,úŸë
-Íkhßf"g¼‚x Ç'‰±ãK½‚[‘iîy3şAÀÆïş#[§Å¯V_<>q´ÛAŸâ³Ïj÷Ö^ÚZÎó{·q.{ÎòBé^kœœû¬ËÀñØªA?±Ñ›à–™4Ieä:Æ½êĞSI´=ğÌM„g
-å_PÊÅzú…2°Ü<«;İS*¯İõ­…×£åÿ†Á2øeÎõ[¬<<z@F+lö„šzäTÎMøÓÚ·üˆ©éõJ.v}]+¢¥qçêÅÀj?uQö	ÃàË’öœæQOÓÏ˜@¦æ¾ùÙ<m‚¶{	ùùZÛãò«;gDÚóÿõfé‰}Écwëf;ÿßU;iæŸX#xê~ëÚ³fö„Wp®ôú-küÆ+ª^9Œ?>[
-´¥,&ËOX‚"-¿SÓ±lSX*î›Ï>Ë¼bsb‚‘ÿı§ÀOœ×nçwtÄYlÆÃÍXì6İ*ô¦¦ùÔ¬Fˆ©éMÃgˆü«Ö§•Ãkß;­sÇ$×\ât¯†õŒe1ññö¨•¥ñ32ÚóoÀ\%TÿpåÈÇĞ|)¸¶gë#=Ç¾õúğÓÚY†×$¿D¸°ÿïZAXÁìFvá§Éjq'û†¡îZf“FOXúÖKsn ¯CÓ®J‡±åv,Vc¢U“†¸c–šìÂ=ræé¨ÈßŞ7ä±ÛTä!]ôÑiDK7}fìV1ÉÊşÌ¥ÄîÉë£š‰>v6ı¤iÿè—j›h†gF}úz:w{ÿõTÖS£B¿CÑ;èwˆíz´múÑóóåÌ7…=c†6!ıW/ÂÁ–{Ü,Ñ3%ú6)ñöğo½4ùŒŠGnS¾¯¤iç´Õ«ƒ½úw§îİ®gã±ˆj>˜/4ÙêH	9½¯›Í×gM|7Ã³Ùg…HÈO™–z„8÷ÍğÕ›<·ó.¾Ü.Öw™àA:ÌZ…QqpvMJ/úôf@=k®¥<×LD–}k!©ÙàÓÊ'Î™0óŒeßÊiÃrµ²E·äŒÈŸj#Z#¾õ„,'}›ñ>9ÁóÖ>i¥Ú¤˜ï>ÆUéÅ£÷xôz4î+<*§CíîMŸ¾"}ävÅj0•íY“ü*béóèKñçû8•^¬Š’Ş¸“cƒ¾16ì˜P}üã{gà˜²?r­wæaŸ¥³o}ÑowÄÿ„ÕÔÁf!Ú¸¢øë¬)ˆ%™{‡»# @çÕ+'~¢¥ÄïğowxdŸxôóÈ9ãÓÖ±»ğø FÔÂB®îZj—e¶ä3Õ'ØœJWh=ødm9öpÓÙ}£ÚAíñ¦ˆ/ÀäşsXÊBğ/nŞÒá]”™C)=’âròYöéûw7ä¼wç[ïü¬~JÿöXà«ïõÿGí,>q³`°Qù}ô@—Ò&şGœÊ¾l†·PQ›œlÁ°1Ò›åó­ôÇÛk42mÄüÖÆ½v yF‘}-DşöœnÂ?y~–ÊZQRãÀ+[Ÿ W<R˜<ÎItşxÂÎÄøW,U¨=°õxÖğ_¼dñÛŸ*^ÇhÂ¨º÷¤í7]´ş„]ÃÉÙcCğGÅÄçÎÜ°ø4qV5)½ã~£%Ñ—<3ôë{„ÜU¡GßÈäãÿËOhz7ë[dØ€óèãüvÉVãÏSy“ÚÄõZÜçµê9bô¯gñÊáù›ÛßÚù<mÖô|'•XãJİüÈk&ş«­é`<š_®®aÂséİW×LoæéÿäßptwŸe$={g3YVxÖâæš¿YP¶”ŞÓÜëÈ,Š~ú×F÷š/ÏéM»;†gB°Ì7Ï<*ù¨ÍÚøğ€50Ä¦Cºåõïµ¾áİYş×-Ï%š<rëÊj8¹|¯Ÿİ:RV}|>¾µ]#Î¿Î«å	6xJkøWÛÙ8j»WÆş;]F9ò´ÒGnß>±Qëûv¬Ü?f¿İÛb|&Ú®
-¹Y9"/7Ë}óES?rGr/=úÜ:”rúüoflÿæŠ=áBæ'¤Û9Ì?>Ó4zÂ&:ÍÌä*óã§f©‡?õ«²	kbj|XÈèót´¹}–@élüÄ4Üu&ß2ÓU&Ï"Ó¿nÉÉÈÄ““]F‡ñÀ'¾ñ?n¯ÜÓ>ÕĞş¬áæ3R}şXÛÙ}ãùÄ­ëGÖÇo¿FåÙeûw2Æ@‚ÿ»ï9øVkoß&ÅÿíWÍ¼&ÇÙéÎS€è/¨G\‡³şºŞŒï%ÉÇ­Æ<z§ú±¶îƒV“<‚Ø¬¾éuÄÊå‘ít›Šàñg¦ødÊ|³Øq=ñÄDt+ú©¾ÆŸÇ£I"<õ İ·ºIÏ>…TSO²·ÿÒ¿lÿÉˆgxÙÜWß®ñÅsøoïòò¤ÒË“JÔş·Áşò¤R’ÀË“J/O*½<©ôò¤’g–ñïéõò¤ÒÿÚ—'•$ÕäeãëåI%EûêøÎ¹^T²Æ™—'•|‹¶n<kJ/O*=P{5ÉË“JY=sœ—'•¤…÷Ìm¤—'•^TÈ ğò¤ÒË“J/O*=Ez*éåI¥—'•şåƒåË“J<á—'•¾…Zøß³¤ı¿ëÑgh•—'•~óÚI3ÿr0Ò£^T2rxyRéæÕË“J/O*=r¬|yRéåI¥§÷CàåI¥—'•,bj€Gß’øò¤’MÜe›¼<©ôĞõÑ—'•^TzyRé7Z„yyRéåI¥ùË“JÏ˜Ûy_^TzyRéQ6¢5â¿<©ôâÑëxyRÉ«"^TŠ­ï—'•^TÒååI¥—'•¾‰)òò¤Ò·ò_Trl¾—'•ş×ÿ_TºYúåI¥—'•^TzŠËÿøåI¥—'•Ò—-^TzyRé9ãÒ¿©»óË“Ji£üË“JOÿË“J/O*í[şm¯®yyRéåI%¯ùòœŞôò¤Ò÷ú†wgùåI¥—'•şuvöË“Jé)¿<©ôr³\¢Ê^Tú¶ÆöË“JB§½<©ôèµGoxFİ—'•^Tzh}¼<©ôò¤ÒƒªñåI¥—'•^T2Ñ¼<©äTÂË“Jÿ–ñÿ?ö¤….îîóh0›İ‚©0^­£d]Î‹épÊĞ_G_ğ/!¨bÁ&—õf¯à_¢ó/è×{DZµSêV‘–¸†]¾«7Ä—g|­‘‚d7ì²W¿  ÁaB»¨7_1¡uß÷ÊD;b´^©C™9æ´V›øN­ß%Z˜åyQÙY9:ÕvÊ„¬•z·\êT‚•ã½.pÈÊÑhV¯0/á¡•FÒHÊQ?kvŞDé/Iˆ˜²¦ç8»Ô1ô$= ^Äñ°rÕ›íò»@ÓsŒŞíuêmM/pşF¹£ùÃl–§Ósœ^î4š^àô~¹QVtˆ†Ñ¯ZT—*N/5?(zAğ×jDÇhı¢tuZm*n¯vLü‹Şj·º=WÌ­F¹_v¥ÜRRBn©ÂJ·š­˜;ÇÉNµçH¸U£ ÜªUª&ßé$PÈh/:kö£n«ß)W÷ƒ_~Iè§İŠ—~ÕjW›‰Sh6*nM5ÙÀ4‹z-wL$ù¬EöFRî˜HB›œóµr'¯ÉVÜ½Ò)¦	q9ëIÈ¡§9çiF@Î+²Å‚U¥´×i×[ÊÓ®.¥Í]«©HÂ¬ {#©ÕT$†[küX-êÙ­ú²çë²§3ds“¼¼8Ìr€i¡£C$ä4³È3 _`@‡<D¢OAjHTãiŞ=Zä ëˆ§¡K¬á1X9r°r¬¬'E°r„'*uğrÀÊqxTÔ@h‹=).ğìæ³…àÙ-f À«ÿp(–İ“\XL –]Õ4³
-°ÄNÙ5@hÕ9‘³êœ¬9+DÁj`åÈ[!X9
-Vˆ¤ånıïU]E¦}º‡^Ö-Æä'Åä'Çd+n°BN_îTKwL…±¼Ú<uT/[•Š£LÏûírÃ£L­r©á§İú™§£×Ë¥&Ì²›WËç-O?CrÕ•	’ß¹2Ar³á¾Ùª5ºçNá{-²Ødáë`MU›2í•[hØ„&7F{å:rä,B“›¡@¨5ú;M1‘GÖÁ½ì°İR¥S›5´hqØGí‰ ¯z¥À£`€~xôKù´Ô¯õ"éÕ+g0,×U ª|Qôƒ‹®2<µ°ÁN¯[îuƒlÎ^•Õl@‘V»(÷NƒFz»ÓsZ45¯ª;´“\[îØ6P'rqµ;­²Él’O0ºÌ°§^YÌ±6_—c>ûrèfæ5½ÌtõÆì‚Œ¡{¶˜ßmŞÚÄõv=.æ£5G¶sÜÑÂ$~;Ü˜‚Ÿu|ÁæS\oyLHÛñ×·Òğ¨ã|¬¢¢éQV—õN¯X(1Mîr&'SÌÀŠò"3üé|C “qÀàŸíøí+ÌœN#*F+’HBªÏ7Å‚ uÆ7š¢ëa=ı/BÌ >5‹]Ã[rÉpDŒT…Å¢2<P„à3"N­ÛëÙXÿÃÑÉl1Ø¨ÿr²ÁÏ*4ı'Šf³·Vl@Awƒ/Ğâ wŞ¶óébÿbæ¢húcXøçÛàÓb6ØL!Eı¤Éq!uŠëş‰)DÑÿYnnqg"Â£ÊK+ëOË"ZLGÁ›ø3Š–?úR½ÛnÆ_şuÉŞm˜XÎŸ˜"cuÑW"ì}¿UÃ‡F½£9$Q{›Áê3n¸?(•co"ÇV_×ƒÕj:^y•ÒÛ)úCZ
- "tÎ‰¬U§—ä´xVã›…ˆµ
-§ë5®"ğ¢<öàëÛÅj£ñ°èa@	™ò9ƒÖuÄP,ÜÃ€úÁ'?Í­ÌeÌ ó¹u²sèŒn|&•¤2²u2êpD÷³ì(Ìİb4ö‡ÅÊšÏ¦s«¥êEÅÊ§óÅ.x4şähúëÙG§y)n@†óÍ®ø&ë‡ğL¦³4ÏÓ€²öyˆt«ÎG#­Õ±Z‡Ø¹§#§€CÓéÙ0½^‡®¡Œ˜OÑÜX<ú¥uÒ¢üäm
-ıÆ¦cÌÇ_=:)Šî®ÑÇ3ø3“j´X~ÚÃƒøg´¿aöDÀ(®¿ßú;Étñ‰ä¡Ä_ ÆÖã·ÆØ@Âl<·D’ô9.€;úãzMwÓ•òwÛy¬©âj)ñ´iÚK3ZåwTo•÷×ÃƒÑ~°ìíöÿú×|f(ğû~ÓÏ¡"Œ€÷ƒ}+‚æ“h¬÷mêûN½WBAUóàœEÅì«¼Äñ@N Y+±÷*·œ›Ò‰ÙQô‹	dØ
-ÖqƒaFî	õ>%Ø/K·W>«öº™LöËa!kMrNßkz^Ğkš^°c/iò¡ÍnÈEA6±	º‰ı˜ÓO;ï4ù„‘¯ZÍ²&—'øš|šALÕ«rCÑË½Ó+&—½
-¨ZÀYû¬ÓV@ÍlİV¿÷ƒ¢‡v€^]e•-SQ
-ïëÍîß’·C0¤`!P	Š~hÓOë]E/JzYÑlz×Äslç©ÛªõÊ¥ÂNì\YXRµz«‰ÍTÑíê¨7Èdƒ…4êÍş•
-b×T¹ÕÔE©ˆ¬U;õ’ªÄ°*rÆ »¶ÚïzJøl5	ósZoiº]YÍ–i9»¶@`ª„9»®ÎbzA´æ¶NÀ®)jçD·k¤ÓeÔuüvmœuº…ãC…i0¤&Út¯	ôãl¶pXÈgE³î5Ê˜ƒ‚Bm±œUª—IH®E üWª y¡\Yè–+İûóA×Ú"/äU?Ë$¹²[÷åy©yÖW1$Šú®—døXŠAU£B°Z…(°•AÛÕªê…ĞjQåFUµçC«¥YÑ-şR÷CSuÍCÙĞ:ĞjPlóµÑP-â° ±n‚ÙR<ƒ÷:õ–êZ‡¶»=rÒìö:ı²Ò‡ÇZí5º´…‹ğ‰¾è7zu—œ<[°­>.êïKu¬­%Îê o›ªpÁş€‹ğD/Úu-"ª”p°
-\€–úH‹¡¤ñ7äW•!Î‚(u@ûÇÒl©@B[S5”wªã¢f&Stª=êU/È;!û~m,‚ÍFBğó+aç}^G«Åç·òp1ó‘¿,§_Æ^ä«FØU[Ô¨fGğßPhE;{(4'ĞN¯ËP1şEİùX¢†Šñù"*ó˜sZb¹*H´Ó<KĞc‰VºIX¾¡c®˜\Å)ÉØë6¤&8ÀºM
-Öâuç\páFKûª¤ØØ^Iã]üq¤Û¨·$dÈE«ßk˜u‰fÔn³ l+bSn!ú¯ÀÒUî0	sÈ`>:Í¨Ø.‘÷‰ú;ây+uËI˜c†tò'ÅBŒœğ\wZµúi¿Õ*Ëy§Õ;•—B÷¢{Úh™l„\ç•ËDhÉô~"¦â¼\X¨D Ö@M¶Ş7M-}9>a½ªkÌRçxè3'tŞ
-}&C,¸Ô»(uŞ1øĞšî¢Íà¢nvcøÈ¼RéôxÚ§\©6l¸lÁŞE÷ŒÃ;íz­YÒ~_³º%©Õk`ˆ¾KàP†Æ±8s®5JgqÁÂ¼ŒÜ†24=‰üP†¶á¢]¹ÁG2´ËĞ§Ğ°øD†¶á#TµKİw¾–¡mx(C_TA”MÁF2´İĞI}‡74ƒsY't¯ÏàĞ	mÁ9§`¼1åœú>¯ëŒ`§¾«Ír©‡vêÛ†ú¶#?’p·Qº¬Æ¡
-µà|VvAeƒ8”]Ğ†nPoâ¶¯-±pÔb—l›ÎBq8²³a[vÑWòE·bN;­R¥\û8ñ‘=Gàé.LÉ-bÃé]ıĞ¨6ì´*¶[U¥kf‚…æ–°-¸®„…à:%KïEw‘°è.vÚÅE‰GÔl8”mÑzge›´aÙd/Ûúe	LvœËÔìĞ0àƒ•­¯fåZf]O7ë—kù
-¦—ÚPq ÃßøÏ ½R‡é¢rÈX@ùœœ6`rš-º@§
-“Bå%aõZ+£l Ñ„¨BO]´[”?‚tû¸ŞPpÈgHÎ9äK˜æSÂY-U­Ğb$¹zU-S.Ï.Èm7_öƒ`oOÿú½–ô~ğı÷î¾
-„z(`²CÄïLv(¨ûC“
-+K3§‡;Täıi“
-kùŞ´ÉM °=atl¿İ ÛËë¿ó!ËË
-«Ÿˆ9›xEÄPÕ²G‚ˆªåş…q*bÎSCçlb«G~b+NMÌYqjb(âl!ñÈœm¸Â¹¹qA¡xÇ"ê‰:Ò`–N›~ğğ§·¯h‡¿àÇÛWz›¿éçÛWj[	øææ¸_…Ÿğãí«óuƒ_rW5Š–ƒQöm’âŠ’¤=KüÄeƒ·¯âG$é¢Ò&¡".†×î†@üğ"w©ÈP!ÚEd;ß®Ç£óÿT«ÆWjæ{Í…ä­ô2]ÀÁ4³ŸÚ-EÍV¹QQG8B‡«N|^ônı¬Ş¬¡Ï"›»½Õ3[ÍiaÀöü†N5><BkC³U©ÖªÅPğ0@ÕŞy©Y1³w_­NU™†Ù‚`ˆšè™Él6ú&*ÏÎûêä
-§Õ•EÄ‡õ3},'oñ©8Üô8ëuhpçöÆYé”Q´Â¶zÊ2$”#0!G„[jgµ6Ù°Ü<;Ó€¸Å{j—K¬éŞY·zvX“xÅ‰+'ÖÔî¬]§t¬	İY©ÑÁ™Eh³ªˆV9»½wµF/°¦lgåó®Yµ3˜^ÒYc;8­ÖX“²³^·‡DkBsÖëÑ&kÄÎa¬ÉËY¿C³dkÊrvUn§U¢«Z÷ïH´JtÙ£Ò[“’3í‰gMEpW«|Äc»’ÉP³f%gíÕ› ¾§·+îµ„¼]qÍ~·ZÑpÊA6êşĞX3÷ ›«E•~»Váaµè¬ÚC[¿ºŠ”\Ş1Wƒ÷"áJÌ±I'6vÒPä‚h¡Mk¼c}ŒB¥()ïY72™ˆ`RÆ™tFˆ\tÈÕNvA—Ú¯uX1Š†ËÙvÿ{5ş²¯æÁëòkÑ^<[_<[_<[_<[_<[_<[_<[_<[_<[_<[ÿ§y¶ªî:]fóí]4Ûƒïƒ8ûûo¾¼ìÀ¯gèNé8´ÏÕl>šŞ€U—ß¬ËÛ8İê·§«äváÛùp¾^†ãøv¹Ü™ş—İÔ×îÀÓğLR~õÎLªZtnOJ4‰ßÉ2cİ^¥Şì±@JÔ¬V+‘/<T$<d<dÔõ’¼õÇ½M‰|›û6%z3Äûø½€p|À4Ï1ömhw“ÁÚPunbĞåtHBgcOX,y‚Ú#±@ÛÃ0O™`1Àê´·Şl)&°?´Âİ¬›Zc¸0#Lî·)Ù·sÀ
-O5›½ãH]{³÷]ø]öËÑdŸƒ¡œØ0¤&à‰dô<,+ä¤„Ã{Şl ´—’†y3 p7õ~’<ğID'OˆÄtòÃ¿­Í ÓgFÔµR7®S/ƒg,Y‹£Q½/â0µW°Ëbj6®d—ewVti¨Bp½¥AXLŞÒ¤Ç—FG¢~úK£YÔOiüYé‹âô¬ôEyú)‘ğ¥ÄÂKÔwKÔ—Eê»EêË2y²øÜQ„¦ËÃÀ¨ßcò1;’£h"»ÓIĞøÃ?²ø.şÆ–ÅŞ—ÏK§Oı‘X÷%$³—1µä‹ÇôüÑXú)‰ÒZËëÖÏ¢R¯uQ/§õÎ‘Úâ£2j
-†œ5MT‹a±ïß÷FĞç1¿û]Ğ'©#¹İS²ùşû”æ”$\Cj4eC677\Æ­
-sİ™êÎdw§Û{†Îx[M@lçƒÙÄ3YqAˆUÈ÷‹Õ(3Ó`÷3G­ ozP =AitW_}–a	4É~IÿîŒ	{³òâä)5fd![“Ij@cuÓÓcD©ÕãàI•êŸ—ãÕúëÅ «Uÿ4¦%UëQ³^©6{Á^XÜw–ì^YËB™q4ç›ãPÿ|û*ÉÀ^îÃ[HÉP±) õäƒŠ’È¨÷ê«¡¤€´¼] Ä8iÍI:¾Élp³)oÕ~¾E\ŞB"^:L~mÂ»öòâ…Î£/o_ıªë¢zË›Èã$ª+K4!q‰êÎ%$ª¨%QÕö,‰Æ¤5'9MRfMˆ¶D9İH)¡­Sx×^^K¢ (‰²¦{Q:Ëf2ìršFM“`ÌŒa&
-F ı¡úÁ—Ëdr‚HhH¾|&“|@úC-æË(b&óúáÑ|¼‘®
-<Òr£ÔírR£F$<»k’Èùœ] "vîUı×º>"tÈ‘ä&„Ô\£{j§DÔ æœdJ—ÕN·ŞjfŠœØê–Në™#˜HtJYÔ§ºº—^à¼İ¿«£ªöN»Q—
-RÇ2íÚSÈY³ï¥w[R§Şå¥0P©QyŠRï pìµNµŠ9;q¡^§õ—	=å¼hUĞ&zŠŠ÷UbŒ¡§¬¥ÎE&sâÉ_*«Rj ÀsÌajPSkÇœŞ.8Y®{nuõ¢NµaUG/"×G^½¨ò¡i‰¹•[*ëŒšo¢=<àCg¼'ã¬•æyİĞ'›oªB`"Ä q¡ÄÌv ]@?ãæ€„wy•ù19 å‹À–ç¤âñ;ëÌ‰th‘Š ¯˜ç&Yow­3u˜fşùN$_Ôéæa^d5š¨+h®åLh¥tÙnf³™ğÈ)K>×nô»™ĞJñ3Z	¶ÛX•YABcË'As–|.!ésZZ­“Cš•ŸÎ9Ê;oå¤S†ZÉ[9¡v]°rR+½«F¥Fû¼”)ØÙ9ÖœSèË“LÁª/<í°P°S‚2,AGy(M¡èÏ3…#›
-5Y8ŒX«<õRb<Ì:Õ{•9´
-Sn5*µ:äò0g·µór˜ËZº¸@-o•¦]nÉ*M³Ü­wh¦YéÀàxh·”ˆåshç¢BË?<±YÑÕ¹h•¦Wo~øLÑ*ÌÕq‹]´ŠÒ®t!E«$µ«"$R,Ú‰œP«-Š\ã±#›b¦xâÃÌQV³Ç™£Ğ!fìt‰j?/
-}4KÜ—%d³Ä]Æ$sdå?J—U•2GVQ°šÛ¥ŞyæÈ*ÎßQ<G¶"¸ ÁÆ*Ëy¿Ôü9¶ŠÒ†´/2ÇVIJ—jK»“‡~yl•¤fa>¶ŠRÉÍ*Êåñ!†µõY>‡iØÍ¦âEÅ™ãIEßù[Çü<VAZé‰UIëÙdh´Qé0s’—Ärë¢]*÷‚evK™»Á4oQÛ?±Ğ»¸ˆÎÚíÌ‰İyÀ4{gºÀ‰šóÄÖèÍ6âDt,=wGİĞ†è€hIà[V˜ÍÙMIvUæ.°í‡Y«<İv!éX¥9m”ÊïjĞÃ¬İÑªQ9ŸªİÑªx¸;{,ÄZB¢U¦~S©ÕĞ¢ªWå*˜»ah«r…±†v6zÕN	æG­n.Ã¼]dCh•îêO¼„öàR("§U²‹°XF¢U0P?õr>[ºU8„B{<„†áí±×}‡×ífÂ¼U²N4m5rÃK˜·ÊT-·`Êæ­BuQ†G@=yÍ€Xô¶V¨3{pm”z½z¹z’QÚ£,Vsˆ)XEìÁ¼¤HÅ)d%=§è¡¤’™a¹=´EÛ8gƒ.–>Píz%‹”Qb#åí´›èâäf&UöhƒúEµR/İJ÷H úEÑ6Ï²‡8M,Z2îö®ÚGW@#$MÀìÁk.DV[Õ•®~ÀŞf@Wõ‹öL{º(5ëï€hùÒ‡æ%¤fAÔôí1è¢ÚƒiehBå.˜áÓJÓŒ(Ã˜‰¢é¡=U{h&„öXÔmTO ¼öhÔ³`œ…öpôN­‚• õŸƒÚãI(ÛcQØìÑ¦WoT)ü‘¤‚…d»êåN”ÜßA9ØÃN¹_A½u’•±œAáì‘§Ühõ+İózµ.{¤Á.WŠÂn€¼äšBÚ–f‚òÚcgÇ@´ÊÛi¡ì±%îï‡€X%>:~×ê Ñ*ìaLñêU&g2§¥mûĞ¦ájˆ=È\‘2ÏÙÃÌEùºk½t«€ïhö”³5ÿ»‹+ ælÅ_½¸‚F—³5?1¸•Ö»KÔ™9[ç—+md´U~ë¬ŠD»m·Z$Zl¶ĞÈÏ	}ßíDïJúÅi	 K„?¦ùMÖ®…n¦¬9{*Të‘ ì¹ĞEëª"ÌÙş¢r=,—³Ê…Íe&gëÌÓvâ´'4]ÎÙ35Ê~9É²3ÕKwŞ~	= Ó©6{|ê~©ãt—0ÙÊëú6ÂÇÌß
-_64k‰––'8 uôduH‹Éd=ŞÈĞ|ÖĞÔ11›6O’†‰+´âÅH³fÛõ¯Ù²…Q^`FãË´´ë`—Ø,ÈòëÕW»Ä<8_'uŠÌhq‘y`»Ì±Û
-Ö²j÷¼	&[¥ZciÑê\Vå‚Š}K-ˆœVk¨/<H©Ö£[¦ -€-Ïğ›(º¾i2ÉeEMÏÛü¥Sµ0YtĞ¹­¦BrrEÇöåÒJƒ—ßq±ªÑÈğcH„RœÖ{İŒuâ€î‡‹^é4c:Cr¯£Èy‹Ü©6JëàÏKİóŒuòìœÖÕJ0Èe¬Óg˜»ŞêÄ™QçíX¦–ÉXÍ0gç:f,ÌÊô (û´ĞëÍzÆ6°Z2öQ2À`~QO°C!°jÔ:YàY§Õogì³e±,!‡ÍÊ?c–QÕr…	íÒP+Âc„Eçœ!¦ÓìG`&wê§ı^µ‹\jóüĞáÒusZ£ö c²s_>¯–ßuûœãXd¶Ûo¾çøÀ.? ÑİâÓøhò•R/`L×.Óúë*Æ4tÊôi¼
-Omäã™Ç#Î4ö1AzœÇîSçuYr‰›jô¡Z#!~ä«f­d÷‡ïCoÏø£RøwÃ×"}•şí…Á_ÿ°KW/5”|Œ‡6Ëæõ&¨Î“³y.ğâ9l¯£ju9Ç¡ÍÇ}q?äç)Ú<G­N¥jeåÈfjuÑªÀ‹„ZHTsÛ\¦Ç±œØx¯ëŞL&Bhh+ãì¯Z±¸„èğV–.uöK»ö‹®bš¸U\Se¶“Êge-•ıJ\}â	=ûèÌîzÌ£¡ÇÀZƒ¸±PÊ÷Z(CÛ1´Õx=^}l{`h›1Q¦Œ~*öîk£fj#ú;¡Ò#¶£i9½nlÇ£m§3Û1.×Y§­U  án“vc™´Ên‹OÚŒJvö–>]h€™C^àã™&
-íÌA±ÜZ]îÁáµAM’p`%œx‘°„¹ÊšX¦¤±É˜–Eã²F×‹í|´‰qCÖF1+¬ÊtJ}±12MåKÅwÒ¤ãNa„ƒ–’qŒ·§‡£zŠaìch´Ş§™Àš©Ö8‹*`'Ò5¢öMŒ£]êv{ç¾âÉyyÊ­ö…¼x£ô÷]HœåWD9Å3t3ÏË¸YÓ³=Ö¯°zzÑ)˜Ä{Ğ(ö3™½½=«míìû{â ½íjÿ~ÊÖÃ‰9Ø»ÎG6„}L
-?÷Õ°ü1ØÛ#@Ç`EoåÓÊ»Ê£ËÏ2ge8ßÉ¢•ù@ç÷ PùdãDï4¢çÄxu í¬Ñ:bhßWKï’JÈ ‰ê%/¢ŠèÀ¤ê7ë?ô«!ıÊï~ HS†yÁ©¨ÌÖíÑôÄbå¾µNÿ›yhkıf9“³H]àBW‚¼ÍXoT™§’ôœÌNš‚"‡¶é,.WÊÂ¬S~àJ£ç•FÏ+wn·\ :­7ê½{l¿ÕV³yO[²y=Q@gÉ^Fh©ßèYµp	-æĞMÑŠ.!ç•JµiÕÄ%NG{P`ĞäÓT7+ß
-ÌJ-FmwğJÜ•íÆ$V4@MæA™a®§@“e<YY<'ÜITF¯²>x+ZA§£¶ÂÍx,õ]'M1:š±£´Ì“ŒÒAÅŸûÊº–zÑUŒ*KS!§”Ÿ|Îe¢%\*2õç2ÇyJ²´Ç$£æ²iaµJÜev--«WÆ–¢î©Î–`Ÿ°5CM[ršn2×ÿ%ˆwã;‡f-Ljš°ºÛ÷ZİK×è^Ú€N‘L3äEJhKNS-Ó*£&…bDa½·¹õië%+¦NÚ¨ÑÅ+ä$³¤”ãDÒ:m¦ÒÛz‰©ô¶Y5:ä¤öy¥Ã:’HÅÙ9»àsíÄóË™F´•¢¯GµNéí²bá¨0><tXè«%Ş©6:­ÏÙÉÓJ„gy¥­NN»İhœ´\wiÇ‹ÙO;qlóaé¢voÇ<¨İŒ®@¾0ƒÛµè
-ú±\¨ ò{C-rÇsYO½=³î6›t{æÛM\ıAõpÒ¦ÖÚx'd‰„Ï{älÖvUk˜D½ÂğNëANôuÿ½İ(õpƒ5Z –úW—¼Ñ	o€ª´Şw™!‚ŒİN—·\ŒÑ”É.ªÊg(2ZÆÕ†ĞÊQ¿×Åëx¹‚ç ŞÇñ%]Å|$eHBÈY¹Ğ×½á;ùÂ	´ûKÆh¢á«EÀ†…C!SU+‹¹kæmp»]^à*z(ª€.š’_¸7‹	ÑU!rèÑ{,Ü±Eí¶
-¨tË
-9”Hõô”€¢×EŸ€#'õ‹¨|¦:ö5ø@#†Ô%¾ö€]ëĞĞHdäTÆ>0–ŒUaùã"éaºv_õV»
-]1«ÎĞyï
-›a•0«ÚĞ´ĞÙy¢Ãxóv¼„Ó…P„….Öª”/Úº¨[_Şn„–{:Å‚A¨ZıŠÀCl”pÂØÁ	2†î‡n÷…Kq¹«œrì —W\ÄzOğ‰Fy>pğ³nTVQ_û°Ó2aCëÔM8«©”:Ñe­­Şœ‘€j»R8‹§`×ŠFß—zåsBóµeW°ë†hU¥`×¹³@	ú5TRvVÖÁ[	]P•äPæTMNœ~y•ŠR-D{Ã§.Ò$E›Á.¾Ñ%GÌœ„n0K,V ,7+4ÎFÑ–™™•¯óT+SMD<©›%£­Ho2€Q2¦€×DRµZÁÁˆÓÚXIİ¿³QWQÏZ=6æVôî$Z+ñææ¡ESû EN£İN6¬j¤z,i¸u"Ò ¾0+Ò ¿«$¸Ë˜á‹ µ1™áC2n©Á×*I‡|rCY’ÓV£^æãqÅœ†…Á<ÊÂPO\ió!ˆ•êiÿŒ{Û­W½RœVqş—Ä—'SQËa`©¿Ï$N&™Šµ_›Üˆ™©X›µ‰‰›Ã‘?Bv9ûM’]Î*(İyŸÉ[å¬6Ë­J½yÆŸªÈâX÷ïA>ï65µMœÉ[¥WëkVuŠùÆˆc–QÎMØÊ.£¼²Ã(ÏPî[eÌH¥§Üşá7{Yjtšg–IwdG¬îzó]µbvDG“CÉƒûsĞJ{ ˜©(™ô¦5ç±Zp¼gÃÇ¢İ¶KzÚOÃVm_´.«j™]£‰ò ×VC©‚ÉÛ©Fa‚­”[]lK‰6 ßÔèØA­œMÜ8¯§Ã0âÔ+W{ ÷3{,Dğ]@Ä}ÁÓ0[áûV5İj&Õj`»†a¸«T»e¬„£èã@…s¥µ’„å8¥$VÇo»iĞªâJµ]êWê,¬UÉZ„šV8ˆMG“uk·–Ö®=-ø¤v=¸¬Ş8Œ·~¥
-¶T5ZâêCiæÁ7Ÿ\À–\I&mŸ­3dTÊ´líøu$`³Ïr68Ú	:ö Vğ‰,5ØONÿˆÃù{HŠäX´ÉU½Q/u>¨İû#‘g5œã©u_¢ÏÇ7KV®ö£mÿ;óÕÕkšÈüõ¯áßşîî;1Ùg_+è?€lµC—µvŒ-†ÎqØê1Zàh<Çğ±7LÊêemşê´³œ!´‡6¦7¦üµ‡?c!İôŞ¨ÒœĞ—µk`Û¤fGñZ½ÓíÅ9'óèÃ¹˜oĞf­gÆšŒå–“¨Zúluãò$]uŸšáØÃĞ¿0´^• •g©aò—sğj³BmÛä€¿a‘Ñì¢1Pi–ã4–vSo ‡Y‡²É•sêgÍ‹~Ci'ŠwĞÌµ0}8.Óë‰Y­Â@PUùËyà&ÌÖ-Õ
-œ4~/®ªc5t=Şè,ÈHÀ…ÖL¾¢:’£×§ª.øÀv—/&Tz–:4ñuÃi	Õ«vJGl‡Â	ÀéÉmİWõòMÉ¿Ì§‘¼šÃİ6€hÜGi8·7ë€t;XßJÚ`ûE’æã/›d.|I~†;ıBdnÙ½½‚å–‘LnÍÏ-£™Ü2Ë­ºW…rkÄ£nÙFâJCvİíã x†À¢¢»Çi‰šqè ïÕzLâ1€ Ìq´ÇA’thí$Í‚øİ[b˜`@ŸR~äµ½k?ïÓhà ¢SÍ$İ]›kV\Ñ©„Ô¸â&:÷·ğ¹Ûrç´ß&iNË»EBï×{šîÜßtçn“dÙ`4§IÎ]i¨lğ6C÷TR£². ›ezÂ “òî³ Ÿæ««ë|ª¨–7\Ûdæ&3¿¿ÉğÌ$Òø4ƒ•Ûææ6§2“Ú3İ€ÌmQ½gló@+y¿Â¾<é|òÜ=¬ÒS¾5àÆ€‰Ñd¾ä.	Fz:ÀËièŸ\«0UU2»»y›„j®`“°-Z¤ÒNû‹œF*-–ÌJÑ±•f¯ó­–ÔNt£Æ—ˆ/¾ñE@ªhV	Îˆd• ªhVÊw½ò;¾²Wb›‡¡U¶ó÷åR›¯bAÚıò{¾´J¹T>¯ÒËŞ¡U :Crv©8ºU†÷u$Ë‚™¹cõñø^^Š:Î>)0°†+­¶.—)ÇÖãÑÌä­|t?è-Ùœ‡U±Áä­¼4ÂzD¥ê—ÚU¶T§ÀŠZ™jä,ÌÊ[#oaGşQŒ…¬;«¶ğÅÖüj+C6çÅ’°yo~1(¿t„aIĞCoqTPoQ“ Viq	Œo‚ş†W‹ìPèÁœ í/ÄÑx=tˆJïMÕ¼Ï_Æ;!²¸"‹ˆMé‡N=>¾£é5:TİÅl°š®_»|tÇÓkø¯#=2Îë–qÖÔÇ‚ğ&<_í†Ä­l.—§ÕÕWOe½eÌ5@ºl9Û=7†Í•Ry™áÓ~½Q‰êä¬€ÙØ*¤µµ¯tçú¾M´ÒÒö×"í»h5^’	MG¬Á\,>SŒ›FtN?ŠŒgq+#	ÑÊ^JaRÆÌ):H×ˆè_¯_ğAã‰¥«4Ñİ0‰‡úØï»~2b“^y<,×:U—9É(Ï{»Ì#Ï{À€$ ÌqÚı|NÍ½­å… CnÊåg&ÂüÀ¤¢¶ËŠô³VOy ¡‚ È³Şz´OÇó"¼/c=Ş§°ÿ¸hGİF‹°#á²m¯~Ie9vs×ªÕ2ÖÃ}1Ò¦ÓG¡[~\¿·Ÿğë¨×Ö†²\ˆÖ)¡,B Feám(H–Ò¨PBU.2ö~
-‹û?S‡;¦C_9Y·íòqÆ~ÎçJ7”œO€¶ûİsë?E?„€¿ôg‡¥§	s>i@‘!áÀzûÏF)áœ‰A)á¼”LÎûê½Qi©tóRJªŞµ4ò>Y5bÔ'«J¯}Ñª@ÜyŸ¬*ÔàõÉÊ€A^Ê
-•	å—Ş4ôÉ
-$îEê“mS‘°
->a©Ø»¥°ê¼?¼êâŠ ))šà=Í$Êgİl¢ávµÏ7ÑgxX=îŠ|Ü#œ_¦D•Åõ×Íx­cĞ¹šñòf¹\§.t(/ù)p­îkû ßÖ²}è1Dü¬^ìFS÷Ğ²™}œÎGÎÑ3v¦Q;ÖæcVVv( j-^'cp«òNMJ³©SUŞ‹¡EÅ[¥Úxà¤Ël%èöÊ¼E:ß&‡¥‚E­Õ!©C‹ÔÃigQ„…y›*Z«Ãf§­êNôĞâÆ¥»‰”Èı$CĞlF¿£k!İ‹‹ŒòÑ@­]A¿ı´®[§Z®w«µv&a´*õîEü—=ñöaˆ¿¤Í Ğ…*õË,­o;H«F›ØlsÈ }ä<	ÑÅl»uş>êŞU[mkí“ÈÇïÚµªr7ËÙÈ¡PäòeÂr"ñ	½Õí) gjçØ5yºı¬ıÿÃ·^rN4øèüóÎşÌœµ1 ÑãZëÍàn)€áíxøq\S­ÉbéSSÅ™ÌÆ4Eµ˜)ÙÌYs³’ VV²Xşôd¨”#şFÃÜĞÊ¬F V¯Je|‰›ƒç¸=p¨åÜ½ÃI{âX:Õú0x`wmu<î)v«CwfèÓàZçƒ:Cá9¯z¥;‰o_ãN{êgy1ŸÌ¦C¶0ö4zI¢§İ§kõ—ºj9Ìî_¥KĞPïì~©ÑR»ÜrÅŒİ9ıVÎJï}"µä„k€ÜÉ‰ÜÁšÕ÷4i&½#AœœjĞºQ¡İV­g'çâ—µv\ø¢M ^~ó»<tQ3Â”˜?™„ç¼Ô©øÓÂíÏR§Ú…f£¶2Á«;Tºınµ‹+WŞ
-¸(µ‘ÉìŠ»UP…Ìàñ
-ØU­&¶5Ïi•ÌéÀİ5ÆQğr`:fÙ`º*ÎWÕà÷27ûŞàıæ»fë=ó‹HM%ôìËJœggVòä‘'¿›§àÙÄ•<‡Ès(xğ¤(¹MÓaÓLrœÔá‹§èvš-M8ÎuBØ}»jÓ=”Â1LxAµ–Éx.&iëVwšñEĞ6İ56"<¨¾2©àÀªÕ+l£™½øRğGûæ›-¹‰ÅÏƒoõ¢İƒö-xs.or)àej¸c®¤"`YOµî©}‘¾Òb¿ÉĞ†ã5~¯¡Íò}³vçRxâ)¿ÑfIfj0/ìf‚è~y¢ËD<Ö]ŠÎ°¬{m:Ëó±‡ÄJÍª¿Ü¡/=ãI‰ï¢Ìø2™ÀËÇ‹Şú¯,zk@¼n°è«’‹Öåû¨)GgY`ñU	g‰šå WôÕ	ã
-!"_p‘¯N–È'LÎ¢"ò‰“qå!"ŸP‰¥kJä-crùÌX ÇG>17Èön@?O€Å'æR¥cxr˜’OÈ1OûÔj.rG>AK6’Ñ‘OØ¥
-xZ'T’<òÉ»QÁGÏl>ŸÄ{İŞi'„Fzäv¹Õ¬ å÷êT`”å¼šWGôI³íüyõ2*5È}DFÕ!cjc%QcòjÎ¢"Jm¬Š*ÿ8µ±jŠè$µ½*.hŒ'©íU³¨ˆR5ƒâ‚îs’*øœh'©yW+Ä † ŸMÍzÌ„‘ñÓr)|aÀOÍ¥1©ÈRµ›áËü$]“Š,UÃ¾|ÀÖ%L€+]ÎOÕI´9?ZgÁF›@Wâçëx½(FÌÔËa}òF5Ñá"L&úDmbŠ«7úÕ›bÃ˜LŠ>aÃX{V‰Õè¯CotŒ"$¶]±UâÜ†¾ÚS|ªnÂÌaè«9Î“UQùêØ¢ ¾:dl¦ ^}©Ùx|õ©øâä|•ÉyTr¾
-Ulq®”
-0‘)»Æa.¥$+7—R«ÊiJHî,°¦×ŠÍª"ŞU9Ã|^±t»kHóbEoz-	^ÊF>½ÂÔĞjEßUo‚[EŸ^…zh´ãO¯F—]%^›zHµH¯N—]%^«z(¶H¯V—]%R¹õj¬³“Æ›O©]—Yµ²BJõ¿V±Šİè‚BJ¿Q¤"û…”¦,İ§i5¬téBZÍÚœ˜é´Jœ*¿iõi3C.¤U¥àTÑ¦uÑ*u;Ş›i=”³ªÖt˜Ö;%+åá0­wVuï´¢Në™.³Š<½ât×´bO¯<‡[EŸ^‡ºcZÑ§W¢Ã­¢O¯Kİ-­èÓ+ÓáVÑ§T)mŸ²Í;C6||èöÎ–-Fİa½3ç$e4€¨HŞésaÅ°¥Ô±i£öĞ;ƒ¶˜TŸğÎ¡“¼u2‡Ş)4Ëp¤TE¼1,éıÉÌxåz§ÒiìTïÌšJ91Jz§Ù©ü*	_õàªW¼.f½†‹Yú2<¾ª‰×¾4¯ZÌ:’‰'¥bÌâñ¤Tæ)îáÁõ1Š'¥ş4Š'ÇDà3V»xp,'vd@«º;Î%ŠÚ.ç
-™ŒäUë˜™œ «iS&ïÄæùqô–›‡œã )rïœ Cî¤8æ÷ uôª´ÎÌ‰'"(TÎzù’CÇ–ë¶NšÖ%öÃ“L(m<D,Wî$Âîûú±åÑ­ +È&”ÅÇ W:˜M&”rà4™PÊƒ9ĞdB)ZxÎä¤<âçLN
-$YhÎä<­@-ÖfrR ÚE-““âPj™œ‡ò¸Ëä¤(”Ã]&'…@º2““¥§¥-hÇ9_kĞ`^ŸÕi‡Âé+¥FZ
-ê¶£(›ÉK	$pxgòR	ËK&/ÅÃ†jÁQbN'4~AwÉKù$¹£(—ÍäÖRêœU{¡õø%ï9¡õ¦B.§WÖ;˜<*¨‚S[ÇT"Ë­šåLAJÀ’{AÊ%YÃ€R*62Ÿş°RurÎR.8İç\&îkII}ºZx’9”b2jCG»œëæ7†CŸ–iã{œ™CEÿøVİz†“)kùšO»¬,œÌ¡£qšÉJA,¤RH1šÉ¥„†Ê_Jûƒ	'%d°œõŒgŒuuV‹>ÖÕ‘¥lb,—)JÙ4*eSú¢”ŒÁBëUPÃ|úäÒ=Õò>òI†ĞLæÈ§‰#yù¡Öó¡6–³åúG¥è‘M§+›N§+©ŠôÈ•ÆÂÌ‘”MŒå2ÇR2(SÏc·Í”M>İ6S6ù<ö¨ºzŒºù±GÑ½mëyRÒz¦T(8æTD1§j ;ê'qrÍœ8Ê@528ºG[/İê™Ÿò‰Ã8f]Cïådø¦ñ¸­Ïˆ®uô‰”BX:Pe'R:Êr@%w"%£Öëñ…Ò)<|rÙS~JaÖ±o­7Ï«zÏzòÔR¬¡ıô)ÇNì'PYU ‰f=„š`Ê…ÛO¹^+ĞgüÕ«
-ó™~ù?ˆ4ÌÙO¥ò€„¹Ö0%æÎÚÖ³©º©W£^«…}í”7ªĞks1|ò>4ZûyX“	+-q°ŞõÔÃŸ¶ÀsÎHŞ‰ç9ï0ŞQæyÎÇ;q0Ç$†¾ ÂÈÆÒQ¬œ3twÔ‘Ôœ3n«—øÚ5õ ·¹7ñuš¸<¥Óz±°ØÎ]šæ‹}*_zå$Õ«í˜Ãoò5Œı&^]›îÁ3·£:ı4[&ÖVãüæüÜçİ†;ïçV—"Û¬ë.aÅŠ~›åÖ¥ÏÛ‰#&,¹p
-Êî{øtáw¸%™d»ç­NÏëE•ğ$Ysœ©*&EĞÈ‘¹Ua¯âÏ_ÌLíˆ7áz©X0« _,eIHıâ"¤–“s„­ œRíÍšT©wò¹å>fM´¡ÑCZ,˜°E/jÂIôŒ–U~^°XP^k×^Teàa
-ÜPğ(%nzœëĞ	7p TÙÎ;b&Pg;ïHºÍÃ:EnÇuŠlP•ë¼“kƒ«lçl×Ú½ÎXÁÉ‚Fœ§	(TE\pš€ŠX‡uš€BuX§	Ğä»˜¥bÍõ4*ô$¥ÃW˜
-%É‚+Ì2k?§ıhXçÚi?*×¦ÈnM”Yû)øÛÉ%‡n¬‡ş6×ŞÓÎaÊpèTçQY9tª§¤ãq*óèxœjìVÏ˜<y\‡wªğ8D®Ã;"íVy}Y\…/:rP¸I¿èÈÀà:¼Sş8qDÒÇI#ê”=NQ§äq²ˆzšÒeœî‘§\Æéyêş2N÷ÈSë—qºGşn[çQJÇ$%wäï—Z9ı²ZLçéØø ÔY:v†>µt
-ˆ[ù}Äßús¹+B]	T®`šG˜S~ZâWƒğ‰““^2¬8}»Ç†µ§_÷øÀtâd©Ç¦'Wª§šäÃ¾Ù*Q	ÜñZã*…AJ
-Š‹’ø’ˆesíÈ¦Â„sí§KP×LéñAÿÚ5Tz|Ô¿vMKº×¾Â3ñ^§ŞÈ÷šïÅOÌ6(ŠİM¦îÖşô‚{ŞD-¹\DõCOdf¡èbÉÂ‘Æ·co©3[;;ËËm˜Ş»:À¨Ğ#:=noèhDnæÄÅnLÛ¶·sŒ'{7Gƒ1æyËeìœjTÄn•ú©{DAN,¸;“óÈ#èkeld9PÔ¢:ÍûÖc>gïí$Åé‘Š©~Œ5­u æ‘b^Qlõ$Í[å5ï‘:`±wz†™Í{D£Ëï½æ=BâÛüx|İ#*kë6°OÇk–d­#¿£?añvt©+{'|Å9<" ©$Z÷Ó	@A—³íÿ÷ê×W¿ÏGÓ‰üg:™kµY©—šÑy©‡5ê½^£ª‘ Ì11FÑiıÌ …<kØQÔ®´’/`/ŸNöÔ3M­~§\İ~ù%¡Ÿv+†GÅ’àéÅ¸?‘ß˜‹e‡ç-Iå^°ƒÏ c*ñÇ«õf°™6Ï¯Y‹Ñ(×ëÏƒeXÜc¤/û¯~~µo¶«9~ıõ¯ÇÁ/øão;~µá‹ŒnÓ‘ås{ŒÄ"Ûö(–\ä¥ÿ^­
-$ö{³n”Ğ Ä~ZÒÅB’t±°ÇHv9LŞşÇl¿Ñøë_ó9*Cşö·|RÂŠæ"¾ÿ>µVn7‹ë1ˆğË>“ç—¤îÜ,nwà€îOñCşœ>Xø|Î_â€îOñƒèœ>XøbÁ_â€îñÏ´|âf¶Ïf‰€Òb	ù(	UÄ¸ñ‰b¥1ÄBò3Pª”q#1ÄbJcˆå$Æ³õØ×œü…½¾O\××õNq]ß'®ëˆëz§¸®ï×uª¸Üvåí7³{úİìş~7ÛÕïf÷ô»Ùıın¶«ßÍîéw³´~·s¸ìö*x­ ]ŠºBd~m<TlO2¶ëM’·ş¸·)‘oSbß¦Däåfåç÷@¿|ñP€¹û@eÿ‰&ƒ5ş~Ë1zˆoeHBgcOX~c¿,˜ÔÆ/ÊÛIkqÓ¿n¶ã!sëÏ¸	­p7ë±é°MÉ|llS²oç€ÀT´Ïc¼éL×½ïÂïğ}„}Bz„pbÃx÷›O$¤ça™øXñ&Ì‰7í¥äaŞÜM½Ÿ$¿g¿¿ÛO’ßSeÚ˜N~/y'wk3èôƒ‡õD­Ô+ÃÔ‹Ã`ÄKÖâhTï‹ƒ8L­Æì²˜š+ÙeÙ]ªP#\oi#“·4éqÄ¥Ñ‘¨ŸşÒhõÓ_Vú¢8}'+}Q~J$¼@)±ğõİõe‘ún‘ú²Lì >wÔ¡éò0°'ê÷˜<FœíšÈ.ÌøGöß…ÁßØµïËç¥Ó§şH¬û’’ÙËÆ˜eîYñ˜¿#K?%QªA^³wa‚Yêµ.êå´ŞÁ9R[ÜqTŞîÁ¡¦‰jñê	›Ø÷†ï{#èó‚ßı.è“Ô‘Üî)ÙÀôËß<pñ0×EÙÍFçÍƒq@«ÂœDw¦º3Ùİé6ü&\&êU;õV7±Ø,’`¾›­¿®ñ«Mt›ğÛTwÑeüe3†ióëòëàgiBâÅYŸ3½ŞAÍØ>[Ìoã>×Ûõx¸˜Ö–)`.äã ¾ÓK§ü¬ã6Ÿ"àzËcBÚ–ˆ¿¾uº=_ï^ü°w½ìóKVÔ­^(Ì§B½‹–„úøZ,>[„×ååkN
-…î×KĞñV—âŠIğúRãcÈ¸°è	Ïâ³ƒí X bÚD'u¦©3—7áfÈõìãPÛvêgÄC1Ô|Xød:KpõÁğé|¡Ş£.&¢Â¿H%$[¸³¬¨;L÷ƒªUŞ½,šîíİPf¢¾b{·JÚ25w0m…&1|
-á™qz]O¹ÕS2OoYß.VÅ lï¸?™)Z‚Q¤o†ƒÑhå¢Åv$Iÿ@ÅÓ> ÓŞƒ’h¶ş<øĞôŸŸ¶ƒ‘7‹	Ë62L/+Ã/+Ã/+ÃbïeeøeeøeeØmV/+Ãÿ~¦Ş8?ù8ºN&-Šr=b”v½ÕZÍz,÷è"ĞÂi±’‰ñ3ÀËxY#GÙŒ0ÂxWo•a„¦w&§¹C*ïzô: ù,Îª ûUˆ<«Òe@.€uËu+®MÆ·—èfO›LÛãxq¨•ì»S4JUôy†œFÇqå.ĞBH‹â,ÖVï¼JZæYÔ¥J¥ŞÊ¨˜<ÍJµ‡¨6K§õ–ŠVˆz7A„t.ZÿGè9YáCÔ³N©}^/wEÑ{Ö‘‘éNÖ¼¨­$ÙS«‚Km|hT!eô›ÆšX¿Y×/´Òi_h‚x­ÇÃxWmXãÍ*ê”ŞË¢FW|µP”3º¨Vêıä·.L~A"eU$«¡Ä%-XÕØå¯GH£W:U¯|²¨¢j·_<Î$©4 ÅTÌÉ4b„× ¶ıV£Ñh•ßÉBóï:/ ´C‰›şU”å‹,=Å»h€^~We{^M/7¬Ã87Â'Ñdp7}mÿ~ûJ=0ˆF0çı1Äç	Ø¢ƒY€ÁÚçÛk.%ˆ)¥ËjT‰ µ4ªÍ4´U«¥A¨blDÏ0ÎğÔîÓ'(•¹9°ŒÔêµ{÷ßQ?ï°oğíôz‡½g„ÓÆ;öX=~Æ^¡Á'Íwü|
-ªE<<ÿş¼Ç”©×z­JÌøÏßşæ‚ßÙğˆ—¡×ª×Ç_ÿJg‚¾ÑâÉhŠÏjúGL_¡ñLW è_.­Ìï(A×ÃÁ\…Ó¿bd0[ŞÖ0Ë,ş£ú~z³¯´ñvçØ|3ŞŒ 4kˆÊüLÙQÆ™ø`ÆÇiIÀÅæj/©ßû´˜‚½7û{`¶í[Ï’#S¥Öp™¬£QÀT?kz˜Â}™¯»é|ª.ùOrâ£õjôÂè)*˜ ÿ´ğr£…÷Ø¬Y(.æuğ°*ş`]"ÁÊ¥f¹ÚˆZÍç:ÿ2&}¡Ô |·@+–‹V³FH½œ°„‚ÏkU»]|ÎŠëÖ'Kï’ªpö•H‡'•P!%»Q¹Uêt)×‡©±Ä<EÁrÚjõD¡Ò*A÷¼ –ã”XË‰`éÕ£òP¬ì¦ )—R=°ÿ˜Ã¯¬d=HL±5­ÖËñ0yyID™npík¼¢·L= yºFªÎ¦wÓÍZ¶^‡Š/Ô¯¢˜´:ä®¥w"s>9MÇptÎlB–ùòk¦ò9>ÒÇØ˜k®aAq‚Q®wxñm-qàP3ÒJ²*Â¼“ëóV·5KP·:I~Uó4êÍwVÆÖY½É£9‘´ûR‚ŞŸËIyêMè6»x~ˆZíj3É“àhwx]¸…æåUUUpXè­ôîtìlÖgš¥]êÛ,‡N}·ëíjtÚ¯Å<üÂWÍÓë£ßf1yÓé¡öf‰9îV/¢&ü§›Tµ“ä¹,5ú±xò¹#v¬ÉpÕÏ~èW&ˆ»ôp&Ë?"˜[–.››é.”¾İHXœšê~¸°¨G8ÈÓjµwÔ¦VÚ•*d©_îµ:Q½Wí”èí(7MÍı®úA“³·yÔ?Š­èFÄ:gŠ${R¹U/ÑnŞikŠµl7CÄÑı×
-G¿YRéQRnzì.äôöŞßE“-–ÕıMq2b©ÔYëÈe2ËÄÔ-—qDşx VëMÓ=BWUæ"t(7JĞŞâ¬;Z_€h4¢÷ÕúÙyO‰Q
-'‡Ïá#éİ^šÎÍ¡Bµú†·`²Ó[ÍúŠ´O½u)†œ¢dqT'GM©Kş¼æèl:ß~‰¾€I;˜ÍÔ;v|´LƒÍQ©{Ag`JİíUèğ’ÈÑ¨Ù‰ĞgfÑ>¯¦›±d\,Çs^9HÎë1³Åˆˆ[¼ƒ#¶Y™¹EDÚ“å‰ËÅlÆ,*Í8ä‰wwƒ%ï'D[®›1-¡(Ñİvì¡(Óõê#Ÿ©)l"˜ÔczaŞB*C|àÏjÏ	¬7jBQÜéb¸™YŠÊ‹€W!Š2/©8v+ì4©²OÖˆ‰äÁp8^¯ƒœ(÷rºó÷@U½g(ºœ¬Îáíx}g#ş¨ëjŒbÍ‰’Ş­¿Î‡üõOEÎ‡‹Õ˜¿û©èP)4£œ(èúöfrü©OC†V“Ï:T”n^t´]ZêBÓrü!O%‘Á[²(ß|0_¬gãñ’ŸQ"r¦,i~4I‰|6Xİñ;µpcşc'¦%Ìó²˜ %p=„¿Ï©€Åğ#ˆ¥ J:\ÌçX}…œÛ–şgıfd?MV‹» pèòß­o‚BÑ@tYŞÛíf´ø<
-¢¸×Óù((ˆÂÎ¦ëh—Ã¬#,-¾…†®ØÆã•ÂdK&-ÓUpè”›¢\€HŞÔ¥=?EÙ'P‡¢àŸU”züä1œHò Ô¾ƒé¦Ey?NA/EA·Tü¢SFê8Å‚C^,ƒ¢S±ÔqŠEYw#ˆBvÕõÅ,UñúfµZ”Úx}³~
-¤.^ß`ŠG¢€“á©¢„“TIp$J8!s$\ÖTˆ($ÌdçÃŒiG²
-äÈi´ˆ¹ıuøy‰ÂoGĞÜ³²PŠìºTqÇ¢°w‰Y9wD…Â8°	å:Ã@Y”­D‘eız§èFNï£àÄ-"‘¥>ºÅŞ"«S“Egš,Ê¸¥AöÄU½¨IPİ_ƒ“¢®hÅ!8q+tµ]nÆÁ‰h¾®ñ\ËĞ¥Vƒ+¿DM›Õ`æQÖÕH[Päüâ4ılqğ[Óÿñ;ıTÇãôTÍïy¬¸%«²À pâ„Xâ`Jû	›P¡Õš8ÆÄf¥r%M(B(ui=¡@V‹íd.m§5ƒ¤¦ÂøÖ*)O•È@*®$Í©#8iPAt•kU¢Â¸õO¢“FÕp°D%J«
-èk¢Ë!XÙ¤8«˜C3“æ•‚±-pd±'Ö	ÃOÛñvLİ ”—bXo×˜F:¦XË³Øò ¨Ci€m1a ;šn¾À¨„HÀ›M¯.D²„IÏb>˜M7_<”pJ;©h/Ò›Ä€«ˆìé«ébEi;Æ˜ÊFA–3²Vƒ;ÀeÓ ü&Á½–7ö0ü±ñJƒ-ƒóÈÎcx"“W°¹¿ Ÿ”˜‡o
-óÇ¶#¾ÕŠXÍz1°I«€†îPÚz0S€´öˆ&¹€„Ş 
-Büt;˜ß€•JK¥éäk43&”¦Şrúi±‰V‹bBZØh¢&Í½åJ‘…4«ámŒ	Fÿ‰íd--¿u<N…ÒşŞªŒI,›Pš€`ß#¯«d“12”–àİb;Ç@²#=€lŸKœKsè“	 	q­Šà–úv±ŞñJ»ÀÑân0kXºX‚„¥}Ô1L·Bi!’y4ÆF }`!é|ºI@!‡L„yXw¼>ÂÌc<C
-4†4A•®¾&Á%º U‰­EšóÉz}‰0iH¢–ÀyV(MÉåÖ ²aLÖÔ”©×H›r³ı¢Çøn•6“¦%™] ³¥u‰æâ ¦‚Ğ±0Ç›/ƒÍT’´1gR˜$45oDHaÆ ir2Hš0í4ÃŒcB9Ò¸[|P®cÙ¨ÉÄF¥1JÀœ4FixÍISt²İ€ÒÉ9–¨P“	ö€¯Àâsn,×>6·Xí ûÆ`pºÈ†]RtÑx½Y-0Ú#CƒõMºrÒdÅ8·×¨/sÒhh8˜Ç ÙjgUš¯³Åâãv†ğï)ÍØ1.GjehŞ‹nfÑÇ¤=«`4º4~è´•Á’œ^¢%ÌKp™ÎU5Æ©!'[ª†)l4Z©5>G	ƒ¥ƒ¶›V9ièÂÔŸÌÂÔ”´t'jQ–¶.-cÅ2‘ö®Bõø°T<ßÄp!†°‚©9pÈ©<q(¨Øí–ú‘NR?NWXÒVh²$˜“†0®æD4M,Lk€ù¨ıœ4ˆ77ªÛKƒx«æ¦9iÂlÀœ´†ïhİ-çY–ŒîÆwéú¤gmÒ‚¥)÷“Şf1 zÑ!'b€¨Ñá‚" r^ ÑÕx8~‚*’610Ì0ì ’VÍOdƒêBš“VğG\ƒƒ?Àd…t°^¦H—¶İhá0-§oÁ ¿ŞhğD¦ô•*S¸`«¬”nrÒÄÕ-xKwªJLFK“v®A1¯Ÿ›ám“æ®aYİÅrÅ~z³B{Ië!iúb-6Ö3ãz7š®¶?Îï£;­ô "ÍŞ‰jÓ	áÌÇŸõ9½ ç.b;#D®›Ñ"!rp7!äDI­ˆä±rbLÎ(iŒ9¤«ı‚„ –j»¥ä¤¼¤-°œ´·óõí€¶OÜ˜Ê\Ã4˜š 'má‡AèKèßcëao¥}Æcëïx¢­Ì¼ÆÖóİJİÅñÉVZİ41iüRíÏITÒöUúq©”§´•óŞ:¯4€i¤˜Œâ‘JÚÀdjP@¹£åb¨ÂøFŸÉ(a¤5lâ1FÚÄj?¦`=Ém!¹M rš³ßvì“0ÈI³x´]æ­§¶U›.ÇWŠ"A5ƒqÉ9³ÚxÌIkxi¶Sì“ke)'b˜»MTéô@"mbÚ^ÂéMNÚÃ“×ŠyiÇğİ`õÑzÓ[†&ß`Şä¥‘ŒJ#Ú,¢ÛÁ|œö…¤0¯ÑõW‹E.â‘± çÿÖËİq'š¬­Çºu_¨¼yiC‹›c ÏnÄrä¥QŒ[Ô y 3êã¼´‡®Á¼´?ï–ÖëÛJ´|òœw–wã9Âyi'ó;&±ÒÙ9€Ñ‡Êg•*bqT8ã»Dä¥ı«,Redä¥|½œyişª­<¬siúnÁøš¶3T*yiøBV®«Õw€mtl,PdgÅw±üÊUm^š»ªObH¯÷ !B$K°N?‰¼4r	&ıä¥}KÌR!#Ò¼ÅÑùsÚ»%HTõfÿ*ê÷ºä8ÃœSR¨Õ¨ =jT›Á±ñC…)ü?ŒkZúYføJŸ?üSŸn »clSVc¼ ‰´«yB¸o!e"üú–—¬ú>ÎINÒ²Q<tò‘LFŠÉIB1Y!Ê¯±.X@iIÚ¹üc:9Hå0Je0ùKe0ÙMeHVô¼<±'qàñ‡rüò=uô>Š®AØçîÑ‹¸éWÓù>àwD‡ûÉ%ÿ",7+ÈfåQ˜Ã5ÓÃ(:¾R6o9f­‚2„jxûJeDW]FĞèÇ0w|ä ıÿ/&t, ¾õ–gÿŸqıÿüj	SıM c÷èm¯¶ês«?ÈA€ñ'×É$	ßJJ‹«~>8# R¿(ŠÕæÁáã ¾Ø®‘¼RC%rafŞ&ßkõı+¥6¼X:ªêhñãm YH÷2Óú÷-K~22Ñ¢ı¤OĞÅi­Öµ§D´†+/ÁÏâRøı6 °„ÇùHœÉt®÷Ş¬ÚtX©Ó Ø<¬¨Ñd6¸Y¿5p)g±Bv$ œ`ÅMòTŸ|<ƒJ›Ò-ß´;xÜ#jWª¥Şy·~Æ=î;³±œÄ*ı‹vé”,äeœ+Èpıf©A‡d˜ƒ –@EirÔlµ;õfÏÎ¦!“§ı®›ÍwÕjÏíüä†NaÇ2\­]½ès×\FÑ™yt¢ù³§ Èüp3Ä«2÷SLAzÎ)bÔ}áaÖå<Îz*õË€ÎqÚO[Åxë²Fx.ï7+„RğNµKøq
-^oRúa6§·j%ğÍV“^’B$°ÔıĞ,>¡´!P½[µ"
-¸W¿¨7ÏĞ%×i£	d5QEÆµzx\¥\jvN5zÓE›~eähäp(s#E‰˜;^œ&§œ•}WÌ)ôM]İøagLCívÙÀNƒìVËå”)ç”(F¬0Ğ{NE}îKÊ J§Õæ®¤¦fºeîIj*©–d€b|(éĞ­ºÕ³Ko1úêi½×åş§IIbğØÓ*ªn£T~Ç]Q“ÖdÀ¼İ&JİwQ»Ú©)¿ÿ®iäÿË‡;ƒèBÚA¬’]”«Ñ»:]¢p—VEåFµÔ	D“Quh¯1Š§ºƒÔ°oãCjØJµVê7z7Ã(<îm«e}qˆâ:íáâ{b§árÆé4O`„æ-ÙÄ°eÅX)õJ<í”›Ğ¬é¾„1½0§w<Æ¢‡Q°¨?§)#Š£X9£Ó¬5cu;ÿst•úÒÑğ§¥;šaâı«K§8¡¯rªWÕ8Ûœ¾Ú¹(µ]…¾êNzÅÂæ<46›2Œîî"ônW¶49VjÚ¢7D°º$Iñ¡;ªà$Åw½úÈhö—ŞÂCç*F¬n"B’°üäp!Íæz3Ø~ùÄføá,„ÑÆ_ÆÊf~+eÙ¦NŞOŠaqTtêZsD¥æ¼´ßØ—ê€f·
-cè?ëµ­g]§å7[4¿‹ë²KÕ™w,8—Å£Ğ+Q©R“Fqp÷{3 œ·mm^p¬d—ÅÖ‚í+­Ü¡!6KgÕĞ÷÷Ñ×L:ÎUpš3X<–’+8&†ËbIXÃQ­£zg÷ıpÕ=
-®Æõ¨tqZ§BÄ)¥°Dõ®uÂ4N©®ÎgKË"æh´Şc+JšsĞ°á3¶À.«$´Ëëø‡Y?KÔjÒ)z]èã}ÉvæÄJˆ¥AÇZé.ëRÍ„C?Èl:Ú—Ømƒ‰Ò Ã“Q¹×iğ#ÆˆqXl	0(ñV§~h— yg¸Ş47ÃtJÍò¹S‘£‰\×jÀ#Íu‚Ûr¯¥è7ÜVDÚ¤1¡ËaºaÉ¹,µVÌÉ˜Or­«Qq,Îv‰f04ùûĞ5õX,¥v½)…Ó§œ#ôpT¬8r>+¼‡ãÌŠ£à\¦Üë}¨àËÆµFé,Ø³§ ¿u<±ÙÆåN³ÿ^”®N«ôëªÕ¤@GïËxZ*V»ÕÅhZÍF¹ÿ^õJ§]‡¹¡˜«åó¥DçÓ1m˜”À?Õ«^¿¯ş‚ÿ}§şfãÄUVq•i&ñKPîÁÛ¥Nµy
-?Îûí²ªæŞéI1Ë*»İ¥òå÷Ù<ë\åj«¦À?Œş`‘ŞSPpò×ï
-bµC(qÿ¿2Èº££ò(ÉJWô-§ã…ìFŒúxÃ.3ŒËİ~·­şH·:°!*Œñ+gT†›~²–	°æô(=à ;•KŠ†z¯d¡ÏéTÕˆ‚V¶˜{T	m\”>Şî``KB¯5úİó8K1½{Ş‡áƒ«&¢¼ï0!k÷t÷^+ëÒtv>áKh5ZP9ë(zs®m¦K@Ì5$lˆR@ÅLr
-"©êĞÁßÁĞx(’*—µ][´Í(cœEŞúÂ‰ÀÍÉG·/•	h©G«]‹úMÔ«:ûY@¸R<†v˜zrÚprË¶÷1Ô›ÕÄ°Èq¤t•;Œ‘¼¦Ío±Â´Ûj¯Ô ÙÔ!G ™NËTN‘#§zåÌdòÈŠ­wÑ¾49æÏŸU©òcYYbì´ºì¾K•jy>Ş('2~Zíë»`BK´´Qï}P%E’´¤$ğíö{qVÎ’4Km‹:m’¦%¯j¹•Ôsx"„Ü…œ³Vé&æ,u›lš³VïT,g	¬İn·’k,½/5ñnYk4ØG9K`õÓ€A–4.Ú$÷9K0r²P–4zõv’XŞ’Æi£_íµZ=rŞ’F½_NæÛyK«NcŞîFİJ’¼%ö9«¯¼%zµZ=ÎæÂÃB`Oæ°\õäb–¼İ6gI‘ó–4š5&Ş¼%KºnMÿ,i¼+³å¤‚%@†^GC–4º,­‚%«
-[_(XÒ°o!J¤QJ3V¢œÃR,	Zò0X:ÔÇ`éP­ƒ8niR­Y­ğ\Ÿ*ıjçJ•+YÎdé×XßrKÏÆz×JˆëÛXÿrKï*=,QäÁoÎ`©`­’9néáX/‹r&ê8QÏœÅRËLMsK?+}-RIt´G—\]MßœÁÒÔ±æ¶äÍ¶Rà¶”v¬ÄE…uE…uí
-³T¸Ré–¨¸WjİªO®Êµj·ŠÈõ¹ÑïœÁÒê‰–·ú'×îJÛ[Yà4>G-%¯•>Ç-M¯4?‡-m¯µ¿Õe¸ÊçC€•C®üõ``UÌˆ`EÀÇ=.XR>·Ûú¶bàc‚5FØÂ`Ãƒ.¬ÖÄÇ5fX}¢fW|sØ+ÌØau9>b¨„ÃÖ¨‘Œ"Vk½°s ß–râ#ˆQ¬¶R²µ¬~ÏIÛõ jNûIyÁğó	JÔ©ö»U\ÈD$Ç¼s5NƒÏMğÊËVÇ +¼³Ú(>;İ*UÊ¥.Õ=Ÿ@?­$—°Yy+_&È1Gpû½Ô¨_R:'iµNëM¼å‰JÊ'.¸ª[>¯êŠ-)àµu‰õk‰â:«šÒ†–N»ÜØ,©™UÁk»¥vBBK¸¦óTµ÷Z¢hW«’²h´Ş—ô&Ü± ƒND(œÿ·ÊeE(YÒ(•ËÕv44vå|Væ°kŒ”|èÖ#­¹Y†c\‘ÊÛ’oõZå–Ş™<¶ÓE©n´	srö†Q©ß;¯6qÏ—5ë/—ó©6ËmZíuJ`jµ’m«\ş¾  ´Ş·øF[Îª~hƒ•^«R½¬C‰sVõ—z½Rù±^Ü¬øL€z«Åj´Xoáğ'c—g’L[ò¶übÖÊ^T6ô¸­˜¿|Á›d“íl`%Éxì <Æ‹’gû3_ô&ªœ84Ë‘?QÆ#‚ZüêôiX©¬ó¾^«Gzy0a	­T}<vPQ¥ïğÒl;Q«µ7[µr7«uÓ±²)
-vhàb?¨ıˆ.ŸT,¶zïw?DíVÃ’@¡h×^ËYF˜NÉ˜›«UŸ¢eˆK¿]ºüQ³X´Ş•‹q”Ûı$¡OƒÈX^³f³Èç‰3VëQÃ†;yªÄcUH¹y•*¤XŞò©m/jµÉ; ×å[(Í*H¡Ö²köğĞ+ªf©]§Ë‘Åª“r«õ®.<GøMUNvÚïz”ìá±T.êÖVU)¯v@Í·?X)ùj¤¹§…2$Åº#@æ—ItY\Æó7ŞÏ*_Ä U’[µ/lDfp±ñÊÏ!Æg“üìb|öÄOŸ!Ó®`cÉdß:ƒFE`Ó~1>¯ä‡ĞãS~Ê¯Ö94g<‹ä'ÑãS~äÉfüDÉ¦X\¯­0[.|ºÂÏ¡Q8¾¼vdË…Où‘4’›İğÓhˆñ	?FõÀ&ü<É…Í$ø4Äø,ŸG#™Y+z¶\¸ñÏO£uÁ ºÒfşñz.ºghûj_İ`G™ÄÑ‚9LìvXîuúÍrÒNì·«q´ÌàF0H`.ë¤ù¾Tï)°`ƒÕx‚à±b¨5ÊYÕk±É¨<U-°û‚dkuºd]ù¨Z`§Û‹CZ·ØRn;=0f¿ä$ØluëgMrıRàE«S5ÑKË	F3ÌW¬Ÿ–zås¶à ‰ÂÕ¨”S	÷õªM“g‡¡LÿÑ[AqÙøº÷»õ«Ÿc|øÒnù™ŒE\ûˆC/ë0æıõ­<Ô©âMøî© IÏXä‹ÒY½ŒåLÆãp4Œv°å2Å£hš£ä¸£«”9>Ì"ãñ.®ÓL¾x’/
-;ÙÊ™ÃüÑÉIİç`³•/ğÑÚ™¥erùÂa¢Ğ]ŞóRƒ*Wªµ,»HÌå,—*Q«‰¼Ç'¥Sä¿‡·V£·|ì†âò¶ÑáFsãË’µj¥|oÙrÀ\
-Oså|¥ÎÜ}áŞu•Ş°ª@.jåj.ı6\zÑéğğ¸pˆV¯9A¤ÛP»tV%ç>ë5€FìœSĞKl4&-º¸Ø'Ëçll³ß¼Æé‘–?üãËdòëîøUlIÂ{¯Ñ*±Ïãohç˜óQ„îz³m'‡ØØK‰§kG¤©};G†÷¼£^gzï4PYŒß'ó˜¹x|ßf°EÄjÀä!ó¾¨S*­©7şlK?®Ì½\¿ñÆ|ı‘±4xş8¬H _4§ÚóëŠ-¦5;ôÌAÆØêbpÚO$ùÓdöca>}Å^]“OJ@&¨ï±•ÏD$¨ïÂsö2¸êû·Î~‹ÁF¯`jÕáª[1+4~õ@HC¡ø€ˆßnÈ¨5+óô¾®X’wÀ-¢9´…wMüüj4şD>¸ ÂC}õ5Å#~tï„ú¦Ÿo_İ-FcE¸ÓîÀ#õ‰Çß^İ˜¯üŠ|á‘Dø£#Ù·IŠ+J’^>ÂOå{=ûˆ?I•^/TDx×îã- àÃÜ¥CôÑÊí|»~Ì[†™Geôa{:Ê¯ÏY~1b<£v¨[–‚ÙxnÎ¨âÁPûÔm½¹ãõ"|eÇÓG ã"g7¶Áã¡-ä<­J½öÁáÉYñ@óJ6vb‚Èg·½ïÔiÙ#æ9vyš-Åex˜Amxâîµ'bşÅ‰†kÉH{2£¹¬]àËj%ªéİWÃSğğôZv<ÇO`e”ÅüÅÊ"ºğ%‘:jnàO¥Ú¨:<9®[ÕBÖÉ¢áˆym^¡36ŒÇ¢~ó¢Õoö¬üXs àÁÅÁj§Öh½Ox
-‚æ-³ôoxO«Ùø€OÏÅ<¡°Û±ì0­Šj­†JÌœÖ³yªWåd\OèÍ‰=!<eWˆ9•çá)U*&?Î<ËÕMrğy„U®j÷¼•Èğ8æ±Îzã[÷ÉCuWÌõ‹ø•şÊzÌ¶•|êøhÄÅİtÈ}Ş–ùê#ºÑf?Ğ§t—ST;r±-< æ°|1¶‚­y0+ĞšÏÛC”aÑ	g°5bâ˜°qQkw'b’|Ñ:l¯™€½T˜÷ë•LÔJõ2‘LøàØ¢âQÎs˜·úİLX´ N•²‘ÉÛ‘_”p‡¬ü.S´ã‡†‰‘eÀØé–pÑ3ƒ6—Ìe½£0|8ÆÂpË'“±f˜4tüLæ˜_6Iù„‰IXÌó…–TÄ)(ï¾×$Š\±§ N§÷jJåFf/üë_Ãâ¾¨ßÄ,¡_»‚l·à[¬„ÛX·QºÔÈ‰@Àæ¯VÊe÷…ğJ4†6ø®ÚQzR¡¹ı€£u,;®ù+4o£è^î±¸6Ş(ııCŠÀıÓD?Cqß®Rl4½*µÂŞ…Ê"àØN[˜>pb¥r¯®¥—ÏŠ¸ğ'…„Ò¹P¯èföâ~ó‹İÔaíø.²_şñŠÉÀŠõâ¬ŒOŠB-g«±ÀCèE|ØÄBém¢^§ZEs¢	8Ìdü uĞØübU£«Ò	5óNX7“¬ „ŸµÔïµè7gÎ¥0W/Ú½ô†c.x™{L„ÙV_&riÌ¾LüÌªŠc.¶]ë’T3s´Öm×ßì],æY¶fK™áªY›­¤°íªÙX™ñ:oï‚Éz¸˜O``.îî`¤£¾Ö¥•Ô3uè¬Q:Ë|d26]=H(ĞZ¥Î@r¡|ä}t•G@­Zş>8ädZÔ"Ó¢DğüèwªÁ÷ÁÑA†Ï:j]U—»êAqĞ¼Sşvsé1Ñßà‘ş†Î˜([I5y¹"¥Mã–˜õrÅ=YøKIÓfıl\û»/ªh“	ã$·o¢†¢6q’³êU»nÖÛ“FŞW	›î‚+bŞ«†èáÇü”ÔJ<µd•pXÏ*Ym[°¶¹Y=[°ÿ°
-¶àN•¼<XUX°­2ñÛYë7zueŠ'V8c)aw*¿'ƒÿ»!”ªGÍ¸0ùS³š4¤ÄÇQpX¸â2S‹!QYñìE$-ñŠFXíé–ıRÜÅTêÒ—M7¤›FÔTÈÇDÓ3âÑs!)›r†u5{VUÀ’›3¡|ü]7G}ûÓL]º¾–CÙ5W«d˜-Õy3a
-¬<&29¦ƒô,†L6EÇ’	ôwBÃªMø²Todr^–f«W¯ÑR İy‡EÅOcRÔ#Ó?ã9¦éãn´Î2	s¸›™Î”–hèÍxpú‚àqs\£¬6É@tuš0<~Š÷bè×°Y7í»²¹ÕS¨™DkìâÎ¤…÷†èuJmq~GÄÕN§ÙÒ|‡;øè	TªÆ­èwå–nP|“]|T{Šm¸ƒMU™ŞHØÅ§b­²J¬çşŞ‹ÓË†w…è¡NíR˜õeİmñ>½^:_½}E¾(B¿‹˜ñ«ÓÅ<Z.è±V7ë‹Ö5&ZZ¥5ã5İƒ¶‹6öÖGÄã—Q7V¤$¡"ÇlLæ—ÉO}‡™¯È;c¥|ˆ¨ñ
-|ºp–?‚ñjµX‰t˜5gª Ş*«-ÙLæÿÏ<ğŞ|µ
- 9a JÜZou ĞA€+,û²ãªY<¼¼t2ï‡r¯¡µ*M—+îìAà«–İÑtqÿÖŠf ÿH¯ßİ±Õ+8Ã­ó;{¹µšæœxï4êõºÂ0”‘ä™Lè Ô939‡N·öÀ8ã åV"Âµ#=6kz§Û}õ»ÀæZ&sèŒæm¢wÂ5“)¦†já9/7‘3™£´pÕµM"jz&sœ²ä¬å:É¤TFxèÖB·~†[ü89İª¸èª÷Ï!¨[Íz·>:=tğ¨àh–‘	m(jy,Z…ê07lÒ,^à˜CşÿÍÒå5VÁ3~·t¦vÈPéÚ0İ3{|ûXƒ§-˜öî}—ÛOaL8=®ãòŒê@ıtáÏ|›ï4]mÑ7¯Ä‚9D†€­Ök?6İÒ¡u*t7Of›´Œüg*6Ç¦RR›ÓN§\lw€ê±ÒTl5ü”–ºs6¥ˆóOÃõçhª±d¸ÓOıüJîQd‰†[Û|ÔtşÍbÙ¼µZ|± Û04b+0´šÁ–'›4M#ÅN‡îØxûZ“KW™dïQÑ´M›‘ä³N;™(-¤²kµ»½w`?_dößàª=ı‡­…’“;uèÌäöM`áµ‚T©Öh…éõŸ·ëÕŸ¯§ó¿à^®n¯B³Ê¼²ùşB_kúµö„;íWÁ^|¼^ßJ¸Üjv[ œ_ÿy4şôçáb¾^ÌÆcèFR©^VNş4XıyµcT]{¸š}Š“šog3‡£Ó¿Ğğhµ½“ğY÷¼TKùõŸÇ›áŸoÖ·ƒÑâ³dz‡F÷ë?ãíñşıÅÁaPÑi|¼;i4JİŠ3[Üüy6Xoà_Éx³ÁJ½£ïS§4¥¦®SzxœÊIòâÉÊE³×+êÒâû"Di&ÏŠåÎÃÑlAaêMÍ1_@AÜ&ÒÆë…:—USè©Mçıy+)ìz¹XÌş¼ú|»p)Œ (Snjsød€G<Veúë’š]7fÏfkÉÒ­¡$¸Ù|• KÇV»Xlşüé$^'}W±ô.Ú¬ån7wKËe=éšş4•1¼ObÀæòÙ®ŸªL:Ù§°ÄA.K¸O®}p§ßd9÷0$Ó	ˆc/wÑ¼ÜEórM½ÜE£¡—»h^î¢I —»h^î¢Iñrfx¹‹æå.š—»h†—»ht:/wÑ0±¾ÜEcUäË]4/wÑ¼ÜEórÍË]4/wÑ¨¿—»h^î¢y¹‹æå.š—»hşİE{d^07Ÿ«q¸zíü=N&ña6Ë«×è"õ¨WÈé@jÀ9bt:YÑƒïı‚ÿÍÿ„ÿ!šÅtûŸšb¾-òm5ÙâT|6›Ã4Zo||šl±^¯ƒ‘7ñ±‹3Şài{É¬É+9N
->¢Y\wãÍj:tRÇW“·¶î6[ÕĞlN Ûlƒ¥—m°´ØÖ³Á§±à!š-It'•bšÅ4…_£ñ—_
-ş<mnRŞŸfãùØæãÏV‹k„ÈÆg;ZŞB%«×æÂb”Ûh½\˜çÛiä’¶t¡‚n{g9Äö+mô^|ÇWfÓÍR;àú©f£õ® SÀ‚9ìVÏÔ[fa6ï&U»`á©HšQı]Õ—›˜)Èy@ËÊŒü¬×¦Ó+üC²èíñ¼_±¦£lQ¤Ş&#[ûoTìÛZ Ä……Ä<Ì:Ğy«Æu×¡}¨’s¡3å<iéÔÜlôÜyUÏ4tì@í~ÛôËÅ–ˆÊˆÁrn¸›Ø,¶ÿØMR8m0\™ å@óä‚®Ö)É·ñâpİK-0W,gw†‹¬«qèV]ÉlCzêÎ˜ı‡®¬›-µdÈ§-±\p¤Ä–RtÓ»0=qe}Z­öÚ˜Ÿ·ìªs#æ©÷º¶yG5 =ë«@7d·¬³æİì\Ñ„l……µ§]•æİÊˆ·&Â¼[ñŒ‰O—âf¡:—L<3Ğ–ôÑó£!¯š)eğÂ CõZİæ^ÉYŞ¼î}ÙÏdöğ%±ßvˆ}OLøV^µ¬Îßz`€BJ(ôƒYs½¡=¬tËí8û“¡uó‡‘  T)‹É@ 9Dó²tÍš6G1ÒPŠù0%æÅ|˜6O1ÓPŠù(%æ<Å|”¶@1§¡óIJÌŠùÄ¶ZCìZbåF©ÛU5šı2–ñêÖhHV©BÊ]Õ°¼Ñª*<¥"ÒP*b1-ğÒĞCDihÑaz”Iy†ZÊ@ğâÿL×	«.¸·Y¬IÒøo,kJJºÑz_©6J(6'©sËÎÎÛ}Ò²Î;ÕF½tZo ·6Îİ˜Ë­nÏ«.p11‹U0µ;Õ².©Of«2Š?Qò8YtšUÜÙÙ~#5‘¨ŞìU;ŒÑS½ÄWîÔ{õ2è½¶·Ojõ¯bêÔ+U_#K¸¼-Teèâ¢Z©ãİ¾&N,fÏÛEˆC™)U§‡á+Î”.@ ïçE‰6û§ÕÃ‰k½ZÙ[Pë\¨2©íûò°zUF’¶‚åÉI#©xGÆvu¢•êéEµÔuÄı~'™ş¬0)éäœÚF´J¹“D¼å'Æ¥Zmvx9&"5fYèd2G‚†§¬a‰ˆfé;s	³7ˆG d¶ñÁ&8]ÌJ˜—Ùï–zõ
-E	ÔcI„u|²pÃ’¥ƒÿ]–<ân5ªMW¤­Z­¦Y&'k¿ŞÄ›g™)G7V"Fñ8Í¥j¶K7t8)TjVp	ÉÉ@º1ºÄeò¾ZˆúMê,úH¯—…–øğÒIh˜	GµÖk‘•q2ğâğ‡öÀ°0òâx»n•á$ôçşÛ©âğ2::–5¢8`²3¯‡‡\°½T3´! ¢H-òág]D´a¯QÁ[,››NB²uòjïßƒ‡
-ÀR­5¼ZóQĞr)ñë ­a!Êçô…Em@Ï<+×;- İ‚Q§EÿøÈL ˜ëR½³†€+'Â:ıfgŸ\3é@¥N;à:]%Ôi]Ô»eµ¤j!¥Fƒ.ãP+¢Ú7HiÔèÚ.µxkÀˆ´\¬õbUÖN¯[mÈÕbÊŞ°c\-&‘~h–.êe¹V¬äŠw@«
-Ê:áZ‹É5ç`ô´\@Fà²…7Ñà#Ş¼Ş~uõ‹Õ~	şñÊDúK"·_bIıÂjìï_X>÷ykŒÚÑq6åM…iT±§¡±FC_’à‰0È½…u›4/W—&¬R1Cü¾ÔÄ=-	 Hû(
-&W\r%øDÀèşG@ÙjgÅMR;ÛŠİ÷:\¡”íEë´Ş«^™ĞRÚš0°”†Ş¡$LŠB»ƒ&åp^¡-JÂ¤Jr®$+§[RÀ©SJR&N)?í’ˆXM‘9#.Ë¨w	“e¼ÂiL–ñ¢ÔV€]À’Ø7AZhvÓ>'Zh7İ¿«Àvã1zRäáaÖF`ˆ¸¨„j"®Z¹« ›|÷öúŠ] ñ‰ıRƒ¿¾Ó²[¦Sel“Ê²6êb ÔÓ›x²aöºØr¹šD»ÔÌQb¹\U¶\Ÿ{{º®@‰ €A H*E#§íT™k5O«Qk· œÄ4¬î58…;-õ.¨¯ò®JUÑÍIn–¢J#†eÌwÊ1,Õ%Á½–J³Qêñ´¥Ş„!ëŒÁ²è›T‚eGê–K<rÙ—zU¼?«xx(;R+H‡;ÎæêSÚ±ÙJ*(b5Ï ş@XèV_ûŠ€¼Ì¤^"¬Xqq©ß¥íáãcGñwÍµÁ€I…÷^-É#–¯
-We£~YÃ™‚/bX¦
-­ì¢İ*x(3ÜÆ*í–\”B¸[íêĞEÙè*±r¯¡a9¤]3wËĞíRU²Ä¥–J²éb}•*
-“Å®zêÄNeQ*Ca2=˜o g©ZvZ¥ò{!LF¥r—öÍ¡2IÊí¹ÂœZ»4­òØÂÃãcƒÉpÍr·n0)¶2ƒk²ÔÊ-]	'NìU]ƒÉÖ\«S„'¡¬¹úi¡c.@©s¡ÆdîÏ»rR•6»$§“‚âyD€ËºN'ı¡Şü;q;0bdòœ¸£bdjä¬jt˜ŸÊê®×°eV+N'MUÀØxêÔ ™¶êÕ‘/08òºiVjÆs{{Ó99+à¥×É¥bû2ó´A&‡<(H¼ùõğ ‰üe#u-XèQçÙ"rô¥5N+Øñç­.ÌÿMP@7EØéu’p)sN@4hÈ7A½m±M…ExŸ‡’æÏôÙƒÿüŠÿçÄd$¬¢{HL¡‰iK.•xbfòİ:äprÑ¢Ç	[ü¶§„[¶ñ5'Æ·aŠ× ­6Ö}ëæ‘‰X|o“w)”;ÎÏ	¬éÇÛàWÆUÔl¯¶óéb®}0#º2]a?†xÓZœ˜<ş'{è"ò¹x7P0~Š˜ßxFïllwK–ZìÆËÍŠË‚N?ôª­NæßŸz,v\²¬—šöK"ä½ó—‚x_dñi¼šÌŸPO¥ÂşØ´Sl\Jt°ùñÄºznª½W›ãéíÌIò³q¥d—¡¾˜X^QŒ›ÅšÕÛf±‰lg™éˆ}LVƒ›h1™$µ°ÙÌX•¬›Åp1c!†·ãáGVÿkj\\RôÈi¼¹MÜ|0ÒÛháG37ûç[†¬ÛÕp,1Jø6¢ÜØUğù/#O õSŠøäEHèv AÈYU ßV`¼à{i³“¯“èğH^ğßÑzc¹Bu0ékr}©•š\CêEM®¡!µU«áî.…áÃ!qD¾~=]n¢¡~(¡X½	Oêñp2»ñÔÈ9KëóN‹oW¯g²ĞŸÉÜ×"POYÆ—.†IOIÕÚX¬¡
-'ƒ»éì+«åµVûN=¯õDHù¯ñjAj9éÈ4Oú²ÍÁ4Ò·Fš/¤şÄ,âø’®T]DdŒ–êQ-x£AıÎ~óÅ=şÜL!<ÙX½y‚~’L>tÃ×İø.‚æE€ õÅ„v=Xp+efºúI’FwIRòşÕ)$¿Xé»èZnZ°^[õF-‡Cog­–Ït~óã^˜ƒÉÆwÁ^.xàm¥‹I°ŞßßDc£<4û­¹ë:š¡ÛNeâëRŒ¥Oë­åÆafşåÍÑ©^“»4`¢è™•{uÀÀIÖc¹l¨SÙîJA\«x}‚/X,ÊµF#OlÏÄšêèÍÅ6YN"åNY.ãiä\ïïÄË‰’—úˆa/^[ü£ë¾æ8H²¾x_¸zWİ'ŠàŞd±ØşñjOıøÛ÷";¿ÿ} ¿~o§*c%¡ĞÊ¯èŠ˜šÉúp(›.jòeT	ã3„v¿şN>15Æ«Ø²Õú1!F‹áfl–•\·ãÁhÌkúèvá·X4¾öá¤“®4+Wu«ñOÆúÆ×gIK?ü™ãş?ß¢ Áª6îúoc“]jàØñŞUÎÜ×>}ëSpíN£VçhôPfJìZO45]IÜÅñn³Ã€qËFûÂÛÂa¨ö.÷ào‚ØIşm"É­W×Ïfz6Óšş€~'C#½«ínÿÖòv jßl(„4›2.šŒÙcûr0ü8ŞDwªa&îV©yĞ°J	ùºS=d¼^›¤L§TM„kÔçÙµ÷â·„L¶l­ÛÃØÂ^¬cÎ;`¿wÖÒ'…d+%ü1â)saBQ‚0İÆs§`Ã«ñĞÉs¥ÓjÛ<lĞ<x‰4f1~C4ï²\Eä¤ó¡ƒã	Ôz¤CnÀNFÑŸ‰îÅU—À9é_¡5+YÇü:õ³J5>›w"ñÄŠ¥¿Ğ©×s}äÈ08rÒ^G1ƒS¿=KÖåh¦»ütkèÔóeSeÄ08uIğãó¡#Fq¸>täX+5[ÉC°Ö½hqç¥n|(<t$ù®éÃÏæöiZPøşÈ[:Î9’TyˆL}æI^t¬ä¤ ¸qÁğ6é‹Nâˆáë‰¸’hbÇÆlîËİŒç›ÕWÇ*G¥²Ú ]ºã 4õĞo›ñçÁW?6«Æ£ÀV3˜X4H?'ç	”—Z—Ñhr.©ÃÙ`í‰»ğ£²Ñ÷0âı?ç¾ÿ)˜ÔQ13çYéws½¢1Î‹|Å½øœVîéjcÏç1®õZGÉ—ôV›»õMbÄ«|D·ªD@ëÕ0Š+,¥(ºÓÌp'!;âø:‹ÄHÏ'ÄqªèbÓXÍe>vcs§‡UúQ«Ğ"Ÿ•zÕ÷%ı”UÎ‚p(Ê¤wªõ&v]ıˆÓ±Hûelg‚è¤zU=ˆÅÔa½¾Ê^AĞÑyL3XÀûz³¢ß@;¶ƒÔ;=Ê6Ÿ,©lÿ‡>ÁfŒ7=”å‚@®@©·—TÒc>†Ôy_êT\Óaôó~ŸKG*\
-c6>6ëª®²ÆÇLè…W]c.C¥ÒAD]sa;=]?ŠÛ4W½óV[W’ÃP.•Ï«ÏµÖô³tòJWÄÚ­F½ü!ãy•¶Ó+×pz¦Äì&Z&¯tópÁf©§Û‹Uğñİ:˜'ä	áæ¹\£Wd¼yÆà´Û)ûó­/7Ìğ§myKD÷¾eãy—µÄ2ÒÈ“ÏK½T_%uàØƒQK@wUí;^s™=R$û™½xf_­ÿû[cOA ‡ˆ@n¦“$¡"ş½›Kœ—ÿ}°‹öKûVÄÊo]mùñ÷§bÈt¥»ı¤“ø»×›èçZp!U©Ü–»’b§CšıS€t4¡ß4úS05«ïÕeNtj$h¥Ú`hÎK>ùÕ{‚& /d¿AXŞĞ`2só·46	 \_ÃSZ!{Zddõ/?ƒ!_Ì’Ø;f1~ÏØÌøÖëÏø&%Ağfù™–
-Şj«•Ó¯B`ğá2E tøiØƒW7	ı†ÓY<7ã!K.}4]yùé>uÃÿk`ò!‹r³Zl—¬$7+«$xQ’<ÀólB`€»ñİ¸xE;Ìz
-÷OÆùkDÉ;™úY/L¦³±Y4ĞkoàWNOõÁÄ„íz¼]'K»Õ½¯î¦÷Ñ
-Êépè}=›RXÇ£Tt3D=Âß»h–aömÕì±R²ø–a†`Á¯·œ²p(C‡2SÌ+~AbñÇpø#¦‹¶°ÊnE}Ø´…¦ıjåæªV~_9+.XX“qjÅ>x±î†g.¬*G•Õ¨r›9ç]q¬øÙô:™ÊnÍÉ¬•€mDCºb_Hß[aH¬ïö^ÿçİ2ĞÜ¯ÿò—×•×„áºç`3B‰0Ïê-÷øÀª¾ŞnÆQ´·7_ çv5ßß§ì‘Ùa~•DÉxñ1”ëít¶™Î£í|5€ ®gã= ~Õ{kËèµÉ¨a|ü‘Ën:%•ˆç1åıFÅı÷±GdO”°Ğ`VK¾™-®3O[N Öšq-æ¸a7ühvµG»˜˜ªHÇ«Õ|ñmbšš®óçÄ%Æn»ôã&:Ã¹/7Ä#òcØa˜| ûú™ñ”êfå)•&ZZ¥gófåds7;ÇRş;ùo¤Ğlv7Ôõ–¾ãào¸~¦ºØçÁj>ÅÍdƒA¨Áv¶Y›EËƒÓ¯›±Èò!v_š"ZVÛ¹R°"ÍÇªA]D]H0_×ĞıõïÕ wÏñçøÇƒ;õq§cU_üÇ"ĞŞö¡ÙzyóF÷+¹Šs½ú(IwƒÙl14»ùp²ÓÃŸË7¢,,õªWø\^éêŸñ€KJøÍ`¹¤àÏ†ƒyp=F»lLVãñìëŸT©\?R5z™^GäXæÊ¤Óv¶²mÓ›Ø(±Ÿ¶ÓÍ8X/îÆäH†{†
-N·›`¶f`±
-6·ğh=˜Œ7_S^±T©X‰*#™ş‹Éúb€V°‰æ›Å@ï™Oæ½§C¡KQÎê]$ıûÒR^ZŠ=^ÒÎu,ùVárÙR!Ñ·ÊúòÿX<*’³Fë´Ôè¿.êÍztÖ/u*ÕJBş}pœv»xX¯‚6®3Úo&ü±]:£İïô‚¼lĞûÿŒİmn¶ƒÕh9¸'¡ş™L?¢H	5fò&&óÁõ´Ùm'W±ù¬¾É{’sõ·¿åâ\ „ãGŸŞ^}˜„„ r?¦LèEä‹>ø?1yI©ğ(vÈ%'7K‰<eO
-ş
-œ÷øÍ?¬ ùDKÚÖíúm<FG¸A4¿‰"3ğO¦ËÁÁp1íï‹åfz7ı¯=c=Ï‡ã=óf¹ÿó¯ŞNş|ÛÙ°ßL×Ğ8|á¼^…‡¯wX2q2;âÁ&(å÷&Âwq‡gEÁİìfö6…+…`×ò×Øè´Ã´×Ìr¸áh,¯„œšäæÕªvIö÷İ²ÒìË“Ô¾ñN}b¼IqÌôÅBĞw‹gKî¬Çp«oÃoP^ı¶ˆx›Thúüa4]y–4*Ë×b‰áWNxÇp6´ÔjÜˆPKø"#íağnØH™ qğJ½sÚÇm™F£UÈÃ©\â3íÉ,a¾À—À7
-z«¯`sLÓŒş}IŠ1#ú«[.‘Ô_ôLDÒÖı$PBN¯{î¡í‘AeMıüj1™à‘\¦‘c¢ÍHLt¹X'cc`r×Ùx I’û§õ°›$26TÃ£AkŞÜ0T‚şPyi§{{ip½mH;ÕÊIX¹ãéÌÓVĞ»[ŒÆkÙæ-@É±Õ_>Ê´¢N…nkQGÎØ{Ø­è}'ABÁg3õ–vÎJåòE«¢w§óªÑ«Úr¼ö=…ML,ó¥ŞIµÓhãkæzÜBºçq˜Ğ.Jõ*Fr6Rê~h–Íş·…ÔÒŠÔ¿±Xéİô£yon¨ÖKúIĞ2”Vß&dJHÕÑuÚ½Û)r_n˜­F¸ìé*:–•×l•{t‘YÎ®WÈ¾ÚYmu>Ä;›ì~¸Ğ[ÜjWÔÊ¼º.:Ùµbmã³%Ò{ıŠv6`ÇÔO¿)¸rBE°¦¤şò2MVîÊ&MVı…Vj²ê/Ç SWYµçÏ‹¤åU›ıvPÒÍª}~™jTÑYi¹*¾¬Ÿiï*BUtÕNI„µRŒädm¤Ú¥pT0õŸÑ)YÁ¥ÎY_Ì8.
-V»ÉŠÆÁ:EÆx
-Ø`	İß2 kT9·MÑ³àXg^õJU¾‚ğÕÀ«g5˜`;——×_×ÃÁÌ·¾Ì6ÒÒä5·
-µ=˜ß6L[@–Ö«ÇÄ´bcú;hâ+çñÕ?ü)ß2Œ®{˜Éı û¡ıîwø›M>€h³c€–ºÑÕqİñº½JT,DÉcr>ùúEQ³ájó$Úç®CF´À˜# Ñ†³ıy›ˆsæK´	mâŒˆE›¸\ÌfÌyU3Ç™Ç*ïĞíûDĞĞÕzCy(Jt·#{(Ê„VU(Ê´ÚD0Æh¹ˆ» 2ßv§+äÃ‚VÛ;Üù”Àéb¸™qSU^¬€b;š*:UÇn…}â^¥I•}â¾¤D‡ãõš{ªÈ§Ë1÷Uõ6¡èr²:‡·ãQôu:ø[J¬«1Š5'Jz·ş:ò÷´u:.Vcşˆ–¢Cy¦ĞŒr¢ ëÛ»›ñ†ß‘mÈĞjòY‡ŠÒÍ‹‚¶Kşš¡åøíÚJ"ƒ-¶dQ¾ù`¾XÏÆã%‹ÈÙO2®ø»VJä³Áê?e¥…ó;1-§#şP®0§ÕBş‚•èÌÏ¯ W]q1ŸcõrnXnø­àqô›¿\7®á§ÉjqÇ_–ŠùÑ[´Pt]–÷v»->ÏùËQªËMç#şV”êà¨Yçü*q#,-½pºbãBb²%“ˆ–ƒéŠ?ëdêÑˆä°àM QzĞsğóP”æcùCMDü¤¨¢Ôã/ §1¿×\“§~[”êÊƒé¦Ey?NA/EA·Tü¢SFê8Å‚C^,ƒ¢S±ÔqŠEYw#ˆBvÕõÅ,UñúfµZ”Úx}³~
-¤.^ß`ŠG¢€“á©¢„˜h~D	'¤`ä ƒ«ö
-…„ùİ|8€1íHVa‚9­a³Áupäö×áçQp$
-;¼…écpœ•…RdgĞ¥Š;…½ûHÌrÌ¹#ª(ìÆMp,‡ÔéÊ¢l%Š,»è×;E÷0
-pŠSÔàÄ-"‘¥>ºÅŞ"«S“Egš,Ê¸¥AöÄU½¨IPİ_ƒ“¢®fÓ;èV'n…®¶k<—{"š¯k:d|"ÊK'Õ­·?ÔP±Y†cëÙ“À9ñÃD?[ÜXïşâwú©Çé©šß-òXpK<V!dA9*àÄ	±ÄÁ(”ö7+4 B'ª5pŒ‰ÍJåJšP„PêÒzŠ·÷ò”İ@RSa|k•”§ÊäŠ  •W’æÔœ4¨ º‰JÈµª QaÜú'ÑI£j8X¢’¥Uô5Ñå¬lRœ|Ì¡™IóJÁØ–G8²X–1†Ÿ¶ãí˜ºA(-.Å°Ş®1 tL/°–gZòBi€m1aë%­éæŒJˆl0˜Î]ˆd9^­óÁlºùj=œ¡á4"”vR'këµ=vÀUDöô‰Õt±¢´cÌe£ ËY«Áà²i~“à^Ë{şØÎÀx¥ÁÇÁydç1<‘É+ØÜ_€OJÌÃ7…yŒcÛßjE¬´øi iéİÑĞJ[¦b
-ÖñÃÜoÂôQ˜â§ÛÁü¬üPZz0(M'_£˜1¡4õ–ÓO‹M´Z,Ò¢Åœ¨Iso¹Rd!ÁjxcBƒÑbûYKËoS¡´ÿ†·*cÒ$Ë&”& Ø÷Èë*ÙdŒ¥%x·ØÎ1ìHDÏ ÆçÁ'ÃÒ$úd€cB\«"¸¥Æ“ïdü„Ò.p´¸LçÅŸ.– aiuÓ­PZˆd±@Ÿ XH`:ŸnPÈaaÖo£0óÏĞ„!MGP¥«¯Iğc‰.@Ubk‘&ä|²^C_"L’¨%pJSr¹5€l“µYPˆg³ı¢Çøn•6“¦%™] ³¥u‰æâ ]U r'½_p“!„ƒ„&	$MÍ›R˜1Hšœ’f'L;$ä0ã˜Ä„c4îŸÆ”ëX6*d2±QiŒÒ0'Q^sÒl7 tr%j”Ád‚=à+°xÇœ‹ÅµO#å…ºo< g¡‹lØ% EÁ»¼VŒöÈÁĞ`ıD“®œ4Y1Îí5êËœ4ZæÃ1HÇc¶ÚY•æël±ø¸]F£!ü;AJ3vŒË‘Z™ š÷¢›Y´ÀÅ1iÏ*.:me°¤­¿=Kp™ÎU54	- s;ÔşÈÜÃ &¸X	ä¤¡S2PSÒÒ¨E9LXÚº´ŒËDÚ»
-ÕãÀRñ|Ã…ıß`jr*OJE*6D;¥~äƒ“ÔSàV†4ƒš,	æ¤!L'6”]NÚÁI[ ÌßÈ@íç¤A¼¹Qİ^Ä[57ÍI[ø `æ¤5|Gën9Ï²$‚L‡Ğ'=k“,M¹Ÿô®€4‹Ğ‹9iD•ó®ÆÃñôT‘´‰a¾Ø€a´j~";T*Ğœ´‚?âtø&+¤ƒõ2Eº´íF#‡i9}ùõFƒ'2¥¯T™ÒÀ[e¥t#`®u³R0iã¨“Ñä¤kPÌëçÁfxä¤¹kXVw1‡\±ŸŞ¬Ğ^ÒzHš¾XËL[®â‚ÒöÇùrt§•D¤Ù;Qmš !œùø3ÍÚs–@±"×Íh‘9¸›r¢¤VÄòX91&g”´FˆÒÕşABKµİR´rWmå¤ı»¯o´}â®0ÀTæz‹—)€ab½â÷b›AèKèßcëw¥}Æcëıöx¢­Ì¼ÆÖ#îJİÅñÉVZİ41iüRíÏITÒöUúq©”§´Ñg0›@ç•0“Q<RI˜L
-(×‘É½I…ñ>“Q2ÂHkØ0ÄcŒ´‰Õ~«Ò$6AHn¨œæ‚œ´ˆ¹}ìnå*ƒ»WŠ"A5ƒqÉ9³ÚxÌIkxi¶Sì“ke)'b˜»MTéô@"mbÚ^ÂéMNÚÃ“×ŠyiÇğİ`õ`9kR“o0oòÒHF¥mÑí`>‚FN{BR˜×èú«Å"ñÈXĞóÿ ï¬åB'š¬î,fÎGTŞ¼4¡ÅÍ1€g7b¹ºT/«jèŒzÃ8/mcÆ¡k0/­ãÃ»%På„ŠOóÎòn<ÇÀQ8/mâd~¡`Ç$V:;#šápAùñ¬òBE,î ’
-g|—(€¼´•E@ªŒÌ‚¼4‚¯— JK¶ò°Î¥é‹g.è4Øã’†Ëøîz°ZMqØÙFÇÆEvV|Ë¯\Õæ¥¹«ú$†ôz"D²ë$ñ“ÈK#—`ÒA^Ú·„á!€¤†úüds bÆ&&p¯ŠáÏäI\_Fæø³9ğëõ…ÉçvøÂØ o¾¤Ü–\?“	¤oîù"Yº’@í Y4ª¤‹f€jÉîæóšØ=FërJ	Èi6x¤ËU0`,‡Ş¹¤ŠPMgsì>¤{†\$Ë¶Ö Ò¥’D»	ér“ŒDD‘¯¡`”QQ`˜^cDÄ]hSÏª>ÉNöyZEº4¿bÀ5¿¶*&×ìÒ€ÔZL²»«E|.%Hw‹=Ñåvº9ú³ İgfİÙÄÙl¾"Yîij²Ç©d½F@”y>¥ÈéêÄ¤ê‘,Ê‹s^$Ë,pfª9Êù)íœ]NOÁ,BªÇ)
-É6E•3QP¡$dÅææºÏàŞ-î
-äxOæ îˆ?VíJÎ;õ~/ ræ‰›Hö¶é"¢Ğ8 !YšˆèÂ†tY¿è»t9­\~Aª»c»Ôù…Ş’U†À±ÓÒáÿÉİ%ãxÑ› òo¤  Ë­;œK¢g’İ¼TÊBN$õ¶8"n…¯UYxã[ˆ˜¬óui.Brv°N ÏV’n-••nr:™ìè"(uZ¼ŸŒ »·d6q2N¼¯…İ„+2_ü&„]/ŞÏÊ8.9ku»…ò€xåÔrÍ1gO'è8wzÀ”SJh£3İ¶ä¤Ò,  äl`ã®7Ş}7Mx­Z¶ÏwGé<9‡DwY Ë	¤rŒE@®òjÇ(„ä€cÒ3ËŒérú81cºÇÇl7gwµJ#4ğÕãĞC;ü8{KqœzÔ>"²/!„z]{pûˆr÷DÌU	&Õ5ÇÅgfè>_¤»êRéÊŒãâƒÛ¨@–¦ŞFGD®LÂÉrßıî¸É "Í[ô_DºTj·Ç ,Dä†ÑrˆT§Ød7¸N=Æ÷1wõ~åöµëœq{Œ¥Õ—x ($`¶ı’S==óBHJ!q,Ï8N>Ö~vÆqòaSòŒãàcígg÷±Ÿq|ÌµõJ: q|q<|&zàøø\&³íúÙ@ĞéÒ.N¼2›ÛæÆG×§vÉ/curÌBHH$šéiƒãïc6ä¢ÀUj3d8®>eP9.>wº%»~Ø0¯Gº…šÖ#àÚ‘do8Î:±S¬õú¼Î²ruAD:¿òÄADîëh„d_‰İwL[/"'(dH[1Š¼îMÜM
-™Ò|›,&¯cu@T6¯UÆuíñºQe?¯UÆqû‰7!KÒ`Uç/ğ9Yê†ï1ZLî‚VG²÷hÉ8n@¸„¼w}F«î~Òj½á˜³p‹[kÖŸãÄOádÏ ~¾'ã8Ù|2oål™q|ƒ„³eÆñÎ–Ç=Èr¶Ì8>Bú¸HFš²æÀB>_l¤çA?£”¥«\Pp}S×
-p/ãšq\„ÌYçöè¾„ÈqFhC'ú¤Ü¡-›b„'¡…&p9Ã×æ,ÉÎ1hêx	¡ù¥Bù¶)D8HéDÕ”§ºs~è¯
-òÌnäøé•…¹÷8—â»­À÷m¦ypê¸­-PŠ%.¼ãë2
-çJ†iJAo}=†rãql7¢ñx¶Á8¶¯¶Cè
-f²CÊ%şØUA¹ÿ®Ô!"—Ä”ÿ"rhWHHPÆ‘‰ö7Ôq	ÂE…¸iƒÚÚqç‰}sKM®n9Ó†9¶?ÃÜÆCò„Ã¤};á˜t3®~ˆÉE2”zÃ¹Ä~Ç‡gf£²£Ø¨ÎF-:<FSõIs—¼î8·KwÁŒãÍã¸f—á.˜q\zné¾¢ı	1‹®«¡v(DĞõ6Œ=
-3oOìQˆ!]oCåRˆ˜³ñ¬=ãğ–óT05Uîk˜qyø^~Æñá‰ÄìËÕFGÆñİ‘^†Ç‹Gxfoîñ—q\z,¿ÌâìMhŞ¤È¥Ğ^¾0yo5õõñ¿å9èpè°£Å´  dÿ‘—?1ÿ=AEµ¼EMÓqEâ˜¬Á­6¤%¾Õ›3RÜ	"ˆĞñHÒ^ˆNÎwÑé®á8fG¤µ€¥s£öCÄˆåùS¼½¹ÇyFÉı«lÂIQpË†{,ÊÈhù/
-^ÙøgF(³´Ş•7#BÊÚGIÄşŒÇeIù3b(GM‡Fİ…FíÑ 4Ô¹¯QÆq[r\3“tiÌ8îL–KcÆqgR.˜5¹g¥|‘ÍL95"âz ’W#B²ß·FÄ|ËÑj6à80¿F„¼§‡$Ç˜8Œ´Mk#b)[
-”‡´s#BÒ1ŞˆÉ5íŞˆÜšVëË’vpDšêÂÃ1ã8*İ8Ò!DŒÚ‘‹åÍ˜q–6c
-æ¬“$1ÊV;9"èNw‡Ë-ò‚€ÄÇ1ã8*Å¾‘ĞY¿Önƒùõcÿ§Œã¯¤İ
-1¤4^$b>ıÄ2ãx-	ÈŒãµ{:bìGŞ<åòŠHû:fÏ%ôu„PÓ:;"=EÇ·c&/mû¥^Í;…˜%Ø¼cÔKG`qW²¹¿#0ø®Ó E¼sn•;<ì¸3‡G€u#íğ1²ÌKË¾È‘.-ÒîT­v¯Vm–«O½Öô`>ø8Ö—›ZwšüéO¢{MMá?ï–{ƒƒkõA0^›Ô£×¿»ö-ŞÙàz<Ûh^Æüşå5gG~•ö€’£‡^@RûoY£è²•:gİ(:O-Ó¤·§âKRˆ¢r«/1EÑG^šÆÃ»5À¤>¯|@@ÇÄƒ	^ƒ=´X}}}ğz5üåx½
-C»äš7›ütÁp˜Ûæw…äçÛ¤¼ªú÷WaÖ“ÍÃ{‚˜ŸÇÀÅğh´¯!úâ{Êçš4ñ4õÙ8Ø{­w™^£ğ¿¼Ô£ø…9*¿WÇı`ÿ•õ‰¸’ì‘‰SäoØåe)Ù À¢ÁùšMğèâã}gÿ?¼Âğ”=W¡ñ6¬Æ	ÂıÔ<@»®@ÜŠE67UGu0È=$6øÕÅ_¹ñæE¼ƒüã¢†_#ü•ß‘HÁMä`PØâë„“'.Ã,UÉôôìëıàû`PŞ>1C¨/°¡+¦çíĞ›·ƒÁá#²ça<6|ÇŠíğ[”Âü<ŞQbZyÅo_$Û‰a;QlÅoZpóëd‡²`alb—j´zÀá@÷bÑYY(ODI^®éí€ºhNßsæì€ZNb\©5ª+ëó­/E&^§O<:ş´æ¢Z‹n,;2qìä¡øÛä!­Áªöú=¶Ö{²iyã?Ké_S¥÷¤á·VúNÔÏQúOKÇô¢ÂÓTùs5½ÿğ¿Aí\?UíCµãï$ZZ»ô‰'®D¸Â¦{éQ/=ê¥G=³G¥«¸hŠÅ EgšÏ¤*-ãŒ¸7Wëúów¿›ÿîw[À–VÃÀgÕf÷C³Wº*ŸWñ±d÷~jb§ZjDêwœp€«ÃÁ`u3ÄãäÒ/RşƒMˆçubõf0û<øºïş>E%rüó?øƒ_ÿxeš¥º§ïaûÖ´ÂL'0aV1ü5‹1ªGI¾¾‹£Uî[{ß…ûo¿Š1üºKÑ|±XnÒ!$ğo]Fı´ÆÿœJvHDPÇ|Ûjü×f:õŞx]PÈ¿u-Aœ 2QêäˆíoŞGıâxTış(®e¢ıOhÁ=RÙÙeÿjõi¸¯ûzŠEC·*šWÿíš–•Ùi¾Á#ÚoJãıß ÑC½e¶ì·Jµ'¤6g\ ¥ 7nÔØ¬M¶›ñ|ıu¾|Şñí3O”©=÷0ö6-»+ã¡‘B÷yl&ÓzíÛ&Š%ÑtÅq[R»õìx¬}—ÕÎi«[Ê­‹v½Q¢§F·\nîÁº>ÜŒƒ×ßÿ}P‚½»³ÓÅ|"Úõøf:§£]¯†0¿–ïÛ˜Ü¬7Ûkş2˜CÊ£4úm3Ü±:ÃmùOƒ™õı_‹ù8y)Í~^w[,x Lk›Ï%ñĞwr1ß@†¢Àğşõx5ÌhFÏ¬	âOÓ‘C»ûÉ¥Ñ±‡ºÅÕêp°¤‹Z"<•¢Ó2üã¤4¾ÛÎ£m,9<Šn“1aºø4Æ_ê<süI~&êÒ ˜†¾×ÛI#yÔ¢Î$:ş”¤C^ëå8ILù„­Ç7wô°¯©ÛÁúc¤~Ç´»õÍ­•çá5ûP
-1õö‹~”Ûy¼x³Ù›uò¸6X™7‡Ì"Ğ(k«Å}áùá"@?|ùÏ¼XL>30M1ÄÄëåDéöZË(IB¹‹Øe¹ûÉD,,)‰Cu[uC.”É§:¶šÔ6¹X$5kõ9Ua¼×qÁ&q$^LÔ“Ä¦7vY€`¥îHänı“-ãÂ£Pç ’0¢i$qÄ^!è!¢L…Ïƒ©¶Şb´øUi°XáïQ†±¶<+—ƒÑtp3_¬Ñsd¹]ß¦a ]+Ğ/¯¿{*æ;P&Ÿ ¥C._Ûïxn—¹W>ÅÀAî€^‡ÒS´2åZ}ü~(o\œâ 3ëz06xC±Ûú0%õ¾7aÜq†wÅ„RöÆƒÀAx`åæ­ä¹‘¨ë|ÑèQ1ÜL¹%Î#I?œ^HINŸñf<Fò<95 èñ)OüÈ{ã—¾ Şd$“-qĞRù\šÌ¹«ØÎ¸‘á ëƒ¬{5§2ãœ¼L´£Î¦ƒC½%Õ¥^<õÚ`pÛ-ƒö7[D Æì¶t7óÃ_cÆã4µA ˆíõ7İİôoV 4‘áÍ,Ş4–RSÊñÖPAPW,_ovTÚÍÔßä”’~|„1-¨B±ıºÂ,Urò¦AîÊŞø	ñJ~‹Æ˜ªÙõswoŒ·wv™˜ËîıVêJé`ÿô§
-?m Øİ¯è~(DÄ®èÚt‡f;x¹´š¼§w¨+B½Q*È–•0Eyçx“’‚zım‡2QEË|¢­ñ@)7?‡qg-¦5y:v˜Öâ	$Iº-Ş~»YeOPiinÓ»ç6µ{¦*R9OÇ±Û²7Rº2eGuÃñRõ¼0©`¡Ù­‰GêˆL×QøG#DRtËC,uºX„J«w27¤øâÀ¹¿Á”x¡ÔíV½nÕ·ù˜ñ=­ìÒ²ëo¢e×é#€‚P7»dÁï*Øe®16ÛhSmOšûq/véyŞ»ı‡î£ôˆ¡ÉAêÈœŞñ–Øñ‚45ŸOÓóyP‰²@Ö1©Ö1©HÒÆ1¿]eŸÌHµçWÖÜãAó<îà]3i#]Ù“b¨ñğvOª¡Kv®_©ª[Èü30‚°üä¸m: n¡©.0HíÛR×fêÔØ7©vW«]î2çÆ;ìÀqº!x—*IBĞğŠdwÃ×w>úí[…yG±m.>¢ê4F1Z¶üƒkW:n—š2LâÑo"„0`õÆûUºB"½¹ ŠòVmäo0Æ<Õ»mb:ltï2<Ø­Aé¢¿a âŸ7éÕP9…OÉğ$}†0‰§îÀøĞ9‚¹C{‡î5,–æu§JıÒÄ6¥p°Sãqdo)x°™nb¦j!¥t}usiŠ&FèÁSÜ¥I™œĞFONÎe-)¿I×°ê>‰{¦È’¶Š¤Öwdq$w ¤möj®‡àâPãb	Î´ÒY†W²X—×¤Z[ó]ù!ÜÎ…½y£ò£Uáı‹u4ìHpì”i‹2úwŞ““KİßU¯÷Ö²‚Ò…’>Ÿs´@Ê*¿jËßI8ÇA·.$â¥füŠ­‘à­·ıâ¥e;dJ¸mbúêPĞR%,h~IoSW’	ñö${Ë*µ3mS•! »tDóñgÈÇšŞ{LSat?e°C›ô‘¶Š¾çÔ¡ÆÒæ¸ã7 €|H=Ê6vèQ}lší¡PïHï(‰é§§Lëôqi­&¦Ë]ÓIª0&Z&»‘Ş>â¬a¹ì‘n¥ïfŒÚ“)Ÿ4SÃÓÊ<{F «ìüÍ‘_q¸Cs)Zr±u‚¿VÕ}©ëõc{Û:½¡)(µ¯Ñ­Ëş€Ù=BNÈıqÒ»,b°=gÆLÓı˜^`úÿĞ]%ó/xÒ)æ ^1Çö{êZ]®—ºÜD¨İôoÌ&-Êåõ+ÄDß\îšB§¶óÍ\]P™Ö›"IñY6wtsÇç½ëj†Ñ6²˜	ß°hÅ;W€4Ï­µsÒL³êÔÖ‰ÚÜ­S‡a~Z}Äb¦¯”ª˜è£¿QjñŒÉjq·s‹Z±|Ó=
-±{îï¼ñ şÖlP‚g‚ü€%ôIºv˜ÄêÁz·~Ø¦5õ=BîYqˆŸfHİ“$ÔÛDã­ˆ´ÒÎı¶ñ!)ë¶\Û8µé+=7ßb¥Gß³”² z—ºIôIªgı*Åã‘î”ñOÜ2-õíİP‰İ7¼
-g+%†Î•æÒ1Ô÷•ÚYG—š4-Ó;šŠ§­xKZÄêY+fm@¥MÒî“ïİú¶ô†”FmZ(¶\”ÆbİGÈÚ’™ùì]kMmã»ek¹™}PaÕ5iòãKÖ÷7L| Ñ¿’äA¦bZh}•e=™Z`sİ o.5›üÉDÌíÒ­¯Ä-4ˆ‘ÜåŞİé–W-Ñ“ÂQÊ½Âß@
-†ÁŒ’È[¼/=ukào¹ª‘Z	Î¶¯ÍíliÎæìî²ş†°»x=@Î•ÕÙÍâŒ	µ˜ìÕ™ÊIyhø°Çİõ‘Mx/J_ë¹W	ÿº‡wâ­Î3£‘„àİ¢dw4?l´O(Í)5€ı¾€Ô&l$WîÃÆ”I‹Ïº«Ë¢÷LCR%ML¾UÅİİMÜŒËL1Ø¥¬Ç³ş¦òîëxôHÈ®á8vSyÈØ÷pƒÄ~.%¥¿³÷ŒïÊƒuzMÙİÈêK»Ca¨«÷Q87ÜÒ¾á–öMbiß3´éëWíÁÆãC¨÷$“ÈmO´üjòùD¥šgèÇñf
-©^Å¶ÎZÑ#ÇÑ]Ëİ|¬²âSß²ŠgvØ²ëñ£tvêşùAşşõ
-ÿ‚Ej®éÕ’¡<Fdš¤}øè!µN÷bÃö){—†œ¡3²~#«ÊäGİ-mw´e²ëÏ,­Fòqç/ñ¢À½	Æï=Ü×¹wLîëâ&±o¸¹¹C÷á´„zÛ£ÜxSšØAêIæ®)ºš+-`n¤li'‹ß*O;´‰~ñë6¸ã®–>õO_ãkbé3üáo±tÏ~‹eÊxu2İ\~ŠĞ}%1·„ûf8iDõüØ—úi¬óÄÄÜ5^=êÔPZ4Oñ§ß-¦gÃI°æ£»õ7¯êÔ£ûw¯l©GU<óëï=¤|"FN8îíBiòØ¶¼‡.ÄùNÅ¦©îôÎÒÄpo7æî–**}ë¹¨@gé6ëk6,>i]•÷ZÀì}Qãwš¶åæ$¿C&Ú’¿G¿Íæíó‘¿™ó ¡Š½‘—ÚúìzbpšÏİTÉ›µr:ı°ÙÄ7ÚÚL€pnö^?İ¹cUÃ7Şµ¼A/ßÈø¸A{ßÊ!Çğö‰ò”B&S¶{û7½’Û:¿#Ş”µÇa­À«ğ^‹Øz˜ÇŒhŞÿM<öøàO]Ê7Kv&²ŞÍa\Ì}†¢«n`{$ÇÌî]íRùü¾;Ö€&k[°Y¦¿Ï¤S/o=Ìœã“Ë's»gf§RòïB&ÉÇ<})Ä=RÜ¤­î0'°‡Œc`Ê­ç#¡ù5ŞyÃ}f¶~{ı1+ÉÉë†÷Ä~@kŸÂÛyìŠ¾w~	¿ïï>úÅÜ´ä-ŸJÜÛ´ø3ƒ˜Šm>;ëtL/Š+Wv·°]¾»ôŞtçL­!şÀÌó–;Ù/Ğm0út§^4GóŒçÿqëW^nï`â¡í°åôùÁ® <l·•=¨ö8Ï>yæ÷%íîŞã»ÅÒ?‹ß1ñÀ™¡yÕíiÃmRùú¾©Ñ=BµªÖ„Û3Œ|oŸT³>ºo‰æ)SñôVfÔÑãm•Gú¥ïÆ>ÎÀ”\/ÑÜ³XÊÖ 8ö ¹ ~§ÍïU¼Ë(0Æ@tÏ<	$¸àEîWñìñ4{è^å
- Y›vLåC>(ìP O¸”#uÔÕ÷ªø¢ák[Ş9¿ßõ÷4¼[bkÚ=?z¾•ÂŸëíÒ-ÅİcYóç ½qÊ‹¶‚7¶ğ€u)³¢S¸oúüCíön 2ì»ñ&=øv3Â«GùIÍ¾‘¿B¼gc^‡µã_œ½_*É˜úä[©v»K˜^¸hŸìzÈV…~„ıqı÷¯Å§‘v¹¶HG·ë<pÚ¿~ßâş£<3Mìæ¹Ì¾Q÷YvwTéÎ›?Î/êÑGïÛ£~ôG;¶Éã¥¿‘Ç'³İ-J_ü¸;ë­Î‡lÇ?äº‹û”{ G,¿›DmÁ„4S<3P=p÷fà«á'Û¸ºrÎÆÃûl+uÃä½	“{ÄOÏˆ>n¯è¾Æ;,×÷87¨?ØÅAmâ¥­¨=nu!ıØÔCö€Õr1Zf¡Ñ—û›­ij…‹·äR¦9>~ÿ3^Û™Ö*Ó+Û%üúbGƒİq.ğş…}}!Ì„û[¸¿§»“ê/>|åõşÅï‡,XìŞÙ§×Éï9îŠĞ¡çÃ1m]ø¬ØÕÀq7tV«²IùäÍğSPutÍïHš¸píl{ú=ôûÎË<l+Ó³à¥Ş‰ş¶+^ÃoµâE‹óf5ÖÛy¹Ò3Pü´àBoŸ§y¬ı+N Ä­Ï¨uc×>é\…GKŞg‘­ï;„“æ¼{ÏWúÌò™üC½â«£y'éá3œµ[½[)k#Îø+o}É¡FõØİs«Á|´ ÓXÖN²†õ°ü“&™¯ïwjòo¯Ş×³Áêî¬‰1;ƒ&ƒ–pª¿¯™M?n³ânzÃ‡é¤i³+‡ã³“ír¦Ùq×uz»wË‡¯ÏÛë·»vî§ËqÎdæ&˜;Ş»—R»›Ù¦zÀ~Ì7O_ûyÔÕ©‘ˆ¥ ´.qï24_OxÈîÇ#O|êÑ5E‘=|”İ©o¾µƒøì›í£ãO´YèÇ$¢ûüuüìŠ€yh>ĞìJÔßÀÛ0ßq~ò\ĞÜ'ñ˜ÙŞtş°:NÖáœ˜3~‚ááGÃw$
-İı“ƒØÉagã¿Ùíƒ[Ëãñê[ù±Çãz.ß?{L³]Ú‚~mfìœ“õ,Én>XoÕ^ÌÏ‹=«âÎÑæÕã&–“¸İƒùk(÷ì î¸ÍóŞq`çmkŒ¢~»S%M¿·¾çãÏ´Šı`LkÈm¦LÔ<ñşáèö]ôO‘ZhDÁÒkD)G}ãıÆRVGÌÓ—İ;Xï¸Šó‘ŞÉ0«!ï‹¯ØIäŠÀ#j¼Z/æƒÑv|øámê”ÚcÔƒ½½ı€AáÛœ«onëÍãİsõ<O_­ä›æİ¿ñßrê>Öß´ğo1ûÿí0H_…~äimyÓú!§oÍqûbááîÉkæqşè´½F§†”%B÷¬…Z-Ümãá¶À#OäÇsŠí™š ìv~Ì…>÷ô›Ÿ¨1ŒVãáx
-ï¡[Ò¼-¾±üX³Œ¿y¼wa¬pÔPÑîiOZ2ùd]õ¯›‡];•ºÅ¾{ªß`D‡Ä¤—ÇN3÷!ÖÉ7:YÄõİSî[¾§võDû¿ı rr ñáïBíö­{ş.Jú]Ü;Ü{F*ÀİùPUªeõÕ`~ã.2± ¸ó`›]½Â;z§¥ü(iÒkx"2¹Û(ÕbNÜìù’PÔh#Ôë;ÿØĞ›'ô¬ÔÃM]öÜØ.£ï9®…ï[²råz¼=ØÅ)¶“#XáC\Êoé|hFE¬ZgHÜİ6=ÛmÿRr/õµ­¸—î^ xÈ=¦;}À”ËÈn/°û|Fî%udôŸô+¿J¿ï·}Wf˜¿Çy‰O§‘l,vÚšêÈÁo¸DL§jæO[`a¯ÆÜ3ç%Eê¦z/¡·ntr]"œ;pˆs}sÿUæ…ØİUá{ûk‡ÚJ©yŠØN?¿©ËÆó7Ü“ŠîÖ¼÷~ıÊô}Â«Ÿ´ƒ{Gk±ô¸iHvµ°]{€‹ÅÇí2áß©ršE<wwó¾¾ç½š]Aºb5Ø®Ç÷Æ“õ/ ´/zÀa´ä•l:ÈÎ÷Úïg›NíwµOÆ´‡›Ï¿Şö:So#ºÌ¦âŠ 6Ÿ¸ÎB5ô@}b²ûÓv±èŞ÷ K÷'vYØ}äì´ôo·é;ÄSçx», z~1Â<‰	_-{ø xÿË©¦Œr&üó2òÂÑf	Ïé.Ñ_îµŠÿÇÃµs©{¸;—µ°ûÖµr¯|ú“¸<|wQQç=fõş¾–Ë/œsûÛ=¶³mİ?l`öü;ò7ş2İD4zÈ¦±¾“/şß<é0
-³77k~há!'¸¸¹{Êâ¼“îdó¸·¹îo?Ñõ×µÛƒuÆ›­+¿í{öœä®Y‡¹KÃk\›kç—«ÁÍİ 8+—ƒÑtp3_¬7Óa°\,cÏSMtZ{¥¥T{/f}ÿí«ß©Ì@RÃÙv4F§‹élz­WCïbõUÇıÏ/­Æ«Õbõ
-'³õÌ¡îQ	àç|{ì{_áÂû6Öã•~&Ù-Ê^"ÿ7’•xî_ô†j2XeşøaºÉÊ¯¿öÔ ºT¡¿$¶³Íb4Rôï=»Ím§f9lw•ôr5j"­"W)bZª+Ÿ£ÅQMNFV¼ºMÎÆsTÑt³¸Î)"ı›¢Ñ¹“™£*!Y§dmL«•ëY,@CØƒf°ĞÇ^·W©v:Q­Ş¨6[øÒØëÌ_`Vâû£ÿ‹)ŞÕÒ´¯J½¼1Ä=Ş9i[Wá€¥RŞ-UÑÕo+µX4^ëŞ8¿§y@T08èıÍªönºˆc1¡Ml
-n½å€ÏqÄòUß{~Ù’`S=ó†GêùÚKí˜ãù§Wªç©«3¢¼S¤<Á
-z…ù	Ş¨¤²Pÿ«ZãTôƒ:Tà‰?:*JBı’ÜBs?¯^yß]}4mó
-Ÿ{lzô& í¤Iá^nŠrÜ,f¯¨ó“¢¡o«Åí÷"ÑZéz°N‘ï|¼ùŒÏ6¥	@ã~L6ãÙ,5¨yFôäİ®Æ8Y‹Ö8YïMî6úÓŸöƒ‰¡¬7#Ğı"A]–¢Rç¬E©=:æ§Åªlj8vT¢™Ì7ğîé˜db}âí”·ˆÜTû¢‹ 9‰ºNSj}¶¸ÌÖ^“ éï½š’ÏHRû_ìÕö˜lRŞÜÂ–{;ş’ÒQU4¾h¨¬©Ë9¥{£ìí¼£éXéü•âÑµ÷±ºÍbJµˆ?ì–î
-:Äâóxåí>ŸË¤OÎP’Jq}O÷JóÚöõÉS^bãªo—l„¾uÕm«ß{€ºU=Ct”ƒ"şÚñ¤¼v_Îğõfh½?Ì=Ğ"Ãå˜+FM²ª–6¸mÃÕÍ§ÿiÓ` YşøÏ”ê™+¡J¦?ö<Vşc«LR.FxÚóé†’lrz,c”=:Ğ˜¼®ÆªIí½Y*Æñ(^ïÓ Vì5Z Šs¹XS£CC‹ôù<†ƒUZ•4ş† ä·CĞlú—¿ÚîÄ1ŠÛñHØ»§İ›GLxÆ6Fu,7öâñš=2ÜxÈøqO;3§ïâP)ö3é”d`ß{êwğf;ºvMˆt+¦±rá·¶rUHlTdäÂÀ{Ìp°œn@©ßS"ÈÁ§ñjEYë¨ıEÂ]#wUo¥^¯µÚ½½×­ìëı öûâ `ÆûA p˜¤|ØŒ-¥Gà¿)uæÆG˜2Ä“2úÜ‹ÇRŞFc˜€˜fúf6H›O­7ËÙpùõ•D}í™8Öa@¯†öË3XÒ(øl‹D$ë=k¬µUíıãíd§‰y¦ôM‹Ii+8eL&óGÖLÖ¯÷5²g­%>d.©¿ ‰§(Gqr.}Ãà/äZ+mZãğ¥,D“#IÚ˜_aîèk‹íf¹İ˜¤üıŒuõû{ú7êÛ8l²n°º§¤a‘ª²K’ï¬œè¦MÅ6ÍÜfÁ˜³¾¡Úğ÷>cÎSHc¸ÓôëMP;clÚ‹)DZ3Š9üíè§õb¥-3ú©–g iÃè £Uâ|<‹6·ÌóŞ<ˆ¸¿Ç·²¬­ı”¶ÿuÍ'}4IÓ4±nƒªÙG6Å_~Æç,Íâ`½şù0ô=µ9ÿõG*—Sü«)Ì xàrŠ²/ıˆ¦&M1œß¦Äs©T“yb›Ì“=>ÄÙ tæƒûæ‹9³qç÷¹±	ö|côEàkúÎ~°gLwúú#[ñàóíx5¦ìÓ/×RõvZ—Ün†VWâCMJ£@)ã£êšŒ¦xó+µ_ ¿öÔ:Á¨¥ÕÏØA¶zæ½X¢wŸ}d,>ŒÒ/ë‰jÔÉY}ïîbÍ\}ñf½cµ–dĞehPçñÛ›¡¾©€*4şŠ­Ù³¤å»uğfºHÑô¤ı€›/”obòV÷şĞŸ¬ùQüµwÿüèZ|ù4 ]€ÎÕí˜ô®í¬(|6¾î·›`È\7f(†Ÿ|iyG£W³e­ÓO{jÆºNĞ>s’«U;«P==l±
-õÈ-ŒÍ3f Ğ÷g¹*eğWK±išĞ”%<¡l‹J‚Š•ÑH­0)`ÿànv3ûîoè9t7!FK~R+â2ğÛÈè%)h¨_ }O­àÖÒuÜú):ní	Û{Ñ[/jÑõé.0³±¦9O³ï„šÓß÷¬İ£îDœŞ(mëàŞ(a^8GjáNÿŞÓğ7št«yáò¾W=k×ÿøuÿj¬Wñ—ÙŠ{şÜxşiºZx­hÒÔS¤”ÀÕ`º{Z6ÑÍZÉ|õm>Ö,kj- )ºÏ‡)C.ÓšÄq¡VMÈDù9ŞÃÏ·lV¡¸ößşêrı$µû©3k)*	½ô:ıŞıNKzZ‘6x‡ ¦@EÃ ÆñÀ$zÖşï×åtaì+øGù"¬"U½ƒY²*f“í|¸s/4½‹­µBÑ_¦“™•­o×ÉôF—‡áç¿`JL¶Ù[8rÁ‹Xöâ,{E=LİĞ¾kEw,†?ıíéÛ~’6¤eBz V#[ÊÑk7ßlÉÆŞSğm)HİÏ–Âà:|ÓÏ•:fÍÎÚhĞÏ±ÉÍåü`ÍcY|âeÍ»vO»È&¬ÇÖş¾úş¶óGgÊŠïø­½HO{J©ìE	mÎS­˜øòå¥ùƒVYÓ<>œáÒü”OÒ:úR,øU}òÈß3"uõ°ªú6Ut½)¬)MeS!øR„¡tŞ3¤©®‡y(Ç›O»†íû×ª'#æ¯¡>¼şè™‘ÒÀÔƒ¸ÏkóÑvÉ<|Ù“©Åv5Çî_©îMxCÛ¬•íİWY5£ğÔ6N«÷Ï¨Wù÷sâ2¯–?'s?ÁsâØ>W([4sŸ¥{6lGóñ(…¸¢7N!Ü†ÜÂŸa¼¥üJ5OıµsÃÚe¾gƒÙ<îH&ß`3H6œÙòÎıfO›8ŸÉ*ŠÃ–6<oWÖÚÇ#>ğ ©:ìı‰£z~\CiñÁ+koÌÆöl'üÛÁúÖÖkKqöä2,O`ıE‹‡èÆ«»g”š{Ö)Çº‡9Ôİ?tB¦×*zÿ°¹Tn¾Ô:Ôï=±É”²t9^]/Öc´!•\jÙ5"8µíğd±'wƒãÕà³Êü¹'—o7K)ğ"å÷¡P5•‰ËÕ´1ÍEßÿş½¥î{Fê‰¶¥ÒSæcç¾´ıjÀ3’F!G´s§Ö™âÏ”Gü>Å³½~zåYÃ¯zJä9ÖÍ×õf|§L]ú¹gõĞáâîn0O›ñ%¯€<ËÎ|îĞKoà<+ó0Ïs"aJ=+/æØå3"¡ı\P·Ş}^ ?Ğ[Z­ºáúØ“VŞÌÃ_Ï‘†|ğ™vüÚIìr„_{Z#{â
-8N\­±7m«ß‹|–EÎ^„|–Æ—_ŸŠõ[Øœ9Ûèüïõj|øÖqò¬š°A~FD@aç"ÌWÚ°¤%~f¾ÕQÎçD¢SÄwŸËjüy:Oà&-»jò9v­ºÙ4}ëOáşÀ '#å…¿öÔ 4kfwB÷gUŸŠÍiu€ªtpªVB#F¸,uJ³½îy½Ö³F²Ğ·,ñ5ê`ÿ ŸKYê$[Ì^h'’÷°šÿiÓéjd^?Œº±£Ÿ5BÓ­ÎÏ²xØ¥éÏ‰Ç¹ÕûY™è'g½ĞíûÏ³]nV7‰!Ó…È{ê†›45õ`Å3ÒMÇÉD?ÌnB¼‰ó³ØÅAàI{Î#(Ï_72.AÏ3@õ<Ï‰E]Íğl[$yÇéYÓ$õÒóZE4µÚ|î¡İü@ûÂàãYÁ~`èğw¿mÔ«ëÌ­O97ø‰ÆÚŸ”ÊU¿íÜr°¹=ˆgs@CG`	OÀ¤MòîÍŞƒ'GÏÜHîyÓ·†<OI¡øâô÷Ş¾ö0òï½Ê›47mW³VO,ÂÁyÒ6ÌÅ8Ï…%‡½š‘BÍ/q§Ñ3ÒÆF•î¦†-.uÁàæYkUì¬gÄ2ß,nI_{Ó}}Èsê®›{³vî¦ôü?¯37·0S„<ô„:!ìÙ'µ î¼M3÷Ø‰ÏYKx»Ãs&â:ÌçíI©[cŸİ8ü¬™øuŸLFaZœ> «3Ã ¦¨
-@Ù©!ıeÎk¥Øğèmµä®WË§ø^á½âãÍö9n y¾Ms§V¥Ÿ£¶‡`©O•Ç¶şmíU¨ÁZwµ¶†GŞ !Nç7xjU+™,õ;jæp‰±@IÎŸÈHÅyÊ˜r&E=´ò<çŒá§Éjñœ=&µhg9gÌÿå4¶$|÷aú3ï:À–@îeúcï+BP=>oyg´]¦ïs=d‘¦÷Ï^LÙGÌ‘f½}ktu7zVå­ã'àù¾[BGÀø>.¼öì>ßÉ:åBp¼òq¡ÎJÅ_Öšş:V"Ó¹zÓŠÑø ¼÷L¾îÃÕbŞFê¢ô…çáÇä%õç´¼cidoš+ÚŞÎa‚L‡ä¸Ğ? ôì3Aê|²uXyÇQå´ÅYRÏœ™ïğ
-{È,L=ôüe†õó—&Û^òäZí^ı¢ş÷R¯ŞjvSãÊ™Lov4µÙ+×ÓW»ÛôŒÑ'tÅ–ƒİüy6øj•H?ös"nr·Q~ÊÁÏÒé ı·twÏtÀ¿<u·¾yæ4	”Nôqü,ŸÎç:!ÒÂ!Ûåë‰ß
-%óUi\õó)–ì·ĞË-İ}E¾ôÓ\E¢¬—´ù•RĞêJßçÔÆì­\+o93ˆ>c~óXmªŸì´õ› 6õ§e	ú6®†ÏZº¦]¿o3yD×xËËúawY¤l÷µd2ŞAW`¥)Öçíh²ëÌWÚæ³ñ”ƒ¹jòInkhòÏjúäÈs5áì[ì^åŒ×k1³UQöèìZË7»‘•ô,g‡»Ÿ»ìGş-Ïšáõl9Ã|î%³ğôöæ`dS?oì—ZµY®ŞEš³ÜzæÃ;î?4wGƒµ|òº{õ²Xqó/e5ö‹Ù4ÙmÇ@¦“Àì²Å·Ùi×y}ß÷ªytÄûCH¿Œú¬­ÚøİÒgÍêÒçøY*ÄšaÅ›õ
-´ïóÙ®Ç0ØŒ:¢R–N©Ìã‹¿ÍFéóO7_—ãÈhÎtu øRô¡~òıYryæº¤ziüY|OPõvÜ³&³Á³¼Øé°0ÛÍZ›İ,¼"3ûe¢ş@«Œ¦sÿîÒÏİVƒ¹Xÿ@JÚu—sû¦hï9˜ËjÓ&$8€¸Ÿµ&[jÔÏšiëFƒ”â.Õ´ÂÛëAkàâØ+½‚f¾© ·‹ÏîãEğ¿é~1Á¯o³´é:ŸÕ6Ãµu/ËZÜË¢/«ëï÷^Ó=Ó¯%º»ŞåO÷€ñúËx8“÷mÎœí÷”Ç`u“=Øqf¬#sÕ<n[=gq§¨v9S¬­»l<w}>æzO:Tñ¼S×ë1¾&¯Oíê/ëB1˜SØÇwÑ–ÍÆ—îÌqßO\Á3ï&Ã“Y¾Ì},â¹;sÏÛÓ°^Áxæòê7ñÙMîú–×Yïä<³˜Ïwñß yÎTÆ¸áb¶Ø±+°¤y?ñ#\©Ñ(8½>ûÀÄn;|ì¹Có†ØsšyşÿÛ{÷¾6nmaøïğ)öNğ€MlCÒ4Æô!`ŞàÒ´Ošãß`àÖØS’ä|öwİt›‹1qº/Ïiö.IK·%iiIZ—bÙ6,ÎÅt+Ä³á% ù¶ëş?BÚœ/¢áİ*f‘…BÎVòä#ª¤ùOt:ºäqß†¸¸L“«EÄOØ»ç‚¢WcÇÌƒ™‡u‡y•[Èÿğ"cÆY3ç¨ùÍNšÄv¡]Ë„aÈcÂ0¢H§G|”/¸³±Oñ!İø…ô‹zDsŠA‡òaåÍ˜
-¤ÜÔ/Db˜7_T¤x¡ç¸ı*D:ì\ãé"ób¹×šSçú¶s!]w-()5k/škCÑø˜yrÇPZÄÁST…¿BÇ³¥¡D¥9º ÷Œº8Ó”L°À™FÇuØ¹ˆ’1ŒúÕ(™Ğµ³³%9Ñ%{}{ËCó,‹ñÂP~.ŞÌëE%õù,ø±êÚtÁv"e‡™ä›·´sŸ?&áy1e¶şª ¥p~[T*~Á»?ÔqIé6\ä(7ˆúKFÁá¢äøšb¹÷[šv/¥%ú68Ô“]Wï_ö¢2†Âr¨”ºa’ÄoÃ³Ö@J_iõE4Æİ…8÷ñbæ²€ÅD ËpbH,gºÕÂ}ŞòP}1³5·óÏƒ¯\…ĞÆábVŒDš·cæ¨ä"U\Æ“ùºZpS¿è§#/XÈWönD%=x„Î®¼HAâ<~1Ó%€2’¸—§s±¦õŒ3'®4›' Ç,Ô‘š™eb'ôëÏ°³˜‹÷›Œúx,2ŞZØ9_R\dçì]6Ûä2Yè½³àC‰GçØÿ¥ø¢Ëø«´û«¢cïL…ªùîõşÅÜ„Î'JsÈˆ0F×½Åe¬Ø+}À
-[LÅvQãAèx9a•ÍÅèğŸÊÇK9‹-oÏœb¾5ÅBënIlœ„Àç->Rtß‚R^ÿ~ÑŸqlâäÛ„âp.ø`ÍB<S?äcq¦©‹îÕb¶§è„ïlXüöìoX/ã^GdÇ£Eˆ¾¶-±f „4Cà\„w}ò.æ; vÜu´
-ŸÚ /ÎğB7.r%	öbÉ’î¬³µ˜\Á,lGv1u’á^ì®cA5ÊŞoçyç7ıÕç7¹2]ôÂ…dCéÂc¸˜`l—cØ'¶EA¾hœË÷Kïò}¦„úâÆPX'Í8ŞÊÀòİq(¹ğ `ì•-.ÌtN•İh!ó¯À Gçö|!qì˜dçi¡i"Ø0é@·HÈ„çùÇoc®/‚#
-Iïf@˜\¥T€L¼0&Õ°,³¼Ş]8^ï.¬?; g3q\c¢&7û¹u†ÊƒşdRäl´gíıóg©7š"ÕÓ@<“ÿ}ô¥_,Ğ$ÒÊË:0Çuİ¢Rƒ^¿xÍ¸ÓŒF¿OãN¯¿ıÅŒ†ÓÅ½èõq¡¹ÚG5OÇÚ‚	—ÒŠı‚áCµf‡wî~-óœLbÏş<Ÿıÿb/«ÄÂ.&ÎO|¨L.csÏ‘?fOŒ·œÛ´oóïLæ¼L#]6L_½Åh;š-¥;°…¡a1[š	Ä-(uNFVÌÇ¯y\Åw&‹^h.z£~ã‹ï‚G2=_pñ1eq{øÀ¹ Ï™,ò¬é¨Øg.¤ßÖÕêûp0K|à§Ù\dà0Y”M%k‹4¡µ²ĞR¹ğµx¾¢øâ³¸œ‹o1éÄJÌ‚®$.ˆ7Z%É7:vÃxAıíÙ]™ïìtm±±'ãpASëúövÑÛ6YTVâÛhP£S]×„K]Ô‚ƒïR·ÌnCóµTÈ"âbn1u„÷iW¡:Â÷Ì|›o4ÔÅ¶‰pÃY‘2¬•òÌ#­®ª^TËµœDIõ[Õï–Kag‘Ü0I¢q¡©N-¤LÎ£gª¸èı*Îz¤ûñÊsMmV y—uV…ó²HÀø@¦c­Ä•Ò›~ñ¹]Û—g×3ádÖ¹h†5Çú0ë	İ8š*–Ù]ôÆV¿®_‡]›Òcçb¦’µÉÌ…Ÿğô!‰3ˆà‰ğ$ÑÁPY‰a„ĞU>e‰÷ñ!‡
-aAe+#uˆTöÒÕÅÎ²u³˜2º4ë[z/á´˜YˆYbEÌn•.ƒíõ|4ZÌæâU8¼\ø4¼ğ‰œà#M¢,œãÊmá“8Ú"µ3†BÚ2é À2©Xı'cÖšş‡ÿ4úØÄ™Î^¦3®—<Iö¦ñÆ7 =‰Gw’’qª 5*’õcó“ábæWÆÍ…y-F¡„ÅmÖFÁœv¥.½­ëıv^Ï»¹7ñw¼¹ÇõÚ]‡ıá¢nEQ+5/²ñ].z¥´ 0ÏutRqüzÎRF‰h†,ç×]Ûö€„²z[ûg¨mQú`õ-hDá\â-|‹‘ı 'úLùìJÿÑa–c‘ö‹ÁE´BIŞo ÷¯Æ$ŸÄ..ˆ»A\çxµ¿cÛ~Ãü‘·7útÇgLh± Ù‹fs>}‘i‰
-ó†‘€áBÊ<H£‹‹"9šîb‚ÕCŞŒxó4¡Rúõ’uÛıÖbïNƒÑB·ã(êàkšŠ$­Pgl‘É£®<às€]±jÿ-kÉ·ĞºM"bŠ\Š-.sÇ‚.‹°Õñ(é ã¾¸št#nSò!¹zRH'¯
-…Í¸Mo]¦¾´‹o¶—ƒw¼B‹ûïGh·p±SÓå7ıí|w—°ïMdtå{¶ìÑtQfgÏb—Ü“h¡eÁŒaï·Eğş˜€Zìú¨ÿt3ğ|qÇH¢á±àKÈõbú¬²àDçéT/êiTfË"–vØwëb7|´C-(½aXo"¯•ÖñytQ’ˆR‰,J—¡3ˆ—oàìãP®w€¤.dÕ€üTYUßÚ_¿‹/$D/.¼©ßµZ]èç~Á‡6<Ûözº+‡şd5G×}‘aXTúş›8s-ÀÅJS`ÿbˆÑ7s@´(Ï$I®dÒƒeàÀÚˆş…ªÑßNçÅÑëİNGm7ÕÆšœÄœÎù´?˜ô‡÷!±WJ~íPC™w.½/¥ü,6Å…‡–Ş#¬JÃsŠíÔ%§`uŠİÅK½rd M
- z€r	Œgİí»ô˜™b4]ØÚëœüßVéC J%ñ!
-ßkJ¾aaª¢jz¨ş§”²8c8‡ÉËã@5•èÁ¥’¼KÕd[ÂIlcY%**¨æ Œa"¨bg†ˆ¨H§‰Œ¡À4‘òšGYƒ |o•>ÔôÏÍ[)Ì«2øáé“¬ ™î7GO6Íˆrfõ°vœùIøÀŸ3¿8”Ë!\5X®wtöJ$„êD¡”Ù1ÓÛä,¢ìpÚiçæÅ½·Š!éR5˜9P×¦_˜š^LÔ±„Ñ\Ö3XlÎ9c1™<z<@€GR™‘Ò‚pEZÍ¸	cœv9Â¬BŠYû.xø?ßå¡F0å¬áLwúÊyÊÊ"€*¶`è6´x+)†äÿÉXØ€ÆnÜ”ç6,pÁßf¹šÕt9œv;< ]8<8=ëìµö€8X,æıI8mµ~ìœ¶ÎL):B6!U•_`÷u[ÔrZG{ ğjçg 3äíôt!,mu7qy°‘^³ò0ÀÆ¿Ş?ŸN¢NèÈà&ü˜t &[š+i;N*ø´Ä–!4–¾ä7ÄyP!ÛP#/?™Eßo6É¶1h.âªÈh;©£éÄ$—j~Z4Û4Ô  ÷À
-BI$}‘À½Òõì¬zK‹tg
-ûsáàC•.šÍj ~€~<Cßy°ïïÁ ş(+‹*–x¼ûxP¾’8€¡úùÆ	V´ïÇ¡ö¦ªÔeokïT³©®—ƒÊ6Ò[ÄzÈ¼Ö‹®T32U¸T¨&KÙa`ÒEO#Aæ£ÌÕ<Y<ú²Ÿ8÷Å£&·‹ùùÈ—™Àf)<S†1ŠByÅ7z+s†ÂË# 9,î×ô†[m¨p‹òÂÇÚšY\³Æ2*xbU*P÷›òõ‰Çş|V­v»³¸óÂ ;$SÍÂXbØKt'!{kñÑ@,è(°dû%%¼×ÀjÙ¿€Ê÷K#Tˆ¦¤.OrV!Šºƒ¿M©ò"§šßIª¹P×ó%d[ eK½57›œS=zdiÖjbÙÑ…º€İKw}8˜„ BMF½
-ì“ĞĞ¨¨İĞ&¿ã£‹sFÙ£n4»^Ãênl½,h?‰oæ´?gpXÜÇ#hÜè;º€=oíú/Ta¯`%aRé®KèkUv‡µ³ß:Ş§Å£cz¼×Õîh:è©«ğ}¤ÂA2RçQ4T(§xÙ{Èú]–[Ñ¾‹•9+ŒúÀãm¢‘ô÷>o×Í+Äc¾M4ZØ)3;ÙfgÍ›Y|ñ­[rğNR¶[5”ğ%¥ôö~¸È®’JgŞeØ—FĞ¿	ñ¢Y8É¹1±îæFt®E¢‰ö¢NÏö_Ÿu°GÇÄa*Šó™RÈ²sB
-*¡]‚+)È©®öË^^YLûAQ>†ÌhŞò¯Ãåœ6æm¤ÉŸ7@imÅ™&—wó‹s£ÃSÄåâÈ”EÉ‚ ©8íììÃÁU„°øQvÖ«®Ë<X)÷â‹°—yg·stÜ~¥–­nl¼­6666«×ËnúóÃİ-@*µİÚ³i5?íE»Õ:²©õT¹íã7NêFºÖ×-›¸é'¾ÚyÑ::Û±éÓém8ÈÙä'~òî/;G…‰‡Ğê_lêw~ê›—gNÁO3ÖYkLZTÕ2¨:tqUËàê—Öááñ›œBÖ¡ƒ­Z[‡>ºjtzøªeQâ ,'ÕÅI-ƒ±ç/Ü	”™\/,V6ké4)õF&¯;…6Óè…ƒ”ÍÍt¢“ÍÇÙt%›OÒÉî,ÙÌôØÅÈfj<?>4ÓÀOÙß98:“¤Ôøç|zğ“.2ÕÓ×G@Ö¦ÆçàÅË³ç/$1İQÈ§Ç&ÕÉƒ£ŸZí33:ßå¤ê*©sH¦­ÁBwL‚.Î)Ú¤q9};)8³t
-|›œUº¢6^éH<Ï(§o[Í%)¿Z`™Z^Û†é9ä$'æ²äÈ$ÑjR¹I<­8‰¾M
-O)N¡o·K¿(Û%›åP#AˆWaÁ“$„FY¢csi<h‚cS4"bã&2&,¡±iyiºÇ†ÄØyáüè™¤˜{áö\“–š/¼Iğ"5^xá…‡KP<òâ¥Û	¡CN²;òrRİÑ—Pjƒ?}Ù>;}yÜ>Û=><ní¼jY7Ôİ£œ×}~˜³nºíìšé¾È[/İçíœµÒ}³Nº¯^ä®‘î«ÜEĞ=|‘³ ºoò&¿Ó6ô°ôPêQÎ„ïş’;Ù»‡Ïs&z÷z’7É!!wwßxxÆABó‡y¾Êô	Ÿ¯N_ìŸÕU-7~SÕsãŸªÜøÚµ™›°QWslª'ùEÕŸªïòûø‰zšN)%Wı‹I¥£Ëq èé¯ìáÄø:YR¥“cØ[í€
-t öö¶¢ìğ¹µe>×HÔÚVÄõ 6õU`ªæ(©:ÿ|ç´•›ÇíÑßş–[tê%|–²…Õ³ ›)Í,ÈÓÈÓ,HíI
-¦ö$´‘nÎFN{¤ô$§E0Àéúê9­‚ÑN#àqN»N èÅ-¾Èïwd;UvŞ³òP¤¦¹g9çªƒÒŒ‹•¬â®‡"<oß9G<ÎNJ{y¹LR?TŞ9ë´^œıÒ9Ù9{9×Q~» [1ÎöÂx§aá¾u£ˆ~İ?-ñe°=‚«‡ìÜÛtóî/ò™2Õ-M…÷Ñ1¾9™ÆšUÛØĞez®0Ãà,>½6·Ş¢,7„óóÍVüòë£`Y–ûJ€UÛNŸ?SÔªÍØ˜LÔ;÷=†k}ûJş¤–©˜fu¹¼´Ü:iµ_ÑÇÑ1Pnú:mï¾¤˜qmş8fŸå£şüà…Îôsk—>ŸïìíÓÇîËƒÃ=úÚyœ»À½jq5;»»­SúÚßy}x&©gÏäR^ŸşB­ŸN9õç½ÖOf¿Îö¤i§æëè§CNÆ‰@_¯Ìd9ã’Ï~>{.•ìÛ~œp7NON8GûxŸú
-ykF–NÛ;æŞ´w^HLkgOú€LÆÙ1°GºğÃİu5¿œêæĞb¡Àáññ	}¼9~}¸÷üğØ€¿:å"öd”v_¶¥ÔÃúÑé/GÜèÃ—‚ÊÃ¶ íğHC¾>Ú9“=:Ş==ì:\K0&Ş}(˜<Ş9:6‰ÿeFúTòR¯usŸïé=•™c¶s¶Ãx?x¥‡âT'µt†“¹±íÖ+@Æ›FüÎŞO25_I»Ç¯#'íã3nâ+˜O/•{0EM5áµüŒƒ×GÿefïnÀîKAñÁs˜®ú@ôçéî‘ş„Å¨?ÍR88<mı—vz¶Ó–euÖ6óçõ)œät#N5÷zo¯İ–ÜĞj¤ş¶›g¿œhÔPøøäÌ&Z_ŸœëÚ Ğ3?êø+ƒÎ³ï§î¤ÃĞƒ#h¨	AîŸvdf´ ¿oô÷ë£6,í—:ınéq::Úy~Œf¶©GÇÏ_Ë*;8Å$ó}úòµ­züjçè—vKòà”Âk`§ä}h1×ôòøÔæÄ€ÛÆàwö~Âøî÷ôTÆiGhÆëİÃÖi,kYŞ	§:’§­Ç½ÿz}¬û<xÍ0üiÆpwçh·u(=:ş±Å­ßÖÏ'mI€`»õ¤:Áÿ¯µ«Ñ	ıkµqêV¶0ÉwKÚû?ğb
-|ì¹&»_Ìf(›ì'ïæØ´­—Æ¯ß
-}‡·o†-|"ÔwÛı¬·lŒÃ	*ø¥Š=ÖšÕ ÑwGcò{¨†£‰ŠQÅo2‰z˜t4RÉ´{Eïg
-ò¡­™îd4şè&ŠP.FQ5ãiÙUò1™D×¤1FI¹r7k/zßïRÉ"‡†‰;ãË)ƒÉğLF#z¥1M]ŒÆ×áÄ–õ<ìqû Gç‘.¾{ÕôtÓ"*÷lüQ…—aHNÔèÒJoN°ß	š…VûÜ,ÛiÙsÔrÑGL·gú d?^O*w›}€®P»pÔK*RÊggÑÁ1À´úè>H21Ã÷phì!wK3ÕMB´°Š&à.£ê;`ñ:~T¨)DèJl5x#¾’w}`y¿4PS¤‡Øƒa„2İòƒÁ º„‰†ÅnGa¯2>r™<+¼&!½ãÑïĞ:TX¤eN®LßÔˆŒÕäñ½Ş0ô :˜ĞG1„ "[ CÒC‘xÁzËu»Ó±éÖq'ôp=£n÷w@şû°?ĞejÔ;“Ü™{z”¨AäñÓëqòñú½ür×á$ÒE‡w‘L&»¹çX¿´èfbx&¢§5	5ö/úNBT]¢Âv¯Âá0ÒÓX$
-L>ŒŞCbÚ‰‚şWãÑ°ÿÎÊiê*LüÄ/Í¶ChQÑ'ãÑdÔToÜ‡™HU„“Iˆ2Ò`ÙÄŠÕtùÖ³•k”GºWº‡k1b8éûñ„)CK aª0‚*Ãá¨—›µ›ŠO£É\³‡èÏHdÀ„:94º­ø!ZÚ€Z~oÏP;zk‚"ä‰³%†ª$<á¸áq1¡ÂaL® hr3Ó<9	»¿ã$ÁÔ>ì09¥Ôóß"4Õ›Ğ™Df¯Â„@»4a§Ÿ“~YR{:&ÏŒ6bwt}=ö»<]yoa)Ã7L†W°JûW£g®®ª½
-ô$êÂìíº›Ñ@D–L{Œı	m\Zj„W¼;÷V¯‡#\Ğˆh 1¶ËÁ­y;] OêäB4Ašø+H¼¢BŞ(QÍ'Aš<Œ¢îw°í¢!şù8dú¼C}´ã
-ÓËì‹¸uøF×³„DhH¸kÉä ¢]XÖdDd'† ¸eöyš@;‰úà¦j•}dğÑ¥Øç¡Ã	.‡¡òüİÏûD—p$ybnã©LV¤ßvÑC{9Ô°SXDÑw"!sÄy+	ÅóÒI «œ¨GÀİn_	tÉµ™k7c”¦"™cœ¶TA£ç.?/%™ÆñÈô‰ÛJ¥e}ÆÉ$ÑŠ2˜`P¡UˆQè·à"¼î>fKÜ‘Îæ¥Ãø ?C¸°á eœ>â| ;#&hwC¸Èãdx% )è!ûèGM‡P$LyANéGqŒÖlØ[vü<ê¢qr"üzS8]Ln`¶)JòÀÃsè
-Gù¨s‘áŞÎ§@™Çğ)e±Ø`©Š‘™Š˜ñÀ[H³Tx3>gğ`ÊO'QfF#h$.–äô•K!ÏJ©’2'î™_ ‚0öå(™xƒÌdÀ)®P“ÍŸnÎÃŒ¸ÔƒêÎÇ›tâ)lïQìÿ@–¬l¾HÄ’Ğö5ÿƒä÷çÖÑÁÏÄõdMõšä´UÜ®FPOŠE"Ú˜Í(”Õ;üj}ãÎN¤Ôğ:½>{.`Ë¡¨7´°%VSyÛç]rU!Šõ{ô1»Ü„HÜñœıVGÑ&8Ş#jâoB¤>¿Ñ„Áy
-tL3»Ç7ÃOEš Âæ!<h¹o]aê„'€>¹@ Lµ÷+hj‰	GêœSs€h÷h)1¦Ô×m¿©*à_Š)Bü¥ñ—"Ä_Š)Bü¥ñ—"Ä_Šÿ;!2Æ(Œc:m3ÂDÈc"œv‡³³vçøä¬´|\]ÖHsX¹r¤°Jó9'A­Ò.‘›‚ç‹xâ%‰}<¡½9ìO ‹Çáåu¨^ìîw^áíÕ+Jƒ£öOË•7Ğæ
-ìtp Àç„ef®>&€X¤ã=œZ—ıOšÆ¾ä¸V…óúµ*-Ã×2ê:ëÆæB?ÕÀO	[İXêtN9İİ9<ììœ¾*q…À$µedUVË{ËJ’€,ŸBˆ‰¡„{cb­j>Ÿ¢d^ Á,hxDé;­(.{«
-H„±Üoí¶°2ä”¬€#b(5sMâ¤‘Â±Åó
-º\hÉYrCáäßBrH[¦u:Î=¾Hœt§×ßAOïõ‹#7Gb©¿ÿ¯ÓFch3ƒjì¯£½5“å‘ÍãèÚ¨”t¶U·`3–<h†¸>ü)™ùë4ĞÄù­ü“›IÛè9›Äî»g–>³¡SKN-•¾×7İöf5¡ÛóÏ5kÙÖj®UŸôÑÃ—ƒÑy8¸œÁ %ß2¤
-}à•RWâÕ®g£*Ehº›ˆ@„¬—Ò«=j(g+}ä,(@ƒFùî[¥í’”´«g§ÃbÈ7ëÑÂ=ÂæKâ%iË¿r^·CÌ ]YÌ?ìçI¯Cíîã…‘§.Ø‰aƒéÃ
-›V„F‚¬ù•èCŒ»å‡r-È¿ F­(Cõ6™Ë.^µİ:YÈÙw!TÆ·‹i"
-”´JI şfuFl¤M7‰\F	Ú³…fÛ}Àyå×%~ÇNP¼G¨ÓQËÏÔ².±ÓA¥8ÚB”‰/Éùëphô¯KtM]Â	Ø˜Oh¤îôÉ—‘yU,#Rw„D¾µô‡j.J~üZ].ı ´BÙ/U$,(®à½ˆÓôu¯—;#ÿA©ù ””‘ ¡Ø”ˆ®"%BÑF„ûïJPLFÄTà¶0W„R
-$A(Í¡pF$7åIƒ0B“lTJÄVê„0"²!N]V$„=™§\ıkZ#ÂmsÄB("W.ÄoIG0¾­d…ç±pE²!ÒŒÏû¶£tˆîl¾xˆ7Yù%Y¿ëÅ"©uëˆˆèfÈˆp»2B"<‹¥D(½HLÄIÔr"^½íqL¤/º¢"ºW²"^óœ¤¥E¼È¬¸ˆG^D×K#¹¹»é™sRå	¸ôÃ•Ñ-ñÅFx¾¸r#.EËÈr˜!9Â#‘':Â§dGì¨¦…G˜†ûÒ#ç‰ğ¼+–ñ'†Í’• a”gDH\ÊéÈPô\B$\@¡‰%b$2òäH¸ós	’06ç$!À[DI¸°»É’è¶Ş.LâzOšd{'NÂÓ%#OâÓH(aÈ™%²®ŠEJx^¥dJüù—+TâƒxÏÌÙ$#Çá¶8+W’Ã–İ"XâW•'9"r>ÑØ—-qgB‘p	/_º$çˆ—xIsÈ—òf˜iÉ—0ÑÔ4_ÄDxÄ¹dLfÀzB&.Úæ“2ñçy¡˜IºŸFÎ$‹ 4¡hWÒÄ02®¨IjæÈšdæèM&5#m¢Wt®¸‰CªsåMt;‹N,Kœ—5-rB‘¾Ì‰e¬Ğ	Åe¤NR½×b'RQ‘Ü	%§O¼8WòÄ$ˆpŒì‰ÆxVø$‡šHŸœ)~Òß¢]¼Ô¡¦~xjÈ©µJø¾ıi©7RŸ–ºkkp4U7W8J˜õ~“å¾pZ®ÚbÁÃh0pÎÙ'Ç‡pšg“ÕjÍK8iè„º—püúL'lz	pàÖ	O½„—¯O$¡VõP+ê~B{¬^@Âf:áùÎÑ&<õŞ´%G­šNõTÂ«ÓÜªMHĞvO=O[Ã‹^Ò™àÍ=q ö.zZ¢¯ˆô Ã¬D‡Æ:ø%ïBK(y¥©U¨£,5©îPmÉyøt¢m£ÌÛ„y˜ÀbU^Ş[.Aü"Q‚rø5¢¤šãİA?:˜'†ôûÂRúAß ßö¨5¹ıTÍº%½|ùR‰²· ^s^ÒSxú±ÀDº¯iÈG®è^T)ûXÖğ;Æ7×ú1Ì'Ä5îôV)<ü­×šì\»,å“€Lß °§ıÑ$±2êƒ¤¢”…%Yñó¿^Ğ¯(µµw(uç9«->MJ|û¬c§Uß^Ÿ¶k$zØzñ“„ë$i,ú˜;‡¬^{&ÊĞ§g?î³†ëîKÖeŞÕÖÓ3Ö/=;=ãß3Öp>;;~M%·Iuôçİ
-ş¼úIÿLWqÒ>&5é7G¬ŠÈ:ƒ'oH%VÔƒ_‘#
-2Ş~N®¶àLçL\E/èzjİóbK“$îİ£ŸÊöä=,á.YšĞá!GTxe÷“Äúê¹çÅê²ıÂ?N•İ½³¾1w8lø!¨ şıºTJUÓ„NLˆ@ı ı¾A$5H=KCf®°åÀŞgZqNËß'¦å¸õß“Péû¢‘Àğšß‚†Ÿc˜;xk©î5 RİT¾í¦‚ıTşÔ¦Ts€I7’²V¼¬ùbzdšj!¾’éy_·8¾*_¯Ê|øÚÂ‡ÊO9¨Tò±´vg,Í&¶Óëë~ä>yİĞãùÆp¬Eö_şè§Üt“.q)µrRğW‡ìV±Å@³Ş¯.£É(ä»ÔôÌFÃ‹~ÖDèmŞ[´ØL*Z7;ß×ËìÇaò?cåØ‰c‘ÈC—ÏóF4h4èuè&]K¥E76ş
-ËR6¦`Öo.DCÏëVnävjÖ<Ò3ºÉw ¡ŠüŒàFĞj¾… Í]ÄexÔ‚»IÍäNrˆbàóÎß0 ‡¯÷ĞÚŠ«i€YzF\¡;3É*!Ìë*M‰é*Ñ)Ì„%ıøôgoŞë¶Äbæ&’„*ód;©Dóó“ÍœDñÛâ‰¬C8â—q¢ãÈøä€ÀäºÓ1´´üëÒßÖ™ñUöë¢øó~êAt
-şÅ(ã?Ôƒq¯ëÑ{À†Ü˜^bÂ\ÓJ=-!D™Rø‰¾‘GnI²´L÷¶ÜŠiLPt˜áx|…Ã¸e©)üP–æ,k,.›NuP/Á_ÏLÿş¤ZVº…24XB@§S×íI!ÚÓx€;À£AË :õÒƒÑ±åMÀKtNxYvA¡ÅJ ºDN1¨	x)œÏÁ—.„°%M[’\©¿×Ê¦$œ³¯~xZÍÁ‘ÿ“±NMU@Wş¸÷w¨ò×‰÷=™j412öşÀÓŞß+µ'8c§ÜyLs­/ñ8ïÕ˜„¤o3î=ˆpÚF83¹ô^opĞàD%€Ò{ßHAQÃú2©İÖö>@dWGşvß;ãxÕ%†CÏîA÷şşÔ…¸gÀ< Ê%LtAÀö1À½{Ø}Û’T)¼’d
-LòÅÒL°£Ì\ĞØÁñ¯+fçaD/ÍêÍ!pÑ0’½^²¾Ñ!õ­Ş>}Ç¢èœ£$Ñ()pB'7%—<Âˆ5¤ò0Çñ>Üš¹sKn˜Î%Aë=-ë<´Ôä›V›ó=¡µ§§#ù×¥I”LîÑ¨Ù¸ß†ÿ¸W»àoØ®îibVsŠ)áã<?ÿ`#ŸÚØØÆÒ¢àèZİF×7mô†Ş¨ÛèM½YµÑh[eïƒÛIZ‰ÓŠÇO2¸hVmÿ
-fyÔË2ú„Wş$´ÚOSáù‡2WàEÆå§ÙØZ½¬qâEo”5N¼èÍ²Æ‰ı¸¬qÂÑ@€h ’8›™†Ã>öZ;uz†À\Åµìyº¼–l¹¬N'%»EwFC$ãİßóîĞR–äMd!ÛÎoQÒğ}<~“²2z_YÈ)Ëâ1…vd—ƒF&~U¡ïU8T¢àe‡ÿù…//rùşìfÊøíeU‚>„:Ù‘w{¹èp=Ó“×:ÎÅ¨ãHv[6zGñ:¹$÷ŸŒÃpŒç2ë‹‚e€
-Œ2“¼0ßMÏH¬Ø´$÷	 ü6|'/IHoL¸˜ğBBäp{XduŒàrkuX]Ìî»Âè‡)íV ³ââwZv(²#ì]sçÌIºi0¥¾hÁ1½óÒš OGtúÀøÄWa)Äõƒª¡’m©¤÷ì >oÔƒÊJ¸¨-U¸y{ıËş$•×ÍZY©R¶ZÕË6İDã™Ùrk›Æñ-Ùvò²±jëŒl%d€ÌYığøÂË{9ã«Yy!kMrF^N’ œ¥°Ù\Q+ÁçÏôõëÄ~íç…ıÛÏ÷+AàÖpzM¥:÷ù³²Cá€OFÑ8ÔM7Ù"ş<Ìt>Lºı¾é¼,¸HÀ®?õ²Âáï”5Ähè>¶’¿.lw8v›øù3t½úá;¿1ñtØåQt†åóg'ø;5y
-huÆ/Ô3{ë	fvÖ¯£<(IÓ/±|#œlëFãÀ.¡.jê¨/ÌUæ s‚Ìã”Ì	>0Z0'øÀ<ùs€9Áf´æ s‚Ì<˜|`£\Ôa‚¬gmX'øÀØĞ	©fĞÎk%øÀ<‡s€9ÁæIœÌ	©A¡¹œ7(”à(œIœ©”~vÈƒCãd³>œåá$Êák'ÙP‡,;É†ä:ä×I6TÕYÊN²!õ:&4ĞYû&Ù¡yıs’mËí·[¸¦qıs’]shœ“lH™CÖ\´hæĞ3'ùƒ;&ì ¤tQbqÒ¢iŠZ#ö;r¢áÿ&Šù+ˆVÅ…[bæ&$uµò¢Ji4:L€#Ç:¼–>¥jdëĞjd_àXkÜëÎ¾Û§%·on9_– |R;è€ñê•Õr¥‚wô^‘Vlˆ,x|aÑ
-,à>–€ÛÓøòm•Ä•
-íW÷Íƒ”Ú» Ëñi)…h%6æj\2*SáÜ´¼ÃcÂİÑÑÜ›ûÂz58 Ğ9‹jjŞ3ØA³ }~<S}£Å.†ÏÔƒ.º<c¤Uaô¸^Ã ª•V<T@¢5Á:¤¶jM¥<Ú4†Ö”…j8Xw‡QêÕsÒ©ÚØ™Õx@ºdáëóÔtwÄ.b¡Zö7QáĞ(’h,/bÙ©„1ìş}&ø÷‡ÓñíÚš,ŞöWDº‹ô¿'VZàtCå¨Qv¤kü“J@ìóO:àœR	ˆWşI%à|ç'AšÄrdn C‡ù]àX¥O??uŒ®OÕfYK›fE áÀ¦Y)ÀvKOävâhçóÉ9Ë¤½Ì‚¿ÔCĞétãÁ4ÁÿÔóÖ‹ƒ£Î^k÷P‰`Òòî2¸Q
-<ÚãÔôön3f`‘×Ê	¥Î›ƒ#àuqÂë(ÓÀ½ÃCÃüf:™íÏÎÉt¥u(›PêÁù€âÈAª…32ô¯u÷m!'Ÿ†Èé-Ì©¢ñíÌb3ßıQùD»|¢bX|Áp&ÚÆ0°ŠÅüù>Ğë‰×mS.Ã,¨| ¾½¥U¶‹©l—O*#ç(ØµWÉš@şn]ÎvwWğ]7¡Ñ b9‹fı«Ãƒç³—‡:Owßë*Ó2e8år/Z² `±jcÇÂqêŠ½.'Ñ':wBÒb‘e5/bz›‘m>æ3@ªÜS¶! é`SAÌ[¯^n4(ï`› ²ÓÛgÓ=}8‚Ûlµ¶ÖwxÎù¶Oûºi„èãFêåG2ád£6Åøø71Izó 2gàgh,­­Ô¥¶g;9¸dŸt±>î…pÂÄä”
-ó‹ºë&¯*µò »âoô™Îvhâ½8g’šÑşnSìÎœÇBnk¹ğ}¢K(=p«ni,3 ®Á *¿ÃÿıAÒ|3\GÙYŠ¸ØP®g]¡–ÓÄÍ€ğ‚Ğ€,°²MW–ôœ»Y‡ÈâKÆ5U/[à²Ó OÀÕW$+ËN¦€qÌ¦È;°bğ´‘)¢3¨êRŠªÎIH •´ GØ£$•ÕJsEì–EP™SM7„@ *XN Ñˆ.ˆ— Ö] 6§C²†/"dW™2_‡0{ÍÌF»Àè‘Mwœ„ê0@ScI•™Li2“ÂÌ¿Í²îÎÇQø»wÑEŠvk%’#Ğ3Õ­h[¡w¢@+ÖW“R»>ï_NGSÀœ·"Ÿ¹d'd ›MKM(À_îªÆ9$ùÊfŒrÈC.æ¾ 3Ÿén³Ph>±BE¾îè’TÁı{k)Û-½ºmÃšuÓß:Mx·.¼šìz®P
-/wo5³æQë…6¥Ûö¹Yt]c‡(WîÆäoHùˆ0¤ÎÇÜwÖÏƒÂç|º‰G¯¹nt3‰´29íÒÃ~?¿ÑÈ•;W5ù@Ì°ëÖ­—äP¯œ¤wÇİFÇÑh#)HËß3nİˆ¨ùUMåM,fúèM³{”»DÙ5.«ÿNnÎŞ¿%nXÒ 6M×ÿü„eS¾e/æ,ŸÎW‚_–Î#ÈØ‰Ãq=K­< ¦NôuÜ\[ª·ÁdÉ¤f4„ÔËUb@›3U½jÏG£Ğj	Ø|±’mUÇı*³Ï•|«[*É–MÖ5}	©d
-ç.{‹ÇŒfSc©RqğÓXºMĞÒ¦Á§ÛZºOi*§©¥¢Æ4ÓÁ¼ùGm*Q7Íız(Ìk›a½#šÓ%îhÙO‚¼lÄ¤åä²SÔ=ß~É¢ÑRª)	7:G„9£ş°t»œ™T¸ìŒØFŒÂ
-3euŠdL¤[h>4‘)Q61}ŸdÌµiR*›"YÁLQ"4»!b—<Öá»fØXòìUã"ÌM!Ñ-¦/$­ÅWäw@E.h8A‘F©›1Lãf~ÁdqL74L’›ê{¯“Î95F’l=¾é	Ÿ¢V’Ä;f•\&œ)ï×/ÇÙò8ı|ü{Ó _‡ƒÁ¨ËS¤Yu%[hrÑt1Ö"ƒF6ñrÔZ°¢áF8˜ÊÇ³ågËÍ½eY!¹2¼”»CÖ“•EU.ŒÙs;(Ú$s¬UÀcè_
-*~w¿YEêo5wÎZ?œ¡ş'ğ¿8ëŒ4Š·IŒ'®TKéJr°ó‡LQBy]!_~öl9§Óisiù³ %	Öétáğ²ÓAØ¹@ZÑ¤e¬­y=ÇÄE)ßößíZ!¬²ìÑ-ï^rÚ%*ÆâÊé u1GéBÍ=½—Ê³!Ú%NÒJÌ^WK:sï¸ÓŞ;>:üåªğW«÷î9)oÚ6¥æ¥´÷Ş´ïqBİKØÙİ}u¼×â¤'iıkJ–š}Ó>8ké’œrÈï-§lúuœœ´ö8å©—rúÒä©ù]iılRê~ÊzÍålú)ûœÅÒ¯A+¶n"¼ûU_grìBoÏ¨Ğz
-§”ÒÊM:k¿––lVÓ­ß=¤„§é„ŸÎdˆ¦ïèx÷ìSêş¸Bó÷Ú­İ³ã6¦²&¢“xúù7Ö«^ãÉ¿³ÉVõJ=é¼hµwŞ´vÛ¿œœµöR£íÂ¼>JAÕSï ÎTâN’²òÏIÑS–ÿÕ¼<4eù_İIĞcEü.	Ş)‡Ÿ¢±‹ÿ6ı$=Œ\œ—¤g.—WõÊÓótÓöd†ryNû;&¥J«õ’xüïIM^¶Ãö‹Ú ½'µeóÑ¼©¦&‡³(îI±©ÄtÎ{O
-uK5“ªSh šº f½‰*„êj©´¶N´i¹;I2é#áª‹šØ¿é…¶³G¯w;äí7ŒV‡İ´´€®ü6LYFV÷}y@[¼,6Å…GÚ÷˜zğà9Å…EÁ\)9«S\èî(şXê•“ mR|-'İí»ô˜ı ¼8jíuĞU5é —äŞ¾×ô,^mái<PÕÿ”Ò‘A‡a§–0™°fŒ
-¨â"(•´tÄÃA`5Ù–pRÛXs'A5aQ2)+Ø–T1†3CDT¤ÓDÆP`šH	yÍ£¬AP¾·JŸjúçæ­æU™üğôIçÉ&¡áÌŞ¨G”+0£¨‡µãÌO‚¸ˆõynµcæ—KùÂW–Ë!rŠ*‘ªc…æŒ¨§·)2ÈYDÙ	à´ÓÎÍ‹10:bV­Tf”Åµé¦¦u,a4—õ–›sÎXd&…ı3R<Š)´šq¢Û¼aV!Å¬}<üŸïòP#˜rÖäE÷•ó”•E UlÁĞmhñVR.|-?ĞØ;bòÜ†.øaÁ,W³š.‡Ón'ƒ¤‡§g=ØÁ8ÌTXôlµã¢ä]u&‘rXæØ¥š¥“BYD+Ï)-¤ñimQµÜ WdI „-
-Ê¥“c’§¤Ø2ä*kV@}kV³íWİz³Ö’N2ºŠ>¸úô&BÆÀDö&‡ø›õgĞ€b™n €D‘`$	6‡qÇOmÌ\‡É“@‡?n,‰wâ~×X’ÂĞc|UÔSqè¤c¶Tå;(Í‚V ãtHÂ>lù¬Ácß}»ù®¡¾àtxÿ¶şDXñue®vKª[võÃE•ÿ§µ½­6«	˜@	Ğ…’	ÛÔ°|n05ñRm¯BB¶‚Çñçs®¶š5øqœ2é>hU&ÆVşn½ë*9ÙŞV­8Éß(î6¾8eúè²şCˆã€ @C6ŸêA=äñéñc2uzŞ¿TáyVÎ*úÆôê Å†ı(»´‚Õ°¾X°ª2úSq`ŸoIÖÊ½™veÑ­¸…½lı¼Haµ®ò›ŠïÈÅ^êêÂÆº÷.,³3GíÎùøw+ØşÑgxN9ÍÈcû³Ş?œšı„ÿUJ¢#]§n±$Ò-J¢r/½â›i¿wğaÚÛh!x2GcrzE·Ğéz%ÒCĞ¸¸™—ãL3gƒ£Q˜»À_¦‘æƒjôš ZÕ+ã&£©X›¹Âé`’ Ózuó©zşq¥Ú‡p˜v[©<ô€²ˆ±{ÿãjïš’ç×Oî5­{?Kßã^Õ‘ªñ‹Œ0%RªXX€?^D8è_ß¢àBZuØ7ä ”&å¾[ä¾JhºxUéËz{ÃÿÎ°*|Ô
-ãª³çÅ:+²Û|1¢ÁÇuí—‡ü§bûÇ'­#]PæÅÍ~÷Î•}ò±&N)JUöÇ´FÈG×ìûâ*
-{ëêùt¢-­ãş6¹BûÆIxM )¹OCN­æ]ÈTJ1ü«Í+fÁ¤3œŒB¤ÃİÛÚ‹¯/ÈqN®ÂŞè¦ñ×Lùk¦äÌo¿D×›N6æ|õê;ê$ò<h{¤lºÊTÈ‹Ããç;‡§Àì¾:8:è¼x½ÓŞkíÙè‡ÊB<?=íœ¶vÏ¸ÆNGø©ÚÛ“-¼Ë©È12=¡=Ë a{hlÚæzç^Á1RP>ÂØ»Òi9ˆã¤|h)…­ÚŞ®›V@.·ypïØŒÒ|J!¢şVé>á¡:¯xõÀ€*+n3ğROmn,rún;ş:¼‘Óá9;º1_G7,•L	JXKÁöÅÖ•àÊoôã°ÜzA@bH×ıtyâ¥Ş8ø”kîáğÎ3¬çä3—ÇµÇË38™vLÒV“Sø[Íš,)€TyÒ'"Rh9OÄU¨)´i’‹¡ÌHeÛê;î$Aí+Zƒ,åTeä¾²\ÛT¾ÍasZÊz4´Ì¼NaÔÅ5ıB¨7U!xØÇõ%™5ö©¬DLLÌfvİt­Á‡ Î÷«ç¯÷;ûíVKñ+®÷”õjçğğx—“`6+ùa†ìûüÏ8Şİe‹÷¹EÃ)™kP?ïîK,w7“ÓNÚ­ŸN¥åõ‚â T¦œ†(ó°œªê'HÉô³ıc %f®Jæâ“¿¶épÂN“RÜj„Æ—‘Æs€%Ãø·R£¯ºÂûä:qÄ’–ğ‘ä7eü]ì%…™ H-“·’h¼\^ê_hÑ ÍbV¨ì­­z°õdï¤Ø :=ÛkµÛä•ñè¸¬|×{ë(ü\{¬¬Á³a/Ô\ƒlf^m´¡8Õ-±®÷w	ÇÑûN?Aş2-@W‘ûrìJc&0;-+:„mşã?"–¬D8Ç?S>À^ù ti×Cd<´•¼õë[Û|W&ñ~t¾V3‹`´;bçµzs1)WŠR˜ëù#•É¾|W*Ì\ØŒÍB Œ.~“oº¥n¥¹éïrrÀ{.ª²Reİ5dÅ%oA'ö 2EÆe,ñ¡³¸R"m$¢”âµR0À'rMàºÅÅ1¡şD¨0Í]#WaIt‰+f	aÉ½¯Q@ÙE*û³Cü9×¬A©9ú	}Ü¡“Å“€¤Kl«ëwñ|4™Œ®u/E6Õ_øš¤GŒVV `¡4\aA+ŠjeQå@ö³­ƒUeÊ&šäµ`Ş~RØ<$u‹{'ì7ùrû.3D¹]t6€€Ñ…ÔC…p*D¢!ı·04ı·•Ú;U©©wª)¥ø±k\nà6ï³í+“âœÔ®út½…õÀá5v·–¢P{%Ğ8~s
-<2ÄCtåIm–W©•<˜Ø°L)3Æy­¤¡•İé˜dc—²e ,„`#›à‰‡TtW„,;Öqw¯$?›ÿœñ†Fı¸xpVóÙ¸¡¥´sUuD	„¾êuA¯6D€ã‚½Ï#Çæ1C8*2 ‘ømŠÏ˜D7¾Ì¦ÖB‹I¿zĞÓ,,’Ö³árX† !¾‚m ñî˜i ïŸ†<`—ƒÙûÅj?½[`SŒ+-‚ÑoÖMr¥Ò¹ñ—|Å·ÒÜ˜«»&Û°~Á5owÒ%O	§ÙŸ™ËROe_<*N¸Ù2ØâÖ%W°=üÎ×Tİp¸Âc]%#ÕáB¹‚1X÷ŠÅlP ä,äŞ‚µ’Tõõ|ÜìIS2¡i7œ¬±Ê’d¼Ú‚Ì÷øìxïø;£‰vÑÿ@$r]Å¨Î%×tÃÑÍº<»R5=SÍ°¡z[MşÖíš®®Ö+ø¨zü>KùVÑ5–¼k:ÛE¼5LwaØÈ¯3Î©36uÎª/ƒA5Tw{«'°³fŸõ*¹.ŠÈi=ë¿:±$¡`_O9[µl@?ÆŞŞ˜ÑtO'¶"váÚå7\Î˜…ªd(1xÕ[6¬CY‰ÀXûÅi§“öÔ‘W¥ñÌ4ˆ¢8ıVk"İé9R3Â%”ZòÒ’PÖCq/H ¹öÕŞ_ÔgË'µn»h—.§L©ÚAzIB%Ñ¦†Ã×ş•’n/kÔ%b¯aÔ¶n=ìp@;Åy¬Å­.µøKAÇ§9=ŸÚ®g;ÚXrjljbË?:ã*ÕÇƒLoX\Üœ“÷ui‚–Ñ-]Œãåv0Uß#rT­w_b@dñ§B=×±˜±1îRëÖÊn¨N’
-¨f÷ÉÕĞÒŠ1¥nM‹€¬ÖW‡0êÔP0ÄÔú3‚#œàL´¶'é°Ó9Qi÷İš¦¹™\[3r‰ƒ=±ÄË,çc¾…Z/Ù$&p·E™„¥šÙæÃŸ¥O>Æ¬^FfÅ-oxÇÁ^ù€f5ÕSM3U’ÆäœQS§›°ïº%ÑA!KŒû½Î„t´zƒ7qÓÄö“6¡ueI)W5i¶Yá«Ä!ø+Ú½Ü1·“)¡5œ€¤éş]Êu–›XëX³ ¼±ƒÍ²æk5'uîÆP{Å!(\¸¶˜‰¶j‰™ÈVXEe£+•¤.KJ‚­šlZc²V+•!¯S;—«Ş\¾Û<1‡ï<›îô­êåM{Ö¼1§ol~Õ?©Á¶±î`›XÆûdô;°,	‘y|M]öÎ.mlDİVãÉ5Jâ­ÆÕ„ô-ğ•mäUÖè‹Y| B˜]+<SQbÇïógúu¸BÙªÈø™(9æ7*©l˜4ÍmC»Ì¸qgúº3«*Óm :o7 ßvs¥º"ß@£ÔÊ÷Ôì>^Œ ©§RkkƒD…€ìw7œ¤ÚÛ¿Û ;>/CzİÏ¬h7Á[ÔN‚ó"Ñè“ş#úX„oøé {Mì *}B"á’U‚ñCÇˆ0yµ{úHËFãşû]-°€5W¡X+ÉT²¢Œß(@ı`î6}øN3,xHè¢eègt]ı`Şdè¾¾"<D’W÷ÁG:¹©œv9Z›€½^/Ó }¿péò¡	İI_¢eÄ
-|"«Ô9:=xQ©á|Ç$êSŞkH·ĞÍq_l.!	ê3ğ]µ­­Ä<İ©ÃB4=9èèØÊa/54«²,B®ÃäwçØ­Æ“ÉF÷Aç
-Tî¾­[€óóéAĞaÚŒ¯F7åL#hTlÏ{4qüF™r¸ÓØ0?çºµ±Ò¨^”ªÿF3ãaSıÏâSCºÓO®£ësàEÿÍz«‡×öZ–ƒš»×î†¬Òó‘I¨~EogıK|€Iã\ûë*©eÇ˜…aW<&èø{\Ny][<³‹ö8¬Û!”—fğyĞ¤«Uø-çDàÃmB6¼)®'a×É:ÒY ÜÚ³x`¸!¤!!næáPË) f%°ú*öÑØ@J¸!É¤ìö3$™ÃŸÕéN§İ:=;n·Ú*Ã€ön:ÃÒHÑÁ7#ûa‰`ÔÎOÍÆaq•ñîNñz$‡cKª~‡-°„RÍpzÊœ8Ã‹X1Ó sõº?JĞûdòQøzˆçç.aé×"aÒ…v ìúwã:$r,¢İÈ2Ç…[”¨S±“w€wí	‚äV±£Ú@e'}'Ó)šÉ·›CËI“2Tc	è¸+Ù°lz%Ü60·Rm¤ruXÉÎxI<‹K°dÜ¾ÀnĞ¿6\&i‰ù¦p“8Êë ô:é6,ë-”Q‹¾èô³˜‹ÑÑö4E!Ò›™<#e’UºÄdC‚XDQ{ætŒ025CN>®“nÀ&…°8}ĞÕ6àïİ[¢Vãc©6|Y‚ö#ÒùÑ‡¸éR»nšå·ÈÓMCã„^ËàÜ—˜z™äĞCª+Ó°Ä¶
-Ã×ùú´ uÈ91kÖ„BıÉ¨¥ØiKóÒ&ÇĞñå›,RŠe××ÓnSIHxi{E€‹>,(	ÅaÏXxq4øgR+OêåÉFjY£%&@Fè$Çêlá­Æ²NÚ/¤Û9ú1ª³ü*üĞ¿A§“ıã†Ã„W ì'Ò+¢¸•êŠ9ZaÉ¬e\`|¯ÿşmm?UËöŠÑ~š¯²2ßòË?:ÿÀ_¤C}ß«8jf5kÜ)}şPıífİ@+N„ªù@¹Ym§7§~Aædj¡6ªæBåÁÕÙpà½LB-¯ Ínµ<ÄcöMŸj.NOIlLŞÖ5D‚nÕê‡â ™ÂOúç¥<¦)"d7«®”ÍNWj9Ô3†Ë›Ôš%|EçÊXÒƒ5ìÆúzÙïíĞ`…ó×›PFu·YâBğ‘,’L»'ÍI½P¶*é{,	>&b9ŞÕ©ö>¨IÁêºŸ­\ê­ÑNPùĞ5j›É¹™
-s+K-«Ùwgwl©¡ÏävX£(°#@qBMä°hè¼Åİ¤¢åêæ«"}ûJ²Æ+yKyUWdd*}SŸ&£şÛJ¿üóÔŞ•©"]×-5GÂ§° RAÌd.¾„aHü.ÆÖét ¤ğYoUík,\\OHÏù{ è-ÿ:cîøI/|£Ò~àıØ·_ÿµÊsõU	Å‡—jVŒ«>LrR’æ5=ç} ~W+µ
-zÜ×j³|ùIl ıù•Õ¾•qªëŞ¡:£N›ÕûöJ@§‡»eÇùRä‘ĞÖg4Ço÷3xÑÃXıˆK‡‹ï¶ Tõbk˜åŞ4v˜eù7î£é¸+–1®Ãöåj`Mq2Œ¹g†£C©4ùSÏ»}î¬™—§û°F•sèO&ñ Ë–]¸z†ÕsQoØÄ+‘3×nyŸ>Ã<†~áIº´sŞ€Ğ;œâ=ƒ^\ñ(ÑWìe±:B—ºá$-&w‡ŒsçaSsJ˜˜vâ pI0FùSqY:³SYªÃèR?˜¢‰”ØÕŸ•m| pn	/÷™$[´Qù¼z%ÎhMİ_áû6œö Áä›£ép’“áË
-—450ñŸ¨ İÀ_û5(Úó¹T”ÿ£¯ÕZ•¯¹Ç‘\s;»¿nİÓt]e¨‹Äh¢8‡“HEë—ëêA¹&sçcÏãºm\n¥²­E|š sõ¦æZ°©!´bå‡Ù6}æ Ønu_íœí¾´õrl¡<‚ÓÜ9JÖàÍPŸdÆÑ
-ŠvSƒJ(W¤ø·P<S©åT7¾Œ£ûMĞ£20h6WŞ­Ø–`³ş[yí1Â”E–lß¥î>õÓĞ¡ˆV»}ÜVz-{vjP¦ËÒ‡¿­<37W´F¡c!K’5bA‡dÇr<sQ0Ó©XÍ¬ø‹)qù¸‰ÍŞz¨é”z|Çpbô’¾•y¥á }§‘åKÓ
-R*Äù¬2j¥eNe,ñÅ9
-çÔñÒy¹âÁÊ‰/I-eB¥! Zø¶Ùtûùin||qóS,ê]ØMŠøoÂgr¨¾‰Ö®SxŸ5Bv5À’İ‘zıFŞT›µ‡HuèQYs§Ô­Ma„	„9µN²¤¬ß‰ßê2ì×¦°Ş)îÚ”#LÔ«õÀ™õ<ÙTáúyôH±ê6¢ê7!‡V^×ë Í!Xwæ’#’¨\Ğ-¶¥î	•†Şƒ2/Ğî¶³²ü.é’‚%ù2SÇTI“¨bBéÙd€·xzaÊ©35–¼n™Ì=¥‘*(%áå‘^8üˆx$aÇ‹‡œº×÷ínO¶véUÙ=e³Ãš¾Ğ¡(o¨õ±Nïã'c	ı}ED\h-Ó‘FÉ-VÇ,Ær‹ı¶ÏRcm´2
-éßdŒdÒÿú«GÍ“nÃÉgµüCù<ìşÂ„6¸² ŒÂ'•RBÕLàæØJº»8Bhö¯–xü·2p†`ıJÇO•³Ã~¹ø•ŞJÙpØ5ä‡uÚŞJù~ab‚y»É¤RÆ‚Ä›•2Gn77È@;O*Øjõ'Šü>ËRİnÖTùö^g~£3omÔV¯ëmÉOSa(;åûÏœM¿J°;“~8Ñ!VfĞC’­G½ÅA{ÉrCõ3Z/¤/KŞ¶¦9¿­˜®S‘»Ï¹´Ê+@úâd]µ[¬,>·U–€Ènb'pªÍù‡¢îÕØ‰ÈeOÖ¾X×ˆ¤ğù˜!‡ÓA	Î¨}]O‡ÏzºG“ŒœÎíGÂó¤×õÇÒ±ò.{{¿sZÉ;Æeå‰ü wëmtm<­YF Û%fWÒK%üØÚz¬áòà(‡›Ã/mìddKı¦—T¦åyš-Ëişno×ØTE>Tµ`k«öÚ‚á5–â¤&Úƒwnı\ÈÕ…¥ú\-Ç…ƒlÅ‚^ŠY4¿½™w\êïE„í„Oíûö×*rëî•k’‘x>Ç¢ˆ8,ÊÉ“qMy¢ïRêòtõ¥TjU 0¹¨&ªgÑå»&ŞnII‰@ëx?#µÆYµŒ)§˜Ók	Nc¤±­oõp(gU¦K+X“ùu}I•\g¡v/®Ãß£qxÃƒi‚¥Ôsçê50'qe»Ûé“‚*IM¼8zŞşñ3üwptöùd§ı
-B§gíƒ“ÏG‡»íÏ wÛG‡Ÿ~>>‚†p)#SÊñÉñé™ØÂ[»/?ãÌº»st|E¼ø|Ğúù¬eêÚ»¨gˆÍh=O¥nªİÓ§&®ûö§WGïø¬dãĞ€ò;mÊ.]øä_ºBÃÚFxWìcÎ
-£·jU!Z8“§C\†ñÄ<µÅô*­¹‘Ø¼Q×Óÿ@–ìÅ»[†4>kè†mùQ/zÿ(\X.+m:’oAtEö•ÛÆº3HõGİÉ€Ş¶ÏwOOÎw,«‡iŠ‹'	*`tÆöúÏ®@ëG?ßM>–qqó¬¾@¸ÎÑârì¨“ëVºò'gGP5äÆ—-îbÊÑJT§îzòèA:yŒûÉÙjï½0ªr<ğZ‚“zãJ XïæxÍş½okyuC¼qõÙĞxB°õÀ;`o¹Áâ›«XÀ‡º–#}'ßD¹ÿ—ãp8qGSË¯@Ãš1%¬^`åĞdëVÕbQ$‘€&]z%QÁÕx€‘¯#FG?«ÓÎAûõi›¿ŞØ¯í*×FÊ‘Ì™ùHn:7ıŞäŠQM°dk©ÃEÃ÷¥åİãÃ×¯N—‘íÑ÷i5H=˜£g,+“®8ğ–¾èğ·Ù”3ù˜L¢kmè
->ı·;º¾FU0=Ùûx¥üşbÄ†)4Œ¸½»IÂj9¹ZFP]ø« ¹œ2+İğa«ß“·©èCÔ}ûËò£óşğe&çô%§üÕ@Ûë€z#ºòOJË-Ü[×Õ.rØ(Š%)à(úCİ›à×!âci-
-ìÈM"‚	ZnŸ©ŞÃ›¤,Ò.Êvßì£=­Ö^é†åÌ«o0öôlçìõ)¦aØ,ômc­êxOUŒĞ	Óq?ß÷I‘n¢Ó°å“ÓÓ7{È&¤tAü×eEW9Î|ÊÜšÔ®5Ş	”i¿Ñ¹-L”qdDĞ³mÛ57Û£3ë6Ñaæb4ö
-œÉWÆW‘ŒÁíHå›öm¦ş¼™.¿*SÔ¥[ƒ;6°×ß=Srsd“àN€À(«`¥Â­'Ú÷ÕmeÚu†âø¥Ü	´–‰e9}Û¤ª¾¾šÈtÈ]‰´áÓÛWMtI¶¼Ô&½}l,÷á$dn¤6"İ´;7Foÿ=Ñµñ˜=œ5't9r„AèPûç£Z5X#ê½­sÔ'jƒäê# ²Íôƒ}‘`^8±¢l*	•éù‚y«Šó¼£•Ñp¹ïˆŞaF¸¯‹=ÜÍÔã“…¾	]êaoåğ0”[”^s•Œšã=*Ë#D0^¨LGX¯XVoĞÒæéæ1m˜#ÍkÛÌJŒ•+<ó>({Ÿö¶n®XèğÂ7#«°Å®Õ‚fsåÿ¬ÈEe³N‚ èÆP.QşÏŠÒ0äÍÌ­Ê^\£¨h™Ÿ`D®f¨B¹”'¬mLlŒ¹“†¶è›ÿAÈyT0*P^aØm÷r[o‘…°õïşzú×CâŸñÈ)è	á_ü˜øÜfæ.7h;Ş‘NT¸©&B°O€ÂÚŸÕÔúİónlÿ¦Of¾“ı;½r	ÔO\†Âı™Xõù_±êEÏXÿ¯Pÿú÷&ºöÕä?åµd†ìU=Âø|6HR<­º¿ÅçËjE½N÷ü-+ uÓôºá¸(#¿U¾árï·«ÿZş‹Ñ•bÂ\aÈé¼ÇXmk»…üw{šS!Êœ•amEõhÕ	2 p›°N¡ÚÂåhzT°‹b!-"³ë¨ãX‰»€Dÿ«^ƒÿ•ê[1¥ºİZŠH.²4&í«z»Å¨µ“ÅÃR†•uêEaa]7ÊMÔ4ÜF£˜DqB¼ó#’IÊÆÛ’¡õ¯àŠ‰Áš•¥C±?Í ß^Dxd(3/âKÉü«-Õ)aÅş$vÙß2HŠw2:k´ófZòeÅˆÔ'ƒÒ²"m£Á(Á5ÿe9›ßútAŸœ.¹¤H5©rÏùgàæ<Ìd×¹FÏÒWáÇÛ<°%x_í±îÀø™n‰$›­YO©ŒD(Kƒf%Aõ,€-¬Î÷Ğ'ÎI¢Æ¥q½évÀîÔÏmÙDYÒ»V×Ë5¼ÊÔáe2‹æD@á›<ÆM›.^4È‹Ê²ªTøÎ	¨‡¶Ûµ¨ë“N«|vkè3Ö—ÿ¼V|Æ¢=g\QDL£± N‘gq3jÜÛ×?[‚»pÿ>Ï$°=Üq_øûBçáÿ CÚ·8ºÿ [Å³é¾dè<kÚ©#›G0Ë¶î~“È|qÛtÓğéåR3$kœg‚ë®‘àU3Ã=yXÔ«[¯2*ÀØò¥¿²—S$.úk-ÏW–‡€\[Y?øÒ	¸“ü:lšöÅNV›»å@+»ÎFC§ÖÅÄ&£œÃ|×*teR&î”r ‡k%ÇŞ…ÊßhZæ,I˜ü° ÿ7	‹;Ø—w<qñ†”ø6Ç3!>‚¼¸Ûõñ\bûÏ'ÚöídÇ¹¸Àãšn“"ÿæ‚ÉŒnCí4ÙÅsŠ4„Ò±Ê\Jqˆ­¡ã–ÅÇ|ÃÇ2Cƒãï’B²{Ë|¬S Lœe÷•7z3äĞSì÷írè3ü_1ŞVD†Pzå×mÄçŸ+Á^r ï"Ã>\)»û˜%}jE»"­†£ñStkdòNœ¼“;æı_";¯óHw—îëVÂ•-fªM{¶š++’º“—º¿òï-”¯IF9Å:Íõ3]f1;&u9‡ ~åõ·¸¡†vH¹:„òo×ÓáuCÏÙXw®ÄG9+IÄ†ÙìJJ(ªXÖµ×_ô–Øf	|•öÚjµg…K{•í‹^AŞşdtŞfLÅ@\Ê°¥—s¹ÆÒ¶XÎ¾Ó•¦Ú{¤°l¬ÈÕc%)„µ&Ò5¼]ôZwP¾¡cáM;…¶Ebcÿ%ßªD_mm¯}ig°1‚Kır»Éı¢)E†$m¹Öf‰1O‘cÙÄ‘_,4QQ<ñ’›0N™ß¢)ˆñ%ñÆU\çe-PoÎP
-½éˆÃ’U…äZ•–?À<¨–Ô~Òg­ü *Ÿ»¼ôlym¼\Ze[ôaP^^»4ÁsGZÉ,K¯2:İ~Em˜Ï­Ãéú¬ˆÖ*l ìÍİ+ã;p[‡¹24Êp®7OF6_¶`,ÜQTIå¨ûh®¥I$ã¨ í¸³Ûníœ}>î¼işgí×G»l{¡XıúÚÎ
-{ÇSu9PP²ÎÚÊÊ‘ô† ¯ÜÑD>Iş\ÃaHóEı4\@›Éê<İ„Ò(_ôØğEƒØü{B,Ê%`O9İİ9<,QÑÌÑîñÑéªŠpK¨\¹Ô‹UB]i,p•BÙ[UA#éë
-µïCÅ¤¢gúQHñ1aãoÚóµºª£K—döşê…ÄdÚ8i%*-â¾…Ò«ºü¢}üúDdWVyß×Ã_¥€İ»h W-+ªğØ—	t¤[…²—cÎlbË]=‡‡> ¶;’ˆğ’¹vÑni&ÍKƒ8÷£Tzf5DÈ¿S¹Û\”ò|	1éG`bs–ğ»qÎüa!ÈáôºiüLâ&àÄW}X‹’ú.¥Äq)Éëbª<Ye#ÅAÊ¶-¨é<fˆ”^~ƒÆÒ@ûE°¦¶\aby­ö}Ãuà¼âP×¦ıífÉoI^yô0‚äÎ¦ıÊ¼yXË©IÛ³¨=uI>Me·i´\fêàlÕt6Gz%Ş¶‹-ŞjRg¦¸ÙAqmR‰Ü²ÚŞ:+„‡(!¥ "öØÙÙÑœaàŠl˜šl¬ˆéfëCwhí<ããÍ 9xT# -;Ğ± :ùsí=j	tşà­ˆ¿Sj†áäªl Pù õŞ§¢¢á{c[<¥¡õLßñå1bßF•C´¸2.Ÿ‹l áUÄëŸ–}ây Cìsé"ì¦ãÈQi _¨X+7p»
-t°0Lâ§æáGè^ÎDPS«Œ®ÏûQ¸Š0[n¤WğÃü¯S
-"N^íj}‰àÎ¤*•âº1*ÃtK¤ÇS¤7vÑ»Ò;µOTx4à°M/«YF½Ö£ÙĞ7èáNñVNue¨On]Ñ¸¦®xÛ…Ò ¹û­£İVé!–òmY™œ$f¬æ2ju«óUÇ…yÉ7*Ì	ä¯v52~ &oY³he4pXFkˆe4œXFƒzğç	şùÿ<Å?ß¯”—à,_çø§‹zø'Â?+¨
-dS¶ÏOfãÀŸoÄ9oÊáz•LONŞªH'b|ĞMŞöÑÏZõÃ>úº.Ì¿V“JElo«Mò xkIu:µ<#ƒùPµïü3ŒÊ›©Ü]Êšu[2X†šÀ'ÇGg­¶2Š³¾6&•Â÷ûäenS“/|?1‘°¹ìKÖ÷ÿ¼>zÑ:Ûí ß`gÆöJÆ¨Ú k®³Yœø¬+XtFG5­WÀ!mvo0™ï‹e‚tæşjb4ş–×—dZP›HËekÀ*Ñl6W­À¤ªTø¾ğ~ßæ}´ìŞŸº¾|§R†§™Õ@Mfi}Ç®Úw|›ŞwRv6¶}ó'íoıèÿëpå™ÙO)ªúL™-Ù‹¿dÕ±gŒ§èZæÏ»!ÄYá¿=¥{Ş…A"rß««HûÃË·ï¥Õ‹¸“Dƒ¨;	JùÒ9‚ò=ì^Ç «)sê&>ŒÊ©‰Ãî$Íj>'×Úªóp‚1"Øå»çàuÄëŸ½¿~şzŸÜPoV¿¢íÕ§ÓòK°®ğºŠU`qs§cí¸ÓŞ“CñŞA»µ{vÜÆïİÃãÖÏ­İ ]L¡ıTÃ]\ôì½è9Â$¤Œ‹óÂqëXÒíÓü¦óÎØ::~Õze­˜ˆ/ZÑÛa³ÃÇ£AÏBÑøvh%dø¹æw†'a­ê’7f«ÂºÆEU2ÍWÁvÕy…Ã6m‘ÆöšÔ«²ãß#l&0 rù­ş®5{°ƒô:À_“åE>İ–ÌE.É	–z*|‹‡IŠŠzK0•ˆãQÎÊ/O8kÆĞ– ƒ¶Æè­6bc(±,_ø&äAØ'ˆff®`SxÓÂÕU‘êpÚZzÜYÅ=oÔ™Ëug• æ5OŸ¢á–ÃS&S"·ZÊĞ]p YPYîÎdãC©WİÚµ´½ÒåfÛöª¯•r²n÷æÔ_²ß ôdYh%åQ38ÒÀ_GÃØù^.Ù€3´T,8S.Ô¸‹üÍ2õM) ­¥çdÈÔ ©i^¢ Iæ§¥?’p½¶)k/ş:+—˜Òj2KE–í7¬˜ +Şšô¡mXxÑÔãÇ|­úÁ ·b¥% ×ù}ÇŸ*Û˜\x¼F“N8±Qòô°³õ‡Âãß -ù =¬OpN6êÄ•(ß©Y÷íæ»†ú¢¦Ä2¯÷›¬ó>4¦Şe§ëZ©b£®	rÚø‡Pú>µÄ
-™Zïòİ8°ş?¡ø
-r_q×y€ºOEéuH÷ë’~Oj·6ÍÙukCW±a«hØ:é(©l'Œê›ER+B>2%Óoí‡ãJ–µIùúœ8hëúFJª›áwaú]±«ß¶\3	¥neó©;#gYH 7Oˆ!_w˜\XîO{”€œâ?â!¹|˜…¬ÁRöÌÊ	ysµÿZ´™Ç³‚ËdÇ"‚{™<Ë Â¿ç²oAÁ½ÒÍQø'Ş0û–Æè/Iš¤Ò&ô(ŞvÇLç¦šüùÿ”i*ˆ©Œ0OeóçŸ‰¦hì…·ú,é/òÜi®ZVWñ÷¥„ñÁsÅ°o!V6:1$6Ü„)2ˆx}b„S1Ì4u\nëÙû–Ü/’M©ÛÒË+ÅM£H,ßYä7S63‚2–_¸Ê2¶AÏ;ÈG0MNK¯®T"×ÖØjãÖiŠŒñuÌ˜ôé2&Êxô” ëÒÓ³|ÓE÷]ãõDÇ¢šC·Ş0\lûZç=,ç9t7ä³†¸&¾Íf—÷"Y2öû§CÛgÀîÎêBle \W£…HÂ›ÏqÓàn›D„¸Ûêp»Y’OÕOì}iXñ/@¬ÿ¥ÿMæ¦ÙqåßY®› † 7rX nâï!åÌÎÂşê­¸‰?CÚ$œàõ¼kYcàˆ:’s1 âøi^"Æuq†ù,íì!¶¢ ÛÍ3¼Eï¼ÚùÙ‘÷ç3	ï"™bšT£aíl•‘OİXÏ ²_4µOÂ]#ˆ/MéMxjß„ÿ)rM¹Şm¦ü‚‘cÙÇ)÷ŸfåÈÀÏm’ˆŞaç3DÄ¯³Òaêáâ“Ìwq$¬î/H*ÜÚüw4t&‘sÕ®ƒ%{ù*«?y»Fyg²Néğ:ÜNà†ÓÆ}3TjNdİ‰ddÅMSßG±¶Ø
-´A]­Ûgd”\®¯ÕˆJA¯ÃR´+SVÁÈíó’béáŸ¥ÉÜ##IFeš#/ÔäÓ&¦"	Wá``²!’l¦šŸÉ-Ü°’Âdä'¹_No&IVØø€z„‡“ª!MXéZm†ÙÍ$2¬¦hfSSNÓ8bœÉğ}råKû¶úNÿ`ÉÈÅhÑDmæÏ‡şÔ#B\n’¬ªÖ@¬QSğ°¶V6ø2ŸDJ äâÇî2Œ"g×ñ½¡;|.9=ÏğS6ÿN,¬ÆŒ…¾’7ÌøEoKŒz6)µ]áˆéÈ>}k˜øcçÃ¤ µíl²xzÜãd´~I¦UU/«“öñY§İÚÙSŸùûMûà¬U^zµsÒ9iüËœ7æÜÃR¸#šª$Ên¦*Óğusïµ”¬v8¸ı*‰nSKæÆƒÃŞkR×gcWQ™Y¤|æÍÇwñí‡oÅôá‰85Òğàò;déÍ8Jv½BuMôrF·ÇœR3R,üd‚olû=ÊR¥,]«tÔÅ•òÁÆb¾fí‰ÃêPÌSï2‚Ø¡‘Aô¯}j¦^DL_BH³+4 ×®^ZaÔåV»[Mºw\b@_@µ²c ÕÊÿõA!m­VõÁCü)ğĞÇømÆìD…tX5Äõxô~6Ø<¨V«Õ&e4ŞÄ wCëNÄ=Ğ¢Ñûh|1İY¯mjëº¾Ô$W|x|ô¢óêàè Wn^dº<+.Ø÷zíÍ'½;ÌÁŒçŞ™C ²úiH ıËVˆ+ù÷m	ÆÉ5›S³gŠPÿİts¨­-UÛhÌ‚ØŞVµïfB@~'Ê¹-û7j‚Vâ½]qèkàLWOôäÉ—c,­AR%’²ğ„,€—º[[õMK…Ü®&@İteø"Q{G.Š-™`?õjÁ‘ıXQ÷+úøX÷üÕwˆ
-üªÉÍÍÄTßåÁèu1]ïr'“nÂ.¦Í¬41x—Ç¹O6ŞÍS¸3¦ºéÁ8¤Şöı÷şÈŞÁ:ÖÀwO[g;j2È-cÌ>ÿüKÜšXOD„©wï&A´†x"ƒºi¦„¯wÓş	õ<»[†>FZ9ÁØAñÊ3I 9–”Õ€„…ïa¦Šø=}‘d~*[èeÛ99AåÏTÉ›6sº£ëèjtÃ#–Ãµeu3ÿ¬«#8É$S4tsõq=mªD«ïñH §Ÿ+ÀÕÅt %…È‹uÃ!‡Î#U]ÿA=ÿ¨PT	¹,4ît§á ìŞšÈzzäşIßÂ­'*ğ´n”†Â½zÏ*ÒQ¼„è‹qqî)	’ıOÉÇã™uô&n1–O`öÜ¡È1z•¯Q\—fÙş1 ·æ¬ÏF#ìÜGšg@50z8ı.Â*º'!i4/#5uC¼œ2üıFCAÊıÜnVõVä‡3ÕÓ‘)÷f&´·&\ 9€sPÔÃTµ¶:4Œ#ì”ªğ-µº
-G¤4WÊRh¼‚‘²Hä
-hiõâJ·Y&WPŸ—MõÉ“'da	Í*6HKÛÀbbÁí 9_°<íl!ÌQwàî‘‘~Ê®èp|Y-§¥ScW65&	bm*>»Ì|
-ã§eNcŸ€ëPD¾–+Åû!úğ¢Éo	i|^Aº[r€ÒªúÕ¢Kª¿…TgÀà}wÛÅNjÕo– İ›fLÑi<²A¡şÑ{ñ©À´X;Xpu
-\Üh/¿·I³›_-Dù>ºPÊ«¬¨¨™ò»E›åy…ãîÕ’h«q¨äŠVü}Ôíæäw«ÆMÅğ:º>7!~¹¸ÑuŒşSİ¼~I÷ Â%+f¨QI´£ú×"Í…RqnöXÆ  5¤à´ùk]½ãkP,åâ3'`üªâS#Í'i2õÙVaf-º)ÛHÀ?İ[’¶{k-ˆÅñŠâ\ã+Í—{÷«­Šymv9]h–±@!—=O&±ûßòcnnÈôväÙŞ†d:5°}m¶«½ThX{Æ™ÚwÇ5¯?.#Ö2áÑ’Ç¿ŠãáªÄIÖs„×jån`µÄ@nê™Mk’°å<â—=ø x5–ÄoÊëŞäX?÷…zèâ_Ş–Ò’ÑñàP-¤×Œ×†oÁgö^³ëÜÎ÷ê.d«ˆ™/Ç±e†1ä1Ã¡ßšà³Ó'óøYèçEû]Óta»x/Ö³9Tººo¹qás«e›‹ ÷ÕD¬¶™¼úYí3e•Õì•y—@“\îÀ—³Ù%o7ŞÑ6”ğ¶LE.KTíİÖq€©K ê²ÉfÅM¸œ2m8Úş`™=„=Sx©Îf¨NÏöZívQutÌ[Ô_VÇÁ‰Qº+ZÛñùØ‘dÂPZêÍ{ìÆ«sXrÉ×È°^ÆöÏ éÂÒóES8ÏñÔ:pÏ²$]G±%+lW —/x—s–İÈœeë³‘9İÖ3'àÛÊ™ç¬E|xÒZŸO™·fûÖè¿?g_¥ı;Õ¼<kyOÜ3n“®FÉ„Š~Õ‰.ÙçG~BNÛÃè¦3e 55ªRÍ)e|8•ıyL.µ	JRlk?TÓõ!,}z«ĞÎ´²)Í¦
-›‰ºC[Œ{	½FôYtQç€pÀ,(7 OònÍ&Éc0€‘V˜gË±²ñæĞÿjçğğx·ó¼ı£ª~Ğ:Ÿz÷±¢ôyV¶RG“ ßİäN}S',•Jø…I¨½£Ğ>g=ØÚªÓy8ÀÖtOØx•5’hüÏ¿l§‡'áåx-ŠÆË¤§Ãór6KD;6W¦
-Ÿ@!z«™>¹ÏûÒOâ‘µt§´’)Åc¸Šª;Zí7K.?+®«pìeìÚfÑ°ÀIp¬)s¥üí9•cñá~¯Oğ¥Ú>|LÆ¬$	Ì>¾QÊZU±¡øZÆ»‡œ×¨íA|‹ä.‰Ê‡FÿÎÎé«’¤u:Gmni ÊjyoY•¸}8]Fæ>zğñï1|QËXu:¨oˆ¼…F—9ƒ3º(Ğ„Åë”¨6ÄvïˆMLJˆ]\ùëQxœ$Ç¡J¡ÇoÂĞZıL><}‚ÉUêĞ¹µ:S¼àg‘,âûŒ#„"é9ü†Eú[Ggc/AdèıŞ»Ü(rÃ×Xò:)ÄWÑ°>]à •7£ÿaÄÙ•N¡UaİÉ³îPN=›dY"nc¼İ£ÅúFøÓ9HJ ÂCŠÑ¶slQõ›µ$OFDX.úc( Æ=YßUøñ_¦8ß–©˜İÆ<'Œ@,Sˆ¦§yzÌ§²Éõˆ6«K%&hä:ÄJPJG›«—c‡E¢3mL›6øvmeéRB´Sòômı±…ÎvItDT2¸jÇ¸ò¾˜ïÈáËçÈë&¾/ÒİW4îh?²«\’gN›¨…Íô³qÿ2$94•„Ñ Ç¬|KÔhÃ Q#Ö\ÈÉ™Î%"fNVˆ9İé´[§g;í3íóÏQ¢v>LBúƒíĞÊi†­e%rUQÀ3‹+SĞ¾¬İ£¥'Ns
-¯SÄ?pÁIñzô>²GEÉêuãrnt"åLŞğ®KP¥ÃœÒsÔ’~ÃJ…®&àX§Ã& ÛÍMrä~¾R Ï”Ä´ÃzešópâJ–]CÍEøo­t²ó¢…JSHõè q«:Ô¶ ÖÂU1LS < Px İşòêøõ)¤¹Â•Z¹j$"bO€–d³¤±¥¸\+S™PNËKXCÁZİ¶”‘“YÓ Ö©	ƒ:ÈN•ÕÜXqM8ˆl)³3±mf·¨s.úŠwéşd§pfiéÓµF÷“ú¯2¶üõİËä:~[{òNğÚ÷,o(1¬¥mk`VG2¡ÏÊxıf¥¯‹Tr¡E`â~+V¿k–ú¿7upæÚŞŞ0ö»¸…k$ŸÅ9ãmÊ)MâL=dê#kâƒjŸ-Ò‡cÉ`èO–Á*ş3DA<e ¿$Aş<Iƒ£3¡ß”ˆ.ÿQºsÊ±AñE¯M¼J´#ß÷oß9×8Ú=oÁ“‹øl¬ÍˆÙ‰i‡á„#úß©¥Õ¡0Z“±Õ
-­{]Î ½ilÎ8t8&ÂÜyCĞ¿òMÇ]+6‰³SNó%mp‚!Ú³¦¨±3ÈFÆK½²ÀÜÃç¶=‰şàÓoW-õBPO=ÙÄÀuÔ|¶$ìv!².Òê¼!—;”FÊ­(F±„­ˆ'—îA:¹Z‚Äµ5WôXÅ•¤X•ôğ¾ËÓXU:ŞˆıYêŞÓ¹-<&sWw“¶vËµÏ³¼³Õê§ĞªY±t-”ÿuŒsë¾³GãyJ¹]¾®RæøŸ§œÛ5 æ)e•€ÜrŠtr¥Å|~=÷¦û^öp ßD	FİßñnD|õ]ˆ¶UéŞuéŠy/Æ£ë’ÎK¹\d€¯›Ïac’>g%lé¤j{x±+Ÿ½è œ¿s¸&ï!+o†È²&O—5à6ŸêÂ.+¼=~ÊïÈÓPT`$ÓD=TÂğ]Ê?PfèÚl­©Ï³9ÌÓŒáÁ4ğ_ıƒ<(á/^ÓZ²Do
-ÈãUÄWŒrŒuŞrf 9|A4ˆ|§åĞtdJø2{ƒÉ2ëYfÀ#‰şwš,cééŠ8á•õ•tÌ#Ç#a,¸Z×q2€OvÎ^"C¥67èHç"ál‘4¿Ó%z—+Ûnï·óâ‹‚I÷Ò{t½ô]§VyeğW_8«|å‘§µIÙ‹&c¾ìrXŠèŒ]¦FG9æVM|ú…Ô›BÀŸ’ÙÓ´³tz[{*ÑWÕu‚†DRo˜Õju¹á)w ?Á™ÈÚ7W!_ĞPÀIàÒ† +,ëò7ß­5¹uÈºñòÌù ]«dR§>1¹ÔX¦ºÆáõu;E˜lçÒCŠ$ä7]¿ïúE50³å–ËVÔ»a¼p ×–;Ôaµ¡¹iyÓb†qÎJA6ıí¹U¸9èsÖŠÑê@Ò¹±¯bçïèÙÍÙºYPÿ3˜OÃæ:º†MåÜ^™aHŒ(')‰
-¾[ZOZÑÛxÿ•üwsÓº¼M
-§|ïüºs&W)C&¾”#‹¡ä„ágAhç
-Å/J]ºˆ›Œ·–ª‹Iô½µ¥n¨Á
-•fnî80Ã¬Ëõ´èYV¦wq¹3yo#úg¿YòËDã³/ßú°´A½¼ü|zqÕ1,‚ñt¸N^õhá¾€aXj¶[­§»	·…ç£±<‚Ó'Æa?‰J§/v·ÏğàÄ7ÛQÆ«ß½ıC,<È-¬?A3‘”"ˆkÛnÃûh7bĞŸLHåË<Ê”²â§‘NvdŸ¸}NHHôI³şœ–âÿé-HŸÊV“fswtFJÁÃYb/‡Ò'•Ä¾+Ke7°8²-ÛL`gŠ›©Vj1'‡Ö¿'£ì~ºŒO‚äâ6êĞ³ù³$>e{Ú®gÈ¹NMµ¸:bß¢U/¥ıÑ×–zxzÃ®÷IôÁ
-J¥^¥¬Z›ËkÕõšêÍ‡§–¥Jo-/#µQs¥½­&¾¶£õäŞ6R_d¡ÀR­¦•«ø?©P¹®äN•¥ˆØÑóÇâê ˆo¸&©[:Õ×Ë¤ş®ü½”¯ïÌ×âúZ½òıšÅcñÛx¹/¾:Âa(yB§ ûÒk¯YìZk¡Ö‹qDÁâ;ï|½ø£#£,±u^êÑE\2ËñÉÙÁ«ƒÿÛJï©áÖĞl¦ÚYA©·MJÖBW
-¯gØ¾sÚ‹œLdU•ã”#jñÊ*‹œÊØƒ®LBº2 ÇMÜ/ß)±.±ïßº@ÌYŞ×#"Åò¤¨9…MØX,Ò†ÓúÃ™­[¬¦õ‡ëbZìK#c|ÁTÇUkx>.`ğ‡¨?ä>[(©5ÄSå÷æbÉDÕ¾§Hªf¥®½pr¥YG>Tw©¢œlµt6b_¿H*®xcGİk‰o ìšPyGÑ¹a@©„ã×WLÆÆp
-Q3öÇ®sÓØıÚ«F­¬¥$â®İõ’ºä{Fú¤{G0Èò¹É‘¶Ár‰À÷”éšôø«t–;T™¹5äµ’0ï{‚Œ³o=“I<ôD»‡sÙ×©°´”7‡I#ÖD"Ëş¦’Ş;l.‰m,×æ†<œem-%û6C„¥ŞœÛa+çb(Q
-ÁhmÃŠÊ¤ƒtJ1ğ2G1ğÒUD¸{³VûÕÁñiç¥ó¢¼ª
-´/SZ„óª¾híÌ£1h„eí#ƒÏˆÖg¸0=?’ ÿ”:µ&9‚¶^Rş(Ï‡µùàSJƒ<÷‰ÓÜ[ñ#gÓ>qÊJ-ÉË!Ÿ>åíP=W‰Öáe!ü·fİGRªÑŞ0+qû½˜cÿÂX¿pz—IW«ïÃÁT4cğÎ8¹ÙD•}D
-õ[Jãf‘0ª1“Æ¦M“²ïl$C£Pì ¶&­£>Ù©U¾sm¾³½æ‚F4P¸]Ò=J@³r<2ò”Õ-sù¶Ûş•º³½8.ÁY™ó*áè±7tšÒŠÈm¹Gº’†§5pf3Ó‡yÁÃM5O¡ë›«­eoîx²ÄW!šæ'Jyš‘ÎU@]­\˜TwˆHã•`\jJBÒ’Á`İ‹ß0øÂ»èa<ë"<ı*go¯o{ÇçKèŸi«td)K§RÇ®ãï7—ñw}SU¹R*‹teP›®€«]@8*Å×qö˜8»9¯®…öÓr‹Ìøç=‰L¿rØèÜfP‹K#— -ƒğó×û–@/‰„1a_Ó-‚“ÙÈ*ğÜ:„ù¤¤>Of‘¸*(|UvT3Ş4v|^6Ò(ºøìYºêĞúã[¸†œ˜sfGwîYº“|L<u¡LWB¼Á0ºÁ¤¦Jû¼"v¯áËQ'%'¿÷yèƒÑy8HdÖpéœ–¸b/Kã>¡‰“Ÿ{ï 4&œ8›A8™µ0ïCÄÓ;ƒ 4Şz/aMÄ„¢]5TĞhë¯p²åh2‹iŠZS}m!³ÿ®‘Ÿˆ¹çæÃÆf¥qŒğ÷Âb9…€ğƒ-‹Kf‡¤¾GÓ÷/-µn"r„ÖÅı BèÀª'Á>‰p-ÄÎ’å <•£ÁÊF~<Ç®ßåØ·ÁÖ«ÑueòL±^ùú”aÂjM|$ç]@(PB:øE´İÔ-pÅÚèeP
-¿ãS€|b¤$a+-–tÜì‰—=Ör™Ó·–n¹.[YRg5ÊJ´¿Ièó%fí]™Ê—’ñ]ENÒ·eÇöùY¯ŸûQR¨örÓ’âíW&è^qÂ1ú]_l’xÄi«õcç´…¯)m”BHÕWÚ(2{é¢i8ªô5$9ŒºRU˜ÅìÇhª-¦S.Ñâ ÌHÔ	ÀrÍX˜,éS§„[.§£ò<hnúÃîØ?nj,ˆn–x !ÑÃ<o¶mé}*½5‘NË”lÂå.•ö«Z¼]éü¦uÕ‚² hÒÃG×ÇgÓÌàSZ8/¾áˆoĞ ?f07HÊš»¾Ş¾Úù™çŸ¾k?š9DÖ€•xüA™Öê4á‰\åÈŠ6Ù‰àı^)¾A!+A|-sÙÁ6Gûêàè sÖ:=ëÿÔj·_-ım:,Hâ´òg D6Ïµ¡ĞmVbÅ‰Ebä´xü¦ñE,’è3Øíç¼U>œ¹<c)ÈŞ×œÛOhhÆ¶×#Sì]ÙßšZq ‰â2¤¦ÕŒ"±£^CÑÓâ:İÆëê™ª6›VVµfâPÕg 4f”´´GáÅÑº8’#†´Më•ÉU¶m&TÊQ ¨Ä“xÊö¸S4KÑS’ÀWW\Q³’Àn«ÍïD4Bb¬p™´ˆo©$°Öd°
-Š›‰øš¶©Å)6©õ`åíçÄ¢=XiPO%¯©Ù©r…1F"3]ñ%ÆÅöˆ6@eÎ
-9®Õ6°L¨şŸäÑu?é=‚òÎ|ş®\’Îş ¿ÏjAY&H¡ã Û¬ZQ³êß¹Íd›E$ş¶æ¸MÑ˜uõ¾ârğæ¡K¯ª[PôÕúö’HÆÓE
-Oòj_Ø,¦f\…t–î÷¶Õ½l«å}V»-‘7¤h*ÓTÊÆ÷Ï„fĞS˜—éCv\Erû÷Ôu »uÔg7øçlİ/[?ÏS7€-X÷([7ê—åN÷'~å¨|VTùìJÏ³•¢ ¼J7êTéIN Pqwóæ·9ŸÍhL	cw‡yH¾8I¢}7Á.¹N (!÷]_FæöB,ÏlJK9e%¹j£RMÂÕr•f¸i¯K	t	]\ñã¿0530h‡¨ö¼®a¶Õ@âx“Â=w§öÉİµ¾)l¾lä&F
-Nfìj_rG§ëîé±—ò$ßÌÍò‹RDvjq@YF¾—\…9]­Ú™—mŞdªÜ†#´féYù´ÓÖ‹Ÿ,Påü–“’¾çH¼[¤t‹V>kq ³qĞHsó¤¼.ü¼xæ0ì<+¶çñÌYŞmº²´m¡VÂ;¯çÉmšø;Ëm>ŞxZ›Kt³d$5ãığ·ÛPsˆk^G×pº°–P PÊXÓêßÄv§åüCùZø&XJböxÃ.©º·Ë½’¨;{u'¡÷Ì…«l•úx¬ñás…ç—íÙ‰¹% ²KõìÑ4óGb‚öMƒ8Ù|.[Y2İ‡®½ˆjRšÀ*¤3èÈ+Š‰•g+i·˜—táÑ¥²/9n$*é™@•pµĞFœ·‰ä»sŒÆc~ÆŸ¬ï5¹k’wHÆ‰{PŒ›Ô#İv‡Ä+!“¡m~ş Ú¾ôs?e<‹G<ÇLñ|™şdÁˆÓ|àd4±‚”aş;Zæ××¦¨@Û÷/,µƒ-1v¢“zş{Uô»¹ş“€¹ü+sÃG¸¦Ü‹¼Ô•  ÜíRpæ[oâ=ö&¥´ˆ¬\x¼s½ñr–ëä²á*³p)ëùá½Ù¤îûKî±'OŒDæ~8sÆ7\˜“’¬àŠ İ‘<n†E²Ğ”‚‰eUŠ*q`×®SZwEÏın.;A½í³† xÍHb¨EîšE[}\™áû_íèÒ‘^k%2©ï™ÃêOàÉr re©rlm¹è…„ªK9DØ–Ä\ˆ¥Ø)Y%sZ×¢œİOrUbãfì³¹"¤·svp|tªS~~²If4íüãéWù¶˜Q8^k>Œ,mLbåú²7œŒ›™½5ŸÍ[ôjìÊŒÄEhÔf‰Òfk~îí{ÊœIÛai¡B³k-Ğê3Ïcûo^mfÛ tÄl]fõèéFãLÃŞºk´Ğqªõf7­PÃù–ödKÊWN¾­[¾}îeÙEá-DG4Fò×f™>G>]J±$W»•3èF2ĞÔô°Ì>¦lsªfÚ¸pOah‹ú¼*4‰5éĞ4DXRŒèù¸Y’½9C1¬ÛJøƒYùjççÍæW­WÏ[íÓ¬ÿ£g€/±ZO-ÑU¸RFÆL×Èt:×f&²‘È§y­°‹ì-È¸ë ~kt¨zBÌ}DvvlåNÚ ·aÀÒÆ”ã"J³!PÔMÍI%ıDşâI.™fy’ŸDşé}± ŠJéHâõØ©=}²Aóò=m)=˜ï›~orU¾‡$€­ßf&]çÃBÔ%š³¿¡¿ı²ú­¬~7Æ…ËPiY‘Mk„tRUj«—SddIƒµ5üÜ¢¤`	¿WI›\z1æÄÂ‰}Zºá¼ºÌË0vDN0±Ao÷X5~­	(f%°ßğX¢*ÚøMU8[ ~#àÔ•€­éà­a±”ƒåÒaĞ×ó€1ê«šä&Œ!ş¼Ìµ2üoØ ¬Ã7—7S˜Z^uİ—sı–ëßˆ$º~[†&|Lç©Ñ£b¹¤ŒmÎæF×;G»À¢œ© ¬´¾Äí2CïQñğ«ä½Ôá)R+¼QüªÈ
-zQ,+ºã´_½‡!ùİX=ŒûöÉÂ2ç/_Ûl3²T-·›ô#é“´ù DR(ê"ì¦ãh‰ß oä­ï&F‹†Do¸57a_Ô²zx“”j &‰W‘Ğ©ş ‡¶}a&şct}Ş’À!P÷áøp#}‰ñÁoöÑ!mk¯t“^D°õ?‰
-;oôôlçìõ)¦åIÀÍü!Ñ»Ã½ÓİöÁÉYç|0‚™4¼\:y¹ÔøÓÒ
-wöÈR9Ä+NÄúZGgí_JÚÂíik—ùZ|Dgû¶œÔXZÇ•ü¡ú´ºù´Z­Â:AspÇû—­= û @5ÙÏ–P?‹b×§ÃAÿ÷hğQqpµ£#Bãh?×Wmµ`+/ä\tVør OÏu¥jır8]ô‡¿†İh]bäM8F…0¼KëçI¢²İè}Be@ ü“)ñ\JÔ€ÉóÃsì¿zu|DÑãQ/œ„J~3¥Œ±ÄöÎ!LœÒ:ßúş 6êê‘zª)dN:PÆ×†HÎb9€gØÙ¥G{@Ú{ Ú?M¢õG¯+€¾îïºã^t>½Äª*“Q‡»ÑùºÉ×8ğPF´ÅLßÑœQ^&ä±È'ÈÁ†¬KYÇ&f
-÷Ø-Ò<3xÿpçÅi©úáq X ¬8I¡çG°¼xB¦ ^:°w4ÉOZz=¨şzĞKrõÑ‘%ac®ÃşğÏXsÎ^=×	T¯ ÊÆ™Dá7áq-KÃ(£Ú‘Z‡\ˆ³Šæ^9KéÉ¦³” %wIî¶ æ“öñO{-UÒQ 4Ïz’™ıO^Ynës-,Ò fÿK—Øw-±Öû—’·+ÉR²`¼Ğp¿ú]]·/*â—ï°¾ûkıµşZG™ut=ˆÓËşğÎ{Ò×swöÙ§Óá.ˆGã‰³şSÕ«eşu7cQİå¸¥ ,šÿÖ@È¢ïºşõ“~53ëÿñÓşk'9Ï^Hâéìl7ÿÉ³ô“óßaBŞqê)7àM7g*v2sÑKÍ&ûWX:è‚àÜUöÓMêbqÖ¼¾;¡ògø¨ÿŒ¹Dl®Ğ™ô‡çZÍò¿fùÚ,§{x1÷ÿSşŸÍ‰ü[qÍğïÿë¨ˆyX­‡¿ÖÃÿÎõà-‹Ó—íƒ£[‡ûFF¥uĞÙ=Ü9=½·i£÷)êÉæ½º··s¶sïŞc£ĞëÙ½j:¶~xúü^-û
-bë™^¿º·áÖôÌ}X1÷ØÈŸÈ»Ú=·¢Ÿ:»¯ÛmXkn= ¥¹uœes¢Ã¸Ã{n¶³Z)JåÛûåèÛ°³ÎîqJÚô
-Çê»1‡ÇÇ§Pİ‡‹¨êÕùò@Ç_\øğ0Év1á"Á$89N°ÎÃC·CB¥ÜPów^ì:}‚Èƒ£³VûÄéw|æõ
-¢N_<wºQH!ï9CQg‡Ğ¡ïü–6.M>ÆÎ74·Z{Ò™¨ÖàâÉfçe8¸hx‰d‹•ßŒÆ=“xO§Iâé›JY!Vgıù&—uŞ33ïôzãÂÄã‹TƒŞœFäKÒ¦ÛNÊçOÑ8ùxİp§ö“£3Uª=	L>‘áu4P6ç^Ôé£;Ú·&×»Æ’­’1*ê:ì^AM:q
-±ï¡ÔRÛcˆ%ß¥::
-Qñ9wu£7JÊ#Ÿ-©š£+’eö#ã+ô§›O>ï½¸¤ 6É…EB½xíÎ	­+wFf'W$ïÛHÅ¹H¤y„‘^	]ÒD±¸(@M‚r]©ìn/t=HıÓqıáÅ(“«!¿Ù™ƒİéÓ[;{ı“(¯wØ“8ÕêqÜyïöXâb7[öQòt,ê­e"¥gº'Ô½>ö¿0ßÈ.”PÉD}ºÃÉ¤ÇåNç§ÎNûÅi§4.âé¤[Zùu¸Ræä ñÅ”A)‚Jó2jŸZ\op§ÎÑtâÕ©7S·µ°Á_rÆLMZè+ùÉlÒlX¯ƒ_Éî¼šŒÄÒxt,‰ÈbY¼É¥×(Eiónø<9Z"»ºÓ¸^ÂÄ2‚Ü¨×³·By»/M HÀª=&#}ºT¬í«seÖš1¹ºCÏ_ï“Ó§µïë¢Câ‡«°y½@%¿ä
-P	|éÅ²²CıútçEËI#3†Ëµ/wNÎÎ[ÖÑŞÁÎ‘¥ TU_’ÀŸ£WŞ\ØZj $UM³L	ójÇ©vcÓ~\«Ğ6Ø˜W;v.pP-ÿZûî;ø^NƒŸ¦à%¬65 ëğFp9ôHY¡á%®N®c?ÚCáŸ†Ã`û0¸òÔjœòa€6¨XS9æÃ MA ¦Èµû×Dáp«Îd™BxTş^’öó©É1ĞD~ß;Ğ¶„sÑä„(ôú«%€bv‘I/ŒJj³â°¨+øˆĞ$¼z,—•`U„\ÑôÿuL9×eï-Ë`–eŒPØšõ\¨·š‰&¥4Ë>³	§ë~ÒÚÜÔ0‚½Ö/ú…9¿QWÉ4Æ^âÍ5wùAòŒÛ„p zĞSp–Ğ€QÏ6»¬òA2©¢µàù§ş¶ÂóŸ\î¼ì2åê‹jôL˜qî›á¹ƒO~cI¯Høl³‹_¿¡eµœêQª·,ª¹rÅeÌIæx:	ÏZhİ[É¦k÷ÛÉ™±‰éÖùÙr›å”N¬É@›ö¨x<º„™L«LÙ¯±A2+íÒ“¹¹<Fbr¾—*\Ë÷£„²>ƒFÛ›’Ó¢3-§…©¯Âµg¤\l-­ş¦*¹!m;¯ĞÕ¼È¦qK‘wGSò•‰¨ìe$YX“µêtÈWf•­ŠËDX\4©ŞQ¬>2Ë¤åe&CšLÄD%æèÍÖ@Ü¢×~ÕD¬Ğ¢Ev:XâÙôúª(IHf33®P¹×\).ışŒ†D>ÊjUbÆÑ…24Ôû’ä!^Û¸;ƒ»IXÊŸ"û¹pDı}Ò_×ë'ñõNfU¼ôÅnvN—.úãdÒá@[	êƒL'‘$Ê†ÂºáÊÑO©Ô«§°‰?ÿlÕC"iÉ”Õ¨ÀëWn{’˜­ÓECböJvĞG³½Å'v¶ •Øâîj4Œ¾^,^vg×v‹qöi)C6W\%oûïÖù¼€EÊ5C€È¤?œFÒ\I¬<ËBOix¤*$X"Æ˜öŠÅk-"¸×ÓÁ¤Ãî1¤†—õÕÛœ½~é¢ó»§S^’©>CªJN—„=şƒØâ?*ÛRì–» 1‹ƒı@ãhÇ•m^@R6y%.•b“wA¸¾ Õí¼’HGÉthÍLÔ½.(#X2ßÊ–¦*ÊOrÖ™­ˆ»’J5L+NĞ6¦ïOåSs'‘¬8Ò¶Éa âÀ §©A4I½ÕÁñ±ş5ĞpÈŒ³³rüÎ;½,ºf!"i(mf iPşpòüáà|ÃbsûãbJRâœê g}I±¿šf!ÅL4ãìt§c¦¬å8bWˆ‹3„
-Ë!2&-ÁZtYMoFW¤¼à‘^ålQfÅÓI6Ûˆ›Øuë—% ¦•¬ƒbA‹2şøÑ9B.;¹²ı6Qz[ME»äGñµ’‹7ÚjwİdNõÉK\ ¢˜Æ¢3·ñ"ZxÔjî‘”ÚåÈÿÕ®—Ô¶3¦i–"™="˜¹”Ô3¯KÅegÖ2„zvU(g†Sø08\Fãa8`6ì°„x,@^¸³K¬’è’öbı™tõ‘á‡ƒ CÅ¼Ğæqlê™L\"l™~y é™Ì!¢ç®hQâM'lÄ½z§…+¹'Wı„xiüˆ†=æ5uâ9UN£#±ãäXnqŞ¥9t3&9ì9>Ú—u¹¬1ƒ¬±·[˜­“k©•õ¿X5€< ›9µ	^<JÔXb„p¤!9²­HÚ6².ŸäâMbWEdÓÜ‚ÉÜpR$›:!»:Ïæ;¿»¿n†ÒWnŸœ9–m÷d´›zÀ"rš: 	éK3{âQ–ñï¹48˜CŠS4Eœ™Ÿ.‡Z¡¢ô\‚ôm®C‰ç@A8c*2‰Ft­½FqeUòn}Å]‘NN(“$›¶å¬“ùáãÑ”Dœã¨j±c+ª8¨3üY
-©kwüEPl¹÷ü¦ÑûUØ‹‘Ëwk‹M](—)PèItó/İşÈ"©4İ9k&²+Ò‰db›z%X>ŠnäîÈ>ºæŒ|ÙDæúÓm{8¾Ô¾äºU~P¥]¯~‚ÎÖ…7~ÀQå™Âré*ŠÕw´MvÖSCZêøïåK~¼o!s;S¶.rd8	ÆŞ(Ë†c>g¿R6= ]¹ÀñsoOèMá¢G»`š(šKV®Ô9Ù‹#>”bŒÂd©Tº­lóSWE¶eÅ­•`§&íŞCI|›*à]yyİ¾!@†ÔH«åÓÉ¸Çh›H?µ9—Ëò¸ÃÕHÈÆ"B &‡Ş¦rÒLzîzşÜKP¾#wvX§ÌƒãÎ›¶¸OÚm·vÎà÷¬ıúh~[?ï¢K@,Ğ©‡ªúİwßÙÑ¿)n-VB+N/7nº©v™&†¬Ëåô„ªá„º™€ÂÒe~¹Eós™Pô„Ö™ø«fní0S)==fó NC(?3†Ãs:	ƒ3ÊLÿ/©÷¬|I™Î«İã£ı%vh4s³úı“%16'KG»‡¯÷Z§íİ¥İãW'‡-î½ÄégD±â­èµ’¬²)šnlÓOß–ò„¸ 6¥Ñª'ÚÇHR¼^ÄÉ¼¤(vĞÇïz$åE`¥^İ·ÿd:té 
-#ENDGZ

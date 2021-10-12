@@ -1,3 +1,295 @@
+# Makefile for minilib
+# 
+# call with 'make -f Makefile.minilib [CONF=configfile.conf] BUILD=binaryname'
+#
+# When minilib.h is not present,
+# it will be downloaded from github. (100kB gzipped)
+# 
+# Dependencies: gcc or clang, sed
+# 
+# Minilib and the accompanying tools and scripts are licensed under a 
+# BSD-style opensource license with attribution.
+# I did my best and I'm using minilib myself,
+# but cannot give any guarantees for any functionality
+# of the opensourced library or the accompanying tools.
+#
+# (Disclaimer)
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# The full license is available at the webpage of minilib.
+# https://github.com/michael105/minilib
+# Michael (misc) Myer, 2012-2021
+#
+
+VERSION:="20211012"
+
+$(info Build:$(BUILD) Conf:$(CONF))
+
+#default values
+ifndef $(CONF)
+	CONF:=$(BUILD).c
+endif
+
+ifndef $(BUILD)
+	BUILD:=$(shell echo "$(CONF)" | sed 's/.*\///;s/\..*//')
+endif
+
+ifndef $(CC)
+	CC:=gcc
+endif
+
+ifndef $(BUILDDIR)
+	BUILDDIR:=build
+endif
+
+ifndef $(SOURCES)
+	SOURCES:=$(BUILD).c
+endif
+
+ifndef $(LDSCRIPT)
+	LDSCRIPT:=default
+endif
+
+
+$(info Build:$(BUILD) Conf:$(CONF) CC:$(CC) BUILDDIR:$(BUILDDIR) SOURCES:$(SOURCES) LDSCRIPT:$(LDSCRIPT))
+
+urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
+
+fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
+	
+SELF = $(lastword $(MAKEFILE_LIST))
+
+#$(info Using config: $(CONF))
+
+
+.ONESHELL:
+default: $(BUILDDIR) minilib.h
+	@echo Using config $(CONF)
+	echo generate $(BUILDDIR)/$(CONF).h
+	BINARY=$(BUILD)
+	MINILIB=minilib.h
+	echo use header: $$MINILIB
+	source $(defaultvalues)
+	source $(genconfig)
+	source $(CONF) > $(BUILDDIR)/$(CONF).h || exit 1
+	echo LDSCRIPT: $$LDSCRIPT
+	echo generate $(BUILDDIR)/$(CONF).ldscript
+	cat $(SELF) | sed -n "/ldscripts\/ld.script.$$LDSCRIPT/,/endef/p" | sed '1d;/endef/Q' > $(BUILDDIR)/$(CONF).ldscript || exit 1
+	echo compile $$SOURCES to $$BINARY
+	echo $(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
+       $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -o $$BINARY
+	$(if $(SHOWSOURCE),\
+		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
+         $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -E -P),\
+		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
+         $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -o $$BINARY ))
+	# Currently automatic shrinking only supported by minimake sry (TODO)
+	#$(if $$opt_shrinkelf,echo shrinkelf $$BINARY)
+	#$(if $$opt_shrinkelf,$(MAKE) -f $(SELF) $(BUILDDIR)/shrinkelf && $(BUILDDIR)/shrinkelf $$BINARY)
+
+
+minilib.h:
+	$(info Download minilib.h)
+	$(call fetch,minilib.h)
+	$(info Ok)
+
+
+$(BUILDDIR)/shrinkelf: minilib.h $(BUILDDIR)/shrinkelf.c $(BUILDDIR)/shrinkelf.mconf 
+	$(MAKE) -f $(SELF) default BUILD=$(BUILDDIR)/shrinkelf CONF=$(BUILDDIR)/shrinkelf.mconf BUILDDIR=.
+
+$(BUILDDIR)/shrinkelf.c: minilib.h
+	$(CC) -Dcompiled_minilib_h -DSHRINKELF -E -P minilib.h > $(BUILDDIR)/shrinkelf.c
+
+$(BUILDDIR)/shrinkelf.mconf: minilib.h
+	$(CC) -Dcompiled_minilib_h -DSHRINKELF_MCONF -E -P minilib.h > $(BUILDDIR)/shrinkelf.mconf
+
+
+check:
+	@echo Check sha256sums
+	@cat << ENDL > sign.tmp
+	$(sha256sums)
+	ENDL
+	#> sign.tmp
+	sed '/^#sha256sums/q' $(SELF) | sha256sum -c sign.tmp
+
+
+$(BUILDDIR):
+	$(shell if [ ! -d "$(BUILDDIR)" ]; then mkdir $(BUILDDIR); fi)
+
+
+help:
+	$(info $(help))
+
+
+license:
+	$(info $(license))
+
+
+define help =
+
+The following (optional) environmental variables are used:
+
+CC          The name and path of the compiler
+CONF        The configfile for minilib
+SOURCES     sourcefiles
+BUILDDIR    Where to build the binaries
+CFLAGS      optional flags for the compiler
+CLANG       Set this to 1 to use clang as compiler.
+            (Or set CC to clang)
+OPTFLAG     optimization flag (default -Os)
+STRIPFLAG   stripflag (default -s)
+PICFLAG     parameter -fpic/-fno-pic .. (default -fno-pic)
+LDFLAG      Name of the ldscript
+VERBOSE     Set this to 1 to enable verbose messages
+NOCOLOR     Set this to 1 to disable colors
+SHOWSOURCES Set to 1 to save all combined sources into the outputfile
+
+
+(c) 2019-2021 Michael misc Myer. All rights reserved.
+Free to use with attribution
+'make -f $(SELF) license' shows the license
+
+endef
+
+define license = 
+
+-------------------------------------------------
+ Copyright (c) 2012-2021, Michael (misc) Myer 
+ (misc.myer@zoho.com, www.github.com/michael105)
+ Donations welcome: Please contact me.
+ All rights reserved.
+-------------------------------------------------
+
+
+I did this minilib out of enthuiasm.
+One side, I`d like to have this project being opensource.
+On the other hand, I spent really much time with the development.
+In an ideal world, someone would sponsor me for this time.
+It is, however, not an ideal world we are living in.
+Therefore I do have to insist on attributions and what
+I`d like to call `fair use`.
+
+In short, you are allowed to do with this project what you wish,
+as long you show the copyright notice at a prominent place, 
+and include the file NOTICE in distributions.
+
+That`s the intention of this license,
+which I`d like to name "Fair use with attribution".
+
+
+
+License
+
+   The terms `minilib`, `source code`, `redistribution` or `linked with`
+   apply to the minilib in full as well as to parts of minilib.
+  
+   All files belonging to this project are subject to this license, besides 
+   files, where within the header explicitely other licensing terms are noted.
+    
+   Michael (misc) Myer is a Pseudonym. 
+   When your local laws don`t permit usage of pseudonyms, this license 
+   or one of its sentences would be not legal, or you do not comply
+   to this license, you may neither use minilib nor parts of this project.
+   The author is under this condition still the owner and copyright holder 
+   of this software. Please contact me for different licensing terms 
+   in this case, and explain your situation.
+  
+
+Redistribution, use and derived works in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above full notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and other materials provided with the distribution
+
+ * Redistributions in binary form must reproduce the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and other materials provided with the distribution
+
+ * Software linked with, or derived from minilib must reproduce 
+   the file NOTICE, this list of conditions and the following disclaimer
+   in the documentation, and other materials
+
+ * Applications and software linked with, or derived from minilib must 
+   in addition reproduce one of the according full notices below for derived or 
+   linked works within a documentation accessible at runtime:
+   - `--help` documentation
+   - online manual for web applications
+   - Alternatively within a for every user clearly visible and
+     readable message at the application startup
+ 
+ * Software and applications without a textual or graphical user interface
+   linked with, or derived from minilib must 
+   reproduce the above copyright notice,
+   the file NOTICE, this list of conditions and the following disclaimer in 
+   the documentation and all other materials like advertisements, 
+   manuals, datasheets, etc.
+ 
+ * Neither the name of the minilib nor the
+   names of its contributors may be used to endorse or promote products
+   derived from this software without specific prior written permission
+
+
+Disclaimer:
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+End of the license.
+
+
+Please contact me, if you are in need of other license terms.
+
+
+Notices:
+
+
+(Notice for linked works)
+................................................
+Linked with minilib,
+Copyright (c) 2012-2021, Michael (misc) Myer 
+(misc.myer@zoho.com, www.github.com/michael105)
+Donations welcome: Please contact me.
+All rights reserved.
+................................................
+
+
+(Notice for derived works)
+................................................
+Based on minilib,
+Copyright (c) 2012-2021, Michael (misc) Myer 
+(misc.myer@zoho.com, www.github.com/michael105)
+Donations welcome: Please contact me.
+All rights reserved.
+................................................
+
+
+Some files in the folders headers and contrib have other licensing terms.
+Please look at the sources.
+
+
+endef
+
+
+define genconfig =
+#genconfig_start
 #
 # Script, updated from "make header" / genheaders.pl
 # The functions are callen from minilib.conf 
@@ -11,8 +303,8 @@ ifdef(){
 }
 
 globalregister(){
-	if [ ! -z $1 ]; then 
-		echo "#define mini_globalregister $1" 
+	if [ ! -z $$1 ]; then 
+		echo "#define mini_globalregister $$1" 
 	else 
 		echo  '#define mini_globalregister "r15"'
 	fi
@@ -20,18 +312,18 @@ globalregister(){
 
 
 mini_errno(){
-	echo "#define mini_errno $1"
+	echo "#define mini_errno $$1"
 }
 
 compile(){
-	for f in `echo $* | tr ',' ' '`;
-	do "mini_$f"
+	for f in `echo $$* | tr ',' ' '`;
+	do "mini_$$f"
 	done
 }
 
 COMPILE(){
-	for f in `echo $* | tr ',' ' '`;
-	do "mini_$f"  
+	for f in `echo $$* | tr ',' ' '`;
+	do "mini_$$f"  
 	done
 }
 
@@ -40,10 +332,10 @@ VERBOSE(){
 }
 
 mini_start(){
-	echo "#define mini_start $1"
+	echo "#define mini_start $$1"
 }
 mini_exit(){
-	echo "#define mini_exit $1"
+	echo "#define mini_exit $$1"
 }
 
 mini_setjmp(){
@@ -55,11 +347,11 @@ mini_longjmp(){
 }
 
 LDSCRIPT(){
-	export LDSCRIPT="$1" 
+	export LDSCRIPT="$$1" 
 }
 
 PICFLAG(){
-	export PICFLAG="$1" 
+	export PICFLAG="$$1" 
 }
 
 
@@ -72,15 +364,15 @@ SHRINKELF(){
 }
 
 ARCH(){
-	echo "#define MINILIB_ARCH $1"
-	export MINI_ARCH=$1
+	echo "#define MINILIB_ARCH $$1"
+	export MINI_ARCH=$$1
 }
 OS(){
-	echo "#define MINILIB_OS $1"
-	export MINI_OS=$1
+	echo "#define MINILIB_OS $$1"
+	export MINI_OS=$$1
 }
 mini_buf(){
-	echo "#define mini_buf $1"
+	echo "#define mini_buf $$1"
 }
 
 mini_INCLUDESRC(){
@@ -92,13 +384,13 @@ OPTIMIZE(){
 }
 
 BINARY(){
-	export outputfile=$1
-	export BINARY=$1
+	export outputfile=$$1
+	export BINARY=$$1
 }
 
 SOURCES(){
-	export sources="$*"
-	export SOURCES="$*"
+	export sources="$$*"
+	export SOURCES="$$*"
 }
 
 DUMMYHEADER(){
@@ -118,15 +410,15 @@ mini_GETOPTS(){
 # -O2 and higher optimizations seem to give trouble.
 # -Os, -O0, -O1 passed all tests here and might be save.
 OPTFLAG(){
-	if [ -z "$OPTFLAG" ]; then
-		export OPTFLAG=$1
+	if [ -z "$$OPTFLAG" ]; then
+		export OPTFLAG=$$1
 	fi
 }
 
 # The stripflag (defaults to -s)
 STRIPFLAG(){
-	if [ -z "$STRIPFLAG" ]; then
-		export STRIPFLAG=$1
+	if [ -z "$$STRIPFLAG" ]; then
+		export STRIPFLAG=$$1
 	fi
 }
 
@@ -174,20 +466,20 @@ mini_globals(){
 }
 
 define(){
-	param=$1
+	param=$$1
 	shift
-	echo "#define" $param \"$*\"
+	echo "#define" $$param \"$$*\"
 }
 
 DEFINE(){
-	param=$1
+	param=$$1
 	shift
-	echo "#define" $param \"$*\"
-	#echo "#define" $1 $2
+	echo "#define" $$param \"$$*\"
+	#echo "#define" $$1 $$2
 }
 
 embed(){
-	export embed="$*"
+	export embed="$$*"
 }
 
 mini_getopt(){
@@ -200,10 +492,10 @@ mini_getopt_long(){
 
 
 mini_define(){
-	if [ ! -z $2 ]; then 
-		echo "#define mini_$1 $2" 
+	if [ ! -z $$2 ]; then 
+		echo "#define mini_$$1 $$2" 
 	else 
-		echo  "#define mini_$1 $1"
+		echo  "#define mini_$$1 $$1"
 	fi
 }
 
@@ -910,3 +1202,910 @@ mini__utimensat(){ mini_define _utimensat generate; }
 mini_puts(){ mini_define puts generate; }
 mini_tcsetpgrp(){ mini_define tcsetpgrp generate; }
 mini_getitimer(){ mini_define getitimer generate; }
+#genconfig_end
+endef
+
+
+
+define defaultvalues =
+#defaultvalues_start
+
+# gcc/clang options
+# only linux x64 for now.
+
+if [ -n "$$CC" ]; then
+	REAL_CC="$$CC"
+	echo $$CC | sed '/clang/Q1' > /dev/null
+	if [ $$? = 1 ]; then
+		CLANG=1
+	fi
+else
+	if [ "$$CLANG" = 1 ]; then
+		REAL_CC="clang"
+	else
+		REAL_CC="gcc"
+	fi
+fi
+
+#echo $$REAL_CC | sed '/gcc/Q1' > /dev/null
+#if [ $$? = 1 ]; then
+#	echo $$REAL_CC | sed '/9.3/Q1' > /dev/null
+#	if [ $$? != 1 ]; then
+#		echo 
+#	fi
+#fi
+
+
+if [ -z "$$BUILDDIR" ]; then
+	BUILDDIR="build"
+fi
+
+if [ -z "$$OPTFLAG" ]; then
+	OPTFLAG="-Os"
+fi
+
+if [ -z "$$PICFLAG" ]; then
+	PICFLAG="-fno-pic"
+fi
+
+#strip symbols
+if [ -z "$$STRIPFLAG" ]; then
+	STRIPFLAG="-s"
+fi
+
+if [ -z "$$ARCH" ]; then
+	MINI_ARCH="X64"
+fi
+
+if [ -z "$$OS" ]; then
+	MINI_OS="LINUX"
+fi
+
+COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffunction-sections \
+	-Wno-unused-variable -Wno-unused-const-variable -Wall -Wno-unused\
+	-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin "
+	#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -mmanual-endbr "
+
+
+# needs os detection. Only linux 64bit for now
+CFLAGS="$$CFLAGS $$COMMONCFLAGS -DLINUX -DX64 "
+
+# somehow; seems to be neccessary telling clang exclusively to use it's own linker.?
+if [ "$$CLANG" = 1 ]; then
+	CFLAGS="$$CFLAGS -fuse-ld=lld "
+else
+	CFLAGS="$$CFLAGS -Wno-unused-but-set-variable "
+fi
+
+
+# ld options 
+LDFLAGS="-Wl,-n,--gc-sections,-nostdlib,--build-id=none,--allow-multiple-definition,-z,noexecstack"
+
+# (default) linker script. minimake is going to be invoked with minimake --dump ld_script 
+if [ -z "$$LDSCRIPT" ]; then
+	LDSCRIPT="default"
+fi
+
+# colorize the output of gcc
+colorize='2>&1| sed -e "s/^\S.* warning:.*/$$YELLOW\0$$NORM/" -e "s/note:.*/$$MAGENTA\0$$NORM/" -e "s/\s\^\~*/$$MAGENTA\0$$NORM/" -e "s/\S*\.[c,h,cpp,hpp] /$$CYAN\0$$NORM/" -e "s/^.*:\serror:.*/$$RED\0$$NORM/" -e "s/\(^\S*\/\)\(\S*\.[h|c]:\s\)/\1$$CYAN\2$$NORM/" -e "/error:/h;\$${p;g;/\S/Q1}" -e "s/\d226/\"/g"'
+
+#defaultvalues_end
+endef
+
+
+#ldscripts_start
+define ldscripts/ld.script.exec =
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x7) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x7) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+endef
+define ldscripts/ld.script.mlplugin_onlytext =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
+              "elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64) */
+
+/* memo to me -
+  the bss section is NOT
+  stored in the binary as shown with objdump !! */
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(*__plugin_export*);
+			
+				/* *(.dynbss)
+				 *(*mlgl)  */
+				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*) 
+						*(.bss* .dynbss*)
+		 } :text
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.onlytext_tiny =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	/* stack PT_GNU_STACK FLAGS(0x6) ; */
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.mlplugin =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+/* OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
+              "elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64) */
+
+/* memo to me -
+  the bss section is NOT
+  stored in the binary as shown with objdump !! */
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	/* data PT_LOAD FLAGS(0x7); */
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				
+		 				*(__plugin_export*)
+
+				/* *(.dynbss)
+				 *(*mlgl)  */
+				/* *(.rodata .rodata.* .gnu.linkonce.r.*) */
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+
+		 .data :
+		 {
+			*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*) 
+
+			} : data 
+		.bss           : 
+		{ 
+		/* PROVIDE(_bssstart = 23); */
+
+
+						 *(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*) 
+						 *(COMMON)
+									/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+						. = ALIGN(. != 0 ? 32 / 8 : 1); */
+		/* _bsssize = . - LOADADDR( ".bss" ); */
+		/*_bsssize = _bssend - _bssstart; */
+		/* _bsssize -= _bssstart; */
+		/* PROVIDE( _bsssize = _bssend - _bssstart ); */
+		
+		} :bss 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.textandbss =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.default_execstack =
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x7) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 32 / 8 : 1);
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+endef
+define ldscripts/ld.script.onlytext =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS;
+	/* text PT_LOAD FILEHDR PHDRS FLAGS(0x7); 
+	 would set the text section read- and writable. somehow. 
+	 this spares one section, if globals are used.
+	 but seems to me a bit too nasty and dangerous.
+	 sametime, some bins are compiled with writable text.
+	 have to look for the source. strange, somehow. */
+	stack PT_GNU_STACK FLAGS(0x6) ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start .text._start.*)
+						*(.text._exit .text._exit.*)
+						*(.text.__exit .text.__exit.*)
+						*(.text._startup .text._startup.*)
+						*(.text.main .text.main.*)
+						*(.text.cexit)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+/*		 }
+		.bss            :
+		{ 
+*/
+/*misc: Seems to work without a bss segment ( for readonly data only) , so commented it out.
+saves 15 bytes. ( needs -N for linking )*/
+
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						*(.data .data.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+	  		*(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.bloating =
+
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+PHDRS {
+	text PT_LOAD FILEHDR PHDRS ;
+	/*bss PT_LOAD;*/
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text.exit .text.exit.*)
+						*(.text.startup .text.startup.*)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+
+		 }
+		.bss            :
+		{ 
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(.bss)
+						*(.shstrtab)
+						*(COMMON)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections. */
+						. = ALIGN(. != 0 ? 32 / 8 : 1);
+						_bssend = . ;
+						_brk = .;
+		} :text
+
+		/DISCARD/ : { 
+			*(.note.GNU-stack) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			*(.note*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.text_and_bss =
+/*OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)*/
+
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+ENTRY(_start)
+
+SECTIONS
+{
+		/* Read-only sections, merged into text segment: */
+		/*__executable_start = SEGMENT_START("text-segment", 0x08048000); */
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+		 } :text
+
+		.bss           : 
+		{ 
+
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						*(COMMON)
+						*(.data .data.*)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+misc: deleted : . = ALIGN(. != 0 ? 32 / 8 : 1);*/
+		} :bss 
+		 . = ALIGN(64 / 8);
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.rel.*)
+			}
+}
+
+
+endef
+define ldscripts/ld.script.default =
+
+ PHDRS {
+ /* flags: 0x5 r+x, 0x6 r+w, 0x7 r+w+x
+   (TODO) somehow some functions seem to need a writable text section,
+	 as well as some need an executable bss section.
+	 Have to sort this out.
+	 Would be better, separating that cleanly.
+	 seems like as soon, there is written (and/or?) read from data,
+	 placed into the bss section, the section has to be executable.???
+	 that is. not easy to understand. 
+	 */ 
+
+	text PT_LOAD FILEHDR PHDRS FLAGS(0x5) ;
+	data PT_LOAD FLAGS(0x7);
+	bss PT_LOAD FLAGS(0x7);
+	stack PT_GNU_STACK FLAGS(0x6) ;
+}
+
+
+SECTIONS {                                                                                                                                                    
+		start = _start;
+		/*. = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;*/
+		. = 0x08048000 + SIZEOF_HEADERS;
+
+		.text           :
+		{
+				*(.text.unlikely .text.*_unlikely)
+						*(.text._start)
+						*(.text.exit .text.exit.*)
+						*(.text._startup)
+						*(.text.main)
+						*(.text.hot .text.hot.*)
+						*(.text .stub .text.* .gnu.linkonce.t.*)
+						/* .gnu.warning sections are handled specially by elf32.em.  */
+						*(.gnu.warning)
+						*(.rodata .rodata.* .gnu.linkonce.r.*)
+		 } :text
+
+		 .data :
+		 {
+						*(.data .data.*)
+			} : data
+	 . = .;
+  	 __bss_start = .;
+
+
+		.bss           : 
+		{ 
+						*(COMMON)
+						*(.dynbss)
+						*(.bss .bss.* .gnu.linkonce.b.*)
+						/* Align here to ensure that the .bss section occupies space up to
+							 _end.  Align after .bss to ensure correct alignment even if the
+							 .bss section disappears because there are no input sections.
+								misc: deleted : */
+				. = ALIGN(. != 0 ? 64 / 8 : 1);
+		} :bss 
+	  _end = .; 
+		PROVIDE (_end = .); 
+
+
+
+		/DISCARD/ : { 
+			 *(.note.GNU-stack) 
+			  *(.note*) 
+			*(.gnu_debuglink) 
+			*(.gnu.lto_*) 
+			*(.iplt*) 
+			*(.igot*) 
+			*(.rel*) 
+			*(.comment)
+			*(.eh_frame)
+			*(.plt*)
+			*(.got.plt*)
+			*(.got*)
+			*(.rel.*)
+			}
+
+
+}
+
+
+endef
+#sha256sums
+define sha256sums =
+0144385c069572d9a3f7311ed3ff581d210db2dbc702f9b4ec1656a80089d5df  -
+7225e5cd049032b02c4b9060f844a3907c3ca92f25be46883dcdb1233884b135  minilib.h
+endef

@@ -1,7 +1,7 @@
 // file: hello-include.c
 //   howto use minilib via including header only
 //   compile with: 
-//   minicc -o hello-include hello-include.c
+//   minimake -o hello-include hello-include.c
 //
 
 

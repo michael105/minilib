@@ -24,7 +24,7 @@
 #   of the functions can be enabled/disabled.
 # minilib.h bundles all other headers, as well as the sources when invoked with a defined "INCLUDESRC",
 #  and is to be included in every source file, using the minilib. (Only once with "INCLUDESRC")
-# genconf.sh gets callen by minicc; it generates minilib.conf.h out of minilib.conf 
+# genconf.sh gets callen by minimake; it generates minilib.conf.h out of minilib.conf 
 #  (or whatever else name is supplied via --config )
 #  compat/*.h contains the ansi-c/posix-c (sort of "subsetcompatible") headers.
 #
@@ -991,11 +991,12 @@ template( "scripts/genconfig.sh", "define_functions", { generate=>\&configscript
 
 
 sub genconfighandler{
-		my $fh = shift;
-		foreach my $func ( keys(%{$funchash}) ){
-						printf $fh "#define $func(...) _M_MLIB_$func"."_M_(__VA_ARGS__)\n";
-				}
-		return(1);
+	my $fh = shift;
+	foreach my $func ( keys(%{$funchash}) ){
+		#printf $fh "#define $func(...) _M_MLIB_$func"."_M_(__VA_ARGS__)\n";
+		printf $fh "#define $func(...) _M_MLIB_$func"."_M_()\n";
+	}
+	return(1);
 }
 
 template( "minilib.genconf.h", "define_macros", { generate=>\&genconfighandler } );

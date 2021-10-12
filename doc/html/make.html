@@ -603,7 +603,7 @@ a { text-decoration: none; }
 <p><strong>make targets:</strong></p>
 <dl class="simple">
 <dt>all</dt>
-<dd><p>header compile-minicc doc examples test</p>
+<dd><p>header compile-minimake doc examples test</p>
 </dd>
 <dt>examples</dt>
 <dd><p>make examples</p>
@@ -612,23 +612,23 @@ a { text-decoration: none; }
 <dd><p>rebuild header files, also rebuild some of the generated documentation.</p>
 </dd>
 <dt>doc</dt>
-<dd><p>rebuild generated documentation: html files, minicc info</p>
+<dd><p>rebuild generated documentation: html files, minimake info</p>
 </dd>
-<dt>minicc</dt>
-<dd><p>rebuild the script minicc, pack ldscripts and config scripts</p>
+<dt>minimake</dt>
+<dd><p>rebuild the script minimake, pack ldscripts and config scripts</p>
 </dd>
-<dt>compile-minicc</dt>
-<dd><p>pack the gzipped (complete) minilib into minicc
-(run minicc --dump-minilib to extract the header to stdout)</p>
+<dt>compile-minimake</dt>
+<dd><p>pack the gzipped (complete) minilib into minimake
+(run minimake --dump-minilib to extract the header to stdout)</p>
 </dd>
-<dt>unpack-minicc</dt>
-<dd><p>strip the gzipped minilib of minicc</p>
+<dt>unpack-minimake</dt>
+<dd><p>strip the gzipped minilib of minimake</p>
 </dd>
 <dt>combined</dt>
 <dd><p>compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)</p>
 </dd>
 <dt>devel</dt>
-<dd><p>make header combined compile-minicc</p>
+<dd><p>make header combined compile-minimake</p>
 </dd>
 <dt>tools</dt>
 <dd><p>make tools in the dir ./tools
@@ -652,16 +652,16 @@ All declarations of minilib are define there.</p>
 <dd><p>show this help</p>
 </dd>
 </dl>
-<p>Most possibly you'll need: &quot;make compile-minicc&quot;, and &quot;make test&quot;
+<p>Most possibly you'll need: &quot;make compile-minimake&quot;, and &quot;make test&quot;
 Both run all needed other targets.</p>
 <p>However, building with minilib is sort of transparent:
 You can include the uncompiled &quot;minilib.h&quot;, which will include
 all other header files.
 And you can include the compiled &quot;minilib.h&quot;, as only dependency.</p>
-<p>When compiling with minicc, minilib.h will be prepended to the sources,
-automatically. Again, when minilib.h is compiled into minicc; these
+<p>When compiling with minimake, minilib.h will be prepended to the sources,
+automatically. Again, when minilib.h is compiled into minimake; these
 sources will be used. When minilib.h is present as file, this will be preferred.
-(Making development easier - no need to compile minicc every time)</p>
+(Making development easier - no need to compile minimake every time)</p>
 <p>The included compat headers are not stable yet.
 (stdio.h, stdlib.h, ...)
 I leave them here.

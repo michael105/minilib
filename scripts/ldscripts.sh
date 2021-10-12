@@ -8,7 +8,7 @@ do
 		echo $1
 		( echo -n "$1" | sed -e "s/.*\///" -e "s/\./_/g" &&  echo "='" &&\
 				cat $1 && echo "'" ) \
-		 		| scripts/template.pl -insert minicc content-ldscript
+		 		| scripts/template.pl -insert minimake content-ldscript
 
 
 
