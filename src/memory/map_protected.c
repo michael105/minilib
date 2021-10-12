@@ -8,9 +8,9 @@
 // Most probably you'd like to catch the segfault signal.
 // (By installing a segfault signal handler)
 //
-// The size is always a multiple of the systems pagesize, 4kB here.
+// The size is always a multiple of the system's pagesize, 4kB here.
 // The len of the mapped memory area is rounded up to the next pagesize.
-// The mapped area can only be freed by call(s) to munmap,
+// The mapped area can only be free'd by call(s) to unmap_protected,
 // neither realloc nor free are allowed.
 // There is one page before, and one page after the mapped area
 // protected with PROT_NONE, and len rounded up to the next
@@ -32,24 +32,6 @@ void* map_protected(int len){
 
 		return( p+PAGESIZE );
 }
-
-//+cat memory
-//+doc free an area, allocated before with map_protected
-// (len must be the same, when at the invocation of map_protected)
-// returns the value of munmap, when an error occures.
-// errno is set, when defined.
-// return 0 on success.
-//+depends munmap mprotect
-//+def
-int unmap_protected(void *p, int len){
-		len=len+(PAGESIZE-len%PAGESIZE);
-
-		int ret = munmap((long)p-PAGESIZE,len+2*PAGESIZE);
-		
-		 return(ret);
-}
-
-
 
 
 
