@@ -16,7 +16,7 @@ NOW="$(shell date '+%Y%m%d')"
 
 #include Makefile.template
 
-.PHONY: test combined header tools Makefile.minilib
+.PHONY: test compiled/minilib.h header tools compiled/Makefile.minilib
 
 define HELP
 
@@ -44,11 +44,11 @@ compile-minicc
 unpack-minicc
 	strip the gzipped minilib of minicc
 
-combined
-	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
+compiled/minilib.h
+	compile compiled/minilib.h, compiled/minilib.h.gz (single header sourcefile)
 
 devel
-	make header combined compile-minicc
+	make header compiled/minilib.h compile-minicc
 
 tools
 	make tools in the dir ./tools
@@ -118,9 +118,9 @@ help:
 
 default: help
 
-all: header combined compile-minicc Makefile.minilib doc examples test syntaxcheck
+all: header compiled/minilib.h compile-minicc compiled/Makefile.minilib doc examples test syntaxcheck
 
-devel: header combined compile-minicc Makefile.minilib
+devel: header compiled/minilib.h compile-minicc compiled/Makefile.minilib
 
 examples:
 	cd examples && make
@@ -161,7 +161,7 @@ minicc: scripts/genconfig.sh ldscript
 
 
 compile-minicc: minicc unpack-minicc
-	gzip -c minilibcompiled.h >> minicc
+	gzip -c compiled/minilib.h >> minicc
 	echo -e "\n#ENDGZ" >> minicc
 
 
@@ -184,43 +184,43 @@ ldscript: ldscripts/ld.script*
 tools:
 	cd tools && make
 
-combined: tools
-	cp templates/LICENSE.tmpl minilibcompiled.h
-	echo -e "#ifndef minilibcompiled_h\n#define minilibcompiled_h\n" > minilibcompiled.tmp2.h && \
-			scripts/combinesources.pl minilib.h >> minilibcompiled.tmp2.h && \
-			sed -e '$$d' minilibcompiled.tmp2.h | sed -e '$$d' > minilibcompiled.tmp.h && \
-			echo -e "#endif\n#ifdef SHRINKELF" >> minilibcompiled.tmp.h && \
-			cat tools/shrinkelf.c >> minilibcompiled.tmp.h &&\
-			echo -e "#endif\n#ifdef SHRINKELF_MCONF" >> minilibcompiled.tmp.h &&\
-			cat tools/shrinkelf.mconf >> minilibcompiled.tmp.h &&\
-			echo -e "#endif\n" >> minilibcompiled.tmp.h
-	cat minilibcompiled.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanks | scripts/stripundefs.pl >> minilibcompiled.h
-	#cat minilibcompiled.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanklines | sed -E '/^#if 0/,/^#endif/d;'s/^\s*//' > minilibcompiled.h
-#./tools/scc/scc minilibcompiled.tmp.h | sed '/^\s*$$/d' > minilibcompiled.h
-#	gcc -fpreprocessed -P -dD -E minilibcompiled.tmp.h 2>/dev/null > minilibcompiled.h || true
-#	cp templates/LICENSE.tmpl minilibcompiled.h
-#	scripts/combinesources.pl include/minilib_header.h >> minilibcompiled.h
-#	gzip -c minilibcompiled.c > minilibcompiled.c.gz
-	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' minilibcompiled.h
-	gzip -c minilibcompiled.h > minilibcompiled.h.gz
+compiled/minilib.h: tools
+	cp templates/LICENSE.tmpl compiled/minilib.h
+	echo -e "#ifndef compiled/minilib_h\n#define compiled/minilib_h\n" > compiled/minilib.tmp2.h && \
+			scripts/combinesources.pl minilib.h >> compiled/minilib.tmp2.h && \
+			sed -e '$$d' compiled/minilib.tmp2.h | sed -e '$$d' > compiled/minilib.tmp.h && \
+			echo -e "#endif\n#ifdef SHRINKELF" >> compiled/minilib.tmp.h && \
+			cat tools/shrinkelf.c >> compiled/minilib.tmp.h &&\
+			echo -e "#endif\n#ifdef SHRINKELF_MCONF" >> compiled/minilib.tmp.h &&\
+			cat tools/shrinkelf.mconf >> compiled/minilib.tmp.h &&\
+			echo -e "#endif\n" >> compiled/minilib.tmp.h
+	cat compiled/minilib.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanks | scripts/stripundefs.pl >> compiled/minilib.h
+	#cat compiled/minilib.tmp.h | ./tools/removeccomments | sed -E 's/(.*)\/\*.*\*\//\1/' | ./tools/stripblanklines | sed -E '/^#if 0/,/^#endif/d;'s/^\s*//' > compiled/minilib.h
+#./tools/scc/scc compiled/minilib.tmp.h | sed '/^\s*$$/d' > compiled/minilib.h
+#	gcc -fpreprocessed -P -dD -E compiled/minilib.tmp.h 2>/dev/null > compiled/minilib.h || true
+#	cp templates/LICENSE.tmpl compiled/minilib.h
+#	scripts/combinesources.pl include/minilib_header.h >> compiled/minilib.h
+#	gzip -c compiled/minilib.c > compiled/minilib.c.gz
+	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' compiled/minilib.h
+	gzip -c compiled/minilib.h > compiled/minilib.h.gz
 
 
-Makefile.minilib:
-	echo generate Makefile.minilib
-	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' Makefile.minilib
-	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' Makefile.minilib
-	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" minicc' -e '/^#defaultvalues/,/^#defaultvalues/d' Makefile.minilib
-	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' Makefile.minilib
-	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' Makefile.minilib
-	sed -i -n -e '0,/^#ldscripts_start/p' Makefile.minilib
-	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> Makefile.minilib; )
-	echo "#sha256sums" >> Makefile.minilib
+compiled/Makefile.minilib:
+	echo generate $@
+	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' $@
+	sed -i -e '/^#genconfig_start/r scripts/genconfig.sh' -e '/^#genconfig/p;/^#genconfig/,/^#genconfig/d' $@
+	sed -i -e '/^#defaultvalues_start/e sed -n -e "/^#defaultvalues/,/^#defaultvalues/p" minicc' -e '/^#defaultvalues/,/^#defaultvalues/d' $@
+	sed -i -e '/^#defaultvalues/,/^#defaultvalues/s/\$$/$$$$/g' $@
+	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' $@
+	sed -i -n -e '0,/^#ldscripts_start/p' $@
+	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> $@; )
+	echo "#sha256sums" >> $@
 	echo "define sha256sums =" > sign.tmp
-	cat Makefile.minilib | sha256sum  | sed 's/\s$$//g' >> sign.tmp
-	cat sign.tmp >> Makefile.minilib
-	sha256sum minilibcompiled.h >> Makefile.minilib
-	echo "endef" >> Makefile.minilib
-	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> Makefile.minilib; )
+	cat $@ | sha256sum  | sed 's/\s$$//g' >> sign.tmp
+	cat sign.tmp >> $@
+	sha256sum compiled/minilib.h >> $@
+	echo "endef" >> $@
+	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> $@; )
 	#echo "endif" >> Makefile.minilib
 
 
