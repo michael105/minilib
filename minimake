@@ -329,6 +329,16 @@ exec_gcc(){
 
 
 	src=""
+		echo $RED sources: $sources
+		echo $RED $opt_args
+	if [ -z "$sources" ]; then
+		sources=`echo $opt_args | sed -E 's/.*\s(\S\S*\.c).*/\1/'`
+		echo $RED so2 $sources
+		opt_args=`echo $opt_args | sed -E 's/(.*\s)(\S\S*\.c)(.*)/\1 \3/'`
+		if [ -z "$sources" ]; then
+			sources=$config
+		fi
+	fi
 	if [ -n "$sources" ]; then
 		#opt_args="$@ $sources"
 		src=`echo "$sources" | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'`
@@ -366,6 +376,7 @@ exec_gcc(){
 		#INCLUDEMINILIB="-include <($0 --dump-minilib)"
 	else
 		INCLUDEMINILIB="#include <minilib.h>"
+		opt_args=" -I$MLIBDIR $opt_args"
 	fi
 
 
@@ -436,8 +447,8 @@ exec_gcc(){
 		if [ "$dump_cmd" = "1" ]; then
 			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		else
-			eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
 			verbose eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
+			eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
 			#eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		fi
 		#$REAL_CC $CFLAGS$LDSCRIPT $@
@@ -702,7 +713,7 @@ if [ "$2" == "" ]; then
 	if [ ! -f $config ]; then
 		fail "No such file: $config"
 	fi
-	sed -n '1,2{/#mlconfig/q1}' $config
+	sed -n -e '1,2{/#mlconfig/q1}' -e '1,2{/#if 0/q1}' $config
 	if [ $? != 1 ]; then
 		echo ${YELLOW}No configuration found in $config $NORM
 		tmp=`echo $1 | sed -E 's/(.*)\..*/\1/'`

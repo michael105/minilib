@@ -1,1 +1,1 @@
-../minilibcompiled.h
+../compiled/minilib.h

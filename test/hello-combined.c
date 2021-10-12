@@ -6,7 +6,7 @@
 
 #define INCLUDESRC
 //#include "minilib/minilib.h"
-#include "minilib/minilibcompiled.h"
+#include "minilib/compiled/minilib.h"
 
 #if 0
 testhello:
