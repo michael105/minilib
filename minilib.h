@@ -107,352 +107,6 @@ struct udiv_t { unsigned int quot, rem; };
 /* end templates/minilib.h.in */
 
 
-#ifdef mini_fwrite
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_execv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#endif
-
-#ifdef mini_eprint
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_qsort
-//dep
-#ifndef mini_swap
-#define mini_swap
-#endif
-#endif
-
-#ifdef mini_fputc
-//dep
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fread
-//dep
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_eprints
-//dep
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_opendirp
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_dirbuf
-#define mini_dirbuf
-#endif
-#ifndef mini_free
-#define mini_free
-#endif
-#endif
-
-#ifdef mini_closedir
-//dep
-#ifndef mini_free
-#define mini_free
-#endif
-#endif
-
-#ifdef mini_fwrites
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_dies
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini__die
-#define mini__die
-#endif
-#ifndef mini_eprintsl
-#define mini_eprintsl
-#endif
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_ftell
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_getgrouplist
-//dep
-#ifndef mini_getusergroups
-#define mini_getusergroups
-#endif
-#endif
-
-#ifdef mini_userdb_open
-//dep
-#ifndef mini_globals
-#define mini_globals
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_fstat
-#define mini_fstat
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_dprints
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_getusergroups
-//dep
-#ifndef mini_getpwuid
-#define mini_getpwuid
-#endif
-#ifndef mini_setgrent
-#define mini_setgrent
-#endif
-#ifndef mini_strcmp
-#define mini_strcmp
-#endif
-#ifndef mini_grent
-#define mini_grent
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#ifndef mini_getgrent
-#define mini_getgrent
-#endif
-#endif
-
-#ifdef mini_writesl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_unsetenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_strncmp
-#define mini_strncmp
-#endif
-#ifndef mini_ret_errno
-#define mini_ret_errno
-#endif
-#endif
-
-#ifdef mini_fputs
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_strcasecmp
-//dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
-#endif
-#endif
-
-#ifdef mini_vsprintf
-//dep
-#ifndef mini_0
-#define mini_0
-#endif
-#endif
-
-#ifdef mini_strncmp
-//dep
-#ifndef mini__strcmp
-#define mini__strcmp
-#endif
-#endif
-
-#ifdef mini_ether_ntoa
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_fgetul
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_map_protected
-//dep
-#ifndef mini_mmap
-#define mini_mmap
-#endif
-#ifndef mini_mprotect
-#define mini_mprotect
-#endif
-#endif
-
-#ifdef mini_sbrk
-//dep
-#ifndef mini_sys_brk
-#define mini_sys_brk
-#endif
-#endif
-
-#ifdef mini_execvp
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execvpe
-#define mini_execvpe
-#endif
-#ifndef mini_access
-#define mini_access
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_access
-#define mini_access
-#endif
-#endif
-
-#ifdef mini_getgrgid
-//dep
-#ifndef mini_grent
-#define mini_grent
-#endif
-#ifndef mini_setgrent
-#define mini_setgrent
-#endif
-#ifndef mini_getgrent
-#define mini_getgrent
-#endif
-#ifndef mini_mmap
-#define mini_mmap
-#endif
-#ifndef mini_userdb_open
-#define mini_userdb_open
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_strcmp
-#define mini_strcmp
-#endif
-#ifndef mini_token_s
-#define mini_token_s
-#endif
-#ifndef mini_token_i
-#define mini_token_i
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_eprintf
-//dep
-#ifndef mini_fprintfs
-#define mini_fprintfs
-#endif
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_brk
-//dep
-#ifndef mini_sys_brk
-#define mini_sys_brk
-#endif
-#endif
-
-#ifdef mini_itobin
-//dep
-#ifndef mini__itobin
-#define mini__itobin
-#endif
-#endif
-
 #ifdef mini_vfprintf
 //dep
 #ifndef mini_fprintf
@@ -475,595 +129,10 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_sigprocmask
+#ifdef mini_fread
 //dep
-#ifndef mini_rt_sigprocmask
-#define mini_rt_sigprocmask
-#endif
-#endif
-
-#ifdef mini_prints
-//dep
-#ifndef mini__mprints
-#define mini__mprints
-#endif
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_match
-//dep
-#ifndef mini__match
-#define mini__match
-#endif
-#endif
-
-#ifdef mini_vsnprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_raise
-#define mini_raise
-#endif
-#ifndef mini_getpid
-#define mini_getpid
-#endif
-#ifndef mini_kill
-#define mini_kill
-#endif
-#endif
-
-#ifdef mini_memcmp
-//dep
-#ifndef mini_0
-#define mini_0
-#endif
-#endif
-
-#ifdef mini_die
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_ewritesl
-#define mini_ewritesl
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini__die
-#define mini__die
-#endif
-#endif
-
-#ifdef mini_htons
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_realloc
-//dep
-#ifndef mini_free
-#define mini_free
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#endif
-
-#ifdef mini_endgrent
-//dep
-#ifndef mini_munmap
-#define mini_munmap
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_getpwuid
-//dep
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#ifndef mini_mmap
-#define mini_mmap
-#endif
-#ifndef mini_passwdfile_open
-#define mini_passwdfile_open
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_token_s
-#define mini_token_s
-#endif
-#ifndef mini_token_i
-#define mini_token_i
-#endif
-#ifndef mini_setpwent
-#define mini_setpwent
-#endif
-#endif
-
-#ifdef mini_ewritesl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fsetpos
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_dprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#endif
-
-#ifdef mini_putc
-//dep
-#ifndef mini_fputc
-#define mini_fputc
-#endif
-#endif
-
-#ifdef mini_getgroups
-//dep
-#ifndef mini_getpwuid
-#define mini_getpwuid
-#endif
-#ifndef mini_setgrent
-#define mini_setgrent
-#endif
-#ifndef mini_strcmp
-#define mini_strcmp
-#endif
-#ifndef mini_grent
-#define mini_grent
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#ifndef mini_getusergroups
-#define mini_getusergroups
-#endif
-#ifndef mini_getuid
-#define mini_getuid
-#endif
-#endif
-
-#ifdef mini_execl
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#endif
-
-#ifdef mini_sprintf
-//dep
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_putchar
-//dep
-#ifndef mini_fputc
-#define mini_fputc
-#endif
-#endif
-
-#ifdef mini_opendir
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_dirbuf
-#define mini_dirbuf
-#endif
-#ifndef mini_opendirp
-#define mini_opendirp
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_free
-#define mini_free
-#endif
-#endif
-
-#ifdef mini_where
-//dep
-#ifndef mini_access
-#define mini_access
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#endif
-
-#ifdef mini_strrchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_wait
-//dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_die_if
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_ewritesl
-#define mini_ewritesl
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini_die
-#define mini_die
-#endif
-#endif
-
-#ifdef mini_fgetsn
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_puts
-//dep
-#ifndef mini_printl
-#define mini_printl
-#endif
-#ifndef mini_print
-#define mini_print
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_printf
-#define mini_printf
-#endif
-#endif
-
-#ifdef mini_fdopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_eprintsl
-//dep
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_freopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_fwritesl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_strncasecmp
-//dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
-#endif
-#endif
-
-#ifdef mini_sigsuspend
-//dep
-#ifndef mini_rt_sigsuspend
-#define mini_rt_sigsuspend
-#endif
-#endif
-
-#ifdef mini_fgetsp
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_fseek
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_snprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#endif
-
-#ifdef mini_getgrent
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_userdb
-#define mini_userdb
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_strtoll
-//dep
-#ifndef mini_strtol
-#define mini_strtol
-#endif
-#endif
-
-#ifdef mini_exit_errno
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#endif
-
-#ifdef mini_dies_if
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini_dies
-#define mini_dies
-#endif
-#endif
-
-#ifdef mini_grantpt
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_fstat
-#define mini_fstat
-#endif
-#ifndef mini_ptsname
-#define mini_ptsname
-#endif
-#endif
-
-#ifdef mini_fprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_globals
-#define mini_globals
-#endif
-#ifndef mini_getpid
-#define mini_getpid
-#endif
-#ifndef mini_kill
-#define mini_kill
-#endif
-#endif
-
-#ifdef mini_strcat
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_eputs
-//dep
-#ifndef mini_eprintl
-#define mini_eprintl
-#endif
-#ifndef mini_eprint
-#define mini_eprint
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_printfs
-//dep
-#ifndef mini_fprintfs
-#define mini_fprintfs
-#endif
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_term_width
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_environ
-#define mini_environ
-#endif
-#endif
-
-#ifdef mini__mprints
-//dep
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_printf
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_warn
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#endif
-
-#ifdef mini_fgetc
-//dep
-#ifndef mini_fileno
-#define mini_fileno
-#endif
 #ifndef mini_read
 #define mini_read
-#endif
-#endif
-
-#ifdef mini_fgets
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
 #endif
 #endif
 
@@ -1095,6 +164,138 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
+#ifdef mini_exit_errno
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#endif
+
+#ifdef mini_malloc
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_vexec
+//dep
+#ifndef mini_seterrno
+#define mini_seterrno
+#endif
+#ifndef mini_waitpid
+#define mini_waitpid
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_vfork
+#define mini_vfork
+#endif
+#endif
+
+#ifdef mini_eprintsl
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_strrchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
+#endif
+#endif
+
+#ifdef mini_fgetul
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_gethostname
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#ifndef mini_uname
+#define mini_uname
+#endif
+#endif
+
+#ifdef mini_ether_ntoa
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_sigaction
+//dep
+#ifndef mini_memcpy
+#define mini_memcpy
+#endif
+#ifndef mini_rt_sigaction
+#define mini_rt_sigaction
+#endif
+#endif
+
+#ifdef mini_ftell
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_fgets
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_creat
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_writesl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_putc
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_htonl
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
 #ifdef mini_fprints
 //dep
 #ifndef mini_fileno
@@ -1111,104 +312,10 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_snprintfs
+#ifdef mini_vsprintf
 //dep
 #ifndef mini_0
 #define mini_0
-#endif
-#endif
-
-#ifdef mini_raise
-//dep
-#ifndef mini_getpid
-#define mini_getpid
-#endif
-#ifndef mini_kill
-#define mini_kill
-#endif
-#endif
-
-#ifdef mini_strdup
-//dep
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_strcpy
-#define mini_strcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_ewrites
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_getenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#endif
-
-#ifdef mini_ptsname_r
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_sprintf
-#define mini_sprintf
-#endif
-#endif
-
-#ifdef mini_fprint
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_isatty
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_tcgetattr
-#define mini_tcgetattr
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
 #endif
 #endif
 
@@ -1273,59 +380,24 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_writes
+#ifdef mini_sigsuspend
 //dep
-#ifndef mini_write
-#define mini_write
+#ifndef mini_rt_sigsuspend
+#define mini_rt_sigsuspend
 #endif
 #endif
 
-#ifdef mini_ptsname
+#ifdef mini_itobin
 //dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ptsname_r
-#define mini_ptsname_r
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#ifndef mini_sprintf
-#define mini_sprintf
+#ifndef mini__itobin
+#define mini__itobin
 #endif
 #endif
 
-#ifdef mini_inet_aton
+#ifdef mini_strtoll
 //dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_printl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_getchar
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
+#ifndef mini_strtol
+#define mini_strtol
 #endif
 #endif
 
@@ -1342,401 +414,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_setbrk
-//dep
-#ifndef mini_brk
-#define mini_brk
-#endif
-#endif
-
-#ifdef mini_error
-//dep
-#ifndef mini_strerror
-#define mini_strerror
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fprints
-#define mini_fprints
-#endif
-#endif
-
-#ifdef mini_readdir
-//dep
-#ifndef mini_dirbuf
-#define mini_dirbuf
-#endif
-#ifndef mini_getdents
-#define mini_getdents
-#endif
-#endif
-
-#ifdef mini_creat
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_atexit
-//dep
-#ifndef mini_globals
-#define mini_globals
-#endif
-#endif
-
-#ifdef mini_tcgetattr
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_free
-//dep
-#ifndef mini_brk
-#define mini_brk
-#endif
-#ifndef mini_getbrk
-#define mini_getbrk
-#endif
-#endif
-
-#ifdef mini_eprintl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_ntohs
-//dep
-#ifndef mini_htons
-#define mini_htons
-#endif
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_rewind
-//dep
-#ifndef mini_fseek
-#define mini_fseek
-#endif
-#endif
-
-#ifdef mini__strcasecmp
-//dep
-#ifndef mini_tolower
-#define mini_tolower
-#endif
-#endif
-
-#ifdef mini_match_ext2
-//dep
-#ifndef mini__match_ext2
-#define mini__match_ext2
-#endif
-#endif
-
-#ifdef mini_sigaction
-//dep
-#ifndef mini_memcpy
-#define mini_memcpy
-#endif
-#ifndef mini_rt_sigaction
-#define mini_rt_sigaction
-#endif
-#endif
-
-#ifdef mini_strchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_dief
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini__die
-#define mini__die
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#endif
-
-#ifdef mini_malloc_brk
-//dep
-#ifndef mini_sbrk
-#define mini_sbrk
-#endif
-#ifndef mini_getbrk
-#define mini_getbrk
-#endif
-#endif
-
-#ifdef mini_abort
-//dep
-#ifndef mini_raise
-#define mini_raise
-#endif
-#ifndef mini_signal
-#define mini_signal
-#endif
-#endif
-
-#ifdef mini_endpwent
-//dep
-#ifndef mini_munmap
-#define mini_munmap
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_itoHEX
-//dep
-#ifndef mini__itohex
-#define mini__itohex
-#endif
-#endif
-
-#ifdef mini_waitpid
-//dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_unlockpt
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini__fopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_fclose
-//dep
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_print
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_unmap_protected
-//dep
-#ifndef mini_munmap
-#define mini_munmap
-#endif
-#ifndef mini_mprotect
-#define mini_mprotect
-#endif
-#endif
-
-#ifdef mini_malloc
-//dep
-#ifndef mini_0
-#define mini_0
-#endif
-#endif
-
-#ifdef mini_err
-//dep
-#ifndef mini_strerror
-#define mini_strerror
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_errno
-#define mini_errno
-#endif
-#ifndef mini_fprints
-#define mini_fprints
-#endif
-#endif
-
-#ifdef mini_setenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_strncmp
-#define mini_strncmp
-#endif
-#ifndef mini_ret_errno
-#define mini_ret_errno
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_strcpy
-#define mini_strcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_stpcpy
-#define mini_stpcpy
-#endif
-#endif
-
-#ifdef mini_fgetud
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_strtok
-//dep
-#ifndef mini_strtok_r
-#define mini_strtok_r
-#endif
-#endif
-
-#ifdef mini_printsl
-//dep
-#ifndef mini__mprints
-#define mini__mprints
-#endif
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_fprintfs
-//dep
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_htonl
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_sleep
-//dep
-#ifndef mini_nanosleep
-#define mini_nanosleep
-#endif
-#endif
-
-#ifdef mini_group_write
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_ewrite
-#define mini_ewrite
-#endif
-#ifndef mini_writes
-#define mini_writes
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_fwrites
-#define mini_fwrites
-#endif
-#ifndef mini_ewritesl
-#define mini_ewritesl
-#endif
-#ifndef mini_writesl
-#define mini_writesl
-#endif
-#endif
-
-#ifdef mini_putenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_strncmp
-#define mini_strncmp
-#endif
-#ifndef mini_ret_errno
-#define mini_ret_errno
-#endif
-#endif
-
-#ifdef mini_itodec
-//dep
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_eprintfs
+#ifdef mini_eprintf
 //dep
 #ifndef mini_fprintfs
 #define mini_fprintfs
@@ -1765,49 +443,204 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_dtodec
+#ifdef mini_ewrites
 //dep
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_uitodec
-#define mini_uitodec
+#ifndef mini_write
+#define mini_write
 #endif
 #endif
 
-#ifdef mini_alphasort
+#ifdef mini_fgetsn
 //dep
-#ifndef mini_strcmp
-#define mini_strcmp
+#ifndef mini_fgetc
+#define mini_fgetc
 #endif
 #endif
 
-#ifdef mini_getpwent
+#ifdef mini_perror
 //dep
-#ifndef mini_open
-#define mini_open
+#ifndef mini_fputs
+#define mini_fputs
 #endif
-#ifndef mini_userdb
-#define mini_userdb
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_errno
+#define mini_errno
 #endif
 #endif
 
-#ifdef mini_vexec_q
+#ifdef mini_print
 //dep
-#ifndef mini_seterrno
-#define mini_seterrno
+#ifndef mini_write
+#define mini_write
 #endif
-#ifndef mini_waitpid
-#define mini_waitpid
+#ifndef mini_strlen
+#define mini_strlen
 #endif
-#ifndef mini_vfork
-#define mini_vfork
+#endif
+
+#ifdef mini_isatty
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_tcgetattr
+#define mini_tcgetattr
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_malloc_brk
+//dep
+#ifndef mini_sbrk
+#define mini_sbrk
+#endif
+#ifndef mini_getbrk
+#define mini_getbrk
+#endif
+#endif
+
+#ifdef mini_atexit
+//dep
+#ifndef mini_globals
+#define mini_globals
+#endif
+#endif
+
+#ifdef mini_sigprocmask
+//dep
+#ifndef mini_rt_sigprocmask
+#define mini_rt_sigprocmask
+#endif
+#endif
+
+#ifdef mini_fwritesl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_waitpid
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_eputs
+//dep
+#ifndef mini_eprintl
+#define mini_eprintl
+#endif
+#ifndef mini_eprint
+#define mini_eprint
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_ewritesl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_vsnprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_raise
+#define mini_raise
+#endif
+#ifndef mini_getpid
+#define mini_getpid
+#endif
+#ifndef mini_kill
+#define mini_kill
+#endif
+#endif
+
+#ifdef mini_execl
+//dep
+#ifndef mini_environ
+#define mini_environ
 #endif
 #ifndef mini_execve
 #define mini_execve
 #endif
-#ifndef mini_exit
-#define mini_exit
+#endif
+
+#ifdef mini_fputs
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_getpwuid
+//dep
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#ifndef mini_mmap
+#define mini_mmap
+#endif
+#ifndef mini_passwdfile_open
+#define mini_passwdfile_open
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_token_s
+#define mini_token_s
+#endif
+#ifndef mini_token_i
+#define mini_token_i
+#endif
+#ifndef mini_setpwent
+#define mini_setpwent
+#endif
+#endif
+
+#ifdef mini_endgrent
+//dep
+#ifndef mini_munmap
+#define mini_munmap
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
+
+#ifdef mini_rewind
+//dep
+#ifndef mini_fseek
+#define mini_fseek
 #endif
 #endif
 
@@ -1818,37 +651,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_cfmakeraw
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#endif
-
-#ifdef mini_posix_openpt
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_signal
-//dep
-#ifndef mini_sigaction
-#define mini_sigaction
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_rt_sigaction
-#define mini_rt_sigaction
-#endif
-#endif
-
-#ifdef mini_dief_if
+#ifdef mini_die_if
 //dep
 #ifndef mini_execve
 #define mini_execve
@@ -1867,6 +670,421 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #ifndef mini_die
 #define mini_die
+#endif
+#endif
+
+#ifdef mini_assert
+//dep
+#ifndef mini_abort
+#define mini_abort
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#endif
+
+#ifdef mini_ltodec
+//dep
+#ifndef mini_ultodec
+#define mini_ultodec
+#endif
+#endif
+
+#ifdef mini_itohex
+//dep
+#ifndef mini__itohex
+#define mini__itohex
+#endif
+#endif
+
+#ifdef mini_printl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_fdopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_brk
+//dep
+#ifndef mini_sys_brk
+#define mini_sys_brk
+#endif
+#endif
+
+#ifdef mini__fopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_snprintfs
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_fprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_globals
+#define mini_globals
+#endif
+#ifndef mini_getpid
+#define mini_getpid
+#endif
+#ifndef mini_kill
+#define mini_kill
+#endif
+#endif
+
+#ifdef mini_fwrites
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_dief
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini__die
+#define mini__die
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_qsort
+//dep
+#ifndef mini_swap
+#define mini_swap
+#endif
+#endif
+
+#ifdef mini_strncasecmp
+//dep
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
+#endif
+#endif
+
+#ifdef mini_posix_openpt
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_inet_ntoa
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_sleep
+//dep
+#ifndef mini_nanosleep
+#define mini_nanosleep
+#endif
+#endif
+
+#ifdef mini_eprints
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_getgrent
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_userdb
+#define mini_userdb
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
+
+#ifdef mini_err
+//dep
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_errno
+#define mini_errno
+#endif
+#ifndef mini_fprints
+#define mini_fprints
+#endif
+#endif
+
+#ifdef mini_strcasecmp
+//dep
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
+#endif
+#endif
+
+#ifdef mini_dies_if
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini_dies
+#define mini_dies
+#endif
+#endif
+
+#ifdef mini_fgetud
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_writes
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_usleep
+//dep
+#ifndef mini_nanosleep
+#define mini_nanosleep
+#endif
+#endif
+
+#ifdef mini_strdup
+//dep
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_strcpy
+#define mini_strcpy
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_execvp
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execvpe
+#define mini_execvpe
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#endif
+
+#ifdef mini_itodec
+//dep
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini_system
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_vfork
+#define mini_vfork
+#endif
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_waitpid
+#define mini_waitpid
+#endif
+#endif
+
+#ifdef mini_map_protected
+//dep
+#ifndef mini_mmap
+#define mini_mmap
+#endif
+#ifndef mini_mprotect
+#define mini_mprotect
+#endif
+#endif
+
+#ifdef mini_printfs
+//dep
+#ifndef mini_fprintfs
+#define mini_fprintfs
+#endif
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_tcsetattr
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_execvpe
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#ifndef mini_where
+#define mini_where
+#endif
+#endif
+
+#ifdef mini_ptsname_r
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_sprintf
+#define mini_sprintf
+#endif
+#endif
+
+#ifdef mini_match
+//dep
+#ifndef mini__match
+#define mini__match
+#endif
+#endif
+
+#ifdef mini_warn
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_dtodec
+//dep
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini_unmap_protected
+//dep
+#ifndef mini_munmap
+#define mini_munmap
+#endif
+#ifndef mini_mprotect
+#define mini_mprotect
 #endif
 #endif
 
@@ -1919,10 +1137,26 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_fgetpos
+#ifdef mini_readdir
 //dep
-#ifndef mini_ftell
-#define mini_ftell
+#ifndef mini_dirbuf
+#define mini_dirbuf
+#endif
+#ifndef mini_getdents
+#define mini_getdents
+#endif
+#endif
+
+#ifdef mini_signal
+//dep
+#ifndef mini_sigaction
+#define mini_sigaction
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_rt_sigaction
+#define mini_rt_sigaction
 #endif
 #endif
 
@@ -1972,90 +1206,10 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_getgrnam
+#ifdef mini_dirname
 //dep
-#ifndef mini_grent
-#define mini_grent
-#endif
-#ifndef mini_setgrent
-#define mini_setgrent
-#endif
-#ifndef mini_getgrent
-#define mini_getgrent
-#endif
-#ifndef mini_mmap
-#define mini_mmap
-#endif
-#ifndef mini_userdb_open
-#define mini_userdb_open
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_strcmp
-#define mini_strcmp
-#endif
-#ifndef mini_token_s
-#define mini_token_s
-#endif
-#ifndef mini_token_i
-#define mini_token_i
-#endif
-#endif
-
-#ifdef mini_assert
-//dep
-#ifndef mini_abort
-#define mini_abort
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#endif
-
-#ifdef mini_system
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_vfork
-#define mini_vfork
-#endif
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_waitpid
-#define mini_waitpid
-#endif
-#endif
-
-#ifdef mini_inet_ntoa
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_errx
-//dep
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#endif
-
-#ifdef mini_itohex
-//dep
-#ifndef mini__itohex
-#define mini__itohex
+#ifndef mini_strlen
+#define mini_strlen
 #endif
 #endif
 
@@ -2075,209 +1229,20 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_tcsetattr
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_execvpe
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_access
-#define mini_access
-#endif
-#ifndef mini_where
-#define mini_where
-#endif
-#endif
-
-#ifdef mini_strndup
-//dep
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_stplcpy
-#define mini_stplcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_strcmp
-//dep
-#ifndef mini__strcmp
-#define mini__strcmp
-#endif
-#endif
-
-#ifdef mini_usleep
-//dep
-#ifndef mini_nanosleep
-#define mini_nanosleep
-#endif
-#endif
-
-#ifdef mini_ltodec
-//dep
-#ifndef mini_ultodec
-#define mini_ultodec
-#endif
-#endif
-
-#ifdef mini_vexec
-//dep
-#ifndef mini_seterrno
-#define mini_seterrno
-#endif
-#ifndef mini_waitpid
-#define mini_waitpid
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_vfork
-#define mini_vfork
-#endif
-#endif
-
-#ifdef mini_perror
-//dep
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_strerror
-#define mini_strerror
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_errno
-#define mini_errno
-#endif
-#endif
-
-#ifdef mini_gethostname
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#ifndef mini_uname
-#define mini_uname
-#endif
-#endif
-
-#ifdef mini_dirname
-//dep
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_fwrite
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_execv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#endif
-
-#ifdef mini_eprint
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_qsort
-//dep
-#ifndef mini_swap
-#define mini_swap
-#endif
-#endif
-
-#ifdef mini_fputc
-//dep
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fread
-//dep
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_eprints
+#ifdef mini__mprints
 //dep
 #ifndef mini_dprints
 #define mini_dprints
 #endif
-#endif
-
-#ifdef mini_opendirp
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_dirbuf
-#define mini_dirbuf
-#endif
-#ifndef mini_free
-#define mini_free
-#endif
-#endif
-
-#ifdef mini_closedir
-//dep
-#ifndef mini_free
-#define mini_free
-#endif
-#endif
-
-#ifdef mini_fwrites
-//dep
 #ifndef mini_write
 #define mini_write
+#endif
+#endif
+
+#ifdef mini_getenv
+//dep
+#ifndef mini_environ
+#define mini_environ
 #endif
 #endif
 
@@ -2306,73 +1271,86 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_ftell
+#ifdef mini_ntohs
 //dep
-#ifndef mini_lseek
-#define mini_lseek
+#ifndef mini_htons
+#define mini_htons
+#endif
+#ifndef mini_network
+#define mini_network
 #endif
 #endif
 
-#ifdef mini_getgrouplist
+#ifdef mini_endpwent
 //dep
-#ifndef mini_getusergroups
-#define mini_getusergroups
-#endif
-#endif
-
-#ifdef mini_userdb_open
-//dep
-#ifndef mini_globals
-#define mini_globals
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_fstat
-#define mini_fstat
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_dprints
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_getusergroups
-//dep
-#ifndef mini_getpwuid
-#define mini_getpwuid
-#endif
-#ifndef mini_setgrent
-#define mini_setgrent
-#endif
-#ifndef mini_strcmp
-#define mini_strcmp
-#endif
-#ifndef mini_grent
-#define mini_grent
+#ifndef mini_munmap
+#define mini_munmap
 #endif
 #ifndef mini_pwent
 #define mini_pwent
 #endif
-#ifndef mini_getgrent
-#define mini_getgrent
-#endif
 #endif
 
-#ifdef mini_writesl
+#ifdef mini_realloc
 //dep
-#ifndef mini_write
-#define mini_write
+#ifndef mini_free
+#define mini_free
+#endif
+#ifndef mini_malloc
+#define mini_malloc
 #endif
 #endif
 
-#ifdef mini_unsetenv
+#ifdef mini_die
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_ewritesl
+#define mini_ewritesl
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini__die
+#define mini__die
+#endif
+#endif
+
+#ifdef mini_alphasort
+//dep
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#endif
+
+#ifdef mini_where
+//dep
+#ifndef mini_access
+#define mini_access
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#endif
+
+#ifdef mini_execv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#endif
+
+#ifdef mini_putenv
 //dep
 #ifndef mini_environ
 #define mini_environ
@@ -2388,87 +1366,36 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_fputs
+#ifdef mini_grantpt
 //dep
-#ifndef mini_strlen
-#define mini_strlen
+#ifndef mini_termio
+#define mini_termio
 #endif
-#ifndef mini_fileno
-#define mini_fileno
+#ifndef mini_fstat
+#define mini_fstat
 #endif
-#ifndef mini_write
-#define mini_write
+#ifndef mini_ptsname
+#define mini_ptsname
 #endif
 #endif
 
-#ifdef mini_strcasecmp
+#ifdef mini_tcgetattr
 //dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
 #endif
 #endif
 
-#ifdef mini_vsprintf
+#ifdef mini_abort
 //dep
-#ifndef mini_0
-#define mini_0
+#ifndef mini_raise
+#define mini_raise
 #endif
-#endif
-
-#ifdef mini_strncmp
-//dep
-#ifndef mini__strcmp
-#define mini__strcmp
-#endif
-#endif
-
-#ifdef mini_ether_ntoa
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_fgetul
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_map_protected
-//dep
-#ifndef mini_mmap
-#define mini_mmap
-#endif
-#ifndef mini_mprotect
-#define mini_mprotect
-#endif
-#endif
-
-#ifdef mini_sbrk
-//dep
-#ifndef mini_sys_brk
-#define mini_sys_brk
-#endif
-#endif
-
-#ifdef mini_execvp
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execvpe
-#define mini_execvpe
-#endif
-#ifndef mini_access
-#define mini_access
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_access
-#define mini_access
+#ifndef mini_signal
+#define mini_signal
 #endif
 #endif
 
@@ -2509,34 +1436,225 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_eprintf
+#ifdef mini_error
 //dep
-#ifndef mini_fprintfs
-#define mini_fprintfs
+#ifndef mini_strerror
+#define mini_strerror
 #endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fprints
+#define mini_fprints
+#endif
+#endif
+
+#ifdef mini_fprintfs
+//dep
 #ifndef mini_fputs
 #define mini_fputs
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_fileno
+#define mini_fileno
 #endif
 #ifndef mini_strlen
 #define mini_strlen
 #endif
 #endif
 
-#ifdef mini_brk
+#ifdef mini_getusergroups
 //dep
-#ifndef mini_sys_brk
-#define mini_sys_brk
+#ifndef mini_getpwuid
+#define mini_getpwuid
+#endif
+#ifndef mini_setgrent
+#define mini_setgrent
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_grent
+#define mini_grent
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#ifndef mini_getgrent
+#define mini_getgrent
 #endif
 #endif
 
-#ifdef mini_itobin
+#ifdef mini_dief_if
 //dep
-#ifndef mini__itobin
-#define mini__itobin
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_ewritesl
+#define mini_ewritesl
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini_die
+#define mini_die
 #endif
 #endif
 
-#ifdef mini_vfprintf
+#ifdef mini_snprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#endif
+
+#ifdef mini_printsl
+//dep
+#ifndef mini__mprints
+#define mini__mprints
+#endif
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_dprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#endif
+
+#ifdef mini_fgetc
+//dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_eprintl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_memcmp
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_inet_aton
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_fgetpos
+//dep
+#ifndef mini_ftell
+#define mini_ftell
+#endif
+#endif
+
+#ifdef mini_vexec_q
+//dep
+#ifndef mini_seterrno
+#define mini_seterrno
+#endif
+#ifndef mini_waitpid
+#define mini_waitpid
+#endif
+#ifndef mini_vfork
+#define mini_vfork
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#endif
+
+#ifdef mini_getpwent
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_userdb
+#define mini_userdb
+#endif
+#endif
+
+#ifdef mini_errx
+//dep
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_sprintf
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_puts
+//dep
+#ifndef mini_printl
+#define mini_printl
+#endif
+#ifndef mini_print
+#define mini_print
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_printf
+#define mini_printf
+#endif
+#endif
+
+#ifdef mini_fprint
 //dep
 #ifndef mini_fprintf
 #define mini_fprintf
@@ -2558,164 +1676,44 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_sigprocmask
+#ifdef mini_strtok
 //dep
-#ifndef mini_rt_sigprocmask
-#define mini_rt_sigprocmask
+#ifndef mini_strtok_r
+#define mini_strtok_r
 #endif
 #endif
 
-#ifdef mini_prints
+#ifdef mini_strcmp
 //dep
-#ifndef mini__mprints
-#define mini__mprints
-#endif
-#ifndef mini_dprints
-#define mini_dprints
+#ifndef mini__strcmp
+#define mini__strcmp
 #endif
 #endif
 
-#ifdef mini_match
+#ifdef mini_getgrouplist
 //dep
-#ifndef mini__match
-#define mini__match
+#ifndef mini_getusergroups
+#define mini_getusergroups
 #endif
 #endif
 
-#ifdef mini_vsnprintf
+#ifdef mini_setbrk
 //dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_raise
-#define mini_raise
-#endif
-#ifndef mini_getpid
-#define mini_getpid
-#endif
-#ifndef mini_kill
-#define mini_kill
+#ifndef mini_brk
+#define mini_brk
 #endif
 #endif
 
-#ifdef mini_memcmp
+#ifdef mini_getchar
 //dep
-#ifndef mini_0
-#define mini_0
+#ifndef mini_fgetc
+#define mini_fgetc
 #endif
+#ifndef mini_fileno
+#define mini_fileno
 #endif
-
-#ifdef mini_die
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_ewritesl
-#define mini_ewritesl
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini__die
-#define mini__die
-#endif
-#endif
-
-#ifdef mini_htons
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_realloc
-//dep
-#ifndef mini_free
-#define mini_free
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#endif
-
-#ifdef mini_endgrent
-//dep
-#ifndef mini_munmap
-#define mini_munmap
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_getpwuid
-//dep
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#ifndef mini_mmap
-#define mini_mmap
-#endif
-#ifndef mini_passwdfile_open
-#define mini_passwdfile_open
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_token_s
-#define mini_token_s
-#endif
-#ifndef mini_token_i
-#define mini_token_i
-#endif
-#ifndef mini_setpwent
-#define mini_setpwent
-#endif
-#endif
-
-#ifdef mini_ewritesl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_fsetpos
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_dprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#endif
-
-#ifdef mini_putc
-//dep
-#ifndef mini_fputc
-#define mini_fputc
+#ifndef mini_read
+#define mini_read
 #endif
 #endif
 
@@ -2744,33 +1742,74 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_execl
+#ifdef mini_closedir
 //dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
+#ifndef mini_free
+#define mini_free
 #endif
 #endif
 
-#ifdef mini_sprintf
+#ifdef mini_eprint
 //dep
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
+#ifndef mini_write
+#define mini_write
 #endif
 #ifndef mini_strlen
 #define mini_strlen
 #endif
 #endif
 
-#ifdef mini_putchar
+#ifdef mini_free
 //dep
-#ifndef mini_fputc
-#define mini_fputc
+#ifndef mini_brk
+#define mini_brk
+#endif
+#ifndef mini_getbrk
+#define mini_getbrk
+#endif
+#endif
+
+#ifdef mini_unlockpt
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_strcat
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_htons
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_fsetpos
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_eprintfs
+//dep
+#ifndef mini_fprintfs
+#define mini_fprintfs
+#endif
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_strlen
+#define mini_strlen
 #endif
 #endif
 
@@ -2799,244 +1838,122 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_where
-//dep
-#ifndef mini_access
-#define mini_access
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#endif
-
-#ifdef mini_strrchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_wait
-//dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_die_if
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_ewritesl
-#define mini_ewritesl
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini_die
-#define mini_die
-#endif
-#endif
-
-#ifdef mini_fgetsn
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_puts
-//dep
-#ifndef mini_printl
-#define mini_printl
-#endif
-#ifndef mini_print
-#define mini_print
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_printf
-#define mini_printf
-#endif
-#endif
-
-#ifdef mini_fdopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_eprintsl
-//dep
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_freopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini__fopen
-#define mini__fopen
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_fwritesl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_strncasecmp
-//dep
-#ifndef mini__strcasecmp
-#define mini__strcasecmp
-#endif
-#endif
-
-#ifdef mini_sigsuspend
-//dep
-#ifndef mini_rt_sigsuspend
-#define mini_rt_sigsuspend
-#endif
-#endif
-
-#ifdef mini_fgetsp
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_fseek
-//dep
-#ifndef mini_lseek
-#define mini_lseek
-#endif
-#endif
-
-#ifdef mini_snprintf
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#endif
-
-#ifdef mini_getgrent
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_userdb
-#define mini_userdb
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_strtoll
-//dep
-#ifndef mini_strtol
-#define mini_strtol
-#endif
-#endif
-
-#ifdef mini_exit_errno
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#endif
-
-#ifdef mini_dies_if
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini_dies
-#define mini_dies
-#endif
-#endif
-
-#ifdef mini_grantpt
+#ifdef mini_ptsname
 //dep
 #ifndef mini_termio
 #define mini_termio
 #endif
-#ifndef mini_fstat
-#define mini_fstat
-#endif
-#ifndef mini_ptsname
-#define mini_ptsname
-#endif
-#endif
-
-#ifdef mini_fprintf
-//dep
-#ifndef mini_write
-#define mini_write
+#ifndef mini_ptsname_r
+#define mini_ptsname_r
 #endif
 #ifndef mini_snprintf
 #define mini_snprintf
 #endif
-#ifndef mini_fileno
-#define mini_fileno
+#ifndef mini_itodec
+#define mini_itodec
 #endif
-#ifndef mini_globals
-#define mini_globals
+#ifndef mini_ioctl
+#define mini_ioctl
 #endif
+#ifndef mini_sprintf
+#define mini_sprintf
+#endif
+#endif
+
+#ifdef mini_strncmp
+//dep
+#ifndef mini__strcmp
+#define mini__strcmp
+#endif
+#endif
+
+#ifdef mini_sbrk
+//dep
+#ifndef mini_sys_brk
+#define mini_sys_brk
+#endif
+#endif
+
+#ifdef mini_group_write
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_ewrite
+#define mini_ewrite
+#endif
+#ifndef mini_writes
+#define mini_writes
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_fwrites
+#define mini_fwrites
+#endif
+#ifndef mini_ewritesl
+#define mini_ewritesl
+#endif
+#ifndef mini_writesl
+#define mini_writesl
+#endif
+#endif
+
+#ifdef mini_opendirp
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_dirbuf
+#define mini_dirbuf
+#endif
+#ifndef mini_free
+#define mini_free
+#endif
+#endif
+
+#ifdef mini_getgrnam
+//dep
+#ifndef mini_grent
+#define mini_grent
+#endif
+#ifndef mini_setgrent
+#define mini_setgrent
+#endif
+#ifndef mini_getgrent
+#define mini_getgrent
+#endif
+#ifndef mini_mmap
+#define mini_mmap
+#endif
+#ifndef mini_userdb_open
+#define mini_userdb_open
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_token_s
+#define mini_token_s
+#endif
+#ifndef mini_token_i
+#define mini_token_i
+#endif
+#endif
+
+#ifdef mini_raise
+//dep
 #ifndef mini_getpid
 #define mini_getpid
 #endif
@@ -3045,62 +1962,26 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_strcat
+#ifdef mini_prints
 //dep
-#ifndef mini_strlen
-#define mini_strlen
+#ifndef mini__mprints
+#define mini__mprints
 #endif
-#endif
-
-#ifdef mini_eputs
-//dep
-#ifndef mini_eprintl
-#define mini_eprintl
-#endif
-#ifndef mini_eprint
-#define mini_eprint
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_printfs
-//dep
-#ifndef mini_fprintfs
-#define mini_fprintfs
-#endif
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_term_width
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_environ
-#define mini_environ
-#endif
-#endif
-
-#ifdef mini__mprints
-//dep
 #ifndef mini_dprints
 #define mini_dprints
 #endif
-#ifndef mini_write
-#define mini_write
+#endif
+
+#ifdef mini_strndup
+//dep
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_stplcpy
+#define mini_stplcpy
+#endif
+#ifndef mini_strlen
+#define mini_strlen
 #endif
 #endif
 
@@ -3126,27 +2007,215 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_warn
+#ifdef mini_strchr
 //dep
-#ifndef mini_fprintf
-#define mini_fprintf
+#ifndef mini_strchrnul
+#define mini_strchrnul
 #endif
 #endif
 
-#ifdef mini_fgetc
+#ifdef mini_itoHEX
+//dep
+#ifndef mini__itohex
+#define mini__itohex
+#endif
+#endif
+
+#ifdef mini_fputc
 //dep
 #ifndef mini_fileno
 #define mini_fileno
 #endif
-#ifndef mini_read
-#define mini_read
+#ifndef mini_write
+#define mini_write
 #endif
 #endif
 
-#ifdef mini_fgets
+#ifdef mini_userdb_open
+//dep
+#ifndef mini_globals
+#define mini_globals
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_fstat
+#define mini_fstat
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_freopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_fclose
+//dep
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_match_ext2
+//dep
+#ifndef mini__match_ext2
+#define mini__match_ext2
+#endif
+#endif
+
+#ifdef mini_unsetenv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_strncmp
+#define mini_strncmp
+#endif
+#ifndef mini_ret_errno
+#define mini_ret_errno
+#endif
+#endif
+
+#ifdef mini_term_width
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_environ
+#define mini_environ
+#endif
+#endif
+
+#ifdef mini__strcasecmp
+//dep
+#ifndef mini_tolower
+#define mini_tolower
+#endif
+#endif
+
+#ifdef mini_fwrite
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_setenv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_strncmp
+#define mini_strncmp
+#endif
+#ifndef mini_ret_errno
+#define mini_ret_errno
+#endif
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_strcpy
+#define mini_strcpy
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_stpcpy
+#define mini_stpcpy
+#endif
+#endif
+
+#ifdef mini_wait
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_putchar
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_fgetsp
 //dep
 #ifndef mini_fgetc
 #define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_dprints
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_fseek
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_cfmakeraw
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#endif
+
+#ifdef mini_vfprintf
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_fread
+//dep
+#ifndef mini_read
+#define mini_read
 #endif
 #endif
 
@@ -3178,6 +2247,138 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
+#ifdef mini_exit_errno
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#endif
+
+#ifdef mini_malloc
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_vexec
+//dep
+#ifndef mini_seterrno
+#define mini_seterrno
+#endif
+#ifndef mini_waitpid
+#define mini_waitpid
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_vfork
+#define mini_vfork
+#endif
+#endif
+
+#ifdef mini_eprintsl
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_strrchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
+#endif
+#endif
+
+#ifdef mini_fgetul
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_gethostname
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#ifndef mini_uname
+#define mini_uname
+#endif
+#endif
+
+#ifdef mini_ether_ntoa
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_sigaction
+//dep
+#ifndef mini_memcpy
+#define mini_memcpy
+#endif
+#ifndef mini_rt_sigaction
+#define mini_rt_sigaction
+#endif
+#endif
+
+#ifdef mini_ftell
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_fgets
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_creat
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_writesl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_putc
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_htonl
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
 #ifdef mini_fprints
 //dep
 #ifndef mini_fileno
@@ -3194,104 +2395,10 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_snprintfs
+#ifdef mini_vsprintf
 //dep
 #ifndef mini_0
 #define mini_0
-#endif
-#endif
-
-#ifdef mini_raise
-//dep
-#ifndef mini_getpid
-#define mini_getpid
-#endif
-#ifndef mini_kill
-#define mini_kill
-#endif
-#endif
-
-#ifdef mini_strdup
-//dep
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_strcpy
-#define mini_strcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_ewrites
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_getenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#endif
-
-#ifdef mini_ptsname_r
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_sprintf
-#define mini_sprintf
-#endif
-#endif
-
-#ifdef mini_fprint
-//dep
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_vsnprintf
-#define mini_vsnprintf
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_isatty
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_tcgetattr
-#define mini_tcgetattr
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
 #endif
 #endif
 
@@ -3356,59 +2463,24 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_writes
+#ifdef mini_sigsuspend
 //dep
-#ifndef mini_write
-#define mini_write
+#ifndef mini_rt_sigsuspend
+#define mini_rt_sigsuspend
 #endif
 #endif
 
-#ifdef mini_ptsname
+#ifdef mini_itobin
 //dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ptsname_r
-#define mini_ptsname_r
-#endif
-#ifndef mini_snprintf
-#define mini_snprintf
-#endif
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#ifndef mini_sprintf
-#define mini_sprintf
+#ifndef mini__itobin
+#define mini__itobin
 #endif
 #endif
 
-#ifdef mini_inet_aton
+#ifdef mini_strtoll
 //dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_printl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_getchar
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
+#ifndef mini_strtol
+#define mini_strtol
 #endif
 #endif
 
@@ -3425,401 +2497,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_setbrk
-//dep
-#ifndef mini_brk
-#define mini_brk
-#endif
-#endif
-
-#ifdef mini_error
-//dep
-#ifndef mini_strerror
-#define mini_strerror
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_fprints
-#define mini_fprints
-#endif
-#endif
-
-#ifdef mini_readdir
-//dep
-#ifndef mini_dirbuf
-#define mini_dirbuf
-#endif
-#ifndef mini_getdents
-#define mini_getdents
-#endif
-#endif
-
-#ifdef mini_creat
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_atexit
-//dep
-#ifndef mini_globals
-#define mini_globals
-#endif
-#endif
-
-#ifdef mini_tcgetattr
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_free
-//dep
-#ifndef mini_brk
-#define mini_brk
-#endif
-#ifndef mini_getbrk
-#define mini_getbrk
-#endif
-#endif
-
-#ifdef mini_eprintl
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#endif
-
-#ifdef mini_ntohs
-//dep
-#ifndef mini_htons
-#define mini_htons
-#endif
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_rewind
-//dep
-#ifndef mini_fseek
-#define mini_fseek
-#endif
-#endif
-
-#ifdef mini__strcasecmp
-//dep
-#ifndef mini_tolower
-#define mini_tolower
-#endif
-#endif
-
-#ifdef mini_match_ext2
-//dep
-#ifndef mini__match_ext2
-#define mini__match_ext2
-#endif
-#endif
-
-#ifdef mini_sigaction
-//dep
-#ifndef mini_memcpy
-#define mini_memcpy
-#endif
-#ifndef mini_rt_sigaction
-#define mini_rt_sigaction
-#endif
-#endif
-
-#ifdef mini_strchr
-//dep
-#ifndef mini_strchrnul
-#define mini_strchrnul
-#endif
-#endif
-
-#ifdef mini_dief
-//dep
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_errno_str
-#define mini_errno_str
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_exit_errno
-#define mini_exit_errno
-#endif
-#ifndef mini__die
-#define mini__die
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#endif
-
-#ifdef mini_malloc_brk
-//dep
-#ifndef mini_sbrk
-#define mini_sbrk
-#endif
-#ifndef mini_getbrk
-#define mini_getbrk
-#endif
-#endif
-
-#ifdef mini_abort
-//dep
-#ifndef mini_raise
-#define mini_raise
-#endif
-#ifndef mini_signal
-#define mini_signal
-#endif
-#endif
-
-#ifdef mini_endpwent
-//dep
-#ifndef mini_munmap
-#define mini_munmap
-#endif
-#ifndef mini_pwent
-#define mini_pwent
-#endif
-#endif
-
-#ifdef mini_itoHEX
-//dep
-#ifndef mini__itohex
-#define mini__itohex
-#endif
-#endif
-
-#ifdef mini_waitpid
-//dep
-#ifndef mini_wait4
-#define mini_wait4
-#endif
-#endif
-
-#ifdef mini_unlockpt
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini__fopen
-//dep
-#ifndef mini_open
-#define mini_open
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_fclose
-//dep
-#ifndef mini_close
-#define mini_close
-#endif
-#endif
-
-#ifdef mini_print
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_unmap_protected
-//dep
-#ifndef mini_munmap
-#define mini_munmap
-#endif
-#ifndef mini_mprotect
-#define mini_mprotect
-#endif
-#endif
-
-#ifdef mini_malloc
-//dep
-#ifndef mini_0
-#define mini_0
-#endif
-#endif
-
-#ifdef mini_err
-//dep
-#ifndef mini_strerror
-#define mini_strerror
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#ifndef mini_errno
-#define mini_errno
-#endif
-#ifndef mini_fprints
-#define mini_fprints
-#endif
-#endif
-
-#ifdef mini_setenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_strncmp
-#define mini_strncmp
-#endif
-#ifndef mini_ret_errno
-#define mini_ret_errno
-#endif
-#ifndef mini_malloc
-#define mini_malloc
-#endif
-#ifndef mini_strcpy
-#define mini_strcpy
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#ifndef mini_stpcpy
-#define mini_stpcpy
-#endif
-#endif
-
-#ifdef mini_fgetud
-//dep
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#endif
-
-#ifdef mini_strtok
-//dep
-#ifndef mini_strtok_r
-#define mini_strtok_r
-#endif
-#endif
-
-#ifdef mini_printsl
-//dep
-#ifndef mini__mprints
-#define mini__mprints
-#endif
-#ifndef mini_dprints
-#define mini_dprints
-#endif
-#endif
-
-#ifdef mini_fprintfs
-//dep
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_strlen
-#define mini_strlen
-#endif
-#endif
-
-#ifdef mini_htonl
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_sleep
-//dep
-#ifndef mini_nanosleep
-#define mini_nanosleep
-#endif
-#endif
-
-#ifdef mini_group_write
-//dep
-#ifndef mini_write
-#define mini_write
-#endif
-#ifndef mini_ewrite
-#define mini_ewrite
-#endif
-#ifndef mini_writes
-#define mini_writes
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_fwrites
-#define mini_fwrites
-#endif
-#ifndef mini_ewritesl
-#define mini_ewritesl
-#endif
-#ifndef mini_writesl
-#define mini_writesl
-#endif
-#endif
-
-#ifdef mini_putenv
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_strncmp
-#define mini_strncmp
-#endif
-#ifndef mini_ret_errno
-#define mini_ret_errno
-#endif
-#endif
-
-#ifdef mini_itodec
-//dep
-#ifndef mini_uitodec
-#define mini_uitodec
-#endif
-#endif
-
-#ifdef mini_eprintfs
+#ifdef mini_eprintf
 //dep
 #ifndef mini_fprintfs
 #define mini_fprintfs
@@ -3848,49 +2526,204 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_dtodec
+#ifdef mini_ewrites
 //dep
-#ifndef mini_itodec
-#define mini_itodec
-#endif
-#ifndef mini_uitodec
-#define mini_uitodec
+#ifndef mini_write
+#define mini_write
 #endif
 #endif
 
-#ifdef mini_alphasort
+#ifdef mini_fgetsn
 //dep
-#ifndef mini_strcmp
-#define mini_strcmp
+#ifndef mini_fgetc
+#define mini_fgetc
 #endif
 #endif
 
-#ifdef mini_getpwent
+#ifdef mini_perror
 //dep
-#ifndef mini_open
-#define mini_open
+#ifndef mini_fputs
+#define mini_fputs
 #endif
-#ifndef mini_userdb
-#define mini_userdb
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_errno
+#define mini_errno
 #endif
 #endif
 
-#ifdef mini_vexec_q
+#ifdef mini_print
 //dep
-#ifndef mini_seterrno
-#define mini_seterrno
+#ifndef mini_write
+#define mini_write
 #endif
-#ifndef mini_waitpid
-#define mini_waitpid
+#ifndef mini_strlen
+#define mini_strlen
 #endif
-#ifndef mini_vfork
-#define mini_vfork
+#endif
+
+#ifdef mini_isatty
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_tcgetattr
+#define mini_tcgetattr
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_malloc_brk
+//dep
+#ifndef mini_sbrk
+#define mini_sbrk
+#endif
+#ifndef mini_getbrk
+#define mini_getbrk
+#endif
+#endif
+
+#ifdef mini_atexit
+//dep
+#ifndef mini_globals
+#define mini_globals
+#endif
+#endif
+
+#ifdef mini_sigprocmask
+//dep
+#ifndef mini_rt_sigprocmask
+#define mini_rt_sigprocmask
+#endif
+#endif
+
+#ifdef mini_fwritesl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_waitpid
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_eputs
+//dep
+#ifndef mini_eprintl
+#define mini_eprintl
+#endif
+#ifndef mini_eprint
+#define mini_eprint
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_ewritesl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_vsnprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_raise
+#define mini_raise
+#endif
+#ifndef mini_getpid
+#define mini_getpid
+#endif
+#ifndef mini_kill
+#define mini_kill
+#endif
+#endif
+
+#ifdef mini_execl
+//dep
+#ifndef mini_environ
+#define mini_environ
 #endif
 #ifndef mini_execve
 #define mini_execve
 #endif
-#ifndef mini_exit
-#define mini_exit
+#endif
+
+#ifdef mini_fputs
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_getpwuid
+//dep
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#ifndef mini_mmap
+#define mini_mmap
+#endif
+#ifndef mini_passwdfile_open
+#define mini_passwdfile_open
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_token_s
+#define mini_token_s
+#endif
+#ifndef mini_token_i
+#define mini_token_i
+#endif
+#ifndef mini_setpwent
+#define mini_setpwent
+#endif
+#endif
+
+#ifdef mini_endgrent
+//dep
+#ifndef mini_munmap
+#define mini_munmap
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
+
+#ifdef mini_rewind
+//dep
+#ifndef mini_fseek
+#define mini_fseek
 #endif
 #endif
 
@@ -3901,37 +2734,7 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_cfmakeraw
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#endif
-
-#ifdef mini_posix_openpt
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_open
-#define mini_open
-#endif
-#endif
-
-#ifdef mini_signal
-//dep
-#ifndef mini_sigaction
-#define mini_sigaction
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_rt_sigaction
-#define mini_rt_sigaction
-#endif
-#endif
-
-#ifdef mini_dief_if
+#ifdef mini_die_if
 //dep
 #ifndef mini_execve
 #define mini_execve
@@ -3950,6 +2753,421 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #ifndef mini_die
 #define mini_die
+#endif
+#endif
+
+#ifdef mini_assert
+//dep
+#ifndef mini_abort
+#define mini_abort
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#endif
+
+#ifdef mini_ltodec
+//dep
+#ifndef mini_ultodec
+#define mini_ultodec
+#endif
+#endif
+
+#ifdef mini_itohex
+//dep
+#ifndef mini__itohex
+#define mini__itohex
+#endif
+#endif
+
+#ifdef mini_printl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_fdopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_brk
+//dep
+#ifndef mini_sys_brk
+#define mini_sys_brk
+#endif
+#endif
+
+#ifdef mini__fopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_snprintfs
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_fprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_globals
+#define mini_globals
+#endif
+#ifndef mini_getpid
+#define mini_getpid
+#endif
+#ifndef mini_kill
+#define mini_kill
+#endif
+#endif
+
+#ifdef mini_fwrites
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_dief
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini__die
+#define mini__die
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_qsort
+//dep
+#ifndef mini_swap
+#define mini_swap
+#endif
+#endif
+
+#ifdef mini_strncasecmp
+//dep
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
+#endif
+#endif
+
+#ifdef mini_posix_openpt
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#endif
+
+#ifdef mini_inet_ntoa
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_sleep
+//dep
+#ifndef mini_nanosleep
+#define mini_nanosleep
+#endif
+#endif
+
+#ifdef mini_eprints
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_getgrent
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_userdb
+#define mini_userdb
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
+
+#ifdef mini_err
+//dep
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_errno
+#define mini_errno
+#endif
+#ifndef mini_fprints
+#define mini_fprints
+#endif
+#endif
+
+#ifdef mini_strcasecmp
+//dep
+#ifndef mini__strcasecmp
+#define mini__strcasecmp
+#endif
+#endif
+
+#ifdef mini_dies_if
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini_dies
+#define mini_dies
+#endif
+#endif
+
+#ifdef mini_fgetud
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_writes
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_usleep
+//dep
+#ifndef mini_nanosleep
+#define mini_nanosleep
+#endif
+#endif
+
+#ifdef mini_strdup
+//dep
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_strcpy
+#define mini_strcpy
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_execvp
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execvpe
+#define mini_execvpe
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#endif
+
+#ifdef mini_itodec
+//dep
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini_system
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_vfork
+#define mini_vfork
+#endif
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_waitpid
+#define mini_waitpid
+#endif
+#endif
+
+#ifdef mini_map_protected
+//dep
+#ifndef mini_mmap
+#define mini_mmap
+#endif
+#ifndef mini_mprotect
+#define mini_mprotect
+#endif
+#endif
+
+#ifdef mini_printfs
+//dep
+#ifndef mini_fprintfs
+#define mini_fprintfs
+#endif
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_tcsetattr
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_execvpe
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_access
+#define mini_access
+#endif
+#ifndef mini_where
+#define mini_where
+#endif
+#endif
+
+#ifdef mini_ptsname_r
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_sprintf
+#define mini_sprintf
+#endif
+#endif
+
+#ifdef mini_match
+//dep
+#ifndef mini__match
+#define mini__match
+#endif
+#endif
+
+#ifdef mini_warn
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_dtodec
+//dep
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_uitodec
+#define mini_uitodec
+#endif
+#endif
+
+#ifdef mini_unmap_protected
+//dep
+#ifndef mini_munmap
+#define mini_munmap
+#endif
+#ifndef mini_mprotect
+#define mini_mprotect
 #endif
 #endif
 
@@ -4002,10 +3220,26 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_fgetpos
+#ifdef mini_readdir
 //dep
-#ifndef mini_ftell
-#define mini_ftell
+#ifndef mini_dirbuf
+#define mini_dirbuf
+#endif
+#ifndef mini_getdents
+#define mini_getdents
+#endif
+#endif
+
+#ifdef mini_signal
+//dep
+#ifndef mini_sigaction
+#define mini_sigaction
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_rt_sigaction
+#define mini_rt_sigaction
 #endif
 #endif
 
@@ -4055,6 +3289,718 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
+#ifdef mini_dirname
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_gets
+//dep
+#ifndef mini_fgets
+#define mini_fgets
+#endif
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini__mprints
+//dep
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_getenv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#endif
+
+#ifdef mini_dies
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini__die
+#define mini__die
+#endif
+#ifndef mini_eprintsl
+#define mini_eprintsl
+#endif
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_ntohs
+//dep
+#ifndef mini_htons
+#define mini_htons
+#endif
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_endpwent
+//dep
+#ifndef mini_munmap
+#define mini_munmap
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
+
+#ifdef mini_realloc
+//dep
+#ifndef mini_free
+#define mini_free
+#endif
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#endif
+
+#ifdef mini_die
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_ewritesl
+#define mini_ewritesl
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini__die
+#define mini__die
+#endif
+#endif
+
+#ifdef mini_alphasort
+//dep
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#endif
+
+#ifdef mini_where
+//dep
+#ifndef mini_access
+#define mini_access
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#endif
+
+#ifdef mini_execv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#endif
+
+#ifdef mini_putenv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_strncmp
+#define mini_strncmp
+#endif
+#ifndef mini_ret_errno
+#define mini_ret_errno
+#endif
+#endif
+
+#ifdef mini_grantpt
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_fstat
+#define mini_fstat
+#endif
+#ifndef mini_ptsname
+#define mini_ptsname
+#endif
+#endif
+
+#ifdef mini_tcgetattr
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_abort
+//dep
+#ifndef mini_raise
+#define mini_raise
+#endif
+#ifndef mini_signal
+#define mini_signal
+#endif
+#endif
+
+#ifdef mini_getgrgid
+//dep
+#ifndef mini_grent
+#define mini_grent
+#endif
+#ifndef mini_setgrent
+#define mini_setgrent
+#endif
+#ifndef mini_getgrent
+#define mini_getgrent
+#endif
+#ifndef mini_mmap
+#define mini_mmap
+#endif
+#ifndef mini_userdb_open
+#define mini_userdb_open
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_token_s
+#define mini_token_s
+#endif
+#ifndef mini_token_i
+#define mini_token_i
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#endif
+
+#ifdef mini_error
+//dep
+#ifndef mini_strerror
+#define mini_strerror
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fprints
+#define mini_fprints
+#endif
+#endif
+
+#ifdef mini_fprintfs
+//dep
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_getusergroups
+//dep
+#ifndef mini_getpwuid
+#define mini_getpwuid
+#endif
+#ifndef mini_setgrent
+#define mini_setgrent
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_grent
+#define mini_grent
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#ifndef mini_getgrent
+#define mini_getgrent
+#endif
+#endif
+
+#ifdef mini_dief_if
+//dep
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_errno_str
+#define mini_errno_str
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_ewritesl
+#define mini_ewritesl
+#endif
+#ifndef mini_exit_errno
+#define mini_exit_errno
+#endif
+#ifndef mini_die
+#define mini_die
+#endif
+#endif
+
+#ifdef mini_snprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#endif
+
+#ifdef mini_printsl
+//dep
+#ifndef mini__mprints
+#define mini__mprints
+#endif
+#ifndef mini_dprints
+#define mini_dprints
+#endif
+#endif
+
+#ifdef mini_dprintf
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#endif
+
+#ifdef mini_fgetc
+//dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_eprintl
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_memcmp
+//dep
+#ifndef mini_0
+#define mini_0
+#endif
+#endif
+
+#ifdef mini_inet_aton
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_fgetpos
+//dep
+#ifndef mini_ftell
+#define mini_ftell
+#endif
+#endif
+
+#ifdef mini_vexec_q
+//dep
+#ifndef mini_seterrno
+#define mini_seterrno
+#endif
+#ifndef mini_waitpid
+#define mini_waitpid
+#endif
+#ifndef mini_vfork
+#define mini_vfork
+#endif
+#ifndef mini_execve
+#define mini_execve
+#endif
+#ifndef mini_exit
+#define mini_exit
+#endif
+#endif
+
+#ifdef mini_getpwent
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_userdb
+#define mini_userdb
+#endif
+#endif
+
+#ifdef mini_errx
+//dep
+#ifndef mini_exit
+#define mini_exit
+#endif
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#endif
+
+#ifdef mini_sprintf
+//dep
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_puts
+//dep
+#ifndef mini_printl
+#define mini_printl
+#endif
+#ifndef mini_print
+#define mini_print
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_printf
+#define mini_printf
+#endif
+#endif
+
+#ifdef mini_fprint
+//dep
+#ifndef mini_fprintf
+#define mini_fprintf
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_strtok
+//dep
+#ifndef mini_strtok_r
+#define mini_strtok_r
+#endif
+#endif
+
+#ifdef mini_strcmp
+//dep
+#ifndef mini__strcmp
+#define mini__strcmp
+#endif
+#endif
+
+#ifdef mini_getgrouplist
+//dep
+#ifndef mini_getusergroups
+#define mini_getusergroups
+#endif
+#endif
+
+#ifdef mini_setbrk
+//dep
+#ifndef mini_brk
+#define mini_brk
+#endif
+#endif
+
+#ifdef mini_getchar
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_read
+#define mini_read
+#endif
+#endif
+
+#ifdef mini_getgroups
+//dep
+#ifndef mini_getpwuid
+#define mini_getpwuid
+#endif
+#ifndef mini_setgrent
+#define mini_setgrent
+#endif
+#ifndef mini_strcmp
+#define mini_strcmp
+#endif
+#ifndef mini_grent
+#define mini_grent
+#endif
+#ifndef mini_pwent
+#define mini_pwent
+#endif
+#ifndef mini_getusergroups
+#define mini_getusergroups
+#endif
+#ifndef mini_getuid
+#define mini_getuid
+#endif
+#endif
+
+#ifdef mini_closedir
+//dep
+#ifndef mini_free
+#define mini_free
+#endif
+#endif
+
+#ifdef mini_eprint
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_free
+//dep
+#ifndef mini_brk
+#define mini_brk
+#endif
+#ifndef mini_getbrk
+#define mini_getbrk
+#endif
+#endif
+
+#ifdef mini_unlockpt
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#endif
+
+#ifdef mini_strcat
+//dep
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_htons
+//dep
+#ifndef mini_network
+#define mini_network
+#endif
+#endif
+
+#ifdef mini_fsetpos
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_eprintfs
+//dep
+#ifndef mini_fprintfs
+#define mini_fprintfs
+#endif
+#ifndef mini_fputs
+#define mini_fputs
+#endif
+#ifndef mini_strlen
+#define mini_strlen
+#endif
+#endif
+
+#ifdef mini_opendir
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_dirbuf
+#define mini_dirbuf
+#endif
+#ifndef mini_opendirp
+#define mini_opendirp
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_free
+#define mini_free
+#endif
+#endif
+
+#ifdef mini_ptsname
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_ptsname_r
+#define mini_ptsname_r
+#endif
+#ifndef mini_snprintf
+#define mini_snprintf
+#endif
+#ifndef mini_itodec
+#define mini_itodec
+#endif
+#ifndef mini_ioctl
+#define mini_ioctl
+#endif
+#ifndef mini_sprintf
+#define mini_sprintf
+#endif
+#endif
+
+#ifdef mini_strncmp
+//dep
+#ifndef mini__strcmp
+#define mini__strcmp
+#endif
+#endif
+
+#ifdef mini_sbrk
+//dep
+#ifndef mini_sys_brk
+#define mini_sys_brk
+#endif
+#endif
+
+#ifdef mini_group_write
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#ifndef mini_ewrite
+#define mini_ewrite
+#endif
+#ifndef mini_writes
+#define mini_writes
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_fwrites
+#define mini_fwrites
+#endif
+#ifndef mini_ewritesl
+#define mini_ewritesl
+#endif
+#ifndef mini_writesl
+#define mini_writesl
+#endif
+#endif
+
+#ifdef mini_opendirp
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_dirbuf
+#define mini_dirbuf
+#endif
+#ifndef mini_free
+#define mini_free
+#endif
+#endif
+
 #ifdef mini_getgrnam
 //dep
 #ifndef mini_grent
@@ -4089,101 +4035,23 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_assert
+#ifdef mini_raise
 //dep
-#ifndef mini_abort
-#define mini_abort
+#ifndef mini_getpid
+#define mini_getpid
 #endif
-#ifndef mini_ewrites
-#define mini_ewrites
+#ifndef mini_kill
+#define mini_kill
 #endif
 #endif
 
-#ifdef mini_system
+#ifdef mini_prints
 //dep
-#ifndef mini_execve
-#define mini_execve
+#ifndef mini__mprints
+#define mini__mprints
 #endif
-#ifndef mini_vfork
-#define mini_vfork
-#endif
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_ewrites
-#define mini_ewrites
-#endif
-#ifndef mini_waitpid
-#define mini_waitpid
-#endif
-#endif
-
-#ifdef mini_inet_ntoa
-//dep
-#ifndef mini_network
-#define mini_network
-#endif
-#endif
-
-#ifdef mini_errx
-//dep
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_fprintf
-#define mini_fprintf
-#endif
-#endif
-
-#ifdef mini_itohex
-//dep
-#ifndef mini__itohex
-#define mini__itohex
-#endif
-#endif
-
-#ifdef mini_gets
-//dep
-#ifndef mini_fgets
-#define mini_fgets
-#endif
-#ifndef mini_fgetc
-#define mini_fgetc
-#endif
-#ifndef mini_fileno
-#define mini_fileno
-#endif
-#ifndef mini_read
-#define mini_read
-#endif
-#endif
-
-#ifdef mini_tcsetattr
-//dep
-#ifndef mini_termio
-#define mini_termio
-#endif
-#ifndef mini_ioctl
-#define mini_ioctl
-#endif
-#endif
-
-#ifdef mini_execvpe
-//dep
-#ifndef mini_environ
-#define mini_environ
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_getenv
-#define mini_getenv
-#endif
-#ifndef mini_access
-#define mini_access
-#endif
-#ifndef mini_where
-#define mini_where
+#ifndef mini_dprints
+#define mini_dprints
 #endif
 #endif
 
@@ -4200,76 +4068,208 @@ struct udiv_t { unsigned int quot, rem; };
 #endif
 #endif
 
-#ifdef mini_strcmp
+#ifdef mini_printf
 //dep
-#ifndef mini__strcmp
-#define mini__strcmp
+#ifndef mini_fprintf
+#define mini_fprintf
 #endif
+#ifndef mini_fileno
+#define mini_fileno
 #endif
-
-#ifdef mini_usleep
-//dep
-#ifndef mini_nanosleep
-#define mini_nanosleep
+#ifndef mini_snprintf
+#define mini_snprintf
 #endif
+#ifndef mini_vsnprintf
+#define mini_vsnprintf
 #endif
-
-#ifdef mini_ltodec
-//dep
-#ifndef mini_ultodec
-#define mini_ultodec
-#endif
-#endif
-
-#ifdef mini_vexec
-//dep
-#ifndef mini_seterrno
-#define mini_seterrno
-#endif
-#ifndef mini_waitpid
-#define mini_waitpid
-#endif
-#ifndef mini_exit
-#define mini_exit
-#endif
-#ifndef mini_execve
-#define mini_execve
-#endif
-#ifndef mini_vfork
-#define mini_vfork
-#endif
-#endif
-
-#ifdef mini_perror
-//dep
-#ifndef mini_fputs
-#define mini_fputs
-#endif
-#ifndef mini_strerror
-#define mini_strerror
+#ifndef mini_write
+#define mini_write
 #endif
 #ifndef mini_strlen
 #define mini_strlen
 #endif
-#ifndef mini_errno
-#define mini_errno
+#endif
+
+#ifdef mini_strchr
+//dep
+#ifndef mini_strchrnul
+#define mini_strchrnul
 #endif
 #endif
 
-#ifdef mini_gethostname
+#ifdef mini_itoHEX
 //dep
-#ifndef mini_network
-#define mini_network
-#endif
-#ifndef mini_uname
-#define mini_uname
+#ifndef mini__itohex
+#define mini__itohex
 #endif
 #endif
 
-#ifdef mini_dirname
+#ifdef mini_fputc
 //dep
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_userdb_open
+//dep
+#ifndef mini_globals
+#define mini_globals
+#endif
+#ifndef mini_ewrites
+#define mini_ewrites
+#endif
+#ifndef mini_fstat
+#define mini_fstat
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_freopen
+//dep
+#ifndef mini_open
+#define mini_open
+#endif
+#ifndef mini__fopen
+#define mini__fopen
+#endif
+#ifndef mini_fileno
+#define mini_fileno
+#endif
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_fclose
+//dep
+#ifndef mini_close
+#define mini_close
+#endif
+#endif
+
+#ifdef mini_match_ext2
+//dep
+#ifndef mini__match_ext2
+#define mini__match_ext2
+#endif
+#endif
+
+#ifdef mini_unsetenv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_strncmp
+#define mini_strncmp
+#endif
+#ifndef mini_ret_errno
+#define mini_ret_errno
+#endif
+#endif
+
+#ifdef mini_term_width
+//dep
+#ifndef mini_termio
+#define mini_termio
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_environ
+#define mini_environ
+#endif
+#endif
+
+#ifdef mini__strcasecmp
+//dep
+#ifndef mini_tolower
+#define mini_tolower
+#endif
+#endif
+
+#ifdef mini_fwrite
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_setenv
+//dep
+#ifndef mini_environ
+#define mini_environ
+#endif
+#ifndef mini_getenv
+#define mini_getenv
+#endif
+#ifndef mini_strncmp
+#define mini_strncmp
+#endif
+#ifndef mini_ret_errno
+#define mini_ret_errno
+#endif
+#ifndef mini_malloc
+#define mini_malloc
+#endif
+#ifndef mini_strcpy
+#define mini_strcpy
+#endif
 #ifndef mini_strlen
 #define mini_strlen
+#endif
+#ifndef mini_stpcpy
+#define mini_stpcpy
+#endif
+#endif
+
+#ifdef mini_wait
+//dep
+#ifndef mini_wait4
+#define mini_wait4
+#endif
+#endif
+
+#ifdef mini_putchar
+//dep
+#ifndef mini_fputc
+#define mini_fputc
+#endif
+#endif
+
+#ifdef mini_fgetsp
+//dep
+#ifndef mini_fgetc
+#define mini_fgetc
+#endif
+#endif
+
+#ifdef mini_dprints
+//dep
+#ifndef mini_write
+#define mini_write
+#endif
+#endif
+
+#ifdef mini_fseek
+//dep
+#ifndef mini_lseek
+#define mini_lseek
+#endif
+#endif
+
+#ifdef mini_cfmakeraw
+//dep
+#ifndef mini_termio
+#define mini_termio
 #endif
 #endif
 // Start incfirst
@@ -4296,275 +4296,13 @@ struct udiv_t { unsigned int quot, rem; };
 #include "minilib/include/syscall_stubs.h"
 
 
-// minilib/src/conversions/itohex.c
-#ifdef mini_itohex
-int itohex(int i,char* buf,int padding);
-#define include_minilib_src_conversions_itohex_c
-#endif
-
-// minilib/src/exec/execvp.c
-#ifdef mini_execvpe
-static int execvpe(const char *file, char *const argv[], char *const envp[]);
-#endif
-
-// minilib/include/termio.h
-#ifdef mini_termio
-#define minilib_include_termio_h
-#endif
-
-// minilib/src/conversions/itohex.c
-#ifdef mini__itohex
-int _itohex(int i,char* buf,int padding, int capitals);
-#define include_minilib_src_conversions_itohex_c
-#endif
-
-// minilib/src/string/strcmp.c
-#ifdef mini_strcmp
-int strcmp(const char*c1,const char*c2);
-#define include_minilib_src_string_strcmp_c
-#endif
-
-// minilib/src/conversions/ltodec.c
-#ifdef mini_ltodec
-int ltodec(long i, char *buf, int prec, char limiter );
-#endif
-
-// 
-#ifdef mini_tolower
-#endif
-
-// minilib/src/string/strchrnul.c
-#ifdef mini_strchrnul
-char *strchrnul(const char *s, int c);
-#endif
-
-// minilib/src/memory/mmap.c
-#ifdef mini_mmap
-static void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
-#endif
-
-// minilib/include/ret_errno.h
-#ifdef mini_ret_errno
-#define minilib_include_ret_errno_h
-#endif
-
-// minilib/src/string/strcmp.c
-#ifdef mini__strcmp
-int _strcmp(const char *s1, const char *s2, int n);
-#define include_minilib_src_string_strcmp_c
-#endif
-
-// minilib/src/process/signal.c
-#ifdef mini_signal
-sighandler_t signal(int sig, sighandler_t func );
-#endif
-
-// minilib/src/match/match_ext2.c
-#ifdef mini__match_ext2
-char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
-#endif
-
-// minilib/src/process/errno_str.c
-#ifdef mini_errno_str
-static char *errno_str(int err);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_eprintfs
-#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
-#endif
-
-// minilib/src/conversions/itodec.c
-#ifdef mini_itodec
-int itodec(int i, char *buf, int prec, char limiter, char pad );
-#endif
-
-// 
-#ifdef mini_exit
-#endif
-
-// minilib/src/string/strtol.c
-#ifdef mini_strtol
-long int strtol(const char *c, const char **endp, int base);
-#endif
-
-// minilib/src/userdb/userdb.c
-#ifdef mini_token_s
-char *token_s( userdb *udb, char **p );
-#define include_minilib_src_userdb_userdb_c
-#endif
-
-// minilib/src/system/ioctl.c
-#ifdef mini_ioctl
-int volatile  ATTR_OPT("O0") ioctl( int fd, unsigned long int request, ... );
-#endif
-
 // 
 #ifdef mini_grent
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_printsl
-#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
-#endif
-
-// minilib/include/network.h
-#ifdef mini_network
-#define minilib_include_network_h
-#endif
-
-// minilib/src/output/fprintfs.c
-#ifdef mini_fprintfs
-int fprintfs( FILE* F, char *fmt, ...);
-#endif
-
-// minilib/src/string/stplcpy.c
-#ifdef mini_stplcpy
-char *stplcpy(char *dest, const char *src, int size);
-#endif
-
-// minilib/src/process/abort.c
-#ifdef mini_abort
-void abort();
-#endif
-
-// minilib/src/conversions/itooct.c
-#ifdef mini_itooct
-int itooct(int i, char *buf);
-#endif
-
-// 
-#ifdef mini_userdb
-#endif
-
-// minilib/src/match/match.c
-#ifdef mini__match
-int _match(char *text, const char *re, text_match *st_match);
-#endif
-
-// minilib/src/process/wait.c
-#ifdef mini_waitpid
-pid_t waitpid(pid_t pid, int *wstatus, int options);
-#define include_minilib_src_process_wait_c
-#endif
-
-// minilib/src/conversions/itohex.c
-#ifdef mini_itoHEX
-int itoHEX(int i,char* buf,int padding);
-#define include_minilib_src_conversions_itohex_c
-#endif
-
-// minilib/src/streams/_fopen.c
-#ifdef mini__fopen
-FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_print
-#define print(str) write(STDOUT_FILENO,str,strlen(str))
-#endif
-
-// minilib/src/memory/malloc.c
-#ifdef mini_malloc
-void* malloc(int size);
-#define include_minilib_src_memory_malloc_c
-#endif
-
-// 
-#ifdef mini_uitoHEX
-#endif
-
-// minilib/src/termios/tcgetattr.c
-#ifdef mini_tcgetattr
-int tcgetattr(int fd, struct termios *io);
-#endif
-
-// minilib/src/memory/malloc.c
-#ifdef mini_free
-void free(void *p);
-#define include_minilib_src_memory_malloc_c
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_eprintl
-#define eprintl() write(STDERR_FILENO,"\n",1)
-#endif
-
-// minilib/src/string/strcpy.c
-#ifdef mini_strcpy
-char *strcpy(char *dest, const char *src);
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fileno
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/src/userdb/setgrent.c
-#ifdef mini_setgrent
-void setgrent();
-#endif
-
-// minilib/src/process/sigaction.c
-#ifdef mini_sigaction
-static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
-#define include_minilib_src_process_sigaction_c
-#endif
-
-// minilib/src/string/strcasecmp.c
-#ifdef mini__strcasecmp
-int _strcasecmp(const char*c1,const char*c2,int len);
-#define include_minilib_src_string_strcasecmp_c
-#endif
-
-// minilib/src/memory/malloc_brk.c
-#ifdef mini_malloc_brk
-void* malloc_brk(int size);
-#endif
-
-// minilib/include/pwent.h
-#ifdef mini_pwent
-#define minilib_include_pwent_h
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_writes
-#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
-#endif
-
-// minilib/src/termios/pty.c
-#ifdef mini_ptsname
-char *ptsname(int fd);
-#endif
-
-// minilib/src/conversions/itobin.c
-#ifdef mini__itobin
-int _itobin(int i, char*buf, int prec, int groups );
-#endif
-
-// minilib/src/string/strtok_r.c
-#ifdef mini_strtok_r
-char* strtok_r(char *s, const char *delim, char **last);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_printl
-#define printl() write(STDOUT_FILENO,"\n",1)
-#endif
-
-// minilib/include/dirent.h
-#ifdef mini_dirbuf
-#define minilib_include_dirent_h
-#endif
-
-// minilib/src/streams/fgets.c
-#ifdef mini_fgets
-char* fgets(char *buf, int size, FILE* F);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_fprints
-#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
+// minilib/src/userdb/setpwent.c
+#ifdef mini_setpwent
+void setpwent();
 #endif
 
 // minilib/src/process/sigaction.c
@@ -4573,14 +4311,74 @@ static inline int raise(int signr);
 #define include_minilib_src_process_sigaction_c
 #endif
 
-// minilib/src/system/getenv.c
-#ifdef mini_getenv
-char* getenv(const char* name);
+// minilib/include/prints.h
+#ifdef mini_prints
+#define prints(...) _mprints(__VA_ARGS__,0)
+#endif
+
+// 
+#ifdef mini_exit
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_printf
+#define printf(...) fprintf(stdout,__VA_ARGS__)
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_lseek
+#define minilib_include_lseek_h
+#endif
+
+// minilib/src/string/strcmp.c
+#ifdef mini_strncmp
+int strncmp(const char*c1,const char*c2,int len);
+#define include_minilib_src_string_strcmp_c
+#endif
+
+// minilib/src/termios/pty.c
+#ifdef mini_ptsname
+char *ptsname(int fd);
 #endif
 
 // minilib/include/prints.h
-#ifdef mini_ewrites
-#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+#ifdef mini_eprintfs
+#define eprintfs(fmt,...) fprintfs(stderr, fmt, __VA_ARGS__)
+#endif
+
+// 
+#ifdef mini_environ
+#endif
+
+// minilib/src/directories/opendirp.c
+#ifdef mini_opendirp
+static DIR *opendirp(const char *name, DIR *dir);
+#endif
+
+// minilib/src/memory/sbrk.c
+#ifdef mini_sbrk
+static void* sbrk(long incr);
+#endif
+
+// minilib/src/match/match_ext2.c
+#ifdef mini__match_ext2
+char* _match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char), text_match *st_match);
+#endif
+
+// minilib/src/network/htons.c
+#ifdef mini_htons
+static uint16_t htons(uint16_t i);
+#endif
+
+// minilib/src/process/errno_str.c
+#ifdef mini_errno_str
+static char *errno_str(int err);
+#endif
+
+// minilib/src/string/strcmp.c
+#ifdef mini_strcmp
+int strcmp(const char*c1,const char*c2);
+#define include_minilib_src_string_strcmp_c
 #endif
 
 // minilib/src/file/open.c
@@ -4589,28 +4387,132 @@ int volatile open( const char *s, int flags, ... );
 #define include_minilib_src_file_open_c
 #endif
 
+// minilib/include/prints.h
+#ifdef mini_eprint
+#define eprint(str) write(STDERR_FILENO,str,strlen(str))
+#endif
+
+// minilib/src/memory/malloc.c
+#ifdef mini_free
+void free(void *p);
+#define include_minilib_src_memory_malloc_c
+#endif
+
+// minilib/include/network.h
+#ifdef mini_network
+#define minilib_include_network_h
+#endif
+
+// minilib/src/memory/memcpy.c
+#ifdef mini_memcpy
+void* memcpy( void*d, const void *s, int n );
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fseek
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/src/output/dprints.c
+#ifdef mini_dprints
+int dprints(int fd, const char *msg,...);
+#endif
+
+// 
+#ifdef mini_userdb
+#endif
+
+// minilib/src/string/strcasecmp.c
+#ifdef mini__strcasecmp
+int _strcasecmp(const char*c1,const char*c2,int len);
+#define include_minilib_src_string_strcasecmp_c
+#endif
+
+// minilib/src/userdb/userdb.c
+#ifdef mini_token_i
+int token_i( userdb* udb, char **p );
+#define include_minilib_src_userdb_userdb_c
+#endif
+
+// minilib/include/seterrno.h
+#ifdef mini_seterrno
+#define minilib_include_seterrno_h
+#endif
+
+// minilib/src/userdb/userdb_open.c
+#ifdef mini_userdb_open
+int userdb_open(userdb *udb, const char* file);
+#endif
+
+// minilib/src/conversions/itohex.c
+#ifdef mini_itoHEX
+int itoHEX(int i,char* buf,int padding);
+#define include_minilib_src_conversions_itohex_c
+#endif
+
+// minilib/include/fputc.h
+#ifdef mini_fputc
+// needs
+#define mini_fstream_h
+#define minilib_include_fputc_h
+#endif
+
+// 
+#ifdef mini_errno
+#endif
+
+// minilib/src/exec/where.c
+#ifdef mini_where
+int where(const char *file,char *buf);
+#endif
+
+// minilib/src/process/die.c
+#ifdef mini_dies
+#define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
+#endif
+
+// minilib/src/string/strerror.c
+#ifdef mini_strerror
+static char* strerror( int errnum );
+#endif
+
+// minilib/src/system/getenv.c
+#ifdef mini_getenv
+char* getenv(const char* name);
+#endif
+
+// minilib/src/memory/malloc.c
+#ifdef mini_realloc
+void* realloc(void *p, int size);
+#define include_minilib_src_memory_malloc_c
+#endif
+
+// minilib/src/process/die.c
+#ifdef mini_die
+#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
+#endif
+
 // 
 #ifdef mini_ewrite
 #endif
 
-// minilib/src/termios/pty.c
-#ifdef mini_ptsname_r
-int ptsname_r(int fd, char *buf, size_t len);
+// minilib/src/string/strcpy.c
+#ifdef mini_strcpy
+char *strcpy(char *dest, const char *src);
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_eputs
-#define eputs(msg) ( eprint(msg) + eprintl() )
+// minilib/include/ret_errno.h
+#ifdef mini_ret_errno
+#define minilib_include_ret_errno_h
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_printfs
-#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+// minilib/src/string/strchrnul.c
+#ifdef mini_strchrnul
+char *strchrnul(const char *s, int c);
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_printf
-#define printf(...) fprintf(stdout,__VA_ARGS__)
+// 
+#ifdef mini_uitohex
 #endif
 
 // minilib/include/prints.h
@@ -4622,114 +4524,26 @@ int ptsname_r(int fd, char *buf, size_t len);
 #define _mprints(...) dprints(STDOUT_FILENO, __VA_ARGS__)
 #endif
 
-// minilib/src/conversions/atoi.c
-#ifdef mini_atoi
-int atoi(const char *c);
+// minilib/src/memory/mmap.c
+#ifdef mini_mmap
+static void* ATTR_OPT("O0") mmap(void* addr,  size_t len,  int prot,  int flags,  int fd,  off_t off);
 #endif
 
-// minilib/src/streams/fgetc.c
-#ifdef mini_fgetc
-static inline int fgetc(FILE *F);
+// minilib/src/process/signal.c
+#ifdef mini_signal
+sighandler_t signal(int sig, sighandler_t func );
 #endif
 
-// minilib/src/output/snprintf.c
-#ifdef mini_snprintf
-int snprintf( char *buf, size_t size, const char *fmt, ... );
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fseek
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/src/process/exit_errno.c
-#ifdef mini_exit_errno
-void exit_errno( int errnum );
-#endif
-
-// minilib/src/userdb/getgrent.c
-#ifdef mini_getgrent
-struct group* getgrent();
-#endif
-
-// 
-#ifdef mini_errno
-#endif
-
-// minilib/src/output/fprintf.c
-#ifdef mini_fprintf
-#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
-#endif
-
-// minilib/src/conversions/ultodec.c
-#ifdef mini_ultodec
-int ultodec(unsigned long ui, char *buf, int prec, char limiter );
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_puts
-#define puts(msg) ( print(msg) + printl() )
-#endif
-
-// minilib/src/string/strerror.c
-#ifdef mini_strerror
-static char* strerror( int errnum );
-#endif
-
-// minilib/src/sort/swap.c
-#ifdef mini_swap
-static inline void swap(void* a, void* b,int size);
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_eprintsl
-#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
+// minilib/src/conversions/itohex.c
+#ifdef mini__itohex
+int _itohex(int i,char* buf,int padding, int capitals);
+#define include_minilib_src_conversions_itohex_c
 #endif
 
 // minilib/src/userdb/userdb.c
-#ifdef mini_token_i
-int token_i( userdb* udb, char **p );
+#ifdef mini_token_s
+char *token_s( userdb *udb, char **p );
 #define include_minilib_src_userdb_userdb_c
-#endif
-
-// minilib/src/memory/memcpy.c
-#ifdef mini_memcpy
-void* memcpy( void*d, const void *s, int n );
-#endif
-
-// minilib/src/memory/getbrk.c
-#ifdef mini_getbrk
-static long getbrk();
-#endif
-
-// minilib/src/memory/malloc.c
-#ifdef mini_realloc
-void* realloc(void *p, int size);
-#define include_minilib_src_memory_malloc_c
-#endif
-
-// minilib/src/memory/sys_brk.c
-#ifdef mini_sys_brk
-static long sys_brk(unsigned long addr);
-#endif
-
-// minilib/src/userdb/getpwuid.c
-#ifdef mini_getpwuid
-struct passwd *getpwuid(uid_t uid);
-#endif
-
-// 
-#ifdef mini_passwdfile_open
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_ewritesl
-#define ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
-#endif
-
-// minilib/src/process/die.c
-#ifdef mini__die
-void _die();
 #endif
 
 // minilib/src/output/sprintf.c
@@ -4738,77 +4552,88 @@ void _die();
 #define include_minilib_src_output_sprintf_c
 #endif
 
-// 
-#ifdef mini_uitohex
+// minilib/include/prints.h
+#ifdef mini_puts
+#define puts(msg) ( print(msg) + printl() )
 #endif
 
-// minilib/src/exec/where.c
-#ifdef mini_where
-int where(const char *file,char *buf);
+// minilib/src/match/match.c
+#ifdef mini__match
+int _match(char *text, const char *re, text_match *st_match);
 #endif
 
-// 
-#ifdef mini_globals
+// minilib/src/streams/fgetc.c
+#ifdef mini_fgetc
+static inline int fgetc(FILE *F);
 #endif
 
-// minilib/src/memory/sbrk.c
-#ifdef mini_sbrk
-static void* sbrk(long incr);
-#endif
-
-// minilib/src/memory/brk.c
-#ifdef mini_brk
-static int brk( const void* addr );
+// minilib/include/dirent.h
+#ifdef mini_dirbuf
+#define minilib_include_dirent_h
 #endif
 
 // minilib/include/prints.h
-#ifdef mini_eprintf
-#define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+#ifdef mini_eprintl
+#define eprintl() write(STDERR_FILENO,"\n",1)
+#endif
+
+// 
+#ifdef mini_0
+#endif
+
+// minilib/src/userdb/getusergroups.c
+#ifdef mini_getusergroups
+int getusergroups(const char* user, int maxgroups, int *list);
+#endif
+
+// minilib/src/output/fprintfs.c
+#ifdef mini_fprintfs
+int fprintfs( FILE* F, char *fmt, ...);
+#endif
+
+// minilib/src/output/snprintf.c
+#ifdef mini_snprintf
+int snprintf( char *buf, size_t size, const char *fmt, ... );
 #endif
 
 // minilib/include/prints.h
-#ifdef mini_prints
-#define prints(...) _mprints(__VA_ARGS__,0)
+#ifdef mini_printsl
+#define printsl(...) _mprints(__VA_ARGS__,"\n",0)
 #endif
 
-// minilib/include/seterrno.h
-#ifdef mini_seterrno
-#define minilib_include_seterrno_h
+// minilib/src/process/abort.c
+#ifdef mini_abort
+void abort();
 #endif
 
-// minilib/src/output/vsnprintf.c
-#ifdef mini_vsnprintf
-int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+// minilib/src/termios/tcgetattr.c
+#ifdef mini_tcgetattr
+int tcgetattr(int fd, struct termios *io);
 #endif
 
-// minilib/src/network/htons.c
-#ifdef mini_htons
-static uint16_t htons(uint16_t i);
+// minilib/src/memory/getbrk.c
+#ifdef mini_getbrk
+static long getbrk();
 #endif
 
-// minilib/src/process/die.c
-#ifdef mini_die
-#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}
+// minilib/src/sort/qsort.c
+#ifdef mini_qsort
+void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 #endif
 
-// minilib/src/process/die.c
-#ifdef mini_dies
-#define dies(errnum,...) {eprintsl(__VA_ARGS__);exit_errno(errnum);}
+// minilib/include/prints.h
+#ifdef mini_fwrites
+#define fwrites(fd,str) write(fd,str,sizeof(str))
 #endif
 
-// minilib/include/mini_fstream.h
-#ifdef mini_ftell
-#define minilib_include_mini_fstream_h
+// minilib/src/output/fprintf.c
+#ifdef mini_fprintf
+#define fprintf(stream,...)	write(fileno(stream),mlgl->mbuf,snprintf(mlgl->mbuf,mlgl->mbufsize,__VA_ARGS__))
 #endif
 
-// minilib/src/output/dprints.c
-#ifdef mini_dprints
-int dprints(int fd, const char *msg,...);
-#endif
-
-// minilib/src/userdb/userdb_open.c
-#ifdef mini_userdb_open
-int userdb_open(userdb *udb, const char* file);
+// minilib/src/string/strtol.c
+#ifdef mini_strtol
+long int strtol(const char *c, const char **endp, int base);
 #endif
 
 // minilib/src/string/stpcpy.c
@@ -4816,14 +4641,40 @@ int userdb_open(userdb *udb, const char* file);
 char *stpcpy(char *dest, const char *src);
 #endif
 
-// minilib/include/prints.h
-#ifdef mini_writesl
-#define writesl(str) write(STDOUT_FILENO,str "\n",sizeof(str)+1)
+// minilib/src/conversions/itobin.c
+#ifdef mini__itobin
+int _itobin(int i, char*buf, int prec, int groups );
 #endif
 
-// minilib/src/userdb/getusergroups.c
-#ifdef mini_getusergroups
-int getusergroups(const char* user, int maxgroups, int *list);
+// minilib/src/string/strlen.c
+#ifdef mini_strlen
+int strlen(const char*str);
+#endif
+
+// minilib/src/conversions/itohex.c
+#ifdef mini_itohex
+int itohex(int i,char* buf,int padding);
+#define include_minilib_src_conversions_itohex_c
+#endif
+
+// minilib/src/conversions/ltodec.c
+#ifdef mini_ltodec
+int ltodec(long i, char *buf, int prec, char limiter );
+#endif
+
+// minilib/src/streams/_fopen.c
+#ifdef mini__fopen
+FILE *_fopen(int fd, const char* filename, const char* mode, FILE *f);
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_printl
+#define printl() write(STDOUT_FILENO,"\n",1)
+#endif
+
+// minilib/src/memory/brk.c
+#ifdef mini_brk
+static int brk( const void* addr );
 #endif
 
 // minilib/include/fputs.h
@@ -4834,44 +4685,93 @@ int getusergroups(const char* user, int maxgroups, int *list);
 #endif
 
 // minilib/src/string/strcmp.c
-#ifdef mini_strncmp
-int strncmp(const char*c1,const char*c2,int len);
+#ifdef mini__strcmp
+int _strcmp(const char *s1, const char *s2, int n);
 #define include_minilib_src_string_strcmp_c
 #endif
 
-// 
-#ifdef mini_0
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_lseek
-#define minilib_include_lseek_h
-#endif
-
-// minilib/src/sort/qsort.c
-#ifdef mini_qsort
-void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_fputc
-// needs
-#define mini_fstream_h
-#define minilib_include_fputc_h
+// minilib/src/userdb/getpwuid.c
+#ifdef mini_getpwuid
+struct passwd *getpwuid(uid_t uid);
 #endif
 
 // minilib/include/prints.h
-#ifdef mini_eprint
-#define eprint(str) write(STDERR_FILENO,str,strlen(str))
+#ifdef mini_ewritesl
+#define ewritesl(str) write(STDERR_FILENO,str"\n",sizeof(str)+1)
 #endif
 
-// minilib/src/string/strlen.c
-#ifdef mini_strlen
-int strlen(const char*str);
+// minilib/src/output/vsnprintf.c
+#ifdef mini_vsnprintf
+int vsnprintf(char *buf, size_t size, const char* fmt, va_list args );
+#endif
+
+// minilib/src/termios/pty.c
+#ifdef mini_ptsname_r
+int ptsname_r(int fd, char *buf, size_t len);
+#endif
+
+// minilib/src/exec/execvp.c
+#ifdef mini_execvpe
+static int execvpe(const char *file, char *const argv[], char *const envp[]);
+#endif
+
+// minilib/src/process/die.c
+#ifdef mini__die
+void _die();
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_printfs
+#define printfs(fmt,...) fprintfs(stdout, fmt, __VA_ARGS__)
+#endif
+
+// minilib/src/conversions/itodec.c
+#ifdef mini_itodec
+int itodec(int i, char *buf, int prec, char limiter, char pad );
+#endif
+
+// minilib/src/conversions/atoi.c
+#ifdef mini_atoi
+int atoi(const char *c);
 #endif
 
 // 
-#ifdef mini_environ
+#ifdef mini_uitoHEX
+#endif
+
+// minilib/src/string/strtok_r.c
+#ifdef mini_strtok_r
+char* strtok_r(char *s, const char *delim, char **last);
+#endif
+
+// minilib/src/conversions/itooct.c
+#ifdef mini_itooct
+int itooct(int i, char *buf);
+#endif
+
+// minilib/src/sort/swap.c
+#ifdef mini_swap
+static inline void swap(void* a, void* b,int size);
+#endif
+
+// minilib/src/userdb/getgrent.c
+#ifdef mini_getgrent
+struct group* getgrent();
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_writes
+#define writes(str) write(STDOUT_FILENO,str,sizeof(str))
+#endif
+
+// minilib/include/pwent.h
+#ifdef mini_pwent
+#define minilib_include_pwent_h
+#endif
+
+// minilib/src/conversions/ultodec.c
+#ifdef mini_ultodec
+int ultodec(unsigned long ui, char *buf, int prec, char limiter );
 #endif
 
 // minilib/include/prints.h
@@ -4879,589 +4779,135 @@ int strlen(const char*str);
 #define eprints(...) dprints(STDERR_FILENO,__VA_ARGS__,0)
 #endif
 
-// minilib/src/userdb/setpwent.c
-#ifdef mini_setpwent
-void setpwent();
+// minilib/include/prints.h
+#ifdef mini_writesl
+#define writesl(str) write(STDOUT_FILENO,str "\n",sizeof(str)+1)
 #endif
 
-// minilib/src/directories/opendirp.c
-#ifdef mini_opendirp
-static DIR *opendirp(const char *name, DIR *dir);
+// minilib/include/termio.h
+#ifdef mini_termio
+#define minilib_include_termio_h
 #endif
 
 // minilib/include/prints.h
-#ifdef mini_fwrites
-#define fwrites(fd,str) write(fd,str,sizeof(str))
+#ifdef mini_fprints
+#define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
+#endif
+
+// minilib/src/memory/sys_brk.c
+#ifdef mini_sys_brk
+static long sys_brk(unsigned long addr);
+#endif
+
+// minilib/src/string/stplcpy.c
+#ifdef mini_stplcpy
+char *stplcpy(char *dest, const char *src, int size);
+#endif
+
+// minilib/src/process/sigaction.c
+#ifdef mini_sigaction
+static int volatile sigaction(int sig, const struct sigaction *act, struct sigaction *oact);
+#define include_minilib_src_process_sigaction_c
+#endif
+
+// minilib/src/streams/fgets.c
+#ifdef mini_fgets
+char* fgets(char *buf, int size, FILE* F);
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_ftell
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/src/userdb/setgrent.c
+#ifdef mini_setgrent
+void setgrent();
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_eprintsl
+#define eprintsl(...) dprints(STDERR_FILENO,__VA_ARGS__,"\n",0)
+#endif
+
+// minilib/src/system/ioctl.c
+#ifdef mini_ioctl
+int volatile  ATTR_OPT("O0") ioctl( int fd, unsigned long int request, ... );
+#endif
+
+// minilib/src/memory/malloc.c
+#ifdef mini_malloc
+void* malloc(int size);
+#define include_minilib_src_memory_malloc_c
 #endif
 
 // minilib/src/conversions/itodec.c
 #ifdef mini_uitodec
 int ATTR_OPT("Os")uitodec(unsigned int i, char *buf, int prec, char limiter, char pad );
 #endif
+
+// 
+#ifdef mini_tolower
+#endif
+
+// minilib/src/process/exit_errno.c
+#ifdef mini_exit_errno
+void exit_errno( int errnum );
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_eputs
+#define eputs(msg) ( eprint(msg) + eprintl() )
+#endif
+
+// minilib/src/process/wait.c
+#ifdef mini_waitpid
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+#define include_minilib_src_process_wait_c
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_print
+#define print(str) write(STDOUT_FILENO,str,strlen(str))
+#endif
+
+// minilib/src/memory/malloc_brk.c
+#ifdef mini_malloc_brk
+void* malloc_brk(int size);
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_eprintf
+#define eprintf(fmt,...) fprintf(stderr, fmt, __VA_ARGS__)
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_ewrites
+#define ewrites(str) write(STDERR_FILENO,str,sizeof(str))
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fileno
+#define minilib_include_mini_fstream_h
+#endif
+
+// 
+#ifdef mini_globals
+#endif
+
+// 
+#ifdef mini_passwdfile_open
+#endif
 // End incfirst
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_gettime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getgroups
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/errstr.h
-#ifdef mini_verbose_errstr
-#define minilib_include_errstr_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgget
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__uname
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/file/cksum.c
-#ifdef mini_bsd_cksumblock
-unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_create1
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/math.h
-#ifdef mini_abs
-#define minilib_include_math_h
-#endif
-
-// minilib/src/streams/gets.c
-#ifdef mini_gets
-#define gets(F) fgets(F,0xfffffff,stdin)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tee
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/sleep.c
-#ifdef mini_usleep
-unsigned int volatile usleep(unsigned int useconds);
-#define include_minilib_src_process_sleep_c
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchmod
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_init1
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/conversions/dtodec.c
-#ifdef mini_dtodec
-int dtodec(double d, char* buf, int precision);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmdt
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigreturn
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getcwd
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_feof
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__madvise
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/file/cksum.c
-#ifdef mini_bsd_cksum
-unsigned int bsd_cksum( const char* p, unsigned int len );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchownat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_getoverrun
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getparam
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/error.h
-#ifdef mini_err
-#define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
-#endif
-
-// minilib/src/streams/fgetud.c
-#ifdef mini_fgetud
-unsigned int fgetud(FILE* F);
-#endif
-
-// minilib/src/string/strnlen.c
-#ifdef mini_strnlen
-int strnlen(const char*str, int max);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__openat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpriority
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/memory/setbrk.c
-#ifdef mini_setbrk
-static int setbrk(long addr);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendmsg
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_rewind
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pread64
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getegid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mprotect
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vfork
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mmap
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/error.h
-#ifdef mini_warn
-#define warn( fmt ... ) { fprintf(stderr,fmt ); }
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munlock
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fcntl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/termios/isatty.c
-#ifdef mini_isatty
-int isatty(int fd);
-#define include_minilib_src_termios_isatty_c
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readlinkat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/math.h
-#ifdef mini_ldiv
-#define minilib_include_math_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpeername
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pipe2
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__listxattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/clone.c
-#ifdef mini_clone_t
-int clone_t(int flags);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fsync
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kill
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/streams/fgetul.c
-#ifdef mini_fgetul
-unsigned long int fgetul(FILE* F);
-#endif
-
-// minilib/src/memory/map_protected.c
-#ifdef mini_map_protected
-void* map_protected(int len);
-#endif
-
-// minilib/src/string/strspn.c
-#ifdef mini_strspn
-int strspn(const char *s1, const char *s2);
-#endif
-
-// minilib/src/process/signames.h
-#ifdef mini_sys_signame
-#define minilib_src_process_signames_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utimes
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_destroy
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shutdown
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/output/dprintf.c
-#ifdef mini_dprintf
-int dprintf( int fd, const char *fmt, ... );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__migrate_pages
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_ftruncate
-#define minilib_include_lseek_h
-#endif
-
-// minilib/src/termios/tcsetpgrp.c
-#ifdef mini_tcsetpgrp
-int tcsetpgrp(int fd, int pgrp);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msync
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_add_watch
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_pwait
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__geteuid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/network/ether_ntoa.c
-#ifdef mini_ether_ntoa
-char* ether_ntoa( const struct ether_addr *e );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/macros/assert.h
-#ifdef mini_assert
-#define minilib_macros_assert_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munmap
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/match/match_ext.c
-#ifdef mini_match_ext
-int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
-#endif
-
-// minilib/src/string/strndup.c
-#ifdef mini_strndup
-char *strndup(const char *source, int maxlen);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__init_module
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/strtoimax.c
-#ifdef mini_strtoimax
-int strtoimax(const char *c, const char **endp, int base);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sync_file_range
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getsockopt
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrlimit
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_setvbuf
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/src/process/sigaction.c
-#ifdef mini_sigaddset
-int sigaddset(sigset_t *set, int sig);
-#define include_minilib_src_process_sigaction_c
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mknod
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__renameat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getdents64
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/strstr.c
-#ifdef mini_strstr
-char* strstr(const char *big, const char *little);
-#endif
-
-// minilib/src/userdb/initgroups.c
-#ifdef mini_initgroups
-int initgroups(const char* user, gid_t group);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mbind
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__open_by_handle_at
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/userdb/endpwent.c
-#ifdef mini_endpwent
-void endpwent();
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgsnd
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ftruncate
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mremap.h
-#ifdef mini_mremap
-#define minilib_include_mremap_h
-#endif
-
-// minilib/macros/defgroups.h
-#ifdef mini_group_printf
-#define minilib_macros_defgroups_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setreuid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_getc
-#define getc(F) fgetc(F)
-#endif
-
-// minilib/include/fgetc.h
-#ifdef mini_getchar
-#define getchar() fgetc(0)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_timedsend
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setscheduler
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__unshare
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__read
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getuid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__nanosleep
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioprio_get
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lsetxattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clone
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getaffinity
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/memory/memset.c
-#ifdef mini_memset
-void *memset( void *s, int c, int n);
-#endif
-
-// minilib/src/streams/freopen.c
-#ifdef mini_freopen
-FILE *freopen(const char* filename, const char* mode, FILE *F);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__quotactl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chmod
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/sigaction.c
-#ifdef mini_sigsuspend
-static int sigsuspend( const sigset_t *mask );
-#define include_minilib_src_process_sigaction_c
-#endif
 
 // minilib/include/mini_fstream.h
 #ifdef mini_setbuf
 #define minilib_include_mini_fstream_h
 #endif
 
-// minilib/src/math/rand.c
-#ifdef mini_rand
-unsigned int rand();
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__capset
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/memory/memfrob.c
-#ifdef mini_memfrob
-void* memfrob(void* s, unsigned int len);
-#endif
-
-// minilib/src/math/srand.c
-#ifdef mini_srand
-void srand( unsigned int i );
-#endif
-
-// minilib/src/userdb/endgrent.c
-#ifdef mini_endgrent
-void endgrent();
+// minilib/include/fputc.h
+#ifdef mini_putchar
+#define putchar(c) fputc(c,stdout)
 #endif
 
 // minilib/src/process/wait.c
@@ -5471,28 +4917,8 @@ pid_t wait(int *wstatus);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__settimeofday
+#ifdef mini__accept4
 #define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fsetxattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/scandir_bufsize.c
-#ifdef mini_scandir_bufsize
-
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getsid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/dirent.h
-#ifdef mini_dirbufsize 
-#define minilib_include_dirent_h
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -5500,491 +4926,14 @@ pid_t wait(int *wstatus);
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_open
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__gettimeofday
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/userdb/getgrnam.c
-#ifdef mini_getgrnam
-struct group *getgrnam(const char* name);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setsid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readv
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/error.h
-#ifdef mini_errx
-#define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lseek
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/math.h
-#ifdef mini_labs
-#define minilib_include_math_h
-#endif
-
-// minilib/src/exec/vexec_q.c
-#ifdef mini_vexec_q
-int vexec_q( const char* path, char* const* argv, char* const* envp );
-#endif
-
-// minilib/src/termios/pty.c
-#ifdef mini_posix_openpt
-int posix_openpt(int flags);
-#endif
-
-// minilib/src/math/hashes.c
-#ifdef mini_djb2_hash
-unsigned long djb2_hash(const unsigned char *str);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__gettid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioprio_set
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__umount2
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__renameat2
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vhangup
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/poll.h
-#ifdef mini_poll
-#define minilib_include_poll_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__waitid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/system/setenv.c
-#ifdef mini_setenv
-int setenv( const char *name, const char *value, int overwrite );
-#endif
-
-// minilib/include/bsd_timespec.h
-#ifdef mini_bsd_timespec
-#define minilib_include_bsd_timespec_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__futimesat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__perf_event_open
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchdir
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/network/macros.h
-#ifdef mini_ntohs
-#define ntohs(i) htons(i)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lookup_dcookie
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setuid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_clearerror
-#define minilib_include_mini_fstream_h
-#endif
-
 // minilib/src/match/match_ext2.c
 #ifdef mini_match_ext2
 int match_ext2(char *text, char *re, void(*p_matched_cb)(int number, char *pos,int len), int(*p_wildcard_cb)(int number, char *match_char),text_match *st_match);
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__newfstatat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fanotify_mark
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mkdir
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__exit_group
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/streams/ungetc.c
-#ifdef mini_ungetc
-static int ungetc(int c, FILE *F);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__syslog
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/userdb/getpwnam.c
-#ifdef mini_getpwnam
-struct passwd *getpwnam(const char* name);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/network/ntohl.h
-#ifdef mini_ntohl
-#define ntohl(i) htonl(i)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_rm_watch
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pipe
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/strcasecmp.c
-#ifdef mini_strncasecmp
-int strncasecmp(const char*c1,const char*c2,int len);
-#define include_minilib_src_string_strcasecmp_c
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__bind
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/strtoll.c
-#ifdef mini_strtoll
-long long int strtoll(const char *c, const char **endp, int base);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__syncfs
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setsockopt
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setrlimit
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/conversions/itobin.c
-#ifdef mini_itobin
-#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
-#endif
-
-// minilib/src/match/match.c
-#ifdef mini_match
-int match(char *text, const char *re, text_match *st_match);
-#endif
-
-// minilib/src/process/sigaction.c
-#ifdef mini_sigprocmask
-int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
-#define include_minilib_src_process_sigaction_c
-#endif
-
-// minilib/src/memory/memmove.c
-#ifdef mini_memmove
-void* memmove(void *dest, const void *src, int n);
-#endif
-
 // minilib/include/mini_fstream.h
-#ifdef mini_vfprintf
-#define vfprintf(...) fprintf(__VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__symlinkat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini___sysctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__dup2
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__umask
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/macros/alignment.h
-#ifdef mini_ALIGN
-#define minilib_macros_alignment_h
-#endif
-
-// minilib/include/fexecveat.h
-#ifdef mini_fexecveat
-#define minilib_include_fexecveat_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fread
+#ifdef mini_fclose
 #define minilib_include_mini_fstream_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__connect
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigpending
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_getevents
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__tgkill
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_timedreceive
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_ctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/network/gethostname.c
-#ifdef mini_gethostname
-static int gethostname(char *name,int len);
-#endif
-
-// minilib/src/string/strcspn.c
-#ifdef mini_strcspn
-int strcspn(const char *s1, const char *s2);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mlockall
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__chroot
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrandom
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fdatasync
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/network/inet_aton.c
-#ifdef mini_inet_aton
-int inet_aton(const char* s, struct in_addr *addr);
-#endif
-
-// minilib/src/string/strchr.c
-#ifdef mini_strchr
-char *strchr(const char *s, int c);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__name_to_handle_at
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__iopl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kcmp
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__truncate
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setpriority
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpgrp
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__flock
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/errstr2.h
-#ifdef mini_verbose_errstr2
-#define minilib_include_errstr2_h
-#endif
-
-// minilib/include/ansicolors.h
-#ifdef mini_shortcolornames
-#define minilib_include_ansicolors_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fallocate
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setregid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/streams/fdopen.c
-#ifdef mini_fdopen
-FILE *fdopen(int fd, const char* mode);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__recvmmsg
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/dirfd.c
-#ifdef mini_dirfd
-int dirfd(DIR *d);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_settime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/userdb/getgrgid.c
-#ifdef mini_getgrgid
-struct group *getgrgid(gid_t gid);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgrcv
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__delete_module
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/sort/bsearch.c
-#ifdef mini_bsearch
-void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__unlink
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__link
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__stat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_cancel
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mlock
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/dummies.h
-#ifdef mini_locale_dummies
-#define minilib_include_dummies_h
 #endif
 
 // minilib/src/process/sigaction.c
@@ -5994,144 +4943,18 @@ static int sigemptyset(sigset_t *set);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setgroups
+#ifdef mini__inotify_init1
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__chdir
+#ifdef mini__setitimer
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mq_getsetattr
+#ifdef mini__keyctl
 #define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__time
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__writev
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__restart_syscall
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getrusage
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mincore
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/exec/system.c
-#ifdef mini_system
-int system( const char* command );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getresuid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_yield
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__llistxattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__seccomp
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fremovexattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/sleep.c
-#ifdef mini_sleep
-unsigned int volatile sleep(unsigned int seconds);
-#define include_minilib_src_process_sleep_c
-#endif
-
-// minilib/src/network/htonl.c
-#ifdef mini_htonl
-static uint32_t htonl(uint32_t i);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__add_key
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/seekdir.c
-#ifdef mini_seekdir
-void seekdir(DIR *dir, long off);
-#endif
-
-// minilib/src/system/putenv.c
-#ifdef mini_putenv
-int putenv( char *string );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__arch_prctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__execve
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/ansicolors.h
-#ifdef mini_ansicolors
-#define minilib_include_ansicolors_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__select
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setparam
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_nanosleep
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__set_robust_list
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigqueueinfo
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fgetpos
-#define minilib_include_mini_fstream_h
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -6139,464 +4962,63 @@ int putenv( char *string );
 #define minilib_include_syscalls_x64_h
 #endif
 
+// minilib/src/string/strndup.c
+#ifdef mini_strndup
+char *strndup(const char *source, int maxlen);
+#endif
+
 // minilib/include/syscalls_x64.h
-#ifdef mini__getxattr
+#ifdef mini__geteuid
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_get_priority_max
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/termios/pty.c
-#ifdef mini_unlockpt
-int unlockpt(int fd);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setpgid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setfsuid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lremovexattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__futex
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/sigaction.c
-#ifdef mini_sigdelset
-int sigdelset(sigset_t *set, int sig);
-#define include_minilib_src_process_sigaction_c
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__flistxattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_tgsigqueueinfo
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setresgid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_adjtime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/stpncpy.c
-#ifdef mini_stpncpy
-char *stpncpy(char *dest, const char *src, int size);
-#endif
-
-// minilib/src/file/creat.c
-#ifdef mini_creat
-int volatile creat( const char *s, int mode );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_settime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_setattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setgid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__socket
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__signalfd4
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__write
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rename
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__preadv
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/telldir.c
-#ifdef mini_telldir
-long telldir(DIR *dir);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fstat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__prctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semget
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioperm
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/prints.h
-#ifdef mini_fwritesl
-#define fwritesl(fd,str) write(fd,str"\n",sizeof(str)+1)
-#endif
-
-// minilib/include/minilib_global.h
-#ifdef mini_optimization_fence
-#define minilib_include_minilib_global_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmget
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__get_mempolicy
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getppid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigaction
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/termios/pty.c
-#ifdef mini_grantpt
-int grantpt(int fd);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__alarm
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_setup
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mkfifo.h
-#ifdef mini_mkfifo
-#define minilib_include_mkfifo_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__utime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/exec/_execvp.c
-#ifdef mini_execvp
-static inline int execvp(const char *file, char *const argv[]);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__munlockall
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lstat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/opendir.c
-#ifdef mini_opendir
-static DIR *opendir(const char *name );
-#endif
-
-// minilib/src/process/die.c
-#ifdef mini_die_if
-#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mknodat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendto
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_get_priority_min
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pwritev
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__reboot
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__faccessat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/macros/getoptm.h
-#ifdef mini_def
-#define minilib_macros_getoptm_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendfile
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/globaldefs.h
-#ifdef mini_max_groupmembers
-#define minilib_include_globaldefs_h
-#endif
-
-// minilib/include/config.h
-#ifdef mini_OPTIMIZATIONS
-#define minilib_include_config_h
-#endif
-
-// minilib/src/string/strncpy.c
-#ifdef mini_strncpy
-char *strncpy(char *dest, const char *src, int n);
-#endif
-
-// minilib/src/directories/scandir.c
-#ifdef mini_scandir
-int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sched_getscheduler
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mremap
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/select.h
-#ifdef mini_select
-#define minilib_include_select_h
-#endif
-
-// minilib/src/output/perror.c
-#ifdef mini_perror
-void perror(const char *msg);
-#endif
-
-// minilib/src/directories/dirname.c
-#ifdef mini_dirname
-char *dirname(char *s);
-#endif
-
-// minilib/src/exec/vexec.c
-#ifdef mini_vexec
-int vexec( const char* path, char* const* argv, char* const* envp );
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_ferror
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/macros/defgroups.h
-#ifdef mini_group_write
-#define minilib_macros_defgroups_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__swapoff
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__kexec_file_load
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigprocmask
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__close
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__access
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/config.h
-#ifdef mini_config
-#define minilib_include_config_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_create
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/macros/defgroups.h
-#ifdef mini_group_print
-#define minilib_macros_defgroups_h
-#endif
-
-// minilib/src/string/strtok.c
-#ifdef mini_strtok
-char* strtok(char *s, const char *delim);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__eventfd2
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/lseek.h
-#ifdef mini_fsync
-#define minilib_include_lseek_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fork
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__shmat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/error.h
-#ifdef mini_error
-#define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readahead
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ptrace
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/termios/term_width.c
-#ifdef mini_term_width
-int term_width();
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_settime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fadvise64
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__fchmodat
+#ifdef mini__setsockopt
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/mini_fstream.h
-#ifdef mini_fflush
+#ifdef mini_fsetpos
 #define minilib_include_mini_fstream_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__tkill
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/output/snprintfs.c
-#ifdef mini_snprintfs
-int snprintfs( char* buf, int size, char *fmt, ...);
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fprint
-#define fprint(...) fprintf(__VA_ARGS__)
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__lchown
+#ifdef mini__rt_sigsuspend
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__pwrite64
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/streams/fgetsn.c
-#ifdef mini_fgetsn
-int fgetsn(char *buf, int size, FILE* F);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ioctl
+#ifdef mini__symlinkat
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__acct
+#ifdef mini__sync_file_range
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/exec/vexec_q.c
+#ifdef mini_vexec_q
+int vexec_q( const char* path, char* const* argv, char* const* envp );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msync
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__linkat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__waitid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unshare
 #define minilib_include_syscalls_x64_h
 #endif
 
@@ -6606,22 +5028,179 @@ int fgetsn(char *buf, int size, FILE* F);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setitimer
+#ifdef mini__vmsplice
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/string/strlcpy.c
-#ifdef mini_strlcpy
-char *strlcpy(char *dest, const char *src, int n);
-#endif
-
-// minilib/src/memory/memcmp.c
-#ifdef mini_memcmp
-int memcmp(const void* c1,const void* c2,int len);
+// minilib/include/syscalls_x64.h
+#ifdef mini__readahead
+#define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__recvmsg
+#ifdef mini__nanosleep
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/sigaction.c
+#ifdef mini_sigdelset
+int sigdelset(sigset_t *set, int sig);
+#define include_minilib_src_process_sigaction_c
+#endif
+
+// minilib/src/userdb/initgroups.c
+#ifdef mini_initgroups
+int initgroups(const char* user, gid_t group);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_create1
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/macros/getoptm.h
+#ifdef mini_def
+#define minilib_macros_getoptm_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mbind
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/memory/memfrob.c
+#ifdef mini_memfrob
+void* memfrob(void* s, unsigned int len);
+#endif
+
+// minilib/src/exec/_execvp.c
+#ifdef mini_execvp
+static inline int execvp(const char *file, char *const argv[]);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getaffinity
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__vfork
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/error.h
+#ifdef mini_err
+#define err( status, fmt ... ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__vhangup
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/math.h
+#ifdef mini_ldiv
+#define minilib_include_math_h
+#endif
+
+// minilib/src/termios/pty.c
+#ifdef mini_posix_openpt
+int posix_openpt(int flags);
+#endif
+
+// minilib/src/string/strcasecmp.c
+#ifdef mini_strncasecmp
+int strncasecmp(const char*c1,const char*c2,int len);
+#define include_minilib_src_string_strcasecmp_c
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchmodat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgsnd
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readlinkat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini___sysctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/output/snprintfs.c
+#ifdef mini_snprintfs
+int snprintfs( char* buf, int size, char *fmt, ...);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clone
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__truncate
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_clearerror
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kexec_file_load
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/userdb/endgrent.c
+#ifdef mini_endgrent
+void endgrent();
+#endif
+
+// minilib/src/process/atexit.c
+#ifdef mini_atexit
+static int atexit( functionp* func );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fdatasync
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/dirent.h
+#ifdef mini_dirbuf_malloc
+#define minilib_include_dirent_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__quotactl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__accept
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strncat.c
+#ifdef mini_strncat
+char* strncat( char* dst, const char* src, unsigned int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_getevents
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fanotify_mark
 #define minilib_include_syscalls_x64_h
 #endif
 
@@ -6630,39 +5209,119 @@ int memcmp(const void* c1,const void* c2,int len);
 #define minilib_include_syscall_h
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__memfd_create
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/bsd_definitions.h
-#ifdef mini_bsd_definitions
-#define minilib_include_bsd_definitions_h
+// minilib/src/network/gethostname.c
+#ifdef mini_gethostname
+static int gethostname(char *name,int len);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_setaffinity
+#ifdef mini__signalfd4
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/userdb/getgroups.c
-#ifdef mini_getgroups
-int getgroups(int maxgroups, int *list);
+// minilib/src/userdb/getpwnam.c
+#ifdef mini_getpwnam
+struct passwd *getpwnam(const char* name);
 #endif
 
-// minilib/src/process/killpg.c
-#ifdef mini_killpg
-static int killpg( int pid, int signal );
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigtimedwait
+#define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/exec/_execv.c
-#ifdef mini_execv
-static inline int execv(const char *pathname, char *const argv[]);
+// minilib/include/syscalls_x64.h
+#ifdef mini__write
+#define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/file/cksum.c
-#ifdef mini_djb_cksum
-unsigned int djb_cksum( const char* p, unsigned int len );
+// minilib/include/mini_fstream.h
+#ifdef mini_fread
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__utimes
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/math/sdbm_hash.c
+#ifdef mini_sdbm_hash
+unsigned long sdbm_hash(const unsigned char *str);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_submit
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_nanosleep
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsockname
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getcwd
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__listen
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pipe
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/bsd_timespec.h
+#ifdef mini_bsd_timespec
+#define minilib_include_bsd_timespec_h
+#endif
+
+// minilib/include/config.h
+#ifdef mini_config
+#define minilib_include_config_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ustat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__init_module
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/minilib_global.h
+#ifdef mini_optimization_fence
+#define minilib_include_minilib_global_h
+#endif
+
+// minilib/src/memory/memcmp.c
+#ifdef mini_memcmp
+int memcmp(const void* c1,const void* c2,int len);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getdents
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchdir
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/userdb/getgrgid.c
+#ifdef mini_getgrgid
+struct group *getgrgid(gid_t gid);
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -6671,8 +5330,258 @@ unsigned int djb_cksum( const char* p, unsigned int len );
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__move_pages
+#ifdef mini__clock_settime
 #define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__utime
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mmap
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/match/match.c
+#ifdef mini_match
+int match(char *text, const char *re, text_match *st_match);
+#endif
+
+// minilib/src/exec/system.c
+#ifdef mini_system
+int system( const char* command );
+#endif
+
+// minilib/src/memory/map_protected.c
+#ifdef mini_map_protected
+void* map_protected(int len);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__connect
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_delete
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__adjtimex
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setresgid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__munlock
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/ansicolors.h
+#ifdef mini_shortcolornames
+#define minilib_include_ansicolors_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getcpu
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_ctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup2
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fsetxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/termios/tcsetpgrp.c
+#ifdef mini_tcsetpgrp
+int tcsetpgrp(int fd, int pgrp);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmdt
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strspn.c
+#ifdef mini_strspn
+int strspn(const char *s1, const char *s2);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getgid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ppoll
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/network/recv.c
+#ifdef mini_recv
+int recv(int sockfd, void *buf, size_t len, int flags);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setuid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setaffinity
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chroot
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/streams/fgetsn.c
+#ifdef mini_fgetsn
+int fgetsn(char *buf, int size, FILE* F);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setns
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setregid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_getc
+#define getc(F) fgetc(F)
+#endif
+
+// minilib/macros/alignment.h
+#ifdef mini_ALIGN
+#define minilib_macros_alignment_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__delete_module
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/scandir_bufsize.c
+#ifdef mini_scandir_bufsize
+
+#endif
+
+// minilib/src/directories/dirfd.c
+#ifdef mini_dirfd
+int dirfd(DIR *d);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__set_mempolicy
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpriority
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_yield
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ftruncate
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__syncfs
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/fexecve.h
+#ifdef mini_fexecve
+#define minilib_include_fexecve_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__umask
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__listxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getgroups
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mkdirat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unlinkat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/math/rand.c
+#ifdef mini_rand
+unsigned int rand();
+#endif
+
+// minilib/src/termios/pty.c
+#ifdef mini_unlockpt
+int unlockpt(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_settime
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/userdb/getgroups.c
+#ifdef mini_getgroups
+int getgroups(int maxgroups, int *list);
 #endif
 
 // minilib/src/userdb/getgrouplist.c
@@ -6681,7 +5590,102 @@ int getgrouplist(const char* user, gid_t group, gid_t *groups, int *ngroups);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__getpid
+#ifdef mini__get_robust_list
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fprint
+#define fprint(...) fprintf(__VA_ARGS__)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sync
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__writev
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/system/putenv.c
+#ifdef mini_putenv
+int putenv( char *string );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__signalfd
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semop
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__socketpair
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getparam
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__finit_module
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__set_tid_address
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__process_vm_readv
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/memory/map_protected.c
+#ifdef mini_unmap_protected
+int unmap_protected(void *p, int len);
+#endif
+
+// minilib/src/conversions/dtodec.c
+#ifdef mini_dtodec
+int dtodec(double d, char* buf, int precision);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setresuid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__bind
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__symlink
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/killpg.c
+#ifdef mini_killpg
+static int killpg( int pid, int signal );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_rm_watch
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__renameat2
 #define minilib_include_syscalls_x64_h
 #endif
 
@@ -6691,19 +5695,1226 @@ int strcasecmp(const char*c1,const char*c2);
 #define include_minilib_src_string_strcasecmp_c
 #endif
 
+// minilib/include/syscalls_x64.h
+#ifdef mini__sigaltstack
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pread64
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fcntl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setrlimit
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigprocmask
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pwritev
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_timedsend
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/macros/assert.h
+#ifdef mini_assert
+#define minilib_macros_assert_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_rewind
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/src/memory/calloc.c
+#ifdef mini_calloc
+void* calloc(int nmemb, int size);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_init
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/file/cksum.c
+#ifdef mini_bsd_cksumblock
+unsigned int bsd_cksumblock( unsigned int hash, const char* p, unsigned int len );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__preadv
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__settimeofday
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/sigaction.c
+#ifdef mini_sigprocmask
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+#define include_minilib_src_process_sigaction_c
+#endif
+
+// minilib/include/math.h
+#ifdef mini_labs
+#define minilib_include_math_h
+#endif
+
+// minilib/src/memory/memmove.c
+#ifdef mini_memmove
+void* memmove(void *dest, const void *src, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmget
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/macros/defgroups.h
+#ifdef mini_group_printf
+#define minilib_macros_defgroups_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setsid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/network/htonl.c
+#ifdef mini_htonl
+static uint32_t htonl(uint32_t i);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_create
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/errstr2.h
+#ifdef mini_verbose_errstr2
+#define minilib_include_errstr2_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__migrate_pages
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__poll
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_vfprintf
+#define vfprintf(...) fprintf(__VA_ARGS__)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setpgid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rename
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/streams/fgetsp.c
+#ifdef mini_fgetsp
+char* fgetsp(char *buf, int size, FILE* F);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__exit_group
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/system/setenv.c
+#ifdef mini_setenv
+int setenv( const char *name, const char *value, int overwrite );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_create
+#define minilib_include_syscalls_x64_h
+#endif
+
 // minilib/src/system/unsetenv.c
 #ifdef mini_unsetenv
 int unsetenv( char *name);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sysinfo
+#ifdef mini__setfsgid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fsync
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/macros/defgroups.h
+#ifdef mini_group_write
+#define minilib_macros_defgroups_h
+#endif
+
+// minilib/src/directories/opendir.c
+#ifdef mini_opendir
+static DIR *opendir(const char *name );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mknodat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/memory/setbrk.c
+#ifdef mini_setbrk
+static int setbrk(long addr);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setparam
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strtok.c
+#ifdef mini_strtok
+char* strtok(char *s, const char *delim);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getdents64
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getppid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/network/inet_aton.c
+#ifdef mini_inet_aton
+int inet_aton(const char* s, struct in_addr *addr);
+#endif
+
+// minilib/include/math.h
+#ifdef mini_div
+#define minilib_include_math_h
+#endif
+
+// minilib/include/config.h
+#ifdef mini_OPTIMIZATIONS
+#define minilib_include_config_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lchown
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_destroy
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chown
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__perf_event_open
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fallocate
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/dirname.c
+#ifdef mini_dirname
+char *dirname(char *s);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendfile
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semget
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__gettid
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
 #ifdef mini__prlimit64
 #define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_setvbuf
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pause
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__reboot
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fadvise64
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lsetxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__add_key
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/die.c
+#ifdef mini_dief
+#define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__faccessat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/memory/freebrk.c
+#ifdef mini_free_brk
+int free_brk();
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__capset
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_getsetattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__tkill
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__swapoff
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/sigaction.c
+#ifdef mini_sigfillset
+static int sigfillset(sigset_t *set);
+#define include_minilib_src_process_sigaction_c
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_feof
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_open
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__name_to_handle_at
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendto
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/globaldefs.h
+#ifdef mini_max_groupmembers
+#define minilib_include_globaldefs_h
+#endif
+
+// minilib/src/string/strrchr.c
+#ifdef mini_strrchr
+char *strrchr(const char *s, int c);
+#endif
+
+// minilib/src/termios/cfmakeraw.c
+#ifdef mini_cfmakeraw
+void cfmakeraw(struct termios *tp);
+#endif
+
+// minilib/src/directories/rewinddir.c
+#ifdef mini_rewinddir
+void rewinddir(DIR *dir);
+#endif
+
+// minilib/include/errstrshort.h
+#ifdef mini_short_errstr
+#define minilib_include_errstrshort_h
+#endif
+
+// minilib/src/process/sigaction.c
+#ifdef mini_sigismember
+int sigismember(sigset_t *set, int sig);
+#define include_minilib_src_process_sigaction_c
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_rr_get_interval
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strtoimax.c
+#ifdef mini_strtoimax
+int strtoimax(const char *c, const char **endp, int base);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__syslog
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ptrace
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioperm
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sysfs
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_ferror
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/src/string/strstr.c
+#ifdef mini_strstr
+char* strstr(const char *big, const char *little);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chdir
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__tee
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__restart_syscall
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/memory/memset.c
+#ifdef mini_memset
+void *memset( void *s, int c, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__iopl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__eventfd
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__chmod
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sendmmsg
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/math/srand.c
+#ifdef mini_srand
+void srand( unsigned int i );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpgrp
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_notify
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/math.h
+#ifdef mini_abs
+#define minilib_include_math_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__wait4
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/alphasort.c
+#ifdef mini_alphasort
+int alphasort( const struct dirent** de1, const struct dirent** de2 );
+#endif
+
+// minilib/src/sort/bsearch.c
+#ifdef mini_bsearch
+void* bsearch(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigaction
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lgetxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/seekdir.c
+#ifdef mini_seekdir
+void seekdir(DIR *dir, long off);
+#endif
+
+// minilib/macros/defgroups.h
+#ifdef mini_group_print
+#define minilib_macros_defgroups_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpgid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/readdir.c
+#ifdef mini_readdir
+struct dirent *readdir(DIR *dir);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__futex
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getpeername
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/sleep.c
+#ifdef mini_usleep
+unsigned int volatile usleep(unsigned int useconds);
+#define include_minilib_src_process_sleep_c
+#endif
+
+// minilib/src/string/strncpy.c
+#ifdef mini_strncpy
+char *strncpy(char *dest, const char *src, int n);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchmod
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readlink
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_gettime
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lstat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_getoverrun
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/select.h
+#ifdef mini_select
+#define minilib_include_select_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__personality
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__munmap
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__readv
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setreuid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/sigaction.c
+#ifdef mini_sigsuspend
+static int sigsuspend( const sigset_t *mask );
+#define include_minilib_src_process_sigaction_c
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kill
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_settime
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lookup_dcookie
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__read
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__munlockall
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fwrite
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigreturn
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__times
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/streams/freopen.c
+#ifdef mini_freopen
+FILE *freopen(const char* filename, const char* mode, FILE *F);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__stat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setdomainname
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__swapon
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__madvise
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_cancel
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__futimesat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strcat.c
+#ifdef mini_strcat
+char *strcat(char *dest, const char *src );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__select
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__set_robust_list
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_ftruncate
+#define minilib_include_lseek_h
+#endif
+
+// minilib/src/userdb/getpwent.c
+#ifdef mini_getpwent
+struct passwd* getpwent();
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__flock
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/output/dprintf.c
+#ifdef mini_dprintf
+int dprintf( int fd, const char *fmt, ... );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mincore
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgrcv
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/error.h
+#ifdef mini_error
+#define error( status, errnum, fmt ... ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }
+#endif
+
+// minilib/src/termios/pty.c
+#ifdef mini_grantpt
+int grantpt(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pwrite64
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__llistxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/exec/_execv.c
+#ifdef mini_execv
+static inline int execv(const char *pathname, char *const argv[]);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setgroups
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__msgget
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shutdown
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fchownat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__statfs
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__tgkill
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__dup3
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/streams/gets.c
+#ifdef mini_gets
+#define gets(F) fgets(F,0xfffffff,stdin)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/error.h
+#ifdef mini_warn
+#define warn( fmt ... ) { fprintf(stderr,fmt ); }
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/bsd_definitions.h
+#ifdef mini_bsd_definitions
+#define minilib_include_bsd_definitions_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__splice
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/streams/fgetud.c
+#ifdef mini_fgetud
+unsigned int fgetud(FILE* F);
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_clearerr
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/src/process/die.c
+#ifdef mini_dies_if
+#define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
+#endif
+
+// minilib/src/conversions/atol.c
+#ifdef mini_atol
+long atol(const char *c);
+#endif
+
+// minilib/src/process/sleep.c
+#ifdef mini_sleep
+unsigned int volatile sleep(unsigned int seconds);
+#define include_minilib_src_process_sleep_c
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__epoll_pwait
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__removexattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/basename.c
+#ifdef mini_basename
+char *basename(char *path);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mkfifo.h
+#ifdef mini_mkfifo
+#define minilib_include_mkfifo_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lseek
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/match/match_ext.c
+#ifdef mini_match_ext
+int match_ext(char *text, const char *re, void(*p_match)(int number, char *pos,int len, void *userdata), int(*p_match_char)(int number, char *match_char, void *userdata), tmatch_ext *st_match, void *userdata);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timer_gettime
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__recvmsg
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strnlen.c
+#ifdef mini_strnlen
+int strnlen(const char*str, int max);
+#endif
+
+// minilib/src/streams/fdopen.c
+#ifdef mini_fdopen
+FILE *fdopen(int fd, const char* mode);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_get_priority_max
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__gettimeofday
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__utimensat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrusage
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__pselect6
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrlimit
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/streams/fopen.c
+#ifdef mini_fopen
+FILE *fopen(const char* filename, const char* mode);
+#define include_minilib_src_streams_fopen_c
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__lremovexattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__process_vm_writev
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/output/vsprintf.c
+#ifdef mini_vsprintf
+int vsprintf( char *buf, const char *fmt, ... );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__umount2
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__close
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rmdir
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__clock_getres
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__time
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mremap
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getresuid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strcspn.c
+#ifdef mini_strcspn
+int strcspn(const char *s1, const char *s2);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__access
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setfsuid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__unlink
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getrandom
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mknod
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_get_priority_min
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/userdb/getgrnam.c
+#ifdef mini_getgrnam
+struct group *getgrnam(const char* name);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__openat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigpending
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mlock
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__socket
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/file/cksum.c
+#ifdef mini_bsd_cksum
+unsigned int bsd_cksum( const char* p, unsigned int len );
+#endif
+
+// minilib/include/fexecveat.h
+#ifdef mini_fexecveat
+#define minilib_include_fexecveat_h
+#endif
+
+// minilib/src/string/strlcpy.c
+#ifdef mini_strlcpy
+char *strlcpy(char *dest, const char *src, int n);
+#endif
+
+// minilib/src/directories/closedir.c
+#ifdef mini_closedir
+int closedir(DIR *dir);
+#endif
+
+// minilib/src/streams/ungetc.c
+#ifdef mini_ungetc
+static int ungetc(int c, FILE *F);
+#endif
+
+// minilib/src/string/stpncpy.c
+#ifdef mini_stpncpy
+char *stpncpy(char *dest, const char *src, int size);
+#endif
+
+// minilib/include/ansicolors.h
+#ifdef mini_ansicolors
+#define minilib_include_ansicolors_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__prctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/die.c
+#ifdef mini_dief_if
+#define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__link
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__inotify_add_watch
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__recvfrom
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__shmctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/signames.h
+#ifdef mini_sys_signame
+#define minilib_src_process_signames_h
+#endif
+
+// minilib/src/userdb/endpwent.c
+#ifdef mini_endpwent
+void endpwent();
+#endif
+
+// minilib/src/network/macros.h
+#ifdef mini_ntohs
+#define ntohs(i) htons(i)
+#endif
+
+// minilib/src/termios/tcgetpgrp.c
+#ifdef mini_tcgetpgrp
+int tcgetpgrp(int fd);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_getscheduler
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fgetxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__modify_ldt
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__move_pages
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mq_timedreceive
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setpriority
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strdup.c
+#ifdef mini_strdup
+char *strdup(const char *source);
+#endif
+
+// minilib/src/math/hashes.c
+#ifdef mini_djb2_hash
+unsigned long djb2_hash(const unsigned char *str);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__get_mempolicy
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_sigqueueinfo
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__timerfd_create
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/telldir.c
+#ifdef mini_telldir
+long telldir(DIR *dir);
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -6716,104 +6927,30 @@ int unsetenv( char *name);
 #define minilib_include_syscalls_x64_h
 #endif
 
+// minilib/src/process/sigaction.c
+#ifdef mini_sigaddset
+int sigaddset(sigset_t *set, int sig);
+#define include_minilib_src_process_sigaction_c
+#endif
+
 // minilib/include/syscalls_x64.h
-#ifdef mini__sync
+#ifdef mini__fstat
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_create
+#ifdef mini__uname
 #define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__swapon
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/network/inet_ntoa.c
-#ifdef mini_inet_ntoa
-char* inet_ntoa( struct in_addr in);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sendmmsg
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/termios/tcsetattr.c
-#ifdef mini_tcsetattr
-int tcsetattr(int fd, int opt, const struct termios *io);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setns
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__clock_getres
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getitimer
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__recvfrom
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/userdb/getpwent.c
-#ifdef mini_getpwent
-struct passwd* getpwent();
 #endif
 
 // minilib/src/process/die.c
-#ifdef mini_dief_if
-#define dief_if( when, errnum, fmt,... ) if( when ) dief( errnum, fmt, __VA_ARGS__ )
+#ifdef mini_die_if
+#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__utimensat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__msgctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__dup
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/memory/map_protected.c
-#ifdef mini_unmap_protected
-int unmap_protected(void *p, int len);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__process_vm_writev
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fclose
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timerfd_gettime
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sethostname
-#define minilib_include_syscalls_x64_h
+// minilib/src/network/ntohl.h
+#ifdef mini_ntohl
+#define ntohl(i) htonl(i)
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -6822,67 +6959,203 @@ int unmap_protected(void *p, int len);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__sched_rr_get_interval
+#ifdef mini__sethostname
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/exec/execl.c
+#ifdef mini_execl
+static int execl(const char *pathname, const char* arg0,... );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__setgid
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__chown
+#ifdef mini__newfstatat
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setdomainname
+#ifdef mini__getuid
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__unlinkat
+#ifdef mini__mq_unlink
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/process/die.c
-#ifdef mini_dief
-#define dief(errnum,fmt,...) {fprintf(stderr,fmt,__VA_ARGS__);exit_errno(errnum);}
+// minilib/src/termios/isatty.c
+#ifdef mini_isatty
+int isatty(int fd);
+#define include_minilib_src_termios_isatty_c
+#endif
+
+// minilib/src/conversions/itobin.c
+#ifdef mini_itobin
+#define itobin(A,B,...) _itobin(A,B,VARARG(SHIFT(__VA_ARGS__),0), VARARG(SHIFT(ARG( __VA_ARGS__ )),32) )
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__semtimedop
+#ifdef mini__getresgid
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/conversions/atol.c
-#ifdef mini_atol
-long atol(const char *c);
+// minilib/src/file/creat.c
+#ifdef mini_creat
+int volatile creat( const char *s, int mode );
 #endif
 
-// minilib/src/termios/tcgetpgrp.c
-#ifdef mini_tcgetpgrp
-int tcgetpgrp(int fd);
+// minilib/include/fputc.h
+#ifdef mini_putc
+#define putc(c,stream) fputc(c,stream)
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__adjtimex
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pause
-#define minilib_include_syscalls_x64_h
+// minilib/include/dummies.h
+#ifdef mini_locale_dummies
+#define minilib_include_dummies_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__signalfd
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__personality
+#ifdef mini__getxattr
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigsuspend
+#ifdef mini__sendmsg
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/network/ether_ntoa.c
+#ifdef mini_ether_ntoa
+char* ether_ntoa( const struct ether_addr *e );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__acct
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/ctype.h
+#ifdef mini_ctype_functions
+#define minilib_include_ctype_h
+#endif
+
+// minilib/include/dirent.h
+#ifdef mini_dirbufsize 
+#define minilib_include_dirent_h
+#endif
+
+// minilib/src/termios/term_width.c
+#ifdef mini_term_width
+int term_width();
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mprotect
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__recvmmsg
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strchr.c
+#ifdef mini_strchr
+char *strchr(const char *s, int c);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getegid
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioprio_get
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__arch_prctl
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__rt_tgsigqueueinfo
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mkdir
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__ioprio_set
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__renameat
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/fgetc.h
+#ifdef mini_getchar
+#define getchar() fgetc(0)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__sched_setscheduler
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__io_setup
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/process/error.h
+#ifdef mini_errx
+#define errx( status, fmt ... ) { fprintf(stderr,fmt); exit(status); }
+#endif
+
+// minilib/include/mini_fstream.h
+#ifdef mini_fgetpos
+#define minilib_include_mini_fstream_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__fork
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getsockopt
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strpbrk.c
+#ifdef mini_strpbrk
+char* strpbrk(const char* s, const char* charset);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__getitimer
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__flistxattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mount
 #define minilib_include_syscalls_x64_h
 #endif
 
@@ -6892,291 +7165,23 @@ void* memchr(const void *s, int c, unsigned int n);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__ppoll
+#ifdef mini__clock_adjtime
 #define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/directories/scandir.c
+#ifdef mini_scandir
+int scandir(const char *path, struct dirent **listing[], int (*fp_select)(const struct dirent *),	int (*cmp)(const struct dirent **, const struct dirent **));
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__setfsgid
+#ifdef mini__open_by_handle_at
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/process/sigaction.c
-#ifdef mini_sigfillset
-static int sigfillset(sigset_t *set);
-#define include_minilib_src_process_sigaction_c
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__dup3
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/strcat.c
-#ifdef mini_strcat
-char *strcat(char *dest, const char *src );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__splice
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_unlink
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/memory/calloc.c
-#ifdef mini_calloc
-void* calloc(int nmemb, int size);
-#endif
-
-// minilib/src/string/strrchr.c
-#ifdef mini_strrchr
-char *strrchr(const char *s, int c);
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putchar
-#define putchar(c) fputc(c,stdout)
-#endif
-
-// minilib/src/exec/execl.c
-#ifdef mini_execl
-static int execl(const char *pathname, const char* arg0,... );
-#endif
-
-// minilib/include/fputc.h
-#ifdef mini_putc
-#define putc(c,stream) fputc(c,stream)
-#endif
-
-// minilib/include/errstrshort.h
-#ifdef mini_short_errstr
-#define minilib_include_errstrshort_h
-#endif
-
-// minilib/src/directories/closedir.c
-#ifdef mini_closedir
-int closedir(DIR *dir);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__semop
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mq_notify
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__listen
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__accept4
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/output/vsprintf.c
-#ifdef mini_vsprintf
-int vsprintf( char *buf, const char *fmt, ... );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__set_tid_address
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/math.h
-#ifdef mini_div
-#define minilib_include_math_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__statfs
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__poll
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rt_sigtimedwait
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getcpu
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/streams/fopen.c
-#ifdef mini_fopen
-FILE *fopen(const char* filename, const char* mode);
-#define include_minilib_src_streams_fopen_c
-#endif
-
-// minilib/src/string/strpbrk.c
-#ifdef mini_strpbrk
-char* strpbrk(const char* s, const char* charset);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getsockname
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__readlink
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/math/sdbm_hash.c
-#ifdef mini_sdbm_hash
-unsigned long sdbm_hash(const unsigned char *str);
-#endif
-
-// minilib/src/directories/alphasort.c
-#ifdef mini_alphasort
-int alphasort( const struct dirent** de1, const struct dirent** de2 );
-#endif
-
-// minilib/src/network/recv.c
-#ifdef mini_recv
-int recv(int sockfd, void *buf, size_t len, int flags);
-#endif
-
-// minilib/src/termios/cfmakeraw.c
-#ifdef mini_cfmakeraw
-void cfmakeraw(struct termios *tp);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__pivot_root
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/string/strncat.c
-#ifdef mini_strncat
-char* strncat( char* dst, const char* src, unsigned int n);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__io_submit
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/ctype.h
-#ifdef mini_ctype_functions
-#define minilib_include_ctype_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__capget
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/dirent.h
-#ifdef mini_dirbuf_malloc
-#define minilib_include_dirent_h
-#endif
-
-// minilib/include/fexecve.h
-#ifdef mini_fexecve
-#define minilib_include_fexecve_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__epoll_create
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__keyctl
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_clearerr
-#define minilib_include_mini_fstream_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__set_mempolicy
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__symlink
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__timer_delete
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/rewinddir.c
-#ifdef mini_rewinddir
-void rewinddir(DIR *dir);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__finit_module
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getgid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__mkdirat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__rmdir
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__inotify_init
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__wait4
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/process/atexit.c
-#ifdef mini_atexit
-static int atexit( functionp* func );
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__vmsplice
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/directories/readdir.c
-#ifdef mini_readdir
-struct dirent *readdir(DIR *dir);
-#endif
-
-// minilib/src/process/sigaction.c
-#ifdef mini_sigismember
-int sigismember(sigset_t *set, int sig);
-#define include_minilib_src_process_sigaction_c
+// minilib/src/termios/tcsetattr.c
+#ifdef mini_tcsetattr
+int tcsetattr(int fd, int opt, const struct termios *io);
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -7185,78 +7190,28 @@ int sigismember(sigset_t *set, int sig);
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__times
+#ifdef mini__alarm
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__fgetxattr
+#ifdef mini__sysinfo
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/src/directories/basename.c
-#ifdef mini_basename
-char *basename(char *path);
+// minilib/include/errstr.h
+#ifdef mini_verbose_errstr
+#define minilib_include_errstr_h
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__getresgid
-#define minilib_include_syscalls_x64_h
+// minilib/src/network/inet_ntoa.c
+#ifdef mini_inet_ntoa
+char* inet_ntoa( struct in_addr in);
 #endif
 
-// minilib/src/string/strdup.c
-#ifdef mini_strdup
-char *strdup(const char *source);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__socketpair
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sysfs
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__setxattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__modify_ldt
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getpgid
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/streams/fgetsp.c
-#ifdef mini_fgetsp
-char* fgetsp(char *buf, int size, FILE* F);
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__process_vm_readv
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/src/memory/freebrk.c
-#ifdef mini_free_brk
-int free_brk();
-#endif
-
-// minilib/src/process/die.c
-#ifdef mini_dies_if
-#define dies_if( when, errnum, ... ) if( when ) dies( errnum, __VA_ARGS__ )
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__getdents
-#define minilib_include_syscalls_x64_h
+// minilib/src/file/cksum.c
+#ifdef mini_djb_cksum
+unsigned int djb_cksum( const char* p, unsigned int len );
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -7265,43 +7220,58 @@ int free_brk();
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__linkat
+#ifdef mini__eventfd2
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/mremap.h
+#ifdef mini_mremap
+#define minilib_include_mremap_h
+#endif
+
+// minilib/src/process/clone.c
+#ifdef mini_clone_t
+int clone_t(int flags);
+#endif
+
+// minilib/include/lseek.h
+#ifdef mini_fsync
+#define minilib_include_lseek_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__mlockall
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/prints.h
+#ifdef mini_fwritesl
+#define fwritesl(fd,str) write(fd,str"\n",sizeof(str)+1)
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__memfd_create
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__pselect6
+#ifdef mini__semtimedop
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/output/perror.c
+#ifdef mini_perror
+void perror(const char *msg);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__semctl
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__eventfd
+#ifdef mini__seccomp
 #define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__sigaltstack
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__ustat
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__removexattr
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/syscalls_x64.h
-#ifdef mini__get_robust_list
-#define minilib_include_syscalls_x64_h
-#endif
-
-// minilib/include/mini_fstream.h
-#ifdef mini_fsetpos
-#define minilib_include_mini_fstream_h
 #endif
 
 // minilib/include/syscalls_x64.h
@@ -7310,27 +7280,57 @@ int free_brk();
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__accept
+#ifdef mini__fremovexattr
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/string/strtoll.c
+#ifdef mini_strtoll
+long long int strtoll(const char *c, const char **endp, int base);
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__capget
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__kcmp
 #define minilib_include_syscalls_x64_h
 #endif
 
 // minilib/include/mini_fstream.h
-#ifdef mini_fwrite
+#ifdef mini_fflush
 #define minilib_include_mini_fstream_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__mount
+#ifdef mini__pivot_root
 #define minilib_include_syscalls_x64_h
 #endif
 
-// minilib/include/syscalls_x64.h
-#ifdef mini__setresuid
-#define minilib_include_syscalls_x64_h
+// minilib/src/streams/fgetul.c
+#ifdef mini_fgetul
+unsigned long int fgetul(FILE* F);
+#endif
+
+// minilib/include/poll.h
+#ifdef mini_poll
+#define minilib_include_poll_h
 #endif
 
 // minilib/include/syscalls_x64.h
-#ifdef mini__lgetxattr
+#ifdef mini__pipe2
+#define minilib_include_syscalls_x64_h
+#endif
+
+// minilib/src/exec/vexec.c
+#ifdef mini_vexec
+int vexec( const char* path, char* const* argv, char* const* envp );
+#endif
+
+// minilib/include/syscalls_x64.h
+#ifdef mini__execve
 #define minilib_include_syscalls_x64_h
 #endif
 
@@ -7338,55 +7338,31 @@ int free_brk();
 #ifdef prints_h
 #include "prints.h"
 #endif
-#ifdef stdarg_h
-#include "stdarg.h"
-#endif
 #ifdef mini_fstream_h
 #include "mini_fstream.h"
 #endif
+#ifdef stdarg_h
+#include "stdarg.h"
+#endif
 
 // include
-#ifdef minilib_include_poll_h
-#include "minilib/include/poll.h"
+#ifdef minilib_include_mkfifo_h
+#include "minilib/include/mkfifo.h"
 #endif
-#ifdef minilib_include_globaldefs_h
-#include "minilib/include/globaldefs.h"
-#endif
-#ifdef minilib_include_ret_errno_h
-#include "minilib/include/ret_errno.h"
-#endif
-#ifdef minilib_include_errstr_h
-#include "minilib/include/errstr.h"
+#ifdef minilib_include_seterrno_h
+#include "minilib/include/seterrno.h"
 #endif
 #ifdef minilib_include_dirent_h
 #include "minilib/include/dirent.h"
 #endif
-#ifdef minilib_macros_defgroups_h
-#include "minilib/macros/defgroups.h"
+#ifdef minilib_macros_getoptm_h
+#include "minilib/macros/getoptm.h"
 #endif
-#ifdef minilib_include_config_h
-#include "minilib/include/config.h"
-#endif
-#ifdef minilib_include_fexecve_h
-#include "minilib/include/fexecve.h"
-#endif
-#ifdef minilib_include_fexecveat_h
-#include "minilib/include/fexecveat.h"
-#endif
-#ifdef minilib_include_ansicolors_h
-#include "minilib/include/ansicolors.h"
-#endif
-#ifdef minilib_include_mkfifo_h
-#include "minilib/include/mkfifo.h"
+#ifdef minilib_include_ctype_h
+#include "minilib/include/ctype.h"
 #endif
 #ifdef minilib_include_bsd_definitions_h
 #include "minilib/include/bsd_definitions.h"
-#endif
-#ifdef minilib_include_network_h
-#include "minilib/include/network.h"
-#endif
-#ifdef minilib_macros_alignment_h
-#include "minilib/macros/alignment.h"
 #endif
 #ifdef minilib_include_errstrshort_h
 #include "minilib/include/errstrshort.h"
@@ -7394,20 +7370,59 @@ int free_brk();
 #ifdef minilib_include_bsd_timespec_h
 #include "minilib/include/bsd_timespec.h"
 #endif
-#ifdef minilib_include_seterrno_h
-#include "minilib/include/seterrno.h"
-#endif
-#ifdef minilib_include_termio_h
-#include "minilib/include/termio.h"
+#ifdef minilib_include_mini_fstream_h
+#include "minilib/include/mini_fstream.h"
 #endif
 #ifdef minilib_include_mremap_h
 #include "minilib/include/mremap.h"
 #endif
-#ifdef minilib_include_syscall_h
-#include "minilib/include/syscall.h"
+#ifdef minilib_include_fputs_h
+#include "minilib/include/fputs.h"
+#endif
+#ifdef minilib_include_ansicolors_h
+#include "minilib/include/ansicolors.h"
+#endif
+#ifdef minilib_include_select_h
+#include "minilib/include/select.h"
 #endif
 #ifdef minilib_include_errstr2_h
 #include "minilib/include/errstr2.h"
+#endif
+#ifdef minilib_include_errstr_h
+#include "minilib/include/errstr.h"
+#endif
+#ifdef minilib_include_fexecve_h
+#include "minilib/include/fexecve.h"
+#endif
+#ifdef minilib_include_fputc_h
+#include "minilib/include/fputc.h"
+#endif
+#ifdef minilib_include_termio_h
+#include "minilib/include/termio.h"
+#endif
+#ifdef minilib_include_dummies_h
+#include "minilib/include/dummies.h"
+#endif
+#ifdef minilib_macros_alignment_h
+#include "minilib/macros/alignment.h"
+#endif
+#ifdef minilib_include_network_h
+#include "minilib/include/network.h"
+#endif
+#ifdef minilib_include_config_h
+#include "minilib/include/config.h"
+#endif
+#ifdef minilib_include_globaldefs_h
+#include "minilib/include/globaldefs.h"
+#endif
+#ifdef minilib_macros_assert_h
+#include "minilib/macros/assert.h"
+#endif
+#ifdef minilib_include_ret_errno_h
+#include "minilib/include/ret_errno.h"
+#endif
+#ifdef minilib_include_syscalls_x64_h
+#include "minilib/include/syscalls_x64.h"
 #endif
 #ifdef minilib_include_math_h
 #include "minilib/include/math.h"
@@ -7415,23 +7430,14 @@ int free_brk();
 #ifdef minilib_include_minilib_global_h
 #include "minilib/include/minilib_global.h"
 #endif
-#ifdef minilib_include_mini_fstream_h
-#include "minilib/include/mini_fstream.h"
-#endif
-#ifdef minilib_include_syscalls_x64_h
-#include "minilib/include/syscalls_x64.h"
-#endif
 #ifdef minilib_include_pwent_h
 #include "minilib/include/pwent.h"
 #endif
-#ifdef minilib_macros_assert_h
-#include "minilib/macros/assert.h"
+#ifdef minilib_macros_defgroups_h
+#include "minilib/macros/defgroups.h"
 #endif
-#ifdef minilib_include_fputc_h
-#include "minilib/include/fputc.h"
-#endif
-#ifdef minilib_include_fputs_h
-#include "minilib/include/fputs.h"
+#ifdef minilib_include_fexecveat_h
+#include "minilib/include/fexecveat.h"
 #endif
 #ifdef minilib_src_process_signames_h
 #include "minilib/src/process/signames.h"
@@ -7439,17 +7445,11 @@ int free_brk();
 #ifdef minilib_include_lseek_h
 #include "minilib/include/lseek.h"
 #endif
-#ifdef minilib_macros_getoptm_h
-#include "minilib/macros/getoptm.h"
+#ifdef minilib_include_syscall_h
+#include "minilib/include/syscall.h"
 #endif
-#ifdef minilib_include_dummies_h
-#include "minilib/include/dummies.h"
-#endif
-#ifdef minilib_include_ctype_h
-#include "minilib/include/ctype.h"
-#endif
-#ifdef minilib_include_select_h
-#include "minilib/include/select.h"
+#ifdef minilib_include_poll_h
+#include "minilib/include/poll.h"
 #endif
 #ifdef INCLUDESRC
 #ifndef included_minilib_c

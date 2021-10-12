@@ -186,7 +186,7 @@ tools:
 
 compiled/minilib.h: tools
 	cp templates/LICENSE.tmpl compiled/minilib.h
-	echo -e "#ifndef compiled/minilib_h\n#define compiled/minilib_h\n" > compiled/minilib.tmp2.h && \
+	echo -e "#ifndef compiled_minilib_h\n#define compiled_minilib_h\n" > compiled/minilib.tmp2.h && \
 			scripts/combinesources.pl minilib.h >> compiled/minilib.tmp2.h && \
 			sed -e '$$d' compiled/minilib.tmp2.h | sed -e '$$d' > compiled/minilib.tmp.h && \
 			echo -e "#endif\n#ifdef SHRINKELF" >> compiled/minilib.tmp.h && \
@@ -204,7 +204,7 @@ compiled/minilib.h: tools
 	sed -i '/^SYSDEF_syscall/d;/^DEF_syscall/d' compiled/minilib.h
 	gzip -c compiled/minilib.h > compiled/minilib.h.gz
 
-
+.ONESHELL:
 compiled/Makefile.minilib:
 	echo generate $@
 	sed -i -e 's/^VERSION:=.*/VERSION:=$(NOW)/' $@
@@ -214,12 +214,15 @@ compiled/Makefile.minilib:
 	sed -i -e '/^#genconfig/,/^#genconfig/s/\$$/$$$$/g' $@
 	sed -i -n -e '0,/^#ldscripts_start/p' $@
 	@$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo define $(FILE) =;cat $(FILE);echo endef;" >> $@; )
-	echo "#sha256sums" >> $@
+	cd compiled
+	echo "#sha256sums" >> Makefile.minilib
 	echo "define sha256sums =" > sign.tmp
-	cat $@ | sha256sum  | sed 's/\s$$//g' >> sign.tmp
-	cat sign.tmp >> $@
-	sha256sum compiled/minilib.h >> $@
-	echo "endef" >> $@
+	cat Makefile.minilib | sha256sum  | sed 's/\s$$//g' >> sign.tmp
+	cat sign.tmp >> Makefile.minilib
+	sha256sum minilib.h >> Makefile.minilib
+	echo PWD: `pwd`
+	sha256sum minilib.h
+	echo "endef" >> Makefile.minilib
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> $@; )
 	#echo "endif" >> Makefile.minilib
 
