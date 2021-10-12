@@ -1,0 +1,16 @@
+beta release v.XXX of minilib.
+
+The script minimake contains the bundled minilib with ldscripts.
+
+syntaxcheck.h is a headerfile with all definitions of minilib,
+intended to be used by syntaxcheck plugins.
+
+Documentation is available at https://github.com/michael105/minilib
+
+Currently I've tested only with gcc 9.3 and clang 11,
+clang throws some bugs yet with several functions and combinations
+of optimization flags, they are documented in the section "Bugs"
+of the readme at the github repository. 
+
+Patches welcome.
+
