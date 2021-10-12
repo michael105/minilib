@@ -552,7 +552,7 @@ ENDL
 
 if [ "$opt_nombuf" = "" ]; then
 		echo '# Save default. The minibuf is needed for malloc, printf, and file streams.
-mini_buf 1024'
+mini_buf 4000'
 	else 
 	 	echo  '# Disabled mbuf. The minibuf is needed for malloc, printf, and file streams.
 # mini_buf 1024'
@@ -638,7 +638,7 @@ endif
 # embedded makefile starts below
 
 
-VERSION := "20210629"
+VERSION := "20211012"
 urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
 
 fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)

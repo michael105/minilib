@@ -226,6 +226,8 @@ compiled/Makefile.minilib:
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> $@; )
 	#echo "endif" >> Makefile.minilib
 
+gitversion: #compiled/Makefile.minilib
+	sed -i -e 's/^VERSION := .*/VERSION := $(NOW)/' minimake
 
 hello-combinedb: hello-combined.c tools
 	make SINGLERUN=1 PROG=hello-combined

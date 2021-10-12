@@ -83,18 +83,18 @@ default: $(BUILDDIR) minilib.h
 	source $(CONF) > $(BUILDDIR)/$(CONF).h || exit 1
 	echo LDSCRIPT: $$LDSCRIPT
 	echo generate $(BUILDDIR)/$(CONF).ldscript
-	#echo $($$VAR) > $(BUILDDIR)/$(CONF).ldscript || exit 1
 	cat $(SELF) | sed -n "/ldscripts\/ld.script.$$LDSCRIPT/,/endef/p" | sed '1d;/endef/Q' > $(BUILDDIR)/$(CONF).ldscript || exit 1
-	echo compile $(SOURCES) to $(BUILD)
+	echo compile $$SOURCES to $$BINARY
 	echo $(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
-       $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -o $$BINARY
+       $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -o $$BINARY
 	$(if $(SHOWSOURCE),\
 		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
-         $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -E -P),\
+         $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -E -P),\
 		($(CC) -include "$(BUILDDIR)/$(CONF).h" -include $$MINILIB $$OPTFLAG $$STRIPFLAG \
-         $$CFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $(SOURCES) -o $$BINARY ))
-	$(if $$opt_shrinkelf,echo shrinkelf $$BINARY)
-	$(if $$opt_shrinkelf,$(MAKE) -f $(SELF) $(BUILDDIR)/shrinkelf && $(BUILDDIR)/shrinkelf $$BINARY)
+         $$CFLAGS $$LDFLAGS,-T$(BUILDDIR)/$(CONF).ldscript $$SOURCES -o $$BINARY ))
+	# Currently automatic shrinking only supported by minimake sry (TODO)
+	#$(if $$opt_shrinkelf,echo shrinkelf $$BINARY)
+	#$(if $$opt_shrinkelf,$(MAKE) -f $(SELF) $(BUILDDIR)/shrinkelf && $(BUILDDIR)/shrinkelf $$BINARY)
 
 
 minilib.h:
@@ -107,10 +107,10 @@ $(BUILDDIR)/shrinkelf: minilib.h $(BUILDDIR)/shrinkelf.c $(BUILDDIR)/shrinkelf.m
 	$(MAKE) -f $(SELF) default BUILD=$(BUILDDIR)/shrinkelf CONF=$(BUILDDIR)/shrinkelf.mconf BUILDDIR=.
 
 $(BUILDDIR)/shrinkelf.c: minilib.h
-	$(CC) -Dminilibcompiled_h -DSHRINKELF -E -P minilib.h > $(BUILDDIR)/shrinkelf.c
+	$(CC) -Dcompiled_minilib_h -DSHRINKELF -E -P minilib.h > $(BUILDDIR)/shrinkelf.c
 
 $(BUILDDIR)/shrinkelf.mconf: minilib.h
-	$(CC) -Dminilibcompiled_h -DSHRINKELF_MCONF -E -P minilib.h > $(BUILDDIR)/shrinkelf.mconf
+	$(CC) -Dcompiled_minilib_h -DSHRINKELF_MCONF -E -P minilib.h > $(BUILDDIR)/shrinkelf.mconf
 
 
 check:
