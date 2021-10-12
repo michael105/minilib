@@ -1,4 +1,5 @@
 #if 0
+#mlconfig
 mini_buf 4096
 mini_start
 INCLUDESRC

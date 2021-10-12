@@ -6,7 +6,7 @@ all: $(PROGS)
 	../minimake $<
 
 shrinkelf: shrinkelf.c
-	../minimake --config shrinkelf.mconf -o shrinkelf shrinkelf.c
+	../minimake --config shrinkelf.mconf
 
 clean:
 	rm $(PROGS)
