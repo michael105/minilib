@@ -19,7 +19,7 @@ fi
 
 # =1 :use the minilib, included within this script as zipped file.
 # =0 :use the individual files, when existing within MLIBDIR
-useincludedminilib=1
+useincludedminilib=0
 
 # use clang
 # CLANG=1
@@ -381,7 +381,7 @@ exec_gcc(){
 		INCLUDEMINILIB="$0 --dump-minilib"
 		#INCLUDEMINILIB="-include <($0 --dump-minilib)"
 	else
-		INCLUDEMINILIB="#include <minilib.h>"
+		INCLUDEMINILIB="echo '#include <minilib.h>'"
 		opt_args=" -I$MLIBDIR $opt_args"
 	fi
 

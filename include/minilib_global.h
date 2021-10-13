@@ -111,6 +111,11 @@ typedef struct {
 #ifdef mini_inet_ntoa
 		char inet_ntoa_addr[16];
 #endif
+#ifdef mini_ether_ntoa
+		char ether_ntoa_addr[20]; // padded to %4
+#endif
+
+
 } __globals_shadow;
 
 
@@ -228,7 +233,7 @@ static void __attribute__((noipa,cold)) optimization_fence(void*p){}
 #define mini_globals
 #endif
 #ifndef mini_globalregister
-// user register r15 by default (GCC only)
+// use register r15 by default (GCC only)
 #define mini_globalregister "r15"
 #endif
 #endif

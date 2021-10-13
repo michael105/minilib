@@ -18,6 +18,7 @@
 #define _isxdigit(a) (_isdigit(a)||(((unsigned)a|32)-'a'<6))
 
 //+doc create functions instead of macros for isalpha, .., isprint
+// the ctype macros are defined also without being explicitely enabled.
 //+def ctype_functions
 #ifdef mini_ctype_functions
 
