@@ -22,7 +22,7 @@ void __attribute__((noreturn))_startup(int argc, char **argv, char **envp ){
 		// put the globals onto the stack.
 		// (the return address of _startup isn't used,
 		// so an overflow would result in a segfault)
-#ifdef GUARDED_GLOBALS
+#ifdef DOESNT_ORK_GUARDED_GLOBALS // todo: file bugreport.
 #warning guard
 struct { 
 	char guard1[PAGESIZE*2];
@@ -34,7 +34,7 @@ mlgl=&gl.__mlgl;
 int r = mprotect( (gl.guard2 + ( (long)(&gl.guard2)%PAGESIZE )), 1, PROT_NONE );
 sprintf(mlgl->mbuf,"a: %lx - %lx - ret: %d", gl.guard2,(gl.guard2 + ( (long)(&gl.guard2)%PAGESIZE )),r );
 
-#else
+#else 
 minilib_globals __mlgl;
 mlgl=&__mlgl;
 #endif

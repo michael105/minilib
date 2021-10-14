@@ -12,5 +12,12 @@
 #warn sprintf is not safe. Please use snprintf instead
 #endif
 
+#ifdef mini_vsnprintf
+#ifndef itodec
+// better warn. might be confusing having no %d result.
+#warn printf family is defined. Most probably you need to either define mini_itodec (%d conversion) as well, or use the smaller prints/writes functions
+#endif
+#endif
 
 #endif
+

@@ -8,12 +8,12 @@ static long getbrk(){
 #define _sys_brk sys_brk
 #endif
 #ifdef mini_globals
-		if ( !mlgl->brk ){
-				mlgl->brk=_sys_brk(0); // get the old brk
-		}
+	if ( !mlgl->brk ){
+		mlgl->brk=_sys_brk(0); // get the old brk
+	}
 	return(mlgl->brk);
 #else
-		return(_sys_brk(0));
+	return(_sys_brk(0));
 #endif
 }
 
