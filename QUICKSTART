@@ -3,6 +3,10 @@
 
 (Online: https://github.com/michael105/minilib)
 
+Important: Currently only gcc 9.3 might work.
+ clang 10/11 does work, but there are combinations
+ of optimization flags and some functions, which segfault.
+ There's the section Bugs in the readme on that, further reports very welcome.
 
 Minilib targets the smallest possible binary.
 

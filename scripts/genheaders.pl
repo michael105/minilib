@@ -978,7 +978,8 @@ template( "minilib.conf.all", "minilib_config", { Allswitches=>\&configallhandle
 sub configscripthandler{
 	my $fh = shift;
 	foreach my $func ( keys(%{$funchash}) ){
-		printf $fh "mini_$func(){ mini_define $func $1; }\n";
+		printf $fh "mini_$func(){ mini_define $func \$1; }\n";
+		#printf $fh "mini_$func(){ mini_define $func $1; }\n";
 		#printf $fh "mini_$func(){ 
 		#  if [ ! -z \$1 ]; then echo \"#define mini_$func \$1\" 
 		#	else echo  \"#define mini_$func $func\"
