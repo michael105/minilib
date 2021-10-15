@@ -78,9 +78,12 @@ else
 
 $PROGLIST4="$(PROG) hello-combined failtest-segfault"
 
-all: fputs hello-combined hello-include hello-smallest args $(PROGCUSTOM) $(MAKEPROGS) common.conf
+all: minilib.h fputs hello-combined hello-include hello-smallest args $(PROGCUSTOM) $(MAKEPROGS) common.conf
 	@$(foreach P,$(PROG) failtest-segfault,$(MAKE) BUILDPROG=$(P) && ) true
 	@$(foreach P,$(MINIGCC) , (echo minilib/minimake --config $(P).c -o $(P) $(P).c && minilib/minimake --config $(P).c -o $(P) $(P).c ) && ) true
+
+minilib.h:
+	cat ../compiled/minilib.h.gz | gunzip > minilib.h
 
 test-generated: 
 	cd generated && make clean
