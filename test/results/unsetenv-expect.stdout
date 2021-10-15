@@ -1,0 +1,15 @@
+start
+/bin/mksh
+/bin/sh
+xx1
+ok1
+/bin/setenv
+xx
+ok
+TEST: /bin/setenv
+ok
+TEST: /bin/set
+ok
+ok
+ok
+TEST: /bin/setenv
