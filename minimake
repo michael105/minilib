@@ -311,378 +311,6 @@ SHOWSOURCES Set to 1 to save all combined sources into the outputfile
 		exit
 }
 
-# compile gcc options and execute gcc
-exec_gcc(){
-	opt_args="$@"
-
-
-	if [ -n "$DUMMYHEADER" ]; then
-		if [ -d "$MLIBDIR/dummyheader" ]; then
-			opt_args="-I$MLIBDIR/dummyheader $opt_args"
-		else
-			if [ ! -d $BUILDDIR ]; then
-				verbose Create builddir: $BUILDDIR
-				mkdir $BUILDDIR
-			fi
-			createdummyheaders
-			opt_args="-I$BUILDDIR/dummyheader $opt_args"
-		fi
-
-	fi
-
-
-	if [ -z "$sources" ]; then
-		export sources=`echo $opt_args | sed -E 's/.*\s(\S\S*\.c).*/\1/'`
-		opt_args=`echo $opt_args | sed -E 's/(.*\s)(\S\S*\.c)(.*)/\1 \3/'`
-		if [ -z "$sources" ]; then
-			export sources=$config
-		fi
-	fi
-	SRC="$0 --dump-sources"
-
-	if [ "$opt_execname" != "" ]; then # compile and execute
-		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
-	fi
-
-	if [ -n "$SHOWSOURCES" ]; then
-		opt_args="-E -P $opt_args"
-	else
-
-		if [ -n "$outputfile" ]; then
-			echo $opt_args | sed '/-o /Q1' > /dev/null
-			if [ $? = 0 ]; then
-				opt_args="-o $outputfile $opt_args"
-			fi
-			echo compile: $outputfile
-		fi
-	fi
-
-	if [ -n "$PICFLAG" ]; then
-		CFLAGS="$PICFLAG $CFLAGS"
-	fi
-
-	if [ -n "$NOCOLOR" ]; then
-		colorize=""
-	fi
-
-	INCLUDEMINILIB=""
-	if [ "$useincludedminilib" == "1" ]; then
-		INCLUDEMINILIB="$0 --dump-minilib"
-		#INCLUDEMINILIB="-include <($0 --dump-minilib)"
-	else
-		INCLUDEMINILIB="echo '#include <minilib.h>'"
-		opt_args=" -I$MLIBDIR $opt_args"
-	fi
-
-
-	if [ "$useincludedminilib" == "0" ]; then
-		if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
-			LDSCRIPTFILE=",-T$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
-		fi
-	fi
-
-	if [ "$LDSCRIPTFILE" == "" ]; then
-		LDSCRIPTFILE=",-T<($0 --dump ld_script_$LDSCRIPT)"
-	fi
-	if [ "$fulldebug" == 1 ]; then
-		LDFLAGS=""
-		#LDSCRIPTFILE=",-T<(ld --verbose | sed -e '1,/^===/d;/^===/,\$d')"
-		LDSCRIPTFILE=""
-		dbgfile=`echo -n $opt_args | sed -E 's/.*-o (\S*).*/\1.dbg/'`
-		opt_args=`echo -n $opt_args | sed -E 's/-o \S*//'`
-		OPTFLAG='-g'
-	fi
-
-	INCLUDECONFIG=""
-	if [ "$opt_config" == "" ]; then
-		opt_config=$sources
-	fi
-		if [ "$useincludedminilib" == "0" ]; then
-			INCLUDECONFIG="$0 --dump-config $opt_config"
-		else 
-			#	INCLUDECONFIG="-include <($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib)"
-			#($0 --useincludedminilib --dump-config $opt_config;$0 --dump-minilib) > minilib.tmp.h
-			#($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib) > minilib.tmp.h
-			INCLUDECONFIG="$0 --useincludedminilib --dump-config $opt_config" #) > minilibcfg.tmp.h
-			#$0 --useincludedminilib --dump-minilib > minilib.tmp.h
-			#INCLUDECONFIG="-include minilibcfg.tmp.h -include minilib.tmp.h"
-		fi
-
-
-	if [ "$useincludedminilib" == "0" ]; then
-		CFLAGS="$INCLUDEDIRS $CFLAGS"
-	fi
-
-
-	echo_verbose "$REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
-
-
-	if [ "$debuglog" = "1" ]; then
-		let i=1;
-		while [ -e "debuglog.$i" ] 
-		do 
-			let i++
-		done
-		eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E -x c - > debuglog.$i"
-	fi
-
-
-	if [ "$fulldebug" == 1 ]; then
-		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
-
-		echo $CYAN eval "$REAL_CC $CFLAGS $opt_args -E" $NORM 
-		echo
-
-		eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $opt_args -E -x c - | sed '/^#/d' > $dbgfile.c"
-
-		echo $CYAN "eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c"$NORM
-
-		eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c $colorize
-	else
-		# execute gcc
-		if [ "$dump_cmd" = "1" ]; then
-			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
-		else
-			verbose eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c -"
-			eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
-			#eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
-		fi
-		#$REAL_CC $CFLAGS$LDSCRIPT $@
-	fi
-	return ${PIPESTATUS[1]}
-}
-
-
-# Parse config.
-# Also set variables in the current instance of minimake
-checkconfig (){
-	#( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
-	echo_verbose minilibconfig: parse $1
-	#ERR=$((source $1 > $1.h) 2>&1)
-	#echo '#include "minilib.h"' >> $1.h
-	#sed "s/command/function/"
-	ERR= source $1 2>&1 > /dev/null
-	if [ -n "$ERR" ]; 
-	then
-		echo -e "Error parsing config in $1: \n $ERR" >&2
-		exit 1;
-	fi
-	# set unset values to defaults
-	defaultvalues
-	# dump parts of the config, when verbose
-	echo_verbose minilibdir: $MLIBDIR
-	echo_verbose ARCH: $MINI_ARCH
-	echo_verbose OS: $MINI_OS
-	echo_verbose ldscript: $LDSCRIPT
-}
-
-
-dumpconfig (){
-
-	exec 3>&1 4>&2 #open fd 3
-	E=$( { source $1 1>&3;} 2>&1 ) 3>&1  # redirect error messages to fd3
-
-	if [ "$E" != "" ]; 
-	then
-		echo -e "Error parsing config in $1: \n\033[1;31m $E \033[1;37m" >&2
-		#exit 1;
-	fi
-
-	if [ "$useincludedminilib" == "0" ]; then
-		echo '#include "minilib.h"'
-		#else
-		#		echo -e "#define mini_INCLUDESRC\n"
-
-	fi
-}
-
-dumpsources() {
-	#opt_args="$@ $sources"
-	defaultvalues
-	echo $sources | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'
-	verbose Source: $@
-}
-
-genconfig(){
-cat << 'ENDL'
-#mlconfig
-ifdef undef
-# ============================================================================
-# either type 'make -f minilib.conf'
-# to use this combined config and makefile generated by minimake,
-# compile and download when needed (ca.100kB) with minilib.
-# (https://github.com/michael105/minilib)
-# 
-#
-# Alternatively, when the script minimake with the embedded minilib 
-# is already present, 'minimake --config "thisfile"' 
-# compiles without fetching minilib again.
-# ============================================================================
-#
-# 
-# Minilib and the accompanying tools are licensed under a 
-# BSD-style opensource license with attribution.
-# I did my best and I'm using minilib myself,
-# but cannot give any guarantees for any functionality
-# of an opensource library or the accompanying tools.
-#
-# (Disclaimer)
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND
-# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
-# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# The full license is available at the webpage of minilib.
-# https://github.com/michael105/minilib
-# Michael (misc) Myer, 2021
-#
-
-
-ENDL
-
-
-if [ "$opt_nombuf" = "" ]; then
-		echo '# Save default. The minibuf is needed for malloc, printf, and file streams.
-mini_buf 4000'
-	else 
-	 	echo  '# Disabled mbuf. The minibuf is needed for malloc, printf, and file streams.
-# mini_buf 1024'
-fi
-
-cat << 'ENDL'						
-# define headerguards, to prevent parsing the standard header
-HEADERGUARDS
-
-# Startup function
-mini_start
-
-# put the globals on stack. 
-# (past the last used return address, but before the environment.
-# there's more documentation in the readme/reference)
-# reserves a fixed register as pointer to the globals
-# globals_on_stack
-
-# define var (#define var arg)
-# DEFINE var arg
-
-# optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
-OPTFLAG -Os
-
-# (with debug info)
-#OPTFLAG '-g -Og'
-
-# stripflag ( defaults to -s)
-#STRIPFLAG
-
-# Build minilib source
-INCLUDESRC
-
-# the ldscript to use
-# Can be one of: default, onlytext, textandbss, onlytext_tiny
-LDSCRIPT default
-
-# Shrink the compiled binary with shrinkelf
-#SHRINKELF
-
-# generate debug info (-Og -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
-#DEBUG
-
-# generate debug info, including the source of minilib itself. (-Og -g). 
-# Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
-#FULLDEBUG
-
-
-# list of source files, supplied to gcc
-# $1 expands to the current filename 
-ENDL
-
-echo SOURCES $@
-#SOURCES $1 file1.c file2.c
-
-echo -e '\n# the binary to be compiled ( -o $BINARY )'
-echo BINARY `basename $1 .c`
-
-echo -e '\n# function switches. Only functions named below will be compiled\n'
-
-if [ "$debuglog" = "1" ]; then
-		let i=1;
-
-		while [ -e "debuglog.$i" ] 
-		do 
-				let i++
-		done
-		(echo "$headerguards_h" "$genconfigmacros_h"; cat $@) \
-			| $REAL_CC $CFLAGS -Dincluded_minilib_h -E -x c - > debuglog.$i
-		echo $REAL_CC $CFLAGS $@ >> debuglog.$i
-		let i++
-		echo "$headerguards_h" "$genconfigmacros_h" >> debuglog.$i
-fi
-
-(echo "$headerguards_h" "$genconfigmacros_h"; cat $@) \
-	| $REAL_CC $CFLAGS -Dincluded_minilib_h -E -x c - \
-	| sed 's/_M_MLIB_/\n_M_MLIB_/g' | sed -n 's/^.*_M_MLIB_\(.*\)_M_.*/mini_\1/p' \
-	| sort -u 2>/dev/null 
-
-
-cat << 'ENDL'
-
-
-return
-endif
-# configuration part ends, 
-# embedded makefile starts below
-
-
-VERSION := "20211012"
-urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
-
-fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
-
-
-default: Makefile.minilib minilib.h check compile
-
-
-compile:
-	$(info Compile)
-	make -f Makefile.minilib CONF="$(lastword $(MAKEFILE_LIST))"
-
-
-Makefile.minilib:
-	$(info "Download Makefile.minilib (Version $(VERSION))from github")
-	$(call fetch,Makefile.minilib)
-
-
-minilib.h:
-	$(info "Download minilib.h (Version $(VERSION))from github")
-	$(call fetch,minilib.h)
-
-
-.ONESHELL:
-check:
-	@echo "Checking sha256 sums"
-	echo -e "$(SHA256SUMS)" | sha256sum -c || exit
-	echo ok 
-
-
-# checksums 
-define SHA256SUMS =
-a188c44dde75695da40015d61ec5250723f21ab7484062c7f4879c0b872fc9f4  Makefile.minilib
-endef
-
-
-ENDL
-	
-return $?
-
-}
-
-
 ARGS=$@
 
 if [ "$1" = "" ]
@@ -1057,6 +685,379 @@ CYAN=""$'\033[36m'""
 LCYAN=""$'\033[01;36m'""
 WHITE=""$'\033[01;37m'""
 LGRAY=""$'\033[37m'""
+
+
+# compile gcc options and execute gcc
+exec_gcc(){
+	opt_args="$@"
+
+
+	if [ -n "$DUMMYHEADER" ]; then
+		if [ -d "$MLIBDIR/dummyheader" ]; then
+			opt_args="-I$MLIBDIR/dummyheader $opt_args"
+		else
+			if [ ! -d $BUILDDIR ]; then
+				verbose Create builddir: $BUILDDIR
+				mkdir $BUILDDIR
+			fi
+			createdummyheaders
+			opt_args="-I$BUILDDIR/dummyheader $opt_args"
+		fi
+
+	fi
+
+
+	if [ -z "$sources" ]; then
+		export sources=`echo $opt_args | sed -E 's/.*\s(\S\S*\.c).*/\1/'`
+		opt_args=`echo $opt_args | sed -E 's/(.*\s)(\S\S*\.c)(.*)/\1 \3/'`
+		if [ -z "$sources" ]; then
+			export sources=$config
+		fi
+	fi
+	SRC="$0 --dump-sources"
+
+	if [ "$opt_execname" != "" ]; then # compile and execute
+		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
+	fi
+
+	if [ -n "$SHOWSOURCES" ]; then
+		opt_args="-E -P $opt_args"
+	else
+
+		if [ -n "$outputfile" ]; then
+			echo $opt_args | sed '/-o /Q1' > /dev/null
+			if [ $? = 0 ]; then
+				opt_args="-o $outputfile $opt_args"
+			fi
+			echo compile: $outputfile
+		fi
+	fi
+
+	if [ -n "$PICFLAG" ]; then
+		CFLAGS="$PICFLAG $CFLAGS"
+	fi
+
+	if [ -n "$NOCOLOR" ]; then
+		colorize=""
+	fi
+
+	INCLUDEMINILIB=""
+	if [ "$useincludedminilib" == "1" ]; then
+		INCLUDEMINILIB="$0 --dump-minilib"
+		#INCLUDEMINILIB="-include <($0 --dump-minilib)"
+	else
+		INCLUDEMINILIB="echo '#include <minilib.h>'"
+		opt_args=" -I$MLIBDIR $opt_args"
+	fi
+
+
+	if [ "$useincludedminilib" == "0" ]; then
+		if [ -e "$MLIBDIR/ldscripts/ld.script.$LDSCRIPT" ]; then
+			LDSCRIPTFILE=",-T$MLIBDIR/ldscripts/ld.script.$LDSCRIPT"
+		fi
+	fi
+
+	if [ "$LDSCRIPTFILE" == "" ]; then
+		LDSCRIPTFILE=",-T<($0 --dump ld_script_$LDSCRIPT)"
+	fi
+	if [ "$fulldebug" == 1 ]; then
+		LDFLAGS=""
+		#LDSCRIPTFILE=",-T<(ld --verbose | sed -e '1,/^===/d;/^===/,\$d')"
+		LDSCRIPTFILE=""
+		dbgfile=`echo -n $opt_args | sed -E 's/.*-o (\S*).*/\1.dbg/'`
+		opt_args=`echo -n $opt_args | sed -E 's/-o \S*//'`
+		OPTFLAG='-g'
+	fi
+
+	INCLUDECONFIG=""
+	if [ "$opt_config" == "" ]; then
+		opt_config=$sources
+	fi
+		if [ "$useincludedminilib" == "0" ]; then
+			INCLUDECONFIG="$0 --dump-config $opt_config"
+		else 
+			#	INCLUDECONFIG="-include <($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib)"
+			#($0 --useincludedminilib --dump-config $opt_config;$0 --dump-minilib) > minilib.tmp.h
+			#($0 --useincludedminilib --dump-config $opt_config;$0 --useincludedminilib --dump-minilib) > minilib.tmp.h
+			INCLUDECONFIG="$0 --useincludedminilib --dump-config $opt_config" #) > minilibcfg.tmp.h
+			#$0 --useincludedminilib --dump-minilib > minilib.tmp.h
+			#INCLUDECONFIG="-include minilibcfg.tmp.h -include minilib.tmp.h"
+		fi
+
+
+	if [ "$useincludedminilib" == "0" ]; then
+		CFLAGS="$INCLUDEDIRS $CFLAGS"
+	fi
+
+
+	echo_verbose "$REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args"
+
+
+	if [ "$debuglog" = "1" ]; then
+		let i=1;
+		while [ -e "debuglog.$i" ] 
+		do 
+			let i++
+		done
+		eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E -x c - > debuglog.$i"
+	fi
+
+
+	if [ "$fulldebug" == 1 ]; then
+		echo -e "\n   $YELLOW switching to fulldebug mode.$NORM\n"
+
+		echo $CYAN eval "$REAL_CC $CFLAGS $opt_args -E" $NORM 
+		echo
+
+		eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $opt_args -E -x c - | sed '/^#/d' > $dbgfile.c"
+
+		echo $CYAN "eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c"$NORM
+
+		eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c $colorize
+	else
+		# execute gcc
+		if [ "$dump_cmd" = "1" ]; then
+			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
+		else
+			verbose eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c -"
+			eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
+			#eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
+		fi
+		#$REAL_CC $CFLAGS$LDSCRIPT $@
+	fi
+	return ${PIPESTATUS[1]}
+}
+
+
+# Parse config.
+# Also set variables in the current instance of minimake
+checkconfig (){
+	#( (echo "#define macro(a1,a2) M a1" && echo "macro(12,13)" && cat $1 ) | gcc -include tmp2.h -E - )
+	echo_verbose minilibconfig: parse $1
+	#ERR=$((source $1 > $1.h) 2>&1)
+	#echo '#include "minilib.h"' >> $1.h
+	#sed "s/command/function/"
+	ERR= source $1 2>&1 > /dev/null
+	if [ -n "$ERR" ]; 
+	then
+		echo -e "Error parsing config in $1: \n $ERR" >&2
+		exit 1;
+	fi
+	# set unset values to defaults
+	defaultvalues
+	# dump parts of the config, when verbose
+	echo_verbose minilibdir: $MLIBDIR
+	echo_verbose ARCH: $MINI_ARCH
+	echo_verbose OS: $MINI_OS
+	echo_verbose ldscript: $LDSCRIPT
+}
+
+
+dumpconfig (){
+
+	exec 3>&1 4>&2 #open fd 3
+	E=$( { source $1 1>&3;} 2>&1 ) 3>&1  # redirect error messages to fd3
+
+	if [ "$E" != "" ]; 
+	then
+		echo -e "Error parsing config in $1: \n\033[1;31m $E \033[1;37m" >&2
+		#exit 1;
+	fi
+
+	if [ "$useincludedminilib" == "0" ]; then
+		echo '#include "minilib.h"'
+		#else
+		#		echo -e "#define mini_INCLUDESRC\n"
+
+	fi
+}
+
+dumpsources() {
+	#opt_args="$@ $sources"
+	defaultvalues
+	echo $sources | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'
+	verbose Source: $@
+}
+
+genconfig(){
+cat << 'ENDL'
+#mlconfig
+ifdef undef
+# ============================================================================
+# either type 'make -f minilib.conf'
+# to use this combined config and makefile generated by minimake,
+# compile and download when needed (ca.100kB) with minilib.
+# (https://github.com/michael105/minilib)
+# 
+#
+# Alternatively, when the script minimake with the embedded minilib 
+# is already present, 'minimake --config "thisfile"' 
+# compiles without fetching minilib again.
+# ============================================================================
+#
+# 
+# Minilib and the accompanying tools are licensed under a 
+# BSD-style opensource license with attribution.
+# I did my best and I'm using minilib myself,
+# but cannot give any guarantees for any functionality
+# of an opensource library or the accompanying tools.
+#
+# (Disclaimer)
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL Michael Myer BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# The full license is available at the webpage of minilib.
+# https://github.com/michael105/minilib
+# Michael (misc) Myer, 2021
+#
+
+
+ENDL
+
+
+if [ "$opt_nombuf" = "" ]; then
+		echo '# Save default. The minibuf is needed for malloc, printf, and file streams.
+mini_buf 4000'
+	else 
+	 	echo  '# Disabled mbuf. The minibuf is needed for malloc, printf, and file streams.
+# mini_buf 1024'
+fi
+
+cat << 'ENDL'						
+# define headerguards, to prevent parsing the standard header
+HEADERGUARDS
+
+# Startup function
+mini_start
+
+# put the globals on stack. 
+# (past the last used return address, but before the environment.
+# there's more documentation in the readme/reference)
+# reserves a fixed register as pointer to the globals
+# globals_on_stack
+
+# define var (#define var arg)
+# DEFINE var arg
+
+# optimization Flag. Os,O1,O2 might be save. O3 is known to cause sometimes trouble
+OPTFLAG -Os
+
+# (with debug info)
+#OPTFLAG '-g -Og'
+
+# stripflag ( defaults to -s)
+#STRIPFLAG
+
+# Build minilib source
+INCLUDESRC
+
+# the ldscript to use
+# Can be one of: default, onlytext, textandbss, onlytext_tiny
+LDSCRIPT default
+
+# Shrink the compiled binary with shrinkelf
+#SHRINKELF
+
+# generate debug info (-Og -g). Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
+#DEBUG
+
+# generate debug info, including the source of minilib itself. (-Og -g). 
+# Overwrites OPTFLAG, STRIPFLAG and SHRINKELF
+#FULLDEBUG
+
+
+# list of source files, supplied to gcc
+# $1 expands to the current filename 
+ENDL
+
+echo SOURCES $@
+#SOURCES $1 file1.c file2.c
+
+echo -e '\n# the binary to be compiled ( -o $BINARY )'
+echo BINARY `basename $1 .c`
+
+echo -e '\n# function switches. Only functions named below will be compiled\n'
+
+if [ "$debuglog" = "1" ]; then
+		let i=1;
+
+		while [ -e "debuglog.$i" ] 
+		do 
+				let i++
+		done
+		(echo "$headerguards_h" "$genconfigmacros_h"; cat $@) \
+			| $REAL_CC $CFLAGS -Dincluded_minilib_h -E -x c - > debuglog.$i
+		echo $REAL_CC $CFLAGS $@ >> debuglog.$i
+		let i++
+		echo "$headerguards_h" "$genconfigmacros_h" >> debuglog.$i
+fi
+
+(echo "$headerguards_h" "$genconfigmacros_h"; cat $@) \
+	| $REAL_CC $CFLAGS -Dincluded_minilib_h -E -x c - \
+	| sed 's/_M_MLIB_/\n_M_MLIB_/g' | sed -n 's/^.*_M_MLIB_\(.*\)_M_.*/mini_\1/p' \
+	| sort -u 2>/dev/null 
+
+
+cat << 'ENDL'
+
+
+return
+endif
+# configuration part ends, 
+# embedded makefile starts below
+
+
+VERSION := "20211012"
+urlbase := "https://raw.githubusercontent.com/michael105/minilib/download"
+
+fetch = $(shell ((curl $(urlbase)/$(VERSION)/$(1).gz > $(1).gz) || (wget $(urlbase)/$(VERSION)/$(1).gz)) && gunzip $(1).gz)
+
+
+default: Makefile.minilib minilib.h check compile
+
+
+compile:
+	$(info Compile)
+	make -f Makefile.minilib CONF="$(lastword $(MAKEFILE_LIST))"
+
+
+Makefile.minilib:
+	$(info "Download Makefile.minilib (Version $(VERSION))from github")
+	$(call fetch,Makefile.minilib)
+
+
+minilib.h:
+	$(info "Download minilib.h (Version $(VERSION))from github")
+	$(call fetch,minilib.h)
+
+
+.ONESHELL:
+check:
+	@echo "Checking sha256 sums"
+	echo -e "$(SHA256SUMS)" | sha256sum -c || exit
+	echo ok 
+
+
+# checksums 
+define SHA256SUMS =
+a188c44dde75695da40015d61ec5250723f21ab7484062c7f4879c0b872fc9f4  Makefile.minilib
+endef
+
+
+ENDL
+	
+return $?
+
+}
+
 
 
 createdummyheaders(){

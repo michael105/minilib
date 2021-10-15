@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # This is just a wrapper script for backward compatibility
 
