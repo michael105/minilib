@@ -188,6 +188,7 @@ compiled/minilib.h: tools
 	cp templates/LICENSE.tmpl compiled/minilib.h
 	echo -e "#ifndef compiled_minilib_h\n#define compiled_minilib_h\n" > compiled/minilib.tmp2.h && \
 			scripts/combinesources.pl minilib.h >> compiled/minilib.tmp2.h && \
+			echo "#endif" >> compiled/minilib.tmp2.h && \
 			sed -e '$$d' compiled/minilib.tmp2.h | sed -e '$$d' > compiled/minilib.tmp.h && \
 			echo -e "#endif\n#ifdef SHRINKELF" >> compiled/minilib.tmp.h && \
 			cat tools/shrinkelf.c >> compiled/minilib.tmp.h &&\

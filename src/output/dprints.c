@@ -1,3 +1,5 @@
+#ifndef mini_prints_c
+#define mini_prints_c
 
 #ifndef mini_prints
 #define mini_prints
@@ -26,4 +28,6 @@ int dprints(int fd, const char *msg,...){
 		va_end(args);
 		return(ret);
 }
+
+#endif
 

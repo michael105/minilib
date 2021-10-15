@@ -179,6 +179,17 @@ __MATCHEND2:
 
 						case '\\': // match escaped *,?,backslashes, %
 								re++;
+#define _MATCH(a,condition) if ( *re == a ){\
+		if ( neg ^ condition ) break;\
+		else return(RE_NOMATCH);}
+
+										_MATCH('d',isdigit(*text));
+										_MATCH('D',!isdigit(*text));
+										_MATCH('s',isspace(*text));
+										_MATCH('S',!isspace(*text));
+										_MATCH('w',(*text>=32 && *text <= 126 ) || ( *text>=160 ) );
+										_MATCH('W',(*text<32 ) || (( *text > 126 ) && ( *text<160 )) );
+
 						default:
 								if ( *re==0 ) //partial match ( could be spared )
 										return(RE_NOMATCH);

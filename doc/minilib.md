@@ -17,7 +17,8 @@ ctype.h
 ctype_functions#ifdef mini_ctype_functions
 
                create functions instead of macros for isalpha, .., isprint
-               (include/ctype.h: 22)
+              the ctype macros are defined also without being explicitely enabled.
+               (include/ctype.h: 23)
 
 
 
@@ -415,7 +416,7 @@ dprintf        int dprintf( int fd, const char *fmt, ... );
 
 dprints        int dprints(int fd, const char *msg,...);
 
-               (src/output/dprints.c: 12)
+               (src/output/dprints.c: 14)
 
 dtodec         int dtodec(double d, char* buf, int precision);
 
@@ -566,7 +567,8 @@ fprintfs       int fprintfs( FILE* F, char *fmt, ...);
 
                prints formatted and unbuffered output to the stream F.
               only %s and %c are recognized.
-              no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
+              no mini_buf or globals are used, so using fprintfs instead of fprintf can 
+              save some sections / bytes.
                (src/output/fprintfs.c: 8)
 
 fprints        #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
@@ -764,9 +766,9 @@ map_protected  void* map_protected(int len);
               Most probably you'd like to catch the segfault signal.
               (By installing a segfault signal handler)
              
-              The size is always a multiple of the systems pagesize, 4kB here.
+              The size is always a multiple of the system's pagesize, 4kB here.
               The len of the mapped memory area is rounded up to the next pagesize.
-              The mapped area can only be freed by call(s) to munmap,
+              The mapped area can only be free'd by call(s) to unmap_protected,
               neither realloc nor free are allowed.
               There is one page before, and one page after the mapped area
               protected with PROT_NONE, and len rounded up to the next
@@ -1426,7 +1428,7 @@ optimization_fencestatic void __attribute__((noipa,cold)) optimization_fence(voi
               via asm inline instructions. 
               Doesn't work with clang.
               But yet I also didn't it with clang.
-               (include/minilib_global.h: 218)
+               (include/minilib_global.h: 223)
 
 poll           static inline int poll(struct pollfd *fds, nfds_t cnt, int timeout);
 
@@ -1711,7 +1713,7 @@ unmap_protectedint unmap_protected(void *p, int len);
               returns the value of munmap, when an error occures.
               errno is set, when defined.
               return 0 on success.
-               (src/memory/map_protected.c: 44)
+               (src/memory/unmap_protected.c: 9)
 
 unsetenv       int unsetenv( char *name);
 

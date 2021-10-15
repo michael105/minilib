@@ -1,20 +1,20 @@
 
+PROGS := hello hello-tiny
+OBJS := hello.conf
 
-#all: hello hello-include hello-scripted hello-unistd
+MINIMAKE="../minimake"
 
-all: hello hello-include hello-unistd
+
+all: $(PROGS)
 
 hello: hello.c
-	 ../minimake --config hello.c -o hello hello.c
+	 sh compile_hello.sh
 
-hello-include: hello-include.c
-	../minimake -o hello-include hello-include.c
+hello-tiny: hello.c hello-tiny.conf
+	$(MINIMAKE) hello-tiny.conf
 
 
-hello-unistd: hello-unistd.c
-	../minimake --force --genconf hello-unistd.mconf hello-unistd.c
-	../minimake --config hello-unistd.mconf -o hello-unistd hello-unistd.c
 
-hello-scripted: hello-scripted.c
-	../minimake --exec ./hello-scripted.c
-
+clean: 
+	rm -f $(PROGS) 
+	rm -f $(OBJS)

@@ -13,7 +13,7 @@
 #endif
 
 #include "include/minilib_global.h"
-#include "include/utils.h"
+#include "include/debug.h"
 
 static int brk( const void* addr );
 static void* sbrk( long incr );

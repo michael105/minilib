@@ -1,0 +1,64 @@
+
+ Quickstart
+
+(Online: https://github.com/michael105/minilib)
+
+Important: Currently only gcc 9.3 might work.
+ clang 10/11 does work, but there are combinations
+ of optimization flags and some functions, which segfault.
+ There's the section Bugs in the readme on that, further reports very welcome.
+
+Minilib targets the smallest possible binary.
+
+Therefore, all functions and definitions have to be defined explicitely.
+
+It is possible to compile binaries, consisting of the text segment only.
+(Smallest size)
+Globals, or the outputbuffer are not neccessarily needed.
+- in general it is better to avoid static variables and stream functions
+	when trying to minimize the size of a binary -
+
+
+"minimake" is a bundled script, 
+which is able to create configuration files for given sources, 
+as well as reading the config files, and call the compiler with according flags.
+It furthermore contains linker scripts and the gzipped headerfile minilib.h.
+
+The configuration file can be a separate file, 
+or embedded into the c source file.
+(There are praeprocessor macros in the file included,
+which prevent the configuration being parsed by the compiler)
+
+
+There are examples in the directory "examples" of minilib.
+
+The script compile_hello.sh shows howto generate and use 
+a configuration file for compiling hello.c to hello.
+
+`minimake --genconf hello.conf hello.c`
+creates hello.conf with some inlined documentation as well;
+`minimake hello.conf`
+compiles hello.c to hello afterwards.
+
+hello-tiny.conf uses a different ldscript,
+and shrinks the binary with "shrinkelf".
+(https://github.com/michael105/shrinkelf)
+
+
+`minimake --help` shows a short help on the usage of minimake.
+
+
+Yet in theory, it would be possible to compile posix comforming programs without
+changes by the switch DUMMYHEADERS within the config file.
+(option --dumyheaders for minimake)
+This catches include directives for the standard libc headers (e.g. #include <stdio.h>), 
+which would conflict with minilib.
+However, there still are some macros and definitions missing,
+and some functions do not fully adhere to the posix/iso standard.
+
+Bugreports are very welcome,
+either per mail or as issue at github.
+
+
+
+

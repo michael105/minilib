@@ -490,8 +490,9 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/compat-43/creat.2.rst.html">creat</a></small></td><td><small>   <a href="../include/config.h" target="right">../include/config.h</a>  5 </small></td><td><small> int  creat( const char *s, int mode );
 </small></td></tr>
-<tr valign="top"><td><small>ctype_functions</small></td><td><small>   <a href="../src/file/creat.c" target="right">../src/file/creat.c</a>  22 </small></td><td><small> #ifdef mini_ctype_functions
+<tr valign="top"><td><small>ctype_functions</small></td><td><small>   <a href="../src/file/creat.c" target="right">../src/file/creat.c</a>  23 </small></td><td><small> #ifdef mini_ctype_functions
 </small></td></tr><tr><td></td><td colspan="2"><small>create functions instead of macros for isalpha, .., isprint
+  the ctype macros are defined also without being explicitely enabled.
  </small></td></tr>
 <tr valign="top"><td><small>def</small></td><td><small>   <a href="../include/ctype.h" target="right">../include/ctype.h</a>  52 </small></td><td><small> #define SETOPT_short( opts, option ) (;
 </small></td></tr><tr><td></td><td colspan="2"><small>Set a option flag(s) (bit(s))  manually.
@@ -587,7 +588,7 @@
  </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdio/printf.3.rst.html">dprintf</a></small></td><td><small>   <a href="../src/file/cksum.c" target="right">../src/file/cksum.c</a>  5 </small></td><td><small> int dprintf( int fd, const char *fmt, ... );
 </small></td></tr>
-<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  12 </small></td><td><small> int dprints(int fd, const char *msg,...);
+<tr valign="top"><td><small>dprints</small></td><td><small>   <a href="../src/output/dprintf.c" target="right">../src/output/dprintf.c</a>  14 </small></td><td><small> int dprints(int fd, const char *msg,...);
 </small></td></tr>
 <tr valign="top"><td><small>dtodec</small></td><td><small>   <a href="../src/output/dprints.c" target="right">../src/output/dprints.c</a>  10 </small></td><td><small> int dtodec(double d, char* buf, int precision);
 </small></td></tr>
@@ -773,7 +774,8 @@
 <tr valign="top"><td><small>fprintfs</small></td><td><small>   <a href="../src/output/fprintf.c" target="right">../src/output/fprintf.c</a>  8 </small></td><td><small> int fprintfs( FILE* F, char *fmt, ...);
 </small></td></tr><tr><td></td><td colspan="2"><small>prints formatted and unbuffered output to the stream F.
   only %s and %c are recognized.
-  no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.
+  no mini_buf or globals are used, so using fprintfs instead of fprintf can 
+  save some sections / bytes.
  </small></td></tr>
 <tr valign="top"><td><small>fprints</small></td><td><small>   <a href="../src/output/fprintfs.c" target="right">../src/output/fprintfs.c</a>  34 </small></td><td><small> #define fprints(F,...) dprints(fileno(F),__VA_ARGS__,0)
 </small></td></tr><tr><td></td><td colspan="2"><small>print the string(s) supplied as arg(s) to stream
@@ -1108,9 +1110,9 @@
   Most probably you'd like to catch the segfault signal.
   (By installing a segfault signal handler)
  
-  The size is always a multiple of the systems pagesize, 4kB here.
+  The size is always a multiple of the system's pagesize, 4kB here.
   The len of the mapped memory area is rounded up to the next pagesize.
-  The mapped area can only be freed by call(s) to munmap,
+  The mapped area can only be free'd by call(s) to unmap_protected,
   neither realloc nor free are allowed.
   There is one page before, and one page after the mapped area
   protected with PROT_NONE, and len rounded up to the next
@@ -1756,7 +1758,7 @@
 </small></td></tr>
 <tr valign="top"><td><small>opendirp</small></td><td><small>   <a href="../src/directories/opendir.c" target="right">../src/directories/opendir.c</a>  5 </small></td><td><small>  DIR *opendirp(const char *name, DIR *dir);
 </small></td></tr>
-<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  218 </small></td><td><small>  void ) optimization_fence(void*p);
+<tr valign="top"><td><small>optimization_fence</small></td><td><small>   <a href="../src/directories/opendirp.c" target="right">../src/directories/opendirp.c</a>  223 </small></td><td><small>  void ) optimization_fence(void*p);
 </small></td></tr><tr><td></td><td colspan="2"><small>prevent optimizations.
   cast a var to void*, and calling this,
   leaves the compiler unknown on what he can strip.
@@ -2215,14 +2217,14 @@
 </small></td></tr>
 <tr valign="top"><td><small><a target="right" href="manpages/stdlib/ptsname.3.rst.html">unlockpt</a></small></td><td><small>   <a href="../include/syscall_stubs.h" target="right">../include/syscall_stubs.h</a>  14 </small></td><td><small> int unlockpt(int fd);
 </small></td></tr>
-<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  44 </small></td><td><small> int unmap_protected(void *p, int len);
+<tr valign="top"><td><small>unmap_protected</small></td><td><small>   <a href="../src/termios/pty.c" target="right">../src/termios/pty.c</a>  9 </small></td><td><small> int unmap_protected(void *p, int len);
 </small></td></tr><tr><td></td><td colspan="2"><small>free an area, allocated before with map_protected
   (len must be the same, when at the invocation of map_protected)
   returns the value of munmap, when an error occures.
   errno is set, when defined.
   return 0 on success.
  </small></td></tr>
-<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">unsetenv</a></small></td><td><small>   <a href="../src/memory/map_protected.c" target="right">../src/memory/map_protected.c</a>  10 </small></td><td><small> int unsetenv( char *name);
+<tr valign="top"><td><small><a target="right" href="manpages/stdlib/getenv.3.rst.html">unsetenv</a></small></td><td><small>   <a href="../src/memory/unmap_protected.c" target="right">../src/memory/unmap_protected.c</a>  10 </small></td><td><small> int unsetenv( char *name);
 </small></td></tr><tr><td></td><td colspan="2"><small>remove a string from the environmental vars
   The env var is not free'd. (It's not possible,
   since we don't know whether the string has been allocated 

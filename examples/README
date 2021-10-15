@@ -1,0 +1,28 @@
+
+
+
+Examples on the usage of minilib.
+
+
+Contents
+
+
+compile_hello.sh	
+	show, howto generate a configuration file for hello.c,
+	and compile it using minimake
+
+
+hello-tiny.conf	
+	A configuration file, minimizing "hello" as far as
+	currently possible with minilib.
+	In favor of size all section and program headers are stripped of the elf binary.
+	Per default on Linux, the elf loader sets the stack executable bit, when the
+	program header is missing.
+	What isn't a problem here, first hand there is no user input which could 
+	result in a stackoverflow.
+	However, use the ldscript onlytext_tiny with care.
+
+
+
+
+
