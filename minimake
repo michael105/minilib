@@ -6,17 +6,6 @@ VERSION="20211014"
 # colorize the output
 ansicolor=1
 
-# be verbose
-if [ -n "$VERBOSE" ]; then
-if [ $VERBOSE = 1 ]; then
-	verbose=1
-else
-	verbose=0
-fi
-else
-	verbose=0
-fi
-
 # =1 :use the minilib, included within this script as zipped file.
 # =0 :use the individual files, when existing within MLIBDIR
 useincludedminilib=1
@@ -72,6 +61,7 @@ if [ -z "$STRIPFLAG" ]; then
 	STRIPFLAG="-s"
 fi
 
+# No OS detections. Currently only Linux 64bit 
 if [ -z "$ARCH" ]; then
 	MINI_ARCH="X64"
 fi
@@ -86,7 +76,6 @@ COMMONCFLAGS="-I. -fno-stack-protector -fdata-sections -fomit-frame-pointer -ffu
 	#-nodefaultlibs -static -nostdlib -DMLIB -fno-builtin -mmanual-endbr "
 
 
-# needs os detection. Only linux 64bit for now
 CFLAGS="$CFLAGS $COMMONCFLAGS -DLINUX -DX64 "
 
 # somehow; seems to be neccessary telling clang exclusively to use it's own linker.?
@@ -135,14 +124,14 @@ fi
 
 
 echo_verbose(){
-	if [ $verbose = 1 ]; then
+	if [ "$VERBOSE" == "1" ]; then
 		>&2 echo $@
 	fi
 }
 
 
 verbose(){
-	if [ $verbose = 1 ]; then
+	if [ "$VERBOSE" == "1" ]; then
 		>&2 echo $@
 	fi
 }
@@ -204,6 +193,11 @@ all options are given unchanged to gcc/clang.
 --dump-config 'file':
         Parses 'file' as configuration file, and dumps the generated
         define switches to stdout.
+        Used internally, to pass the generated header via pipe to gcc
+
+--dump-sources 'file1' 'file2' .. / 'configfile':
+        Parses 'configfile' as configuration file, and dumps the sources
+        to stdout.
         Used internally, to pass the generated header via pipe to gcc
 
 --showsources
@@ -337,19 +331,14 @@ exec_gcc(){
 	fi
 
 
-	src=""
 	if [ -z "$sources" ]; then
-		sources=`echo $opt_args | sed -E 's/.*\s(\S\S*\.c).*/\1/'`
+		export sources=`echo $opt_args | sed -E 's/.*\s(\S\S*\.c).*/\1/'`
 		opt_args=`echo $opt_args | sed -E 's/(.*\s)(\S\S*\.c)(.*)/\1 \3/'`
 		if [ -z "$sources" ]; then
-			sources=$config
+			export sources=$config
 		fi
 	fi
-	if [ -n "$sources" ]; then
-		#opt_args="$@ $sources"
-		src=`echo "$sources" | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'`
-		verbose Source: $sources
-	fi
+	SRC="$0 --dump-sources"
 
 	if [ "$opt_execname" != "" ]; then # compile and execute
 		opt_args="-x c <(sed '1s/^#!/\/\/ #!/' $opt_compilename) 2>&1 | sed 's/^.*fd.[0-9]*/'$opt_compilename'/'"
@@ -434,7 +423,7 @@ exec_gcc(){
 		do 
 			let i++
 		done
-		eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E -x c - > debuglog.$i"
+		eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -E -x c - > debuglog.$i"
 	fi
 
 
@@ -444,7 +433,7 @@ exec_gcc(){
 		echo $CYAN eval "$REAL_CC $CFLAGS $opt_args -E" $NORM 
 		echo
 
-		eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $opt_args -E -x c - | sed '/^#/d' > $dbgfile.c"
+		eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $opt_args -E -x c - | sed '/^#/d' > $dbgfile.c"
 
 		echo $CYAN "eval $REAL_CC $CFLAGS -O0 -g -o $dbgfile $dbgfile.c"$NORM
 
@@ -454,8 +443,8 @@ exec_gcc(){
 		if [ "$dump_cmd" = "1" ]; then
 			echo $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		else
-			verbose eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
-			eval "($INCLUDECONFIG;$INCLUDEMINILIB;echo '$src' ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
+			verbose eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c -"
+			eval "($INCLUDECONFIG;$INCLUDEMINILIB;$SRC ) | $REAL_CC $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args -x c - $colorize"
 			#eval $REAL_CC $INCLUDECONFIG $INCLUDEMINILIB $CFLAGS $LDFLAGS$LDSCRIPTFILE $OPTFLAG $STRIPFLAG $opt_args $colorize
 		fi
 		#$REAL_CC $CFLAGS$LDSCRIPT $@
@@ -507,6 +496,12 @@ dumpconfig (){
 	fi
 }
 
+dumpsources() {
+	#opt_args="$@ $sources"
+	defaultvalues
+	echo $sources | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'
+	verbose Source: $@
+}
 
 genconfig(){
 cat << 'ENDL'
@@ -589,7 +584,7 @@ OPTFLAG -Os
 INCLUDESRC
 
 # the ldscript to use
-# Can be one of: default, onlytext, textandbss
+# Can be one of: default, onlytext, textandbss, onlytext_tiny
 LDSCRIPT default
 
 # Shrink the compiled binary with shrinkelf
@@ -751,10 +746,8 @@ if [ "$2" == "" ]; then
 	if [ "$1" == "$outputfile" ]; then
 		fail "couldn't determine the outputfile.\nGot: $1"
 	fi
-	if [ -n "$sources" ]; then
-		src=`echo "$sources" | sed -E 's/(\S\S*)\s*/#include "\1"\n/g'`
-	else
-		sources=$config 
+	if [ -z "$sources" ]; then
+		export sources=$config 
 	fi
 	#REAL_CC="$REAL_CC -o $outputfile $1"
 	#echo $REAL_CC
@@ -803,7 +796,7 @@ do
 			exit 0
 			;;
 		--verbose | -v )
-			verbose=1
+			VERBOSE=1
 			shift
 			opt=1
 			;;
@@ -921,6 +914,11 @@ do
 			genconfig $@
 			exit $?
 			;;
+		--dump-sources )
+			shift
+			dumpsources $@
+			exit $?
+			;;
 		--genconf )
 			shift
 			outfile=$1
@@ -992,23 +990,24 @@ fi
 
 defaultvalues
 
-#echo args: $@
-if [ $opt_autoconf = 1 ]
-then
-	exec_gcc $@
-else
-	exec_gcc $@
-fi
+exec_gcc $@
 
 ret=$?
 
 if [ $ret != 0 ]; then
-	echo $RED Error.$NORM
+	echo $RED Error.
 	#echo Failed command:
 	#echo $REAL_CC $CFLAGS$LDSCRIPT $@
+	command errno > /dev/null
+	r=$?
+	if [ $r ]; then
+		echo errno: $ret
+	else
+		errno $ret
+	fi
+	echo $NORM
 	exit $ret
 else
-	#verbose "Ok"
 	echo $LGREEN"OK"$NORM
 fi
 
@@ -1132,7 +1131,7 @@ COMPILE(){
 }
 
 VERBOSE(){
-	export verbose="1"
+	export VERBOSE="1"
 }
 
 mini_start(){

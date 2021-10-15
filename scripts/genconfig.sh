@@ -36,7 +36,7 @@ COMPILE(){
 }
 
 VERBOSE(){
-	export verbose="1"
+	export VERBOSE="1"
 }
 
 mini_start(){
