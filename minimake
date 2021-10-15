@@ -113,7 +113,7 @@ fi
 
 # Needed when using the minilib.h of the devel branch.
 INCLUDEDIRS="-I$MLIBDIR/headers/common-links -I$MLIBDIR/headers/common \
-	-I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ -I$MLIBDIR/include "
+	-I$MLIBDIR/headers/linux_x64 -I$MLIBDIR -I./ -I$MLIBDIR/include -I."
 
 
 if [ ! -e "$MLIBDIR/minilib.h" ]; then # minilib not found. check, if included
