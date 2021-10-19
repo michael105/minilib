@@ -219,10 +219,8 @@ compiled/Makefile.minilib:
 	echo "#sha256sums" >> Makefile.minilib
 	echo "define sha256sums =" > sign.tmp
 	cat Makefile.minilib | sha256sum  | sed 's/\s$$//g' >> sign.tmp
+	sha256sum minilib.h >> sign.tmp
 	cat sign.tmp >> Makefile.minilib
-	sha256sum minilib.h >> Makefile.minilib
-	echo PWD: `pwd`
-	sha256sum minilib.h
 	echo "endef" >> Makefile.minilib
 	#$(foreach FILE,$(wildcard ldscripts/ld.script*), sh -c "echo '#'$(FILE);cat $(FILE);echo '#'$(FILE);" >> $@; )
 	#echo "endif" >> Makefile.minilib

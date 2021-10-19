@@ -13,7 +13,7 @@
 #endif
 
 #ifdef mini_vsnprintf
-#ifndef itodec
+#ifndef mini_itodec
 // better warn. might be confusing having no %d result.
 #warning printf family is defined. Most probably you need to either define mini_itodec (%d conversion) as well, or use the smaller prints/writes functions
 #endif

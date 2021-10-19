@@ -1,4 +1,4 @@
-**minimake** v.20211012
+**minimake** v.20211019
 
 ::
 
@@ -44,6 +44,11 @@ all options are given unchanged to gcc/clang.
 --dump-config 'file':
         Parses 'file' as configuration file, and dumps the generated
         define switches to stdout.
+        Used internally, to pass the generated header via pipe to gcc
+
+--dump-sources 'file1' 'file2' .. / 'configfile':
+        Parses 'configfile' as configuration file, and dumps the sources
+        to stdout.
         Used internally, to pass the generated header via pipe to gcc
 
 --showsources:

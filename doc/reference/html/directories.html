@@ -173,7 +173,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> getbrk 0 open sys_brk dirbuf write close<br>
+ *Defines:</strong> getbrk sys_brk write open dirbuf 0 close<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../../src/directories/opendir.c">../src/directories/opendir.c</a> l.10 manpage: <a href="../manpages/gen/directory.3.rst.html">opendir</a><br>
 </p>
@@ -184,7 +184,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> getbrk 0 open dirbuf close sys_brk<br>
+ *Defines:</strong> dirbuf 0 close getbrk sys_brk open<br>
 <a href="../../src/directories/opendirp.c">../src/directories/opendirp.c</a> l.5
 </p>
 </dd>
@@ -234,7 +234,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> seterrno memcpy getbrk kill swap getdents strlen write 0 errno getpid open dirbuf sys_brk<br>
+ <strong>Defines:</strong> kill strlen seterrno 0 getbrk open dirbuf swap memcpy getpid sys_brk errno write getdents<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -309,7 +309,7 @@ Size: ~32B <a href="../../src/directories/telldir.c">../src/directories/telldir.
 <p></p>
 <hr><p><small>
 Last updated
- 2021-10-12 02:23:50 UTC
+ 2021-10-19 13:38:31 UTC
 </small></p>
 </body>
 </html>

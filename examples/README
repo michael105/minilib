@@ -23,6 +23,11 @@ hello-tiny.conf
 	However, use the ldscript onlytext_tiny with care.
 
 
+hello-singlefile.c
+   Source and cofiguration combined in one file
+
+
+
 
 
 

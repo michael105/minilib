@@ -24,11 +24,11 @@ compile-minimake
 unpack-minimake
 	strip the gzipped minilib of minimake
 
-combined
-	compile minilibcompiled.h, minilibcompiled.h.gz (single header sourcefile)
+compiled/minilib.h
+	compile compiled/minilib.h, compiled/minilib.h.gz (single header sourcefile)
 
 devel
-	make header combined compile-minimake
+	make header compiled/minilib.h compile-minimake
 
 tools
 	make tools in the dir ./tools
@@ -88,4 +88,6 @@ For further documentation please have a look into README.asc, and the folder ./d
 Michael (misc) Myer, 2012-2021, all rights reserved. 
 Free use with attribution. Please have a look into 
 the file LICENSE for the licensing terms.
+
+echo -ne  # surpress status 
 make[1]: Leaving directory '/home/micha/prog/minilib'
