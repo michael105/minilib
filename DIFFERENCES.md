@@ -23,13 +23,13 @@
 
 - die(errno,msg)
   exit with errno. Write msg to stderr. When /bin/errno is present,
-  write a verbose error message to stderr. Else the error code is written.
+  write a verbose error message to stderr. Else the numerical error code is written.
 
 - dies(errno, ... ) / dief(errno,fmt,...)
   alanog to die, but also call eprints / eprintf with the parameters.
 
 - die_if( when, errno, msg ) / dief_if( when, errnum, fmt, ... ) / dies_if( when, errnum, ... )
-  if "when" is true, die with errno / call dies or dief.
+  if "when" is true, die with errnum / call dies or dief.
 
 - writes family
   writes(s), writesl(s),erites(s) and ewritesl(s) all write to stdout/stderr(ewrite).
@@ -46,5 +46,9 @@
   (Saves a few bytes, the global output buffer isn't needed, 
   and the output can be optimized)
 
+- FULLDEBUG
+  supplied as commandline parameter, or within the configuration file,
+  all used sources are bundled into one sourcefile,
+  and the binary is compiled with debugging info.
 
 
