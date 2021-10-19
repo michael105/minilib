@@ -831,8 +831,12 @@ foreach my $k ( keys(%{$includeheader}) ){
 }
 
 
+open(BOTTOM,"<","$mlibdir/templates/minilib.h.bottom");
 
-print $ml <<TMPL_END;
+print $ml $_
+	while( <BOTTOM>);
+
+#print $ml <<TMPL_END;
 #ifdef INCLUDESRC
 #ifndef included_minilib_c
 #include "minilib.c"
@@ -841,10 +845,10 @@ print $ml <<TMPL_END;
 
 #endif
 
-// ifndef LDSCRIPT
+#// ifndef LDSCRIPT
 #else
 
-TMPL_END
+#TMPL_END
 
 # minilib.h ends here.
 # ldscripts

@@ -1,5 +1,5 @@
 
-PROGS := hello hello-tiny
+PROGS := hello hello-tiny hello-singlefile
 OBJS := hello.conf
 
 MINIMAKE="../minimake"
@@ -13,7 +13,8 @@ hello: hello.c
 hello-tiny: hello.c hello-tiny.conf
 	$(MINIMAKE) hello-tiny.conf
 
-
+hello-singlefile: hello-singlefile.c
+	$(MINIMAKE) hello-singlefile.c
 
 clean: 
 	rm -f $(PROGS) 

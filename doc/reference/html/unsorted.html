@@ -133,7 +133,7 @@ assert
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> memcpy getpid write rt_sigaction kill<br>
+ <strong>Defines:</strong> kill getpid memcpy write rt_sigaction<br>
 <a href="../../macros/assert.h">../macros/assert.h</a> l.4
 </p>
 </dd>
@@ -267,9 +267,10 @@ ctype_functions
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>create functions instead of macros for isalpha, .., isprint</code></pre>
+<pre><code>create functions instead of macros for isalpha, .., isprint
+ the ctype macros are defined also without being explicitely enabled.</code></pre>
 </td></tr></table>
-<p><a href="../../include/ctype.h">../include/ctype.h</a> l.22</p>
+<p><a href="../../include/ctype.h">../include/ctype.h</a> l.23</p>
 <a name="def"></a><dl>
 <dt>
 def
@@ -292,7 +293,7 @@ die
 <dd>
 <p>
   <em>#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> errno_str write exit execve<br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
 </p>
 </dd>
 </dl>
@@ -311,7 +312,7 @@ die_if
 <dd>
 <p>
   <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
- <strong>Defines:</strong> exit write errno_str execve<br>
+ <strong>Defines:</strong> write execve errno_str exit<br>
 </p>
 </dd>
 </dl>
@@ -330,7 +331,7 @@ dief
 <dd>
 <p>
   <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> globals exit kill getpid execve fileno strlen write errno_str<br>
+ <strong>Defines:</strong> getpid fileno write kill errno_str exit execve strlen globals<br>
 </p>
 </dd>
 </dl>
@@ -349,7 +350,7 @@ dief_if
 <dd>
 <p>
   <em>#define dief_if( when, errnum, fmt,&#8230; ) if( when ) dief( errnum, fmt, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> execve errno_str write exit<br>
+ <strong>Defines:</strong> write exit errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -368,7 +369,7 @@ dies
 <dd>
 <p>
   <em>#define dies(errnum,&#8230;) {eprintsl(<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> errno_str write exit execve<br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
 </p>
 </dd>
 </dl>
@@ -387,7 +388,7 @@ dies_if
 <dd>
 <p>
   <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> errno_str exit write execve<br>
+ <strong>Defines:</strong> exit errno_str execve write<br>
 </p>
 </dd>
 </dl>
@@ -423,7 +424,7 @@ eprintf
 <dd>
 <p>
   <em>#define eprintf(fmt,&#8230;) fprintf(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -438,7 +439,7 @@ err
 <dd>
 <p>
   <em>#define err( status, fmt &#8230; ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }</em><br>
- <strong>Defines:</strong> globals kill exit errno getpid strlen fileno strerror write<br>
+ <strong>Defines:</strong> kill exit strlen globals getpid strerror errno write fileno<br>
 </p>
 </dd>
 </dl>
@@ -455,7 +456,7 @@ error
 <dd>
 <p>
   <em>#define error( status, errnum, fmt &#8230; ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }</em><br>
- <strong>Defines:</strong> globals exit kill getpid strerror fileno strlen write<br>
+ <strong>Defines:</strong> exit kill strlen globals getpid strerror fileno write<br>
 </p>
 </dd>
 </dl>
@@ -476,7 +477,7 @@ errx
 <dd>
 <p>
   <em>#define errx( status, fmt &#8230; ) { fprintf(stderr,fmt); exit(status); }</em><br>
- <strong>Defines:</strong> exit kill globals write fileno strlen getpid<br>
+ <strong>Defines:</strong> kill exit strlen globals getpid write fileno<br>
 </p>
 </dd>
 </dl>
@@ -551,7 +552,7 @@ fgetud
 <dd>
 <p>
   <em>unsigned int fgetud(FILE* F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
 </p>
 </dd>
 </dl>
@@ -627,7 +628,7 @@ getgrouplist
 <dd>
 <p>
   <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
- *Defines:</strong> userdb write mmap open passwdfile_open grent token_i token_s setpwent setgrent pwent<br>
+ *Defines:</strong> grent token_i userdb passwdfile_open setpwent pwent setgrent token_s write open mmap<br>
 </p>
 </dd>
 </dl>
@@ -644,7 +645,7 @@ getgroups
 <dd>
 <p>
   <em>int getgroups(int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> pwent setgrent open passwdfile_open grent token_i token_s setpwent getuid mmap userdb write<br>
+ *Defines:</strong> token_s write open mmap getuid grent token_i userdb passwdfile_open setpwent pwent setgrent<br>
 </p>
 </dd>
 </dl>
@@ -663,7 +664,7 @@ gethostname
 <dd>
 <p>
   <em>int gethostname(char <strong>name,int len)</em><br>
- *Defines:</strong> uname network<br>
+ *Defines:</strong> network uname<br>
 </p>
 </dd>
 </dl>
@@ -723,7 +724,7 @@ getusergroups
 <dd>
 <p>
   <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> pwent setgrent setpwent token_s token_i passwdfile_open grent mmap open write userdb<br>
+ *Defines:</strong> userdb passwdfile_open pwent setpwent setgrent grent token_i mmap token_s write open<br>
 </p>
 </dd>
 </dl>
@@ -743,7 +744,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> fileno getpid uitoHEX globals uitohex strlen ultodec itooct write uitodec atoi kill<br>
+ <strong>Defines:</strong> getpid fileno write itooct uitohex atoi globals uitodec uitoHEX ultodec kill strlen<br>
 </p>
 </dd>
 </dl>
@@ -1466,7 +1467,7 @@ optimization_fence
  Doesn't work with clang.
  But yet I also didn't it with clang.</code></pre>
 </td></tr></table>
-<p><a href="../../include/minilib_global.h">../include/minilib_global.h</a> l.218</p>
+<p><a href="../../include/minilib_global.h">../include/minilib_global.h</a> l.223</p>
 <a name="poll"></a><dl>
 <dt>
 poll
@@ -1589,7 +1590,7 @@ setenv
 <dd>
 <p>
   <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
- *Defines:</strong> 0 strlen strcpy stpcpy ret_errno environ<br>
+ *Defines:</strong> stpcpy strcpy ret_errno strlen 0 environ<br>
 </p>
 </dd>
 </dl>
@@ -1793,7 +1794,7 @@ strndup
 <dd>
 <p>
   <em>char <strong>strndup(const char *source, int maxlen)</em><br>
- *Defines:</strong> 0 strlen stplcpy<br>
+ *Defines:</strong> stplcpy strlen 0<br>
 <a href="../../src/string/strndup.c">../src/string/strndup.c</a> l.5 manpage: <a href="../manpages/string/strdup.3.rst.html">strndup</a><br>
 </p>
 </dd>
@@ -2029,7 +2030,7 @@ unsetenv
 <dd>
 <p>
   <em>int unsetenv( char <strong>name)</em><br>
- *Defines:</strong> environ ret_errno<br>
+ *Defines:</strong> ret_errno environ<br>
 </p>
 </dd>
 </dl>
@@ -2050,7 +2051,7 @@ userdb_open
 <dd>
 <p>
   <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
- <strong>Defines:</strong> write close fstat globals<br>
+ <strong>Defines:</strong> fstat close write globals<br>
 <a href="../../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
 </p>
 </dd>
@@ -2060,7 +2061,7 @@ warn
 <dd>
 <p>
   <em>#define warn( fmt &#8230; ) { fprintf(stderr,fmt ); }</em><br>
- <strong>Defines:</strong> kill globals write getpid fileno strlen<br>
+ <strong>Defines:</strong> write fileno strlen globals getpid kill<br>
 </p>
 </dd>
 </dl>
@@ -2076,7 +2077,7 @@ where
 <dd>
 <p>
   <em>int where(const char <strong>file,char *buf)</em><br>
- *Defines:</strong> environ access<br>
+ *Defines:</strong> access environ<br>
 </p>
 </dd>
 </dl>
@@ -2104,7 +2105,7 @@ writesl
 <p></p>
 <hr><p><small>
 Last updated
- 2021-10-12 02:23:50 UTC
+ 2021-10-19 13:38:31 UTC
 </small></p>
 </body>
 </html>

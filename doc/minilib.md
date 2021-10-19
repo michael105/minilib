@@ -2411,7 +2411,7 @@ div            static div_t div(int numerator, int denominator);
 
 free           void free(void *p);
 
-               (src/memory/malloc.c: 157)
+               (src/memory/malloc.c: 168)
 
 getenv         char* getenv(const char* name);
 
@@ -2428,6 +2428,15 @@ ldiv           static ldiv_t ldiv(long int numerator, long int denominator);
 malloc         void* malloc(int size);
 
                0
+              switch mini_malloc_minibuf
+              (Use the global minibuf for "allocations".
+              Advantage: tiny code, fast, located either in the bss or data segment,
+               or past the stack(might be fastest).
+              Disadvantage: Possible to overwrite environmental vsariables when located 
+               at the stack via overflow.
+               No dynamic allocations, the minibuf has a fixed size.
+              
+             
               Here we go.. with the .. well. 
               Fastes and smallest malloc/free combi ever. 
               Not the smartest.
@@ -2509,7 +2518,7 @@ malloc         void* malloc(int size);
              
               Memory is allocated from right to left, 
               meaning from top to down.
-               (src/memory/malloc.c: 133)
+               (src/memory/malloc.c: 142)
 
 qsort          void qsort(void  *base,	size_t nel,	size_t width,	int (*comp)(const void *, const void *));
 
@@ -2526,7 +2535,7 @@ rand           unsigned int rand();
 
 realloc        void* realloc(void *p, int size);
 
-               (src/memory/malloc.c: 229)
+               (src/memory/malloc.c: 240)
 
 srand          void srand( unsigned int i );
 

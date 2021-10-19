@@ -47,6 +47,15 @@ static long getbrk();
 
 
 //+doc
+// switch mini_malloc_minibuf
+// (Use the global minibuf for "allocations".
+// Advantage: tiny code, fast, located either in the bss or data segment,
+//  or past the stack(might be fastest).
+// Disadvantage: Possible to overwrite environmental vsariables when located 
+//  at the stack via overflow.
+//  No dynamic allocations, the minibuf has a fixed size.
+// 
+//
 // Here we go.. with the .. well. 
 // Fastes and smallest malloc/free combi ever. 
 // Not the smartest.
@@ -135,85 +144,87 @@ void* malloc(int size){
 #error malloc needs a defined mini_buf
 #endif
 
-		size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer", 
-																//  size is in integers (4Bytes)
-		if( mlgl->mbufsize-(size<<2)<64 ){
-				write( STDERR_FILENO, "Out of memory.\n",15 );
-				return((void*)0);
-		}
+	size = ((size-1) >> 2 ) + 2; // alignment and reserving space for the "pointer", 
+	//  size is in integers (4Bytes)
+	if( mlgl->mbufsize-(size<<2)<64 ){
+		write( STDERR_FILENO, "Out of memory.\n",15 );
+		return((void*)0);
+	}
 
-		mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
-		mlgl->mbufsize -= (size<<2);
-		mlgl->ibuf[(mlgl->mbufsize>>2)] = size;
+	mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
+
+	mlgl->mbufsize -= (size<<2);
+	// store size of element. size is in integers
+	mlgl->ibuf[(mlgl->mbufsize>>2)] = size;
 #ifdef analyzemalloc
-		fprintf(stderr, "malloc: %x - %d - mbufsize: %d\n",&mlgl->mbuf[mlgl->mbufsize+4],size,mlgl->mbufsize);
+	fprintf(stderr, "malloc: %x - %d - mbufsize: %d\n",&mlgl->mbuf[mlgl->mbufsize+4],size,mlgl->mbufsize);
 #endif
-		return( &mlgl->mbuf[mlgl->mbufsize+4] );
+	return( &mlgl->mbuf[mlgl->mbufsize+4] );
 }
 
 
 //+depends brk getbrk
 //+def
 void free(void *p){
-		if ( p == 0 )
-				return;
+	if ( p == 0 )
+		return;
 
-		char *c = p;
-		int *i = p;
-		i--; // point to the size of the block
-		c-=4;
-		
+	char *c = p;
+	int *i = p;
+	i--; // point to the size of the block
+	c-=4;
+
 #ifdef mini_malloc_brk
-		if ( i[0] & MALLOC_BRK ){
+	if ( i[0] & MALLOC_BRK ){
 #ifdef analyzemalloc
 		fprintf(stderr, "free_brk: %x - %d\n",p,i[0]&MALLOC_SIZE);
 #endif
 
-				if ( (long)(p+(i[0]&MALLOC_SIZE)) >= getbrk()  ){ // at the end of the data segment
-						brk(i);
-				} else {
-				// not at the end
-					i[0]=(i[0]|MALLOC_FREE);
-					//i[ i[0]&MALLOC_SIZE // todo: free
-				}
-
-				return;
+		if ( (long)(p+(i[0]&MALLOC_SIZE)) >= getbrk()  ){ // at the end of the data segment
+			brk(i);
+		} else {
+			// not at the end
+			// set flag "free" // TODO: loop to the last free area. eventual free.
+			i[0]=(i[0]|MALLOC_FREE);
 		}
 
-#endif
+		return;
+	}
+
+#endif //malloc_brk
 
 #ifdef analyzemalloc
-		fprintf(stderr, "free: %lx - %d\n",p,i[0]&MALLOC_SIZE);
+	fprintf(stderr, "free: %lx - %d\n",p,i[0]&MALLOC_SIZE);
 #endif
 
 
 
-		if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack
-				mlgl->mbufsize += (i[0] & MBUF_V) <<2;
-				if ( mlgl->mbufsize == mini_buf )
-						return;
-				if ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_FREE )
-						mlgl->mbufsize += ( ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_V ) << 2 );
-				return;
-		} else { // Not at the bottom
-				if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
-						i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
-						i = i - ( i[-1] + 1 );
-				}
-				// prev not free
-				if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
-						i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
-						// MBUF_FREE is already set. But for safety set it again. via mask 
-						// adding MBUF_FREE twice wouldn't be that great
-						i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
-						return;
-				} // prev area not free, next area not free
-				i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
-				i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
-				i[0] = i[0] | MBUF_FREE;
-				return;
+	if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack
+		mlgl->mbufsize += (i[0] & MBUF_V) <<2;
+		if ( mlgl->mbufsize == mini_buf )
+			return;
+		if ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_FREE )
+			mlgl->mbufsize += ( ( mlgl->ibuf[mlgl->mbufsize>>2] & MBUF_V ) << 2 );
+		return;
+	} else { // Not at the bottom
+		if ( ( i[0] & MBUF_PREVISFREE )){ // prev area is free
+			i[ - i[-1] -1 ] = ( ( i[ - i[-1] -1 ] + i[0] ) & MBUF_V ) | MBUF_FREE; // add this to prev.
+			i = i - ( i[-1] + 1 );
+		}
+		// prev not free
+		if ( (i[( i[0] & MBUF_V)] & MBUF_FREE) ){ // next area free
+			i[0] = ((i[0] + i[( i[0] & MBUF_V)]) & MBUF_V) | MBUF_FREE; // add next to current. 
+			// MBUF_FREE is already set. But for safety set it again. via mask 
+			// adding MBUF_FREE twice wouldn't be that great
+			i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+			return;
+		} // prev area not free, next area not free
+		i[( i[0] & MBUF_V) - 1 ] = ( i[0] & MBUF_V) - 1;
+		i[( i[0] & MBUF_V)] = ( i[( i[0] & MBUF_V)] | MBUF_PREVISFREE ); 
+		i[0] = i[0] | MBUF_FREE;
+		return;
 
-		} 
+	} 
 
 }
 
@@ -228,46 +239,47 @@ void free(void *p){
 //+def
 void* realloc(void *p, int size){
 
-		if ( size == 0 ){
-				free(p);
-				return((void*)0);
-		}
+	if ( size == 0 ){
+		free(p);
+		return((void*)0);
+	}
 
-		if ( p == 0 ){
-				return(malloc(size)); // just alloc
-		}
+	if ( p == 0 ){
+		return(malloc(size)); // just alloc
+	}
 
 
+	char *c = p;
+	int *i = p;
+	i--;
+	c-=4;
+	int oldsize = (i[0] & MBUF_V); //<<2;
 
-		char *c = p;
-		int *i = p;
-		i--;
-		c-=4;
-		int oldsize = (i[0] & MBUF_V); //<<2;
-		
-		size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
+	size = (((size-1) >> 2 ) + 2)<<2; // alignment and reserving space for the "pointer"(int)
 
-		if ( oldsize == size )
-						return( p );
+	if ( oldsize == size )
+		return( p );
 
 #ifdef mini_malloc_brk
-		if ( *i & MALLOC_BRK ){ // has been allocated with malloc_brk
-				//prints("hier\n");
-				if ( (long)(p+oldsize) >= getbrk()  ){ // at the end of the data segment
-				//prints("hier2\n");
-						int ret = brk(c+size);
-						if ( ret != 0 ){
-								return(0);
-						}
-						*i = MALLOC_BRK | (size);
-						return(p);
-				}
-
+	if ( *i & MALLOC_BRK ){ // has been allocated with malloc_brk
+		//prints("hier\n");
+		if ( (long)(p+oldsize) >= getbrk()  ){ // at the end of the data segment
+			//prints("hier2\n");
+			int ret = brk(c+size);
+			if ( ret != 0 ){
+				return(0);
+			}
+			*i = MALLOC_BRK | (size);
+			return(p);
 		}
+
+	}
 #endif
 
-		if ( size < oldsize ){ // shrink. But can't free. so do nothing.
-						//if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack. 
+	if ( size < oldsize ){ // shrink. do nothing. the "right" area will stay each case.
+		// would be possible to copy here. but this implementation isn't intended
+		// for frequent reallocations.
+		//if ( &mlgl->mbuf[mlgl->mbufsize] == (char*)c ){ // at the bottom of the stack. 
 
 		//mlgl->ibuf[(mlgl->mbufsize>>2)] = mlgl->ibuf[(mlgl->mbufsize>>2)] & MBUF_V; // clear flag prev_isfree
 		//mlgl->mbufsize -= (size<<2);
@@ -275,35 +287,28 @@ void* realloc(void *p, int size){
 		// I should rearrange to bottom to top layout. spares the copying, WHEN p is at the top
 		//mlgl->ibuf[(mlgl->mbufsize>>2)] = size;
 		//return( &mlgl->mbuf[mlgl->mbufsize+4] ); 
-						return(p); 
-				} // if shrink.
+		return(p); 
+	} // if shrink.
 
-			// enlarge
-		if( mlgl->mbufsize-(size)+(oldsize<<2)<64 ){
-				write( STDERR_FILENO, "Out of memory.\n",15 );
-				free(p);
-				return((void*)0);
-		}
-		int *s = (int*)p;
-		void *n = malloc(size);
-		if ( 1 ){ //TODO: clean and fix this. patched for now.
-				//writes("p>n\n"); // todo: replace with memcpy / copy longs
-				for ( int *d = (int*)n; d<=(int*)((void*)n+(oldsize*2-1)); d++ ){
-						*d = *s;
-						s++;
-				}
-		} else { // p<n
-				//writes("p<n\n");
-						int *s = (int*)n;
-				for ( int *d = (int*)p; d<=(int*)((void*)p+(oldsize)); d++ ){
-						*d = *s;
-						s++;
-				}
-
-		}
-
+	// enlarge
+	if( mlgl->mbufsize-(size)+(oldsize<<2)<64 ){
+		write( STDERR_FILENO, "Out of memory.\n",15 );
 		free(p);
-		return( n );
+		return((void*)0);
+	}
+	int *s = (int*)p;
+	void *n = malloc(size);
+	//TODO: clean and fix this. patched for now. // currently no overlaps
+	// are possible, old + new size are temporarily allocated.
+	// todo: copy longs. integers can be copied without branching,
+	// cause the alignment (4Bytes)
+	for ( int *d = (int*)n; d<=(int*)((void*)n+((oldsize<<1)-1)); d++ ){
+		*d = *s;
+		s++;
+	}
+
+	free(p);
+	return( n );
 }
 
 

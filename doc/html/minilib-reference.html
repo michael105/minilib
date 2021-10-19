@@ -622,7 +622,7 @@ opendir
 <dd>
 <p>
   <em>DIR <strong>opendir(const char *name )</em><br>
- *Defines:</strong> getbrk 0 open sys_brk dirbuf write close<br>
+ *Defines:</strong> getbrk sys_brk write open dirbuf 0 close<br>
  <strong>open directory associated with file descriptor</strong>
 Size: ~281B <a href="../src/directories/opendir.c">../src/directories/opendir.c</a> l.10 manpage: <a href="manpages/gen/directory.3.rst">opendir</a><br>
 </p>
@@ -633,7 +633,7 @@ opendirp
 <dd>
 <p>
   <em>DIR <strong>opendirp(const char *name, DIR *dir)</em><br>
- *Defines:</strong> getbrk 0 open dirbuf close sys_brk<br>
+ *Defines:</strong> dirbuf 0 close getbrk sys_brk open<br>
 <a href="../src/directories/opendirp.c">../src/directories/opendirp.c</a> l.5
 </p>
 </dd>
@@ -683,7 +683,7 @@ scandir
 <dd>
 <p>
   <em>int scandir(const char <strong>path, struct dirent <strong>listing[], int (*fp_select)(const struct dirent *),    int (*cmp)(const struct dirent </strong>, const struct dirent *</strong>))</em><br>
- <strong>Defines:</strong> seterrno memcpy getbrk kill swap getdents strlen write 0 errno getpid open dirbuf sys_brk<br>
+ <strong>Defines:</strong> kill strlen seterrno 0 getbrk open dirbuf swap memcpy getpid sys_brk errno write getdents<br>
  <strong>scan a directory</strong>
 </p>
 </dd>
@@ -791,7 +791,7 @@ exit_errno
 <dd>
 <p>
   <em>void exit_errno( int errnum )</em><br>
- <strong>Defines:</strong> execve write exit errno_str<br>
+ <strong>Defines:</strong> write exit errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -818,7 +818,7 @@ perror
 <dd>
 <p>
   <em>void perror(const char <strong>msg)</em><br>
- *Defines:</strong> fileno strerror strlen write errno<br>
+ *Defines:</strong> write strlen fileno strerror errno<br>
  <strong>write error messages to standard error</strong>
 Size: ~329B <a href="../src/output/perror.c">../src/output/perror.c</a> l.4 manpage: <a href="manpages/string/strerror.3.rst">perror</a><br>
 </p>
@@ -1240,7 +1240,7 @@ getchar
 <dd>
 <p>
   <em>#define getchar() fgetc(0)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a byte from a</strong>
 <a href="../include/fgetc.h">../include/fgetc.h</a> l.11 manpage: <a href="manpages/stdio/getc.3.rst">getchar</a><br>
 </p>
@@ -1251,7 +1251,7 @@ gets
 <dd>
 <p>
   <em>#define gets(F) fgets(F,0xfffffff,stdin)</em><br>
- <strong>Defines:</strong> read fileno<br>
+ <strong>Defines:</strong> fileno read<br>
  <strong>get a string from a</strong>
 <a href="../src/streams/gets.c">../src/streams/gets.c</a> l.3 manpage: <a href="manpages/stdio/fgets.3.rst">gets</a><br>
 </p>
@@ -1364,7 +1364,7 @@ sigaction
 <dd>
 <p>
   <em>int volatile sigaction(int sig, const struct sigaction <strong>act, struct sigaction *oact)</em><br>
- *Defines:</strong> rt_sigaction memcpy<br>
+ *Defines:</strong> memcpy rt_sigaction<br>
  <strong>examine and change a signal action</strong>
 Size: ~215B <a href="../src/process/sigaction.c">../src/process/sigaction.c</a> l.117 manpage: <a href="manpages/sys/sigaction.2.rst">sigaction</a><br>
 </p>
@@ -1425,7 +1425,7 @@ signal
 <dd>
 <p>
   <em>sighandler_t signal(int sig, sighandler_t func )</em><br>
- <strong>Defines:</strong> write rt_sigaction memcpy<br>
+ <strong>Defines:</strong> rt_sigaction write memcpy<br>
  <strong>signal management</strong>
 Size: ~337B <a href="../src/process/signal.c">../src/process/signal.c</a> l.5 manpage: <a href="manpages/gen/signal.3.rst">signal</a><br>
 </p>
@@ -1602,7 +1602,7 @@ free
   <em>void free(void <strong>p)</em><br>
  *Defines:</strong> getbrk sys_brk<br>
  <strong>free allocated memory</strong>
-Size: ~32B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.157 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
+Size: ~32B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.168 manpage: <a href="manpages/stdlib/memory.3.rst">free</a><br>
 </p>
 </dd>
 <dt>
@@ -1653,6 +1653,15 @@ malloc
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>0
+ switch mini_malloc_minibuf
+ (Use the global minibuf for "allocations".
+ Advantage: tiny code, fast, located either in the bss or data segment,
+  or past the stack(might be fastest).
+ Disadvantage: Possible to overwrite environmental vsariables when located
+  at the stack via overflow.
+  No dynamic allocations, the minibuf has a fixed size.
+
+
  Here we go.. with the .. well.
  Fastes and smallest malloc/free combi ever.
  Not the smartest.
@@ -1722,7 +1731,7 @@ malloc
       size  data  size    mini_buf size
       8008dataxxxx0004data8000</code></pre>
 </td></tr></table>
-<p>Size: ~173B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.133 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
+<p>Size: ~173B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.142 manpage: <a href="manpages/stdlib/memory.3.rst">malloc</a><br></p>
 <a name="malloc_brk"></a><dl>
 <dt>
 malloc_brk
@@ -1754,7 +1763,7 @@ map_protected
 <dd>
 <p>
   <em>void* map_protected(int len)</em><br>
- <strong>Defines:</strong> mmap mprotect<br>
+ <strong>Defines:</strong> mprotect mmap<br>
 </p>
 </dd>
 </dl>
@@ -1768,9 +1777,9 @@ map_protected
  Most probably you'd like to catch the segfault signal.
  (By installing a segfault signal handler)
 
- The size is always a multiple of the systems pagesize, 4kB here.
+ The size is always a multiple of the system's pagesize, 4kB here.
  The len of the mapped memory area is rounded up to the next pagesize.
- The mapped area can only be freed by call(s) to munmap,
+ The mapped area can only be free'd by call(s) to unmap_protected,
  neither realloc nor free are allowed.
  There is one page before, and one page after the mapped area
  protected with PROT_NONE, and len rounded up to the next
@@ -1903,9 +1912,9 @@ realloc
 <dd>
 <p>
   <em>void* realloc(void <strong>p, int size)</em><br>
- *Defines:</strong> sys_brk 0 getbrk<br>
+ *Defines:</strong> 0 getbrk sys_brk<br>
  <strong>memory reallocator</strong>
-Size: ~636B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.229 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
+Size: ~636B <a href="../src/memory/malloc.c">../src/memory/malloc.c</a> l.240 manpage: <a href="manpages/stdlib/memory.3.rst">realloc</a><br>
 </p>
 </dd>
 <dt>
@@ -1961,7 +1970,7 @@ unmap_protected
 <dd>
 <p>
   <em>int unmap_protected(void <strong>p, int len)</em><br>
- *Defines:</strong> mprotect munmap<br>
+ *Defines:</strong> munmap mprotect<br>
 </p>
 </dd>
 </dl>
@@ -1972,7 +1981,7 @@ unmap_protected
  errno is set, when defined.
  return 0 on success.</code></pre>
 </td></tr></table>
-<p><a href="../src/memory/map_protected.c">../src/memory/map_protected.c</a> l.44</p>
+<p><a href="../src/memory/unmap_protected.c">../src/memory/unmap_protected.c</a> l.9</p>
 <p>---</p>
 <hr>
 <h2><a name="_output"></a>11. output</h2>
@@ -2047,7 +2056,7 @@ dprintf
 <dd>
 <p>
   <em>int dprintf( int fd, const char <strong>fmt, &#8230; )</em><br>
- *Defines:</strong> write kill strlen getpid<br>
+ *Defines:</strong> write strlen getpid kill<br>
  <strong>print formatted output</strong>
 Size: ~818B <a href="../src/output/dprintf.c">../src/output/dprintf.c</a> l.5 manpage: <a href="manpages/stdio/printf.3.rst">dprintf</a><br>
 </p>
@@ -2059,7 +2068,7 @@ dprints
 <p>
   <em>int dprints(int fd, const char <strong>msg,&#8230;)</em><br>
  *Defines:</strong> write<br>
-<a href="../src/output/dprints.c">../src/output/dprints.c</a> l.12
+<a href="../src/output/dprints.c">../src/output/dprints.c</a> l.14
 </p>
 </dd>
 <dt>
@@ -2068,7 +2077,7 @@ eprint
 <dd>
 <p>
   <em>#define eprint(str) write(STDERR_FILENO,str,strlen(str))</em><br>
- <strong>Defines:</strong> write strlen<br>
+ <strong>Defines:</strong> strlen write<br>
 </p>
 </dd>
 </dl>
@@ -2084,7 +2093,7 @@ eprintfs
 <dd>
 <p>
   <em>#define eprintfs(fmt,&#8230;) fprintfs(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -2176,7 +2185,7 @@ fprint
 <dd>
 <p>
   <em>#define fprint(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> kill globals write fileno strlen getpid<br>
+ <strong>Defines:</strong> write fileno strlen globals getpid kill<br>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.84
 </p>
 </dd>
@@ -2186,7 +2195,7 @@ fprintf
 <dd>
 <p>
   <em>#define fprintf(stream,&#8230;)  write(fileno(stream),mlgl&#8594;mbuf,snprintf(mlgl&#8594;mbuf,mlgl&#8594;mbufsize,<em>VA_ARGS</em>))</em><br>
- <strong>Defines:</strong> write getpid strlen fileno kill globals<br>
+ <strong>Defines:</strong> write fileno strlen globals getpid kill<br>
 </p>
 </dd>
 </dl>
@@ -2224,14 +2233,15 @@ fprintfs
 <dd>
 <p>
   <em>int fprintfs( FILE* F, char <strong>fmt, &#8230;)</em><br>
- *Defines:</strong> strlen fileno write<br>
+ *Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
 <pre><code>prints formatted and unbuffered output to the stream F.
  only %s and %c are recognized.
- no mini_buf or globals are used, so using fprintfs instead of fprintf can save some sections / bytes.</code></pre>
+ no mini_buf or globals are used, so using fprintfs instead of fprintf can
+ save some sections / bytes.</code></pre>
 </td></tr></table>
 <p>Size: ~427B <a href="../src/output/fprintfs.c">../src/output/fprintfs.c</a> l.8</p>
 <a name="fprints"></a><dl>
@@ -2241,7 +2251,7 @@ fprints
 <dd>
 <p>
   <em>#define fprints(F,&#8230;) dprints(fileno(F),<em>VA_ARGS</em>,0)</em><br>
- <strong>Defines:</strong> write fileno strlen<br>
+ <strong>Defines:</strong> fileno strlen write<br>
 </p>
 </dd>
 </dl>
@@ -2257,7 +2267,7 @@ fputc
 <dd>
 <p>
   <em>int volatile fputc(int c, FILE* F)</em><br>
- <strong>Defines:</strong> write fileno<br>
+ <strong>Defines:</strong> fileno write<br>
  <strong>put a byte on a stream</strong>
 Size: ~64B <a href="../include/fputc.h">../include/fputc.h</a> l.9 manpage: <a href="manpages/stdio/putc.3.rst">fputc</a><br>
 </p>
@@ -2295,7 +2305,7 @@ group_print
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> kill globals write getpid fileno strlen<br>
+ <strong>Defines:</strong> getpid kill fileno write strlen globals<br>
 </p>
 </dd>
 </dl>
@@ -2312,7 +2322,7 @@ group_write
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> ewrite write<br>
+ <strong>Defines:</strong> write ewrite<br>
 </p>
 </dd>
 </dl>
@@ -2344,7 +2354,7 @@ printf
 <dd>
 <p>
   <em>#define printf(&#8230;) fprintf(stdout,<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> getpid fileno strlen write globals kill<br>
+ <strong>Defines:</strong> globals fileno write strlen kill getpid<br>
  <strong>print formatted output</strong>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.80 manpage: <a href="manpages/stdio/printf.3.rst">printf</a><br>
 </p>
@@ -2355,7 +2365,7 @@ printfs
 <dd>
 <p>
   <em>#define printfs(fmt,&#8230;) fprintfs(stdout, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> strlen fileno write<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -2440,7 +2450,7 @@ puts
 <dd>
 <p>
   <em>#define puts(msg) ( print(msg) + printl() )</em><br>
- <strong>Defines:</strong> globals kill fileno strlen getpid write<br>
+ <strong>Defines:</strong> getpid kill write fileno strlen globals<br>
  <strong>put a string on standard output</strong>
 </p>
 </dd>
@@ -2472,7 +2482,7 @@ snprintf
 <dd>
 <p>
   <em>int snprintf( char <strong>buf, size_t size, const char *fmt, &#8230; )</em><br>
- *Defines:</strong> kill write strlen getpid<br>
+ *Defines:</strong> kill getpid write strlen<br>
  <strong>print formatted output</strong>
 Size: ~738B <a href="../src/output/snprintf.c">../src/output/snprintf.c</a> l.5 manpage: <a href="manpages/stdio/printf.3.rst">snprintf</a><br>
 </p>
@@ -2483,7 +2493,7 @@ vfprintf
 <dd>
 <p>
   <em>#define vfprintf(&#8230;) fprintf(<em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> kill globals write fileno strlen getpid<br>
+ <strong>Defines:</strong> globals strlen fileno write kill getpid<br>
 <a href="../include/mini_fstream.h">../include/mini_fstream.h</a> l.89 manpage: <a href="manpages/stdio/printf.3.rst">vfprintf</a><br>
 </p>
 </dd>
@@ -2493,7 +2503,7 @@ vsnprintf
 <dd>
 <p>
   <em>int vsnprintf(char <strong>buf, size_t size, const char</strong> fmt, va_list args )</em><br>
- <strong>Defines:</strong> write kill strlen getpid<br>
+ <strong>Defines:</strong> kill getpid write strlen<br>
  <strong>format output of a stdarg argument list</strong>
 </p>
 </dd>
@@ -2559,7 +2569,7 @@ abort
 <dd>
 <p>
   <em>void abort()</em><br>
- <strong>Defines:</strong> kill rt_sigaction write memcpy getpid<br>
+ <strong>Defines:</strong> write rt_sigaction memcpy getpid kill<br>
 <a href="../src/process/abort.c">../src/process/abort.c</a> l.3 manpage: <a href="manpages/stdlib/abort.3.rst">abort</a><br>
 </p>
 </dd>
@@ -2647,7 +2657,7 @@ execvp
 <dd>
 <p>
   <em>int execvp(const char <strong>file, char *const argv[])</em><br>
- *Defines:</strong> access environ execve<br>
+ *Defines:</strong> execve access environ<br>
  <strong>execute a file</strong>
 Size: ~556B <a href="../src/exec/_execvp.c">../src/exec/_execvp.c</a> l.4 manpage: <a href="manpages/gen/exec.3.rst">execvp</a><br>
 </p>
@@ -2658,7 +2668,7 @@ execvpe
 <dd>
 <p>
   <em>int execvpe(const char <strong>file, char *const argv[], char *const envp[])</em><br>
- *Defines:</strong> execve environ access<br>
+ *Defines:</strong> environ access execve<br>
  <strong>execute a file</strong>
 </p>
 </dd>
@@ -2767,7 +2777,7 @@ system
 <dd>
 <p>
   <em>int system( const char* command )</em><br>
- <strong>Defines:</strong> vfork execve wait4 write environ<br>
+ <strong>Defines:</strong> environ wait4 write execve vfork<br>
  <strong>issue a command</strong>
 Size: ~326B <a href="../src/exec/system.c">../src/exec/system.c</a> l.4 manpage: <a href="manpages/stdlib/system.3.rst">system</a><br>
 </p>
@@ -2778,7 +2788,7 @@ vexec
 <dd>
 <p>
   <em>int vexec( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> exit wait4 seterrno vfork execve<br>
+ <strong>Defines:</strong> wait4 seterrno vfork execve exit<br>
 </p>
 </dd>
 </dl>
@@ -2796,7 +2806,7 @@ vexec_q
 <dd>
 <p>
   <em>int vexec_q( const char* path, char* const* argv, char* const* envp )</em><br>
- <strong>Defines:</strong> seterrno vfork execve wait4 exit<br>
+ <strong>Defines:</strong> vfork execve exit wait4 seterrno<br>
 </p>
 </dd>
 </dl>
@@ -2959,7 +2969,7 @@ fdopen
 <dd>
 <p>
   <em>FILE <strong>fdopen(int fd, const char</strong> mode)</em><br>
- <strong>Defines:</strong> open fileno close<br>
+ <strong>Defines:</strong> close fileno open<br>
  <strong>associate a stream with a file descriptor</strong>
 </p>
 </dd>
@@ -3039,7 +3049,7 @@ fopen
 <dd>
 <p>
   <em>FILE <strong>fopen(const char</strong> filename, const char* mode)</em><br>
- <strong>Defines:</strong> fileno open close<br>
+ <strong>Defines:</strong> close fileno open<br>
  <strong>open a stream</strong>
 </p>
 </dd>
@@ -3055,7 +3065,7 @@ fputs
 <dd>
 <p>
   <em>int volatile fputs(const char <strong>c, FILE *F)</em><br>
- *Defines:</strong> write strlen fileno<br>
+ *Defines:</strong> fileno write strlen<br>
  <strong>put a string on a stream</strong>
 Size: ~90B <a href="../include/fputs.h">../include/fputs.h</a> l.18 manpage: <a href="manpages/stdio/fputs.3.rst">fputs</a><br>
 </p>
@@ -3192,7 +3202,7 @@ sprintf
 <dd>
 <p>
   <em>#define sprintf(str,&#8230;) snprintf( str, mini_buf,  <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> getpid strlen kill write<br>
+ <strong>Defines:</strong> write strlen getpid kill<br>
  <strong>print formatted output</strong>
 </p>
 </dd>
@@ -3272,7 +3282,7 @@ strdup
 <dd>
 <p>
   <em>char <strong>strdup(const char *source)</em><br>
- *Defines:</strong> strlen 0 strcpy<br>
+ *Defines:</strong> strcpy 0 strlen<br>
  <strong>duplicate a specific number of bytes from a string</strong>
 Size: ~258B <a href="../src/string/strdup.c">../src/string/strdup.c</a> l.7 manpage: <a href="manpages/string/strdup.3.rst">strdup</a><br>
 </p>
@@ -3445,7 +3455,7 @@ putenv
 <dd>
 <p>
   <em>int putenv( char <strong>string )</em><br>
- *Defines:</strong> environ ret_errno<br>
+ *Defines:</strong> ret_errno environ<br>
 </p>
 </dd>
 </dl>
@@ -3541,7 +3551,7 @@ grantpt
 <dd>
 <p>
   <em>int grantpt(int fd)</em><br>
- <strong>Defines:</strong> write ioctl termio getpid strlen open kill fstat uitodec<br>
+ <strong>Defines:</strong> fstat getpid write open ioctl kill termio uitodec strlen<br>
  <strong>grant access to the slave pseudo-terminal device</strong>
 Size: ~44B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.49 manpage: <a href="manpages/stdlib/ptsname.3.rst">grantpt</a><br>
 </p>
@@ -3573,7 +3583,7 @@ posix_openpt
 <dd>
 <p>
   <em>int posix_openpt(int flags)</em><br>
- <strong>Defines:</strong> termio open<br>
+ <strong>Defines:</strong> open termio<br>
  <strong>open a pseudo-terminal device</strong>
 Size: ~140B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.8 manpage: <a href="manpages/sys/posix_openpt.2.rst">posix_openpt</a><br>
 </p>
@@ -3584,7 +3594,7 @@ ptsname
 <dd>
 <p>
   <em>char <strong>ptsname(int fd)</em><br>
- *Defines:</strong> strlen open getpid termio ioctl write uitodec kill<br>
+ *Defines:</strong> uitodec open strlen write ioctl termio kill getpid<br>
  <strong>get name of the slave pseudo-terminal device</strong>
 Size: ~1767B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.34 manpage: <a href="manpages/stdlib/ptsname.3.rst">ptsname</a><br>
 </p>
@@ -3595,7 +3605,7 @@ ptsname_r
 <dd>
 <p>
   <em>int ptsname_r(int fd, char <strong>buf, size_t len)</em><br>
- *Defines:</strong> uitodec kill open strlen getpid ioctl termio write<br>
+ *Defines:</strong> uitodec write strlen open ioctl getpid termio kill<br>
  <strong>get the name of the slave pseudoterminal</strong>
 Size: ~1748B <a href="../src/termios/pty.c">../src/termios/pty.c</a> l.21
 </p>
@@ -3606,7 +3616,7 @@ tcgetattr
 <dd>
 <p>
   <em>int tcgetattr(int fd, struct termios <strong>io)</em><br>
- *Defines:</strong> termio ioctl<br>
+ *Defines:</strong> ioctl termio<br>
  <strong>get the parameters associated with the terminal</strong>
 Size: ~300B <a href="../src/termios/tcgetattr.c">../src/termios/tcgetattr.c</a> l.12 manpage: <a href="manpages/gen/tcsetattr.3.rst">tcgetattr</a><br>
 </p>
@@ -3617,7 +3627,7 @@ tcsetattr
 <dd>
 <p>
   <em>int tcsetattr(int fd, int opt, const struct termios <strong>io)</em><br>
- *Defines:</strong> termio ioctl<br>
+ *Defines:</strong> ioctl termio<br>
  <strong>set the parameters associated with the terminal</strong>
 Size: ~316B <a href="../src/termios/tcsetattr.c">../src/termios/tcsetattr.c</a> l.12 manpage: <a href="manpages/gen/tcsetattr.3.rst">tcsetattr</a><br>
 </p>
@@ -3869,7 +3879,7 @@ assert
 <dd>
 <p>
   __<br>
- <strong>Defines:</strong> memcpy getpid write rt_sigaction kill<br>
+ <strong>Defines:</strong> kill getpid memcpy write rt_sigaction<br>
 <a href="../macros/assert.h">../macros/assert.h</a> l.4
 </p>
 </dd>
@@ -4003,9 +4013,10 @@ ctype_functions
 </dd>
 </dl>
 <table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
-<pre><code>create functions instead of macros for isalpha, .., isprint</code></pre>
+<pre><code>create functions instead of macros for isalpha, .., isprint
+ the ctype macros are defined also without being explicitely enabled.</code></pre>
 </td></tr></table>
-<p><a href="../include/ctype.h">../include/ctype.h</a> l.22</p>
+<p><a href="../include/ctype.h">../include/ctype.h</a> l.23</p>
 <a name="def"></a><dl>
 <dt>
 def
@@ -4028,7 +4039,7 @@ die
 <dd>
 <p>
   <em>#define die(errnum,msg) {ewritesl(msg);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> errno_str write exit execve<br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
 </p>
 </dd>
 </dl>
@@ -4047,7 +4058,7 @@ die_if
 <dd>
 <p>
   <em>#define die_if( when, errnum, msg ) if( when ) die( errnum, msg )</em><br>
- <strong>Defines:</strong> exit write errno_str execve<br>
+ <strong>Defines:</strong> write execve errno_str exit<br>
 </p>
 </dd>
 </dl>
@@ -4066,7 +4077,7 @@ dief
 <dd>
 <p>
   <em>#define dief(errnum,fmt,&#8230;) {fprintf(stderr,fmt,<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> globals exit kill getpid execve fileno strlen write errno_str<br>
+ <strong>Defines:</strong> getpid fileno write kill errno_str exit execve strlen globals<br>
 </p>
 </dd>
 </dl>
@@ -4085,7 +4096,7 @@ dief_if
 <dd>
 <p>
   <em>#define dief_if( when, errnum, fmt,&#8230; ) if( when ) dief( errnum, fmt, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> execve errno_str write exit<br>
+ <strong>Defines:</strong> write exit errno_str execve<br>
 </p>
 </dd>
 </dl>
@@ -4104,7 +4115,7 @@ dies
 <dd>
 <p>
   <em>#define dies(errnum,&#8230;) {eprintsl(<em>VA_ARGS</em>);exit_errno(errnum);}</em><br>
- <strong>Defines:</strong> errno_str write exit execve<br>
+ <strong>Defines:</strong> execve errno_str exit write<br>
 </p>
 </dd>
 </dl>
@@ -4123,7 +4134,7 @@ dies_if
 <dd>
 <p>
   <em>#define dies_if( when, errnum, &#8230; ) if( when ) dies( errnum, <em>VA_ARGS</em> )</em><br>
- <strong>Defines:</strong> errno_str exit write execve<br>
+ <strong>Defines:</strong> exit errno_str execve write<br>
 </p>
 </dd>
 </dl>
@@ -4159,7 +4170,7 @@ eprintf
 <dd>
 <p>
   <em>#define eprintf(fmt,&#8230;) fprintf(stderr, fmt, <em>VA_ARGS</em>)</em><br>
- <strong>Defines:</strong> write strlen fileno<br>
+ <strong>Defines:</strong> strlen write fileno<br>
 </p>
 </dd>
 </dl>
@@ -4174,7 +4185,7 @@ err
 <dd>
 <p>
   <em>#define err( status, fmt &#8230; ) { fprintf(stderr,fmt ); fprints(stderr,":",strerror(errno)); exit(status); }</em><br>
- <strong>Defines:</strong> globals kill exit errno getpid strlen fileno strerror write<br>
+ <strong>Defines:</strong> kill exit strlen globals getpid strerror errno write fileno<br>
 </p>
 </dd>
 </dl>
@@ -4191,7 +4202,7 @@ error
 <dd>
 <p>
   <em>#define error( status, errnum, fmt &#8230; ) { fprintf(stderr,fmt ); if (errnum) fprints(stderr,":",strerror(errnum)); if ( status ) exit(status); }</em><br>
- <strong>Defines:</strong> globals exit kill getpid strerror fileno strlen write<br>
+ <strong>Defines:</strong> exit kill strlen globals getpid strerror fileno write<br>
 </p>
 </dd>
 </dl>
@@ -4212,7 +4223,7 @@ errx
 <dd>
 <p>
   <em>#define errx( status, fmt &#8230; ) { fprintf(stderr,fmt); exit(status); }</em><br>
- <strong>Defines:</strong> exit kill globals write fileno strlen getpid<br>
+ <strong>Defines:</strong> kill exit strlen globals getpid write fileno<br>
 </p>
 </dd>
 </dl>
@@ -4287,7 +4298,7 @@ fgetud
 <dd>
 <p>
   <em>unsigned int fgetud(FILE* F)</em><br>
- <strong>Defines:</strong> fileno read<br>
+ <strong>Defines:</strong> read fileno<br>
 </p>
 </dd>
 </dl>
@@ -4363,7 +4374,7 @@ getgrouplist
 <dd>
 <p>
   <em>int getgrouplist(const char* user, gid_t group, gid_t <strong>groups, int *ngroups)</em><br>
- *Defines:</strong> userdb write mmap open passwdfile_open grent token_i token_s setpwent setgrent pwent<br>
+ *Defines:</strong> grent token_i userdb passwdfile_open setpwent pwent setgrent token_s write open mmap<br>
 </p>
 </dd>
 </dl>
@@ -4380,7 +4391,7 @@ getgroups
 <dd>
 <p>
   <em>int getgroups(int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> pwent setgrent open passwdfile_open grent token_i token_s setpwent getuid mmap userdb write<br>
+ *Defines:</strong> token_s write open mmap getuid grent token_i userdb passwdfile_open setpwent pwent setgrent<br>
 </p>
 </dd>
 </dl>
@@ -4399,7 +4410,7 @@ gethostname
 <dd>
 <p>
   <em>int gethostname(char <strong>name,int len)</em><br>
- *Defines:</strong> uname network<br>
+ *Defines:</strong> network uname<br>
 </p>
 </dd>
 </dl>
@@ -4459,7 +4470,7 @@ getusergroups
 <dd>
 <p>
   <em>int getusergroups(const char* user, int maxgroups, int <strong>list)</em><br>
- *Defines:</strong> pwent setgrent setpwent token_s token_i passwdfile_open grent mmap open write userdb<br>
+ *Defines:</strong> userdb passwdfile_open pwent setpwent setgrent grent token_i mmap token_s write open<br>
 </p>
 </dd>
 </dl>
@@ -4479,7 +4490,7 @@ group_printf
 <dd>
 <p>
   <em>//</em><br>
- <strong>Defines:</strong> fileno getpid uitoHEX globals uitohex strlen ultodec itooct write uitodec atoi kill<br>
+ <strong>Defines:</strong> getpid fileno write itooct uitohex atoi globals uitodec uitoHEX ultodec kill strlen<br>
 </p>
 </dd>
 </dl>
@@ -5202,7 +5213,7 @@ optimization_fence
  Doesn't work with clang.
  But yet I also didn't it with clang.</code></pre>
 </td></tr></table>
-<p><a href="../include/minilib_global.h">../include/minilib_global.h</a> l.218</p>
+<p><a href="../include/minilib_global.h">../include/minilib_global.h</a> l.223</p>
 <a name="poll"></a><dl>
 <dt>
 poll
@@ -5325,7 +5336,7 @@ setenv
 <dd>
 <p>
   <em>int setenv( const char <strong>name, const char *value, int overwrite )</em><br>
- *Defines:</strong> 0 strlen strcpy stpcpy ret_errno environ<br>
+ *Defines:</strong> stpcpy strcpy ret_errno strlen 0 environ<br>
 </p>
 </dd>
 </dl>
@@ -5529,7 +5540,7 @@ strndup
 <dd>
 <p>
   <em>char <strong>strndup(const char *source, int maxlen)</em><br>
- *Defines:</strong> 0 strlen stplcpy<br>
+ *Defines:</strong> stplcpy strlen 0<br>
 <a href="../src/string/strndup.c">../src/string/strndup.c</a> l.5 manpage: <a href="manpages/string/strdup.3.rst">strndup</a><br>
 </p>
 </dd>
@@ -5765,7 +5776,7 @@ unsetenv
 <dd>
 <p>
   <em>int unsetenv( char <strong>name)</em><br>
- *Defines:</strong> environ ret_errno<br>
+ *Defines:</strong> ret_errno environ<br>
 </p>
 </dd>
 </dl>
@@ -5786,7 +5797,7 @@ userdb_open
 <dd>
 <p>
   <em>int userdb_open(userdb <strong>udb, const char</strong> file)</em><br>
- <strong>Defines:</strong> write close fstat globals<br>
+ <strong>Defines:</strong> fstat close write globals<br>
 <a href="../src/userdb/userdb_open.c">../src/userdb/userdb_open.c</a> l.3
 </p>
 </dd>
@@ -5796,7 +5807,7 @@ warn
 <dd>
 <p>
   <em>#define warn( fmt &#8230; ) { fprintf(stderr,fmt ); }</em><br>
- <strong>Defines:</strong> kill globals write getpid fileno strlen<br>
+ <strong>Defines:</strong> write fileno strlen globals getpid kill<br>
 </p>
 </dd>
 </dl>
@@ -5812,7 +5823,7 @@ where
 <dd>
 <p>
   <em>int where(const char <strong>file,char *buf)</em><br>
- *Defines:</strong> environ access<br>
+ *Defines:</strong> access environ<br>
 </p>
 </dd>
 </dl>
@@ -5846,7 +5857,7 @@ endgrent
 <dd>
 <p>
   <em>void endgrent()</em><br>
- <strong>Defines:</strong> munmap pwent<br>
+ <strong>Defines:</strong> pwent munmap<br>
 <a href="../src/userdb/endgrent.c">../src/userdb/endgrent.c</a> l.4 manpage: <a href="manpages/gen/getgrent.3.rst">endgrent</a><br>
 </p>
 </dd>
@@ -5866,7 +5877,7 @@ getgrent
 <dd>
 <p>
   <em>struct group* getgrent()</em><br>
- <strong>Defines:</strong> userdb open pwent<br>
+ <strong>Defines:</strong> userdb pwent open<br>
 <a href="../src/userdb/getgrent.c">../src/userdb/getgrent.c</a> l.4 manpage: <a href="manpages/gen/getgrent.3.rst">getgrent</a><br>
 </p>
 </dd>
@@ -5876,7 +5887,7 @@ getgrgid
 <dd>
 <p>
   <em>struct group <strong>getgrgid(gid_t gid)</em><br>
- *Defines:</strong> globals fstat pwent setgrent token_s token_i grent open mmap write close userdb<br>
+ *Defines:</strong> token_i globals close grent pwent setgrent userdb write open token_s mmap fstat<br>
 </p>
 </dd>
 </dl>
@@ -5894,7 +5905,7 @@ getgrnam
 <dd>
 <p>
   <em>struct group <strong>getgrnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> pwent fstat globals token_i token_s setgrent mmap open grent userdb close write<br>
+ <strong>Defines:</strong> token_i globals grent close pwent setgrent userdb write open token_s mmap fstat<br>
 </p>
 </dd>
 </dl>
@@ -5911,7 +5922,7 @@ getpwent
 <dd>
 <p>
   <em>struct passwd* getpwent()</em><br>
- <strong>Defines:</strong> open userdb<br>
+ <strong>Defines:</strong> userdb open<br>
 <a href="../src/userdb/getpwent.c">../src/userdb/getpwent.c</a> l.4 manpage: <a href="manpages/gen/getpwent.3.rst">getpwent</a><br>
 </p>
 </dd>
@@ -5921,7 +5932,7 @@ getpwnam
 <dd>
 <p>
   <em>struct passwd <strong>getpwnam(const char</strong> name)</em><br>
- <strong>Defines:</strong> close write open mmap token_i token_s pwent fstat globals<br>
+ <strong>Defines:</strong> token_i globals close pwent write open token_s mmap fstat<br>
 </p>
 </dd>
 </dl>
@@ -5939,7 +5950,7 @@ getpwuid
 <dd>
 <p>
   <em>struct passwd <strong>getpwuid(uid_t uid)</em><br>
- *Defines:</strong> pwent token_i token_s setpwent open mmap passwdfile_open write<br>
+ *Defines:</strong> token_s write open mmap token_i passwdfile_open pwent setpwent<br>
 </p>
 </dd>
 </dl>
@@ -9057,7 +9068,7 @@ sys_writev
 <p></p>
 <hr><p><small>
 Last updated
- 2021-10-12 02:23:46 UTC
+ 2021-10-19 13:38:26 UTC
 </small></p>
 </body>
 </html>
