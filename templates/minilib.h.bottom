@@ -21,3 +21,15 @@
 
 #endif
 
+
+#ifdef INCLUDESRC
+#ifndef included_minilib_c
+#include "minilib.c"
+#endif
+#endif
+
+#endif
+
+// ifndef LDSCRIPT
+#else
+
